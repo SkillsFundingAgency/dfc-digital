@@ -1019,7 +1019,6 @@
     <Content Include="ResourcePackages\gds_toolkit\csslint.json" />
     <Content Include="ResourcePackages\gds_toolkit\jsfiles.json" />
     <Content Include="ResourcePackages\gds_toolkit\razorgenerator.directives" />
-    <Content Include="ResourcePackages\gds_toolkit\README.md" />
     <Content Include="ResourcePackages\gds_toolkit\package-lock.json" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\govuk.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\main.scss" />

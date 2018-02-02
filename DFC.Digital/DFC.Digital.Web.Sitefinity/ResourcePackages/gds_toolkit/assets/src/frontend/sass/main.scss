@@ -1,0 +1,143 @@
+﻿/*//Import Bootstrap from npm
+@import "//node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+@import "//node_modules/magnific-popup/src/css/main.scss";
+
+// Sitefinity
+
+@import "/sitefinity/sass/components/icons/sf-icon-font";
+@import "/sitefinity/sass/widgets/socialShare/sf-sprite";
+@import "/sitefinity/sass/sitefinity.scss";
+
+
+//Import required Gov UK Toolkit .scss files here*/
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_colours.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_conditionals.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_helpers.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_css3.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_typography.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_grid_layout.scss';
+@import '../../../../node_modules/govuk_frontend_toolkit/stylesheets/_url-helpers.scss';
+@import "../../../../node_modules/govuk-elements-sass/public/sass/elements/lists";
+@import "../../../../node_modules/govuk-elements-sass/public/sass/elements/elements-typography"; 
+$path: '../images/';
+
+/*Import additional NPM .scss files here*/
+
+/*Defines the main colour for the site*/
+$careers-turquoise: #21827b;
+
+/* --- Global Site Styling --- */
+main {
+    @extend %contain-floats;
+    padding-bottom: 20px;
+}
+
+.breadcrumbs {
+    ol {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+#global-header-bar {
+    background: $careers-turquoise;
+}
+
+
+.sixty {
+    @include media(desktop) {
+        width: 60%;
+        float: left;
+    }
+}
+
+.forty {
+    @include media(desktop) {
+        width: 40%;
+        float: left;
+    }
+}
+
+.grey {
+    color: $grey-1;
+}
+
+/*Beta Header SCSS - For Beta Label In Header*/
+#proposition-menu {
+    .phase-tag {
+        margin: 0 0 0 8px;
+        top: -3px;
+        position: relative;
+        font-size: 14px;
+        line-height: 1.42857;
+    }
+}
+
+/*Right Hand Column Fix To Push Content Down 40px When Header Is Present*/
+.column-third {
+    aside:first-child {
+        margin-top: 40px;
+
+        @include media(tablet) {
+            margin-top: 34px;
+        }
+    }
+}
+
+/* Default Big List */
+.list-big {
+    list-style: none;
+
+    li {
+        @include core-19;
+        margin: 0 !important;
+
+
+        a {
+            display: block;
+            padding: 5px 0;
+            border-bottom: 1px solid #bfc1c3;
+            text-decoration: none;
+
+            @include media(tablet) {
+                padding: 10px 0;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/* --- Individual Section / Page Styling --- */
+
+/*Default SCSS - Sets Default Styling For Elements */
+@import 'includes/default.scss';
+
+/*Home Page SCSS - For Home Page Banner & Custom Content*/
+@import 'includes/_home.scss';
+
+/*Search Results page SCSS - For Search Results*/
+@import 'includes/_search.scss';
+
+/*Pagination SCSS - For Forms & Search Results*/
+@import 'includes/_pagination.scss';
+
+/*Job Profile SCSS - For Job Profiles*/
+@import 'includes/_jobprofile.scss';
+
+/*Job Categories - For Job Category Page*/
+@import 'includes/_jobcategories.scss';
+
+/*Survey - For Feedback Survey Banner*/
+@import 'includes/_survey.scss';
+
+/*Signposting */
+@import 'includes/_signpost.scss';
+
+/*Filters */
+@import 'includes/_filters.scss';
+
+/*Case Study */
+@import 'includes/_casestudy.scss';

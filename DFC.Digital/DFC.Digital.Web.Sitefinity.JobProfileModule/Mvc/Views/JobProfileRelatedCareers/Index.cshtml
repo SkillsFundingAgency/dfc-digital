@@ -1,0 +1,10 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileRelatedCareersModel
+<div class="job-profile-related">
+    <h2 class="heading-medium">@Model.Title</h2>
+    <ul class="list list-big">
+        @foreach (var item in Model.RelatedCareers)
+        {
+           <li><a href="@item.ProfileLink">@item.Title</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,131 @@
+﻿.filter-form {
+    width: 100%;
+    float: left;
+    display: block;
+
+    h4 {
+        color: $grey-2;
+        @include core-19;
+    }
+
+    .filter-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+
+
+
+        input[type=checkbox], input[type=radio] {
+            display: none;
+
+            & + input + label, & + label {
+                flex: 1;
+                min-width: 100%;
+                max-width: 100%;
+                margin: 1%;
+                padding: 20px;
+                background-color: darken($grey-4, 5%);
+                @include bold-19;
+                color: $grey-1;
+                box-sizing: border-box;
+                min-height: 100px;
+                float: left;
+
+                @include media(tablet) {
+                    min-width: 48%;
+                    max-width: 48%;
+                }
+
+                @include media(desktop) {
+                    min-width: 31.333%;
+                    max-width: 31.333%;
+                }
+
+                &:hover {
+                    background-color: darken($grey-4, 10%);
+                    cursor: pointer;
+                }
+
+                span {
+                    width: 100%;
+                    display: inline-block;
+                    font-size: 14px;
+                    @include core-16;
+                }
+            }
+
+            &:checked {
+                & + input + label, & + label {
+                    background: $careers-turquoise;
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    .filter-next {
+        background: $careers-turquoise;
+        float: right;
+        display: block;
+        clear: both;
+
+        &:after {
+            content: ">";
+            margin-left: 10px;
+            position: relative;
+            top: 1px;
+        }
+
+        &:hover {
+            background-color: darken($careers-turquoise, 5%);
+        }
+    }
+
+    .button-link {
+        background-color: transparent;
+        border: none;
+        text-decoration: underline;
+        font-size: 16px;
+    }
+
+    .button-link:hover {
+        cursor: pointer;
+    }
+
+    .button-link:focus {
+        outline: none;
+    }
+}
+
+.filter-home {
+    background-color: $grey-3;
+    padding: 20px;
+    clear: both;
+    overflow: auto;
+    margin-bottom: 30px;
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        float: right;
+        background-color: $careers-turquoise;
+        color: $white;
+        font-weight: normal;
+        padding: 10px;
+        text-decoration: none;
+
+        &:after {
+            content: ">";
+            margin-left: 10px;
+        }
+
+        &:hover {
+            text-decoration: none;
+            background-color: darken($careers-turquoise, 5%);
+        }
+    }
+}

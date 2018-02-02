@@ -1,0 +1,16 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileByCategoryViewModel
+
+<h1 class="heading-xlarge">@Model.Title</h1>
+    <ul class="job-categories_items">
+        @foreach (var item in Model.JobProfiles)
+        {
+            <li class="job-categories_item">
+                <h2 class="heading-medium"><a class="dfc-code-search-jpTitle" href="@($"{Model.JobProfileUrl.TrimEnd('/')}/{item.UrlName}")">@item.Title</a></h2>
+                @if (!string.IsNullOrWhiteSpace(item.AlternativeTitle))
+                {
+                <h3 class="text-secondary font-xsmall meta dfc-code-search-jpAltTitle">@item.AlternativeTitle</h3>
+                }
+                <p class="dfc-code-search-jpOverview">@item.Overview</p>
+            </li>
+        }
+    </ul>

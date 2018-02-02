@@ -1,0 +1,70 @@
+# Needs automating so it can be run over but at a basic level this will create the database and collections for a given Cosmos DB account
+# Open Bash in Cloud Shell
+
+# Select subscription
+az account set --subscription 'SubscriptionName'
+
+# Set variables for the new account, database, and collection
+resourceGroupName='ResourceGroupName'
+name='CosmosDBAccountName'
+
+#######################
+#### AV Feed Audit ####
+avFeedDatabaseName='DatabaseName'
+avFeedCollectionName='CollectionName'
+indexPolicy='{"indexingMode":"consistent","automatic":true,"includedPaths":[{"path":"/*","indexes":[{"kind":"Range","dataType":"Number","precision":-1},{"kind":"Hash","dataType":"String","precision":3}]},{"path":"/StartedAt/?","indexes":[{"kind":"Range","dataType":"String","precision":-1},{"kind":"Range","dataType":"Number","precision":-1}]},{"path":"/EndedAt/?","indexes":[{"kind":"Range","dataType":"String","precision":-1},{"kind":"Range","dataType":"Number","precision":-1}]}],"excludedPaths":[]}'
+
+# Create the database 
+az cosmosdb database create \
+	--name $name \
+	--db-name $avFeedDatabaseName \
+	--resource-group $resourceGroupName
+
+# Create the collection
+az cosmosdb collection create \
+	--collection-name $avFeedCollectionName \
+	--name $name \
+	--db-name $avFeedDatabaseName \
+	--resource-group $resourceGroupName \
+	--indexing-policy $indexPolicy \	
+	--default-ttl 2592000 \
+    --throughput 5000
+
+# Update the collection
+az cosmosdb collection update \
+	--collection-name $avFeedCollectionName \
+	--name $name \
+	--db-name $avFeedDatabaseName \
+	--resource-group $resourceGroupName \
+	--indexing-policy $indexPolicy \	
+	--default-ttl 2592000 \
+    --throughput 5000
+
+#######################
+#### Course Search ####
+courseSearchDatabaseName='DatabaseName'
+courseSearchCollectionName='CollectionName'
+
+# Create the database 
+az cosmosdb database create \
+	--name $name \
+	--db-name $courseSearchDatabaseName \
+	--resource-group $resourceGroupName
+
+# Create the collection
+az cosmosdb collection create \
+	--collection-name $courseSearchCollectionName \
+	--name $name \
+	--db-name $courseSearchDatabaseName \
+	--resource-group $resourceGroupName \
+	--default-ttl 2592000 \
+    --throughput 5000
+
+# Update the collection
+az cosmosdb collection update \
+	--collection-name $courseSearchCollectionName \
+	--name $name \
+	--db-name $courseSearchDatabaseName \
+	--resource-group $resourceGroupName \
+	--default-ttl 2592000 \
+    --throughput 5000

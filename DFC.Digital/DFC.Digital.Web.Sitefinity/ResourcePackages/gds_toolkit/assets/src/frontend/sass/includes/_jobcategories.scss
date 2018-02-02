@@ -1,0 +1,135 @@
+﻿.job-categories_items {
+    list-style: none;
+    padding: 0 0 2em 0;
+
+    .job-categories_item {
+        width: 100%;
+        margin-bottom: 1.5em;
+
+        .heading-medium {
+            margin: 0.1em 0;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.job-categories_list {
+    li {
+        margin-bottom: 0.4em;
+    }
+
+    .heading-medium {
+        font-size: 24px;
+    }
+}
+
+/*Subcategory View*/
+.job-categories_subcategory-all {
+    display: none;
+}
+
+.job-categories_subcategory {
+    .job-categories_subcategory-header {
+    }
+
+    .job-categories_items {
+        padding: 0;
+    }
+
+    .job-categories_item {
+        .heading-medium {
+            @include bold-19;
+        }
+    }
+}
+
+.js-enabled {
+    .job-categories_subcategory-all {
+        display: inline-block;
+        float: right;
+        color: $govuk-blue;
+        cursor: pointer;
+        margin-bottom: 10px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .job-categories_subcategory {
+        clear: both;
+
+        &:last-child {
+            .job-categories_subcategory-header {
+                border-bottom: 1px solid $grey-2;
+            }
+        }
+
+        .job-categories_subcategory-header {
+            @include bold-24;
+            padding: 0.6em 0.5em 0.6em 0;
+            color: $govuk-blue;
+            margin: 0;
+            border-top: 1px solid $grey-2;
+            position: relative;
+
+            &:hover {
+                background-color: $grey-4;
+                cursor: pointer;
+            }
+
+            &:after {
+                content: "";
+                position: relative;
+                float: right;
+                top: 50%;
+                right: 0;
+                height: 16px;
+                width: 16px;
+                margin-top: -8px;
+                background: file-url("plusminus.svg"), linear-gradient(transparent, transparent);
+                background-repeat: no-repeat;
+                background-position: 0 -16px;
+                position: absolute;
+            }
+        }
+
+        .job-categories_items {
+            display: none;
+            padding: 0;
+            overflow: auto;
+            margin-bottom: 1.57895em;
+        }
+
+        .job-categories_item {
+            .heading-medium {
+                @include bold-19;
+            }
+        }
+    }
+
+    .job-categories_subcategory-active {
+        .job-categories_subcategory-header {
+            border-bottom: none !important;
+            margin-bottom: 20px;
+
+            &:after {
+                background-position: 0 0;
+            }
+        }
+
+        .job-categories_items {
+            display: block;
+        }
+
+        .job-categories_item {
+        }
+    }
+}

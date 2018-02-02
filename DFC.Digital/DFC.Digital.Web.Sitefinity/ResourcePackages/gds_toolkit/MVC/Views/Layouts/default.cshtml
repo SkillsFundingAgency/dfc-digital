@@ -1,0 +1,65 @@
+﻿@using System.Web.Mvc;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@using Telerik.Sitefinity.Modules.Pages;
+@using Telerik.Sitefinity.UI.MVC;
+@using Telerik.Sitefinity.Services;
+@using DFC.Digital.Web.Core.HtmlExtentions;
+
+<!DOCTYPE html>
+<html @Html.RenderLangAttribute()>
+<head>
+    @Html.Partial("_Head")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+
+    @Html.Section("head")
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8VKZZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    @Html.Section("top")
+    @Html.Partial("_govuk_Header")
+    @Html.SfPlaceHolder("GovUKHeader")
+    <main role="main">
+        <div class="content-container">
+            @Html.SfPlaceHolder("BannerContainer")
+        </div>
+        <div class="sfPublicWrapper" id="PublicWrapper">
+            @Html.SfPlaceHolder("BreadcrumbExtender")
+            @Html.SfPlaceHolder("MainContentTop")
+            @Html.SfPlaceHolder("MainContent")
+            @Html.SfPlaceHolder("MainContentBottom")
+        </div>
+        @* Inline editing scripts and helpers. They should be available only when inline editing is possible. *@
+        @*@if (Html.ShouldRenderInlineEditing())
+            {
+                @Html.Script(ScriptRef.MicrosoftAjax, "top")
+                @Html.Script(ScriptRef.MicrosoftAjaxCore, "top")
+                @Html.Script(ScriptRef.JQuery, "top")
+
+                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ba-outside-events.min.js"), "top")
+                @Html.Script(ScriptRef.KendoAll, "top")
+                @Html.Script(ScriptRef.KendoTimezones, "top")
+                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.RequireJS.require.min.js"), "top")
+                @Html.InlineEditingManager(false)
+            }*@
+    </main>
+    @Html.SfPlaceHolder("GovUKFooter")
+    @Html.Section("bottom")
+    @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
+    {
+        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/jquerybundle.min.js")), "bottom")
+    }
+    @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/govuksel.min.js")), "bottom")
+    @if (Html.IsDebugSymbol())
+    {
+        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/src/frontend/js/dfcdigital.js")), "bottom")
+    }
+    else
+    {
+        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/dfcdigital.min.js")), "bottom")
+    }
+</body>
+</html>

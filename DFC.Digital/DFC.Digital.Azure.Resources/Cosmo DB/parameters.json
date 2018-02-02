@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "cosmoDBName": {
+            "value": "__cosmoDBName__"
+        },
+      "cosmoDBlocation": {
+        "value": "__cosmoDBLocation__"
+      },
+      "locationName": {
+        "value": "__cosmoDBLocationName__"
+      },
+      "defaultExperience": {
+        "value": "__cosmoDBDefaultExperience__"
+      },
+      "pairedLocation": {
+        "value": "__cosmoDBPairedLocation__"
+      },
+      "pairedLocationName": {
+        "value": "__cosmoDBPairedLocationName__"
+      }
+    }
+}

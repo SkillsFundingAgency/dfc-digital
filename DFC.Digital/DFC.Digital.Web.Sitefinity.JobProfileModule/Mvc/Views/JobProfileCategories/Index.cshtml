@@ -1,0 +1,15 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileCategoriesViewModel
+
+@if (Model.JobProfileCategoriesAvailable)
+{
+    <ul class="homepage-jobcategories">
+        @foreach (var jobrofileCategory in Model.JobProfileCategories)
+        {
+            <li><a href="@jobrofileCategory.Url">@jobrofileCategory.Title</a></li>
+        }
+    </ul>
+}
+else if(Model.IsContentAuthoring)
+{
+    <p> Please create categories or ensure you have configured the widget correctly to get the relevant categories</p>
+}

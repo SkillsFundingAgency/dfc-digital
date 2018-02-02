@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1e6b648f-3b53-4a81-9bf0-9ccf3d5ad846" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CourseSearchService.wsdl" MetadataType="Wsdl" ID="4cbe354f-6b2c-4a8d-8520-684acf0fb2b4" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?wsdl=wsdl1" />
+    <MetadataFile FileName="CourseSearchService.xsd" MetadataType="Schema" ID="a639ba28-1dd9-4f02-91d2-b5693f58c9dd" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CourseSearchService.disco" MetadataType="Disco" ID="cde6c348-0e15-4f46-81fc-0bea2bd33bd7" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?disco" />
+    <MetadataFile FileName="CourseSearchService1.xsd" MetadataType="Schema" ID="d42af23a-eadb-4f2c-b63a-2718dddf915e" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CourseSearchService1.wsdl" MetadataType="Wsdl" ID="5997c7a3-0a2f-4874-8e79-ae4ab1f4291f" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?wsdl" />
+    <MetadataFile FileName="CourseSearchService2.xsd" MetadataType="Schema" ID="d8e155e3-6fa3-462c-9057-452ebe1a3641" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CourseSearchService3.xsd" MetadataType="Schema" ID="66ba5e9c-0040-48cd-a941-92276abd9678" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CourseSearchService4.xsd" MetadataType="Schema" ID="6fde1950-a8f2-4e99-b68d-0b488298e492" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CourseSearchService5.xsd" MetadataType="Schema" ID="f429f8d2-4dae-4c71-8af7-67f33c1383ff" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd6" />
+    <MetadataFile FileName="CourseSearchService6.xsd" MetadataType="Schema" ID="7cfb7eaa-8653-449b-a975-21b1aeafc8f4" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd5" />
+    <MetadataFile FileName="CourseSearchService2.wsdl" MetadataType="Wsdl" ID="5b444ee8-d988-453b-baa5-326c20758fce" SourceId="1" SourceUrl="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

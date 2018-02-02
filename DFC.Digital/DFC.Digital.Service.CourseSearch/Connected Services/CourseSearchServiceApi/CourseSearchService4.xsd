@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd1" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+  <xs:element name="CourseListRequest" type="tns:CourseListRequestStructure" />
+  <xs:complexType name="CourseListRequestStructure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseSearchCriteria" type="tns:SearchCriteriaStructure" />
+      <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="SortBy" type="q1:SortType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PageNo" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RecordsPerPage" type="xs:integer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SearchCriteriaStructure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SubjectKeyword" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Location" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Distance" type="xs:float" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderKeyword" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q2:LDCSInputType" />
+      <xs:element xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="QualificationTypes" type="q3:QualificationTypes" />
+      <xs:element xmlns:q4="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="QualificationLevels" type="q4:QualificationLevels" />
+      <xs:element xmlns:q5="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="StudyModes" type="q5:StudyModeType" />
+      <xs:element xmlns:q6="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="AttendanceModes" type="q6:AttendaceModeType" />
+      <xs:element xmlns:q7="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="AttendancePatterns" type="q7:AttendancePatternType" />
+      <xs:element xmlns:q8="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="A10Codes" type="q8:A10InputType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EarliestStartDate" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TTGFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TQSFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="IESFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FlexStartFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="OppsAppClosedFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ERAppStatus" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ERTtgStatus" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AdultLRStatus" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OtherFundingStatus" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SFLFlag" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ILSFlag" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CourseListResponse" type="tns:CourseListResponseStructure" />
+  <xs:complexType name="CourseListResponseStructure">
+    <xs:sequence>
+      <xs:element xmlns:q9="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="ResultInfo" type="q9:ResultInfoType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseDetails" type="tns:CourseStructure" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails" type="tns:CourseListRequestStructure" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MatchingLDCS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q10="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q10:LDCSInfoType" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Counts" type="xs:integer" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CourseStructure">
+    <xs:sequence>
+      <xs:element xmlns:q11="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Provider" type="q11:ProviderInfo" />
+      <xs:element xmlns:q12="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Course" type="q12:CourseInfo" />
+      <xs:element xmlns:q13="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Opportunity" type="q13:OpportunityInfo" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,42 @@
+﻿.signpost {
+    width: 100%;
+    display: block;
+    background-color: $careers-turquoise;
+    color: $white !important;
+    padding: 20px;
+    box-sizing: border-box;
+    text-decoration: none;
+
+    &:visited, &:hover, &:active {
+        color: $white !important;
+    }
+
+    &:hover {
+        background-color: darken($careers-turquoise, 10%);
+    }
+
+    span {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.signpost_jp {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.signpost_arrow {
+    &:before {
+        content: "<";
+        min-height: 50px;
+        display: block;
+        margin-right: 10px;
+        float: left;
+    }
+}

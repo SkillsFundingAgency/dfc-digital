@@ -1,0 +1,25 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.VocSurveyViewModel
+
+<div id="js-survey-form" class="js-hidden">
+    <p>@Html.Raw(Model.FormIntroText)</p>
+    @using (Html.BeginForm("", "VocSurvey", FormMethod.Post, new{@class= "survey_form" }))
+    {
+        <div class="survey_email">
+            <label class="form-label survey_label" for="survey-emailaddress">Email address <span class="font-xsmall">@Html.Raw(Model.AgeLimitText)</span></label>
+
+            @Html.TextBoxFor(model => model.EmailAddress, new {type = "email", required = "required", @class="form-control survey_input", id = "survey-emailaddress"})
+        </div>
+        <div>
+            <input type="submit" value="Send" class="button survey_button js-survey-button" />
+            <a href="@Model.OnlineSurveyLink" class="survey_link">@Html.Raw(Model.DontHaveEmailText)</a>
+        </div>
+    }
+</div>
+
+<div class="js-survey-complete js-hidden">
+    <p>@Model.EmailSentText</p>
+</div>
+
+<div class="js-survey-not-complete js-hidden">
+    <p>@Model.EmailNotSentText</p>
+</div>

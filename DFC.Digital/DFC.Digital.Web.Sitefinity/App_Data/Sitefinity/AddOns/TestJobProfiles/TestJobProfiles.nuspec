@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TestJobProfiles</id>
+    <version>1.0.0</version>
+    <title>TestJobProfiles</title>
+    <authors>DFC Development Team</authors>
+    <owners>SFA</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Test Job Profile Dynamic Module, defining the content type(s) associated with Job Profile Data</description>
+    <language>en-GB</language>
+  </metadata>
+</package>

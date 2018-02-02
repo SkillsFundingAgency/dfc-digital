@@ -1,0 +1,456 @@
+﻿/*Job Profile*/
+
+.job-profile-hero {
+    background-color: $grey-4;
+    width: 100%;
+    padding: 0;
+    @extend %contain-floats;
+    margin-bottom: 50px;
+
+    h1 {
+        font-size: 38px;
+        margin: 1em 0 0 0;
+        padding: 0;
+    }
+
+    h2 {
+        @include core-24;
+        color: $grey-1;
+    }
+
+    p {
+        @include core-19;
+        margin: 10px 0 30px 0;
+    }
+
+    .column {
+        width: 100%;
+        padding: 25px;
+        box-sizing: border-box;
+        float: left;
+
+        @include media(tablet) {
+            width: 100%;
+        }
+    }
+
+    .column-40 {
+        @extend .column;
+
+        @media (min-width: 750px) {
+            width: 40%;
+        }
+    }
+
+    .column-30 {
+        @extend .column;
+
+        @media (min-width: 750px) {
+            width: 30%;
+        }
+    }
+
+    .job-profile-heroblock {
+        h4 {
+            width: 100%;
+            border-bottom: 1px solid $grey-3;
+            color: $careers-turquoise;
+            @include core-19;
+            line-height: 22px;
+            margin-bottom: 10px;
+
+            @media (max-width: 749px) {
+                font-weight: bold;
+            }
+
+            @include media(desktop) {
+                padding: 5px 0;
+            }
+
+            span {
+                @include core-14;
+                margin-left: 5px;
+                display: inline-block;
+            }
+        }
+
+
+        .job-profile-heroblock-content {
+            padding: 10px 0;
+            float: right;
+            width: 100%;
+            position: relative;
+
+            &:before {
+                content: "";
+                float: left;
+                width: 40px;
+                height: 40px;
+                position: relative;
+                margin-right: 20px;
+                margin-bottom: 20px;
+            }
+
+
+            h5 {
+                font-size: 20px;
+                line-height: 1.25;
+                letter-spacing: -0.25px;
+
+                span {
+                    @include core-14;
+                    color: $careers-turquoise;
+                    width: 100%;
+                    display: block;
+                    text-transform: uppercase;
+                }
+            }
+
+            @media (max-width: 749px) {
+
+                &:after {
+                    display: none;
+                }
+
+                &:before {
+                    display: none;
+                }
+
+                h5 {
+                    text-align: right;
+                }
+            }
+        }
+
+        .job-profile-salary {
+
+            &:before {
+                background: file-url("pound-sign.svg") no-repeat center;
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                right: 0;
+                position: absolute;
+                width: calc(100% - 60px);
+                border-bottom: 4px solid $careers-turquoise;
+                top: 45px;
+            }
+
+            h5 {
+
+                span {
+                    margin-top: 20px;
+                    position: relative;
+                }
+
+                &:nth-child(odd) {
+                    float: left;
+
+                    span {
+                        &:before {
+                            content: "|";
+                            font-size: 20px;
+                            position: absolute;
+                            font-weight: bold;
+                            top: -24px;
+                            left: -2px;
+                        }
+                    }
+                }
+
+                &:nth-child(even) {
+                    float: right;
+                    text-align: right;
+
+
+                    span {
+                        text-align: right;
+
+                        &:after {
+                            content: "|";
+                            font-size: 20px;
+                            position: absolute;
+                            font-weight: bold;
+                            top: -24px;
+                            right: -2px;
+                        }
+                    }
+                }
+            }
+
+
+            @media (max-width: 749px) {
+
+                &:after {
+                    display: none;
+                }
+
+                &:before {
+                    display: none;
+                }
+
+                h5 {
+                    margin: 0;
+                    float: left;
+                    text-align: left;
+
+                    &:nth-child(even) {
+                        float: left;
+
+                        &:before {
+                            content: "- ";
+                            margin-left: 3px;
+                        }
+                    }
+
+                    span {
+                        margin-top: 0;
+
+                        &:after, &:before {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .job-profile-hours {
+            &:before {
+                background: file-url("clock.svg") no-repeat center;
+            }
+        }
+
+        .job-profile-pattern {
+            &:before {
+                background: file-url("calendar-alt.svg") no-repeat center;
+            }
+        }
+
+        @media (max-width: 749px) {
+            &:nth-child(odd) {
+                background-color: darken($grey-4, 5%);
+            }
+
+            h4 {
+                width: 50%;
+                float: left;
+                border: none;
+                min-width: 150px;
+
+                span {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
+            .job-profile-heroblock-content {
+                float: right;
+                width: auto;
+                min-width: 150px;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.jump-links {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid $grey-2;
+
+    ol {
+        margin-bottom: 0;
+    }
+}
+
+.opportunity-item {
+    border-color: $careers-turquoise;
+}
+
+.govuk-related-items {
+    border-top: 3px solid$careers-turquoise;
+    margin-bottom: 2em;
+
+    @include media(tablet) {
+        border-top: 6px solid$careers-turquoise;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .heading-medium {
+        margin-top: 0.75em;
+        margin-bottom: 0.5em;
+    }
+}
+
+.job-profile-anchorlinks {
+    li {
+        padding-bottom: 0.263em;
+        margin-top: 0.263em;
+    }
+
+    @include media(tablet) {
+        -moz-column-count: 2;
+        -moz-column-gap: 50px;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 50px;
+        column-count: 2;
+        column-gap: 50px;
+    }
+}
+/* Automatically Add Numbers To Sections & style lists within sections */
+.job-profile-sections {
+    counter-reset: section;
+
+    section {
+        counter-increment: section;
+
+        ul {
+            @extend .list;
+            @extend .list-bullet;
+        }
+
+        ol {
+            @extend .list;
+            @extend .list-number;
+        }
+
+        h2:before {
+            content: counter(section)". ";
+        }
+    }
+    /* Fix App Feed Section to remove bullet points that are applied by default */
+    #current-opportunities {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    }
+}
+/* Search From Job Profile */
+.js-enabled {
+    .job-profile-search {
+
+        #job-profile-search-box {
+            background: $white;
+        }
+
+        label {
+            @include core-19;
+            line-height: 40px !important;
+            position: absolute;
+            left: 0;
+            top: 1px;
+            z-index: 5;
+            text-indent: 15px;
+            color: #6f777b;
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;
+            padding-right: 43px;
+            overflow: hidden;
+        }
+
+
+
+        .search-input {
+            background: transparent;
+
+            &:focus, &.focus {
+                background: $white;
+            }
+        }
+    }
+}
+
+.job-profile-search {
+    background: $careers-turquoise;
+    color: $white;
+    padding: 10px;
+    margin-bottom: 30px;
+
+    h3 {
+        padding: 5px 0 10px 0 !important;
+        margin: 0 !important;
+    }
+
+    #job-profile-search-box {
+        position: relative;
+        @extend %contain-floats;
+    }
+
+    .search-input-wrapper {
+        @include box-sizing(border-box);
+        padding-right: 40px;
+        margin-right: -40px;
+        float: left;
+        width: 100%;
+    }
+
+    .search-input {
+        position: relative;
+        @include box-sizing(border-box);
+        z-index: 10;
+        width: 100%;
+        padding: 6px;
+        @include core-19;
+        margin: 0;
+        border: 0;
+        outline-offset: 0;
+        height: 40px;
+        background-color: white;
+
+        &:focus {
+            z-index: 1000;
+        }
+    }
+
+    .submit {
+        @include box-sizing(border-box);
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        overflow: hidden;
+        text-indent: -5000px;
+        background: $black;
+        background-image: file-url("icon-search-2x.png");
+        background-repeat: no-repeat;
+        background-position: 60% 50%;
+        background-size: 24px;
+        padding: 6px;
+        border: 0;
+        color: $white;
+        z-index: 900;
+        position: relative;
+    }
+}
+
+.job-profile-sidebar {
+    border-top: 3px solid$careers-turquoise;
+    margin-bottom: 2em;
+
+    @include media(tablet) {
+        border-top: 6px solid$careers-turquoise;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .heading-medium {
+        margin-top: 0.75em;
+        margin-bottom: 0.5em;
+    }
+}
+
+.job-profile-related {
+
+    .heading-medium {
+        margin-top: 0.75em;
+        margin-bottom: 0.5em;
+    }
+}

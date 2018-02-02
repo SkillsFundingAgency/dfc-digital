@@ -1,0 +1,91 @@
+﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileDetailsViewModel
+
+@using System.Globalization;
+
+<div class="content-container">
+    <div class="grid-row">
+        <div class="column-two-thirds">
+            <h1 class="heading-xlarge"> @Model.Title</h1>
+            @if (!string.IsNullOrWhiteSpace(Model.AlternativeTitle))
+            {
+                <h2 class="heading-secondary">@Model.AlternativeTitle</h2>
+            }
+            @if (Model.DisplaySignPostingToBAU)
+            {
+                @Html.Raw(Model.SignPostingHTML)
+            }
+            <p>@Model.Overview</p>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="column-40 job-profile-heroblock">
+            <h4>
+                @Model.SalaryText
+                @if (!string.IsNullOrEmpty(Model.SalaryTextSpan))
+                {
+                    <span>@Model.SalaryTextSpan</span>
+                }
+            </h4>
+            <div class="job-profile-salary job-profile-heroblock-content">
+                @if (Model.SalaryStarter.HasValue && Model.SalaryStarter.Value != 0 && Model.SalaryExperienced.HasValue && Model.SalaryExperienced.Value != 0)
+                {
+                    <h5 class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter)<span>@Model.SalaryStarterText</span></h5>
+                    <h5 class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></h5>
+                }
+                else
+                {
+                    <h5 class="dfc-code-jpsalaryblank">@Model.SalaryBlankText</h5>
+                }
+            </div>
+        </div>
+        <div class="column-30 job-profile-heroblock">
+            <h4>@Model.HoursText</h4>
+            @if (string.IsNullOrWhiteSpace(Model.MinimumHours) && string.IsNullOrWhiteSpace(Model.MaximumHours))
+            {
+                <div class="job-profile-hours job-profile-heroblock-content">
+                    <h5 class="dfc-code-jphours">@Model.MaxAndMinHoursAreBlankText</h5>
+                </div>
+            }
+            else if (!(string.IsNullOrWhiteSpace(Model.MinimumHours) || string.IsNullOrWhiteSpace(Model.MaximumHours)))
+            {
+                <div class="job-profile-hours job-profile-heroblock-content">
+                    <h5 class="dfc-code-jphours">@Model.MinimumHours to @Model.MaximumHours <span>@Model.HoursTimePeriodText</span></h5>
+                </div>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.MinimumHours))
+            {
+                <div class="job-profile-hours job-profile-heroblock-content">
+                    <h5 class="dfc-code-jphours">@Model.MinimumHours <span>@Model.HoursTimePeriodText</span></h5>
+                </div>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.MaximumHours))
+            {
+                <div class="job-profile-hours job-profile-heroblock-content">
+                    <h5 class="dfc-code-jphours">@Model.MaximumHours <span>@Model.HoursTimePeriodText</span></h5>
+                </div>
+            }
+        </div>
+        @if (!string.IsNullOrEmpty(Model.WorkingPattern))
+        {
+            <div class="column-30 job-profile-heroblock">
+                <h4>
+                    @Model.WorkingPatternText
+                    @if (!string.IsNullOrEmpty(Model.WorkingPatternSpanText))
+                    {
+                        <span>@Model.WorkingPatternSpanText</span>
+                    }
+                </h4>
+                <div class="job-profile-pattern job-profile-heroblock-content">
+                    <h5 class="dfc-code-jpwpattern">
+                        @Model.WorkingPattern
+                        @if (!string.IsNullOrEmpty(Model.WorkingPatternDetails))
+                        {
+                            <span class="dfc-code-jpwpatterndetail">@Model.WorkingPatternDetails</span>
+                        }
+                    </h5>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

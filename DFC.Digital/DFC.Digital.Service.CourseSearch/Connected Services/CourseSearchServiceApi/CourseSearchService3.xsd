@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd1" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+  <xs:element name="SubjectBrowseRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubjectBrowseReponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Level1" type="tns:Level1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Level1">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q1:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Level2" type="tns:Level2" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Level2">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q2:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Level3" type="tns:CategoryInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CategoryInfo">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q3:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

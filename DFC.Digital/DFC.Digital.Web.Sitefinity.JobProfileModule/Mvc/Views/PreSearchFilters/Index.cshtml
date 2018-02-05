@@ -1,8 +1,8 @@
-﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PSFModel
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfModel
 <div class="content-container">
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
-          <form action="@Model.Section.PreviousPageURL" method="post" id="backForm">
+          <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
                  <div id="BackLink" class="breadcrumbs" >
                         <ol>
                             <li>
@@ -16,7 +16,7 @@
               @Html.HiddenFor(m => Model.Section.PageNumber)
               @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
         </form>
-        <form action="@Model.Section.NextPageURL" method="post" id="continueForm">
+        <form action="@Model.Section.NextPageUrl" method="post" id="continueForm">
                 <div class="active">
                     <h4>Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</h4>
                     <h2>@Html.DisplayFor(model => Model.Section.Name)</h2>

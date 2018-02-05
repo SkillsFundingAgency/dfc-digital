@@ -24,14 +24,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Config
                 .ForMember(d => d.LinkTarget, o => o.MapFrom(s => s.ContentField))
                 ;
 
-            CreateMap<PSFModel, PreSearchFiltersResultsModel>();
-            CreateMap<PSFSection, FilterResultsSection>();
-            CreateMap<PSFOption, FilterResultsOption>();
+            CreateMap<PsfModel, PreSearchFiltersResultsModel>();
+            CreateMap<PsfSection, FilterResultsSection>();
+            CreateMap<PsfOption, FilterResultsOption>();
 
-            CreateMap<PSFSection, PreSearchFilterSection>();
-            CreateMap<PSFOption, PreSearchFilterOption>();
-            CreateMap<PreSearchFilterSection, PSFSection>();
-            CreateMap<PreSearchFilterOption, PSFOption>();
+            CreateMap<PsfSection, PreSearchFilterSection>();
+            CreateMap<PsfOption, PreSearchFilterOption>();
+            CreateMap<PreSearchFilterSection, PsfSection>();
+            CreateMap<PreSearchFilterOption, PsfOption>();
         }
 
         public override string ProfileName => "DFC.Digital.Web.Sitefinity.JobProfileModule";

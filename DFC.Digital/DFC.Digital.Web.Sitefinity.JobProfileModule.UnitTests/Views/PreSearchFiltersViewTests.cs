@@ -24,13 +24,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             backButton.InnerText.ShouldBeEquivalentTo("Home");
 
             var backForm = htmlDom.GetElementbyId("backForm");
-            backForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.PreviousPageURL);
+            backForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.PreviousPageUrl);
 
             var continueButton = htmlDom.GetElementbyId("filter-continue");
             continueButton.InnerText.ShouldBeEquivalentTo("Continue");
 
             var continueForm = htmlDom.GetElementbyId("continueForm");
-            continueForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.NextPageURL);
+            continueForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.NextPageUrl);
         }
 
         [Theory]
@@ -113,34 +113,34 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             fieldToCheck.Attributes["value"].Value.ShouldBeEquivalentTo(expectedValue ?? string.Empty);
         }
 
-        private PSFModel GeneratePreSEarchFiltersViewModel(bool singleSelect)
+        private PsfModel GeneratePreSEarchFiltersViewModel(bool singleSelect)
         {
-            var filtersModel = new PSFModel()
+            var filtersModel = new PsfModel()
             {
                 OptionsSelected = "TestJSONstring",
-                Section = new PSFSection()
+                Section = new PsfSection()
                 {
                     Name = "Multi Select Section One",
                     Description = "Dummy Title One",
                     SingleSelectOnly = singleSelect,
-                    NextPageURL = "NextSectionURL",
-                    PreviousPageURL = "HomePageURL",
+                    NextPageUrl = "NextSectionURL",
+                    PreviousPageUrl = "HomePageURL",
                     PageNumber = 1,
                     TotalNumberOfPages = 2,
                     SectionDataType = "Dummy Data Type One"
                 }
             };
 
-            filtersModel.Section.Options = new List<PSFOption>();
+            filtersModel.Section.Options = new List<PsfOption>();
 
             for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filtersModel.Section.Options.Add(item: new PSFOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
+                filtersModel.Section.Options.Add(item: new PsfOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
             }
 
             //Add in a N/A
-            filtersModel.Section.Options.Add(item: new PSFOption { Id = "3", IsSelected = false, Name = $"Title-3", Description = $"Description-3", OptionKey = $"3-UrlName", ClearOtherOptionsIfSelected = true });
+            filtersModel.Section.Options.Add(item: new PsfOption { Id = "3", IsSelected = false, Name = $"Title-3", Description = $"Description-3", OptionKey = $"3-UrlName", ClearOtherOptionsIfSelected = true });
 
             return filtersModel;
         }

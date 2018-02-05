@@ -1,12 +1,9 @@
-﻿using Xunit;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
+﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using FakeItEasy;
 using FluentAssertions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Taxonomies.Web;
-using DFC.Digital.Repository.SitefinityCMS.Base;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 {

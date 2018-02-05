@@ -18,8 +18,12 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             // Arrange
             var indexView = new _MVC_Views_VocSurvey_Index_cshtml();
             var vocSurveyVmDummy =
-                GenerateVocSurveyViewModelDummy(nameof(VocSurveyViewModel.AgeLimitText), nameof(VocSurveyViewModel.DontHaveEmailText), nameof(VocSurveyViewModel.EmailSentText)
-                    , nameof(VocSurveyViewModel.FormIntroText), nameof(VocSurveyViewModel.EmailNotSentText));
+                GenerateVocSurveyViewModelDummy(
+                    nameof(VocSurveyViewModel.AgeLimitText),
+                    nameof(VocSurveyViewModel.DontHaveEmailText),
+                    nameof(VocSurveyViewModel.EmailSentText),
+                    nameof(VocSurveyViewModel.FormIntroText),
+                    nameof(VocSurveyViewModel.EmailNotSentText));
 
             // Act
             var htmlDom = indexView.RenderAsHtml(vocSurveyVmDummy);

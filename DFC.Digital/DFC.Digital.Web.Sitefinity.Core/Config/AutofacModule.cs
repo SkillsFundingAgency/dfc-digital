@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                .EnableInterfaceInterceptors()
-               .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+               .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

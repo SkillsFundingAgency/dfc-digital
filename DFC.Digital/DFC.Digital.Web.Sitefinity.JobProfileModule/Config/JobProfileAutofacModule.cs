@@ -15,11 +15,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             base.Load(builder);
             builder.RegisterAssemblyTypes().AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<JobProfileSearchIndexConfig>().As<ISearchIndexConfig>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {

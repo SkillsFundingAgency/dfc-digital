@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             base.Load(builder);
             builder.RegisterAssemblyTypes().AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<SearchIndexEnhancers.JobProfileIndexEnhancer>().As<IJobProfileIndexEnhancer>();
         }

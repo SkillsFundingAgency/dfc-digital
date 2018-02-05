@@ -26,8 +26,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             {
                 htmlDom.DocumentNode.InnerHtml.ShouldBeEquivalentTo(string.Empty);
             }
-            else //should display the information message in design mode
+            else
             {
+                //should display the information message in design mode
                 var sectionText = htmlDom.DocumentNode.SelectNodes("//p").FirstOrDefault().InnerText;
                 sectionText.Should().Contain("Placing this widget");
             }

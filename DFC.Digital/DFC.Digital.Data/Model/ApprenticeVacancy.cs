@@ -21,7 +21,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The URL.
         /// </value>
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the wage unit.

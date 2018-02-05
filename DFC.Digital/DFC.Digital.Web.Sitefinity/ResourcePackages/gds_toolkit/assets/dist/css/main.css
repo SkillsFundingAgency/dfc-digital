@@ -10,7 +10,7 @@
 
 
 //Import required Gov UK Toolkit .scss files here*/
-.notice:after, main:after, .homepage-top #header-search:after, .signpost_container:after, .job-profile-hero:after, .job-profile-search #job-profile-search-box:after, .survey_container:after, .survey_container .survey_content:after {
+.notice:after, main:after, .homepage-top #header-search:after, .signpost_container:after, .previous-next-navigation:after, .job-profile-hero:after, .job-profile-search #job-profile-search-box:after, .survey_container:after, .survey_container .survey_content:after {
   content: "";
   display: block;
   clear: both; }
@@ -349,8 +349,7 @@ p,
     .link-back {
       font-size: 16px;
       line-height: 1.25; } }
-  .link-back:link, .link-back:visited, .link-back:hover,
-  .link-back a.link-back:focus, .link-back:active {
+  .link-back:link, .link-back:visited, .link-back:hover, .link-back:active {
     color: #0b0c0c; }
   .link-back::before {
     content: '';
@@ -1589,10 +1588,6 @@ main.homepage .phase-banner {
       .filter-form h4 {
         font-size: 19px;
         line-height: 1.3157894737; } }
-  .filter-form .js-enabled {
-    display: block;
-    visibility: visible;
-    color: red; }
   .filter-form .filter-list {
     display: flex;
     flex-direction: row;

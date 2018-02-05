@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
   <!-- AuthenticationConfig configurations -->
-  <parameter name="Sitefinity_Auth_Client"
-             description="Tokenize the sitefinity auth client to be replaced by VSTS task"
-             defaultValue="__authClient__">
-    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dfcintegration']/@authClient" />
-  </parameter>
   <parameter name="Sitefinity_Client_Id"
              description="Tokenize the sitefinity client Id to be replaced by VSTS task"
              defaultValue="__clientId__">

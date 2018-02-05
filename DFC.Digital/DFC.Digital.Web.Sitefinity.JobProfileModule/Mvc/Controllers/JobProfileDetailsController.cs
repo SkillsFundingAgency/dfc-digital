@@ -85,16 +85,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string WorkingPatternSpanText { get; set; } = string.Empty; //"(you could also work)";
 
         [DisplayName("Display sign posting for matching Job Profiles in BAU")]
-        public bool DisplayMatchingJPInBAUSignPost { get; set; } = false;
+        public bool DisplayMatchingJpinBauSignPost { get; set; } = false;
 
         [DisplayName("Matching Job Profile exists in BAU text")]
-        public string MatchingJPInBAUText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        public string MatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
         [DisplayName("Display sign posting for non matching Job Profiles in BAU")]
-        public bool DisplayNoMatchingJPInBAUSignPost { get; set; } = false;
+        public bool DisplayNoMatchingJpinBauSignPost { get; set; } = false;
 
         [DisplayName("Matching Job Profile does not exists in BAU text")]
-        public string NoMatchingJPInBAUText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        public string NoMatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
         #endregion Public Properties
 
@@ -175,12 +175,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.WorkingPatternText = WorkingPatternText;
             model.WorkingPatternSpanText = WorkingPatternSpanText;
 
-            if (model.IsLMISalaryFeedOverriden != true)
+            if (model.IsLmiSalaryFeedOverriden != true)
             {
                 model = await PopulateSalaryAsync(model);
             }
 
-            if (model.IsLMISalaryFeedOverriden != true)
+            if (model.IsLmiSalaryFeedOverriden != true)
             {
                 model = await PopulateSalaryAsync(model);
             }
@@ -192,7 +192,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private async Task<JobProfileDetailsViewModel> PopulateSalaryAsync(JobProfileDetailsViewModel model)
         {
-            var salary = await salaryService.GetSalaryBySocAsync(CurrentJobProfile.SOCCode);
+            var salary = await salaryService.GetSalaryBySocAsync(CurrentJobProfile.SocCode);
 
             model.SalaryStarter = salaryCalculator.GetStarterSalary(salary);
             model.SalaryExperienced = salaryCalculator.GetExperiencedSalary(salary);
@@ -202,18 +202,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private void PopulateSignPosting(JobProfileDetailsViewModel model)
         {
-            model.DisplaySignPostingToBAU = false;
-            if (DisplayMatchingJPInBAUSignPost && CurrentJobProfile.DoesNotExistInBAU == false)
+            model.DisplaySignPostingToBau = false;
+            if (DisplayMatchingJpinBauSignPost && CurrentJobProfile.DoesNotExistInBau == false)
             {
-                model.DisplaySignPostingToBAU = true;
-                model.SignPostingHTML = MatchingJPInBAUText.Replace("REPLACEWITHJPURL", CurrentJobProfile.BAUSystemOverrideUrl == string.Empty ? CurrentJobProfile.UrlName : CurrentJobProfile.BAUSystemOverrideUrl);
+                model.DisplaySignPostingToBau = true;
+                model.SignPostingHtml = MatchingJpinBauText.Replace("REPLACEWITHJPURL", CurrentJobProfile.BauSystemOverrideUrl == string.Empty ? CurrentJobProfile.UrlName : CurrentJobProfile.BauSystemOverrideUrl);
             }
 
             //This and the above conditions are independent.
-            if (DisplayNoMatchingJPInBAUSignPost && CurrentJobProfile.DoesNotExistInBAU == true)
+            if (DisplayNoMatchingJpinBauSignPost && CurrentJobProfile.DoesNotExistInBau == true)
             {
-                model.DisplaySignPostingToBAU = true;
-                model.SignPostingHTML = NoMatchingJPInBAUText;
+                model.DisplaySignPostingToBau = true;
+                model.SignPostingHtml = NoMatchingJpinBauText;
             }
         }
 

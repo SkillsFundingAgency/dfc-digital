@@ -5,8 +5,8 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
-    public class PSFState
+    public class PsfState
     {
-        public List<PSFSection> Sections { get; set; }
+        public List<PsfSection> Sections { get; set; }
     }
 }

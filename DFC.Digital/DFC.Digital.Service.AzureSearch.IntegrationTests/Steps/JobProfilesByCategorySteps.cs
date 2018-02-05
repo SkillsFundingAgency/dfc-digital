@@ -16,20 +16,20 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     {
         private IEnumerable<JobProfile> result;
 
-        private ITestOutputHelper outputHelper { get; set; }
+        private ITestOutputHelper OutputHelper { get; set; }
 
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
 
-        public ISearchQueryService<JobProfileIndex> searchQueryService { get; }
+        public ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
-            this.searchQueryService = searchQueryService;
+            this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
         }
 
@@ -43,9 +43,9 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         [When(@"I filter by the category '(.*)'")]
         public void WhenIFilterByTheCategory(string filterCategory)
         {
-            outputHelper.WriteLine($"The filter category is '{filterCategory}'");
-            var JobProfileCategoryRepository = new JobProfileCategoryRepository(searchQueryService, mapper, null);
-            this.result = JobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
+            OutputHelper.WriteLine($"The filter category is '{filterCategory}'");
+            var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null);
+            this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
         }
 
         [Then(@"the number of job profiles returned is (.*)")]

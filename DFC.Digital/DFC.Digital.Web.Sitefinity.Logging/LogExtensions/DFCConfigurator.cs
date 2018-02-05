@@ -3,14 +3,14 @@ using Telerik.Sitefinity.Logging;
 
 namespace DFC.Digital.Web.Sitefinity.Logging
 {
-    public class DFCConfigurator : ISitefinityLogCategoryConfigurator
+    public class DfcConfigurator : ISitefinityLogCategoryConfigurator
     {
         public void Configure(SitefinityLogCategory category)
         {
             category.Configuration
                     .WithOptions
                     .SendTo
-                    .Custom<DFCLogListener>("Custom");
+                    .Custom<DfcLogListener>("Custom");
         }
     }
 }

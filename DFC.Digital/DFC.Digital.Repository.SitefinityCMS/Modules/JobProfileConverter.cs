@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Title = content?.GetValue<Lstring>(nameof(JobProfile.Title)),
                 AlternativeTitle = content?.GetValue<Lstring>(nameof(JobProfile.AlternativeTitle)),
                 Overview = content?.GetValue<Lstring>(nameof(JobProfile.Overview)),
-                IsLMISalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
+                IsLmiSalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLmiSalaryFeedOverriden)),
                 SalaryStarter = content?.GetValue<decimal?>(nameof(JobProfile.SalaryStarter)),
                 SalaryExperienced = content?.GetValue<decimal?>(nameof(JobProfile.SalaryExperienced)),
                 MinimumHours = content?.GetValue<decimal?>(nameof(JobProfile.MinimumHours)),
@@ -60,14 +60,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 //index and we will get a clash
                 JobProfileCategoryIdCollection = content?.GetValue<IList<Guid>>(RelatedJobProfileCategoriesField),
                 UrlName = content?.GetValue<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBAU = content?.GetValue<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValue<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl))
+                DoesNotExistInBau = content?.GetValue<bool>(nameof(JobProfile.DoesNotExistInBau)),
+                BauSystemOverrideUrl = content?.GetValue<Lstring>(nameof(JobProfile.BauSystemOverrideUrl))
             };
 
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode = socItem.GetValue<Lstring>(nameof(JobProfile.SOCCode));
+                jobProfile.SocCode = socItem.GetValue<Lstring>(nameof(JobProfile.SocCode));
             }
 
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();

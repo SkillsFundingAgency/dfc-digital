@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.Logging
 
         private static void Log_Configuring(object sender, LogConfiguringEventArgs e)
         {
-            ObjectFactory.Container.RegisterInstance<ISitefinityLogCategoryConfigurator>(new DFCConfigurator());
+            ObjectFactory.Container.RegisterInstance<ISitefinityLogCategoryConfigurator>(new DfcConfigurator());
         }
     }
 }

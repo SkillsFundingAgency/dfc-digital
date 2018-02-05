@@ -4,11 +4,11 @@ using System;
 
 namespace DFC.Digital.Core.Logging
 {
-    public class DFCLogger : IApplicationLogger
+    public class DfcLogger : IApplicationLogger
     {
         private ILogger logService;
 
-        public DFCLogger(ILogger logService)
+        public DfcLogger(ILogger logService)
         {
             this.logService = logService;
         }

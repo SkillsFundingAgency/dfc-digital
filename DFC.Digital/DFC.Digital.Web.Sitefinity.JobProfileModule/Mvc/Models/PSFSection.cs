@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
-    public class PSFSection
+    public class PsfSection
     {
         public string Name { get; set; }
 
@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         [JsonIgnore]
         public string Description { get; set; }
 
-        public List<PSFOption> Options { get; set; }
+        public List<PsfOption> Options { get; set; }
 
         [JsonIgnore]
         public bool SingleSelectOnly { get; set; }
@@ -23,10 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string SingleSelectedValue { get; set; }
 
         [JsonIgnore]
-        public string NextPageURL { get; set; }
+        public string NextPageUrl { get; set; }
 
         [JsonIgnore]
-        public string PreviousPageURL { get; set; }
+        public string PreviousPageUrl { get; set; }
 
         [JsonIgnore]
         public int PageNumber { get; set; }

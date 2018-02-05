@@ -149,16 +149,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Set up comman call
             SetUpDependeciesAndCall(true, false);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauurl;
-            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
+            dummyJobProfile.BauSystemOverrideUrl = overRideBauurl;
+            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
             var jobprofileController = new JobProfileDetailsController(
                 webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper)
             {
-                DisplayMatchingJPInBAUSignPost = true,
-                DisplayNoMatchingJPInBAUSignPost = true
+                DisplayMatchingJpinBauSignPost = true,
+                DisplayNoMatchingJpinBauSignPost = true
             };
 
             //Act
@@ -187,8 +187,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             indexWithUrlNameMethodCall.ShouldRenderDefaultView()
                 .WithModel<JobProfileDetailsViewModel>(vm =>
                 {
-                    vm.DisplaySignPostingToBAU.ShouldBeEquivalentTo(true);
-                    vm.SignPostingHTML.Should().Contain(expectedJpurl);
+                    vm.DisplaySignPostingToBau.ShouldBeEquivalentTo(true);
+                    vm.SignPostingHtml.Should().Contain(expectedJpurl);
                 }).AndNoModelErrors();
         }
 
@@ -211,11 +211,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var jobprofileController = new JobProfileDetailsController(
                 webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper)
             {
-                DisplayMatchingJPInBAUSignPost = matchingSignPostingEnabled,
-                DisplayNoMatchingJPInBAUSignPost = nonMatchingSignPostingEnabled
+                DisplayMatchingJpinBauSignPost = matchingSignPostingEnabled,
+                DisplayNoMatchingJpinBauSignPost = nonMatchingSignPostingEnabled
             };
 
-            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
+            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
 
             //Act
             var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index("TestUrl"));
@@ -224,7 +224,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             indexWithUrlNameMethodCall.ShouldRenderDefaultView()
                 .WithModel<JobProfileDetailsViewModel>(vm =>
                 {
-                    vm.DisplaySignPostingToBAU.ShouldBeEquivalentTo((nonMatchingSignPostingEnabled && doesNotExistInBau) || (matchingSignPostingEnabled && !doesNotExistInBau));
+                    vm.DisplaySignPostingToBau.ShouldBeEquivalentTo((nonMatchingSignPostingEnabled && doesNotExistInBau) || (matchingSignPostingEnabled && !doesNotExistInBau));
                 }).AndNoModelErrors();
         }
 
@@ -272,7 +272,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
+                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SocCode))).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustNotHaveHappened();
@@ -283,7 +283,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
+                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SocCode))).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();

@@ -18,13 +18,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
         {
             // Arrange
             var indexView = new _MVC_Views_BauSearchResultsSignPost_Index_cshtml();
-            var signPostDummyVM = new BauSearchResultsViewModel
+            var signPostDummyVm = new BauSearchResultsViewModel
             {
                 Content = contentdata
             };
 
             // Act
-            var htmlDom = indexView.RenderAsHtml(signPostDummyVM);
+            var htmlDom = indexView.RenderAsHtml(signPostDummyVm);
 
             // Assert
             GetContentData(htmlDom).ShouldBeEquivalentTo(contentdata);

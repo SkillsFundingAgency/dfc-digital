@@ -17,65 +17,65 @@ namespace DFC.Digital.Repository.SitefinityCMS
             builder.Register(ctx => TaxonomyManager.GetManager()).As<ITaxonomyManager>();
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<PreSearchFiltersRepository<PSFInterest>>().As<IPreSearchFiltersRepository<PSFInterest>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfInterest>>().As<IPreSearchFiltersRepository<PsfInterest>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFEntryQualification>>().As<IPreSearchFiltersRepository<PSFEntryQualification>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfEntryQualification>>().As<IPreSearchFiltersRepository<PsfEntryQualification>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFEnabler>>().As<IPreSearchFiltersRepository<PSFEnabler>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfEnabler>>().As<IPreSearchFiltersRepository<PsfEnabler>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFTrainingRoute>>().As<IPreSearchFiltersRepository<PSFTrainingRoute>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfTrainingRoute>>().As<IPreSearchFiltersRepository<PsfTrainingRoute>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFJobArea>>().As<IPreSearchFiltersRepository<PSFJobArea>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfJobArea>>().As<IPreSearchFiltersRepository<PsfJobArea>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFCareerFocus>>().As<IPreSearchFiltersRepository<PSFCareerFocus>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfCareerFocus>>().As<IPreSearchFiltersRepository<PsfCareerFocus>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFiltersRepository<PSFPreferredTaskType>>().As<IPreSearchFiltersRepository<PSFPreferredTaskType>>()
+            builder.RegisterType<PreSearchFiltersRepository<PsfPreferredTaskType>>().As<IPreSearchFiltersRepository<PsfPreferredTaskType>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<PreSearchFilterConverter<PSFInterest>>().As<IDynamicModuleConverter<PSFInterest>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfInterest>>().As<IDynamicModuleConverter<PsfInterest>>()
                .EnableInterfaceInterceptors()
-               .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+               .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                ;
-            builder.RegisterType<PreSearchFilterConverter<PSFEntryQualification>>().As<IDynamicModuleConverter<PSFEntryQualification>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfEntryQualification>>().As<IDynamicModuleConverter<PsfEntryQualification>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFilterConverter<PSFEnabler>>().As<IDynamicModuleConverter<PSFEnabler>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfEnabler>>().As<IDynamicModuleConverter<PsfEnabler>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFilterConverter<PSFTrainingRoute>>().As<IDynamicModuleConverter<PSFTrainingRoute>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfTrainingRoute>>().As<IDynamicModuleConverter<PsfTrainingRoute>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFilterConverter<PSFJobArea>>().As<IDynamicModuleConverter<PSFJobArea>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfJobArea>>().As<IDynamicModuleConverter<PsfJobArea>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFilterConverter<PSFCareerFocus>>().As<IDynamicModuleConverter<PSFCareerFocus>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfCareerFocus>>().As<IDynamicModuleConverter<PsfCareerFocus>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-            builder.RegisterType<PreSearchFilterConverter<PSFPreferredTaskType>>().As<IDynamicModuleConverter<PSFPreferredTaskType>>()
+            builder.RegisterType<PreSearchFilterConverter<PsfPreferredTaskType>>().As<IDynamicModuleConverter<PsfPreferredTaskType>>()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
         }
     }

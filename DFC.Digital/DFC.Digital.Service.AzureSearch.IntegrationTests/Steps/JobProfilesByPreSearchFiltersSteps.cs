@@ -16,20 +16,20 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     {
         private SearchResult<JobProfileIndex> results;
 
-        private ITestOutputHelper outputHelper { get; set; }
+        private ITestOutputHelper OutputHelper { get; set; }
 
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
 
-        public ISearchQueryService<JobProfileIndex> searchQueryService { get; }
+        public ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
-            this.searchQueryService = searchQueryService;
+            this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
         }
 
@@ -43,15 +43,15 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         [When(@"I filter with the following PSF items")]
         public void WhenIFilterWithTheFollowingTags(Table table)
         {
-            outputHelper.WriteLine($"The filter term is '{table}'");
+            OutputHelper.WriteLine($"The filter term is '{table}'");
             SearchProperties filterProperties = table.ToSearchProperties();
             try
             {
-                results = searchQueryService.Search("*", filterProperties);
+                results = SearchQueryService.Search("*", filterProperties);
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
@@ -62,8 +62,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem.Title);
 
             //Log results
-            outputHelper.WriteLine($"Expected {string.Join(",", expected)}");
-            outputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
+            OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
+            OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
 
             actual.ShouldBeEquivalentTo(expected);
         }

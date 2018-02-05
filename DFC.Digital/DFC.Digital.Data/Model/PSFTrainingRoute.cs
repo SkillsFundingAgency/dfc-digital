@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class PSFTrainingRoute : PreSearchFilter
+    public class PsfTrainingRoute : PreSearchFilter
     {
     }
 }

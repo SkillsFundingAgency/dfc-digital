@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class PSFEnabler : PreSearchFilter
+    public class PsfEnabler : PreSearchFilter
     {
     }
 }

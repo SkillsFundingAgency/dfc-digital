@@ -16,8 +16,8 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
 
     public class GovUkNotifyServiceUnitTest
     {
-        private IApplicationLogger fakeApplicationLogger = A.Fake<IApplicationLogger>();
-        private Base.IGovUkNotifyClientProxy fakeGovUkNotifyClient = A.Fake<Base.IGovUkNotifyClientProxy>();
+        private IApplicationLogger _fakeApplicationLogger = A.Fake<IApplicationLogger>();
+        private Base.IGovUkNotifyClientProxy _fakeGovUkNotifyClient = A.Fake<Base.IGovUkNotifyClientProxy>();
 
         [Theory]
         [InlineData("1", false, true)]
@@ -35,23 +35,23 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             //Configure calls
             if (throwError)
             {
-                A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Throws<NotifyClientException>();
+                A.CallTo(() => _fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Throws<NotifyClientException>();
             }
             else
             {
-                A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Returns(emailResponse);
+                A.CallTo(() => _fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Returns(emailResponse);
             }
 
             //Act
-            var govUkNotifyService = new GovUkNotifyService(fakeApplicationLogger, fakeGovUkNotifyClient);
+            var govUkNotifyService = new GovUkNotifyService(_fakeApplicationLogger, _fakeGovUkNotifyClient);
             var result = govUkNotifyService.SubmitEmail(emailAddress, new VocSurveyPersonalisation());
 
             //Assertions
             result.Should().Be(expectation);
-            A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>.That.IsEqualTo(emailAddress), A<string>._, A<Dictionary<string, dynamic>>._)).MustHaveHappened();
+            A.CallTo(() => _fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>.That.IsEqualTo(emailAddress), A<string>._, A<Dictionary<string, dynamic>>._)).MustHaveHappened();
             if (throwError)
             {
-                A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+                A.CallTo(() => _fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
             }
         }
 
@@ -76,7 +76,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             };
 
             // Act
-            var govUkNotifyService = new GovUkNotifyService(fakeApplicationLogger, fakeGovUkNotifyClient);
+            var govUkNotifyService = new GovUkNotifyService(_fakeApplicationLogger, _fakeGovUkNotifyClient);
             var result = govUkNotifyService.Convert(input);
 
             // Assert

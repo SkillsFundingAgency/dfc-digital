@@ -11,18 +11,18 @@ namespace SecurityTesting
     [TestClass]
     public class SecurityTests
     {
-        public readonly static string _zapApiKey = ConfigurationManager.AppSettings["apiKey"];
-        public readonly static string _zapUrl = ConfigurationManager.AppSettings["host"];
-        public readonly static string _zapPort = ConfigurationManager.AppSettings["port"];
-        public readonly string _targetUrl = ConfigurationManager.AppSettings["rooturl"];
-        public static string reportPath = ConfigurationManager.AppSettings["reportPath"];
-        public static ClientApi _zapClient;
-        public IApiResponse _response;
+        public readonly static string ZapApiKey = ConfigurationManager.AppSettings["apiKey"];
+        public readonly static string ZapUrl = ConfigurationManager.AppSettings["host"];
+        public readonly static string ZapPort = ConfigurationManager.AppSettings["port"];
+        public readonly string TargetUrl = ConfigurationManager.AppSettings["rooturl"];
+        public static string ReportPath = ConfigurationManager.AppSettings["reportPath"];
+        public static ClientApi ZapClient;
+        public IApiResponse Response;
 
         public SecurityTests()
         {
-            _zapClient = new ClientApi(_zapUrl, Convert.ToInt32(_zapPort), _zapApiKey);
-            _zapClient.core.excludeFromProxy("^(?:(?!" + _targetUrl + ").)+$");
+            ZapClient = new ClientApi(ZapUrl, Convert.ToInt32(ZapPort), ZapApiKey);
+            ZapClient.core.excludeFromProxy("^(?:(?!" + TargetUrl + ").)+$");
         }
 
         [Fact, Priority(1)]
@@ -39,15 +39,15 @@ namespace SecurityTesting
             CheckActiveScanProgress(activeScanId);
             var reportFilename = $"{DateTime.Now.ToString("dd.MM.yy-hh.mm.ss")}-ZAP_Report";
             SaveSession(reportFilename);
-            _zapClient.Dispose();
+            ZapClient.Dispose();
 
-            GenerateHTMLReport(reportFilename);
+            GenerateHtmlReport(reportFilename);
         }
 
         public string StartSpidering()
         {
-            _response = _zapClient.spider.scan(_targetUrl, string.Empty, string.Empty, string.Empty, string.Empty);
-            return ((ApiResponseElement)_response).Value;
+            Response = ZapClient.spider.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty);
+            return ((ApiResponseElement)Response).Value;
         }
 
         public void CheckSpideringProgress(string spideringId)
@@ -56,7 +56,7 @@ namespace SecurityTesting
             while (true)
             {
                 Thread.Sleep(10000);
-                progress = int.Parse(((ApiResponseElement)_zapClient.spider.status(spideringId)).Value);
+                progress = int.Parse(((ApiResponseElement)ZapClient.spider.status(spideringId)).Value);
                 if (progress >= 100)
                 {
                     break;
@@ -68,8 +68,8 @@ namespace SecurityTesting
 
         public string StartActiveScan()
         {
-            _response = _zapClient.ascan.scan(_targetUrl, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-            return ((ApiResponseElement)_response).Value;
+            Response = ZapClient.ascan.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            return ((ApiResponseElement)Response).Value;
         }
 
         public void CheckActiveScanProgress(string activeScanId)
@@ -78,7 +78,7 @@ namespace SecurityTesting
             while (true)
             {
                 Thread.Sleep(10000);
-                progress = int.Parse(((ApiResponseElement)_zapClient.ascan.status(activeScanId)).Value);
+                progress = int.Parse(((ApiResponseElement)ZapClient.ascan.status(activeScanId)).Value);
 
                 if (progress >= 100)
                 {
@@ -91,26 +91,26 @@ namespace SecurityTesting
 
         public static void GenerateXmlReport(string filename)
         {
-            var fileName = $@"{reportPath}\{filename}.xml";
-            File.WriteAllBytes(fileName, _zapClient.core.xmlreport());
+            var fileName = $@"{ReportPath}\{filename}.xml";
+            File.WriteAllBytes(fileName, ZapClient.core.xmlreport());
         }
 
-        public static void GenerateHTMLReport(string filename)
+        public static void GenerateHtmlReport(string filename)
         {
-            var fileName = $@"{reportPath}\{filename}.html";
-            File.WriteAllBytes(fileName, _zapClient.core.htmlreport());
+            var fileName = $@"{ReportPath}\{filename}.html";
+            File.WriteAllBytes(fileName, ZapClient.core.htmlreport());
         }
 
         public static void GenerateMarkdownReport(string filename)
         {
-            var fileName = $@"{reportPath}\{filename}.md";
-            File.WriteAllBytes(fileName, _zapClient.core.mdreport());
+            var fileName = $@"{ReportPath}\{filename}.md";
+            File.WriteAllBytes(fileName, ZapClient.core.mdreport());
         }
 
         public void SaveSession(string reportFilename)
         {
-            var sessionReportPath = reportPath + "\\Sessions\\" + DateTime.Now.ToString("dd.MM.yy");
-            _zapClient.core.saveSession($@"{sessionReportPath}\{reportFilename}", "true");
+            var sessionReportPath = ReportPath + "\\Sessions\\" + DateTime.Now.ToString("dd.MM.yy");
+            ZapClient.core.saveSession($@"{sessionReportPath}\{reportFilename}", "true");
         }
     }
 }

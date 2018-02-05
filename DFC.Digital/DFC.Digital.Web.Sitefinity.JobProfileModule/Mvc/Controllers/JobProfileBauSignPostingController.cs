@@ -28,9 +28,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Matching Job Profile exists in BAU text")]
         public string MatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
-        [DisplayName("Display sign posting for non matching Job Profiles in BAU")]
-        public bool DisplayNoMatchingJpinBauSignPost { get; set; } = false;
-
         [DisplayName("Matching Job Profile does not exists in BAU text")]
         public string NoMatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 

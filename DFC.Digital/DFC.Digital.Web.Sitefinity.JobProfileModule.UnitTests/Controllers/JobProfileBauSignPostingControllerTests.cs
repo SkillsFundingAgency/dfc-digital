@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -20,12 +18,65 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();
         private JobProfile dummyJobProfile;
 
-        //The tests above are already testing the behaviour of the widget in diffent modes, content authoring, valid\invalid job profiles
-        //This is just to check the signposting logic in the controller
+        [Theory]
+        [InlineData("BetaJPUrl", false, "", false)]
+        [InlineData("BetaJPUrl", true, "", false)]
+        [InlineData("BetaJPUrl", true, "BAUJPUrl", true)]
+        [InlineData("BetaJPUrl", false, "BAUJPUrl", true)]
+        public void SignPostingTest(string urlName, bool doesNotExistInBau, string overRideBauurl, bool isContentAuthoring)
+        {
+            //Set up comman call
+            SetUpDependeciesAndCall(true, isContentAuthoring);
+
+            dummyJobProfile.BAUSystemOverrideUrl = overRideBauurl;
+            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
+            dummyJobProfile.UrlName = urlName;
+
+            //Instantiate & Act
+            var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage);
+
+            //Act
+            var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
+
+            string expectedJpurl;
+
+            if (doesNotExistInBau)
+            {
+                //Does not exist in BAU point to home
+                expectedJpurl = "job-profiles/home";
+            }
+            else
+            {
+                if (overRideBauurl == string.Empty)
+                {
+                    expectedJpurl = $"job-profiles/{urlName}";
+                }
+                else
+                {
+                    expectedJpurl = $"job-profiles/{overRideBauurl}";
+                }
+            }
+
+            //Assert
+            if (!isContentAuthoring)
+            {
+                indexNameMethodCall.ShouldRedirectTo("\\");
+            }
+            else
+            {
+                indexNameMethodCall.ShouldRenderDefaultView()
+                    .WithModel<BauJpSignPostViewModel>(vm =>
+                    {
+                        vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                    }).AndNoModelErrors();
+            }
+        }
+
         [Theory]
         [InlineData("BetaJPUrl", false, "")]
         [InlineData("BetaJPUrl", true, "")]
         [InlineData("BetaJPUrl", true, "BAUJPUrl")]
+        [InlineData("BetaJPUrl", false, "BAUJPUrl")]
         public void SignPostingUrlTest(string urlName, bool doesNotExistInBau, string overRideBauurl)
         {
             //Set up comman call
@@ -64,7 +115,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             indexWithUrlNameMethodCall.ShouldRenderDefaultView()
                 .WithModel<BauJpSignPostViewModel>(vm =>
                 {
-                    vm.DisplaySignPostingToBau.ShouldBeEquivalentTo(true);
                     vm.SignPostingHtml.Should().Contain(expectedJpurl);
                 }).AndNoModelErrors();
         }
@@ -87,7 +137,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._))
                 .ReturnsLazily((string defaultProfile) => defaultProfile);
         }

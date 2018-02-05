@@ -1,5 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
+  <!-- AuthenticationConfig configurations -->
+  <parameter name="Sitefinity_Auth_Client"
+             description="Tokenize the sitefinity auth client to be replaced by VSTS task"
+             defaultValue="__authClient__">
+    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
+                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dfcintegration']/@authClient" />
+  </parameter>
+  <parameter name="Sitefinity_Client_Id"
+             description="Tokenize the sitefinity client Id to be replaced by VSTS task"
+             defaultValue="__clientId__">
+    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
+                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dfcintegration']/@clientId" />
+  </parameter>
+  <parameter name="Sitefinity_Auth_ClientSecret"
+         description="Tokenize the job profile search name to be replaced by VSTS task"
+         defaultValue="__clientSecret__">
+    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
+                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dfcintegration']/clientSecrets/add/@clientSecret" />
+  </parameter>
+  <parameter name="Sitefinity_EncryptionKey"
+             description="Tokenize the sitefinity encryptionKey to be replaced by VSTS task"
+             defaultValue="__sitefinityAuthenticationEncKey__">
+    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
+                    match="/authenticationConfig/@encryptionKey" />
+  </parameter>
+ 
+  <!-- DataConfig configurations -->
   <parameter name="Sitefinity_connectionString"
              description="Tokenize connection string so we can use the Tokenize task to set the connection string in VSTS Release"
              defaultValue="__connectionString__">
@@ -12,15 +39,73 @@
     <parameterEntry kind="XmlFile" scope="\\DataConfig\.config$"
                     match="/dataConfig/connectionStrings/add[@name='Sitefinity']/@dbType" />
   </parameter>
+  
+  <!-- SystemConfig configurations -->
   <parameter name="Sitefinity_Redis"
            description="Tokenize redis connection string so we can use the Tokenize task to set the redis connection string in VSTS Release"
            defaultValue="&lt;loadBalancingConfig&gt;&lt;redisSettings ConnectionString=&quot;__redisConnectionString__&quot; /&gt;&lt;/loadBalancingConfig&gt;">
     <parameterEntry kind="XmlFile" scope="\\SystemConfig\.config$"
                     match="/systemConfig" />
   </parameter>
+  
+  <!-- SearchConfig configurations -->
+  <parameter name="Sitefinity_Search_Name"
+             description="Tokenize the job profile search name to be replaced by VSTS task"
+             defaultValue="__searchServiceName__">
+    <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
+                    match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureSearchServiceName" />
+  </parameter>
+  <parameter name="Sitefinity_Search_Key"
+             description="Tokenize the job profile search key to be replaced by VSTS task"
+             defaultValue="__searchServiceAdminApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
+                    match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureServiceAdminKey" />
+  </parameter>
+  
+  <!-- SecurityConfig configurations -->
+  <parameter name="Sitefinity_SecurityConfig_decryptionKey"
+             description="Tokenize the sitefinity decryptionKey to be replaced by VSTS task"
+             defaultValue="__sitefinitySecurityDecryptionKey__">
+    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
+                    match="/SecurityConfig/@decryptionKey" />
+  </parameter>
+  <parameter name="Sitefinity_SecurityConfig_validationKey"
+           description="Tokenize the sitefinity validationKey to be replaced by VSTS task"
+           defaultValue="__sitefinitySecurityValidationKey___">
+    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
+                    match="/SecurityConfig/@validationKey" />
+  </parameter>
+  <parameter name="Sitefinity_SecurityToken_Issuers"
+             description="Tokenize the sitefinity security token issuers to be replaced by VSTS task"
+             defaultValue="__securityTokenIssuers__">
+    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
+                    match="/securityConfig/securityTokenIssuers/add/@key" />
+  </parameter>
+  <parameter name="Sitefinity_Relying_Parties"
+             description="Tokenize the sitefinity security relying parties issuers to be replaced by VSTS task"
+             defaultValue="__securityRelyingParties__">
+    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
+                    match="/securityConfig/relyingParties/add/@key" />
+  </parameter>
+  <parameter name="Sitefinity_Security_Roles"
+           description="Tokenize the roles section in the security config"
+           defaultValue="__sitefinitySecurityRolesSection__">
+    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
+                    match="/securityConfig/applicationRoles" />
+  </parameter>
+
+  <!--ApplicationInsights.config-->
+  <parameter name="ApplicationInsights"
+        description="App insights key"
+        defaultValue="__appInsightsKey__">
+    <parameterEntry kind="XmlFile" scope="\\ApplicationInsights\.config$"
+                    match="/ApplicationInsights/InstrumentationKey" />
+  </parameter>
+
+  <!--Web.config-->
   <parameter name="Search_Key"
-           description="Tokenize the job profile search key to be replaced by VSTS task"
-           defaultValue="__searchServiceAdminApiKey__">
+         description="Tokenize the job profile search key to be replaced by VSTS task"
+         defaultValue="__searchServiceAdminApiKey__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.SearchServiceAdminAPIKey']/@value" />
   </parameter>
@@ -30,71 +115,41 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.SearchServiceName']/@value" />
   </parameter>
-  <parameter name="Sitefinity_Search_Key"
-             description="Tokenize the job profile search key to be replaced by VSTS task"
-             defaultValue="__searchServiceAdminApiKey__">
-    <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
-                    match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureServiceAdminKey" />
+  <parameter name="Sitefinity_JobProfile_SearchIndex"
+             description="Tokenize the job profile search index to be replaced by VSTS task"
+             defaultValue="__jobProfileSearchIndex__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.JobProfileSearchIndex']/@value" />
   </parameter>
-  <parameter name="Sitefinity_Search_Name"
-             description="Tokenize the job profile search name to be replaced by VSTS task"
-             defaultValue="__searchServiceName__">
-    <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
-                    match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureSearchServiceName" />
+  <parameter name="CouseSearch_ApiKey"
+             description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
+             defaultValue="__courseSearchApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.CourseSearchApiKey']/@value" />
   </parameter>
-  <parameter name="Sitefinity_Auth_Client"
-             description="Tokenize the sitefinity auth client to be replaced by VSTS task"
-             defaultValue="__authClient__">
-    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add/@authClient" />
+  <parameter name="BingSpellCheck_ApiKey"
+             description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
+             defaultValue="__bingSpellCheckApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Cognitive.BingSpellCheck.ApiKey']/@value" />
   </parameter>
-  <parameter name="Sitefinity_Client_Id"
-             description="Tokenize the sitefinity client Id to be replaced by VSTS task"
-             defaultValue="__clientId__">
-    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add/@clientId" />
-  </parameter>
-  <parameter name="Sitefinity_Auth_ClientSecret"
-           description="Tokenize the job profile search name to be replaced by VSTS task"
-           defaultValue="__clientSecret__">
-    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add/@authClient/clientSecrets/add[@clientName='dfcintegration']/@clientSecret" />
-  </parameter>
-  <parameter name="Sitefinity_SecurityToken_Issuers"
-             description="Tokenize the sitefinity security token issuers to be replaced by VSTS task"
-             defaultValue="__securityTokenIssuers__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/securityTokenIssuers/add/@securityTokenIssuers" />
-  </parameter>
-  <parameter name="Sitefinity_Relying_Parties"
-             description="Tokenize the sitefinity security relying parties issuers to be replaced by VSTS task"
-             defaultValue="__securityRelyingParties__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/relyingParties/add/@relyingParties" />
-  </parameter>
-  <parameter name="Sitefinity_Membership_Providers"
-             description="Tokenize the sitefinity security application roles issuers to be replaced by VSTS task"
-             defaultValue="__securityMembershipProviders__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/applicationRoles/add/@applicationRoles" />
-  </parameter>
-  <parameter name="Sitefinity_Application_Roles"
-             description="Tokenize the sitefinity security application roles issuers to be replaced by VSTS task"
-             defaultValue="__securityApplicationRoles__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/membershipProviders/add/@membershipProvider" />
-  </parameter>
-  <parameter name="ApplicationInsights"
-            description="App insights key"
-            defaultValue="__appInsightsKey__">
-    <parameterEntry kind="XmlFile" scope="\\ApplicationInsights\.config$"
-                    match="/ApplicationInsights/InstrumentationKey" />
+  <parameter name="AsheFeed_AccessKey"
+               description="Tokenize the DFC.Digital.AsheFeedAccessKey to be replaced by VSTS task"
+               defaultValue="__lmiForAllApiAccessKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AsheFeedAccessKey']/@value" />
   </parameter>
   <parameter name="GovUkNotify_Name"
              description="Tokenize the job profile search name to be replaced by VSTS task"
              defaultValue="__govUkNotifyKey__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.GovUkNotifyAPIKey']/@value" />
+  </parameter>
+  <parameter name="GovUkNotify_TemplateId"
+             description="Tokenize the GovUkNotify-TemplateId to be replaced by VSTS task"
+             defaultValue="__govUkNotifyEmailTemplateId__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.GovUkNotifyTemplateId']/@value" />
   </parameter>
   <parameter name="CosmosDb_EndpointUrl"
              description="Tokenize the cosmos endpoint url to be replaced by VSTS task"
@@ -113,23 +168,5 @@
              defaultValue="__couseSearchWcfEnpoint__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/system.serviceModel/client/endpoint[@name='CourseSearch']/@address" />
-  </parameter>
-  <parameter name="CouseSearch_ApiKey"
-             description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
-             defaultValue="__courseSearchApiKey__">
-    <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.CourseSearchApiKey']/@value" />
-  </parameter>
-  <parameter name="BingSpellCheck_ApiKey"
-             description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
-             defaultValue="__bingSpellCheckApiKey__">
-    <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Cognitive.BingSpellCheck.ApiKey']/@value" />
-  </parameter>
-  <parameter name="Sitefinity_Security_Roles"
-             description="Tokenize the roles section in the security config"
-             defaultValue="__sitefinitySecurityRolesSection__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/applicationRoles" />
   </parameter>
 </parameters>

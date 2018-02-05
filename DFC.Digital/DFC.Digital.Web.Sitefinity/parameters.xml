@@ -65,7 +65,7 @@
   </parameter>
   <parameter name="Sitefinity_SecurityConfig_validationKey"
            description="Tokenize the sitefinity validationKey to be replaced by VSTS task"
-           defaultValue="__sitefinitySecurityValidationKey___">
+           defaultValue="__sitefinitySecurityValidationKey__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
                     match="/securityConfig/@validationKey" />
   </parameter>

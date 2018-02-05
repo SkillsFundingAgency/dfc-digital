@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\JobProfileBauSignPostingControllerTests.cs" />
     <Compile Include="Controllers\JobProfileByCategoryControllerTests.cs" />
     <Compile Include="Controllers\JobProfileCourseOpportunityControllerTests.cs" />
     <Compile Include="Controllers\JobProfileApprenticeshipsControllerTests.cs" />

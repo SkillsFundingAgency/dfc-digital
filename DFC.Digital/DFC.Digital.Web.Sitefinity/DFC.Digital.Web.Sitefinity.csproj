@@ -1039,7 +1039,6 @@
       <Generator>RazorGenerator</Generator>
     </Content>
     <Content Include="OpenAccessNuGet.targets" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.0.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Dynamic modules\Job Profile\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -1069,38 +1068,22 @@
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\version.sf" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\TestJobProfiles.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\uninstall.ps1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.0.2.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportTabular-Bold.eot" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportTabular-Light.eot" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportWebsite-Bold.eot" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportWebsite.eot" />
     <Content Include="App_Data\Sitefinity\Configuration\SearchConfig.config" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_jobprofile.scss" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Classifications\Structure\version.sf" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.2.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_jobcategories.scss" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.3.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_survey.scss" />
     <Content Include="Mvc\Views\JobProfileSection\custom-html-field-template.sf-cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.json" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_survey.scss" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.4.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.4.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Configuration\WebServicesConfig.config" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.3.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.3.nupkg" />
     <Content Include="Views\Shared\custom-html-field-template.sf-cshtml" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.4.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.5.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.6.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.6.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE.1.0.0.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\version.sf" />
@@ -1110,8 +1093,6 @@
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\uninstall.ps1" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\WorkingHPE.nuspec" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.5.7.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\Pre Search Filters.sf" />
@@ -1120,22 +1101,11 @@
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\PreSearchFilters.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\uninstall.ps1" />
-    <Content Include="App_Data\Sitefinity\Export\PreSearchFilters.1.0.0.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.3.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\PreSearchFilters.1.0.0.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.4.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\PreSearchFilters.nuspec" />
-    <Content Include="App_Data\Sitefinity\Export\PreSearchFilters.1.0.0.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.5.nupkg" />
     <Content Include="App_Data\Sitefinity\Configuration\ContentViewConfig.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\Sitefinity\Configuration\DynamicModulesConfig.config" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.6.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.5.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.3.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\PreSearchFilters.1.0.0.1.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_default.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
     <Content Include="App_Data\Sitefinity\Configuration\ContentViewConfig.config">
@@ -1147,9 +1117,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\Pre Search Filters.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.7.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\widgetTemplates.sf" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.8.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -1157,7 +1125,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.9.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.10.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_casestudy.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />

@@ -349,8 +349,7 @@ p,
     .link-back {
       font-size: 16px;
       line-height: 1.25; } }
-  .link-back:link, .link-back:visited, .link-back:hover,
-  .link-back a.link-back:focus, .link-back:active {
+  .link-back:link, .link-back:visited, .link-back:hover, .link-back:active {
     color: #0b0c0c; }
   .link-back::before {
     content: '';
@@ -1087,8 +1086,7 @@ main.homepage .phase-banner {
       width: 40px;
       height: 40px;
       position: relative;
-      margin-right: 20px;
-      margin-bottom: 20px; }
+      margin-right: 20px; }
     .job-profile-hero .job-profile-heroblock .job-profile-heroblock-content h5 {
       font-size: 20px;
       line-height: 1.25;
@@ -1168,8 +1166,12 @@ main.homepage .phase-banner {
           display: none; } }
   .job-profile-hero .job-profile-heroblock .job-profile-hours:before {
     background: url("../images/clock.svg") no-repeat center; }
+  .job-profile-hero .job-profile-heroblock .job-profile-hours h5 {
+    margin-left: 60px; }
   .job-profile-hero .job-profile-heroblock .job-profile-pattern:before {
     background: url("../images/calendar-alt.svg") no-repeat center; }
+  .job-profile-hero .job-profile-heroblock .job-profile-pattern h5 {
+    margin-left: 60px; }
   @media (max-width: 749px) {
     .job-profile-hero .job-profile-heroblock:nth-child(odd) {
       background-color: #ebebeb; }
@@ -1589,10 +1591,6 @@ main.homepage .phase-banner {
       .filter-form h4 {
         font-size: 19px;
         line-height: 1.3157894737; } }
-  .filter-form .js-enabled {
-    display: block;
-    visibility: visible;
-    color: red; }
   .filter-form .filter-list {
     display: flex;
     flex-direction: row;

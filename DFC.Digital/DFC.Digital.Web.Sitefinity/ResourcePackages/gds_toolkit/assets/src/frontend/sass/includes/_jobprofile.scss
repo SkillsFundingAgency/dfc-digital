@@ -219,11 +219,19 @@
             &:before {
                 background: file-url("clock.svg") no-repeat center;
             }
+
+            h5 {
+                margin-left: 60px;
+            }
         }
 
         .job-profile-pattern {
             &:before {
                 background: file-url("calendar-alt.svg") no-repeat center;
+            }
+
+            h5 {
+                margin-left: 60px;
             }
         }
 

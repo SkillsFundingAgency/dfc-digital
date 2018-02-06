@@ -1,7 +1,29 @@
-# Digital First Careers Service
+# Digital First Careers – Find a career website
 Website for career information advice and guidance.
 
-## Configuration Settings 
+Build status
+
+List of dependencies in a table
+
+|Item	|Purpose|
+|-------|-------|
+|Sitefinity ||	
+|SQL Azure||	
+|REDIS?	|Needed for local?|
+|Azure Search||	
+|Bing spell check	||
+|Course finder	||
+|LMI for all||	
+
+
+
+
+
+## Running Locally
+Introductory text about running local…
+Then a section for each dependency, stating what someone would need to do to stand up the dependency, and then config settings which would need to be updated in the repo.
+
+## Sitefinity 
 
 Project - DFC.Digital.Web.Sitefinity
 
@@ -35,3 +57,6 @@ Project - DFC.Digital.Web.Sitefinity
 |SecurityConfig.config |	decryptionKey	| \_\_sitefinitySecurityDecryptionKey\_\_	| todo             | 
 |SecurityConfig.config |	/securityConfig/applicationRoles/role - [XML] |	\_\_sitefinitySecurityRolesSection\_\_	| todo             | 
 |SecurityConfig.config |	validationKey |	\_\_sitefinitySecurityValidationKey\_\_	| todo             | 
+
+
+## Azure Search

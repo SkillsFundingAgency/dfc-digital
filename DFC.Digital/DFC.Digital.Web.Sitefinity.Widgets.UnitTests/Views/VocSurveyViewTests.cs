@@ -18,8 +18,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             // Arrange
             var indexView = new _MVC_Views_VocSurvey_Index_cshtml();
             var vocSurveyVmDummy =
-                GenerateVocSurveyViewModelDummy(nameof(VocSurveyViewModel.AgeLimitText), nameof(VocSurveyViewModel.DontHaveEmailText), nameof(VocSurveyViewModel.EmailSentText)
-                    , nameof(VocSurveyViewModel.FormIntroText), nameof(VocSurveyViewModel.EmailNotSentText));
+                GenerateVocSurveyViewModelDummy(nameof(VocSurveyViewModel.AgeLimitText),
+                    nameof(VocSurveyViewModel.DontHaveEmailText),
+                    nameof(VocSurveyViewModel.EmailSentText),
+                    nameof(VocSurveyViewModel.FormIntroText),
+                    nameof(VocSurveyViewModel.EmailNotSentText));
 
             // Act
             var htmlDom = indexView.RenderAsHtml(vocSurveyVmDummy);
@@ -69,7 +72,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
         private string GetEmailSentMessage(HtmlDocument htmlDom, string itemClass)
         {
             var divItem = htmlDom.DocumentNode.Descendants("div").FirstOrDefault(div =>
-               div.HasAttributes && div.Attributes["class"].Value.ToLower().Contains(itemClass.ToLower()));
+                div.HasAttributes && div.Attributes["class"].Value.ToLower().Contains(itemClass.ToLower()));
 
             if (divItem != null)
             {
@@ -82,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
         private string GetDontHaveEmailText(HtmlDocument htmlDom)
         {
             var anchorTag = htmlDom.DocumentNode.Descendants("a").FirstOrDefault(anchr =>
-                 anchr.HasAttributes && anchr.Attributes["class"].Value.ToLower().Contains("survey_link"));
+                anchr.HasAttributes && anchr.Attributes["class"].Value.ToLower().Contains("survey_link"));
 
             return anchorTag?.InnerText;
         }
@@ -95,8 +98,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             return label?.Descendants("span").FirstOrDefault()?.InnerText;
         }
 
-        private VocSurveyViewModel GenerateVocSurveyViewModelDummy(
-            string ageLimitText, string dontHaveEmailText, string emailSentText, string formIntroText, string emailNotSentText)
+        private VocSurveyViewModel GenerateVocSurveyViewModelDummy
+        (
+            string ageLimitText,
+            string dontHaveEmailText,
+            string emailSentText,
+            string formIntroText,
+            string emailNotSentText)
         {
             var result = new VocSurveyViewModel
             {

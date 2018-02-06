@@ -128,9 +128,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             };
         }
 
-        private IEnumerable<FilterResultsOption> GetTestFilterOptions(KeyValuePair<string, int> item)
+        private static IEnumerable<FilterResultsOption> GetTestFilterOptions(KeyValuePair<string, int> item)
         {
-            for (int index = 0; index < item.Value; index++)
+            for (var index = 0; index < item.Value; index++)
             {
                 yield return new FilterResultsOption
                 {

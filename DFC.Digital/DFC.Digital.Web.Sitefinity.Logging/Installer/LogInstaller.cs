@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Telerik.Microsoft.Practices.Unity;
+﻿using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Logging;
 

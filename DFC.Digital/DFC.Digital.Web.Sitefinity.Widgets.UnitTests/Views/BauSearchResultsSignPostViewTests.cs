@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System.Linq;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
@@ -30,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             GetContentData(htmlDom).ShouldBeEquivalentTo(contentdata);
         }
 
-        private string GetContentData(HtmlDocument htmlDom)
+        private static string GetContentData(HtmlDocument htmlDom)
         {
             return htmlDom.DocumentNode?.InnerText;
         }

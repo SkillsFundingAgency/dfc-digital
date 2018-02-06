@@ -27,6 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The search service
         /// </summary>
         private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
+
         private readonly IWebAppContext webAppContext;
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;

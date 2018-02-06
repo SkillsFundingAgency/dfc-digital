@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers;
 using FakeItEasy;
 using FluentAssertions;
 using System;

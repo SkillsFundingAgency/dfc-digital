@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
             var asyncHelper = new AsyncHelper();
-            var defaultJobProfilePage = "/jobprofile-details/";
+            const string defaultJobProfilePage = "/jobprofile-details/";
             var mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
@@ -35,9 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             // Set up calls
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentAuthoringSite);
-            var expectedSearchResultsViewModel = Enumerable.Empty<JobProfileSearchResultItemViewModel>();
             var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
-            var expectedTotalMessage = "1 result found";
+            const string expectedTotalMessage = "1 result found";
 
             var dummyIndex = new JobProfileIndex
             {
@@ -53,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             dummySearchResult.Results = A.CollectionOfDummy<SearchResultItem<JobProfileIndex>>(1);
             dummySearchResult.Results.First().ResultItem = dummyIndex;
 
-            expectedSearchResultsViewModel = new List<JobProfileSearchResultItemViewModel>
+            var expectedSearchResultsViewModel = new List<JobProfileSearchResultItemViewModel>
             {
                 new JobProfileSearchResultItemViewModel
                 {
@@ -133,7 +132,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var buildSearchFilterServiceFake = A.Fake<IBuildSearchFilterService>(ops => ops.Strict());
 
             // Set up calls
-            var expectedSearchResultsViewModel = Enumerable.Empty<JobProfileSearchResultItemViewModel>();
             var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
             var expectedTotalMessage = resultCount == 1 ? "1 result found" : $"{resultCount} results found";
 
@@ -159,11 +157,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             dummySearchResult.Results = endList;
 
-            var expectedVmList = new List<JobProfileSearchResultItemViewModel>();
-            foreach (var dummyResult in dummySearchResult.Results)
-            {
-                expectedVmList.Add(
-                new JobProfileSearchResultItemViewModel
+            var expectedVmList = dummySearchResult.Results.Select(dummyResult => new JobProfileSearchResultItemViewModel
                 {
                     ResultItemTitle = dummyResult.ResultItem.Title,
                     ResultItemAlternativeTitle = string.Join(", ", dummyResult.ResultItem.AlternativeTitle).Trim().TrimEnd(','),
@@ -172,10 +166,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
-                });
-            }
+                })
+                .ToList();
 
-            expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
+            var expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._))
                 .Returns(dummySearchResult);
@@ -187,12 +181,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             A.CallTo(() => stateManagerFake.UpdateSectionState(A<PreSearchFilterSection>._)).DoesNothing();
 
             //Instantiate & Act
-            var psfSearchController = new PsfSearchController(searchServiceFake, webAppContextFake, mapperCfg.CreateMapper(), asyncHelper, buildSearchFilterServiceFake, stateManagerFake, loggerFake)
+            var psfSearchController = new PsfSearchController(
+                searchServiceFake, webAppContextFake, mapperCfg.CreateMapper(), asyncHelper, buildSearchFilterServiceFake, stateManagerFake, loggerFake)
             {
                 JobProfileDetailsPage = defaultJobProfilePage
             };
 
-            var searchMethodCall = psfSearchController.WithCallTo(c => c.Search(new PsfModel { Section = new PsfSection { SingleSelectedValue = singleSelectValue ? nameof(PsfSection.SingleSelectedValue) : string.Empty, Options = new List<PsfOption>() } }, 1, notPaging));
+            var searchMethodCall = psfSearchController.WithCallTo(
+                c => c.Search(
+                    new PsfModel
+                    {
+                    Section = new PsfSection { SingleSelectedValue = singleSelectValue ? nameof(PsfSection.SingleSelectedValue) : string.Empty, Options = new List<PsfOption>() }
+                    }, 1,
+                    notPaging));
 
             //Assert
             searchMethodCall
@@ -233,7 +234,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var asyncHelper = new AsyncHelper();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
-            var defaultJobProfilePage = "/jobprofile-details/";
+            const string defaultJobProfilePage = "/jobprofile-details/";
             var mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
@@ -241,7 +242,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var buildSearchFilterServiceFake = A.Fake<IBuildSearchFilterService>(ops => ops.Strict());
 
             // Set up calls
-            var expectedSearchResultsViewModel = Enumerable.Empty<JobProfileSearchResultItemViewModel>();
             var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
             var expectedTotalMessage = resultCount == 1 ? "1 result found" : $"{resultCount} results found";
 
@@ -267,11 +267,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             dummySearchResult.Results = endList;
 
-            var expectedVmList = new List<JobProfileSearchResultItemViewModel>();
-            foreach (var dummyResult in dummySearchResult.Results)
-            {
-                expectedVmList.Add(
-                new JobProfileSearchResultItemViewModel
+            var expectedVmList = dummySearchResult.Results.Select(dummyResult => new JobProfileSearchResultItemViewModel
                 {
                     ResultItemTitle = dummyResult.ResultItem.Title,
                     ResultItemAlternativeTitle = string.Join(", ", dummyResult.ResultItem.AlternativeTitle).Trim().TrimEnd(','),
@@ -280,10 +276,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
-                });
-            }
+                })
+                .ToList();
 
-            expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
+            var expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))
@@ -345,7 +341,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var buildSearchFilterServiceFake = A.Fake<IBuildSearchFilterService>(ops => ops.Strict());
 
             // Set up calls
-            var expectedSearchResultsViewModel = Enumerable.Empty<JobProfileSearchResultItemViewModel>();
             var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
             var expectedTotalMessage = resultCount == 1 ? "1 result found" : $"{resultCount} results found";
 
@@ -387,7 +382,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 });
             }
 
-            expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
+            var expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))

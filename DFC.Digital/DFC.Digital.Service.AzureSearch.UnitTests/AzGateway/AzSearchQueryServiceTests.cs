@@ -73,9 +73,6 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                 .Returns(azResponse);
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocuments);
 
-            var query = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter);
-            var results = query.GetSuggestion("test", null);
-
             A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
             A.CallTo(() => fakeDocuments.SuggestWithHttpMessagesAsync<JobProfileIndex>(A<string>._, A<string>._, A<SuggestParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();

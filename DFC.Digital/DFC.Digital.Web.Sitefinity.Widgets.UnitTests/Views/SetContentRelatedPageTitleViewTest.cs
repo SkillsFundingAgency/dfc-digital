@@ -1,6 +1,7 @@
 ﻿using ASP;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FluentAssertions;
+using HtmlAgilityPack;
 using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;

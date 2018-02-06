@@ -1,6 +1,4 @@
-﻿using DFC.Digital.Data.Model;
-
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
+﻿namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
     /// <summary>
     /// Pre Search Filter Results View Model

@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System.Collections.Generic;
 using System.Linq;

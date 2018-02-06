@@ -7,7 +7,6 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Generic;
-using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 

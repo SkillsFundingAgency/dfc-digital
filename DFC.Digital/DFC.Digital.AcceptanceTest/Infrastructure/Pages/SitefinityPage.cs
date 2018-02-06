@@ -12,6 +12,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
     {
         #region Page Elements
         #region private const for survey
+
         private const string OpenSurvey = "survey_open";
         private const string EmailField = "EmailAddress";
         private const string SendButton = "survey_button";

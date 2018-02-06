@@ -1,16 +1,13 @@
 ﻿using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.GovUkNotify.Base;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TestStack.FluentMVCTesting;
 using Xunit;
 

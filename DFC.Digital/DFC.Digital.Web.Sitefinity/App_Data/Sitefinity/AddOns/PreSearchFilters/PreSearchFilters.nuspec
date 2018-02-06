@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>PreSearchFilters</id>
+    <version>1.0.0.3</version>
+    <title>PreSearchFilters</title>
+    <authors>DFC development team</authors>
+    <owners>DFC</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Pre SearchFilters Dynamic Module, defining the content type(s) associated with PreSearchFilters Job Profile Data, all filters types defined for MVS</description>
+    <language>en-GB</language>
+  </metadata>
+</package>

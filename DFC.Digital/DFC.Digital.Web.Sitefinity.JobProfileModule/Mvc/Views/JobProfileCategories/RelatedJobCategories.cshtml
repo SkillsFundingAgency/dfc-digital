@@ -1,0 +1,10 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RelatedJobProfileCategoriesViewModel
+<aside class="govuk-related-items job-categories_list">
+    <h2 class="heading-medium">@Model.OtherCategoriesTitle</h2>
+    <ul class="font-xsmall">
+        @foreach (var jobrofileCategory in Model.JobProfileCategories)
+        {
+            <li><a href="@jobrofileCategory.Url">@jobrofileCategory.Title</a></li>
+        }
+    </ul>
+</aside>

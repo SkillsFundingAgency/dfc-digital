@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd1" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+  <xs:element name="ProviderDetailsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+        <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProviderDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails" type="tns:ProviderDetailsRequestStructure" />
+        <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="ProviderDetails" type="q1:ProviderDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProviderDetailsRequestStructure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

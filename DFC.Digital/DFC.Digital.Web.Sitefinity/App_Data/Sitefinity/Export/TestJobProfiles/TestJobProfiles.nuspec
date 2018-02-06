@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>TestJobProfiles</id>
+    <version>1.0.0.0</version>
+    <title>TestJobProfiles</title>
+    <authors>DFC Development Team</authors>
+    <owners>SFA</owners>
+    <language>en-GB</language>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Test Job Profile Dynamic Module, defining the content type(s) associated with Job Profile Data</description>
+    <references></references>
+  </metadata>
+  <files>
+    <file src="C:\NCSBeta\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\TestJobProfiles\**\*.*" exclude="C:\NCSBeta\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\TestJobProfiles\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\TestJobProfiles" />
+    <file src="C:\NCSBeta\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\TestJobProfiles\**\*.ps1" target="tools" />
+    <file src="C:\NCSBeta\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\TestJobProfiles\**\*.psm1" target="tools" />
+  </files>
+</package>

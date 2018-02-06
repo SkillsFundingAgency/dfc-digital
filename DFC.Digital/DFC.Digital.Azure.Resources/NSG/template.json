@@ -1,0 +1,442 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "nsgName": {
+      "type": "string"
+    },
+    "nsgLocation": {
+      "type": "string"
+    },
+    "nsgSubnetAddressPrefix": {
+      "type": "string"
+    },
+    "securityRules_Inbound_Remote_Debugging_name": {
+      "defaultValue": "Inbound-Remote-Debugging",
+      "type": "String"
+    },
+    "securityRules_Inbound_management_name": {
+      "defaultValue": "Inbound-management",
+      "type": "String"
+    },
+    "securityRules_Inbound_FTP_name": {
+      "defaultValue": "Inbound-FTP",
+      "type": "String"
+    },
+    "securityRules_Inbound_HTTP_name": {
+      "defaultValue": "Inbound-HTTP",
+      "type": "String"
+    },
+    "securityRules_Inbound_HTTPS_name": {
+      "defaultValue": "Inbound-HTTPS",
+      "type": "String"
+    },
+    "securityRules_Inbound_FTP_Data_name": {
+      "defaultValue": "Inbound-FTP-Data",
+      "type": "String"
+    },
+    "securityRules_ASE_internal_inbound_name": {
+      "defaultValue": "ASE-internal-inbound",
+      "type": "String"
+    },
+    "securityRules_Inbound_FTPS_name": {
+      "defaultValue": "Inbound-FTPS",
+      "type": "String"
+    },
+    "securityRules_ASE_Internal_Outbound_name": {
+      "defaultValue": "ASE-Internal-Outbound",
+      "type": "String"
+    },
+    "securityRules_Outbound_SMB_name": {
+      "defaultValue": "Outbound-SMB",
+      "type": "String"
+    },
+    "securityRules_Outbound_SQL_name": {
+      "defaultValue": "Outbound-SQL",
+      "type": "String"
+    },
+    "securityRules_Outbound_DNS_name": {
+      "defaultValue": "Outbound-DNS",
+      "type": "String"
+    },
+    "securityRules_Outbound_HTTPS_name": {
+      "defaultValue": "Outbound-HTTPS",
+      "type": "String"
+    },
+    "securityRules_Outbound_SQL2_name": {
+      "defaultValue": "Outbound-SQL2",
+      "type": "String"
+    },
+    "securityRules_Outbound_SQL3_name": {
+      "defaultValue": "Outbound-SQL3",
+      "type": "String"
+    },
+    "securityRules_Outbound_HTTP_name": {
+      "defaultValue": "Outbound-HTTP",
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('nsgName')]",
+      "location": "[parameters('nsgLocation')]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_management_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "454-455",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 100,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_ASE_internal_inbound_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "*",
+        "sourceAddressPrefix": "[parameters('nsgSubnetAddressPrefix')]",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 110,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_HTTP_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "80",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 120,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_HTTPS_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 130,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTP_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "21",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 140,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTPS_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "21",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 150,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_FTP_Data_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "10001-10020",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 160,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/931bc9f6-359c-4f65-a753-1ee191a1fd6c/resourceGroups/SFAPreProdNetworkRG/providers/Microsoft.Network/networkSecurityGroups/ASE-PP-01-NSG/securityRules/Inbound-Remote-Debugging'.",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Inbound_Remote_Debugging_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "4016-4022",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 170,
+        "direction": "Inbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_HTTPS_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "443",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 100,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SMB_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "445",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 110,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/931bc9f6-359c-4f65-a753-1ee191a1fd6c/resourceGroups/SFAPreProdNetworkRG/providers/Microsoft.Network/networkSecurityGroups/ASE-PP-01-NSG/securityRules/Outbound-SQL'.",
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "1433",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 120,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL2_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "11000-11999",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 130,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_SQL3_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "1400-14999",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 140,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_DNS_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "53",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 150,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_ASE_Internal_Outbound_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "*",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "[parameters('nsgSubnetAddressPrefix')]",
+        "access": "Allow",
+        "priority": 160,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+      "name": "[concat(parameters('nsgName'), '/', parameters('securityRules_Outbound_HTTP_name'))]",
+      "apiVersion": "2017-06-01",
+      "scale": null,
+      "properties": {
+        "provisioningState": "Succeeded",
+        "protocol": "TCP",
+        "sourcePortRange": "*",
+        "destinationPortRange": "80",
+        "sourceAddressPrefix": "*",
+        "destinationAddressPrefix": "*",
+        "access": "Allow",
+        "priority": 170,
+        "direction": "Outbound",
+        "sourceAddressPrefixes": [],
+        "destinationAddressPrefixes": []
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+      ]
+    }
+  ]
+}

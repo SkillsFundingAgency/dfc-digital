@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>d29679a5-262c-4dae-b3aa-6d150791d04c</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkIdentifier>Deployment</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>1.0</TargetFrameworkVersion>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <None Include="Cosmo DB\config.azcli" />
+    <None Include="packages.config" />
+    <None Include="Spell Check\parameters.json" />
+    <None Include="Spell Check\template.json" />
+    <None Include="App Service Plan\parameters.json" />
+    <None Include="App Service Plan\template.json" />
+    <None Include="ASEv2 ILB\parameters.json" />
+    <None Include="ASEv2 ILB\template.json" />
+    <None Include="Cosmo DB\parameters.json" />
+    <None Include="Cosmo DB\template.json" />
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Function App\parameters.json" />
+    <None Include="Function App\template.json" />
+    <None Include="NSG\parameters.json" />
+    <None Include="NSG\template.json" />
+    <None Include="Redis\parameters.json" />
+    <None Include="Redis\template.json" />
+    <None Include="Search\parameters.json" />
+    <None Include="Search\template.json" />
+    <None Include="Storage\parameters.json" />
+    <None Include="Storage\template.json" />
+    <None Include="Web App\parameters.json" />
+    <None Include="Web App\template.json" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>

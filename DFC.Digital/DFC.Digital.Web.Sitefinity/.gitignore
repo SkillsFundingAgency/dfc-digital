@@ -1,0 +1,6 @@
+## Ignore files that are specific to sitefinity.
+##
+
+#Ignore the licence
+App_Data/Sitefinity/*.lic
+App_Data/Sitefinity/Logs/**

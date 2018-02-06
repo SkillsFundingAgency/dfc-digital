@@ -1,0 +1,211 @@
+{
+  "parameters": {
+    "functionName": {
+      "type": "string"
+    },
+    "storageName": {
+      "type": "string"
+    },
+    "accountType": {
+      "type": "string"
+    },
+    "hostingPlanName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "hostingEnvironment": {
+      "type": "string"
+    },
+    "serverFarmResourceGroup": {
+      "type": "string"
+    },
+    "subscriptionId": {
+      "type": "string"
+    },
+    "FAA.ExternalSystemId": {
+      "type": "string"
+    },
+    "FAA.PublicKey": {
+      "type": "string"
+    },
+    "FAA.Endpoint": {
+      "type": "string"
+    },
+    "AVAuditCosmosDB": {
+      "type": "string"
+    },
+    "Sitefinity.SocMappingEndpoint": {
+      "type": "string"
+    },
+    "FAA.MaxReceivedMessageSize": {
+      "type": "string"
+    },
+    "FAA.MaxBufferSize": {
+      "type": "string"
+    },
+    "Sitefinity.ClientId": {
+      "type": "string"
+    },
+    "Sitefinity.ClientSecret": {
+      "type": "string"
+    },
+    "Sitefinity.TokenEndpoint": {
+      "type": "string"
+    },
+    "Sitefinity.Username": {
+      "type": "string"
+    },
+    "Sitefinity.Password": {
+      "type": "string"
+    },
+    "Sitefinity.Scopes": {
+      "type": "string"
+    },
+    "Sitefinity.AVApiEndPoint": {
+      "type": "string"
+    },
+    "Sitefinity.SocApiEndPoint": {
+      "type": "string"
+    },
+    "AzureWebJobsSecretStorageType": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('functionName')]",
+      "type": "Microsoft.Web/sites",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageName'))]",
+        "[resourceId('microsoft.insights/components/', parameters('functionName'))]"
+      ],
+      "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('functionName')), '2015-05-01').InstrumentationKey]"
+            },
+            {
+              "name": "FAA.ExternalSystemId",
+              "value": "[parameters('FAA.ExternalSystemId')]"
+            },
+            {
+              "name": "FAA.PublicKey",
+              "value": "[parameters('FAA.PublicKey')]"
+            },
+            {
+              "name": "FAA.Endpoint",
+              "value": "[parameters('FAA.Endpoint')]"
+            },
+            {
+              "name": "AVAuditCosmosDB",
+              "value": "[concat('AccountEndpoint=https://',parameters('AVAuditCosmosDB'),'.documents.azure.com:443/;AccountKey=',listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('AVAuditCosmosDB')), '2015-11-06').primaryMasterKey,';')]"
+            },
+            {
+              "name": "Sitefinity.SocMappingEndpoint",
+              "value": "[parameters('Sitefinity.SocMappingEndpoint')]"
+            },
+            {
+              "name": "FAA.MaxReceivedMessageSize",
+              "value": "[parameters('FAA.MaxReceivedMessageSize')]"
+            },
+            {
+              "name": "FAA.MaxBufferSize",
+              "value": "[parameters('FAA.MaxBufferSize')]"
+            },
+            {
+              "name": "Sitefinity.ClientId",
+              "value": "[parameters('Sitefinity.ClientId')]"
+            },
+            {
+              "name": "Sitefinity.ClientSecret",
+              "value": "[parameters('Sitefinity.ClientSecret')]"
+            },
+            {
+              "name": "Sitefinity.TokenEndpoint",
+              "value": "[parameters('Sitefinity.TokenEndpoint')]"
+            },
+            {
+              "name": "Sitefinity.Username",
+              "value": "[parameters('Sitefinity.Username')]"
+            },
+            {
+              "name": "Sitefinity.Password",
+              "value": "[parameters('Sitefinity.Password')]"
+            },
+            {
+              "name": "Sitefinity.Scopes",
+              "value": "[parameters('Sitefinity.Scopes')]"
+            },
+            {
+              "name": "Sitefinity.AVApiEndPoint",
+              "value": "[parameters('Sitefinity.AVApiEndPoint')]"
+            },
+            {
+              "name": "Sitefinity.SocApiEndPoint",
+              "value": "[parameters('Sitefinity.SocApiEndPoint')]"
+            },
+            {
+              "name": "AzureWebJobsSecretStorageType",
+              "value": "[parameters('AzureWebJobsSecretStorageType')]"
+            }
+          ],
+          "alwaysOn": true
+        },
+        "name": "[parameters('functionName')]",
+        "clientAffinityEnabled": false,
+        "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+      },
+      "apiVersion": "2016-03-01",
+      "location": "[parameters('location')]",
+      "tags": {
+        "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+      },
+      "kind": "functionapp"
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('storageName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "accountType": "[parameters('accountType')]"
+      }
+    },
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[parameters('functionName')]",
+      "type": "microsoft.insights/components",
+      "location": "[parameters('location')]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('functionName'))]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[parameters('functionName')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    }
+  ],
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0"
+}

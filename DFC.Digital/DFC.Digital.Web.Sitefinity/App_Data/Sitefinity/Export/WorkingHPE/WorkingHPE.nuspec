@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>WorkingHPE</id>
+    <version>1.0.0.0</version>
+    <title>WorkingHPE</title>
+    <authors>DFC development team</authors>
+    <owners>DFC</owners>
+    <language>en-GB</language>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>WorkingHPE Dynamic Module is used as related data for JobProfile content type</description>
+    <references></references>
+  </metadata>
+  <files>
+    <file src="..\WorkingHPE\**\*.*" exclude="..\WorkingHPE\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\WorkingHPE" />
+    <file src="..\WorkingHPE\**\*.ps1" target="tools" />
+    <file src="..\WorkingHPE\**\*.psm1" target="tools" />
+  </files>
+</package>

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "aspName": {
+      "type": "String"
+    },
+    "aspLocation": {
+      "type": "String"
+    },
+    "aspSku": {
+      "type": "String"
+    },
+    "aspSkucode": {
+      "type": "String"
+    },
+    "workerSize": {
+      "type": "String"
+    },
+    "workerSizeId": {
+      "type": "String"
+    },
+    "numberOfWorkers": {
+      "type": "String"
+    },
+    "hostingEnvironment": {
+      "type": "String"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "sku": {
+        "Tier": "[parameters('aspSku')]",
+        "Name": "[parameters('aspSkucode')]"
+      },
+      "kind": "",
+      "name": "[parameters('aspName')]",
+      "apiVersion": "2016-03-01",
+      "location": "[parameters('aspLocation')]",
+      "properties": {
+        "name": "[parameters('aspName')]",
+        "workerSize": "[parameters('workerSize')]",
+        "workerSizeId": "[parameters('workerSizeId')]",
+        "numberOfWorkers": "[parameters('numberOfWorkers')]",
+        "reserved": false,
+        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+      }
+    }
+  ]
+}

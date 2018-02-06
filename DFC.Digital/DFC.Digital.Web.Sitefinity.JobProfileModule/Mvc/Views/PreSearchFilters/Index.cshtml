@@ -1,0 +1,58 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PSFModel
+<div class="content-container">
+    <div class="filter-form">
+        @{ Html.EnableClientValidation(false); }
+          <form action="@Model.Section.PreviousPageURL" method="post" id="backForm">
+                 <div id="BackLink" class="breadcrumbs" >
+                        <ol>
+                            <li>
+                                <button type="submit" class="button-link" id="filter-home">@(Model.Section.PageNumber == 1 ? "Home" : "Back")</button>
+                            </li>
+                        </ol>
+                </div>
+              @Html.HiddenFor(m => Model.Section.Name)
+              @Html.HiddenFor(m => Model.Section.SectionDataType)
+              @Html.HiddenFor(m => Model.OptionsSelected)
+              @Html.HiddenFor(m => Model.Section.PageNumber)
+              @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+        </form>
+        <form action="@Model.Section.NextPageURL" method="post" id="continueForm">
+                <div class="active">
+                    <h4>Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</h4>
+                    <h2>@Html.DisplayFor(model => Model.Section.Name)</h2>
+                    <p>@Html.DisplayFor(model => Model.Section.Description)</p>
+
+                    @Html.HiddenFor(m => Model.Section.Name)
+                    @Html.HiddenFor(m => Model.Section.SectionDataType)
+                    @Html.HiddenFor(m => Model.OptionsSelected)
+                    @Html.HiddenFor(m => Model.Section.PageNumber)
+                    @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+
+                    <div class="filter-list">
+                        @if (Model.Section.Options != null && Model.Section.Options.Any())
+                        {
+                            for (int jj = 0; jj < Model.Section.Options.Count; jj++)
+                            {
+                                if (Model.Section.SingleSelectOnly == true)
+                                {
+                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}" })
+                                    <label for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                }
+                                else
+                                {
+
+                                    @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
+                                    <label for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                }
+
+                                @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
+                                @Html.HiddenFor(m => Model.Section.Options[jj].ClearOtherOptionsIfSelected)
+                            }
+                        }
+                    </div>
+                    <button type="submit" class="button filter-next" id="filter-continue">Continue</button>
+                </div>
+            </form>
+
+    </div>
+</div>

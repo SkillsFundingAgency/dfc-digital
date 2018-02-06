@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "functionName": {
+      "value": "__funcName__"
+    },
+    "storageName": {
+      "value": "__funcStorageName__"
+    },
+    "accountType": {
+      "value": "__funcStorageAccountType__"
+    },
+    "hostingPlanName": {
+      "value": "__funcHostingPlanName__"
+    },
+    "hostingEnvironment": {
+      "value": "__funcHostingEnvironment__"
+    },
+    "location": {
+      "value": "__funcLocation__"
+    },
+    "serverFarmResourceGroup": {
+      "value": "__funcServerFarmResourceGroup__"
+    },
+    "subscriptionId": {
+      "value": "__funcSubscriptionId__"
+    },
+    "FAA.ExternalSystemId": {
+      "value": "__appSettingFAAExternalSystemId__"
+    },
+    "FAA.PublicKey": {
+      "value": "__appSettingFAAPublicKey__"
+    },
+    "FAA.Endpoint": {
+      "value": "__appSettingFAAEndpoint__"
+    },
+    "AVAuditCosmosDB": {
+      "value": "__appSettingAVAuditCosmosDB__"
+    },
+    "Sitefinity.SocMappingEndpoint": {
+      "value": "__appSettingSitefinitySocMappingEndpoint__"
+    },
+    "FAA.MaxReceivedMessageSize": {
+      "value": "__appSettingFAAMaxReceivedMessageSize__"
+    },
+    "FAA.MaxBufferSize": {
+      "value": "__appSettingFAAMaxBufferSize__"
+    },
+    "Sitefinity.ClientId": {
+      "value": "__appSettingSitefinityClientId__"
+    },
+    "Sitefinity.ClientSecret": {
+      "value": "__appSettingSitefinityClientSecret__"
+    },
+    "Sitefinity.TokenEndpoint": {
+      "value": "__appSettingSitefinityTokenEndpoint__"
+    },
+    "Sitefinity.Username": {
+      "value": "__appSettingSitefinityUsername__"
+    },
+    "Sitefinity.Password": {
+      "value": "__appSettingSitefinityPassword__"
+    },
+    "Sitefinity.Scopes": {
+      "value": "__appSettingSitefinityScopes__"
+    },
+    "Sitefinity.AVApiEndPoint": {
+      "value": "__appSettingSitefinityAVApiEndPoint__"
+    },
+    "Sitefinity.SocApiEndPoint": {
+      "value": "__appSettingSitefinitySocApiEndPoint__"
+    },
+    "AzureWebJobsSecretStorageType": {
+      "value": "__appSettingAzureWebJobsSecretStorageType__"
+    }
+  }
+}

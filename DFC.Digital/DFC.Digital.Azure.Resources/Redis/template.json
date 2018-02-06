@@ -1,0 +1,35 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "redisName": {
+      "type": "string"
+    },
+    "redisLocation": {
+      "type": "string"
+    },
+    "redisSkuName": {
+      "type": "string"
+    },
+    "redisSkuFamily": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('redisName')]",
+      "location": "[parameters('redisLocation')]",
+      "properties": {
+        "sku": {
+          "name": "[parameters('redisSkuName')]",
+          "family": "[parameters('redisSkuFamily')]",
+          "capacity": 0
+        },
+        "redisConfiguration": {},
+        "enableNonSslPort": false
+      },
+      "apiVersion": "2017-02-01",
+      "type": "Microsoft.Cache/Redis"
+    }
+  ]
+}

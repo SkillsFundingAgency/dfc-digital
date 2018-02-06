@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="LDCSInfoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="LDCSCode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LDCSDesc" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Searchable" type="tns:YesNoType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="YesNoType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Yes" />
+      <xs:enumeration value="No" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FaultDetails">
+    <xs:sequence>
+      <xs:element name="major" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="minor" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaultDetails" nillable="true" type="tns:FaultDetails" />
+  <xs:complexType name="ProviderDetail">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ProviderInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderAddress" type="tns:AddressType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Website" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Phone" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Fax" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProviderInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UKPRN" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UPIN" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TFPlusLoans" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_LearnerDestination" type="xs:double" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_LearnerSatisfaction" type="xs:double" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_EmployerSatisfaction" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Address_line_1" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Address_line_2" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Town" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="County" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PostCode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Latitude" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Longitude" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LDCSInputType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryCode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="QualificationTypes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QualificationType" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="QualificationLevels">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QualificationLevel" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StudyModeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudyMode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttendaceModeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AttendanceMode" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AttendancePatternType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AttendancePattern" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="A10InputType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="A10Code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SortType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A" />
+      <xs:enumeration value="D" />
+      <xs:enumeration value="S" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ResultInfoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="NoOfPages" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NoOfRecords" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PageNo" type="xs:integer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CourseInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseID" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseTitle" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="QualificationType" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="QualificationLevel" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LDCS" type="tns:LDCSOutputType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NoOfOpps" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CourseSummary" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LDCSOutputType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="CatCode1" type="tns:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CatCode2" type="tns:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CatCode3" type="tns:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CatCode4" type="tns:LDCSInfoType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CatCode5" type="tns:LDCSInfoType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CourseDetail">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:CourseInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="AwardingBody" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EntryRequirements" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AssessmentMethod" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EquipmentRequired" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="URL" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="BookingURL" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TariffRequired" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LADID" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="DataType">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="UCAS" />
+                <xs:enumeration value="LAD - Type1" />
+                <xs:enumeration value="LAD - Type2" />
+                <xs:enumeration value="No LAD - Type3" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="QualificationReferenceAuthority" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="QualificationReference" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="QualificationTitle" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Level2EntitlementCategoryDesc" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Level3EntitlementCategoryDesc" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SectorLeadBodyDesc" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AccreditationStartDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AccreditationEndDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CertificationEndDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CreditValue" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="QCAGuidedLearningHours" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IndependentLivingSkills">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Y" />
+                <xs:enumeration value="N" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" name="SkillsForLifeFlag">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Y" />
+                <xs:enumeration value="N" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="SkillsForLifeTypeDesc" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ERAppStatus">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Invalid" />
+                <xs:enumeration value="Valid" />
+                <xs:enumeration value="NotNewStarts" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" name="ERTTGStatus">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Invalid" />
+                <xs:enumeration value="Valid" />
+                <xs:enumeration value="NotNewStarts" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" name="AdultLRStatus">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Invalid" />
+                <xs:enumeration value="Valid" />
+                <xs:enumeration value="NotNewStarts" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="1" maxOccurs="1" name="OtherFundingNonFundedStatus">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Valid" />
+                <xs:enumeration value="NotNewStarts" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OpportunityInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="OpportunityId" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudyMode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttendanceMode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttendancePattern" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StartDate" type="tns:StartDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EndDate" type="xs:string" />
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Venue" type="tns:VenueInfo" />
+      </xs:choice>
+      <xs:element minOccurs="0" maxOccurs="1" name="Duration" type="tns:DurationType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StartDateType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element minOccurs="0" maxOccurs="1" name="Date" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="DateDesc" type="xs:string" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VenueInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="VenueName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Distance" type="xs:float" />
+      <xs:element minOccurs="0" maxOccurs="1" name="VenueAddress" type="tns:AddressType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DurationType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DurationValue" nillable="true" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DurationUnit" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DurationDescription" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OpportunityDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ProviderOpportunityId" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Price" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PriceDesc" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StartDate" type="tns:StartDateType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EndDate" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Duration" type="tns:DurationType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="StudyMode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttendanceMode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttendancePattern" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Timetable" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LanguageOfAssessment" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LanguageOfInstruction" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PlacesAvailable" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EnquireTo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyTo" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyFromDate" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyUntilDate" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplyUntilDesc" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="URL" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="A10" type="xs:string" />
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="VenueID" type="xs:integer" />
+      </xs:choice>
+      <xs:element minOccurs="0" maxOccurs="1" name="ApplicationAcceptedThroughoutYear">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Y" />
+            <xs:enumeration value="N" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="OpportunityId" type="xs:integer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VenueDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="VenueID" type="xs:integer" />
+      <xs:element minOccurs="0" maxOccurs="1" name="VenueName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="VenueAddress" type="tns:AddressType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Website" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Phone" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Fax" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Facilities" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

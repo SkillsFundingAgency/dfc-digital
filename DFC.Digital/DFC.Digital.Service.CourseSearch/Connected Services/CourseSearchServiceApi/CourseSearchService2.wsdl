@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/Imports">
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd0" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd1" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd3" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd4" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd5" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" />
+      <xsd:import schemaLocation="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc?xsd=xsd6" namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SubjectBrowseInput">
+    <wsdl:part xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" name="parameters" element="q1:SubjectBrowseRequest" />
+  </wsdl:message>
+  <wsdl:message name="SubjectBrowseOutput">
+    <wsdl:part xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" name="parameters" element="q2:SubjectBrowseReponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_GetCategories_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q3:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="ProviderSearchInput">
+    <wsdl:part xmlns:q4="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" name="ProviderSearchRequest" element="q4:ProviderSearchRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProviderSearchOutput">
+    <wsdl:part xmlns:q5="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" name="ProviderSearchResponse" element="q5:ProviderSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_ProviderSearch_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q6:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="CourseListInput">
+    <wsdl:part xmlns:q7="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" name="CourseListRequest" element="q7:CourseListRequest" />
+  </wsdl:message>
+  <wsdl:message name="CourseListOutput">
+    <wsdl:part xmlns:q8="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" name="CourseListResponse" element="q8:CourseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_CourseList_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q9:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="CourseDetailInput">
+    <wsdl:part xmlns:q10="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" name="parameters" element="q10:CourseDetailRequest" />
+  </wsdl:message>
+  <wsdl:message name="CourseDetailOutput">
+    <wsdl:part xmlns:q11="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" name="parameters" element="q11:CourseDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_CourseDetail_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q12:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="ProviderDetailsInput">
+    <wsdl:part xmlns:q13="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" name="parameters" element="q13:ProviderDetailsRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProviderDetailsOutput">
+    <wsdl:part xmlns:q14="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" name="parameters" element="q14:ProviderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_ProviderDetails_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q15:FaultDetails" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceInterface">
+    <wsdl:operation name="GetCategories">
+      <wsdl:input wsaw:Action="urn:CourseBrowse" name="SubjectBrowseInput" message="tns:SubjectBrowseInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/GetCategoriesResponse" name="SubjectBrowseOutput" message="tns:SubjectBrowseOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseBrowse" name="FaultDetails" message="tns:ServiceInterface_GetCategories_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProviderSearch">
+      <wsdl:input wsaw:Action="urn:ProviderSearchOperation" name="ProviderSearchInput" message="tns:ProviderSearchInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/ProviderSearchResponse" name="ProviderSearchOutput" message="tns:ProviderSearchOutput" />
+      <wsdl:fault wsaw:Action="urn:ProviderSearchOperation" name="FaultDetails" message="tns:ServiceInterface_ProviderSearch_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CourseList">
+      <wsdl:input wsaw:Action="urn:CourseListOperation" name="CourseListInput" message="tns:CourseListInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/CourseListResponse" name="CourseListOutput" message="tns:CourseListOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseListOperation" name="FaultDetails" message="tns:ServiceInterface_CourseList_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CourseDetail">
+      <wsdl:input wsaw:Action="urn:CourseDetailOperation" name="CourseDetailInput" message="tns:CourseDetailInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/CourseDetailResponse" name="CourseDetailOutput" message="tns:CourseDetailOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseDetailOperation" name="FaultDetails" message="tns:ServiceInterface_CourseDetail_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProviderDetails">
+      <wsdl:input wsaw:Action="urn:ProviderDetailsOperation" name="ProviderDetailsInput" message="tns:ProviderDetailsInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/ProviderDetailsResponse" name="ProviderDetailsOutput" message="tns:ProviderDetailsOutput" />
+      <wsdl:fault wsaw:Action="urn:ProviderDetailsOperation" name="FaultDetails" message="tns:ServiceInterface_ProviderDetails_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,11 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileAnchorLinksViewModel
+<nav aria-label="skip to your documents" class="jump-links" role="navigation">
+            <ol class="list list-number job-profile-anchorlinks">
+                @foreach (var link in Model.AnchorLinks)
+                {
+                    <li>
+                        <a href="#@link.LinkTarget">@link.LinkText</a>
+                    </li>
+                }
+            </ol>
+</nav>

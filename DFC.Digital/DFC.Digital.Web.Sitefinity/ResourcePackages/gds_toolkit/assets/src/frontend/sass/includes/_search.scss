@@ -1,0 +1,266 @@
+﻿.search-title {
+    @include bold-24;
+    padding-bottom: 10px
+}
+
+.search-header {
+    position: relative;
+    margin: 0;
+    padding: 10px 0 15px;
+    overflow: visible;
+
+    @include media(tablet) {
+        padding: 20px 0 30px;
+        width: 66.666%;
+    }
+
+    .searchfield {
+        position: relative
+    }
+
+    .search-input {
+        position: static;
+        margin: 0;
+    }
+
+    .search-submit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 50px;
+        width: 50px;
+        overflow: visible;
+    }
+
+    input {
+        border: 1px solid #bbb;
+        -webkit-appearance: none;
+        border-radius: 0;
+        @include core-19;
+        text-transform: none;
+        font-size-adjust: 0.5;
+        @include box-sizing(border-box);
+        width: 100%;
+        margin: 0;
+        padding: 0 50px 0 10px;
+        display: block;
+        height: 50px;
+        border-color: #bfc1c3;
+        border-right: none;
+    }
+
+    button {
+        @include border-radius(0);
+        @include box-shadow(none);
+        position: absolute;
+        z-index: 4;
+        right: 0;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        border: none;
+        overflow: hidden;
+        text-indent: -5000px;
+        color: $white;
+        background: $light-blue file-url("icon-search-2x.png") no-repeat 60% 50%;
+        background-size: 24px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($light-blue, 5%);
+        }
+
+        &:focus {
+            background-color: $light-blue;
+        }
+
+        &:active {
+            top: 0;
+        }
+    }
+
+    .search-dym {
+        margin-top: 0.5em;
+        @include core-19;
+    }
+}
+
+#results {
+    width: 66.66667%;
+
+    @include media(mobile) {
+        width: 100%;
+    }
+
+    .results-block {
+        .result-count {
+            padding: 0;
+        }
+
+        .results-list {
+            list-style: none;
+            margin: 0;
+            padding: 30px 0;
+
+            li {
+                max-width: 32.5em;
+                margin: 0;
+                padding: 0 0 15px;
+
+                @include media(tablet) {
+                    padding: 0 0 40px;
+                }
+            }
+
+            h3 {
+                @include core-24;
+                margin: 0 0 0.25em 0;
+
+                a {
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+            }
+
+            .result-description {
+                margin: 0 0 0.5em 0;
+                @include core-19;
+            }
+
+            .meta {
+                color: $grey-1;
+                @include core-16;
+            }
+
+            .results-salary {
+                @extend .bold-xsmall;
+                margin-bottom: 0.75em;
+            }
+
+            .results-categories {
+                @extend .grey;
+                @extend .font-xsmall;
+
+                a:after {
+                    content: ",";
+                }
+
+                a:last-child:after {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.ui-autocomplete {
+    background-color: $white;
+    color: $black;
+    border: 1px solid $grey-2;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: absolute;
+    width: calc(100% - 40px);
+    top: 100%;
+    z-index: 500;
+
+    li {
+        padding: 0;
+        margin: 0;
+        font-size: 19px;
+
+        div {
+            padding: 5px 10px;
+            border-bottom: 1px solid $grey-3;
+
+            &:hover {
+                background-color: $grey-3;
+                cursor: pointer;
+            }
+        }
+
+        .ui-state-active {
+            background-color: $grey-3;
+        }
+
+        &:last-child {
+            div {
+                border: none;
+            }
+        }
+    }
+}
+
+.signpost_container {
+    @include core-19;
+    color: $white;
+    @extend %contain-floats;
+
+    &:hover {
+        a {
+            background-color: darken($govuk-blue, 4%);
+        }
+    }
+
+    .signpost_content {
+        padding: 0 !important;
+    }
+}
+
+.signpost_content {
+    color: $white;
+    @include core-19;
+    box-sizing: border-box;
+    background-color: $careers-turquoise;
+    position: relative;
+    overflow: auto;
+    clear: both;
+
+    a {
+        color: $white;
+        @include core-19;
+        box-sizing: border-box;
+        background-color: $careers-turquoise;
+        display: block;
+        position: relative;
+        padding: 20px 40px;
+        overflow: auto;
+        text-decoration: none;
+
+        &:hover {
+            background-color: darken($careers-turquoise, 4%);
+        }
+    }
+
+    h3 {
+        margin: 0 0 0 0;
+        display: block;
+        text-decoration: underline;
+        font-weight: bold;
+
+        &:before {
+            content: "<";
+            position: absolute;
+            left: 20px;
+            text-decoration: none;
+            font-weight: normal;
+        }
+    }
+
+    p {
+        margin: 5px 0 0 0;
+        display: inline;
+
+        @include media(mobile) {
+            display: block;
+        }
+    }
+}
+
+.signpost_jp {
+    h3 {
+        display: inline;
+    }
+}

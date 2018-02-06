@@ -1,0 +1,95 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfSearchResultsViewModel
+<div class="content-container">
+    <div class="filter-form">
+        @{ Html.EnableClientValidation(false); }
+        
+        <form action="@Model.BackPageUrl" method="post">
+            <div id="BackLink" class="breadcrumbs">
+                <ol>
+                    <li>
+                        <button type="submit" class="button-link" id="filter-home" formaction="@Model.BackPageUrl">@Model.BackPageUrlText</button>
+                    </li>
+                </ol>
+            </div>
+            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
+            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
+            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+        </form>
+     
+            <header class="filter-results-header">
+                <h1 class="filter-results-heading">@Model.MainPageTitle</h1>
+                <p class="filter-results-subheading">@Model.SecondaryText</p>
+                <div class="filter-results-count scoped-result-count">@Model.TotalResultsMessage</div>
+            </header>
+
+            <div id="results">
+                <div class="results-block">
+                    <div class="inner-block">
+
+                        @if (Model.Count.HasValue && Model.Count > 0)
+                        {
+                            <ol class="results-list">
+                                @foreach (var jobProfile in Model.SearchResults)
+                                {
+                                    <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
+                                        <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
+                                        @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
+                                        {
+                                            <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                                        }
+                                        <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
+                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @jobProfile.ResultItemSalaryRange</span></p>
+                                        @if (jobProfile.JobProfileCategoriesWithUrl != null)
+                                        {<p class="results-categories">
+                                                Found in:
+                                                @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
+                                                {
+                                                    var title = category.Split('|').First();
+                                                    var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
+                                                    <a href="@url">@title</a>
+                                                }
+                                            </p>
+                                        }
+                                    </li>
+                                }
+                            </ol>
+                            <ul class="previous-next-navigation">
+                                @if (Model.HasNexPage)
+                                {
+                                    <li class="dfc-code-search-next next">
+                                        <form action="@Model.NextPageUrl" method="post">
+                                            <button type="submit" id="nextBtn">
+                                                <span class="pagination-label">Next</span>
+                                                <span class="visuallyhidden">page</span>
+                                                <span class="page-numbers">@Model.NextPageUrlText</span>
+                                            </button>
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+                                        </form>
+                                    </li>
+
+                                }
+                                @if (Model.HasPreviousPage)
+                                {
+                                    <li class="dfc-code-search-previous previous">
+                                        <form action="@Model.PreviousPageUrl" method="post">
+                                            <button type="submit" id="prevBtn">
+                                                <span class="pagination-label">Previous</span>
+                                                <span class="visuallyhidden">page</span>
+                                                <span class="page-numbers">@Model.PreviousPageUrlText</span>
+                                            </button>
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
+                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+                                        </form>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>

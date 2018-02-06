@@ -1,0 +1,102 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileSearchResultViewModel
+@using (Html.BeginForm("Search", "JobProfileSearchBox", FormMethod.Post, new { id = "header-search", @class = "js-live-search-form" }))
+{
+    <div class="search-header">
+        <div class="searchfield">
+            <fieldset class="search-input ui-front">
+                <label for="search-main">
+                    <h1 class="search-title">
+                        Search results for <span class="visuallyhidden">“@Model.SearchTerm”</span>
+                    </h1>
+                </label>
+               @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
+               @type = "search",
+               @id = "search-main",
+               @PlaceHolder = Model.PlaceHolderText,
+               data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
+               data_autocomplete_source = "/searchautocomplete",
+               data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
+               data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
+               })
+            </fieldset>
+            <fieldset class="search-submit">
+                <button type="submit" class="button">Search</button>
+            </fieldset>
+        </div>
+        <div class="search-dym">
+            @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl))
+            {
+                <span>
+                    Did you mean <a href="@Model.DidYouMeanUrl"> @Model.DidYouMeanTerm </a>
+                </span>
+            }
+        </div>
+    </div>
+}
+<div id="results">
+    <div class="results-block">
+        <div class="inner-block">
+            <div class="result-count">
+                @Model.TotalResultsMessage
+            </div>
+            @if (Model.Count.HasValue && Model.Count > 0)
+            {
+                <ol class="results-list">
+                    @foreach (var jobProfile in Model.SearchResults)
+                    {
+                        <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
+                            <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
+                            @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
+                            {
+                                <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                            }
+                            <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
+                            <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary">@if (string.IsNullOrEmpty(jobProfile.ResultItemSalaryRange))
+                                                                    {
+                                                                        @Model.SalaryBlankText
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @jobProfile.ResultItemSalaryRange
+                                                                    }</span>
+                            </p>
+                            @if (jobProfile.JobProfileCategoriesWithUrl != null)
+                            {   <p class="results-categories">
+                                Found in:
+                                @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
+                                {
+                                    var title = category.Split('|').First();
+                                    var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
+                                    <a href="@url">@title</a>
+                                }
+                            </p>
+                            }
+                        </li>
+                    }
+                </ol>
+                <ul class="previous-next-navigation">
+                    @if (Model.HasNexPage)
+                    {
+                        <li class="dfc-code-search-next next">
+                            <a class="dfc-code-search-nextlink" href="@Model.NextPageUrl" id="nextBtn">
+                                <span class="pagination-label">Next</span>
+                                <span class="visuallyhidden">page</span>
+                                <span class="page-numbers">@Model.NextPageUrlText</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Model.HasPreviousPage)
+                    {
+                        <li class="dfc-code-search-previous previous">
+                            <a class="dfc-code-search-previouslink" href="@Model.PreviousPageUrl" id="prevBtn">
+                                <span class="pagination-label">Previous</span>
+                                <span class="visuallyhidden">page</span>
+                                <span class="page-numbers">@Model.PreviousPageUrlText</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>

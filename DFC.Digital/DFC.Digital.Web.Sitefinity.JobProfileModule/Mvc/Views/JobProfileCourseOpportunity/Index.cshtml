@@ -1,0 +1,45 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileCourseSearchViewModel
+
+@if (!string.IsNullOrWhiteSpace(Model.MainSectionTitle))
+{
+    <h2 class="heading-large">@Model.MainSectionTitle</h2>
+}
+
+<div class="grid-row dfc-code-jp-trainingCourse">
+        <div class="column-full">
+            <h3 class="heading-medium">
+                @Model.CoursesSectionTitle
+                <span class="heading-secondary">@Model.CoursesLocationDetails</span>
+            </h3>
+        </div>
+        @if (Model.CoursesAvailable)
+        {
+            foreach (var trainingCourse in Model.Courses)
+            {
+                <div class="column-half">
+                    <div class="panel panel-border-narrow opportunity-item">
+                        <h3 class="heading-small"><a href="@($"{Model.CourseLink}{trainingCourse.CourseId}")">@trainingCourse.Title</a>
+                        </h3>
+                        <ul class="list">
+                            <li><span class="bold-small">Provider:</span> @trainingCourse.ProviderName</li>
+                            <li><span class="bold-small">Start date:</span> @trainingCourse.StartDate.ToString("dd MMMM yyyy")</li>
+                            <li><span class="bold-small">Location:</span> @trainingCourse.Location</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @if (!Model.CoursesAvailable)
+    {
+        <div class="dfc-code-jp-NoTrainingCoursesText">
+            <p>
+            @Html.Raw(Model.NoTrainingCoursesText)
+            </p>
+        </div>
+    }
+    <div class="dfc-code-jp-FindTrainingCoursesLink opportunity-footer">
+        <p>
+            <a href="@Model.FindTrainingCoursesLink">@Model.FindTrainingCoursesText</a>
+        </p>
+    </div>

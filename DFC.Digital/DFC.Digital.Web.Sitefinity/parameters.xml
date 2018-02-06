@@ -81,12 +81,6 @@
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
                     match="/securityConfig/relyingParties/add/@key" />
   </parameter>
-  <parameter name="Sitefinity_Security_Roles"
-           description="Tokenize the roles section in the security config"
-           defaultValue="__sitefinitySecurityRolesSection__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/applicationRoles" />
-  </parameter>
 
   <!--ApplicationInsights.config-->
   <parameter name="ApplicationInsights"

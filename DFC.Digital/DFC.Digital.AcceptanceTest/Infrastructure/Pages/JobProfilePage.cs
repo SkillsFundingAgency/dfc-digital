@@ -21,7 +21,9 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool HasSalarySection => Find.OptionalElement(By.Id("Salary")) != null;
 
-        public bool HasWorkingHoursSection => Find.OptionalElement(By.Id("WorkingHoursPatternsAndEnvironment")) != null;
+        public bool HasWorkingHoursSection => Find.OptionalElement(By.Id("WorkingHours")) != null;
+
+        public bool HasWorkingHoursPatternsSection => Find.OptionalElement(By.Id("WorkingHoursPatterns")) != null;
 
         public bool HasCareerPathSection => Find.OptionalElement(By.Id("CareerPathAndProgression")) != null;
 

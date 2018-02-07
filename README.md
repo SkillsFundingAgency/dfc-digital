@@ -127,7 +127,7 @@ LMI For All API -
 http://api.lmiforall.org.uk/
 
 and more specifically we are using 
-get /ashe/estimatePayMD 
+Get /ashe/estimatePayMD 
 which Gets an estimation of the median and decile distribution of weekly pay for a job.
 
 

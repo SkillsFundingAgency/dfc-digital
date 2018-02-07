@@ -1086,8 +1086,7 @@ main.homepage .phase-banner {
       width: 40px;
       height: 40px;
       position: relative;
-      margin-right: 20px;
-      margin-bottom: 20px; }
+      margin-right: 20px; }
     .job-profile-hero .job-profile-heroblock .job-profile-heroblock-content h5 {
       font-size: 20px;
       line-height: 1.25;
@@ -1167,8 +1166,12 @@ main.homepage .phase-banner {
           display: none; } }
   .job-profile-hero .job-profile-heroblock .job-profile-hours:before {
     background: url("../images/clock.svg") no-repeat center; }
+  .job-profile-hero .job-profile-heroblock .job-profile-hours h5 {
+    margin-left: 60px; }
   .job-profile-hero .job-profile-heroblock .job-profile-pattern:before {
     background: url("../images/calendar-alt.svg") no-repeat center; }
+  .job-profile-hero .job-profile-heroblock .job-profile-pattern h5 {
+    margin-left: 60px; }
   @media (max-width: 749px) {
     .job-profile-hero .job-profile-heroblock:nth-child(odd) {
       background-color: #ebebeb; }

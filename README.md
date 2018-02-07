@@ -60,6 +60,9 @@ This will prepare the database and get it ready for populating with relevant con
 
 ## SQL Azure
 
+## REDIS
+Redis caching is not used on local development machines. But it is used when our solution is deployed in Azure Load Balanced environment. 
+
 ## Azure Search
 
 The default search features in this solution use Azure Search as its search engine. 
@@ -106,5 +109,9 @@ Once configuration is complete, trigger a reindex operation from Sitefinity to b
 
 
 
+## Bing spell check
 
+## Course finder
+
+## LMI for all
 

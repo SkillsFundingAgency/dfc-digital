@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
   <!-- AuthenticationConfig configurations -->
-  <parameter name="Sitefinity_Auth_Client"
-             description="Tokenize the sitefinity auth client to be replaced by VSTS task"
-             defaultValue="__authClient__">
-    <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
-                    match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dfcintegration']/@authClient" />
-  </parameter>
   <parameter name="Sitefinity_Client_Id"
              description="Tokenize the sitefinity client Id to be replaced by VSTS task"
              defaultValue="__clientId__">
@@ -67,13 +61,13 @@
              description="Tokenize the sitefinity decryptionKey to be replaced by VSTS task"
              defaultValue="__sitefinitySecurityDecryptionKey__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/SecurityConfig/@decryptionKey" />
+                    match="/securityConfig/@decryptionKey" />
   </parameter>
   <parameter name="Sitefinity_SecurityConfig_validationKey"
            description="Tokenize the sitefinity validationKey to be replaced by VSTS task"
-           defaultValue="__sitefinitySecurityValidationKey___">
+           defaultValue="__sitefinitySecurityValidationKey__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/SecurityConfig/@validationKey" />
+                    match="/securityConfig/@validationKey" />
   </parameter>
   <parameter name="Sitefinity_SecurityToken_Issuers"
              description="Tokenize the sitefinity security token issuers to be replaced by VSTS task"
@@ -86,12 +80,6 @@
              defaultValue="__securityRelyingParties__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
                     match="/securityConfig/relyingParties/add/@key" />
-  </parameter>
-  <parameter name="Sitefinity_Security_Roles"
-           description="Tokenize the roles section in the security config"
-           defaultValue="__sitefinitySecurityRolesSection__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/applicationRoles" />
   </parameter>
 
   <!--ApplicationInsights.config-->

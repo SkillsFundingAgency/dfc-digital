@@ -17,13 +17,16 @@
 
 
         input[type=checkbox], input[type=radio] {
-            display: none;
+            display: block;
+            height: 0px;
+            width: 0px;
+            position: absolute;
 
             & + input + label, & + label {
                 flex: 1;
                 min-width: 100%;
                 max-width: 100%;
-                margin: 1%;
+                margin: 10px 1%;
                 padding: 20px;
                 background-color: darken($grey-4, 5%);
                 @include bold-19;

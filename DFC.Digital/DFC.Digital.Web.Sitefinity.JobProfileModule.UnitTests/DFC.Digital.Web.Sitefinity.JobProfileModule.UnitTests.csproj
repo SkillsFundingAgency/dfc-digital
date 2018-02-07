@@ -130,6 +130,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\JobProfileBauSignPostingControllerTests.cs" />
     <Compile Include="Controllers\JobProfileByCategoryControllerTests.cs" />
     <Compile Include="Controllers\JobProfileCourseOpportunityControllerTests.cs" />
     <Compile Include="Controllers\JobProfileApprenticeshipsControllerTests.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Controllers\PreSearchFiltersControllerTests.cs" />
     <Compile Include="Controllers\PsfSearchControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\BauJobProfileSignPostViewTests.cs" />
     <Compile Include="Views\JobProfileAnchorViewTests.cs" />
     <Compile Include="Views\JobProfileCourseOpportunityViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />

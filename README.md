@@ -7,13 +7,13 @@ List of dependencies in a table
 
 |Item	|Purpose|
 |-------|-------|
-|Sitefinity ||	
-|SQL Azure||	
-|REDIS	|Needed for local?|
-|Azure Search||	
-|Bing spell check	||
-|Course finder	||
-|LMI for all||	
+|Sitefinity |Main CMS for maintaining and displaying content|	
+|SQL Azure|SQL database used by Sitefinity CMS|	
+|REDIS	|Cache - Not needed for single instance|
+|Azure Search|Search engine for searching Job Profiles  |	
+|Bing spell check	|API used for suggest feature in cases where incorrect word are type in the search |
+|Course finder	|API used to display available course related to a Job Profile|
+|LMI for all|API used to obtain indicative salary informaiton for a Job Profile|	
 
 
 
@@ -88,6 +88,18 @@ DFC.Digital\DFC.Digital.Web.Sitefinity folder of the solution.
 * It is also used by the acceptance tests in the soultion and these can be configured in the app.config file at 
 DFC.Digital\DFC.Digital.AcceptanceTest folder.
 
+| Config File   | Key                                       | Token                       | Example value             |
+|-------------| ----------------------------------------- |-----------------------      |:----------------:|
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.JobProfileSearchIndex |	\_\_jobProfileSearchIndex\_\_ | jobprofilesIndex-debug | 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.SearchServiceName |	\_\_searchServiceName\_\_	| jobprofile-search| 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.SearchServiceAdminAPIKey |	\_\_searchServiceAdminApiKey\_\_	| 12C371B3C2368D0A5E15C533138C4297 | 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.JobProfileSearchIndex |	\_\_jobProfileSearchIndex\_\_ | jobprofilesIndex-debug | 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.SearchServiceName |	\_\_searchServiceName\_\_	| jobprofile-search| 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.SearchServiceAdminAPIKey |	\_\_searchServiceAdminApiKey\_\_	| 12C371B3C2368D0A5E15C533138C4297 | 
+
+
+DFC.Digital.Web.Sitefinity\web.config
+
 You can set up a free trial search service by following the instructions at this URL
 [Azure Search Set Up](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
 
@@ -116,19 +128,50 @@ Enablers, EntryQualifications, Interests, PreferredTaskTypes, JobAreas.
 Once configuration is complete, trigger a reindex operation from Sitefinity to build the initial indexes in Azure.
 
 
-
 ## Bing spell check
 
+To aid users with spell checking when using the search option, the system has a "Did you mean" feature to suggest corrections.
+This feature makes use of the Bing Spell Check API, which is part of Azure cognitive services.
+You can set up a free trial account to use this service at this URL 
+[Azure Cognitive Services.](https://azure.microsoft.com/en-us/try/cognitive-services/?api=spellcheck-api)
+
+Once you have set up your Spell Check Service you will be able to replace the Bing Spell API configuration key in the system at the following locations.
+
+| Config File   | Key                                       | Token                       | Example value             |
+|-------------| ----------------------------------------- |-----------------------      |:----------------:|
+|DFC.Digital.Web.Sitefinity\web.config | DFC.Cognitive.BingSpellCheck.ApiKey |	\_\_bingSpellCheckApiKey\_\_ | 6d5102d3104a4308821cbeeb1e57093 | 
+|DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests\app.config | DFC.Cognitive.BingSpellCheck.ApiKey |	\_\_bingSpellCheckApiKey\_\_ | 6d5102d3104a4308821cbeeb1e57093 | 
+
 ## Course finder
+
+When users are viewing Job profile details the service will try and present them with upto two suggestions for related current courses that may exist.
+These courses are retrived from the Course Directory Provider Portal provided by the Skills Funding Agency.
+
+#### Course Search Service
+Details on using the API and requesting an account can be found at  [Course Search Service](https://opendata.coursedirectoryproviderportal.org.uk/CourseSearchService.svc) and the 
+document [Course Directory API.](https://coursedirectoryproviderportal.org.uk/Content/Files/Help/Course%20Directory%20API.pdf)
+
+#### NoSQL Databasefor Course Search Service Audit
+
+The course search service logs requests, responses and failures to a NoSQL database.
+You can set up a trial NoSQL database at this URL [Azure Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/?v=17.45a)
+ 
+
+Once you have set up the service you will be able the replace the tokens for the configuration keys in the locations below.
+
+| Config File   | Key                                       | Token                       | Example value             |
+|-------------| ----------------------------------------- |-----------------------      |:----------------:|
+|DFC.Digital.Web.Sitefinity\web.config | DFC.Digital.CourseSearchApiKey |	\_\_courseSearchApiKey\_\_ | 6d5102d3104a4308821cbeeb1e57093 | 
+|DFC.Digital.Web.Sitefinity\web.config | DFC.Digital.CourseSearchAudit.EndpointUrl |	\_\_cosmosDbEndpointUrl\_\_ | https://coursesearch.Aadit.documents.azure.com:443 | 
+|DFC.Digital.Web.Sitefinity\web.config | DFC.Digital.CourseSearchAudit.PrimaryKey |	\_\_cosmosDbPrimaryKey\_\_ | fGzzzD3Wd34lkdjfkdf dsjfksjdfkdsfjksdfj354lk45l4543jk2354325lk232DF313j2321jklldgfdgld9FWweeYkhw3Zffz==| 
+
 
 ## LMI For All API
 
 LMI For All API - 
 http://api.lmiforall.org.uk/
 
-and more specifically we are using 
-Get /ashe/estimatePayMD 
-which Gets an estimation of the median and decile distribution of weekly pay for a job.
+The solution  uses the Get /ashe/estimatePayMD API to get an estimation of the median and decile distribution of weekly pay for a job.
 
 
 | Config File   | Key                                       | Token                       | Example value             |
@@ -139,4 +182,4 @@ which Gets an estimation of the median and decile distribution of weekly pay for
 You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)
 
 In our solution we have SalaryCalcluator which calculates yearly salary for starter and experienced levels.
-We also could overide and ignore the data provided by the LMI salary feed and display data which is stored locally in Sitefinity database.
+The CMS system can be configured to ignore the data provided by the LMI salary feed and display data which is stored locally in Sitefinity database.

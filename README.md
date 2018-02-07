@@ -73,6 +73,18 @@ DFC.Digital\DFC.Digital.Web.Sitefinity folder of the solution.
 * It is also used by the acceptance tests in the soultion and these can be configured in the app.config file at 
 DFC.Digital\DFC.Digital.AcceptanceTest folder.
 
+| Config File   | Key                                       | Token                       | Example value             |
+|-------------| ----------------------------------------- |-----------------------      |:----------------:|
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.JobProfileSearchIndex |	\_\_jobProfileSearchIndex\_\_ | jobprofilesIndex-debug | 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.SearchServiceName |	\_\_searchServiceName\_\_	| jobprofile-search| 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.SearchServiceAdminAPIKey |	\_\_searchServiceAdminApiKey\_\_	| 12C371B3C2368D0A5E15C533138C4297 | 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.JobProfileSearchIndex |	\_\_jobProfileSearchIndex\_\_ | jobprofilesIndex-debug | 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.SearchServiceName |	\_\_searchServiceName\_\_	| jobprofile-search| 
+|DFC.Digital.AcceptanceTest\App.config |	DFC.Digital.SearchServiceAdminAPIKey |	\_\_searchServiceAdminApiKey\_\_	| 12C371B3C2368D0A5E15C533138C4297 | 
+
+
+DFC.Digital.Web.Sitefinity\web.config
+
 You can set up a free trial search service by following the instructions at this URL
 [Azure Search Set Up](https://docs.microsoft.com/en-us/azure/search/search-create-service-portal)
 

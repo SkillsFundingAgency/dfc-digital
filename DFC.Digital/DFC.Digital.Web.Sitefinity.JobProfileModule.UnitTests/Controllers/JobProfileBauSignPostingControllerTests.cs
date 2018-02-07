@@ -19,16 +19,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         private JobProfile dummyJobProfile;
 
         [Theory]
-        [InlineData("BetaJPUrl", false, "", false)]
-        [InlineData("BetaJPUrl", true, "", false)]
-        [InlineData("BetaJPUrl", true, "BAUJPUrl", true)]
-        [InlineData("BetaJPUrl", false, "BAUJPUrl", true)]
-        public void SignPostingTest(string urlName, bool doesNotExistInBau, string overRideBauurl, bool isContentAuthoring)
+        [InlineData("BetaJPUrl", false, "", false, "job-profiles/BetaJPUrl")]
+        [InlineData("BetaJPUrl", true, "", false, "job-profiles/BetaJPUrl")]
+        [InlineData("BetaJPUrl", true, "BAUJPUrl", true, "job-profiles/home")]
+        [InlineData("BetaJPUrl", false, "BAUJPUrl", true, "job-profiles/BAUJPUrl")]
+        public void SignPostingTest(string urlName, bool doesNotExistInBau, string overRideBauUrl, bool isContentAuthoring, string expectedJpurl)
         {
             //Set up comman call
             SetUpDependeciesAndCall(true, isContentAuthoring);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauurl;
+            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
             dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
@@ -38,31 +38,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Act
             var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
 
-            string expectedJpurl;
-
-            if (doesNotExistInBau)
-            {
-                //Does not exist in BAU point to home
-                expectedJpurl = "job-profiles/home";
-            }
-            else
-            {
-                if (overRideBauurl == string.Empty)
-                {
-                    expectedJpurl = $"job-profiles/{urlName}";
-                }
-                else
-                {
-                    expectedJpurl = $"job-profiles/{overRideBauurl}";
-                }
-            }
-
             //Assert
-            if (!isContentAuthoring)
-            {
-                indexNameMethodCall.ShouldRedirectTo("\\");
-            }
-            else
+            if (isContentAuthoring)
             {
                 indexNameMethodCall.ShouldRenderDefaultView()
                     .WithModel<BauJpSignPostViewModel>(vm =>
@@ -70,19 +47,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                         vm.SignPostingHtml.Should().Contain(expectedJpurl);
                     }).AndNoModelErrors();
             }
+            else
+            {
+                indexNameMethodCall.ShouldRedirectTo("\\");
+            }
         }
 
         [Theory]
-        [InlineData("BetaJPUrl", false, "")]
-        [InlineData("BetaJPUrl", true, "")]
-        [InlineData("BetaJPUrl", true, "BAUJPUrl")]
-        [InlineData("BetaJPUrl", false, "BAUJPUrl")]
-        public void SignPostingUrlTest(string urlName, bool doesNotExistInBau, string overRideBauurl)
+        [InlineData("BetaJPUrl", false, "", "job-profiles/BetaJPUrl")]
+        [InlineData("BetaJPUrl", true, "", "job-profiles/home")]
+        [InlineData("BetaJPUrl", true, "BAUJPUrl", "job-profiles/home")]
+        [InlineData("BetaJPUrl", false, "BAUJPUrl", "job-profiles/BAUJPUrl")]
+        public void SignPostingUrlTest(string urlName, bool doesNotExistInBau, string overRideBauUrl, string expectedJpurl)
         {
             //Set up comman call
             SetUpDependeciesAndCall(true, false);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauurl;
+            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
             dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
@@ -91,25 +72,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             //Act
             var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
-
-            string expectedJpurl;
-
-            if (doesNotExistInBau)
-            {
-                //Does not exist in BAU point to home
-                expectedJpurl = "job-profiles/home";
-            }
-            else
-            {
-                if (overRideBauurl == string.Empty)
-                {
-                    expectedJpurl = $"job-profiles/{urlName}";
-                }
-                else
-                {
-                    expectedJpurl = $"job-profiles/{overRideBauurl}";
-                }
-            }
 
             //Assert
             indexWithUrlNameMethodCall.ShouldRenderDefaultView()

@@ -70,14 +70,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private BauJpSignPostViewModel PopulateSignPosting()
         {
-            var model = new BauJpSignPostViewModel
+            var jpexists = MatchingJpinBauText.Replace("REPLACEWITHJPURL", string.IsNullOrWhiteSpace(CurrentJobProfile.BAUSystemOverrideUrl) ? CurrentJobProfile.UrlName : CurrentJobProfile.BAUSystemOverrideUrl);
+            return new BauJpSignPostViewModel
             {
-                SignPostingHtml = CurrentJobProfile.DoesNotExistInBAU == false
-                    ? MatchingJpinBauText.Replace("REPLACEWITHJPURL", CurrentJobProfile.BAUSystemOverrideUrl == string.Empty ? CurrentJobProfile.UrlName : CurrentJobProfile.BAUSystemOverrideUrl)
-                    : NoMatchingJpinBauText
+                SignPostingHtml = CurrentJobProfile.DoesNotExistInBAU == true ? NoMatchingJpinBauText : jpexists
             };
-
-            return model;
         }
 
         #endregion Actions

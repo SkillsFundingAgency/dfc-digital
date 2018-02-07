@@ -10,7 +10,7 @@
 
 
 //Import required Gov UK Toolkit .scss files here*/
-.notice:after, main:after, .homepage-top #header-search:after, .signpost_container:after, .job-profile-hero:after, .job-profile-search #job-profile-search-box:after, .survey_container:after, .survey_container .survey_content:after {
+.notice:after, main:after, .homepage-top #header-search:after, .signpost_container:after, .previous-next-navigation:after, .job-profile-hero:after, .job-profile-search #job-profile-search-box:after, .survey_container:after, .survey_container .survey_content:after {
   content: "";
   display: block;
   clear: both; }

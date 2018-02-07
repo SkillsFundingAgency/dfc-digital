@@ -65,7 +65,7 @@
   </parameter>
   <parameter name="Sitefinity_SecurityConfig_validationKey"
            description="Tokenize the sitefinity validationKey to be replaced by VSTS task"
-           defaultValue="__sitefinitySecurityValidationKey___">
+           defaultValue="__sitefinitySecurityValidationKey__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
                     match="/securityConfig/@validationKey" />
   </parameter>
@@ -80,12 +80,6 @@
              defaultValue="__securityRelyingParties__">
     <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
                     match="/securityConfig/relyingParties/add/@key" />
-  </parameter>
-  <parameter name="Sitefinity_Security_Roles"
-           description="Tokenize the roles section in the security config"
-           defaultValue="__sitefinitySecurityRolesSection__">
-    <parameterEntry kind="XmlFile" scope="\\SecurityConfig\.config$"
-                    match="/securityConfig/applicationRoles" />
   </parameter>
 
   <!--ApplicationInsights.config-->

@@ -7,13 +7,13 @@ List of dependencies in a table
 
 |Item	|Purpose|
 |-------|-------|
-|Sitefinity ||	
-|SQL Azure||	
-|REDIS	|Needed for local?|
-|Azure Search||	
-|Bing spell check	||
-|Course finder	||
-|LMI for all||	
+|Sitefinity |Main CMS for maintaining and displaying content|	
+|SQL Azure|SQL database used by Sitefinity CMS|	
+|REDIS	|Cache - Not needed for single instance|
+|Azure Search|Search engine for searching Job Profiles  |	
+|Bing spell check	|API used for suggest feature in cases where incorrect word are type in the search |
+|Course finder	|API used to display available course related to a Job Profile|
+|LMI for all|API used to obtain indicative salary informaiton for a Job Profile|	
 
 
 
@@ -166,18 +166,12 @@ Once you have set up the service you will be able the replace the tokens for the
 |DFC.Digital.Web.Sitefinity\web.config | DFC.Digital.CourseSearchAudit.PrimaryKey |	\_\_cosmosDbPrimaryKey\_\_ | fGzzzD3Wd34lkdjfkdf dsjfksjdfkdsfjksdfj354lk45l4543jk2354325lk232DF313j2321jklldgfdgld9FWweeYkhw3Zffz==| 
 
 
-
-
-
-## LMI for all
 ## LMI For All API
 
 LMI For All API - 
 http://api.lmiforall.org.uk/
 
-and more specifically we are using 
-get /ashe/estimatePayMD 
-which Gets an estimation of the median and decile distribution of weekly pay for a job.
+The solution  uses the Get /ashe/estimatePayMD API to get an estimation of the median and decile distribution of weekly pay for a job.
 
 
 | Config File   | Key                                       | Token                       | Example value             |
@@ -188,4 +182,4 @@ which Gets an estimation of the median and decile distribution of weekly pay for
 You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)
 
 In our solution we have SalaryCalcluator which calculates yearly salary for starter and experienced levels.
-We also could overide and ignore the data provided by the LMI salary feed and display data which is stored locally in Sitefinity database.
+The CMS system can be configured to ignore the data provided by the LMI salary feed and display data which is stored locally in Sitefinity database.

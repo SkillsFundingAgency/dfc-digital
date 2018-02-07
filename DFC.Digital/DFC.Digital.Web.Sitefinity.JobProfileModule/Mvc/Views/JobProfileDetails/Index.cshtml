@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="grid-row">
-        <div class="column-40 job-profile-heroblock">
+        <div id="Salary" class="column-40 job-profile-heroblock">
             <h4>
                 @Model.SalaryText
                 @if (!string.IsNullOrEmpty(Model.SalaryTextSpan))
@@ -38,7 +38,7 @@
                 }
             </div>
         </div>
-        <div class="column-30 job-profile-heroblock">
+        <div id="WorkingHours" class="column-30 job-profile-heroblock">
             <h4>@Model.HoursText</h4>
             @if (string.IsNullOrWhiteSpace(Model.MinimumHours) && string.IsNullOrWhiteSpace(Model.MaximumHours))
             {
@@ -67,7 +67,7 @@
         </div>
         @if (!string.IsNullOrEmpty(Model.WorkingPattern))
         {
-            <div class="column-30 job-profile-heroblock">
+            <div id="WorkingHoursPatterns" class="column-30 job-profile-heroblock">
                 <h4>
                     @Model.WorkingPatternText
                     @if (!string.IsNullOrEmpty(Model.WorkingPatternSpanText))

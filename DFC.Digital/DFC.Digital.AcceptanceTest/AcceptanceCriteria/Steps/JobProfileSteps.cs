@@ -197,6 +197,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             jobProfilePage.HasWhatYouWillDoSection.Should().BeTrue();
             jobProfilePage.HasSalarySection.Should().BeTrue();
             jobProfilePage.HasWorkingHoursSection.Should().BeTrue();
+            jobProfilePage.HasWorkingHoursPatternsSection.Should().BeTrue();
             jobProfilePage.HasCareerPathSection.Should().BeTrue();
             jobProfilePage.HasCurrentOpportunitiesSection.Should().BeTrue();
         }

@@ -27,7 +27,7 @@ Then a section for each dependency, stating what someone would need to do to sta
 
 Project - DFC.Digital.Web.Sitefinity
 
-In core of our solution is the Sitefinity CMS. In order our solution to run as prerequisite the fully fledged licenced version of Sitefinity have to be installed, configured and running.
+In core of our solution is the Sitefinity CMS. In order our solution to run as prerequisite the fully fledged licenced/trial version of Sitefinity have to be installed, configured and running.
 
 
 ‘Installation: Get started with Sitefinity CMS’
@@ -58,7 +58,15 @@ Please, be aware that PreSearchFilters AddOn should be installed first as they a
 
 This will prepare the database and get it ready for populating with relevant content.
 
-## SQL Azure
+## SQL/Azure Database
+
+Technically on installing Sitefinity you can choose any of the following Microsoft SQL Server Express, Microsoft SQL Server, Oracle, MySQL
+
+'Configure and start a Sitefinity project'
+https://docs.sitefinity.com/configure-and-start-a-project
+
+In reality we would recomend using MS SQL Server for local development and in our case we have used Azure SQL to deploy the database in Azure envirenment.
+
 
 ## REDIS
 Redis caching is not used on local development machines. But it is used when our solution is deployed in Azure Load Balanced environment. 
@@ -113,5 +121,22 @@ Once configuration is complete, trigger a reindex operation from Sitefinity to b
 
 ## Course finder
 
-## LMI for all
+## LMI For All API
 
+LMI For All API - 
+http://api.lmiforall.org.uk/
+
+and more specifically we are using 
+get /ashe/estimatePayMD 
+which Gets an estimation of the median and decile distribution of weekly pay for a job.
+
+
+| Config File   | Key                                       | Token                       | Example value             |
+|-------------| ----------------------------------------- |-----------------------      |:----------------|
+|web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
+|web.config |	DFC.Digital.AsheEstimateMdApiGateway |	not tokanised	| http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}            | 
+
+You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)
+
+In our solution we have SalaryCalcluator which calculates yearly salary for starter and experienced levels.
+We also could overide and ignore the data provided by the LMI salary feed and display data which is stored locally in Sitefinity database.

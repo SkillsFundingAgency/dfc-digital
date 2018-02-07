@@ -1,9 +1,17 @@
-# Digital First Careers � Find a career website
-Website for career information advice and guidance.
+# Digital First Careers – Find a career product
 
-Build status
+- CI - <img src="https://sfa-gov-uk.visualstudio.com/_apis/public/build/definitions/e67ac9ef-271e-4b31-9775-a964f03525d7/806/badge" />
+- master - <img src="https://sfa-gov-uk.visualstudio.com/_apis/public/build/definitions/e67ac9ef-271e-4b31-9775-a964f03525d7/561/badge" />
 
-List of dependencies in a table
+The “Find a career” product provides the digital front end for citizens to self-serve information and advice on careers.  The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
+
+The product uses the Sitefinity CMS solution at is core, and uses the add-on model to extend the core Sitefinity functionality to meet the needs of citizens.  Extended functionality is written in C#, using the .NET framework 4.6.2 and ASP.NET MVC 5.  The product is dependant upon a number of Azure platform services, which are pre-requisites for running the solution.  The following section discusses these dependencies in detail, and the configuration changes that are required to use such services.
+
+_**Note**. The “Find a career” product showcases available apprenticeship vacancies for a given job profile (such as nurse).  Apprenticeship vacancies are selected and imported into “Find a career” via a separate component, which can be found in the following repository https://github.com/SkillsFundingAgency/dfc-integration-faa._
+
+You can see the public beta of this service at: URL coming soon.
+
+## List of dependencies
 
 |Item	|Purpose|
 |-------|-------|
@@ -15,12 +23,8 @@ List of dependencies in a table
 |Course finder	|API used to display available course related to a Job Profile|
 |LMI for all|API used to obtain indicative salary informaiton for a Job Profile|	
 
-
-
-
-
 ## Running Locally
-Introductory text about running local�
+Introductory text about running local…
 Then a section for each dependency, stating what someone would need to do to stand up the dependency, and then config settings which would need to be updated in the repo.
 
 ## Sitefinity 
@@ -30,7 +34,7 @@ Project - DFC.Digital.Web.Sitefinity
 In core of our solution is the Sitefinity CMS. In order our solution to run as prerequisite the fully fledged licenced/trial version of Sitefinity have to be installed, configured and running.
 
 
-�Installation: Get started with Sitefinity CMS�
+‘Installation: Get started with Sitefinity CMS’
 https://docs.sitefinity.com/installation
 
 

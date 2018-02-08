@@ -21,7 +21,7 @@
 
         public string MaximumHours { get; set; }
 
-        public bool? IsLmiSalaryFeedOverriden { get; set; }
+        public bool? IsLMISalaryFeedOverriden { get; set; }
 
         public decimal? SalaryStarter { get; set; }
 
@@ -54,10 +54,6 @@
         public string MaxAndMinHoursAreBlankText { get; set; }
 
         public string HoursTimePeriodText { get; set; }
-
-        public bool DisplaySignPostingToBau { get; set; }
-
-        public string SignPostingHtml { get; set; }
 
         #endregion supporting fields
     }

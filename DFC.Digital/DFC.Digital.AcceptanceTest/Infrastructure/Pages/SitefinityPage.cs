@@ -14,7 +14,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         #region private const for survey
 
         private const string OpenSurvey = "survey_open";
-        private const string EmailField = "EmailAddress";
+        private const string EmailField = "survey-emailaddress";
         private const string SendButton = "survey_button";
 
         #endregion private const for survey

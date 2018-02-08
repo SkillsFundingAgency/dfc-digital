@@ -121,6 +121,7 @@ module.exports = function (grunt) {
                     { expand: true, cwd: 'node_modules/govuk_frontend_toolkit/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
                     { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
                     { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/stylesheets', src: '**/*.*', dest: 'assets/dist/css' },
+                    { expand: true, cwd: 'assets/src/frontend/js/', src: 'selectivizr.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/govuk_frontend_toolkit/javascripts/vendor/jquery', src: 'jquery.player.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery/dist', src: 'jquery.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery-migrate/dist', src: 'jquery-migrate.min.js', dest: 'assets/dist/js' },
@@ -135,7 +136,7 @@ module.exports = function (grunt) {
                 report: 'gzip',
                 warnings: true,
                 mangle: {
-                    reserved: ['jQuery', 'Modernizr']
+                    reserved: ['jQuery', 'Modernizr', 'selectivizr']
                 },
                 compress: true
             },

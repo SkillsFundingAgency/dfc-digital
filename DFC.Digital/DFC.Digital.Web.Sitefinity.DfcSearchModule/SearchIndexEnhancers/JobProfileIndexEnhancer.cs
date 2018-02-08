@@ -1,13 +1,12 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
 {
-    using System.Globalization;
-
     public class JobProfileIndexEnhancer : IJobProfileIndexEnhancer
     {
         private readonly IJobProfileRepository jobProfileRepository;

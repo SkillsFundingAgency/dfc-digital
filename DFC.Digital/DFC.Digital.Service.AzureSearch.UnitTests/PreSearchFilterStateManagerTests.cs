@@ -185,8 +185,8 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             result.ShouldBeEquivalentTo(expected);
         }
 
-        private static PreSearchFilterSection GetPreSearchFilterSection
-            (PreSearchFilterType preSearchFilter, string sectionTitle)
+        private static PreSearchFilterSection GetPreSearchFilterSection(
+            PreSearchFilterType preSearchFilter, string sectionTitle)
         {
             var section = new PreSearchFilterSection
             {

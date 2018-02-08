@@ -2,9 +2,10 @@
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using System;
-using System.Linq;
 using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -14,14 +15,9 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfilesByPreSearchFiltersSteps
     {
         private SearchResult<JobProfileIndex> results;
-
-        private ITestOutputHelper OutputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
-
-        public ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -31,6 +27,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
         }
+
+        private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
+
+        private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"Given I have the following profiles tagged with the following PSF tags")]
         public void GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTags(Table table)
@@ -43,7 +43,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         public void WhenIFilterWithTheFollowingTags(Table table)
         {
             OutputHelper.WriteLine($"The filter term is '{table}'");
-            SearchProperties filterProperties = table.ToSearchProperties();
+            var filterProperties = table.ToSearchProperties();
             try
             {
                 results = SearchQueryService.Search("*", filterProperties);
@@ -62,9 +62,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
 
             //Log results
             OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
-            OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
+            var enumerable = actual as IList<string> ?? actual.ToList();
+            OutputHelper.WriteLine($"Actual  {string.Join(",", enumerable)}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            enumerable.ShouldBeEquivalentTo(expected);
         }
     }
 }

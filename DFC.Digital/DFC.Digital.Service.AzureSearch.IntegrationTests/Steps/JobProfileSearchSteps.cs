@@ -15,9 +15,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileSearchSteps
     {
         private SearchResult<JobProfileIndex> results;
-
-        private ITestOutputHelper OutputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
@@ -31,6 +28,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
         }
+
+        private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"the following job profiles exist:")]
         public void GivenTheFollowingJobProfilesExist(Table table)

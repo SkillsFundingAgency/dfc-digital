@@ -18,7 +18,8 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             // Arrange
             var indexView = new _MVC_Views_VocSurvey_Index_cshtml();
             var vocSurveyVmDummy =
-                GenerateVocSurveyViewModelDummy(nameof(VocSurveyViewModel.AgeLimitText),
+                GenerateVocSurveyViewModelDummy(
+                    nameof(VocSurveyViewModel.AgeLimitText),
                     nameof(VocSurveyViewModel.DontHaveEmailText),
                     nameof(VocSurveyViewModel.EmailSentText),
                     nameof(VocSurveyViewModel.FormIntroText),
@@ -52,12 +53,12 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             GetViewErrorMessage(htmlDom).ShouldBeEquivalentTo(response);
         }
 
-        private string GetViewErrorMessage(HtmlDocument htmlDom)
+        private static string GetViewErrorMessage(HtmlDocument htmlDom)
         {
             return htmlDom.DocumentNode.Descendants("h2").FirstOrDefault()?.InnerText;
         }
 
-        private VocSurveyViewModel GetViewModelData(HtmlDocument htmlDom)
+        private static VocSurveyViewModel GetViewModelData(HtmlDocument htmlDom)
         {
             return new VocSurveyViewModel
             {
@@ -69,7 +70,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             };
         }
 
-        private string GetEmailSentMessage(HtmlDocument htmlDom, string itemClass)
+        private static string GetEmailSentMessage(HtmlDocument htmlDom, string itemClass)
         {
             var divItem = htmlDom.DocumentNode.Descendants("div").FirstOrDefault(div =>
                 div.HasAttributes && div.Attributes["class"].Value.ToLower().Contains(itemClass.ToLower()));
@@ -82,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             return string.Empty;
         }
 
-        private string GetDontHaveEmailText(HtmlDocument htmlDom)
+        private static string GetDontHaveEmailText(HtmlDocument htmlDom)
         {
             var anchorTag = htmlDom.DocumentNode.Descendants("a").FirstOrDefault(anchr =>
                 anchr.HasAttributes && anchr.Attributes["class"].Value.ToLower().Contains("survey_link"));
@@ -90,7 +91,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             return anchorTag?.InnerText;
         }
 
-        private string GetAgeLimitText(HtmlDocument htmlDom)
+        private static string GetAgeLimitText(HtmlDocument htmlDom)
         {
             var label = htmlDom.DocumentNode.Descendants("label").FirstOrDefault(lbl =>
                 lbl.HasAttributes && lbl.Attributes["class"].Value.ToLower().Contains("survey_label"));
@@ -98,8 +99,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             return label?.Descendants("span").FirstOrDefault()?.InnerText;
         }
 
-        private VocSurveyViewModel GenerateVocSurveyViewModelDummy
-        (
+        private static VocSurveyViewModel GenerateVocSurveyViewModelDummy(
             string ageLimitText,
             string dontHaveEmailText,
             string emailSentText,

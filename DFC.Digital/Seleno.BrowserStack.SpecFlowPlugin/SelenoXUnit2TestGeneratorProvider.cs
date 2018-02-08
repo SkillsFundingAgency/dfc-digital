@@ -32,12 +32,12 @@ namespace Seleno.BrowserStack
         public SelenoXUnit2TestGeneratorProvider(CodeDomHelper codeDomHelper) : base(codeDomHelper)
         {
             Browsers = DfcConfigurationManager.Get<string>("browsers").Split(',').Select(c => c.Trim()).ToList();
+            Browsers = new List<string> { "chrome", "firefox" };
         }
 
-        public List<string> Browsers { get; } = new List<string> { "chrome", "firefox"};
+        private List<string> Browsers { get; }
 
-        public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod,
-            string friendlyTestName)
+        public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string friendlyTestName)
         {
             base.SetTestMethod(generationContext, testMethod, friendlyTestName);
 
@@ -49,8 +49,8 @@ namespace Seleno.BrowserStack
                 testMethod.CustomAttributes.Remove(factAttr);
             }
 
-            CodeDomHelper.AddAttribute(testMethod, Theoryattribute,
-                new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
+            CodeDomHelper.AddAttribute(
+                testMethod, Theoryattribute, new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
             SetBrowsers(testMethod);
 
             testMethod.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -58,20 +58,21 @@ namespace Seleno.BrowserStack
             testMethod.Statements.Add(AssignBrowser());
         }
 
-        public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod,
-            string scenarioTitle)
+        public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
         {
             base.SetRowTest(generationContext, testMethod, scenarioTitle);
             var parameterCount = testMethod.Parameters.Count;
-            testMethod.Parameters.Insert(parameterCount - 1,new CodeParameterDeclarationExpression(new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
+            testMethod.Parameters.Insert(parameterCount - 1, new CodeParameterDeclarationExpression(new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
             testMethod.Statements.Insert(0, AssignBrowser());
         }
 
         public override void SetRow(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, IEnumerable<string> arguments, IEnumerable<string> tags, bool isIgnored)
         {
+            var argumentsToList = arguments as List<string> ?? arguments.ToList();
+            var tagsToList = tags as IList<string> ?? tags.ToList();
             foreach (var item in Browsers)
             {
-                base.SetRow(generationContext, testMethod, arguments.Concat(new[] { item }), tags.Concat(new[] { $"args:{string.Join(",", arguments)}" }), isIgnored);
+                base.SetRow(generationContext, testMethod, argumentsToList.Concat(new[] { item }), tagsToList.Concat(new[] { $"args:{string.Join(",", argumentsToList)}" }), isIgnored);
             }
         }
 

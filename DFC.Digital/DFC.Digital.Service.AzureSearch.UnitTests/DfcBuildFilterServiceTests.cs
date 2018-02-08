@@ -44,9 +44,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     { nameof(PreSearchFilterType.Interest), 1 },
                     { nameof(PreSearchFilterType.TrainingRoute), 1 },
-                    { nameof(PreSearchFilterType.EntryQualification), 1},
+                    { nameof(PreSearchFilterType.EntryQualification), 1 },
                     { nameof(PreSearchFilterType.Enabler), 1 },
-                    { nameof(PreSearchFilterType.JobArea), 1},
+                    { nameof(PreSearchFilterType.JobArea), 1 },
                     { nameof(PreSearchFilterType.PreferredTaskType), 1 }
                 },
                 new Dictionary<string, PreSearchFilterLogicalOperator>
@@ -66,9 +66,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     { nameof(PreSearchFilterType.Interest), 1 },
                     { nameof(PreSearchFilterType.TrainingRoute), 1 },
-                    { nameof(PreSearchFilterType.EntryQualification), 1},
+                    { nameof(PreSearchFilterType.EntryQualification), 1 },
                     { nameof(PreSearchFilterType.Enabler), 1 },
-                    { nameof(PreSearchFilterType.JobArea), 1},
+                    { nameof(PreSearchFilterType.JobArea), 1 },
                     { nameof(PreSearchFilterType.PreferredTaskType), 1 }
                 },
                 new Dictionary<string, PreSearchFilterLogicalOperator>
@@ -88,9 +88,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     { nameof(PreSearchFilterType.Interest), 1 },
                     { nameof(PreSearchFilterType.TrainingRoute), 1 },
-                    { nameof(PreSearchFilterType.EntryQualification), 1},
+                    { nameof(PreSearchFilterType.EntryQualification), 1 },
                     { nameof(PreSearchFilterType.Enabler), 1 },
-                    { nameof(PreSearchFilterType.JobArea), 1},
+                    { nameof(PreSearchFilterType.JobArea), 1 },
                     { nameof(PreSearchFilterType.PreferredTaskType), 1 }
                 },
                 new Dictionary<string, PreSearchFilterLogicalOperator>

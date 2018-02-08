@@ -126,7 +126,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The index field operators.
         /// </value>
         [DisplayName("Index Field Operators")]
-        public string IndexFieldOperators { get; set; } = "Interests|and,TrainingRoutes|and,Enablers|and,EntryQualifications|and,PreferredTasks|and,JobAreas|and";
+        public string IndexFieldOperators { get; set; } = "Interests|and,TrainingRoutes|and,Enablers|and,EntryQualifications|and,PreferredTaskTypes|and,JobAreas|and";
 
         /// <summary>
         /// Gets or sets message to be displayed when there are no results

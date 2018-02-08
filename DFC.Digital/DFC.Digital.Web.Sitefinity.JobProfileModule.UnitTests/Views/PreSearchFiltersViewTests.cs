@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             CheckForHiddenValue(htmlDom, "OptionsSelected", "continueForm", testDataModel.OptionsSelected);
 
             //Each of the options is displayed with a checkbox or radio and label for section
-            for (var jj = 0; jj < testDataModel.Section.Options.Count; jj++)
+            for (int jj = 0; jj < testDataModel.Section.Options.Count; jj++)
             {
                 if (testDataModel.Section.SingleSelectOnly)
                 {
@@ -91,29 +91,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             }
         }
 
-        private static void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
+        private void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
         {
             //*[@id="Section_Name"]
             CheckField(htmlDom.GetElementbyId($"{formId}").SelectSingleNode($"//*[@id='Section_{fieldName}']"), expectedValue);
         }
 
-        private static void CheckForHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
+        private void CheckForHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
         {
             CheckField(htmlDom.GetElementbyId($"{formId}").SelectSingleNode($"//*[@id='{fieldName}']"), expectedValue);
         }
 
-        private static void CheckForOptionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, int optionIndex, string expectedValue)
+        private void CheckForOptionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, int optionIndex, string expectedValue)
         {
             CheckField(htmlDom.GetElementbyId($"{formId}").SelectSingleNode($"//*[@id='Section_Options_{optionIndex}__{fieldName}']"), expectedValue);
         }
 
-        private static void CheckField(HtmlNode fieldToCheck, string expectedValue)
+        private void CheckField(HtmlNode fieldToCheck, string expectedValue)
         {
             fieldToCheck.Attributes["type"].Value.ShouldBeEquivalentTo("hidden");
             fieldToCheck.Attributes["value"].Value.ShouldBeEquivalentTo(expectedValue ?? string.Empty);
         }
 
-        private static PsfModel GeneratePreSEarchFiltersViewModel(bool singleSelect)
+        private PsfModel GeneratePreSEarchFiltersViewModel(bool singleSelect)
         {
             var filtersModel = new PsfModel()
             {
@@ -133,22 +133,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
 
             filtersModel.Section.Options = new List<PsfOption>();
 
-            for (var ii = 0; ii < 3; ii++)
+            for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filtersModel.Section.Options.Add(
-                    item: new PsfOption
-                    {
-                        Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false
-                    });
+                filtersModel.Section.Options.Add(item: new PsfOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
             }
 
             //Add in a N/A
-            filtersModel.Section.Options.Add(
-                item: new PsfOption
-                {
-                    Id = "3", IsSelected = false, Name = $"Title-3", Description = $"Description-3", OptionKey = $"3-UrlName", ClearOtherOptionsIfSelected = true
-                });
+            filtersModel.Section.Options.Add(item: new PsfOption { Id = "3", IsSelected = false, Name = $"Title-3", Description = $"Description-3", OptionKey = $"3-UrlName", ClearOtherOptionsIfSelected = true });
 
             return filtersModel;
         }

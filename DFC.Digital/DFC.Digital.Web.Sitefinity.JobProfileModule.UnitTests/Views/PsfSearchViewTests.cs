@@ -82,7 +82,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             }
         }
 
-        private static IEnumerable<string> GetDisplayedViewAnchorLinks(HtmlNode htmlNode)
+        private IEnumerable<string> GetDisplayedViewAnchorLinks(HtmlNode htmlNode)
         {
             return htmlNode.Descendants("a").Select(n =>
                 {
@@ -97,7 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         /// <param name="numberOfLinkedJobCategories">Number of entries to create</param>
         /// <param name="baseUrl">For genetaring the model this will be blank, when used to check the results in the view this should be the base url for the categories controller route</param>
         /// <returns>List of requested categories</returns>
-        private static IEnumerable<string> GetLinkedCategories(int numberOfLinkedJobCategories, string baseUrl)
+        private IEnumerable<string> GetLinkedCategories(int numberOfLinkedJobCategories, string baseUrl)
         {
             if (numberOfLinkedJobCategories <= 0)
             {
@@ -110,7 +110,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             }
         }
 
-        private static string GetNavigationUrl(HtmlDocument htmlDom, bool url, string className)
+        private string GetNavigationUrl(HtmlDocument htmlDom, bool url, string className)
         {
             if (url)
             {
@@ -123,38 +123,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                                                                                li.Attributes["class"].Value.Equals(className))?.Descendants("form").FirstOrDefault()?.GetAttributeValue("action", string.Empty);
         }
 
-        private static string GetPreviouspageUrl(HtmlDocument htmlDocument)
+        private string GetPreviouspageUrl(HtmlDocument htmlDocument)
         {
             return htmlDocument.DocumentNode.Descendants("button").FirstOrDefault(ol => ol.Attributes["id"].Value.Equals("filter-home"))?.GetAttributeValue("formaction", string.Empty);
         }
 
-        private static IEnumerable<JobProfileSearchResultItemViewModel> GetSearchResults(HtmlDocument htmlDom)
+        private IEnumerable<JobProfileSearchResultItemViewModel> GetSearchResults(HtmlDocument htmlDom)
         {
-            var inDecentants = htmlDom?.DocumentNode?.Descendants("ol")?.FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list"))
-                ?.Descendants("li");
-            if (inDecentants != null)
+            foreach (var n in htmlDom.DocumentNode.Descendants("ol").FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list"))?.Descendants("li"))
             {
-                foreach (var n in inDecentants)
+                yield return new JobProfileSearchResultItemViewModel
                 {
-                    yield return new JobProfileSearchResultItemViewModel
-                    {
-                        ResultItemTitle = n.Descendants("a").FirstOrDefault()?.InnerText,
-                        ResultItemAlternativeTitle = n.Descendants("p").FirstOrDefault(p =>
-                            p.Attributes["class"].Value.Contains("dfc-code-search-jpAltTitle"))?.InnerText,
-                        ResultItemOverview = n.Descendants("p").FirstOrDefault(p =>
-                            p.Attributes["class"].Value.Contains("dfc-code-search-jpOverview"))?.InnerText,
-                        ResultItemSalaryRange =
-                            HttpUtility.HtmlDecode(n.Descendants("span").FirstOrDefault()?.InnerText.Trim()),
-                        ResultItemUrlName =
-                            n.Descendants("a")
-                                .FirstOrDefault(a => a.Attributes["class"].Value.Contains("dfc-code-search-jpTitle"))
-                                ?.GetAttributeValue("href", string.Empty)
-                    };
-                }
+                    ResultItemTitle = n.Descendants("a").FirstOrDefault()?.InnerText,
+                    ResultItemAlternativeTitle = n.Descendants("p").FirstOrDefault(p => p.Attributes["class"].Value.Contains("dfc-code-search-jpAltTitle"))?.InnerText,
+                    ResultItemOverview = n.Descendants("p").FirstOrDefault(p => p.Attributes["class"].Value.Contains("dfc-code-search-jpOverview"))?.InnerText,
+                    ResultItemSalaryRange = HttpUtility.HtmlDecode(n.Descendants("span").FirstOrDefault()?.InnerText.Trim()),
+                    ResultItemUrlName = n.Descendants("a").FirstOrDefault(a => a.Attributes["class"].Value.Contains("dfc-code-search-jpTitle"))?.GetAttributeValue("href", string.Empty)
+                };
             }
         }
 
-        private static PsfSearchResultsViewModel GenerateDummyJobProfileSearchResultViewModel(int count, int totalPages, IEnumerable<JobProfileSearchResultItemViewModel> jobProfileSearchResult, string resultMessage, int currentPage)
+        private PsfSearchResultsViewModel GenerateDummyJobProfileSearchResultViewModel(int count, int totalPages, IEnumerable<JobProfileSearchResultItemViewModel> jobProfileSearchResult, string resultMessage, int currentPage)
         {
             return new PsfSearchResultsViewModel
             {
@@ -177,7 +166,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             };
         }
 
-       private static PsfModel GeneratePreSearchFiltersViewModel()
+        private PsfModel GeneratePreSearchFiltersViewModel()
         {
             var filtersModel = new PsfModel { Sections = new List<PsfSection>() };
 
@@ -197,19 +186,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filterSectionOne.Options.Add(
-                    new PsfOption
-                    {
-                        Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false
-                    });
+                filterSectionOne.Options.Add(new PsfOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
             }
 
             //Add one thats Non Applicable
-            filterSectionOne.Options.Add(
-                new PsfOption
-                {
-                    Id = "3", IsSelected = false, Name = "Title-3", Description = "Description-3", OptionKey = "3-UrlName", ClearOtherOptionsIfSelected = true
-                });
+            filterSectionOne.Options.Add(new PsfOption { Id = "3", IsSelected = false, Name = "Title-3", Description = "Description-3", OptionKey = "3-UrlName", ClearOtherOptionsIfSelected = true });
 
             filtersModel.Sections.Add(filterSectionOne);
 
@@ -236,7 +217,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             return filtersModel;
         }
 
-       private static IEnumerable<JobProfileSearchResultItemViewModel> DummyMultipleJobProfileSearchResults(int countofResults, int numberOfLinkedJobCategories = 0)
+        private IEnumerable<JobProfileSearchResultItemViewModel> DummyMultipleJobProfileSearchResults(int countofResults, int numberOfLinkedJobCategories = 0)
         {
             for (var i = 0; i < countofResults; i++)
             {
@@ -252,22 +233,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             }
         }
 
-        private static string GetFirstTagText(HtmlDocument htmlDocument, string tag)
+        private string GetFirstTagText(HtmlDocument htmlDocument, string tag)
         {
             return htmlDocument.DocumentNode.Descendants(tag).FirstOrDefault()?.InnerText;
         }
 
-        private static string GetFirstTagTextWithClass(HtmlDocument htmlDocument, string tag, string className)
+        private string GetFirstTagTextWithClass(HtmlDocument htmlDocument, string tag, string className)
         {
             return htmlDocument.DocumentNode.Descendants(tag).FirstOrDefault(tg => tg.HasAttributes && tg.Attributes["class"].Value.Equals(className))?.InnerText;
         }
 
-        private static bool GetPaginationNextVisible(HtmlDocument htmlDocument)
+        private bool GetPaginationNextVisible(HtmlDocument htmlDocument)
         {
             return !string.IsNullOrWhiteSpace(htmlDocument.DocumentNode.Descendants("li").FirstOrDefault(ul => ul.HasAttributes && ul.Attributes["class"].Value.Contains("dfc-code-search-next"))?.InnerHtml);
         }
 
-        private static bool GetPaginationPreviousVisible(HtmlDocument htmlDocument)
+        private bool GetPaginationPreviousVisible(HtmlDocument htmlDocument)
         {
             return !string.IsNullOrWhiteSpace(htmlDocument.DocumentNode.Descendants("li").FirstOrDefault(ul => ul.HasAttributes && ul.Attributes["class"].Value.Contains("dfc-code-search-previous"))?.InnerHtml);
         }

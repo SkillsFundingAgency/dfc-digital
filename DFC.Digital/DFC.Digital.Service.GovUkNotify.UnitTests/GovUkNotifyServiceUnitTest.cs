@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DFC.Digital.Service.GovUkNotify;
+using System.Collections;
+using System.Collections.Generic;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
@@ -10,10 +12,12 @@ using DFC.Digital.Core.Utilities;
 
 namespace DFC.Digital.Service.GovUkNotify.UnitTests
 {
+    using System.Linq;
+
     public class GovUkNotifyServiceUnitTest
     {
-        private readonly IApplicationLogger _fakeApplicationLogger = A.Fake<IApplicationLogger>();
-        private readonly Base.IGovUkNotifyClientProxy _fakeGovUkNotifyClient = A.Fake<Base.IGovUkNotifyClientProxy>();
+        private IApplicationLogger _fakeApplicationLogger = A.Fake<IApplicationLogger>();
+        private Base.IGovUkNotifyClientProxy _fakeGovUkNotifyClient = A.Fake<Base.IGovUkNotifyClientProxy>();
 
         [Theory]
         [InlineData("1", false, true)]

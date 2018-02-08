@@ -57,6 +57,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Salary Text")]
         public string SalaryText { get; set; } = "Average salary";
 
+        [DisplayName("Salary Text (Span)")]
+        public string SalaryTextSpan { get; set; } = "(per year)";
+
+        [DisplayName("Text when Salary does not have values")]
+        public string SalaryBlankText { get; set; } = "Variable";
+
+        [DisplayName("Text for Salary Starter")]
+        public string SalaryStarterText { get; set; } = "Starter";
+
+        [DisplayName("Text for Salary Experienced")]
+        public string SalaryExperiencedText { get; set; } = "Experienced";
+
         [DisplayName("Hours Text")]
         public string HoursText { get; set; } = "Typical hours";
 
@@ -66,45 +78,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Hours time period")]
         public string HoursTimePeriodText { get; set; } = "per week";
 
-        [DisplayName("Display sign posting for non matching Job Profiles in BAU")]
-        public bool DisplayNoMatchingJpinBauSignPost { private get; set; } = false;
-
-        [DisplayName("Display sign posting for matching Job Profiles in BAU")]
-        public bool DisplayMatchingJpinBauSignPost { private get; set; } = false;
-
         [DisplayName("Working Pattern Text")]
-        private string WorkingPatternText { get; set; } = "You could work"; //"Working Pattern";
+        public string WorkingPatternText { get; set; } = "You could work"; //"Working Pattern";
 
         [DisplayName("Working Pattern Span Text")]
-        private string WorkingPatternSpanText { get; set; } = string.Empty; //"(you could also work)";
+        public string WorkingPatternSpanText { get; set; } = string.Empty; //"(you could also work)";
 
-        [DisplayName("Salary Text (Span)")]
-        private string SalaryTextSpan { get; set; } = "(per year)";
-
-        [DisplayName("Text when Salary does not have values")]
-        private string SalaryBlankText { get; set; } = "Variable";
-
-        [DisplayName("Text for Salary Starter")]
-        private string SalaryStarterText { get; set; } = "Starter";
-
-        [DisplayName("Text for Salary Experienced")]
-        private string SalaryExperiencedText { get; set; } = "Experienced";
+        [DisplayName("Display sign posting for matching Job Profiles in BAU")]
+        public bool DisplayMatchingJpinBauSignPost { get; set; } = false;
 
         [DisplayName("Matching Job Profile exists in BAU text")]
-        private string MatchingJpinBauText
-        {
-            get; set;
-        }
+        public string MatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
-        = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        [DisplayName("Display sign posting for non matching Job Profiles in BAU")]
+        public bool DisplayNoMatchingJpinBauSignPost { get; set; } = false;
 
         [DisplayName("Matching Job Profile does not exists in BAU text")]
-        private string NoMatchingJpinBauText
-        {
-            get; set;
-        }
-
-         = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        public string NoMatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
         #endregion Public Properties
 
@@ -185,7 +175,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.WorkingPatternText = WorkingPatternText;
             model.WorkingPatternSpanText = WorkingPatternSpanText;
 
-            if (model.IsLmiSalaryFeedOverriden == false)
+            if (model.IsLmiSalaryFeedOverriden != true)
+            {
+                model = await PopulateSalaryAsync(model);
+            }
+
+            if (model.IsLmiSalaryFeedOverriden != true)
             {
                 model = await PopulateSalaryAsync(model);
             }

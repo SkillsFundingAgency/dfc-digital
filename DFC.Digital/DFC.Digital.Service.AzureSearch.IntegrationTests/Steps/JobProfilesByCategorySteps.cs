@@ -22,6 +22,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
 
+        public ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
+
         public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
             this.OutputHelper = outputHelper;
@@ -30,8 +32,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
         }
-
-        private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         [Given(@"the following job profiles in catogories  exist:")]
         public void GivenTheFollowingJobProfilesInCatogoriesExist(Table table)
@@ -44,12 +44,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         public void WhenIFilterByTheCategory(string filterCategory)
         {
             OutputHelper.WriteLine($"The filter category is '{filterCategory}'");
-
-            //we need to dispose JobProfileCategoryRepository
-            using (var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null))
-            {
-                this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
-            }
+            var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null);
+            this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
         }
 
         [Then(@"the number of job profiles returned is (.*)")]

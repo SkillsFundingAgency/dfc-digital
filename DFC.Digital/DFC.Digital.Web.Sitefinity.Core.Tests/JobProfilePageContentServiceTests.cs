@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
                     ContentFieldMember = "AnotherContentField",
                     SectionCaption = "AnotherSection",
                     TitleMember = "AnotherTitle",
-                    SubFilters = new[] { "filter1", "filter2" }
+                    SubFilters = new [] { "filter1", "filter2" }
                 },
             };
 

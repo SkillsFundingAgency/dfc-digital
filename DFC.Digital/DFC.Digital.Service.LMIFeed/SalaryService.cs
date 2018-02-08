@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.LMIFeed.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,15 +10,15 @@ namespace DFC.Digital.Service.LMIFeed
 {
     public class SalaryService : ISalaryService
     {
-        private readonly IApplicationLogger _applicationLogger;
-        private readonly IAsheHttpClientProxy _asheProxy;
+        readonly IApplicationLogger _applicationLogger;
+        readonly IAsheHttpClientProxy _asheProxy;
 
         #region ctor
 
         public SalaryService(IApplicationLogger applicationLogger, IAsheHttpClientProxy asheProxy)
         {
-            _applicationLogger = applicationLogger;
-            _asheProxy = asheProxy;
+            this._applicationLogger = applicationLogger;
+            this._asheProxy = asheProxy;
         }
 
         #endregion ctor
@@ -37,9 +38,7 @@ namespace DFC.Digital.Service.LMIFeed
                 }
                 else
                 {
-                    _applicationLogger.Warn(
-                        $"Failed to get the salary information from LMI feed. StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase} Content: {await response.Content.ReadAsStringAsync()}"
-                        );
+                    _applicationLogger.Warn($"Failed to get the salary information from LMI feed. StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase} Content: {await response.Content.ReadAsStringAsync()}");
                     return null;
                 }
             }

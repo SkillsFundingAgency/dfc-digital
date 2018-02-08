@@ -12,14 +12,14 @@ namespace DFC.Digital.Service.AzureSearch.Tests
     public class PreSearchFilterStateManagerTests
     {
         private const int NumberDummyFilterOptions = 5;
-        private IPreSearchFiltersRepository<PsfCareerFocus> PSfFakeCareerFocusRepository;
-        private IPreSearchFiltersRepository<PsfEnabler> pSfFakeEnablerRepository;
+        private IPreSearchFiltersFactory pSfRepositoryFactoryFake;
         private IPreSearchFiltersRepository<PsfInterest> pSfFakeIntrestRepository;
-        private IPreSearchFiltersRepository<PsfJobArea> pSfFakeJobAreaRepository;
-        private IPreSearchFiltersRepository<PsfPreferredTaskType> pSfFakePreferredTaskTypeRepository;
+        private IPreSearchFiltersRepository<PsfEnabler> pSfFakeEnablerRepository;
         private IPreSearchFiltersRepository<PsfEntryQualification> pSfFakeQalificationsRepository;
         private IPreSearchFiltersRepository<PsfTrainingRoute> pSfFakeTrainingRepository;
-        private IPreSearchFiltersFactory pSfRepositoryFactoryFake;
+        private IPreSearchFiltersRepository<PsfJobArea> pSfFakeJobAreaRepository;
+        private IPreSearchFiltersRepository<PsfCareerFocus> pSfFakeCareerFocusRepository;
+        private IPreSearchFiltersRepository<PsfPreferredTaskType> pSfFakePreferredTaskTypeRepository;
 
         [Theory]
         [InlineData("")]
@@ -35,30 +35,24 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         }
 
         [Theory]
-        [InlineData(
-            true,
-            "{\"Sections\":[]}",
-            "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\"}],\"SingleSelectedValue\":null}]}")]
-        [InlineData(
-            false,
-            "{\"Sections\":[]}",
-            "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[],\"SingleSelectedValue\":null}]}")]
+        [InlineData(true, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\"}],\"SingleSelectedValue\":null}]}")]
+        [InlineData(false, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[],\"SingleSelectedValue\":null}]}")]
         public void UpdateSectionStateTest(bool validSection, string stateJson, string expectedJson)
         {
             // Assign
             var section = new PreSearchFilterSection
             {
                 Options = validSection
-                    ? new List<PreSearchFilterOption>
+                ? new List<PreSearchFilterOption>
+                {
+                    new PreSearchFilterOption
                     {
-                        new PreSearchFilterOption
-                        {
-                            IsSelected = true,
-                            Name = nameof(PreSearchFilterOption.Name),
-                            OptionKey = nameof(PreSearchFilterOption.OptionKey)
-                        }
+                        IsSelected = true,
+                        Name = nameof(PreSearchFilterOption.Name),
+                        OptionKey = nameof(PreSearchFilterOption.OptionKey)
                     }
-                    : new List<PreSearchFilterOption>()
+                }
+                : new List<PreSearchFilterOption>()
             };
 
             // Act
@@ -76,7 +70,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         public void GetPreSearchFilterStateTest(PreSearchFilterType preSearchFilter, string sectionTitle)
         {
             // Assign
-            const string stateJson = "{\"Sections\":[]}";
+            var stateJson = "{\"Sections\":[]}";
             var section = GetPreSearchFilterSection(preSearchFilter, sectionTitle);
 
             // Act
@@ -95,7 +89,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         public void GetSavedSectionTest(PreSearchFilterType preSearchFilter, string sectionTitle)
         {
             // Assign
-            const string stateJson = "{\"Sections\":[]}";
+            var stateJson = "{\"Sections\":[]}";
             var section = GetPreSearchFilterSection(preSearchFilter, sectionTitle);
 
             // Act
@@ -114,7 +108,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         public void RestoreOptionsTest(PreSearchFilterType preSearchFilter, string sectionTitle)
         {
             // Assign
-            const string stateJson = "{\"Sections\":[]}";
+            var stateJson = "{\"Sections\":[]}";
             var section = GetPreSearchFilterSection(preSearchFilter, sectionTitle);
             SetUpFakesAndCalls(false);
 
@@ -129,19 +123,13 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         }
 
         [Theory]
-        [InlineData(
-            true,
-            false,
-            "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"\"}]}")]
-        [InlineData(
-            true,
-            true,
-            "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"SingleSelectedValue\"}]}")]
+        [InlineData(true, false, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"\"}]}")]
+        [InlineData(true, true, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"SingleSelectedValue\"}]}")]
         [InlineData(false, false, "{\"Sections\":[]}")]
         public void SaveStateTest(bool validPreviousSection, bool singleValue, string expectedJson)
         {
             // Assign
-            const string stateJson = "{\"Sections\":[]}";
+            var stateJson = "{\"Sections\":[]}";
             var section = validPreviousSection
                 ? new PreSearchFilterSection
                 {
@@ -154,8 +142,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                             OptionKey = nameof(PreSearchFilterSection.SingleSelectedValue)
                         }
                     },
-                    SingleSelectedValue =
-                        singleValue ? nameof(PreSearchFilterSection.SingleSelectedValue) : string.Empty,
+                    SingleSelectedValue = singleValue ? nameof(PreSearchFilterSection.SingleSelectedValue) : string.Empty,
                     SingleSelectOnly = singleValue
                 }
                 : null;
@@ -185,8 +172,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             result.ShouldBeEquivalentTo(expected);
         }
 
-        private static PreSearchFilterSection GetPreSearchFilterSection(
-            PreSearchFilterType preSearchFilter, string sectionTitle)
+        private static PreSearchFilterSection GetPreSearchFilterSection(PreSearchFilterType preSearchFilter, string sectionTitle)
         {
             var section = new PreSearchFilterSection
             {
@@ -194,12 +180,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                 Name = sectionTitle,
                 Options = new List<PreSearchFilterOption>
                 {
-                    new PreSearchFilterOption
-                    {
-                        Name = nameof(PreSearchFilterOption.Name),
-                        IsSelected = true,
-                        OptionKey = $"e99079a2-a201-4b45-bc81-85e807dbcb5a|URL-{NumberDummyFilterOptions - 2}"
-                    }
+                    new PreSearchFilterOption { Name = nameof(PreSearchFilterOption.Name), IsSelected = true, OptionKey = $"e99079a2-a201-4b45-bc81-85e807dbcb5a|URL-{NumberDummyFilterOptions - 2}" }
                 }
             };
             return section;
@@ -210,41 +191,28 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             pSfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
             pSfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());
             pSfFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PsfEnabler>>(ops => ops.Strict());
-            pSfFakeQalificationsRepository =
-                A.Fake<IPreSearchFiltersRepository<PsfEntryQualification>>(ops => ops.Strict());
+            pSfFakeQalificationsRepository = A.Fake<IPreSearchFiltersRepository<PsfEntryQualification>>(ops => ops.Strict());
             pSfFakeTrainingRepository = A.Fake<IPreSearchFiltersRepository<PsfTrainingRoute>>(ops => ops.Strict());
             pSfFakeJobAreaRepository = A.Fake<IPreSearchFiltersRepository<PsfJobArea>>(ops => ops.Strict());
-            PSfFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PsfCareerFocus>>(ops => ops.Strict());
-            pSfFakePreferredTaskTypeRepository =
-                A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
+            pSfFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PsfCareerFocus>>(ops => ops.Strict());
+            pSfFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
 
             //Set up call
-            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfInterest>(addNotApplicable));
-            A.CallTo(() => pSfFakeEnablerRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfEnabler>(addNotApplicable));
-            A.CallTo(() => pSfFakeQalificationsRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfEntryQualification>(addNotApplicable));
-            A.CallTo(() => pSfFakeTrainingRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfTrainingRoute>(addNotApplicable));
-            A.CallTo(() => pSfFakeJobAreaRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfJobArea>(addNotApplicable));
-            A.CallTo(() => PSfFakeCareerFocusRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfCareerFocus>(addNotApplicable));
-            A.CallTo(() => pSfFakePreferredTaskTypeRepository.GetAllFilters())
-                .Returns(GetTestFilterOptions<PsfPreferredTaskType>(addNotApplicable));
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfInterest>(addNotApplicable));
+            A.CallTo(() => pSfFakeEnablerRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEnabler>(addNotApplicable));
+            A.CallTo(() => pSfFakeQalificationsRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEntryQualification>(addNotApplicable));
+            A.CallTo(() => pSfFakeTrainingRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfTrainingRoute>(addNotApplicable));
+            A.CallTo(() => pSfFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfJobArea>(addNotApplicable));
+            A.CallTo(() => pSfFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfCareerFocus>(addNotApplicable));
+            A.CallTo(() => pSfFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfPreferredTaskType>(addNotApplicable));
 
             A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfInterest>()).Returns(pSfFakeIntrestRepository);
             A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEnabler>()).Returns(pSfFakeEnablerRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>())
-                .Returns(pSfFakeQalificationsRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>())
-                .Returns(pSfFakeTrainingRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>()).Returns(pSfFakeQalificationsRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>()).Returns(pSfFakeTrainingRepository);
             A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfJobArea>()).Returns(pSfFakeJobAreaRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>())
-                .Returns(PSfFakeCareerFocusRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>())
-                .Returns(pSfFakePreferredTaskTypeRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>()).Returns(pSfFakeCareerFocusRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>()).Returns(pSfFakePreferredTaskTypeRepository);
         }
 
         private IEnumerable<PreSearchFilter> GetFilterOptions(PreSearchFilterType preSearchFilterType)
@@ -258,8 +226,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
                 case PreSearchFilterType.EntryQualification:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>().GetAllFilters()
-                        .OrderBy(o => o.Order);
+                    return pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.Interest:
@@ -269,8 +236,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
                 case PreSearchFilterType.TrainingRoute:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>().GetAllFilters()
-                        .OrderBy(o => o.Order);
+                    return pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.JobArea:
@@ -280,14 +246,12 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
                 case PreSearchFilterType.CareerFocus:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>().GetAllFilters()
-                        .OrderBy(o => o.Order);
+                    return pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.PreferredTaskType:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>().GetAllFilters()
-                        .OrderBy(o => o.Order);
+                    return pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 default:
@@ -300,7 +264,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         private IEnumerable<T> GetTestFilterOptions<T>(bool addNotApplicable)
             where T : PreSearchFilter, new()
         {
-            for (var ii = 0; ii < NumberDummyFilterOptions; ii++)
+            for (int ii = 0; ii < NumberDummyFilterOptions; ii++)
             {
                 yield return new T
                 {
@@ -309,7 +273,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                     Title = $"Option {ii}",
                     Order = ii,
                     UrlName = $"URL-{ii}",
-                    NotApplicable = addNotApplicable & (ii == NumberDummyFilterOptions - 1)
+                    NotApplicable = addNotApplicable & (ii == (NumberDummyFilterOptions - 1))
                 };
             }
         }

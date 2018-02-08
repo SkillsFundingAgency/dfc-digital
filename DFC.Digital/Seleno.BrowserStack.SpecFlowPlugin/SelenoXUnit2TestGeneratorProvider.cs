@@ -32,10 +32,9 @@ namespace Seleno.BrowserStack
         public SelenoXUnit2TestGeneratorProvider(CodeDomHelper codeDomHelper) : base(codeDomHelper)
         {
             Browsers = DfcConfigurationManager.Get<string>("browsers").Split(',').Select(c => c.Trim()).ToList();
-            Browsers = new List<string> { "chrome", "firefox" };
         }
 
-        private List<string> Browsers { get; }
+        public List<string> Browsers { get; } = new List<string> { "chrome", "firefox" };
 
         public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string friendlyTestName)
         {
@@ -49,8 +48,7 @@ namespace Seleno.BrowserStack
                 testMethod.CustomAttributes.Remove(factAttr);
             }
 
-            CodeDomHelper.AddAttribute(
-                testMethod, Theoryattribute, new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
+            CodeDomHelper.AddAttribute(testMethod, Theoryattribute, new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
             SetBrowsers(testMethod);
 
             testMethod.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -68,11 +66,9 @@ namespace Seleno.BrowserStack
 
         public override void SetRow(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, IEnumerable<string> arguments, IEnumerable<string> tags, bool isIgnored)
         {
-            var argumentsToList = arguments as List<string> ?? arguments.ToList();
-            var tagsToList = tags as IList<string> ?? tags.ToList();
             foreach (var item in Browsers)
             {
-                base.SetRow(generationContext, testMethod, argumentsToList.Concat(new[] { item }), tagsToList.Concat(new[] { $"args:{string.Join(",", argumentsToList)}" }), isIgnored);
+                base.SetRow(generationContext, testMethod, arguments.Concat(new[] { item }), tags.Concat(new[] { $"args:{string.Join(",", arguments)}" }), isIgnored);
             }
         }
 
@@ -89,7 +85,9 @@ namespace Seleno.BrowserStack
                 "testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);"));
         }
 
-        protected override void SetTestConstructor(TestClassGenerationContext generationContext, CodeConstructor ctorMethod)
+        protected override void SetTestConstructor(
+            TestClassGenerationContext generationContext,
+            CodeConstructor ctorMethod)
         {
             base.SetTestConstructor(generationContext, ctorMethod);
             generationContext.TestClass.Members.Add(new CodeMemberField(typeof(string), "_browser"));

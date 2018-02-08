@@ -5,27 +5,26 @@
 
 The “Find a career” product provides the digital front end for citizens to self-serve information and advice on careers.  The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
 
-The product uses the Sitefinity CMS solution at is core, and uses the add-on model to extend the core Sitefinity functionality to meet the needs of citizens.  Extended functionality is written in C#, using the .NET framework 4.6.2 and ASP.NET MVC 5.  The product is dependant upon a number of Azure platform services, which are pre-requisites for running the solution.  The following section discusses these dependencies in detail, and the configuration changes that are required to use such services.
+The product uses the Sitefinity CMS solution at it's core, and uses the add-on model to extend the core Sitefinity functionality to meet the needs of citizens.  Extended functionality is written in C#, using the .NET framework 4.6.2 and ASP.NET MVC 5.  The product is dependant upon a number of Azure platform services, which are pre-requisites for running the solution.  The following section discusses these dependencies in detail, and the configuration changes that are required to use such services.
 
 _**Note**. The “Find a career” product showcases available apprenticeship vacancies for a given job profile (such as nurse).  Apprenticeship vacancies are selected and imported into “Find a career” via a separate component, which can be found in the following repository https://github.com/SkillsFundingAgency/dfc-integration-faa._
 
-You can see the public beta of this service at: URL coming soon.
+You can see the public beta of this service at: _URL coming soon._
 
 ## List of dependencies
 
 |Item	|Purpose|
 |-------|-------|
-|Sitefinity |Main CMS for maintaining and displaying content|	
+|Sitefinity |Content management system|	
 |SQL Azure|SQL database used by Sitefinity CMS|	
-|REDIS	|Cache - Not needed for single instance|
+|REDIS	|Cache - Not needed for single instance, used by Sitefinity in multi-tenant environment.|
 |Azure Search|Search engine for searching Job Profiles  |	
-|Bing spell check	|API used for suggest feature in cases where incorrect word are type in the search |
-|Course finder	|API used to display available course related to a Job Profile|
-|LMI for all|API used to obtain indicative salary informaiton for a Job Profile|	
+|Bing spell check	|API used for spell correction of search terms |
+|Course finder	|API used to display available courses related to a Job Profile |
+|LMI for all|API used to obtain ASHE published salary informaiton for a Job Profile |	
 
 ## Running Locally
-Introductory text about running local…
-Then a section for each dependency, stating what someone would need to do to stand up the dependency, and then config settings which would need to be updated in the repo.
+To run this product locally, you will need to configure the list of dependencies, once configured and the configuration files updated with the configuration, it should be F5 to run and debug locally. The application can be run using IIS Express or full IIS. 
 
 ## Sitefinity 
 

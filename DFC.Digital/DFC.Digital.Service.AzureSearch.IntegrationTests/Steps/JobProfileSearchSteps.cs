@@ -20,8 +20,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private IMapper mapper;
 
-        private ITestOutputHelper OutputHelper { get; set; }
-
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
             this.OutputHelper = outputHelper;

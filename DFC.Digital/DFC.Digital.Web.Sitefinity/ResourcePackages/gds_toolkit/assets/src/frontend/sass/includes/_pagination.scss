@@ -1,6 +1,7 @@
 ﻿.previous-next-navigation {
     margin: 0;
     padding: 0;
+    @extend %contain-floats;
 
     li {
         @include core-14;

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web;
@@ -7,11 +8,37 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface ISitefinityCurrentContext
     {
-        PageData CurrentPage { get; set; }
+        PageData CurrentPage
+        {
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            get;
 
-        PageSiteNode CurrentNode { get; set; }
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            set;
+        }
 
-        PageManager CurrentPageManager { get; set; }
+        PageSiteNode CurrentNode
+        {
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            get;
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            set;
+        }
+
+        PageManager CurrentPageManager
+        {
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            get;
+
+            [IgnoreInputInInterception]
+            [IgnoreOutputInInterception]
+            set;
+        }
 
         DfcPageSiteNode GetCurrentDfcPageNode();
     }

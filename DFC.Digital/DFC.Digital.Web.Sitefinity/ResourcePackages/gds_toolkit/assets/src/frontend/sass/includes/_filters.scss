@@ -21,6 +21,7 @@
             height: 0px;
             width: 0px;
             position: absolute;
+            outline: none !important;
 
             & + input + label, & + label {
                 flex: 1;

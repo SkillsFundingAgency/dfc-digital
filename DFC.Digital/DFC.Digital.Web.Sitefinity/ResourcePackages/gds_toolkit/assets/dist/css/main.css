@@ -1597,7 +1597,8 @@ main.homepage .phase-banner {
       display: block;
       height: 0px;
       width: 0px;
-      position: absolute; }
+      position: absolute;
+      outline: none !important; }
       .filter-form .filter-list input[type=checkbox] + input + label, .filter-form .filter-list input[type=checkbox] + label, .filter-form .filter-list input[type=radio] + input + label, .filter-form .filter-list input[type=radio] + label {
         flex: 1;
         min-width: 100%;

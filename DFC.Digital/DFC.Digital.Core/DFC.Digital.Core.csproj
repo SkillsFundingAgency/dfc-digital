@@ -79,6 +79,8 @@
     <Compile Include="Extensions\InstrumentationExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interceptors\ExceptionInterceptor.cs" />
+    <Compile Include="Interceptors\IgnoreInputInInterceptionAttribute.cs" />
+    <Compile Include="Interceptors\IgnoreOutputInInterceptionAttribute.cs" />
     <Compile Include="Interceptors\InstrumentationInterceptor.cs" />
     <Compile Include="Logging\LoggedException.cs" />
     <Compile Include="Logging\DFCLogger.cs" />

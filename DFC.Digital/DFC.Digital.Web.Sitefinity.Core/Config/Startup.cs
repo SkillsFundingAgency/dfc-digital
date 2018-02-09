@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
 using DFC.Digital.Web.Core.Config;
 using System;
 using System.Web.Mvc;
@@ -48,7 +49,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             IContainer existingAutofacContainer = null;
             try
             {
-                existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                if (ObjectFactory.Container.IsRegistered<IContainer>())
+                {
+                    existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                }
             }
             catch (ResolutionFailedException)
             {
@@ -58,6 +62,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
 
             ObjectFactory.Container.RegisterInstance(autofacContainer);
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+
+            //Application lifetime scope
             ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());
         }
 

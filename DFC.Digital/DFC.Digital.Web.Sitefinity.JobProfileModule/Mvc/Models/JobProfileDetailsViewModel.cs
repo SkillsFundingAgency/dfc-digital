@@ -55,10 +55,6 @@
 
         public string HoursTimePeriodText { get; set; }
 
-        public bool DisplaySignPostingToBAU { get; set; }
-
-        public string SignPostingHTML { get; set; }
-
         #endregion supporting fields
     }
 }

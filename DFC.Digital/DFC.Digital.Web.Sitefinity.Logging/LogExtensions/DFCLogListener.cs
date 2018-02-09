@@ -13,8 +13,10 @@ namespace DFC.Digital.Web.Sitefinity.Logging
 
         public DFCLogListener()
         {
-            var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-            this.appLogger = autofacContainer.Resolve<IApplicationLogger>();
+            var autofacApplicationLifetimeScope = ObjectFactory.Container.Resolve<ILifetimeScope>();
+
+            //This instance of logger will only destroyed whe w3wp is recycled
+            this.appLogger = autofacApplicationLifetimeScope.Resolve<IApplicationLogger>();
         }
 
         public override void Write(string message)

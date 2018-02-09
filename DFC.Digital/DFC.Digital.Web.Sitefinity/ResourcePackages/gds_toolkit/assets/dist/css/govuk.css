@@ -782,8 +782,7 @@ p,
     .link-back {
       font-size: 16px;
       line-height: 1.25; } }
-  .link-back:link, .link-back:visited, .link-back:hover,
-  .link-back a.link-back:focus, .link-back:active {
+  .link-back:link, .link-back:visited, .link-back:hover, .link-back:active {
     color: #0b0c0c; }
   .link-back::before {
     content: '';

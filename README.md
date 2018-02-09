@@ -145,7 +145,7 @@ These courses are retrived from the Course Directory Provider Portal provided by
 Details on using the API and requesting an account can be found at  [Course Search Service](https://opendata.coursedirectoryproviderportal.org.uk/CourseSearchService.svc) and the 
 document [Course Directory API.](https://coursedirectoryproviderportal.org.uk/Content/Files/Help/Course%20Directory%20API.pdf)
 
-#### NoSQL Databasefor Course Search Service Audit
+#### NoSQL Database for Course Search Service Audit
 
 The course search service logs requests, responses and failures to a NoSQL database.
 You can set up a trial NoSQL database at this URL [Azure Cosmos DB](https://azure.microsoft.com/en-us/services/cosmos-db/?v=17.45a)
@@ -171,7 +171,7 @@ The solution  uses the Get /ashe/estimatePayMD API to get an estimation of the m
 | Config File   | Key                                       | Token                       | Example value             |
 |-------------| ----------------------------------------- |-----------------------      |:----------------|
 |web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
-|web.config |	DFC.Digital.AsheEstimateMdApiGateway |	not tokanised	| http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}            | 
+            | 
 
 You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)
 

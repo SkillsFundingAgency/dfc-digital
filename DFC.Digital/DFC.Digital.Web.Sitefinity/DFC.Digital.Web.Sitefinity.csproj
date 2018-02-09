@@ -1024,6 +1024,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\images\tree.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\js\dfcdigital.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\js\govuksel.min.js" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\dist\js\ie8bundle.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\js\jquerybundle.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\js\selectivizr.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\building.svg" />

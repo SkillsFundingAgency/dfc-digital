@@ -15,9 +15,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileAutosuggestSteps
     {
         private SuggestionResult<JobProfileIndex> results;
-
-        private ITestOutputHelper OutputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
@@ -32,17 +29,17 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.mapper = mapper;
         }
 
+        private ITestOutputHelper OutputHelper { get; set; }
+
         [When(@"I type the term '(.*)'")]
         public void WhenITypeTheTerm(string suggestionTerm)
         {
             OutputHelper.WriteLine($"The suggestion term is '{suggestionTerm}'");
             try
             {
-                results = searchQueryService.GetSuggestion(suggestionTerm, new SuggestProperties
-                {
-                    UseFuzzyMatching = true,
-                    MaxResultCount = 5
-                });
+                results = searchQueryService.GetSuggestion(
+                    suggestionTerm,
+                    new SuggestProperties { UseFuzzyMatching = true, MaxResultCount = 5 });
             }
             catch (Exception ex)
             {

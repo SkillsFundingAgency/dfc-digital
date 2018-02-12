@@ -15,14 +15,9 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     internal class JobProfilesByCategorySteps
     {
         private IEnumerable<JobProfile> result;
-
-        private ITestOutputHelper OutputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
-
-        public ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -32,6 +27,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
         }
+
+        private ITestOutputHelper OutputHelper { get; set; }
+
+        private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         [Given(@"the following job profiles in catogories  exist:")]
         public void GivenTheFollowingJobProfilesInCatogoriesExist(Table table)

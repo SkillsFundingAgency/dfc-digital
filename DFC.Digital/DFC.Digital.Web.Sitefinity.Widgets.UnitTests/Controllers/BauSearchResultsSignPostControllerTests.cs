@@ -71,7 +71,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
                     })
                     .AndNoModelErrors();
             }
-
         }
     }
 }

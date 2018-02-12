@@ -1184,7 +1184,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="admin.log" />
     <None Include="App_Data\GeoLocation\GeoLiteCity.dat" />
     <Content Include="App_Data\Sitefinity\Configuration\ProjectConfig.config" />
     <Content Include="ResourcePackages\LICENSE.md" />

@@ -11,7 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
 {
     public class JobProfilePageContentServiceTests
     {
-        [Fact()]
+        [Fact]
         public void GetJobProfileSectionsTest()
         {
             //Fakes and dummies
@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
                     ContentFieldMember = "AnotherContentField",
                     SectionCaption = "AnotherSection",
                     TitleMember = "AnotherTitle",
-                    SubFilters = new [] { "filter1", "filter2" }
+                    SubFilters = new[] { "filter1", "filter2" }
                 },
             };
 

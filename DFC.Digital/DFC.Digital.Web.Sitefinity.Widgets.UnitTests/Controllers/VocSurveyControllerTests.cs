@@ -15,7 +15,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
 {
     public class VocSurveyControllerTests
     {
-
         [Theory]
         [InlineData("test", new object[] { "jpprofile", "clientid" }, new object[] { "", "1665229681.1514888907" }, true)]
         [InlineData("testtest", new object[] { "jpprofile", "clientid" }, new object[] { "", "" }, false)]

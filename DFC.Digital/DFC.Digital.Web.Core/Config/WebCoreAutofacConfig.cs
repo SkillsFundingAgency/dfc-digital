@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.NLog;
+using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Repository.CosmosDb;
 using DFC.Digital.Repository.Database;
@@ -18,7 +19,7 @@ using System.Web.Hosting;
 
 namespace DFC.Digital.Web.Core.Config
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification ="Reviewed. Product name in correct spelling.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification = "Reviewed. Product name in correct spelling.")]
     public static class WebCoreAutofacConfig
     {
         public static IContainer BuildContainer(IContainer existingContainer)
@@ -63,6 +64,15 @@ namespace DFC.Digital.Web.Core.Config
 
             var dfcDigitalAssemblies = assemblies.Where(a => a.FullName.StartsWith("DFC.Digital.Web", StringComparison.Ordinal)).ToArray();
             builder.RegisterAssemblyModules(dfcDigitalAssemblies);
+
+            // OPTIONAL: Register web abstractions like HttpContextBase.
+            builder.RegisterModule<AutofacWebTypesModule>();
+
+            // OPTIONAL: Enable property injection in view pages.
+            builder.RegisterSource(new ViewRegistrationSource());
+
+            // OPTIONAL: Enable property injection into action filters.
+            builder.RegisterFilterProvider();
         }
     }
 }

@@ -83,12 +83,18 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             if (webAppContext.IsCategoryPage && !string.IsNullOrEmpty(urlName))
             {
                 var category = categoryRepo.GetByUrlName(urlName);
-                this.ViewBag.Title = $"{category.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                if (category != null)
+                {
+                    this.ViewBag.Title = $"{category.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                }
             }
             else if (webAppContext.IsJobProfilePage && !string.IsNullOrEmpty(urlName))
             {
                 var jobProfile = jobProfileRepository.GetByUrlName(urlName);
-                this.ViewBag.Title = $"{jobProfile.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                if (jobProfile != null)
+                {
+                    this.ViewBag.Title = $"{jobProfile.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                }
             }
 
             //Need to return a blank view so that we can check the view bag in tests.

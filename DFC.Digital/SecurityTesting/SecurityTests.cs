@@ -16,13 +16,13 @@ namespace SecurityTesting
         private static readonly string ZapPort = ConfigurationManager.AppSettings["port"];
         private static readonly string TargetUrl = ConfigurationManager.AppSettings["rooturl"];
         private static readonly string ReportPath = ConfigurationManager.AppSettings["reportPath"];
-        private static ClientApi ZapClient;
+        private static ClientApi zapClient;
         private IApiResponse response;
 
         public SecurityTests()
         {
-            ZapClient = new ClientApi(ZapUrl, Convert.ToInt32(ZapPort), ZapApiKey);
-            ZapClient.core.excludeFromProxy("^(?:(?!" + TargetUrl + ").)+$");
+            zapClient = new ClientApi(ZapUrl, Convert.ToInt32(ZapPort), ZapApiKey);
+            zapClient.core.excludeFromProxy("^(?:(?!" + TargetUrl + ").)+$");
         }
 
         [Fact, Priority(1)]
@@ -39,7 +39,7 @@ namespace SecurityTesting
             CheckActiveScanProgress(activeScanId);
             var reportFilename = $"{DateTime.Now:dd.MM.yy-hh.mm.ss}-ZAP_Report";
             SaveSession(reportFilename);
-            ZapClient.Dispose();
+            zapClient.Dispose();
 
             GenerateHtmlReport(reportFilename);
         }
@@ -50,7 +50,7 @@ namespace SecurityTesting
             while (true)
             {
                 Thread.Sleep(10000);
-                progress = int.Parse(((ApiResponseElement)ZapClient.ascan.status(activeScanId)).Value);
+                progress = int.Parse(((ApiResponseElement)zapClient.ascan.status(activeScanId)).Value);
 
                 if (progress >= 100)
                 {
@@ -64,25 +64,25 @@ namespace SecurityTesting
         private static void GenerateXmlReport(string filename)
         {
             var fileName = $@"{ReportPath}\{filename}.xml";
-            File.WriteAllBytes(fileName, ZapClient.core.xmlreport());
+            File.WriteAllBytes(fileName, zapClient.core.xmlreport());
         }
 
         private static void GenerateHtmlReport(string filename)
         {
             var fileName = $@"{ReportPath}\{filename}.html";
-            File.WriteAllBytes(fileName, ZapClient.core.htmlreport());
+            File.WriteAllBytes(fileName, zapClient.core.htmlreport());
         }
 
         private static void GenerateMarkdownReport(string filename)
         {
             var fileName = $@"{ReportPath}\{filename}.md";
-            File.WriteAllBytes(fileName, ZapClient.core.mdreport());
+            File.WriteAllBytes(fileName, zapClient.core.mdreport());
         }
 
         private static void SaveSession(string reportFilename)
         {
             var sessionReportPath = ReportPath + "\\Sessions\\" + DateTime.Now.ToString("dd.MM.yy");
-            ZapClient.core.saveSession($@"{sessionReportPath}\{reportFilename}", "true");
+            zapClient.core.saveSession($@"{sessionReportPath}\{reportFilename}", "true");
         }
 
         private static void CheckSpideringProgress(string spideringId)
@@ -91,7 +91,7 @@ namespace SecurityTesting
             while (true)
             {
                 Thread.Sleep(10000);
-                progress = int.Parse(((ApiResponseElement)ZapClient.spider.status(spideringId)).Value);
+                progress = int.Parse(((ApiResponseElement)zapClient.spider.status(spideringId)).Value);
                 if (progress >= 100)
                 {
                     break;
@@ -103,13 +103,13 @@ namespace SecurityTesting
 
         private string StartSpidering()
         {
-            response = ZapClient.spider.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty);
+            response = zapClient.spider.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty);
             return ((ApiResponseElement)response).Value;
         }
 
         private string StartActiveScan()
         {
-            response = ZapClient.ascan.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            response = zapClient.ascan.scan(TargetUrl, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             return ((ApiResponseElement)response).Value;
         }
     }

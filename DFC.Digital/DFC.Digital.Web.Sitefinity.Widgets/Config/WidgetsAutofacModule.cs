@@ -10,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.App_Start
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterAssemblyTypes().AsImplementedInterfaces()
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
@@ -21,10 +21,14 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.App_Start
             // InstancePerHttpRequest() - ASP.NET MVC will throw an exception if
             // you try to reuse a controller instance for multiple requests.
             builder.RegisterControllers(ThisAssembly)
+                   .InstancePerRequest()
 
                    //.EnableClassInterceptors()
-                   //.InstancePerRequest()
                    ;
+
+            // OPTIONAL: Register model binders that require DI.
+            builder.RegisterModelBinders(ThisAssembly);
+            builder.RegisterModelBinderProvider();
         }
     }
 }

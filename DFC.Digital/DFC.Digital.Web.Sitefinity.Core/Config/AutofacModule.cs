@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
-using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Sitefinity.Core;
+using DFC.Digital.Web.Sitefinity.Core.Interface;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
@@ -10,11 +12,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterModule<AutofacWebTypesModule>();
 
-            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
-               .EnableInterfaceInterceptors()
-               .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+            builder.RegisterType<WebAppContext>().As<IWebAppContext>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+
+            builder.RegisterType<SitefinityCurrentContext>().As<ISitefinityCurrentContext>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+
+            builder.RegisterType<SitefinityPage>().As<ISitefinityPage>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+
+            builder.RegisterType<JobProfilePageContentService>().As<IJobProfilePage>()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
         }
     }
 }

@@ -94,24 +94,32 @@ module.exports = function (grunt) {
                 formatters: [{
                     id: 'csslint-xml',
                     dest: 'csslint_report/csslint.xml'
-                }]
+                }],
             },
             dev: {
                 expand: true,
                 cwd: '<%= dist.path %>/css/',
-                src: ['*.css', '!*.min.css']
+                src: [
+                    '*.css',
+                    '!*.min.css',
+                    '!fonts.css',
+                    '!govuk-template*.css'
+                ],
             }
         },
 
         cssmin: {
-            minify: {
+            options: {
+                level: 2,
+            },
+            target: {
                 expand: true,
                 cwd: '<%= dist.path %>/css/',
                 src: ['*.css', '!*.min.css'],
                 dest: '<%= dist.path %>/css/',
                 ext: '.min.css',
                 extDot: 'last'
-            }
+            },
         },
 
         copy: {

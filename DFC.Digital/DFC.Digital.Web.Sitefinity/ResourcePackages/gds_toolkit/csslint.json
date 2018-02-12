@@ -19,6 +19,7 @@
   "important": false,
   "known-properties": false,
   "outline-none": false,
+  "order-alphabetical": false,
   "overqualified-elements": true,
   "qualified-headings": false,
   "regex-selectors": false,

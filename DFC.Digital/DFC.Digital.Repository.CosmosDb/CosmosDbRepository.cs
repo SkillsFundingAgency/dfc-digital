@@ -5,6 +5,7 @@ using Microsoft.Azure.Documents.Client;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
@@ -24,7 +25,7 @@ namespace DFC.Digital.Repository.CosmosDb
 
         public void Add(Audit entity)
         {
-            documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(Database, DocumentCollection), entity);
+            Task.Run(() => documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(Database, DocumentCollection), entity));
         }
 
         public void Delete(Audit entity)

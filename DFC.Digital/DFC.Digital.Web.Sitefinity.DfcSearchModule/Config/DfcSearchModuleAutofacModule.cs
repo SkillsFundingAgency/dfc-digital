@@ -10,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterAssemblyTypes().AsImplementedInterfaces()
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 

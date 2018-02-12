@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterAssemblyTypes().AsImplementedInterfaces()
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
@@ -34,7 +34,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             // lifetimes, you must register them as InstancePerDependency() or
             // InstancePerHttpRequest() - ASP.NET MVC will throw an exception if
             // you try to reuse a controller instance for multiple requests.
-            builder.RegisterControllers(ThisAssembly);
+            builder.RegisterControllers(ThisAssembly)
+                   .InstancePerRequest()
+
+                   //.EnableClassInterceptors()
+                   ;
+
+            // OPTIONAL: Register model binders that require DI.
+            builder.RegisterModelBinders(ThisAssembly);
+            builder.RegisterModelBinderProvider();
         }
     }
 }

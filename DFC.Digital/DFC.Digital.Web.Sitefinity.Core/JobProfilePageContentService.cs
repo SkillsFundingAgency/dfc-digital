@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Mvc.Proxy;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     /// <summary>
     /// Sitefinity Page Content Service

@@ -1,10 +1,11 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Hosting;
 using Telerik.Sitefinity.Web;
 
-namespace DFC.Digital.Web.Sitefinity
+namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
 {
     public class CustomSitefinityHttpModule : SitefinityHttpModule
     {
@@ -42,12 +43,30 @@ namespace DFC.Digital.Web.Sitefinity
 
         protected override void OnSystemRestarting(HttpContext context, string html = null, string scriptUrl = null)
         {
-            DisplayPage(context, SystemRestartingHtml);
+            CustomErrorsSection customErrorsSection = (CustomErrorsSection)ConfigurationManager.GetSection("system.web/customErrors");
+
+            if (customErrorsSection.Mode.Equals(CustomErrorsMode.Off) || (customErrorsSection.Mode.Equals(CustomErrorsMode.RemoteOnly) && HttpContext.Current.Request.IsLocal))
+            {
+                base.OnSystemRestarting(context, html, scriptUrl);
+            }
+            else
+            {
+                DisplayPage(context, SystemRestartingHtml);
+            }
         }
 
         protected override void OnSystemUpgrading(HttpContext context, string html = null, string scriptUrl = null)
         {
-            DisplayPage(context, SystemUpgradingHtml);
+            CustomErrorsSection customErrorsSection = (CustomErrorsSection)ConfigurationManager.GetSection("system.web/customErrors");
+
+            if (customErrorsSection.Mode.Equals(CustomErrorsMode.Off) || (customErrorsSection.Mode.Equals(CustomErrorsMode.RemoteOnly) && HttpContext.Current.Request.IsLocal))
+            {
+                base.OnSystemUpgrading(context, html, scriptUrl);
+            }
+            else
+            {
+                DisplayPage(context, SystemUpgradingHtml);
+            }
         }
 
         private static void DisplayPage(HttpContext context, string html)

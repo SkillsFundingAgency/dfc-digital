@@ -104,9 +104,11 @@
     <Compile Include="Interfaces\ISearchQueryService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
+    <Compile Include="Interfaces\IServiceStatus.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\ServiceStatus.cs" />
     <Compile Include="Model\PreSearchFilterOperator.cs" />
     <Compile Include="Model\Audit.cs" />
     <Compile Include="Model\DfcPageSiteNode.cs" />

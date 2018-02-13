@@ -10,9 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
     public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {
         private static readonly string SystemRestartingHtml = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonPage"]));
-
         private static readonly string SystemUpgradingHtml = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonPage"]));
-
         private static readonly string RedirectToUrlScript = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonJScript"]));
 
         protected override void OnSystemRestarting(HttpContext context, string html = null, string scriptUrl = null)

@@ -191,23 +191,23 @@
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature" />
-    <None Include="App_public_.config">
+    <None Include="App.config">
       <TransformOnBuild>true</TransformOnBuild>
     </None>
     <None Include="App.Debug.config">
-      <DependentUpon>App_public_.config</DependentUpon>
+      <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.DevRelease.config">
-      <DependentUpon>App_public_.config</DependentUpon>
+      <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.OWASP.config">
-      <DependentUpon>App_public_.config</DependentUpon>
+      <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.Release.config">
-      <DependentUpon>App_public_.config</DependentUpon>
+      <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>

@@ -1161,7 +1161,7 @@
     <Content Include="Sitefinity\Services\Versioning\HistoryService.svc" />
     <Content Include="Sitefinity\Services\Workflow\WorkflowDefinitionService.svc" />
     <Content Include="Sitefinity\Services\Workflow\WorkflowService.svc" />
-    <Content Include="web_public_.config">
+    <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Mvc\Controllers\readme.txt" />
@@ -1187,12 +1187,12 @@
     <None Include="App_Data\GeoLocation\GeoLiteCity.dat" />
     <Content Include="App_Data\Sitefinity\Configuration\ProjectConfig.config" />
     <Content Include="ResourcePackages\LICENSE.md" />
-    <Content Include="App_Data\Sitefinity\Configuration\AuthenticationConfig_public_.config" />
-    <Content Include="App_Data\Sitefinity\Configuration\DataConfig_public_.config">
+    <Content Include="App_Data\Sitefinity\Configuration\AuthenticationConfig.config" />
+    <Content Include="App_Data\Sitefinity\Configuration\DataConfig.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\Sitefinity\Configuration\PersonalizationConfig.config" />
-    <Content Include="App_Data\Sitefinity\Configuration\SecurityConfig_public_.config" />
+    <Content Include="App_Data\Sitefinity\Configuration\SecurityConfig.config" />
     <Content Include="App_Data\Sitefinity\Configuration\SystemConfig.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1253,7 +1253,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportTabular-Light.eot" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportWebsite-Bold.eot" />
     <Content Include="ResourcePackages\gds_toolkit\assets\dist\css\fonts\GDSTransportWebsite.eot" />
-    <Content Include="App_Data\Sitefinity\Configuration\SearchConfig_public_.config" />
+    <Content Include="App_Data\Sitefinity\Configuration\SearchConfig.config" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_jobprofile.scss" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Classifications\Structure\version.sf" />
@@ -1310,14 +1310,14 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_casestudy.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="web_public_.Debug.config">
-      <DependentUpon>web_public_.config</DependentUpon>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
-    <None Include="web_public_.Release Pro.config">
-      <DependentUpon>web_public_.config</DependentUpon>
+    <None Include="web.Release Pro.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
-    <None Include="web_public_.Release.config">
-      <DependentUpon>web_public_.config</DependentUpon>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>

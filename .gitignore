@@ -290,3 +290,13 @@ __pycache__/
 #Ignore the libs
 DFC.Digital/Lib
 **/*Feature.cs
+/DFC.Digital/DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests/app.config
+/DFC.Digital/DFC.Digital.AcceptanceTest/App.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration/AuthenticationConfig.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration/DataConfig.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration/SearchConfig.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration/SecurityConfig.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/web.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/web.Debug.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/web.Release Pro.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/web.Release.config

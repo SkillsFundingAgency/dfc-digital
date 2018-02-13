@@ -9,9 +9,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
 {
     public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {
-        private static readonly string SystemRestartingHtml = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonPage"]));
-        private static readonly string SystemUpgradingHtml = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonPage"]));
-        private static readonly string RedirectToUrlScript = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonJScript"]));
+        private string SystemRestartingOrUpgradingHtml => GetTextByConfig("WillBeBackSoonPage");
+
+        private string RedirectToUrlScript => GetTextByConfig("WillBeBackSoonJScript");
 
         protected override void OnSystemRestarting(HttpContext context, string html = null, string scriptUrl = null)
         {
@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
             }
             else
             {
-                DisplayPage(context, SystemRestartingHtml);
+                DisplayPage(context, SystemRestartingOrUpgradingHtml);
             }
         }
 
@@ -37,11 +37,11 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
             }
             else
             {
-                DisplayPage(context, SystemUpgradingHtml);
+                DisplayPage(context, SystemRestartingOrUpgradingHtml);
             }
         }
 
-        private static void DisplayPage(HttpContext context, string html)
+        private void DisplayPage(HttpContext context, string html)
         {
             var statuscodeSetting = ConfigurationManager.AppSettings["sf:AppStatusPageResponseCode"];
             int statuscode;
@@ -57,5 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
             context.Response.Write(html.Replace("_applicat_virtual_path_", applicationVirtualPath).Replace("_inject_javascript_", RedirectToUrlScript));
             context.ApplicationInstance.CompleteRequest();
         }
+
+        private string GetTextByConfig(string key) => File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings[key]));
     }
 }

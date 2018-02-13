@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
 {
-    public class CustomSitefinityHttpModule : SitefinityHttpModule
+    public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {
         private static readonly string SystemRestartingHtml = File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["WillBeBackSoonPage"]));
 

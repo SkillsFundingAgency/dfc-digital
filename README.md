@@ -170,7 +170,7 @@ The solution  uses the Get /ashe/estimatePayMD API to get an estimation of the m
 
 | Config File   | Key                                       | Token                       | Example value             |
 |-------------| ----------------------------------------- |-----------------------      |:----------------|
-|web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
             | 
 
 You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)

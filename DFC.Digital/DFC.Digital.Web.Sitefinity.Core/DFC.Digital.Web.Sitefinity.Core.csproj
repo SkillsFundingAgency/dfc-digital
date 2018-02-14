@@ -380,6 +380,7 @@
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="DfcCustomRequestValidator.cs" />
+    <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
     <Compile Include="Interface\ISitefinityPage.cs" />
     <Compile Include="Interface\ISitefinityCurrentContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

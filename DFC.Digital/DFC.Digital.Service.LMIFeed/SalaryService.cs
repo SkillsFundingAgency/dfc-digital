@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.LMIFeed
 {
-    public class SalaryService : ISalaryService
+    public class SalaryService : ISalaryService, IServiceStatus
     {
         readonly IApplicationLogger applicationLogger;
         readonly IAsheHttpClientProxy asheProxy;
@@ -22,6 +22,16 @@ namespace DFC.Digital.Service.LMIFeed
         }
 
         #endregion ctor
+
+        #region Implement of IServiceStatus
+        private string ServiceName => "LMIFeed";
+
+        public ServiceStatus GetCurrentStatus()
+        {
+            return new ServiceStatus { Name = ServiceName, Status = ServiceState.Green, Notes = string.Empty };
+        }
+
+        #endregion
 
         #region Implementation of IAsheFeed
 

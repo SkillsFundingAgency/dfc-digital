@@ -139,6 +139,7 @@
     <Compile Include="Controllers\DfcBreadcrumbControllerTests.cs" />
     <Compile Include="Controllers\SetContentRelatedPageTitleControllerTests.cs" />
     <Compile Include="Controllers\BauSearchResultsSignPostControllerTests.cs" />
+    <Compile Include="Controllers\ServiceStatusController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\DfcBreadcrumbViewTests.cs" />
     <Compile Include="Controllers\VocSurveyControllerTests.cs" />

@@ -1,37 +1,49 @@
 ﻿using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Service.ServiceStatusesToCheck;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 {
-    [ControllerToolboxItem(Name = "Service Status", Title = "Checks and displays the status of services intergrated with this application", SectionName = SitefinityConstants.CustomWidgetSection)]
+    [ControllerToolboxItem(Name = "ServiceStatus", Title = "Check the status of services", SectionName = SitefinityConstants.CustomWidgetSection)]
+
     public class ServiceStatusController : Controller
     {
         #region private
-        private IServiceStatus serviceStatus;
-        private IWebAppContext webAppContext;
-        private IApplicationLogger applicationLogger;
+        private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
+        private readonly IWebAppContext webAppContext;
+        private readonly IApplicationLogger applicationLogger;
 
         #endregion
 
         #region Constructors
-        public ServiceStatusController(IServiceStatus serviceStatus, IWebAppContext webAppContext, IApplicationLogger applicationLogger)
+        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext, IApplicationLogger applicationLogger)
         {
-            this.serviceStatus = serviceStatus;
+            this.dependencyHealth = dependencyHealth;
             this.webAppContext = webAppContext;
             this.applicationLogger = applicationLogger;
         }
+
         #endregion
 
         #region Actions
         public ActionResult Index()
         {
-            return View();
+            var serviceStatusModel = new ServiceStatusModel()
+            {
+                CheckDateTime = DateTime.Now,
+                ServiceStatues = dependencyHealth.Select(d => d.Status),
+            };
+
+            return View(serviceStatusModel);
         }
         #endregion
     }

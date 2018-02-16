@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseSearchService : ICourseSearchService
+    public class CourseSearchService : ICourseSearchService, IServiceStatus
     {
         private readonly ICourseOpportunityBuilder courseOpportunityBuilder;
         private readonly IAuditRepository auditRepository;
@@ -22,6 +22,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
+        }
+
+        private string ServiceName => "Course Search";
+
+        public ServiceStatus GetCurrentStatus()
+        {
+            return new ServiceStatus { Name = ServiceName, Status = ServiceState.Green, Notes = string.Empty };
         }
 
         public IEnumerable<Course> GetCourses(string jobprofileKeywords)

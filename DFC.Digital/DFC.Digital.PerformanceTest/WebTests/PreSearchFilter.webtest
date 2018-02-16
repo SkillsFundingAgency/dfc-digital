@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="PreSearchFilter" Id="51da30fe-edda-4dc9-921f-75ac1271a7cf" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest5.66855013-b4ef-4a9b-bbf7-5d9ebdbe9a8f.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="526dc93e-f103-476e-8d1e-326edd250850" Version="1.1" Url="{{WebServer1}}/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="7fbb6bac-4450-4112-a412-15a5bc71faea" Version="1.1" Url="{{WebServer1}}/filter/job-level" ThinkTime="15" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/filter/job-level" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam17.Section.Options[1].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_1__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam18.Section.Options[2].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_2__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam19.Section.Options[3].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_3__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+    </Request>
+    <Request Method="POST" Guid="485f8951-6350-4648-8985-f15ec0dc6c49" Version="1.1" Url="{{WebServer1}}/filter/personal-interest" ThinkTime="11" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/filter-search/job-level" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam20.Section.Options[3].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_3__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam21.Section.Options[4].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_4__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam22.Section.Options[6].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_6__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Section.Name" Value="{{$HIDDEN1.Section.Name}}" RecordedValue="Job level" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SectionDataType" Value="{{$HIDDEN1.Section.SectionDataType}}" RecordedValue="EntryQualification" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="OptionsSelected" Value="{{$HIDDEN1.OptionsSelected}}" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.PageNumber" Value="{{$HIDDEN1.Section.PageNumber}}" RecordedValue="1" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SingleSelectOnly" Value="{{$HIDDEN1.Section.SingleSelectOnly}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].IsSelected" Value="{{$HIDDEN1.Section.Options[0].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].OptionKey" Value="{{$HIDDEN1.Section.Options[0].OptionKey}}" RecordedValue="e581c6a3-440d-45f1-81ef-2d82555f3093|1---entry-level-jobs-no-formal-quals-required" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[0].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam17.Section.Options[1].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].IsSelected" Value="{{$HIDDEN1.Section.Options[1].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].OptionKey" Value="{{$HIDDEN1.Section.Options[1].OptionKey}}" RecordedValue="652165f7-af2b-43fa-a8fc-3e83a496390a|2---semi-skilled---typically-needing-some-gcses-or-equivalent-experience" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[1].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam18.Section.Options[2].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="{{$HIDDEN1.Section.Options[2].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].OptionKey" Value="{{$HIDDEN1.Section.Options[2].OptionKey}}" RecordedValue="6c2f2f47-c690-4199-b2a9-5af10866f44c|3---skilled-technician---typically-needing-college-level-3-qualifications-or-equivalent-experience" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[2].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam19.Section.Options[3].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="{{$HIDDEN1.Section.Options[3].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].OptionKey" Value="{{$HIDDEN1.Section.Options[3].OptionKey}}" RecordedValue="8cb837c7-1324-4385-9b99-699bc43aede9|4---professional---typically-needing-a-degree-or-equivalent-or-higher" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[3].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].IsSelected" Value="{{$HIDDEN1.Section.Options[4].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].OptionKey" Value="{{$HIDDEN1.Section.Options[4].OptionKey}}" RecordedValue="23f9480b-9779-452d-88b3-d8ad943109fb|not-applicable-don't-filter" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[4].ClearOtherOptionsIfSelected}}" RecordedValue="True" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="__ncforminfo" Value="{{$HIDDEN1.__ncforminfo}}" RecordedValue="pTHZF9p6-oJHIj05vUK3SP-KoF9D3vowLQPG4lF_XdQvLr8dBkQo1Bj0KETx3dLl1Z5SwKwxf7gmtXk94710Va7wIu8wfWbixxaGRU_0VHMlR2H_g5m4xVYNHP5zihVGwQHyZRwaf14GRQ6HBMi_C22vRyFAFQOXCmoUhvodLO3bOAtQLO9OccFzAQh72Gcp3iDXdkWMaCuIi_05mADsxVkNtqvT2WQJmIJP2wmx9XeVKaz3TGAtS1DTMyLJo-3kSc6J-o0OAHHJHjx-oeOr4F1BdYYezkFgdM3yrNtOh45UzEcgrcAVgfCYcOFpIVBMbx3wJOji7jA=" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="70480071-f4a7-41fe-8e23-9c07c0331614" Version="1.1" Url="{{WebServer1}}/filter/preferred-tasks" ThinkTime="14" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/filter-search/personal-interests" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam23.Section.Options[0].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_0__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam24.Section.Options[1].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_1__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam25.Section.Options[2].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_2__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Section.Name" Value="{{$HIDDEN1.Section.Name}}" RecordedValue="Personal interests" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SectionDataType" Value="{{$HIDDEN1.Section.SectionDataType}}" RecordedValue="Interest" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="OptionsSelected" Value="{{$HIDDEN1.OptionsSelected}}" RecordedValue="{&quot;Sections&quot;:[{&quot;Name&quot;:&quot;Job level&quot;,&quot;SectionDataType&quot;:&quot;EntryQualification&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;652165f7-af2b-43fa-a8fc-3e83a496390a|2---semi-skilled---typically-needing-some-gcses-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;6c2f2f47-c690-4199-b2a9-5af10866f44c|3---skilled-technician---typically-needing-college-level-3-qualifications-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;8cb837c7-1324-4385-9b99-699bc43aede9|4---professional---typically-needing-a-degree-or-equivalent-or-higher&quot;}],&quot;SingleSelectedValue&quot;:null}]}" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.PageNumber" Value="{{$HIDDEN1.Section.PageNumber}}" RecordedValue="2" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SingleSelectOnly" Value="{{$HIDDEN1.Section.SingleSelectOnly}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].IsSelected" Value="{{$HIDDEN1.Section.Options[0].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].OptionKey" Value="{{$HIDDEN1.Section.Options[0].OptionKey}}" RecordedValue="fa87fc53-493a-4455-a463-0670cf8cfecc|music" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[0].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].IsSelected" Value="{{$HIDDEN1.Section.Options[1].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].OptionKey" Value="{{$HIDDEN1.Section.Options[1].OptionKey}}" RecordedValue="03930d32-526f-46b4-b5a5-16a78237eacf|writing" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[1].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="{{$HIDDEN1.Section.Options[2].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].OptionKey" Value="{{$HIDDEN1.Section.Options[2].OptionKey}}" RecordedValue="a92b517d-3e4a-4a13-b1fd-18dd329c5e17|keeping-fit" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[2].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam20.Section.Options[3].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="{{$HIDDEN1.Section.Options[3].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].OptionKey" Value="{{$HIDDEN1.Section.Options[3].OptionKey}}" RecordedValue="47d0e76c-0fe6-4af3-ac85-549a30d725ce|travel" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[3].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam21.Section.Options[4].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].IsSelected" Value="{{$HIDDEN1.Section.Options[4].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].OptionKey" Value="{{$HIDDEN1.Section.Options[4].OptionKey}}" RecordedValue="47f6702c-0699-4bb9-abf2-ad5a2fd445a3|gaming" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[4].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].IsSelected" Value="{{$HIDDEN1.Section.Options[5].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].OptionKey" Value="{{$HIDDEN1.Section.Options[5].OptionKey}}" RecordedValue="b58b44cc-bd48-4ef9-8f51-e25d0c6d5140|food-cookery" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[5].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[6].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam22.Section.Options[6].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[6].IsSelected" Value="{{$HIDDEN1.Section.Options[6].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[6].OptionKey" Value="{{$HIDDEN1.Section.Options[6].OptionKey}}" RecordedValue="f960f25c-ab6f-4150-9137-aee37421776b|technology" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[6].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[6].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[7].IsSelected" Value="{{$HIDDEN1.Section.Options[7].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[7].OptionKey" Value="{{$HIDDEN1.Section.Options[7].OptionKey}}" RecordedValue="27bf9c58-b09f-49b6-9947-29a7cce0760b|not-applicable" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[7].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[7].ClearOtherOptionsIfSelected}}" RecordedValue="True" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="__ncforminfo" Value="{{$HIDDEN1.__ncforminfo}}" RecordedValue="fceRVoZJD0tiQSipTVBa9rstAuWeGYz521QNC7jFskl25f0mnUTP-0vkD4lS5IcrV5kBxnzGS5j0Ks2G7MNRuvDjocOueMvnKha0FIopP3URFxK1XEd03tJqftWglAqFCu4Pcpdy8nxySzqxzRS5L6ck0_8duldlnJhhrl8ProCdSl9APoi3wOuJp45P_ONZvKXoSF2Zk-fRuxzKLR0Cd2q4TJgDhbSwtZTDI-kPU6pQNJsD7gF2RuNQldX4r0lIiydGeopR_P6ngrFyOow3FCBYzmYIzg29VUZce9l_-iWrTQQCpneQUYNpJGb8sp20NZuk099mqYIcDPvPpW_03XumNng6aVsVRQ84H1rYQpxBfuztubqjh83DJ6j-75gvHs5f4OvaoBvkvgKHKcKXpJKDiybDEDxHS9mlmqDWEC8=" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="99124f66-ebff-4ac4-9da8-8dea32459b8b" Version="1.1" Url="{{WebServer1}}/filter/ways-to-get-in" ThinkTime="10" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/filter-search/job-areas" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam29.Section.Options[0].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_0__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam30.Section.Options[1].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_1__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam31.Section.Options[2].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_2__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam32.Section.Options[3].IsSelected" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="Section_Options_3__IsSelected" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Section.Name" Value="{{$HIDDEN1.Section.Name}}" RecordedValue="Job areas" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SectionDataType" Value="{{$HIDDEN1.Section.SectionDataType}}" RecordedValue="JobArea" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="OptionsSelected" Value="{{$HIDDEN1.OptionsSelected}}" RecordedValue="{&quot;Sections&quot;:[{&quot;Name&quot;:&quot;Job level&quot;,&quot;SectionDataType&quot;:&quot;EntryQualification&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;652165f7-af2b-43fa-a8fc-3e83a496390a|2---semi-skilled---typically-needing-some-gcses-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;6c2f2f47-c690-4199-b2a9-5af10866f44c|3---skilled-technician---typically-needing-college-level-3-qualifications-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;8cb837c7-1324-4385-9b99-699bc43aede9|4---professional---typically-needing-a-degree-or-equivalent-or-higher&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Personal interests&quot;,&quot;SectionDataType&quot;:&quot;Interest&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;47d0e76c-0fe6-4af3-ac85-549a30d725ce|travel&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;47f6702c-0699-4bb9-abf2-ad5a2fd445a3|gaming&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;f960f25c-ab6f-4150-9137-aee37421776b|technology&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Preferred tasks&quot;,&quot;SectionDataType&quot;:&quot;PreferredTaskType&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;d985429a-e0b2-4320-bc81-20f91e919fb6|customer-care&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;b73347b0-1892-4bf0-84c0-5cbc208a6f98|high-level-computer-or-machinery-use&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;87f7ac63-1800-41fc-92e9-7a8427cb33bf|managing-and-leading&quot;}],&quot;SingleSelectedValue&quot;:null}]}" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.PageNumber" Value="{{$HIDDEN1.Section.PageNumber}}" RecordedValue="4" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SingleSelectOnly" Value="{{$HIDDEN1.Section.SingleSelectOnly}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].IsSelected" Value="{{$HIDDEN1.Section.Options[0].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].OptionKey" Value="{{$HIDDEN1.Section.Options[0].OptionKey}}" RecordedValue="7c206e7d-c1f8-4d6b-94ed-6ce67dd23b9b|sports-and-leisure" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[0].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].IsSelected" Value="{{$HIDDEN1.Section.Options[1].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].OptionKey" Value="{{$HIDDEN1.Section.Options[1].OptionKey}}" RecordedValue="679f45c1-b87f-4446-af1d-7b32c699776a|health-and-social-care" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[1].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam26.Section.Options[2].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="{{$HIDDEN1.Section.Options[2].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].OptionKey" Value="{{$HIDDEN1.Section.Options[2].OptionKey}}" RecordedValue="c46762f8-bd67-4ae4-bb6c-8df858a3088a|administration-business-and-finance" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[2].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam27.Section.Options[3].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="{{$HIDDEN1.Section.Options[3].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].OptionKey" Value="{{$HIDDEN1.Section.Options[3].OptionKey}}" RecordedValue="a7c2465b-f1f3-41d6-b3d6-a147975762b9|travel-and-tourism" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[3].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam28.Section.Options[4].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].IsSelected" Value="{{$HIDDEN1.Section.Options[4].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].OptionKey" Value="{{$HIDDEN1.Section.Options[4].OptionKey}}" RecordedValue="a93fc4d3-66db-46a6-8e31-aadfd05a11f4|computing-technology-and-digital" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[4].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[4].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].IsSelected" Value="{{$HIDDEN1.Section.Options[5].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].OptionKey" Value="{{$HIDDEN1.Section.Options[5].OptionKey}}" RecordedValue="91f9bcb8-abdf-4cec-aff2-f3c375f991cc|not-applicable" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[5].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[5].ClearOtherOptionsIfSelected}}" RecordedValue="True" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="__ncforminfo" Value="{{$HIDDEN1.__ncforminfo}}" RecordedValue="0rUyFj15TCCNaCwhGH9N9W5zXpCo-dauOc_USMb0BwhDV3vkufsJy3XzBIBMQfbBliDowdSph-Ep9fJ61GWPQ9vNTeo_PexmmWXs_OV38mhLnFfzigSeSddsoc6LuB1tBgFE3fbHKJXDsMUKc0-gOhn8S6PzZ2mYTCabJbuj3SFJJPO7eb_q_DCc7qANEIaVq7VQeqljqtiDfYJz27qryuXCfVJ3Bu-Zv0dAwc6O54JIy2EZd3S9aMVNd9aum2ikVJy9X9E---W6XZ732sEUBA==" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="81e50224-a5c7-45b3-8a15-7f4a3e5cd56c" Version="1.1" Url="{{WebServer1}}/filter/filter-search-results" ThinkTime="23" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/filter-search/restrictions" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="Section.Name" Value="{{$HIDDEN1.Section.Name}}" RecordedValue="Restrictions" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SectionDataType" Value="{{$HIDDEN1.Section.SectionDataType}}" RecordedValue="Enabler" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="OptionsSelected" Value="{{$HIDDEN1.OptionsSelected}}" RecordedValue="{&quot;Sections&quot;:[{&quot;Name&quot;:&quot;Job level&quot;,&quot;SectionDataType&quot;:&quot;EntryQualification&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;652165f7-af2b-43fa-a8fc-3e83a496390a|2---semi-skilled---typically-needing-some-gcses-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;6c2f2f47-c690-4199-b2a9-5af10866f44c|3---skilled-technician---typically-needing-college-level-3-qualifications-or-equivalent-experience&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;8cb837c7-1324-4385-9b99-699bc43aede9|4---professional---typically-needing-a-degree-or-equivalent-or-higher&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Personal interests&quot;,&quot;SectionDataType&quot;:&quot;Interest&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;47d0e76c-0fe6-4af3-ac85-549a30d725ce|travel&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;47f6702c-0699-4bb9-abf2-ad5a2fd445a3|gaming&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;f960f25c-ab6f-4150-9137-aee37421776b|technology&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Preferred tasks&quot;,&quot;SectionDataType&quot;:&quot;PreferredTaskType&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;d985429a-e0b2-4320-bc81-20f91e919fb6|customer-care&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;b73347b0-1892-4bf0-84c0-5cbc208a6f98|high-level-computer-or-machinery-use&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;87f7ac63-1800-41fc-92e9-7a8427cb33bf|managing-and-leading&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Job areas&quot;,&quot;SectionDataType&quot;:&quot;JobArea&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;c46762f8-bd67-4ae4-bb6c-8df858a3088a|administration-business-and-finance&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;a7c2465b-f1f3-41d6-b3d6-a147975762b9|travel-and-tourism&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;a93fc4d3-66db-46a6-8e31-aadfd05a11f4|computing-technology-and-digital&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Ways to get in&quot;,&quot;SectionDataType&quot;:&quot;TrainingRoute&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;2b619b27-f43f-41f4-87c0-21116e088f3a|work-your-way-up&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;1af3c109-7483-433d-adf8-5cdba3fd3ae9|apprenticeship&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;76cebc47-0f91-45a6-92ac-caf2b63cf810|industry-specific-training&quot;},{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;cd30627e-640f-4042-b566-fabc0637a1bb|college-or-university-course-full-or-part-time&quot;}],&quot;SingleSelectedValue&quot;:null},{&quot;Name&quot;:&quot;Your career focus&quot;,&quot;SectionDataType&quot;:&quot;CareerFocus&quot;,&quot;Options&quot;:[{&quot;IsSelected&quot;:true,&quot;ClearOtherOptionsIfSelected&quot;:false,&quot;OptionKey&quot;:&quot;0d440d30-95e2-4630-a214-ec358a34f652|salary&quot;}],&quot;SingleSelectedValue&quot;:null}]}" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.PageNumber" Value="{{$HIDDEN1.Section.PageNumber}}" RecordedValue="7" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.SingleSelectOnly" Value="{{$HIDDEN1.Section.SingleSelectOnly}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].IsSelected" Value="{{$HIDDEN1.Section.Options[0].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].OptionKey" Value="{{$HIDDEN1.Section.Options[0].OptionKey}}" RecordedValue="7c4f01c6-0b00-4659-9832-a17f61c02879|physical-fitness-required" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[0].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[0].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].IsSelected" Value="{{$HIDDEN1.Section.Options[1].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].OptionKey" Value="{{$HIDDEN1.Section.Options[1].OptionKey}}" RecordedValue="d5c35b12-79e4-476a-945a-9abdafa0f2b6|driving-licence-essential" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[1].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[1].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].IsSelected" Value="{{$HIDDEN1.Section.Options[2].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].OptionKey" Value="{{$HIDDEN1.Section.Options[2].OptionKey}}" RecordedValue="10e940cc-9bcf-46c4-bc78-2c214d9c2e73|enhanced-criminal-records-check-required" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[2].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[2].ClearOtherOptionsIfSelected}}" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="true" RecordedValue="true" CorrelationBinding="{{FormPostParam34.Section.Options[3].IsSelected}}" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].IsSelected" Value="{{$HIDDEN1.Section.Options[3].IsSelected}}" RecordedValue="false" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].OptionKey" Value="{{$HIDDEN1.Section.Options[3].OptionKey}}" RecordedValue="2ab63685-e78c-49e3-b4f9-4d04b23b7c7f|not-applicable-don't-filter" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Section.Options[3].ClearOtherOptionsIfSelected" Value="{{$HIDDEN1.Section.Options[3].ClearOtherOptionsIfSelected}}" RecordedValue="True" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="__ncforminfo" Value="{{$HIDDEN1.__ncforminfo}}" RecordedValue="qIlxnygsVOY7YAnsoXMwhrdAM7fRyXgcvAGTxLxpUPWPdl55LUl37AQnvWiunwTTCcf9tx1H2UwuB3bzf0JeaTVRgW4cN4T-orZvY72QV4bMezJPj8ficI3-RnNesuJhjW_FV3jYQWQ=" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Guid="378ac9fe-7237-474a-af9a-f8c6d9b7deab" Version="1.1" Url="{{WebServer1}}/job-profiles/gp" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/filter-search/filter-search-results" />
+      </Headers>
+    </Request>
+  </Items>
+  <ContextParameters>
+    <ContextParameter Name="WebServer1" Value="https://staging-beta.nationalcareersservice.org.uk" />
+  </ContextParameters>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+  </ValidationRules>
+</WebTest>

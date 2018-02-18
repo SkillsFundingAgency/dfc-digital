@@ -123,6 +123,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public int MaxApprenticeshipCount { get; set; } = 2;
 
         #endregion Public Properties
+
         #region Actions
 
         /// <summary>

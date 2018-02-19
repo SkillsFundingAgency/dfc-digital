@@ -46,6 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="webAppContext">The web application context.</param>
         /// <param name="jobProfileSocCodeRepository">The job profile soc code repository.</param>
         /// <param name="applicationLogger">The application logger.</param>
+        /// <param name="sitefinityPage">Sitefinity page</param>
         public JobProfileApprenticeshipsController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {

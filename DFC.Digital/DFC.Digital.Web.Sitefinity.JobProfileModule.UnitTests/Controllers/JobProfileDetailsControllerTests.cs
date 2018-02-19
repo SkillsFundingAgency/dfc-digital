@@ -134,8 +134,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
             }
-
-            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustHaveHappened();
         }
 
         private void SetUpDependeciesAndCall(bool validJobProfile, bool isContentPreviewMode)

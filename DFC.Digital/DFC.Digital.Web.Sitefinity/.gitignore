@@ -1,6 +1,9 @@
 ## Ignore files that are specific to sitefinity.
 ##
 
-#Ignore the licence
+#Ignore sitefinity specific files
 App_Data/Sitefinity/*.lic
 App_Data/Sitefinity/Logs/**
+ResourcePackages/gds_toolkit/assets/dist/**
+ResourcePackages/gds_toolkit/csslint_report/**
+ResourcePackages/gds_toolkit/package-lock.json

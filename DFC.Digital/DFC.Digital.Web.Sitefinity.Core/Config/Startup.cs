@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
 using DFC.Digital.Web.Core.Config;
 using System;
 using System.Web.Mvc;
@@ -48,7 +49,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             IContainer existingAutofacContainer = null;
             try
             {
-                existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                if (ObjectFactory.Container.IsRegistered<IContainer>())
+                {
+                    existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                }
             }
             catch (ResolutionFailedException)
             {
@@ -58,6 +62,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
 
             ObjectFactory.Container.RegisterInstance(autofacContainer);
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+
+            //Application lifetime scope
             ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());
         }
 
@@ -66,8 +73,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             routes.Ignore("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute("govnotifyemail", "govnotifyemail/{controller}/{action}", new { controller = "VocSurvey", action = "SendEmail", id = string.Empty });
-
             routes.MapRoute("searchautocomplete", "searchautocomplete/{controller}/{action}", new { controller = "JobProfileSearchBox", action = "Suggestions", id = string.Empty });
+            routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
         }
     }
 }

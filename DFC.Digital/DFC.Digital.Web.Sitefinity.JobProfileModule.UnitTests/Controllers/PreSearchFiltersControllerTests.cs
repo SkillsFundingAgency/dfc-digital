@@ -7,7 +7,6 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Generic;
-using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -17,16 +16,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
     {
         private const int NumberDummyFilterOptions = 5;
 
-        private IPreSearchFiltersFactory pSFRepositoryFactoryFake;
+        private IPreSearchFiltersFactory pSfRepositoryFactoryFake;
         private IApplicationLogger loggerFake;
         private IWebAppContext webAppContextFake;
-        private IPreSearchFiltersRepository<PSFInterest> pSFFakeIntrestRepository;
-        private IPreSearchFiltersRepository<PSFEnabler> pSFFakeEnablerRepository;
-        private IPreSearchFiltersRepository<PSFEntryQualification> pSFFakeQalificationsRepository;
-        private IPreSearchFiltersRepository<PSFTrainingRoute> pSFFakeTrainingRepository;
-        private IPreSearchFiltersRepository<PSFJobArea> pSFFakeJobAreaRepository;
-        private IPreSearchFiltersRepository<PSFCareerFocus> pSFFakeCareerFocusRepository;
-        private IPreSearchFiltersRepository<PSFPreferredTaskType> pSFFakePreferredTaskTypeRepository;
+        private IPreSearchFiltersRepository<PsfInterest> pSfFakeIntrestRepository;
+        private IPreSearchFiltersRepository<PsfEnabler> pSfFakeEnablerRepository;
+        private IPreSearchFiltersRepository<PsfEntryQualification> pSfFakeQalificationsRepository;
+        private IPreSearchFiltersRepository<PsfTrainingRoute> pSfFakeTrainingRepository;
+        private IPreSearchFiltersRepository<PsfJobArea> pSfFakeJobAreaRepository;
+        private IPreSearchFiltersRepository<PsfCareerFocus> pSfFakeCareerFocusRepository;
+        private IPreSearchFiltersRepository<PsfPreferredTaskType> pSfFakePreferredTaskTypeRepository;
         private IPreSearchFilterStateManager fakePsfStateManager;
         private IMapper fakeAutoMapper;
 
@@ -44,22 +43,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSFRepositoryFactoryFake, fakePsfStateManager);
+            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSfRepositoryFactoryFake, fakePsfStateManager);
             preSearchFiltersController.FilterType = PreSearchFilterType.Interest;
 
             //Act on the index
             var indexResult = preSearchFiltersController.WithCallTo(c => c.Index());
 
-            PSFModel firstVm = null;
+            PsfModel firstVm = null;
 
             //Assert
-            indexResult.ShouldRenderDefaultView().WithModel<PSFModel>(vm =>
+            indexResult.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
             {
                 CheckFilterSecton(preSearchFiltersController, vm.Section, PreSearchFilterType.Interest);
                 firstVm = vm;
             }).AndNoModelErrors();
 
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
 
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustNotHaveHappened();
@@ -84,25 +83,25 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSFRepositoryFactoryFake, fakePsfStateManager);
+            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSfRepositoryFactoryFake, fakePsfStateManager);
             preSearchFiltersController.FilterType = PreSearchFilterType.Interest;
 
             //Act on the index
-            var firstVM = new PSFModel();
+            var firstVm = new PsfModel();
             var resultsViewModel = new PsfSearchResultsViewModel
             {
                 PreSearchFiltersModel = GeneratePreSEarchFiltersViewModel(PreSearchFilterType.Interest)
             };
 
-            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVM, resultsViewModel));
-            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PSFModel>(vm =>
+            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVm, resultsViewModel));
+            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
             {
                 vm.Section.Should().NotBeNull();
             })
             .AndNoModelErrors();
 
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
 
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustHaveHappened();
@@ -126,20 +125,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSFRepositoryFactoryFake, fakePsfStateManager);
+            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSfRepositoryFactoryFake, fakePsfStateManager);
             preSearchFiltersController.FilterType = PreSearchFilterType.Interest;
 
             //Act on the index
-            var firstVM = new PSFModel();
-            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVM, null));
-            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PSFModel>(vm =>
+            var firstVm = new PsfModel();
+            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVm, null));
+            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
             {
                 vm.Section.Should().NotBeNull();
             })
             .AndNoModelErrors();
 
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
 
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustNotHaveHappened();
@@ -172,7 +171,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSFRepositoryFactoryFake, fakePsfStateManager)
+            var preSearchFiltersController = new PreSearchFiltersController(webAppContextFake, loggerFake, mapper, pSfRepositoryFactoryFake, fakePsfStateManager)
             {
                 FilterType = filterType
             };
@@ -181,35 +180,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var indexResult = preSearchFiltersController.WithCallTo(c => c.Index());
 
             //Assert
-            indexResult.ShouldRenderDefaultView().WithModel<PSFModel>(vm =>
+            indexResult.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
             {
                 vm.Section.Should().NotBeNull();
                 CheckFilterSecton(preSearchFiltersController, vm.Section, filterType);
             }).AndNoModelErrors();
         }
 
-        private PSFModel GeneratePreSEarchFiltersViewModel(PreSearchFilterType filterType)
+        private PsfModel GeneratePreSEarchFiltersViewModel(PreSearchFilterType filterType)
         {
-            var filtersModel = new PSFModel() { OptionsSelected = "DummyJsonState" };
+            var filtersModel = new PsfModel() { OptionsSelected = "DummyJsonState" };
 
-            var filterSectionOne = new PSFSection
+            var filterSectionOne = new PsfSection
             {
                 Name = "Multi Select Section One",
                 Description = "Dummy Title One",
                 SingleSelectOnly = false,
-                NextPageURL = "NextSectionURL",
-                PreviousPageURL = "HomePageURL",
+                NextPageUrl = "NextSectionURL",
+                PreviousPageUrl = "HomePageURL",
                 PageNumber = 1,
                 TotalNumberOfPages = 2,
                 SectionDataType = filterType.ToString()
             };
 
-            filterSectionOne.Options = new List<PSFOption>();
+            filterSectionOne.Options = new List<PsfOption>();
 
             for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filterSectionOne.Options.Add(item: new PSFOption
+                filterSectionOne.Options.Add(item: new PsfOption
                 {
                     Id = iiString,
                     IsSelected = false,
@@ -264,43 +263,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
         private void SetUpFakesAndCalls(bool addNotApplicable = true)
         {
-            pSFRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
+            pSfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
             loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
             webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
 
-            pSFFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PSFInterest>>(ops => ops.Strict());
-            pSFFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PSFEnabler>>(ops => ops.Strict());
-            pSFFakeQalificationsRepository = A.Fake<IPreSearchFiltersRepository<PSFEntryQualification>>(ops => ops.Strict());
-            pSFFakeTrainingRepository = A.Fake<IPreSearchFiltersRepository<PSFTrainingRoute>>(ops => ops.Strict());
-            pSFFakeJobAreaRepository = A.Fake<IPreSearchFiltersRepository<PSFJobArea>>(ops => ops.Strict());
-            pSFFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PSFCareerFocus>>(ops => ops.Strict());
-            pSFFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PSFPreferredTaskType>>(ops => ops.Strict());
+            pSfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());
+            pSfFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PsfEnabler>>(ops => ops.Strict());
+            pSfFakeQalificationsRepository = A.Fake<IPreSearchFiltersRepository<PsfEntryQualification>>(ops => ops.Strict());
+            pSfFakeTrainingRepository = A.Fake<IPreSearchFiltersRepository<PsfTrainingRoute>>(ops => ops.Strict());
+            pSfFakeJobAreaRepository = A.Fake<IPreSearchFiltersRepository<PsfJobArea>>(ops => ops.Strict());
+            pSfFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PsfCareerFocus>>(ops => ops.Strict());
+            pSfFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
             fakeAutoMapper = A.Fake<IMapper>(ops => ops.Strict());
 
             //Set up call
-            A.CallTo(() => pSFFakeIntrestRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFInterest>(addNotApplicable));
-            A.CallTo(() => pSFFakeEnablerRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFEnabler>(addNotApplicable));
-            A.CallTo(() => pSFFakeQalificationsRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFEntryQualification>(addNotApplicable));
-            A.CallTo(() => pSFFakeTrainingRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFTrainingRoute>(addNotApplicable));
-            A.CallTo(() => pSFFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFJobArea>(addNotApplicable));
-            A.CallTo(() => pSFFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFCareerFocus>(addNotApplicable));
-            A.CallTo(() => pSFFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PSFPreferredTaskType>(addNotApplicable));
+            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfInterest>(addNotApplicable));
+            A.CallTo(() => pSfFakeEnablerRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfEnabler>(addNotApplicable));
+            A.CallTo(() => pSfFakeQalificationsRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfEntryQualification>(addNotApplicable));
+            A.CallTo(() => pSfFakeTrainingRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfTrainingRoute>(addNotApplicable));
+            A.CallTo(() => pSfFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfJobArea>(addNotApplicable));
+            A.CallTo(() => pSfFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfCareerFocus>(addNotApplicable));
+            A.CallTo(() => pSfFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfPreferredTaskType>(addNotApplicable));
 
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFInterest>()).Returns(pSFFakeIntrestRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFEnabler>()).Returns(pSFFakeEnablerRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFEntryQualification>()).Returns(pSFFakeQalificationsRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFTrainingRoute>()).Returns(pSFFakeTrainingRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFJobArea>()).Returns(pSFFakeJobAreaRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFCareerFocus>()).Returns(pSFFakeCareerFocusRepository);
-            A.CallTo(() => pSFRepositoryFactoryFake.GetRepository<PSFPreferredTaskType>()).Returns(pSFFakePreferredTaskTypeRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfInterest>()).Returns(pSfFakeIntrestRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEnabler>()).Returns(pSfFakeEnablerRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>()).Returns(pSfFakeQalificationsRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>()).Returns(pSfFakeTrainingRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfJobArea>()).Returns(pSfFakeJobAreaRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>()).Returns(pSfFakeCareerFocusRepository);
+            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>()).Returns(pSfFakePreferredTaskTypeRepository);
         }
 
-        private void CheckFilterSecton(PreSearchFiltersController controller, PSFSection filterSection, PreSearchFilterType expectedFilterType, bool addNotApplicable = true)
+        private void CheckFilterSecton(PreSearchFiltersController controller, PsfSection filterSection, PreSearchFilterType expectedFilterType, bool addNotApplicable = true)
         {
             filterSection.Description.ShouldBeEquivalentTo(controller.SectionDescription);
             filterSection.Name.ShouldBeEquivalentTo(controller.SectionTitle);
-            filterSection.NextPageURL.ShouldBeEquivalentTo(controller.NextPageURL);
-            filterSection.PreviousPageURL.ShouldBeEquivalentTo(controller.PreviousPageURL);
+            filterSection.NextPageUrl.ShouldBeEquivalentTo(controller.NextPageUrl);
+            filterSection.PreviousPageUrl.ShouldBeEquivalentTo(controller.PreviousPageUrl);
             filterSection.SectionDataType.ShouldBeEquivalentTo(expectedFilterType.ToString());
             filterSection.PageNumber.ShouldBeEquivalentTo(controller.ThisPageNumber);
             filterSection.TotalNumberOfPages.ShouldBeEquivalentTo(controller.TotalNumberOfPages);

@@ -151,7 +151,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                        SalaryRange = nameof(JobProfile.SalaryRange),
                        Overview = nameof(JobProfile.Overview),
                        Title = nameof(JobProfile.Title),
-                       SOCCode = nameof(JobProfile.SOCCode),
+                       SocCode = nameof(JobProfile.SocCode),
                        CareerPathAndProgression = nameof(JobProfile.CareerPathAndProgression),
                        HowToBecome = nameof(JobProfile.HowToBecome),
                        Salary = nameof(JobProfile.Salary),

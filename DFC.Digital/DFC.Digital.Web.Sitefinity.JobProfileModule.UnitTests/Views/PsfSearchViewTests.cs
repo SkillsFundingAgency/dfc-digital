@@ -166,51 +166,51 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             };
         }
 
-        private PSFModel GeneratePreSearchFiltersViewModel()
+        private PsfModel GeneratePreSearchFiltersViewModel()
         {
-            var filtersModel = new PSFModel { Sections = new List<PSFSection>() };
+            var filtersModel = new PsfModel { Sections = new List<PsfSection>() };
 
-            var filterSectionOne = new PSFSection
+            var filterSectionOne = new PsfSection
             {
                 Name = "Multi Select Section One",
                 Description = "Dummy Title One",
                 SingleSelectOnly = false,
-                NextPageURL = "NextSectionURL",
-                PreviousPageURL = "HomePageURL",
+                NextPageUrl = "NextSectionURL",
+                PreviousPageUrl = "HomePageURL",
                 PageNumber = 1,
                 TotalNumberOfPages = 2,
                 SectionDataType = "Dummy Data Type One",
-                Options = new List<PSFOption>()
+                Options = new List<PsfOption>()
             };
 
             for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filterSectionOne.Options.Add(new PSFOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
+                filterSectionOne.Options.Add(new PsfOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
             }
 
             //Add one thats Non Applicable
-            filterSectionOne.Options.Add(new PSFOption { Id = "3", IsSelected = false, Name = "Title-3", Description = "Description-3", OptionKey = "3-UrlName", ClearOtherOptionsIfSelected = true });
+            filterSectionOne.Options.Add(new PsfOption { Id = "3", IsSelected = false, Name = "Title-3", Description = "Description-3", OptionKey = "3-UrlName", ClearOtherOptionsIfSelected = true });
 
             filtersModel.Sections.Add(filterSectionOne);
 
-            var filterSectionTwo = new PSFSection
+            var filterSectionTwo = new PsfSection
             {
                 Name = "Single Select Section Two",
                 Description = "Dummy Title Two",
                 SingleSelectOnly = true,
-                NextPageURL = "SearchPageURL",
-                PreviousPageURL = "PreviousPageURL",
+                NextPageUrl = "SearchPageURL",
+                PreviousPageUrl = "PreviousPageURL",
                 PageNumber = 2,
                 TotalNumberOfPages = 2,
                 SectionDataType = "Dummy Data Type Two"
             };
 
-            filterSectionTwo.Options = new List<PSFOption>();
+            filterSectionTwo.Options = new List<PsfOption>();
             for (int ii = 0; ii < 3; ii++)
             {
                 var iiString = ii.ToString();
-                filterSectionTwo.Options.Add(new PSFOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
+                filterSectionTwo.Options.Add(new PsfOption { Id = iiString, IsSelected = false, Name = $"Title-{iiString}", Description = $"Description-{iiString}", OptionKey = $"{iiString}-UrlName", ClearOtherOptionsIfSelected = false });
             }
 
             filtersModel.Sections.Add(filterSectionTwo);

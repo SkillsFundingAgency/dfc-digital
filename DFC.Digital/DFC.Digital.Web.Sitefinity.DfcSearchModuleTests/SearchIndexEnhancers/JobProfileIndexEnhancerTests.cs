@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -25,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
             var dummyJobProfile = new JobProfile
             {
-                IsLMISalaryFeedOverriden = isSalaryOverriden,
+                IsLmiSalaryFeedOverriden = isSalaryOverriden,
                 SalaryStarter = 10,
                 SalaryExperienced = 20,
             };

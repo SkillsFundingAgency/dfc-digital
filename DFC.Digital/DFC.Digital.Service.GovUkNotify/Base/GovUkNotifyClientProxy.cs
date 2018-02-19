@@ -1,12 +1,6 @@
-﻿using DFC.Digital.Core.Utilities;
-using Notify.Client;
+﻿using Notify.Client;
 using Notify.Models.Responses;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.GovUkNotify.Base
 {

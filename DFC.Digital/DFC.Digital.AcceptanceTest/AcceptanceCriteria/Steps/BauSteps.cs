@@ -2,10 +2,6 @@
 using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps

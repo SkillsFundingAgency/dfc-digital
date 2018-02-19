@@ -28,28 +28,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Set up comman call
             SetUpDependeciesAndCall(true, isContentAuthoring);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
-            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
+            dummyJobProfile.BauSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage);
-
-            //Act
-            var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
-
-            //Assert
-            if (isContentAuthoring)
+            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
-                indexNameMethodCall.ShouldRenderDefaultView()
-                    .WithModel<BauJpSignPostViewModel>(vm =>
-                    {
-                        vm.SignPostingHtml.Should().Contain(expectedJpurl);
-                    }).AndNoModelErrors();
-            }
-            else
-            {
-                indexNameMethodCall.ShouldRedirectTo("\\");
+                //Act
+                var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
+
+                //Assert
+                if (isContentAuthoring)
+                {
+                    indexNameMethodCall.ShouldRenderDefaultView()
+                        .WithModel<BauJpSignPostViewModel>(vm =>
+                        {
+                            vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                        }).AndNoModelErrors();
+                }
+                else
+                {
+                    indexNameMethodCall.ShouldRedirectTo("\\");
+                }
             }
         }
 
@@ -63,22 +64,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Set up comman call
             SetUpDependeciesAndCall(true, false);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
-            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
+            dummyJobProfile.BauSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage);
+            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            {
+                //Act
+                var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
 
-            //Act
-            var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
-
-            //Assert
-            indexWithUrlNameMethodCall.ShouldRenderDefaultView()
-                .WithModel<BauJpSignPostViewModel>(vm =>
-                {
-                    vm.SignPostingHtml.Should().Contain(expectedJpurl);
-                }).AndNoModelErrors();
+                //Assert
+                indexWithUrlNameMethodCall.ShouldRenderDefaultView()
+                    .WithModel<BauJpSignPostViewModel>(vm =>
+                    {
+                        vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                    }).AndNoModelErrors();
+            }
         }
 
         private void SetUpDependeciesAndCall(bool validJobProfile, bool isContentPreviewMode)

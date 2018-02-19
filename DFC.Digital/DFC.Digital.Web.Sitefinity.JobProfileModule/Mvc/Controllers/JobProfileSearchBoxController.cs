@@ -27,6 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The search service
         /// </summary>
         private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
+
         private readonly IWebAppContext webAppContext;
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
@@ -266,7 +267,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     new SuggestProperties { UseFuzzyMatching = fuzzySearch, MaxResultCount = maxNumberDisplyed });
 
                 return Json(
-                    results.Results.Select(s => new Suggestion { label = s.MatchedSuggestion }),
+                    results.Results.Select(s => new Suggestion { Label = s.MatchedSuggestion }),
                     JsonRequestBehavior.AllowGet);
             }
 

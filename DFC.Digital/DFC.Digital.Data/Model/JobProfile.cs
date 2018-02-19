@@ -50,7 +50,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The soc code.
         /// </value>
-        public string SOCCode { get; set; }
+        public string SocCode { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the URL.
@@ -122,9 +122,9 @@ namespace DFC.Digital.Data.Model
 
         public IList<Guid> JobProfileCategoryIdCollection { get; set; }
 
-        public bool? DoesNotExistInBAU { get; set; }
+        public bool? DoesNotExistInBau { get; set; }
 
-        public string BAUSystemOverrideUrl { get; set; }
+        public string BauSystemOverrideUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the related interests identifier URL name collection.
@@ -168,7 +168,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The IsLMISalaryFeedOverriden.
         /// </value>
-        public bool? IsLMISalaryFeedOverriden { get; set; }
+        public bool? IsLmiSalaryFeedOverriden { get; set; }
 
         /// <summary>
         /// Gets or sets the SalaryStarter.

@@ -151,11 +151,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected override ActionResult GetDefaultView()
         {
             IQueryable<ApprenticeVacancy> apprenticeshipVacancies = null;
-            if (!string.IsNullOrWhiteSpace(CurrentJobProfile.SOCCode))
+            if (!string.IsNullOrWhiteSpace(CurrentJobProfile.SocCode))
             {
-                apprenticeshipVacancies = jobProfileSocCodeRepository.GetBySocCode(CurrentJobProfile.SOCCode)
+                apprenticeshipVacancies = jobProfileSocCodeRepository.GetBySocCode(CurrentJobProfile.SocCode)
                     ?.Where(x => !string.IsNullOrEmpty(x.Title)
-                        && !string.IsNullOrEmpty(x.URL)
+                        && !string.IsNullOrEmpty(x.Url)
                         && !string.IsNullOrEmpty(x.WageUnitType)
                         && !string.IsNullOrEmpty(x.WageAmount)
                         && !string.IsNullOrEmpty(x.Location)

@@ -12,6 +12,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
         private static readonly string ZapApiKey = ConfigurationManager.AppSettings["zapApiKey"];
+
         private static readonly string ZapUrl = ConfigurationManager.AppSettings["zapHost"];
         private static readonly string ZapPort = ConfigurationManager.AppSettings["zapPort"];
         private static readonly string ReportPath = ConfigurationManager.AppSettings["zapReportPath"];

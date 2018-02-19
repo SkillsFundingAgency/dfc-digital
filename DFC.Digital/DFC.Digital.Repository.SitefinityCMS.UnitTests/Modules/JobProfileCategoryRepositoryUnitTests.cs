@@ -62,7 +62,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             var fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
-            var fakeMapper = A.Fake<IMapper>();
+            A.Fake<IMapper>();
 
             A.CallTo(() => fakeSearchService.Search("*", null)).WithAnyArguments().Returns(DummySearchResults());
 
@@ -81,7 +81,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
 
             //Assert
             //The results from search do not include the SOCCode so ignore this
-            returnedJobProfiles.ShouldAllBeEquivalentTo(expectedResults, options => options.Excluding(p => p.SOCCode));
+            returnedJobProfiles.ShouldAllBeEquivalentTo(expectedResults, options => options.Excluding(p => p.SocCode));
         }
 
         private SearchResult<JobProfileIndex> DummySearchResults()
@@ -109,7 +109,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                         FilterableTitle = p.Title,
                         UrlName = p.UrlName,
                         FilterableAlternativeTitle = p.AlternativeTitle,
-                        AlternativeTitle = p.AlternativeTitle?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
+                        AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                         Overview = p.Overview,
                         SalaryRange = p.SalaryRange,
                     }
@@ -117,7 +117,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             }
         }
 
-        private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
+       private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
         {
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
@@ -130,10 +130,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager);
         }
 
-        private IQueryable<Taxon> DummyTaxons()
+       private IQueryable<Taxon> DummyTaxons()
         {
             var t = new List<Taxon>();
-            var b = A.Dummy<Taxon>();
+            A.Dummy<Taxon>();
             t.Add(GetDummyTaxon("categoryOne"));
             t.Add(GetDummyTaxon("categoryTwo"));
             t.Add(GetDummyTaxon("categoryThree"));

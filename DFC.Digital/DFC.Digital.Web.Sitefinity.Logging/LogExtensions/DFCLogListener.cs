@@ -6,12 +6,12 @@ using Telerik.Sitefinity.Abstractions;
 
 namespace DFC.Digital.Web.Sitefinity.Logging
 {
-    public class DFCLogListener : CustomTraceListener
+    public class DfcLogListener : CustomTraceListener
     {
         private const string SitefinityLogIdentifier = "Sitefinity-Log";
         private IApplicationLogger appLogger;
 
-        public DFCLogListener()
+        public DfcLogListener()
         {
             var autofacApplicationLifetimeScope = ObjectFactory.Container.Resolve<ILifetimeScope>();
 

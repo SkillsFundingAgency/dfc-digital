@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Service.LMIFeed.Interfaces;

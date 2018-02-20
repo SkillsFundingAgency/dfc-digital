@@ -26,6 +26,26 @@ You can see the public beta of this service at: _URL coming soon._
 ## Running Locally
 To run this product locally, you will need to configure the list of dependencies, once configured and the configuration files updated, it should be F5 to run and debug locally. The application can be run using IIS Express or full IIS. 
 
+## Local Config Files
+Once you have cloned the public repo you need to remove the .template part from the configuration file names listed below.
+
+
+| Location | Repo Filename | Rename to |
+|-------|-------|-------|
+| DFC.Digital/Service.Cognitive.BingSpellCheck.UnitTests | app.config.template | app.config |
+| DFC.Digital/DFC.Digital.AcceptanceTest | App.config.template | App.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | AuthenticationConfig.config.template | AuthenticationConfig.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | DataConfig.config.template | DataConfig.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | SearchConfig.config.template | SearchConfig.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | SecurityConfig.config.template | SecurityConfig.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity | web.config.template | web.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity | web.Debug.config.template | web.Debug.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity | web.Release Pro.config.template | web.Release Pro.config |
+| DFC.Digital/DFC.Digital.Web.Sitefinity | web.Release.config.template | web.Release Pro.config |
+
+These files contain keys and other configuration that is particular to your local instance of the application.
+You will need to set these as detailed in the sections below.configuration configuration 
+
 ## Sitefinity 
 
 Project - DFC.Digital.Web.Sitefinity
@@ -170,7 +190,7 @@ The solution  uses the Get /ashe/estimatePayMD API to get an estimation of the m
 
 | Config File   | Key                                       | Token                       | Example value             |
 |-------------| ----------------------------------------- |-----------------------      |:----------------|
-|web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
+|DFC.Digital.Web.Sitefinity\web.config |	DFC.Digital.AsheFeedAccessKey |	\_\_lmiForAllApiAccessKey\_\_	| secret phrase             | 
             | 
 
 You can obtain an APIAccessKey (the secret phrase)  by contacting 'LMI for All' http://www.lmiforall.org.uk/ (email <LMIforAll.dfe@education.gov.uk>)

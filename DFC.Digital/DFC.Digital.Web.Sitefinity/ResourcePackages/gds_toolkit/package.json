@@ -6,10 +6,11 @@
     "govuk-elements-sass": "^3.1.1",
     "govuk_frontend_toolkit": "^6.0.4",
     "govuk_template_mustache": "^0.22.3",
-    "jquery": "^3.2.1",
-    "jquery-migrate": "^3.0.0",
+    "jquery": "1.12.4",
+    "jquery-migrate": "1.4.1",
     "jquery-validation": "^1.17.0",
-    "jquery-validation-unobtrusive": "^3.2.6"
+    "jquery-validation-unobtrusive": "^3.2.6",
+    "html5shiv": "^3.7.3"
   },
   "devDependencies": {
     "clean-css": "^4.1.9",

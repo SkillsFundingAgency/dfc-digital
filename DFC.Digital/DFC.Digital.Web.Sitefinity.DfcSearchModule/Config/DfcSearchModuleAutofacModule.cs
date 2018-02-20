@@ -11,10 +11,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
-            builder.RegisterType<SearchIndexEnhancers.JobProfileIndexEnhancer>().As<IJobProfileIndexEnhancer>();
+            builder.RegisterType<SearchIndexEnhancers.JobProfileIndexEnhancer>()
+                .As<IJobProfileIndexEnhancer>()
+                .InstancePerLifetimeScope();
         }
     }
 }

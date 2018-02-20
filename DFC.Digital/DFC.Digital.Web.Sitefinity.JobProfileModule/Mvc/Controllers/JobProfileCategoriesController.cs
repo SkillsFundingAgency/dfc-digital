@@ -23,6 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IWebAppContext webAppContext;
 
         #endregion Private Fields
+
         #region Constructors
 
         public JobProfileCategoriesController(IJobProfileCategoryRepository repository, IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
@@ -45,6 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public bool SidePageDisplay { get; set; }
 
         #endregion Public Properties
+
         #region Actions
 
         /// <summary>
@@ -70,6 +72,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes this instance.
         /// </summary>
+        /// <param name="urlName">Invoked category</param>
         /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("{urlName}")]

@@ -21,7 +21,7 @@ namespace DFC.Digital.Core.Logging
             }
             else
             {
-                logService.Error(message, ex);
+                logService.LogException(NLog.LogLevel.Error, message, ex);
                 if (ex != null)
                 {
                     throw new LoggedException($"Logged exception with message: {message}", ex);
@@ -31,7 +31,7 @@ namespace DFC.Digital.Core.Logging
 
         public void ErrorJustLogIt(string message, Exception ex)
         {
-            logService.Error(message, ex);
+            logService.LogException(NLog.LogLevel.Error, message, ex);
         }
 
         public void Info(string message)
@@ -59,7 +59,7 @@ namespace DFC.Digital.Core.Logging
                 }
                 else
                 {
-                    logService.Warn(message, ex);
+                    logService.LogException(NLog.LogLevel.Warn, message, ex);
                     if (ex != null)
                     {
                         throw new LoggedException($"Logged exception with message: {message}", ex);

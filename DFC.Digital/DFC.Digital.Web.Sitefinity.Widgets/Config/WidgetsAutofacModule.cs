@@ -11,6 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.App_Start
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 

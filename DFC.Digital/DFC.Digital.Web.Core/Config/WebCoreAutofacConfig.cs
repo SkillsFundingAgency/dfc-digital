@@ -44,15 +44,16 @@ namespace DFC.Digital.Web.Core.Config
             builder.RegisterModule<NLogModule>();
 
             //Register modules cant use assembly scaning as they are not loaded on app domain yet
-            builder.RegisterModule<CoreAutofacModule>();
-            builder.RegisterModule<AzSearchAutofacModule>();
-            builder.RegisterModule<DbRepositoryAutofacModule>();
-            builder.RegisterModule<CosmosDbAutofacModule>();
-            builder.RegisterModule<SitefinityRepositoryAutofacModule>();
-            builder.RegisterModule<GovUkNotifyAutofacModule>();
-            builder.RegisterModule<LmiFeedAutofacModule>();
-            builder.RegisterModule<CourseSearchProviderAutofacModule>();
-            builder.RegisterModule<SpellCheckAutofacModule>();
+            builder
+                .RegisterModule<CoreAutofacModule>()
+                .RegisterModule<AzSearchAutofacModule>()
+                .RegisterModule<DbRepositoryAutofacModule>()
+                .RegisterModule<CosmosDbAutofacModule>()
+                .RegisterModule<SitefinityRepositoryAutofacModule>()
+                .RegisterModule<GovUkNotifyAutofacModule>()
+                .RegisterModule<LmiFeedAutofacModule>()
+                .RegisterModule<CourseSearchProviderAutofacModule>()
+                .RegisterModule<SpellCheckAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

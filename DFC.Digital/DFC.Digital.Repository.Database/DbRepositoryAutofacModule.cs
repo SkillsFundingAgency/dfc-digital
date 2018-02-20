@@ -10,6 +10,7 @@ namespace DFC.Digital.Repository.Database
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
         }

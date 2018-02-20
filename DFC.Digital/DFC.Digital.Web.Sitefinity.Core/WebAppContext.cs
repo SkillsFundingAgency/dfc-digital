@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var cookie = cookies.Get(cookieName)?.Value;
                 if (!string.IsNullOrEmpty(cookie))
                 {
-                    profile = JsonConvert.DeserializeObject<VocSurveyPersonalisation>(cookie);
+                    profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, cookie);
                 }
             }
 
@@ -66,16 +66,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return profile;
         }
 
-        public bool SetVocCookie(string cookieName, VocSurveyPersonalisation userPersonalisation)
+        public void SetVocCookie(string cookieName, string cookieValue)
         {
-            var cookies = HttpContext.Current?.Response.Cookies;
-            if (cookies != null)
-            {
-                cookies.Set(new HttpCookie(cookieName, JsonConvert.SerializeObject(userPersonalisation)));
-                return true;
-            }
-
-            return false;
+            HttpContext.Current.Response.Cookies[cookieName].Value = cookieValue;
         }
 
         public string GetGaClientId()

@@ -14,20 +14,28 @@ namespace DFC.Digital.Service.AzureSearch
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.Register(CreateSearchServiceClient);
-            builder.Register(CreateSearchIndexClient);
+            builder.Register(CreateSearchServiceClient).InstancePerLifetimeScope()
+                .InstancePerLifetimeScope()
+                ;
+
+            builder.Register(CreateSearchIndexClient)
+                .InstancePerLifetimeScope()
+                ;
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
             builder.RegisterType<AzSearchService<JobProfileIndex>>().As<ISearchService<JobProfileIndex>>()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
             builder.RegisterType<DfcSearchQueryService<JobProfileIndex>>().As<ISearchQueryService<JobProfileIndex>>()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

@@ -11,6 +11,7 @@ namespace DFC.Digital.Service.LMIFeed
             base.Load(builder);
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

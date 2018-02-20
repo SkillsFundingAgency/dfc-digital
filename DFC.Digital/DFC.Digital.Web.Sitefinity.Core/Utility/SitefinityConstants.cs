@@ -7,6 +7,11 @@
         /// </summary>
         public const string CustomWidgetSection = "DFC Widgets";
 
+        /// <summary>
+        /// The custom admin widget section
+        /// </summary>
+        public const string CustomAdminWidgetSection = "DFC Admin Widgets";
+
         //Global JobProfile Settings Widget
         public const string JobProfileSettingsWidget = "JobProfile Settings and Preview";
 

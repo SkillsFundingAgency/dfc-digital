@@ -24,7 +24,7 @@ namespace DFC.Digital.Data.Interfaces
 
         bool IsValidAndFormattedUrl(string urlTobeValidated);
 
-        bool SetVocCookie(string cookieName, VocSurveyPersonalisation userPersonalisation);
+        void SetVocCookie(string cookieName, string cookieValue);
 
         VocSurveyPersonalisation GetVocCookie(string cookieName);
 

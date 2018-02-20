@@ -14,19 +14,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<JobProfileSearchIndexConfig>().As<ISearchIndexConfig>()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
-            }));
+            })).InstancePerLifetimeScope();
 
-            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>();
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
 
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.
@@ -35,10 +37,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             // InstancePerHttpRequest() - ASP.NET MVC will throw an exception if
             // you try to reuse a controller instance for multiple requests.
             builder.RegisterControllers(ThisAssembly)
-                   .InstancePerRequest()
+                   .InstancePerRequest();
 
                    //.EnableClassInterceptors()
-                   ;
+                   //.InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(ThisAssembly);

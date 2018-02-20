@@ -23,7 +23,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         private readonly IMapper mapper;
-        private readonly IWebAppContext webAppContext;
         private readonly ISalaryService salaryService;
         private readonly ISalaryCalculator salaryCalculator;
         private readonly IAsyncHelper asyncHelper;
@@ -44,7 +43,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
             this.mapper = mapper;
-            this.webAppContext = webAppContext;
             this.salaryService = salaryService;
             this.salaryCalculator = salaryCalculator;
             this.asyncHelper = asyncHelper;
@@ -108,8 +106,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [RelativeRoute("{urlname}")]
         public ActionResult Index(string urlname)
         {
-            GetAndSetVocPersonalisationCookie(urlname);
-
             return BaseIndex(urlname);
         }
 
@@ -123,20 +119,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             // Sitefinity cannot handle async very well. So initialising it on current UI thread.
             JobProfileDetailsViewModel model = mapper.Map<JobProfileDetailsViewModel>(CurrentJobProfile);
             return asyncHelper.Synchronise(() => GetJobProfileDetailsViewAsync(model));
-        }
-
-        private void GetAndSetVocPersonalisationCookie(string urlname)
-        {
-            if (!string.IsNullOrWhiteSpace(urlname))
-            {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName, new VocSurveyPersonalisation
-                {
-                    Personalisation = new Dictionary<string, string>
-                    {
-                        { Constants.LastVisitedJobProfileKey, urlname }
-                    }
-                });
-            }
         }
 
         /// <summary>
@@ -162,11 +144,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.HoursTimePeriodText = HoursTimePeriodText;
             model.WorkingPatternText = WorkingPatternText;
             model.WorkingPatternSpanText = WorkingPatternSpanText;
-
-            if (model.IsLMISalaryFeedOverriden != true)
-            {
-                model = await PopulateSalaryAsync(model);
-            }
 
             if (model.IsLMISalaryFeedOverriden != true)
             {

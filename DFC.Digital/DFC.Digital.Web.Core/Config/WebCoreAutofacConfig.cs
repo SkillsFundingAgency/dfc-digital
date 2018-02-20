@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.NLog;
+using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Repository.CosmosDb;
 using DFC.Digital.Repository.Database;
@@ -18,7 +19,7 @@ using System.Web.Hosting;
 
 namespace DFC.Digital.Web.Core.Config
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification ="Reviewed. Product name in correct spelling.")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification = "Reviewed. Product name in correct spelling.")]
     public static class WebCoreAutofacConfig
     {
         public static IContainer BuildContainer(IContainer existingContainer)
@@ -43,15 +44,16 @@ namespace DFC.Digital.Web.Core.Config
             builder.RegisterModule<NLogModule>();
 
             //Register modules cant use assembly scaning as they are not loaded on app domain yet
-            builder.RegisterModule<CoreAutofacModule>();
-            builder.RegisterModule<AzSearchAutofacModule>();
-            builder.RegisterModule<DbRepositoryAutofacModule>();
-            builder.RegisterModule<CosmosDbAutofacModule>();
-            builder.RegisterModule<SitefinityRepositoryAutofacModule>();
-            builder.RegisterModule<GovUkNotifyAutofacModule>();
-            builder.RegisterModule<LmiFeedAutofacModule>();
-            builder.RegisterModule<CourseSearchProviderAutofacModule>();
-            builder.RegisterModule<SpellCheckAutofacModule>();
+            builder
+                .RegisterModule<CoreAutofacModule>()
+                .RegisterModule<AzSearchAutofacModule>()
+                .RegisterModule<DbRepositoryAutofacModule>()
+                .RegisterModule<CosmosDbAutofacModule>()
+                .RegisterModule<SitefinityRepositoryAutofacModule>()
+                .RegisterModule<GovUkNotifyAutofacModule>()
+                .RegisterModule<LmiFeedAutofacModule>()
+                .RegisterModule<CourseSearchProviderAutofacModule>()
+                .RegisterModule<SpellCheckAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -63,6 +65,15 @@ namespace DFC.Digital.Web.Core.Config
 
             var dfcDigitalAssemblies = assemblies.Where(a => a.FullName.StartsWith("DFC.Digital.Web", StringComparison.Ordinal)).ToArray();
             builder.RegisterAssemblyModules(dfcDigitalAssemblies);
+
+            // OPTIONAL: Register web abstractions like HttpContextBase.
+            builder.RegisterModule<AutofacWebTypesModule>();
+
+            // OPTIONAL: Enable property injection in view pages.
+            builder.RegisterSource(new ViewRegistrationSource());
+
+            // OPTIONAL: Enable property injection into action filters.
+            builder.RegisterFilterProvider();
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="JobCategory" Id="daf29a62-c485-4a84-a627-5945778845b4" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest2.1d54309d-6b77-4d06-a5a6-383e71e3dc4c.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="8c73a089-6e7d-46df-b783-19495819a078" Version="1.1" Url="{{WebServer1}}/" ThinkTime="13" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="9c4c2f91-4f29-4780-ad85-86fa70c9205a" Version="1.1" Url="{{WebServer1}}/job-categories/{{CategoryData.JCSource#csv.Category}}" ThinkTime="26" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="2ca338f4-0ac1-440c-b665-6b519e2b7b23" Version="1.1" Url="{{WebServer1}}/job-profiles/{{CategoryData.JCSource#csv.Profile}}" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/job-categories/{{CategoryData.JCSource#csv.Category}}" />
+      </Headers>
+    </Request>
+  </Items>
+  <DataSources>
+    <DataSource Name="CategoryData" Provider="Microsoft.VisualStudio.TestTools.DataSource.CSV" Connection="|DataDirectory|\..\Data\JCSource.csv">
+      <Tables>
+        <DataSourceTable Name="JCSource#csv" SelectColumns="SelectAllColumns" AccessMethod="Sequential" />
+      </Tables>
+    </DataSource>
+  </DataSources>
+  <ContextParameters>
+    <ContextParameter Name="WebServer1" Value="http://local-beta.nationalcareersservice.org.uk" />
+  </ContextParameters>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+  </ValidationRules>
+</WebTest>

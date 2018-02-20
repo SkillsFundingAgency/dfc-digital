@@ -16,22 +16,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             builder.RegisterType<WebAppContext>().As<IWebAppContext>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
             builder.RegisterType<SitefinityCurrentContext>().As<ISitefinityCurrentContext>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
             builder.RegisterType<SitefinityPage>().As<ISitefinityPage>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
             builder.RegisterType<JobProfilePageContentService>().As<IJobProfilePage>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
         }
     }
 }

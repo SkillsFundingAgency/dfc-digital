@@ -1030,8 +1030,6 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_search.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_reset.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_elements-typography.scss" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_elements-helpers.scss" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>

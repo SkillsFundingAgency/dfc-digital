@@ -67,6 +67,7 @@
 }
 
 .case-study {
+    @extend %contain-floats;
 
     h1 {
         font-size: 32px;
@@ -85,9 +86,9 @@
     }
 
     .case-study-back {
-        display: inline-block;
+        display: block;
         float: right;
-        background-color: $govuk-blue;
+        background-color: $careers-turquoise;
         color: $white;
         padding: 10px;
         text-decoration: none;
@@ -98,7 +99,7 @@
         }
 
         &:hover {
-            background-color: darken($govuk-blue, 5%);
+            background-color: darken($careers-turquoise, 5%);
             text-decoration: underline;
         }
     }
@@ -156,10 +157,9 @@
     top: 91px;
     width: 100%;
     display: block;
-    @include core-19;
+    @include core-19($font-weight: bold);
     padding: 10px;
     text-decoration: none;
-    font-weight: bold;
     box-sizing: border-box;
 
     @media (max-width: 768px) {

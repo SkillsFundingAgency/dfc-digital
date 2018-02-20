@@ -13,6 +13,7 @@
     "html5shiv": "^3.7.3"
   },
   "devDependencies": {
+    "clean-css": "^4.1.9",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-clean": "^1.1.0",

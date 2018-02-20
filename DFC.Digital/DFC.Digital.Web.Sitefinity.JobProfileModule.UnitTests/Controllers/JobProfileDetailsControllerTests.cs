@@ -136,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
                 }
 
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<VocSurveyPersonalisation>.That.Matches(m => m.Personalisation.ContainsValue(urlName)))).MustHaveHappened();
+                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<VocSurveyPersonalisation>.That.Matches(m => m.Personalisation.ContainsValue(urlName)).ToString())).MustHaveHappened();
             }
         }
 

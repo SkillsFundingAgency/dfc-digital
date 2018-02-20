@@ -122,9 +122,9 @@ namespace DFC.Digital.Data.Model
 
         public IList<Guid> JobProfileCategoryIdCollection { get; set; }
 
-        public bool? DoesNotExistInBau { get; set; }
+        public bool? DoesNotExistInBAU { get; set; }
 
-        public string BauSystemOverrideUrl { get; set; }
+        public string BAUSystemOverrideUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the related interests identifier URL name collection.
@@ -168,7 +168,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The IsLMISalaryFeedOverriden.
         /// </value>
-        public bool? IsLmiSalaryFeedOverriden { get; set; }
+        public bool? IsLMISalaryFeedOverriden { get; set; }
 
         /// <summary>
         /// Gets or sets the SalaryStarter.

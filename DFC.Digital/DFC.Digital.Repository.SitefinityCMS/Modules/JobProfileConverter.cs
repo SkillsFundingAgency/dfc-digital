@@ -41,7 +41,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Title = content?.GetValue<Lstring>(nameof(JobProfile.Title)),
                 AlternativeTitle = content?.GetValue<Lstring>(nameof(JobProfile.AlternativeTitle)),
                 Overview = content?.GetValue<Lstring>(nameof(JobProfile.Overview)),
-                IsLmiSalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLmiSalaryFeedOverriden)),
+                IsLMISalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
                 SalaryStarter = content?.GetValue<decimal?>(nameof(JobProfile.SalaryStarter)),
                 SalaryExperienced = content?.GetValue<decimal?>(nameof(JobProfile.SalaryExperienced)),
                 MinimumHours = content?.GetValue<decimal?>(nameof(JobProfile.MinimumHours)),
@@ -58,8 +58,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 //index and we will get a clash
                 JobProfileCategoryIdCollection = content?.GetValue<IList<Guid>>(RelatedJobProfileCategoriesField),
                 UrlName = content?.GetValue<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBau = content?.GetValue<bool>(nameof(JobProfile.DoesNotExistInBau)),
-                BauSystemOverrideUrl = content?.GetValue<Lstring>(nameof(JobProfile.BauSystemOverrideUrl))
+                DoesNotExistInBAU = content?.GetValue<bool>(nameof(JobProfile.DoesNotExistInBAU)),
+                BAUSystemOverrideUrl = content?.GetValue<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl))
             };
 
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();

@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
 
         public async Task<string> GetSalaryRangeAsync()
         {
-            if (JobProfile.IsLmiSalaryFeedOverriden.HasValue && JobProfile.IsLmiSalaryFeedOverriden.Value != true)
+            if (JobProfile.IsLMISalaryFeedOverriden.HasValue && JobProfile.IsLMISalaryFeedOverriden.Value != true)
             {
                 var salary = await salaryService.GetSalaryBySocAsync(JobProfile.SocCode);
                 JobProfile.SalaryStarter = salaryCalculator.GetStarterSalary(salary);

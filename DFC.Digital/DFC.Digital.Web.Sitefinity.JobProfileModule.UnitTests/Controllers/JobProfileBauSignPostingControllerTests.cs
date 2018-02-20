@@ -28,8 +28,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Set up comman call
             SetUpDependeciesAndCall(true, isContentAuthoring);
 
-            dummyJobProfile.BauSystemOverrideUrl = overRideBauUrl;
-            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
+            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
@@ -64,8 +64,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Set up comman call
             SetUpDependeciesAndCall(true, false);
 
-            dummyJobProfile.BauSystemOverrideUrl = overRideBauUrl;
-            dummyJobProfile.DoesNotExistInBau = doesNotExistInBau;
+            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act

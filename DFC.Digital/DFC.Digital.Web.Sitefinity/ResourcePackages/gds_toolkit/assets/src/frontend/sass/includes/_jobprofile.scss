@@ -50,6 +50,7 @@
         }
     }
 }
+
 .job-profile-heroblock {
     h4 {
         width: 100%;
@@ -119,7 +120,7 @@
                 text-align: right;
             }
         }
-    }
+}
 
     .job-profile-salary {
 
@@ -252,11 +253,10 @@
             }
         }
 
-            .job-profile-heroblock-content {
-                float: right;
-                width: auto;
-                padding: 0;
-            }
+        .job-profile-heroblock-content {
+            float: right;
+            width: auto;
+            padding: 0;
         }
     }
 }
@@ -308,6 +308,7 @@
         column-gap: 50px;
     }
 }
+
 /* Automatically Add Numbers To Sections & style lists within sections */
 .job-profile-sections {
     counter-reset: section;
@@ -337,6 +338,7 @@
         }
     }
 }
+
 /* Search From Job Profile */
 .js-enabled {
     .job-profile-search {
@@ -454,7 +456,6 @@
 }
 
 .job-profile-related {
-
     .heading-medium {
         margin-top: 0.75em;
         margin-bottom: 0.5em;

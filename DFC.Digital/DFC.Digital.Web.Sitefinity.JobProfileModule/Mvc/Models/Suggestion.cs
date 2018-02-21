@@ -5,7 +5,7 @@
         /// <summary>
         ///  Gets or sets
         /// </summary>
-        public string Label { get; set; }
+        public string label { get; set; }
 
         /// <summary>
         /// Gets or sets the category.

@@ -10,7 +10,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         {
             var suggestionBuilder = new SuggesterBuilder();
             var result = suggestionBuilder.BuildForType<TestSuggestBuilder>();
-            result.Should().Contain(new string[] { "PropertyOne", "PropertyThree" }).And.NotContain(new string[] { "PropertyTwo" });
+            result.Should().Contain(new[] { "PropertyOne", "PropertyThree" }).And.NotContain(new[] { "PropertyTwo" });
         }
     }
 }

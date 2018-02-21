@@ -1,10 +1,7 @@
 ﻿using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Model;
-using FakeHttpContext;
-using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Generic;
-using System.Web;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.Core.Tests

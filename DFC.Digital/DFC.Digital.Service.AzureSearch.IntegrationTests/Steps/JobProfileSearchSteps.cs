@@ -15,9 +15,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileSearchSteps
     {
         private SearchResult<JobProfileIndex> results;
-
-        private ITestOutputHelper outputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
@@ -25,12 +22,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
         }
+
+        private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"the following job profiles exist:")]
         public void GivenTheFollowingJobProfilesExist(Table table)
@@ -42,7 +41,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
@@ -56,21 +55,21 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
         [When(@"I search using the search term '(.*)'")]
         public void WhenISearchUsingTheSearchTerm(string searchTerm)
         {
-            outputHelper.WriteLine($"The search term is '{searchTerm}'");
+            OutputHelper.WriteLine($"The search term is '{searchTerm}'");
             try
             {
                 results = searchQueryService.Search(searchTerm);
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
@@ -78,7 +77,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         public void ThenTheResultListWillContainProfileS(int totalNumber)
         {
             //Log results
-            outputHelper.WriteLine($"Number of results expected {totalNumber}  number returned {results?.Results.Count()} actual result {results?.ToJson()}");
+            OutputHelper.WriteLine($"Number of results expected {totalNumber}  number returned {results?.Results.Count()} actual result {results?.ToJson()}");
             results?.Results.Count().Should().Be(totalNumber);
         }
 
@@ -89,8 +88,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem);
 
             //Log results
-            outputHelper.WriteLine($"Expected order {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual order {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual order {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected, options => options.WithStrictOrdering());
         }
@@ -102,8 +101,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem);
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }
@@ -115,8 +114,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem).Take(expected.Count());
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }
@@ -128,8 +127,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem).Skip(skip);
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }

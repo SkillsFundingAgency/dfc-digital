@@ -4,7 +4,6 @@ using DFC.Digital.Data.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
@@ -63,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, Constants.Unknown);
             }
 
-            profile.Personalisation.Add(Constants.GoogleClientIdKey, GetGAClientId());
+            profile.Personalisation.Add(Constants.GoogleClientIdKey, GetGaClientId());
             return profile;
         }
 
@@ -72,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             HttpContext.Current.Response.Cookies[cookieName].Value = cookieValue;
         }
 
-        public string GetGAClientId()
+        public string GetGaClientId()
         {
             var cookie = HttpContext.Current?.Request.Cookies.Get(Constants.GoogleAnalyticsCookie)?.Value;
             if (!string.IsNullOrEmpty(cookie))

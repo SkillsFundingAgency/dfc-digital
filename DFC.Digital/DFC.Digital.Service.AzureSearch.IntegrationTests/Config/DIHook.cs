@@ -8,12 +8,12 @@ using TechTalk.SpecFlow;
 namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
 {
     [Binding]
-    public class DIHook
+    public class DiHook
     {
         private IObjectContainer scenarioContainer;
         private ILifetimeScope autofac;
 
-        public DIHook(IObjectContainer scenarioContainer)
+        public DiHook(IObjectContainer scenarioContainer)
         {
             this.scenarioContainer = scenarioContainer;
 
@@ -26,10 +26,25 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
         [BeforeScenario(Order = 10)]
         public void RegisterToDiReolvedFromAutofac()
         {
-            if (!scenarioContainer.IsRegistered<ISearchService<JobProfileIndex>>()) scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchService<JobProfileIndex>>());
-            if (!scenarioContainer.IsRegistered<ISearchQueryService<JobProfileIndex>>()) scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchQueryService<JobProfileIndex>>());
-            if (!scenarioContainer.IsRegistered<ISearchIndexConfig>()) scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchIndexConfig>());
-            if (!scenarioContainer.IsRegistered<IMapper>()) scenarioContainer.RegisterInstanceAs(autofac.Resolve<IMapper>());
+            if (!scenarioContainer.IsRegistered<ISearchService<JobProfileIndex>>())
+            {
+                scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchService<JobProfileIndex>>());
+            }
+
+            if (!scenarioContainer.IsRegistered<ISearchQueryService<JobProfileIndex>>())
+            {
+                scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchQueryService<JobProfileIndex>>());
+            }
+
+            if (!scenarioContainer.IsRegistered<ISearchIndexConfig>())
+            {
+                scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchIndexConfig>());
+            }
+
+            if (!scenarioContainer.IsRegistered<IMapper>())
+            {
+                scenarioContainer.RegisterInstanceAs(autofac.Resolve<IMapper>());
+            }
         }
     }
 }

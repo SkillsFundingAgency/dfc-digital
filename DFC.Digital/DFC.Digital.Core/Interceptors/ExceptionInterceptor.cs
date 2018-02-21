@@ -9,9 +9,9 @@ namespace DFC.Digital.Core.Interceptors
 {
     public class ExceptionInterceptor : IInterceptor
     {
-        public const string NAME = "ExceptionPolicy";
+        public const string Name = "ExceptionPolicy";
 
-        private IApplicationLogger loggingService;
+       private IApplicationLogger loggingService;
 
         public ExceptionInterceptor(IApplicationLogger logService)
         {

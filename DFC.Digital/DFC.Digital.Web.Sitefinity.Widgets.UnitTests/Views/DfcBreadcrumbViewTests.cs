@@ -54,9 +54,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
                 if (liContent != null)
                 {
                     if (isHomePageText)
+                    {
                         return liContent.InnerText;
+                    }
                     else
+                    {
                         return liContent.GetAttributeValue("href", string.Empty);
+                    }
                 }
             }
 
@@ -70,9 +74,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
         /// <returns></returns>
         private static string GetBreadcrumbedPageTitleText(HtmlDocument htmlDom)
         {
-            var BreadcrumbedPageTitleTextElement = htmlDom.DocumentNode.Descendants("li").LastOrDefault();
-            if (BreadcrumbedPageTitleTextElement != null)
-                return BreadcrumbedPageTitleTextElement.InnerText;
+            var breadcrumbedPageTitleTextElement = htmlDom.DocumentNode.Descendants("li").LastOrDefault();
+            if (breadcrumbedPageTitleTextElement != null)
+            {
+                return breadcrumbedPageTitleTextElement.InnerText;
+            }
 
             return string.Empty;
         }

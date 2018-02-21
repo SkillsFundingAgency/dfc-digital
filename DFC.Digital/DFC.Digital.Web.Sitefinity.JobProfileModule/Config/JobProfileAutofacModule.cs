@@ -16,12 +16,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<JobProfileSearchIndexConfig>().As<ISearchIndexConfig>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {

@@ -854,6 +854,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\clock.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\pound-sign.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\tree.svg" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-1.12.4.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-ui.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\selectivizr.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
@@ -1030,8 +1031,6 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_search.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_reset.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_elements-typography.scss" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_elements-helpers.scss" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>

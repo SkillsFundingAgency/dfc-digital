@@ -12,7 +12,8 @@
   ],
 
   "ie8Bundle": [
-    "node_modules/html5shiv/dist/html5shiv-printshiv.js"
+    "node_modules/html5shiv/dist/html5shiv-printshiv.js",
+    "assets/src/frontend/js/jquery-1.12.4.js"
   ],
 
   "concatGovUkJsFiles": [

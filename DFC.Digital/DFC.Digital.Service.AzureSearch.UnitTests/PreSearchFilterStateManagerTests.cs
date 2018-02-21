@@ -12,14 +12,14 @@ namespace DFC.Digital.Service.AzureSearch.Tests
     public class PreSearchFilterStateManagerTests
     {
         private const int NumberDummyFilterOptions = 5;
-        private IPreSearchFiltersFactory pSfRepositoryFactoryFake;
-        private IPreSearchFiltersRepository<PsfInterest> pSfFakeIntrestRepository;
-        private IPreSearchFiltersRepository<PsfEnabler> pSfFakeEnablerRepository;
-        private IPreSearchFiltersRepository<PsfEntryQualification> pSfFakeQalificationsRepository;
-        private IPreSearchFiltersRepository<PsfTrainingRoute> pSfFakeTrainingRepository;
-        private IPreSearchFiltersRepository<PsfJobArea> pSfFakeJobAreaRepository;
-        private IPreSearchFiltersRepository<PsfCareerFocus> pSfFakeCareerFocusRepository;
-        private IPreSearchFiltersRepository<PsfPreferredTaskType> pSfFakePreferredTaskTypeRepository;
+        private IPreSearchFiltersFactory psfRepositoryFactoryFake;
+        private IPreSearchFiltersRepository<PsfInterest> psfFakeIntrestRepository;
+        private IPreSearchFiltersRepository<PsfEnabler> psfFakeEnablerRepository;
+        private IPreSearchFiltersRepository<PsfEntryQualification> psfFakeQalificationsRepository;
+        private IPreSearchFiltersRepository<PsfTrainingRoute> psfFakeTrainingRepository;
+        private IPreSearchFiltersRepository<PsfJobArea> psfFakeJobAreaRepository;
+        private IPreSearchFiltersRepository<PsfCareerFocus> psfFakeCareerFocusRepository;
+        private IPreSearchFiltersRepository<PsfPreferredTaskType> psfFakePreferredTaskTypeRepository;
 
         [Theory]
         [InlineData("")]
@@ -188,31 +188,31 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
         private void SetUpFakesAndCalls(bool addNotApplicable)
         {
-            pSfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
-            pSfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());
-            pSfFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PsfEnabler>>(ops => ops.Strict());
-            pSfFakeQalificationsRepository = A.Fake<IPreSearchFiltersRepository<PsfEntryQualification>>(ops => ops.Strict());
-            pSfFakeTrainingRepository = A.Fake<IPreSearchFiltersRepository<PsfTrainingRoute>>(ops => ops.Strict());
-            pSfFakeJobAreaRepository = A.Fake<IPreSearchFiltersRepository<PsfJobArea>>(ops => ops.Strict());
-            pSfFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PsfCareerFocus>>(ops => ops.Strict());
-            pSfFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
+            psfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
+            psfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());
+            psfFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PsfEnabler>>(ops => ops.Strict());
+            psfFakeQalificationsRepository = A.Fake<IPreSearchFiltersRepository<PsfEntryQualification>>(ops => ops.Strict());
+            psfFakeTrainingRepository = A.Fake<IPreSearchFiltersRepository<PsfTrainingRoute>>(ops => ops.Strict());
+            psfFakeJobAreaRepository = A.Fake<IPreSearchFiltersRepository<PsfJobArea>>(ops => ops.Strict());
+            psfFakeCareerFocusRepository = A.Fake<IPreSearchFiltersRepository<PsfCareerFocus>>(ops => ops.Strict());
+            psfFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
 
             //Set up call
-            A.CallTo(() => pSfFakeIntrestRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfInterest>(addNotApplicable));
-            A.CallTo(() => pSfFakeEnablerRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEnabler>(addNotApplicable));
-            A.CallTo(() => pSfFakeQalificationsRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEntryQualification>(addNotApplicable));
-            A.CallTo(() => pSfFakeTrainingRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfTrainingRoute>(addNotApplicable));
-            A.CallTo(() => pSfFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfJobArea>(addNotApplicable));
-            A.CallTo(() => pSfFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfCareerFocus>(addNotApplicable));
-            A.CallTo(() => pSfFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfPreferredTaskType>(addNotApplicable));
+            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfInterest>(addNotApplicable));
+            A.CallTo(() => psfFakeEnablerRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEnabler>(addNotApplicable));
+            A.CallTo(() => psfFakeQalificationsRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfEntryQualification>(addNotApplicable));
+            A.CallTo(() => psfFakeTrainingRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfTrainingRoute>(addNotApplicable));
+            A.CallTo(() => psfFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfJobArea>(addNotApplicable));
+            A.CallTo(() => psfFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfCareerFocus>(addNotApplicable));
+            A.CallTo(() => psfFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterOptions<PsfPreferredTaskType>(addNotApplicable));
 
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfInterest>()).Returns(pSfFakeIntrestRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEnabler>()).Returns(pSfFakeEnablerRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>()).Returns(pSfFakeQalificationsRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>()).Returns(pSfFakeTrainingRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfJobArea>()).Returns(pSfFakeJobAreaRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>()).Returns(pSfFakeCareerFocusRepository);
-            A.CallTo(() => pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>()).Returns(pSfFakePreferredTaskTypeRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfInterest>()).Returns(psfFakeIntrestRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfEnabler>()).Returns(psfFakeEnablerRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfEntryQualification>()).Returns(psfFakeQalificationsRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>()).Returns(psfFakeTrainingRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfJobArea>()).Returns(psfFakeJobAreaRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfCareerFocus>()).Returns(psfFakeCareerFocusRepository);
+            A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>()).Returns(psfFakePreferredTaskTypeRepository);
         }
 
         private IEnumerable<PreSearchFilter> GetFilterOptions(PreSearchFilterType preSearchFilterType)
@@ -221,37 +221,37 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             {
                 case PreSearchFilterType.Enabler:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfEnabler>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfEnabler>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.EntryQualification:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfEntryQualification>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfEntryQualification>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.Interest:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfInterest>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfInterest>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.TrainingRoute:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfTrainingRoute>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.JobArea:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfJobArea>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfJobArea>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.CareerFocus:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfCareerFocus>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfCareerFocus>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 case PreSearchFilterType.PreferredTaskType:
                 {
-                    return pSfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
+                    return psfRepositoryFactoryFake.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                 }
 
                 default:

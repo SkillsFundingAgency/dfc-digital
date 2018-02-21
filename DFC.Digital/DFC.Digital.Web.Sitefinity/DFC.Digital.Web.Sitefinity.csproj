@@ -1124,7 +1124,7 @@
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.10.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_casestudy.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.11.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.20.nupkg" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

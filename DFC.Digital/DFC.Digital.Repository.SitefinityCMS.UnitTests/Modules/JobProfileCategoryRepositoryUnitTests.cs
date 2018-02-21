@@ -62,7 +62,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             var fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
-            A.Fake<IMapper>();
 
             A.CallTo(() => fakeSearchService.Search("*", null)).WithAnyArguments().Returns(DummySearchResults());
 

@@ -7,6 +7,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Xunit;
 
@@ -35,7 +36,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
 
             //Act
-            courseSearchService.GetCourses(keywords);
+            courseSearchService.GetCoursesAsync(keywords);
 
             //Assert
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).MustHaveHappened();
@@ -52,7 +53,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         }
 
         [Fact]
-        public void CourseSearchServiceFailureTest()
+        public async Task CourseSearchServiceFailureTestAsync()
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();
@@ -70,7 +71,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
 
             //Act
-            var results = courseSearchService.GetCourses("CourseKeyWords");
+            var results = await courseSearchService.GetCoursesAsync("CourseKeyWords");
 
             //Assert
             results.Should().BeEmpty();

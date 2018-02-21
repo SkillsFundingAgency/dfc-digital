@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Core.Utilities
 {
@@ -36,6 +37,28 @@ namespace DFC.Digital.Core.Utilities
             try
             {
                 var result = action((TService)proxy);
+                proxy.Close();
+                success = true;
+                return result;
+            }
+            finally
+            {
+                if (!success)
+                {
+                    proxy.Abort();
+                }
+            }
+        }
+
+        public async Task<TReturn> UseAsync<TService, TReturn>(Func<TService, Task<TReturn>> asyncAction, string endpointConfigName = null)
+        {
+            var factory = new ChannelFactory<TService>(endpointConfigName ?? typeof(TService).Name);
+            var proxy = (IClientChannel)factory.CreateChannel();
+
+            bool success = false;
+            try
+            {
+                var result = await asyncAction((TService)proxy);
                 proxy.Close();
                 success = true;
                 return result;

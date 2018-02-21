@@ -6,6 +6,7 @@ using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
@@ -24,7 +25,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.applicationLogger = applicationLogger;
         }
 
-        public IEnumerable<Course> GetCourses(string jobprofileKeywords)
+        public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)
         {
             var request = MessageConverter.GetCourseListInput(jobprofileKeywords);
             auditRepository.CreateAudit(request);
@@ -32,7 +33,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
             try
             {
-                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSerachEndpointConfigName);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await x.CourseListAsync(request), Constants.CourseSerachEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
                 var result = apiResult?.ConvertToCourse();
                 var filteredResult = courseOpportunityBuilder.SelectCoursesForJobProfile(result);

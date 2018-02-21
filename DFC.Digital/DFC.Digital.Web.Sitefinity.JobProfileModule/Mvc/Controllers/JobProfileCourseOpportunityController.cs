@@ -19,13 +19,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The course search service
         /// </summary>
         private readonly ICourseSearchService courseSearchService;
+        private readonly IAsyncHelper asyncHelper;
 
         #endregion Fields
 
-        public JobProfileCourseOpportunityController(ICourseSearchService courseSearchService, IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger loggingService, ISitefinityPage sitefinityPage)
+        public JobProfileCourseOpportunityController(
+            ICourseSearchService courseSearchService,
+            IAsyncHelper asyncHelper,
+            IWebAppContext webAppContext,
+            IJobProfileRepository jobProfileRepository,
+            IApplicationLogger loggingService,
+            ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, loggingService, sitefinityPage)
         {
             this.courseSearchService = courseSearchService;
+            this.asyncHelper = asyncHelper;
         }
 
         #region Web Properties
@@ -136,7 +144,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IEnumerable<Course> trainingCourses = new List<Course>();
             if (!string.IsNullOrEmpty(CurrentJobProfile.CourseKeywords))
             {
-                trainingCourses = courseSearchService.GetCourses(CurrentJobProfile.CourseKeywords)?.Take(MaxTrainingCoursesMaxCount);
+                trainingCourses = asyncHelper.Synchronise(() => courseSearchService.GetCoursesAsync(CurrentJobProfile.CourseKeywords))?.Take(MaxTrainingCoursesMaxCount);
             }
 
             var model = new JobProfileCourseSearchViewModel

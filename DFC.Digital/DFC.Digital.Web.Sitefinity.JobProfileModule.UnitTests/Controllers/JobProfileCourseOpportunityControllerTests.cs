@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core.Utilities;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
@@ -78,10 +79,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
-            A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).Returns(dummyCourses);
+            A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).Returns(dummyCourses);
 
             //Instantiate & Act
-            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
+            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
             {
                 CoursesSectionTitle = nameof(JobProfileCourseOpportunityController.CoursesSectionTitle),
                 TrainingCoursesLocationDetails =
@@ -128,7 +129,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
 
                 if (!string.IsNullOrEmpty(courseKeywords))
                 {
-                    A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).MustHaveHappened();
                 }
             }
             else
@@ -194,12 +195,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
 
-            A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).Returns(dummyCourses);
+            A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).Returns(dummyCourses);
 
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
-            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
+            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
             {
                 CoursesSectionTitle = nameof(JobProfileCourseOpportunityController.CoursesSectionTitle),
                 TrainingCoursesLocationDetails =
@@ -236,7 +237,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .AndNoModelErrors();
                 if (!string.IsNullOrEmpty(courseKeywords))
                 {
-                    A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).MustHaveHappened();
                 }
             }
             else if (!inContentAuthoringSite)

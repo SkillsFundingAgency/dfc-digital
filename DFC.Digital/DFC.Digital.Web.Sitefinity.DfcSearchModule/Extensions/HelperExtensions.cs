@@ -3,7 +3,6 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Telerik.Sitefinity.Services.Search.Data;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions

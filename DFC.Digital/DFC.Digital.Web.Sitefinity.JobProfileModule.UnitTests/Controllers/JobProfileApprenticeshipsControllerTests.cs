@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SOCCode = socCode
+                    SocCode = socCode
                 };
 
             var dummyApprenticeships = new EnumerableQuery<ApprenticeVacancy>(new List<ApprenticeVacancy>
@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -173,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SOCCode = socCode
+                    SocCode = socCode
                 }
                 : null;
 
@@ -183,7 +183,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -192,7 +192,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -292,7 +292,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -301,7 +301,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -318,7 +318,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SOCCode = socCode
+                    SocCode = socCode
                 }
                 : null;
         }

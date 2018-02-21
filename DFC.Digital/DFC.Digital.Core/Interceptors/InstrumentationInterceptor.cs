@@ -10,7 +10,7 @@ namespace DFC.Digital.Core.Interceptors
 {
     public class InstrumentationInterceptor : IInterceptor
     {
-        public const string NAME = "Instrumentation";
+        public const string Name = "Instrumentation";
 
         private IApplicationLogger loggingService;
 

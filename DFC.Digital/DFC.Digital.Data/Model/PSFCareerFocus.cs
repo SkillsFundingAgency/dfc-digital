@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class PSFCareerFocus : PreSearchFilter
+    public class PsfCareerFocus : PreSearchFilter
     {
     }
 }

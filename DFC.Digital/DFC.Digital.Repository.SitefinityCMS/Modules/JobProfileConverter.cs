@@ -6,8 +6,6 @@ using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
-using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -67,7 +65,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode = socItem.GetValue<Lstring>(nameof(JobProfile.SOCCode));
+                jobProfile.SocCode = socItem.GetValue<Lstring>(nameof(JobProfile.SocCode));
             }
 
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();

@@ -13,7 +13,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.Config
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

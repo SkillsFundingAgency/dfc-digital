@@ -7,19 +7,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace DFC.Digital.Service.AzureSearch.Tests
 {
     public class DfcSearchQueryServiceTests
     {
-        private ITestOutputHelper output;
-
-        public DfcSearchQueryServiceTests(ITestOutputHelper output)
-        {
-            this.output = output;
-        }
-
         [Fact]
         public async Task SearchAsyncTest()
         {

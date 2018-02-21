@@ -24,7 +24,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            var request = new CourseListInput();
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
@@ -60,8 +59,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
-
-            var request = new CourseListInput();
 
             //Setup Calls ANY exception will do as we are catching all of them for this call
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Throws(new HttpException("failed cause I want to"));

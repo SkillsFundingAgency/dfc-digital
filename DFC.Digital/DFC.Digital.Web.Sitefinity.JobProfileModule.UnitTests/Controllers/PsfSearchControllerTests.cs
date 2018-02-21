@@ -192,7 +192,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 JobProfileDetailsPage = defaultJobProfilePage
             };
 
-            var searchMethodCall = psfSearchController.WithCallTo(c => c.Search(new PSFModel { Section = new PSFSection { SingleSelectedValue = singleSelectValue ? nameof(PSFSection.SingleSelectedValue) : string.Empty, Options = new List<PSFOption>() } }, 1, notPaging));
+            var searchMethodCall = psfSearchController.WithCallTo(c => c.Search(new PsfModel { Section = new PsfSection { SingleSelectedValue = singleSelectValue ? nameof(PsfSection.SingleSelectedValue) : string.Empty, Options = new List<PsfOption>() } }, 1, notPaging));
 
             //Assert
             searchMethodCall
@@ -299,7 +299,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 JobProfileDetailsPage = defaultJobProfilePage
             };
 
-            var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PSFModel { Sections = new List<PSFSection>(), Section = new PSFSection { Options = new List<PSFOption>() } }, new PsfSearchResultsViewModel(), pageNumber));
+            var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PsfModel { Sections = new List<PsfSection>(), Section = new PsfSection { Options = new List<PsfOption>() } }, new PsfSearchResultsViewModel(), pageNumber));
 
             //Assert
             searchMethodCall
@@ -403,7 +403,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 JobProfileDetailsPage = defaultJobProfilePage
             };
 
-            var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PSFModel { Section = new PSFSection { Options = new List<PSFOption>() } }, new PsfSearchResultsViewModel(), 1));
+            var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PsfModel { Section = new PsfSection { Options = new List<PsfOption>() } }, new PsfSearchResultsViewModel(), 1));
 
             //Assert
             searchMethodCall

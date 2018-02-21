@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using DFC.Digital.Data.Model;
+
 namespace DFC.Digital.Service.LMIFeed.UnitTests.Model
 {
     public class HelperJobProfileData
     {
-        static readonly Dictionary<int, decimal> FirstSet = new Dictionary<int, decimal>
+        private static readonly Dictionary<int, decimal> FirstSet = new Dictionary<int, decimal>
         {
             {10, 1000},
             {20, 2000},
@@ -13,7 +13,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests.Model
             {40, 4000}
         };
 
-        static readonly Dictionary<int, decimal> SecondSet = new Dictionary<int, decimal>
+        private static readonly Dictionary<int, decimal> SecondSet = new Dictionary<int, decimal>
         {
             {20, 2000},
             {30, 3000},
@@ -21,7 +21,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests.Model
             {90, 9000}
         };
 
-        static readonly Dictionary<int, decimal> ThirdSet = new Dictionary<int, decimal>
+        private static readonly Dictionary<int, decimal> ThirdSet = new Dictionary<int, decimal>
         {
             {30, 3000},
             {40, 4000},
@@ -30,7 +30,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests.Model
             {70, 7000}
         };
 
-        static readonly Dictionary<int, decimal> FourthSet = new Dictionary<int, decimal>
+        private static readonly Dictionary<int, decimal> FourthSet = new Dictionary<int, decimal>
         {
             {40, 4000},
             {60, 6000},

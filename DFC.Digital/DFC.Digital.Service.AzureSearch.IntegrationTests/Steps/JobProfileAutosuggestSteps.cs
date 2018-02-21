@@ -15,9 +15,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileAutosuggestSteps
     {
         private SuggestionResult<JobProfileIndex> results;
-
-        private ITestOutputHelper outputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
@@ -25,33 +22,33 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
 
         public JobProfileAutosuggestSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
         }
 
+        private ITestOutputHelper OutputHelper { get; set; }
+
         [When(@"I type the term '(.*)'")]
         public void WhenITypeTheTerm(string suggestionTerm)
         {
-            outputHelper.WriteLine($"The suggestion term is '{suggestionTerm}'");
+            OutputHelper.WriteLine($"The suggestion term is '{suggestionTerm}'");
             try
             {
-                results = searchQueryService.GetSuggestion(suggestionTerm, new SuggestProperties
-                {
-                    UseFuzzyMatching = true,
-                    MaxResultCount = 5
-                });
+                results = searchQueryService.GetSuggestion(
+                    suggestionTerm,
+                    new SuggestProperties { UseFuzzyMatching = true, MaxResultCount = 5 });
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
 
             //Log results
             var actual = results?.Results.Select(r => r.Index);
-            outputHelper.WriteLine($"Actual order {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Actual order {actual?.ToJson()}");
         }
 
         [Then(@"the result list will contain '(.*)' suggestion\(s\)")]
@@ -67,7 +64,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.Index);
 
             //Log results
-            outputHelper.WriteLine($"Expected order {expected.ToJson()}");
+            OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
             actual.ShouldAllBeEquivalentTo(expected);
         }
     }

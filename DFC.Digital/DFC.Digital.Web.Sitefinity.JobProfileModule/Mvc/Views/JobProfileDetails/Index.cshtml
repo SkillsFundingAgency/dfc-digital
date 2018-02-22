@@ -36,31 +36,20 @@
             </div>
         </div>
         <div id="WorkingHours" class="column-30 job-profile-heroblock">
-            <h4>@Model.HoursText</h4>
-            @if (string.IsNullOrWhiteSpace(Model.MinimumHours) && string.IsNullOrWhiteSpace(Model.MaximumHours))
-            {
-                <div class="job-profile-hours job-profile-heroblock-content">
-                    <h5 class="dfc-code-jphours">@Model.MaxAndMinHoursAreBlankText</h5>
-                </div>
-            }
-            else if (!(string.IsNullOrWhiteSpace(Model.MinimumHours) || string.IsNullOrWhiteSpace(Model.MaximumHours)))
-            {
-                <div class="job-profile-hours job-profile-heroblock-content">
-                    <h5 class="dfc-code-jphours">@Model.MinimumHours to @Model.MaximumHours <span>@Model.HoursTimePeriodText</span></h5>
-                </div>
-            }
-            else if (!string.IsNullOrWhiteSpace(Model.MinimumHours))
-            {
-                <div class="job-profile-hours job-profile-heroblock-content">
-                    <h5 class="dfc-code-jphours">@Model.MinimumHours <span>@Model.HoursTimePeriodText</span></h5>
-                </div>
-            }
-            else if (!string.IsNullOrWhiteSpace(Model.MaximumHours))
-            {
-                <div class="job-profile-hours job-profile-heroblock-content">
-                    <h5 class="dfc-code-jphours">@Model.MaximumHours <span>@Model.HoursTimePeriodText</span></h5>
-                </div>
-            }
+            <h4>@Model.HoursText <span>@Model.HoursTimePeriodText</span></h4>
+            <div class="job-profile-hours job-profile-heroblock-content">
+                <h5 class="dfc-code-jphours">
+                    @if (string.IsNullOrWhiteSpace(Model.MinimumHours) || string.IsNullOrWhiteSpace(Model.MaximumHours))
+                    {
+                        @Model.MaxAndMinHoursAreBlankText
+                    }
+                    else
+                    {
+                        @Model.MinimumHours <text>to</text> @Model.MaximumHours
+                    }
+                    <span>@Model.WorkingHoursDetails</span>
+                </h5>
+            </div>          
         </div>
         @if (!string.IsNullOrEmpty(Model.WorkingPattern))
         {

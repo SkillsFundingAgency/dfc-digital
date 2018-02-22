@@ -97,7 +97,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"I am redirected to the cookies page")]
         public void ThenIAmRedirectedToTheCookiesPage()
         {
-            cookiesPage.CookiesHeadingText.Should().Contain("Cookies");
+            cookiesPage.CookiesHeadingText.Should().Be("Privacy and cookies");
         }
 
         [Then(@"I am redirected to the homepage")]

@@ -206,10 +206,6 @@ namespace DFC.Digital.Data.Model
         [JsonIgnore]
         public IQueryable<string> RelatedJobAreas { get; set; }
 
-        public IList<Guid> WorkingPatternCollection { get; set; }
-
-        public IList<Guid> WorkingPatternDetailsCollection { get; set; }
-
         public string WorkingPattern { get; set; }
 
         public string WorkingPatternDetails { get; set; }

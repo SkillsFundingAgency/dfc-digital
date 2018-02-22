@@ -6,6 +6,7 @@ using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
@@ -26,9 +27,35 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         private string ServiceName => "Course Search";
 
-        public ServiceStatus GetCurrentStatus()
+        public Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            return new ServiceStatus { Name = ServiceName, Status = ServiceState.Green, Notes = string.Empty };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+
+            var checkSubject = "maths";
+            serviceStatus.CheckParametersUsed = $"Text - {checkSubject}";
+
+            try
+            {
+                var request = MessageConverter.GetCourseListInput(checkSubject);
+                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSerachEndpointConfigName);
+
+                //The call worked ok
+                serviceStatus.Status = ServiceState.Amber;
+                serviceStatus.Notes = "Success Response";
+
+                //We have actual data
+                if (apiResult.CourseListResponse.CourseDetails.Count() > 0)
+                {
+                    serviceStatus.Status = ServiceState.Green;
+                    serviceStatus.Notes = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceStatus.Notes = $"Status check failed: {ex.Message}";
+            }
+
+            return Task.FromResult(serviceStatus);
         }
 
         public IEnumerable<Course> GetCourses(string jobprofileKeywords)

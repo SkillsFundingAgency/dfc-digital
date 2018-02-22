@@ -18,6 +18,9 @@ namespace DFC.Digital.Service.ServiceStatusesToCheck
             this.serviceStatus = serviceStatus;
         }
 
-        public ServiceStatus Status => serviceStatus.GetCurrentStatus();
+        public Task<ServiceStatus> GetServiceStatus()
+        {
+          return serviceStatus.GetCurrentStatusAsync();
+        }
     }
 }

@@ -349,7 +349,8 @@ p,
     .link-back {
       font-size: 16px;
       line-height: 1.25; } }
-  .link-back:link, .link-back:visited, .link-back:hover, .link-back:active {
+  .link-back:link, .link-back:visited, .link-back:hover,
+  .link-back a.link-back:focus, .link-back:active {
     color: #0b0c0c; }
   .link-back::before {
     content: '';
@@ -484,6 +485,29 @@ main {
           padding: 10px 0; } }
       .list-big li a:hover {
         text-decoration: underline; }
+
+.list-service li {
+  margin-bottom: 2px;
+  background-color: #f8f8f8; }
+  .list-service li * {
+    word-wrap: break-word; }
+  .list-service li:nth-child(even) {
+    background-color: #dee0e2; }
+  .list-service li.list-service_Red {
+    border-left: 10px solid #b10e1e;
+    padding: 5px 10px; }
+    .list-service li.list-service_Red .column-one-half:first-child {
+      color: #b10e1e; }
+  .list-service li.list-service_Green {
+    border-left: 10px solid #006435;
+    padding: 5px 10px; }
+    .list-service li.list-service_Green .column-one-half:first-child {
+      color: #006435; }
+  .list-service li.list-service_Amber {
+    border-left: 10px solid #f47738;
+    padding: 5px 10px; }
+    .list-service li.list-service_Amber .column-one-half:first-child {
+      color: #f47738; }
 
 /* --- Individual Section / Page Styling --- */
 /*Default SCSS - Sets Default Styling For Elements */

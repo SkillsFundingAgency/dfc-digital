@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 {
-    public class SpellCheckService : ISpellCheckService
+    public class SpellCheckService : ISpellCheckService, IServiceStatus
     {
         private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellCheckApiKey];
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellCheckRequestEndPoint];
@@ -19,6 +19,51 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         {
             this.httpClientService = httpClientService;
         }
+
+        #region Implement of IServiceStatus
+        private string ServiceName => "Spell Check Service";
+
+        public async Task<ServiceStatus> GetCurrentStatusAsync()
+        {
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+
+            var checkText = "nursee";
+            serviceStatus.CheckParametersUsed = $"Text - {checkText}";
+
+            var requestUri = string.Format(bingSpellEndpoint, checkText);
+
+            using (var client = GetHttpClient())
+            {
+                var response = await client.GetAsync(requestUri);
+                if (response.IsSuccessStatusCode)
+                {
+                    //Got a response back
+                    serviceStatus.Status = ServiceState.Amber;
+                    serviceStatus.Notes = "Success Response";
+
+                    var resultsString = await response.Content.ReadAsStringAsync();
+
+                    //Manged to read result information
+                    serviceStatus.Notes = "Success Result";
+
+                    dynamic spellSuggestions = JObject.Parse(resultsString);
+                    if (spellSuggestions.flaggedTokens.Count > 0)
+                    {
+                        //got corrections
+                        serviceStatus.Status = ServiceState.Green;
+                        serviceStatus.Notes = string.Empty;
+                    }
+                }
+                else
+                {
+                    serviceStatus.Notes = $"{response.ReasonPhrase}";
+                }
+            }
+
+            return serviceStatus;
+        }
+
+        #endregion
 
         public async Task<SpellCheckResult> CheckSpellingAsync(string term)
         {

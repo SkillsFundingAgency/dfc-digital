@@ -8,6 +8,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IServiceStatus
     {
-        ServiceStatus GetCurrentStatus();
+       Task<ServiceStatus> GetCurrentStatusAsync();
     }
 }

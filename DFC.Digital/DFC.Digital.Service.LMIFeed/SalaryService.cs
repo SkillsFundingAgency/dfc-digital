@@ -24,11 +24,45 @@ namespace DFC.Digital.Service.LMIFeed
         #endregion ctor
 
         #region Implement of IServiceStatus
-        private string ServiceName => "LMIFeed";
+        private string ServiceName => "LMI Feed";
 
-        public ServiceStatus GetCurrentStatus()
+        public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            return new ServiceStatus { Name = ServiceName, Status = ServiceState.Green, Notes = string.Empty };
+            var serviceStatus = new  ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+            try
+            {
+                //Plumber
+                var checkSOC = "5314";
+                serviceStatus.CheckParametersUsed = $"SOC - {checkSOC}";
+
+                var response = await asheProxy.EstimatePayMdAsync(checkSOC);
+                if (response.IsSuccessStatusCode)
+                {
+                    //Got a response back
+                    serviceStatus.Status = ServiceState.Amber;
+                    serviceStatus.Notes = "Success Response";
+
+                    var JobProfileSalary = await response.Content.ReadAsAsync<JobProfileSalary>();
+
+                    serviceStatus.Notes = "Response Read";
+
+                    if (JobProfileSalary?.Median != null)
+                    {
+                        //Manged to read salary information
+                        serviceStatus.Status = ServiceState.Green;
+                        serviceStatus.Notes = string.Empty;
+                    }
+                }
+                else
+                {
+                    serviceStatus.Notes = $"Non Success Response StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase}";
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceStatus.Notes = $"Exception: {ex.InnerException}";
+            }
+            return serviceStatus;
         }
 
         #endregion

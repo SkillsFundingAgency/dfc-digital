@@ -405,7 +405,6 @@
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MvcApplication.asax.cs" />
-    <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
     <Compile Include="Mvc\Controllers\VocSurveyController.cs" />
@@ -414,7 +413,6 @@
     <Compile Include="Mvc\Models\DfcBreadcrumbLevel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbViewModel.cs" />
     <Compile Include="Mvc\Models\EmailSubmissionViewModel.cs" />
-    <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Mvc\Models\SetContentRelatedPageTitleModel.cs" />
     <Compile Include="Mvc\Models\VocSurveyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -440,7 +438,6 @@
     <Content Include="Mvc\Views\VocSurvey\Response.cshtml" />
     <Content Include="Mvc\Views\SetContentRelatedPageTitle\Index.cshtml" />
     <Content Include="Mvc\Views\BauSearchResultsSignPost\Index.cshtml" />
-    <Content Include="Mvc\Views\ServiceStatus\Index.cshtml" />
     <None Include="packages.config" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>

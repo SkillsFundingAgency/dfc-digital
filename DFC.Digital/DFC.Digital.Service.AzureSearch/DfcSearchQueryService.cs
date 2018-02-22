@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.AzureSearch
 {
-    public class DfcSearchQueryService<T> : AzSearchQueryService<T>, ISearchQueryService<T>
+    public class DfcSearchQueryService<T> : AzSearchQueryService<T>, ISearchQueryService<T>, IServiceStatus
         where T : class
     {
         private ISearchQueryBuilder queryBuilder;
@@ -15,6 +15,16 @@ namespace DFC.Digital.Service.AzureSearch
         {
             this.queryBuilder = queryBuilder;
         }
+
+        #region Implement of IServiceStatus
+        private string ServiceName => "Search Service";
+
+        public Task<ServiceStatus> GetCurrentStatusAsync()
+        {
+            return Task.FromResult(new ServiceStatus { Name = ServiceName, Status = ServiceState.Amber, Notes = string.Empty });
+        }
+
+        #endregion
 
         public override SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {

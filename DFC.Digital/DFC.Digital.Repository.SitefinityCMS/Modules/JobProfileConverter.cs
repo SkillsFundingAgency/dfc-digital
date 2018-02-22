@@ -65,7 +65,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SocCode = socItem.GetValue<Lstring>(nameof(JobProfile.SocCode));
+                jobProfile.SOCCode = socItem.GetValue<Lstring>(nameof(JobProfile.SOCCode));
             }
 
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();

@@ -50,7 +50,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The soc code.
         /// </value>
-        public string SocCode { get; set; }
+        public string SOCCode { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the URL.

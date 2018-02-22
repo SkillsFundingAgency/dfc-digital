@@ -183,7 +183,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SocCode))).MustHaveHappened();
+                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustNotHaveHappened();
@@ -194,7 +194,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SocCode))).MustHaveHappened();
+                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();

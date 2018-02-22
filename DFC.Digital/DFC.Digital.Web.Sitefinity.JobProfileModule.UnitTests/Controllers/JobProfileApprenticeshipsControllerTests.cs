@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SocCode = socCode
+                    SOCCode = socCode
                 };
 
             var dummyApprenticeships = new EnumerableQuery<ApprenticeVacancy>(new List<ApprenticeVacancy>
@@ -173,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SocCode = socCode
+                    SOCCode = socCode
                 }
                 : null;
 
@@ -318,7 +318,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
-                    SocCode = socCode
+                    SOCCode = socCode
                 }
                 : null;
         }

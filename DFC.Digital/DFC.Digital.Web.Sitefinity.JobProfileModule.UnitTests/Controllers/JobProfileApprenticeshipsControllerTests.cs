@@ -26,7 +26,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         [InlineData(6, true, "", true, 2)]
         [InlineData(7, false, "", true, 2)]
         [InlineData(8, false, "testfalse", true, 1)]
-        [InlineData(8, false, "testfalse", true, 1)]
         public void IndexTest(int testIndex, bool inContentAuthoringSite, string socCode, bool isContentPreviewMode, int maxApp)
         {
             //Setup the fakes and dummies

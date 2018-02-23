@@ -253,7 +253,7 @@ that is bundled with the nuget package under the tools folder.
         <binding name="basicHttpBinding" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647">
           <security mode="None" />
         </binding>
-        <binding name="CourseSearchSoap" closeTimeout="00:05:00" openTimeout="00:01:00" receiveTimeout="00:10:00" sendTimeout="00:01:00" allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="WeakWildcard" maxBufferSize="6553600" maxBufferPoolSize="524288" maxReceivedMessageSize="6553600" messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered" useDefaultWebProxy="true">
+        <binding name="CourseSearchSoap" closeTimeout="00:05:00" openTimeout="00:00:03" receiveTimeout="00:00:03" sendTimeout="00:00:03" allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="WeakWildcard" maxBufferSize="6553600" maxBufferPoolSize="524288" maxReceivedMessageSize="6553600" messageEncoding="Text" textEncoding="utf-8" transferMode="Buffered" useDefaultWebProxy="true">
           <security mode="Transport" />
         </binding>
         <!-- note: To enable https/SSL support for the Analytics module, uncomment this binding -->
@@ -436,8 +436,8 @@ that is bundled with the nuget package under the tools folder.
       <add assembly="Microsoft.ApplicationInsights.NLogTarget" />
     </extensions>
     <targets>
-      <target type="ApplicationInsightsTarget" name="aiTarget" />
-      <target type="Trace" name="trace" />
+      <target type="ApplicationInsightsTarget" name="aiTarget" layout="${longdate}|${level:uppercase=true}|${logger}|${threadid}|${aspnet-item:variable=dfc-controller}|${message}|${exception:format=tostring}" />
+      <target type="Trace" name="trace" layout="${longdate}|${level:uppercase=true}|${logger}|${threadid}|${aspnet-item:variable=dfc-controller}|${message}|${exception:format=tostring}" />
     </targets>
     <rules>
       <logger name="*" minlevel="Trace" writeTo="aiTarget" />
@@ -560,7 +560,7 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.ApplicationInsights" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-2.5.0.0" newVersion="2.5.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="HtmlAgilityPack" publicKeyToken="bd319b19eaf3b43a" culture="neutral" />

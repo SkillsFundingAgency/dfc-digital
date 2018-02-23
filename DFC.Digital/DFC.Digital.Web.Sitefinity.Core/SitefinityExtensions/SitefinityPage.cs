@@ -12,10 +12,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class SitefinityPage : ISitefinityPage
     {
-        public SitefinityPage(IWebAppContext context, ISitefinityCurrentContext sitefinityContext)
+        private readonly IApplicationLogger logger;
+
+        public SitefinityPage(IWebAppContext context, ISitefinityCurrentContext sitefinityContext, IApplicationLogger logger)
         {
             this.Context = context;
             this.SitefinityContext = sitefinityContext;
+            this.logger = logger;
         }
 
         public IWebAppContext Context { get; }

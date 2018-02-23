@@ -1,22 +1,27 @@
 [
-    {
-        "AddonName":  "JobProfile",
-        "Key":  "50efc23e-e71c-4c41-95a0-33881fa36f15",
-        "IsDeleted":  false
-    },
-    {
-        "AddonName":  "TestJobProfiles",
-        "Key":  "1937ed5a-1397-47f8-918c-9e89f6e0bc59",
-        "IsDeleted":  false
-    },
-    {
-        "AddonName":  "WorkingHPE",
-        "Key":  "b3b7ed98-8ee3-4d92-87d5-6653558d3274",
-        "IsDeleted":  false
-    },
-    {
-        "AddonName":  "PreSearchFilters",
-        "Key":  "5e88b869-0bc2-44d4-b26d-b8fe1458f64a",
-        "IsDeleted":  false
-    }
+  {
+    "AddonName": "JobProfile",
+    "Key": "50efc23e-e71c-4c41-95a0-33881fa36f15",
+    "IsDeleted": false
+  },
+  {
+    "AddonName": "TestJobProfiles",
+    "Key": "1937ed5a-1397-47f8-918c-9e89f6e0bc59",
+    "IsDeleted": false
+  },
+  {
+    "AddonName": "WorkingHPE",
+    "Key": "b3b7ed98-8ee3-4d92-87d5-6653558d3274",
+    "IsDeleted": false
+  },
+  {
+    "AddonName": "PreSearchFilters",
+    "Key": "5e88b869-0bc2-44d4-b26d-b8fe1458f64a",
+    "IsDeleted": false
+  },
+  {
+    "AddonName": "Pages",
+    "Key": "1975da17-9a7b-4796-aa02-7f62b8a681a1",
+    "IsDeleted": false
+  }
 ]

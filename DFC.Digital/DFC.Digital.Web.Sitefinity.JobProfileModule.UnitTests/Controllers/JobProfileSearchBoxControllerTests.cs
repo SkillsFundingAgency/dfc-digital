@@ -1,4 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using AutoMapper;
 using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -8,13 +12,8 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
 using TestStack.FluentMVCTesting;
 using Xunit;
-using IWebAppContext = DFC.Digital.Data.Interfaces.IWebAppContext;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
 {
@@ -56,8 +55,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 var dummyIndex = new JobProfileIndex
                 {
                     Title = searchTerm,
-                    AlternativeTitle = new string[] { "alt" },
-                    SalaryRange = "avg sal",
+                    AlternativeTitle = new[] { "alt" },
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
                     Overview = "overview",
                     UrlName = "dummy-url"
                 };
@@ -100,7 +100,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
 
             //Instantiate
             //  var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake)
-            var searchController = new Mvc.Controllers.JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker)
+            var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker)
             {
                 CurrentPageMode = mode,
                 JobProfileDetailsPage = defaultJobProfilePage
@@ -171,11 +171,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 var dummyIndex = new JobProfileIndex
                 {
                     Title = searchTerm,
-                    AlternativeTitle = new string[] { "alt" },
+                    AlternativeTitle = new[] { "alt" },
                     SalaryRange = "avg sal",
                     Overview = "overview",
                     UrlName = "dummy-url",
-                    JobProfileCategoriesWithUrl = new string[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
+                    JobProfileCategoriesWithUrl = new[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
                 };
 
                 dummySearchResult.Count = resultsCount;
@@ -213,7 +213,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
-                        JobProfileCategoriesWithUrl = dummyIndexItem.ResultItem.JobProfileCategoriesWithUrl,
+                        JobProfileCategoriesWithUrl = dummyIndexItem.ResultItem.JobProfileCategoriesWithUrl
                     });
                 }
 
@@ -327,11 +327,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 var dummyIndex = new JobProfileIndex
                 {
                     Title = searchTerm,
-                    AlternativeTitle = new string[] { "alt" },
+                    AlternativeTitle = new[] { "alt" },
                     SalaryRange = "avg sal",
                     Overview = "overview",
                     UrlName = "dummy-url",
-                    JobProfileCategoriesWithUrl = new string[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
+                    JobProfileCategoriesWithUrl = new[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
                 };
 
                 dummySearchResult.Count = 1;
@@ -504,7 +504,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 var dummyIndex = new JobProfileIndex
                 {
                     Title = searchTerm,
-                    AlternativeTitle = new string[] { "alt" },
+                    AlternativeTitle = new[] { "alt" },
                     SalaryRange = "avg sal",
                     Overview = "overview",
                     UrlName = "dummy-url"

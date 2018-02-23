@@ -26,7 +26,10 @@ namespace DFC.Digital.Data.Model
         public string Overview { get; set; }
 
         [IsFilterable, IsSortable, IsFacetable]
-        public string SalaryRange { get; set; }
+        public double SalaryStarter { get; set; }
+
+        [IsFilterable, IsSortable, IsFacetable]
+        public double SalaryExperienced { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "This is an application field of type string, last segment and is not a complete uri")]
         public string UrlName { get; set; }

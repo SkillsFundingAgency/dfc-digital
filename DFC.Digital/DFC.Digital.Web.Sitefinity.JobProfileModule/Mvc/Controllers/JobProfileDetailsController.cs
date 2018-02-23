@@ -155,7 +155,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private async Task<JobProfileDetailsViewModel> PopulateSalaryAsync(JobProfileDetailsViewModel model)
         {
-            var salary = await salaryService.GetSalaryBySocAsync(CurrentJobProfile.SocCode);
+            var salary = await salaryService.GetSalaryBySocAsync(CurrentJobProfile.SOCCode);
 
             model.SalaryStarter = salaryCalculator.GetStarterSalary(salary);
             model.SalaryExperienced = salaryCalculator.GetExperiencedSalary(salary);

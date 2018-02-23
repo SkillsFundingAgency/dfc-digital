@@ -26,7 +26,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         [InlineData(6, true, "", true, 2)]
         [InlineData(7, false, "", true, 2)]
         [InlineData(8, false, "testfalse", true, 1)]
-        [InlineData(8, false, "testfalse", true, 1)]
         public void IndexTest(int testIndex, bool inContentAuthoringSite, string socCode, bool isContentPreviewMode, int maxApp)
         {
             //Setup the fakes and dummies
@@ -55,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -64,7 +63,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -183,7 +182,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -192,7 +191,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -292,7 +291,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -301,7 +300,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    Url = $"dummy {nameof(ApprenticeVacancy.Url)}",
+                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"

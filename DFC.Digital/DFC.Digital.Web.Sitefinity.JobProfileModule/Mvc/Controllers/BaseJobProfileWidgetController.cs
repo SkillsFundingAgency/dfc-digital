@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
@@ -75,7 +76,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
             else
             {
-                return GetDefaultView();
+                var timer = Stopwatch.StartNew();
+                var actionResult = GetDefaultView();
+                timer.Stop();
+                Log.Trace($"Completed executing action in {timer.Elapsed}");
+
+                return actionResult;
             }
         }
 

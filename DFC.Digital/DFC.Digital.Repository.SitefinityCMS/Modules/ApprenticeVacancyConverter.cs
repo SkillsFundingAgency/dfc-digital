@@ -12,7 +12,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 Title = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.Title)),
                 Location = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.Location)),
-                Url = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.Url)),
+                URL = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.URL)),
                 VacancyId = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.VacancyId)),
                 WageAmount = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.WageAmount)),
                 WageUnitType = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.WageUnitType))

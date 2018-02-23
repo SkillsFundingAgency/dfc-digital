@@ -23,7 +23,7 @@
     <main role="main">
         <div class="content-container">
             <h2 class="heading-medium">Service Status</h2>
-            <h2 class="heading-small">At : @Model.CheckDateTime</h2>
+            <h2 class="heading-small">At : @Model.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss")</h2>
             <ul class="list-service">
                 @foreach (var status in Model.ServiceStatues)
                 {

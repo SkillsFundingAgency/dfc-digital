@@ -1038,6 +1038,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\tree.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-ui.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\selectivizr.min.js" />
+    <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS survey container.html" />

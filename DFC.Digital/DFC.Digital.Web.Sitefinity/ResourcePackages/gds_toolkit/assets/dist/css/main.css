@@ -486,29 +486,6 @@ main {
       .list-big li a:hover {
         text-decoration: underline; }
 
-.list-service li {
-  margin-bottom: 2px;
-  background-color: #f8f8f8; }
-  .list-service li * {
-    word-wrap: break-word; }
-  .list-service li:nth-child(even) {
-    background-color: #dee0e2; }
-  .list-service li.list-service_Red {
-    border-left: 10px solid #b10e1e;
-    padding: 5px 10px; }
-    .list-service li.list-service_Red .column-one-half:first-child {
-      color: #b10e1e; }
-  .list-service li.list-service_Green {
-    border-left: 10px solid #006435;
-    padding: 5px 10px; }
-    .list-service li.list-service_Green .column-one-half:first-child {
-      color: #006435; }
-  .list-service li.list-service_Amber {
-    border-left: 10px solid #f47738;
-    padding: 5px 10px; }
-    .list-service li.list-service_Amber .column-one-half:first-child {
-      color: #f47738; }
-
 /* --- Individual Section / Page Styling --- */
 /*Default SCSS - Sets Default Styling For Elements */
 /*Home Page SCSS - For Home Page Banner & Custom Content*/
@@ -1854,3 +1831,27 @@ main.homepage .phase-banner {
     margin-left: 10px; }
     .case-study-feedback a:hover {
       text-decoration: underline; }
+
+/*Service Status*/
+.list-service li {
+  margin-bottom: 2px;
+  background-color: #f8f8f8; }
+  .list-service li * {
+    word-wrap: break-word; }
+  .list-service li:nth-child(even) {
+    background-color: #dee0e2; }
+  .list-service li.list-service_Red {
+    border-left: 10px solid #b10e1e;
+    padding: 5px 10px; }
+    .list-service li.list-service_Red .column-one-half:first-child {
+      color: #b10e1e; }
+  .list-service li.list-service_Green {
+    border-left: 10px solid #006435;
+    padding: 5px 10px; }
+    .list-service li.list-service_Green .column-one-half:first-child {
+      color: #006435; }
+  .list-service li.list-service_Amber {
+    border-left: 10px solid #f47738;
+    padding: 5px 10px; }
+    .list-service li.list-service_Amber .column-one-half:first-child {
+      color: #f47738; }

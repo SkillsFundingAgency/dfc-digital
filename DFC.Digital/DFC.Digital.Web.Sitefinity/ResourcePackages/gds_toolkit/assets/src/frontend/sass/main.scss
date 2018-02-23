@@ -110,48 +110,6 @@ main {
     }
 }
 
-.list-service {
-    li {
-        margin-bottom: 2px;
-        background-color: $grey-4;
-
-        * {
-            word-wrap: break-word;
-        }
-
-        &:nth-child(even) {
-            background-color: $grey-3;
-        }
-
-        &.list-service_Red {
-            border-left: 10px solid $red;
-            padding: 5px 10px;
-
-            .column-one-half:first-child {
-                color: $red;
-            }
-        }
-
-        &.list-service_Green {
-            border-left: 10px solid $green;
-            padding: 5px 10px;
-
-            .column-one-half:first-child {
-                color: $green;
-            }
-        }
-
-        &.list-service_Amber {
-            border-left: 10px solid $orange;
-            padding: 5px 10px;
-
-            .column-one-half:first-child {
-                color: $orange;
-            }
-        }
-    }
-}
-
 
 /* --- Individual Section / Page Styling --- */
 
@@ -184,3 +142,6 @@ main {
 
 /*Case Study */
 @import 'includes/_casestudy.scss';
+
+/*Service Status*/
+@import 'includes/_servicestatus.scss';

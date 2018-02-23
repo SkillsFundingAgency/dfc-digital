@@ -51,7 +51,12 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
                 serviceStatusModel.ServiceStatues.Add(await d.GetServiceStatus());
             }
 
-            Response.StatusCode = 502;
+            //if we have any state thats is not green
+            if (serviceStatusModel.ServiceStatues.Any(s => s.Status != ServiceState.Green))
+            {
+                Response.StatusCode = 502;
+            }
+
             return View(serviceStatusModel);
         }
         #endregion

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core.FaultTolerance;
+using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.Converters;
@@ -16,13 +17,20 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IAuditRepository auditRepository;
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
+        private readonly ITolerancePolicy tolerancePolicy;
 
-        public CourseSearchService(ICourseOpportunityBuilder courseOpportunityBuilder, IServiceHelper serviceHelper, IAuditRepository auditRepository, IApplicationLogger applicationLogger)
+        public CourseSearchService(
+            ICourseOpportunityBuilder courseOpportunityBuilder, 
+            IServiceHelper serviceHelper, 
+            IAuditRepository auditRepository, 
+            IApplicationLogger applicationLogger,
+            ITolerancePolicy tolerancePolicy)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
+            this.tolerancePolicy = tolerancePolicy;
         }
 
         public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)
@@ -33,7 +41,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
             try
             {
-                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await x.CourseListAsync(request), Constants.CourseSerachEndpointConfigName);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteWithCircuitBreaker(() => x.CourseListAsync(request), Constants.CourseSerachEndpointConfigName), Constants.CourseSerachEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
                 var result = apiResult?.ConvertToCourse();
                 var filteredResult = courseOpportunityBuilder.SelectCoursesForJobProfile(result);

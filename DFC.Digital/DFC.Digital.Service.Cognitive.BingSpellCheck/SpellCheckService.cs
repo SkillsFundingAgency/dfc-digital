@@ -26,20 +26,18 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             bool hasCorrections = false;
             var requestUri = string.Format(bingSpellEndpoint, term);
 
-            using (var client = GetHttpClient())
+            var client = GetHttpClient();
+            var response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await client.GetAsync(requestUri);
-                if (response.IsSuccessStatusCode)
+                var resultsString = await response.Content.ReadAsStringAsync();
+                dynamic spellSuggestions = JObject.Parse(resultsString);
+                hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
+                if (hasCorrections)
                 {
-                    var resultsString = await response.Content.ReadAsStringAsync();
-                    dynamic spellSuggestions = JObject.Parse(resultsString);
-                    hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
-                    if (hasCorrections)
+                    foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
                     {
-                        foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
-                        {
-                            correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
-                        }
+                        correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
                     }
                 }
             }

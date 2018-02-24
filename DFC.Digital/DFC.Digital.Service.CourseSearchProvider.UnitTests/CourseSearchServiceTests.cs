@@ -18,13 +18,14 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         [Theory]
         [InlineData("keywords", true)]
         [InlineData("keywords", false)]
-        public void CourseSearchServiceTest(string keywords, bool coursesAvailable)
+        public async Task CourseSearchServiceTestAsync(string keywords, bool coursesAvailable)
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var fakePolicy = A.Fake<Core.FaultTolerance.ITolerancePolicy>();
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
@@ -33,10 +34,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).DoesNothing();
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).DoesNothing();
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
             //Act
-            courseSearchService.GetCoursesAsync(keywords);
+            await courseSearchService.GetCoursesAsync(keywords);
 
             //Assert
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).MustHaveHappened();
@@ -60,6 +61,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var fakePolicy = A.Fake<Core.FaultTolerance.ITolerancePolicy>();
 
             //Setup Calls ANY exception will do as we are catching all of them for this call
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Throws(new HttpException("failed cause I want to"));
@@ -68,7 +70,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<Exception>._)).DoesNothing();
             A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
             //Act
             var results = await courseSearchService.GetCoursesAsync("CourseKeyWords");

@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\SpellCheckAutofacModule.cs" />
-    <Compile Include="HttpClientService.cs" />
     <Compile Include="SpellCheckService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

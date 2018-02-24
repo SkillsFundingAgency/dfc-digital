@@ -9,7 +9,8 @@
   "settings": {
     "orderingRules": {
       "systemUsingDirectivesFirst": false,
-      "usingDirectivesPlacement": "outsideNamespace"
+      "usingDirectivesPlacement": "outsideNamespace",
+      "blankLinesBetweenUsingGroups": "allow"
     }
   }
 }

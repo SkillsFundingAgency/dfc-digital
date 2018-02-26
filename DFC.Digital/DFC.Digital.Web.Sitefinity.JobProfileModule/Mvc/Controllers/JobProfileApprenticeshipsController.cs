@@ -174,7 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 FindApprenticeshipText = FindApprenticeshipText,
                 FindApprenticeshipLink = FindApprenticeshipLink,
                 MainSectionTitle = MainSectionTitle,
-                NoVacancyText = NoVacancyText,
+                NoVacancyText = NoVacancyText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
             };
 
             return View("Index", model);

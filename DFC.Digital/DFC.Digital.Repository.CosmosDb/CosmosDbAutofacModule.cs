@@ -21,7 +21,7 @@ namespace DFC.Digital.Repository.CosmosDb
             var endpoint = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.EndpointUrl");
             var key = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.PrimaryKey");
 
-            builder.Register<IDocumentClient>(ctx => new DocumentClient(new System.Uri(endpoint), key));
+            builder.Register<IDocumentClient>(ctx => new DocumentClient(new System.Uri(endpoint), key)).SingleInstance();
         }
     }
 }

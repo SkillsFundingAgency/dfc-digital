@@ -22,7 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var repositoryJobProfileFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var sitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
 
             var dummyCategory = A.Dummy<JobProfileCategory>();
             var dummyJobProfile = A.Dummy<JobProfile>();
@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var repositoryJobProfileFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var sitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
 
             var dummyCategory = A.Dummy<JobProfileCategory>();
             dummyCategory.Title = nodeTitle;

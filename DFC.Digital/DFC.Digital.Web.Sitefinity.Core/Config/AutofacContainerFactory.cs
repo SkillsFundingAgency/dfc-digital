@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using System;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
 
@@ -20,6 +21,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             if (controller == null)
             {
                 controller = base.GetControllerInstance(requestContext, controllerType);
+            }
+            else
+            {
+                HttpContext.Current.Items["dfc-controller"] = controllerType.Name;
             }
 
             return controller;

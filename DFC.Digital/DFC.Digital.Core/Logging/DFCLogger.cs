@@ -46,6 +46,8 @@ namespace DFC.Digital.Core.Logging
 
         public void Warn(string message, Exception ex)
         {
+            message = message ?? string.Empty;
+
             if (ex is LoggedException)
             {
                 throw ex;

@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         private readonly IAsyncHelper asyncHelper = new AsyncHelper();
         private readonly decimal experiencedSalary = 200;
         private readonly IGovUkNotify govUkNotifyFake = A.Fake<IGovUkNotify>(ops => ops.Strict());
-        private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+        private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>();
         private readonly IJobProfileRepository repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
         private readonly ISalaryCalculator salaryCalculator = A.Fake<ISalaryCalculator>(ops => ops.Strict());
         private readonly ISalaryService salaryService = A.Fake<ISalaryService>(ops => ops.Strict());

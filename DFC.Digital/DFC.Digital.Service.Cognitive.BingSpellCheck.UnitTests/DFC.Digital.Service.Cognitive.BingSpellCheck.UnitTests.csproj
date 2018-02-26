@@ -84,6 +84,7 @@
     <Compile Include="SpellCheckServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>

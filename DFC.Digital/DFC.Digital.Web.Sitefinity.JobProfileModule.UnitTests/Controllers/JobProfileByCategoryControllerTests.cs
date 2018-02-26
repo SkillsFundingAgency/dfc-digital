@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
 
             var dummyJobProfileCategory = A.Dummy<JobProfileCategory>();
@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
 
             var dummyJobProfileCategory = A.Dummy<JobProfileCategory>();
             var dummyRelatedJobProfiles = A.CollectionOfDummy<JobProfile>(5);

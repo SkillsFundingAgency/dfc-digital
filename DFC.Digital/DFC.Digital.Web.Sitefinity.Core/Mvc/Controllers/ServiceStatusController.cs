@@ -14,25 +14,20 @@ using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 {
-    [ControllerToolboxItem(Name = "ServiceStatus", Title = "Check the status of services", SectionName = SitefinityConstants.CustomWidgetSection)]
-
     public class ServiceStatusController : Controller
     {
         #region private
         private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
-        //private readonly IWebAppContext webAppContext;
         private readonly IApplicationLogger applicationLogger;
-        private readonly IAsyncHelper asyncHelper;
-
+        private readonly IWebAppContext webAppContext;
         #endregion
 
         #region Constructors
-        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper)
+        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IApplicationLogger applicationLogger, IWebAppContext webAppContext)
         {
             this.dependencyHealth = dependencyHealth;
-            //this.webAppContext = webAppContext;
             this.applicationLogger = applicationLogger;
-            this.asyncHelper = asyncHelper;
+            this.webAppContext = webAppContext;
         }
 
         #endregion
@@ -54,11 +49,23 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
             //if we have any state thats is not green
             if (serviceStatusModel.ServiceStatues.Any(s => s.Status != ServiceState.Green))
             {
-                Response.StatusCode = 502;
+                webAppContext.SetResponseStatusCode(502);
             }
 
             return View(serviceStatusModel);
         }
+
+        public ActionResult TestIndex()
+        {
+            var a =  new ServiceStatusModel()
+            {
+                CheckDateTime = DateTime.Now,
+                ServiceStatues = new List<ServiceStatus>()
+            };
+
+            return View(a);
+        }
         #endregion
     }
+
 }

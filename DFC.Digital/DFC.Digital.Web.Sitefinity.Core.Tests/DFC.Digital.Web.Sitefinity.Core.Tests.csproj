@@ -239,6 +239,9 @@
     <Reference Include="Telerik.Sitefinity.Utilities, Version=10.2.6602.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.10.2.6602\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
+    <Reference Include="TestStack.FluentMVCTesting, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestStack.FluentMVCTesting.3.0.0\lib\NET45\TestStack.FluentMVCTesting.dll</HintPath>
+    </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
@@ -261,6 +264,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\ServiceStatusControllerTests.cs" />
     <Compile Include="DummySettings.cs" />
     <Compile Include="JobProfilePageContentServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -287,6 +291,10 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.StatusCheck\DFC.Digital.Service.StatusCheck.csproj">
+      <Project>{4FEF871A-459D-4E54-9232-5F53DF5B71DA}</Project>
+      <Name>DFC.Digital.Service.StatusCheck</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
       <Project>{2161F904-4D97-4685-8C9F-05C6F4D0DD74}</Project>
       <Name>DFC.Digital.Web.Core</Name>
@@ -303,6 +311,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -83,5 +83,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             return "Unknown";
         }
+
+        public void SetResponseStatusCode(int statusCode)
+        {
+            HttpContext.Current.Response.StatusCode = statusCode;
+        }
     }
 }

@@ -120,6 +120,8 @@ namespace DFC.Digital.Data.Model
 
         public decimal? MaximumHours { get; set; }
 
+        public string WorkingHoursDetails { get; set; }
+
         public IList<Guid> JobProfileCategoryIdCollection { get; set; }
 
         public bool? DoesNotExistInBAU { get; set; }
@@ -203,10 +205,6 @@ namespace DFC.Digital.Data.Model
         /// </value>
         [JsonIgnore]
         public IQueryable<string> RelatedJobAreas { get; set; }
-
-        public IList<Guid> WorkingPatternCollection { get; set; }
-
-        public IList<Guid> WorkingPatternDetailsCollection { get; set; }
 
         public string WorkingPattern { get; set; }
 

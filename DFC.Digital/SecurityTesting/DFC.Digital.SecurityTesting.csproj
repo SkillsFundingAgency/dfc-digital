@@ -83,19 +83,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
+    <None Include="App.config.template">
       <TransformOnBuild>true</TransformOnBuild>
     </None>
     <None Include="App.Debug.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>App.config.template</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.OWASP.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>App.config.template</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.Release.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>App.config.template</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="packages.config" />

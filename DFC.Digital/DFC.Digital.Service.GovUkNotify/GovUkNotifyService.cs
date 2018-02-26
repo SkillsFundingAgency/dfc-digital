@@ -75,7 +75,7 @@ namespace DFC.Digital.Service.GovUkNotify
             try
             {
                 var templateId = ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId];
-                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyAPIKey];
+                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey];
                 var response = clientProxy.SendEmail(apiKey, emailAddress, templateId, this.Convert(vocPersonalisation));
                 return !string.IsNullOrEmpty(response?.id);
             }

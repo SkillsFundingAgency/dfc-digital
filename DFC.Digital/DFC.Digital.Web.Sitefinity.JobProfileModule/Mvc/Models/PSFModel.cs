@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
-    public class PSFModel
+    public class PsfModel
     {
-        public List<PSFSection> Sections { get; set; }
+        public List<PsfSection> Sections { get; set; }
 
-        public PSFSection Section { get; set; }
+        public PsfSection Section { get; set; }
 
         public string OptionsSelected { get; set; }
     }

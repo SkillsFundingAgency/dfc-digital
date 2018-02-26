@@ -18,9 +18,10 @@
 
         input[type=checkbox], input[type=radio] {
             display: block;
-            height: 0px;
-            width: 0px;
+            height: 0;
+            width: 0;
             position: absolute;
+            outline: none !important;
 
             & + input + label, & + label {
                 flex: 1;
@@ -53,7 +54,6 @@
                 span {
                     width: 100%;
                     display: inline-block;
-                    font-size: 14px;
                     @include core-16;
                 }
             }

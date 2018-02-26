@@ -12,8 +12,8 @@ namespace DFC.Digital.Core
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
             //Register Interceptors
-            builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.NAME);
-            builder.RegisterType<ExceptionInterceptor>().AsSelf().Named<IInterceptor>(ExceptionInterceptor.NAME);
+            builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.Name).InstancePerLifetimeScope();
+            builder.RegisterType<ExceptionInterceptor>().AsSelf().Named<IInterceptor>(ExceptionInterceptor.Name).InstancePerLifetimeScope();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
 {
     public class CourseSearchAuditRepositoryTests
     {
-        [Fact()]
+        [Fact]
         public void CreateAuditTest()
         {
             //Arrange

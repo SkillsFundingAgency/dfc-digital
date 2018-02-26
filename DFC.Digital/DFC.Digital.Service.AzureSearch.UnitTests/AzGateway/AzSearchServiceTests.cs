@@ -16,12 +16,12 @@ namespace DFC.Digital.Service.AzureSearch.Tests
     public class AzSearchServiceTests
     {
         //Fakes
-        private ISuggesterBuilder fakeSuggesterBuilder = A.Fake<ISuggesterBuilder>();
+        private readonly ISuggesterBuilder fakeSuggesterBuilder = A.Fake<ISuggesterBuilder>();
 
-        private ISearchIndexClient fakeIndexClient = A.Fake<ISearchIndexClient>();
-        private ISearchServiceClient fakeSearchClient = A.Fake<ISearchServiceClient>();
-        private IIndexesOperations fakeIndexes = A.Fake<IIndexesOperations>();
-        private IDocumentsOperations fakeDocuments = A.Fake<IDocumentsOperations>();
+        private readonly ISearchIndexClient fakeIndexClient = A.Fake<ISearchIndexClient>();
+        private readonly ISearchServiceClient fakeSearchClient = A.Fake<ISearchServiceClient>();
+        private readonly IIndexesOperations fakeIndexes = A.Fake<IIndexesOperations>();
+        private readonly IDocumentsOperations fakeDocuments = A.Fake<IDocumentsOperations>();
 
         [Fact]
         public void EnsureIndexTest()
@@ -86,18 +86,12 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
 
-            if (statusCode > 400)
-            {
-                A.CallTo(() => fakeDocuments.IndexWithHttpMessagesAsync(
-                    A<IndexBatch<JobProfileIndex>>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
-                    .MustHaveHappened(Repeated.Exactly.Times(4));
-            }
-            else
-            {
-                A.CallTo(() => fakeDocuments.IndexWithHttpMessagesAsync(
-                    A<IndexBatch<JobProfileIndex>>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
-                    .MustHaveHappened(Repeated.Exactly.Once);
-            }
+            A.CallTo(() => fakeDocuments.IndexWithHttpMessagesAsync(
+                    A<IndexBatch<JobProfileIndex>>._,
+                    A<SearchRequestOptions>._,
+                    A<Dictionary<string, List<string>>>._,
+                    A<CancellationToken>._))
+                .MustHaveHappened(statusCode > 400 ? Repeated.Exactly.Times(4) : Repeated.Exactly.Once);
         }
     }
 }

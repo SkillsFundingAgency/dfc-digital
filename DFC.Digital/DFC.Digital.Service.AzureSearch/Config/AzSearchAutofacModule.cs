@@ -14,29 +14,37 @@ namespace DFC.Digital.Service.AzureSearch
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.Register(CreateSearchServiceClient);
-            builder.Register(CreateSearchIndexClient);
+            builder.Register(CreateSearchServiceClient).InstancePerLifetimeScope()
+                .InstancePerLifetimeScope()
+                ;
+
+            builder.Register(CreateSearchIndexClient)
+                .InstancePerLifetimeScope()
+                ;
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
             builder.RegisterType<AzSearchService<JobProfileIndex>>().As<ISearchService<JobProfileIndex>>()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
             builder.RegisterType<DfcSearchQueryService<JobProfileIndex>>().As<ISearchQueryService<JobProfileIndex>>()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME)
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
         }
 
         private ISearchServiceClient CreateSearchServiceClient(IComponentContext arg)
         {
             string searchServiceName = ConfigurationManager.AppSettings[Constants.KeysSearchServiceName];
-            string adminApiKey = ConfigurationManager.AppSettings[Constants.KeysSearchServiceAdminAPIKey];
+            string adminApiKey = ConfigurationManager.AppSettings[Constants.KeysSearchServiceAdminApiKey];
 
             return new SearchServiceClient(searchServiceName, new SearchCredentials(adminApiKey));
         }
@@ -44,7 +52,7 @@ namespace DFC.Digital.Service.AzureSearch
         private ISearchIndexClient CreateSearchIndexClient(IComponentContext arg)
         {
             string searchServiceName = ConfigurationManager.AppSettings[Constants.KeysSearchServiceName];
-            string queryApiKey = ConfigurationManager.AppSettings[Constants.KeysSearchServiceAdminAPIKey];
+            string queryApiKey = ConfigurationManager.AppSettings[Constants.KeysSearchServiceAdminApiKey];
 
             return new SearchIndexClient(searchServiceName, arg.Resolve<ISearchIndexConfig>().Name, new SearchCredentials(queryApiKey));
         }

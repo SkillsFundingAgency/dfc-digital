@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System.Linq;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
@@ -18,19 +19,19 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
         {
             // Arrange
             var indexView = new _MVC_Views_BauSearchResultsSignPost_Index_cshtml();
-            var signPostDummyVM = new BauSearchResultsViewModel
+            var signPostDummyVm = new BauSearchResultsViewModel
             {
                 Content = contentdata
             };
 
             // Act
-            var htmlDom = indexView.RenderAsHtml(signPostDummyVM);
+            var htmlDom = indexView.RenderAsHtml(signPostDummyVm);
 
             // Assert
             GetContentData(htmlDom).ShouldBeEquivalentTo(contentdata);
         }
 
-        private string GetContentData(HtmlDocument htmlDom)
+        private static string GetContentData(HtmlDocument htmlDom)
         {
             return htmlDom.DocumentNode?.InnerText;
         }

@@ -73,10 +73,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             routes.Ignore("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute("govnotifyemail", "govnotifyemail/{controller}/{action}", new { controller = "VocSurvey", action = "SendEmail", id = string.Empty });
-
             routes.MapRoute("searchautocomplete", "searchautocomplete/{controller}/{action}", new { controller = "JobProfileSearchBox", action = "Suggestions", id = string.Empty });
 
             routes.MapRoute("serviceStatus", "health/{controller}/{action}", new { controller = "ServiceStatus", action = "Index", id = string.Empty });
+            routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
         }
     }
 }

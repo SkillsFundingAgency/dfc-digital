@@ -10,7 +10,7 @@ namespace DFC.Digital.Core.Interceptors
 {
     public class InstrumentationInterceptor : IInterceptor
     {
-        public const string NAME = "Instrumentation";
+        public const string Name = "Instrumentation";
 
         private IApplicationLogger loggingService;
 
@@ -25,7 +25,7 @@ namespace DFC.Digital.Core.Interceptors
             if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
             {
                 bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
-                loggingService.Trace($"Async Func '{invocation.Method.Name}' called with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
+                loggingService.Trace($"Async Func '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
                 invocation.Proceed();
             }
             else if (returnType == typeof(Task))
@@ -42,7 +42,7 @@ namespace DFC.Digital.Core.Interceptors
         {
             bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
             bool shouldIgnoreOutput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreOutputInInterceptionAttribute));
-            loggingService.Trace($"Method '{invocation.Method.Name}' called with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
+            loggingService.Trace($"Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
             Stopwatch watch = Stopwatch.StartNew();
             try
             {
@@ -50,7 +50,7 @@ namespace DFC.Digital.Core.Interceptors
             }
             finally
             {
-                loggingService.Trace($"Method '{invocation.Method.Name}' took '{watch.Elapsed}' to complete. And returned '{(shouldIgnoreOutput ? "ignored" : invocation.ReturnValueString())}'");
+                loggingService.Trace($"Method '{invocation.Method.Name}' from '{invocation.TargetType.FullName}' took '{watch.Elapsed}' to complete. And returned '{(shouldIgnoreOutput ? "ignored" : invocation.ReturnValueString())}'");
             }
         }
 
@@ -58,7 +58,7 @@ namespace DFC.Digital.Core.Interceptors
         {
             bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
             bool shouldIgnoreOutput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreOutputInInterceptionAttribute));
-            loggingService.Trace($"Async action '{invocation.Method.Name}' called with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
+            loggingService.Trace($"Async action '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
             Stopwatch watch = Stopwatch.StartNew();
             try
             {
@@ -70,7 +70,7 @@ namespace DFC.Digital.Core.Interceptors
             }
             finally
             {
-                loggingService.Trace($"Async action '{invocation.Method.Name}' took '{watch.Elapsed}' to complete.");
+                loggingService.Trace($"Async action '{invocation.Method.Name}' from '{invocation.TargetType.FullName}' took '{watch.Elapsed}' to complete.");
             }
         }
     }

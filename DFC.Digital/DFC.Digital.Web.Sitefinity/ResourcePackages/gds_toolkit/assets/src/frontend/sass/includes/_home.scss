@@ -30,7 +30,7 @@
     }
 }
 
-main.homepage {
+.homepage {
     .phase-banner {
         border-bottom: none;
     }
@@ -105,7 +105,7 @@ main.homepage {
         width: 40px;
         cursor: pointer;
         overflow: hidden;
-        text-indent: -5000px;
+        text-indent: 50000px;
         background: $black;
         background-image: file-url("icon-search-2x.png");
         background-repeat: no-repeat;

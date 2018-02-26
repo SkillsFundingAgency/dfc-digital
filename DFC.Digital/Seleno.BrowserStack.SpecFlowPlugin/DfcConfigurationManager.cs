@@ -12,13 +12,13 @@ namespace Seleno.BrowserStack
         {
             get
             {
-                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                UriBuilder uri = new UriBuilder(codeBase);
+                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                var uri = new UriBuilder(codeBase);
                 return $"{Uri.UnescapeDataString(uri.Path)}.config";
             }
         }
 
-        internal static Configuration RawConfig
+        private static Configuration RawConfig
         {
             get
             {
@@ -32,13 +32,7 @@ namespace Seleno.BrowserStack
             }
         }
 
-        internal static AppSettingsSection Config
-        {
-            get
-            {
-                return RawConfig.GetSection("dfc") as AppSettingsSection;
-            }
-        }
+        private static AppSettingsSection Config => RawConfig.GetSection("dfc") as AppSettingsSection;
 
         internal static T Get<T>(string key)
         {

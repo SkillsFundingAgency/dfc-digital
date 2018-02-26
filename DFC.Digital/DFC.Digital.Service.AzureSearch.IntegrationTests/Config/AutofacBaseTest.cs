@@ -18,7 +18,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
 
             //builder.RegisterModule<NLogModule>();
             //builder.RegisterModule<CoreAutofacModule>();
-
             container = builder.Build();
         }
 

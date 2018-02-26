@@ -9,7 +9,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         //[Fact()]
         //Cannot Unit test as unable to fake the var dynamicContent = Get(item => item.UrlName == urlName);
         //call in the GetByUrlName method call.
-        public void GetByUrlNameTest()
+        private void GetByUrlNameTest()
         {
             var fakeJobProfileConverter = A.Fake<JobProfileConverter>();
 
@@ -20,7 +20,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
             var jobProfileRepository = new JobProfileRepository(fakeJobProfileConverter);
 
-            var returnedJobProfile = jobProfileRepository.GetByUrlName("testURLName");
+            jobProfileRepository.GetByUrlName("testURLName");
         }
     }
 }

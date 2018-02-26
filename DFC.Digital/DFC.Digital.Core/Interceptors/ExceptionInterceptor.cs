@@ -9,9 +9,9 @@ namespace DFC.Digital.Core.Interceptors
 {
     public class ExceptionInterceptor : IInterceptor
     {
-        public const string NAME = "ExceptionPolicy";
+        public const string Name = "ExceptionPolicy";
 
-        private IApplicationLogger loggingService;
+       private IApplicationLogger loggingService;
 
         public ExceptionInterceptor(IApplicationLogger logService)
         {
@@ -55,7 +55,7 @@ namespace DFC.Digital.Core.Interceptors
             // other exception policies as we go along.
             catch (Exception ex)
             {
-                loggingService.Error($"Async Method '{invocation.Method.Name}' called with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
+                loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
                 throw;
             }
         }
@@ -77,7 +77,7 @@ namespace DFC.Digital.Core.Interceptors
             // other exception policies as we go along.
             catch (Exception ex)
             {
-                loggingService.Error($"Async Method '{invocation.Method.Name}' called with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
+                loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
                 throw;
             }
         }
@@ -98,7 +98,7 @@ namespace DFC.Digital.Core.Interceptors
             // other exception policies as we go along.
             catch (Exception ex)
             {
-                loggingService.Error($"Method '{invocation.Method.Name}' called with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
+                loggingService.Error($"Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
                 throw;
             }
         }

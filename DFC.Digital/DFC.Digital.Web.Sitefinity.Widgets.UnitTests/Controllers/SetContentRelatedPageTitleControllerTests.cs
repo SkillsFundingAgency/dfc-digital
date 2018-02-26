@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         [InlineData(6, PageType.JobProfile, "Engineer", false)]
         [InlineData(7, PageType.Category, "Engineering and maintenance", false)]
         [InlineData(8, PageType.SearchResults, "<Proofreader>", false)]
-        public void IndexTest(int testIndex, PageType pageType, string expectedPageTitle, bool isViaURL)
+        public void IndexTest(int testIndex, PageType pageType, string expectedPageTitle, bool isViaUrl)
         {
             //Setup the fakes and dummies
             var categoryRepoFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
@@ -49,7 +49,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             A.CallTo(() => categoryRepoFake.GetByUrlName(A<string>._)).Returns(new JobProfileCategory { Title = expectedPageTitle });
 
             if (pageType == PageType.SearchResults)
+            {
                 A.CallTo(() => webAppContextFake.RequestQueryString).Returns(new NameValueCollection { { "searchTerm", expectedPageTitle } });
+            }
 
             //Instantiate & Act
             var setContentRelatedPageTitleController = new SetContentRelatedPageTitleController(categoryRepoFake, jobProfileRepoFake, webAppContextFake, loggerFake);
@@ -57,19 +59,29 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             ViewResult indexResult;
 
             //Act
-            if (isViaURL)
+            if (isViaUrl)
+            {
                 indexResult = setContentRelatedPageTitleController.Index("fakeURL") as ViewResult;
+            }
             else
+            {
                 indexResult = setContentRelatedPageTitleController.Index() as ViewResult;
+            }
 
             var titleSet = indexResult.ViewData["Title"];
 
-            if (isViaURL && (pageType == PageType.JobProfile || pageType == PageType.Category))
+            if (isViaUrl && (pageType == PageType.JobProfile || pageType == PageType.Category))
+            {
                 titleSet.Should().Be($"{expectedPageTitle} {setContentRelatedPageTitleController.PageTitleSeperator} {setContentRelatedPageTitleController.PageTitleSuffix}");
-            else if (!isViaURL && pageType == PageType.SearchResults)
+            }
+            else if (!isViaUrl && pageType == PageType.SearchResults)
+            {
                 titleSet.Should().Be($"{HttpUtility.HtmlEncode(expectedPageTitle)} {setContentRelatedPageTitleController.PageTitleSeperator} Search {setContentRelatedPageTitleController.PageTitleSeperator} {setContentRelatedPageTitleController.PageTitleSuffix}");
+            }
             else
+            {
                 titleSet.Should().Be(null);
+            }
         }
 
         public void SearchTitleIsEncoded()

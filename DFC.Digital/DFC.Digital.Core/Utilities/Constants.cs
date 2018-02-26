@@ -3,9 +3,9 @@
     public static class Constants
     {
         public const string KeysSearchServiceName = "DFC.Digital.SearchServiceName";
-        public const string KeysSearchServiceAdminAPIKey = "DFC.Digital.SearchServiceAdminAPIKey";
+        public const string KeysSearchServiceAdminApiKey = "DFC.Digital.SearchServiceAdminAPIKey";
         public const string AssetCacheExpiryTimeMins = "DFC.Digital.AssetCacheExpiryTimeMins";
-        public const string GovUkNotifyAPIKey = "DFC.Digital.GovUkNotifyAPIKey";
+        public const string GovUkNotifyApiKey = "DFC.Digital.GovUkNotifyAPIKey";
         public const string GovUkNotifyTemplateId = "DFC.Digital.GovUkNotifyTemplateId";
         public const string ContentTypeKey = "ContentType";
         public const string ProviderKey = "ProviderName";
@@ -26,6 +26,6 @@
         public const string Unknown = "Unknown";
         public const string AsheAccessKey = "DFC.Digital.AsheFeedAccessKey";
         public const string AsheEstimateMdApiGateway = "DFC.Digital.AsheEstimateMdApiGateway";
-        public const decimal MULTIPLIER = 52;
+        public const decimal Multiplier = 52;
     }
 }

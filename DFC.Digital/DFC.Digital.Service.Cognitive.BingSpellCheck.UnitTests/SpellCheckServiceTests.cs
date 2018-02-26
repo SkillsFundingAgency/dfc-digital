@@ -20,17 +20,10 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
             var mockHttp = new MockHttpMessageHandler();
 
             //Setup Dummies and Mocks
-            if (suggestionsReturned)
-            {
-                mockHttp.When("*")
-                    .Respond("application/json",
-                        "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n");
-            }
-            else
-            {
-                mockHttp.When("*")
-                    .Respond("application/json", "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
-            }
+            mockHttp.When("*")
+                .Respond(
+                "application/json",
+                suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
 
             A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
             var spellingService = new SpellCheckService(fakeHttpClientService);

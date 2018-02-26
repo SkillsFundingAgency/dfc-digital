@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Service.AzureSearch.Tests
 {
-    internal class TestSuggestBuilder
+    internal abstract class TestSuggestBuilder
     {
         [IsSuggestible]
         public int PropertyOne { get; set; }

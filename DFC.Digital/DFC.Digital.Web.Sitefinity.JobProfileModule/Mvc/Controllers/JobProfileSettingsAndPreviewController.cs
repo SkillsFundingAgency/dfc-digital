@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public bool? DisableCanonicalUrlMetaTag { get; set; }
 
-        public string PreviousURLname { get; set; }
+        public string PreviousUrLname { get; set; }
 
         #endregion Public Properties
 

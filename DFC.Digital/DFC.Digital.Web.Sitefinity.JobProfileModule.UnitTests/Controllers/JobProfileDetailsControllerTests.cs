@@ -47,11 +47,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
 
             //Instantiate & Act
-            var jobprofileController = new JobProfileDetailsController(
-                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper);
-
-            //Act
-            var indexMethodCall = jobprofileController.WithCallTo(c => c.Index());
+            using (var jobprofileController = new JobProfileDetailsController(
+                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper))
+            {
+                //Act
+                var indexMethodCall = jobprofileController.WithCallTo(c => c.Index());
 
             //Assert
             //should get back a default profile for design mode
@@ -79,11 +79,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     })
                     .AndNoModelErrors();
 
-                AssertActions(isContentPreviewMode);
-            }
-            else
-            {
-                indexMethodCall.ShouldRedirectTo("\\");
+                    AssertActions(isContentPreviewMode);
+                }
+                else
+                {
+                    indexMethodCall.ShouldRedirectTo("\\");
+                }
             }
         }
 
@@ -98,11 +99,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             SetUpDependeciesAndCall(validJobProfile, isContentPreviewMode);
 
             //Instantiate & Act
-            var jobprofileController = new JobProfileDetailsController(
-                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper);
-
-            //Act
-            var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
+            using (var jobprofileController = new JobProfileDetailsController(
+                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper))
+            {
+                //Act
+                var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
 
             if (validJobProfile)
             {
@@ -134,13 +135,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 indexWithUrlNameMethodCall.ShouldGiveHttpStatus(404);
             }
 
-            if (!isContentPreviewMode)
-            {
-                A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
-            }
-            else
-            {
-                A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
+                if (!isContentPreviewMode)
+                {
+                    A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
+                }
+                else
+                {
+                    A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
+                }
             }
         }
 
@@ -183,6 +185,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>._)).Returns(Task.FromResult(dummySalary));
             A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).Returns(starterSalary);
             A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).Returns(experiencedSalary);
+            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).DoesNothing();
         }
 
         private void AssertActions(bool isContentPreviewMode)

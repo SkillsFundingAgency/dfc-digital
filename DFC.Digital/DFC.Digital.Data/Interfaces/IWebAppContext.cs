@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
 using System.Collections.Specialized;
-using System.Web;
 
 namespace DFC.Digital.Data.Interfaces
 {
@@ -29,6 +28,6 @@ namespace DFC.Digital.Data.Interfaces
 
         VocSurveyPersonalisation GetVocCookie(string cookieName);
 
-        string GetGAClientId();
+        string GetGaClientId();
     }
 }

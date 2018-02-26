@@ -1,6 +1,4 @@
-﻿using DFC.Digital.Data.Model;
-
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
+﻿namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
     /// <summary>
     /// Pre Search Filter Results View Model
@@ -46,6 +44,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The pre search filters model.
         /// </value>
-        public PSFModel PreSearchFiltersModel { get; set; }
+        public PsfModel PreSearchFiltersModel { get; set; }
     }
 }

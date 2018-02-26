@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -52,31 +51,31 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         protected override void Initialise()
         {
-            if (typeof(T) == typeof(PSFInterest))
+            if (typeof(T) == typeof(PsfInterest))
             {
                 SetContentType(InterestContentType);
             }
-            else if (typeof(T) == typeof(PSFEnabler))
+            else if (typeof(T) == typeof(PsfEnabler))
             {
                 SetContentType(EnablersContentType);
             }
-            else if (typeof(T) == typeof(PSFEntryQualification))
+            else if (typeof(T) == typeof(PsfEntryQualification))
             {
                 SetContentType(EducationContentType);
             }
-            else if (typeof(T) == typeof(PSFTrainingRoute))
+            else if (typeof(T) == typeof(PsfTrainingRoute))
             {
                 SetContentType(TrainingContentType);
             }
-            else if (typeof(T) == typeof(PSFJobArea))
+            else if (typeof(T) == typeof(PsfJobArea))
             {
                 SetContentType(JobAreaType);
             }
-            else if (typeof(T) == typeof(PSFCareerFocus))
+            else if (typeof(T) == typeof(PsfCareerFocus))
             {
                 SetContentType(CareerFocusType);
             }
-            else if (typeof(T) == typeof(PSFPreferredTaskType))
+            else if (typeof(T) == typeof(PsfPreferredTaskType))
             {
                 SetContentType(PreferredTaskTypeType);
             }

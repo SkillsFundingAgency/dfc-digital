@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
                 Count = 2,
                 FilterBy = "filterby",
                 Page = 3,
-                SearchFields = new string[] { "Field1", "Field2" },
+                SearchFields = new[] { "Field1", "Field2" },
                 UseRawSearchTerm = true
             };
 
@@ -42,7 +42,7 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
                 Count = 2,
                 FilterBy = "filterby",
                 Page = 3,
-                SearchFields = new string[] { "Field1", "Field2" },
+                SearchFields = new[] { "Field1", "Field2" },
                 UseRawSearchTerm = true
             };
 
@@ -65,7 +65,7 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
             };
 
             var queryConverter = new AzSearchQueryConverter();
-            var result = queryConverter.ConvertToSearchResult<JobProfileIndex>(indexResult, properties);
+            var result = queryConverter.ConvertToSearchResult(indexResult, properties);
 
             result.Count.Should().Be(indexResult.Count);                                            //Count = result.Count,
             result.Results.First().Rank.Should().Be(5);                                             //Results = result.ToSearchResultItems(properties)

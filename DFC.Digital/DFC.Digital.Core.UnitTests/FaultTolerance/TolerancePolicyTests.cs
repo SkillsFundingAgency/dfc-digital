@@ -26,7 +26,7 @@ namespace DFC.Digital.Core.FaultTolerance.Tests
                     try
                     {
                         idx++;
-                        await actor.ExecuteWithCircuitBreaker(() => ThrowEx(), "test");
+                        await actor.ExecuteAsync(() => ThrowEx(), "test", FaultToleranceType.CircuitBreaker);
                     }
                     catch (NotImplementedException)
                     { }

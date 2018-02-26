@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
-using DFC.Digital.Core.FaultTolerance;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Core.Utilities;
 

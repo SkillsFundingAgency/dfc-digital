@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.FaultTolerance;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -41,7 +41,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
             try
             {
-                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteWithCircuitBreaker(() => x.CourseListAsync(request), Constants.CourseSerachEndpointConfigName), Constants.CourseSerachEndpointConfigName);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
                 var result = apiResult?.ConvertToCourse();
                 var filteredResult = courseOpportunityBuilder.SelectCoursesForJobProfile(result);

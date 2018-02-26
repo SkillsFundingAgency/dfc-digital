@@ -9,7 +9,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Core.FaultTolerance
+namespace DFC.Digital.Core
 {
     public class TolerancePolicy : ITolerancePolicy
     {
@@ -21,10 +21,34 @@ namespace DFC.Digital.Core.FaultTolerance
             this.logger = logger;
         }
 
-        public Task<T> ExecuteWithCircuitBreaker<T>(Func<Task<T>> action, string dependencyName)
+        public Task<T> ExecuteAsync<T>(Func<Task<T>> action, string dependencyName, FaultToleranceType toleranceType)
         {
-            var circuitBreaker = policies.GetOrAdd(dependencyName, GetCircuitBreaker(dependencyName));
-            return circuitBreaker.ExecuteAsync(action);
+            Policy policy;
+
+            switch (toleranceType)
+            {
+                case FaultToleranceType.Timeout:
+                    policy = policies.GetOrAdd(dependencyName, Policy.Timeout(TimeSpan.FromSeconds(2), TimeoutStrategy.Pessimistic));
+                    break;
+                case FaultToleranceType.Retry:
+                    policy = policies.GetOrAdd(dependencyName, GetLimitedRetryPolicy(dependencyName));
+                    break;
+                case FaultToleranceType.RetryWithCircuitBreaker:
+                    policy = policies.GetOrAdd(dependencyName, GetRetryWithCircuitBreaker(dependencyName));
+                    break;
+                case FaultToleranceType.CircuitBreaker:
+                default:
+                    policy = policies.GetOrAdd(dependencyName, GetCircuitBreaker(dependencyName));
+                    break;
+            }
+
+            return policy.ExecuteAsync(action);
+        }
+
+        public Task<T> ExecuteAndRetryWithCircuitBreaker<T>(Func<Task<T>> action, string dependencyName)
+        {
+            var policy = policies.GetOrAdd(dependencyName, GetRetryWithCircuitBreaker(dependencyName));
+            return policy.ExecuteAsync(action);
         }
 
         private CircuitBreakerPolicy GetCircuitBreaker(string dependency)
@@ -35,9 +59,9 @@ namespace DFC.Digital.Core.FaultTolerance
                 .CircuitBreakerAsync(
                     exceptionsAllowedBeforeBreaking: 4,
                     durationOfBreak: TimeSpan.FromSeconds(60),
-                    onBreak: (ex, breakDelay) => logger.Warn($"CircuitBreaker logging: {dependency}: Breaking the circuit for {breakDelay.TotalMilliseconds}ms!, failure-{ex.Message}"),
-                    onReset: () => logger.Info($"CircuitBreaker logging: {dependency}: Call succeded. Closed the circuit again!"),
-                    onHalfOpen: () => logger.Warn($"CircuitBreaker logging: {dependency}: Half-open: Next call is a trial!"));
+                    onBreak: (ex, breakDelay) => logger.Warn($"Circuit-Breaker logging: {dependency}: Breaking the circuit for {breakDelay}, failure-{ex.Message}"),
+                    onReset: () => logger.Info($"Circuit-Breaker logging: {dependency}: Call succeeded. Closed the circuit again!"),
+                    onHalfOpen: () => logger.Warn($"Circuit-Breaker logging: {dependency}: Half-open: Next call is a trial!"));
         }
 
         private PolicyWrap GetRetryWithCircuitBreaker(string dependency)
@@ -51,8 +75,6 @@ namespace DFC.Digital.Core.FaultTolerance
 
             return Policy.WrapAsync(waitAndRetryPolicy, GetCircuitBreaker(dependency));
         }
-
-        private TimeoutPolicy GetTimeoutPolicy() => Policy.Timeout(TimeSpan.FromSeconds(2), TimeoutStrategy.Pessimistic);
 
         private RetryPolicy GetLimitedRetryPolicy(string dependency)
         {

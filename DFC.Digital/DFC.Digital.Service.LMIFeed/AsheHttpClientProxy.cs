@@ -20,7 +20,7 @@ namespace DFC.Digital.Service.LMIFeed
 
         public async Task<HttpResponseMessage> EstimatePayMdAsync(string socCode)
         {
-            var url = ConfigurationManager.AppSettings[Constants.AsheEstimateMdApiGateway];
+            var url = ConfigurationManager.AppSettings[Constants.AsheEstimateMDApiGateway];
             var accessKey = ConfigurationManager.AppSettings[Constants.AsheAccessKey];
 
             return await httpClient.GetHttpClient().GetAsync(string.Format(url, socCode, accessKey));

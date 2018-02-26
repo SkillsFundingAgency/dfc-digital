@@ -10,8 +10,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 {
     public class SpellCheckService : ISpellCheckService
     {
-        private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellCheckApiKey];
-        private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellCheckRequestEndPoint];
+        private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
+        private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
         private readonly IHttpClientService httpClientService;
 

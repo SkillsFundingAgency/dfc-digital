@@ -6,6 +6,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ICourseSearchService
     {
-        Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords);
+        Task<IEnumerable<Course>> GetCoursesAsync(string jobProfileKeywords);
     }
 }

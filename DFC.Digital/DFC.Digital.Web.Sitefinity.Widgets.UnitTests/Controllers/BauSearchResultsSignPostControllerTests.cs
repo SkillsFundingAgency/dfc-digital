@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var contentValue = "http://www.search.com?searcherm={0}";
 
             // Set up calls
-            var modelContent = string.Format(contentValue, HttpUtility.UrlEncode(Regex.Replace(searchTerm, Constants.ValidBauSearchCharacters, string.Empty)));
+            var modelContent = string.Format(contentValue, HttpUtility.UrlEncode(Regex.Replace(searchTerm, Constants.ValidBAUSearchCharacters, string.Empty)));
 
             //Instantiate & Act
             using (var bauSearchResultsSignPostController = new BauSearchResultsSignPostController(loggerFake)

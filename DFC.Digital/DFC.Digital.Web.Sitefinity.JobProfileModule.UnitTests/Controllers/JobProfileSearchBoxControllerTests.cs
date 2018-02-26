@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -12,6 +8,11 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Web;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -85,7 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     {
                         ResultItemTitle = dummyIndexItem.ResultItem.Title,
                         ResultItemAlternativeTitle = string.Join(", ", dummyIndexItem.ResultItem.AlternativeTitle).Trim().TrimEnd(','),
-                        ResultItemSalaryRange = dummyIndexItem.ResultItem.SalaryRange,
+                        ResultItemSalaryRange = string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", dummyIndexItem.ResultItem.SalaryStarter, dummyIndexItem.ResultItem.SalaryExperienced),
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank
@@ -172,7 +173,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 {
                     Title = searchTerm,
                     AlternativeTitle = new[] { "alt" },
-                    SalaryRange = "avg sal",
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
                     Overview = "overview",
                     UrlName = "dummy-url",
                     JobProfileCategoriesWithUrl = new[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
@@ -209,7 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     {
                         ResultItemTitle = dummyIndexItem.ResultItem.Title,
                         ResultItemAlternativeTitle = string.Join(", ", dummyIndexItem.ResultItem.AlternativeTitle).Trim().TrimEnd(','),
-                        ResultItemSalaryRange = dummyIndexItem.ResultItem.SalaryRange,
+                        ResultItemSalaryRange = string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", dummyIndexItem.ResultItem.SalaryStarter, dummyIndexItem.ResultItem.SalaryExperienced),
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
@@ -328,7 +330,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 {
                     Title = searchTerm,
                     AlternativeTitle = new[] { "alt" },
-                    SalaryRange = "avg sal",
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
                     Overview = "overview",
                     UrlName = "dummy-url",
                     JobProfileCategoriesWithUrl = new[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
@@ -346,7 +349,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     {
                         ResultItemTitle = dummyIndex.Title,
                         ResultItemAlternativeTitle = string.Join(", ", dummyIndex.AlternativeTitle).Trim().TrimEnd(','),
-                        ResultItemSalaryRange = dummyIndex.SalaryRange,
+                        ResultItemSalaryRange = string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", dummyIndex.SalaryStarter, dummyIndex.SalaryExperienced),
                         ResultItemOverview = dummyIndex.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                         Rank = (int)dummySearchResult.Results.First().Rank,
@@ -505,7 +508,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 {
                     Title = searchTerm,
                     AlternativeTitle = new[] { "alt" },
-                    SalaryRange = "avg sal",
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
                     Overview = "overview",
                     UrlName = "dummy-url"
                 };

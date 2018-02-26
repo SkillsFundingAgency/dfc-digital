@@ -110,7 +110,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                         FilterableAlternativeTitle = p.AlternativeTitle,
                         AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                         Overview = p.Overview,
-                        SalaryRange = p.SalaryRange,
+                        SalaryStarter = 10,
+                        SalaryExperienced = 10
                     }
                 };
             }

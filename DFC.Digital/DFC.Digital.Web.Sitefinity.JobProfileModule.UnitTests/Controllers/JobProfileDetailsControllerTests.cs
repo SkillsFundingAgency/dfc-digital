@@ -21,14 +21,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
     public class JobProfileDetailsControllerTests
     {
         private readonly IAsyncHelper asyncHelper = new AsyncHelper();
-        private readonly decimal experiencedSalary = 200;
+        private readonly double experiencedSalary = 200;
         private readonly IGovUkNotify govUkNotifyFake = A.Fake<IGovUkNotify>(ops => ops.Strict());
         private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
         private readonly IJobProfileRepository repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-        private readonly ISalaryCalculator salaryCalculator = A.Fake<ISalaryCalculator>(ops => ops.Strict());
-        private readonly ISalaryService salaryService = A.Fake<ISalaryService>(ops => ops.Strict());
         private readonly ISitefinityPage sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
-        private readonly decimal starterSalary = 100;
+        private readonly ISearchQueryService<JobProfileIndex> searchQueryService = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+        private readonly double starterSalary = 100;
         private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();
         private JobProfile dummyJobProfile;
         private MapperConfiguration mapperCfg;
@@ -48,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             //Instantiate & Act
             using (var jobprofileController = new JobProfileDetailsController(
-                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper))
+                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), asyncHelper, searchQueryService))
             {
                 //Act
                 var indexMethodCall = jobprofileController.WithCallTo(c => c.Index());
@@ -97,7 +96,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
             //Instantiate & Act
             using (var jobprofileController = new JobProfileDetailsController(
-                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), salaryService, salaryCalculator, asyncHelper))
+                webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapperCfg.CreateMapper(), asyncHelper, searchQueryService))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
@@ -155,25 +154,34 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 }
                 : null;
 
-            var dummySalary = new JobProfileSalary
+            var dummyIndex = new JobProfileIndex
             {
-                Deciles = new Dictionary<int, decimal>
-                {
-                    { 10, 100 },
-                    { 90, 200 }
-                }
+                Title = nameof(JobProfileIndex.Title),
+                AlternativeTitle = new[] { "alt" },
+                SalaryStarter = starterSalary,
+                SalaryExperienced = experiencedSalary,
+                Overview = "overview",
+                UrlName = "dummy-url",
+                JobProfileCategoriesWithUrl = new[] { "CatOneURL|Cat One", "CatTwoURL|Cat Two" }
             };
+            var resultsCount = 1;
+            var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
+            dummySearchResult.Count = resultsCount;
+            dummySearchResult.Results = A.CollectionOfDummy<SearchResultItem<JobProfileIndex>>(resultsCount);
+            var rawResultItems = new List<SearchResultItem<JobProfileIndex>>
+            {
+                new SearchResultItem<JobProfileIndex> { ResultItem = dummyIndex }
+            };
+            dummySearchResult.Results = rawResultItems;
 
             // Set up calls
+            A.CallTo(() => searchQueryService.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._))
                 .ReturnsLazily((string defaultProfile) => defaultProfile);
             A.CallTo(() => govUkNotifyFake.SubmitEmail(A<string>._, null)).Returns(false);
-            A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>._)).Returns(Task.FromResult(dummySalary));
-            A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).Returns(starterSalary);
-            A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).Returns(experiencedSalary);
             A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).DoesNothing();
         }
 
@@ -183,9 +191,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
-                A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
-                A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
+                A.CallTo(() => searchQueryService.SearchAsync(A<string>.That.IsEqualTo(dummyJobProfile.Title), A<SearchProperties>._)).MustHaveHappened();
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustNotHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
             }
@@ -194,9 +200,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
-                A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>.That.IsEqualTo(dummyJobProfile.SOCCode))).MustHaveHappened();
-                A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).MustHaveHappened();
-                A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).MustHaveHappened();
+                A.CallTo(() => searchQueryService.SearchAsync(A<string>.That.IsEqualTo(dummyJobProfile.Title), A<SearchProperties>._)).MustHaveHappened();
                 A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustNotHaveHappened();
             }

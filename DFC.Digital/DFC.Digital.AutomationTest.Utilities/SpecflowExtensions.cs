@@ -24,7 +24,8 @@ namespace DFC.Digital.Automation.Test.Utilities
                     JobProfileCategories = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategories))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     JobProfileSpecialism = item.GetConditionalData(nameof(JobProfileIndex.JobProfileSpecialism))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     HiddenAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.HiddenAlternativeTitle))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    SalaryRange = item.GetConditionalData(nameof(JobProfileIndex.SalaryRange)),
+                    SalaryStarter = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryStarter)),
+                    SalaryExperienced = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryExperienced)),
                     JobProfileCategoriesWithUrl = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategoriesWithUrl))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     Interests = item.GetConditionalData(nameof(JobProfileIndex.Interests))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     Enablers = item.GetConditionalData(nameof(JobProfileIndex.Enablers))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
@@ -113,6 +114,11 @@ namespace DFC.Digital.Automation.Test.Utilities
         private static string GetConditionalData(this TableRow item, string field, string defaultValue = null)
         {
             return item.ContainsKey(field) ? item[field] : (defaultValue ?? string.Empty);
+        }
+
+        private static T GetConditionalData<T>(this TableRow item, string field)
+        {
+            return item.ContainsKey(field) ? (T)(object)item[field] : default(T);
         }
     }
 }

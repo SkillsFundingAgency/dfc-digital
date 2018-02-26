@@ -417,7 +417,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2018-01-26T15:01:52.25Z"
+      "LastModified": "2018-01-26T17:21:21.407Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -719,7 +719,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2018-01-26T15:01:52.25Z"
+      "LastModified": "2018-01-26T17:21:21.407Z"
     },
     {
       "DisplayName": "Job Profile",
@@ -1021,7 +1021,7 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Yes / No\n                            ",
           "Id": "0463d2e3-e47a-47a3-a3c7-09b4b5e556cd",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-01-26T17:21:21.407Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1053,7 +1053,7 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "f145f633-b867-4e3c-8cd2-8196a177b082",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-01-26T17:21:21.407Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1085,17 +1085,18 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "df071e72-05d0-4463-bcb1-3930bb125a2e",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-01-26T17:21:21.407Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "Name": "MinimumHours",
-          "Title": "Minimum (optional)",
+          "Title": "Minimum Hours (mandatory)",
           "FieldType": 7,
           "SpecialType": 0,
           "MediaType": "",
           "FieldTypeDisplayName": "Number",
+          "IsRequired": true,
           "LengthValidationMessage": "",
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
@@ -1117,17 +1118,18 @@
           "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "05492211-b285-4c7b-803b-249763979e89",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-02-20T10:36:37.73Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "Name": "MaximumHours",
-          "Title": "Maximum (optional)",
+          "Title": "Maximum Hours (mandatory)",
           "FieldType": 7,
           "SpecialType": 0,
           "MediaType": "",
           "FieldTypeDisplayName": "Number",
+          "IsRequired": true,
           "LengthValidationMessage": "",
           "Ordinal": 1,
           "CanCreateItemsWhileSelecting": true,
@@ -1150,13 +1152,44 @@
           "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "d1d1d5d2-1eff-48df-9b65-7a7f9cc1557a",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-02-20T10:36:37.73Z"
+        },
+        {
+          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
+          "Name": "WorkingHoursDetails",
+          "Title": "Working Hours Detail (mandatory)",
+          "FieldType": 8,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "Classification",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "Ordinal": 2,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TaxonField",
+          "ClassificationId": "18443fbe-a6e6-4ee2-a19a-e7262b568852",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
+          "TypeUIName": "\n                                Classification\n                            ",
+          "Id": "2bcb42ce-b573-4733-8245-adece3da07ff",
+          "LastModified": "2018-02-20T15:37:06.107Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "Name": "WorkingPattern",
-          "Title": "Working Pattern",
+          "Title": "Working Pattern (mandatory)",
           "FieldType": 8,
           "SpecialType": 0,
           "MediaType": "",
@@ -1180,7 +1213,7 @@
           "ParentSectionId": "eace01a1-d84a-454c-8661-17a88a19a750",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "9fa4599d-000e-4da3-ab84-8d6c02ba5466",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-02-20T15:23:26.527Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1982,7 +2015,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2018-01-26T16:31:32.13Z"
+      "LastModified": "2018-02-20T15:37:06.107Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

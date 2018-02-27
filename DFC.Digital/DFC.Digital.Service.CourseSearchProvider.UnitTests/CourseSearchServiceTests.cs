@@ -80,6 +80,52 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
         }
 
+        [Theory]
+        [InlineData(true, ServiceState.Green)]
+        [InlineData(false, ServiceState.Amber)]
+        public async void GetServiceStatus(bool coursesAvailable, ServiceState expectedServiceStatus)
+        {
+            //Arrange
+            var serviceHelperFake = A.Fake<IServiceHelper>();
+            var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+
+            //Setup Calls and Dummies
+            A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
+
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+
+            //Act
+            var serviceStatus = await courseSearchService.GetCurrentStatusAsync();
+
+            //Asserts
+            serviceStatus.Status.Should().Be(expectedServiceStatus);
+        }
+
+        [Fact]
+        public async void GetServiceStatusException()
+        {
+            //Arrange
+            var serviceHelperFake = A.Fake<IServiceHelper>();
+            var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+
+            //Setup Calls and Dummies
+            A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, "Bad EndPoint")).Returns(GetDummyCourseOutput());
+
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+
+            //Act
+            var serviceStatus = await courseSearchService.GetCurrentStatusAsync();
+
+            //Asserts
+            serviceStatus.Status.Should().NotBe(ServiceState.Green);
+            serviceStatus.Notes.Should().Contain("Exception");
+        }
+
+
         private IEnumerable<Course> GenerateDummyCourses()
         {
             yield return new Course

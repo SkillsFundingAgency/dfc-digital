@@ -64,6 +64,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
             //Act
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
 
+            //Asserts
             serviceStatus.Status.Should().Be(expectedServiceStatus);
         }
 

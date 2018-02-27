@@ -65,7 +65,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.InnerException}";
+                serviceStatus.Notes = $"Exception: {ex.Message}";
             }
 
             return serviceStatus;

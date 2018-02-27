@@ -28,7 +28,7 @@ namespace DFC.Digital.Service.GovUkNotify
         }
 
         #region Implement of IServiceStatus
-        private string ServiceName => "Notification Service.";
+        private string ServiceName => "Notification Service";
 
         public Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -57,7 +57,7 @@ namespace DFC.Digital.Service.GovUkNotify
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.InnerException}";
+                serviceStatus.Notes = $"Exception: {ex.Message}";
             }
 
             return Task.FromResult(serviceStatus);

@@ -60,7 +60,7 @@ namespace DFC.Digital.Service.LMIFeed
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.InnerException}";
+                serviceStatus.Notes = $"Exception: {ex.Message}";
             }
             return serviceStatus;
         }

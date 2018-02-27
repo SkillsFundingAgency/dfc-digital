@@ -155,7 +155,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var properties = new SearchProperties
             {
-                FilterBy = $"{nameof(JobProfileIndex.UrlName)} eq '{model.UrlName}'"
+                FilterBy = $"{nameof(JobProfileIndex.UrlName)} eq '{model.UrlName.Replace("'", "''")}'"
             };
 
             var jobProfileSearchResult = await searchQueryService.SearchAsync(model.Title, properties);

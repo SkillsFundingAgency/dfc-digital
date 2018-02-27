@@ -16,7 +16,7 @@ namespace DFC.Digital.Service.GovUkNotify
     /// </summary>
     /// <seealso cref="DFC.Digital.Data.Interfaces.IGovUkNotify" />
     /// <seealso />
-    public class GovUkNotifyService : IGovUkNotify , IServiceStatus
+    public class GovUkNotifyService : IGovUkNotify, IServiceStatus
     {
         private readonly IApplicationLogger applicationLogger;
         private readonly IGovUkNotifyClientProxy clientProxy;

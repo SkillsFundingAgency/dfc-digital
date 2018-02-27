@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var queryServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
             var expectedTotalMessage = "0 results found - try again using a different job title";
@@ -131,7 +131,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var queryServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
             var defaultSearchResultsPage = "/search-result";
@@ -262,7 +262,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
             var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
@@ -304,7 +304,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
             var expectedTotalMessage = string.IsNullOrWhiteSpace(searchTerm) ? null : "0 results found - try again using a different job title";
@@ -423,7 +423,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
@@ -487,7 +487,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
@@ -585,7 +585,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var mapperCfg = new MapperConfiguration(cfg =>

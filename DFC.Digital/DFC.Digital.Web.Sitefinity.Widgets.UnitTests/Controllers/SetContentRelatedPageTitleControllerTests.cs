@@ -35,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var categoryRepoFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var jobProfileRepoFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
 
             // Set up calls
             A.CallTo(() => webAppContextFake.IsCategoryPage).Returns(pageType == PageType.Category);

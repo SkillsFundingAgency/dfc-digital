@@ -21,6 +21,8 @@
 
         public string MaximumHours { get; set; }
 
+        public string WorkingHoursDetails { get; set; }
+
         public bool? IsLMISalaryFeedOverriden { get; set; }
 
         public double SalaryStarter { get; set; }

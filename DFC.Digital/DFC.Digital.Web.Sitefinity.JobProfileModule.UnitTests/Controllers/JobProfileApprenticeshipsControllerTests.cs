@@ -26,7 +26,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         [InlineData(6, true, "", true, 2)]
         [InlineData(7, false, "", true, 2)]
         [InlineData(8, false, "testfalse", true, 1)]
-        [InlineData(8, false, "testfalse", true, 1)]
         public void IndexTest(int testIndex, bool inContentAuthoringSite, string socCode, bool isContentPreviewMode, int maxApp)
         {
             //Setup the fakes and dummies
@@ -34,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
             var unused1 = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
@@ -161,7 +160,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 

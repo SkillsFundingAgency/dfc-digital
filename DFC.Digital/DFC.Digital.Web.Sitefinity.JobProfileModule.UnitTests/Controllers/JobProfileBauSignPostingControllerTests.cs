@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 {
     public class JobProfileBauSignPostingControllerTests
     {
-        private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+        private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>();
         private readonly IJobProfileRepository repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
         private readonly ISitefinityPage sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
         private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();

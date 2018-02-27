@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         public void IndexTest(bool isContentAuthoringSite)
         {
             var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
             var asyncHelper = new AsyncHelper();
@@ -123,7 +123,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         public void SearchTest(int resultCount, bool notPaging, bool singleSelectValue)
         {
             var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var asyncHelper = new AsyncHelper();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
@@ -232,7 +232,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         public void IndexSearchTest(int resultCount, int pageNumber, bool hasNextPage, bool hasPreviousPage)
         {
             var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var asyncHelper = new AsyncHelper();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
@@ -337,7 +337,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         public void IndexSearchPagingTest(int resultCount)
         {
             var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var asyncHelper = new AsyncHelper();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";

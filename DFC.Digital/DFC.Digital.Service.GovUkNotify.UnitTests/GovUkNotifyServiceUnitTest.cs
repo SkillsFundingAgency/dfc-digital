@@ -13,6 +13,7 @@ using DFC.Digital.Core.Utilities;
 namespace DFC.Digital.Service.GovUkNotify.UnitTests
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class GovUkNotifyServiceUnitTest
     {
@@ -86,7 +87,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
         [Theory]
         [InlineData("1", ServiceState.Green)]
         [InlineData(null, ServiceState.Amber)]
-        public async void GetServiceStatus(string responseId, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsync(string responseId, ServiceState expectedServiceStatus)
         {
             //Fakes
             var emailResponse = responseId == null ? null : new Notify.Models.Responses.EmailNotificationResponse
@@ -105,7 +106,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
         }
 
         [Fact]
-        public async void GetServiceStatusException()
+        public async Task GetServiceStatusExceptionAsync()
         {
           
             //Fake set up incorrectly to cause exception

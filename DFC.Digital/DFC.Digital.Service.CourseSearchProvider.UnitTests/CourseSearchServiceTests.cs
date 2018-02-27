@@ -7,6 +7,7 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Xunit;
 
@@ -83,7 +84,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         [Theory]
         [InlineData(true, ServiceState.Green)]
         [InlineData(false, ServiceState.Amber)]
-        public async void GetServiceStatus(bool coursesAvailable, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsyn(bool coursesAvailable, ServiceState expectedServiceStatus)
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();
@@ -104,7 +105,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         }
 
         [Fact]
-        public async void GetServiceStatusException()
+        public async Task GetServiceStatusExceptionAsync()
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();

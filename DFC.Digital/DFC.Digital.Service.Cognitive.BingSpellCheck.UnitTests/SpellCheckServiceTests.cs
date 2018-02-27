@@ -45,7 +45,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         [Theory]
         [InlineData(true, ServiceState.Green)]
         [InlineData(false, ServiceState.Amber)]
-        public async Task GetServiceStatus(bool suggestionsReturned, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsync(bool suggestionsReturned, ServiceState expectedServiceStatus)
         {
             //Arrange
             var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());
@@ -69,7 +69,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         }
 
         [Fact]
-        public async Task GetServiceStatusException()
+        public async Task GetServiceStatusExceptionAsync()
         {
             //Arrange
             var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());

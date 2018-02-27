@@ -11,6 +11,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using DFC.Digital.Data.Model;
     using Model;
     using Newtonsoft.Json;
@@ -66,7 +67,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
         [Theory]
         [InlineData (true,true, ServiceState.Green)]
         [InlineData(true, false, ServiceState.Amber)]
-        public async void GetServiceStatus(bool returnValidHttpStatusCode, bool returnValidJobProfileSalary, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsync(bool returnValidHttpStatusCode, bool returnValidJobProfileSalary, ServiceState expectedServiceStatus)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
@@ -106,7 +107,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
         }
 
         [Fact]
-        public async void GetServiceStatusException()
+        public async Task GetServiceStatusExceptionAsync()
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());

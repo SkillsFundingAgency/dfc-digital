@@ -52,7 +52,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Status check failed: {ex.Message}";
+                serviceStatus.Notes = $"Exception: {ex.InnerException}";
             }
 
             return Task.FromResult(serviceStatus);

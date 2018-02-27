@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -27,37 +28,44 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         {
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
-            var checkText = "nursee";
-            serviceStatus.CheckParametersUsed = $"Text - {checkText}";
-
-            var requestUri = string.Format(bingSpellEndpoint, checkText);
-
-            using (var client = GetHttpClient())
+            try
             {
-                var response = await client.GetAsync(requestUri);
-                if (response.IsSuccessStatusCode)
+                var checkText = "nursee";
+                serviceStatus.CheckParametersUsed = $"Text - {checkText}";
+
+                var requestUri = string.Format(bingSpellEndpoint, checkText);
+
+                using (var client = GetHttpClient())
                 {
-                    //Got a response back
-                    serviceStatus.Status = ServiceState.Amber;
-                    serviceStatus.Notes = "Success Response";
-
-                    var resultsString = await response.Content.ReadAsStringAsync();
-
-                    //Manged to read result information
-                    serviceStatus.Notes = "Success Result";
-
-                    dynamic spellSuggestions = JObject.Parse(resultsString);
-                    if (spellSuggestions.flaggedTokens.Count > 0)
+                    var response = await client.GetAsync(requestUri);
+                    if (response.IsSuccessStatusCode)
                     {
-                        //got corrections
-                        serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.Notes = string.Empty;
+                        //Got a response back
+                        serviceStatus.Status = ServiceState.Amber;
+                        serviceStatus.Notes = "Success Response";
+
+                        var resultsString = await response.Content.ReadAsStringAsync();
+
+                        //Manged to read result information
+                        serviceStatus.Notes = "Success Result";
+
+                        dynamic spellSuggestions = JObject.Parse(resultsString);
+                        if (spellSuggestions.flaggedTokens.Count > 0)
+                        {
+                            //got corrections
+                            serviceStatus.Status = ServiceState.Green;
+                            serviceStatus.Notes = string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        serviceStatus.Notes = $"{response.ReasonPhrase}";
                     }
                 }
-                else
-                {
-                    serviceStatus.Notes = $"{response.ReasonPhrase}";
-                }
+            }
+            catch (Exception ex)
+            {
+                serviceStatus.Notes = $"Exception: {ex.InnerException}";
             }
 
             return serviceStatus;

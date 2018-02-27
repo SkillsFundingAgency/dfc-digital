@@ -41,5 +41,53 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 result.HasCorrected.Should().BeFalse();
             }
         }
+
+        [Theory]
+        [InlineData(true, ServiceState.Green)]
+        [InlineData(false, ServiceState.Amber)]
+        public async Task GetServiceStatus(bool suggestionsReturned, ServiceState expectedServiceStatus)
+        {
+            //Arrange
+            var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());
+            var mockHttp = new MockHttpMessageHandler();
+
+            //Setup Dummies and Mocks
+            mockHttp.When("*")
+                .Respond(
+                "application/json",
+                suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
+
+            A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
+
+            var spellingService = new SpellCheckService(fakeHttpClientService);
+
+            //Act
+            var serviceStatus = await spellingService.GetCurrentStatusAsync();
+
+            serviceStatus.Status.Should().Be(expectedServiceStatus);
+        }
+
+        [Fact]
+        public async Task GetServiceStatusException()
+        {
+            //Arrange
+            var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());
+            var mockHttp = new MockHttpMessageHandler();
+
+            //Setup Dummies and Mocks
+            mockHttp.When("*")
+                .Respond(
+                "application/json",
+                "{\"_type\": \"Cause Exception\"}");
+
+            A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
+
+            var spellingService = new SpellCheckService(fakeHttpClientService);
+
+            //Act
+            var serviceStatus = await spellingService.GetCurrentStatusAsync();
+
+            serviceStatus.Notes.Should().Contain("Exception");
+        }
     }
 }

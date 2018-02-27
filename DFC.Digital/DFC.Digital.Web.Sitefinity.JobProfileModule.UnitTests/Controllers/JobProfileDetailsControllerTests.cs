@@ -150,7 +150,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     Overview = nameof(JobProfile.Overview),
                     Title = nameof(JobProfile.Title),
                     MaximumHours = 40,
-                    MinimumHours = 10
+                    MinimumHours = 10,
+                    UrlName = nameof(JobProfile.UrlName)
                 }
                 : null;
 
@@ -183,6 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 .ReturnsLazily((string defaultProfile) => defaultProfile);
             A.CallTo(() => govUkNotifyFake.SubmitEmail(A<string>._, null)).Returns(false);
             A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).DoesNothing();
+            A.CallTo(() => loggerFake.Trace(A<string>._)).DoesNothing();
         }
 
         private void AssertActions(bool isContentPreviewMode)

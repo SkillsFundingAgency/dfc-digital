@@ -66,7 +66,6 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
         [Theory]
         [InlineData (true,true, ServiceState.Green)]
         [InlineData(true, false, ServiceState.Amber)]
-        [InlineData(false, true, ServiceState.Red)]
         public async void GetServiceStatus(bool returnValidHttpStatusCode, bool returnValidJobProfileSalary, ServiceState expectedServiceStatus)
         {
             //Arrange
@@ -126,8 +125,8 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
 
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
 
+            serviceStatus.Status.Should().NotBe(ServiceState.Green);
             serviceStatus.Notes.Should().Contain("Exception");
-
         }
 
     }

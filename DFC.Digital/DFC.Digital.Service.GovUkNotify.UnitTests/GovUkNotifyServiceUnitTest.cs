@@ -82,5 +82,44 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             // Assert
             result.ShouldAllBeEquivalentTo(expectation);
         }
+
+        [Theory]
+        [InlineData("1", ServiceState.Green)]
+        [InlineData(null, ServiceState.Amber)]
+        public async void GetServiceStatus(string responseId, ServiceState expectedServiceStatus)
+        {
+            //Fakes
+            var emailResponse = responseId == null ? null : new Notify.Models.Responses.EmailNotificationResponse
+            {
+                id = responseId
+            };
+
+            A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Returns(emailResponse);
+
+            //Act
+            var govUkNotifyService = new GovUkNotifyService(fakeApplicationLogger, fakeGovUkNotifyClient);
+            var serviceStatus = await  govUkNotifyService.GetCurrentStatusAsync();
+
+            //Assert
+            serviceStatus.Status.Should().Be(expectedServiceStatus);
+        }
+
+        [Fact]
+        public async void GetServiceStatusException()
+        {
+          
+            //Fake set up incorrectly to cause exception
+            A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Throws<NotifyClientException>();
+
+            //Act
+            var govUkNotifyService = new GovUkNotifyService(fakeApplicationLogger, fakeGovUkNotifyClient);
+            var serviceStatus = await govUkNotifyService.GetCurrentStatusAsync();
+
+            //Asserts
+            serviceStatus.Status.Should().NotBe(ServiceState.Green);
+            serviceStatus.Notes.Should().Contain("Exception");
+
+        }
+
     }
 }

@@ -87,6 +87,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
             //Act
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
 
+            //Asserts
+            serviceStatus.Status.Should().NotBe(ServiceState.Green);
             serviceStatus.Notes.Should().Contain("Exception");
         }
     }

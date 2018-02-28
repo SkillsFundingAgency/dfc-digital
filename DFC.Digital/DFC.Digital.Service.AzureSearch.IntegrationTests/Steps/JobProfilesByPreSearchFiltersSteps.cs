@@ -5,6 +5,7 @@ using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -32,10 +33,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"Given I have the following profiles tagged with the following PSF tags")]
-        public void GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTags(Table table)
+        public async Task GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTagsAsync(Table table)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+            await searchService.EnsureIndexAsync(searchIndex.Name);
+            await searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex());
         }
 
         [When(@"I filter with the following PSF items")]

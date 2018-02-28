@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
+using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Microsoft.Azure.Search;

@@ -33,10 +33,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         [Given(@"the following job profiles in catogories  exist:")]
-        public void GivenTheFollowingJobProfilesInCatogoriesExist(Table table)
+        public async System.Threading.Tasks.Task GivenTheFollowingJobProfilesInCatogoriesExistAsync(Table table)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+            await searchService.EnsureIndexAsync(searchIndex.Name);
+            await searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex());
         }
 
         [When(@"I filter by the category '(.*)'")]

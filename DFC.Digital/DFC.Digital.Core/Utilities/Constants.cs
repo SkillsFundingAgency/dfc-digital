@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Core.Utilities
+﻿namespace DFC.Digital.Core
 {
     public static class Constants
     {

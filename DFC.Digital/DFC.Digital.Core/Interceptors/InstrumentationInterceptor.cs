@@ -1,5 +1,5 @@
 ﻿using Castle.DynamicProxy;
-using DFC.Digital.Core.Extensions;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;

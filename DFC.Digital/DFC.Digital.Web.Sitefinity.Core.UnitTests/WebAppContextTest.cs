@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System.Collections.Generic;

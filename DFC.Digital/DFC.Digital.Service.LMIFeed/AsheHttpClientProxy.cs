@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Core.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Service.LMIFeed.Interfaces;
 using System.Configuration;

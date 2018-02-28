@@ -45,7 +45,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             try
             {
                 var request = MessageConverter.GetCourseListInput(checkSubject);
-                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSerachEndpointConfigName);
+                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSearchEndpointConfigName);
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
@@ -66,7 +66,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return Task.FromResult(serviceStatus);
         }
 
-        public IEnumerable<Course> GetCourses(string jobprofileKeywords)
+        public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)
         {
             var request = MessageConverter.GetCourseListInput(jobprofileKeywords);
             auditRepository.CreateAudit(request);

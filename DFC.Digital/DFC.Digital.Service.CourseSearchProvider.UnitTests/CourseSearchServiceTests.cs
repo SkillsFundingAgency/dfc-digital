@@ -93,11 +93,12 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+            var fakePolicy = A.Fake<Core.ITolerancePolicy>();
 
             //Setup Calls and Dummies
-            A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSerachEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
+            A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
             //Act
             var serviceStatus = await courseSearchService.GetCurrentStatusAsync();
@@ -114,11 +115,12 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+            var fakePolicy = A.Fake<Core.ITolerancePolicy>();
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, "Bad EndPoint")).Returns(GetDummyCourseOutput());
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
             //Act
             var serviceStatus = await courseSearchService.GetCurrentStatusAsync();

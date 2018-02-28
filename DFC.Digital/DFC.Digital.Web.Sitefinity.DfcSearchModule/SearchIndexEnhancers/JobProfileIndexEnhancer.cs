@@ -49,6 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
 
         public async Task<JobProfileIndex> GetSalaryRangeAsync(JobProfileIndex jobProfileIndex)
         {
+            // Conversions taking place because sitefinity returns Decimal and Azure Search accepts Double fields
             if (JobProfile.IsLMISalaryFeedOverriden.HasValue && JobProfile.IsLMISalaryFeedOverriden.Value != true && !string.IsNullOrWhiteSpace(JobProfile.SOCCode))
             {
                 var salary = await salaryService.GetSalaryBySocAsync(JobProfile.SOCCode);

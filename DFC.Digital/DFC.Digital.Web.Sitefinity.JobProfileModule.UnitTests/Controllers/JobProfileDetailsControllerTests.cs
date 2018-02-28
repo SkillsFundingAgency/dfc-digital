@@ -70,6 +70,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                             vm.Title.ShouldBeEquivalentTo(dummyJobProfile.Title);
                             vm.MaximumHours.ShouldBeEquivalentTo(dummyJobProfile.MaximumHours);
                             vm.MinimumHours.ShouldBeEquivalentTo(dummyJobProfile.MinimumHours);
+                            vm.WorkingHoursDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
+                            vm.WorkingPatternDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
+                            vm.WorkingPattern.ShouldBeEquivalentTo(dummyJobProfile.WorkingPattern);
                             vm.SalaryStarter.ShouldBeEquivalentTo(starterSalary);
                             vm.SalaryExperienced.ShouldBeEquivalentTo(experiencedSalary);
                         })
@@ -118,7 +121,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                             vm.Title.ShouldBeEquivalentTo(dummyJobProfile.Title);
                             vm.MaximumHours.ShouldBeEquivalentTo(dummyJobProfile.MaximumHours);
                             vm.MinimumHours.ShouldBeEquivalentTo(dummyJobProfile.MinimumHours);
-                        })
+                            vm.WorkingHoursDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
+                            vm.WorkingPatternDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
+                            vm.WorkingPattern.ShouldBeEquivalentTo(dummyJobProfile.WorkingPattern);
+                            vm.SalaryStarter.ShouldBeEquivalentTo(starterSalary);
+                            vm.SalaryExperienced.ShouldBeEquivalentTo(experiencedSalary);
+                })
                         .AndNoModelErrors();
                 }
                 else
@@ -151,7 +159,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     Title = nameof(JobProfile.Title),
                     MaximumHours = 40,
                     MinimumHours = 10,
-                    UrlName = nameof(JobProfile.UrlName)
+                    UrlName = nameof(JobProfile.UrlName),
+                    WorkingHoursDetails = nameof(JobProfile.WorkingHoursDetails),
+                    WorkingPattern = nameof(JobProfile.WorkingPattern),
+                    WorkingPatternDetails = nameof(JobProfile.WorkingPatternDetails)
                 }
                 : null;
 

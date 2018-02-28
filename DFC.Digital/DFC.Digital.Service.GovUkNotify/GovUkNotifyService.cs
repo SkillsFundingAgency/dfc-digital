@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.GovUkNotify
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
             var emailAddress = "simulate-delivered@notifications.service.gov.uk";
-            serviceStatus.CheckParametersUsed = $"Email - {emailAddress}";
+            serviceStatus.CheckParametersUsed = $"Email used - {emailAddress}";
             var vocPersonalisation = new VocSurveyPersonalisation();
             vocPersonalisation.Personalisation.Add("jpprofile", "ServiceCheck");
             vocPersonalisation.Personalisation.Add("clientId", "ServiceCheck ClientId");

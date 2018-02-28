@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.LMIFeed
             {
                 //Plumber
                 var checkSOC = "5314";
-                serviceStatus.CheckParametersUsed = $"SOC - {checkSOC}";
+                serviceStatus.CheckParametersUsed = $"SOC used - {checkSOC}";
 
                 var response = await asheProxy.EstimatePayMdAsync(checkSOC);
                 if (response.IsSuccessStatusCode)

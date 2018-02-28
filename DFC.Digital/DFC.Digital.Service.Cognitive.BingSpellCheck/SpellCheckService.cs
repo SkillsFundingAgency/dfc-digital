@@ -31,7 +31,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             try
             {
                 var checkText = "nursee";
-                serviceStatus.CheckParametersUsed = $"Text - {checkText}";
+                serviceStatus.CheckParametersUsed = $"Text used - {checkText}";
 
                 var requestUri = string.Format(bingSpellEndpoint, checkText);
 

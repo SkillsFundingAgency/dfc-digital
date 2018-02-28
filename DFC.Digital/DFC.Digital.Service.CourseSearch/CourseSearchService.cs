@@ -40,7 +40,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
             var checkSubject = "maths";
-            serviceStatus.CheckParametersUsed = $"Text - {checkSubject}";
+            serviceStatus.CheckParametersUsed = $"Searched for - {checkSubject}";
 
             try
             {

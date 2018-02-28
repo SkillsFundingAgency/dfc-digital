@@ -7,12 +7,29 @@
       <Word>Autofac</Word>
       <Word>Initialise</Word>
       <Word>Sitefinity</Word>
+      <Word>Api</Word>
+      <Word>Psf</Word>
+      <Word>Dfc</Word>
+      <Word>Gov</Word>
+      <Word>Uk</Word>
+      <Word>Suggester</Word>
+      <Word>Personalisation</Word>
+      <Word>Voc</Word>
+      <Word>Mins</Word>
+      <Word>Synchronise</Word>
+      <Word>jobprofile</Word>
+      <Word>Soc</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
-  </Words>
+    <Compound>
+      <Term CompoundAlternate="JobProfile">jobprofile</Term>
+    </Compound>
+    </Words>
   <Acronyms>
     <CasingExceptions>
+      <Acronym>PSF</Acronym>
+      <Acronym>BAU</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

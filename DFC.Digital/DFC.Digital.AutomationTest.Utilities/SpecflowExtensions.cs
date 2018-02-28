@@ -18,21 +18,21 @@ namespace DFC.Digital.Automation.Test.Utilities
                     FilterableTitle = item[nameof(JobProfileIndex.Title)].ToLowerInvariant(),
                     Title = item[nameof(JobProfileIndex.Title)],
                     IdentityField = item.GetConditionalData(nameof(JobProfileIndex.IdentityField), item[nameof(JobProfileIndex.Title)].ConvertToKey()),
-                    FilterableAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle)).ToLowerInvariant(),
-                    AlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle))?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
-                    Overview = item.GetConditionalData(nameof(JobProfileIndex.Overview)),
-                    JobProfileCategories = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategories))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    JobProfileSpecialism = item.GetConditionalData(nameof(JobProfileIndex.JobProfileSpecialism))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    HiddenAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.HiddenAlternativeTitle))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    SalaryStarter = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryStarter)),
-                    SalaryExperienced = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryExperienced)),
-                    JobProfileCategoriesWithUrl = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategoriesWithUrl))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    Interests = item.GetConditionalData(nameof(JobProfileIndex.Interests))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    Enablers = item.GetConditionalData(nameof(JobProfileIndex.Enablers))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    EntryQualifications = item.GetConditionalData(nameof(JobProfileIndex.EntryQualifications))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    TrainingRoutes = item.GetConditionalData(nameof(JobProfileIndex.TrainingRoutes))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    PreferredTaskTypes = item.GetConditionalData(nameof(JobProfileIndex.PreferredTaskTypes))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas))?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    FilterableAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty).ToLowerInvariant(),
+                    AlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty)?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
+                    Overview = item.GetConditionalData(nameof(JobProfileIndex.Overview), string.Empty),
+                    JobProfileCategories = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategories), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    JobProfileSpecialism = item.GetConditionalData(nameof(JobProfileIndex.JobProfileSpecialism), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    HiddenAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.HiddenAlternativeTitle), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    SalaryStarter = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryStarter), 0),
+                    SalaryExperienced = item.GetConditionalData<double>(nameof(JobProfileIndex.SalaryExperienced), 0),
+                    JobProfileCategoriesWithUrl = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategoriesWithUrl), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    Interests = item.GetConditionalData(nameof(JobProfileIndex.Interests), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    Enablers = item.GetConditionalData(nameof(JobProfileIndex.Enablers), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    EntryQualifications = item.GetConditionalData(nameof(JobProfileIndex.EntryQualifications), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    TrainingRoutes = item.GetConditionalData(nameof(JobProfileIndex.TrainingRoutes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    PreferredTaskTypes = item.GetConditionalData(nameof(JobProfileIndex.PreferredTaskTypes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 };
             }
         }
@@ -111,14 +111,9 @@ namespace DFC.Digital.Automation.Test.Utilities
             }).TrimEnd('-').ToLowerInvariant();
         }
 
-        private static string GetConditionalData(this TableRow item, string field, string defaultValue = null)
+        private static T GetConditionalData<T>(this TableRow item, string field, T defaultValue)
         {
-            return item.ContainsKey(field) ? item[field] : (defaultValue ?? string.Empty);
-        }
-
-        private static T GetConditionalData<T>(this TableRow item, string field)
-        {
-            return item.ContainsKey(field) ? (T)(object)item[field] : default(T);
+            return item.ContainsKey(field) ? (T)Convert.ChangeType(item[field], typeof(T)) : defaultValue;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string MaxAndMinHoursAreBlankText { get; set; } = "Variable";
 
         [DisplayName("Hours time period")]
-        public string HoursTimePeriodText { get; set; } = "per week";
+        public string HoursTimePeriodText { get; set; } = "(per week)";
 
         [DisplayName("Working Pattern Text")]
         public string WorkingPatternText { get; set; } = "You could work"; //"Working Pattern";

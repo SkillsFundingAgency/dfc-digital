@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         {
             //Setup the fakes and dummies
             var pageContentServiceFake = A.Fake<IJobProfilePage>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
 
             var dummyAnchorLinks = linksAvailable
@@ -102,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         {
             //Setup the fakes and dummies
             var pageContentServiceFake = A.Fake<IJobProfilePage>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
 
             var dummyAnchorLinks = linksAvailable

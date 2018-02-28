@@ -44,7 +44,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
         public void ThrowsException_GetMedianDeciles_From_AsheFeed(string socCode, string expectedSocCode)
         {
             //Arrange
-            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var applicationLogger = A.Fake<IApplicationLogger>();
             var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
             var httpResponseMessage = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
 

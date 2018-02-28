@@ -20,7 +20,8 @@
             display: block;
             height: 0;
             width: 0;
-            position: absolute;
+            position: relative;
+            margin: 0;
             outline: none !important;
 
             & + input + label, & + label {
@@ -35,6 +36,7 @@
                 box-sizing: border-box;
                 min-height: 100px;
                 float: left;
+                cursor: pointer;
 
                 @include media(tablet) {
                     min-width: 48%;

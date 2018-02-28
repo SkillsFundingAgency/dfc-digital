@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -393,22 +394,22 @@
     <Compile Include="Config\AutofacContainerFactory.cs" />
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
-    <Compile Include="DfcCustomRequestValidator.cs" />
+    <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
     <Compile Include="Interface\ISitefinityPage.cs" />
     <Compile Include="Interface\ISitefinityCurrentContext.cs" />
     <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Config\Startup.cs" />
-    <Compile Include="AlertPageCodeStatusSetter.cs">
+    <Compile Include="Startup.cs" />
+    <Compile Include="SitefinityExtensions\AlertPageCodeStatusSetter.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="JobProfilePageContentService.cs" />
-    <Compile Include="SitefinityCurrentContext.cs" />
-    <Compile Include="SitefinityPage.cs" />
+    <Compile Include="SitefinityExtensions\JobProfilePageContentService.cs" />
+    <Compile Include="SitefinityExtensions\SitefinityCurrentContext.cs" />
+    <Compile Include="SitefinityExtensions\SitefinityPage.cs" />
     <Compile Include="Utility\SitefinityConstants.cs" />
-    <Compile Include="WebAppContext.cs" />
+    <Compile Include="SitefinityExtensions\WebAppContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

@@ -264,7 +264,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         private void SetUpFakesAndCalls(bool addNotApplicable = true)
         {
             psfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
-            loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            loggerFake = A.Fake<IApplicationLogger>();
             webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
 
             psfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());

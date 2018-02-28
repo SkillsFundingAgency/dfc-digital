@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 return string.Empty;
             }
 
-            searchTerm = Regex.Replace(searchTerm, Constants.ValidBauSearchCharacters, string.Empty);
+            searchTerm = Regex.Replace(searchTerm, Constants.ValidBAUSearchCharacters, string.Empty);
 
             return HttpUtility.UrlEncode(searchTerm);
         }

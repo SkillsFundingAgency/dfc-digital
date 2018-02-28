@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.AzureSearch
                 ;
 
             builder.Register(CreateSearchIndexClient)
-                .InstancePerLifetimeScope()
+                .SingleInstance()
                 ;
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()

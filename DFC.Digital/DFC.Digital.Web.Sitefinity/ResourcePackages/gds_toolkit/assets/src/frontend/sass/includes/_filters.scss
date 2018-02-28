@@ -21,7 +21,6 @@
             height: 0;
             width: 0;
             position: relative;
-            visibility: hidden;
             margin: 0;
             outline: none !important;
 
@@ -37,6 +36,7 @@
                 box-sizing: border-box;
                 min-height: 100px;
                 float: left;
+                cursor: pointer;
 
                 @include media(tablet) {
                     min-width: 48%;

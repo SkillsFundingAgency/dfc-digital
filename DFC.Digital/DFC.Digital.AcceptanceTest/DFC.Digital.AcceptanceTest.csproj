@@ -152,6 +152,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\PreSearchFilter.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreSearchFilter.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
@@ -190,6 +195,10 @@
     <None Include="AcceptanceCriteria\Features\JobProfileCategory.feature" />
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AcceptanceCriteria\Features\PreSearchFilter.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PreSearchFilter.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature" />
     <None Include="App.config">

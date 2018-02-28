@@ -20,6 +20,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private IMapper mapper;
+        private IAsyncHelper asyncHelper;
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -28,17 +29,18 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
+            asyncHelper = new AsyncHelper();
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"the following job profiles exist:")]
-        public async Task GivenTheFollowingJobProfilesExistAsync(Table table)
+        public void GivenTheFollowingJobProfilesExistAsync(Table table)
         {
             try
             {
-                await searchService.EnsureIndexAsync(searchIndex.Name);
-                await searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex());
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
             }
             catch (Exception ex)
             {
@@ -47,12 +49,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Given(@"that '(.*)' job profiles exist with '(.*)':")]
-        public async Task GivenThatJobProfilesExistWithAsync(int countOfDummies, string jobTitle)
+        public void GivenThatJobProfilesExistWithAsync(int countOfDummies, string jobTitle)
         {
             try
             {
-                await searchService.EnsureIndexAsync(searchIndex.Name);
-                await searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobTitle));
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobTitle)));
             }
             catch (Exception ex)
             {

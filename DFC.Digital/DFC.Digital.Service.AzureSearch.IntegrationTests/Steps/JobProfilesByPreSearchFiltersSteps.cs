@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
@@ -18,6 +19,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
+        private IAsyncHelper asyncHelper;
 
         public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -26,6 +28,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.searchIndex = searchIndex;
             this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
+            asyncHelper = new AsyncHelper();
         }
 
         private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
@@ -33,10 +36,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"Given I have the following profiles tagged with the following PSF tags")]
-        public async Task GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTagsAsync(Table table)
+        public void GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTagsAsync(Table table)
         {
-            await searchService.EnsureIndexAsync(searchIndex.Name);
-            await searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex());
+            asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+            asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
         }
 
         [When(@"I filter with the following PSF items")]

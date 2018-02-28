@@ -7,6 +7,7 @@ using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -23,8 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         private readonly IMapper mapper;
-        private readonly ISalaryService salaryService;
-        private readonly ISalaryCalculator salaryCalculator;
+        private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
         private readonly IAsyncHelper asyncHelper;
 
         #endregion Private Fields
@@ -37,15 +37,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IApplicationLogger applicationLogger,
             ISitefinityPage sitefinityPage,
             IMapper mapper,
-            ISalaryService salaryService,
-            ISalaryCalculator salaryCalculator,
-            IAsyncHelper asyncHelper)
+            IAsyncHelper asyncHelper,
+            ISearchQueryService<JobProfileIndex> searchService)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
             this.mapper = mapper;
-            this.salaryService = salaryService;
-            this.salaryCalculator = salaryCalculator;
             this.asyncHelper = asyncHelper;
+            this.searchQueryService = searchService;
         }
 
         #endregion Constructors
@@ -117,7 +115,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected override ActionResult GetEditorView()
         {
             // Sitefinity cannot handle async very well. So initialising it on current UI thread.
-            JobProfileDetailsViewModel model = mapper.Map<JobProfileDetailsViewModel>(CurrentJobProfile);
+            var model = mapper.Map<JobProfileDetailsViewModel>(CurrentJobProfile);
             return asyncHelper.Synchronise(() => GetJobProfileDetailsViewAsync(model));
         }
 
@@ -155,10 +153,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private async Task<JobProfileDetailsViewModel> PopulateSalaryAsync(JobProfileDetailsViewModel model)
         {
-            var salary = await salaryService.GetSalaryBySocAsync(CurrentJobProfile.SOCCode);
+            var properties = new SearchProperties
+            {
+                FilterBy = $"{nameof(JobProfileIndex.UrlName)} eq '{model.UrlName.Replace("'", "''")}'"
+            };
 
-            model.SalaryStarter = salaryCalculator.GetStarterSalary(salary);
-            model.SalaryExperienced = salaryCalculator.GetExperiencedSalary(salary);
+            var jobProfileSearchResult = await searchQueryService.SearchAsync(model.Title, properties);
+
+            var jobProfileIndexItem = jobProfileSearchResult.Results.FirstOrDefault()?.ResultItem;
+            if (jobProfileIndexItem != null)
+            {
+                model.SalaryStarter = jobProfileIndexItem.SalaryStarter;
+                model.SalaryExperienced = jobProfileIndexItem.SalaryExperienced;
+            }
 
             return model;
         }

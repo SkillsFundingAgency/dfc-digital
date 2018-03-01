@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Core.Utilities
+﻿namespace DFC.Digital.Core
 {
     public static class Constants
     {
@@ -27,5 +27,6 @@
         public const string AsheAccessKey = "DFC.Digital.AsheFeedAccessKey";
         public const string AsheEstimateMDApiGateway = "DFC.Digital.AsheEstimateMdApiGateway";
         public const decimal Multiplier = 52;
+        public const string Ashe = "LMI-ASHE";
     }
 }

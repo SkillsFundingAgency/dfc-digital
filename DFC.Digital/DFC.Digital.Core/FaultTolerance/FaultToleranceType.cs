@@ -10,6 +10,7 @@ namespace DFC.Digital.Core
     {
         Timeout,
         Retry,
+        WaitRetry,
         CircuitBreaker,
         RetryWithCircuitBreaker
     }

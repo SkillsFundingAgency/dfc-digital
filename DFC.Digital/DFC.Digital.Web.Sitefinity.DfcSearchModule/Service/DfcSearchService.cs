@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             {
                 //TODO: think about mapping from sitefinity field defenitions to domain model?
                 //Or is it correct to keep them in sync anyway?
-                this.searchService?.EnsureIndex(name);
+                asyncHelper.Synchronise(() => this.searchService?.EnsureIndexAsync(name));
             }
             else
             {

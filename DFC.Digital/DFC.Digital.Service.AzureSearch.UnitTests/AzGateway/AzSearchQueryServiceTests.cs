@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
@@ -24,7 +25,8 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var dummySearchProperty = A.Dummy<SearchProperties>();
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
-            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
 
             //Configure
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
@@ -32,7 +34,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
 
             //Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, applicationLogger);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, policy, fakeLogger);
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert
@@ -45,6 +47,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [Fact]
         public void GetSuggestionTest()
         {
+            var fakePolicy = A.Fake<Core.ITolerancePolicy>();
             var fakeDocuments = A.Fake<IDocumentsOperations>();
             var fakeIndexClient = A.Fake<ISearchIndexClient>();
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();

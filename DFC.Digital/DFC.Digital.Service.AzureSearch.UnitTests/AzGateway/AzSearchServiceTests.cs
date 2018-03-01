@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
-using DFC.Digital.Core.Utilities;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using Microsoft.Azure.Search;
@@ -22,15 +23,22 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         private readonly ISearchServiceClient fakeSearchClient = A.Fake<ISearchServiceClient>();
         private readonly IIndexesOperations fakeIndexes = A.Fake<IIndexesOperations>();
         private readonly IDocumentsOperations fakeDocuments = A.Fake<IDocumentsOperations>();
+        private IApplicationLogger fakeLogger = A.Fake<IApplicationLogger>();
+        private ITolerancePolicy policy;
+
+        public AzSearchServiceTests()
+        {
+            policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
+        }
 
         [Fact]
-        public void EnsureIndexTest()
+        public async Task EnsureIndexTestAsync()
         {
             //Arrange or configure
             A.CallTo(() => fakeSearchClient.Indexes).Returns(fakeIndexes);
 
-            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder);
-            azSearchService.EnsureIndex("test");
+            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder, policy);
+            await azSearchService.EnsureIndexAsync("test");
 
             A.CallTo(() => fakeSuggesterBuilder.BuildForType<JobProfileIndex>()).MustHaveHappened();
             A.CallTo(() => fakeSearchClient.Indexes).MustHaveHappened();
@@ -50,7 +58,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                 A<string>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
                 .Returns(azOpResponse);
 
-            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder);
+            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder, policy);
             azSearchService.DeleteIndex("test");
 
             A.CallTo(() => fakeSearchClient.Indexes).MustHaveHappened();
@@ -81,7 +89,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                 A<IndexBatch<JobProfileIndex>>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
                 .Returns(azOpResponse);
 
-            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder);
+            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder, policy);
             await azSearchService.PopulateIndexAsync(dummyCollectionOfData);
 
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
@@ -91,7 +99,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                     A<SearchRequestOptions>._,
                     A<Dictionary<string, List<string>>>._,
                     A<CancellationToken>._))
-                .MustHaveHappened(statusCode > 400 ? Repeated.Exactly.Times(4) : Repeated.Exactly.Once);
+                .MustHaveHappened(statusCode > 400 ? Repeated.Exactly.Times(new TransientFaultHandlingStrategy().Retry + 1) : Repeated.Exactly.Once);
         }
     }
 }

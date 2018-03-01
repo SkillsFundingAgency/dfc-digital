@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System.Net.Http;
 
-namespace DFC.Digital.Core.Utilities
+namespace DFC.Digital.Core
 {
     public class HttpClientService : IHttpClientService
     {

@@ -8,7 +8,7 @@ using FluentAssertions;
 using Xunit;
 using Notify.Exceptions;
 using System;
-using DFC.Digital.Core.Utilities;
+using DFC.Digital.Core;
 
 namespace DFC.Digital.Service.GovUkNotify.UnitTests
 {

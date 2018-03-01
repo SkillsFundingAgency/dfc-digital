@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System.Linq;
-using DFC.Digital.Core.Utilities;
+using DFC.Digital.Core;
 
 namespace DFC.Digital.Service.LMIFeed
 {

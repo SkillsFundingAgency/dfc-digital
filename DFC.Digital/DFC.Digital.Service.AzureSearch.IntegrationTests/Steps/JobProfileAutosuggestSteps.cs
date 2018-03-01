@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
-using DFC.Digital.Core.Extensions;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;

@@ -53,6 +53,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();
             var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var suggestParameters = new SuggestParameters { UseFuzzyMatching = true, Top = null };
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
             var azResponse = new AzureOperationResponse<DocumentSuggestResult<JobProfileIndex>>
             {
                 Body = new DocumentSuggestResult<JobProfileIndex>
@@ -80,7 +81,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocuments);
 
             // Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, applicationLogger);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, policy, applicationLogger);
             searchService.GetSuggestion("searchTerm", new SuggestProperties { MaxResultCount = 20, UseFuzzyMatching = true });
 
             A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).MustHaveHappened();

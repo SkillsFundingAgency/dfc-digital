@@ -11,6 +11,11 @@
             background-color: $grey-3;
         }
 
+       .column-full {
+            font-size: 18px;
+            color: $grey-1;
+        }
+
         &.list-service_Red {
             border-left: 10px solid $red;
             padding: 5px 10px;

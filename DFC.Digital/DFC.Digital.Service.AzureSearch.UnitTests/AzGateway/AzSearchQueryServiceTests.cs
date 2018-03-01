@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using Microsoft.Azure.Search;
@@ -23,6 +24,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var dummySearchProperty = A.Dummy<SearchProperties>();
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
+            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
 
             //Configure
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
@@ -30,7 +32,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
 
             //Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, applicationLogger);
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert
@@ -46,6 +48,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var fakeDocuments = A.Fake<IDocumentsOperations>();
             var fakeIndexClient = A.Fake<ISearchIndexClient>();
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();
+            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var suggestParameters = new SuggestParameters { UseFuzzyMatching = true, Top = null };
             var azResponse = new AzureOperationResponse<DocumentSuggestResult<JobProfileIndex>>
             {
@@ -74,7 +77,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocuments);
 
             // Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, applicationLogger);
             searchService.GetSuggestion("searchTerm", new SuggestProperties { MaxResultCount = 20, UseFuzzyMatching = true });
 
             A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).MustHaveHappened();

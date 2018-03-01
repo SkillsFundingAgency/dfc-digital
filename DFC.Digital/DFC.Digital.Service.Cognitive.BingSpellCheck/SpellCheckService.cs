@@ -15,10 +15,12 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
         private readonly IHttpClientService httpClientService;
+        private readonly IApplicationLogger applicationLogger;
 
-        public SpellCheckService(IHttpClientService httpClientService)
+        public SpellCheckService(IHttpClientService httpClientService, IApplicationLogger applicationLogger)
         {
             this.httpClientService = httpClientService;
+            this.applicationLogger = applicationLogger;
         }
 
         #region Implement of IServiceStatus
@@ -65,7 +67,9 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.Message}";
+                var activityId = Guid.NewGuid().ToString();
+                serviceStatus.Notes = $"Exception: Check logs with activity id - {activityId}";
+                applicationLogger.ErrorJustLogIt($"Service status check failed for activity id - {activityId}", ex);
             }
 
             return serviceStatus;

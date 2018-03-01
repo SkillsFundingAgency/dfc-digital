@@ -128,6 +128,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
 
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
             serviceStatus.Notes.Should().Contain("Exception");
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
         }
 
     }

@@ -15,15 +15,17 @@ namespace DFC.Digital.Service.AzureSearch
 
         private ISearchIndexClient indexClient;
         private IAzSearchQueryConverter queryConverter;
+        private IApplicationLogger applicationLogger;
 
         #endregion Fields
 
         #region ctor
 
-        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter)
+        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, IApplicationLogger applicationLogger)
         {
             this.indexClient = indexClient;
             this.queryConverter = queryConverter;
+            this.applicationLogger = applicationLogger;
         }
 
         #endregion ctor
@@ -57,7 +59,9 @@ namespace DFC.Digital.Service.AzureSearch
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.Message}";
+                var activityId = Guid.NewGuid().ToString();
+                serviceStatus.Notes = $"Exception: Check logs with activity id - {activityId}";
+                applicationLogger.ErrorJustLogIt($"Service status check failed for activity id - {activityId}", ex);
             }
 
             return serviceStatus;

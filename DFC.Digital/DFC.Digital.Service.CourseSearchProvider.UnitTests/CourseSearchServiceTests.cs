@@ -95,8 +95,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var fakePolicy = A.Fake<Core.ITolerancePolicy>();
 
+
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
+            A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
@@ -119,6 +121,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, "Bad EndPoint")).Returns(GetDummyCourseOutput());
+            A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 
@@ -128,6 +131,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
             serviceStatus.Notes.Should().Contain("Exception");
+            A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
         }
 
 

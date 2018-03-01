@@ -60,7 +60,9 @@ namespace DFC.Digital.Service.LMIFeed
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"Exception: {ex.Message}";
+                var activityId = Guid.NewGuid().ToString();
+                serviceStatus.Notes = $"Exception: Check logs with activity id - {activityId}";
+                applicationLogger.ErrorJustLogIt("Service status check failed for activity id - {activityId}", ex);
             }
             return serviceStatus;
         }

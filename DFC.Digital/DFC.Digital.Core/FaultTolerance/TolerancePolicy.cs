@@ -91,7 +91,7 @@ namespace DFC.Digital.Core
             switch (toleranceType)
             {
                 case FaultToleranceType.WaitRetry:
-                    policy = (Policy<T>)policies.GetOrAdd(dependencyName, GetWaitAndRetryPolicyAsync(dependencyName, predicate));
+                    policy = (Policy<T>)policies.GetOrAdd($"{dependencyName}-predicate", GetWaitAndRetryPolicyAsync(dependencyName, predicate));
                     break;
 
                 case FaultToleranceType.Retry:

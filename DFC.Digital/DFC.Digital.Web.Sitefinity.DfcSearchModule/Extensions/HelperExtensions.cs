@@ -29,7 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions
                 };
 
                 jobProfileIndexEnhancer.Initialise(jobProfile);
-                jobProfile.SalaryRange = asyncHelper.Synchronise(() => jobProfileIndexEnhancer.GetSalaryRangeAsync());
+                var profile = jobProfile;
+                jobProfile = asyncHelper.Synchronise(() => jobProfileIndexEnhancer.GetSalaryRangeAsync(profile));
                 jobProfile = jobProfileIndexEnhancer.GetRelatedFieldsWithUrl(jobProfile);
                 indexes.Add(jobProfile);
             }

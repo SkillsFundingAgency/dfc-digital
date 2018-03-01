@@ -6,6 +6,6 @@
     <add key="apiKey" value="__zapApiKey__" />
     <add key="host" value="__zapHost__" />
     <add key="port" value="__zapPort__" />
-	<add key="ShouldRunSpiderAndScan" value="True"/>
+	  <add key="ShouldRunSpiderAndScan" value="True"/>
   </appSettings>
 </configuration>

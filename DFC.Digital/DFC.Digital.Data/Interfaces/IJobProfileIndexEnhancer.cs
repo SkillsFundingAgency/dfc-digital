@@ -9,6 +9,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void Initialise(JobProfileIndex jobProfile);
 
-        Task<string> GetSalaryRangeAsync();
+        Task<JobProfileIndex> GetSalaryRangeAsync(JobProfileIndex jobProfileIndex);
     }
 }

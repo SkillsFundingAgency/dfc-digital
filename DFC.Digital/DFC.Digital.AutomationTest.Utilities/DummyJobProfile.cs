@@ -8,9 +8,9 @@ namespace DFC.Digital.AutomationTest.Utilities
     {
         public static IEnumerable<JobProfile> GetDummyJobProfiles()
         {
-            yield return new JobProfile { Title = "A Job Profile 1", AlternativeTitle = "D Alternative Title 1", Overview = "Overview 1", UrlName = "urlName_1", SalaryStarter = null, SOCCode = "Soc 1" };
-            yield return new JobProfile { Title = "B Job Profile 2", AlternativeTitle = "E Alternative Title 2", Overview = "Overview 2", UrlName = "urlName_2", SalaryStarter = null, SOCCode = "Soc 2" };
-            yield return new JobProfile { Title = "C Job Profile 3", AlternativeTitle = null, Overview = "Overview 3 - No alterative title", UrlName = "urlName_3", SalaryStarter = null, SOCCode = "Soc 3" };
+            yield return new JobProfile { Title = "A Job Profile 1", AlternativeTitle = "D Alternative Title 1", Overview = "Overview 1", UrlName = "urlName_1", SalaryStarter = 0, SalaryExperienced = 0, SOCCode = "Soc 1" };
+            yield return new JobProfile { Title = "B Job Profile 2", AlternativeTitle = "E Alternative Title 2", Overview = "Overview 2", UrlName = "urlName_2", SalaryStarter = 0, SalaryExperienced = 0, SOCCode = "Soc 2" };
+            yield return new JobProfile { Title = "C Job Profile 3", AlternativeTitle = null, Overview = "Overview 3 - No alterative title", UrlName = "urlName_3", SalaryStarter = 0, SalaryExperienced = 0, SOCCode = "Soc 3" };
         }
 
         public static IEnumerable<JobProfile> GetDummyJobProfilesForCategory()

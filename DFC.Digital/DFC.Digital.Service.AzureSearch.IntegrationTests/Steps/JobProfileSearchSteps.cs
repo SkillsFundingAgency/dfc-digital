@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
-using DFC.Digital.Core.Extensions;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -19,6 +20,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private IMapper mapper;
+        private IAsyncHelper asyncHelper;
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -27,17 +29,18 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
+            asyncHelper = new AsyncHelper();
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
 
         [Given(@"the following job profiles exist:")]
-        public void GivenTheFollowingJobProfilesExist(Table table)
+        public void GivenTheFollowingJobProfilesExistAsync(Table table)
         {
             try
             {
-                searchService.EnsureIndex(searchIndex.Name);
-                searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
             }
             catch (Exception ex)
             {
@@ -46,12 +49,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Given(@"that '(.*)' job profiles exist with '(.*)':")]
-        public void GivenThatJobProfilesExistWith(int countOfDummies, string jobTitle)
+        public void GivenThatJobProfilesExistWithAsync(int countOfDummies, string jobTitle)
         {
             try
             {
-                searchService.EnsureIndex(searchIndex.Name);
-                searchService.PopulateIndex(countOfDummies.CreateWithTitle(jobTitle));
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobTitle)));
             }
             catch (Exception ex)
             {
@@ -140,10 +143,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Given(@"there are '(.*)' profiles which have a Title of '(.*)'")]
-        public void GivenThereAreProfilesWhichHaveATitleOf(int countOfDummies, string jobProfileTitle)
+        public async Task GivenThereAreProfilesWhichHaveATitleOfAsync(int countOfDummies, string jobProfileTitle)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(countOfDummies.CreateWithTitle(jobProfileTitle));
+            await searchService.EnsureIndexAsync(searchIndex.Name);
+            await searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobProfileTitle));
         }
 
         [Then(@"the number of job profiles shown on the page is less than or equal to '(.*)'\. \(i\.e\. the page limit\)")]

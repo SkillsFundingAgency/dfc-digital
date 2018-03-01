@@ -13,9 +13,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
     public class JobProfileIndexEnhancerTests
     {
         [Theory]
-        [InlineData(false, "£1,000 to £2,000")]
-        [InlineData(true, "£10 to £20")]
-        public async Task GetSalaryRangeAsyncTestAsync(bool isSalaryOverriden, string expectedString)
+        [InlineData(false, 1000, 2000)]
+        [InlineData(true, 10, 20)]
+        public async Task GetSalaryRangeAsyncTestAsync(bool isSalaryOverriden, decimal salaryStarterExpected, decimal salaryExperiencedExpected)
         {
             var fakeJobProfileRepo = A.Fake<IJobProfileRepository>();
             var fakeJobProfileCategoryRepo = A.Fake<IJobProfileCategoryRepository>();
@@ -25,8 +25,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             var dummyJobProfile = new JobProfile
             {
                 IsLMISalaryFeedOverriden = isSalaryOverriden,
-                SalaryStarter = 10,
-                SalaryExperienced = 20,
+                SalaryStarter = salaryStarterExpected,
+                SalaryExperienced = salaryExperiencedExpected,
+                SOCCode = nameof(JobProfile.SOCCode)
             };
             var dummySalary = new JobProfileSalary
             {
@@ -45,9 +46,10 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
             enhancer.Initialise(dummyJobProfileIndex);
 
-            var result = await enhancer.GetSalaryRangeAsync();
+            var result = await enhancer.GetSalaryRangeAsync(dummyJobProfileIndex);
 
-            result.Should().Be(expectedString);
+            result.SalaryExperienced.ShouldBeEquivalentTo(salaryExperiencedExpected);
+            result.SalaryStarter.ShouldBeEquivalentTo(salaryStarterExpected);
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustHaveHappened();
             if (isSalaryOverriden)
             {

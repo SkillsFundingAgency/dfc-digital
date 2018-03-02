@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace DFC.Digital.Data.Interfaces
+namespace DFC.Digital.Core
 {
     public interface IHttpClientService
     {

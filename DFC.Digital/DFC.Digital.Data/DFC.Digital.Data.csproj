@@ -80,14 +80,11 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Interfaces\IApplicationLogger.cs" />
-    <Compile Include="Interfaces\IAsyncHelper.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />
-    <Compile Include="Interfaces\IHttpClientService.cs" />
     <Compile Include="Interfaces\IJobProfileIndexEnhancer.cs" />
     <Compile Include="Interfaces\IJobProfilePage.cs" />
     <Compile Include="Interfaces\IDigitalDataModel.cs" />

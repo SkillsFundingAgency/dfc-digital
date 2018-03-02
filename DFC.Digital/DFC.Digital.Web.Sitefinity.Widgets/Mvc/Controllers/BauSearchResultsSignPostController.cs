@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 return string.Empty;
             }
 
-            searchTerm = Regex.Replace(searchTerm, Constants.ValidBauSearchCharacters, string.Empty);
+            searchTerm = Regex.Replace(searchTerm, Constants.ValidBAUSearchCharacters, string.Empty);
 
             return HttpUtility.UrlEncode(searchTerm);
         }

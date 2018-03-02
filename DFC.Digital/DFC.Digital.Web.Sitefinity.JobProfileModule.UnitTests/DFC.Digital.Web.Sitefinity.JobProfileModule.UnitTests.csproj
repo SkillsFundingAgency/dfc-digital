@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -147,6 +148,7 @@
     <Compile Include="Views\BauJobProfileSignPostViewTests.cs" />
     <Compile Include="Views\JobProfileAnchorViewTests.cs" />
     <Compile Include="Views\JobProfileCourseOpportunityViewTests.cs" />
+    <Compile Include="Views\JobProfileDetailsViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />
     <Compile Include="Views\PsfSearchViewTests.cs" />
     <Compile Include="Views\JobProfileSettingsAndPreviewViewTests.cs" />

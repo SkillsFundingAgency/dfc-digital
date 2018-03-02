@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
@@ -18,6 +19,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
+        private IAsyncHelper asyncHelper;
 
         public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
@@ -26,6 +28,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             this.searchIndex = searchIndex;
             this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
+            this.asyncHelper = new AsyncHelper();
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
@@ -33,10 +36,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
 
         [Given(@"the following job profiles in catogories  exist:")]
-        public void GivenTheFollowingJobProfilesInCatogoriesExist(Table table)
+        public void GivenTheFollowingJobProfilesInCatogoriesExistAsync(Table table)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+            asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+            asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
         }
 
         [When(@"I filter by the category '(.*)'")]

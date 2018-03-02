@@ -1,5 +1,5 @@
 ﻿using Castle.DynamicProxy;
-using DFC.Digital.Core.Extensions;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -21,6 +21,11 @@ namespace DFC.Digital.Core.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
+            if (invocation == null)
+            {
+                throw new System.ArgumentNullException(nameof(invocation));
+            }
+
             var returnType = invocation.Method.ReturnType;
             if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
             {

@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
@@ -19,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         public void IndexTest(string searchTerm)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var contentValue = "http://www.search.com?searcherm={0}";
 
             // Set up calls
@@ -48,11 +48,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         public void IndexSpecialCharactersTest(string searchTerm)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var contentValue = "http://www.search.com?searcherm={0}";
 
             // Set up calls
-            var modelContent = string.Format(contentValue, HttpUtility.UrlEncode(Regex.Replace(searchTerm, Constants.ValidBauSearchCharacters, string.Empty)));
+            var modelContent = string.Format(contentValue, HttpUtility.UrlEncode(Regex.Replace(searchTerm, Constants.ValidBAUSearchCharacters, string.Empty)));
 
             //Instantiate & Act
             using (var bauSearchResultsSignPostController = new BauSearchResultsSignPostController(loggerFake)

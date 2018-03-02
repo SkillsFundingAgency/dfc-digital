@@ -9,7 +9,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
 {
-    public class JobProfileDetaiilsViewTests
+    public class JobProfileDetailsViewTests
     {
         private const string HoursTimePeriodTestText = "\r\nper Week\r\n    ";
 
@@ -19,79 +19,32 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [InlineData("", "48")]
         [InlineData("", "")]
 
-        //As a content author, I want to enter and edit the hours overview in the job profile template - fixed for DFC-2047
-        public void DFC_527_JobProfileHours(string minHours, string maxHours)
+        //As a content author, I want to enter and edit the hours overview in the job profile template
+        public void DFC_2103_JobProfileWorkingHours(string minHours, string maxHours)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
-            var hoursTestText = "Hours";
+
             var maxAndMinHoursAreBlankTestText = "Vairable";
 
             var model = new JobProfileDetailsViewModel
             {
                 MinimumHours = minHours,
                 MaximumHours = maxHours,
-                HoursText = hoursTestText,
-                MaxAndMinHoursAreBlankText = maxAndMinHoursAreBlankTestText,
-                HoursTimePeriodText = HoursTimePeriodTestText
+                MaxAndMinHoursAreBlankText = maxAndMinHoursAreBlankTestText
             };
 
             // Act
             var htmlDom = indexView.RenderAsHtml(model);
 
             // Asserts
-            if (string.IsNullOrWhiteSpace(model.MinimumHours) && string.IsNullOrWhiteSpace(model.MaximumHours))
+            if (string.IsNullOrWhiteSpace(model.MinimumHours) || string.IsNullOrWhiteSpace(model.MaximumHours))
             {
                 GetHoursSummaryText(htmlDom).Should().Be(maxAndMinHoursAreBlankTestText);
             }
-            else if (!string.IsNullOrWhiteSpace(model.MinimumHours) && !string.IsNullOrWhiteSpace(model.MaximumHours))
-            {
-                //this we can target exactly as its in a span
-                GetHoursSummaryText(htmlDom).Should().Be($"{model.MinimumHours} to {model.MaximumHours}");
-                CheckHoursPeriodText(htmlDom, HoursTimePeriodTestText);
-            }
-            else if (!string.IsNullOrWhiteSpace(model.MinimumHours))
-            {
-                //this we can target exactly as its in a span
-                GetHoursSummaryText(htmlDom).Should().Be($"{model.MinimumHours}");
-                CheckHoursPeriodText(htmlDom, HoursTimePeriodTestText);
-            }
-            else if (!string.IsNullOrWhiteSpace(model.MaximumHours))
-            {
-                //this we can target exactly as its in a span
-                GetHoursSummaryText(htmlDom).Should().Be($"{model.MaximumHours}");
-                CheckHoursPeriodText(htmlDom, HoursTimePeriodTestText);
-            }
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-
-        //As a content author, I want to enter and edit the hours overview in the job profile template
-        public void DFC_1673_JobProfileSignPosting(bool displaySignPosting)
-        {
-            // Arrange
-            var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
-
-            var model = new JobProfileDetailsViewModel
-            {
-                Title = "JP Title",
-                DisplaySignPostingToBAU = displaySignPosting,
-                SignPostingHTML = "<p class='signpost'>Test sign html</p>"
-            };
-
-            // Act
-            var htmlDom = indexView.RenderAsHtml(model);
-
-            var signPostingElement = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'signpost')]");
-            if (displaySignPosting)
-            {
-                signPostingElement.FirstOrDefault().OuterHtml.Should().Contain(model.SignPostingHTML);
-            }
             else
             {
-                signPostingElement.Should().BeNull();
+                GetHoursSummaryText(htmlDom).Should().Be($"{model.MinimumHours} to {model.MaximumHours}");
             }
         }
 
@@ -109,16 +62,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             string salaryStarterText = "Starter";
             string salaryExperiencedText = "Experienced";
 
-            decimal? salaryStarter = null;
-            decimal salaryStarterGoodValue;
-            if (decimal.TryParse(salaryStarterString, out salaryStarterGoodValue))
+            double salaryStarter = 0;
+            double salaryStarterGoodValue;
+            if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
             {
                 salaryStarter = salaryStarterGoodValue;
             }
 
-            decimal? salaryExperienced = null;
-            decimal salaryExperiencedGoodValue;
-            if (decimal.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+            double salaryExperienced = 0;
+            double salaryExperiencedGoodValue;
+            if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
             {
                 salaryExperienced = salaryExperiencedGoodValue;
             }
@@ -136,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             var htmlDom = indexView.RenderAsHtml(model);
 
             // Asserts
-            if (model.SalaryStarter.HasValue && model.SalaryExperienced.HasValue)
+            if (model.SalaryStarter > 0 && model.SalaryExperienced > 0)
             {
                 GetSalaryStarter(htmlDom, salaryStarterText).Should().Be(model.SalaryStarter);
                 GetSalaryExperienced(htmlDom, salaryExperiencedText).Should().Be(model.SalaryExperienced);
@@ -194,20 +147,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         private static string GetHoursSummaryText(HtmlDocument htmlDom)
         {
             var summaryHoursElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jphours')]").FirstOrDefault();
-
-            if (summaryHoursElement != null)
-            {
-                if (summaryHoursElement.InnerText.Contains(HoursTimePeriodTestText))
-                {
-                    return summaryHoursElement.InnerText.Replace(HoursTimePeriodTestText, string.Empty).Trim();
-                }
-                else
-                {
-                    return summaryHoursElement.InnerText;
-                }
-            }
-
-            return string.Empty;
+            return summaryHoursElement?.InnerText.Replace("\r\n", string.Empty).Trim();
         }
 
         private static string GetWorkingPatternText(HtmlDocument htmlDom)
@@ -229,19 +169,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             summaryHoursElement?.InnerHtml.Should().Contain(hoursTimePeriodTestText);
         }
 
-        private static decimal? GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
+        private static double GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
         {
             var salaryStarterElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsstarter')]").FirstOrDefault();
 
-            decimal? salaryStarter = null;
+            double salaryStarter = 0;
 
             if (salaryStarterElement != null)
             {
                 if (salaryStarterElement.InnerText.Contains(salaryStarterText))
                 {
                     string salaryStarterString = salaryStarterElement.InnerText.Replace(salaryStarterText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    decimal salaryStarterGoodValue;
-                    if (decimal.TryParse(salaryStarterString, out salaryStarterGoodValue))
+                    double salaryStarterGoodValue;
+                    if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
                     {
                         salaryStarter = salaryStarterGoodValue;
                     }
@@ -253,19 +193,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             return salaryStarter;
         }
 
-        private static decimal? GetSalaryExperienced(HtmlDocument htmlDom, string salaryExperiencedText)
+        private static double GetSalaryExperienced(HtmlDocument htmlDom, string salaryExperiencedText)
         {
             var salaryExperiencedElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsexperienced')]").FirstOrDefault();
 
-            decimal? salaryExperienced = null;
+            double salaryExperienced = 0;
 
             if (salaryExperiencedElement != null)
             {
                 if (salaryExperiencedElement.InnerText.Contains(salaryExperiencedText))
                 {
                     string salaryExperiencedString = salaryExperiencedElement.InnerText.Replace(salaryExperiencedText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    decimal salaryExperiencedGoodValue;
-                    if (decimal.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+                    double salaryExperiencedGoodValue;
+                    if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
                     {
                         salaryExperienced = salaryExperiencedGoodValue;
                     }

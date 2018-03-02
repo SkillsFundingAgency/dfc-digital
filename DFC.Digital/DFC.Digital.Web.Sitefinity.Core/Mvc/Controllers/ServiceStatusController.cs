@@ -54,17 +54,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
             return View(serviceStatusModel);
         }
-
-        public ActionResult TestIndex()
-        {
-            var a =  new ServiceStatusModel()
-            {
-                CheckDateTime = DateTime.Now,
-                ServiceStatues = new List<ServiceStatus>()
-            };
-
-            return View(a);
-        }
         #endregion
     }
 

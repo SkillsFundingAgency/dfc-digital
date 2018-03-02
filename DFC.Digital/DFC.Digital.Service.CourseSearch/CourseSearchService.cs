@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         private string ServiceName => "Course Search";
 
-        public Task<ServiceStatus> GetCurrentStatusAsync()
+        public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
@@ -45,7 +45,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
             try
             {
                 var request = MessageConverter.GetCourseListInput(checkSubject);
-                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSearchEndpointConfigName);
+                //var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSearchEndpointConfigName);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
@@ -63,7 +65,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
             }
 
-            return Task.FromResult(serviceStatus);
+            return serviceStatus;
         }
 
         public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)

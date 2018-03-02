@@ -39,6 +39,13 @@ namespace DFC.Digital.Core.Logging
             logService.Info(message);
         }
 
+        public string LogExceptionWithActivityId(Exception ex)
+        {
+            var activityId = Guid.NewGuid().ToString();
+            logService.LogException(NLog.LogLevel.Error, $"Service status check failed for activity id - {activityId}", ex);
+            return $"Service status check failed for activity id - {activityId}";
+        }
+
         public void Trace(string message)
         {
             logService.Trace(message);

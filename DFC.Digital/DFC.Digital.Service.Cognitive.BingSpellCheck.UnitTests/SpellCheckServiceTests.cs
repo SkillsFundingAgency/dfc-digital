@@ -86,7 +86,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "{\"_type\": \"Cause Exception\"}");
 
             A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<Exception>._)).Returns("Exception logged");
 
             var spellingService = new SpellCheckService(fakeHttpClientService, applicationLogger);
 
@@ -95,8 +95,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.Notes.Should().Contain("Exception");
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+            serviceStatus.Notes.Should().Contain("Exception logged");
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<Exception>._)).MustHaveHappened();
         }
     }
 }

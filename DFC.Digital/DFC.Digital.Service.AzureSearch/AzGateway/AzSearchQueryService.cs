@@ -61,9 +61,7 @@ namespace DFC.Digital.Service.AzureSearch
             }
             catch (Exception ex)
             {
-                var activityId = Guid.NewGuid().ToString();
-                serviceStatus.Notes = $"Exception: Check logs with activity id - {activityId}";
-                applicationLogger.ErrorJustLogIt($"Service status check failed for activity id - {activityId}", ex);
+                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
             }
 
             return serviceStatus;

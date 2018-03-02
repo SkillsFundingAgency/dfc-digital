@@ -111,10 +111,10 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
           
             //Fake set up incorrectly to cause exception
             A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Throws<NotifyClientException>();
-            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+           
+            A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<Exception>._)).Returns("Exception logged");
 
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
-
+            
             //Act
             var govUkNotifyService = new GovUkNotifyService(fakeApplicationLogger, fakeGovUkNotifyClient);
             var serviceStatus = await govUkNotifyService.GetCurrentStatusAsync();

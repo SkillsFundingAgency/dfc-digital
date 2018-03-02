@@ -844,6 +844,7 @@
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
     <Content Include="favicon.ico" />
     <Content Include="Mvc\Scripts\JobProfileSection\designerview-simple.js" />
+    <Content Include="Mvc\Views\Shared\readme.txt" />
     <Content Include="parameters.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -1075,12 +1076,11 @@
     <Content Include="App_Data\Sitefinity\Export\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_jobcategories.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_survey.scss" />
-    <Content Include="Mvc\Views\JobProfileSection\custom-html-field-template.sf-cshtml" />
+    <Content Include="Mvc\Views\Shared\custom-html-field-template.sf-cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.json" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_survey.scss" />
     <Content Include="App_Data\Sitefinity\Configuration\WebServicesConfig.config" />
-    <Content Include="Views\Shared\custom-html-field-template.sf-cshtml" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE.1.0.0.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\version.sf" />
@@ -1125,6 +1125,10 @@
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.10.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_casestudy.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />
+    <Content Include="Mvc\Views\JobProfileApprenticeships\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileApprenticeships\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\JobProfileCourseOpportunity\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileCourseOpportunity\DesignerView.Simple.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

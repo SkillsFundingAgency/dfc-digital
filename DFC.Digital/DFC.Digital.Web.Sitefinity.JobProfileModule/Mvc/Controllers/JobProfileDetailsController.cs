@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using DFC.Digital.Core.Utilities;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Web.Mvc;

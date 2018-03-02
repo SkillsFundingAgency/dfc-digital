@@ -24,6 +24,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         }
 
         #region Implement of IServiceStatus
+
         private string ServiceName => "Spell Check Service";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
@@ -37,32 +38,32 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
                 var requestUri = string.Format(bingSpellEndpoint, checkText);
 
-                using (var client = GetHttpClient())
+                var client = GetHttpClient();
+
+                var response = await client.GetAsync(requestUri);
+                if (response.IsSuccessStatusCode)
                 {
-                    var response = await client.GetAsync(requestUri);
-                    if (response.IsSuccessStatusCode)
+                    //Got a response back
+                    serviceStatus.Status = ServiceState.Amber;
+                    serviceStatus.Notes = "Success Response";
+
+                    var resultsString = await response.Content.ReadAsStringAsync();
+
+                    //Manged to read result information
+                    serviceStatus.Notes = "Success Result";
+
+                    dynamic spellSuggestions = JObject.Parse(resultsString);
+                    if (spellSuggestions.flaggedTokens.Count > 0)
                     {
-                        //Got a response back
-                        serviceStatus.Status = ServiceState.Amber;
-                        serviceStatus.Notes = "Success Response";
-
-                        var resultsString = await response.Content.ReadAsStringAsync();
-
-                        //Manged to read result information
-                        serviceStatus.Notes = "Success Result";
-
-                        dynamic spellSuggestions = JObject.Parse(resultsString);
-                        if (spellSuggestions.flaggedTokens.Count > 0)
-                        {
-                            //got corrections
-                            serviceStatus.Status = ServiceState.Green;
-                            serviceStatus.Notes = string.Empty;
-                        }
+                        //got corrections
+                        serviceStatus.Status = ServiceState.Green;
+                        serviceStatus.Notes = string.Empty;
                     }
-                    else
-                    {
-                        serviceStatus.Notes = $"{response.ReasonPhrase}";
-                    }
+                }
+                else
+                {
+                    serviceStatus.Notes = $"{response.ReasonPhrase}";
+                    applicationLogger.Warn($"{nameof(SpellCheckService)}.{nameof(GetCurrentStatusAsync)} : Unsuccessful reason - {response.ReasonPhrase} - {await response.Content.ReadAsStringAsync()}");
                 }
             }
             catch (Exception ex)
@@ -73,7 +74,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             return serviceStatus;
         }
 
-        #endregion
+        #endregion Implement of IServiceStatus
 
         public async Task<SpellCheckResult> CheckSpellingAsync(string term)
         {

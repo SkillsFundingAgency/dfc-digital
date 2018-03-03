@@ -44,12 +44,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).Returns(2000);
 
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
-            enhancer.Initialise(dummyJobProfileIndex);
+            enhancer.Initialise(dummyJobProfileIndex, false);
 
-            var result = await enhancer.GetSalaryRangeAsync(dummyJobProfileIndex);
+            await enhancer.PopulateSalary();
 
-            result.SalaryExperienced.ShouldBeEquivalentTo(salaryExperiencedExpected);
-            result.SalaryStarter.ShouldBeEquivalentTo(salaryStarterExpected);
+            dummyJobProfileIndex.SalaryExperienced.ShouldBeEquivalentTo(salaryExperiencedExpected);
+            dummyJobProfileIndex.SalaryStarter.ShouldBeEquivalentTo(salaryStarterExpected);
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustHaveHappened();
             if (isSalaryOverriden)
             {
@@ -99,14 +99,14 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
 
             var expectedCategories = dummyCategories.Select(c => $"{c.Title}|{c.Url}");
 
-            A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).Returns(dummyCategories);
 
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
-            enhancer.Initialise(dummyJobProfileIndex);
-            enhancer.GetRelatedFieldsWithUrl(dummyJobProfileIndex);
+            enhancer.Initialise(dummyJobProfileIndex, true);
+            enhancer.PopulateRelatedFieldsWithUrl();
 
-            A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).MustHaveHappened();
 
             dummyJobProfileIndex.JobProfileCategoriesWithUrl.ShouldBeEquivalentTo(expectedCategories);

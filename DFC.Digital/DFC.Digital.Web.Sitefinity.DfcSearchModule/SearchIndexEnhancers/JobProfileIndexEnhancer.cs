@@ -1,8 +1,7 @@
-﻿using System;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,8 +13,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
         private readonly IJobProfileCategoryRepository jobProfileCategoryRepository;
         private readonly ISalaryService salaryService;
         private readonly ISalaryCalculator salaryCalculator;
+        private JobProfileIndex jobProfileIndex;
 
-        public JobProfileIndexEnhancer(IJobProfileRepository jobProfileRepository, IJobProfileCategoryRepository jobProfileCategoryRepository, ISalaryService salaryService, ISalaryCalculator salaryCalculator)
+        public JobProfileIndexEnhancer(
+            IJobProfileRepository jobProfileRepository,
+            IJobProfileCategoryRepository jobProfileCategoryRepository,
+            ISalaryService salaryService,
+            ISalaryCalculator salaryCalculator)
         {
             this.jobProfileRepository = jobProfileRepository;
             this.jobProfileCategoryRepository = jobProfileCategoryRepository;
@@ -25,49 +29,60 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
 
         public JobProfile JobProfile { get; private set; }
 
-        public void Initialise(JobProfileIndex jobProfileIndex)
+        public void Initialise(JobProfileIndex jobProfileIndex, bool isPublishing)
         {
-           this.JobProfile = jobProfileRepository.GetByUrlName(jobProfileIndex.UrlName);
+            if (jobProfileIndex == null)
+            {
+                throw new ArgumentNullException(nameof(jobProfileIndex));
+            }
+
+            this.JobProfile = isPublishing ? jobProfileRepository.GetByUrlNameForSearchIndex(jobProfileIndex.UrlName) : jobProfileRepository.GetByUrlName(jobProfileIndex.UrlName);
+            this.jobProfileIndex = jobProfileIndex;
         }
 
-        public JobProfileIndex GetRelatedFieldsWithUrl(JobProfileIndex jobProfileIndex)
+        public void PopulateRelatedFieldsWithUrl()
         {
             if (JobProfile != null)
             {
-                jobProfileIndex.JobProfileCategoriesWithUrl = GetJobProfileCategoriesWithUrl(JobProfile);
+                jobProfileIndex.JobProfileCategoriesWithUrl = GetJobProfileCategoriesWithUrl();
 
-                jobProfileIndex.Interests = JobProfile.RelatedInterests;
-                jobProfileIndex.Enablers = JobProfile.RelatedEnablers;
-                jobProfileIndex.EntryQualifications = JobProfile.RelatedEntryQualifications;
-                jobProfileIndex.TrainingRoutes = JobProfile.RelatedTrainingRoutes;
-                jobProfileIndex.JobAreas = JobProfile.RelatedJobAreas;
-                jobProfileIndex.PreferredTaskTypes = JobProfile.RelatedPreferredTaskTypes;
+                jobProfileIndex.Interests = JobProfile.RelatedInterests.ToList();
+                jobProfileIndex.Enablers = JobProfile.RelatedEnablers.ToList();
+                jobProfileIndex.EntryQualifications = JobProfile.RelatedEntryQualifications.ToList();
+                jobProfileIndex.TrainingRoutes = JobProfile.RelatedTrainingRoutes.ToList();
+                jobProfileIndex.JobAreas = JobProfile.RelatedJobAreas.ToList();
+                jobProfileIndex.PreferredTaskTypes = JobProfile.RelatedPreferredTaskTypes.ToList();
             }
-
-            return jobProfileIndex;
         }
 
-        public async Task<JobProfileIndex> GetSalaryRangeAsync(JobProfileIndex jobProfileIndex)
+        public Task PopulateSalary()
         {
             // Conversions taking place because sitefinity returns Decimal and Azure Search accepts Double fields
-            if (JobProfile.IsLMISalaryFeedOverriden.HasValue && JobProfile.IsLMISalaryFeedOverriden.Value != true && !string.IsNullOrWhiteSpace(JobProfile.SOCCode))
-            {
-                var salary = await salaryService.GetSalaryBySocAsync(JobProfile.SOCCode);
-                jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
-                jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
-            }
-            else
+            if (JobProfile.IsLMISalaryFeedOverriden == true)
             {
                 jobProfileIndex.SalaryStarter = Convert.ToDouble(JobProfile.SalaryStarter);
                 jobProfileIndex.SalaryExperienced = Convert.ToDouble(JobProfile.SalaryExperienced);
             }
+            else
+            {
+                //Mutate soc code
+                var socCode = JobProfile.SOCCode;
+                return Task.Run(() => PopulateSalaryrFromLMIAsync(socCode));
+            }
 
-            return jobProfileIndex;
+            return Task.CompletedTask;
         }
 
-        private IEnumerable<string> GetJobProfileCategoriesWithUrl(JobProfile jobProfile)
+        private async Task PopulateSalaryrFromLMIAsync(string socCode)
         {
-            var categories = jobProfileCategoryRepository.GetByIds(jobProfile.JobProfileCategoryIdCollection);
+            var salary = await salaryService.GetSalaryBySocAsync(socCode);
+            jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
+            jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
+        }
+
+        private IEnumerable<string> GetJobProfileCategoriesWithUrl()
+        {
+            var categories = jobProfileCategoryRepository.GetByIds(JobProfile.JobProfileCategoryIdCollection);
             return categories.Select(c => $"{c.Title}|{c.Url}");
         }
     }

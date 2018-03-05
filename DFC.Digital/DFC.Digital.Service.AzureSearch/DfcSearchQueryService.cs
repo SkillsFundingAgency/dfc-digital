@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Microsoft.Azure.Search;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DFC.Digital.Service.AzureSearch
     {
         private ISearchQueryBuilder queryBuilder;
 
-        public DfcSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ISearchQueryBuilder queryBuilder) : base(indexClient, queryConverter)
+        public DfcSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ISearchQueryBuilder queryBuilder, ITolerancePolicy policy) : base(indexClient, queryConverter, policy)
         {
             this.queryBuilder = queryBuilder;
         }

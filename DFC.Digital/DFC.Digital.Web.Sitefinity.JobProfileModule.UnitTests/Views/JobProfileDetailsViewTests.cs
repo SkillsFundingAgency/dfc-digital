@@ -62,16 +62,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             string salaryStarterText = "Starter";
             string salaryExperiencedText = "Experienced";
 
-            decimal? salaryStarter = null;
-            decimal salaryStarterGoodValue;
-            if (decimal.TryParse(salaryStarterString, out salaryStarterGoodValue))
+            double salaryStarter = 0;
+            double salaryStarterGoodValue;
+            if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
             {
                 salaryStarter = salaryStarterGoodValue;
             }
 
-            decimal? salaryExperienced = null;
-            decimal salaryExperiencedGoodValue;
-            if (decimal.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+            double salaryExperienced = 0;
+            double salaryExperiencedGoodValue;
+            if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
             {
                 salaryExperienced = salaryExperiencedGoodValue;
             }
@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             var htmlDom = indexView.RenderAsHtml(model);
 
             // Asserts
-            if (model.SalaryStarter.HasValue && model.SalaryExperienced.HasValue)
+            if (model.SalaryStarter > 0 && model.SalaryExperienced > 0)
             {
                 GetSalaryStarter(htmlDom, salaryStarterText).Should().Be(model.SalaryStarter);
                 GetSalaryExperienced(htmlDom, salaryExperiencedText).Should().Be(model.SalaryExperienced);
@@ -169,19 +169,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             summaryHoursElement?.InnerHtml.Should().Contain(hoursTimePeriodTestText);
         }
 
-        private static decimal? GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
+        private static double GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
         {
             var salaryStarterElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsstarter')]").FirstOrDefault();
 
-            decimal? salaryStarter = null;
+            double salaryStarter = 0;
 
             if (salaryStarterElement != null)
             {
                 if (salaryStarterElement.InnerText.Contains(salaryStarterText))
                 {
                     string salaryStarterString = salaryStarterElement.InnerText.Replace(salaryStarterText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    decimal salaryStarterGoodValue;
-                    if (decimal.TryParse(salaryStarterString, out salaryStarterGoodValue))
+                    double salaryStarterGoodValue;
+                    if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
                     {
                         salaryStarter = salaryStarterGoodValue;
                     }
@@ -193,19 +193,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             return salaryStarter;
         }
 
-        private static decimal? GetSalaryExperienced(HtmlDocument htmlDom, string salaryExperiencedText)
+        private static double GetSalaryExperienced(HtmlDocument htmlDom, string salaryExperiencedText)
         {
             var salaryExperiencedElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsexperienced')]").FirstOrDefault();
 
-            decimal? salaryExperienced = null;
+            double salaryExperienced = 0;
 
             if (salaryExperiencedElement != null)
             {
                 if (salaryExperiencedElement.InnerText.Contains(salaryExperiencedText))
                 {
                     string salaryExperiencedString = salaryExperiencedElement.InnerText.Replace(salaryExperiencedText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    decimal salaryExperiencedGoodValue;
-                    if (decimal.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+                    double salaryExperiencedGoodValue;
+                    if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
                     {
                         salaryExperienced = salaryExperiencedGoodValue;
                     }

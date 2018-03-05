@@ -24,7 +24,7 @@
                 }
             </h4>
             <div class="job-profile-salary job-profile-heroblock-content">
-                @if (Model.SalaryStarter.HasValue && Model.SalaryStarter.Value != 0 && Model.SalaryExperienced.HasValue && Model.SalaryExperienced.Value != 0)
+                @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                 {
                     <h5 class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter)<span>@Model.SalaryStarterText</span></h5>
                     <h5 class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></h5>

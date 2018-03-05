@@ -109,8 +109,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                         UrlName = p.UrlName,
                         FilterableAlternativeTitle = p.AlternativeTitle,
                         AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
-                        Overview = p.Overview,
-                        SalaryRange = p.SalaryRange,
+                        Overview = p.Overview
                     }
                 };
             }

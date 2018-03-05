@@ -24,6 +24,7 @@
             visibility: hidden;
             margin: 0;
             outline: none !important;
+            cursor: pointer;
 
             & + input + label, & + label {
                 flex: 1;
@@ -37,6 +38,7 @@
                 box-sizing: border-box;
                 min-height: 100px;
                 float: left;
+                cursor: pointer;
 
                 @include media(tablet) {
                     min-width: 48%;

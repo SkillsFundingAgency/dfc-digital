@@ -8,9 +8,9 @@
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
 
-        <label for="prop-SectionContent">Top Section Content</label>
+        <label for="prop-TopSectionContent">Top Section Content</label>
         <div>
-            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/JobProfileSection/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.TopSectionContent.PropertyValue"></sf-html-field>
+            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.TopSectionContent.PropertyValue"></sf-html-field>
         </div>
     </li>
 
@@ -29,9 +29,13 @@
 
     <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
 
-        <label for="prop-SectionContent">Bottom Section Content</label>
+        <label for="prop-BottomSectionContent">Bottom Section Content</label>
         <div>
-            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/JobProfileSection/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.BottomSectionContent.PropertyValue"></sf-html-field>
+            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.BottomSectionContent.PropertyValue"></sf-html-field>
         </div>
     </li>
 </ul>
+
+<script type="text/javascript">
+    $('.modal-dialog').attr('style', 'width: 980px');
+</script>

@@ -28,7 +28,7 @@ namespace SecurityTesting
         [Fact, Priority(1)]
         public void AExecuteSpider()
         {
-            if (ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").Equals("True"))
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()).Equals("true"))
             {
                 var spiderId = StartSpidering();
                 CheckSpideringProgress(spiderId);
@@ -38,27 +38,24 @@ namespace SecurityTesting
         [Fact]
         public void CheckForHighOrMediumAlerts()
         {
-            if (ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").Equals("False"))
-            {
-                ApiResponseSet alertSummary = (ApiResponseSet)zapClient.core.alertsSummary(TargetUrl);
-                alertSummary.Dictionary.TryGetValue("High", out var high);
-                alertSummary.Dictionary.TryGetValue("Medium", out var medium);
+            ApiResponseSet alertSummary = (ApiResponseSet)zapClient.core.alertsSummary(TargetUrl);
+            alertSummary.Dictionary.TryGetValue("High", out var high);
+            alertSummary.Dictionary.TryGetValue("Medium", out var medium);
 
-                if (Convert.ToInt32(high) > 0)
-                {
-                    throw new Exception("High alert has been found");
-                }
-                else if (Convert.ToInt32(medium) > 0)
-                {
-                    throw new Exception("Medium alert has been found");
-                }
+            if (Convert.ToInt32(high) > 0)
+            {
+                throw new Exception("High alert has been found");
+            }
+            else if (Convert.ToInt32(medium) > 0)
+            {
+                throw new Exception("Medium alert has been found");
             }
         }
 
         [Fact, Priority(2)]
         public void BExecuteActiveScan()
         {
-            if (ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").Equals("True"))
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()).Equals("true"))
             {
                 var activeScanId = StartActiveScan();
                 CheckActiveScanProgress(activeScanId);

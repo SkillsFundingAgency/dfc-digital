@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Salary Text (Span)")]
         public string SalaryTextSpan { get; set; } = "(per year)";
 
-        [DisplayName("Text when Salary does not have values")]
+        [DisplayName("Text when Salary does not have values. If you change this value, you will also need to change the reciprocal value in JobProfileSearchBox widget on 'Search results' page.")]
         public string SalaryBlankText { get; set; } = "Variable";
 
         [DisplayName("Text for Salary Starter")]

@@ -40,14 +40,14 @@ $(document).ready(function () {
     //Filters Non Applicable functinality
     $(".filter-na").change(function () {
         if (this.checked) {
-            $('input:checked').not(".filter-na").removeAttr('checked');
-            this.change
+            $('input:checked').not(".filter-na").prop('checked', false);
+            this.change;
         }
     });
 
     $('input:checkbox').not(".filter-na").change(function () {
         if ($(".filter-na").prop('checked')) {
-            $(".filter-na").removeAttr('checked');
+            $(".filter-na").prop('checked', false);
         }
     });
 

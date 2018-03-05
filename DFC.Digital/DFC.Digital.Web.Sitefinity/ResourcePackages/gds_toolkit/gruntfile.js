@@ -14,6 +14,7 @@ module.exports = function (grunt) {
     var projectJsfiles = grunt.file.readJSON('jsfiles.json').concatCustomJsFiles;
     var govukJsfiles = grunt.file.readJSON('jsfiles.json').concatGovUkJsFiles;
     var jqueryBundle = grunt.file.readJSON('jsfiles.json').jqueryBundle;
+    var ie8Bundle = grunt.file.readJSON('jsfiles.json').ie8Bundle;
     // Name of the folder that contains project specific assets (scss, js, images, etc.)
     var projectAssetsFolder = "frontend";
 
@@ -94,24 +95,32 @@ module.exports = function (grunt) {
                 formatters: [{
                     id: 'csslint-xml',
                     dest: 'csslint_report/csslint.xml'
-                }]
+                }],
             },
             dev: {
                 expand: true,
                 cwd: '<%= dist.path %>/css/',
-                src: ['*.css', '!*.min.css']
+                src: [
+                    '*.css',
+                    '!*.min.css',
+                    '!fonts.css',
+                    '!govuk-template*.css'
+                ],
             }
         },
 
         cssmin: {
-            minify: {
+            options: {
+                level: 2,
+            },
+            target: {
                 expand: true,
                 cwd: '<%= dist.path %>/css/',
                 src: ['*.css', '!*.min.css'],
                 dest: '<%= dist.path %>/css/',
                 ext: '.min.css',
                 extDot: 'last'
-            }
+            },
         },
 
         copy: {
@@ -135,8 +144,9 @@ module.exports = function (grunt) {
             options: {
                 report: 'gzip',
                 warnings: true,
+                ie8: true,
                 mangle: {
-                    reserved: ['jQuery', 'Modernizr', 'selectivizr']
+                    reserved: ['jQuery', 'Modernizr', 'selectivizr']                  
                 },
                 compress: true
             },
@@ -147,6 +157,7 @@ module.exports = function (grunt) {
                     { '<%= dist.path %>/js/dfcdigital.min.js': projectJsfiles },
                     { '<%= dist.path %>/js/govuksel.min.js': govukJsfiles },
                     { '<%= dist.path %>/js/jquerybundle.min.js': jqueryBundle },
+                    { '<%= dist.path %>/js/ie8bundle.min.js': ie8Bundle },
                     {
                         expand: true,
                         src: ['*.js', '!*.min.js'],

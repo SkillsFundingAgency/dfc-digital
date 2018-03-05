@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.GovUkNotify.Base;
@@ -36,7 +36,7 @@ namespace DFC.Digital.Service.GovUkNotify
             try
             {
                 var templateId = ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId];
-                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyAPIKey];
+                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey];
                 var response = clientProxy.SendEmail(apiKey, emailAddress, templateId, this.Convert(vocPersonalisation));
                 return !string.IsNullOrEmpty(response?.id);
             }

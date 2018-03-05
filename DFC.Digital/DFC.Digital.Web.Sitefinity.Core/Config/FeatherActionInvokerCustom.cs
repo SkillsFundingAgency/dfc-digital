@@ -1,10 +1,14 @@
-﻿using System.Threading;
+﻿using Autofac;
+using DFC.Digital.Data.Interfaces;
+using System.Diagnostics;
+using System.Threading;
 using System.Web;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -14,6 +18,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
     /// <seealso cref="Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.FeatherActionInvoker" />
     public class FeatherActionInvokerCustom : FeatherActionInvoker
     {
+        private readonly IApplicationLogger logger;
+        private readonly ILifetimeScope lifetimeScope;
+
+        public FeatherActionInvokerCustom(ILifetimeScope lifetimeScope)
+        {
+            this.lifetimeScope = lifetimeScope;
+            this.logger = lifetimeScope.Resolve<IApplicationLogger>();
+        }
+
         /// <summary>
         /// Registers this instance.
         /// </summary>
@@ -21,6 +34,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var onj = ObjectFactory.Container.Resolve<IControllerActionInvoker>();
             ObjectFactory.Container.RegisterType<IControllerActionInvoker, FeatherActionInvokerCustom>();
+        }
+
+        protected override void ExecuteController(MvcProxyBase proxyControl)
+        {
+            Stopwatch watch = Stopwatch.StartNew();
+            logger.Trace($"Executing controller {proxyControl.ControllerName}");
+            try
+            {
+                base.ExecuteController(proxyControl);
+            }
+            finally
+            {
+                watch.Stop();
+                logger.Trace($"Completed executing controller {proxyControl.ControllerName} and spent {watch.Elapsed} on it.");
+            }
         }
 
         /// <summary>

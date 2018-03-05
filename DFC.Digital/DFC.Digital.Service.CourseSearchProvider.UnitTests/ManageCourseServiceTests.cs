@@ -65,8 +65,9 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var results = manageCoursesFake.SelectCoursesForJobProfile(coursesInput);
 
             //Assert
-            results.Count().Should().BeLessOrEqualTo(2);
-            results.Select(course => course.ProviderName).Distinct().Count().Should().Be(1);
+            var resultEnumerable = results as IList<Course> ?? results.ToList();
+            resultEnumerable.Count().Should().BeLessOrEqualTo(2);
+            resultEnumerable.Select(course => course.ProviderName).Distinct().Count().Should().Be(1);
         }
 
         private IEnumerable<Course> GeneratedNewCourses(int jobCount)

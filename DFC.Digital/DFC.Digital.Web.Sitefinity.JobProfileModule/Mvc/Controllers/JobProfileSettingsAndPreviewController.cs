@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public bool? DisableCanonicalUrlMetaTag { get; set; }
 
-        public string PreviousURLname { get; set; }
+        public string PreviousUrLname { get; set; }
 
         #endregion Public Properties
 
@@ -54,6 +55,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 var model = new JobProfileSettingsAndPreviewModel() { DefaultJobProfileUrl = DefaultJobProfileUrlName };
                 return View("Index", model);
+            }
+
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        [RelativeRoute("{urlname}")]
+        public ActionResult Index(string urlname)
+        {
+            if (!string.IsNullOrWhiteSpace(urlname) && !webAppContext.IsContentAuthoringSite)
+            {
+                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlname);
             }
 
             return new EmptyResult();

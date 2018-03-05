@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Newtonsoft.Json.Linq;
@@ -10,8 +10,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 {
     public class SpellCheckService : ISpellCheckService
     {
-        private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellCheckApiKey];
-        private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellCheckRequestEndPoint];
+        private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
+        private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
         private readonly IHttpClientService httpClientService;
 
@@ -26,20 +26,18 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             bool hasCorrections = false;
             var requestUri = string.Format(bingSpellEndpoint, term);
 
-            using (var client = GetHttpClient())
+            var client = GetHttpClient();
+            var response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
             {
-                var response = await client.GetAsync(requestUri);
-                if (response.IsSuccessStatusCode)
+                var resultsString = await response.Content.ReadAsStringAsync();
+                dynamic spellSuggestions = JObject.Parse(resultsString);
+                hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
+                if (hasCorrections)
                 {
-                    var resultsString = await response.Content.ReadAsStringAsync();
-                    dynamic spellSuggestions = JObject.Parse(resultsString);
-                    hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
-                    if (hasCorrections)
+                    foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
                     {
-                        foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
-                        {
-                            correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
-                        }
+                        correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
                     }
                 }
             }

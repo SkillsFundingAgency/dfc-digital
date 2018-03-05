@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using FluentAssertions;
 using System;
 using System.Linq;
-using DFC.Digital.Core.Extensions;
-using FluentAssertions;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -15,43 +16,44 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfilesByPreSearchFiltersSteps
     {
         private SearchResult<JobProfileIndex> results;
-
-        private ITestOutputHelper outputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
-
-        public ISearchQueryService<JobProfileIndex> searchQueryService { get; }
+        private IAsyncHelper asyncHelper;
 
         public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
-            this.searchQueryService = searchQueryService;
+            this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
+            asyncHelper = new AsyncHelper();
         }
 
+        private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
+
+        private ITestOutputHelper OutputHelper { get; set; }
+
         [Given(@"Given I have the following profiles tagged with the following PSF tags")]
-        public void GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTags(Table table)
+        public void GivenGivenIHaveTheFollowingProfilesTaggedWithTheFollowingPsfTagsAsync(Table table)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+            asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+            asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
         }
 
         [When(@"I filter with the following PSF items")]
         public void WhenIFilterWithTheFollowingTags(Table table)
         {
-            outputHelper.WriteLine($"The filter term is '{table}'");
+            OutputHelper.WriteLine($"The filter term is '{table}'");
             SearchProperties filterProperties = table.ToSearchProperties();
             try
             {
-                results = searchQueryService.Search("*", filterProperties);
+                results = SearchQueryService.Search("*", filterProperties);
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
@@ -62,8 +64,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem.Title);
 
             //Log results
-            outputHelper.WriteLine($"Expected {string.Join(",", expected)}");
-            outputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
+            OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
+            OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
 
             actual.ShouldBeEquivalentTo(expected);
         }

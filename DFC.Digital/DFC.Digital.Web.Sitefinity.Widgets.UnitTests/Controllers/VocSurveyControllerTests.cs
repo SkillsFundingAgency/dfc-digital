@@ -1,16 +1,13 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.GovUkNotify.Base;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -18,14 +15,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
 {
     public class VocSurveyControllerTests
     {
-
         [Theory]
         [InlineData("test", new object[] { "jpprofile", "clientid" }, new object[] { "", "1665229681.1514888907" }, true)]
         [InlineData("testtest", new object[] { "jpprofile", "clientid" }, new object[] { "", "" }, false)]
         public void IndexSubmitEmailTest(string emailAddress, object key, object value, bool success)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var govUkNotify = A.Fake<IGovUkNotify>(ops => ops.Strict());
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var emailRequest = new VocSurveyViewModel { EmailAddress = emailAddress };
@@ -72,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         public void IndexUrlNameTest(string urlname)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var govUkNotify = A.Fake<IGovUkNotify>(ops => ops.Strict());
             var fakeWebAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
 
@@ -101,7 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         public void IndexTest()
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var govUkNotify = A.Fake<IGovUkNotify>(ops => ops.Strict());
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
 
@@ -123,7 +119,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
         public void SendEmailTest(string emailAddress, object key, object value, bool returnVal)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var govUkNotifyFake = A.Fake<IGovUkNotify>(ops => ops.Strict());
 

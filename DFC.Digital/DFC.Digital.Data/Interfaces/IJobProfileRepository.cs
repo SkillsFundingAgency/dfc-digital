@@ -13,5 +13,7 @@ namespace DFC.Digital.Data.Interfaces
         string GetProviderName();
 
         Type GetContentType();
+
+        JobProfile GetByUrlNameForSearchIndex(string urlName);
     }
 }

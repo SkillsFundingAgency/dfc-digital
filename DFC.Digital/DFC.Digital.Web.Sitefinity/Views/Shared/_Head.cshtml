@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Google Tag Manager -->
 <script>
-(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-W8VKZZ');</script>
 <!-- End Google Tag Manager -->
 @Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/govuk-template.min.css")))
@@ -26,6 +26,13 @@
 <link rel="apple-touch-icon-precomposed" sizes="76x76" href="~/ResourcePackages/gds_toolkit/assets/dist/images/apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon-precomposed" href="~/ResourcePackages/gds_toolkit/assets/dist/images/apple-touch-icon-60x60.png">
 
+<!--[if (gte IE 6)&(lte IE 8)]>
+    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/selectivizr.min.js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/ie8bundle.min.js"></script>
+    @Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/ie.min.css")))
+<![endif]-->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:image" content="~/ResourcePackages/gds_template/assets/dist/images/opengraph-image.png">

@@ -4,11 +4,11 @@ using System;
 
 namespace DFC.Digital.Core.Logging
 {
-    public class DFCLogger : IApplicationLogger
+    public class DfcLogger : IApplicationLogger
     {
         private ILogger logService;
 
-        public DFCLogger(ILogger logService)
+        public DfcLogger(ILogger logService)
         {
             this.logService = logService;
         }
@@ -21,7 +21,7 @@ namespace DFC.Digital.Core.Logging
             }
             else
             {
-                logService.Error(message, ex);
+                logService.LogException(NLog.LogLevel.Error, message, ex);
                 if (ex != null)
                 {
                     throw new LoggedException($"Logged exception with message: {message}", ex);
@@ -31,7 +31,7 @@ namespace DFC.Digital.Core.Logging
 
         public void ErrorJustLogIt(string message, Exception ex)
         {
-            logService.Error(message, ex);
+            logService.LogException(NLog.LogLevel.Error, message, ex);
         }
 
         public void Info(string message)
@@ -46,6 +46,8 @@ namespace DFC.Digital.Core.Logging
 
         public void Warn(string message, Exception ex)
         {
+            message = message ?? string.Empty;
+
             if (ex is LoggedException)
             {
                 throw ex;
@@ -59,7 +61,7 @@ namespace DFC.Digital.Core.Logging
                 }
                 else
                 {
-                    logService.Warn(message, ex);
+                    logService.LogException(NLog.LogLevel.Warn, message, ex);
                     if (ex != null)
                     {
                         throw new LoggedException($"Logged exception with message: {message}", ex);

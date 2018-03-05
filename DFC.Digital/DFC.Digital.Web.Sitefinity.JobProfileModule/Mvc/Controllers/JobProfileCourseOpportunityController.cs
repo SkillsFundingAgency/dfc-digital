@@ -19,13 +19,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The course search service
         /// </summary>
         private readonly ICourseSearchService courseSearchService;
+        private readonly IAsyncHelper asyncHelper;
 
         #endregion Fields
 
-        public JobProfileCourseOpportunityController(ICourseSearchService courseSearchService, IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger loggingService, ISitefinityPage sitefinityPage)
+        public JobProfileCourseOpportunityController(
+            ICourseSearchService courseSearchService,
+            IAsyncHelper asyncHelper,
+            IWebAppContext webAppContext,
+            IJobProfileRepository jobProfileRepository,
+            IApplicationLogger loggingService,
+            ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, loggingService, sitefinityPage)
         {
             this.courseSearchService = courseSearchService;
+            this.asyncHelper = asyncHelper;
         }
 
         #region Web Properties
@@ -47,12 +55,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string TrainingCoursesLocationDetails { get; set; } = "In England";
 
         /// <summary>
-        /// Gets or sets the find training courses text.
+        /// Gets or sets the training courses text.
         /// </summary>
         /// <value>
         /// The find training courses text.
         /// </value>
-        public string FindTrainingCoursesText { get; set; } = "Find courses near you";
+        public string TrainingCoursesText { get; set; } = "<a href=\"https://nationalcareersservice.direct.gov.uk/course-directory/home\">Find courses near you</a>";
 
         /// <summary>
         /// Gets or sets the no training courses text.
@@ -61,14 +69,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The no training courses text.
         /// </value>
         public string NoTrainingCoursesText { get; set; } = "There are no courses for {jobtitle} available at the moment";
-
-        /// <summary>
-        /// Gets or sets the find training courses link.
-        /// </summary>
-        /// <value>
-        /// The find training courses link.
-        /// </value>
-        public string FindTrainingCoursesLink { get; set; } = "https://nationalcareersservice.direct.gov.uk/course-directory/home";
 
         /// <summary>
         /// Gets or sets the maximum training courses maximum count.
@@ -136,15 +136,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IEnumerable<Course> trainingCourses = new List<Course>();
             if (!string.IsNullOrEmpty(CurrentJobProfile.CourseKeywords))
             {
-                trainingCourses = courseSearchService.GetCourses(CurrentJobProfile.CourseKeywords)?.Take(MaxTrainingCoursesMaxCount);
+                trainingCourses = asyncHelper.Synchronise(() => courseSearchService.GetCoursesAsync(CurrentJobProfile.CourseKeywords))?.Take(MaxTrainingCoursesMaxCount);
             }
 
             var model = new JobProfileCourseSearchViewModel
             {
                 CoursesSectionTitle = CoursesSectionTitle,
-                NoTrainingCoursesText = NoTrainingCoursesText.Replace("{jobtitle}", CurrentJobProfile.Title),
-                FindTrainingCoursesLink = FindTrainingCoursesLink,
-                FindTrainingCoursesText = FindTrainingCoursesText,
+                NoTrainingCoursesText = NoTrainingCoursesText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
+                TrainingCoursesText = TrainingCoursesText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
                 CoursesLocationDetails = TrainingCoursesLocationDetails,
                 CourseLink = CourseLink,
                 Courses = trainingCourses,
@@ -162,8 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 {
                     CoursesSectionTitle = CoursesSectionTitle,
                     NoTrainingCoursesText = NoTrainingCoursesText,
-                    FindTrainingCoursesLink = FindTrainingCoursesLink,
-                    FindTrainingCoursesText = FindTrainingCoursesText,
+                    TrainingCoursesText = TrainingCoursesText,
                     CoursesLocationDetails = TrainingCoursesLocationDetails,
                     CourseLink = CourseLink,
                     MainSectionTitle = MainSectionTitle

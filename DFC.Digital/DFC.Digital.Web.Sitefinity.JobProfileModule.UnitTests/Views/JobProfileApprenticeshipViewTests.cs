@@ -84,8 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 ApprenticeVacancies = DummyMultipleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Section Title",
                 LocationDetails = "London",
-                FindApprenticeshipLink = "http://https://dev-beta.nationalcareersservice.org.uk/",
-                FindApprenticeshipText = "Test Apprenticeship Text",
+                ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities",
             };
         }
@@ -97,8 +96,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 ApprenticeVacancies = DummyMultipleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Section Title",
                 LocationDetails = "London",
-                FindApprenticeshipLink = "http://https://dev-beta.nationalcareersservice.org.uk/",
-                FindApprenticeshipText = "Test Apprenticeship Text",
+                ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities"
             };
         }
@@ -119,8 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 ApprenticeVacancies = DummySingleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Single Apprenticeship",
                 LocationDetails = "London",
-                FindApprenticeshipLink = "http://https://dev-beta.nationalcareersservice.org.uk/",
-                FindApprenticeshipText = "Test Apprenticeship Text",
+                ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities",
             };
         }

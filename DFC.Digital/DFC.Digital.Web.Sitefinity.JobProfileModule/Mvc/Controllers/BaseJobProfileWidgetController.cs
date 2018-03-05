@@ -2,20 +2,20 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     public abstract class BaseJobProfileWidgetController : BaseDfcController
     {
-        private readonly IWebAppContext webAppContext;
         private readonly IJobProfileRepository jobProfileRepository;
         private JobProfile jobProfile;
         private ISitefinityPage sitefinityPage;
 
-        public BaseJobProfileWidgetController(IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger loggingService, ISitefinityPage sitefinityPage) : base(loggingService)
+        protected BaseJobProfileWidgetController(IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger loggingService, ISitefinityPage sitefinityPage) : base(loggingService)
         {
-            this.webAppContext = webAppContext;
+            this.WebAppContext = webAppContext;
             this.jobProfileRepository = jobProfileRepository;
             this.sitefinityPage = sitefinityPage;
         }
@@ -30,13 +30,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string DefaultJobProfileUrlName { get; set; } = "plumber";
 
+        protected IWebAppContext WebAppContext { get; set; }
+
         protected JobProfile CurrentJobProfile
         {
             get
             {
                 if (jobProfile == null)
                 {
-                    jobProfile = webAppContext.IsContentPreviewMode ? jobProfileRepository.GetByUrlNameForPreview(CurrentJobProfileUrl) : jobProfileRepository.GetByUrlName(CurrentJobProfileUrl);
+                    jobProfile = WebAppContext.IsContentPreviewMode ? jobProfileRepository.GetByUrlNameForPreview(CurrentJobProfileUrl) : jobProfileRepository.GetByUrlName(CurrentJobProfileUrl);
                 }
 
                 return jobProfile;
@@ -49,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Redirect</returns>
         public ActionResult BaseIndex()
         {
-            if (webAppContext.IsContentAuthoringSite)
+            if (WebAppContext.IsContentAuthoringSite)
             {
                 CurrentJobProfileUrl = sitefinityPage.GetDefaultJobProfileToUse(DefaultJobProfileUrlName);
                 return GetEditorView();
@@ -74,7 +76,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
             else
             {
-                return GetDefaultView();
+                var timer = Stopwatch.StartNew();
+                var actionResult = GetDefaultView();
+                timer.Stop();
+                Log.Trace($"Completed executing action in {timer.Elapsed}");
+
+                return actionResult;
             }
         }
 

@@ -10,9 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string NoTrainingCoursesText { get; set; }
 
-        public string FindTrainingCoursesLink { get; set; }
-
-        public string FindTrainingCoursesText { get; set; }
+        public string TrainingCoursesText { get; set; }
 
         public string CoursesLocationDetails { get; set; }
 

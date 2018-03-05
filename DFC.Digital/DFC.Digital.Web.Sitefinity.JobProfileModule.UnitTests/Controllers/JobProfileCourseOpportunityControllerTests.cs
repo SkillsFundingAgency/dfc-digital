@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
@@ -34,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
@@ -78,16 +79,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
-            A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).Returns(dummyCourses);
+            A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).Returns(dummyCourses);
 
             //Instantiate & Act
-            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
+            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
             {
                 CoursesSectionTitle = nameof(JobProfileCourseOpportunityController.CoursesSectionTitle),
-                TrainingCoursesLocationDetails =
-                   nameof(JobProfileCourseOpportunityController.TrainingCoursesLocationDetails),
-                FindTrainingCoursesLink = nameof(JobProfileCourseOpportunityController.FindTrainingCoursesLink),
-                FindTrainingCoursesText = nameof(JobProfileCourseOpportunityController.FindTrainingCoursesText),
+                TrainingCoursesLocationDetails = nameof(JobProfileCourseOpportunityController.TrainingCoursesLocationDetails),
+                TrainingCoursesText = nameof(JobProfileCourseOpportunityController.TrainingCoursesText),
 
                 NoTrainingCoursesText = nameof(JobProfileCourseOpportunityController.NoTrainingCoursesText),
                 MaxTrainingCoursesMaxCount = maxCourses,
@@ -105,10 +104,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.FindTrainingCoursesLink.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
-                            .FindTrainingCoursesLink);
-                        vm.FindTrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
-                            .FindTrainingCoursesText);
+                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
+                            .TrainingCoursesText);
                         vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
                         vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
                         vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
@@ -128,7 +125,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
 
                 if (!string.IsNullOrEmpty(courseKeywords))
                 {
-                    A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).MustHaveHappened();
                 }
             }
             else
@@ -152,7 +149,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
@@ -194,18 +191,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
 
-            A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).Returns(dummyCourses);
+            A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).Returns(dummyCourses);
 
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
-            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
+            var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage)
             {
                 CoursesSectionTitle = nameof(JobProfileCourseOpportunityController.CoursesSectionTitle),
                 TrainingCoursesLocationDetails =
                     nameof(JobProfileCourseOpportunityController.TrainingCoursesLocationDetails),
-                FindTrainingCoursesLink = nameof(JobProfileCourseOpportunityController.FindTrainingCoursesLink),
-                FindTrainingCoursesText = nameof(JobProfileCourseOpportunityController.FindTrainingCoursesText),
+                TrainingCoursesText = nameof(JobProfileCourseOpportunityController.TrainingCoursesText),
                 NoTrainingCoursesText = nameof(JobProfileCourseOpportunityController.NoTrainingCoursesText),
                 MaxTrainingCoursesMaxCount = 2
             };
@@ -220,23 +216,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
-                            .MainSectionTitle);
-
-                        vm.FindTrainingCoursesLink.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
-                            .FindTrainingCoursesLink);
-                        vm.FindTrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
-                            .FindTrainingCoursesText);
+                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.MainSectionTitle);
+                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesText);
                         vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
                         vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
                         vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
-                        vm.Courses.Count().Should()
-                            .BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
+                        vm.Courses.Count().Should().BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
                     })
                     .AndNoModelErrors();
                 if (!string.IsNullOrEmpty(courseKeywords))
                 {
-                    A.CallTo(() => coursesearchFake.GetCourses(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).MustHaveHappened();
                 }
             }
             else if (!inContentAuthoringSite)

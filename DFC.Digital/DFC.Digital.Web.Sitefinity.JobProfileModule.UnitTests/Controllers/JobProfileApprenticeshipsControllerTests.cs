@@ -26,7 +26,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         [InlineData(6, true, "", true, 2)]
         [InlineData(7, false, "", true, 2)]
         [InlineData(8, false, "testfalse", true, 1)]
-        [InlineData(8, false, "testfalse", true, 1)]
         public void IndexTest(int testIndex, bool inContentAuthoringSite, string socCode, bool isContentPreviewMode, int maxApp)
         {
             //Setup the fakes and dummies
@@ -34,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
             var unused1 = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
@@ -84,8 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             //Instantiate & Act
             var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socRepositoryFake, loggerFake, sitefinityPage)
             {
-                FindApprenticeshipText = nameof(JobProfileApprenticeshipsController.FindApprenticeshipText),
-                FindApprenticeshipLink = nameof(JobProfileApprenticeshipsController.FindApprenticeshipLink),
+                ApprenticeshipText = nameof(JobProfileApprenticeshipsController.ApprenticeshipText),
                 ApprenticeshipLocationDetails =
                     nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
@@ -105,10 +103,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     {
                         vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.FindApprenticeshipLink.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
-                            .FindApprenticeshipLink);
-                        vm.FindApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
-                            .FindApprenticeshipText);
+                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                            .ApprenticeshipText);
                         vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
                         vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);
@@ -161,7 +157,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
@@ -212,8 +208,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             //Instantiate & Act
             var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socRepositoryFake, loggerFake, sitefinityPage)
             {
-                FindApprenticeshipText = nameof(JobProfileApprenticeshipsController.FindApprenticeshipText),
-                FindApprenticeshipLink = nameof(JobProfileApprenticeshipsController.FindApprenticeshipLink),
+                ApprenticeshipText = nameof(JobProfileApprenticeshipsController.ApprenticeshipText),
                 ApprenticeshipLocationDetails =
                     nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
@@ -234,10 +229,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     {
                         vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.FindApprenticeshipLink.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
-                            .FindApprenticeshipLink);
-                        vm.FindApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
-                            .FindApprenticeshipText);
+                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                            .ApprenticeshipText);
                         vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
                         vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);

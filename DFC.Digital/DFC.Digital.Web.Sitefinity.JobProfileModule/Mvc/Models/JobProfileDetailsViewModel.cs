@@ -21,11 +21,13 @@
 
         public string MaximumHours { get; set; }
 
+        public string WorkingHoursDetails { get; set; }
+
         public bool? IsLMISalaryFeedOverriden { get; set; }
 
-        public decimal? SalaryStarter { get; set; }
+        public double SalaryStarter { get; set; }
 
-        public decimal? SalaryExperienced { get; set; }
+        public double SalaryExperienced { get; set; }
 
         public string WorkingPatternText { get; set; }
 

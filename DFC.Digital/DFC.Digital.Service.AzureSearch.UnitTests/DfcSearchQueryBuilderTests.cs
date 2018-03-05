@@ -75,7 +75,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [InlineData("<term Children's>", "term children's", false)]
         public void RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, string expected, bool shouldUseRaw)
         {
-            SearchProperties properties = shouldUseRaw == true ? new SearchProperties { UseRawSearchTerm = true } : null;
+            SearchProperties properties = shouldUseRaw ? new SearchProperties { UseRawSearchTerm = true } : null;
             var testObject = new DfcSearchQueryBuilder();
             var result = testObject.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
             result.Should().Be(expected);

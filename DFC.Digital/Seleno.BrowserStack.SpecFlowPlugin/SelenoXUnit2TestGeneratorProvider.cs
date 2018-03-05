@@ -9,46 +9,30 @@ namespace Seleno.BrowserStack
 {
     public class SelenoXUnit2TestGeneratorProvider : XUnit2TestGeneratorProvider, IUnitTestGeneratorProvider
     {
-        private const string FACTATTRIBUTE = "Xunit.FactAttribute";
-
-        //internal const string THEORY_ATTRIBUTE = "Xunit.Extensions.TheoryAttribute";
-
-        //private const string INLINEDATA_ATTRIBUTE = "Xunit.Extensions.InlineDataAttribute";
-        private const string SKIPREASON = "Ignored";
-
-        private const string TRAITATTRIBUTE = "Xunit.TraitAttribute";
-        private const string IUSEFIXTUREINTERFACE = "Xunit.IUseFixture";
-        private const string CATEGORYPROPERTYNAME = "Category";
-
-        private const string THEORYATTRIBUTE = "Xunit.TheoryAttribute";
-        private const string INLINEDATAATTRIBUTE = "Xunit.InlineDataAttribute";
-        private const string ICLASSFIXTUREINTERFACE = "Xunit.IClassFixture";
-        private const string OUTPUTINTERFACE = "Xunit.Abstractions.ITestOutputHelper";
-        private const string OUTPUTINTERFACEPARAMETERNAME = "testOutputHelper";
-        private const string OUTPUTINTERFACEFIELDNAME = "_testOutputHelper";
-        private const string FIXTUREDATAPARAMETERNAME = "fixtureData";
-        private const string IBROWSER = "Seleno.BrowserStack.Config.IBrowser";
+        private const string FactAttribute = "Xunit.FactAttribute";
+        private const string TheoryAttribute = "Xunit.TheoryAttribute";
+        private const string InlineDataAttribute = "Xunit.InlineDataAttribute";
 
         public SelenoXUnit2TestGeneratorProvider(CodeDomHelper codeDomHelper) : base(codeDomHelper)
         {
             Browsers = DfcConfigurationManager.Get<string>("browsers").Split(',').Select(c => c.Trim()).ToList();
         }
 
-        public List<string> Browsers { get; } = new List<string> {"chrome", "firefox"};
+        private List<string> Browsers { get; }
 
-        public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod,
-            string friendlyTestName)
+        public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string friendlyTestName)
         {
             base.SetTestMethod(generationContext, testMethod, friendlyTestName);
 
             var factAttr = testMethod.CustomAttributes.OfType<CodeAttributeDeclaration>()
-                .FirstOrDefault(codeAttributeDeclaration => codeAttributeDeclaration.Name == FACTATTRIBUTE);
+                .FirstOrDefault(codeAttributeDeclaration => codeAttributeDeclaration.Name == FactAttribute);
 
             if (factAttr != null)
+            {
                 testMethod.CustomAttributes.Remove(factAttr);
+            }
 
-            CodeDomHelper.AddAttribute(testMethod, THEORYATTRIBUTE,
-                new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
+            CodeDomHelper.AddAttribute(testMethod, TheoryAttribute, new CodeAttributeArgument("DisplayName", new CodePrimitiveExpression(friendlyTestName)));
             SetBrowsers(testMethod);
 
             testMethod.Parameters.Add(new CodeParameterDeclarationExpression(
@@ -56,23 +40,20 @@ namespace Seleno.BrowserStack
             testMethod.Statements.Add(AssignBrowser());
         }
 
-        public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod,
-            string scenarioTitle)
+        public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
         {
             base.SetRowTest(generationContext, testMethod, scenarioTitle);
             var parameterCount = testMethod.Parameters.Count;
-            testMethod.Parameters.Insert(parameterCount - 1,
-                new CodeParameterDeclarationExpression(
-                    new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
+            testMethod.Parameters.Insert(parameterCount - 1, new CodeParameterDeclarationExpression(new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
             testMethod.Statements.Insert(0, AssignBrowser());
         }
 
-        public override void SetRow(TestClassGenerationContext generationContext, CodeMemberMethod testMethod,
-            IEnumerable<string> arguments, IEnumerable<string> tags, bool isIgnored)
+        public override void SetRow(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, IEnumerable<string> arguments, IEnumerable<string> tags, bool isIgnored)
         {
             foreach (var item in Browsers)
-                base.SetRow(generationContext, testMethod, arguments.Concat(new[] {item}),
-                    tags.Concat(new[] {$"args:{string.Join(",", arguments)}"}), isIgnored);
+            {
+                base.SetRow(generationContext, testMethod, arguments.Concat(new[] { item }), tags.Concat(new[] { $"args:{string.Join(",", arguments)}" }), isIgnored);
+            }
         }
 
         public override void FinalizeTestClass(TestClassGenerationContext generationContext)
@@ -88,7 +69,8 @@ namespace Seleno.BrowserStack
                 "testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);"));
         }
 
-        protected override void SetTestConstructor(TestClassGenerationContext generationContext,
+        protected override void SetTestConstructor(
+            TestClassGenerationContext generationContext,
             CodeConstructor ctorMethod)
         {
             base.SetTestConstructor(generationContext, ctorMethod);
@@ -105,7 +87,9 @@ namespace Seleno.BrowserStack
         private void SetBrowsers(CodeMemberMethod testMethod)
         {
             foreach (var item in Browsers)
-                CodeDomHelper.AddAttribute(testMethod, INLINEDATAATTRIBUTE, item);
+            {
+                CodeDomHelper.AddAttribute(testMethod, InlineDataAttribute, item);
+            }
         }
     }
 }

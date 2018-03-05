@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System.Globalization;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Config
 {
@@ -13,7 +14,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Config
 
             CreateMap<SearchResultItem<JobProfileIndex>, JobProfileSearchResultItemViewModel>()
                 .ForMember(d => d.ResultItemAlternativeTitle, o => o.MapFrom(s => string.Join(", ", s.ResultItem.AlternativeTitle).Trim().TrimEnd(',')))
-                .ForMember(c => c.JobProfileCategoriesWithUrl, m => m.MapFrom(j => j.ResultItem.JobProfileCategoriesWithUrl));
+                .ForMember(c => c.JobProfileCategoriesWithUrl, m => m.MapFrom(j => j.ResultItem.JobProfileCategoriesWithUrl))
+                .ForMember(d => d.ResultItemSalaryRange, o => o.MapFrom(s => s.ResultItem.SalaryStarter.Equals(0) || s.ResultItem.SalaryExperienced.Equals(0) ? string.Empty : string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", s.ResultItem.SalaryStarter, s.ResultItem.SalaryExperienced)));
 
             CreateMap<JobProfile, JobProfileDetailsViewModel>()
                 .ForMember(d => d.MinimumHours, o => o.MapFrom(s => (s.MinimumHours != null) ? s.MinimumHours.Value.ToString("#.#") : string.Empty))
@@ -24,14 +26,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Config
                 .ForMember(d => d.LinkTarget, o => o.MapFrom(s => s.ContentField))
                 ;
 
-            CreateMap<PSFModel, PreSearchFiltersResultsModel>();
-            CreateMap<PSFSection, FilterResultsSection>();
-            CreateMap<PSFOption, FilterResultsOption>();
+            CreateMap<PsfModel, PreSearchFiltersResultsModel>();
+            CreateMap<PsfSection, FilterResultsSection>();
+            CreateMap<PsfOption, FilterResultsOption>();
 
-            CreateMap<PSFSection, PreSearchFilterSection>();
-            CreateMap<PSFOption, PreSearchFilterOption>();
-            CreateMap<PreSearchFilterSection, PSFSection>();
-            CreateMap<PreSearchFilterOption, PSFOption>();
+            CreateMap<PsfSection, PreSearchFilterSection>();
+            CreateMap<PsfOption, PreSearchFilterOption>();
+            CreateMap<PreSearchFilterSection, PsfSection>();
+            CreateMap<PreSearchFilterOption, PsfOption>();
         }
 
         public override string ProfileName => "DFC.Digital.Web.Sitefinity.JobProfileModule";

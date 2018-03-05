@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
-using DFC.Digital.Core.Extensions;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -15,62 +16,63 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileSearchSteps
     {
         private SearchResult<JobProfileIndex> results;
-
-        private ITestOutputHelper outputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private IMapper mapper;
+        private IAsyncHelper asyncHelper;
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.mapper = mapper;
+            asyncHelper = new AsyncHelper();
         }
 
+        private ITestOutputHelper OutputHelper { get; set; }
+
         [Given(@"the following job profiles exist:")]
-        public void GivenTheFollowingJobProfilesExist(Table table)
+        public void GivenTheFollowingJobProfilesExistAsync(Table table)
         {
             try
             {
-                searchService.EnsureIndex(searchIndex.Name);
-                searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
         [Given(@"that '(.*)' job profiles exist with '(.*)':")]
-        public void GivenThatJobProfilesExistWith(int countOfDummies, string jobTitle)
+        public void GivenThatJobProfilesExistWithAsync(int countOfDummies, string jobTitle)
         {
             try
             {
-                searchService.EnsureIndex(searchIndex.Name);
-                searchService.PopulateIndex(countOfDummies.CreateWithTitle(jobTitle));
+                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobTitle)));
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
         [When(@"I search using the search term '(.*)'")]
         public void WhenISearchUsingTheSearchTerm(string searchTerm)
         {
-            outputHelper.WriteLine($"The search term is '{searchTerm}'");
+            OutputHelper.WriteLine($"The search term is '{searchTerm}'");
             try
             {
                 results = searchQueryService.Search(searchTerm);
             }
             catch (Exception ex)
             {
-                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
             }
         }
 
@@ -78,7 +80,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         public void ThenTheResultListWillContainProfileS(int totalNumber)
         {
             //Log results
-            outputHelper.WriteLine($"Number of results expected {totalNumber}  number returned {results?.Results.Count()} actual result {results?.ToJson()}");
+            OutputHelper.WriteLine($"Number of results expected {totalNumber}  number returned {results?.Results.Count()} actual result {results?.ToJson()}");
             results?.Results.Count().Should().Be(totalNumber);
         }
 
@@ -89,8 +91,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem);
 
             //Log results
-            outputHelper.WriteLine($"Expected order {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual order {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual order {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected, options => options.WithStrictOrdering());
         }
@@ -102,8 +104,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem);
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }
@@ -115,8 +117,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem).Take(expected.Count());
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }
@@ -128,8 +130,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             var actual = results?.Results.Select(r => r.ResultItem).Skip(skip);
 
             //Log results
-            outputHelper.WriteLine($"Expected {expected.ToJson()}");
-            outputHelper.WriteLine($"Actual {actual?.ToJson()}");
+            OutputHelper.WriteLine($"Expected {expected.ToJson()}");
+            OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
             actual.ShouldBeEquivalentTo(expected);
         }
@@ -141,10 +143,10 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Given(@"there are '(.*)' profiles which have a Title of '(.*)'")]
-        public void GivenThereAreProfilesWhichHaveATitleOf(int countOfDummies, string jobProfileTitle)
+        public async Task GivenThereAreProfilesWhichHaveATitleOfAsync(int countOfDummies, string jobProfileTitle)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(countOfDummies.CreateWithTitle(jobProfileTitle));
+            await searchService.EnsureIndexAsync(searchIndex.Name);
+            await searchService.PopulateIndexAsync(countOfDummies.CreateWithTitle(jobProfileTitle));
         }
 
         [Then(@"the number of job profiles shown on the page is less than or equal to '(.*)'\. \(i\.e\. the page limit\)")]

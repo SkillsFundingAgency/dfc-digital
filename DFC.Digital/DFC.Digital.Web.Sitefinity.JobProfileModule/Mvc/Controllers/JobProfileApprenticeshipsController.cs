@@ -46,6 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="webAppContext">The web application context.</param>
         /// <param name="jobProfileSocCodeRepository">The job profile soc code repository.</param>
         /// <param name="applicationLogger">The application logger.</param>
+        /// <param name="sitefinityPage">Sitefinity page</param>
         public JobProfileApprenticeshipsController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
@@ -91,12 +92,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string ApprenticeshipLocationDetails { get; set; } = "In England";
 
         /// <summary>
-        /// Gets or sets the find apprenticeship text.
+        /// Gets or sets the apprenticeship text.
         /// </summary>
         /// <value>
-        /// The find apprenticeship text.
+        /// The apprenticeship text.
         /// </value>
-        public string FindApprenticeshipText { get; set; } = "Find apprenticeships near you";
+        public string ApprenticeshipText { get; set; } = "<a href=\"https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch\">Find apprenticeships near you</a>";
 
         /// <summary>
         /// Gets or sets the no vacancy text.
@@ -107,14 +108,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string NoVacancyText { get; set; } = "Right now there aren't any apprenticeships in this field of work. Consider exploring the related careers or <a href=\"https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch\">find other apprenticeships.</a>";
 
         /// <summary>
-        /// Gets or sets the find apprenticeship link.
-        /// </summary>
-        /// <value>
-        /// The find apprenticeship link.
-        /// </value>
-        public string FindApprenticeshipLink { get; set; } = "https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch";
-
-        /// <summary>
         /// Gets or sets the maximum apprenticeship count.
         /// </summary>
         /// <value>
@@ -123,6 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public int MaxApprenticeshipCount { get; set; } = 2;
 
         #endregion Public Properties
+
         #region Actions
 
         /// <summary>
@@ -169,10 +163,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 ApprenticeshipSectionTitle = ApprenticeshipSectionTitle,
                 SectionId = SectionId,
                 LocationDetails = ApprenticeshipLocationDetails,
-                FindApprenticeshipText = FindApprenticeshipText,
-                FindApprenticeshipLink = FindApprenticeshipLink,
+                ApprenticeshipText = ApprenticeshipText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
+                NoVacancyText = NoVacancyText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
                 MainSectionTitle = MainSectionTitle,
-                NoVacancyText = NoVacancyText,
             };
 
             return View("Index", model);
@@ -188,8 +181,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     ApprenticeshipSectionTitle = ApprenticeshipSectionTitle,
                     SectionId = SectionId,
                     LocationDetails = ApprenticeshipLocationDetails,
-                    FindApprenticeshipText = FindApprenticeshipText,
-                    FindApprenticeshipLink = FindApprenticeshipLink,
+                    ApprenticeshipText = ApprenticeshipText,
                     MainSectionTitle = MainSectionTitle,
                     NoVacancyText = NoVacancyText,
                 };

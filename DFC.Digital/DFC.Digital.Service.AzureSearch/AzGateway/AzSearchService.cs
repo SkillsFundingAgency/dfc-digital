@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
@@ -14,6 +14,7 @@ namespace DFC.Digital.Service.AzureSearch
         #region Fields
 
         private readonly ISuggesterBuilder suggesterBuilder;
+        private readonly ITolerancePolicy policy;
         private readonly ISearchIndexClient indexClient;
         private readonly ISearchServiceClient searchClient;
 
@@ -21,27 +22,22 @@ namespace DFC.Digital.Service.AzureSearch
 
         #region Ctor
 
-        public AzSearchService(ISearchServiceClient searchClient, ISearchIndexClient indexClient, ISuggesterBuilder suggesterBuilder)
+        public AzSearchService(ISearchServiceClient searchClient, ISearchIndexClient indexClient, ISuggesterBuilder suggesterBuilder, ITolerancePolicy policy)
         {
             this.searchClient = searchClient;
             this.indexClient = indexClient;
             this.suggesterBuilder = suggesterBuilder;
+            this.policy = policy;
         }
 
         #endregion Ctor
 
         #region Implementations
 
-        public void EnsureIndex(string indexName)
-        {
-            Index definition = GetIndexDefenition(indexName);
-            searchClient.Indexes.CreateOrUpdate(definition);
-        }
-
         public async Task EnsureIndexAsync(string indexName)
         {
             Index definition = GetIndexDefenition(indexName);
-            await searchClient.Indexes.CreateOrUpdateAsync(definition);
+            await policy.ExecuteAsync(() => searchClient.Indexes.CreateOrUpdateAsync(definition), nameof(AzSearchService<T>), FaultToleranceType.RetryWithCircuitBreaker);
         }
 
         public void DeleteIndex(string indexName)
@@ -52,42 +48,14 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        public void PopulateIndex(IEnumerable<T> data)
-        {
-            var batch = IndexBatch.Upload(data);
-            var result = indexClient.Documents.Index(batch);
-
-            //fault tolerance - we should look for an alternative library for this
-            for (int i = 0; i < 3; i++)
-            {
-                if (result.Results.Any(r => r.Succeeded == false || r.StatusCode > 400))
-                {
-                    result = indexClient.Documents.Index(batch);
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-
         public async Task PopulateIndexAsync(IEnumerable<T> data)
         {
             var batch = IndexBatch.Upload(data);
-            var result = await indexClient.Documents.IndexAsync(batch);
-
-            //fault tolerance - we should look for an alternative library for this
-            for (int i = 0; i < 3; i++)
-            {
-                if (result.Results.Any(r => r.Succeeded == false || r.StatusCode > 400))
-                {
-                    result = await indexClient.Documents.IndexAsync(batch);
-                }
-                else
-                {
-                    break;
-                }
-            }
+            await policy.ExecuteAsync(
+                () => indexClient.Documents.IndexAsync(batch),
+                result => result.Results.Any(r => r.Succeeded == false || r.StatusCode > 400),
+                nameof(AzSearchService<T>),
+                FaultToleranceType.WaitRetry);
         }
 
         #endregion Implementations

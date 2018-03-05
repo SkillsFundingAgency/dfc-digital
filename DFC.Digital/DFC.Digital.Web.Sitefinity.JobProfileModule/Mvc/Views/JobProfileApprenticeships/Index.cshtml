@@ -1,5 +1,4 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileApprenticeshipViewModel
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileApprenticeshipViewModel
 
 @if (!string.IsNullOrWhiteSpace(Model.MainSectionTitle))
 {
@@ -7,39 +6,43 @@
 }
 
 <div class="grid-row" id="appGeneric">
-        <div class="column-full">
-            <h3 class="heading-medium">
-                @Model.ApprenticeshipSectionTitle
-                <span class="heading-secondary">@Model.LocationDetails</span>
-            </h3>
-        </div>
-        @if (Model.ApprenticeshipsAvailable)
-        {
-            foreach (var apprenticeVacancy in Model.ApprenticeVacancies)
-            {
-                <div class="column-half">
-                    <div class="panel panel-border-narrow opportunity-item">
-                        <h4 class="heading-small"><a href="@apprenticeVacancy.URL">@apprenticeVacancy.Title</a>
-                        </h4>
-                        <ul class="list">
-                            <li><span class="bold-small">@apprenticeVacancy.WageUnitType:</span> @apprenticeVacancy.WageAmount</li>
-                            <li><span class="bold-small">Location:</span> @apprenticeVacancy.Location</li>
-                        </ul>
-                    </div>
-                </div>
-            }
-        }
+    <div class="column-full">
+        <h3 class="heading-medium">
+            @Model.ApprenticeshipSectionTitle
+            <span class="heading-secondary">@Model.LocationDetails</span>
+        </h3>
     </div>
-    @if (!Model.ApprenticeshipsAvailable)
+    @if (Model.ApprenticeshipsAvailable)
     {
-        <div class="dfc-code-jp-novacancyText">
-            <p>
-            @Html.Raw(Model.NoVacancyText)
-            </p>
-        </div>
+        foreach (var apprenticeVacancy in Model.ApprenticeVacancies)
+        {
+            <div class="column-half">
+                <div class="panel panel-border-narrow opportunity-item">
+                    <h4 class="heading-small">
+                        <a href="@apprenticeVacancy.URL">@apprenticeVacancy.Title</a>
+                    </h4>
+                    <ul class="list">
+                        <li><span class="bold-small">@apprenticeVacancy.WageUnitType:</span> @apprenticeVacancy.WageAmount</li>
+                        <li><span class="bold-small">Location:</span> @apprenticeVacancy.Location</li>
+                    </ul>
+                </div>
+            </div>
+        }
     }
-    <div class="opportunity-footer">
+</div>
+@if (!Model.ApprenticeshipsAvailable)
+{
+    <div class="dfc-code-jp-novacancyText">
         <p>
-            <a class="dfc-code-jp-findApprenticeship" href="@Model.FindApprenticeshipLink">@Model.FindApprenticeshipText</a>
+            @Html.Raw(Model.NoVacancyText)
         </p>
     </div>
+}
+else
+{
+    <div class="dfc-code-jp-vacancyText">
+        <p>
+            @Html.Raw(Model.ApprenticeshipText)
+        </p>
+    </div>
+}

@@ -1,0 +1,56 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.AdminPanelViewModel
+
+<div>
+    <h1 class="sfBreadCrumb">
+        @Html.Raw(Model.PageTitle)
+    </h1>
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {
+            <p>@Html.Raw(Model.FirstParagraph)</p>
+            <br />
+            <select id="RestartMode">
+                <option value="Default">SOFT Restart - (Cleans application cache and reinitialize the system. This does not reset the database model.)</option>
+                <option value="ResetModel">DATABASE Model Reset - (This operations forces the metadata containers to be recreated - dynamic types/fields and custom fields.)</option>
+                <option value="AttemptFullRestart">FULL Restart - (This operation unloads the application domain and resets the database model.)</option>
+            </select> <a id="btnRestartSitefinity" onclick="RestartSitefinity(); return false;" href="#" class="sfLinkBtn sfSave"><span id="btnRestartSitefinityText" class="sfLinkBtnIn">Restart Sitefinity</span></a>
+            <br /><br />
+            <div id="AjaxCallResult"></div>
+        }
+        else
+        {
+            <p>@Model.NotAllowedMessage</p>
+        }
+
+    </div>
+</div>
+@if (Model.IsAdmin)
+{
+    <script type="text/javascript">
+
+        function RestartSitefinity() {
+
+            $.ajax({
+                url: '/restartsitefinity',
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({
+                    restartMode: $('#RestartMode').val()
+                }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $('#AjaxCallResult').html(data.Result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#AjaxCallResult').html(xhr + ", " + ajaxOptions + ", " + thrownError);
+                }
+            });
+
+            $('#btnRestartSitefinity').prop("onclick", null);
+            $('#btnRestartSitefinityText').html("To Restart Sitefinity again Refresh the Page first");
+
+            return false;
+        }
+
+    </script>
+}

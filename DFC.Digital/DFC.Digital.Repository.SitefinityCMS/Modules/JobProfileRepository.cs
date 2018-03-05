@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 
@@ -12,6 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         private const string JobprofileContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
         private const string ModuleName = "Job Profile";
+        private Dictionary<string, JobProfile> cachedJobProfiles = new Dictionary<string, JobProfile>();
 
         private IDynamicModuleConverter<JobProfile> converter;
 
@@ -37,7 +39,14 @@ namespace DFC.Digital.Repository.SitefinityCMS
         /// <returns>JobProfile</returns>
         public JobProfile GetByUrlName(string urlName)
         {
-            return ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+            var key = urlName.ToLowerInvariant();
+            if (!cachedJobProfiles.ContainsKey(key))
+            {
+                var jobProfile = ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+                cachedJobProfiles.Add(key, jobProfile);
+            }
+
+            return cachedJobProfiles[key];
         }
 
         /// <summary>
@@ -49,6 +58,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public JobProfile GetByUrlNameForPreview(string urlName)
         {
             return ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp));
+        }
+
+        public JobProfile GetByUrlNameForSearchIndex(string urlName)
+        {
+            return ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Master));
         }
 
         public Type GetContentType()

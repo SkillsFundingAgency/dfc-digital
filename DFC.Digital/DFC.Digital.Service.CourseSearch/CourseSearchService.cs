@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core.Utilities;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.Converters;
@@ -6,6 +7,7 @@ using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
@@ -15,16 +17,23 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IAuditRepository auditRepository;
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
+        private readonly ITolerancePolicy tolerancePolicy;
 
-        public CourseSearchService(ICourseOpportunityBuilder courseOpportunityBuilder, IServiceHelper serviceHelper, IAuditRepository auditRepository, IApplicationLogger applicationLogger)
+        public CourseSearchService(
+            ICourseOpportunityBuilder courseOpportunityBuilder, 
+            IServiceHelper serviceHelper, 
+            IAuditRepository auditRepository, 
+            IApplicationLogger applicationLogger,
+            ITolerancePolicy tolerancePolicy)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
+            this.tolerancePolicy = tolerancePolicy;
         }
 
-        public IEnumerable<Course> GetCourses(string jobprofileKeywords)
+        public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)
         {
             var request = MessageConverter.GetCourseListInput(jobprofileKeywords);
             auditRepository.CreateAudit(request);
@@ -32,7 +41,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
             try
             {
-                var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSerachEndpointConfigName);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
                 var result = apiResult?.ConvertToCourse();
                 var filteredResult = courseOpportunityBuilder.SelectCoursesForJobProfile(result);

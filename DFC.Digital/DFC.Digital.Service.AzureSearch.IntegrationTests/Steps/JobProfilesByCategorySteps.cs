@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
@@ -15,37 +16,38 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     internal class JobProfilesByCategorySteps
     {
         private IEnumerable<JobProfile> result;
-
-        private ITestOutputHelper outputHelper { get; set; }
-
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private IMapper mapper;
-
-        public ISearchQueryService<JobProfileIndex> searchQueryService { get; }
+        private IAsyncHelper asyncHelper;
 
         public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
         {
-            this.outputHelper = outputHelper;
+            this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
-            this.searchQueryService = searchQueryService;
+            this.SearchQueryService = searchQueryService;
             this.mapper = mapper;
+            this.asyncHelper = new AsyncHelper();
         }
 
+        private ITestOutputHelper OutputHelper { get; set; }
+
+        private ISearchQueryService<JobProfileIndex> SearchQueryService { get; }
+
         [Given(@"the following job profiles in catogories  exist:")]
-        public void GivenTheFollowingJobProfilesInCatogoriesExist(Table table)
+        public void GivenTheFollowingJobProfilesInCatogoriesExistAsync(Table table)
         {
-            searchService.EnsureIndex(searchIndex.Name);
-            searchService.PopulateIndex(table.ToJobProfileSearchIndex());
+            asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
+            asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex()));
         }
 
         [When(@"I filter by the category '(.*)'")]
         public void WhenIFilterByTheCategory(string filterCategory)
         {
-            outputHelper.WriteLine($"The filter category is '{filterCategory}'");
-            var JobProfileCategoryRepository = new JobProfileCategoryRepository(searchQueryService, mapper, null);
-            this.result = JobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
+            OutputHelper.WriteLine($"The filter category is '{filterCategory}'");
+            var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null);
+            this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
         }
 
         [Then(@"the number of job profiles returned is (.*)")]

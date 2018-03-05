@@ -2,7 +2,8 @@
 
 namespace DFC.Digital.Core.Interceptors
 {
-    public class IgnoreInputInInterceptionAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public sealed class IgnoreInputInInterceptionAttribute : Attribute
     {
     }
 }

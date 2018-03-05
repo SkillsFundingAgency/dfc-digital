@@ -1,13 +1,11 @@
-﻿
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Service.CourseSearchProvider;
+﻿using DFC.Digital.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
-namespace DFC.Digital.Service.ServiceStatusesToCheck
+namespace DFC.Digital.Web.Sitefinity.Core.Utility
 {
     public class DependencyHealthCheckService
     {
@@ -20,7 +18,7 @@ namespace DFC.Digital.Service.ServiceStatusesToCheck
 
         public Task<ServiceStatus> GetServiceStatus()
         {
-          return serviceStatus.GetCurrentStatusAsync();
+            return serviceStatus.GetCurrentStatusAsync();
         }
     }
 }

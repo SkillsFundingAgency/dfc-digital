@@ -11,7 +11,7 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider.Config;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
-using DFC.Digital.Service.ServiceStatusesToCheck;
+using DFC.Digital.Web.Sitefinity.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;

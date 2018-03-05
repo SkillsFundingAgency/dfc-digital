@@ -1,8 +1,8 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.ServiceStatusesToCheck;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
+using DFC.Digital.Web.Sitefinity.Core.Utility;
 using FakeItEasy;
 using FluentAssertions;
 using System;

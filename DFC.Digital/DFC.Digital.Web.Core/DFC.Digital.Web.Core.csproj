@@ -126,6 +126,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseDfcController.cs" />
     <Compile Include="Config\WebCoreAutofacConfig.cs" />
+    <Compile Include="Utility\DependencyHealthCheckService.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="HtmlExtentions\AssetVersioningExtention.cs" />
     <Compile Include="HtmlExtentions\IsDebugExtension.cs" />
@@ -181,10 +182,6 @@
     <ProjectReference Include="..\DFC.Digital.Service.LMIFeed\DFC.Digital.Service.LMIFeed.csproj">
       <Project>{4DDF6E01-52E9-4799-89A0-F6C81F59F296}</Project>
       <Name>DFC.Digital.Service.LMIFeed</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.StatusCheck\DFC.Digital.Service.StatusCheck.csproj">
-      <Project>{4FEF871A-459D-4E54-9232-5F53DF5B71DA}</Project>
-      <Name>DFC.Digital.Service.StatusCheck</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

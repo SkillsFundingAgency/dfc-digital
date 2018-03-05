@@ -420,10 +420,6 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.StatusCheck\DFC.Digital.Service.StatusCheck.csproj">
-      <Project>{4fef871a-459d-4e54-9232-5f53df5b71da}</Project>
-      <Name>DFC.Digital.Service.StatusCheck</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
       <Project>{2161f904-4d97-4685-8c9f-05c6f4d0dd74}</Project>
       <Name>DFC.Digital.Web.Core</Name>

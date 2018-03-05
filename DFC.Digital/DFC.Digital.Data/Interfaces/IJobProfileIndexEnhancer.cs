@@ -5,10 +5,10 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileIndexEnhancer
     {
-        JobProfileIndex GetRelatedFieldsWithUrl(JobProfileIndex jobProfileIndex);
+        void Initialise(JobProfileIndex jobProfile, bool isPublishing);
 
-        void Initialise(JobProfileIndex jobProfile);
+        void PopulateRelatedFieldsWithUrl();
 
-        Task<JobProfileIndex> GetSalaryRangeAsync(JobProfileIndex jobProfileIndex);
+        Task PopulateSalary();
     }
 }

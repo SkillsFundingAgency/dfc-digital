@@ -14,6 +14,8 @@ namespace DFC.Digital.Core.Tests
 {
     public class TolerancePolicyTests
     {
+        private const int Precision = 600;
+
         [Theory]
         [InlineData("timeout", FaultToleranceType.Timeout)]
         [InlineData("Retry", FaultToleranceType.Retry)]
@@ -84,7 +86,7 @@ namespace DFC.Digital.Core.Tests
 
                     resultWait.Should().Throw<NotImplementedException>();
                     exNumberOfTimes.Should().Be(strategy.Retry + 1);
-                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
+                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), Precision);
                     break;
 
                 case FaultToleranceType.CircuitBreaker:
@@ -244,7 +246,7 @@ namespace DFC.Digital.Core.Tests
 
                     result5.Awaiting(async a => await a()).Should().Throw<NotImplementedException>();
                     exNumberOfTimes.Should().Be(strategy.Retry + 1);
-                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
+                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), Precision);
                     break;
 
                 default:
@@ -282,7 +284,7 @@ namespace DFC.Digital.Core.Tests
 
             result2.Awaiting(async a => await a()).Should().NotThrow();
             executedNumberOfTimes.Should().Be(strategy.Retry + 1);
-            delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
+            delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), Precision);
         }
 
         private Task<string> ThrowEx()

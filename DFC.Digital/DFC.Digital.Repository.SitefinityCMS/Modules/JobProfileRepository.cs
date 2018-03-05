@@ -60,6 +60,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp));
         }
 
+        public JobProfile GetByUrlNameForSearchIndex(string urlName)
+        {
+            return ConvertDynamicContent(Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Master));
+        }
+
         public Type GetContentType()
         {
             return DynamicModuleContentType;

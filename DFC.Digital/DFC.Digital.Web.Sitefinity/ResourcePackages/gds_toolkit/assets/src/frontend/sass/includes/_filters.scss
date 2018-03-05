@@ -21,8 +21,19 @@
             height: 0;
             width: 0;
             position: relative;
+            opacity: 0;
             margin: 0;
             outline: none !important;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+                border: none;
+
+                + input + label, + label {
+                    outline: 3px solid $yellow;
+                }
+            }
 
             & + input + label, & + label {
                 flex: 1;
@@ -99,7 +110,8 @@
     }
 
     .button-link:focus {
-        outline: none;
+        background-color: $yellow;
+        outline: $yellow solid 3px;
     }
 }
 

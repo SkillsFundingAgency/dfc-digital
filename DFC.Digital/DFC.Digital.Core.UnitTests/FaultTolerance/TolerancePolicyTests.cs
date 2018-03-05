@@ -14,6 +14,8 @@ namespace DFC.Digital.Core.Tests
 {
     public class TolerancePolicyTests
     {
+        private const int Precision = 1000;
+
         [Theory]
         [InlineData("timeout", FaultToleranceType.Timeout)]
         [InlineData("Retry", FaultToleranceType.Retry)]
@@ -84,7 +86,7 @@ namespace DFC.Digital.Core.Tests
 
                     resultWait.Should().Throw<NotImplementedException>();
                     exNumberOfTimes.Should().Be(strategy.Retry + 1);
-                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
+                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), Precision);
                     break;
 
                 case FaultToleranceType.CircuitBreaker:
@@ -219,32 +221,21 @@ namespace DFC.Digital.Core.Tests
                     break;
 
                 case FaultToleranceType.WaitRetry:
-                    TimeSpan delayResult = default;
                     var exNumberOfTimes = 0;
                     Func<Task> result5 = async () =>
                     {
-                        var delay = Stopwatch.StartNew();
-                        try
+                        await actor.ExecuteAsync(
+                        () =>
                         {
-                            await actor.ExecuteAsync(
-                            () =>
-                            {
-                                exNumberOfTimes++;
-                                return ThrowEx();
-                            },
-                            dependencyName,
-                            toleranceType);
-                        }
-                        finally
-                        {
-                            delay.Stop();
-                            delayResult = delay.Elapsed;
-                        }
+                            exNumberOfTimes++;
+                            return ThrowEx();
+                        },
+                        dependencyName,
+                        toleranceType);
                     };
 
                     result5.Awaiting(async a => await a()).Should().Throw<NotImplementedException>();
                     exNumberOfTimes.Should().Be(strategy.Retry + 1);
-                    delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
                     break;
 
                 default:
@@ -270,19 +261,15 @@ namespace DFC.Digital.Core.Tests
             var executedNumberOfTimes = 0;
             Func<Task> result2 = async () =>
             {
-                var delay = Stopwatch.StartNew();
                 await actor.ExecuteAsync(
                 () => Task.FromResult(executedNumberOfTimes++),
                 a => a < strategy.Retry,
                 dependencyName,
                 toleranceType);
-                delay.Stop();
-                delayResult = delay.Elapsed;
             };
 
             result2.Awaiting(async a => await a()).Should().NotThrow();
             executedNumberOfTimes.Should().Be(strategy.Retry + 1);
-            delayResult.Should().BeCloseTo(TimeSpan.FromSeconds(strategy.Wait.Seconds * strategy.Retry), 500);
         }
 
         private Task<string> ThrowEx()

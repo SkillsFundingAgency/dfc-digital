@@ -34,20 +34,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string LocationDetails { get; set; }
 
         /// <summary>
-        /// Gets or sets the find apprenticeship link.
+        /// Gets or sets the apprenticeship text.
         /// </summary>
         /// <value>
-        /// The find apprenticeship link.
+        /// The apprenticeship text.
         /// </value>
-        public string FindApprenticeshipLink { get; set; }
-
-        /// <summary>
-        /// Gets or sets the find apprenticeship text.
-        /// </summary>
-        /// <value>
-        /// The find apprenticeship text.
-        /// </value>
-        public string FindApprenticeshipText { get; set; }
+        public string ApprenticeshipText { get; set; }
 
         /// <summary>
         /// Gets or sets the big section title and number.

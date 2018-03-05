@@ -3,6 +3,7 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Telerik.Sitefinity.Services.Search.Data;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions
@@ -12,6 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions
         internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper)
         {
             List<JobProfileIndex> indexes = new List<JobProfileIndex>();
+            List<Task> salaryPopulation = new List<Task>();
             foreach (var item in documents)
             {
                 var jobProfile = new JobProfileIndex
@@ -28,12 +30,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions
                     HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>
                 };
 
-                jobProfileIndexEnhancer.Initialise(jobProfile);
-                var profile = jobProfile;
-                jobProfile = asyncHelper.Synchronise(() => jobProfileIndexEnhancer.GetSalaryRangeAsync(profile));
-                jobProfile = jobProfileIndexEnhancer.GetRelatedFieldsWithUrl(jobProfile);
+                jobProfileIndexEnhancer.Initialise(jobProfile, documents.Count() == 1);
+                jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
+                salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
                 indexes.Add(jobProfile);
             }
+
+            asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
 
             return indexes;
         }

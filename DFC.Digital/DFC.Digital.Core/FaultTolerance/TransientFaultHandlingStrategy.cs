@@ -8,7 +8,8 @@ namespace DFC.Digital.Core
 
         public int AllowedFaults => 4;
 
-        public TimeSpan Timeout => TimeSpan.FromSeconds(2);
+        //Increasing the timeout strategy at the back of application need and timeout handling, further stories in backlog related to this.
+        public TimeSpan Timeout => TimeSpan.FromSeconds(4);
 
         public TimeSpan Wait => TimeSpan.FromSeconds(2);
 

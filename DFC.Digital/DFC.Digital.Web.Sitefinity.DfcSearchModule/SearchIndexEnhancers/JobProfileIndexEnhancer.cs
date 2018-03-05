@@ -63,17 +63,18 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
                 jobProfileIndex.SalaryStarter = Convert.ToDouble(JobProfile.SalaryStarter);
                 jobProfileIndex.SalaryExperienced = Convert.ToDouble(JobProfile.SalaryExperienced);
             }
-            else
+            else if (!string.IsNullOrEmpty(JobProfile.SOCCode))
             {
+                //When there are no SOC code, leave the salary as default. Displayed as variable by the screen.
                 //Mutate soc code
                 var socCode = JobProfile.SOCCode;
-                return Task.Run(() => PopulateSalaryrFromLMIAsync(socCode));
+                return Task.Run(() => PopulateSalaryFromLMIAsync(socCode));
             }
 
             return Task.CompletedTask;
         }
 
-        private async Task PopulateSalaryrFromLMIAsync(string socCode)
+        private async Task PopulateSalaryFromLMIAsync(string socCode)
         {
             var salary = await salaryService.GetSalaryBySocAsync(socCode);
             jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
-namespace DFC.Digital.Core.Extensions
+namespace DFC.Digital.Core
 {
     public static class InstrumentationExtensions
     {

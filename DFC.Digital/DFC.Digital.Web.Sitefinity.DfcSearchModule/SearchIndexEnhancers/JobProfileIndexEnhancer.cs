@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using System;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System.Collections.Generic;
 using System.Globalization;
@@ -46,18 +47,22 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
             return jobProfileIndex;
         }
 
-        public async Task<string> GetSalaryRangeAsync()
+        public async Task<JobProfileIndex> GetSalaryRangeAsync(JobProfileIndex jobProfileIndex)
         {
-            if (JobProfile.IsLMISalaryFeedOverriden.HasValue && JobProfile.IsLMISalaryFeedOverriden.Value != true)
+            // Conversions taking place because sitefinity returns Decimal and Azure Search accepts Double fields
+            if (JobProfile.IsLMISalaryFeedOverriden.HasValue && JobProfile.IsLMISalaryFeedOverriden.Value != true && !string.IsNullOrWhiteSpace(JobProfile.SOCCode))
             {
                 var salary = await salaryService.GetSalaryBySocAsync(JobProfile.SOCCode);
-                JobProfile.SalaryStarter = salaryCalculator.GetStarterSalary(salary);
-                JobProfile.SalaryExperienced = salaryCalculator.GetExperiencedSalary(salary);
+                jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
+                jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
+            }
+            else
+            {
+                jobProfileIndex.SalaryStarter = Convert.ToDouble(JobProfile.SalaryStarter);
+                jobProfileIndex.SalaryExperienced = Convert.ToDouble(JobProfile.SalaryExperienced);
             }
 
-            return !JobProfile.SalaryStarter.HasValue || !JobProfile.SalaryExperienced.HasValue || JobProfile.SalaryStarter.Value.Equals(0) || JobProfile.SalaryExperienced.Value.Equals(0)
-                ? null
-                : string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", JobProfile.SalaryStarter, JobProfile.SalaryExperienced);
+            return jobProfileIndex;
         }
 
         private IEnumerable<string> GetJobProfileCategoriesWithUrl(JobProfile jobProfile)

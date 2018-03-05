@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.LMIFeed.Interfaces;
 using System;
@@ -60,7 +61,7 @@ namespace DFC.Digital.Service.LMIFeed
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
             return serviceStatus;
         }

@@ -16,6 +16,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void ErrorJustLogIt(string message, Exception ex);
 
-        string LogExceptionWithActivityId(Exception ex);
+        string LogExceptionWithActivityId(string message, Exception ex);
     }
 }

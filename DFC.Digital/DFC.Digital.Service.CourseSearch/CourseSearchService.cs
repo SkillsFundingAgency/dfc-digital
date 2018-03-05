@@ -45,9 +45,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             try
             {
                 var request = MessageConverter.GetCourseListInput(checkSubject);
-                //var apiResult = serviceHelper.Use<ServiceInterface, CourseListOutput>(x => x.CourseList(request), Constants.CourseSearchEndpointConfigName);
                 var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
-
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
@@ -62,7 +60,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return serviceStatus;

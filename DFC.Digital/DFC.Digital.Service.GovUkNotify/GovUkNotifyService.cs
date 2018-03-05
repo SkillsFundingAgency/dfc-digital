@@ -41,9 +41,7 @@ namespace DFC.Digital.Service.GovUkNotify
             vocPersonalisation.Personalisation.Add("clientId", "ServiceCheck ClientId");
             try
             {
-                var templateId = ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId];
-                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey];
-                var response = clientProxy.SendEmail(apiKey, emailAddress, templateId, this.Convert(vocPersonalisation));
+                var response = clientProxy.SendEmail(ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey], emailAddress, ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId], this.Convert(vocPersonalisation));
 
                 //Got a response back
                 serviceStatus.Status = ServiceState.Amber;
@@ -57,7 +55,7 @@ namespace DFC.Digital.Service.GovUkNotify
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return Task.FromResult(serviceStatus);
@@ -74,9 +72,7 @@ namespace DFC.Digital.Service.GovUkNotify
         {
             try
             {
-                var templateId = ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId];
-                var apiKey = ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey];
-                var response = clientProxy.SendEmail(apiKey, emailAddress, templateId, this.Convert(vocPersonalisation));
+                var response = clientProxy.SendEmail(ConfigurationManager.AppSettings[Constants.GovUkNotifyApiKey], emailAddress, ConfigurationManager.AppSettings[Constants.GovUkNotifyTemplateId], this.Convert(vocPersonalisation));
                 return !string.IsNullOrEmpty(response?.id);
             }
             catch (NotifyClientException ex)

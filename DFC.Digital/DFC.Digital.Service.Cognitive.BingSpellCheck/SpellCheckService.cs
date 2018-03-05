@@ -36,11 +36,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                 var checkText = "nursee";
                 serviceStatus.CheckParametersUsed = $"Text used - {checkText}";
 
-                var requestUri = string.Format(bingSpellEndpoint, checkText);
+                var response = await GetSpellCheckResponseAsync(checkText);
 
-                var client = GetHttpClient();
-
-                var response = await client.GetAsync(requestUri);
                 if (response.IsSuccessStatusCode)
                 {
                     //Got a response back
@@ -68,7 +65,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return serviceStatus;
@@ -80,10 +77,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         {
             var correctedTerm = term;
             bool hasCorrections = false;
-            var requestUri = string.Format(bingSpellEndpoint, term);
 
-            var client = GetHttpClient();
-            var response = await client.GetAsync(requestUri);
+            var response = await GetSpellCheckResponseAsync(term);
             if (response.IsSuccessStatusCode)
             {
                 var resultsString = await response.Content.ReadAsStringAsync();
@@ -106,11 +101,11 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             };
         }
 
-        private HttpClient GetHttpClient()
+        private async Task<HttpResponseMessage> GetSpellCheckResponseAsync(string term)
         {
             var httpClient = httpClientService.GetHttpClient();
             httpClient.DefaultRequestHeaders.Add(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
-            return httpClient;
+            return await httpClient.GetAsync(string.Format(bingSpellEndpoint, term));
         }
     }
 }

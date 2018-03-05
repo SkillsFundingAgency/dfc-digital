@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.AzureSearch
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = applicationLogger.LogExceptionWithActivityId(ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return serviceStatus;

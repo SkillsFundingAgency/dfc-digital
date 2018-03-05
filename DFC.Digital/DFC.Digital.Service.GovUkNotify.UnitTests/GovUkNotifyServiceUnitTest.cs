@@ -112,7 +112,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             //Fake set up incorrectly to cause exception
             A.CallTo(() => fakeGovUkNotifyClient.SendEmail(A<string>._, A<string>._, A<string>._, A<Dictionary<string, dynamic>>._)).Throws<NotifyClientException>();
            
-            A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<Exception>._)).Returns("Exception logged");
+            A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             
             //Act

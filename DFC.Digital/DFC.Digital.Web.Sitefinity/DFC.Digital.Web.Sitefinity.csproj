@@ -1131,6 +1131,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.20.1.nupkg" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\ie.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

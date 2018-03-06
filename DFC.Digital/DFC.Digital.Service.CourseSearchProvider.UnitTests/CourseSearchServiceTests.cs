@@ -98,7 +98,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             //Setup Calls and Dummies
 
             A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
-            A.CallTo(() => loggerFake.LogExceptionWithActivityId("Failed message", A<Exception>._)).Returns("Exception acctivity id");
+            A.CallTo(() => loggerFake.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception acctivity id");
 
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
 

@@ -1,0 +1,51 @@
+﻿@using DFC.Digital.Web.Core.HtmlExtentions;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+@model DFC.Digital.Web.Sitefinity.Core.Mvc.Models.ServiceStatusModel
+<!DOCTYPE html>
+<html @Html.RenderLangAttribute()>
+<head>
+    <title>Service Status</title>
+    @Html.Partial("_Head")
+</head>
+<body>
+    <header class="with-proposition" id="global-header" role="banner">
+        <div class="header-wrapper">
+            <div class="header-proposition">
+                <div class="content">
+                    <nav id="proposition-menu">
+                        <a href="/" id="proposition-name">Find a career</a><strong class="phase-tag">BETA</strong>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <div class="content-container">
+            <h2 class="heading-medium">Service Status</h2>
+            <h2 class="heading-small">At : @Model.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss")</h2>
+            <ul class="list-service">
+                @foreach (var status in Model.ServiceStatues)
+                {
+                    <li class="list-service_@(status?.Status)">
+                        <div class="grid-row">
+                            <div class="column-one-half">
+                                @(status?.Name)
+                            </div>
+                            <div class="column-one-half">
+                                @(status?.CheckParametersUsed)
+                            </div>
+                        </div>
+                        <div class="grid-row">
+                            <div class="column-full">
+                                @(status?.Notes)
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
+

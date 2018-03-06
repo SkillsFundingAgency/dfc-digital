@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseSearchService : ICourseSearchService
+    public class CourseSearchService : ICourseSearchService, IServiceStatus
     {
         private readonly ICourseOpportunityBuilder courseOpportunityBuilder;
         private readonly IAuditRepository auditRepository;
@@ -20,7 +20,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly ITolerancePolicy tolerancePolicy;
 
         public CourseSearchService(
-            ICourseOpportunityBuilder courseOpportunityBuilder, 
+            ICourseOpportunityBuilder courseOpportunityBuilder,
             IServiceHelper serviceHelper, 
             IAuditRepository auditRepository, 
             IApplicationLogger applicationLogger,
@@ -31,6 +31,39 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
             this.tolerancePolicy = tolerancePolicy;
+        }
+
+        private string ServiceName => "Course Search";
+
+        public async Task<ServiceStatus> GetCurrentStatusAsync()
+        {
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+
+            var checkSubject = "maths";
+            serviceStatus.CheckParametersUsed = $"Searched for - {checkSubject}";
+
+            try
+            {
+                var request = MessageConverter.GetCourseListInput(checkSubject);
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+
+                //The call worked ok
+                serviceStatus.Status = ServiceState.Amber;
+                serviceStatus.Notes = "Success Response";
+
+                //We have actual data
+                if (apiResult.CourseListResponse.CourseDetails.Count() > 0)
+                {
+                    serviceStatus.Status = ServiceState.Green;
+                    serviceStatus.Notes = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+            }
+
+            return serviceStatus;
         }
 
         public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)

@@ -2,6 +2,7 @@
 using Autofac.Extras.NLog;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
 using DFC.Digital.Repository.Database;
 using DFC.Digital.Repository.SitefinityCMS;
@@ -10,6 +11,7 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider.Config;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
+using DFC.Digital.Web.Sitefinity.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +67,8 @@ namespace DFC.Digital.Web.Core.Config
 
             var dfcDigitalAssemblies = assemblies.Where(a => a.FullName.StartsWith("DFC.Digital.Web", StringComparison.Ordinal)).ToArray();
             builder.RegisterAssemblyModules(dfcDigitalAssemblies);
+
+            builder.RegisterAdapter<IServiceStatus, DependencyHealthCheckService>(service => new DependencyHealthCheckService(service));
 
             // OPTIONAL: Register web abstractions like HttpContextBase.
             builder.RegisterModule<AutofacWebTypesModule>();

@@ -53,10 +53,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
 
                 SaveSession(reportFilename);
                 GenerateHtmlReport(reportFilename);
-
-                //CheckForHighOrMediumAlerts();
-
-                //zapClient.Dispose();
             }
         }
 

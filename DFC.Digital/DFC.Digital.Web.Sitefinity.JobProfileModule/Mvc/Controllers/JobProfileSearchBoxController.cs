@@ -152,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Switch for FuzzyAutoComplete matching (True/False)")]
         public bool UseFuzzyAutoCompleteMatching { get; set; } = true;
 
-        [DisplayName("Text when Salary does not have values")]
+        [DisplayName("Text when Salary does not have values.  If you change this value, you will also need to change the reciprocal value in JobProfileDetails widget on 'Job profiles' page.")]
         public string SalaryBlankText { get; set; } = "Variable";
 
         #endregion Public Properties

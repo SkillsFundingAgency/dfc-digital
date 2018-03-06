@@ -11,9 +11,9 @@
             <br />
             <select id="RestartMode">
                 <option value="Default">SOFT Restart - (Cleans application cache and reinitialize the system. This does not reset the database model.)</option>
-                <option value="AttemptFullRestart">FULL Restart - (This operation unloads the application domain and resets the database model.)</option>
                 <option value="ResetModel">DATABASE Model Reset - (This operations forces the metadata containers to be recreated - dynamic types/fields and custom fields.)</option>
-            </select> <a onclick="RestartSitefinity(); return false;" href="#" class="sfLinkBtn sfSave"><span class="sfLinkBtnIn">Restart Sitefinity</span></a>
+                <option value="AttemptFullRestart">FULL Restart - (This operation unloads the application domain and resets the database model.)</option>
+            </select> <a id="btnRestartSitefinity" onclick="RestartSitefinity(); return false;" href="#" class="sfLinkBtn sfSave"><span id="btnRestartSitefinityText" class="sfLinkBtnIn">Restart Sitefinity</span></a>
             <br /><br />
             <div id="AjaxCallResult"></div>
         }
@@ -29,6 +29,7 @@
     <script type="text/javascript">
 
         function RestartSitefinity() {
+
             $.ajax({
                 url: '/restartsitefinity',
                 type: "POST",
@@ -44,6 +45,10 @@
                     $('#AjaxCallResult').html(xhr + ", " + ajaxOptions + ", " + thrownError);
                 }
             });
+
+            $('#btnRestartSitefinity').prop("onclick", null);
+            $('#btnRestartSitefinityText').html("To Restart Sitefinity again Refresh the Page first");
+
             return false;
         }
 

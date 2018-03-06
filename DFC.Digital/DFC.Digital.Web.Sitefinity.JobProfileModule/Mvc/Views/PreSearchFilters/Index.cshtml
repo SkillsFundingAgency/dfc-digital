@@ -35,14 +35,14 @@
                             {
                                 if (Model.Section.SingleSelectOnly == true)
                                 {
-                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", tabindex = -1 })
-                                    <label for="Section_@jj.ToString()" tabindex="0">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}" })
+                                    <label for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
                                 }
                                 else
                                 {
 
-                                    @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : ""), tabindex = -1 })
-                                    <label for="Section_Options_@jj.ToString()__IsSelected" tabindex="0">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
+                                    <label for="Section_Options_@jj.ToString()__IsSelected" >@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
                                 }
 
                                 @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)

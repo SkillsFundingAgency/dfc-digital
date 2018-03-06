@@ -1,0 +1,76 @@
+﻿<ul class="sfForm">
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-MainSectionTitle">Main Section Title</label>
+        <div>
+            <input class="form-control" ng-model="properties.MainSectionTitle.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-SectionId">Section Id</label>
+        <div>
+            <input class="form-control" ng-model="properties.SectionId.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-CoursesSectionTitle">Courses Section Title</label>
+        <div>
+            <input class="form-control" ng-model="properties.CoursesSectionTitle.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-TrainingCoursesLocationDetails">Training Courses Location Details</label>
+        <div>
+            <input class="form-control" ng-model="properties.TrainingCoursesLocationDetails.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+
+        <label for="prop-TrainingCoursesText">Training Courses Text</label>
+        <div>
+            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.TrainingCoursesText.PropertyValue"></sf-html-field>
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 15px">
+
+        <label for="prop-NoTrainingCoursesText">No Training Courses Text</label>
+        <div>
+            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.NoTrainingCoursesText.PropertyValue"></sf-html-field>
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 15px;">
+
+        <label for="prop-MaxTrainingCoursesMaxCount">Max Training Courses Count</label>
+        <div>
+            <input class="form-control" ng-model="properties.MaxTrainingCoursesMaxCount.PropertyValue" type="text" style="width:60px;" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-CourseLink">Course Link</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseLink.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-CurrentJobProfileUrl">Current JobProfile Url</label>
+        <div>
+            <input class="form-control" ng-model="properties.CurrentJobProfileUrl.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+
+        <label for="prop-DefaultJobProfileUrlName">Default JobProfile UrlName</label>
+        <div>
+            <input class="form-control" ng-model="properties.DefaultJobProfileUrlName.PropertyValue" type="text" />
+        </div>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    $('.modal-dialog').attr('style', 'width: 980px');
+</script>

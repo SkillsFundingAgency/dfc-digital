@@ -99,7 +99,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             var currentPageNode = sitefinityCurrentContext.GetCurrentDfcPageNode();
             if (currentPageNode != null)
             {
-                string nodeUrl = currentPageNode.Url.PathAndQuery;
+                string nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
                 if (nodeUrl.ToLowerInvariant().Contains("job-categories") && !string.IsNullOrEmpty(urlName))

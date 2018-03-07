@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
             var dummyJobProfile = new JobProfile
             {
-                IsLMISalaryFeedOverridden = isSalaryOverriden,
+                IsLMISalaryFeedOverriden = isSalaryOverriden,
                 SalaryStarter = salaryStarterExpected,
                 SalaryExperienced = salaryExperiencedExpected,
                 SOCCode = nameof(JobProfile.SOCCode)

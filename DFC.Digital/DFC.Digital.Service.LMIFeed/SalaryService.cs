@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.LMIFeed.Interfaces;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.LMIFeed
 {
-    public class SalaryService : ISalaryService
+    public class SalaryService : ISalaryService, IServiceStatus
     {
         readonly IApplicationLogger applicationLogger;
         readonly IAsheHttpClientProxy asheProxy;
@@ -22,6 +23,50 @@ namespace DFC.Digital.Service.LMIFeed
         }
 
         #endregion ctor
+
+        #region Implement of IServiceStatus
+        private string ServiceName => "LMI Feed";
+
+        public async Task<ServiceStatus> GetCurrentStatusAsync()
+        {
+            var serviceStatus = new  ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+            try
+            {
+                //Plumber
+                var checkSOC = "5314";
+                serviceStatus.CheckParametersUsed = $"SOC used - {checkSOC}";
+
+                var response = await asheProxy.EstimatePayMdAsync(checkSOC);
+                if (response.IsSuccessStatusCode)
+                {
+                    //Got a response back
+                    serviceStatus.Status = ServiceState.Amber;
+                    serviceStatus.Notes = "Success Response";
+
+                    var JobProfileSalary = await response.Content.ReadAsAsync<JobProfileSalary>();
+
+                    serviceStatus.Notes = "Response Read";
+
+                    if (JobProfileSalary?.Median != null)
+                    {
+                        //Manged to read salary information
+                        serviceStatus.Status = ServiceState.Green;
+                        serviceStatus.Notes = string.Empty;
+                    }
+                }
+                else
+                {
+                    serviceStatus.Notes = $"Non Success Response StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase}";
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+            }
+            return serviceStatus;
+        }
+
+        #endregion
 
         #region Implementation of IAsheFeed
 

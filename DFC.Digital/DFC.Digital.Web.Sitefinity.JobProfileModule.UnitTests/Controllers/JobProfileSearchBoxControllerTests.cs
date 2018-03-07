@@ -36,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var defaultJobProfilePage = "/jobprofile-details/";
             var expectedTotalMessage = "0 results found - try again using a different job title";
             var fakeAsyncHelper = new AsyncHelper();
-            var fakeSpellChecker = A.Fake<ISpellCheckService>();
+            var fakeSpellChecker = A.Fake<ISpellcheckService>();
 
             var mapperCfg = new MapperConfiguration(cfg =>
             {
@@ -139,7 +139,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var expectedTotalMessage = "0 results found - try again using a different job title";
             var placeholderText = "Enter a job title or keywords";
             var salaryBlankText = "Variable";
-            var fakeSpellChecker = A.Fake<ISpellCheckService>();
+            var fakeSpellChecker = A.Fake<ISpellcheckService>();
             var fakeAsyncHelper = new AsyncHelper();
             var mapperCfg = new MapperConfiguration(cfg =>
                         {
@@ -265,7 +265,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var mapperCfg = new MapperConfiguration(cfg =>
             {
@@ -308,7 +308,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var defaultJobProfilePage = "/jobprofile-details/";
             var expectedTotalMessage = string.IsNullOrWhiteSpace(searchTerm) ? null : "0 results found - try again using a different job title";
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>();
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>();
             var fakeAsyncHelper = new AsyncHelper();
 
             var mapperCfg = new MapperConfiguration(cfg =>
@@ -424,7 +424,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var session = A.Fake<HttpSessionStateBase>();
@@ -488,7 +488,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var mapperCfg = new MapperConfiguration(cfg =>
@@ -556,7 +556,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var mapper = A.Fake<IMapper>();
             var applicationLogger = A.Fake<IApplicationLogger>();
             var session = A.Fake<HttpSessionStateBase>();
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
 
             var controller = new JobProfileSearchBoxController(searchQuery, webAppContext, mapper, applicationLogger, fakeAsyncHelper, spellcheckerServiceFake)
@@ -586,7 +586,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
-            var spellcheckerServiceFake = A.Fake<ISpellCheckService>(ops => ops.Strict());
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var mapperCfg = new MapperConfiguration(cfg =>
             {
@@ -598,12 +598,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             dummySearchResult.Count = 0;
             var defaultJobProfilePage = nameof(JobProfileSearchBoxController.JobProfileDetailsPage);
 
-            var dummySpellCheckResult = validSpellCheckResult ? new SpellCheckResult
+            var dummySpellCheckResult = validSpellCheckResult ? new SpellcheckResult
             {
                 CorrectedTerm = $"dummy {searchTerm}",
                 HasCorrected = true
             }
-            : new SpellCheckResult();
+            : new SpellcheckResult();
 
             var searchResultsPage = nameof(JobProfileSearchBoxController.SearchResultsPage);
             var correctedTermUrl = $"{searchResultsPage}?searchTerm={HttpUtility.UrlEncode(dummySpellCheckResult.CorrectedTerm)}";

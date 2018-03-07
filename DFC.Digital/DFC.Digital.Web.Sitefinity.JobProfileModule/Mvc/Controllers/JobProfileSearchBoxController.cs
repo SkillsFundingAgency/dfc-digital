@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IWebAppContext webAppContext;
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ISpellCheckService spellCheckService;
+        private readonly ISpellcheckService spellCheckService;
 
         #endregion Private Fields
 
@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="applicationLogger">applicationLogger</param>
         /// <param name="asyncHelper">asyncHelper</param>
         /// <param name="spellCheckService">spellCheckService</param>
-        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellCheckService spellCheckService) : base(applicationLogger)
+        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellCheckService) : base(applicationLogger)
         {
             this.searchQueryService = searchService;
             this.webAppContext = webAppContext;

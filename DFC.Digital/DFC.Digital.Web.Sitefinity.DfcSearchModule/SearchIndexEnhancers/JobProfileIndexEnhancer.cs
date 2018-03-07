@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
         public Task PopulateSalary()
         {
             // Conversions taking place because sitefinity returns Decimal and Azure Search accepts Double fields
-            if (JobProfile.IsLMISalaryFeedOverriden == true)
+            if (JobProfile.IsLMISalaryFeedOverridden == true)
             {
                 jobProfileIndex.SalaryStarter = Convert.ToDouble(JobProfile.SalaryStarter);
                 jobProfileIndex.SalaryExperienced = Convert.ToDouble(JobProfile.SalaryExperienced);

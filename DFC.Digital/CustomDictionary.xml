@@ -19,6 +19,7 @@
       <Word>Synchronise</Word>
       <Word>jobprofile</Word>
       <Word>Soc</Word>
+      <Word>Deciles</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
@@ -30,6 +31,8 @@
     <CasingExceptions>
       <Acronym>PSF</Acronym>
       <Acronym>BAU</Acronym>
+      <Acronym>GA</Acronym>
+      <Acronym>LMI</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

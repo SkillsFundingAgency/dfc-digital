@@ -21,7 +21,7 @@ namespace DFC.Digital.Repository.CosmosDb
             {
                 CorrelationId = correlationId,
                 Data = input,
-                TimeStamp = DateTime.Now
+                Timestamp = DateTime.Now
             });
         }
 

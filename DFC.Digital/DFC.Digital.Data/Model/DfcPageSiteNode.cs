@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
+using System;
 
 namespace DFC.Digital.Data.Model
 {
@@ -10,7 +11,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// A string that represents the Url of the DFC Page Node.
         /// </value>
-        public string Url { get; set; }
+        public Uri Url { get; set; }
 
         /// <summary>
         /// Gets or sets the Title.

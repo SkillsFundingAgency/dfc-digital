@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 {
-    public class SpellCheckService : ISpellCheckService, IServiceStatus
+    public class SpellCheckService : ISpellcheckService, IServiceStatus
     {
         private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
@@ -73,7 +73,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
         #endregion Implement of IServiceStatus
 
-        public async Task<SpellCheckResult> CheckSpellingAsync(string term)
+        public async Task<SpellcheckResult> CheckSpellingAsync(string term)
         {
             var correctedTerm = term;
             bool hasCorrections = false;
@@ -93,7 +93,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                 }
             }
 
-            return new SpellCheckResult
+            return new SpellcheckResult
             {
                 OriginalTerm = term,
                 CorrectedTerm = correctedTerm,

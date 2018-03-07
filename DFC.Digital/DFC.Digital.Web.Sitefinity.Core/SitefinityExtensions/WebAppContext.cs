@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, Constants.Unknown);
             }
 
-            profile.Personalisation.Add(Constants.GoogleClientIdKey, GetGaClientId());
+            profile.Personalisation.Add(Constants.GoogleClientIdKey, GetGAClientId());
             return profile;
         }
 
@@ -71,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             HttpContext.Current.Response.Cookies[cookieName].Value = cookieValue;
         }
 
-        public string GetGaClientId()
+        public string GetGAClientId()
         {
             var cookie = HttpContext.Current?.Request.Cookies.Get(Constants.GoogleAnalyticsCookie)?.Value;
             if (!string.IsNullOrEmpty(cookie))

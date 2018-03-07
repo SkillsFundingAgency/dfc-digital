@@ -3,7 +3,6 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck
@@ -13,11 +12,13 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
-        private readonly IHttpClientService httpClientService;
+        private readonly IHttpClientService<ISpellCheckService> httpClientService;
+        private readonly ITolerancePolicy policy;
 
-        public SpellCheckService(IHttpClientService httpClientService)
+        public SpellCheckService(IHttpClientService<ISpellCheckService> httpClientService, ITolerancePolicy policy)
         {
             this.httpClientService = httpClientService;
+            this.policy = policy;
         }
 
         public async Task<SpellCheckResult> CheckSpellingAsync(string term)
@@ -26,8 +27,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             bool hasCorrections = false;
             var requestUri = string.Format(bingSpellEndpoint, term);
 
-            var client = GetHttpClient();
-            var response = await client.GetAsync(requestUri);
+            httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
+            var response = await policy.ExecuteAsync(() => httpClientService.GetAsync(requestUri), nameof(SpellCheckService), FaultToleranceType.CircuitBreaker);
             if (response.IsSuccessStatusCode)
             {
                 var resultsString = await response.Content.ReadAsStringAsync();
@@ -48,13 +49,6 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                 CorrectedTerm = correctedTerm,
                 HasCorrected = hasCorrections
             };
-        }
-
-        private HttpClient GetHttpClient()
-        {
-            var httpClient = httpClientService.GetHttpClient();
-            httpClient.DefaultRequestHeaders.Add(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
-            return httpClient;
         }
     }
 }

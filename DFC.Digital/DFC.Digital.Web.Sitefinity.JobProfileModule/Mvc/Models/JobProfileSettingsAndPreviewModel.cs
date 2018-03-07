@@ -2,8 +2,8 @@
 {
     public class JobProfileSettingsAndPreviewModel
     {
-       public string DefaultJobProfileUrl { get; set; }
+        public string DefaultJobProfileUrl { get; set; }
 
-       public bool RefreshAllWidgets { get; set; }
+        public bool RefreshAllWidgets { get; set; }
     }
 }

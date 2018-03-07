@@ -3,7 +3,7 @@ using Autofac.Extras.NLog;
 using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Configuration;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 using System;
 

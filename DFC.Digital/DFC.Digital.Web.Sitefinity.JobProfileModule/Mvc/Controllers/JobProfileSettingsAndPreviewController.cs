@@ -66,7 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(urlname) && !webAppContext.IsContentAuthoringSite)
             {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlname);
+                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName, urlname);
             }
 
             return new EmptyResult();

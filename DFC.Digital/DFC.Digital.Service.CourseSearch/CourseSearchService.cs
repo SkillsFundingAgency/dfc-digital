@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.Converters;
@@ -20,9 +19,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly ITolerancePolicy tolerancePolicy;
 
         public CourseSearchService(
-            ICourseOpportunityBuilder courseOpportunityBuilder, 
-            IServiceHelper serviceHelper, 
-            IAuditRepository auditRepository, 
+            ICourseOpportunityBuilder courseOpportunityBuilder,
+            IServiceHelper serviceHelper,
+            IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy)
         {

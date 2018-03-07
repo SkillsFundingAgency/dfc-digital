@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Service.LMIFeed.Interfaces;
@@ -9,6 +9,7 @@ using Xunit;
 namespace DFC.Digital.Service.LMIFeed.UnitTests
 {
     using System;
+    using DFC.Digital.Core;
     using Model;
 
     public class SalaryServiceTests: HelperJobProfileData

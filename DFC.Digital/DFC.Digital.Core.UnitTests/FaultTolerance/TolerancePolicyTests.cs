@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Core.Configuration;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using FakeItEasy;
 using FluentAssertions;
 using Polly.CircuitBreaker;
@@ -149,7 +149,7 @@ namespace DFC.Digital.Core.Tests
         public void ExecuteAsyncTest(string dependencyName, FaultToleranceType toleranceType)
         {
             //Assign
-            var strategy = new TransientFaultHandlingStrategy();
+            var strategy = new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider());
             var fakeLogger = A.Fake<IApplicationLogger>();
 
             //Act
@@ -251,7 +251,7 @@ namespace DFC.Digital.Core.Tests
             //Assign
             var dependencyName = "test";
             var toleranceType = FaultToleranceType.WaitRetry;
-            var strategy = new TransientFaultHandlingStrategy();
+            var strategy = new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider());
             var fakeLogger = A.Fake<IApplicationLogger>();
 
             //Act

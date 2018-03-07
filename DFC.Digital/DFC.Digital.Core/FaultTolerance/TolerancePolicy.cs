@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
-using Polly;
+﻿using Polly;
 using Polly.CircuitBreaker;
 using Polly.Retry;
 using Polly.Timeout;

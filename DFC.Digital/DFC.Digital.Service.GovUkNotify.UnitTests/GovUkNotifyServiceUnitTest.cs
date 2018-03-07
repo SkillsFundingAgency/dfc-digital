@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Service.GovUkNotify;
 using System.Collections;
 using System.Collections.Generic;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;

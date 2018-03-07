@@ -1,8 +1,8 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.LMIFeed.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,8 +10,8 @@ namespace DFC.Digital.Service.LMIFeed
 {
     public class SalaryService : ISalaryService
     {
-        readonly IApplicationLogger applicationLogger;
-        readonly IAsheHttpClientProxy asheProxy;
+        private readonly IApplicationLogger applicationLogger;
+        private readonly IAsheHttpClientProxy asheProxy;
 
         #region ctor
 

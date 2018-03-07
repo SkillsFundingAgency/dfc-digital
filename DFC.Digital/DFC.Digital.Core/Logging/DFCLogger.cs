@@ -1,5 +1,4 @@
 ﻿using Autofac.Extras.NLog;
-using DFC.Digital.Data.Interfaces;
 using System;
 
 namespace DFC.Digital.Core.Logging

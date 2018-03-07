@@ -14,7 +14,7 @@ Scenario: [DFC-610-A1] View Survey - Check Cookie
 
 Scenario: [DFC-685-A1] Select fill in short survey, Enter email and	press Send
 	Given that I am viewing the Home page
-	When I enter the email 'dfc-test-voc@mailinator.com' and press send
+	When I enter the email 'simulate-delivered@notifications.service.gov.uk' and press send
 	Then the success message is displayed
 
 	When I delete the cookie and refresh the page

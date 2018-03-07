@@ -28,20 +28,43 @@ namespace SecurityTesting
         [Fact, Priority(1)]
         public void AExecuteSpider()
         {
-            var spiderId = StartSpidering();
-            CheckSpideringProgress(spiderId);
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
+            {
+                var spiderId = StartSpidering();
+                CheckSpideringProgress(spiderId);
+            }
+        }
+
+        [Fact]
+        public void CheckForHighOrMediumAlerts()
+        {
+            ApiResponseSet alertSummary = (ApiResponseSet)zapClient.core.alertsSummary(TargetUrl);
+            alertSummary.Dictionary.TryGetValue("High", out var high);
+            alertSummary.Dictionary.TryGetValue("Medium", out var medium);
+
+            if (Convert.ToInt32(high) > 0)
+            {
+                throw new Exception("High alert has been found");
+            }
+            else if (Convert.ToInt32(medium) > 0)
+            {
+                throw new Exception("Medium alert has been found");
+            }
         }
 
         [Fact, Priority(2)]
         public void BExecuteActiveScan()
         {
-            var activeScanId = StartActiveScan();
-            CheckActiveScanProgress(activeScanId);
-            var reportFilename = $"{DateTime.Now:dd.MM.yy-hh.mm.ss}-ZAP_Report";
-            SaveSession(reportFilename);
-            zapClient.Dispose();
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
+            {
+                var activeScanId = StartActiveScan();
+                CheckActiveScanProgress(activeScanId);
+                var reportFilename = $"{DateTime.Now:dd.MM.yy-hh.mm.ss}-ZAP_Report";
+                SaveSession(reportFilename);
+                zapClient.Dispose();
 
-            GenerateHtmlReport(reportFilename);
+                GenerateHtmlReport(reportFilename);
+            }
         }
 
         private static void CheckActiveScanProgress(string activeScanId)

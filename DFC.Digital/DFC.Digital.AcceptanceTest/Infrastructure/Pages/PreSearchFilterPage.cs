@@ -18,19 +18,14 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool JobProfilesAreShown => Find.Element(By.ClassName("dfc-code-search-resultitem")) != null;
 
+        public IEnumerable<OpenQA.Selenium.IWebElement> TagOptions => Find.Elements(By.CssSelector(".filter-list label")).ToList();
+
         public string SelectedProfileTitle(int index) => Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
 
         public bool HasCorrectTitle(string title)
         {
             string pageHeader = Find.Element(By.CssSelector(".active h2")).Text;
-            if (pageHeader.Equals(title))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return pageHeader.Equals(title, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public T GoToResult<T>(int index)
@@ -54,41 +49,26 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public void SelectTags(string tagsToSelect)
         {
-            List<string> individualTags = tagsToSelect.Split(',').ToList<string>();
-            var tagOptions = Find.Elements(By.CssSelector(".filter-list label")).ToList();
-            var tagsInterestedIn = tagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)));
+            var individualTags = tagsToSelect.Split(',');
+            var tagsInterestedIn = TagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)));
 
             foreach (var tag in tagsInterestedIn)
             {
                 tag.Click();
-                break;
             }
         }
 
         public bool IsTagsSelected(string selectedTags)
         {
-            List<string> individualTags = selectedTags.Split(',').ToList<string>();
-            var tagOptions = Find.Elements(By.CssSelector(".filter-list label")).ToList();
-            bool selected = true;
-
-            var tagsInterestedIn = tagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)));
-
-            foreach (var tag in tagsInterestedIn)
-            {
-                var checkboxID = tag.GetAttribute("for");
-                var checkboxElement = Find.Element(By.Id(checkboxID));
-
-                bool isSelected = checkboxElement.Selected;
-
-                if (isSelected == false)
+            var individualTags = selectedTags.Split(',');
+            var hasAnyUnSelectedTags = TagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)))
+                .Any(t =>
                 {
-                    selected = false;
-                }
+                    var input = Find.Element(By.Id(t.GetAttribute("for")));
+                    return input.Selected == false;
+                });
 
-                break;
-            }
-
-            return selected;
+            return !hasAnyUnSelectedTags;
         }
     }
 }

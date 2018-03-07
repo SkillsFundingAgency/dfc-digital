@@ -29,5 +29,7 @@ namespace DFC.Digital.Data.Interfaces
         VocSurveyPersonalisation GetVocCookie(string cookieName);
 
         string GetGaClientId();
+
+        void SetResponseStatusCode(int v);
     }
 }

@@ -39,6 +39,12 @@ namespace DFC.Digital.Service.AzureSearch
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+
+            builder.RegisterType<AzSearchQueryService<JobProfileIndex>>().As<IServiceStatus>()
+              .InstancePerLifetimeScope()
+              .EnableInterfaceInterceptors()
+              .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+              ;
         }
 
         private ISearchServiceClient CreateSearchServiceClient(IComponentContext arg)

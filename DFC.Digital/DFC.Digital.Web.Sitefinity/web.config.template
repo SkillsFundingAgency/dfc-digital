@@ -83,6 +83,13 @@ that is bundled with the nuget package under the tools folder.
       </httpErrors>
     </system.webServer>
   </location>
+  <location path="health/servicestatus">
+    <system.webServer>
+      <httpErrors errorMode="Custom" existingResponse="PassThrough">
+        <remove statusCode="502" />
+      </httpErrors>
+    </system.webServer>
+  </location>
   <location path="Sitefinity/CMIS/RestAtom">
     <system.web>
       <httpRuntime maxRequestLength="6048000" executionTimeout="7200" maxUrlLength="102400" maxQueryStringLength="102400" requestValidationType="Telerik.Sitefinity.Security.Claims.CustomRequestValidator, Telerik.Sitefinity" />

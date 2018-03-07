@@ -127,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title",
-                URL = "http://test.co.uk",
+                URL = new Uri("http://test.co.uk"),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",
@@ -136,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title 2",
-                URL = "http://test2.co.uk",
+                URL = new Uri("http://test2.co.uk"),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",
@@ -149,7 +149,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title",
-                URL = "http://test.co.uk",
+                URL = new Uri("http://test.co.uk"),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",

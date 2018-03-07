@@ -30,14 +30,14 @@ namespace DFC.Digital.Service.AzureSearch
 
         public void UpdateSectionState(PreSearchFilterSection section)
         {
-            int? savedSectionIndex = StateModel?.Sections?.FindIndex(s => s.Name.Equals(section.Name, StringComparison.InvariantCultureIgnoreCase) && s.SectionDataType == section.SectionDataType);
+            int? savedSectionIndex = StateModel?.Sections?.ToList().FindIndex(s => s.Name.Equals(section.Name, StringComparison.InvariantCultureIgnoreCase) && s.SectionDataType == section.SectionDataType);
 
             //just keep the selected options
             section.Options = section.Options?.Where(o => o.IsSelected == true).ToList();
 
             if (savedSectionIndex > -1)
             {
-                StateModel.Sections[savedSectionIndex.Value] = section;
+                StateModel.Sections.ToList()[savedSectionIndex.Value] = section;
             }
             else
             {

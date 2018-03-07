@@ -28,7 +28,7 @@ namespace SecurityTesting
         [Fact, Priority(1)]
         public void AExecuteSpider()
         {
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()).Equals("true"))
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
             {
                 var spiderId = StartSpidering();
                 CheckSpideringProgress(spiderId);
@@ -55,7 +55,7 @@ namespace SecurityTesting
         [Fact, Priority(2)]
         public void BExecuteActiveScan()
         {
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()).Equals("true"))
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
             {
                 var activeScanId = StartActiveScan();
                 CheckActiveScanProgress(activeScanId);

@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -180,7 +180,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -189,7 +189,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -295,7 +295,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
+                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"

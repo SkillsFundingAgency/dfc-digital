@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Data.Interfaces
+namespace DFC.Digital.Core
 {
     public interface IAsyncHelper
     {

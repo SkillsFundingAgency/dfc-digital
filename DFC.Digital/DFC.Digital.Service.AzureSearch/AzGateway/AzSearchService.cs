@@ -74,7 +74,7 @@ namespace DFC.Digital.Service.AzureSearch
                     {
                         Name = Constants.DefaultSuggesterName,
                         SearchMode = SuggesterSearchMode.AnalyzingInfixMatching,
-                        SourceFields = suggesterBuilder.BuildForType<T>(),
+                        SourceFields = suggesterBuilder.BuildForType(typeof(T)),
                     }
                 }
             };

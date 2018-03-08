@@ -2,8 +2,10 @@
 using Autofac.Extras.NLog;
 using AutoMapper;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core.Configuration;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
+using System;
 
 namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
 {
@@ -15,6 +17,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
             builder.RegisterModule<NLogModule>();
             builder.RegisterModule<CoreAutofacModule>();
             builder.RegisterType<JobProfileIntegrationTestIndex>().As<ISearchIndexConfig>();
+            builder.Register(ctx =>
+            {
+                var inMemoryConfigProvider = new InMemoryConfigurationProvider();
+                inMemoryConfigProvider.Add(TransientFaultHandlingStrategy.TimeoutKey, TimeSpan.FromSeconds(5));
+                return inMemoryConfigProvider;
+            }).SingleInstance();
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {

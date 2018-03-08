@@ -19,7 +19,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             //modue had been added as an addon - think it adds it with a diffrent provider.
             ProviderName = DynamicModuleManager.GetDefaultProviderName(dynamicModuleName);
             dynamicModuleManager = DynamicModuleManager.GetManager(ProviderName);
-            Initialise();
         }
 
         protected DynamicModuleRepository(string dynamicModuleName, string contentType) : this(dynamicModuleName)

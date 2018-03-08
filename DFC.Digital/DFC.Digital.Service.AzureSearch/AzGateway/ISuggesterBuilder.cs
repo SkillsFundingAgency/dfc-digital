@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Service.AzureSearch
 {
     public interface ISuggesterBuilder
     {
-        IList<string> BuildForType<T>();
+        IList<string> BuildForType(Type typeofT);
     }
 }

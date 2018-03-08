@@ -1,10 +1,8 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace DFC.Digital.Web.Sitefinity.Core

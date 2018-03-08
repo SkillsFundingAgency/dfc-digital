@@ -11,6 +11,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
     {
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
 
+        public JobProfileConverterTests()
+        {
+            relatedClassificationsRepository = A.Fake<IRelatedClassificationsRepository>();
+        }
+
         //[Fact]
         //Cannot Unit test as unable to fake the calls to dynamicContentFake . GetRelatedItems as it is a static extension on object!!! in sitefinity.
         public void GetRelatedContentIdAndUrlTest()

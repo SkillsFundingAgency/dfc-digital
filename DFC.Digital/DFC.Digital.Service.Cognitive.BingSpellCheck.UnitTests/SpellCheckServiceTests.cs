@@ -28,7 +28,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
 
             A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
-            var spellingService = new SpellCheckService(fakeHttpClientService,applicationLogger);
+            var spellingService = new SpellCheckService(fakeHttpClientService, applicationLogger);
 
             //Act
             var result = await spellingService.CheckSpellingAsync(term);

@@ -257,7 +257,6 @@ namespace DFC.Digital.Core.Tests
             var actor = new TolerancePolicy(fakeLogger, strategy);
 
             //Assert
-            TimeSpan delayResult = default;
             var executedNumberOfTimes = 0;
             Func<Task> result2 = async () =>
             {

@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 .ShouldRenderDefaultView()
                 .WithModel<JobProfileCategoriesViewModel>(vm =>
                 {
-                    vm.IsContentAuthoring.ShouldBeEquivalentTo(webAppContextFake.IsContentAuthoringSite);
+                    vm.IsContentAuthoring.Should().Be(webAppContextFake.IsContentAuthoringSite);
                 })
                 .AndNoModelErrors();
 
@@ -106,7 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderView("RelatedJobCategories")
                     .WithModel<RelatedJobProfileCategoriesViewModel>(vm =>
                     {
-                        vm.IsContentAuthoring.ShouldBeEquivalentTo(webAppContextFake.IsContentAuthoringSite);
+                        vm.IsContentAuthoring.Should().Be(webAppContextFake.IsContentAuthoringSite);
                     })
                     .AndNoModelErrors();
             }
@@ -116,7 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCategoriesViewModel>(vm =>
                     {
-                        vm.IsContentAuthoring.ShouldBeEquivalentTo(webAppContextFake.IsContentAuthoringSite);
+                        vm.IsContentAuthoring.Should().Be(webAppContextFake.IsContentAuthoringSite);
                     })
                     .AndNoModelErrors();
             }
@@ -175,8 +175,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 .ShouldRenderView("RelatedJobCategories")
                 .WithModel<RelatedJobProfileCategoriesViewModel>(vm =>
                 {
-                    vm.IsContentAuthoring.ShouldBeEquivalentTo(webAppContextFake.IsContentAuthoringSite);
-                    vm.JobProfileCategories.ShouldAllBeEquivalentTo(filterJpCategories);
+                    vm.IsContentAuthoring.Should().Be(webAppContextFake.IsContentAuthoringSite);
+                    vm.JobProfileCategories.Should().AllBeEquivalentTo(filterJpCategories);
                 })
                 .AndNoModelErrors();
 

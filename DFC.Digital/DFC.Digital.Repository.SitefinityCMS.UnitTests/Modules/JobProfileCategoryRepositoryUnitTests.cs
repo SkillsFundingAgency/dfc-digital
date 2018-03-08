@@ -80,7 +80,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
 
             //Assert
             //The results from search do not include the SOCCode so ignore this
-            returnedJobProfiles.ShouldAllBeEquivalentTo(expectedResults, options => options.Excluding(p => p.SOCCode));
+            returnedJobProfiles.Should().BeEquivalentTo(expectedResults, options => options.Excluding(j => j.SOCCode));
         }
 
         private SearchResult<JobProfileIndex> DummySearchResults()

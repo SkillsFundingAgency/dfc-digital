@@ -34,9 +34,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var htmlDom = indexView.RenderAsHtml(dfcBreadcrumbViewModel);
 
             //// Assert
-            GetHomepageTextOrLink(htmlDom, true).ShouldBeEquivalentTo(homepageText);
-            GetHomepageTextOrLink(htmlDom, false).ShouldBeEquivalentTo(homepageLink);
-            GetBreadcrumbPageTitleText(htmlDom).ShouldBeEquivalentTo(breadcrumbPageTitleText);
+            GetHomepageTextOrLink(htmlDom, true).Should().BeEquivalentTo(homepageText);
+            GetHomepageTextOrLink(htmlDom, false).Should().BeEquivalentTo(homepageLink);
+            GetBreadcrumbPageTitleText(htmlDom).Should().BeEquivalentTo(breadcrumbPageTitleText);
         }
 
         /// <summary>

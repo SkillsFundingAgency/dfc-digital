@@ -27,7 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             var htmlDom = indexView.RenderAsHtml(signPostDummyVm);
 
             // Assert
-            GetContentData(htmlDom).ShouldBeEquivalentTo(contentdata);
+            GetContentData(htmlDom).Should().BeEquivalentTo(contentdata);
         }
 
         private string GetContentData(HtmlDocument htmlDom)

@@ -81,7 +81,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             var result = govUkNotifyService.Convert(input);
 
             // Assert
-            result.ShouldAllBeEquivalentTo(expectation);
+            result.Should().BeEquivalentTo(expectation);
         }
 
         [Theory]

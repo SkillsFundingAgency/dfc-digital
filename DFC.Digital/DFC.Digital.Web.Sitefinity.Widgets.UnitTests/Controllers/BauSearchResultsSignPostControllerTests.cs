@@ -1,13 +1,12 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FakeItEasy;
-using FluentAssertions;
 using System.Text.RegularExpressions;
 using System.Web;
 using TestStack.FluentMVCTesting;
 using Xunit;
+using FluentAssertions;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
@@ -38,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             indexMethodCall
                 .ShouldRenderDefaultView().WithModel<BauSearchResultsViewModel>(vm =>
                 {
-                    vm.Content.ShouldBeEquivalentTo(modelContent);
+                    vm.Content.Should().BeEquivalentTo(modelContent);
                 })
                 .AndNoModelErrors();
         }
@@ -67,7 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 indexMethodCall
                     .ShouldRenderDefaultView().WithModel<BauSearchResultsViewModel>(vm =>
                     {
-                        vm.Content.ShouldBeEquivalentTo(modelContent);
+                        vm.Content.Should().BeEquivalentTo(modelContent);
                     })
                     .AndNoModelErrors();
             }

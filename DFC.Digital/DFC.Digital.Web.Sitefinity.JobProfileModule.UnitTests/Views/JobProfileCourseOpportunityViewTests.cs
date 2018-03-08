@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             //Assert
             GetCoursesSectionTitleDetailsText(htmlDom).Should().Contain(jobProfileApprenticeViewModel.CoursesSectionTitle);
             GetCoursesSectionTitleDetailsText(htmlDom).Should().Contain(jobProfileApprenticeViewModel.CoursesLocationDetails);
-            GetFindTrainingCourses(htmlDom).ShouldBeEquivalentTo(jobProfileApprenticeViewModel.Courses);
+            GetFindTrainingCourses(htmlDom).Should().BeEquivalentTo(jobProfileApprenticeViewModel.Courses);
 
             if (coursesCount == 0)
             {

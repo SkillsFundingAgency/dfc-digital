@@ -67,7 +67,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
             OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

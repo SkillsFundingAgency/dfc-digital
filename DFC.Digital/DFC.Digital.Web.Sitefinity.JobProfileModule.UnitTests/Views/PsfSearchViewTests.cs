@@ -32,24 +32,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             var backUrl = GetPreviouspageUrl(htmlDom);
             var searchResults = GetSearchResults(htmlDom);
 
-            mainPageTitle.ShouldBeEquivalentTo(psfSearchResultsViewModel.MainPageTitle);
-            secondaryText.ShouldBeEquivalentTo(psfSearchResultsViewModel.SecondaryText);
-            searchResults.ShouldBeEquivalentTo(psfSearchResultsViewModel.SearchResults);
-            backText.ShouldBeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
-            backUrl.ShouldBeEquivalentTo(psfSearchResultsViewModel.BackPageUrl);
+            mainPageTitle.Should().BeEquivalentTo(psfSearchResultsViewModel.MainPageTitle);
+            secondaryText.Should().BeEquivalentTo(psfSearchResultsViewModel.SecondaryText);
+            searchResults.Should().BeEquivalentTo(psfSearchResultsViewModel.SearchResults);
+            backText.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
+            backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl);
 
             if (psfSearchResultsViewModel.HasNexPage)
             {
                 GetPaginationNextVisible(htmlDom).Should().BeTrue();
-                GetNavigationUrl(htmlDom, true, "dfc-code-search-next next").ShouldBeEquivalentTo(psfSearchResultsViewModel.NextPageUrlText);
-                GetNavigationUrl(htmlDom, false, "dfc-code-search-next next").ShouldBeEquivalentTo(psfSearchResultsViewModel.NextPageUrl);
+                GetNavigationUrl(htmlDom, true, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrlText);
+                GetNavigationUrl(htmlDom, false, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrl);
             }
 
             if (psfSearchResultsViewModel.HasPreviousPage)
             {
                 GetPaginationPreviousVisible(htmlDom).Should().BeTrue();
-                GetNavigationUrl(htmlDom, true, "dfc-code-search-previous previous").ShouldBeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrlText);
-                GetNavigationUrl(htmlDom, false, "dfc-code-search-previous previous").ShouldBeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrl);
+                GetNavigationUrl(htmlDom, true, "dfc-code-search-previous previous").Should().BeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrlText);
+                GetNavigationUrl(htmlDom, false, "dfc-code-search-previous previous").Should().BeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrl);
             }
         }
 
@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                 linkedCategorySection.InnerText.Should().Contain("Found in:");
                 var foundInCategoryLinks = GetDisplayedViewAnchorLinks(linkedCategorySection);
                 var expectedCategoryLinks = GetLinkedCategories(numberOfLinkedJobCategories, "/job-categories/");
-                foundInCategoryLinks.ShouldBeEquivalentTo(expectedCategoryLinks);
+                foundInCategoryLinks.Should().BeEquivalentTo(expectedCategoryLinks);
             }
         }
 

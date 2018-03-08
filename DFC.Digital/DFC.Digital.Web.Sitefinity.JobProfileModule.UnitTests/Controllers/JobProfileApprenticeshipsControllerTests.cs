@@ -103,14 +103,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
-                        vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
-                        vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);
-                        vm.ApprenticeshipSectionTitle.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
+                        vm.ApprenticeshipSectionTitle.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipSectionTitle);
                     })
                     .AndNoModelErrors();
@@ -132,7 +132,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                         {
                             vm.ApprenticeVacancies.Count().Should()
                                 .BeLessOrEqualTo(jobProfileApprenticeshipsController.MaxApprenticeshipCount);
-                            vm.ApprenticeVacancies.ShouldAllBeEquivalentTo(dummyApprenticeships);
+                            vm.ApprenticeVacancies.Should().AllBeEquivalentTo(dummyApprenticeships);
                         });
                     A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
                 }
@@ -229,14 +229,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
-                        vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
-                        vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);
-                        vm.ApprenticeshipSectionTitle.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
+                        vm.ApprenticeshipSectionTitle.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipSectionTitle);
                     })
                     .AndNoModelErrors();
@@ -263,7 +263,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.ApprenticeVacancies.ShouldAllBeEquivalentTo(dummyApprenticeships);
+                        vm.ApprenticeVacancies.Should().AllBeEquivalentTo(dummyApprenticeships);
                     })
                     .AndNoModelErrors();
                 A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();

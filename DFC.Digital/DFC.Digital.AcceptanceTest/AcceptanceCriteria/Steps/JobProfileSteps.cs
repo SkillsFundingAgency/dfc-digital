@@ -138,28 +138,28 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenTheCountOfVacanciesIs(int countOfVacancies)
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.VacancyCount.ShouldBeEquivalentTo(countOfVacancies);
+            jobProfilePage.VacancyCount.Should().Be(countOfVacancies);
         }
 
         [Then(@"the No Vacancies text is '(.*)'")]
         public void ThenTheNoVacanciesTextIs(bool noVacanciesTextShown)
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.HasNoVacancyText.ShouldBeEquivalentTo(noVacanciesTextShown);
+            jobProfilePage.HasNoVacancyText.Should().Be(noVacanciesTextShown);
         }
 
         [Then(@"all apprenticeship vacancies have a hyperlink is '(.*)'")]
         public void ThenAllApprenticeshipVacanciesHaveAHyperlinkIs(bool allVacanciesHaveHyperLink)
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.AllVacanciesHaveHyperLinks.ShouldBeEquivalentTo(allVacanciesHaveHyperLink);
+            jobProfilePage.AllVacanciesHaveHyperLinks.Should().Be(allVacanciesHaveHyperLink);
         }
 
         [Then(@"the find apprenticeship near you has a '(.*)' displayed")]
         public void ThenTheFindApprenticeshipNearYouHasADisplayed(bool findApprenticeLinkShown)
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.HasValidFindApprenticeshipLink.ShouldBeEquivalentTo(findApprenticeLinkShown);
+            jobProfilePage.HasValidFindApprenticeshipLink.Should().Be(findApprenticeLinkShown);
         }
 
         [Then(@"the Useful Links section is displayed on the page")]

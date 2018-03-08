@@ -75,7 +75,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
             var result = jpContentService.GetJobProfileSections(dummyJobProfileSectionFilters);
 
             //Assert
-            expectedJobProfileSection.ShouldBeEquivalentTo(result, opt => opt.WithStrictOrdering());
+            expectedJobProfileSection.Should().BeEquivalentTo(result, opt => opt.WithStrictOrdering());
             A.CallTo(() => fakeSettings.Values).MustHaveHappened();
             A.CallTo(() => mvcControllerFake.Settings).MustHaveHappened();
             A.CallTo(() => fakeSitefinityPage.GetControlsInOrder(A<IEnumerable<string>>._)).MustHaveHappened();

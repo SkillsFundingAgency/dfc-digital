@@ -50,8 +50,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileRelatedCareersModel>(vm =>
                 {
-                    vm.Title.ShouldBeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
-                    vm.RelatedCareers.ShouldBeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
+                    vm.Title.Should().BeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
+                    vm.RelatedCareers.Should().BeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
                 }).AndNoModelErrors();
 
                 if (!isContentPreviewMode)
@@ -103,8 +103,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileRelatedCareersModel>(vm =>
                 {
-                    vm.Title.ShouldBeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
-                    vm.RelatedCareers.ShouldBeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
+                    vm.Title.Should().BeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
+                    vm.RelatedCareers.Should().BeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
                 })
                 .AndNoModelErrors();
 

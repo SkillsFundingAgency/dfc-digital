@@ -104,11 +104,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
+                        vm.TrainingCoursesText.Should().BeEquivalentTo(jobProfileCourseOpportunityController
                             .TrainingCoursesText);
-                        vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
-                        vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
-                        vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
+                        vm.CoursesLocationDetails.Should().Be(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
+                        vm.NoTrainingCoursesText.Should().Be(jobProfileCourseOpportunityController.NoTrainingCoursesText);
+                        vm.CoursesSectionTitle.Should().Be(jobProfileCourseOpportunityController.CoursesSectionTitle);
                         vm.Courses.Count().Should()
                             .BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
                     })
@@ -216,11 +216,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.MainSectionTitle);
-                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesText);
-                        vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
-                        vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
-                        vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileCourseOpportunityController.MainSectionTitle);
+                        vm.TrainingCoursesText.Should().BeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesText);
+                        vm.CoursesLocationDetails.Should().Be(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
+                        vm.NoTrainingCoursesText.Should().Be(jobProfileCourseOpportunityController.NoTrainingCoursesText);
+                        vm.CoursesSectionTitle.Should().Be(jobProfileCourseOpportunityController.CoursesSectionTitle);
                         vm.Courses.Count().Should().BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
                     })
                     .AndNoModelErrors();

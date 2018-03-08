@@ -35,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
                 {
-                    vm.DefaultJobProfileUrl.ShouldBeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
+                    vm.DefaultJobProfileUrl.Should().BeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
                 })
                .AndNoModelErrors();
             }

@@ -37,14 +37,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             var htmlDom = indexView.RenderAsHtml(jobProfileSectionViewModel);
 
             // Assert
-            GetH2Heading(htmlDom).ShouldBeEquivalentTo(jobProfileSectionViewModel.Title);
+            GetH2Heading(htmlDom).Should().BeEquivalentTo(jobProfileSectionViewModel.Title);
             if (validSection)
             {
-                CountOfDescendants(htmlDom).ShouldBeEquivalentTo(4);
+                CountOfDescendants(htmlDom).Should().Be(4);
             }
             else
             {
-                CountOfDescendants(htmlDom).ShouldBeEquivalentTo(3);
+                CountOfDescendants(htmlDom).Should().Be(3);
             }
         }
 

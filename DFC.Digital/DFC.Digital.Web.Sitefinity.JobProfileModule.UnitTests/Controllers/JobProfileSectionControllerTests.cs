@@ -58,10 +58,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileSectionViewModel>(vm =>
                     {
-                        vm.PropertyName.ShouldBeEquivalentTo(jobprofileSectionController.PropertyName);
-                        vm.Title.ShouldBeEquivalentTo(jobprofileSectionController.Title);
-                        vm.TopSectionContent.ShouldBeEquivalentTo(jobprofileSectionController.TopSectionContent);
-                        vm.BottomSectionContent.ShouldBeEquivalentTo(jobprofileSectionController.BottomSectionContent);
+                        vm.PropertyName.Should().BeEquivalentTo(jobprofileSectionController.PropertyName);
+                        vm.Title.Should().BeEquivalentTo(jobprofileSectionController.Title);
+                        vm.TopSectionContent.Should().BeEquivalentTo(jobprofileSectionController.TopSectionContent);
+                        vm.BottomSectionContent.Should().BeEquivalentTo(jobprofileSectionController.BottomSectionContent);
                     })
                     .AndNoModelErrors();
 
@@ -120,10 +120,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileSectionViewModel>(vm =>
                     {
-                        vm.PropertyName.ShouldBeEquivalentTo(jobprofileSectionController.PropertyName);
-                        vm.Title.ShouldBeEquivalentTo(jobprofileSectionController.Title);
-                        vm.TopSectionContent.ShouldBeEquivalentTo(jobprofileSectionController.TopSectionContent);
-                        vm.BottomSectionContent.ShouldBeEquivalentTo(jobprofileSectionController.BottomSectionContent);
+                        vm.PropertyName.Should().BeEquivalentTo(jobprofileSectionController.PropertyName);
+                        vm.Title.Should().BeEquivalentTo(jobprofileSectionController.Title);
+                        vm.TopSectionContent.Should().BeEquivalentTo(jobprofileSectionController.TopSectionContent);
+                        vm.BottomSectionContent.Should().BeEquivalentTo(jobprofileSectionController.BottomSectionContent);
                     })
                     .AndNoModelErrors();
             }

@@ -7,10 +7,10 @@ using TechTalk.SpecFlow;
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 {
     [Binding]
-    public class BauSteps : BaseStep
+    public class BAUSteps : BaseStep
     {
         #region Ctor
-        public BauSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
+        public BAUSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
         }
         #endregion

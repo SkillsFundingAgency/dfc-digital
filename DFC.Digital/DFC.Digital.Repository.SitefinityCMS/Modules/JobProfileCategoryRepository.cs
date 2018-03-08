@@ -73,15 +73,15 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         public IEnumerable<JobProfile> GetRelatedJobProfiles(string category)
         {
-        var searchResult = jobprofileSearchQueryService.Search(
-                "*",
-                new SearchProperties
-                {
-                    UseRawSearchTerm = true,
-                    Count = 100,
-                    FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
-                    OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
-                });
+            var searchResult = jobprofileSearchQueryService.Search(
+                    "*",
+                    new SearchProperties
+                    {
+                        UseRawSearchTerm = true,
+                        Count = 100,
+                        FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
+                        OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
+                    });
 
             return searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }

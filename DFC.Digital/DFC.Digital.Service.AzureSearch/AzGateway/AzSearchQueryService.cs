@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.AzureSearch
         #region Implementation
 
         #region Implement of IServiceStatus
-        private string ServiceName => "Search Service";
+        private static string ServiceName => "Search Service";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -46,7 +46,7 @@ namespace DFC.Digital.Service.AzureSearch
 
             try
             {
-                SearchParameters searchParam = new SearchParameters() { Top = 5 };
+                var searchParam = new SearchParameters { Top = 5 };
                 var result = await indexClient.Documents.SearchAsync<T>(searchTerm, searchParam);
 
                 //The call worked ok
@@ -71,30 +71,30 @@ namespace DFC.Digital.Service.AzureSearch
 
         public virtual Data.Model.SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
-            SearchParameters searchParam = queryConverter.BuildSearchParameters(properties);
+            var searchParam = queryConverter.BuildSearchParameters(properties);
             var result = policy.Execute(() => indexClient.Documents.Search<T>(searchTerm, searchParam), nameof(AzSearchQueryService<T>), FaultToleranceType.Timeout);
-            return queryConverter.ConvertToSearchResult<T>(result, properties);
+            return queryConverter.ConvertToSearchResult(result, properties);
         }
 
         public virtual async Task<Data.Model.SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
-            SearchParameters searchParam = queryConverter.BuildSearchParameters(properties);
+            var searchParam = queryConverter.BuildSearchParameters(properties);
             var result = await policy.ExecuteAsync(() => indexClient.Documents.SearchAsync<T>(searchTerm, searchParam), nameof(AzSearchQueryService<T>), FaultToleranceType.Timeout);
-            return queryConverter.ConvertToSearchResult<T>(result, properties);
+            return queryConverter.ConvertToSearchResult(result, properties);
         }
 
         public virtual SuggestionResult<T> GetSuggestion(string partialTerm, SuggestProperties properties)
         {
-            SuggestParameters suggestParameters = queryConverter.BuildSuggestParameters(properties);
+            var suggestParameters = queryConverter.BuildSuggestParameters(properties);
             var result = indexClient.Documents.Suggest<T>(partialTerm, Constants.DefaultSuggesterName, suggestParameters);
-            return queryConverter.ConvertToSuggestionResult<T>(result, properties);
+            return queryConverter.ConvertToSuggestionResult(result, properties);
         }
 
         public async Task<SuggestionResult<T>> GetSuggestionAsync(string partialTerm, SuggestProperties properties)
         {
-            SuggestParameters suggestParameters = queryConverter.BuildSuggestParameters(properties);
+            var suggestParameters = queryConverter.BuildSuggestParameters(properties);
             var result = await indexClient.Documents.SuggestAsync<T>(partialTerm, Constants.DefaultSuggesterName, suggestParameters);
-            return queryConverter.ConvertToSuggestionResult<T>(result, properties);
+            return queryConverter.ConvertToSuggestionResult(result, properties);
         }
 
         #endregion Implementation

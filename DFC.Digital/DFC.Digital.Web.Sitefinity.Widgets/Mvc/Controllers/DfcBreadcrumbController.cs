@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -34,6 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -55,6 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         public string HomepageText { get; set; } = "Find a career home";
 
         #endregion Public Properties
+
         #region Actions
 
         // GET: DfcBreadcrumb

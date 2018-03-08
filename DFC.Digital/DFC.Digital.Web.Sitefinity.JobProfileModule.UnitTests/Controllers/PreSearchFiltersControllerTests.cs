@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
@@ -156,7 +157,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         [InlineData(PreSearchFilterType.JobArea)]
         [InlineData(PreSearchFilterType.PreferredTaskType)]
         [InlineData(PreSearchFilterType.TrainingRoute)]
-
         public void IndexRepositoryTest(PreSearchFilterType filterType)
         {
             //Setup the fakes and dummies

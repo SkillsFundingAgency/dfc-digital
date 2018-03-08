@@ -3,7 +3,6 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
-using System;
 using System.Linq;
 using Xunit;
 

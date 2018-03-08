@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             if (filterItems?.Any() == true)
             {
-               return filterItems.Select(item => converter.ConvertFrom(item));
+                return filterItems.Select(item => converter.ConvertFrom(item));
             }
 
             return Enumerable.Empty<T>();

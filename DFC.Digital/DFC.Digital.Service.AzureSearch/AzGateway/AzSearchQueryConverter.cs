@@ -72,7 +72,7 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway
             return new Data.Model.SuggestionResult<T>
             {
                 Coverage = result.Coverage,
-                Results = result.ToSuggestResultItems(properties)
+                Results = result.ToSuggestResultItems()
             };
         }
     }

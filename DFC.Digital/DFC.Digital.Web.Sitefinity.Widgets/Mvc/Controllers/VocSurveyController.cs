@@ -20,9 +20,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         private IGovUkNotify govUkNotifyService;
         private IWebAppContext webAppContext;
-        #endregion
+
+        #endregion Private Fields
 
         #region Constructors
+
         public VocSurveyController(IGovUkNotify govUkNotify, IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
             govUkNotifyService = govUkNotify;

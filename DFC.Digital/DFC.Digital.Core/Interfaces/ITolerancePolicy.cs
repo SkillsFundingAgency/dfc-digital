@@ -1,5 +1,4 @@
-﻿using Polly;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Core

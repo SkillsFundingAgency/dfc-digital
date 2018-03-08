@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
@@ -25,6 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #endregion Private Fields
 
         #region Constructors
+
         public SetContentRelatedPageTitleController(IJobProfileCategoryRepository categoryRepo, IJobProfileRepository jobProfileRepo, IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
             this.categoryRepo = categoryRepo;
@@ -33,6 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>

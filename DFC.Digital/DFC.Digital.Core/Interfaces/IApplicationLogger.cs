@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DFC.Digital.Data.Interfaces
+namespace DFC.Digital.Core
 {
     public interface IApplicationLogger
     {

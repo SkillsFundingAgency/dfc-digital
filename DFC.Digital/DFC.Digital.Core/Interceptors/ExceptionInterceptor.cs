@@ -1,6 +1,5 @@
 ﻿using Castle.DynamicProxy;
 using DFC.Digital.Core.Logging;
-using DFC.Digital.Data.Interfaces;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace DFC.Digital.Core.Interceptors
     {
         public const string Name = "ExceptionPolicy";
 
-       private IApplicationLogger loggingService;
+        private IApplicationLogger loggingService;
 
         public ExceptionInterceptor(IApplicationLogger logService)
         {

@@ -13,9 +13,8 @@ namespace DFC.Digital.Repository.CosmosDb
     {
         private readonly IDocumentClient documentClient;
 
-        public CosmosDbRepository(IDocumentClient documentClient)
+        protected CosmosDbRepository(IDocumentClient documentClient)
         {
-            Initialise();
             this.documentClient = documentClient;
         }
 

@@ -6,7 +6,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using FakeItEasy;
-//using DFC.Digital.Data.Interfaces;
+//using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 //using Telerik.Sitefinity.Pages.Model;
 //using FluentAssertions;
 //using Telerik.Sitefinity.Modules.Pages;

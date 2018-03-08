@@ -115,7 +115,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             }
         }
 
-       private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
+        private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
         {
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
@@ -128,7 +128,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager);
         }
 
-       private IQueryable<Taxon> DummyTaxons()
+        private IQueryable<Taxon> DummyTaxons()
         {
             var t = new List<Taxon>();
             A.Dummy<Taxon>();

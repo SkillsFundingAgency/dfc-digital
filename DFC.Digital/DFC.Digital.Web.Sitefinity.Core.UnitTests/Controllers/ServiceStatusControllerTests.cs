@@ -1,5 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -7,10 +7,6 @@ using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 

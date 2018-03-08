@@ -170,7 +170,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The IsLMISalaryFeedOverriden.
         /// </value>
-        public bool? IsLMISalaryFeedOverridden { get; set; }
+        public bool? IsLMISalaryFeedOverriden { get; set; }
 
         /// <summary>
         /// Gets or sets the SalaryStarter.

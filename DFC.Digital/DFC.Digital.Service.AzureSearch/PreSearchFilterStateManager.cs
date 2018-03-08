@@ -37,7 +37,7 @@ namespace DFC.Digital.Service.AzureSearch
 
             if (savedSectionIndex > -1)
             {
-                StateModel.Sections.ToList()[savedSectionIndex.Value] = section;
+                StateModel.Sections.ToList()[savedSectionIndex.Value].Options = section.Options;
             }
             else
             {

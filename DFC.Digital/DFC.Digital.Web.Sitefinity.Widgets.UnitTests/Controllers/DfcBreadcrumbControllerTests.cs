@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
 
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             dummyDfcPageSiteNode.Title = nodeTitle;
-            dummyDfcPageSiteNode.Url = new Uri(nodeUrl);
+            dummyDfcPageSiteNode.Url = new Uri(nodeUrl, UriKind.RelativeOrAbsolute);
 
             // Set up calls
             A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);
@@ -71,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             dummyJobProfile.Title = nodeTitle;
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             dummyDfcPageSiteNode.Title = nodeTitle;
-            dummyDfcPageSiteNode.Url = new Uri(nodeUrl);
+            dummyDfcPageSiteNode.Url = new Uri(nodeUrl, UriKind.RelativeOrAbsolute);
 
             // Set up calls
             A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);

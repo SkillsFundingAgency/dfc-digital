@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public DfcPageSiteNode GetCurrentDfcPageNode()
         {
-            return CurrentNode != null ? new DfcPageSiteNode { Title = CurrentNode.Title, Url = new Uri(CurrentNode.Url) } : null;
+            return CurrentNode != null ? new DfcPageSiteNode { Title = CurrentNode.Title, Url = new Uri(CurrentNode.Url, UriKind.RelativeOrAbsolute) } : null;
         }
     }
 }

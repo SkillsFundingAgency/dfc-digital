@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
@@ -9,7 +9,6 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -126,7 +125,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                             vm.WorkingPattern.ShouldBeEquivalentTo(dummyJobProfile.WorkingPattern);
                             vm.SalaryStarter.ShouldBeEquivalentTo(starterSalary);
                             vm.SalaryExperienced.ShouldBeEquivalentTo(experiencedSalary);
-                })
+                        })
                         .AndNoModelErrors();
                 }
                 else

@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
 {
     [Binding]
-    public class ZapHook
+    public static class ZapHook
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
         private static readonly string ZapApiKey = ConfigurationManager.AppSettings["zapApiKey"];

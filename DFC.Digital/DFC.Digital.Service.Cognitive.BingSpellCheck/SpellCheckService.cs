@@ -13,11 +13,11 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
-        private readonly IHttpClientService<ISpellCheckService> httpClientService;
+        private readonly IHttpClientService<ISpellcheckService> httpClientService;
         private readonly ITolerancePolicy policy;
         private readonly IApplicationLogger applicationLogger;
 
-        public SpellCheckService(IHttpClientService<ISpellCheckService> httpClientService, ITolerancePolicy policy, IApplicationLogger applicationLogger)
+        public SpellCheckService(IHttpClientService<ISpellcheckService> httpClientService, ITolerancePolicy policy, IApplicationLogger applicationLogger)
         {
             this.httpClientService = httpClientService;
             this.policy = policy;
@@ -79,8 +79,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             var correctedTerm = term;
             bool hasCorrections = false;
 
-            httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
-            var response = await policy.ExecuteAsync(() => httpClientService.GetAsync(requestUri), nameof(SpellCheckService), FaultToleranceType.CircuitBreaker);
+            System.Net.Http.HttpResponseMessage response = await GetSpellCheckResponseAsync(term);
             if (response.IsSuccessStatusCode)
             {
                 var resultsString = await response.Content.ReadAsStringAsync();
@@ -101,6 +100,14 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                 CorrectedTerm = correctedTerm,
                 HasCorrected = hasCorrections
             };
+        }
+
+        private async Task<System.Net.Http.HttpResponseMessage> GetSpellCheckResponseAsync(string term)
+        {
+            var requestUri = string.Format(bingSpellEndpoint, term);
+            httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
+            var response = await policy.ExecuteAsync(() => httpClientService.GetAsync(requestUri), nameof(SpellCheckService), FaultToleranceType.CircuitBreaker);
+            return response;
         }
     }
 }

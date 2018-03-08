@@ -30,7 +30,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Name = category.Name,
                 Title = category.Title,
                 Description = category.Description,
-                Url = new Uri(category.UrlName)
+                Url = category.UrlName
             });
         }
 
@@ -44,7 +44,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     Name = category.Name,
                     Title = category.Title,
                     Description = category.Description,
-                    Url = new Uri(category.UrlName),
+                    Url = category.UrlName,
                     Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
                 };
             }
@@ -65,7 +65,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Name = category.Name,
                 Title = category.Title,
                 Description = category.Description,
-                Url = new Uri(category.UrlName),
+                Url = category.UrlName,
                 Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
             };
         }

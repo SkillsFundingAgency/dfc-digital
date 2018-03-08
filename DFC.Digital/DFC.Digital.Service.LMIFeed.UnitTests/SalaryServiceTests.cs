@@ -1,41 +1,44 @@
-﻿using System.Net;
-using System.Net.Http;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Service.LMIFeed.Interfaces;
+using DFC.Digital.Service.LMIFeed.UnitTests.Model;
 using FakeItEasy;
 using FluentAssertions;
-using DFC.Digital.Service.LMIFeed.Interfaces;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.Digital.Service.LMIFeed.UnitTests
 {
-    using System;
-    using DFC.Digital.Core;
-    using Model;
-    using Newtonsoft.Json;
-
-    public class SalaryServiceTests: HelperJobProfileData
+    public class SalaryServiceTests : HelperJobProfileData
     {
         [Theory]
         [MemberData(nameof(JobProfileAsheData))]
         public void GetMedianDeciles_From_AsheFeed(string jobProfileForAsheFeed, string expectedSocCode)
         {
             //Arrange
-            var applicationLogger = A.Fake<IApplicationLogger>(ops=>ops.Strict());
+            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
 
             //Act
-            var httpResponseMessage = new HttpResponseMessage {StatusCode = HttpStatusCode.OK};
+            var httpResponseMessage = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._,A<Exception>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
             ISalaryService lmiFeed = new SalaryService(applicationLogger, clientProxy);
 
             //Assert
             var response = lmiFeed.GetSalaryBySocAsync(jobProfileForAsheFeed);
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>.That.IsEqualTo(expectedSocCode))).MustHaveHappened();
             response.Result.Should().Be(null);
-
         }
+
         [Theory]
         [MemberData(nameof(JobProfileAsheData))]
         public void ThrowsException_GetMedianDeciles_From_AsheFeed(string socCode, string expectedSocCode)
@@ -48,21 +51,20 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             //Act
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Throws<Exception>();
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._,A<Exception>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
 
             ISalaryService lmiFeed = new SalaryService(applicationLogger, clientProxy);
 
             //Assert
             var response = lmiFeed.GetSalaryBySocAsync(socCode);
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._,A<Exception>._)).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>.That.IsEqualTo(expectedSocCode))).MustHaveHappened();
             response.Result.Should().Be(null);
-
         }
 
         [Theory]
-        [InlineData (true,true, ServiceState.Green)]
+        [InlineData(true, true, ServiceState.Green)]
         [InlineData(true, false, ServiceState.Amber)]
         public async Task GetServiceStatusAsync(bool returnValidHttpStatusCode, bool returnValidJobProfileSalary, ServiceState expectedServiceStatus)
         {
@@ -100,7 +102,6 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
 
             serviceStatus.Status.Should().Be(expectedServiceStatus);
-
         }
 
         [Fact]
@@ -111,7 +112,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
 
             //add no content to cause an exception
-            var httpResponseMessage = new HttpResponseMessage {};
+            var httpResponseMessage = new HttpResponseMessage { };
 
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
@@ -127,6 +128,5 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             serviceStatus.Notes.Should().Contain("Exception");
             A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
-
     }
 }

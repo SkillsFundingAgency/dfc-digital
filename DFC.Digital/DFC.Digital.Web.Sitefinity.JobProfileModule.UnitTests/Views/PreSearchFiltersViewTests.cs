@@ -66,7 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             {
                 if (testDataModel.Section.SingleSelectOnly)
                 {
-                        // this section should contains radio buttons
+                    // this section should contains radio buttons
                     var filterOption = htmlDom?.DocumentNode?.SelectNodes($"//*[@id='Section_{jj}']").FirstOrDefault();
                     filterOption?.Attributes["type"].Value.ShouldBeEquivalentTo("radio");
                 }
@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                     //if we have a N/A option needs this class
                     if (testDataModel.Section.Options[jj].ClearOtherOptionsIfSelected)
                     {
-                            filterOption?.Attributes["class"].Value.ShouldBeEquivalentTo("filter-na");
+                        filterOption?.Attributes["class"].Value.ShouldBeEquivalentTo("filter-na");
                     }
                 }
 

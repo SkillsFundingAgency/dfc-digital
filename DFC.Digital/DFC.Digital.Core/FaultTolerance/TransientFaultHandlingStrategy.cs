@@ -17,14 +17,14 @@ namespace DFC.Digital.Core
             this.configuration = configuration;
         }
 
-        public int Retry => configuration.Get(RetryKey, 2);
+        public int Retry => configuration.GetConfig(RetryKey, 2);
 
-        public int AllowedFaults => configuration.Get(AllowedFaultsKey, 4);
+        public int AllowedFaults => configuration.GetConfig(AllowedFaultsKey, 4);
 
-        public TimeSpan Timeout => configuration.Get(TimeoutKey, TimeSpan.FromSeconds(3));
+        public TimeSpan Timeout => configuration.GetConfig(TimeoutKey, TimeSpan.FromSeconds(3));
 
-        public TimeSpan Wait => configuration.Get(WaitKey, TimeSpan.FromSeconds(2));
+        public TimeSpan Wait => configuration.GetConfig(WaitKey, TimeSpan.FromSeconds(2));
 
-        public TimeSpan Breaktime => configuration.Get(BreaktimeKey, TimeSpan.FromSeconds(60));
+        public TimeSpan Breaktime => configuration.GetConfig(BreaktimeKey, TimeSpan.FromSeconds(60));
     }
 }

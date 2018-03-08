@@ -10,13 +10,13 @@ namespace DFC.Digital.Core.Configuration
             throw new NotImplementedException();
         }
 
-        public T Get<T>(string key)
+        public T GetConfig<T>(string key)
         {
             var value = ConfigurationManager.AppSettings.Get(key);
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
-        public T Get<T>(string key, T defaultValue)
+        public T GetConfig<T>(string key, T defaultValue)
         {
             var value = ConfigurationManager.AppSettings.Get(key);
             return value == null ? defaultValue : (T)Convert.ChangeType(value, typeof(T));

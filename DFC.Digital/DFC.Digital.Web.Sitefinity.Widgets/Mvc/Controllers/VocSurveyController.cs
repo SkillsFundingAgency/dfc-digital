@@ -59,17 +59,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         [HttpGet]
         [RelativeRoute("")]
+        [RelativeRoute("{urlname}")]
         public ActionResult Index()
         {
-            return ReturnSurveyViewModel();
-        }
-
-        //Todo -> please remove unused parameters
-        [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
-        {
-            var unused = urlname;
             return ReturnSurveyViewModel();
         }
 

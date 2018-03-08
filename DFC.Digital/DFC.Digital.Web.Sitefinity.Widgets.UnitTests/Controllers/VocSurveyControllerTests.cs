@@ -86,7 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             };
 
             // Act
-            var indexMethodCall = vocSurveyController.WithCallTo(c => c.Index(urlname));
+            var indexMethodCall = vocSurveyController.WithCallTo(c => c.Index());
 
             //Assert
             indexMethodCall.ShouldRenderDefaultView();

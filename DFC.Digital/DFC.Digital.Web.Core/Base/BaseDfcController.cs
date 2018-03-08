@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
 using System;
 using System.Web.Mvc;
 

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;

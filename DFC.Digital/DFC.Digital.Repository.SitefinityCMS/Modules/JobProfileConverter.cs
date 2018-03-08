@@ -27,6 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #endregion Fields
 
         #region Fields
+
         public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
@@ -87,9 +88,5 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var relatedContent = content.GetRelatedItems<DynamicContent>(relatedField);
             return relatedContent.Select(x => $"{x.Id}|{x.UrlName}");
         }
-
-        #region Methods
-
-        #endregion
     }
 }

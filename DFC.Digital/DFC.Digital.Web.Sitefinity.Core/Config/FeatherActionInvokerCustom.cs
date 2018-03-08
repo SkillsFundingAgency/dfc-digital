@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core;
 using System.Diagnostics;
 using System.Threading;
 using System.Web;

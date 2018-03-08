@@ -3,7 +3,7 @@
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
           <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
-                 <div id="BackLink" class="breadcrumbs" >
+                 <div id="BackLink" class="breadcrumbs">
                         <ol>
                             <li>
                                 <button type="submit" class="button-link" id="filter-home">@(Model.Section.PageNumber == 1 ? "Home" : "Back")</button>
@@ -53,6 +53,5 @@
                     <button type="submit" class="button filter-next" id="filter-continue">Continue</button>
                 </div>
             </form>
-
     </div>
 </div>

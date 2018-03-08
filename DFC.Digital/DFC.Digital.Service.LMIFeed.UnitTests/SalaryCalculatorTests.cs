@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using Xunit;

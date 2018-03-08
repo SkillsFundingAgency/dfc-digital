@@ -91,6 +91,10 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
+      <Project>{2080FBA6-AE04-49B0-B343-B60CF097C1A3}</Project>
+      <Name>DFC.Digital.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>

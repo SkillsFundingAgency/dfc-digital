@@ -1,15 +1,26 @@
-﻿using DFC.Digital.Data.Interfaces;
-using System.Net.Http;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Core
 {
-    public class HttpClientService : IHttpClientService
+    public class HttpClientService<TService> : IHttpClientService<TService>
     {
         private HttpClient httpClient = new HttpClient();
 
-        public HttpClient GetHttpClient()
+        public bool AddHeader(string key, string value)
         {
-            return httpClient;
+            if (!httpClient.DefaultRequestHeaders.Contains(key))
+            {
+                httpClient.DefaultRequestHeaders.Add(key, value);
+                return true;
+            }
+
+            return false;
+        }
+
+        public Task<HttpResponseMessage> GetAsync(string requestUri)
+        {
+            return httpClient.GetAsync(requestUri);
         }
     }
 }

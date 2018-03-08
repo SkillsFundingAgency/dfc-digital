@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -19,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The course search service
         /// </summary>
         private readonly ICourseSearchService courseSearchService;
+
         private readonly IAsyncHelper asyncHelper;
 
         #endregion Fields

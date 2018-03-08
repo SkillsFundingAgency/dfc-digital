@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.Config
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<HttpClientService<ISpellCheckService>>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<HttpClientService<ISpellcheckService>>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

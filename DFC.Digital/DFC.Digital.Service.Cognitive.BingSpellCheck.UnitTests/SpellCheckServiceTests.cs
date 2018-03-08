@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         public async Task CheckSpellingAsyncTest(string term, bool suggestionsReturned)
         {
             //Arrange
-            var fakeHttpClientService = A.Fake<IHttpClientService<ISpellCheckService>>(ops => ops.Strict());
+            var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
             var fakeLogger = A.Fake<IApplicationLogger>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
             var mockHttp = new MockHttpMessageHandler();
@@ -53,9 +53,10 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         public async Task GetServiceStatusAsync(bool suggestionsReturned, ServiceState expectedServiceStatus)
         {
             //Arrange
-            var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());
-            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
+            var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var mockHttp = new MockHttpMessageHandler();
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Setup Dummies and Mocks
             mockHttp.When("*")
@@ -63,9 +64,9 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "application/json",
                 suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
 
-            A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("url"));
 
-            var spellingService = new SpellCheckService(fakeHttpClientService, applicationLogger);
+            var spellingService = new SpellCheckService(fakeHttpClientService, policy, fakeLogger);
 
             //Act
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
@@ -78,9 +79,10 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         public async Task GetServiceStatusExceptionAsync()
         {
             //Arrange
-            var fakeHttpClientService = A.Fake<IHttpClientService>(ops => ops.Strict());
-            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
+            var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var mockHttp = new MockHttpMessageHandler();
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Setup Dummies and Mocks
             mockHttp.When("*")
@@ -88,10 +90,10 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "application/json",
                 "{\"_type\": \"Cause Exception\"}");
 
-            A.CallTo(() => fakeHttpClientService.GetHttpClient()).Returns(new HttpClient(mockHttp));
-            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("url"));
+            A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
-            var spellingService = new SpellCheckService(fakeHttpClientService, applicationLogger);
+            var spellingService = new SpellCheckService(fakeHttpClientService, policy, fakeLogger);
 
             //Act
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
@@ -99,7 +101,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
             serviceStatus.Notes.Should().Contain("Exception logged");
-            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
+            A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }
 }

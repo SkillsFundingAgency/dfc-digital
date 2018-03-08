@@ -119,7 +119,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #endregion Actions
 
         #region Non Action Methods
-        private bool IsUserAdministrator()
+        private static bool IsUserAdministrator()
         {
             var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();
             return userAdminRole != null ? true : false;

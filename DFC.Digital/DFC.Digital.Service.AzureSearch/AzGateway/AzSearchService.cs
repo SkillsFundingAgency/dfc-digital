@@ -36,7 +36,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         public async Task EnsureIndexAsync(string indexName)
         {
-            Index definition = GetIndexDefenition(indexName);
+            var definition = GetIndexDefenition(indexName);
             await policy.ExecuteAsync(() => searchClient.Indexes.CreateOrUpdateAsync(definition), nameof(AzSearchService<T>), FaultToleranceType.RetryWithCircuitBreaker);
         }
 
@@ -74,7 +74,7 @@ namespace DFC.Digital.Service.AzureSearch
                     {
                         Name = Constants.DefaultSuggesterName,
                         SearchMode = SuggesterSearchMode.AnalyzingInfixMatching,
-                        SourceFields = suggesterBuilder.BuildForType(typeof(T)),
+                        SourceFields = suggesterBuilder.BuildForType<T>(),
                     }
                 }
             };

@@ -6,7 +6,7 @@ using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class SetContentRelatedPageTitleViewTest
     {

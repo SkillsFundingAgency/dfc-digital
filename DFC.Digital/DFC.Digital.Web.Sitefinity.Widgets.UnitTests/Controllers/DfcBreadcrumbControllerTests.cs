@@ -9,7 +9,7 @@ using System;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class DfcBreadcrumbControllerTests
     {
@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
                 .ShouldRenderDefaultView()
                 .WithModel<DfcBreadcrumbViewModel>(vm =>
                 {
-                    vm.BreadcrumbedPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                    vm.BreadcrumbPageTitleText.ShouldBeEquivalentTo(nodeTitle);
                 })
                 .AndNoModelErrors();
         }
@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
                    .ShouldRenderDefaultView()
                    .WithModel<DfcBreadcrumbViewModel>(vm =>
                    {
-                       vm.BreadcrumbedPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                       vm.BreadcrumbPageTitleText.ShouldBeEquivalentTo(nodeTitle);
                    })
                    .AndNoModelErrors();
         }

@@ -45,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         public string PageTitleSuffix { get; set; } = "Find a career ";
 
         [DisplayName("Title Seperator (e.g. |)")]
-        public string PageTitleSeperator { get; set; } = "|";
+        public string PageTitleSeparator { get; set; } = "|";
 
         #endregion Public Properties
 
@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             if (!webAppContext.IsContentAuthoringSite && webAppContext.IsSearchResultsPage)
             {
                 var searchTerm = HttpUtility.HtmlEncode(webAppContext.RequestQueryString["searchTerm"]);
-                this.ViewBag.Title = $"{searchTerm} {PageTitleSeperator} Search {PageTitleSeperator} {PageTitleSuffix}";
+                this.ViewBag.Title = $"{searchTerm} {PageTitleSeparator} Search {PageTitleSeparator} {PageTitleSuffix}";
             }
 
             //Need to return a blank view so that we can check the view bag in tests.
@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var category = categoryRepo.GetByUrlName(urlName);
                 if (category != null)
                 {
-                    this.ViewBag.Title = $"{category.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                    this.ViewBag.Title = $"{category.Title} {PageTitleSeparator} {PageTitleSuffix}";
                 }
             }
             else if (webAppContext.IsJobProfilePage && !string.IsNullOrEmpty(urlName))
@@ -93,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var jobProfile = jobProfileRepository.GetByUrlName(urlName);
                 if (jobProfile != null)
                 {
-                    this.ViewBag.Title = $"{jobProfile.Title} {PageTitleSeperator} {PageTitleSuffix}";
+                    this.ViewBag.Title = $"{jobProfile.Title} {PageTitleSeparator} {PageTitleSuffix}";
                 }
             }
 

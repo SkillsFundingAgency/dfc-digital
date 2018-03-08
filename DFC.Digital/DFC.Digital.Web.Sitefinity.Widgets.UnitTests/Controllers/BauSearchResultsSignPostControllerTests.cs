@@ -9,9 +9,9 @@ using System.Web;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
-    public class BauSearchResultsSignPostControllerTests
+    public class BauSearchResultsSignpostControllerTests
     {
         [Theory]
         [InlineData("")]
@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var modelContent = string.Format(contentValue, searchTerm);
 
             //Instantiate & Act
-            var bauSearchResultsSignPostController = new BauSearchResultsSignPostController(loggerFake)
+            var bauSearchResultsSignPostController = new BauSearchResultsSignpostController(loggerFake)
             {
                 BannerContent = contentValue
             };
@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             var modelContent = string.Format(contentValue, HttpUtility.UrlEncode(Regex.Replace(searchTerm, Constants.ValidBAUSearchCharacters, string.Empty)));
 
             //Instantiate & Act
-            using (var bauSearchResultsSignPostController = new BauSearchResultsSignPostController(loggerFake)
+            using (var bauSearchResultsSignPostController = new BauSearchResultsSignpostController(loggerFake)
             {
                 BannerContent = contentValue
             })

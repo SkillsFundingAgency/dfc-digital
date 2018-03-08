@@ -86,13 +86,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 {
                     var systemRestartFlag = SystemRestartFlags.Default;
 
-                    switch (restartMode.ToLowerInvariant().Trim())
+                    switch (restartMode?.ToUpperInvariant().Trim())
                     {
-                        case "attemptfullrestart":
+                        case "ATTEMPTFULLRESTART":
                             resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
                             systemRestartFlag = SystemRestartFlags.AttemptFullRestart;
                             break;
-                        case "resetmodel":
+                        case "RESETMODEL":
                             resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
                             systemRestartFlag = SystemRestartFlags.ResetModel;
                             break;

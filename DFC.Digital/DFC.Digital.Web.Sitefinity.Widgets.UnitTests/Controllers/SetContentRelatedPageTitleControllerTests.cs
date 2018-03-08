@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class SetContentRelatedPageTitleControllerTests
     {
@@ -72,11 +72,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
 
             if (isViaUrl && (pageType == PageType.JobProfile || pageType == PageType.Category))
             {
-                titleSet.Should().Be($"{expectedPageTitle} {setContentRelatedPageTitleController.PageTitleSeperator} {setContentRelatedPageTitleController.PageTitleSuffix}");
+                titleSet.Should().Be($"{expectedPageTitle} {setContentRelatedPageTitleController.PageTitleSeparator} {setContentRelatedPageTitleController.PageTitleSuffix}");
             }
             else if (!isViaUrl && pageType == PageType.SearchResults)
             {
-                titleSet.Should().Be($"{HttpUtility.HtmlEncode(expectedPageTitle)} {setContentRelatedPageTitleController.PageTitleSeperator} Search {setContentRelatedPageTitleController.PageTitleSeperator} {setContentRelatedPageTitleController.PageTitleSuffix}");
+                titleSet.Should().Be($"{HttpUtility.HtmlEncode(expectedPageTitle)} {setContentRelatedPageTitleController.PageTitleSeparator} Search {setContentRelatedPageTitleController.PageTitleSeparator} {setContentRelatedPageTitleController.PageTitleSuffix}");
             }
             else
             {

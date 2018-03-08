@@ -16,10 +16,10 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// </summary>
     /// <seealso cref="BaseDfcController" />
     [ControllerToolboxItem(Name = "BauSearchResultsSignPost", Title = "Bau Search Results SignPost", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class BauSearchResultsSignPostController : BaseDfcController
+    public class BauSearchResultsSignpostController : BaseDfcController
     {
         #region Constructors
-        public BauSearchResultsSignPostController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public BauSearchResultsSignpostController(IApplicationLogger applicationLogger) : base(applicationLogger)
         {
         }
 
@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             return View("Index", new BauSearchResultsViewModel { Content = BannerContent.Replace("{0}", !string.IsNullOrWhiteSpace(searchTerm) ? StripInvalidCharsAndEncode(searchTerm) : string.Empty) });
         }
 
-        private string StripInvalidCharsAndEncode(string searchTerm)
+        private static string StripInvalidCharsAndEncode(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
             {

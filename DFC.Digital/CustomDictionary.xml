@@ -20,11 +20,13 @@
       <Word>jobprofile</Word>
       <Word>Soc</Word>
       <Word>Deciles</Word>
+      <Word>TolerancePolicy</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
     <Compound>
       <Term CompoundAlternate="JobProfile">jobprofile</Term>
+      <Term CompoundAlternate="TolerancePolicy">TolerancePolicy</Term>
     </Compound>
     </Words>
   <Acronyms>

@@ -112,8 +112,8 @@ Scenario Outline: PSF - Back button redirects to correct Filter
 	Then I am redirected to the homepage
 
 	Examples: 
-	| jobLevelTags | interestTags | tasksTags | jobAreasTags | waysToGetInTags  | careerFocusTags | restrictionsTags    |
-	| Job level 1,Job level 2  | Music        | Managing  | Transport    | In-work training | None            | None,physically fit |
+	| jobLevelTags            | interestTags | tasksTags | jobAreasTags | waysToGetInTags  | careerFocusTags | restrictionsTags            |
+	| Job level 1,Job level 2 | Music        | Managing  | Transport    | In-work training | None            | physically fit,Enhanced DBS |
 
 
 Scenario Outline: PSF - Selecting None removes already selected tags

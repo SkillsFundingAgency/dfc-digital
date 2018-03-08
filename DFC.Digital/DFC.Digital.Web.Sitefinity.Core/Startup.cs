@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
             if (e.CommandName == "RegisterRoutes")
             {

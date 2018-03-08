@@ -1,10 +1,11 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestStack.FluentMVCTesting;
@@ -54,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -63,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -179,7 +180,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -188,7 +189,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -285,7 +286,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -294,7 +295,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -34,6 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -55,6 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         public string HomePageText { get; set; } = "Find a career home";
 
         #endregion Public Properties
+
         #region Actions
 
         // GET: DfcBreadcrumb
@@ -99,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             var currentPageNode = sitefinityCurrentContext.GetCurrentDfcPageNode();
             if (currentPageNode != null)
             {
-                string nodeUrl = currentPageNode.Url;
+                string nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
                 if (nodeUrl.ToLowerInvariant().Contains("job-categories") && !string.IsNullOrEmpty(urlName))

@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using System.Configuration;
 
 namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config

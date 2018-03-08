@@ -89,6 +89,4 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             return serviceStates;
         }
     }
-
-
 }

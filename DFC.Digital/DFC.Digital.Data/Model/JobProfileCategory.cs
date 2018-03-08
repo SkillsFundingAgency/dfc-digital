@@ -13,6 +13,6 @@ namespace DFC.Digital.Data.Model
 
         public IQueryable<JobProfileCategory> Subcategories { get; set; }
 
-        public Uri Url { get; set; }
+        public string Url { get; set; }
     }
 }

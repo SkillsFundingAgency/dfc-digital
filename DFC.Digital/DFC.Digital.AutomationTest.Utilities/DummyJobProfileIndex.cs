@@ -20,7 +20,7 @@ namespace DFC.Digital.AutomationTest.Utilities
                 FilterableAlternativeTitle =
                     $"dummy{nameof(JobProfileIndex.FilterableAlternativeTitle)}".ToLowerInvariant(),
                 AlternativeTitle = $"dummy{nameof(JobProfileIndex.AlternativeTitle)}"
-                    .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                 Overview = $"dummy{nameof(JobProfileIndex.Overview)}",
                 SalaryStarter = 10,
                 SalaryExperienced = 10

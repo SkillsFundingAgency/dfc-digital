@@ -27,6 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #endregion Fields
 
         #region Fields
+
         public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
@@ -47,7 +48,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Title = content?.GetValue<Lstring>(nameof(JobProfile.Title)),
                 AlternativeTitle = content?.GetValue<Lstring>(nameof(JobProfile.AlternativeTitle)),
                 Overview = content?.GetValue<Lstring>(nameof(JobProfile.Overview)),
-                IsLMISalaryFeedOverridden = content?.GetValue<bool?>(nameof(JobProfile.IsLMISalaryFeedOverridden)),
+                IsLMISalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
                 SalaryStarter = content?.GetValue<decimal?>(nameof(JobProfile.SalaryStarter)),
                 SalaryExperienced = content?.GetValue<decimal?>(nameof(JobProfile.SalaryExperienced)),
                 MinimumHours = content?.GetValue<decimal?>(nameof(JobProfile.MinimumHours)),
@@ -88,8 +89,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfile;
         }
 
-        #region Methods
-
-        #endregion
+        public IQueryable<string> GetRelatedContentIdAndUrl(DynamicContent content, string relatedField)
+        {
+            var relatedContent = content.GetRelatedItems<DynamicContent>(relatedField);
+            return relatedContent.Select(x => $"{x.Id}|{x.UrlName}");
+        }
     }
 }

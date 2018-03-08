@@ -31,4 +31,4 @@ namespace DFC.Digital.Repository.CosmosDb
             DocumentCollection = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Collection");
         }
     }
- }
+}

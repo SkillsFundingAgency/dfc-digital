@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -149,7 +150,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 apprenticeshipVacancies = jobProfileSocCodeRepository.GetBySocCode(CurrentJobProfile.SOCCode)
                     ?.Where(x => !string.IsNullOrEmpty(x.Title)
-                        && !string.IsNullOrEmpty(x.URL)
+                        && !string.IsNullOrEmpty(x.URL.OriginalString)
                         && !string.IsNullOrEmpty(x.WageUnitType)
                         && !string.IsNullOrEmpty(x.WageAmount)
                         && !string.IsNullOrEmpty(x.Location)

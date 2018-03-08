@@ -86,6 +86,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.wsdl" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.xsd">
       <SubType>Designer</SubType>

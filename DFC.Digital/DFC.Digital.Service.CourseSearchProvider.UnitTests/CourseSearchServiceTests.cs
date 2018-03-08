@@ -96,7 +96,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var fakePolicy = A.Fake<Core.ITolerancePolicy>();
 
             //Setup Calls and Dummies
-
             A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
             A.CallTo(() => loggerFake.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception acctivity id");
 

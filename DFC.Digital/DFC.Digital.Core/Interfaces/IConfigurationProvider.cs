@@ -2,9 +2,9 @@
 {
     public interface IConfigurationProvider
     {
-        T Get<T>(string key);
+        T GetConfig<T>(string key);
 
-        T Get<T>(string key, T defaultValue);
+        T GetConfig<T>(string key, T defaultValue);
 
         void Add<T>(string key, T value);
     }

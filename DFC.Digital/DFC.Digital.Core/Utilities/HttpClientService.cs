@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Core
@@ -20,7 +21,7 @@ namespace DFC.Digital.Core
 
         public Task<HttpResponseMessage> GetAsync(string requestUri)
         {
-            return httpClient.GetAsync(requestUri);
+            return httpClient.GetAsync(new Uri(requestUri));
         }
     }
 }

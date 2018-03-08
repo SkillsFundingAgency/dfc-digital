@@ -12,12 +12,12 @@ namespace DFC.Digital.Core.Configuration
             configs.Add(key, value);
         }
 
-        public T Get<T>(string key)
+        public T GetConfig<T>(string key)
         {
             return (T)Convert.ChangeType(configs[key], typeof(T));
         }
 
-        public T Get<T>(string key, T defaultValue)
+        public T GetConfig<T>(string key, T defaultValue)
         {
             return configs.ContainsKey(key) ? (T)Convert.ChangeType(configs[key], typeof(T)) : defaultValue;
         }

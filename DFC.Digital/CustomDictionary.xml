@@ -2,6 +2,7 @@
 <Dictionary>
   <Words>
     <Unrecognized>
+      <Word>Autofac</Word>
     </Unrecognized>
     <Recognized>
       <Word>Autofac</Word>
@@ -20,6 +21,7 @@
       <Word>jobprofile</Word>
       <Word>Soc</Word>
       <Word>Deciles</Word>
+      <Word>Az</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
@@ -33,6 +35,7 @@
       <Acronym>BAU</Acronym>
       <Acronym>GA</Acronym>
       <Acronym>LMI</Acronym>
+      <Acronym>Soc</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

@@ -34,6 +34,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #endregion Fields
 
+        public static IQueryable<string> GetRelatedContentIdAndUrl(DynamicContent content, string relatedField)
+        {
+            var relatedContent = content.GetRelatedItems<DynamicContent>(relatedField);
+            return relatedContent.Select(x => $"{x.Id}|{x.UrlName}");
+        }
+
         public JobProfile ConvertFrom(DynamicContent content)
         {
             var jobProfile = new JobProfile
@@ -72,20 +78,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();
             jobProfile.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPatternDetails), nameof(JobProfile.WorkingPatternDetails)).FirstOrDefault();
 
-            jobProfile.RelatedInterests = GetRelatedContentIdAndUrl(content, RelatedInterestsField);
-            jobProfile.RelatedEnablers = GetRelatedContentIdAndUrl(content, RelatedEnablersField);
-            jobProfile.RelatedEntryQualifications = GetRelatedContentIdAndUrl(content, RelatedEntryQualificationsField);
-            jobProfile.RelatedTrainingRoutes = GetRelatedContentIdAndUrl(content, RelatedTrainingRoutesField);
-            jobProfile.RelatedPreferredTaskTypes = GetRelatedContentIdAndUrl(content, RelatedPreferredTaskTypesField);
-            jobProfile.RelatedJobAreas = GetRelatedContentIdAndUrl(content, RelatedJobAreasField);
+            jobProfile.RelatedInterests = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedInterestsField);
+            jobProfile.RelatedEnablers = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedEnablersField);
+            jobProfile.RelatedEntryQualifications = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedEntryQualificationsField);
+            jobProfile.RelatedTrainingRoutes = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedTrainingRoutesField);
+            jobProfile.RelatedPreferredTaskTypes = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedPreferredTaskTypesField);
+            jobProfile.RelatedJobAreas = JobProfileConverter.GetRelatedContentIdAndUrl(content, RelatedJobAreasField);
 
             return jobProfile;
-        }
-
-        public IQueryable<string> GetRelatedContentIdAndUrl(DynamicContent content, string relatedField)
-        {
-            var relatedContent = content.GetRelatedItems<DynamicContent>(relatedField);
-            return relatedContent.Select(x => $"{x.Id}|{x.UrlName}");
         }
 
         #region Methods

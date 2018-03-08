@@ -5,6 +5,8 @@ using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    using System;
+
     public class SitefinityCurrentContext : ISitefinityCurrentContext
     {
         private PageData currentPage;
@@ -31,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public DfcPageSiteNode GetCurrentDfcPageNode()
         {
-            return CurrentNode != null ? new DfcPageSiteNode { Title = CurrentNode.Title, Url = CurrentNode.Url } : null;
+            return CurrentNode != null ? new DfcPageSiteNode { Title = CurrentNode.Title, Url = new Uri(CurrentNode.Url) } : null;
         }
     }
 }

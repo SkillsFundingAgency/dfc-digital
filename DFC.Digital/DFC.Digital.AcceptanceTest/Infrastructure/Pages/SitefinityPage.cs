@@ -82,7 +82,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             {
                 return Browser.Url.Contains("/sitefinity/status");
             }
-            catch
+            catch (ArgumentNullException)
             {
                 return false;
             }

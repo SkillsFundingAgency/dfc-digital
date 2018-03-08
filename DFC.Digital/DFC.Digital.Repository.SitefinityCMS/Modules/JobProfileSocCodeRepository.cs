@@ -12,9 +12,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     public class JobProfileSocCodeRepository : DynamicModuleRepository, IJobProfileSocCodeRepository
     {
         #region Fields
-
-        private const string JobProfileSocContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc";
         private const string JobProfileApprenticeshipContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.ApprenticeshipVacancy";
+        private const string JobProfileSocContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc";
         private const string ModuleName = "Job Profile";
 
         private IDynamicModuleConverter<ApprenticeVacancy> converter;

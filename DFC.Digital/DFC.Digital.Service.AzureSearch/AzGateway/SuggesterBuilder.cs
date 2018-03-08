@@ -7,17 +7,11 @@ namespace DFC.Digital.Service.AzureSearch
 {
     public class SuggesterBuilder : ISuggesterBuilder
     {
-        public IList<string> BuildForType(Type typeofT)
+        public IList<string> BuildForType<T>()
         {
-            if (typeofT != null)
-            {
-                var underlyingType = typeofT;
-                var suggestionFields = underlyingType.GetProperties().Where(p =>
-                    p.GetCustomAttributes(typeof(IsSuggestibleAttribute), true)?.Count() > 0);
-                return suggestionFields.Select(s => s.Name).ToList();
-            }
-
-            return null;
+            Type underlyingType = typeof(T);
+            var suggestionFields = underlyingType.GetProperties().Where(p => p.GetCustomAttributes(typeof(IsSuggestibleAttribute), true)?.Count() > 0);
+            return suggestionFields.Select(s => s.Name).ToList();
         }
     }
 }

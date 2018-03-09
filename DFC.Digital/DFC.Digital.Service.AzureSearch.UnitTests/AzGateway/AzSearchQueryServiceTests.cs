@@ -47,7 +47,6 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [Fact]
         public void GetSuggestionTest()
         {
-            var fakePolicy = A.Fake<Core.ITolerancePolicy>();
             var fakeDocuments = A.Fake<IDocumentsOperations>();
             var fakeIndexClient = A.Fake<ISearchIndexClient>();
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();

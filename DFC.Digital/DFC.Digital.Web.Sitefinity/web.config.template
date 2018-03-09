@@ -447,8 +447,8 @@ that is bundled with the nuget package under the tools folder.
       <target type="Trace" name="trace" layout="${longdate}|${level:uppercase=true}|${logger}|${threadid}|${aspnet-item:variable=dfc-controller}|${message}|${exception:format=tostring}" />
     </targets>
     <rules>
-      <logger name="*" minlevel="Trace" writeTo="aiTarget" />
-      <logger name="*" minlevel="Trace" writeTo="trace" />
+      <logger name="*" minlevel="Info" writeTo="aiTarget" />
+      <logger name="*" minlevel="Info" writeTo="trace" />
     </rules>
   </nlog>
   <!-- Upgrade of NewtonsoftJson.dll to version 6.0.2. The Web API/MVC 4 has been built with version 4.5

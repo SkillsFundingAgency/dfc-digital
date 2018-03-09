@@ -24,7 +24,7 @@ namespace DFC.Digital.Service.LMIFeed
         #endregion ctor
 
         #region Implement of IServiceStatus
-        private string ServiceName => "LMI Feed";
+        private static string ServiceName => "LMI Feed";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {

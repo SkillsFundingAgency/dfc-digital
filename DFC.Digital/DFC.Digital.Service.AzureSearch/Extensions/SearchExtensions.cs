@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using Microsoft.Azure.Search.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,12 +11,12 @@ namespace DFC.Digital.Service.AzureSearch.Extensions
         public static IEnumerable<SearchResultItem<T>> ToSearchResultItems<T>(this DocumentSearchResult<T> results, SearchProperties properties)
             where T : class
         {
-            if (properties != null)
+            if (properties != null && results != null)
             {
                 var beginRank = ((properties.Page - 1) * properties.Count) + properties.ExactMatchCount;
 
                 var resultList = new List<SearchResultItem<T>>();
-                if (results?.Results != null)
+                if (results.Results != null)
                 {
                     foreach (var result in results.Results)
                     {

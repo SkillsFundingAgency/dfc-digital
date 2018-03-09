@@ -84,9 +84,5 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 titleSet.Should().Be(null);
             }
         }
-
-        public void SearchTitleIsEncoded()
-        {
-        }
     }
 }

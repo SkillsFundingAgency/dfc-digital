@@ -48,10 +48,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             var htmlDom = indexView.RenderAsHtml(jobProfileByCategoryViewModel);
 
             // Assert
-            GetH2Heading(htmlDom).ShouldBeEquivalentTo(jobProfileByCategoryViewModel.OtherCategoriesTitle);
+            GetH2Heading(htmlDom).Should().BeEquivalentTo(jobProfileByCategoryViewModel.OtherCategoriesTitle);
 
             var displayedJobProfileCategories = GetDisplayedJobProfileCategories(htmlDom);
-            displayedJobProfileCategories.ShouldBeEquivalentTo(filteredJobProfileCategories);
+            displayedJobProfileCategories.Should().BeEquivalentTo(filteredJobProfileCategories);
         }
 
         /// <summary>

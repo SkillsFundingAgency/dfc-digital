@@ -320,7 +320,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             var searchPage = GetNavigatedPage<SearchPage>();
             if (showFlag.IsShown())
             {
-                searchPage.HighestRankOnPage.ShouldBeEquivalentTo(searchPage.TotalResultsCount);
+                searchPage.HighestRankOnPage.Should().Be(searchPage.TotalResultsCount);
             }
             else
             {
@@ -332,7 +332,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenTheNextPaginationControlIs(string showFlag)
         {
             var searchPage = GetNavigatedPage<SearchPage>();
-            searchPage.HasNextPage.ShouldBeEquivalentTo(showFlag.IsShown());
+            searchPage.HasNextPage.Should().Be(showFlag.IsShown());
         }
 
         [Then(@"the Next Pagination control label is '(.*)'")]
@@ -355,7 +355,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             var searchPage = GetNavigatedPage<SearchPage>();
             if (showFlag.IsShown())
             {
-                searchPage.LowestRankOnPage.ShouldBeEquivalentTo(1);
+                searchPage.LowestRankOnPage.Should().Be(1);
             }
             else
             {
@@ -381,7 +381,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenThePreviousPaginationControlIs(string showFlag)
         {
             var searchPage = GetNavigatedPage<SearchPage>();
-            searchPage.HasPreviousPage.ShouldBeEquivalentTo(showFlag.IsShown());
+            searchPage.HasPreviousPage.Should().Be(showFlag.IsShown());
         }
 
         [Then(@"the Previous Pagination control label is '(.*)'")]
@@ -433,7 +433,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             //Log results
             OutputHelper.WriteLine($"Expected order expected {JsonConvert.SerializeObject(expected)}");
             OutputHelper.WriteLine($"  Actual order expected {JsonConvert.SerializeObject(actual)}");
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the search title should be visible")]

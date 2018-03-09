@@ -139,7 +139,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var sendEmailMethodCall = vocSurveyController.WithCallTo(c => c.SendEmail(emailAddress));
 
             //Assert
-            sendEmailMethodCall.ShouldReturnJson().ShouldBeEquivalentTo(new JsonResult { Data = returnValue });
+            sendEmailMethodCall.ShouldReturnJson().Should().BeEquivalentTo(new JsonResult { Data = returnValue });
             A.CallTo(() => webAppContextFake.GetVocCookie(Constants.VocPersonalisationCookieName)).MustHaveHappened();
             A.CallTo(() => govUkNotifyFake.SubmitEmail(emailAddress, vocSurveyPersonalisationn)).MustHaveHappened();
         }

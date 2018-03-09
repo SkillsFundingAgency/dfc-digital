@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             var htmlDom = index.RenderAsHtml(serviceStatusViewModel);
 
             var sectionText = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-medium')]").FirstOrDefault().InnerText;
-            sectionText.ShouldBeEquivalentTo("Service Status");
+            sectionText.Should().BeEquivalentTo("Service Status");
 
             var checkDate = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-small')]").FirstOrDefault().InnerText;
             checkDate.Should().Contain(serviceStatusViewModel.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss"));

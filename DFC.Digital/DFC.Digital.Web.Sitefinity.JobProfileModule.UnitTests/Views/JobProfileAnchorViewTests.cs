@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             var htmlDom = indexView.RenderAsHtml(jobProfileAnchorlistViewModel);
 
             // Assert
-            GetViewAnchorLinks(htmlDom).ShouldAllBeEquivalentTo(jobProfileAnchorlistViewModel.AnchorLinks);
+            GetViewAnchorLinks(htmlDom).Should().AllBeEquivalentTo(jobProfileAnchorlistViewModel.AnchorLinks);
         }
 
         /// <summary>

@@ -59,21 +59,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                         .ShouldRenderDefaultView()
                         .WithModel<JobProfileDetailsViewModel>(vm =>
                         {
-                            vm.SalaryText.ShouldBeEquivalentTo(jobprofileController.SalaryText);
-                            vm.HoursText.ShouldBeEquivalentTo(jobprofileController.HoursText);
-                            vm.MaxAndMinHoursAreBlankText.ShouldBeEquivalentTo(jobprofileController
+                            vm.SalaryText.Should().BeEquivalentTo(jobprofileController.SalaryText);
+                            vm.HoursText.Should().BeEquivalentTo(jobprofileController.HoursText);
+                            vm.MaxAndMinHoursAreBlankText.Should().BeEquivalentTo(jobprofileController
                                 .MaxAndMinHoursAreBlankText);
-                            vm.HoursTimePeriodText.ShouldBeEquivalentTo(jobprofileController.HoursTimePeriodText);
-                            vm.AlternativeTitle.ShouldBeEquivalentTo(dummyJobProfile.AlternativeTitle);
-                            vm.Overview.ShouldBeEquivalentTo(dummyJobProfile.Overview);
-                            vm.Title.ShouldBeEquivalentTo(dummyJobProfile.Title);
-                            vm.MaximumHours.ShouldBeEquivalentTo(dummyJobProfile.MaximumHours);
-                            vm.MinimumHours.ShouldBeEquivalentTo(dummyJobProfile.MinimumHours);
-                            vm.WorkingHoursDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
-                            vm.WorkingPatternDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
-                            vm.WorkingPattern.ShouldBeEquivalentTo(dummyJobProfile.WorkingPattern);
-                            vm.SalaryStarter.ShouldBeEquivalentTo(starterSalary);
-                            vm.SalaryExperienced.ShouldBeEquivalentTo(experiencedSalary);
+                            vm.HoursTimePeriodText.Should().BeEquivalentTo(jobprofileController.HoursTimePeriodText);
+                            vm.AlternativeTitle.Should().BeEquivalentTo(dummyJobProfile.AlternativeTitle);
+                            vm.Overview.Should().BeEquivalentTo(dummyJobProfile.Overview);
+                            vm.Title.Should().BeEquivalentTo(dummyJobProfile.Title);
+                            vm.MaximumHours.Should().Be(dummyJobProfile.MaximumHours.ToString());
+                            vm.MinimumHours.Should().BeEquivalentTo(dummyJobProfile.MinimumHours.ToString());
+                            vm.WorkingHoursDetails.Should().BeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
+                            vm.WorkingPatternDetails.Should().BeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
+                            vm.WorkingPattern.Should().BeEquivalentTo(dummyJobProfile.WorkingPattern);
+                            vm.SalaryStarter.Should().Be(starterSalary);
+                            vm.SalaryExperienced.Should().Be(experiencedSalary);
                         })
                         .AndNoModelErrors();
 
@@ -109,22 +109,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                         .ShouldRenderDefaultView()
                         .WithModel<JobProfileDetailsViewModel>(vm =>
                         {
-                            vm.SalaryText.ShouldBeEquivalentTo(jobprofileController.SalaryText);
-                            vm.HoursText.ShouldBeEquivalentTo(jobprofileController.HoursText);
-                            vm.MaxAndMinHoursAreBlankText.ShouldBeEquivalentTo(jobprofileController
+                            vm.SalaryText.Should().BeEquivalentTo(jobprofileController.SalaryText);
+                            vm.HoursText.Should().BeEquivalentTo(jobprofileController.HoursText);
+                            vm.MaxAndMinHoursAreBlankText.Should().BeEquivalentTo(jobprofileController
                                 .MaxAndMinHoursAreBlankText);
-                            vm.HoursTimePeriodText.ShouldBeEquivalentTo(jobprofileController.HoursTimePeriodText);
-                            vm.AlternativeTitle.ShouldBeEquivalentTo(dummyJobProfile.AlternativeTitle);
-                            vm.SalaryRange.ShouldBeEquivalentTo(dummyJobProfile.SalaryRange);
-                            vm.Overview.ShouldBeEquivalentTo(dummyJobProfile.Overview);
-                            vm.Title.ShouldBeEquivalentTo(dummyJobProfile.Title);
-                            vm.MaximumHours.ShouldBeEquivalentTo(dummyJobProfile.MaximumHours);
-                            vm.MinimumHours.ShouldBeEquivalentTo(dummyJobProfile.MinimumHours);
-                            vm.WorkingHoursDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
-                            vm.WorkingPatternDetails.ShouldBeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
-                            vm.WorkingPattern.ShouldBeEquivalentTo(dummyJobProfile.WorkingPattern);
-                            vm.SalaryStarter.ShouldBeEquivalentTo(starterSalary);
-                            vm.SalaryExperienced.ShouldBeEquivalentTo(experiencedSalary);
+                            vm.HoursTimePeriodText.Should().BeEquivalentTo(jobprofileController.HoursTimePeriodText);
+                            vm.AlternativeTitle.Should().BeEquivalentTo(dummyJobProfile.AlternativeTitle);
+                            vm.SalaryRange.Should().BeEquivalentTo(dummyJobProfile.SalaryRange);
+                            vm.Overview.Should().BeEquivalentTo(dummyJobProfile.Overview);
+                            vm.Title.Should().BeEquivalentTo(dummyJobProfile.Title);
+                            vm.MaximumHours.Should().BeEquivalentTo(dummyJobProfile.MaximumHours.ToString());
+                            vm.MinimumHours.Should().BeEquivalentTo(dummyJobProfile.MinimumHours.ToString());
+                            vm.WorkingHoursDetails.Should().BeEquivalentTo(dummyJobProfile.WorkingHoursDetails);
+                            vm.WorkingPatternDetails.Should().BeEquivalentTo(dummyJobProfile.WorkingPatternDetails);
+                            vm.WorkingPattern.Should().BeEquivalentTo(dummyJobProfile.WorkingPattern);
+                            vm.SalaryStarter.Should().Be(starterSalary);
+                            vm.SalaryExperienced.Should().Be(experiencedSalary);
                         })
                         .AndNoModelErrors();
                 }

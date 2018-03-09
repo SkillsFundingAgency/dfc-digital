@@ -35,8 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Controllers
             {
                 vm.CheckDateTime.Should().BeCloseTo(DateTime.Now, 100000);
                 vm.ServiceStatues.Should().NotBeNullOrEmpty();
-                vm.ServiceStatues[0].Name.ShouldBeEquivalentTo("Dummy Service One");
-                vm.ServiceStatues[0].Status.ShouldBeEquivalentTo(serviceState);
+                vm.ServiceStatues[0].Name.Should().BeEquivalentTo("Dummy Service One");
+                vm.ServiceStatues[0].Status.Should().BeEquivalentTo(serviceState);
             }).AndNoModelErrors();
 
             if (expectedStatusCode == 200)

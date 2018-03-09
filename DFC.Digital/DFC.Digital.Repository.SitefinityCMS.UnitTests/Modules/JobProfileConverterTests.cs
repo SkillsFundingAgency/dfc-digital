@@ -50,7 +50,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             var returnedJobProfile = jobProfileConverter.ConvertFrom(dynamicContentFake);
 
             A.CallTo(() => dynamicContentFake.GetValue<Lstring>(A<Lstring>._)).MustHaveHappened(Repeated.Exactly.Times(3));
-            returnedJobProfile.ShouldBeEquivalentTo(expectedJobProfile);
+            returnedJobProfile.Should().BeEquivalentTo(expectedJobProfile);
         }
     }
 }

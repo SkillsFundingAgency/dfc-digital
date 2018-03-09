@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var htmlDom = indexView.RenderAsHtml(signPostDummyVm);
 
             // Assert
-            GetContentData(htmlDom).ShouldBeEquivalentTo(contentData);
+            GetContentData(htmlDom).Should().BeEquivalentTo(contentData);
         }
 
         private static string GetContentData(HtmlDocument htmlDom)

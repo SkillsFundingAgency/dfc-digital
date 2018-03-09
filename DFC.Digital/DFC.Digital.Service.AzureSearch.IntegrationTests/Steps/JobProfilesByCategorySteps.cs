@@ -59,7 +59,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         [Then(@"the job profiles are listed in the following order")]
         public void ThenTheJobProfilesAreListedInTheFollowingOrder(Table table)
         {
-            this.result.Select(r => r.Title).ShouldBeEquivalentTo(table.Rows.Select(r => r[0]), opt => opt.WithStrictOrdering());
+            this.result.Select(r => r.Title).Should().BeEquivalentTo(table.Rows.Select(r => r[0]), opt => opt.WithStrictOrdering());
         }
     }
 }

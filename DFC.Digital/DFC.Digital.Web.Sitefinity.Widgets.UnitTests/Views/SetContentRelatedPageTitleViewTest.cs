@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             //// Check that when not in design mode we do not display anything
             if (!inDesignMode)
             {
-                htmlDom.DocumentNode.InnerHtml.ShouldBeEquivalentTo(string.Empty);
+                htmlDom.DocumentNode.InnerHtml.Should().BeEquivalentTo(string.Empty);
             }
             else
             {

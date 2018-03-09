@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             var webAppContext = new WebAppContext();
             var result = webAppContext.GetVocCookie("name");
 
-            result.ShouldBeEquivalentTo(expectation);
+            result.Should().BeEquivalentTo(expectation);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
                 var webAppContext = new WebAppContext();
                 var result = webAppContext.GetVocCookie("name");
 
-                result.ShouldBeEquivalentTo(expectation);
+                result.Should().BeEquivalentTo(expectation);
             }
         }
     }

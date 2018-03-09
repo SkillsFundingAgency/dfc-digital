@@ -79,7 +79,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileAnchorLinksViewModel>(vm =>
                     {
-                        vm.AnchorLinks.ShouldBeEquivalentTo(dummyAnchorLinks);
+                        vm.AnchorLinks.Should().BeEquivalentTo(dummyAnchorLinks);
                     })
                     .AndNoModelErrors();
 
@@ -154,7 +154,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 .ShouldRenderDefaultView()
                 .WithModel<JobProfileAnchorLinksViewModel>(vm =>
                 {
-                    vm.AnchorLinks.ShouldBeEquivalentTo(dummyAnchorLinks);
+                    vm.AnchorLinks.Should().BeEquivalentTo(dummyAnchorLinks);
                 })
                 .AndNoModelErrors();
 

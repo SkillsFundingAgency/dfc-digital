@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var htmlDom = indexView.RenderAsHtml(vocSurveyVmDummy);
 
             // Assert
-            GetViewModelData(htmlDom).ShouldBeEquivalentTo(vocSurveyVmDummy);
+            GetViewModelData(htmlDom).Should().BeEquivalentTo(vocSurveyVmDummy);
         }
 
         [Theory]
@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var htmlDom = indexView.RenderAsHtml(emailSubmissionViewModelDummy);
 
             // Assert
-            GetViewErrorMessage(htmlDom).ShouldBeEquivalentTo(response);
+            GetViewErrorMessage(htmlDom).Should().BeEquivalentTo(response);
         }
 
         private static string GetViewErrorMessage(HtmlDocument htmlDom)

@@ -49,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 .ShouldRenderDefaultView()
                 .WithModel<DfcBreadcrumbViewModel>(vm =>
                 {
-                    vm.BreadcrumbPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                    vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
                 })
                 .AndNoModelErrors();
         }
@@ -90,7 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                    .ShouldRenderDefaultView()
                    .WithModel<DfcBreadcrumbViewModel>(vm =>
                    {
-                       vm.BreadcrumbPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                       vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
                    })
                    .AndNoModelErrors();
         }

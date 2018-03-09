@@ -43,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileByCategoryViewModel>(vm =>
                     {
-                        vm.Title.ShouldBeEquivalentTo(dummyJobProfileCategory.Title);
-                        vm.Description.ShouldBeEquivalentTo(dummyJobProfileCategory.Description);
-                        vm.JobProfiles.ShouldBeEquivalentTo(dummyRelatedJobProfiles);
+                        vm.Title.Should().BeEquivalentTo(dummyJobProfileCategory.Title);
+                        vm.Description.Should().BeEquivalentTo(dummyJobProfileCategory.Description);
+                        vm.JobProfiles.Should().BeEquivalentTo(dummyRelatedJobProfiles);
                     })
                     .AndNoModelErrors();
 
@@ -90,9 +90,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileByCategoryViewModel>(vm =>
                     {
-                        vm.Title.ShouldBeEquivalentTo(dummyJobProfileCategory.Title);
-                        vm.Description.ShouldBeEquivalentTo(dummyJobProfileCategory.Description);
-                        vm.JobProfiles.ShouldBeEquivalentTo(dummyRelatedJobProfiles);
+                        vm.Title.Should().BeEquivalentTo(dummyJobProfileCategory.Title);
+                        vm.Description.Should().BeEquivalentTo(dummyJobProfileCategory.Description);
+                        vm.JobProfiles.Should().BeEquivalentTo(dummyRelatedJobProfiles);
                     })
                     .AndNoModelErrors();
 

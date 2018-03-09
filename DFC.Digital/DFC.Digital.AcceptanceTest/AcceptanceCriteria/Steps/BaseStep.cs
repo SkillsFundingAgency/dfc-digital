@@ -14,7 +14,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             this.browserStackSelenoHost = browserStackSelenoHost;
             ScenarioContext = scenarioContext;
-            RootUrl = browserStackSelenoHost?.Seleno.Application.WebServer.BaseUrl;
+            RootUrl = new Uri(browserStackSelenoHost?.Seleno.Application.WebServer.BaseUrl);
         }
 
         public Uri CurrentBrowserUrl => new Uri(Instance.Application.Browser.Url);
@@ -23,7 +23,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 
         protected SelenoHost Instance => browserStackSelenoHost.Seleno;
 
-        protected string RootUrl { get; set; }
+        protected Uri RootUrl { get; set; }
 
         public string GetCookieValue(string cookie)
         {
@@ -52,7 +52,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("HomePage");
-            return NavigateToPage<TPage, TModel>(RootUrl);
+            return NavigateToPage<TPage, TModel>(RootUrl.OriginalString);
         }
 
         internal TPage NavigateToSearchResultsPage<TPage, TModel>(string searchTerm)
@@ -60,7 +60,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("SearchResultsPage");
-            return NavigateToPage<TPage, TModel>($"{RootUrl}/search-results?searchTerm={searchTerm}");
+            return NavigateToPage<TPage, TModel>($"{RootUrl.OriginalString}/search-results?searchTerm={searchTerm}");
         }
 
         internal TPage NavigateToJobProfilePage<TPage, TModel>(string jobProfile)
@@ -68,14 +68,14 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("JobProfilePage");
-            return NavigateToPage<TPage, TModel>($"{RootUrl}/job-profiles/{jobProfile}");
+            return NavigateToPage<TPage, TModel>($"{RootUrl.OriginalString}/job-profiles/{jobProfile}");
         }
 
         internal TPage NavigateToCategoryPage<TPage, TModel>(string category)
             where TPage : SitefinityPage<TModel>, new()
             where TModel : class, new()
         {
-            return NavigateToPage<TPage, TModel>($"{RootUrl}/job-categories/{category}");
+            return NavigateToPage<TPage, TModel>($"{RootUrl.OriginalString}/job-categories/{category}");
         }
 
         internal TPage GetNavigatedPage<TPage>()

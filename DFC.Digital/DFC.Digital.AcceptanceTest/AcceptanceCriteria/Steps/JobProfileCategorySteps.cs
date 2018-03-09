@@ -3,6 +3,7 @@ using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
+using System;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -12,7 +13,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     {
         //private HomePage homePage;
         //private JobProfilePage jobProfilePage;
-        private string firstobProfileCategoryUrl;
+        private Uri firstobProfileCategoryUrl;
 
         //private string jobProfileSelected;
         public JobProfileCategorySteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
@@ -63,7 +64,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenDisplayTheJobProfileCategoryPage()
         {
             var jobProfileCategoryPage = GetNavigatedPage<JobProfileCategoryPage>();
-            jobProfileCategoryPage.ContainsUrlName(firstobProfileCategoryUrl).Should().BeTrue();
+            jobProfileCategoryPage.ContainsUrlName(firstobProfileCategoryUrl.OriginalString).Should().BeTrue();
             jobProfileCategoryPage.HasJobProfiles.Should().BeTrue();
         }
 

@@ -27,12 +27,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         #region Givens
 
         [Given(@"that I am viewing the '(.*)' job profile page")]
-        public void GivenThatIAmViewingTheJobProfilePage(string jobprofileUrl)
+        public void GivenThatIAmViewingTheJobProfilePage(string jobProfileUrl)
         {
-            var visitedPage = NavigateToJobProfilePage<JobProfilePage, JobProfileDetailsViewModel>(jobprofileUrl);
+            var visitedPage = NavigateToJobProfilePage<JobProfilePage, JobProfileDetailsViewModel>(jobProfileUrl);
 
             ScenarioContext.Set(visitedPage.ProfilePageHeading, "visitedPageHeading");
-            ScenarioContext.Set(jobprofileUrl, "profileUrl");
+            ScenarioContext.Set(jobProfileUrl, "profileUrl");
         }
 
         #endregion Givens

@@ -22,15 +22,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         }
 
         [Theory]
-        [InlineData(1, PageType.JobProfile, "Engineer", true)]
-        [InlineData(2, PageType.Category, "Engineering and maintenance", true)]
-        [InlineData(3, PageType.SearchResults, "<Proofreader>", true)]
-        [InlineData(4, PageType.NotInterestedIn, "SouldRemainAsIs", true)]
-        [InlineData(5, PageType.NotInterestedIn, "SouldRemainAsIs", false)]
-        [InlineData(6, PageType.JobProfile, "Engineer", false)]
-        [InlineData(7, PageType.Category, "Engineering and maintenance", false)]
-        [InlineData(8, PageType.SearchResults, "<Proofreader>", false)]
-        public void IndexTest(int testIndex, PageType pageType, string expectedPageTitle, bool isViaUrl)
+        [InlineData(PageType.JobProfile, "Engineer", true)]
+        [InlineData(PageType.Category, "Engineering and maintenance", true)]
+        [InlineData(PageType.SearchResults, "<Proofreader>", true)]
+        [InlineData(PageType.NotInterestedIn, "SouldRemainAsIs", true)]
+        [InlineData(PageType.NotInterestedIn, "SouldRemainAsIs", false)]
+        [InlineData(PageType.JobProfile, "Engineer", false)]
+        [InlineData(PageType.Category, "Engineering and maintenance", false)]
+        [InlineData(PageType.SearchResults, "<Proofreader>", false)]
+        public void IndexTest(PageType pageType, string expectedPageTitle, bool isViaUrl)
         {
             //Setup the fakes and dummies
             var categoryRepoFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());

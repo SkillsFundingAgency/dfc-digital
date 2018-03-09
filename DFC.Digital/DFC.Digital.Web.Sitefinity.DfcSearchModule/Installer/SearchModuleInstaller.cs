@@ -3,7 +3,6 @@ using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.DfcSearchModule.Service;
 using System;
 using System.Linq;
 using Telerik.Microsoft.Practices.Unity;
@@ -18,7 +17,7 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
-    public class SearchModuleInstaller
+    public static class SearchModuleInstaller
     {
         public static void PreApplicationStart()
         {

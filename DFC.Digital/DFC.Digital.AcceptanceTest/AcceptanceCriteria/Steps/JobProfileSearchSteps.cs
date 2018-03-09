@@ -133,7 +133,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<HomePage>()
                 .Search<SearchPage>(new JobProfileSearchBoxViewModel
                 {
-                    SearchTerm = givenJobProfile.ResultItem.FilterableTitle
+                    SearchTerm = givenJobProfile.ResultItem.Title
                 })
                 .SaveTo(ScenarioContext);
         }

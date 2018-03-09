@@ -28,13 +28,8 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
 
         public void Dispose()
         {
-            if (RunProfile == RunProfile.Remote)
-            {
-                //Browser?.Quit();
-                //Browser = null;
-                Seleno?.Dispose();
-                Seleno = null;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         internal void Initalise()
@@ -44,7 +39,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
                 case RunProfile.Remote:
                     DesiredCapabilities capability = PopulateCapabilities();
                     SetBrowserStackCredentials(capability);
-                    Browser = new RemoteWebDriver(new Uri(BrowserStackBrowserUri), capability);
+                    Browser = new RemoteWebDriver(new Uri(this.BrowserStackBrowserUri), capability);
                     var selenoHost = new SelenoHost();
                     selenoHost.Run(config =>
                     {
@@ -75,6 +70,20 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
                     Seleno = LocalBrowserHost.GetInstanceFor(BrowserName, RootUrl);
                     RootUrl = Seleno.Application.WebServer.BaseUrl;
                     break;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (RunProfile == RunProfile.Remote)
+                {
+                    //Browser?.Quit();
+                    //Browser = null;
+                    Seleno?.Dispose();
+                    Seleno = null;
+                }
             }
         }
 

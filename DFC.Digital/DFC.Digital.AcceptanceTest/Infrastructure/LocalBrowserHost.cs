@@ -11,10 +11,9 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
     {
         public const string LocalInstanceKey = "localInstance";
 
-        private static ConcurrentDictionary<string, bool> hasInitalised = new ConcurrentDictionary<string, bool>();
         private static ConcurrentDictionary<string, SelenoHost> localSelenoInstances = new ConcurrentDictionary<string, SelenoHost>();
 
-        public static string ScreenShotFolder => ConfigurationManager.AppSettings["screenshotfolder"];
+        public static string ScreenshotFolder => ConfigurationManager.AppSettings["screenshotfolder"];
 
         public static SelenoHost GetInstanceFor(string key, string remoteRootUrl, Proxy proxy = null)
         {
@@ -90,7 +89,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                                     }
                             }
                         })
-                        .UsingCamera(ScreenShotFolder);
+                        .UsingCamera(ScreenshotFolder);
                 });
             }
             else
@@ -121,7 +120,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                             }
                         })
                         .WithWebServer(new InternetWebServer(remoteRootUrl))
-                        .UsingCamera(ScreenShotFolder)
+                        .UsingCamera(ScreenshotFolder)
                         ;
                 });
             }

@@ -27,12 +27,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         #region Givens
 
         [Given(@"that I am viewing the '(.*)' job profile page")]
-        public void GivenThatIAmViewingTheJobProfilePage(string jobprofileUrl)
+        public void GivenThatIAmViewingTheJobProfilePage(string jobProfileUrl)
         {
-            var visitedPage = NavigateToJobProfilePage<JobProfilePage, JobProfileDetailsViewModel>(jobprofileUrl);
+            var visitedPage = NavigateToJobProfilePage<JobProfilePage, JobProfileDetailsViewModel>(jobProfileUrl);
 
             ScenarioContext.Set(visitedPage.ProfilePageHeading, "visitedPageHeading");
-            ScenarioContext.Set(jobprofileUrl, "profileUrl");
+            ScenarioContext.Set(jobProfileUrl, "profileUrl");
         }
 
         #endregion Givens
@@ -48,7 +48,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the Back To Homepage link")]
         public void WhenIClickOnTheBackToHomepageLink()
         {
-            GetNavigatedPage<JobProfilePage>().ClickBackToHomePageLink<Homepage>().SaveTo(ScenarioContext);
+            GetNavigatedPage<JobProfilePage>().ClickBackToHomepageLink<Homepage>().SaveTo(ScenarioContext);
         }
 
         [When(@"I click the Home careers link")]
@@ -101,7 +101,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the '(.*)' page banner link")]
         public void WhenIClickOnThePageBannerLink(string page)
         {
-            switch (page.ToLower())
+            switch (page?.ToLower())
             {
                 case "profile":
                     var profilePage = GetNavigatedPage<JobProfilePage>();
@@ -110,12 +110,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                     break;
                 case "category":
                     var categoryPage = GetNavigatedPage<JobProfileCategoryPage>();
-                    categoryPage.ClickCategorySignPostBanner<BauJpLandingPage>()
+                    categoryPage.ClickCategorySignpostBanner<BauJpLandingPage>()
                         .SaveTo(ScenarioContext);
                     break;
                 case "search":
                     var searchPage = GetNavigatedPage<SearchPage>();
-                    searchPage.ClickSearchSignPostBanner<BauSearchPage>()
+                    searchPage.ClickSearchSignpostBanner<BauSearchPage>()
                         .SaveTo(ScenarioContext);
                     break;
                 default:
@@ -149,10 +149,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         [Then(@"all apprenticeship vacancies have a hyperlink is '(.*)'")]
-        public void ThenAllApprenticeshipVacanciesHaveAHyperlinkIs(bool allVacanciesHaveHyperLink)
+        public void ThenAllApprenticeshipVacanciesHaveAHyperlinkIs(bool allVacanciesHaveHyperlink)
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.AllVacanciesHaveHyperLinks.Should().Be(allVacanciesHaveHyperLink);
+            jobProfilePage.AllVacanciesHaveHyperlinks.Should().Be(allVacanciesHaveHyperlink);
         }
 
         [Then(@"the find apprenticeship near you has a '(.*)' displayed")]
@@ -173,7 +173,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheCorrectPage(string url)
         {
             var browserUrl = CurrentBrowserUrl;
-            browserUrl.Should().Contain(url);
+            browserUrl.OriginalString.Should().Contain(url);
             PressBack();
         }
 
@@ -297,7 +297,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the '(.*)' page signpost banner is displayed")]
         public void ThenTheSignpostBannerIsDisplayed(string page)
         {
-            switch (page.ToLower())
+            switch (page?.ToLower())
             {
                 case "profile":
                     var profilePage = GetNavigatedPage<JobProfilePage>();
@@ -305,7 +305,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                     break;
                 case "category":
                     var categoryPage = GetNavigatedPage<JobProfileCategoryPage>();
-                    categoryPage.HasSignPostBanner.Should().BeTrue();
+                    categoryPage.HasSignpostBanner.Should().BeTrue();
                     break;
                 case "search":
                     var searchPage = GetNavigatedPage<SearchPage>();
@@ -321,7 +321,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             string visitedUrl;
             ScenarioContext.TryGetValue("profileUrl", out visitedUrl);
-            switch (env.ToLower())
+            switch (env?.ToLower())
             {
                 case "bau":
                     var bauProfilePage = GetNavigatedPage<BauProfilePage>();

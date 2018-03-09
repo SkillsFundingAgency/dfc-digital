@@ -46,7 +46,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                 var r = new Regex($"[{Regex.Escape(regexSearch)}]");
                 var screenShotFile = $"{r.Replace(screenShotName, string.Empty)}_{DateTime.Now:dd-MMM-yy-H-mm-ss}.jpg";
                 BrowserStackSelenoHost.Seleno.Application.Camera.TakeScreenshot(screenShotFile);
-                return $"{LocalBrowserHost.ScreenShotFolder}\\{screenShotFile}";
+                return $"{LocalBrowserHost.ScreenshotFolder}\\{screenShotFile}";
             }
             else
             {

@@ -13,8 +13,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
         }
 
-        public string CookieValue { get; set; }
-
         #region Given's
         [Given(@"I have not visited the job profile page previously")]
         public void GivenIHaveNotVisitedTheJobProfilePagePreviously()
@@ -57,23 +55,20 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the vocPersonalisation cookie should not be displayed")]
         public void ThenTheVocPersonalisationCookieShouldNotBeDisplayed()
         {
-            CookieValue = GetCookieValue("vocPersonalisation");
-            CookieValue.Should().BeNullOrEmpty();
-            }
+            GetCookieValue("vocPersonalisation").Should().BeNullOrEmpty();
+        }
 
         [Then(@"the vocPersonaliation cookie should display the last job profile title")]
         public void ThenTheVocPersonaliationCookieShouldDisplayTheLastJobProfileTitle()
         {
-            CookieValue = GetCookieValue("vocPersonalisation");
             ScenarioContext.TryGetValue("profileURL", out string lastVisitedProfileUrl);
-            CookieValue.Should().Contain(lastVisitedProfileUrl.ToLower());
+            GetCookieValue("vocPersonalisation").Should().Contain(lastVisitedProfileUrl.ToLower());
         }
 
         [Then(@"the GA client ID should not be empty")]
         public void ThenTheGaClientIdShouldNotBeEmpty()
         {
-            string gaCookieValue = GetCookieValue("_ga");
-            gaCookieValue.Should().NotBeNullOrEmpty();
+            GetCookieValue("_ga").Should().NotBeNullOrEmpty();
         }
 
         #endregion Then's

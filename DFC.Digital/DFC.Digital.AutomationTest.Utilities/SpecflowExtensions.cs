@@ -15,10 +15,8 @@ namespace DFC.Digital.Automation.Test.Utilities
             {
                 yield return new JobProfileIndex
                 {
-                    FilterableTitle = item[nameof(JobProfileIndex.Title)].ToLowerInvariant(),
                     Title = item[nameof(JobProfileIndex.Title)],
                     IdentityField = item.GetConditionalData(nameof(JobProfileIndex.IdentityField), item[nameof(JobProfileIndex.Title)].ConvertToKey()),
-                    FilterableAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty).ToLowerInvariant(),
                     AlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty)?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                     Overview = item.GetConditionalData(nameof(JobProfileIndex.Overview), string.Empty),
                     JobProfileCategories = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategories), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
@@ -44,7 +42,6 @@ namespace DFC.Digital.Automation.Test.Utilities
                 yield return new JobProfileIndex
                 {
                     IdentityField = $"{jobTitle.ConvertToKey()}-{id}",
-                    FilterableTitle = jobTitle.ToLowerInvariant(),
                     Title = jobTitle,
                     UrlName = $"{jobTitle.ConvertToKey()}-{id}"
                 };

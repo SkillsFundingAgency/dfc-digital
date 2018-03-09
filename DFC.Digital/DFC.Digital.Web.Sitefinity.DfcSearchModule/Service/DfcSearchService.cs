@@ -2,7 +2,6 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions;
 using System;
 using System.Collections.Generic;
 using Telerik.Sitefinity.Services.Search;
@@ -34,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
         {
-            if (name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(name) && name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
             {
                 //TODO: think about mapping from sitefinity field defenitions to domain model?
                 //Or is it correct to keep them in sync anyway?
@@ -48,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
-            if (indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
             {
                 var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
 

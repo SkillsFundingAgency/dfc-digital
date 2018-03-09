@@ -105,9 +105,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                     {
                         IdentityField = p.Title,
                         Title = p.Title,
-                        FilterableTitle = p.Title,
                         UrlName = p.UrlName,
-                        FilterableAlternativeTitle = p.AlternativeTitle,
                         AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                         Overview = p.Overview
                     }

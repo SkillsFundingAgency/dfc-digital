@@ -23,18 +23,16 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         private SearchResultItem<JobProfileIndex> givenJobProfile;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig indexConfig;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSearchSteps(ISearchQueryService<JobProfileIndex> searchQueryService, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
+        public JobProfileSearchSteps(ISearchQueryService<JobProfileIndex> searchQueryService, ISearchService<JobProfileIndex> searchService, ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
             this.searchQueryService = searchQueryService;
             this.searchService = searchService;
             OutputHelper = outputHelper;
-            this.indexConfig = indexConfig;
         }
 
         #endregion Ctor

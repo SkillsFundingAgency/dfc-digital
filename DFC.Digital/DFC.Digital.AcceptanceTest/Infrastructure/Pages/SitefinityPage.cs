@@ -67,7 +67,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool UrlContains(string urlFragment)
         {
-            return Browser.Url.ToLowerInvariant().Contains(urlFragment.ToLowerInvariant());
+            return Browser.Url.ToUpperInvariant().Contains(urlFragment?.ToUpperInvariant());
         }
 
         public TPage ClickFindACareerBreadcrumb<TPage>()

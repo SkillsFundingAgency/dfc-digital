@@ -23,12 +23,14 @@
       <Word>Deciles</Word>
       <Word>TolerancePolicy</Word>
       <Word>Az</Word>
+      <Word>ToGo</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
     <Compound>
       <Term CompoundAlternate="JobProfile">jobprofile</Term>
       <Term CompoundAlternate="TolerancePolicy">TolerancePolicy</Term>
+      <Term CompoundAlternate="ToGo">ToGo</Term>
     </Compound>
     </Words>
   <Acronyms>

@@ -13,7 +13,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             this.browserStackSelenoHost = browserStackSelenoHost;
             ScenarioContext = scenarioContext;
-            RootUrl = browserStackSelenoHost.Seleno.Application.WebServer.BaseUrl;
+            RootUrl = browserStackSelenoHost?.Seleno.Application.WebServer.BaseUrl;
         }
 
         public string CurrentBrowserUrl => Instance.Application.Browser.Url;

@@ -24,7 +24,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Given(@"I am viewing the '(.*)' category page")]
         public void GivenIAmViewingTheCategoryPage(string category)
         {
-            category = category.Replace(" ", "-");
+            category = category?.Replace(" ", "-");
             NavigateToCategoryPage<JobProfileCategoryPage, JobProfileByCategoryViewModel>(category);
         }
 
@@ -42,7 +42,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on job profile category no '(\d+)'")]
         public void WhenIClickOnJobProfileCategory(int category)
         {
-            var homePage = GetNavigatedPage<HomePage>();
+            var homePage = GetNavigatedPage<Homepage>();
             firstobProfileCategoryUrl = homePage.GetJobProfileCategoryUrl(category);
             homePage.GoToResult<JobProfileCategoryPage>(category).SaveTo(ScenarioContext);
         }
@@ -84,7 +84,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the '(.*)' category should not be in the other job categories section")]
         public void ThenTheCategoryShouldNotBeInTheOtherJobCategoriesSection(string category)
         {
-            category = category.Replace("\t", " ");
+            category = category?.Replace("\t", " ");
             var jobProfileCategoryPage = GetNavigatedPage<JobProfileCategoryPage>();
             jobProfileCategoryPage.IsCategoryDisplayedInOtherCategorySection(category).Should().BeFalse();
         }

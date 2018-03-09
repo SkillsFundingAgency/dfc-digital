@@ -92,6 +92,9 @@
     <Compile Include="SalaryServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">
+      <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
+    </CodeAnalysisDictionary>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -111,6 +114,11 @@
       <Project>{4DDF6E01-52E9-4799-89A0-F6C81F59F296}</Project>
       <Name>DFC.Digital.Service.LMIFeed</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

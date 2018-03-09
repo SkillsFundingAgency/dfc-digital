@@ -26,7 +26,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
         #region Implement of IServiceStatus
 
-        private string ServiceName => "Spell Check Service";
+        private static string ServiceName => "Spell Check Service";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {

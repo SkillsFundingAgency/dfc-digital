@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Core.Configuration;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using FakeItEasy;
 using FluentAssertions;
 using RichardSzalay.MockHttp;

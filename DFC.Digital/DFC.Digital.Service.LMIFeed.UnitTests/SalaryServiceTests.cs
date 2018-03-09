@@ -112,7 +112,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
 
             //add no content to cause an exception
-            var httpResponseMessage = new HttpResponseMessage { };
+            var httpResponseMessage = new HttpResponseMessage();
 
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();

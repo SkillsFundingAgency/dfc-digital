@@ -28,7 +28,7 @@ namespace DFC.Digital.Service.GovUkNotify
         }
 
         #region Implement of IServiceStatus
-        private string ServiceName => "Notification Service";
+        private static string ServiceName => "Notification Service";
 
         public Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -84,16 +84,23 @@ namespace DFC.Digital.Service.GovUkNotify
 
         public Dictionary<string, dynamic> Convert(VocSurveyPersonalisation vocSurveyPersonalisation)
         {
-            foreach (var item in vocSurveyPersonalisation.Personalisation.ToArray())
+            if (vocSurveyPersonalisation?.Personalisation != null)
             {
-                if (string.IsNullOrEmpty(item.Value))
+                foreach (var item in vocSurveyPersonalisation?.Personalisation?.ToArray())
                 {
-                    vocSurveyPersonalisation.Personalisation[item.Key] = Constants.Unknown;
+                    if (string.IsNullOrEmpty(item.Value))
+                    {
+                        vocSurveyPersonalisation.Personalisation[item.Key] = Constants.Unknown;
+                    }
                 }
+
+                return vocSurveyPersonalisation.Personalisation
+                    .ToDictionary<KeyValuePair<string, string>, string, dynamic>(
+                        vocObj => vocObj.Key,
+                        vocObj => vocObj.Value);
             }
 
-            return vocSurveyPersonalisation.Personalisation
-                .ToDictionary<KeyValuePair<string, string>, string, dynamic>(vocObj => vocObj.Key, vocObj => vocObj.Value);
+            return null;
         }
     }
 }

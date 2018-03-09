@@ -48,13 +48,13 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the Back To Homepage link")]
         public void WhenIClickOnTheBackToHomepageLink()
         {
-            GetNavigatedPage<JobProfilePage>().ClickBackToHomePageLink<HomePage>().SaveTo(ScenarioContext);
+            GetNavigatedPage<JobProfilePage>().ClickBackToHomePageLink<Homepage>().SaveTo(ScenarioContext);
         }
 
         [When(@"I click the Home careers link")]
         public void WhenIClickTheHomeCareersLink()
         {
-            GetNavigatedPage<JobProfilePage>().ClickHomeCareersLink<HomePage>().SaveTo(ScenarioContext);
+            GetNavigatedPage<JobProfilePage>().ClickHomeCareersLink<Homepage>().SaveTo(ScenarioContext);
         }
 
         [When(@"I search using '(.*)' on the profile page")]

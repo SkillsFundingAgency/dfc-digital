@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class HomePage : SitefinityPage<JobProfileSearchBoxViewModel>
+    public class Homepage : SitefinityPage<JobProfileSearchBoxViewModel>
     {
         public bool ServiceName => Find.OptionalElement(OpenQA.Selenium.By.Id("site-header")) != null;
 

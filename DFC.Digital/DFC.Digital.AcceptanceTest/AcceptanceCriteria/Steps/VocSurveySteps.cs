@@ -29,7 +29,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I enter the email '(.*)' and press send")]
         public void WhenIEnterAValidEmailAndPressSend(string email)
         {
-            var survey = GetNavigatedPage<HomePage>();
+            var survey = GetNavigatedPage<Homepage>();
             survey.ClickTakeSurvey();
             survey.SubmitEmail<VocSurveyPage>(email);
         }
@@ -37,7 +37,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I select to fill in the online survey")]
         public void WhenISelectToFillInTheOnlineSurvey()
         {
-            var survey = GetNavigatedPage<HomePage>();
+            var survey = GetNavigatedPage<Homepage>();
             survey.ClickTakeSurvey();
             survey.SelectOnlineSurvey<VocSurveyPage>()
                 .SaveTo(ScenarioContext);
@@ -50,7 +50,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the success message is displayed")]
         public void ThenTheSuccessMessageIsDisplayed()
         {
-            var survey = GetNavigatedPage<HomePage>();
+            var survey = GetNavigatedPage<Homepage>();
             survey.SuccessEmailMessageDisplayed.Should().BeTrue();
         }
 

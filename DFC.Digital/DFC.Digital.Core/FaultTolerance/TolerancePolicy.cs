@@ -53,7 +53,7 @@ namespace DFC.Digital.Core
             return policy.Execute(action);
         }
 
-        public Task<T> ExecuteAsync<T>(Func<Task<T>> action, string dependencyName, FaultToleranceType toleranceType)
+        public async Task<T> ExecuteAsync<T>(Func<Task<T>> action, string dependencyName, FaultToleranceType toleranceType)
         {
             Policy policy;
 
@@ -81,10 +81,10 @@ namespace DFC.Digital.Core
                     break;
             }
 
-            return policy.ExecuteAsync(action);
+            return await policy.ExecuteAsync(action);
         }
 
-        public Task<T> ExecuteAsync<T>(Func<Task<T>> action, Func<T, bool> predicate, string dependencyName, FaultToleranceType toleranceType)
+        public async Task<T> ExecuteAsync<T>(Func<Task<T>> action, Func<T, bool> predicate, string dependencyName, FaultToleranceType toleranceType)
         {
             Policy<T> policy;
 
@@ -99,10 +99,10 @@ namespace DFC.Digital.Core
                 case FaultToleranceType.CircuitBreaker:
                 case FaultToleranceType.Timeout:
                 default:
-                    return ExecuteAsync(action, dependencyName, toleranceType);
+                    return await ExecuteAsync(action, dependencyName, toleranceType);
             }
 
-            return policy.ExecuteAsync(action);
+            return await policy.ExecuteAsync(action);
         }
 
         private Policy GetWaitAndRetryPolicyAsync(string dependencyName)

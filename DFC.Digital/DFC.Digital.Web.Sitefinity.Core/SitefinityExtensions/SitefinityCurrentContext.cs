@@ -1,5 +1,5 @@
-﻿using System;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Model;
+using System;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web;

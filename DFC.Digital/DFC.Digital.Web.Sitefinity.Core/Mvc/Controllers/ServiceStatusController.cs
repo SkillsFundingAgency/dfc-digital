@@ -6,6 +6,7 @@ using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,15 +19,13 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
     {
         #region private
         private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
-        private readonly IApplicationLogger applicationLogger;
         private readonly IWebAppContext webAppContext;
         #endregion
 
         #region Constructors
-        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IApplicationLogger applicationLogger, IWebAppContext webAppContext)
+        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext)
         {
             this.dependencyHealth = dependencyHealth;
-            this.applicationLogger = applicationLogger;
             this.webAppContext = webAppContext;
         }
 
@@ -38,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
             var serviceStatusModel = new ServiceStatusModel()
             {
                 CheckDateTime = DateTime.Now,
-                ServiceStatues = new List<ServiceStatus>()
+                ServiceStatues = new Collection<ServiceStatus>()
             };
 
             foreach (DependencyHealthCheckService d in dependencyHealth)

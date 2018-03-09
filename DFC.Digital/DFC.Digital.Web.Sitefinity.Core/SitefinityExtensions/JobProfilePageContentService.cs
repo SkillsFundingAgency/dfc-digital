@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .FirstOrDefault(child => !string.IsNullOrEmpty(child.Title) && !string.IsNullOrEmpty(child.ContentField));
         }
 
-        private JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget)
+        private static JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget)
         {
             var titleMember = sectionFilter.TitleMember;
             var contentFieldMember = sectionFilter.ContentFieldMember;

@@ -20,12 +20,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Controllers
         public void IndexDataTest(ServiceState serviceState, int expectedStatusCode)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
-
             var fakeWebAppContext = A.Fake<IWebAppContext>();
 
             //Instantiate & Act
-            var serviceStatusController = new ServiceStatusController(GetTestDependentServces(serviceState), loggerFake, fakeWebAppContext);
+            var serviceStatusController = new ServiceStatusController(GetTestDependentServces(serviceState), fakeWebAppContext);
 
             //Act
             var indexResult = serviceStatusController.WithCallTo(c => c.Index());

@@ -6,8 +6,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class DfcCustomRequestValidator : CustomRequestValidator
     {
-        // In order to exclude a specific field from validation, add it here in lowercase
-        internal static readonly string[] UnrestrictedKeys = new string[] { "searchterm" };
+        // In order to exclude a specific field from validation, add it here in uppercase
+        internal static readonly string[] UnrestrictedKeys = new string[] { "SEARCHTERM" };
 
         protected override bool IsValidRequestString(HttpContext context, string value, System.Web.Util.RequestValidationSource requestValidationSource, string collectionKey, out int validationFailureIndex)
         {
@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             if (!isValid)
             {
-                if (UnrestrictedKeys.Contains(collectionKey.ToLowerInvariant()))
+                if (UnrestrictedKeys.Contains(collectionKey?.ToUpperInvariant()))
                 {
                     return true;
                 }

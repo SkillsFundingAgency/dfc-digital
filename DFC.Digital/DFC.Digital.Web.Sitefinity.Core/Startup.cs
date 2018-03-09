@@ -11,8 +11,12 @@ using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public class Startup
+    public sealed class Startup
     {
+        private Startup()
+        {
+        }
+
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;

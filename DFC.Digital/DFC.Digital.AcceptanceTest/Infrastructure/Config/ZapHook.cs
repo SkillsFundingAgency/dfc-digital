@@ -1,4 +1,5 @@
-﻿using OWASPZAPDotNetAPI;
+﻿using DFC.Digital.AutomationTest.Utilities;
+using OWASPZAPDotNetAPI;
 using System;
 using System.Configuration;
 using System.IO;
@@ -102,7 +103,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
 
             if (Convert.ToInt32(high) > 0 || Convert.ToInt32(medium) > 0)
             {
-                throw new Exception("High or Medium alert has been found");
+                throw new TestException("High or Medium alert has been found");
             }
         }
     }

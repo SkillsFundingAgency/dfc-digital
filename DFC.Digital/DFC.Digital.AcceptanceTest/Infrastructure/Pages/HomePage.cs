@@ -21,7 +21,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public string GetJobProfileCategoryUrl(int category)
         {
-            return Find.Elements(OpenQA.Selenium.By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href");
+           return Find.Elements(OpenQA.Selenium.By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href");
         }
 
         public T Search<T>(JobProfileSearchBoxViewModel model)

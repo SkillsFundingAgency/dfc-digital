@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
 using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
+using System;
 using TechTalk.SpecFlow;
 using TestStack.Seleno.Configuration;
 
@@ -16,7 +17,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             RootUrl = browserStackSelenoHost?.Seleno.Application.WebServer.BaseUrl;
         }
 
-        public string CurrentBrowserUrl => Instance.Application.Browser.Url;
+        public Uri CurrentBrowserUrl => new Uri(Instance.Application.Browser.Url);
 
         protected ScenarioContext ScenarioContext { get; set; }
 

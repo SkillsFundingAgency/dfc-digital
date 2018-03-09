@@ -11,7 +11,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
     {
         public const string LocalInstanceKey = "localInstance";
 
-        private static ConcurrentDictionary<string, bool> hasInitalised = new ConcurrentDictionary<string, bool>();
         private static ConcurrentDictionary<string, SelenoHost> localSelenoInstances = new ConcurrentDictionary<string, SelenoHost>();
 
         public static string ScreenshotFolder => ConfigurationManager.AppSettings["screenshotfolder"];

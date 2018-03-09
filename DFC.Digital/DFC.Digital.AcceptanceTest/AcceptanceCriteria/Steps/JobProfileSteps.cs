@@ -173,7 +173,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheCorrectPage(string url)
         {
             var browserUrl = CurrentBrowserUrl;
-            browserUrl.Should().Contain(url);
+            browserUrl.OriginalString.Should().Contain(url);
             PressBack();
         }
 

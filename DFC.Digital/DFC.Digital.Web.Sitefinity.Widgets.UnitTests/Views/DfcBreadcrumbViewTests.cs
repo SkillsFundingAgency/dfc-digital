@@ -88,9 +88,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         /// </summary>
         /// <param name="homepageText">Home Page Text</param>
         /// <param name="homepageLink">Home Page Link</param>
-        /// <param name="breadcrumbedpageTitleText">Breadcrumbed PageTitle Text</param>
+        /// <param name="breadcrumbedpageTitleText">Breadcrumb PageTitle Text</param>
         /// <returns></returns>
-        private DfcBreadcrumbViewModel GenerateDfcBreadcrumbViewModelDummy(string homepageText, string homepageLink, string breadcrumbedpageTitleText)
+        private static DfcBreadcrumbViewModel GenerateDfcBreadcrumbViewModelDummy(string homepageText, string homepageLink, string breadcrumbedpageTitleText)
         {
             return new DfcBreadcrumbViewModel
             {

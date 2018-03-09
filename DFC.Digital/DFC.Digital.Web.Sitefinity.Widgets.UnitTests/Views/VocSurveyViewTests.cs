@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         [Fact]
 
         //As a Citizen, I want to be able to give feedback on the BETA Service (VOC: Exit Route)
-        public void DFC685A1VocSurveyIndex()
+        public static void DFC685A1VocSurveyIndex()
         {
             // Arrange
             var indexView = new _MVC_Views_VocSurvey_Index_cshtml();

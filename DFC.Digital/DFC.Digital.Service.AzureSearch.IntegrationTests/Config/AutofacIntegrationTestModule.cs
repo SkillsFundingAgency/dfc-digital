@@ -15,6 +15,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
             builder.RegisterModule<NLogModule>();
             builder.RegisterModule<CoreAutofacModule>();
             builder.RegisterType<JobProfileIntegrationTestIndex>().As<ISearchIndexConfig>();
+            builder.Register(ctx =>
+            {
+                var inMemoryConfigProvider = new InMemoryConfigurationProvider();
+                inMemoryConfigProvider.Add(TransientFaultHandlingStrategy.TimeoutKey, TimeSpan.FromSeconds(5));
+                return inMemoryConfigProvider;
+            }).SingleInstance();
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {

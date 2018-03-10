@@ -31,7 +31,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             testObject.RestoreState(stateJson);
 
             // Assert
-            testObject.GetStateJson().ShouldBeEquivalentTo(stateJson);
+            testObject.GetStateJson().Should().BeEquivalentTo(stateJson);
         }
 
         [Theory]
@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             testObject.UpdateSectionState(section);
 
             // Assert
-            testObject.GetStateJson().ShouldBeEquivalentTo(expectedJson);
+            testObject.GetStateJson().Should().BeEquivalentTo(expectedJson);
         }
 
         [Theory]
@@ -80,7 +80,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var result = testObject.GetPreSearchFilterState();
 
             // Assert
-            result.Sections.First().ShouldBeEquivalentTo(section);
+            result.Sections.First().Should().BeEquivalentTo(section);
         }
 
         [Theory]
@@ -99,7 +99,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var result = testObject.GetSavedSection(sectionTitle, preSearchFilter);
 
             // Assert
-            result.ShouldBeEquivalentTo(section);
+            result.Should().BeEquivalentTo(section);
         }
 
         [Theory]
@@ -119,7 +119,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var result = testObject.RestoreOptions(section, GetFilterOptions(preSearchFilter));
 
             // Assert
-            result.Options.First(x => x.IsSelected).OptionKey.ShouldBeEquivalentTo(section.Options.First().OptionKey);
+            result.Options.First(x => x.IsSelected).OptionKey.Should().BeEquivalentTo(section.Options.First().OptionKey);
         }
 
         [Theory]
@@ -153,7 +153,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             testObject.SaveState(section);
 
             // Assert
-            testObject.GetStateJson().ShouldBeEquivalentTo(expectedJson);
+            testObject.GetStateJson().Should().BeEquivalentTo(expectedJson);
         }
 
         [Theory]
@@ -169,7 +169,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var result = testObject.ShouldSaveState(currentPage, previousPage);
 
             // Assert
-            result.ShouldBeEquivalentTo(expected);
+            result.Should().Be(expected);
         }
 
         private static PreSearchFilterSection GetPreSearchFilterSection(PreSearchFilterType preSearchFilter, string sectionTitle)

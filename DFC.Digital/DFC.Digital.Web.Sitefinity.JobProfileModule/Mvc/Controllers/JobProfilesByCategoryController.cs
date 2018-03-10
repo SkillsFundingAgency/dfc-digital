@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -41,6 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string DefaultJobProfileCategoryUrlName { get; set; } = "Health";
 
         #endregion Public Properties
+
         #region Actions
 
         /// <summary>

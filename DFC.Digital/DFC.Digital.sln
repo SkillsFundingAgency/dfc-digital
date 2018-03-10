@@ -38,6 +38,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CustomDictionary.xml = CustomDictionary.xml
 		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
 		stylecop.json = stylecop.json
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.AzureSearch", "DFC.Digital.Service.AzureSearch\DFC.Digital.Service.AzureSearch.csproj", "{F0161590-6A22-4D74-BA7C-EDE8A4AC602C}"

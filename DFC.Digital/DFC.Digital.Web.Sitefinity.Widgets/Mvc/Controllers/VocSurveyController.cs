@@ -20,9 +20,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         private IGovUkNotify govUkNotifyService;
         private IWebAppContext webAppContext;
-        #endregion
+
+        #endregion Private Fields
 
         #region Constructors
+
         public VocSurveyController(IGovUkNotify govUkNotify, IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
             govUkNotifyService = govUkNotify;
@@ -34,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Instructions for no email address")]
-        public string DontHaveEmailText { get; set; } = "Don't have an email address? Leave your feedback online instead.";
+        public string DoNotHaveEmailText { get; set; } = "Don't have an email address? Leave your feedback online instead.";
 
         [DisplayName("Age limit text")]
         public string AgeLimitText { get; set; } = "(you need to be 16 or older to be eligible for this survey)";
@@ -57,17 +59,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         [HttpGet]
         [RelativeRoute("")]
+        [RelativeRoute("{urlname}")]
         public ActionResult Index()
         {
-            return ReturnSurveyViewModel();
-        }
-
-        //Todo -> please remove unused parameters
-        [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
-        {
-            var unused = urlname;
             return ReturnSurveyViewModel();
         }
 
@@ -80,9 +74,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [RelativeRoute("")]
         public ActionResult Index(VocSurveyViewModel vocSurveyViewModel)
         {
-            if (!string.IsNullOrEmpty(vocSurveyViewModel.EmailAddress))
+            if (!string.IsNullOrEmpty(vocSurveyViewModel?.EmailAddress))
             {
-                bool response = SendByNotifyService(vocSurveyViewModel.EmailAddress);
+                bool response = SendByNotifyService(vocSurveyViewModel?.EmailAddress);
                 var resultViewModel = new EmailSubmissionViewModel
                 {
                     ResponseMessage = response ? EmailSentText : EmailNotSentText
@@ -112,7 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         {
             return View("Index", new VocSurveyViewModel
             {
-                DontHaveEmailText = DontHaveEmailText,
+                DoNotHaveEmailText = DoNotHaveEmailText,
                 AgeLimitText = AgeLimitText,
                 EmailNotSentText = EmailNotSentText,
                 EmailSentText = EmailSentText,

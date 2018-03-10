@@ -28,13 +28,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             // Asserts
 
             //Category title is displayed
-            GetH1Heading(htmlDom).ShouldBeEquivalentTo(jobProfileByCategoryViewModel.Title);
+            GetH1Heading(htmlDom).Should().BeEquivalentTo(jobProfileByCategoryViewModel.Title);
 
             //Profiles displayed in alphabetical order - dont think this is the correct place to test this
             var displayedJobProfiles = GetDisplayedJobProfiles(htmlDom);
 
             //Compare what is displayed Title, Overview and AlernativeTitle only when its there else no h3 element
-            displayedJobProfiles.ShouldBeEquivalentTo(DummyJobProfile.GetDummyJobProfilesForCategory());
+            displayedJobProfiles.Should().BeEquivalentTo(DummyJobProfile.GetDummyJobProfilesForCategory());
         }
 
         private string GetH1Heading(HtmlDocument htmlDom)

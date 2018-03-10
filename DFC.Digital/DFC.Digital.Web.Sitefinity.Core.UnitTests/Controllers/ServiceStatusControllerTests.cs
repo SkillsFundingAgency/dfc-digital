@@ -1,5 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -7,10 +7,6 @@ using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -24,12 +20,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Controllers
         public void IndexDataTest(ServiceState serviceState, int expectedStatusCode)
         {
             //Setup the fakes and dummies
-            var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
-
             var fakeWebAppContext = A.Fake<IWebAppContext>();
 
             //Instantiate & Act
-            var serviceStatusController = new ServiceStatusController(GetTestDependentServces(serviceState), loggerFake, fakeWebAppContext);
+            var serviceStatusController = new ServiceStatusController(GetTestDependentServces(serviceState), fakeWebAppContext);
 
             //Act
             var indexResult = serviceStatusController.WithCallTo(c => c.Index());
@@ -39,8 +33,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Controllers
             {
                 vm.CheckDateTime.Should().BeCloseTo(DateTime.Now, 100000);
                 vm.ServiceStatues.Should().NotBeNullOrEmpty();
-                vm.ServiceStatues[0].Name.ShouldBeEquivalentTo("Dummy Service One");
-                vm.ServiceStatues[0].Status.ShouldBeEquivalentTo(serviceState);
+                vm.ServiceStatues[0].Name.Should().BeEquivalentTo("Dummy Service One");
+                vm.ServiceStatues[0].Status.Should().BeEquivalentTo(serviceState);
             }).AndNoModelErrors();
 
             if (expectedStatusCode == 200)

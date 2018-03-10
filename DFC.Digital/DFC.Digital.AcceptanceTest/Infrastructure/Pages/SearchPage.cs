@@ -33,10 +33,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         internal bool HasAlternativeTitle => DoesElementExistWithValue("dfc-code-search-jpAltTitle");
 
-        internal bool HasOverview => DoesElementExistWithValue("dfc-code-search-jpOverview");
-
-        internal bool HasSalary => DoesElementExistWithValue("dfc-code-search-jpSalary");
-
         internal bool HasSearchBox => Find.Element(By.Id("search-main")) != null;
 
         internal bool HasFoundInField => Find.Element(By.ClassName("results-categories")) != null;
@@ -168,7 +164,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             return Navigate.To<T>(categoryLink.GetAttribute("href"));
         }
 
-        public T ClickSearchSignPostBanner<T>()
+        public T ClickSearchSignpostBanner<T>()
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.ClassName("signpost"));

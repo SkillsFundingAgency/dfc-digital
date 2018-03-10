@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class HomePage : SitefinityPage<JobProfileSearchBoxViewModel>
+    public class Homepage : SitefinityPage<JobProfileSearchBoxViewModel>
     {
         public bool ServiceName => Find.OptionalElement(OpenQA.Selenium.By.Id("site-header")) != null;
 
@@ -19,9 +19,9 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         internal bool UrlShowsSearchAction => UrlContains("/home/search/");
 
-        public string GetJobProfileCategoryUrl(int category)
+        public Uri GetJobProfileCategoryUrl(int category)
         {
-            return Find.Elements(OpenQA.Selenium.By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href");
+           return new Uri(Find.Elements(OpenQA.Selenium.By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href"));
         }
 
         public T Search<T>(JobProfileSearchBoxViewModel model)

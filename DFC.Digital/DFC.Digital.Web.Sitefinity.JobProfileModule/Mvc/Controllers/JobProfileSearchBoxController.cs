@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core.Utility;

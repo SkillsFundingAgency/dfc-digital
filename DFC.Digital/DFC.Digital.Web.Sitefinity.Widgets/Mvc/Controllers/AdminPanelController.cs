@@ -1,15 +1,12 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 
@@ -86,16 +83,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 {
                     var systemRestartFlag = SystemRestartFlags.Default;
 
-                    switch (restartMode.ToLowerInvariant().Trim())
+                    switch (restartMode?.ToUpperInvariant().Trim())
                     {
-                        case "attemptfullrestart":
+                        case "ATTEMPTFULLRESTART":
                             resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
                             systemRestartFlag = SystemRestartFlags.AttemptFullRestart;
                             break;
-                        case "resetmodel":
+                        case "RESETMODEL":
                             resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
                             systemRestartFlag = SystemRestartFlags.ResetModel;
                             break;
+
                         default:
                             resultText = "Success - Sitefinity was restarted in SOFT Restart Mode.";
                             break;
@@ -119,11 +117,12 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #endregion Actions
 
         #region Non Action Methods
-        private bool IsUserAdministrator()
+        private static bool IsUserAdministrator()
         {
             var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();
             return userAdminRole != null ? true : false;
         }
-        #endregion Methods
+
+        #endregion Non Action Methods
     }
 }

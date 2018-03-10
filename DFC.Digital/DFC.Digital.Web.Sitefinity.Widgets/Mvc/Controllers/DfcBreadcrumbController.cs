@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core.Base;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
@@ -34,6 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// The Link of the home page.
         /// </value>
         [DisplayName("Home page Link")]
-        public string HomePageLink { get; set; } = "/";
+        public string HomepageLink { get; set; } = "/";
 
         /// <summary>
         /// Gets or sets the Text of the home page.
@@ -52,9 +54,10 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// The Text of the home page.
         /// </value>
         [DisplayName("Home page Text")]
-        public string HomePageText { get; set; } = "Find a career home";
+        public string HomepageText { get; set; } = "Find a career home";
 
         #endregion Public Properties
+
         #region Actions
 
         // GET: DfcBreadcrumb
@@ -73,13 +76,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <summary>
         /// Breadcrumb on Index of the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>ActionResult</returns>
         [HttpGet]
         [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        public ActionResult Index(string urlName)
         {
-            return GetBreadcrumbView(urlname);
+            return GetBreadcrumbView(urlName);
         }
 
         /// <summary>
@@ -91,8 +94,8 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         {
             var model = new DfcBreadcrumbViewModel
             {
-                HomePageText = HomePageText,
-                HomePageLink = HomePageLink
+                HomepageText = HomepageText,
+                HomepageLink = HomepageLink
             };
 
             // We get the page node we are on
@@ -102,44 +105,44 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 string nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
-                if (nodeUrl.ToLowerInvariant().Contains("job-categories") && !string.IsNullOrEmpty(urlName))
+                if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
                 {
                     var category = categoryRepo.GetByUrlName(urlName);
 
                     if (category != null)
                     {
-                        model.BreadcrumbedPageTitleText = category.Title;
+                        model.BreadcrumbPageTitleText = category.Title;
                     }
                     else
                     {
-                        model.BreadcrumbedPageTitleText = currentPageNode.Title;
+                        model.BreadcrumbPageTitleText = currentPageNode.Title;
                     }
                 } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToLowerInvariant().Contains("job-profiles") && !string.IsNullOrEmpty(urlName))
+                else if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
                 {
                     var jobProfile = jobProfileRepository.GetByUrlName(urlName);
 
                     if (jobProfile != null)
                     {
-                        model.BreadcrumbedPageTitleText = jobProfile.Title;
+                        model.BreadcrumbPageTitleText = jobProfile.Title;
                     }
                     else
                     {
-                        model.BreadcrumbedPageTitleText = currentPageNode.Title;
+                        model.BreadcrumbPageTitleText = currentPageNode.Title;
                     }
                 } // If we are on Alerts page(s)
-                else if (nodeUrl.ToLowerInvariant().Contains("alerts"))
+                else if (nodeUrl.ToUpperInvariant().Contains("ALERTS"))
                 {
-                    model.BreadcrumbedPageTitleText = "Error";
+                    model.BreadcrumbPageTitleText = "Error";
                 } // Or we are on any other page
                 else
                 {
-                    model.BreadcrumbedPageTitleText = currentPageNode.Title;
+                    model.BreadcrumbPageTitleText = currentPageNode.Title;
                 }
             }
             else
             {
-                model.BreadcrumbedPageTitleText = "Breadcrumb cannot establish the page node";
+                model.BreadcrumbPageTitleText = "Breadcrumb cannot establish the page node";
             }
 
             return View(model);

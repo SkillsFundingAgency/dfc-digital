@@ -105,6 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
                 .FirstOrDefault(div => div.Attributes["class"].Value.Contains("search-dym"));
             return didYouMeansection?.Descendants("a").FirstOrDefault()?.InnerText.Trim();
         }
+
         #endregion Helpers
     }
 }

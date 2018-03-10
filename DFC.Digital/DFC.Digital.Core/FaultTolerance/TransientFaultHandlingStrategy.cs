@@ -4,15 +4,27 @@ namespace DFC.Digital.Core
 {
     public class TransientFaultHandlingStrategy
     {
-        public int Retry => 2;
+        public static readonly string RetryKey = $"{nameof(TransientFaultHandlingStrategy)}.{nameof(Retry)}";
+        public static readonly string AllowedFaultsKey = $"{nameof(TransientFaultHandlingStrategy)}.{nameof(AllowedFaults)}";
+        public static readonly string TimeoutKey = $"{nameof(TransientFaultHandlingStrategy)}.{nameof(Timeout)}";
+        public static readonly string WaitKey = $"{nameof(TransientFaultHandlingStrategy)}.{nameof(Wait)}";
+        public static readonly string BreaktimeKey = $"{nameof(TransientFaultHandlingStrategy)}.{nameof(Breaktime)}";
 
-        public int AllowedFaults => 4;
+        private readonly IConfigurationProvider configuration;
 
-        //Increasing the timeout strategy at the back of application need and timeout handling, further stories in backlog related to this.
-        public TimeSpan Timeout => TimeSpan.FromSeconds(4);
+        public TransientFaultHandlingStrategy(IConfigurationProvider configuration)
+        {
+            this.configuration = configuration;
+        }
 
-        public TimeSpan Wait => TimeSpan.FromSeconds(2);
+        public int Retry => configuration.GetConfig(RetryKey, 2);
 
-        public TimeSpan Breaktime => TimeSpan.FromSeconds(60);
+        public int AllowedFaults => configuration.GetConfig(AllowedFaultsKey, 4);
+
+        public TimeSpan Timeout => configuration.GetConfig(TimeoutKey, TimeSpan.FromSeconds(3));
+
+        public TimeSpan Wait => configuration.GetConfig(WaitKey, TimeSpan.FromSeconds(2));
+
+        public TimeSpan Breaktime => configuration.GetConfig(BreaktimeKey, TimeSpan.FromSeconds(60));
     }
 }

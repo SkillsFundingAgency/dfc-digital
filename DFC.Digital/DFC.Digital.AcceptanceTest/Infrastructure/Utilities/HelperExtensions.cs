@@ -13,7 +13,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Utilities
         {
             if (element != null)
             {
-                int elementPosition = element.Location.Y;
                 var js = string.Format("window.scroll(" + element.Location.X + "," + element.Location.Y + ");");
                 execute.Script(js);
                 return element;
@@ -56,15 +55,15 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Utilities
         {
             return Regex.Replace(value, @"{([^}]+)}", (m) =>
             {
-                switch (m.Groups[1].Value.ToLowerInvariant())
+                switch (m.Groups[1].Value.ToUpperInvariant())
                 {
-                    case "now":
+                    case "NOW":
                         return DateTime.Now.ToString("ddMMyyyy-HHmm");
 
-                    case "today":
+                    case "TODAY":
                         return DateTime.Now.ToString("yyyyMMdd");
 
-                    case "scenariotitle":
+                    case "SCENARIOTITLE":
                         return (scenarioContext ?? ScenarioContext.Current).UniqueScenarioTitle();
 
                     default:

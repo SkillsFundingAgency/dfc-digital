@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
@@ -94,7 +94,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual order {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected, options => options.WithStrictOrdering());
+            actual.Should().BeEquivalentTo(expected, options => options.WithStrictOrdering());
         }
 
         [Then(@"the profiles are listed in no specific order:")]
@@ -107,7 +107,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the profiles are listed first in no specific order:")]
@@ -120,7 +120,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the following profiles are listed in no specific order skip '(.*)' results:")]
@@ -133,7 +133,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the result count should match '(.*)'")]
@@ -158,7 +158,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         [Then(@"the number of job profiles shown on the page is equal to '(.*)'\. \(i\.e\. the page limit\)")]
         public void ThenTheNumberOfJobProfilesShownOnThePageIsEqualTo_I_E_ThePageLimit(int pageLimit)
         {
-            results?.Results.Count().ShouldBeEquivalentTo(pageLimit);
+            results?.Results.Count().Should().Be(pageLimit);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Core.Configuration;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
@@ -25,7 +26,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure
             A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>._, A<SearchProperties>._)).Returns("cleanedSearchTerm");

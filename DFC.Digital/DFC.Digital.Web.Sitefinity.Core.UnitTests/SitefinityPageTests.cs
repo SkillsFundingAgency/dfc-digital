@@ -6,7 +6,7 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using FakeItEasy;
-//using DFC.Digital.Data.Interfaces;
+//using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 //using Telerik.Sitefinity.Pages.Model;
 //using FluentAssertions;
 //using Telerik.Sitefinity.Modules.Pages;
@@ -44,7 +44,7 @@
 //            var result = sitefinityPage.GetContextPagePreview();
 
 //            //Assert
-//            expectedResult.ShouldBeEquivalentTo(result);
+//            expectedResult.Should().BeEquivalentTo(result);
 //            A.CallTo(() => fakePageSiteNode.PageId).MustHaveHappened();
 //            A.CallTo(() => fakePageManager.GetPageData(A<Guid>.That.IsEqualTo(dummyCurrentPageId))).MustHaveHappened();
 //            A.CallTo(() => fakePageData.Id).MustHaveHappened();

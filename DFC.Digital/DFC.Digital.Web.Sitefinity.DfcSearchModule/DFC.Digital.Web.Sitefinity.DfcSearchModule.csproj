@@ -258,6 +258,7 @@
   <ItemGroup>
     <Compile Include="Config\DfcSearchModuleAutofacModule.cs" />
     <Compile Include="Extensions\HelperExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SearchIndexEnhancers\JobProfileIndexEnhancer.cs" />
     <Compile Include="Service\DfcSearchResource.cs" />
     <Compile Include="Service\DfcSearchService.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
     <AdditionalFiles Include="..\stylecop.json">

@@ -7,12 +7,14 @@
   <Include Path="minimumrecommendedrules.ruleset" Action="Default" />
   <Include Path="securityrules.ruleset" Action="Default" />
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1001" Action="None" />
     <Rule Id="CA1006" Action="None" />
     <Rule Id="CA1014" Action="None" />
     <Rule Id="CA1024" Action="None" />
     <Rule Id="CA1026" Action="None" />
     <Rule Id="CA1054" Action="None" />
     <Rule Id="CA1303" Action="None" />
+    <Rule Id="CA1704" Action="None" />
     <Rule Id="CA1709" Action="None" />
     <Rule Id="CA2210" Action="None" />
     <Rule Id="CA2227" Action="None" />

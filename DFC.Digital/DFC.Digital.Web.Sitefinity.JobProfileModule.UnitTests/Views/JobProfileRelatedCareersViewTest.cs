@@ -24,9 +24,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
 
             var sectionText = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-medium')]").FirstOrDefault().InnerText;
 
-            sectionText.ShouldBeEquivalentTo("Related Careers");
+            sectionText.Should().BeEquivalentTo("Related Careers");
 
-            GetViewAnchorLinks(htmlDom).ShouldBeEquivalentTo(GetDummyRelatedProfiles());
+            GetViewAnchorLinks(htmlDom).Should().BeEquivalentTo(GetDummyRelatedProfiles());
         }
 
         private IEnumerable<JobProfileRelatedCareer> GetViewAnchorLinks(HtmlDocument htmlDom)

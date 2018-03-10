@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
@@ -163,7 +164,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         [InlineData(PreSearchFilterType.JobArea)]
         [InlineData(PreSearchFilterType.PreferredTaskType)]
         [InlineData(PreSearchFilterType.TrainingRoute)]
-
         public void IndexRepositoryTest(PreSearchFilterType filterType)
         {
             //Setup the fakes and dummies
@@ -303,24 +303,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
         private void CheckFilterSecton(PreSearchFiltersController controller, PsfSection filterSection, PreSearchFilterType expectedFilterType, bool addNotApplicable = true)
         {
-            filterSection.Description.ShouldBeEquivalentTo(controller.SectionDescription);
-            filterSection.Name.ShouldBeEquivalentTo(controller.SectionTitle);
-            filterSection.NextPageUrl.ShouldBeEquivalentTo(controller.NextPageUrl);
-            filterSection.PreviousPageUrl.ShouldBeEquivalentTo(controller.PreviousPageUrl);
-            filterSection.SectionDataType.ShouldBeEquivalentTo(expectedFilterType.ToString());
-            filterSection.PageNumber.ShouldBeEquivalentTo(controller.ThisPageNumber);
-            filterSection.TotalNumberOfPages.ShouldBeEquivalentTo(controller.TotalNumberOfPages);
-            filterSection.Options.Count.ShouldBeEquivalentTo(5);
+            filterSection.Description.Should().BeEquivalentTo(controller.SectionDescription);
+            filterSection.Name.Should().BeEquivalentTo(controller.SectionTitle);
+            filterSection.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
+            filterSection.PreviousPageUrl.Should().BeEquivalentTo(controller.PreviousPageUrl);
+            filterSection.SectionDataType.Should().BeEquivalentTo(expectedFilterType.ToString());
+            filterSection.PageNumber.Should().Be(controller.ThisPageNumber);
+            filterSection.TotalNumberOfPages.Should().Be(controller.TotalNumberOfPages);
+            filterSection.Options.Count.Should().Be(5);
 
             int idx = 0;
             foreach (PreSearchFilterOption p in GetDummyPreSearchFilterOption(addNotApplicable))
             {
-                filterSection.Options[idx].Id.ShouldBeEquivalentTo(p.Id);
-                filterSection.Options[idx].Name.ShouldBeEquivalentTo(p.Name);
-                filterSection.Options[idx].Description.ShouldBeEquivalentTo(p.Description);
-                filterSection.Options[idx].IsSelected.ShouldBeEquivalentTo(false);
-                filterSection.Options[idx].ClearOtherOptionsIfSelected.ShouldBeEquivalentTo(p.ClearOtherOptionsIfSelected);
-                filterSection.Options[idx].OptionKey.ShouldBeEquivalentTo(p.OptionKey);
+                filterSection.Options[idx].Id.Should().BeEquivalentTo(p.Id);
+                filterSection.Options[idx].Name.Should().BeEquivalentTo(p.Name);
+                filterSection.Options[idx].Description.Should().BeEquivalentTo(p.Description);
+                filterSection.Options[idx].IsSelected.Should().Be(false);
+                filterSection.Options[idx].ClearOtherOptionsIfSelected.Should().Be(p.ClearOtherOptionsIfSelected);
+                filterSection.Options[idx].OptionKey.Should().BeEquivalentTo(p.OptionKey);
                 idx++;
             }
         }

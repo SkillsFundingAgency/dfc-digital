@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Interface;
 using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
@@ -11,9 +12,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "JobProfileBauSignPosting", Title = "Job Profile Bau JP SignPosting", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileBAUSignpostingController : BaseJobProfileWidgetController
     {
-        #region Private Fields
-        #endregion Private Fields
-
         #region Constructors
 
         public JobProfileBAUSignpostingController(IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)

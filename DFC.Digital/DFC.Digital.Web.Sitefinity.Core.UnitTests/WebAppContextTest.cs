@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             var webAppContext = new WebAppContext();
             var result = webAppContext.GetVocCookie("name");
 
-            result.ShouldBeEquivalentTo(expectation);
+            result.Should().BeEquivalentTo(expectation);
         }
 
         [Fact]
@@ -35,8 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
                 {
                     Personalisation = new Dictionary<string, string>
                     {
-                        {
-                            Constants.LastVisitedJobProfileKey, Constants.Unknown },
+                        { Constants.LastVisitedJobProfileKey, Constants.Unknown },
                         { Constants.GoogleClientIdKey, Constants.Unknown }
                     }
                 };
@@ -44,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
                 var webAppContext = new WebAppContext();
                 var result = webAppContext.GetVocCookie("name");
 
-                result.ShouldBeEquivalentTo(expectation);
+                result.Should().BeEquivalentTo(expectation);
             }
         }
     }

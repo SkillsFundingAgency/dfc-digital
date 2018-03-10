@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
@@ -67,7 +67,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
             OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

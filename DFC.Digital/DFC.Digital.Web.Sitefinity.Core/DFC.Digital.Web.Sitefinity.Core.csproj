@@ -161,19 +161,19 @@
       <HintPath>..\packages\RazorGenerator.Mvc.2.3.12\lib\net40\RazorGenerator.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Signed.4.5.8\lib\net45\ServiceStack.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Signed.4.5.14\lib\net45\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Client.Signed.4.5.8\lib\net45\ServiceStack.Client.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Client.Signed.4.5.14\lib\net45\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Common.Signed.4.5.8\lib\net45\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Common.Signed.4.5.14\lib\net45\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Interfaces.4.5.8\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.14\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Text.Signed.4.5.8\lib\net45\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.Signed.4.5.14\lib\net45\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel" />
@@ -352,14 +352,14 @@
     <Reference Include="Telerik.Sitefinity.Utilities, Version=10.2.6602.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.10.2.6602\lib\net45\Telerik.Sitefinity.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.Design, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.Design.dll</HintPath>
+    <Reference Include="Telerik.Web.Design, Version=2017.3.913.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.3.913.40\lib\net40\Telerik.Web.Design.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.UI.dll</HintPath>
+    <Reference Include="Telerik.Web.UI, Version=2017.3.913.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.3.913.40\lib\net40\Telerik.Web.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Web.UI.Skins, Version=2017.2.621.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Web.UI.2017.2.621.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
+    <Reference Include="Telerik.Web.UI.Skins, Version=2017.3.913.40, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Web.UI.2017.3.913.40\lib\net40\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
@@ -389,11 +389,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\AutofacContainerFactory.cs" />
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
     <Compile Include="Interface\ISitefinityPage.cs" />

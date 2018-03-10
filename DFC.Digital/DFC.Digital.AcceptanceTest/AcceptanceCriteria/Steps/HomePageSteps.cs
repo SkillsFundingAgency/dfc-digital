@@ -7,26 +7,26 @@ using TechTalk.SpecFlow;
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 {
     [Binding]
-    public class HomePageSteps : BaseStep
+    public class HomepageSteps : BaseStep
     {
         //private HomePage homePage;
-        private HomePage resultPage;
+        private Homepage resultPage;
 
         //private JobProfilePage jobProfilePage;
         private string jobProfileSelected;
 
         private CookiesPage cookiesPage;
 
-        public HomePageSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
+        public HomepageSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
         }
 
         #region Givens
 
         [Given(@"that I am viewing the Home page")]
-        public void GivenThatIAmViewingTheHomePage()
+        public void GivenThatIAmViewingTheHomepage()
         {
-            NavigateToHomePage<HomePage, JobProfileSearchBoxViewModel>();
+            NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
         }
 
         #endregion Givens
@@ -36,7 +36,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I search without entering search term")]
         public void WhenISearchWithoutEnteringSearchTerm()
         {
-            resultPage = GetNavigatedPage<HomePage>().Search<HomePage>(new JobProfileSearchBoxViewModel
+            resultPage = GetNavigatedPage<Homepage>().Search<Homepage>(new JobProfileSearchBoxViewModel
             {
                 SearchTerm = string.Empty
             });
@@ -45,7 +45,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the Cookies link")]
         public void WhenIClickOnTheCookiesLink()
         {
-            cookiesPage = GetNavigatedPage<HomePage>()?.ClickCookiesLink<CookiesPage>();
+            cookiesPage = GetNavigatedPage<Homepage>()?.ClickCookiesLink<CookiesPage>();
         }
 
         #endregion Whens
@@ -53,7 +53,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         #region Thens
 
         [Then(@"the user remains on the Home page")]
-        public void ThenTheHomePageUrlChangesToShowSearchAction()
+        public void ThenTheHomepageUrlChangesToShowSearchAction()
         {
             resultPage.UrlShowsSearchAction.Should().BeTrue();
         }
@@ -67,20 +67,20 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"display Service Name ""(.*)"" and Search Box")]
         public void ThenDisplayServiceNameDescriptionContainsAndSearchBox(string serviceName)
         {
-            GetNavigatedPage<HomePage>()?.PageHeading.Should().Contain(serviceName);
-            GetNavigatedPage<HomePage>()?.HasSearchWidget.Should().BeTrue();
+            GetNavigatedPage<Homepage>()?.PageHeading.Should().Contain(serviceName);
+            GetNavigatedPage<Homepage>()?.HasSearchWidget.Should().BeTrue();
         }
 
         [Then(@"display the ""(.*)"" text")]
         public void ThenDisplayTheText(string exploreCategoriesText)
         {
-            GetNavigatedPage<HomePage>()?.HasExploreCategoryText(exploreCategoriesText).Should().BeTrue();
+            GetNavigatedPage<Homepage>()?.HasExploreCategoryText(exploreCategoriesText).Should().BeTrue();
         }
 
         [Then(@"display a list of job profile categories")]
         public void ThenDisplayAListOfJobProfileCategories()
         {
-            GetNavigatedPage<HomePage>()?.HasJobProfileCategoriesSection.Should().BeTrue();
+            GetNavigatedPage<Homepage>()?.HasJobProfileCategoriesSection.Should().BeTrue();
         }
 
         [Then(@"display the correct job profile page")]
@@ -91,7 +91,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 ScenarioContext.TryGetValue("jobprofileselected", out jobProfileSelected);
             }
 
-            GetNavigatedPage<HomePage>()?.PageHeading.Should().Contain(jobProfileSelected);
+            GetNavigatedPage<Homepage>()?.PageHeading.Should().Contain(jobProfileSelected);
         }
 
         [Then(@"I am redirected to the cookies page")]
@@ -103,7 +103,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"I am redirected to the homepage")]
         public void ThenIAmRedirectedToTheHomepage()
         {
-            GetNavigatedPage<HomePage>()?.ServiceName.Should().BeTrue();
+            GetNavigatedPage<Homepage>()?.ServiceName.Should().BeTrue();
         }
 
         #endregion Thens

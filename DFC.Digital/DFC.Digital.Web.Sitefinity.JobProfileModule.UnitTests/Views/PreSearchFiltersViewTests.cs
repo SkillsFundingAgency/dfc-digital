@@ -21,16 +21,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
 
             //Should have  a link to the home page
             var backButton = htmlDom.GetElementbyId("filter-home");
-            backButton.InnerText.ShouldBeEquivalentTo("Home");
+            backButton.InnerText.Should().BeEquivalentTo("Home");
 
             var backForm = htmlDom.GetElementbyId("backForm");
-            backForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.PreviousPageUrl);
+            backForm.Attributes["action"].Value.Should().BeEquivalentTo(testDataModel.Section.PreviousPageUrl);
 
             var continueButton = htmlDom.GetElementbyId("filter-continue");
-            continueButton.InnerText.ShouldBeEquivalentTo("Continue");
+            continueButton.InnerText.Should().BeEquivalentTo("Continue");
 
             var continueForm = htmlDom.GetElementbyId("continueForm");
-            continueForm.Attributes["action"].Value.ShouldBeEquivalentTo(testDataModel.Section.NextPageUrl);
+            continueForm.Attributes["action"].Value.Should().BeEquivalentTo(testDataModel.Section.NextPageUrl);
         }
 
         [Theory]
@@ -42,10 +42,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             var testDataModel = GeneratePreSEarchFiltersViewModel(singleSelectSection);
             var htmlDom = index.RenderAsHtml(testDataModel);
 
-            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.ShouldBeEquivalentTo($"Step {testDataModel.Section.PageNumber} of {testDataModel.Section.TotalNumberOfPages}");
+            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().BeEquivalentTo($"Step {testDataModel.Section.PageNumber} of {testDataModel.Section.TotalNumberOfPages}");
             /* Think the testing frame work does not render Html.DisplayFor properly the view look fine but this test fails
-            htmlDom.DocumentNode.SelectNodes("//*[@id='continueForm']/div/h4").FirstOrDefault().InnerText.ShouldBeEquivalentTo(preSearchFiltersModel.Sections[0].Name);
-            htmlDom.DocumentNode.SelectNodes("//*[@id='continueForm']/div/h4").FirstOrDefault().InnerText.ShouldBeEquivalentTo(preSearchFiltersModel.Sections[0].Description);
+            htmlDom.DocumentNode.SelectNodes("//*[@id='continueForm']/div/h4").FirstOrDefault().InnerText.Should().BeEquivalentTo(preSearchFiltersModel.Sections[0].Name);
+            htmlDom.DocumentNode.SelectNodes("//*[@id='continueForm']/div/h4").FirstOrDefault().InnerText.Should().BeEquivalentTo(preSearchFiltersModel.Sections[0].Description);
             */
 
             //Check that we have all the hidden varibles for the section  on each formso that the model remains intact
@@ -66,26 +66,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             {
                 if (testDataModel.Section.SingleSelectOnly)
                 {
-                        // this section should contains radio buttons
+                    // this section should contains radio buttons
                     var filterOption = htmlDom?.DocumentNode?.SelectNodes($"//*[@id='Section_{jj}']").FirstOrDefault();
-                    filterOption?.Attributes["type"].Value.ShouldBeEquivalentTo("radio");
+                    filterOption?.Attributes["type"].Value.Should().BeEquivalentTo("radio");
                 }
                 else
                 {
                     var filterOption = htmlDom?.DocumentNode?.SelectNodes($"//*[@id='Section_Options_{jj.ToString()}__IsSelected']").FirstOrDefault();
 
                     // this section should contains check boxes
-                    filterOption?.Attributes["type"].Value.ShouldBeEquivalentTo("checkbox");
+                    filterOption?.Attributes["type"].Value.Should().BeEquivalentTo("checkbox");
 
                     //if we have a N/A option needs this class
                     if (testDataModel.Section.Options[jj].ClearOtherOptionsIfSelected)
                     {
-                            filterOption?.Attributes["class"].Value.ShouldBeEquivalentTo("filter-na");
+                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na");
                     }
                 }
 
                 //Have a label for the check box with the correct title and description
-                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='options1']/label[{(jj + 1).ToString()}]")?.FirstOrDefault()?.InnerText.ShouldBeEquivalentTo($"{testDataModel.Section.Options[jj].Name}{testDataModel.Section.Options[jj].Description}");
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='options1']/label[{(jj + 1).ToString()}]")?.FirstOrDefault()?.InnerText.Should().BeEquivalentTo($"{testDataModel.Section.Options[jj].Name}{testDataModel.Section.Options[jj].Description}");
 
                 CheckForOptionHiddenValue(htmlDom, "OptionKey", "continueForm", jj, testDataModel.Section.Options[jj].OptionKey);
             }
@@ -109,8 +109,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
 
         private void CheckField(HtmlNode fieldToCheck, string expectedValue)
         {
-            fieldToCheck.Attributes["type"].Value.ShouldBeEquivalentTo("hidden");
-            fieldToCheck.Attributes["value"].Value.ShouldBeEquivalentTo(expectedValue ?? string.Empty);
+            fieldToCheck.Attributes["type"].Value.Should().BeEquivalentTo("hidden");
+            fieldToCheck.Attributes["value"].Value.Should().BeEquivalentTo(expectedValue ?? string.Empty);
         }
 
         private PsfModel GeneratePreSEarchFiltersViewModel(bool singleSelect)

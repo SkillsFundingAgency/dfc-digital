@@ -234,7 +234,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 linkedCategorySection.InnerText.Should().Contain("Found in:");
                 var foundInCategoryLinks = GetDisplayedViewAnchorLinks(linkedCategorySection);
                 var expectedCategoryLinks = GetLinkedCategories(numberOfLinkedJobCategories, "/job-categories/");
-                foundInCategoryLinks.ShouldBeEquivalentTo(expectedCategoryLinks);
+                foundInCategoryLinks.Should().BeEquivalentTo(expectedCategoryLinks);
             }
         }
 

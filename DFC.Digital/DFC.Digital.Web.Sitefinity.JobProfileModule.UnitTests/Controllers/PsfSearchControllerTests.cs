@@ -2,7 +2,6 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -317,7 +316,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
                     vm.BackPageUrl.ShouldBeEquivalentTo(psfSearchController.BackPageUrl);
                     vm.BackPageUrlText.ShouldBeEquivalentTo(psfSearchController.BackPageUrlText);
-                    vm.HasNexPage.ShouldBeEquivalentTo(hasNextPage);
+                    vm.HasNextPage.ShouldBeEquivalentTo(hasNextPage);
                     vm.HasPreviousPage.ShouldBeEquivalentTo(hasPreviousPage);
                 })
                 .AndNoModelErrors();

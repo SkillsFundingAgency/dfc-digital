@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IWebAppContext webAppContext;
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ISpellcheckService spellCheckService;
+        private readonly ISpellcheckService spellcheckService;
 
         #endregion Private Fields
 
@@ -46,14 +46,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="mapper">mapper</param>
         /// <param name="applicationLogger">applicationLogger</param>
         /// <param name="asyncHelper">asyncHelper</param>
-        /// <param name="spellCheckService">spellCheckService</param>
-        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellCheckService) : base(applicationLogger)
+        /// <param name="spellcheckService">spellCheckService</param>
+        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellcheckService) : base(applicationLogger)
         {
             this.searchQueryService = searchService;
             this.webAppContext = webAppContext;
             this.mapper = mapper;
             this.asyncHelper = asyncHelper;
-            this.spellCheckService = spellCheckService;
+            this.spellcheckService = spellcheckService;
         }
 
         #endregion Constructors
@@ -179,7 +179,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 case PageMode.SearchResults:
                     var searchModel = new JobProfileSearchResultViewModel
                     {
-                        PlaceHolderText = PlaceholderText,
+                        PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
@@ -196,7 +196,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 default:
                     var model = new JobProfileSearchBoxViewModel
                     {
-                        PlaceHolderText = PlaceholderText,
+                        PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
@@ -228,7 +228,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 default:
                     var model = new JobProfileSearchBoxViewModel
                     {
-                        PlaceHolderText = PlaceholderText,
+                        PlaceholderText = PlaceholderText,
                         TotalResultsMessage = NoResultsMessage,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
@@ -246,7 +246,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var model = new JobProfileSearchBoxViewModel
             {
-                PlaceHolderText = PlaceholderText,
+                PlaceholderText = PlaceholderText,
                 HeaderText = HeaderText,
                 TotalResultsMessage = NoResultsMessage,
                 JobProfileUrl = urlName,
@@ -258,13 +258,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Suggestions(string term, int maxNumberDisplyed, bool fuzzySearch)
+        public ActionResult Suggestions(string term, int maxNumberDisplayed, bool fuzzySearch)
         {
             if (!string.IsNullOrEmpty(term))
             {
                 var results = searchQueryService.GetSuggestion(
                     term,
-                    new SuggestProperties { UseFuzzyMatching = fuzzySearch, MaxResultCount = maxNumberDisplyed });
+                    new SuggestProperties { UseFuzzyMatching = fuzzySearch, MaxResultCount = maxNumberDisplayed });
 
                 return Json(
                     results.Results.Select(s => new Suggestion { label = s.MatchedSuggestion }),
@@ -274,7 +274,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return new EmptyResult();
         }
 
-        private string GetUrlEncodedString(string input)
+        private static string GetUrlEncodedString(string input)
         {
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }
@@ -283,7 +283,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var resultModel = new JobProfileSearchResultViewModel
             {
-                PlaceHolderText = PlaceholderText,
+                PlaceholderText = PlaceholderText,
                 SearchTerm = searchTerm,
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
@@ -296,7 +296,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 var pageNumber = page > 0 ? page : 1;
                 var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize });
-                var spellCheckTask = spellCheckService.CheckSpellingAsync(searchTerm);
+                var spellCheckTask = spellcheckService.CheckSpellingAsync(searchTerm);
 
                 await Task.WhenAll(searchTask, spellCheckTask);
 
@@ -323,9 +323,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return View("SearchResult", resultModel);
         }
 
-        private string GetSearchResultsPageUrl(string searchTerm)
+        private Uri GetSearchResultsPageUrl(string searchTerm)
         {
-            return $"{SearchResultsPage}?searchTerm={GetUrlEncodedString(searchTerm)}";
+            return new Uri($"{SearchResultsPage}?searchTerm={GetUrlEncodedString(searchTerm)}");
         }
 
         private void SetupPagination(string searchTerm, JobProfileSearchResultViewModel resultModel)

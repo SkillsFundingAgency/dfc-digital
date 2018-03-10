@@ -397,7 +397,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         {
             return new JobProfileSearchBoxViewModel
             {
-                PlaceHolderText = placeHolderText,
+                PlaceholderText = placeHolderText,
                 HeaderText = headerText,
                 TotalResultsMessage = totalResultsMessage,
                 SearchTerm = searchTerm,

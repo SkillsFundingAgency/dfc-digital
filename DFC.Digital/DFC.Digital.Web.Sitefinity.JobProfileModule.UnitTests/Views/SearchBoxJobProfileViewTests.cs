@@ -4,6 +4,7 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             {
                 HeaderText = headerText,
                 JobProfileUrl = jobProfileUrl,
-                PlaceHolderText = placeholderText
+                PlaceholderText = placeholderText
             };
 
             // Act
@@ -51,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
 
             var model = new JobProfileSearchResultViewModel
             {
-                DidYouMeanUrl = validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty,
+                DidYouMeanUrl = new Uri(validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty),
                 DidYouMeanTerm = validSpellcheckResult ? correctedSearchTerm : string.Empty,
                 SearchResults = new List<JobProfileSearchResultItemViewModel>()
             };
@@ -63,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             if (validSpellcheckResult)
             {
                 GetDidYouMeanText(htmlDom).Should().Be(model.DidYouMeanTerm);
-                GetDidYouMeanUrl(htmlDom).Should().Be(model.DidYouMeanUrl);
+                GetDidYouMeanUrl(htmlDom).Should().Be(model.DidYouMeanUrl.OriginalString);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
@@ -50,15 +51,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string PreviousPageUrlText { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance has nex page.
+        /// Gets a value indicating whether gets or sets a value indicating whether this instance has nex page.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance has nex page; otherwise, <c>false</c>.
         /// </value>
-        public bool HasNexPage => TotalPages - PageNumber > 0;
+        public bool HasNextPage => TotalPages - PageNumber > 0;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance has previous page.
+        /// Gets a value indicating whether gets or sets a value indicating whether this instance has previous page.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance has previous page; otherwise, <c>false</c>.
@@ -91,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// </value>
         public string JobProfileCategoryPage { get; set; }
 
-        public string DidYouMeanUrl { get; set; }
+        public Uri DidYouMeanUrl { get; set; }
 
         public string DidYouMeanTerm { get; set; }
 

@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {

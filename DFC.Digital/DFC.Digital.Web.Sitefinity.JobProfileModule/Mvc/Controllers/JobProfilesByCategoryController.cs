@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("")]
         public ActionResult Index()
@@ -61,21 +61,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return GetJobProfilesByCategoryView(urlname);
+            return GetJobProfilesByCategoryView(urlName);
         }
 
-        private ActionResult GetJobProfilesByCategoryView(string urlname)
+        private ActionResult GetJobProfilesByCategoryView(string urlName)
         {
-            var category = categoryRepo.GetByUrlName(urlname);
+            var category = categoryRepo.GetByUrlName(urlName);
 
             //if the category does not exist.
             if (category == null)

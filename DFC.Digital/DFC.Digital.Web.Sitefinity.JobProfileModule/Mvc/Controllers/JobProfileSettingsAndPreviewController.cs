@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public bool? DisableCanonicalUrlMetaTag { get; set; }
 
-        public string PreviousUrLname { get; set; }
+        public string PreviousUrlName { get; set; }
 
         #endregion Public Properties
 
@@ -61,12 +61,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            if (!string.IsNullOrWhiteSpace(urlname) && !webAppContext.IsContentAuthoringSite)
+            if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlname);
+                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlName);
             }
 
             return new EmptyResult();

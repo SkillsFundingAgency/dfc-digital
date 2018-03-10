@@ -3,7 +3,6 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -153,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 TotalPages = (resultsCount + pageSize - 1) / pageSize,
                 Count = resultsCount,
                 SearchTerm = searchTerm,
-                PlaceHolderText = placeholderText,
+                PlaceholderText = placeholderText,
                 AutoCompleteMinimumCharacters = 2,
                 MaximumNumberOfDisplayedSuggestions = 5,
                 UseFuzzyAutoCompleteMatching = true,
@@ -286,7 +285,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 .ShouldRenderView("JobProfile")
                 .WithModel<JobProfileSearchBoxViewModel>(vm =>
                 {
-                    vm.PlaceHolderText.Should().NotBeNullOrWhiteSpace();
+                    vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
                     vm.HeaderText.ShouldBeEquivalentTo(searchController.HeaderText);
                     vm.JobProfileUrl.ShouldBeEquivalentTo(urlName);
                 })
@@ -379,7 +378,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
                         vm.SearchTerm.ShouldBeEquivalentTo(searchTerm);
-                        vm.PlaceHolderText.Should().NotBeNullOrWhiteSpace();
+                        vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
                         vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                         vm.SearchResults.Should().NotBeNull();
                         vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
@@ -403,7 +402,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileSearchBoxViewModel>(vm =>
                     {
-                        vm.PlaceHolderText.Should().NotBeNullOrWhiteSpace();
+                        vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
                     });
 
                 A.CallTo(() => serviceFake.SearchAsync(A<string>._, A<SearchProperties>._)).MustNotHaveHappened();
@@ -451,7 +450,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     //Assert
                     searchMethodCall
                         .ShouldRenderView("Index") //this is not default for this action
-                        .WithModel<JobProfileSearchBoxViewModel>(vm => string.IsNullOrWhiteSpace(vm.PlaceHolderText) == false);
+                        .WithModel<JobProfileSearchBoxViewModel>(vm => string.IsNullOrWhiteSpace(vm.PlaceholderText) == false);
                 }
                 else if (mode == JobProfileSearchBoxController.PageMode.SearchResults)
                 {
@@ -459,7 +458,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     searchMethodCall
                         .ShouldRenderView("SearchResult")
                         .WithModel<JobProfileSearchResultViewModel>(vm =>
-                            string.IsNullOrWhiteSpace(vm.PlaceHolderText) == false);
+                            string.IsNullOrWhiteSpace(vm.PlaceholderText) == false);
                 }
                 else
                 {
@@ -629,7 +628,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .ShouldRenderView("SearchResult")
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
-                        vm.DidYouMeanUrl.ShouldBeEquivalentTo(correctedTermUrl);
+                        vm.DidYouMeanUrl.OriginalString.ShouldBeEquivalentTo(correctedTermUrl);
                         vm.DidYouMeanTerm.Should().NotBeNullOrEmpty();
                     });
 
@@ -641,7 +640,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .ShouldRenderView("SearchResult")
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
-                        vm.DidYouMeanUrl.Should().BeNullOrEmpty();
+                        vm.DidYouMeanUrl.OriginalString.Should().BeNullOrEmpty();
                         vm.DidYouMeanTerm.Should().BeNullOrEmpty();
                     });
                 A.CallTo(() => spellcheckerServiceFake.CheckSpellingAsync(A<string>._)).MustHaveHappened();

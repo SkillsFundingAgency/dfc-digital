@@ -179,7 +179,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
             else
             {
-                return Search(resultsViewModel.PreSearchFiltersModel, page, false);
+                return Search(resultsViewModel?.PreSearchFiltersModel, page, false);
             }
         }
 
@@ -187,6 +187,28 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public ActionResult Search(PsfModel model, int page = 1, bool notPaging = true)
         {
             return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(model, page, notPaging));
+        }
+
+        private static void AddFilterSection(PsfSection currentSection, PsfModel model, string demovalues)
+        {
+            var values = demovalues.Split('~');
+            foreach (var value in values)
+            {
+                var data = value.Split(',');
+                if (data.Length == 2)
+                {
+                    currentSection.Options.Add(new PsfOption
+                    {
+                        IsSelected = Convert.ToBoolean(data[0]),
+                        OptionKey = Convert.ToString(data[1])
+                    });
+                }
+            }
+
+            if (currentSection.Options.Any())
+            {
+                model.Sections.Add(currentSection);
+            }
         }
 
         private PsfModel GetDummyPreSearchFiltersModel()
@@ -270,28 +292,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             return model;
-        }
-
-        private void AddFilterSection(PsfSection currentSection, PsfModel model, string demovalues)
-        {
-            var values = demovalues.Split('~');
-            foreach (var value in values)
-            {
-                var data = value.Split(',');
-                if (data.Length == 2)
-                {
-                    currentSection.Options.Add(new PsfOption
-                    {
-                        IsSelected = Convert.ToBoolean(data[0]),
-                        OptionKey = Convert.ToString(data[1])
-                    });
-                }
-            }
-
-            if (currentSection.Options.Any())
-            {
-                model.Sections.Add(currentSection);
-            }
         }
 
         private async Task<ActionResult> DisplaySearchResultsAsync(PsfModel model, int page, bool notPaging = true)

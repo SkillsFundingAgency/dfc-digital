@@ -66,13 +66,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns><see cref="ActionResult"/></returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return GetRelatedJobProfilesView(urlname);
+            return GetRelatedJobProfilesView(urlName);
         }
 
         private ActionResult GetRelatedJobProfilesView(string urlname)

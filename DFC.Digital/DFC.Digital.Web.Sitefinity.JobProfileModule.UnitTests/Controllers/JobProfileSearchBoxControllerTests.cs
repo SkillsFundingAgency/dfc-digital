@@ -286,8 +286,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 .WithModel<JobProfileSearchBoxViewModel>(vm =>
                 {
                     vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
-                    vm.HeaderText.ShouldBeEquivalentTo(searchController.HeaderText);
-                    vm.JobProfileUrl.ShouldBeEquivalentTo(urlName);
+                    vm.HeaderText.Should().BeEquivalentTo(searchController.HeaderText);
+                    vm.JobProfileUrl.Should().BeEquivalentTo(urlName);
                 })
                 .AndNoModelErrors();
         }
@@ -377,7 +377,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .ShouldRenderView("SearchResult")
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
-                        vm.SearchTerm.ShouldBeEquivalentTo(searchTerm);
+                        vm.SearchTerm.Should().BeEquivalentTo(searchTerm);
                         vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
                         vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                         vm.SearchResults.Should().NotBeNull();
@@ -628,7 +628,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                     .ShouldRenderView("SearchResult")
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
-                        vm.DidYouMeanUrl.OriginalString.ShouldBeEquivalentTo(correctedTermUrl);
+                        vm.DidYouMeanUrl.OriginalString.Should().BeEquivalentTo(correctedTermUrl);
                         vm.DidYouMeanTerm.Should().NotBeNullOrEmpty();
                     });
 

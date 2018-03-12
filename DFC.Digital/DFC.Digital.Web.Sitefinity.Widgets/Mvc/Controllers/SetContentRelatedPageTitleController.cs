@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System.ComponentModel;
 using System.Web;
@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// <summary>
     /// Custom Widget for customising page titles
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "SetContentRelatedPageTitle", Title = "Set Content Related Page Title", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class SetContentRelatedPageTitleController : BaseDfcController
     {

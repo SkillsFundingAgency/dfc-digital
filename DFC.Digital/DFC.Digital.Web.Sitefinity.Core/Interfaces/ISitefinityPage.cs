@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Interface
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface ISitefinityPage
     {

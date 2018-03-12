@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Web.Caching;
 using System.Web.Mvc;
 
-namespace DFC.Digital.Web.Core.HtmlExtentions
+namespace DFC.Digital.Web.Core
 {
     public static class AssetVersioningExtention
     {

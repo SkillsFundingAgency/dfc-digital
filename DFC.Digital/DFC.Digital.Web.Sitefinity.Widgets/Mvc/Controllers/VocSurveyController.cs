@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System.ComponentModel;
 using System.Web.Mvc;

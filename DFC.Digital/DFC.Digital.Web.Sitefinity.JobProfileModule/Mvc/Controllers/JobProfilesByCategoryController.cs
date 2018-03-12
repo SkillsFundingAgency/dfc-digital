@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -9,7 +10,7 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "JobProfilesByCategoryController", Title = "JobProfiles by Category", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfilesByCategoryController : Web.Core.Base.BaseDfcController
+    public class JobProfilesByCategoryController : BaseDfcController
     {
         #region Private Fields
 

@@ -2,7 +2,8 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for the Search box and Search results for Job Profiles
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.CoreDfcController" />
     [ControllerToolboxItem(Name = "JobProfileSearchBox", Title = "JobProfile SearchBox", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileSearchBoxController : Web.Core.Base.BaseDfcController
+    public class JobProfileSearchBoxController : BaseDfcController
     {
         #region Private Fields
 

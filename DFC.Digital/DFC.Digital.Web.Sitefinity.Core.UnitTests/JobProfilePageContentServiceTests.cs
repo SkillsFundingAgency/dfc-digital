@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using FakeItEasy;
 using FluentAssertions;
 using System;

@@ -1,8 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core.Base;
+using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -13,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// <summary>
     /// Custom Widget for having Breadcrumb
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "DfcBreadcrumb", Title = "DFC Breadcrumb", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class DfcBreadcrumbController : BaseDfcController
     {

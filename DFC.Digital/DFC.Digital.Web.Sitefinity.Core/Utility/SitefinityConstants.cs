@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Web.Sitefinity.Core.Utility
+﻿namespace DFC.Digital.Web.Sitefinity.Core
 {
     public sealed class SitefinityConstants
     {

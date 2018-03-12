@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// <summary>
     /// Custom Widget for Admin Panel
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "AdminPanel", Title = "Admin Panel", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
     public class AdminPanelController : BaseDfcController
     {

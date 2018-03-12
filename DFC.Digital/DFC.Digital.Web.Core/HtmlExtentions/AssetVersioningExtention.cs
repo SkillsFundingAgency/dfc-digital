@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Core.HtmlExtentions
     {
         public static string VersionAssetFile(this HtmlHelper helper, string fileName)
         {
-            var context = helper.ViewContext.RequestContext.HttpContext;
+            var context = helper?.ViewContext.RequestContext.HttpContext;
             string version = null;
 
             if (context.Cache[fileName] == null)

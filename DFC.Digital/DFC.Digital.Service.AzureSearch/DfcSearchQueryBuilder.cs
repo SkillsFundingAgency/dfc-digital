@@ -88,7 +88,7 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 var regex = new Regex(AzureSearchSpecialChar);
                 var result = regex.Replace(searchTerm, string.Empty);
-                return $"{Regex.Replace(result.ToLowerInvariant().Trim(), @"\s+", " ")}";
+                return $"{Regex.Replace(result.Trim(), @"\s+", " ")}";
             }
         }
 
@@ -101,8 +101,7 @@ namespace DFC.Digital.Service.AzureSearch
             else
             {
                 var regex = new Regex(AzureSearchSpecialChar);
-                var result = regex.Replace(searchTerm, (match) => $"\\{match.Value}");
-                return $"{result.ToLowerInvariant()}";
+                return regex.Replace(searchTerm, (match) => $"\\{match.Value}");
             }
         }
 

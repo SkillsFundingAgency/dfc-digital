@@ -35,6 +35,7 @@ namespace DFC.Digital.Service.AzureSearch
         #region Implementation
 
         #region Implement of IServiceStatus
+
         private static string ServiceName => "Search Service";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
@@ -67,7 +68,7 @@ namespace DFC.Digital.Service.AzureSearch
             return serviceStatus;
         }
 
-        #endregion
+        #endregion Implement of IServiceStatus
 
         public virtual Data.Model.SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {

@@ -1,9 +1,8 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Service.AzureSearch.Extensions;
 using Microsoft.Azure.Search.Models;
 using System;
 
-namespace DFC.Digital.Service.AzureSearch.AzGateway
+namespace DFC.Digital.Service.AzureSearch
 {
     public class AzSearchQueryConverter : IAzSearchQueryConverter
     {

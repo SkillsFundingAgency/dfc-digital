@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.AzureSearch.AzGateway;
+using DFC.Digital.Service.AzureSearch;
 using FluentAssertions;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;

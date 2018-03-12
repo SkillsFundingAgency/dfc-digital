@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,20 +37,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             secondaryText.Should().BeEquivalentTo(psfSearchResultsViewModel.SecondaryText);
             searchResults.Should().BeEquivalentTo(psfSearchResultsViewModel.SearchResults);
             backText.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
-            backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl);
+            backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl.OriginalString);
 
             if (psfSearchResultsViewModel.HasNextPage)
             {
                 GetPaginationNextVisible(htmlDom).Should().BeTrue();
                 GetNavigationUrl(htmlDom, true, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrlText);
-                GetNavigationUrl(htmlDom, false, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrl);
+                GetNavigationUrl(htmlDom, false, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrl.OriginalString);
             }
 
             if (psfSearchResultsViewModel.HasPreviousPage)
             {
                 GetPaginationPreviousVisible(htmlDom).Should().BeTrue();
                 GetNavigationUrl(htmlDom, true, "dfc-code-search-previous previous").Should().BeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrlText);
-                GetNavigationUrl(htmlDom, false, "dfc-code-search-previous previous").Should().BeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrl);
+                GetNavigationUrl(htmlDom, false, "dfc-code-search-previous previous").Should().BeEquivalentTo(psfSearchResultsViewModel.PreviousPageUrl.OriginalString);
             }
         }
 
@@ -150,9 +151,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                 MainPageTitle = nameof(PsfSearchResultsViewModel.MainPageTitle),
                 SecondaryText = nameof(PsfSearchResultsViewModel.SecondaryText),
                 PageNumber = currentPage,
-                NextPageUrl = nameof(PsfSearchResultsViewModel.NextPageUrl),
+                NextPageUrl = new Uri(nameof(PsfSearchResultsViewModel.NextPageUrl)),
                 NextPageUrlText = nameof(PsfSearchResultsViewModel.NextPageUrlText),
-                PreviousPageUrl = nameof(PsfSearchResultsViewModel.PreviousPageUrl),
+                PreviousPageUrl = new Uri(nameof(PsfSearchResultsViewModel.PreviousPageUrl)),
                 PreviousPageUrlText = nameof(PsfSearchResultsViewModel.PreviousPageUrlText),
                 Count = count,
                 TotalPages = totalPages,
@@ -161,7 +162,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                 TotalResultsMessage = resultMessage,
                 JobProfileCategoryPage = "/job-categories/",
                 PreSearchFiltersModel = GeneratePreSearchFiltersViewModel(),
-                BackPageUrl = nameof(PsfSearchResultsViewModel.BackPageUrl),
+                BackPageUrl = new Uri(nameof(PsfSearchResultsViewModel.BackPageUrl)),
                 BackPageUrlText = nameof(PsfSearchResultsViewModel.BackPageUrlText)
             };
         }

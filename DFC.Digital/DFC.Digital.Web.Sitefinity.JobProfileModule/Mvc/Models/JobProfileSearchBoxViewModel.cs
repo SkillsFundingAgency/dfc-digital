@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
@@ -44,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The job profile URL.
         /// </value>
-        public string JobProfileUrl { get; set; }
+        public Uri JobProfileUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the AutoComplete Minimum Characters

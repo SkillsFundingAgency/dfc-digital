@@ -250,7 +250,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 PlaceholderText = PlaceholderText,
                 HeaderText = HeaderText,
                 TotalResultsMessage = NoResultsMessage,
-                JobProfileUrl = urlName,
+                JobProfileUrl = new Uri(urlName),
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
@@ -335,12 +335,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (resultModel.TotalPages > 1 && resultModel.TotalPages >= resultModel.PageNumber)
             {
-                resultModel.NextPageUrl = $"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={resultModel.PageNumber + 1}";
+                resultModel.NextPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={resultModel.PageNumber + 1}");
                 resultModel.NextPageUrlText = $"{resultModel.PageNumber + 1} of {resultModel.TotalPages}";
 
                 if (resultModel.PageNumber > 1)
                 {
-                    resultModel.PreviousPageUrl = $"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(resultModel.PageNumber == 2 ? string.Empty : $"&page={resultModel.PageNumber - 1}")}";
+                    resultModel.PreviousPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(resultModel.PageNumber == 2 ? string.Empty : $"&page={resultModel.PageNumber - 1}")}");
                     resultModel.PreviousPageUrlText = $"{resultModel.PageNumber - 1} of {resultModel.TotalPages}";
                 }
             }

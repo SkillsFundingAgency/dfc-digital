@@ -20,8 +20,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
-            IServiceHelper serviceHelper, 
-            IAuditRepository auditRepository, 
+            IServiceHelper serviceHelper,
+            IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy)
         {

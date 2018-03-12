@@ -363,7 +363,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         PageNumber = notPaging ? model.Section.PageNumber++ : model.Section.PageNumber
                     }
                 },
-                BackPageUrl = BackPageUrl,
+                BackPageUrl = new Uri(BackPageUrl),
                 BackPageUrlText = BackPageUrlText,
                 JobProfileCategoryPage = JobProfileCategoryPage
             };
@@ -404,12 +404,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (resultModel.TotalPages > 1 && resultModel.TotalPages >= resultModel.PageNumber)
             {
-                resultModel.NextPageUrl = $"{PsfSearchResultsPage}?page={resultModel.PageNumber + 1}";
+                resultModel.NextPageUrl = new Uri($"{PsfSearchResultsPage}?page={resultModel.PageNumber + 1}");
                 resultModel.NextPageUrlText = $"{resultModel.PageNumber + 1} of {resultModel.TotalPages}";
 
                 if (resultModel.PageNumber > 1)
                 {
-                    resultModel.PreviousPageUrl = $"{PsfSearchResultsPage}{(resultModel.PageNumber == 2 ? string.Empty : $"?page={resultModel.PageNumber - 1}")}";
+                    resultModel.PreviousPageUrl = new Uri($"{PsfSearchResultsPage}{(resultModel.PageNumber == 2 ? string.Empty : $"?page={resultModel.PageNumber - 1}")}");
                     resultModel.PreviousPageUrlText = $"{resultModel.PageNumber - 1} of {resultModel.TotalPages}";
                 }
             }

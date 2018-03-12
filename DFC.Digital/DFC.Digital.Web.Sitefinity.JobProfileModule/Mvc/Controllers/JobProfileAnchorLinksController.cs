@@ -2,7 +2,8 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -13,9 +14,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for Job Profile Anchor Links
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileAnchorLinks", Title = "JobProfile Anchor links", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileAnchorLinksController : Web.Core.Base.BaseDfcController
+    public class JobProfileAnchorLinksController : BaseDfcController
     {
         /// <summary>
         /// The job profile section caption

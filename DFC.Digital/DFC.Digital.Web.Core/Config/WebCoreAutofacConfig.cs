@@ -11,7 +11,6 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider.Config;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Hosting;
 
-namespace DFC.Digital.Web.Core.Config
+namespace DFC.Digital.Web.Core
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification = "Reviewed. Product name in correct spelling.")]
     public static class WebCoreAutofacConfig

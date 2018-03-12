@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "JobProfileSettingsAndPreviewController", Title = "JobProfile Settings and Preview", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileSettingsAndPreviewController : Web.Core.Base.BaseDfcController, IContentLocatableView
+    public class JobProfileSettingsAndPreviewController : BaseDfcController, IContentLocatableView
     {
         #region Private Fields
 

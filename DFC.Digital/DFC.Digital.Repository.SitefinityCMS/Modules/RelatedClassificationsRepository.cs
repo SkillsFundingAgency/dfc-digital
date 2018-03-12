@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Repository.SitefinityCMS.Base;
+﻿using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;

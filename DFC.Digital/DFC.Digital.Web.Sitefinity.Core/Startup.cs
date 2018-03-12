@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using DFC.Digital.Web.Core.Config;
+using DFC.Digital.Web.Core;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;

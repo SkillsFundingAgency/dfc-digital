@@ -2,7 +2,7 @@
 using System;
 using System.Web.Mvc;
 
-namespace DFC.Digital.Web.Core.Base
+namespace DFC.Digital.Web.Core
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Dfc", Justification = "Reviewed. Project name in correct spelling")]
     public class BaseDfcController : Controller

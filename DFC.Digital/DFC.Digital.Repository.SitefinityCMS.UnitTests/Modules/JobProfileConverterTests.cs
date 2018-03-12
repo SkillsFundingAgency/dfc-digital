@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Base;
+using DFC.Digital.Repository.SitefinityCMS;
 using FakeItEasy;
 using FluentAssertions;
 using Telerik.Sitefinity.DynamicModules.Model;

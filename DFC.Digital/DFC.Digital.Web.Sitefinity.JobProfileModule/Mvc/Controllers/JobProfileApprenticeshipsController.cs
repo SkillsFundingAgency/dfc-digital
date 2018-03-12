@@ -1,8 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for Job Profile ApprenticeShips
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     /// <seealso cref="Web.Core.Base.BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileApprenticeships", Title = "JobProfile Apprenticeships", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileApprenticeshipsController : BaseJobProfileWidgetController

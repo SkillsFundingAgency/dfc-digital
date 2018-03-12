@@ -395,8 +395,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
-    <Compile Include="Interface\ISitefinityPage.cs" />
-    <Compile Include="Interface\ISitefinityCurrentContext.cs" />
+    <Compile Include="Interfaces\ISitefinityPage.cs" />
+    <Compile Include="Interfaces\ISitefinityCurrentContext.cs" />
     <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

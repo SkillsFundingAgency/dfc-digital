@@ -16,10 +16,10 @@ namespace DFC.Digital.Web.Core.Base
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            var ex = filterContext.Exception;
+            var ex = filterContext?.Exception;
 
             //Logging the Exception
-            Log.Error($"Controller '{Convert.ToString(filterContext.RouteData.Values["controller"])}' Action : '{Convert.ToString(filterContext.RouteData.Values["action"])}' - failed with exception.", ex);
+            Log.Error($"Controller '{Convert.ToString(filterContext?.RouteData.Values["controller"])}' Action : '{Convert.ToString(filterContext?.RouteData.Values["action"])}' - failed with exception.", ex);
         }
     }
 }

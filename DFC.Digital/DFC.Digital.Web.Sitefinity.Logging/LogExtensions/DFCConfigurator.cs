@@ -7,7 +7,7 @@ namespace DFC.Digital.Web.Sitefinity.Logging
     {
         public void Configure(SitefinityLogCategory category)
         {
-            category.Configuration
+            category?.Configuration
                     .WithOptions
                     .SendTo
                     .Custom<DfcLogListener>("Custom");

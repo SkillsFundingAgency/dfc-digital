@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -285,9 +286,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             return new JobProfileSearchResultViewModel
             {
                 PageNumber = pageNumber,
-                NextPageUrl = nextUrl,
+                NextPageUrl = new Uri(nextUrl),
                 NextPageUrlText = nextUrlText,
-                PreviousPageUrl = previousUrl,
+                PreviousPageUrl = new Uri(previousUrl),
                 PreviousPageUrlText = previousUrlText,
                 Count = count,
                 TotalPages = totalPages,
@@ -401,7 +402,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 HeaderText = headerText,
                 TotalResultsMessage = totalResultsMessage,
                 SearchTerm = searchTerm,
-                JobProfileUrl = jobProfileUrl,
+                JobProfileUrl = new Uri(jobProfileUrl),
                 AutoCompleteMinimumCharacters = autoCompleteMinimumCharacters
             };
         }

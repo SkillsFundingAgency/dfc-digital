@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The next page URL.
         /// </value>
-        public string NextPageUrl { get; set; }
+        public Uri NextPageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the next page URL text.
@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The previous page URL.
         /// </value>
-        public string PreviousPageUrl { get; set; }
+        public Uri PreviousPageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the previous page URL text.

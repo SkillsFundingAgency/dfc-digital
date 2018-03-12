@@ -7,6 +7,7 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -185,11 +186,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
                 if (expectedViewModel.TotalPages > 1)
                 {
                     expectedViewModel.PageNumber = currentPage;
-                    expectedViewModel.NextPageUrl = $"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage + 1}";
+                    expectedViewModel.NextPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage + 1}");
                     expectedViewModel.NextPageUrlText = $"{currentPage + 1} of {expectedViewModel.TotalPages}";
                     if (currentPage > 1)
                     {
-                        expectedViewModel.PreviousPageUrl = $"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage - 1}";
+                        expectedViewModel.PreviousPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage - 1}");
                         expectedViewModel.PreviousPageUrlText = $"{currentPage - 1} of {expectedViewModel.TotalPages}";
                     }
                 }

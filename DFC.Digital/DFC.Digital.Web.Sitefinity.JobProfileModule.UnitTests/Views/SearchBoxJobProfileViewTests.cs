@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             var model = new JobProfileSearchBoxViewModel
             {
                 HeaderText = headerText,
-                JobProfileUrl = jobProfileUrl,
+                JobProfileUrl = new Uri(jobProfileUrl),
                 PlaceholderText = placeholderText
             };
 

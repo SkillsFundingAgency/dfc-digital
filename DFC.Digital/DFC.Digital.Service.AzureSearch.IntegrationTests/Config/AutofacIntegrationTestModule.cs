@@ -1,11 +1,11 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Extras.NLog;
 using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Configuration;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
-using System;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Sitefinity.JobProfileModule;
 
 namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
 {

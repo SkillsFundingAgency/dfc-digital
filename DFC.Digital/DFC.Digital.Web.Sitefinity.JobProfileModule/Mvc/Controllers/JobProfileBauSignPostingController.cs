@@ -10,11 +10,11 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "JobProfileBauSignPosting", Title = "Job Profile Bau JP SignPosting", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileBauSignPostingController : BaseJobProfileWidgetController
+    public class JobProfileBAUSignpostingController : BaseJobProfileWidgetController
     {
         #region Constructors
 
-        public JobProfileBauSignPostingController(IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
+        public JobProfileBAUSignpostingController(IWebAppContext webAppContext, IJobProfileRepository jobProfileRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
         }
@@ -24,10 +24,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Matching Job Profile exists in BAU text")]
-        public string MatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        public string MatchingJobProfileInBAUText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/REPLACEWITHJPURL\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
         [DisplayName("Matching Job Profile does not exists in BAU text")]
-        public string NoMatchingJpinBauText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
+        public string NoMatchingJobProfileInBAUText { get; set; } = "<a class='signpost signpost_jp' href =\"https://nationalcareersservice.direct.gov.uk/job-profiles/home\"><p class='signpost_arrow'><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
 
         #endregion Public Properties
 
@@ -47,13 +47,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return BaseIndex(urlname);
+            return BaseIndex(urlName);
         }
 
         protected override ActionResult GetDefaultView()
@@ -66,12 +66,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return View("Index", PopulateSignPosting());
         }
 
-        private BauJpSignPostViewModel PopulateSignPosting()
+        private BAUJobProfileSignpostViewModel PopulateSignPosting()
         {
-            var jpexists = MatchingJpinBauText.Replace("REPLACEWITHJPURL", string.IsNullOrWhiteSpace(CurrentJobProfile.BAUSystemOverrideUrl) ? CurrentJobProfile.UrlName : CurrentJobProfile.BAUSystemOverrideUrl);
-            return new BauJpSignPostViewModel
+            var jpexists = MatchingJobProfileInBAUText.Replace("REPLACEWITHJPURL", string.IsNullOrWhiteSpace(CurrentJobProfile.BAUSystemOverrideUrl) ? CurrentJobProfile.UrlName : CurrentJobProfile.BAUSystemOverrideUrl);
+            return new BAUJobProfileSignpostViewModel
             {
-                SignPostingHtml = CurrentJobProfile.DoesNotExistInBAU == true ? NoMatchingJpinBauText : jpexists
+                SignpostingHtml = CurrentJobProfile.DoesNotExistInBAU == true ? NoMatchingJobProfileInBAUText : jpexists
             };
         }
 

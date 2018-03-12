@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            using (var jobprofileController = new JobProfileBAUSignpostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
                 var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
@@ -43,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 if (isContentAuthoring)
                 {
                     indexNameMethodCall.ShouldRenderDefaultView()
-                        .WithModel<BauJpSignPostViewModel>(vm =>
+                        .WithModel<BAUJobProfileSignpostViewModel>(vm =>
                         {
-                            vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                            vm.SignpostingHtml.Should().Contain(expectedJpurl);
                         }).AndNoModelErrors();
                 }
                 else
@@ -70,16 +70,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            using (var jobprofileController = new JobProfileBAUSignpostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
 
                 //Assert
                 indexWithUrlNameMethodCall.ShouldRenderDefaultView()
-                    .WithModel<BauJpSignPostViewModel>(vm =>
+                    .WithModel<BAUJobProfileSignpostViewModel>(vm =>
                     {
-                        vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                        vm.SignpostingHtml.Should().Contain(expectedJpurl);
                     }).AndNoModelErrors();
             }
         }

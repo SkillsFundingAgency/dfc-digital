@@ -343,7 +343,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
     <Content Include="Mvc\Controllers\readme.txt" />
     <Content Include="Mvc\Models\readme.txt" />
     <Content Include="Mvc\Views\PreSearchFilters\Index.cshtml" />
@@ -355,13 +357,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Config\JobProfileAutofacModule.cs" />
     <Compile Include="Config\JobProfilesAutoMapperProfile.cs" />
     <Compile Include="Config\JobProfileSearchIndexConfig.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\BaseJobProfileWidgetController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileCourseOpportunityController.cs" />
@@ -371,10 +369,10 @@
     <Compile Include="Mvc\Controllers\JobProfileRelatedCareersController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileSectionController.cs" />
     <Compile Include="Mvc\Controllers\PreSearchFiltersController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileBauSignPostingController.cs" />
+    <Compile Include="Mvc\Controllers\JobProfileBAUSignpostingController.cs" />
     <Compile Include="Mvc\Controllers\PsfSearchController.cs" />
     <Compile Include="Mvc\Models\AnchorLink.cs" />
-    <Compile Include="Mvc\Models\BauJpSignPostViewModel.cs" />
+    <Compile Include="Mvc\Models\BAUJobProfileSignpostViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileAnchorLinksViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileByCategoryViewModel.cs" />
     <Compile Include="Mvc\Controllers\JobProfilesByCategoryController.cs" />
@@ -420,7 +418,7 @@
     <Content Include="OpenAccessNuGet.targets" />
     <Content Include="Mvc\Views\JobProfileCourseOpportunity\Index.cshtml" />
     <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
-    <Content Include="Mvc\Views\JobProfileBauSignPosting\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

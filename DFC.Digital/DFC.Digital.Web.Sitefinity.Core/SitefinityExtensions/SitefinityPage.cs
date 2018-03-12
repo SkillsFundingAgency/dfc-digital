@@ -13,13 +13,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class SitefinityPage : ISitefinityPage
     {
-        private readonly IApplicationLogger logger;
-
-        public SitefinityPage(IWebAppContext context, ISitefinityCurrentContext sitefinityContext, IApplicationLogger logger)
+        public SitefinityPage(IWebAppContext context, ISitefinityCurrentContext sitefinityContext)
         {
             this.Context = context;
             this.SitefinityContext = sitefinityContext;
-            this.logger = logger;
         }
 
         public IWebAppContext Context { get; }
@@ -105,8 +102,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget)
         {
-            var titleMember = sectionFilter.TitleMember;
-            var contentFieldMember = sectionFilter.ContentFieldMember;
+            var titleMember = sectionFilter?.TitleMember;
+            var contentFieldMember = sectionFilter?.ContentFieldMember;
             Dictionary<string, object> settings = widget.Value.Settings.Values;
             return new JobProfileSection
             {

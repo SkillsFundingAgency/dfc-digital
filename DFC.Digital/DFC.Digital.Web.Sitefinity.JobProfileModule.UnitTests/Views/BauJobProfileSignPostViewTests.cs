@@ -17,10 +17,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         public void DFC_2223_A1_BauJpSignPostIndex(string contentdata)
         {
             // Arrange
-            var indexView = new _MVC_Views_JobProfileBauSignPosting_Index_cshtml();
-            var signPostDummyVm = new BauJpSignPostViewModel
+            var indexView = new _MVC_Views_JobProfileBAUSignposting_Index_cshtml();
+            var signPostDummyVm = new BAUJobProfileSignpostViewModel
             {
-                SignPostingHtml = contentdata
+                SignpostingHtml = contentdata
             };
 
             // Act

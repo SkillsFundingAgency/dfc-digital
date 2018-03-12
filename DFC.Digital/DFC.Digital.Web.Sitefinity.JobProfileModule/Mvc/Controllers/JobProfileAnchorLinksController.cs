@@ -54,11 +54,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         /// <summary>
-        /// The job sections
-        /// </summary>
-        private readonly IEnumerable<string> sections = new List<string> { "Job Profile Section", };
-
-        /// <summary>
         /// The web application context
         /// </summary>
         private readonly IWebAppContext webAppContext;
@@ -111,13 +106,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            var unused = urlname;
+            var unused = urlName;
             return GetJobProfileAnchorLinks();
         }
 

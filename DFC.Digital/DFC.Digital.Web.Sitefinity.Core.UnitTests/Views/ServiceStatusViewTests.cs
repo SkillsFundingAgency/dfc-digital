@@ -7,6 +7,7 @@ using HtmlAgilityPack;
 using RazorGenerator.Testing;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xunit;
 
@@ -78,9 +79,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             return new ServiceStatusModel() { CheckDateTime = DateTime.Now, ServiceStatues = GetDummyStatuses() };
         }
 
-        private List<ServiceStatus> GetDummyStatuses()
+        private Collection<ServiceStatus> GetDummyStatuses()
         {
-            var serviceStates = new List<ServiceStatus>
+            var serviceStates = new Collection<ServiceStatus>
             {
                 new ServiceStatus() { Name = "Dummy Service Green", Status = ServiceState.Green, Notes = string.Empty, CheckParametersUsed = "P1=Green Parameter" },
                 new ServiceStatus() { Name = "Dummy Service Amber", Status = ServiceState.Amber, Notes = "Nearly Bad Service", CheckParametersUsed = "P1=Amber Parameter" },

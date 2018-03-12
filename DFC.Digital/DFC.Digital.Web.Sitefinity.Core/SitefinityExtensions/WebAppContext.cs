@@ -41,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public NameValueCollection RequestQueryString => HttpContext.Current.Request.QueryString;
 
-        public bool IsValidAndFormattedUrl(string urlTobeValidated) => Uri.IsWellFormedUriString($"{urlTobeValidated}", UriKind.RelativeOrAbsolute);
+        public bool IsValidAndFormattedUrl(string urlToBeValidated) => Uri.IsWellFormedUriString($"{urlToBeValidated}", UriKind.RelativeOrAbsolute);
 
         public VocSurveyPersonalisation GetVocCookie(string cookieName)
         {

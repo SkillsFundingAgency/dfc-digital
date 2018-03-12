@@ -22,16 +22,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         /// <summary>
-        /// The job profile repository
-        /// </summary>
-        private readonly IJobProfileRepository jobProfileRepository;
-
-        /// <summary>
-        /// The web application context
-        /// </summary>
-        private readonly IWebAppContext webAppContext;
-
-        /// <summary>
         /// The job profile soc code repository
         /// </summary>
         private readonly IJobProfileSocCodeRepository jobProfileSocCodeRepository;
@@ -51,8 +41,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public JobProfileApprenticeshipsController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
-            this.jobProfileRepository = jobProfileRepository;
-            this.webAppContext = webAppContext;
             this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
         }
 
@@ -134,13 +122,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return BaseIndex(urlname);
+            return BaseIndex(urlName);
         }
 
         protected override ActionResult GetDefaultView()

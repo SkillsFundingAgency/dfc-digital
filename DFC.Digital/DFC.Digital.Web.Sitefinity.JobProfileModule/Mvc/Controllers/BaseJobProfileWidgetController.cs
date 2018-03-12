@@ -66,11 +66,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
-        public ActionResult BaseIndex(string urlname)
+        public ActionResult BaseIndex(string urlName)
         {
-            CurrentJobProfileUrl = urlname;
+            CurrentJobProfileUrl = urlName;
             if (CurrentJobProfile == null)
             {
                 return HttpNotFound();

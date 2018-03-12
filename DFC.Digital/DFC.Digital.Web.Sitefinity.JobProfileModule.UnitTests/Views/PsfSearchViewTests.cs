@@ -38,7 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             backText.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
             backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl);
 
-            if (psfSearchResultsViewModel.HasNexPage)
+            if (psfSearchResultsViewModel.HasNextPage)
             {
                 GetPaginationNextVisible(htmlDom).Should().BeTrue();
                 GetNavigationUrl(htmlDom, true, "dfc-code-search-next next").Should().BeEquivalentTo(psfSearchResultsViewModel.NextPageUrlText);

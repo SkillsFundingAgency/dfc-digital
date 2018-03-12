@@ -53,7 +53,7 @@ namespace DFC.Digital.Core
             return policy.Execute(action);
         }
 
-        public Task<T> ExecuteAsync<T>(Func<Task<T>> action, string dependencyName, FaultToleranceType toleranceType)
+        public async Task<T> ExecuteAsync<T>(Func<Task<T>> action, string dependencyName, FaultToleranceType toleranceType)
         {
             Policy policy;
 
@@ -81,34 +81,35 @@ namespace DFC.Digital.Core
                     break;
             }
 
-            return policy.ExecuteAsync(action);
+            return await policy.ExecuteAsync(action);
         }
 
-        public Task<T> ExecuteAsync<T>(Func<Task<T>> action, Func<T, bool> predicate, string dependencyName, FaultToleranceType toleranceType)
+        public async Task<T> ExecuteAsync<T>(Func<Task<T>> action, Func<T, bool> predicate, string dependencyName, FaultToleranceType toleranceType)
         {
             Policy<T> policy;
-
+            var key = $"{dependencyName}-predicate";
             switch (toleranceType)
             {
                 case FaultToleranceType.WaitRetry:
-                    policy = (Policy<T>)policies.GetOrAdd($"{dependencyName}-predicate", GetWaitAndRetryPolicyAsync(dependencyName, predicate));
+                    policy = (Policy<T>)policies.GetOrAdd(key, GetWaitAndRetryPolicyAsync(dependencyName, predicate));
                     break;
-
-                case FaultToleranceType.Retry:
                 case FaultToleranceType.RetryWithCircuitBreaker:
+                    policy = (Policy<T>)policies.GetOrAdd(key, GetRetryWithCircuitBreakerAsync(dependencyName, predicate));
+                    break;
+                case FaultToleranceType.Retry:
                 case FaultToleranceType.CircuitBreaker:
                 case FaultToleranceType.Timeout:
                 default:
-                    return ExecuteAsync(action, dependencyName, toleranceType);
+                    return await ExecuteAsync(action, dependencyName, toleranceType);
             }
 
-            return policy.ExecuteAsync(action);
+            return await policy.ExecuteAsync(action);
         }
 
         private Policy GetWaitAndRetryPolicyAsync(string dependencyName)
         {
             return Policy
-                .Handle<Exception>()
+                .Handle<Exception>(e => !(e is BrokenCircuitException)) // Exception filtering!  We don't retry if the inner circuit-breaker judges the underlying system is out of commission!
                 .WaitAndRetryAsync(
                     strategy.Retry,
                     wait => strategy.Wait,
@@ -118,7 +119,7 @@ namespace DFC.Digital.Core
         private Policy GetWaitAndRetryPolicy(string dependencyName)
         {
             return Policy
-                .Handle<Exception>()
+                .Handle<Exception>(e => !(e is BrokenCircuitException)) // Exception filtering!  We don't retry if the inner circuit-breaker judges the underlying system is out of commission!
                 .WaitAndRetry(
                     strategy.Retry,
                     wait => strategy.Wait,
@@ -176,28 +177,33 @@ namespace DFC.Digital.Core
                     onHalfOpen: () => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Half-open: Next call is a trial!"));
         }
 
+        private Policy<T> GetCircuitBreakerAsync<T>(string dependency, Func<T, bool> predicate)
+        {
+            var circuitBreaker = GetCircuitBreakerAsync(dependency);
+            return circuitBreaker.WrapAsync(
+                Policy<T>
+                    .HandleResult(predicate)
+                    .CircuitBreakerAsync(
+                        handledEventsAllowedBeforeBreaking: strategy.AllowedFaults,
+                        durationOfBreak: strategy.Breaktime,
+                        onBreak: (result, breakDelay) => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: Broken : {dependency}: Breaking the circuit for {breakDelay}, failure-{result.ToJson()}"),
+                        onReset: () => logger.Info($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Call succeeded. Closed the circuit again!"),
+                        onHalfOpen: () => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Half-open: Next call is a trial!")));
+        }
+
         private PolicyWrap GetRetryWithCircuitBreaker(string dependency)
         {
-            var waitAndRetryPolicy = Policy
-                .Handle<Exception>(e => !(e is BrokenCircuitException)) // Exception filtering!  We don't retry if the inner circuit-breaker judges the underlying system is out of commission!
-                .WaitAndRetry(
-                    strategy.Retry,
-                    wait => strategy.Wait,
-                    (ex, wait, attempt, ctx) => logger.Warn($"{nameof(TolerancePolicy)}:Wait and Retry: {dependency}: Attempt-{attempt}, Waiting for-{wait}, failure-{ex.Message}"));
-
-            return Policy.Wrap(GetCircuitBreaker(dependency), waitAndRetryPolicy);
+            return Policy.Wrap(GetCircuitBreaker(dependency), GetWaitAndRetryPolicy(dependency));
         }
 
         private PolicyWrap GetRetryWithCircuitBreakerAsync(string dependency)
         {
-            var waitAndRetryPolicy = Policy
-                .Handle<Exception>(e => !(e is BrokenCircuitException)) // Exception filtering!  We don't retry if the inner circuit-breaker judges the underlying system is out of commission!
-                .WaitAndRetryAsync(
-                    strategy.Retry,
-                    wait => strategy.Wait,
-                    (ex, wait, attempt, ctx) => logger.Warn($"{nameof(TolerancePolicy)}:Wait and Retry: {dependency}: Attempt-{attempt}, Waiting for-{wait}, failure-{ex.Message}"));
+            return Policy.WrapAsync(GetCircuitBreakerAsync(dependency), GetWaitAndRetryPolicyAsync(dependency));
+        }
 
-            return Policy.WrapAsync(GetCircuitBreakerAsync(dependency), waitAndRetryPolicy);
+        private Policy<T> GetRetryWithCircuitBreakerAsync<T>(string dependency, Func<T, bool> predicate)
+        {
+            return Policy.WrapAsync(GetCircuitBreakerAsync(dependency, predicate), GetWaitAndRetryPolicyAsync(dependency, predicate));
         }
     }
 }

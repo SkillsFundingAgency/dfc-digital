@@ -34,7 +34,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
 
             //Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, policy);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, policy, fakeLogger);
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert
@@ -51,7 +51,9 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var fakeDocuments = A.Fake<IDocumentsOperations>();
             var fakeIndexClient = A.Fake<ISearchIndexClient>();
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();
+            var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var suggestParameters = new SuggestParameters { UseFuzzyMatching = true, Top = null };
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
             var azResponse = new AzureOperationResponse<DocumentSuggestResult<JobProfileIndex>>
             {
                 Body = new DocumentSuggestResult<JobProfileIndex>
@@ -79,7 +81,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocuments);
 
             // Act
-            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakePolicy);
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, policy, fakeLogger);
             searchService.GetSuggestion("searchTerm", new SuggestProperties { MaxResultCount = 20, UseFuzzyMatching = true });
 
             A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).MustHaveHappened();

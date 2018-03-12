@@ -110,6 +110,7 @@ main {
     }
 }
 
+
 /* --- Individual Section / Page Styling --- */
 
 /*Default SCSS - Sets Default Styling For Elements */
@@ -141,3 +142,6 @@ main {
 
 /*Case Study */
 @import 'includes/_casestudy.scss';
+
+/*Service Status*/
+@import 'includes/_servicestatus.scss';

@@ -9,7 +9,12 @@ using Xunit;
 namespace DFC.Digital.Service.LMIFeed.UnitTests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+    using DFC.Digital.Data.Model;
     using Model;
+    using Newtonsoft.Json;
 
     public class SalaryServiceTests: HelperJobProfileData
     {
@@ -58,5 +63,73 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             response.Result.Should().Be(null);
 
         }
+
+        [Theory]
+        [InlineData (true,true, ServiceState.Green)]
+        [InlineData(true, false, ServiceState.Amber)]
+        public async Task GetServiceStatusAsync(bool returnValidHttpStatusCode, bool returnValidJobProfileSalary, ServiceState expectedServiceStatus)
+        {
+            //Arrange
+            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
+
+            JobProfileSalary dummyJobProfileSalary = null;
+            if (returnValidJobProfileSalary)
+            {
+                dummyJobProfileSalary = new JobProfileSalary() { Median = 580, Deciles = new Dictionary<int, decimal>() { { 10, 540 } } };
+            }
+
+            HttpStatusCode returnHttpStatusCode;
+            if (returnValidHttpStatusCode)
+            {
+                returnHttpStatusCode = HttpStatusCode.OK;
+            }
+            else
+            {
+                returnHttpStatusCode = HttpStatusCode.BadRequest;
+            }
+
+            var httpResponseMessage = new HttpResponseMessage { StatusCode = returnHttpStatusCode, Content = new StringContent(JsonConvert.SerializeObject(dummyJobProfileSalary), Encoding.UTF8, "application/json") };
+
+            A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+
+            //Act
+            IServiceStatus lmiFeed = new SalaryService(applicationLogger, clientProxy);
+            var serviceStatus = await lmiFeed.GetCurrentStatusAsync();
+
+            //Assert
+            A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
+
+            serviceStatus.Status.Should().Be(expectedServiceStatus);
+
+        }
+
+        [Fact]
+        public async Task GetServiceStatusExceptionAsync()
+        {
+            //Arrange
+            var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var clientProxy = A.Fake<IAsheHttpClientProxy>(ops => ops.Strict());
+
+            //add no content to cause an exception
+            var httpResponseMessage = new HttpResponseMessage {};
+
+            A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
+
+            //Act
+            IServiceStatus lmiFeed = new SalaryService(applicationLogger, clientProxy);
+            var serviceStatus = await lmiFeed.GetCurrentStatusAsync();
+
+            A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
+
+            serviceStatus.Status.Should().NotBe(ServiceState.Green);
+            serviceStatus.Notes.Should().Contain("Exception");
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
+        }
+
     }
 }

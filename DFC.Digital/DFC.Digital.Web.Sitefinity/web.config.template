@@ -83,6 +83,13 @@ that is bundled with the nuget package under the tools folder.
       </httpErrors>
     </system.webServer>
   </location>
+  <location path="health/servicestatus">
+    <system.webServer>
+      <httpErrors errorMode="Custom" existingResponse="PassThrough">
+        <remove statusCode="502" />
+      </httpErrors>
+    </system.webServer>
+  </location>
   <location path="Sitefinity/CMIS/RestAtom">
     <system.web>
       <httpRuntime maxRequestLength="6048000" executionTimeout="7200" maxUrlLength="102400" maxQueryStringLength="102400" requestValidationType="Telerik.Sitefinity.Security.Claims.CustomRequestValidator, Telerik.Sitefinity" />
@@ -148,7 +155,7 @@ that is bundled with the nuget package under the tools folder.
       </system.Web>
   -->
   <system.web>
-    <httpRuntime maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
+    <httpRuntime targetFramework="4.6.2" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
     <siteMap defaultProvider="SitefinitySiteMap">
       <providers>
         <add name="SitefinitySiteMap" type="Telerik.Sitefinity.Web.SitefinitySiteMap, Telerik.Sitefinity" />
@@ -440,8 +447,8 @@ that is bundled with the nuget package under the tools folder.
       <target type="Trace" name="trace" layout="${longdate}|${level:uppercase=true}|${logger}|${threadid}|${aspnet-item:variable=dfc-controller}|${message}|${exception:format=tostring}" />
     </targets>
     <rules>
-      <logger name="*" minlevel="Trace" writeTo="aiTarget" />
-      <logger name="*" minlevel="Trace" writeTo="trace" />
+      <logger name="*" minlevel="Info" writeTo="aiTarget" />
+      <logger name="*" minlevel="Info" writeTo="trace" />
     </rules>
   </nlog>
   <!-- Upgrade of NewtonsoftJson.dll to version 6.0.2. The Web API/MVC 4 has been built with version 4.5

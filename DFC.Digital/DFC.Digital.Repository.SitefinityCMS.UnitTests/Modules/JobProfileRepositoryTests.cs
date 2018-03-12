@@ -9,6 +9,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         //[Fact()]
         //Cannot Unit test as unable to fake the var dynamicContent = Get(item => item.UrlName == urlName);
         //call in the GetByUrlName method call.
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Will be used when we implement tests for Sitefinity repositires")]
         private void GetByUrlNameTest()
         {
             var fakeJobProfileConverter = A.Fake<JobProfileConverter>();

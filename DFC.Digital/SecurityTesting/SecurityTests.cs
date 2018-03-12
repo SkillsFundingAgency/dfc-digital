@@ -19,6 +19,7 @@ namespace SecurityTesting
         private static ClientApi zapClient;
         private IApiResponse response;
 
+
         public SecurityTests()
         {
             zapClient = new ClientApi(ZapUrl, Convert.ToInt32(ZapPort), ZapApiKey);

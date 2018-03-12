@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var model = new JobProfileSearchBoxViewModel
             {
                 HeaderText = headerText,
-                JobProfileUrl = new Uri(jobProfileUrl),
+                JobProfileUrl = new Uri(jobProfileUrl, UriKind.RelativeOrAbsolute),
                 PlaceholderText = placeholderText
             };
 
@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             var model = new JobProfileSearchResultViewModel
             {
-                DidYouMeanUrl = new Uri(validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty),
+                DidYouMeanUrl = new Uri(validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty, UriKind.RelativeOrAbsolute),
                 DidYouMeanTerm = validSpellcheckResult ? correctedSearchTerm : string.Empty,
                 SearchResults = new List<JobProfileSearchResultItemViewModel>()
             };

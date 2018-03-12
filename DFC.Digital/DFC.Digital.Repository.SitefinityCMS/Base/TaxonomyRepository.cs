@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Taxonomies.Web;
 
-namespace DFC.Digital.Repository.SitefinityCMS.Base
+namespace DFC.Digital.Repository.SitefinityCMS
 {
     public abstract class TaxonomyRepository : IRepository<Taxon>, IDisposable
     {

@@ -132,7 +132,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         {
                             vm.ApprenticeVacancies.Count().Should()
                                 .BeLessOrEqualTo(jobProfileApprenticeshipsController.MaxApprenticeshipCount);
-                            vm.ApprenticeVacancies.Should().AllBeEquivalentTo(dummyApprenticeships);
+                            vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                         });
                     A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
                 }
@@ -263,7 +263,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.ApprenticeVacancies.Should().AllBeEquivalentTo(dummyApprenticeships);
+                        vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                     })
                     .AndNoModelErrors();
                 A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();

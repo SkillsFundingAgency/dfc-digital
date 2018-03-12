@@ -285,9 +285,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             return new JobProfileSearchResultViewModel
             {
                 PageNumber = pageNumber,
-                NextPageUrl = new Uri(nextUrl),
+                NextPageUrl = new Uri(nextUrl ?? string.Empty, UriKind.RelativeOrAbsolute),
                 NextPageUrlText = nextUrlText,
-                PreviousPageUrl = new Uri(previousUrl),
+                PreviousPageUrl = new Uri(previousUrl ?? string.Empty, UriKind.RelativeOrAbsolute),
                 PreviousPageUrlText = previousUrlText,
                 Count = count,
                 TotalPages = totalPages,
@@ -401,7 +401,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 HeaderText = headerText,
                 TotalResultsMessage = totalResultsMessage,
                 SearchTerm = searchTerm,
-                JobProfileUrl = new Uri(jobProfileUrl),
+                JobProfileUrl = new Uri(jobProfileUrl, UriKind.RelativeOrAbsolute),
                 AutoCompleteMinimumCharacters = autoCompleteMinimumCharacters
             };
         }

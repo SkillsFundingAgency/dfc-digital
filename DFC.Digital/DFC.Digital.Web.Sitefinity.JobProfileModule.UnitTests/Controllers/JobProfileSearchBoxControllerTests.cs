@@ -186,11 +186,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 if (expectedViewModel.TotalPages > 1)
                 {
                     expectedViewModel.PageNumber = currentPage;
-                    expectedViewModel.NextPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage + 1}");
+                    expectedViewModel.NextPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage + 1}", UriKind.RelativeOrAbsolute);
                     expectedViewModel.NextPageUrlText = $"{currentPage + 1} of {expectedViewModel.TotalPages}";
                     if (currentPage > 1)
                     {
-                        expectedViewModel.PreviousPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage - 1}");
+                        expectedViewModel.PreviousPageUrl = new Uri($"{defaultSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={currentPage - 1}", UriKind.RelativeOrAbsolute);
                         expectedViewModel.PreviousPageUrlText = $"{currentPage - 1} of {expectedViewModel.TotalPages}";
                     }
                 }
@@ -288,7 +288,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 {
                     vm.PlaceholderText.Should().NotBeNullOrWhiteSpace();
                     vm.HeaderText.Should().BeEquivalentTo(searchController.HeaderText);
-                    vm.JobProfileUrl.Should().BeEquivalentTo(urlName);
+                    vm.JobProfileUrl.OriginalString.Should().BeEquivalentTo(urlName);
                 })
                 .AndNoModelErrors();
         }
@@ -639,7 +639,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .ShouldRenderView("SearchResult")
                     .WithModel<JobProfileSearchResultViewModel>(vm =>
                     {
-                        vm.DidYouMeanUrl.OriginalString.Should().BeNullOrEmpty();
+                        vm.DidYouMeanUrl?.OriginalString.Should().BeNullOrEmpty();
                         vm.DidYouMeanTerm.Should().BeNullOrEmpty();
                     });
                 A.CallTo(() => spellcheckerServiceFake.CheckSpellingAsync(A<string>._)).MustHaveHappened();

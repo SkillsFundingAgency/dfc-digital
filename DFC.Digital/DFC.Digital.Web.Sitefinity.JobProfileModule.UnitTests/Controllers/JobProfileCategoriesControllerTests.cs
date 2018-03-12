@@ -167,7 +167,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 .WithModel<RelatedJobProfileCategoriesViewModel>(vm =>
                 {
                     vm.IsContentAuthoring.Should().Be(webAppContextFake.IsContentAuthoringSite);
-                    vm.JobProfileCategories.Should().AllBeEquivalentTo(filterJpCategories);
+                    vm.JobProfileCategories.Should().BeEquivalentTo(filterJpCategories);
                 })
                 .AndNoModelErrors();
 

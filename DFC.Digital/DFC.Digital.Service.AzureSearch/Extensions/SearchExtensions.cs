@@ -1,10 +1,9 @@
 ﻿using DFC.Digital.Data.Model;
 using Microsoft.Azure.Search.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DFC.Digital.Service.AzureSearch.Extensions
+namespace DFC.Digital.Service.AzureSearch
 {
     public static class SearchExtensions
     {
@@ -32,7 +31,7 @@ namespace DFC.Digital.Service.AzureSearch.Extensions
                 return resultList;
             }
 
-            return null;
+            return Enumerable.Empty<SearchResultItem<T>>();
         }
 
         public static IEnumerable<SuggestionResultItem<T>> ToSuggestResultItems<T>(this DocumentSuggestResult<T> results)

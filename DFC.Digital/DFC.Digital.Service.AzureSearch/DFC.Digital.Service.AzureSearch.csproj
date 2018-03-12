@@ -86,6 +86,7 @@
     <Compile Include="DfcSearchQueryBuilder.cs" />
     <Compile Include="DfcSearchQueryService.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="PreSearchFilterStateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

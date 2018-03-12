@@ -19,11 +19,17 @@ namespace SecurityTesting
         private static ClientApi zapClient;
         private IApiResponse response;
 
-
         public SecurityTests()
         {
             zapClient = new ClientApi(ZapUrl, Convert.ToInt32(ZapPort), ZapApiKey);
             zapClient.core.excludeFromProxy("^(?:(?!" + TargetUrl + ").)+$");
+        }
+
+        private enum ReportFileExtention
+        {
+            Html,
+            Xml,
+            Md
         }
 
         [Fact, Priority(1)]
@@ -42,7 +48,7 @@ namespace SecurityTesting
             SaveSession(reportFilename);
             zapClient.Dispose();
 
-            GenerateHtmlReport(reportFilename);
+            GenerateReport(reportFilename, ReportFileExtention.Html);
         }
 
         private static void CheckActiveScanProgress(string activeScanId)
@@ -62,22 +68,10 @@ namespace SecurityTesting
             Thread.Sleep(5000);
         }
 
-        private static void GenerateXmlReport(string filename)
+        private static void GenerateReport(string filename, ReportFileExtention fileExtention)
         {
-            var fileName = $@"{ReportPath}\{filename}.xml";
+            var fileName = $@"{ReportPath}\{filename}.{fileExtention.ToString().ToLower()}";
             File.WriteAllBytes(fileName, zapClient.core.xmlreport());
-        }
-
-        private static void GenerateHtmlReport(string filename)
-        {
-            var fileName = $@"{ReportPath}\{filename}.html";
-            File.WriteAllBytes(fileName, zapClient.core.htmlreport());
-        }
-
-        private static void GenerateMarkdownReport(string filename)
-        {
-            var fileName = $@"{ReportPath}\{filename}.md";
-            File.WriteAllBytes(fileName, zapClient.core.mdreport());
         }
 
         private static void SaveSession(string reportFilename)

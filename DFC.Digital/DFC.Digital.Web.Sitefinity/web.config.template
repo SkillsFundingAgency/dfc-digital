@@ -155,7 +155,7 @@ that is bundled with the nuget package under the tools folder.
       </system.Web>
   -->
   <system.web>
-    <httpRuntime maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
+    <httpRuntime targetFramework="4.6.2" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
     <siteMap defaultProvider="SitefinitySiteMap">
       <providers>
         <add name="SitefinitySiteMap" type="Telerik.Sitefinity.Web.SitefinitySiteMap, Telerik.Sitefinity" />

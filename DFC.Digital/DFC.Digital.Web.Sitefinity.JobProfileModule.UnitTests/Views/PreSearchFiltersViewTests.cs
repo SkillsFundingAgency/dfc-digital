@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class PreSearchFiltersViewTests
     {
         //Related Careers links are correctly displayed with a section header and links.
         [Fact]
-        public void DFC_1786_PreSearchFilterButtonsAndLinkTest()
+        public void DFC1786ForPreSearchFilterButtonsAndLinkTest()
         {
             var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
             var testDataModel = GeneratePreSEarchFiltersViewModel(false);
@@ -36,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void DFC_1786_PreSearchFilterTextAndControllsDisplayed(bool singleSelectSection)
+        public void DFC1786ForPreSearchFilterTextAndControllsDisplayed(bool singleSelectSection)
         {
             var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
             var testDataModel = GeneratePreSEarchFiltersViewModel(singleSelectSection);

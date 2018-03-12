@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileRelatedCareersViewTest
     {
         [Fact]
 
         //Related Careers links are correctly displayed with a section header and links.
-        public void DFC_1335_RelatedCareersOnJobProfilesTest()
+        public void DFC1335ForRelatedCareersOnJobProfilesTest()
         {
             var index = new _MVC_Views_JobProfileRelatedCareers_Index_cshtml();
             var jobProfileApprenticeViewModel = GenerateRelatedCareersViewModel();

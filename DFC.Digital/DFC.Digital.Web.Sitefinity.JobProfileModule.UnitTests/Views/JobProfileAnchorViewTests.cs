@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Anchor view tests
@@ -22,7 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void DFC_800_A1_JobProfileAnchorLinks(bool validLinks)
+        public void DFC800A1JobProfileAnchorLinks(bool validLinks)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileAnchorLinks_Index_cshtml();

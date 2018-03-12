@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class PreSearchFiltersControllerTests
     {
@@ -19,7 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
         private IPreSearchFiltersFactory psfRepositoryFactoryFake;
         private IApplicationLogger loggerFake;
-        private IWebAppContext webAppContextFake;
         private IPreSearchFiltersRepository<PsfInterest> psfFakeIntrestRepository;
         private IPreSearchFiltersRepository<PsfEnabler> psfFakeEnablerRepository;
         private IPreSearchFiltersRepository<PsfEntryQualification> psfFakeQalificationsRepository;
@@ -272,7 +271,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         {
             psfRepositoryFactoryFake = A.Fake<IPreSearchFiltersFactory>(ops => ops.Strict());
             loggerFake = A.Fake<IApplicationLogger>();
-            webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            A.Fake<IWebAppContext>(ops => ops.Strict());
 
             psfFakeIntrestRepository = A.Fake<IPreSearchFiltersRepository<PsfInterest>>(ops => ops.Strict());
             psfFakeEnablerRepository = A.Fake<IPreSearchFiltersRepository<PsfEnabler>>(ops => ops.Strict());

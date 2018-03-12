@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Categories view tests
@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
 
         //This also covers DFC_274 A1 as it is to see whether Job Categories are displayed
         //As a citizen, I was to see a list of Job Categories when I am on the Job Category page
-        public void DFC_302_A1_JobProfileCategories(bool isContentAuthoring, bool categoriesSetup, string urlName, string otherCategoryTitle)
+        public void DFC302PartA1ForJobProfileCategories(bool isContentAuthoring, bool categoriesSetup, string urlName, string otherCategoryTitle)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileCategories_RelatedJobCategories_cshtml();

@@ -9,14 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfilesByJobCategoryViewTests
     {
         [Fact]
 
         //As a Citizen, I want to be able to view the job profiles on the job category page
-        public void DFC_275_A1_A2_A3_A4_JobProfilesByCategory()
+        public void DFC275ScenarioA1AndA2AndA3AndA4ForJobProfilesByCategory()
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfilesByCategory_Index_cshtml();
@@ -47,13 +47,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             List<JobProfile> displayedJobProfiles = new List<JobProfile>();
             foreach (HtmlNode n in htmlDom.DocumentNode.SelectNodes("//li"))
             {
-                JobProfile p = new JobProfile();
-                p.Title = n.Descendants("a").FirstOrDefault().InnerText;
+                JobProfile p = new JobProfile
+                {
+                    Title = n.Descendants("a").FirstOrDefault().InnerText,
+                    AlternativeTitle = n.Descendants("h3").FirstOrDefault()?.InnerText,
+                    Overview = n.Descendants("p").FirstOrDefault().InnerText
+                };
 
-                //h3 should not exist if there was no alternative title, so should get null
-                p.AlternativeTitle = n.Descendants("h3").FirstOrDefault()?.InnerText;
-
-                p.Overview = n.Descendants("p").FirstOrDefault().InnerText;
                 displayedJobProfiles.Add(p);
             }
 

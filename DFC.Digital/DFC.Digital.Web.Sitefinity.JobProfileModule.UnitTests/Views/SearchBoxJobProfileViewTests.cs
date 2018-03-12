@@ -10,7 +10,7 @@ using System.Linq;
 using System.Web;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class SearchBoxJobProfileViewTests
     {
@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
 
         //As a Citizen, I want to be able to search from JP
         [Fact]
-        public void DFC_1330_SearchBoxonJobProfilePage()
+        public void DFC1330ForSearchBoxonJobProfilePage()
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileSearchBox_JobProfile_cshtml();
@@ -45,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [Theory]
         [InlineData("test", true)]
         [InlineData("test", false)]
-        public void DFC_1494_SearchResultsDidYouMeanTerm(string correctedSearchTerm, bool validSpellcheckResult)
+        public void DFC1494ForSearchResultsDidYouMeanTerm(string correctedSearchTerm, bool validSpellcheckResult)
         {
             // Arrange
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();

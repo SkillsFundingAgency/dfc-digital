@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileCourseOpportunityViewTests
     {
@@ -19,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [InlineData(1)]
         [InlineData(4)]
         [InlineData(0)]
-        public void DFC_1508_TrainingCourseFieldsCorrectTest(int coursesCount)
+        public void DFC1508ForTrainingCourseFieldsCorrectTest(int coursesCount)
         {
             //Arrange
             var index = new _MVC_Views_JobProfileCourseOpportunity_Index_cshtml();

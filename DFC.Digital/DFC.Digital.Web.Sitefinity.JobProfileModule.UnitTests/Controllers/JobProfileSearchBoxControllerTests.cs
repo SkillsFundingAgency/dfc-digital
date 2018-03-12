@@ -16,7 +16,7 @@ using System.Web;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Search Box Controller tests
@@ -27,7 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 20)]
         [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 1)]
         [InlineData("Test & Core", JobProfileSearchBoxController.PageMode.SearchResults, 5, 2)]
-        public void IndexTest_Automapper_And_TotalMessage(string searchTerm, JobProfileSearchBoxController.PageMode mode, int resultsCount, int page = 1)
+        public void IndexTestAutomapperAndTotalMessage(string searchTerm, JobProfileSearchBoxController.PageMode mode, int resultsCount, int page = 1)
         {
             //Setup Fakes & dummies
             var queryServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -427,7 +427,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
-            var session = A.Fake<HttpSessionStateBase>();
             var mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
@@ -530,7 +529,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             };
 
             //Act
-            var searchMethodCall = searchController.WithCallTo(c => c.Suggestions(searchTerm, maximumNumberOfDisplayedSuggestions, useFuzzyAutoCompleteMatching));
+            searchController.WithCallTo(c => c.Suggestions(searchTerm, maximumNumberOfDisplayedSuggestions, useFuzzyAutoCompleteMatching));
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -555,7 +554,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             var searchQuery = A.Fake<ISearchQueryService<JobProfileIndex>>();
             var mapper = A.Fake<IMapper>();
             var applicationLogger = A.Fake<IApplicationLogger>();
-            var session = A.Fake<HttpSessionStateBase>();
             var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
 
@@ -581,7 +579,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
         [Theory]
         [InlineData("test", false)]
         [InlineData("test", true)]
-        public void SpellCheckerServiceTest(string searchTerm, bool validSpellCheckResult)
+        public void SpellcheckerServiceTest(string searchTerm, bool validSpellcheckResult)
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -598,7 +596,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             dummySearchResult.Count = 0;
             var defaultJobProfilePage = nameof(JobProfileSearchBoxController.JobProfileDetailsPage);
 
-            var dummySpellCheckResult = validSpellCheckResult ? new SpellcheckResult
+            var dummySpellCheckResult = validSpellcheckResult ? new SpellcheckResult
             {
                 CorrectedTerm = $"dummy {searchTerm}",
                 HasCorrected = true
@@ -623,7 +621,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Controllers.Tests
             //Act
             var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, 1));
 
-            if (validSpellCheckResult)
+            if (validSpellcheckResult)
             {
                 searchMethodCall
                     .ShouldRenderView("SearchResult")

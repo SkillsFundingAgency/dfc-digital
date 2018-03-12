@@ -11,7 +11,7 @@ using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Details Controller tests
@@ -19,13 +19,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
     public class JobProfileCategoriesControllerTests
     {
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, true)]
-        public void IndexTest(bool inContentAuthoringSite, bool validTaxonomy)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void IndexTest(bool inContentAuthoringSite)
         {
-            //Todo
-            var unused = validTaxonomy;
-
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
@@ -66,13 +63,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         }
 
         [Theory]
-        [InlineData(true, true, false)]
-        [InlineData(false, true, true)]
-        public void IndexSideDisplayTest(bool inContentAuthoringSite, bool validTaxonomy, bool sideDisplay)
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        public void IndexSideDisplayTest(bool inContentAuthoringSite, bool sideDisplay)
         {
-            //Todo please remove unused parameters
-            var unused = validTaxonomy;
-
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
@@ -125,13 +119,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         }
 
         [Theory]
-        [InlineData(true, true, "newCat")]
-        [InlineData(false, true, "test")]
-        public void IndexUrlNameTest(bool inContentAuthoringSite, bool validTaxonomy, string urlName)
+        [InlineData(true, "newCat")]
+        [InlineData(false, "test")]
+        public void IndexUrlNameTest(bool inContentAuthoringSite, string urlName)
         {
-            //Todo please remove unused parameters
-            var unused = validTaxonomy;
-
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();

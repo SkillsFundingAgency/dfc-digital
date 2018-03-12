@@ -9,18 +9,17 @@ using System.Linq;
 using System.Web;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class PsfSearchViewTests
     {
         [Theory]
-        [InlineData(true, 1, 1, 1)]
-        [InlineData(false, 20, 2, 1)]
-        [InlineData(true, 50, 5, 5)]
-        [InlineData(true, 1, 1, 1)]
-        public void DFC_1940_A1_ShowPsfResults(bool validSearch, int count, int totalPages, int currentPage)
+        [InlineData(1, 1, 1)]
+        [InlineData(20, 2, 1)]
+        [InlineData(50, 5, 5)]
+        [InlineData(1, 1, 1)]
+        public void DFC1940ScenarioA1ForShowPsfResults(int count, int totalPages, int currentPage)
         {
-            var unused = validSearch;
             var resultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
 
             var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(count, totalPages, DummyMultipleJobProfileSearchResults(count), " result found", currentPage);
@@ -58,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void DFC_1495_PSFResultsAlsoFoundInCategories(int numberOfLinkedJobCategories)
+        public void DFC1495ForPSFResultsAlsoFoundInCategories(int numberOfLinkedJobCategories)
         {
             var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
 

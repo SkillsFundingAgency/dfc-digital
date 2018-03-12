@@ -415,7 +415,6 @@
     <Content Include="Mvc\Views\JobProfileSearchBox\JobProfile.cshtml" />
     <Content Include="Mvc\Views\JobProfileRelatedCareers\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileSettingsAndPreview\Index.cshtml" />
-    <Content Include="OpenAccessNuGet.targets" />
     <Content Include="Mvc\Views\JobProfileCourseOpportunity\Index.cshtml" />
     <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
     <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />

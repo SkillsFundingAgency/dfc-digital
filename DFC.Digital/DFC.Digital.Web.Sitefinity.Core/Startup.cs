@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using DFC.Digital.Web.Core.Config;
 using System;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Microsoft.Practices.Unity;
@@ -38,6 +39,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
             if (e.CommandName == "RegisterRoutes")
             {
                 RegisterRoutes(RouteTable.Routes);

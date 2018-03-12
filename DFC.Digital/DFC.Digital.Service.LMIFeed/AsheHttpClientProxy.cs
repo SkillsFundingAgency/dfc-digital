@@ -26,7 +26,11 @@ namespace DFC.Digital.Service.LMIFeed
             var url = ConfigurationManager.AppSettings[Constants.AsheEstimateMDApiGateway];
             var accessKey = ConfigurationManager.AppSettings[Constants.AsheAccessKey];
 
-            return await policy.ExecuteAsync(() => httpClient.GetHttpClient().GetAsync(string.Format(url, socCode, accessKey)), Constants.Ashe, FaultToleranceType.RetryWithCircuitBreaker);
+            return await policy.ExecuteAsync(
+                () => httpClient.GetHttpClient().GetAsync(string.Format(url, socCode, accessKey)), 
+                r => !r.IsSuccessStatusCode,
+                Constants.Ashe, 
+                FaultToleranceType.RetryWithCircuitBreaker);
         }
 
         #endregion Implementation of IAsheHttpClientProxy

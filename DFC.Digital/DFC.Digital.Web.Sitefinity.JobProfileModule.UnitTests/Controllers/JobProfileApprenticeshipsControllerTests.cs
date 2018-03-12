@@ -19,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
     /// </summary>
     public class JobProfileApprenticeshipsControllerTests
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Used in debuuging tests as this number is dumped as part of the parameters - hence no need to copare them all to find the exact instance")]
         [Theory]
         [InlineData(1, true, "testtrue", false, 2)]
         [InlineData(2, true, "", false, 2)]
@@ -34,7 +35,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var unused1 = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -143,6 +143,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Used in debuuging tests as this number is dumped as part of the parameters - hence no need to copare them all to find the exact instance")]
         [Theory]
         [InlineData(1, "Test", true, "test", false, false)]
         [InlineData(2, "TestInContentAuth", false, "", true, false)]
@@ -158,7 +159,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -277,45 +277,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
             }
-        }
-
-        private EnumerableQuery<ApprenticeVacancy> GetDummyApprenticeVacancies()
-        {
-            return new EnumerableQuery<ApprenticeVacancy>(new List<ApprenticeVacancy>
-            {
-                new ApprenticeVacancy
-                {
-                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
-                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}"),
-                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
-                    WageAmount = "£3",
-                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
-                },
-                new ApprenticeVacancy
-                {
-                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
-                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = new Uri($"dummy {nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
-                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
-                    WageAmount = "£3",
-                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
-                }
-            });
-        }
-
-        private JobProfile GetDummyJobPRofile(bool useValidJobProfile, string socCode)
-        {
-            return useValidJobProfile
-                ? new JobProfile
-                {
-                    AlternativeTitle = $"dummy {nameof(JobProfile.AlternativeTitle)}",
-                    SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
-                    Overview = $"dummy {nameof(JobProfile.Overview)}",
-                    Title = $"dummy {nameof(JobProfile.Title)}",
-                    SOCCode = socCode
-                }
-                : null;
         }
     }
 }

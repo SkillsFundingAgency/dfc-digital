@@ -5,7 +5,7 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using Telerik.Sitefinity.Web;
 
-namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {

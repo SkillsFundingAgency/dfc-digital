@@ -247,7 +247,7 @@ that is bundled with the nuget package under the tools folder.
     <httpModules>
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.HttpModules.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
       <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -318,7 +318,7 @@ that is bundled with the nuget package under the tools folder.
       <remove name="SitefinityAnalyticsModule" />
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.HttpModules.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
       <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -326,7 +326,7 @@ that is bundled with the nuget package under the tools folder.
       <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" preCondition="integratedMode,managedHandler" />
       <remove name="ApplicationInsightsWebTracking" />
       <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
-      <add name="CustomHeaderModule" type="DFC.Digital.Web.Core.HttpModules.CustomHeaderModule" />
+      <add name="CustomHeaderModule" type="DFC.Digital.Web.Core.CustomHeaderModule" />
     </modules>
     <handlers>
       <remove name="WebDAV" />

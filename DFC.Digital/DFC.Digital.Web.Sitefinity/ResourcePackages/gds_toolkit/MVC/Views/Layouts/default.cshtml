@@ -1,6 +1,7 @@
 ﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Services;
 @using DFC.Digital.Web.Core.HtmlExtentions;
+@using DFC.Digital.Web.Core.HtmlExtentions;
 
 <!DOCTYPE html>
 <html @Html.RenderLangAttribute()>
@@ -12,10 +13,12 @@
     @Html.Section("head")
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8VKZZ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8VKZZ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     @Html.Section("top")
     @Html.Partial("_govuk_Header")
     @Html.SfPlaceHolder("GovUKHeader")
@@ -50,7 +53,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/jquerybundle.min.js")), "bottom")
     }
     @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/govuksel.min.js")), "bottom")
-    
+
     @if (Html.IsDebugSymbol())
     {
         @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/src/frontend/js/dfcdigital.js")), "bottom")

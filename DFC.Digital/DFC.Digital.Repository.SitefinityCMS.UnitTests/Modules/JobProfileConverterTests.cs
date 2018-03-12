@@ -21,7 +21,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         public void GetRelatedContentIdAndUrlTest()
         {
             var dynamicContentFake = A.Fake<DynamicContent>();
-            var jobProfileConverter = new JobProfileConverter(relatedClassificationsRepository);
 
             JobProfileConverter.GetRelatedContentIdAndUrl(dynamicContentFake, "something");
         }

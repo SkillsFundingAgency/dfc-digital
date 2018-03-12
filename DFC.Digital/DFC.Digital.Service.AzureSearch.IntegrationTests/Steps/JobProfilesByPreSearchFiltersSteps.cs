@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
@@ -18,16 +18,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private SearchResult<JobProfileIndex> results;
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
-        private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.SearchQueryService = searchQueryService;
-            this.mapper = mapper;
             asyncHelper = new AsyncHelper();
         }
 

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.AutomationTest.Utilities;
+using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,11 @@ namespace DFC.Digital.Automation.Test.Utilities
 
         public static SearchProperties ToSearchProperties(this Table table)
         {
+            if (table == null || table.Rows.Count < 1)
+            {
+                throw new TestException("Empty or null table passed");
+            }
+
             var interests = table.Rows[0]["Interests"];
             var trainingRoutes = table.Rows[0]["TrainingRoutes"];
             var enablers = table.Rows[0]["Enablers"];
@@ -99,6 +105,7 @@ namespace DFC.Digital.Automation.Test.Utilities
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification ="String is only used for Azure index test")]
         internal static string ConvertToKey(this string rawKey)
         {
             Regex regex = new Regex(@"[ ()']");

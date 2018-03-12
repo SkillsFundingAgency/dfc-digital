@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DFC.Digital.Service.AzureSearch.Tests
+namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class DfcSearchQueryBuilderTests
     {

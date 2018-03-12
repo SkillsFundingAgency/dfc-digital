@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.AutomationTest.Utilities;
+using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 Sections = new List<FilterResultsSection>()
             };
 
+            if (countOfFilters == null)
+            {
+                throw new TestException("Count Of Filters passed is null");
+            }
+
             foreach (var item in countOfFilters)
             {
                 var section = new FilterResultsSection
@@ -25,7 +31,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                     Name = item.Key,
                     Options = GetTestFilterOptions(item).ToList(),
                     SingleSelectOnly = item.Value == 1,
-                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToLowerInvariant()}{item.Value}" : null
+                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToUpperInvariant()}{item.Value}" : null
                 };
                 model.Sections.Add(section);
             }
@@ -36,6 +42,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             result.Should().Be(expectedFilterBy);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Used as input for xunit MemeberData")]
         private static IEnumerable<object[]> GetPsfTestData()
         {
             yield return new object[]
@@ -136,7 +143,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     Id = (index + 1).ToString(),
                     IsSelected = true,
-                    OptionKey = $"{item.Key.ToLowerInvariant()}{index + 1}",
+                    OptionKey = $"{item.Key.ToUpperInvariant()}{index + 1}",
                 };
             }
         }

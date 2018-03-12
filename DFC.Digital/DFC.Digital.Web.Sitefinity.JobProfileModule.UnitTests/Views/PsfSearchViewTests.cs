@@ -150,9 +150,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 MainPageTitle = nameof(PsfSearchResultsViewModel.MainPageTitle),
                 SecondaryText = nameof(PsfSearchResultsViewModel.SecondaryText),
                 PageNumber = currentPage,
-                NextPageUrl = new Uri(nameof(PsfSearchResultsViewModel.NextPageUrl)),
+                NextPageUrl = new Uri(nameof(PsfSearchResultsViewModel.NextPageUrl), UriKind.RelativeOrAbsolute),
                 NextPageUrlText = nameof(PsfSearchResultsViewModel.NextPageUrlText),
-                PreviousPageUrl = new Uri(nameof(PsfSearchResultsViewModel.PreviousPageUrl)),
+                PreviousPageUrl = new Uri(nameof(PsfSearchResultsViewModel.PreviousPageUrl), UriKind.RelativeOrAbsolute),
                 PreviousPageUrlText = nameof(PsfSearchResultsViewModel.PreviousPageUrlText),
                 Count = count,
                 TotalPages = totalPages,
@@ -161,7 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 TotalResultsMessage = resultMessage,
                 JobProfileCategoryPage = "/job-categories/",
                 PreSearchFiltersModel = GeneratePreSearchFiltersViewModel(),
-                BackPageUrl = new Uri(nameof(PsfSearchResultsViewModel.BackPageUrl)),
+                BackPageUrl = new Uri(nameof(PsfSearchResultsViewModel.BackPageUrl), UriKind.RelativeOrAbsolute),
                 BackPageUrlText = nameof(PsfSearchResultsViewModel.BackPageUrlText)
             };
         }

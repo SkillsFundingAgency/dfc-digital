@@ -250,7 +250,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 PlaceholderText = PlaceholderText,
                 HeaderText = HeaderText,
                 TotalResultsMessage = NoResultsMessage,
-                JobProfileUrl = new Uri(urlName),
+                JobProfileUrl = new Uri(urlName, UriKind.RelativeOrAbsolute),
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
@@ -326,7 +326,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private Uri GetSearchResultsPageUrl(string searchTerm)
         {
-            return new Uri($"{SearchResultsPage}?searchTerm={GetUrlEncodedString(searchTerm)}");
+            return new Uri($"{SearchResultsPage}?searchTerm={GetUrlEncodedString(searchTerm)}", UriKind.RelativeOrAbsolute);
         }
 
         private void SetupPagination(string searchTerm, JobProfileSearchResultViewModel resultModel)
@@ -335,12 +335,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (resultModel.TotalPages > 1 && resultModel.TotalPages >= resultModel.PageNumber)
             {
-                resultModel.NextPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={resultModel.PageNumber + 1}");
+                resultModel.NextPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={resultModel.PageNumber + 1}", UriKind.RelativeOrAbsolute);
                 resultModel.NextPageUrlText = $"{resultModel.PageNumber + 1} of {resultModel.TotalPages}";
 
                 if (resultModel.PageNumber > 1)
                 {
-                    resultModel.PreviousPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(resultModel.PageNumber == 2 ? string.Empty : $"&page={resultModel.PageNumber - 1}")}");
+                    resultModel.PreviousPageUrl = new Uri($"{SearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(resultModel.PageNumber == 2 ? string.Empty : $"&page={resultModel.PageNumber - 1}")}", UriKind.RelativeOrAbsolute);
                     resultModel.PreviousPageUrlText = $"{resultModel.PageNumber - 1} of {resultModel.TotalPages}";
                 }
             }

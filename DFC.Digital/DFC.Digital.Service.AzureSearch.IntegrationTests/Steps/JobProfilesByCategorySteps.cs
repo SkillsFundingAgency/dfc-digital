@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces; using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using FluentAssertions;

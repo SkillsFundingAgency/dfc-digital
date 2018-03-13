@@ -8,7 +8,7 @@ using DFC.Digital.Repository.Database;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
-using DFC.Digital.Service.CourseSearchProvider.Config;
+using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
 using System;

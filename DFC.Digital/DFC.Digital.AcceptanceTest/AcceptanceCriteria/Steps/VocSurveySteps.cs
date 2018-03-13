@@ -1,6 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 

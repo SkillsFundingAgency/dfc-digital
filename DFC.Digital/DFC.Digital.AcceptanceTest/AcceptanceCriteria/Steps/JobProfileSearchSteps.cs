@@ -1,6 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;

@@ -24,7 +24,7 @@ namespace Seleno.BrowserStack
         {
             base.SetTestMethod(generationContext, testMethod, friendlyTestName);
 
-            var factAttr = testMethod.CustomAttributes.OfType<CodeAttributeDeclaration>()
+            var factAttr = testMethod?.CustomAttributes.OfType<CodeAttributeDeclaration>()
                 .FirstOrDefault(codeAttributeDeclaration => codeAttributeDeclaration.Name == FactAttribute);
 
             if (factAttr != null)
@@ -43,6 +43,11 @@ namespace Seleno.BrowserStack
         public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
         {
             base.SetRowTest(generationContext, testMethod, scenarioTitle);
+            if (testMethod == null)
+            {
+                throw new TestGeneratorException("testMethod passed in is null");
+            }
+
             var parameterCount = testMethod.Parameters.Count;
             testMethod.Parameters.Insert(parameterCount - 1, new CodeParameterDeclarationExpression(new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
             testMethod.Statements.Insert(0, AssignBrowser());

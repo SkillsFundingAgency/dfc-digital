@@ -22,9 +22,14 @@ namespace Seleno.BrowserStack
 
         public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string friendlyTestName)
         {
+            if (testMethod == null)
+            {
+                throw new TestGeneratorException("Test method passed in is null");
+            }
+
             base.SetTestMethod(generationContext, testMethod, friendlyTestName);
 
-            var factAttr = testMethod?.CustomAttributes.OfType<CodeAttributeDeclaration>()
+            var factAttr = testMethod.CustomAttributes.OfType<CodeAttributeDeclaration>()
                 .FirstOrDefault(codeAttributeDeclaration => codeAttributeDeclaration.Name == FactAttribute);
 
             if (factAttr != null)
@@ -45,7 +50,7 @@ namespace Seleno.BrowserStack
             base.SetRowTest(generationContext, testMethod, scenarioTitle);
             if (testMethod == null)
             {
-                throw new TestGeneratorException("testMethod passed in is null");
+                throw new TestGeneratorException("Test method passed in is null");
             }
 
             var parameterCount = testMethod.Parameters.Count;

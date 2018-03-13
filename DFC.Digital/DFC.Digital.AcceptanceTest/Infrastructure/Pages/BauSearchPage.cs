@@ -1,6 +1,6 @@
 ﻿using TestStack.Seleno.PageObjects;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class BauSearchPage : Page
     {

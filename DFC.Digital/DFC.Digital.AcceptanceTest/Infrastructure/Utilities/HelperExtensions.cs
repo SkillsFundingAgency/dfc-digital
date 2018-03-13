@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Actions;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Utilities
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     internal static class HelperExtensions
     {

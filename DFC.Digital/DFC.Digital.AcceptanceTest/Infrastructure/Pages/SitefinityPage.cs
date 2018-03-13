@@ -5,7 +5,7 @@ using System.Threading;
 using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Actions;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class SitefinityPage<T> : Page<T>
         where T : class, new()

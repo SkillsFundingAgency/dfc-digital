@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using System;
+﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;

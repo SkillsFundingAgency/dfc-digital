@@ -4,7 +4,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     [Binding]
     public class DiHook

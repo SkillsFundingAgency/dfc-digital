@@ -6,7 +6,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class DiHook

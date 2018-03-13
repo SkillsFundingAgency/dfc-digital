@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using DFC.Digital.AutomationTest.Utilities;
+﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
+using System;
+using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class JobProfileAutosuggestSteps

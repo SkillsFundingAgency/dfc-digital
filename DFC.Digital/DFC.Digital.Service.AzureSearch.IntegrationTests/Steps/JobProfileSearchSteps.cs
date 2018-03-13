@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class JobProfileSearchSteps
@@ -19,16 +19,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
-            this.mapper = mapper;
             asyncHelper = new AsyncHelper();
         }
 
@@ -150,13 +148,13 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Then(@"the number of job profiles shown on the page is less than or equal to '(.*)'\. \(i\.e\. the page limit\)")]
-        public void ThenTheNumberOfJobProfilesShownOnThePageIsLessThanOrEqualTo_I_E_ThePageLimit(int pageLimit)
+        public void ThenTheNumberOfJobProfilesShownOnThePageIsLessThanOrEqualToIEThePageLimit(int pageLimit)
         {
             results.Results.Count().Should().BeLessOrEqualTo(pageLimit).And.BeGreaterThan(0);
         }
 
         [Then(@"the number of job profiles shown on the page is equal to '(.*)'\. \(i\.e\. the page limit\)")]
-        public void ThenTheNumberOfJobProfilesShownOnThePageIsEqualTo_I_E_ThePageLimit(int pageLimit)
+        public void ThenTheNumberOfJobProfilesShownOnThePageIsEqualToIEThePageLimit(int pageLimit)
         {
             results?.Results.Count().Should().Be(pageLimit);
         }

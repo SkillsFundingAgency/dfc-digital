@@ -60,12 +60,12 @@ namespace Seleno.BrowserStack
         {
             base.FinalizeTestClass(generationContext);
 
-            generationContext.ScenarioInitializeMethod.Statements.Clear();
-            generationContext.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
+            generationContext?.ScenarioInitializeMethod.Statements.Clear();
+            generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
                 "var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $\"browser:{_browser}\" })));"));
-            generationContext.ScenarioInitializeMethod.Statements.Add(
+            generationContext?.ScenarioInitializeMethod.Statements.Add(
                 new CodeSnippetStatement("testRunner.OnScenarioStart(clonedScenarioInfo);"));
-            generationContext.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
+            generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
                 "testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);"));
         }
 
@@ -74,7 +74,7 @@ namespace Seleno.BrowserStack
             CodeConstructor ctorMethod)
         {
             base.SetTestConstructor(generationContext, ctorMethod);
-            generationContext.TestClass.Members.Add(new CodeMemberField(typeof(string), "_browser"));
+            generationContext?.TestClass.Members.Add(new CodeMemberField(typeof(string), "_browser"));
         }
 
         private static CodeStatement AssignBrowser()

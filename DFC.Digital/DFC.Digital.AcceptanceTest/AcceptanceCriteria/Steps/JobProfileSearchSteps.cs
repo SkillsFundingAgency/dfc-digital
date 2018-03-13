@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
-using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;

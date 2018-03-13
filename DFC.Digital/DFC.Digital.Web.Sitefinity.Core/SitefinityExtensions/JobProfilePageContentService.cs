@@ -22,7 +22,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
         /// <summary>
         /// Gets the job profile anchor links.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="sectionFilters">The section filters.</param>
+        /// <returns>JobProfile Sections</returns>
         public IEnumerable<JobProfileSection> GetJobProfileSections(IEnumerable<JobProfileSectionFilter> sectionFilters)
         {
             var controls = SitefinityPage.GetControlsInOrder(sectionFilters.Select(f => f.SectionCaption));

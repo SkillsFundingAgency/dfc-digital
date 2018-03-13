@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.CourseSearchProvider.Converters;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;

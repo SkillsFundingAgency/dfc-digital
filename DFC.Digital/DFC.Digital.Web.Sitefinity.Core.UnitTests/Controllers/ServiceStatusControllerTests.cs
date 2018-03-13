@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class ServiceStatusControllerTests
     {

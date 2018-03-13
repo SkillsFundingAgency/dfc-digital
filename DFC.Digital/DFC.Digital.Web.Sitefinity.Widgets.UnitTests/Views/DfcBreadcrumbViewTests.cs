@@ -71,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         /// Gets the Breadcrumbed PageTitle Text.
         /// </summary>
         /// <param name="htmlDom">The HTML DOM.</param>
-        /// <returns></returns>
+        /// <returns>BreadcrumbPageTitle</returns>
         private static string GetBreadcrumbPageTitleText(HtmlDocument htmlDom)
         {
             var breadcrumbPageTitleTextElement = htmlDom.DocumentNode.Descendants("li").LastOrDefault();

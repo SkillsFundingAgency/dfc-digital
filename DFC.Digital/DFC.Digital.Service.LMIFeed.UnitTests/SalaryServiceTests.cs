@@ -1,8 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.LMIFeed.Interfaces;
-using DFC.Digital.Service.LMIFeed.UnitTests.Model;
 using FakeItEasy;
 using FluentAssertions;
 using Newtonsoft.Json;

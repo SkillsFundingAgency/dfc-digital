@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class JobProfilePageContentServiceTests
     {

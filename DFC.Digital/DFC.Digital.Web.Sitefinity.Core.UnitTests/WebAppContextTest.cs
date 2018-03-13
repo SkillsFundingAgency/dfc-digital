@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class WebAppContextTest
     {

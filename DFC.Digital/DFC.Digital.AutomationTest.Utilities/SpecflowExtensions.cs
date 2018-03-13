@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.Automation.Test.Utilities
+namespace DFC.Digital.AutomationTest.Utilities
 {
     public static class SpecflowExtensions
     {

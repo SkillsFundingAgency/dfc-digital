@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
         private void CheckViewForService(ServiceStatus serviceStatus, HtmlDocument htmlDom, int index)
         {
             //Check class of li
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]").FirstOrDefault().HasClass($"list_service_{serviceStatus.Status}");
+            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]").FirstOrDefault().GetAttributeValue("class", string.Empty).Contains($"list_service_{serviceStatus.Status}");
 
             //First col contains Service name
             htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Name);

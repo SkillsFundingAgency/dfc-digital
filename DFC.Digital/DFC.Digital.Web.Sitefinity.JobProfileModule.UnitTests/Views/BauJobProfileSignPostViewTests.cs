@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData("test")]
 
         // Signposting on Beta JP page to point to specific BAU JP page
-        public void DFC2223A1BAUJobProfileSignpostIndex(string contentdata)
+        public void DFC2223ScenarioA1ForBAUJobProfileSignpostIndex(string contentdata)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileBAUSignposting_Index_cshtml();

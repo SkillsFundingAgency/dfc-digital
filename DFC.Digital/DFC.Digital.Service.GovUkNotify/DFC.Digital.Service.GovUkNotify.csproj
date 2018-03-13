@@ -69,6 +69,7 @@
     <Compile Include="Base\GovUkNotifyClientProxy.cs" />
     <Compile Include="Base\IGovUkNotifyClientProxy.cs" />
     <Compile Include="Config\GovUkNotifyAutofacModule.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GovUkNotifyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

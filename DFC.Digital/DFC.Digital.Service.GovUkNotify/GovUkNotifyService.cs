@@ -88,13 +88,13 @@ namespace DFC.Digital.Service.GovUkNotify
             {
                 foreach (var item in vocSurveyPersonalisation?.Personalisation?.ToArray())
                 {
-                    if (string.IsNullOrEmpty(item.Value))
+                    if (string.IsNullOrEmpty(item.Value) && vocSurveyPersonalisation != null)
                     {
                         vocSurveyPersonalisation.Personalisation[item.Key] = Constants.Unknown;
                     }
                 }
 
-                return vocSurveyPersonalisation.Personalisation
+                return vocSurveyPersonalisation?.Personalisation
                     .ToDictionary<KeyValuePair<string, string>, string, dynamic>(
                         vocObj => vocObj.Key,
                         vocObj => vocObj.Value);

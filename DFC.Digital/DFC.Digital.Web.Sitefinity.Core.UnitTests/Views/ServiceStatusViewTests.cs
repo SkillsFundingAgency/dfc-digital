@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class ServiceStatusViewTests
     {
@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckParametersUsed);
 
             //Second row contains extended information
-            if (serviceStatus.Notes != string.Empty)
+            if (!string.IsNullOrEmpty(serviceStatus?.Notes))
             {
                 htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[2]/div").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Notes);
             }

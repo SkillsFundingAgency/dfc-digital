@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Service.LMIFeed.Interfaces;
 using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;

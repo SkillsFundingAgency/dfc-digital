@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.LMIFeed.Interfaces;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

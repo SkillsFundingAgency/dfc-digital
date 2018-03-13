@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
-namespace DFC.Digital.Service.CourseSearchProvider.Converters
+namespace DFC.Digital.Service.CourseSearchProvider
 {
     internal static class MessageConverter
     {

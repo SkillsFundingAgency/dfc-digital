@@ -2,7 +2,6 @@
 using Autofac.Extras.DynamicProxy2;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Service.LMIFeed.Interfaces;
 
 namespace DFC.Digital.Service.LMIFeed
 {

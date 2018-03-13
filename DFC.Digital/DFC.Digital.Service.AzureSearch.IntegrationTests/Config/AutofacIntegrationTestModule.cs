@@ -7,7 +7,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.JobProfileModule;
 using System;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     internal class AutofacIntegrationTestModule : Module
     {

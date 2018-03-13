@@ -1,11 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
 using DFC.Digital.Automation.Test.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
-using System;
-using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -15,18 +14,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
     public class JobProfileAutosuggestSteps
     {
         private SuggestionResult<JobProfileIndex> results;
-        private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IMapper mapper;
 
-        public JobProfileAutosuggestSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfileAutosuggestSteps(ITestOutputHelper outputHelper, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
-            this.OutputHelper = outputHelper;
-            this.searchService = searchService;
-            this.searchIndex = searchIndex;
+            OutputHelper = outputHelper;
             this.searchQueryService = searchQueryService;
-            this.mapper = mapper;
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
@@ -43,7 +36,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             }
             catch (Exception ex)
             {
-                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex}");
             }
 
             //Log results

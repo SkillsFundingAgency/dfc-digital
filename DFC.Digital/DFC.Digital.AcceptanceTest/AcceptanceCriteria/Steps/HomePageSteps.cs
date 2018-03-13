@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using TechTalk.SpecFlow;

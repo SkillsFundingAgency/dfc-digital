@@ -44,7 +44,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         /// </summary>
         /// <param name="htmlDom">The HTML DOM.</param>
         /// <param name="isHomepageText">if set to <c>true</c> [is HomePage Text] else <c>false</c> [is HomePage Link].</param>
-        /// <returns></returns>
+        /// <returns>Homepage Text or Link</returns>
         private static string GetHomepageTextOrLink(HtmlDocument htmlDom, bool isHomepageText)
         {
             var homePageElement = htmlDom.DocumentNode.Descendants("li").FirstOrDefault();
@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         /// <param name="homepageText">Home Page Text</param>
         /// <param name="homepageLink">Home Page Link</param>
         /// <param name="breadcrumbedpageTitleText">Breadcrumb PageTitle Text</param>
-        /// <returns></returns>
+        /// <returns>Dummy DfcBreadcrumbViewModel</returns>
         private static DfcBreadcrumbViewModel GenerateDfcBreadcrumbViewModelDummy(string homepageText, string homepageLink, string breadcrumbedpageTitleText)
         {
             return new DfcBreadcrumbViewModel

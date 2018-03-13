@@ -3,7 +3,7 @@ using BoDi;
 using DFC.Digital.Web.Core;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     [Binding]
     public class AutofacHook

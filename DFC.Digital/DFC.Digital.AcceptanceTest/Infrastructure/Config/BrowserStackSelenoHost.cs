@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Specialized;
@@ -8,7 +7,7 @@ using TechTalk.SpecFlow;
 using TestStack.Seleno.Configuration;
 using TestStack.Seleno.Configuration.WebServers;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class BrowserStackSelenoHost : IDisposable
     {

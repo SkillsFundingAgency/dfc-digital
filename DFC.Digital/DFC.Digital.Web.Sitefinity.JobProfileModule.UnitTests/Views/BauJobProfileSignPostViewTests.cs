@@ -17,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         public void DFC2223A1BAUJobProfileSignpostIndex(string contentdata)
         {
             // Arrange
-            var indexView = new _MVC_Views_JobProfileBAUSignposting_Index_cshtml();
+            var indexView = new _MVC_Views_JobProfileBauSignPosting_Index_cshtml();
             var signPostDummyVm = new BAUJobProfileSignpostViewModel
             {
                 SignpostingHtml = contentdata

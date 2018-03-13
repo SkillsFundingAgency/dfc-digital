@@ -20,7 +20,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
     {
         [Theory]
         [MemberData(nameof(JobProfileAsheData))]
-        public void GetMedianDeciles_From_AsheFeed(string jobProfileForAsheFeed, string expectedSocCode)
+        public void GetMedianDecileFromAsheFeed(string jobProfileForAsheFeed, string expectedSocCode)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
@@ -41,7 +41,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
 
         [Theory]
         [MemberData(nameof(JobProfileAsheData))]
-        public void ThrowsException_GetMedianDeciles_From_AsheFeed(string socCode, string expectedSocCode)
+        public void ThrowsExceptionGetMedianDecilesFromAsheFeed(string socCode, string expectedSocCode)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();

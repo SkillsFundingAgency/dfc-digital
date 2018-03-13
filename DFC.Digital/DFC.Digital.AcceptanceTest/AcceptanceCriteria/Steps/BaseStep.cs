@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using System;
 using TechTalk.SpecFlow;
 using TestStack.Seleno.Configuration;

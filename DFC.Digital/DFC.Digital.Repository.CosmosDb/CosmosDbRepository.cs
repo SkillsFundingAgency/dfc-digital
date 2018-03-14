@@ -16,6 +16,7 @@ namespace DFC.Digital.Repository.CosmosDb
         protected CosmosDbRepository(IDocumentClient documentClient)
         {
             this.documentClient = documentClient;
+            Initialise();
         }
 
         public string DocumentCollection { get; set; }

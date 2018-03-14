@@ -58,7 +58,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 
             //Log results
             OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
-            actual.Should().AllBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

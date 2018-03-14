@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -157,10 +159,6 @@
     <ProjectReference Include="..\DFC.Digital.Repository.CosmosDb\DFC.Digital.Repository.CosmosDb.csproj">
       <Project>{0B25E89F-8314-4EE4-8B5A-CCD7A04BAB5D}</Project>
       <Name>DFC.Digital.Repository.CosmosDb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Repository.Database\DFC.Digital.Repository.Database.csproj">
-      <Project>{1b206f7c-83c0-468f-903d-1d958bcaa700}</Project>
-      <Name>DFC.Digital.Repository.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
       <Project>{11e5ec8f-531d-47e4-9c22-e19044ddd678}</Project>

@@ -31,7 +31,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                     Name = item.Key,
                     Options = GetTestFilterOptions(item).ToList(),
                     SingleSelectOnly = item.Value == 1,
-                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToUpperInvariant()}{item.Value}" : null
+                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToLower()}{item.Value}" : null
                 };
                 model.Sections.Add(section);
             }
@@ -143,7 +143,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     Id = (index + 1).ToString(),
                     IsSelected = true,
-                    OptionKey = $"{item.Key.ToUpperInvariant()}{index + 1}",
+                    OptionKey = $"{item.Key.ToLower()}{index + 1}",
                 };
             }
         }

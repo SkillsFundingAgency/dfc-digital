@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
-using DFC.Digital.Repository.Database;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
@@ -48,7 +47,6 @@ namespace DFC.Digital.Web.Core
             builder
                 .RegisterModule<CoreAutofacModule>()
                 .RegisterModule<AzSearchAutofacModule>()
-                .RegisterModule<DbRepositoryAutofacModule>()
                 .RegisterModule<CosmosDbAutofacModule>()
                 .RegisterModule<SitefinityRepositoryAutofacModule>()
                 .RegisterModule<GovUkNotifyAutofacModule>()

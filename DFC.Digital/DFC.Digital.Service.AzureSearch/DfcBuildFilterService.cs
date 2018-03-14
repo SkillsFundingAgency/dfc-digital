@@ -10,11 +10,9 @@ namespace DFC.Digital.Service.AzureSearch
     {
         public string BuildPreSearchFilters(PreSearchFiltersResultsModel preSearchFilterModel, IDictionary<string, PreSearchFilterLogicalOperator> indexFields)
         {
-            var finalFilter = string.Empty;
+            var builder = new System.Text.StringBuilder();
             if (indexFields != null)
             {
-                var builder = new System.Text.StringBuilder();
-                builder.Append(finalFilter);
                 foreach (var field in indexFields)
                 {
                     var validIndexField = typeof(JobProfileIndex).GetProperties()
@@ -34,17 +32,15 @@ namespace DFC.Digital.Service.AzureSearch
                                     : string.Join(",", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
                                 if (!string.IsNullOrWhiteSpace(fieldValue))
                                 {
-                                    builder.Append($"{(finalFilter.Length > 0 ? field.Value.ToString().ToLower() : string.Empty)} {field.Key}/any(t: search.in(t, '{fieldValue}')) ");
+                                    builder.Append($"{(builder.Length > 0 ? field.Value.ToString().ToLower() : string.Empty)} {field.Key}/any(t: search.in(t, '{fieldValue}')) ");
                                 }
                             }
                         }
                     }
                 }
-
-                finalFilter = builder.ToString();
             }
 
-            return finalFilter.Trim();
+            return builder.ToString().Trim();
         }
     }
 }

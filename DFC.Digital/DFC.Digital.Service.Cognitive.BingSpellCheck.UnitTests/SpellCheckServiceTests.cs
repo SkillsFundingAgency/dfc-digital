@@ -30,7 +30,9 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "application/json",
                 suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
 
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("url"));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
+
             var spellingService = new SpellCheckService(fakeHttpClientService, policy, fakeLogger);
 
             //Act
@@ -64,7 +66,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "application/json",
                 suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
 
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("url"));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
 
             var spellingService = new SpellCheckService(fakeHttpClientService, policy, fakeLogger);
 
@@ -90,7 +93,9 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
                 "application/json",
                 "{\"_type\": \"Cause Exception\"}");
 
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("url"));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
+
             A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             var spellingService = new SpellCheckService(fakeHttpClientService, policy, fakeLogger);

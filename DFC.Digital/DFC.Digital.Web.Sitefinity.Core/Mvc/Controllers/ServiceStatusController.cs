@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.Core
+namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 {
     public class ServiceStatusController : Controller
     {

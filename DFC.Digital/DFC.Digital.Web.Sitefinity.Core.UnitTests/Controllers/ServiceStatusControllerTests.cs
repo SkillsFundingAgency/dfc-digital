@@ -1,5 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers;
+using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System;

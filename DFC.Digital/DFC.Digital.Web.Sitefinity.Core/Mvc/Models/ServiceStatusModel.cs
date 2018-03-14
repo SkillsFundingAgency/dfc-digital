@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 
-namespace DFC.Digital.Web.Sitefinity.Core
+namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Models
 {
     public class ServiceStatusModel
     {

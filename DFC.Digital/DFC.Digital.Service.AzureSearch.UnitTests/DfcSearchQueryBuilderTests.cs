@@ -71,8 +71,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("term || nurse", "term nurse", false)]
         [InlineData("term and nurse", "term and nurse", false)]
         [InlineData("(term)", "term", false)]
-        [InlineData("term Children's", "term children's", false)]
-        [InlineData("<term Children's>", "term children's", false)]
+        [InlineData("term Children's", "term Children's", false)]
+        [InlineData("<term Children's>", "term Children's", false)]
         public void RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, string expected, bool shouldUseRaw)
         {
             SearchProperties properties = shouldUseRaw ? new SearchProperties { UseRawSearchTerm = true } : null;
@@ -100,8 +100,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("term || nurse", "/.*term.*/ term~/.*nurse.*/ nurse~")]
         [InlineData("term and nurse", "/.*term.*/ term~/.*and.*/ and~/.*nurse.*/ nurse~")]
         [InlineData("(term)", "/.*term.*/ term~")]
-        [InlineData("term Children's", "/.*term.*/ term~/.*children's.*/ children's~")]
-        [InlineData("<term Children's>", "/.*term.*/ term~/.*children's.*/ children's~")]
+        [InlineData("term Children's", "/.*term.*/ term~/.*Children's.*/ Children's~")]
+        [InlineData("<term Children's>", "/.*term.*/ term~/.*Children's.*/ Children's~")]
         public void BuiBuildContainPartialSearchTest(string searchTerm, string expected)
         {
             var testObject = new DfcSearchQueryBuilder();

@@ -22,6 +22,7 @@
     <Rule Id="CA1822" Action="None" />
     <Rule Id="CA2210" Action="None" />
     <Rule Id="CA2227" Action="None" />
+    <Rule Id="CA2233" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1005" Action="None" />

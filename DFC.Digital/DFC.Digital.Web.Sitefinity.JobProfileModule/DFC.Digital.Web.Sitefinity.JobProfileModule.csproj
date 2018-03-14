@@ -417,7 +417,7 @@
     <Content Include="Mvc\Views\JobProfileSettingsAndPreview\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileCourseOpportunity\Index.cshtml" />
     <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
-    <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileBAUSignposting1\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

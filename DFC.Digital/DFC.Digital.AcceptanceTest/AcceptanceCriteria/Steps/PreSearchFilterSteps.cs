@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -64,7 +63,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheCorrectPage(string filter)
         {
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
-            if (filter.Equals("Filter search results"))
+            if (filter?.Equals("Filter search results") == true)
             {
                 filterPage.FilterResultsTitleDisplayed.Should().BeTrue("Should display results page");
             }

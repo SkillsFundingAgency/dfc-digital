@@ -107,7 +107,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickFindCourseLink<T>()
             where T : UiComponent, new()
         {
-            var result = Find.Element(By.CssSelector(".dfc-code-jp-FindTrainingCoursesLink a"));
+            var result = Find.Element(By.CssSelector(".dfc-code-jp-TrainingCoursesText a"));
             return Navigate.To<T>(result.GetAttribute("href"));
         }
 

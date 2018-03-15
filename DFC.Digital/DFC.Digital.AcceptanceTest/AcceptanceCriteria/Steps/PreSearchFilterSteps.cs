@@ -1,11 +1,6 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -25,7 +20,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the PSF Continue button")]
         public void WhenIClickOnThePSFContinueButton()
         {
-            var homepage = GetNavigatedPage<HomePage>();
+            var homepage = GetNavigatedPage<Homepage>();
             homepage.ClickPSFContinueButton<PreSearchFilterPage>()
                 .SaveTo(ScenarioContext);
         }

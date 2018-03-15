@@ -30,7 +30,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -154,11 +154,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcceptanceCriteria\Features\PreSearchFilter.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PreSearchFilter.feature</DependentUpon>
-    </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="AcceptanceCriteria\Steps\PreSearchFilterSteps.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />

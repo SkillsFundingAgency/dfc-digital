@@ -26,9 +26,10 @@ namespace DFC.Digital.Repository.CosmosDb
             builder.RegisterType<CourseSearchAuditRepository>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
+                .OnActivating(cosmos => cosmos.Instance.Initialise())
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                .OnActivating(cosmos => cosmos.Instance.Initialise());
+                ;
         }
     }
 }

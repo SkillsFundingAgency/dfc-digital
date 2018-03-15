@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DFC.Digital.Data</RootNamespace>
     <AssemblyName>DFC.Digital.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -137,6 +137,7 @@
     <Compile Include="Model\SearchProperties.cs" />
     <Compile Include="Model\SearchResult.cs" />
     <Compile Include="Model\SearchResultItem.cs" />
+    <Compile Include="Model\SocCode.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />

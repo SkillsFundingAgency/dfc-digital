@@ -11,7 +11,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         #region Fields
 
-        private readonly IDynamicModuleRepository<IJobProfileSocCodeRepository> repository;
+        private readonly IDynamicModuleRepository<SocCode> repository;
         private readonly IDynamicModuleRepository<ApprenticeVacancy> avRepository;
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
 
@@ -19,7 +19,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<IJobProfileSocCodeRepository> repository, IDynamicModuleRepository<ApprenticeVacancy> avRepository, IDynamicModuleConverter<ApprenticeVacancy> converter)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleRepository<ApprenticeVacancy> avRepository, IDynamicModuleConverter<ApprenticeVacancy> converter)
         {
             this.repository = repository;
             this.avRepository = avRepository;

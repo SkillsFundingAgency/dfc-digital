@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public sealed class DynamicModuleRepository<T> : IDisposable, IDynamicModuleRepository<T>
+    public sealed class DynamicModuleRepository<T> : IDynamicModuleRepository<T>, IDisposable
     {
         private DynamicModuleManager dynamicModuleManager;
 

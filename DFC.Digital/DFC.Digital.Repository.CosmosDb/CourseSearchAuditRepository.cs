@@ -25,7 +25,7 @@ namespace DFC.Digital.Repository.CosmosDb
             });
         }
 
-        protected override void Initialise()
+        internal override void Initialise()
         {
             Database = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Db");
             DocumentCollection = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Collection");

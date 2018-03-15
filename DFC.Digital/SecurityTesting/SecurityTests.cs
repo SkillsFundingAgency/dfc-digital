@@ -70,7 +70,8 @@ namespace SecurityTesting
                 SaveSession(reportFilename);
                 zapClient.Dispose();
 
-            GenerateReport(reportFilename, ReportFileExtention.Html);
+                GenerateReport(reportFilename, ReportFileExtention.Html);
+            }
         }
 
         private static void CheckActiveScanProgress(string activeScanId)

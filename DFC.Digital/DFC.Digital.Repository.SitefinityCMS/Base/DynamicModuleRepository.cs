@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules;
@@ -9,55 +8,13 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public abstract class DynamicModuleRepository : IRepository<DynamicContent>, IDisposable
+    public sealed class DynamicModuleRepository<T> : IDisposable, IDynamicModuleRepository<T>
     {
         private DynamicModuleManager dynamicModuleManager;
 
-        protected DynamicModuleRepository(string dynamicModuleName)
-        {
-            //GSR had to add this as we were getting not results returned on instances where the jobprofiles
-            //modue had been added as an addon - think it adds it with a diffrent provider.
-            ProviderName = DynamicModuleManager.GetDefaultProviderName(dynamicModuleName);
-            dynamicModuleManager = DynamicModuleManager.GetManager(ProviderName);
-            Initialise();
-        }
+        private Type dynamicModuleContentType;
 
-        protected DynamicModuleRepository(string dynamicModuleName, string contentType) : this(dynamicModuleName)
-        {
-            SetContentType(contentType);
-        }
-
-        protected Type DynamicModuleContentType { get; set; }
-
-        protected string ProviderName { get; set; }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public DynamicContent Get(Expression<Func<DynamicContent, bool>> where)
-        {
-            return GetAll().FirstOrDefault(where);
-        }
-
-        public IQueryable<DynamicContent> GetAll()
-        {
-            return dynamicModuleManager.GetDataItems(DynamicModuleContentType);
-        }
-
-        public DynamicContent GetById(string id)
-        {
-            return dynamicModuleManager.GetDataItems(DynamicModuleContentType)
-                .FirstOrDefault(item => item.Status == ContentLifecycleStatus.Live && item.Visible &&
-                                        item.Id == new Guid(id));
-        }
-
-        public IQueryable<DynamicContent> GetMany(Expression<Func<DynamicContent, bool>> where)
-        {
-            return GetAll().Where(where);
-        }
+        private string providerName;
 
         #region NotImplemented
 
@@ -83,7 +40,58 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #endregion NotImplemented
 
-        protected virtual void Dispose(bool disposing)
+        #region IRepository implementations
+
+        public void Initialise(string contentType, string dynamicModuleName)
+        {
+            //GSR had to add this as we were getting not results returned on instances where the jobprofiles
+            //modue had been added as an addon - think it adds it with a diffrent provider.
+            providerName = DynamicModuleManager.GetDefaultProviderName(dynamicModuleName);
+            dynamicModuleManager = DynamicModuleManager.GetManager(providerName);
+            dynamicModuleContentType = TypeResolutionService.ResolveType(contentType);
+        }
+
+        public Type GetContentType()
+        {
+            return dynamicModuleContentType;
+        }
+
+        public string GetProviderName()
+        {
+            return providerName;
+        }
+
+        public DynamicContent Get(Expression<Func<DynamicContent, bool>> where)
+        {
+            return GetAll().FirstOrDefault(where);
+        }
+
+        public IQueryable<DynamicContent> GetAll()
+        {
+            return dynamicModuleManager.GetDataItems(dynamicModuleContentType);
+        }
+
+        public DynamicContent GetById(string id)
+        {
+            return dynamicModuleManager.GetDataItems(dynamicModuleContentType)
+                .FirstOrDefault(item => item.Status == ContentLifecycleStatus.Live && item.Visible &&
+                                        item.Id == new Guid(id));
+        }
+
+        public IQueryable<DynamicContent> GetMany(Expression<Func<DynamicContent, bool>> where)
+        {
+            return GetAll().Where(where);
+        }
+
+        #endregion IRepository implementations
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -93,15 +101,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     dynamicModuleManager = null;
                 }
             }
-        }
-
-        protected virtual void Initialise()
-        {
-        }
-
-        protected void SetContentType(string contentType)
-        {
-            DynamicModuleContentType = TypeResolutionService.ResolveType(contentType);
         }
     }
 }

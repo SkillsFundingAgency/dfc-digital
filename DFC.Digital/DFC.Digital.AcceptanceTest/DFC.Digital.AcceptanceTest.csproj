@@ -196,7 +196,6 @@
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\PreSearchFilter.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PreSearchFilter.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature" />

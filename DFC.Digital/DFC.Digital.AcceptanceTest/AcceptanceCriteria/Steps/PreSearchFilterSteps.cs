@@ -14,6 +14,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         #endregion Ctor
+
         #region Whens
 
         [When(@"I click on the PSF Continue button")]
@@ -24,19 +25,19 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 .SaveTo(ScenarioContext);
         }
 
-        [When(@"I select the (.*) tags (.*)")]
-        public void WhenISelectTheJobLevelTagsJobLevel(string page, string tags)
+        [When(@"I select the tags (.*)")]
+        public void WhenISelectTheJobLevelTagsJobLevel(string tags)
         {
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
             filterPage.SelectTags(tags);
         }
 
-        [When(@"I press continue on the '(.*)' page")]
-        public void WhenIPressContinue(string filterPage)
+        [When(@"I press continue on the page")]
+        public void WhenIPressContinue()
         {
             var psfPage = GetNavigatedPage<PreSearchFilterPage>();
-                    psfPage.ClickContinue<PreSearchFilterPage>()
-                        .SaveTo(ScenarioContext);
+            psfPage.ClickContinue<PreSearchFilterPage>()
+                .SaveTo(ScenarioContext);
         }
 
         [When(@"I click on filter results no '(.*)'")]
@@ -48,14 +49,14 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 .SaveTo(ScenarioContext);
         }
 
-        [When(@"I press the back link on the '(.*)' page")]
-        public void WhenIPressTheBackLinkOnThePage(string page)
+        [When(@"I press the back link on the page")]
+        public void WhenIPressTheBacklinkOnThePage()
         {
             var resultPage = GetNavigatedPage<PreSearchFilterPage>();
             resultPage.ClickBack<PreSearchFilterPage>();
         }
 
-        #endregion
+        #endregion Whens
 
         #region Thens
 
@@ -99,6 +100,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
             filterPage.IsTagsSelected(tags).Should().BeFalse("Tags should be de-selected after pressing None");
         }
-        #endregion
+
+        #endregion Thens
     }
 }

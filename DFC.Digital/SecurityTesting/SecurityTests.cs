@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OWASPZAPDotNetAPI;
 using System;
 using System.Configuration;
@@ -49,14 +50,8 @@ namespace SecurityTesting
             alertSummary.Dictionary.TryGetValue("High", out var high);
             alertSummary.Dictionary.TryGetValue("Medium", out var medium);
 
-            if (Convert.ToInt32(high) > 0)
-            {
-                throw new ApplicationException("High alert has been found");
-            }
-            else if (Convert.ToInt32(medium) > 0)
-            {
-                throw new ApplicationException("Medium alert has been found");
-            }
+            Convert.ToInt32(high).Should().Be(0);
+            Convert.ToInt32(medium).Should().Be(0);
         }
 
         [Fact, Priority(2)]

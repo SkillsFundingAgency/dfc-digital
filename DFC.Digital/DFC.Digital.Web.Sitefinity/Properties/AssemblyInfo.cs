@@ -35,5 +35,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("10.0.6412.0")]
 [assembly: AssemblyFileVersion("10.0.6412.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
+
+
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ControllerContainer]
+
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ResourcePackage]

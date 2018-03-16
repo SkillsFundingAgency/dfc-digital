@@ -10,7 +10,7 @@ namespace DFC.Digital.Data.Model
     {
         public Guid Id { get; set; }
 
-        public string Code { get; set; }
+        public string SOCCode { get; set; }
 
         public string Title { get; set; }
     }

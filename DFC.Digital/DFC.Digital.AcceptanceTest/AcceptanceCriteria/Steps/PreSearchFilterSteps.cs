@@ -44,7 +44,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var resultPage = GetNavigatedPage<PreSearchFilterPage>();
             ScenarioContext.Set(resultPage.SelectedProfileTitle(result), "profileSelected");
-            var jobProfilePage = resultPage.GoToResult<JobProfilePage>(result)
+            resultPage.GoToResult<JobProfilePage>(result)
                 .SaveTo(ScenarioContext);
         }
 

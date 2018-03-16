@@ -225,54 +225,5 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
         }
-
-        private static void InitialiseDynamicModuleRepository(object instance)
-        {
-            switch (instance)
-            {
-                case DynamicModuleRepository<JobProfile> jpRepo:
-                    jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                    break;
-
-                case DynamicModuleRepository<SocCode> socRepo:
-                    socRepo.Initialise(DynamicTypes.JobProfileSocContentType, DynamicTypes.JobProfileModuleName);
-                    break;
-                /*
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-
-            case DynamicModuleRepository<JobProfile> jpRepo:
-                jpRepo.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
-                break;
-                */
-                default:
-                    break;
-            }
-        }
     }
 }

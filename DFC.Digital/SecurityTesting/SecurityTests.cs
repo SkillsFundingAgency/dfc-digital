@@ -51,11 +51,11 @@ namespace SecurityTesting
 
             if (Convert.ToInt32(high) > 0)
             {
-                throw new Exception("High alert has been found");
+                throw new ApplicationException("High alert has been found");
             }
             else if (Convert.ToInt32(medium) > 0)
             {
-                throw new Exception("Medium alert has been found");
+                throw new ApplicationException("Medium alert has been found");
             }
         }
 

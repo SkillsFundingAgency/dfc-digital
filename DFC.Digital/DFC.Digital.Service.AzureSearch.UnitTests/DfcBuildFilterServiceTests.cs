@@ -9,41 +9,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class DfcBuildFilterServiceTests
     {
-        [Theory]
-        [MemberData(nameof(GetPsfTestData))]
-        public void BuildPreSearchFilterOperationsTest(IEnumerable<KeyValuePair<string, int>> countOfFilters, IEnumerable<KeyValuePair<string, PreSearchFilterLogicalOperator>> filterFields, string expectedFilterBy)
-        {
-            var model = new PreSearchFiltersResultsModel
-            {
-                Sections = new List<FilterResultsSection>()
-            };
-
-            if (countOfFilters == null)
-            {
-                throw new TestException("Count Of Filters passed is null");
-            }
-
-            foreach (var item in countOfFilters)
-            {
-                var section = new FilterResultsSection
-                {
-                    SectionDataType = item.Key,
-                    Name = item.Key,
-                    Options = GetTestFilterOptions(item).ToList(),
-                    SingleSelectOnly = item.Value == 1,
-                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToLower()}{item.Value}" : null
-                };
-                model.Sections.Add(section);
-            }
-
-            var testObject = new DfcBuildFilterService();
-            var result = testObject.BuildPreSearchFilters(model, filterFields.ToDictionary(k => k.Key, v => v.Value));
-
-            result.Should().Be(expectedFilterBy);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Used as input for xunit MemeberData")]
-        private static IEnumerable<object[]> GetPsfTestData()
+        public static IEnumerable<object[]> GetPsfTestData()
         {
             yield return new object[]
             {
@@ -133,6 +99,39 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 },
                 "Interests/any(t: search.in(t, 'interest1')) or TrainingRoutes/any(t: search.in(t, 'trainingroute1,trainingroute2')) or EntryQualifications/any(t: search.in(t, 'entryqualification1,entryqualification2,entryqualification3')) and Enablers/any(t: search.in(t, 'enabler1,enabler2,enabler3,enabler4')) or JobAreas/any(t: search.in(t, 'jobarea1,jobarea2,jobarea3')) and PreferredTaskTypes/any(t: search.in(t, 'preferredtasktype1,preferredtasktype2,preferredtasktype3,preferredtasktype4'))"
             };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetPsfTestData))]
+        public void BuildPreSearchFilterOperationsTest(IEnumerable<KeyValuePair<string, int>> countOfFilters, IEnumerable<KeyValuePair<string, PreSearchFilterLogicalOperator>> filterFields, string expectedFilterBy)
+        {
+            var model = new PreSearchFiltersResultsModel
+            {
+                Sections = new List<FilterResultsSection>()
+            };
+
+            if (countOfFilters == null)
+            {
+                throw new TestException("Count Of Filters passed is null");
+            }
+
+            foreach (var item in countOfFilters)
+            {
+                var section = new FilterResultsSection
+                {
+                    SectionDataType = item.Key,
+                    Name = item.Key,
+                    Options = GetTestFilterOptions(item).ToList(),
+                    SingleSelectOnly = item.Value == 1,
+                    SingleSelectedValue = item.Value == 1 ? $"{item.Key.ToLower()}{item.Value}" : null
+                };
+                model.Sections.Add(section);
+            }
+
+            var testObject = new DfcBuildFilterService();
+            var result = testObject.BuildPreSearchFilters(model, filterFields.ToDictionary(k => k.Key, v => v.Value));
+
+            result.Should().Be(expectedFilterBy);
         }
 
         private static IEnumerable<FilterResultsOption> GetTestFilterOptions(KeyValuePair<string, int> item)

@@ -1,7 +1,7 @@
 [
     {
         "AddonName":  "JobProfile",
-        "Key":  "baa2617b-0281-4128-906d-64063f98ccf0",
+        "Key":  "2de70f44-a4e9-4763-9e45-cfc9abc49a57",
         "IsDeleted":  false
     },
     {
@@ -16,7 +16,7 @@
     },
     {
         "AddonName":  "PreSearchFilters",
-        "Key":  "29048b0e-85c7-47b0-bdec-6be0fc00a35c",
+        "Key":  "0d35e02b-1f89-4210-a3fb-9afd0a71c7bf",
         "IsDeleted":  false
     }
 ]

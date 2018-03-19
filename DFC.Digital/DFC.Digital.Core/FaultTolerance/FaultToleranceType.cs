@@ -2,6 +2,7 @@
 {
     public enum FaultToleranceType
     {
+        NoPolicy,
         Timeout,
         Retry,
         WaitRetry,

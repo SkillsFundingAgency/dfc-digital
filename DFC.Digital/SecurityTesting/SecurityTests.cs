@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿#if !DEBUG
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OWASPZAPDotNetAPI;
 using System;
@@ -127,3 +128,4 @@ namespace SecurityTesting
         }
     }
 }
+#endif

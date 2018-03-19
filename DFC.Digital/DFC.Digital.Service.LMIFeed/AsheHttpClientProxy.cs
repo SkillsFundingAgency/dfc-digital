@@ -8,12 +8,10 @@ namespace DFC.Digital.Service.LMIFeed
     public class AsheHttpClientProxy : IAsheHttpClientProxy
     {
         private readonly IHttpClientService<IAsheHttpClientProxy> httpClient;
-        private readonly ITolerancePolicy policy;
 
-        public AsheHttpClientProxy(IHttpClientService<IAsheHttpClientProxy> httpClient, ITolerancePolicy policy)
+        public AsheHttpClientProxy(IHttpClientService<IAsheHttpClientProxy> httpClient)
         {
             this.httpClient = httpClient;
-            this.policy = policy;
         }
 
         #region Implementation of IAsheHttpClientProxy
@@ -23,7 +21,7 @@ namespace DFC.Digital.Service.LMIFeed
             var url = ConfigurationManager.AppSettings[Constants.AsheEstimateMDApiGateway];
             var accessKey = ConfigurationManager.AppSettings[Constants.AsheAccessKey];
 
-            return await policy.ExecuteAsync(() => httpClient.GetAsync(string.Format(url, socCode, accessKey)), Constants.Ashe, FaultToleranceType.RetryWithCircuitBreaker);
+            return await httpClient.GetAsync(string.Format(url, socCode, accessKey));
         }
 
         #endregion Implementation of IAsheHttpClientProxy

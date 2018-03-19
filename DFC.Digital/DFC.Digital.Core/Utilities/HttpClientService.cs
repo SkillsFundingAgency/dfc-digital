@@ -6,7 +6,13 @@ namespace DFC.Digital.Core
 {
     public class HttpClientService<TService> : IHttpClientService<TService>
     {
+        private readonly ITolerancePolicy policy;
         private HttpClient httpClient = new HttpClient();
+
+        public HttpClientService(ITolerancePolicy policy)
+        {
+            this.policy = policy;
+        }
 
         public bool AddHeader(string key, string value)
         {
@@ -19,9 +25,9 @@ namespace DFC.Digital.Core
             return false;
         }
 
-        public Task<HttpResponseMessage> GetAsync(string requestUri)
+        public Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return httpClient.GetAsync(new Uri(requestUri));
+            return policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), this.GetType().Name, toleranceType);
         }
     }
 }

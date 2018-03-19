@@ -7,6 +7,6 @@ namespace DFC.Digital.Core
     {
         bool AddHeader(string key, string value);
 
-        Task<HttpResponseMessage> GetAsync(string requestUri);
+        Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker);
     }
 }

@@ -14,13 +14,11 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
         private readonly IHttpClientService<ISpellcheckService> httpClientService;
-        private readonly ITolerancePolicy policy;
         private readonly IApplicationLogger applicationLogger;
 
-        public SpellCheckService(IHttpClientService<ISpellcheckService> httpClientService, ITolerancePolicy policy, IApplicationLogger applicationLogger)
+        public SpellCheckService(IHttpClientService<ISpellcheckService> httpClientService, IApplicationLogger applicationLogger)
         {
             this.httpClientService = httpClientService;
-            this.policy = policy;
             this.applicationLogger = applicationLogger;
         }
 
@@ -106,7 +104,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
         {
             var requestUri = string.Format(bingSpellEndpoint, term);
             httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
-            var response = await policy.ExecuteAsync(() => httpClientService.GetAsync(requestUri), nameof(SpellCheckService), FaultToleranceType.CircuitBreaker);
+            var response = await httpClientService.GetAsync(requestUri, FaultToleranceType.CircuitBreaker);
             return response;
         }
     }

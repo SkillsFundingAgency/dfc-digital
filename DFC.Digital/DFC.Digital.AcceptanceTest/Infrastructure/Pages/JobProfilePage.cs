@@ -33,7 +33,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public string NoVacancyText => Find.OptionalElement(By.ClassName("dfc-code-jp-novacancyText")).Text;
 
-        public int VacancyCount => Find.Elements(By.CssSelector("#appGeneric .column-half .opportunity-item")).Count();
+        public int VacancyCount => Find.Elements(By.CssSelector(".opportunity-item a")).Count();
 
         public bool AllVacanciesHaveHyperlinks => Find.Elements(By.CssSelector(".opportunity-item a")) != null && Find.Elements(By.CssSelector(".opportunity-item a")).Any() && !Find.Elements(By.CssSelector(".opportunity-item a")).Any(item => string.IsNullOrWhiteSpace(item.GetAttribute("href")));
 
@@ -107,7 +107,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickFindCourseLink<T>()
             where T : UiComponent, new()
         {
-            var result = Find.Element(By.CssSelector(".dfc-code-jp-FindTrainingCoursesLink a"));
+            var result = Find.Element(By.CssSelector(".dfc-code-jp-TrainingCoursesText a"));
             return Navigate.To<T>(result.GetAttribute("href"));
         }
 

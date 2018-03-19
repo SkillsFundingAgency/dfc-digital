@@ -21,7 +21,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
         private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfilesByCategorySteps(
+            ITestOutputHelper outputHelper,
+            ISearchService<JobProfileIndex> searchService,
+            ISearchIndexConfig searchIndex,
+            ISearchQueryService<JobProfileIndex> searchQueryService,
+            IMapper mapper)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
@@ -46,8 +51,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
         public void WhenIFilterByTheCategory(string filterCategory)
         {
             OutputHelper.WriteLine($"The filter category is '{filterCategory}'");
-            var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null);
-            this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
+            var searchResult = JobProfileCategoryRepository.FilterByCategory(filterCategory, SearchQueryService);
+            this.result = searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }
 
         [Then(@"the number of job profiles returned is (.*)")]

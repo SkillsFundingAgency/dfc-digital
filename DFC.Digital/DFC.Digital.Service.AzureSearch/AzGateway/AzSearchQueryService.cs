@@ -13,7 +13,6 @@ namespace DFC.Digital.Service.AzureSearch
     {
         #region Fields
 
-        private readonly ITolerancePolicy policy;
         private ISearchIndexClient indexClient;
         private IAzSearchQueryConverter queryConverter;
         private IApplicationLogger applicationLogger;
@@ -22,11 +21,10 @@ namespace DFC.Digital.Service.AzureSearch
 
         #region ctor
 
-        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ITolerancePolicy policy, IApplicationLogger applicationLogger)
+        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, IApplicationLogger applicationLogger)
         {
             this.indexClient = indexClient;
             this.queryConverter = queryConverter;
-            this.policy = policy;
             this.applicationLogger = applicationLogger;
         }
 
@@ -73,14 +71,14 @@ namespace DFC.Digital.Service.AzureSearch
         public virtual Data.Model.SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
             var searchParam = queryConverter.BuildSearchParameters(properties);
-            var result = policy.Execute(() => indexClient.Documents.Search<T>(searchTerm, searchParam), nameof(AzSearchQueryService<T>), FaultToleranceType.Timeout);
+            var result = indexClient.Documents.Search<T>(searchTerm, searchParam);
             return queryConverter.ConvertToSearchResult(result, properties);
         }
 
         public virtual async Task<Data.Model.SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var searchParam = queryConverter.BuildSearchParameters(properties);
-            var result = await policy.ExecuteAsync(() => indexClient.Documents.SearchAsync<T>(searchTerm, searchParam), nameof(AzSearchQueryService<T>), FaultToleranceType.Timeout);
+            var result = await indexClient.Documents.SearchAsync<T>(searchTerm, searchParam);
             return queryConverter.ConvertToSearchResult(result, properties);
         }
 

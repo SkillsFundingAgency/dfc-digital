@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +25,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #endregion Fields
 
-        #region Fields
+        #region Ctor
 
         public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
         }
 
-        #endregion Fields
+        #endregion Ctor
 
         public static IQueryable<string> GetRelatedContentIdAndUrl(DynamicContent content, string relatedField)
         {

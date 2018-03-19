@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using AutoMapper;
 using BoDi;
-using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.Service.AzureSearch.IntegrationTests
@@ -21,6 +21,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             var builder = new Autofac.ContainerBuilder();
             builder.RegisterModule<AzSearchAutofacModule>();
             builder.RegisterModule<AutofacIntegrationTestModule>();
+
             this.autofac = builder.Build().BeginLifetimeScope();
         }
 

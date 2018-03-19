@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OWASPZAPDotNetAPI;
 using System;
 using System.Configuration;
@@ -35,20 +36,37 @@ namespace SecurityTesting
         [Fact, Priority(1)]
         public void AExecuteSpider()
         {
-            var spiderId = StartSpidering();
-            CheckSpideringProgress(spiderId);
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
+            {
+                var spiderId = StartSpidering();
+                CheckSpideringProgress(spiderId);
+            }
+        }
+
+        [Fact]
+        public void CheckForHighOrMediumAlerts()
+        {
+            ApiResponseSet alertSummary = (ApiResponseSet)zapClient.core.alertsSummary(TargetUrl);
+            alertSummary.Dictionary.TryGetValue("High", out var high);
+            alertSummary.Dictionary.TryGetValue("Medium", out var medium);
+
+            Convert.ToInt32(high).Should().Be(0);
+            Convert.ToInt32(medium).Should().Be(0);
         }
 
         [Fact, Priority(2)]
         public void BExecuteActiveScan()
         {
-            var activeScanId = StartActiveScan();
-            CheckActiveScanProgress(activeScanId);
-            var reportFilename = $"{DateTime.Now:dd.MM.yy-hh.mm.ss}-ZAP_Report";
-            SaveSession(reportFilename);
-            zapClient.Dispose();
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings.Get("ShouldRunSpiderAndScan").ToLower()))
+            {
+                var activeScanId = StartActiveScan();
+                CheckActiveScanProgress(activeScanId);
+                var reportFilename = $"{DateTime.Now:dd.MM.yy-hh.mm.ss}-ZAP_Report";
+                SaveSession(reportFilename);
+                zapClient.Dispose();
 
-            GenerateReport(reportFilename, ReportFileExtention.Html);
+                GenerateReport(reportFilename, ReportFileExtention.Html);
+            }
         }
 
         private static void CheckActiveScanProgress(string activeScanId)

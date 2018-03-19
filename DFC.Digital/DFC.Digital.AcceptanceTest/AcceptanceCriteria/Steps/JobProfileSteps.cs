@@ -180,9 +180,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
             jobProfilePage.VacancyCount.Should().Be(noOfApprenticeships);
-            jobProfilePage.HasValidFindApprenticeshipLink.Should().BeTrue();
-
-            //jobProfilePage
         }
 
         [Then(@"the correct sections should be displayed")]
@@ -193,9 +190,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             jobProfilePage.HasHowToBecomeSection.Should().BeTrue();
             jobProfilePage.HasSkillsSection.Should().BeTrue();
             jobProfilePage.HasWhatYouWillDoSection.Should().BeTrue();
-            jobProfilePage.HasSalarySection.Should().BeTrue();
-            jobProfilePage.HasWorkingHoursSection.Should().BeTrue();
-            jobProfilePage.HasWorkingHoursPatternsSection.Should().BeTrue();
             jobProfilePage.HasCareerPathSection.Should().BeTrue();
             jobProfilePage.HasCurrentOpportunitiesSection.Should().BeTrue();
         }

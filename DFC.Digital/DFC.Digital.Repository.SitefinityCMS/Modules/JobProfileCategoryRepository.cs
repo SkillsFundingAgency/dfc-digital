@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -21,6 +20,25 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             this.jobprofileSearchQueryService = jobProfileSearchQueryService;
             this.mapper = mapper;
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
+        public static SearchResult<JobProfileIndex> FilterByCategory(string category, ISearchQueryService<JobProfileIndex> searchQueryService)
+        {
+            if (searchQueryService == null)
+            {
+                throw new ArgumentNullException(nameof(searchQueryService));
+            }
+
+            return searchQueryService.Search(
+                    "*",
+                    new SearchProperties
+                    {
+                        UseRawSearchTerm = true,
+                        Count = 100,
+                        FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
+                        OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
+                    });
         }
 
         public IQueryable<JobProfileCategory> GetJobProfileCategories()
@@ -70,19 +88,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             };
         }
 
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         public IEnumerable<JobProfile> GetRelatedJobProfiles(string category)
         {
-            var searchResult = jobprofileSearchQueryService.Search(
-                    "*",
-                    new SearchProperties
-                    {
-                        UseRawSearchTerm = true,
-                        Count = 100,
-                        FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
-                        OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
-                    });
-
+            var searchResult = FilterByCategory(category, jobprofileSearchQueryService);
             return searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }
     }

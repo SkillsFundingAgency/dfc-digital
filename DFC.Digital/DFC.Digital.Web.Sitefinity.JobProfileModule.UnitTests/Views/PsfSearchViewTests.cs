@@ -17,7 +17,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData(1, 1, 1)]
         [InlineData(20, 2, 1)]
         [InlineData(50, 5, 5)]
-        [InlineData(1, 1, 1)]
         public void DFC1940ScenarioA1ForShowPsfResults(int count, int totalPages, int currentPage)
         {
             var resultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();

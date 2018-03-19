@@ -36,7 +36,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
 
             //Act
-            var searchService = new DfcSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakeQueryBuilder, policy, fakeLogger);
+            var searchService = new DfcSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakeQueryBuilder, fakeLogger);
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert

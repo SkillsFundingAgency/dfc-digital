@@ -23,7 +23,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData(true, false, 2, "coursekeywords")]
         [InlineData(true, false, 1, "coursekeywords")]
         [InlineData(false, false, 2, "coursekeywords")]
-        [InlineData(false, false, 2, "coursekeywords")]
         [InlineData(true, true, 1, "coursekeywords")]
         [InlineData(true, true, 2, "coursekeywords")]
         [InlineData(false, true, 1, "coursekeywords")]
@@ -136,11 +135,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData("Test", true, false, false, "coursekeywords")]
         [InlineData("TestInContentAuth", false, true, false, "coursekeywords")]
-        [InlineData("Test", true, false, false, "coursekeywords")]
         [InlineData("Test", false, false, false, "coursekeywords")]
         [InlineData("Test", true, false, true, "coursekeywords")]
         [InlineData("TestInContentAuth", false, true, true, "coursekeywords")]
-        [InlineData("Test", true, false, true, "coursekeywords")]
         [InlineData("Test", false, false, true, "coursekeywords")]
         public void IndexUrlNameTest(string urlName, bool useValidJobProfile, bool inContentAuthoringSite, bool isContentPreviewMode, string courseKeywords)
         {

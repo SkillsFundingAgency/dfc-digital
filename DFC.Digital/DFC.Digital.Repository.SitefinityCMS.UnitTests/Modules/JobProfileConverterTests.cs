@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Base;
+using DFC.Digital.Repository.SitefinityCMS;
 using FakeItEasy;
 using FluentAssertions;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -11,14 +11,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
     {
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
 
+        public JobProfileConverterTests()
+        {
+            relatedClassificationsRepository = A.Fake<IRelatedClassificationsRepository>();
+        }
+
         //[Fact]
         //Cannot Unit test as unable to fake the calls to dynamicContentFake . GetRelatedItems as it is a static extension on object!!! in sitefinity.
         public void GetRelatedContentIdAndUrlTest()
         {
             var dynamicContentFake = A.Fake<DynamicContent>();
-            var jobProfileConverter = new JobProfileConverter(relatedClassificationsRepository);
 
-            jobProfileConverter.GetRelatedContentIdAndUrl(dynamicContentFake, "something");
+            JobProfileConverter.GetRelatedContentIdAndUrl(dynamicContentFake, "something");
         }
 
         //[Fact()]
@@ -45,7 +49,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             var returnedJobProfile = jobProfileConverter.ConvertFrom(dynamicContentFake);
 
             A.CallTo(() => dynamicContentFake.GetValue<Lstring>(A<Lstring>._)).MustHaveHappened(Repeated.Exactly.Times(3));
-            returnedJobProfile.ShouldBeEquivalentTo(expectedJobProfile);
+            returnedJobProfile.Should().BeEquivalentTo(expectedJobProfile);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "JobProfileSettingsAndPreviewController", Title = "JobProfile Settings and Preview", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileSettingsAndPreviewController : Web.Core.Base.BaseDfcController, IContentLocatableView
+    public class JobProfileSettingsAndPreviewController : BaseDfcController, IContentLocatableView
     {
         #region Private Fields
 
@@ -37,7 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public bool? DisableCanonicalUrlMetaTag { get; set; }
 
-        public string PreviousUrLname { get; set; }
+        public string PreviousUrlName { get; set; }
 
         #endregion Public Properties
 
@@ -61,12 +62,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            if (!string.IsNullOrWhiteSpace(urlname) && !webAppContext.IsContentAuthoringSite)
+            if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlname);
+                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlName);
             }
 
             return new EmptyResult();

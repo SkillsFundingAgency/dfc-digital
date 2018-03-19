@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DFC.Digital.Core
+﻿namespace DFC.Digital.Core
 {
     public enum FaultToleranceType
     {
+        NoPolicy,
         Timeout,
         Retry,
         WaitRetry,

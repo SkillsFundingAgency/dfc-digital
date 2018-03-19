@@ -15,20 +15,20 @@ namespace DFC.Digital.Repository.CosmosDb
             this.correlationId = Guid.NewGuid();
         }
 
-        public void CreateAudit(object input)
+        public void CreateAudit(object record)
         {
             Add(new Audit
             {
                 CorrelationId = correlationId,
-                Data = input,
-                TimeStamp = DateTime.Now
+                Data = record,
+                Timestamp = DateTime.Now
             });
         }
 
-        protected override void Initialise()
+        internal override void Initialise()
         {
             Database = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Db");
             DocumentCollection = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Collection");
         }
     }
- }
+}

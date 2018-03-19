@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core;
 using System.Diagnostics;
 using System.Threading;
 using System.Web;
@@ -19,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class FeatherActionInvokerCustom : FeatherActionInvoker
     {
         private readonly IApplicationLogger logger;
-        private readonly ILifetimeScope lifetimeScope;
+        private ILifetimeScope lifetimeScope;
 
         public FeatherActionInvokerCustom(ILifetimeScope lifetimeScope)
         {
@@ -32,14 +32,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
         /// </summary>
         internal static void Register()
         {
-            var onj = ObjectFactory.Container.Resolve<IControllerActionInvoker>();
             ObjectFactory.Container.RegisterType<IControllerActionInvoker, FeatherActionInvokerCustom>();
         }
 
         protected override void ExecuteController(MvcProxyBase proxyControl)
         {
             Stopwatch watch = Stopwatch.StartNew();
-            logger.Trace($"Executing controller {proxyControl.ControllerName}");
+            logger.Trace($"Executing controller {proxyControl?.ControllerName}");
             try
             {
                 base.ExecuteController(proxyControl);
@@ -47,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             finally
             {
                 watch.Stop();
-                logger.Trace($"Completed executing controller {proxyControl.ControllerName} and spent {watch.Elapsed} on it.");
+                logger.Trace($"Completed executing controller {proxyControl?.ControllerName} and spent {watch.Elapsed} on it.");
             }
         }
 

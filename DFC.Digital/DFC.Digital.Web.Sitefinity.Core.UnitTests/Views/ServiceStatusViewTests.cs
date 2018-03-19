@@ -1,16 +1,18 @@
 ﻿using ASP;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class ServiceStatusViewTests
     {
@@ -23,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             var htmlDom = index.RenderAsHtml(serviceStatusViewModel);
 
             var sectionText = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-medium')]").FirstOrDefault().InnerText;
-            sectionText.ShouldBeEquivalentTo("Service Status");
+            sectionText.Should().BeEquivalentTo("Service Status");
 
             var checkDate = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-small')]").FirstOrDefault().InnerText;
             checkDate.Should().Contain(serviceStatusViewModel.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss"));
@@ -38,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
         private void CheckViewForService(ServiceStatus serviceStatus, HtmlDocument htmlDom, int index)
         {
             //Check class of li
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]").FirstOrDefault().HasClass($"list_service_{serviceStatus.Status}");
+            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]").FirstOrDefault().GetAttributeValue("class", string.Empty).Contains($"list_service_{serviceStatus.Status}");
 
             //First col contains Service name
             htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Name);
@@ -47,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckParametersUsed);
 
             //Second row contains extended information
-            if (serviceStatus.Notes != string.Empty)
+            if (!string.IsNullOrEmpty(serviceStatus?.Notes))
             {
                 htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[2]/div").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Notes);
             }
@@ -78,9 +80,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             return new ServiceStatusModel() { CheckDateTime = DateTime.Now, ServiceStatues = GetDummyStatuses() };
         }
 
-        private List<ServiceStatus> GetDummyStatuses()
+        private Collection<ServiceStatus> GetDummyStatuses()
         {
-            var serviceStates = new List<ServiceStatus>
+            var serviceStates = new Collection<ServiceStatus>
             {
                 new ServiceStatus() { Name = "Dummy Service Green", Status = ServiceState.Green, Notes = string.Empty, CheckParametersUsed = "P1=Green Parameter" },
                 new ServiceStatus() { Name = "Dummy Service Amber", Status = ServiceState.Amber, Notes = "Nearly Bad Service", CheckParametersUsed = "P1=Amber Parameter" },
@@ -89,6 +91,4 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.Views
             return serviceStates;
         }
     }
-
-
 }

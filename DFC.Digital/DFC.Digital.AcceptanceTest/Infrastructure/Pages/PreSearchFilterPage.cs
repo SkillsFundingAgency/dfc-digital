@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Locators;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class PreSearchFilterPage : Page
     {
@@ -49,7 +47,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public void SelectTags(string tagsToSelect)
         {
-            var individualTags = tagsToSelect.Split(',');
+            var individualTags = tagsToSelect?.Split(',');
             var tagsInterestedIn = TagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)));
 
             foreach (var tag in tagsInterestedIn)
@@ -60,7 +58,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool IsTagsSelected(string selectedTags)
         {
-            var individualTags = selectedTags.Split(',');
+            var individualTags = selectedTags?.Split(',');
             var hasAnyUnSelectedTags = TagOptions.Where(t => individualTags.Any(tg => t.Text.Contains(tg)))
                 .Any(t =>
                 {

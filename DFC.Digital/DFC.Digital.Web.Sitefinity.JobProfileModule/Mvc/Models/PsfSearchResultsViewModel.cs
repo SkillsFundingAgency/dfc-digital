@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
+﻿using System;
+
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
     /// <summary>
     /// Pre Search Filter Results View Model
@@ -28,7 +30,7 @@
         /// <value>
         /// The back page URL.
         /// </value>
-        public string BackPageUrl { get; set; }
+        public Uri BackPageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the previous page URL text.

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
@@ -13,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The place holder text.
         /// </value>
-        public string PlaceHolderText { get; set; }
+        public string PlaceholderText { get; set; }
 
         /// <summary>
         /// Gets or sets the header text.
@@ -44,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// <value>
         /// The job profile URL.
         /// </value>
-        public string JobProfileUrl { get; set; }
+        public Uri JobProfileUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the AutoComplete Minimum Characters
@@ -63,10 +64,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public int MaximumNumberOfDisplayedSuggestions { get; set; }
 
         /// <summary>
-        /// Gets or sets the Fuzzy AutoComplete
+        /// Gets or sets a value indicating whether [use fuzzy automatic complete matching].
         /// </summary>
         /// <value>
-        /// The Fuzzy AutoComplete
+        ///   <c>true</c> if [use fuzzy automatic complete matching]; otherwise, <c>false</c>.
         /// </value>
         public bool UseFuzzyAutoCompleteMatching { get; set; }
     }

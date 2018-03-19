@@ -1,8 +1,8 @@
 ﻿using DFC.Digital.Data.Attributes;
 
-namespace DFC.Digital.Service.AzureSearch.Tests
+namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
-    internal abstract class TestSuggestBuilder
+    public abstract class TestSuggestBuilder
     {
         [IsSuggestible]
         public int PropertyOne { get; set; }

@@ -84,7 +84,7 @@ $.extend($.ui.autocomplete.prototype, {
 //get all input boxes with class "autocomplete"
 $('.js-autocomplete').each(function () {
     $(this).autocomplete({
-        source: $(this).data("autocomplete-source") + '?maxNumberDisplyed=' + $(this).data("autocomplete-maxnumberdisplyed") + '&fuzzySearch=' + $(this).data('autocomplete-fuzzysearch'),
+        source: $(this).data("autocomplete-source") + '?maxNumberDisplayed=' + $(this).data("autocomplete-maxnumberdisplyed") + '&fuzzySearch=' + $(this).data('autocomplete-fuzzysearch'),
         minLength: $(this).data('autocomplete-minlength')
     });
 });

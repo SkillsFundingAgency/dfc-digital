@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-            builder.RegisterType<SearchIndexEnhancers.JobProfileIndexEnhancer>()
+            builder.RegisterType<JobProfileIndexEnhancer>()
                 .As<IJobProfileIndexEnhancer>()
                 .InstancePerLifetimeScope();
         }

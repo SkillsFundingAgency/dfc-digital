@@ -2,7 +2,7 @@
 using FakeItEasy;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class WebAppContextSitefinityCoreTest
     {

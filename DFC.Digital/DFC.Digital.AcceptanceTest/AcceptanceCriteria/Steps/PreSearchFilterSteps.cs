@@ -1,11 +1,5 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -20,29 +14,30 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         #endregion Ctor
+
         #region Whens
 
         [When(@"I click on the PSF Continue button")]
         public void WhenIClickOnThePSFContinueButton()
         {
-            var homepage = GetNavigatedPage<HomePage>();
+            var homepage = GetNavigatedPage<Homepage>();
             homepage.ClickPSFContinueButton<PreSearchFilterPage>()
                 .SaveTo(ScenarioContext);
         }
 
-        [When(@"I select the (.*) tags (.*)")]
-        public void WhenISelectTheJobLevelTagsJobLevel(string page, string tags)
+        [When(@"I select the tags (.*)")]
+        public void WhenISelectTheJobLevelTagsJobLevel(string tags)
         {
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
             filterPage.SelectTags(tags);
         }
 
-        [When(@"I press continue on the '(.*)' page")]
-        public void WhenIPressContinue(string filterPage)
+        [When(@"I press continue on the page")]
+        public void WhenIPressContinue()
         {
             var psfPage = GetNavigatedPage<PreSearchFilterPage>();
-                    psfPage.ClickContinue<PreSearchFilterPage>()
-                        .SaveTo(ScenarioContext);
+            psfPage.ClickContinue<PreSearchFilterPage>()
+                .SaveTo(ScenarioContext);
         }
 
         [When(@"I click on filter results no '(.*)'")]
@@ -50,18 +45,18 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var resultPage = GetNavigatedPage<PreSearchFilterPage>();
             ScenarioContext.Set(resultPage.SelectedProfileTitle(result), "profileSelected");
-            var jobProfilePage = resultPage.GoToResult<JobProfilePage>(result)
+            resultPage.GoToResult<JobProfilePage>(result)
                 .SaveTo(ScenarioContext);
         }
 
-        [When(@"I press the back link on the '(.*)' page")]
-        public void WhenIPressTheBackLinkOnThePage(string page)
+        [When(@"I press the back link on the page")]
+        public void WhenIPressTheBacklinkOnThePage()
         {
             var resultPage = GetNavigatedPage<PreSearchFilterPage>();
             resultPage.ClickBack<PreSearchFilterPage>();
         }
 
-        #endregion
+        #endregion Whens
 
         #region Thens
 
@@ -69,7 +64,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheCorrectPage(string filter)
         {
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
-            if (filter.Equals("Filter search results"))
+            if (filter?.Equals("Filter search results") == true)
             {
                 filterPage.FilterResultsTitleDisplayed.Should().BeTrue("Should display results page");
             }
@@ -105,6 +100,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             var filterPage = GetNavigatedPage<PreSearchFilterPage>();
             filterPage.IsTagsSelected(tags).Should().BeFalse("Tags should be de-selected after pressing None");
         }
-        #endregion
+
+        #endregion Thens
     }
 }

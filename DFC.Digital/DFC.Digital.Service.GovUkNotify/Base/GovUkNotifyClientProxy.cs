@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Service.GovUkNotify.Base
 {
-    internal class GovUkNotifyClientProxy : IGovUkNotifyClientProxy
+    public class GovUkNotifyClientProxy : IGovUkNotifyClientProxy
     {
         /// <summary>
         /// This is only a proxy to GovNotify client as there are no interface we could hang our unit tests over
@@ -12,12 +12,12 @@ namespace DFC.Digital.Service.GovUkNotify.Base
         /// <param name="apiKey">The key needed for gov uk notify api</param>
         /// <param name="emailAddress">email address to send email</param>
         /// <param name="templateId">template id</param>
-        /// <param name="personalisation">dictionary of personalisation</param>
+        /// <param name="notifyUkDynamicObject">dictionary of personalisation</param>
         /// <returns><see cref="EmailNotificationResponse"/></returns>
-        public EmailNotificationResponse SendEmail(string apiKey, string emailAddress, string templateId, Dictionary<string, dynamic> personalisation)
+        public EmailNotificationResponse SendEmail(string apiKey, string emailAddress, string templateId, Dictionary<string, dynamic> notifyUkDynamicObject)
         {
             var client = new NotificationClient(apiKey);
-            return client.SendEmail(emailAddress, templateId, personalisation);
+            return client.SendEmail(emailAddress, templateId, notifyUkDynamicObject);
         }
     }
 }

@@ -22,14 +22,14 @@ namespace DFC.Digital.Data.Interfaces
 
         NameValueCollection RequestQueryString { get; }
 
-        bool IsValidAndFormattedUrl(string urlTobeValidated);
+        bool IsValidAndFormattedUrl(string urlToBeValidated);
 
         void SetVocCookie(string cookieName, string cookieValue);
 
         VocSurveyPersonalisation GetVocCookie(string cookieName);
 
-        string GetGaClientId();
+        string GetGAClientId();
 
-        void SetResponseStatusCode(int v);
+        void SetResponseStatusCode(int statusCode);
     }
 }

@@ -22,6 +22,11 @@ namespace Seleno.BrowserStack
 
         public new void SetTestMethod(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string friendlyTestName)
         {
+            if (testMethod == null)
+            {
+                throw new TestGeneratorException("Test method passed in is null");
+            }
+
             base.SetTestMethod(generationContext, testMethod, friendlyTestName);
 
             var factAttr = testMethod.CustomAttributes.OfType<CodeAttributeDeclaration>()
@@ -43,6 +48,11 @@ namespace Seleno.BrowserStack
         public override void SetRowTest(TestClassGenerationContext generationContext, CodeMemberMethod testMethod, string scenarioTitle)
         {
             base.SetRowTest(generationContext, testMethod, scenarioTitle);
+            if (testMethod == null)
+            {
+                throw new TestGeneratorException("Test method passed in is null");
+            }
+
             var parameterCount = testMethod.Parameters.Count;
             testMethod.Parameters.Insert(parameterCount - 1, new CodeParameterDeclarationExpression(new CodeTypeReference(new CodeTypeParameter(typeof(string).ToString())), "browser"));
             testMethod.Statements.Insert(0, AssignBrowser());
@@ -60,12 +70,12 @@ namespace Seleno.BrowserStack
         {
             base.FinalizeTestClass(generationContext);
 
-            generationContext.ScenarioInitializeMethod.Statements.Clear();
-            generationContext.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
+            generationContext?.ScenarioInitializeMethod.Statements.Clear();
+            generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
                 "var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $\"browser:{_browser}\" })));"));
-            generationContext.ScenarioInitializeMethod.Statements.Add(
+            generationContext?.ScenarioInitializeMethod.Statements.Add(
                 new CodeSnippetStatement("testRunner.OnScenarioStart(clonedScenarioInfo);"));
-            generationContext.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
+            generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
                 "testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);"));
         }
 
@@ -74,7 +84,7 @@ namespace Seleno.BrowserStack
             CodeConstructor ctorMethod)
         {
             base.SetTestConstructor(generationContext, ctorMethod);
-            generationContext.TestClass.Members.Add(new CodeMemberField(typeof(string), "_browser"));
+            generationContext?.TestClass.Members.Add(new CodeMemberField(typeof(string), "_browser"));
         }
 
         private static CodeStatement AssignBrowser()

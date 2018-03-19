@@ -82,6 +82,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             }
         }
 
+        [Theory]
+        [InlineData("testText", "", "testText")]
+        [InlineData("testText", "testRange", "testRange")]
+        public void DFC1510ForSalaryVariableText(string salaryText, string salaryRange, string expectedValue)
+        {
+            //Assign
+            var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(1, 0, salaryRange), " result found", 1);
+            psfSearchResultsViewModel.SalaryBlankText = salaryText;
+
+            //Act
+            var htmlDom = searchResultsView.RenderAsHtml(psfSearchResultsViewModel);
+
+            //Assert
+            GetSalaryText(htmlDom).ShouldBeEquivalentTo(expectedValue);
+        }
+
+        private string GetSalaryText(HtmlDocument htmlDocument)
+        {
+            return htmlDocument.DocumentNode.Descendants("span")
+                .FirstOrDefault(span => span.Attributes["class"].Value.Equals("dfc-code-search-jpSalary"))?.InnerText.Trim();
+        }
+
         private IEnumerable<string> GetDisplayedViewAnchorLinks(HtmlNode htmlNode)
         {
             return htmlNode.Descendants("a").Select(n =>
@@ -217,7 +240,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             return filtersModel;
         }
 
-        private IEnumerable<JobProfileSearchResultItemViewModel> DummyMultipleJobProfileSearchResults(int countofResults, int numberOfLinkedJobCategories = 0)
+        private IEnumerable<JobProfileSearchResultItemViewModel> DummyMultipleJobProfileSearchResults(int countofResults, int numberOfLinkedJobCategories = 0, string salaryRange = "Salary Average = £23,000 - £101,000")
         {
             for (var i = 0; i < countofResults; i++)
             {
@@ -226,7 +249,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                     ResultItemTitle = $"Test Result Title {i}",
                     ResultItemAlternativeTitle = $"Alt Title {i}",
                     ResultItemOverview = "OverView Text",
-                    ResultItemSalaryRange = "Salary Average = £23,000 - £101,000",
+                    ResultItemSalaryRange = salaryRange,
                     ResultItemUrlName = "Test URL Name",
                     JobProfileCategoriesWithUrl = numberOfLinkedJobCategories > 0 ? GetLinkedCategories(numberOfLinkedJobCategories, string.Empty) : null
                 };

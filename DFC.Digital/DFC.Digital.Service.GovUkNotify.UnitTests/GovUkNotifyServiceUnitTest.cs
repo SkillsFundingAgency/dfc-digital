@@ -1,18 +1,15 @@
-﻿using DFC.Digital.Service.GovUkNotify;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;
 using Xunit;
 using Notify.Exceptions;
 using System;
-using DFC.Digital.Core;
 
 namespace DFC.Digital.Service.GovUkNotify.UnitTests
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     public class GovUkNotifyServiceUnitTest
@@ -81,7 +78,7 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
             var result = govUkNotifyService.Convert(input);
 
             // Assert
-            result.ShouldAllBeEquivalentTo(expectation);
+            result.Should().BeEquivalentTo(expectation);
         }
 
         [Theory]

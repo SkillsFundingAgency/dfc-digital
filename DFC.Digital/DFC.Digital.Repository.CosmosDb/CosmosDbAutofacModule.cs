@@ -13,7 +13,8 @@ namespace DFC.Digital.Repository.CosmosDb
         {
             base.Load(builder);
 
-            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
+            builder.RegisterAssemblyTypes(ThisAssembly)
+                .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
@@ -22,6 +23,13 @@ namespace DFC.Digital.Repository.CosmosDb
             var key = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.PrimaryKey");
 
             builder.Register<IDocumentClient>(ctx => new DocumentClient(new System.Uri(endpoint), key)).SingleInstance();
+            builder.RegisterType<CourseSearchAuditRepository>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .OnActivating(cosmos => cosmos.Instance.Initialise())
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
     }
 }

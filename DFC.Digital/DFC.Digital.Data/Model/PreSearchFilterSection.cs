@@ -11,7 +11,7 @@ namespace DFC.Digital.Data.Model
         [JsonConverter(typeof(StringEnumConverter))]
         public PreSearchFilterType SectionDataType { get; set; }
 
-        public List<PreSearchFilterOption> Options { get; set; }
+        public ICollection<PreSearchFilterOption> Options { get; set; }
 
         [JsonIgnore]
         public bool SingleSelectOnly { get; set; }

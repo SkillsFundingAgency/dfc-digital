@@ -1,22 +1,25 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     ///     Job Profile Details Controller tests
     /// </summary>
     public class JobProfileApprenticeshipsControllerTests
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Used in debuuging tests as this number is dumped as part of the parameters - hence no need to copare them all to find the exact instance")]
         [Theory]
         [InlineData(1, true, "testtrue", false, 2)]
         [InlineData(2, true, "", false, 2)]
@@ -32,7 +35,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var unused1 = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -54,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -63,7 +65,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -101,14 +103,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
-                        vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
-                        vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);
-                        vm.ApprenticeshipSectionTitle.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
+                        vm.ApprenticeshipSectionTitle.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipSectionTitle);
                     })
                     .AndNoModelErrors();
@@ -130,7 +132,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                         {
                             vm.ApprenticeVacancies.Count().Should()
                                 .BeLessOrEqualTo(jobProfileApprenticeshipsController.MaxApprenticeshipCount);
-                            vm.ApprenticeVacancies.ShouldAllBeEquivalentTo(dummyApprenticeships);
+                            vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                         });
                     A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
                 }
@@ -141,6 +143,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "unused", Justification = "Used in debuuging tests as this number is dumped as part of the parameters - hence no need to copare them all to find the exact instance")]
         [Theory]
         [InlineData(1, "Test", true, "test", false, false)]
         [InlineData(2, "TestInContentAuth", false, "", true, false)]
@@ -156,7 +159,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var socRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -179,7 +181,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -188,7 +190,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                 {
                     Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
                     Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
                     VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
                     WageAmount = "£3",
                     WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
@@ -227,14 +229,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .MainSectionTitle);
-                        vm.ApprenticeshipText.ShouldBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
-                        vm.LocationDetails.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
-                        vm.NoVacancyText.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController.NoVacancyText);
-                        vm.ApprenticeshipSectionTitle.ShouldAllBeEquivalentTo(jobProfileApprenticeshipsController
+                        vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
+                        vm.ApprenticeshipSectionTitle.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipSectionTitle);
                     })
                     .AndNoModelErrors();
@@ -261,7 +263,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileApprenticeshipViewModel>(vm =>
                     {
-                        vm.ApprenticeVacancies.ShouldAllBeEquivalentTo(dummyApprenticeships);
+                        vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                     })
                     .AndNoModelErrors();
                 A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
@@ -275,45 +277,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
             {
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
             }
-        }
-
-        private EnumerableQuery<ApprenticeVacancy> GetDummyApprenticeVacancies()
-        {
-            return new EnumerableQuery<ApprenticeVacancy>(new List<ApprenticeVacancy>
-            {
-                new ApprenticeVacancy
-                {
-                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
-                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
-                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
-                    WageAmount = "£3",
-                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
-                },
-                new ApprenticeVacancy
-                {
-                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
-                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
-                    URL = $"dummy {nameof(ApprenticeVacancy.URL)}",
-                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
-                    WageAmount = "£3",
-                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
-                }
-            });
-        }
-
-        private JobProfile GetDummyJobPRofile(bool useValidJobProfile, string socCode)
-        {
-            return useValidJobProfile
-                ? new JobProfile
-                {
-                    AlternativeTitle = $"dummy {nameof(JobProfile.AlternativeTitle)}",
-                    SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
-                    Overview = $"dummy {nameof(JobProfile.Overview)}",
-                    Title = $"dummy {nameof(JobProfile.Title)}",
-                    SOCCode = socCode
-                }
-                : null;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<securityConfig xmlns:config="urn:telerik:sitefinity:configuration" xmlns:type="urn:telerik:sitefinity:configuration:type" config:version="10.2.6602.0" authCookieName=".SFAUTH-dfc-beta" rolesCookieName=".SFROLES-dfc-beta" validationKey="__sitefinitySecurityValidationKey__" decryptionKey="__sitefinitySecurityDecryptionKey__" loggingCookieName=".SFLOG-dfc-beta" disableHtmlSanitization="True">
+<securityConfig xmlns:config="urn:telerik:sitefinity:configuration" xmlns:type="urn:telerik:sitefinity:configuration:type" config:version="10.2.6628.0" authCookieName=".SFAUTH-dfc-beta" rolesCookieName=".SFROLES-dfc-beta" validationKey="__sitefinitySecurityValidationKey__" decryptionKey="__sitefinitySecurityDecryptionKey__" loggingCookieName=".SFLOG-dfc-beta" disableHtmlSanitization="True">
   <securityTokenIssuers>
     <add key="__securityTokenIssuers__" membershipProvider="Default" realm="http://localhost" />
   </securityTokenIssuers>

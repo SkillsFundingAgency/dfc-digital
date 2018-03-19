@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using System;
+﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
@@ -46,7 +45,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                 var r = new Regex($"[{Regex.Escape(regexSearch)}]");
                 var screenShotFile = $"{r.Replace(screenShotName, string.Empty)}_{DateTime.Now:dd-MMM-yy-H-mm-ss}.jpg";
                 BrowserStackSelenoHost.Seleno.Application.Camera.TakeScreenshot(screenShotFile);
-                return $"{LocalBrowserHost.ScreenShotFolder}\\{screenShotFile}";
+                return $"{LocalBrowserHost.ScreenshotFolder}\\{screenShotFile}";
             }
             else
             {

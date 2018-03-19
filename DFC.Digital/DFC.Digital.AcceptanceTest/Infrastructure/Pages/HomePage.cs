@@ -4,9 +4,9 @@ using System.Linq;
 using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Locators;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class HomePage : SitefinityPage<JobProfileSearchBoxViewModel>
+    public class Homepage : SitefinityPage<JobProfileSearchBoxViewModel>
     {
         public bool ServiceName => Find.OptionalElement(By.Id("site-header")) != null;
 
@@ -20,9 +20,9 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         internal bool UrlShowsSearchAction => UrlContains("/home/search/");
 
-        public string GetJobProfileCategoryUrl(int category)
+        public Uri GetJobProfileCategoryUrl(int category)
         {
-            return Find.Elements(By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href");
+            return new Uri(Find.Elements(By.CssSelector(".homepage-jobcategories a"))?.ElementAt(category - 1).GetAttribute("href"));
         }
 
         public T Search<T>(JobProfileSearchBoxViewModel model)

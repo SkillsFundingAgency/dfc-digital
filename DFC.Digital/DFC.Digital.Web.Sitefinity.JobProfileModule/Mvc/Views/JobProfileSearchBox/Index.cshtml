@@ -3,7 +3,7 @@
 @using (Html.BeginForm("Search", "JobProfileSearchBox", FormMethod.Post, new { id = "header-search", @class = "site-search ui-front" }))
 {
     <div class="header-search-content">
-        @Html.LabelFor(model => model.SearchTerm, Model.PlaceHolderText)
+        @Html.LabelFor(model => model.SearchTerm, Model.PlaceholderText)
 
         <div class="search-input-wrapper">
             @Html.TextBoxFor(model => model.SearchTerm, new {

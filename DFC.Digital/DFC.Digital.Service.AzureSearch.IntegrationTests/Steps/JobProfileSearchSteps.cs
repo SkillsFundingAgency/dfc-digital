@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class JobProfileSearchSteps
@@ -19,16 +19,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
-            this.mapper = mapper;
             asyncHelper = new AsyncHelper();
         }
 
@@ -94,7 +92,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual order {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected, options => options.WithStrictOrdering());
+            actual.Should().BeEquivalentTo(expected, options => options.WithStrictOrdering());
         }
 
         [Then(@"the profiles are listed in no specific order:")]
@@ -107,7 +105,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the profiles are listed first in no specific order:")]
@@ -120,7 +118,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the following profiles are listed in no specific order skip '(.*)' results:")]
@@ -133,7 +131,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Then(@"the result count should match '(.*)'")]
@@ -150,15 +148,15 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         }
 
         [Then(@"the number of job profiles shown on the page is less than or equal to '(.*)'\. \(i\.e\. the page limit\)")]
-        public void ThenTheNumberOfJobProfilesShownOnThePageIsLessThanOrEqualTo_I_E_ThePageLimit(int pageLimit)
+        public void ThenTheNumberOfJobProfilesShownOnThePageIsLessThanOrEqualToIEThePageLimit(int pageLimit)
         {
             results.Results.Count().Should().BeLessOrEqualTo(pageLimit).And.BeGreaterThan(0);
         }
 
         [Then(@"the number of job profiles shown on the page is equal to '(.*)'\. \(i\.e\. the page limit\)")]
-        public void ThenTheNumberOfJobProfilesShownOnThePageIsEqualTo_I_E_ThePageLimit(int pageLimit)
+        public void ThenTheNumberOfJobProfilesShownOnThePageIsEqualToIEThePageLimit(int pageLimit)
         {
-            results?.Results.Count().ShouldBeEquivalentTo(pageLimit);
+            results?.Results.Count().Should().Be(pageLimit);
         }
     }
 }

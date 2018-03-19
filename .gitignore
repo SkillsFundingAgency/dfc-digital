@@ -291,6 +291,7 @@ __pycache__/
 *.xsd.cs
 
 #Ignore the libs
-DFC.Digital/Lib
-**/*Feature.cs
+DFC.Digital/lib
+**/*feature.cs
 *.config
+/DFC.Digital/DFC.Digital.Web.Sitefinity/dependencybin/Microsoft.Spatial.dll

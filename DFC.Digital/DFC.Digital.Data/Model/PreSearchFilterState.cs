@@ -4,6 +4,6 @@ namespace DFC.Digital.Data.Model
 {
     public class PreSearchFilterState
     {
-        public List<PreSearchFilterSection> Sections { get; set; }
+        public ICollection<PreSearchFilterSection> Sections { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Specialized;
@@ -8,10 +7,12 @@ using TechTalk.SpecFlow;
 using TestStack.Seleno.Configuration;
 using TestStack.Seleno.Configuration.WebServers;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class BrowserStackSelenoHost : IDisposable
     {
+        private string browserStackBrowserUri = ConfigurationManager.AppSettings.Get("browserStack.RemoteDriverUrl");
+
         public SelenoHost Seleno { get; private set; }
 
         public RemoteWebDriver Browser { get; internal set; }
@@ -20,21 +21,14 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
 
         public ScenarioContext ScenarioContext { get; internal set; }
 
-        internal string BrowserStackBrowserUri => ConfigurationManager.AppSettings.Get("browserStack.RemoteDriverUrl");
-
-        internal RunProfile RunProfile => (RunProfile)Enum.Parse(typeof(RunProfile), ConfigurationManager.AppSettings.Get("RunProfile"), true);
+        internal static RunProfile RunProfile => (RunProfile)Enum.Parse(typeof(RunProfile), ConfigurationManager.AppSettings.Get("RunProfile"), true);
 
         internal string RootUrl { get; set; } = ConfigurationManager.AppSettings["rooturl"];
 
         public void Dispose()
         {
-            if (RunProfile == RunProfile.Remote)
-            {
-                //Browser?.Quit();
-                //Browser = null;
-                Seleno?.Dispose();
-                Seleno = null;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         internal void Initalise()
@@ -44,7 +38,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
                 case RunProfile.Remote:
                     DesiredCapabilities capability = PopulateCapabilities();
                     SetBrowserStackCredentials(capability);
-                    Browser = new RemoteWebDriver(new Uri(BrowserStackBrowserUri), capability);
+                    Browser = new RemoteWebDriver(new Uri(browserStackBrowserUri), capability);
                     var selenoHost = new SelenoHost();
                     selenoHost.Run(config =>
                     {
@@ -75,6 +69,18 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
                     Seleno = LocalBrowserHost.GetInstanceFor(BrowserName, RootUrl);
                     RootUrl = Seleno.Application.WebServer.BaseUrl;
                     break;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (RunProfile == RunProfile.Remote)
+                {
+                    Seleno?.Dispose();
+                    Seleno = null;
+                }
             }
         }
 

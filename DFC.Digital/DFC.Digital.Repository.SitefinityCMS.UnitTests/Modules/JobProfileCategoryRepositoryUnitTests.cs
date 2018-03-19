@@ -3,7 +3,7 @@ using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
+using DFC.Digital.Web.Sitefinity.JobProfileModule;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -80,7 +80,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
 
             //Assert
             //The results from search do not include the SOCCode so ignore this
-            returnedJobProfiles.ShouldAllBeEquivalentTo(expectedResults, options => options.Excluding(p => p.SOCCode));
+            returnedJobProfiles.Should().BeEquivalentTo(expectedResults, options => options.Excluding(j => j.SOCCode));
         }
 
         private SearchResult<JobProfileIndex> DummySearchResults()
@@ -105,9 +105,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                     {
                         IdentityField = p.Title,
                         Title = p.Title,
-                        FilterableTitle = p.Title,
                         UrlName = p.UrlName,
-                        FilterableAlternativeTitle = p.AlternativeTitle,
                         AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                         Overview = p.Overview
                     }
@@ -115,7 +113,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             }
         }
 
-       private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
+        private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
         {
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
@@ -128,7 +126,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager);
         }
 
-       private IQueryable<Taxon> DummyTaxons()
+        private IQueryable<Taxon> DummyTaxons()
         {
             var t = new List<Taxon>();
             A.Dummy<Taxon>();

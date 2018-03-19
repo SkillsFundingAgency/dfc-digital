@@ -8,23 +8,21 @@ using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    internal class JobProfilesRelatedCareersRepository : DynamicModuleRepository, IJobProfileRelatedCareersRepository
+    internal class JobProfilesRelatedCareersRepository : IJobProfileRelatedCareersRepository
     {
         #region Fields
 
-        private const string JobProfileContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
-        private const string ModuleName = "Job Profile";
-
-        private IDynamicModuleConverter<JobProfileRelatedCareer> converter;
+        private readonly IDynamicModuleConverter<JobProfileRelatedCareer> converter;
+        private readonly IDynamicModuleRepository<JobProfile> jobprofileRepository;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfilesRelatedCareersRepository(IDynamicModuleConverter<JobProfileRelatedCareer> converter)
-            : base(ModuleName, JobProfileContentType)
+        public JobProfilesRelatedCareersRepository(IDynamicModuleConverter<JobProfileRelatedCareer> converter, IDynamicModuleRepository<JobProfile> jobprofileRepository)
         {
             this.converter = converter;
+            this.jobprofileRepository = jobprofileRepository;
         }
 
         #endregion Ctor
@@ -33,13 +31,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IEnumerable<JobProfileRelatedCareer> GetByParentName(string urlName, int maximumItemsToReturn)
         {
-            var jobProfile = Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
+            var jobProfile = jobprofileRepository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
             return GetRelatedCareers(jobProfile, maximumItemsToReturn);
         }
 
         public IEnumerable<JobProfileRelatedCareer> GetByParentNameForPreview(string urlName, int maximumItemsToReturn)
         {
-            var jobProfile = Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp);
+            var jobProfile = jobprofileRepository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp);
             return GetRelatedCareers(jobProfile, maximumItemsToReturn);
         }
 

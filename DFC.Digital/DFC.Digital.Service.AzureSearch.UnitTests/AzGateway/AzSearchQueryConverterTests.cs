@@ -1,12 +1,13 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Service.AzureSearch;
 using FluentAssertions;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
+namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class AzSearchQueryConverterTests
     {
@@ -27,7 +28,7 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
 
             result.SearchMode.Should().Be(SearchMode.Any);                      //SearchMode = SearchMode.Any
             result.IncludeTotalResultCount.Should().BeTrue();                   //IncludeTotalResultCount = true
-            result.SearchFields.ShouldBeEquivalentTo(properties.SearchFields);  //SearchFields = properties.SearchFields,
+            result.SearchFields.Should().BeEquivalentTo(properties.SearchFields);  //SearchFields = properties.SearchFields,
             result.Filter.Should().Be(properties.FilterBy);                     //Filter = properties.FilterBy,
             result.Skip.Should().Be(4);                                         //Skip = (properties.Page - 1) * properties.Count,
             result.Top.Should().Be(2);                                          //Top = properties.Count,
@@ -70,11 +71,11 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
             result.Count.Should().Be(indexResult.Count);                                            //Count = result.Count,
             result.Results.First().Rank.Should().Be(5);                                             //Results = result.ToSearchResultItems(properties)
             result.Results.First().ResultItem
-                .ShouldBeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("one"));    //Results = result.ToSearchResultItems(properties)
+                .Should().BeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("one"));    //Results = result.ToSearchResultItems(properties)
 
             result.Results.Last().Rank.Should().Be(6);                                              //Results = result.ToSearchResultItems(properties)
             result.Results.Last().ResultItem
-                .ShouldBeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("two"));    //Results = result.ToSearchResultItems(properties)
+                .Should().BeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("two"));    //Results = result.ToSearchResultItems(properties)
         }
 
         [Theory]
@@ -129,9 +130,9 @@ namespace DFC.Digital.Service.AzureSearch.AzGateway.Tests
 
             result.Coverage.Should().Be(1);
             result.Results.Count().Should().Be(suggestResult.Results.Count());
-            result.Results.First().Index.ShouldBeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("one"));
+            result.Results.First().Index.Should().BeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("one"));
             result.Results.First().MatchedSuggestion.Should().Be("one");
-            result.Results.Last().Index.ShouldBeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("two"));
+            result.Results.Last().Index.Should().BeEquivalentTo(DummyJobProfileIndex.GenerateJobProfileIndexDummy("two"));
             result.Results.Last().MatchedSuggestion.Should().Be("two");
         }
     }

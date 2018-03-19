@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Digital.Automation.Test.Utilities;
+﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -9,24 +8,18 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class JobProfileAutosuggestSteps
     {
         private SuggestionResult<JobProfileIndex> results;
-        private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IMapper mapper;
 
-        public JobProfileAutosuggestSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfileAutosuggestSteps(ITestOutputHelper outputHelper, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
-            this.OutputHelper = outputHelper;
-            this.searchService = searchService;
-            this.searchIndex = searchIndex;
+            OutputHelper = outputHelper;
             this.searchQueryService = searchQueryService;
-            this.mapper = mapper;
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
@@ -43,7 +36,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             }
             catch (Exception ex)
             {
-                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                OutputHelper.WriteLine($"Exception in When:- {ex}");
             }
 
             //Log results
@@ -65,7 +58,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
 
             //Log results
             OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
-            actual.ShouldAllBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

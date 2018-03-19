@@ -1,10 +1,9 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using TestStack.Seleno.PageObjects.Actions;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     internal class DfcElementFinder : IElementFinder
     {

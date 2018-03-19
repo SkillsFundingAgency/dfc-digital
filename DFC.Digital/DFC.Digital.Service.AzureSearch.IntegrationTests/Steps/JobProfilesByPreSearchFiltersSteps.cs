@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class JobProfilesByPreSearchFiltersSteps
@@ -18,16 +18,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private SearchResult<JobProfileIndex> results;
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;
-        private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfilesByPreSearchFiltersSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
             this.searchIndex = searchIndex;
             this.SearchQueryService = searchQueryService;
-            this.mapper = mapper;
             asyncHelper = new AsyncHelper();
         }
 
@@ -67,7 +65,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
             OutputHelper.WriteLine($"Expected {string.Join(",", expected)}");
             OutputHelper.WriteLine($"Actual  {string.Join(",", actual)}");
 
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

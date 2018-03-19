@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace DFC.Digital.Data.Model
 {
@@ -10,7 +11,7 @@ namespace DFC.Digital.Data.Model
 
         public string Description { get; set; }
 
-        public IQueryable<JobProfileCategory> SubCategories { get; set; }
+        public IQueryable<JobProfileCategory> Subcategories { get; set; }
 
         public string Url { get; set; }
     }

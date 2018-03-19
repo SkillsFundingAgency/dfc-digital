@@ -6,7 +6,7 @@ using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class SetContentRelatedPageTitleViewTest
     {
@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
             //// Check that when not in design mode we do not display anything
             if (!inDesignMode)
             {
-                htmlDom.DocumentNode.InnerHtml.ShouldBeEquivalentTo(string.Empty);
+                htmlDom.DocumentNode.InnerHtml.Should().BeEquivalentTo(string.Empty);
             }
             else
             {

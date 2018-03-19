@@ -10,35 +10,37 @@ namespace DFC.Digital.Service.AzureSearch
     {
         public string BuildPreSearchFilters(PreSearchFiltersResultsModel preSearchFilterModel, IDictionary<string, PreSearchFilterLogicalOperator> indexFields)
         {
-            var finalFilter = string.Empty;
-            foreach (var field in indexFields)
+            var builder = new System.Text.StringBuilder();
+            if (indexFields != null)
             {
-                var validIndexField = typeof(JobProfileIndex).GetProperties()
-                    .Any(property => property.Name.Equals(field.Key));
-
-                if (validIndexField)
+                foreach (var field in indexFields)
                 {
-                    var fieldFilter = preSearchFilterModel.Sections.FirstOrDefault(section =>
-                        section.SectionDataTypes.Equals(field.Key, StringComparison.InvariantCultureIgnoreCase));
-                    if (fieldFilter != null)
+                    var validIndexField = typeof(JobProfileIndex).GetProperties()
+                        .Any(property => property.Name.Equals(field.Key));
+
+                    if (validIndexField)
                     {
-                        var notApplicableSelected = fieldFilter.Options.Any(opt => opt.ClearOtherOptionsIfSelected);
-                        if (!notApplicableSelected)
+                        var fieldFilter = preSearchFilterModel?.Sections?.FirstOrDefault(section =>
+                            section.SectionDataTypes.Equals(field.Key, StringComparison.InvariantCultureIgnoreCase));
+                        if (fieldFilter != null)
                         {
-                            var fieldValue = fieldFilter.SingleSelectOnly
-                                ? fieldFilter.SingleSelectedValue
-                                : string.Join(",", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
-                            if (!string.IsNullOrWhiteSpace(fieldValue))
+                            var notApplicableSelected = fieldFilter.Options.Any(opt => opt.ClearOtherOptionsIfSelected);
+                            if (!notApplicableSelected)
                             {
-                                finalFilter +=
-                                    $"{(finalFilter.Length > 0 ? field.Value.ToString().ToLower() : string.Empty)} {field.Key}/any(t: search.in(t, '{fieldValue}')) ";
+                                var fieldValue = fieldFilter.SingleSelectOnly
+                                    ? fieldFilter.SingleSelectedValue
+                                    : string.Join(",", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
+                                if (!string.IsNullOrWhiteSpace(fieldValue))
+                                {
+                                    builder.Append($"{(builder.Length > 0 ? field.Value.ToString().ToLower() : string.Empty)} {field.Key}/any(t: search.in(t, '{fieldValue}')) ");
+                                }
                             }
                         }
                     }
                 }
             }
 
-            return finalFilter.Trim();
+            return builder.ToString().Trim();
         }
     }
 }

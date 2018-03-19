@@ -17,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
         [InlineData(false, true, 1000, 2000)]
         [InlineData(true, false, 10, 20)]
         [InlineData(true, true, 10, 20)]
-        public async Task GetSalaryRangeAsyncTestAsync(bool isSalaryOverriden, bool isPublishing, decimal salaryStarterExpected, decimal salaryExperiencedExpected)
+        public async Task GetSalaryRangeAsyncTestAsync(bool isSalaryOverriden, bool isPublishing, double salaryStarterExpected, double salaryExperiencedExpected)
         {
             var fakeJobProfileRepo = A.Fake<IJobProfileRepository>();
             var fakeJobProfileCategoryRepo = A.Fake<IJobProfileCategoryRepository>();
@@ -27,8 +27,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
             var dummyJobProfile = new JobProfile
             {
                 IsLMISalaryFeedOverriden = isSalaryOverriden,
-                SalaryStarter = salaryStarterExpected,
-                SalaryExperienced = salaryExperiencedExpected,
+                SalaryStarter = (decimal)salaryStarterExpected,
+                SalaryExperienced = (decimal)salaryExperiencedExpected,
                 SOCCode = nameof(JobProfile.SOCCode)
             };
             var dummySalary = new JobProfileSalary
@@ -51,8 +51,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
 
             await enhancer.PopulateSalary();
 
-            dummyJobProfileIndex.SalaryExperienced.ShouldBeEquivalentTo(salaryExperiencedExpected);
-            dummyJobProfileIndex.SalaryStarter.ShouldBeEquivalentTo(salaryStarterExpected);
+            dummyJobProfileIndex.SalaryExperienced.Should().Be(salaryExperiencedExpected);
+            dummyJobProfileIndex.SalaryStarter.Should().Be(salaryStarterExpected);
             if (isPublishing)
             {
                 A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustHaveHappened();
@@ -135,13 +135,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
 
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).MustHaveHappened();
 
-            dummyJobProfileIndex.JobProfileCategoriesWithUrl.ShouldBeEquivalentTo(expectedCategories);
-            dummyJobProfileIndex.Interests.ShouldBeEquivalentTo(dummyJobProfile.RelatedInterests);
-            dummyJobProfileIndex.Enablers.ShouldBeEquivalentTo(dummyJobProfile.RelatedEnablers);
-            dummyJobProfileIndex.EntryQualifications.ShouldBeEquivalentTo(dummyJobProfile.RelatedEntryQualifications);
-            dummyJobProfileIndex.TrainingRoutes.ShouldBeEquivalentTo(dummyJobProfile.RelatedTrainingRoutes);
-            dummyJobProfileIndex.JobAreas.ShouldBeEquivalentTo(dummyJobProfile.RelatedJobAreas);
-            dummyJobProfileIndex.PreferredTaskTypes.ShouldBeEquivalentTo(dummyJobProfile.RelatedPreferredTaskTypes);
+            dummyJobProfileIndex.JobProfileCategoriesWithUrl.Should().BeEquivalentTo(expectedCategories);
+            dummyJobProfileIndex.Interests.Should().BeEquivalentTo(dummyJobProfile.RelatedInterests);
+            dummyJobProfileIndex.Enablers.Should().BeEquivalentTo(dummyJobProfile.RelatedEnablers);
+            dummyJobProfileIndex.EntryQualifications.Should().BeEquivalentTo(dummyJobProfile.RelatedEntryQualifications);
+            dummyJobProfileIndex.TrainingRoutes.Should().BeEquivalentTo(dummyJobProfile.RelatedTrainingRoutes);
+            dummyJobProfileIndex.JobAreas.Should().BeEquivalentTo(dummyJobProfile.RelatedJobAreas);
+            dummyJobProfileIndex.PreferredTaskTypes.Should().BeEquivalentTo(dummyJobProfile.RelatedPreferredTaskTypes);
         }
     }
 }

@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
@@ -39,8 +38,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             builder.RegisterControllers(ThisAssembly)
                    .InstancePerRequest();
 
-                   //.EnableClassInterceptors()
-                   //.InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
+            //.EnableClassInterceptors()
+            //.InterceptedBy(InstrumentationInterceptor.NAME, ExceptionInterceptor.NAME);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(ThisAssembly);

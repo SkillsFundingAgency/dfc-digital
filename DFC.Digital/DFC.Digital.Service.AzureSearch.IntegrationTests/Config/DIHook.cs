@@ -3,9 +3,10 @@ using AutoMapper;
 using BoDi;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     public class DiHook
@@ -20,6 +21,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
             var builder = new Autofac.ContainerBuilder();
             builder.RegisterModule<AzSearchAutofacModule>();
             builder.RegisterModule<AutofacIntegrationTestModule>();
+
             this.autofac = builder.Build().BeginLifetimeScope();
         }
 

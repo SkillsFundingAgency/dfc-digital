@@ -4,7 +4,7 @@ using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileSettingsAndPreviewViewTests
     {

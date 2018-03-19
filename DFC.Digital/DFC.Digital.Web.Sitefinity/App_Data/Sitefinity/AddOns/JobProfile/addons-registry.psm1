@@ -34,7 +34,7 @@ function Add-Addon([string] $addonsFolderPath, [string] $addonName)
 	$addonsRegistryFilePath = Join-Path -Path $addonsFolderPath -ChildPath "addons_registry.sf"
 	if (!(Test-Path $addonsRegistryFilePath))
 	{
-		New-Item -ItemType "file" -Path $addonsRegistryFilePath 
+		New-Item -ItemType "file" -Path $addonsRegistryFilePath
 	}
 
 	[AddonRegistryItem[]] $currentContent = (Get-Content $addonsRegistryFilePath) -Join "`n" | ConvertFrom-Json
@@ -77,5 +77,5 @@ function Remove-Addon([string] $addonsFolderPath, [string] $addonName)
 				Set-Content -Path $addonsRegistryFilePath -Value $jsonContent
 			}
 		}
-	}	
+	}
 }

@@ -12,7 +12,7 @@
                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
                @type = "search",
                @id = "search-main",
-               @PlaceHolder = Model.PlaceHolderText,
+               @PlaceHolder = Model.PlaceholderText,
                data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
                data_autocomplete_source = "/searchautocomplete",
                data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
@@ -24,10 +24,10 @@
             </fieldset>
         </div>
         <div class="search-dym">
-            @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl))
+            @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl?.OriginalString))
             {
                 <span>
-                    Did you mean <a href="@Model.DidYouMeanUrl"> @Model.DidYouMeanTerm </a>
+                    Did you mean <a href="@Model.DidYouMeanUrl.OriginalString"> @Model.DidYouMeanTerm </a>
                 </span>
             }
         </div>
@@ -75,7 +75,7 @@
                     }
                 </ol>
                 <ul class="previous-next-navigation">
-                    @if (Model.HasNexPage)
+                    @if (Model.HasNextPage)
                     {
                         <li class="dfc-code-search-next next">
                             <a class="dfc-code-search-nextlink" href="@Model.NextPageUrl" id="nextBtn">

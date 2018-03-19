@@ -83,10 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private IEnumerable<string> GetDisplayedViewAnchorLinks(HtmlNode htmlNode)
         {
-            return htmlNode.Descendants("a").Select(n =>
-                {
-                    return $"{n.InnerText}|{n.GetAttributeValue("href", string.Empty)}";
-                })
+            return htmlNode.Descendants("a").Select(n => $"{n.InnerText}|{n.GetAttributeValue("href", string.Empty)}")
                 .ToList();
         }
 

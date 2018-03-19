@@ -285,7 +285,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             Index(string.Empty).ExecuteResult(ControllerContext);
         }
 
-        private string GetUrlEncodedString(string input)
+        private static string GetUrlEncodedString(string input)
         {
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }

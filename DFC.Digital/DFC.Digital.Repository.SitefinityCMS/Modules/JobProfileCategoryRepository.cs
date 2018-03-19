@@ -25,6 +25,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         public static SearchResult<JobProfileIndex> FilterByCategory(string category, ISearchQueryService<JobProfileIndex> searchQueryService)
         {
+            if (searchQueryService == null)
+            {
+                throw new ArgumentNullException(nameof(searchQueryService));
+            }
+
             return searchQueryService.Search(
                     "*",
                     new SearchProperties

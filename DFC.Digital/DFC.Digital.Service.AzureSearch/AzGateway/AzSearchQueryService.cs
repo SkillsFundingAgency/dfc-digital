@@ -13,7 +13,6 @@ namespace DFC.Digital.Service.AzureSearch
     {
         #region Fields
 
-        private readonly ITolerancePolicy policy;
         private ISearchIndexClient indexClient;
         private IAzSearchQueryConverter queryConverter;
         private IApplicationLogger applicationLogger;
@@ -22,11 +21,10 @@ namespace DFC.Digital.Service.AzureSearch
 
         #region ctor
 
-        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ITolerancePolicy policy, IApplicationLogger applicationLogger)
+        public AzSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, IApplicationLogger applicationLogger)
         {
             this.indexClient = indexClient;
             this.queryConverter = queryConverter;
-            this.policy = policy;
             this.applicationLogger = applicationLogger;
         }
 

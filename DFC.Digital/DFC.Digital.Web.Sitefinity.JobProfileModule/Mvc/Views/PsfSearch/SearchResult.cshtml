@@ -38,7 +38,7 @@
                                             <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
                                         }
                                         <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
-                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @jobProfile.ResultItemSalaryRange</span></p>
+                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
                                         @if (jobProfile.JobProfileCategoriesWithUrl != null)
                                         {<p class="results-categories">
                                                 Found in:

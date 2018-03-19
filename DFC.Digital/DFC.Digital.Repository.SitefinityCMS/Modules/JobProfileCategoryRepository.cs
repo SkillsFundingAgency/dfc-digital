@@ -22,6 +22,20 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.mapper = mapper;
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
+        public static SearchResult<JobProfileIndex> FilterByCategory(string category, ISearchQueryService<JobProfileIndex> searchQueryService)
+        {
+            return searchQueryService.Search(
+                    "*",
+                    new SearchProperties
+                    {
+                        UseRawSearchTerm = true,
+                        Count = 100,
+                        FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
+                        OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
+                    });
+        }
+
         public IQueryable<JobProfileCategory> GetJobProfileCategories()
         {
             return GetMany(category => category.Taxonomy.Name == JobprofileTaxonomyName).Select(category => new JobProfileCategory
@@ -69,19 +83,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             };
         }
 
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         public IEnumerable<JobProfile> GetRelatedJobProfiles(string category)
         {
-            var searchResult = jobprofileSearchQueryService.Search(
-                    "*",
-                    new SearchProperties
-                    {
-                        UseRawSearchTerm = true,
-                        Count = 100,
-                        FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
-                        OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
-                    });
-
+            var searchResult = FilterByCategory(category, jobprofileSearchQueryService);
             return searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }
     }

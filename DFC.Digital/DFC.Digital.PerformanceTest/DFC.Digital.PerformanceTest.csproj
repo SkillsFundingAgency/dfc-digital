@@ -62,7 +62,6 @@
     <None Include="Data\JCSource.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
     <None Include="WebTests\JobCategory.webtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -100,7 +99,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.TLS1.2PerformancePlugin\DFC.Digital.TLS12PerformancePlugin.csproj">
+      <Project>{d5766299-65d0-49d8-b809-37e9a136cf5b}</Project>
+      <Name>DFC.Digital.TLS12PerformancePlugin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

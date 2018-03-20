@@ -95,7 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var htmlDom = searchResultsView.RenderAsHtml(psfSearchResultsViewModel);
 
             //Assert
-            GetSalaryText(htmlDom).ShouldBeEquivalentTo(expectedValue);
+            GetSalaryText(htmlDom).Should().BeEquivalentTo(expectedValue);
         }
 
         private string GetSalaryText(HtmlDocument htmlDocument)

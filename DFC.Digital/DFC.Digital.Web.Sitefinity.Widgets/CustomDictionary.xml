@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Unrecognized>
+    </Unrecognized>
+    <Recognized>
+      <Word>Autofac</Word>
+      <Word>Initialise</Word>
+      <Word>Sitefinity</Word>
+      <Word>Mvc</Word>
+      <Word>Bau</Word>
+      <Word>Dfc</Word>
+      <Word>Voc</Word>
+      <Word>Uk</Word>
+      <Word>gov</Word>
+    </Recognized>
+    <Deprecated>
+    </Deprecated>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

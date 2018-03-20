@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace DFC.Digital.Service.LMIFeed.UnitTests.Model
+namespace DFC.Digital.Service.LMIFeed.UnitTests
 {
     public class HelperJobProfileData
     {

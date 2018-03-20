@@ -7,12 +7,14 @@
       <Word>Autofac</Word>
       <Word>Initialise</Word>
       <Word>Sitefinity</Word>
+      <Word>Soc</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
   </Words>
   <Acronyms>
     <CasingExceptions>
+      <Acronym>Soc</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

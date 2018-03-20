@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -16,20 +15,22 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// </summary>
     /// <seealso cref="BaseDfcController" />
     [ControllerToolboxItem(Name = "BauSearchResultsSignPost", Title = "Bau Search Results SignPost", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class BauSearchResultsSignPostController : BaseDfcController
+    public class BauSearchResultsSignpostController : BaseDfcController
     {
         #region Constructors
-        public BauSearchResultsSignPostController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public BauSearchResultsSignpostController(IApplicationLogger applicationLogger) : base(applicationLogger)
         {
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
         [DisplayName("Banner Content (HTML) - {0} will be replaced by search term if there")]
         public string BannerContent { get; set; } = "<a class=\"signpost\" href=\"https://dev.nationalcareersservice.org.uk/job-profiles/search-results?indexCatalogue=job-profiles&amp;searchQuery={0}&amp;wordsMode=AllWords\"><p class=\"signpost_arrow\"><span>Back to the National Careers Service</span> where you'll find all the job profiles</p></a>";
-        #endregion
+
+        #endregion Public Properties
+
         #region Actions
 
         [HttpGet]
@@ -39,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             return View("Index", new BauSearchResultsViewModel { Content = BannerContent.Replace("{0}", !string.IsNullOrWhiteSpace(searchTerm) ? StripInvalidCharsAndEncode(searchTerm) : string.Empty) });
         }
 
-        private string StripInvalidCharsAndEncode(string searchTerm)
+        private static string StripInvalidCharsAndEncode(string searchTerm)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -50,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
             return HttpUtility.UrlEncode(searchTerm);
         }
-        #endregion
 
+        #endregion Actions
     }
 }

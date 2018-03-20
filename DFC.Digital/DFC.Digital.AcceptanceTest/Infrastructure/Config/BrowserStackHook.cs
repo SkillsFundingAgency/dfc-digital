@@ -2,7 +2,7 @@
 using System.Linq;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Config
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     [Binding]
     public class BrowserStackHook

@@ -6,12 +6,11 @@ using FluentAssertions;
 using Xunit;
 namespace DFC.Digital.Service.LMIFeed.UnitTests
 {
-    using Model;
-
-    public class SalaryCalculatorTests :HelperJobProfileData
+    public class SalaryCalculatorTests : HelperJobProfileData
     {
         [Theory]
         [MemberData(nameof(StarterSalaryMedianDeciles))]
+        //[InlineData(HelperJobProfileData.StarterSalaryMedianDeciles)]
         public void GetStarterSalaryTest(IEnumerable<KeyValuePair<int, decimal>> medianDecile,decimal expectedStarterSalary)
         {
             //Act

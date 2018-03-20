@@ -5,7 +5,7 @@ using System.Threading;
 using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Actions;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class SitefinityPage<T> : Page<T>
         where T : class, new()
@@ -67,7 +67,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool UrlContains(string urlFragment)
         {
-            return Browser.Url.ToLowerInvariant().Contains(urlFragment.ToLowerInvariant());
+            return Browser.Url.ToUpperInvariant().Contains(urlFragment?.ToUpperInvariant());
         }
 
         public TPage ClickFindACareerBreadcrumb<TPage>()
@@ -82,7 +82,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             {
                 return Browser.Url.Contains("/sitefinity/status");
             }
-            catch
+            catch (ArgumentNullException)
             {
                 return false;
             }

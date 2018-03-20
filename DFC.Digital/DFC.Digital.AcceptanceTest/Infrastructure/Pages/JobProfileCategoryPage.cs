@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using System.Linq;
 using TestStack.Seleno.PageObjects;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class JobProfileCategoryPage : SitefinityPage<JobProfileByCategoryViewModel>
     {
@@ -13,7 +13,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public bool HasOtherJobCategoriesSection => Find.OptionalElement(By.Id("MainContent_T447555DF001_Col01")) != null;
 
-        public bool HasSignPostBanner => Find.OptionalElement(By.ClassName("signpost")) != null;
+        public bool HasSignpostBanner => Find.OptionalElement(By.ClassName("signpost")) != null;
 
         public string GetJobProfileByIndex(int category)
         {
@@ -38,7 +38,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             return Navigate.To<T>(By.PartialLinkText(category));
         }
 
-        public T ClickCategorySignPostBanner<T>()
+        public T ClickCategorySignpostBanner<T>()
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.ClassName("signpost"));

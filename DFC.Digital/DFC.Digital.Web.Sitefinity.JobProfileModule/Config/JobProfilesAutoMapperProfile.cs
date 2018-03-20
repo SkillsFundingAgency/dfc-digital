@@ -3,7 +3,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Globalization;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Config
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
     public class JobProfilesAutoMapperProfile : Profile
     {

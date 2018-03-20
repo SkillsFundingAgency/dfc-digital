@@ -1,7 +1,8 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using System.Diagnostics;
 using System.Web.Mvc;
 
@@ -65,11 +66,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
-        public ActionResult BaseIndex(string urlname)
+        public ActionResult BaseIndex(string urlName)
         {
-            CurrentJobProfileUrl = urlname;
+            CurrentJobProfileUrl = urlName;
             if (CurrentJobProfile == null)
             {
                 return HttpNotFound();

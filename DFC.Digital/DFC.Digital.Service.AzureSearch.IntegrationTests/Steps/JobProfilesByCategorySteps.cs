@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DFC.Digital.Automation.Test.Utilities;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -10,7 +10,7 @@ using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     [Binding]
     internal class JobProfilesByCategorySteps
@@ -21,7 +21,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         private IMapper mapper;
         private IAsyncHelper asyncHelper;
 
-        public JobProfilesByCategorySteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, IMapper mapper)
+        public JobProfilesByCategorySteps(
+            ITestOutputHelper outputHelper,
+            ISearchService<JobProfileIndex> searchService,
+            ISearchIndexConfig searchIndex,
+            ISearchQueryService<JobProfileIndex> searchQueryService,
+            IMapper mapper)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
@@ -46,8 +51,8 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         public void WhenIFilterByTheCategory(string filterCategory)
         {
             OutputHelper.WriteLine($"The filter category is '{filterCategory}'");
-            var jobProfileCategoryRepository = new JobProfileCategoryRepository(SearchQueryService, mapper, null);
-            this.result = jobProfileCategoryRepository.GetRelatedJobProfiles(filterCategory);
+            var searchResult = JobProfileCategoryRepository.FilterByCategory(filterCategory, SearchQueryService);
+            this.result = searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }
 
         [Then(@"the number of job profiles returned is (.*)")]
@@ -59,7 +64,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Steps
         [Then(@"the job profiles are listed in the following order")]
         public void ThenTheJobProfilesAreListedInTheFollowingOrder(Table table)
         {
-            this.result.Select(r => r.Title).ShouldBeEquivalentTo(table.Rows.Select(r => r[0]), opt => opt.WithStrictOrdering());
+            this.result.Select(r => r.Title).Should().BeEquivalentTo(table.Rows.Select(r => r[0]), opt => opt.WithStrictOrdering());
         }
     }
 }

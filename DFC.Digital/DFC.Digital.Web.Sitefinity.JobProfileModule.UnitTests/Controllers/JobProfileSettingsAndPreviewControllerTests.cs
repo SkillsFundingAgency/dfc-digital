@@ -7,7 +7,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileSettingsAndPreviewControllerTests
     {
@@ -35,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
                 {
-                    vm.DefaultJobProfileUrl.ShouldBeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
+                    vm.DefaultJobProfileUrl.Should().BeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
                 })
                .AndNoModelErrors();
             }
@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             var jobProfileSettingsAndPreviewController = new JobProfileSettingsAndPreviewController(repositoryFake, webAppContextFake, loggerFake);
 
             //Act
-            var indexResult = jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
+            jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
 
             //Assert
             if (expectation)

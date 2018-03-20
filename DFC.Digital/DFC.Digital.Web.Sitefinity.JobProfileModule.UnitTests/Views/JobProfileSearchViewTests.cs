@@ -3,11 +3,12 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileSearchViewTests
     {
@@ -24,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //results found.
         [Theory]
         [InlineData("next-url", "nextpage", "prev-url", "prevpage", 1, 1)]
-        public void DFC_106_SearchResultText(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
+        public void DFC106ForSearchResultText(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
         {
             var searchResultsView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -41,7 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //Scenario 1 - Display of Job Profile/s containing Alternate Title
         [Theory]
         [InlineData("next-url", "nextpage", "prev-url", "prevpage", 1, 1)]
-        public void DFC_164_A1_WithAltTitle(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
+        public void DFC164ScenarioA1ForSearchWithAltTitle(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
         {
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -61,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //Scenario 2 - Display of Job Profile/s without Alternate Title
         [Theory]
         [InlineData("next-url", "nextpage", "prev-url", "prevpage", 1, 1)]
-        public void DFC_164_A2_WithNoAltTitle(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
+        public void DFC164ScenarioA2ForSearchwithNoAltTitle(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
         {
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -82,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //Scenario 2 - Display of Rank No for job profile result
         [Theory]
         [InlineData("next-url", "nextpage", "prev-url", "prevpage", 1, 1)]
-        public void DFC_164_A3_RankNo(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
+        public void DFC164ScenarioA3ForSearchRankNo(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
         {
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -105,9 +106,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //A2 - Re-Search and check searchbox contains new search term
         [Theory]
         [InlineData("next-url", "nextpage", "prev-url", "prevpage", 1, 1)]
-        public void DFC_187_A1_A2_RetainSearchTerm(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
+        public void DFC187ScenarioA1AndA2ForRetainSearchTerm(string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages)
         {
-            var indexView = new _MVC_Views_JobProfileSearchBox_Index_cshtml();
             var searchResultsView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
             var jobProfileSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(
@@ -140,7 +140,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //As a Citizen having not entered a search term on the Search Results page, I want to remain on the Search Results Page
         //A1 - Empty search term - no results displayed and search box displayed
         [Fact]
-        public void DFC_324_EmptySearchViewTest()
+        public void DFC324ForEmptySearchViewTest()
         {
             var searchPage = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -163,7 +163,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [InlineData(1, "test.co.uk", "2 of 10", null, null, 20, 10, "102 results found", "nurse")]
         [InlineData(10, null, null, "test.co.uk", "9 of 10", 20, 10, "102 results found", "nurse")]
         [InlineData(5, "test.co.uk", "6 of 10", "test.co.uk", "4 of 10", 20, 10, "102 results found", "nurse")]
-        public void DFC_167_PaginationControlTests(int pageNumber, string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages, string resultsMessage, string searchTerm)
+        public void DFC167ForPaginationControlTests(int pageNumber, string nextUrl, string nextUrlText, string previousUrl, string previousUrlText, int count, int totalPages, string resultsMessage, string searchTerm)
         {
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -211,7 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [InlineData(0)]
         [InlineData(1)]
         [InlineData(3)]
-        public void DFC_1495_AlsoFoundInCategories(int numberOfLinkedJobCategories)
+        public void DFC1495ForAlsoFoundInCategories(int numberOfLinkedJobCategories)
         {
             var searchResultsView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
@@ -234,14 +234,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
                 linkedCategorySection.InnerText.Should().Contain("Found in:");
                 var foundInCategoryLinks = GetDisplayedViewAnchorLinks(linkedCategorySection);
                 var expectedCategoryLinks = GetLinkedCategories(numberOfLinkedJobCategories, "/job-categories/");
-                foundInCategoryLinks.ShouldBeEquivalentTo(expectedCategoryLinks);
+                foundInCategoryLinks.Should().BeEquivalentTo(expectedCategoryLinks);
             }
         }
 
         [Theory]
         [InlineData("20,000 to 30,000")]
         [InlineData("")]
-        public void DFC_2047_JobProfileSalaryRange(string salaryRange)
+        public void DFC2047ForJobProfileSalaryRange(string salaryRange)
         {
             // Arrange
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
@@ -285,9 +285,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             return new JobProfileSearchResultViewModel
             {
                 PageNumber = pageNumber,
-                NextPageUrl = nextUrl,
+                NextPageUrl = new Uri(nextUrl ?? string.Empty, UriKind.RelativeOrAbsolute),
                 NextPageUrlText = nextUrlText,
-                PreviousPageUrl = previousUrl,
+                PreviousPageUrl = new Uri(previousUrl ?? string.Empty, UriKind.RelativeOrAbsolute),
                 PreviousPageUrlText = previousUrlText,
                 Count = count,
                 TotalPages = totalPages,
@@ -384,7 +384,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [Theory]
         [InlineData(2)]
         [InlineData(0)]
-        public void DFC_1496_A1_Autocomplete(int autoCompleteMinimumCharacters)
+        public void DFC1496ScenarioA1ForAutoComplete(int autoCompleteMinimumCharacters)
         {
             var indexView = new _MVC_Views_JobProfileSearchBox_Index_cshtml();
             var jobProfileSearchBoxViewModel = GenerateDummyJobProfileSearchBoxViewModel(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, autoCompleteMinimumCharacters);
@@ -393,15 +393,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             minlengthValue.Should().Be(autoCompleteMinimumCharacters.ToString());
         }
 
-        public JobProfileSearchBoxViewModel GenerateDummyJobProfileSearchBoxViewModel(string placeHolderText, string headerText, string totalResultsMessage, string searchTerm, string jobProfileUrl, int autoCompleteMinimumCharacters)
+        public JobProfileSearchBoxViewModel GenerateDummyJobProfileSearchBoxViewModel(string placeholderText, string headerText, string totalResultsMessage, string searchTerm, string jobProfileUrl, int autoCompleteMinimumCharacters)
         {
             return new JobProfileSearchBoxViewModel
             {
-                PlaceHolderText = placeHolderText,
+                PlaceholderText = placeholderText,
                 HeaderText = headerText,
                 TotalResultsMessage = totalResultsMessage,
                 SearchTerm = searchTerm,
-                JobProfileUrl = jobProfileUrl,
+                JobProfileUrl = new Uri(jobProfileUrl, UriKind.RelativeOrAbsolute),
                 AutoCompleteMinimumCharacters = autoCompleteMinimumCharacters
             };
         }

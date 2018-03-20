@@ -13,10 +13,10 @@ namespace DFC.Digital.Service.AzureSearch
 
         private string StateJson { get; set; }
 
-        public void RestoreState(string stateJson)
+        public void RestoreState(string previousState)
         {
             //StateJson = HttpUtility.UrlDecode(stateJson);
-            StateJson = stateJson;
+            StateJson = previousState;
 
             if (!string.IsNullOrEmpty(StateJson))
             {
@@ -30,14 +30,14 @@ namespace DFC.Digital.Service.AzureSearch
 
         public void UpdateSectionState(PreSearchFilterSection section)
         {
-            int? savedSectionIndex = StateModel?.Sections?.FindIndex(s => s.Name.Equals(section.Name, StringComparison.InvariantCultureIgnoreCase) && s.SectionDataType == section.SectionDataType);
+            var savedSectionIndex = StateModel?.Sections?.ToList().FindIndex(s => s.Name.Equals(section.Name, StringComparison.InvariantCultureIgnoreCase) && s.SectionDataType == section.SectionDataType);
 
             //just keep the selected options
             section.Options = section.Options?.Where(o => o.IsSelected == true).ToList();
 
             if (savedSectionIndex > -1)
             {
-                StateModel.Sections[savedSectionIndex.Value] = section;
+                StateModel.Sections.ToList()[savedSectionIndex.Value].Options = section.Options;
             }
             else
             {
@@ -56,27 +56,30 @@ namespace DFC.Digital.Service.AzureSearch
         public PreSearchFilterSection RestoreOptions(PreSearchFilterSection savedSection, IEnumerable<PreSearchFilter> filters)
         {
             // If the user choose to go back, then there should be a saved version of the page.
-            PreSearchFilterSection filterSection = new PreSearchFilterSection
+            var filterSection = new PreSearchFilterSection
             {
                 SingleSelectedValue = savedSection?.SingleSelectedValue,
                 Options = new List<PreSearchFilterOption>()
             };
 
-            int idCount = 0;
-            foreach (var filter in filters)
+            var idCount = 0;
+            if (filters != null)
             {
-                var psfOptionKey = $"{filter.Id}|{filter.UrlName}";
-                var savedStated = savedSection?.Options?.FirstOrDefault(o => o.OptionKey == psfOptionKey);
-
-                filterSection.Options.Add(new PreSearchFilterOption
+                foreach (var filter in filters)
                 {
-                    Id = (idCount++).ToString(),
-                    IsSelected = savedStated?.IsSelected ?? false,
-                    Name = filter.Title,
-                    Description = filter.Description,
-                    OptionKey = psfOptionKey,
-                    ClearOtherOptionsIfSelected = filter.NotApplicable ?? false
-                });
+                    var psfOptionKey = $"{filter.Id}|{filter.UrlName}";
+                    var savedStated = savedSection?.Options?.FirstOrDefault(o => o.OptionKey == psfOptionKey);
+
+                    filterSection.Options.Add(new PreSearchFilterOption
+                    {
+                        Id = (idCount++).ToString(),
+                        IsSelected = savedStated?.IsSelected ?? false,
+                        Name = filter.Title,
+                        Description = filter.Description,
+                        OptionKey = psfOptionKey,
+                        ClearOtherOptionsIfSelected = filter.NotApplicable ?? false
+                    });
+                }
             }
 
             return filterSection;

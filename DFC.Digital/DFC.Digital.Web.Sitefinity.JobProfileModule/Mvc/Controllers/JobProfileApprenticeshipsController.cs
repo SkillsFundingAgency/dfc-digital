@@ -1,7 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for Job Profile ApprenticeShips
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     /// <seealso cref="Web.Core.Base.BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileApprenticeships", Title = "JobProfile Apprenticeships", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileApprenticeshipsController : BaseJobProfileWidgetController
     {
         #region Private Fields
-
-        /// <summary>
-        /// The job profile repository
-        /// </summary>
-        private readonly IJobProfileRepository jobProfileRepository;
-
-        /// <summary>
-        /// The web application context
-        /// </summary>
-        private readonly IWebAppContext webAppContext;
 
         /// <summary>
         /// The job profile soc code repository
@@ -50,8 +40,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public JobProfileApprenticeshipsController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
-            this.jobProfileRepository = jobProfileRepository;
-            this.webAppContext = webAppContext;
             this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
         }
 
@@ -133,13 +121,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return BaseIndex(urlname);
+            return BaseIndex(urlName);
         }
 
         protected override ActionResult GetDefaultView()
@@ -149,7 +137,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 apprenticeshipVacancies = jobProfileSocCodeRepository.GetBySocCode(CurrentJobProfile.SOCCode)
                     ?.Where(x => !string.IsNullOrEmpty(x.Title)
-                        && !string.IsNullOrEmpty(x.URL)
+                        && !string.IsNullOrEmpty(x.URL.OriginalString)
                         && !string.IsNullOrEmpty(x.WageUnitType)
                         && !string.IsNullOrEmpty(x.WageAmount)
                         && !string.IsNullOrEmpty(x.Location)

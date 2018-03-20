@@ -1,14 +1,16 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class DfcBreadcrumbControllerTests
     {
@@ -29,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
 
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             dummyDfcPageSiteNode.Title = nodeTitle;
-            dummyDfcPageSiteNode.Url = nodeUrl;
+            dummyDfcPageSiteNode.Url = new Uri(nodeUrl, UriKind.RelativeOrAbsolute);
 
             // Set up calls
             A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);
@@ -47,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
                 .ShouldRenderDefaultView()
                 .WithModel<DfcBreadcrumbViewModel>(vm =>
                 {
-                    vm.BreadcrumbedPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                    vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
                 })
                 .AndNoModelErrors();
         }
@@ -70,7 +72,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
             dummyJobProfile.Title = nodeTitle;
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             dummyDfcPageSiteNode.Title = nodeTitle;
-            dummyDfcPageSiteNode.Url = nodeUrl;
+            dummyDfcPageSiteNode.Url = new Uri(nodeUrl, UriKind.RelativeOrAbsolute);
 
             // Set up calls
             A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);
@@ -88,7 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Controllers
                    .ShouldRenderDefaultView()
                    .WithModel<DfcBreadcrumbViewModel>(vm =>
                    {
-                       vm.BreadcrumbedPageTitleText.ShouldBeEquivalentTo(nodeTitle);
+                       vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
                    })
                    .AndNoModelErrors();
         }

@@ -151,11 +151,11 @@ that is bundled with the nuget package under the tools folder.
 
     The following attributes can be set on the <httpRuntime> tag.
       <system.Web>
-        <httpRuntime targetFramework="4.6.2" />
+        <httpRuntime targetFramework="4.7.1" />
       </system.Web>
   -->
   <system.web>
-    <httpRuntime maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
+    <httpRuntime targetFramework="4.7.1" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
     <siteMap defaultProvider="SitefinitySiteMap">
       <providers>
         <add name="SitefinitySiteMap" type="Telerik.Sitefinity.Web.SitefinitySiteMap, Telerik.Sitefinity" />
@@ -175,7 +175,7 @@ that is bundled with the nuget package under the tools folder.
             affects performance, set this value to true only
             during development.
         -->
-    <compilation debug="true" targetFramework="4.6.2" numRecompilesBeforeAppRestart="2000">
+    <compilation debug="true" targetFramework="4.7.1" numRecompilesBeforeAppRestart="2000">
       <assemblies>
         <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
         <add assembly="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -247,7 +247,7 @@ that is bundled with the nuget package under the tools folder.
     <httpModules>
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.HttpModules.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
       <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -318,7 +318,7 @@ that is bundled with the nuget package under the tools folder.
       <remove name="SitefinityAnalyticsModule" />
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.HttpModules.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
       <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -326,7 +326,7 @@ that is bundled with the nuget package under the tools folder.
       <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" preCondition="integratedMode,managedHandler" />
       <remove name="ApplicationInsightsWebTracking" />
       <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
-      <add name="CustomHeaderModule" type="DFC.Digital.Web.Core.HttpModules.CustomHeaderModule" />
+      <add name="CustomHeaderModule" type="DFC.Digital.Web.Core.CustomHeaderModule" />
     </modules>
     <handlers>
       <remove name="WebDAV" />
@@ -447,8 +447,8 @@ that is bundled with the nuget package under the tools folder.
       <target type="Trace" name="trace" layout="${longdate}|${level:uppercase=true}|${logger}|${threadid}|${aspnet-item:variable=dfc-controller}|${message}|${exception:format=tostring}" />
     </targets>
     <rules>
-      <logger name="*" minlevel="Info" writeTo="aiTarget" />
-      <logger name="*" minlevel="Info" writeTo="trace" />
+      <logger name="*" minlevel="Trace" writeTo="aiTarget" />
+      <logger name="*" minlevel="Trace" writeTo="trace" />
     </rules>
   </nlog>
   <!-- Upgrade of NewtonsoftJson.dll to version 6.0.2. The Web API/MVC 4 has been built with version 4.5
@@ -550,7 +550,7 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Castle.Core" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-3.3.0.0" newVersion="3.3.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -567,7 +567,7 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.ApplicationInsights" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.5.0.0" newVersion="2.5.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-2.5.1.0" newVersion="2.5.1.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="HtmlAgilityPack" publicKeyToken="bd319b19eaf3b43a" culture="neutral" />
@@ -604,6 +604,18 @@ that is bundled with the nuget package under the tools folder.
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Owin.Security.Jwt" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-3.1.0.0" newVersion="3.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Net.Http" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.1.2" newVersion="4.1.1.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.2.1" newVersion="4.0.2.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.ValueTuple" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.2.0" newVersion="4.0.2.0" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>

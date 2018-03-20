@@ -5,7 +5,7 @@
     @using (Html.BeginForm("Search", "JobProfileSearchBox", FormMethod.Post, new { id = "job-profile-search-box", @class = "js-live-search-form site-search  ui-front" }))
     {
         <div class="job-profile-search-content">
-            <label for="search-main"> @Model.PlaceHolderText</label>
+            <label for="search-main"> @Model.PlaceholderText</label>
             <div class="search-input-wrapper">
                 @Html.TextBoxFor(model => model.SearchTerm, new { @class = "search-input js-search-focus js-autocomplete",
                                                                        @type = "search",

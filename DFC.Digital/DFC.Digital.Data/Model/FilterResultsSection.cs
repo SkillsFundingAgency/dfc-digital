@@ -2,11 +2,12 @@
 
 namespace DFC.Digital.Data.Model
 {
+    //TODO - to be refactored to use Presearchfiltersection class
     public class FilterResultsSection
     {
         public string Name { get; set; }
 
-        public List<FilterResultsOption> Options { get; set; }
+        public ICollection<FilterResultsOption> Options { get; set; }
 
         public bool SingleSelectOnly { get; set; }
 

@@ -5,7 +5,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileIndexEnhancer
     {
-        void Initialise(JobProfileIndex jobProfile, bool isPublishing);
+        void Initialise(JobProfileIndex initialiseJobProfileIndex, bool isPublishing);
 
         void PopulateRelatedFieldsWithUrl();
 

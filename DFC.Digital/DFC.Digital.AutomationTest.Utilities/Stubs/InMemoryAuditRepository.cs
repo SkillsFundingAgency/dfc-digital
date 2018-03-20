@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System.Collections.Generic;
 
-namespace DFC.Digital.AutomationTest.Utilities.Stubs
+namespace DFC.Digital.AutomationTest.Utilities
 {
     public class InMemoryAuditRepository : IAuditRepository
     {

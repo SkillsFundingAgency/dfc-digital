@@ -4,14 +4,12 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
-using DFC.Digital.Repository.Database;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
-using DFC.Digital.Service.CourseSearchProvider.Config;
+using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +17,7 @@ using System.Reflection;
 using System.Web.Compilation;
 using System.Web.Hosting;
 
-namespace DFC.Digital.Web.Core.Config
+namespace DFC.Digital.Web.Core
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification = "Reviewed. Product name in correct spelling.")]
     public static class WebCoreAutofacConfig
@@ -49,7 +47,6 @@ namespace DFC.Digital.Web.Core.Config
             builder
                 .RegisterModule<CoreAutofacModule>()
                 .RegisterModule<AzSearchAutofacModule>()
-                .RegisterModule<DbRepositoryAutofacModule>()
                 .RegisterModule<CosmosDbAutofacModule>()
                 .RegisterModule<SitefinityRepositoryAutofacModule>()
                 .RegisterModule<GovUkNotifyAutofacModule>()

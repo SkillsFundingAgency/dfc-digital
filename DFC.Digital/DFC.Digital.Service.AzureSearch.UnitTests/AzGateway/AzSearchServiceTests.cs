@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Core.Configuration;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using Microsoft.Azure.Search;
@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DFC.Digital.Service.AzureSearch.Tests
+namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class AzSearchServiceTests
     {
@@ -25,10 +25,11 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         private readonly IDocumentsOperations fakeDocuments = A.Fake<IDocumentsOperations>();
         private IApplicationLogger fakeLogger = A.Fake<IApplicationLogger>();
         private ITolerancePolicy policy;
+        private TransientFaultHandlingStrategy strategy = new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider());
 
         public AzSearchServiceTests()
         {
-            policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy());
+            policy = new TolerancePolicy(fakeLogger, strategy);
         }
 
         [Fact]
@@ -99,7 +100,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
                     A<SearchRequestOptions>._,
                     A<Dictionary<string, List<string>>>._,
                     A<CancellationToken>._))
-                .MustHaveHappened(statusCode > 400 ? Repeated.Exactly.Times(new TransientFaultHandlingStrategy().Retry + 1) : Repeated.Exactly.Once);
+                .MustHaveHappened(statusCode > 400 ? Repeated.Exactly.Times(strategy.Retry + 1) : Repeated.Exactly.Once);
         }
     }
 }

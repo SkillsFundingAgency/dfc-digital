@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private readonly IPreSearchFiltersFactory preSearchFiltersFactory;
         private readonly IPreSearchFilterStateManager preSearchFilterStateManager;
-        private readonly IWebAppContext webAppContext;
         private readonly IMapper autoMapper;
 
         #endregion Private Fields
@@ -31,18 +31,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </summary>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="preSearchFiltersFactory">Sitefinity Repository to use</param>
-        /// <param name="webAppContext">Sitefinity context</param>
         /// <param name="preSearchFilterStateManager">Pre search filter state manager</param>
         /// <param name="autoMapper">Instance of auto mapper</param>
         public PreSearchFiltersController(
-            IWebAppContext webAppContext,
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
             IPreSearchFiltersFactory preSearchFiltersFactory,
             IPreSearchFilterStateManager preSearchFilterStateManager) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
-            this.webAppContext = webAppContext;
             this.autoMapper = autoMapper;
             this.preSearchFilterStateManager = preSearchFilterStateManager;
         }
@@ -100,11 +97,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 }
             }
 
-            var currentPageFilter = GetCurrentPageFilter(model);
+            var currentPageFilter = GetCurrentPageFilter();
             return View(currentPageFilter);
         }
 
-        private PsfModel GetCurrentPageFilter(PsfModel previousPageFilter = null)
+        private PsfModel GetCurrentPageFilter()
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
             var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
@@ -185,6 +182,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
 
-        #endregion
+        #endregion Private methods
     }
 }

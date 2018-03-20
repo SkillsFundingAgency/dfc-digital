@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TestStack.Seleno.PageObjects;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class SearchPage : SitefinityPage<JobProfileSearchResultViewModel>
     {
@@ -32,10 +32,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         internal bool HasJobProfileTitle => DoesElementExistWithValue("dfc-code-search-jpTitle");
 
         internal bool HasAlternativeTitle => DoesElementExistWithValue("dfc-code-search-jpAltTitle");
-
-        internal bool HasOverview => DoesElementExistWithValue("dfc-code-search-jpOverview");
-
-        internal bool HasSalary => DoesElementExistWithValue("dfc-code-search-jpSalary");
 
         internal bool HasSearchBox => Find.Element(By.Id("search-main")) != null;
 
@@ -168,7 +164,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             return Navigate.To<T>(categoryLink.GetAttribute("href"));
         }
 
-        public T ClickSearchSignPostBanner<T>()
+        public T ClickSearchSignpostBanner<T>()
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.ClassName("signpost"));

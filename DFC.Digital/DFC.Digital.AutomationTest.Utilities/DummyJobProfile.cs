@@ -4,8 +4,12 @@ using System.Linq;
 
 namespace DFC.Digital.AutomationTest.Utilities
 {
-    public class DummyJobProfile
+    public sealed class DummyJobProfile
     {
+        private DummyJobProfile()
+        {
+        }
+
         public static IEnumerable<JobProfile> GetDummyJobProfiles()
         {
             yield return new JobProfile { Title = "A Job Profile 1", AlternativeTitle = "D Alternative Title 1", Overview = "Overview 1", UrlName = "urlName_1", SalaryStarter = 0, SalaryExperienced = 0, SOCCode = "Soc 1" };

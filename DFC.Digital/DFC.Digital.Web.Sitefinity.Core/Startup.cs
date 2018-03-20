@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using DFC.Digital.Web.Core.Config;
+using DFC.Digital.Web.Core;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -11,8 +11,12 @@ using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public class Startup
+    public sealed class Startup
     {
+        private Startup()
+        {
+        }
+
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;

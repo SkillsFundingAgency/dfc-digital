@@ -4,12 +4,13 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class SearchBoxJobProfileViewTests
     {
@@ -17,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
 
         //As a Citizen, I want to be able to search from JP
         [Fact]
-        public void DFC_1330_SearchBoxonJobProfilePage()
+        public void DFC1330ForSearchBoxonJobProfilePage()
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileSearchBox_JobProfile_cshtml();
@@ -28,8 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             var model = new JobProfileSearchBoxViewModel
             {
                 HeaderText = headerText,
-                JobProfileUrl = jobProfileUrl,
-                PlaceHolderText = placeholderText
+                JobProfileUrl = new Uri(jobProfileUrl, UriKind.RelativeOrAbsolute),
+                PlaceholderText = placeholderText
             };
 
             // Act
@@ -44,14 +45,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [Theory]
         [InlineData("test", true)]
         [InlineData("test", false)]
-        public void DFC_1494_SearchResultsDidYouMeanTerm(string correctedSearchTerm, bool validSpellcheckResult)
+        public void DFC1494ForSearchResultsDidYouMeanTerm(string correctedSearchTerm, bool validSpellcheckResult)
         {
             // Arrange
             var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
 
             var model = new JobProfileSearchResultViewModel
             {
-                DidYouMeanUrl = validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty,
+                DidYouMeanUrl = new Uri(validSpellcheckResult ? $"{nameof(JobProfileSearchBoxController.SearchResultsPage)}?searchTerm={HttpUtility.UrlEncode(correctedSearchTerm)}" : string.Empty, UriKind.RelativeOrAbsolute),
                 DidYouMeanTerm = validSpellcheckResult ? correctedSearchTerm : string.Empty,
                 SearchResults = new List<JobProfileSearchResultItemViewModel>()
             };
@@ -63,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             if (validSpellcheckResult)
             {
                 GetDidYouMeanText(htmlDom).Should().Be(model.DidYouMeanTerm);
-                GetDidYouMeanUrl(htmlDom).Should().Be(model.DidYouMeanUrl);
+                GetDidYouMeanUrl(htmlDom).Should().Be(model.DidYouMeanUrl.OriginalString);
             }
             else
             {
@@ -104,6 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
                 .FirstOrDefault(div => div.Attributes["class"].Value.Contains("search-dym"));
             return didYouMeansection?.Descendants("a").FirstOrDefault()?.InnerText.Trim();
         }
+
         #endregion Helpers
     }
 }

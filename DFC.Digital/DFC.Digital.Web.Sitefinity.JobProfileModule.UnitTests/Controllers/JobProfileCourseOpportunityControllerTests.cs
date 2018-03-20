@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -12,7 +12,7 @@ using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Details Controller tests
@@ -20,19 +20,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
     public class JobProfileCourseOpportunityControllerTests
     {
         [Theory]
-        [InlineData(1, true, false, 2, "coursekeywords")]
-        [InlineData(2, true, false, 1, "coursekeywords")]
-        [InlineData(3, false, false, 2, "coursekeywords")]
-        [InlineData(4, false, false, 2, "coursekeywords")]
-        [InlineData(5, true, true, 1, "coursekeywords")]
-        [InlineData(6, true, true, 2, "coursekeywords")]
-        [InlineData(7, false, true, 1, "coursekeywords")]
-        [InlineData(8, false, true, 2, "coursekeywords")]
-        [InlineData(8, false, true, 2, "")]
-        public void IndexTest(int testIndex, bool inContentAuthoringSite, bool isContentPreviewMode, int maxCourses, string courseKeywords)
+        [InlineData(true, false, 2, "coursekeywords")]
+        [InlineData(true, false, 1, "coursekeywords")]
+        [InlineData(false, false, 2, "coursekeywords")]
+        [InlineData(true, true, 1, "coursekeywords")]
+        [InlineData(true, true, 2, "coursekeywords")]
+        [InlineData(false, true, 1, "coursekeywords")]
+        [InlineData(false, true, 2, "coursekeywords")]
+        [InlineData(false, true, 2, "")]
+        public void IndexTest(bool inContentAuthoringSite, bool isContentPreviewMode, int maxCourses, string courseKeywords)
         {
             //Setup the fakes and dummies
-            var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
@@ -104,11 +102,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController
+                        vm.TrainingCoursesText.Should().BeEquivalentTo(jobProfileCourseOpportunityController
                             .TrainingCoursesText);
-                        vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
-                        vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
-                        vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
+                        vm.CoursesLocationDetails.Should().Be(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
+                        vm.NoTrainingCoursesText.Should().Be(jobProfileCourseOpportunityController.NoTrainingCoursesText);
+                        vm.CoursesSectionTitle.Should().Be(jobProfileCourseOpportunityController.CoursesSectionTitle);
                         vm.Courses.Count().Should()
                             .BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
                     })
@@ -135,18 +133,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
         }
 
         [Theory]
-        [InlineData(1, "Test", true, false, false, "coursekeywords")]
-        [InlineData(2, "TestInContentAuth", false, true, false, "coursekeywords")]
-        [InlineData(3, "Test", true, false, false, "coursekeywords")]
-        [InlineData(4, "Test", false, false, false, "coursekeywords")]
-        [InlineData(5, "Test", true, false, true, "coursekeywords")]
-        [InlineData(6, "TestInContentAuth", false, true, true, "coursekeywords")]
-        [InlineData(7, "Test", true, false, true, "coursekeywords")]
-        [InlineData(8, "Test", false, false, true, "coursekeywords")]
-        public void IndexUrlNameTest(int testIndex, string urlName, bool useValidJobProfile, bool inContentAuthoringSite, bool isContentPreviewMode, string courseKeywords)
+        [InlineData("Test", true, false, false, "coursekeywords")]
+        [InlineData("TestInContentAuth", false, true, false, "coursekeywords")]
+        [InlineData("Test", false, false, false, "coursekeywords")]
+        [InlineData("Test", true, false, true, "coursekeywords")]
+        [InlineData("TestInContentAuth", false, true, true, "coursekeywords")]
+        [InlineData("Test", false, false, true, "coursekeywords")]
+        public void IndexUrlNameTest(string urlName, bool useValidJobProfile, bool inContentAuthoringSite, bool isContentPreviewMode, string courseKeywords)
         {
             //Setup the fakes and dummies
-            var unused = testIndex;
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
@@ -216,11 +211,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileCourseSearchViewModel>(vm =>
                     {
-                        vm.MainSectionTitle.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.MainSectionTitle);
-                        vm.TrainingCoursesText.ShouldBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesText);
-                        vm.CoursesLocationDetails.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
-                        vm.NoTrainingCoursesText.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.NoTrainingCoursesText);
-                        vm.CoursesSectionTitle.ShouldAllBeEquivalentTo(jobProfileCourseOpportunityController.CoursesSectionTitle);
+                        vm.MainSectionTitle.Should().BeEquivalentTo(jobProfileCourseOpportunityController.MainSectionTitle);
+                        vm.TrainingCoursesText.Should().BeEquivalentTo(jobProfileCourseOpportunityController.TrainingCoursesText);
+                        vm.CoursesLocationDetails.Should().Be(jobProfileCourseOpportunityController.TrainingCoursesLocationDetails);
+                        vm.NoTrainingCoursesText.Should().Be(jobProfileCourseOpportunityController.NoTrainingCoursesText);
+                        vm.CoursesSectionTitle.Should().Be(jobProfileCourseOpportunityController.CoursesSectionTitle);
                         vm.Courses.Count().Should().BeLessOrEqualTo(jobProfileCourseOpportunityController.MaxTrainingCoursesMaxCount);
                     })
                     .AndNoModelErrors();

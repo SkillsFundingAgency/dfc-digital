@@ -2,7 +2,7 @@
 using Autofac.Core;
 using System;
 
-namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
+namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 {
     public class AutofacBaseTest<TModule> : IDisposable
         where TModule : IModule, new()
@@ -23,9 +23,18 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Config
 
         public void Dispose()
         {
-            if (container != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                container.Dispose();
+                if (container != null)
+                {
+                    container.Dispose();
+                }
             }
         }
 

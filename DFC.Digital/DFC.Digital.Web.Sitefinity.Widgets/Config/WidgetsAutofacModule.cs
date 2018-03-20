@@ -3,7 +3,7 @@ using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.App_Start
+namespace DFC.Digital.Web.Sitefinity.Widgets
 {
     public class WidgetsAutofacModule : Module
     {

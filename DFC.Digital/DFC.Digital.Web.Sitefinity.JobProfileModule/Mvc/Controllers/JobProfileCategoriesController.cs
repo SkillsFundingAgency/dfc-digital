@@ -1,6 +1,8 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// </summary>
     /// <seealso cref="Web.Core.Base.BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileCategories", Title = "JobProfile Categories", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileCategoriesController : Web.Core.Base.BaseDfcController
+    public class JobProfileCategoriesController : BaseDfcController
     {
         #region Private Fields
 

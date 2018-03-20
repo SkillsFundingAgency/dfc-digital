@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 using System.Linq;
 using TestStack.Seleno.PageObjects;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class JobProfilePage : SitefinityPage<JobProfileDetailsViewModel>
     {
@@ -35,7 +35,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public int VacancyCount => Find.Elements(By.CssSelector(".opportunity-item a")).Count();
 
-        public bool AllVacanciesHaveHyperLinks => Find.Elements(By.CssSelector(".opportunity-item a")) != null && Find.Elements(By.CssSelector(".opportunity-item a")).Any() && !Find.Elements(By.CssSelector(".opportunity-item a")).Any(item => string.IsNullOrWhiteSpace(item.GetAttribute("href")));
+        public bool AllVacanciesHaveHyperlinks => Find.Elements(By.CssSelector(".opportunity-item a")) != null && Find.Elements(By.CssSelector(".opportunity-item a")).Any() && !Find.Elements(By.CssSelector(".opportunity-item a")).Any(item => string.IsNullOrWhiteSpace(item.GetAttribute("href")));
 
         public bool HasJobProfileSearch => Find.OptionalElement(By.ClassName("job-profile-search")) != null;
 
@@ -65,7 +65,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             link.Click();
         }
 
-        public T ClickBackToHomePageLink<T>()
+        public T ClickBackToHomepageLink<T>()
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.PartialLinkText("Back to homepage"));

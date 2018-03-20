@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class SpellCheckResult
+    public class SpellcheckResult
     {
         public string OriginalTerm { get; set; }
 

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Core.Base;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System;
 using System.Collections.Generic;
@@ -182,7 +183,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
             else
             {
-                return Search(resultsViewModel.PreSearchFiltersModel, page, false);
+                return Search(resultsViewModel?.PreSearchFiltersModel, page, false);
             }
         }
 
@@ -190,6 +191,28 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public ActionResult Search(PsfModel model, int page = 1, bool notPaging = true)
         {
             return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(model, page, notPaging));
+        }
+
+        private static void AddFilterSection(PsfSection currentSection, PsfModel model, string demovalues)
+        {
+            var values = demovalues.Split('~');
+            foreach (var value in values)
+            {
+                var data = value.Split(',');
+                if (data.Length == 2)
+                {
+                    currentSection.Options.Add(new PsfOption
+                    {
+                        IsSelected = Convert.ToBoolean(data[0]),
+                        OptionKey = Convert.ToString(data[1])
+                    });
+                }
+            }
+
+            if (currentSection.Options.Any())
+            {
+                model.Sections.Add(currentSection);
+            }
         }
 
         private PsfModel GetDummyPreSearchFiltersModel()
@@ -275,28 +298,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return model;
         }
 
-        private void AddFilterSection(PsfSection currentSection, PsfModel model, string demovalues)
-        {
-            var values = demovalues.Split('~');
-            foreach (var value in values)
-            {
-                var data = value.Split(',');
-                if (data.Length == 2)
-                {
-                    currentSection.Options.Add(new PsfOption
-                    {
-                        IsSelected = Convert.ToBoolean(data[0]),
-                        OptionKey = Convert.ToString(data[1])
-                    });
-                }
-            }
-
-            if (currentSection.Options.Any())
-            {
-                model.Sections.Add(currentSection);
-            }
-        }
-
         private async Task<ActionResult> DisplaySearchResultsAsync(PsfModel model, int page, bool notPaging = true)
         {
             var resultModel = GetPsfSearchResultsViewModel(model, notPaging);
@@ -365,7 +366,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         PageNumber = notPaging ? model.Section.PageNumber++ : model.Section.PageNumber
                     }
                 },
-                BackPageUrl = BackPageUrl,
+                BackPageUrl = new Uri(BackPageUrl, UriKind.RelativeOrAbsolute),
                 BackPageUrlText = BackPageUrlText,
                 JobProfileCategoryPage = JobProfileCategoryPage,
                 SalaryBlankText = SalaryBlankText
@@ -407,16 +408,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (resultModel.TotalPages > 1 && resultModel.TotalPages >= resultModel.PageNumber)
             {
-                resultModel.NextPageUrl = $"{PsfSearchResultsPage}?page={resultModel.PageNumber + 1}";
+                resultModel.NextPageUrl = new Uri($"{PsfSearchResultsPage}?page={resultModel.PageNumber + 1}", UriKind.RelativeOrAbsolute);
                 resultModel.NextPageUrlText = $"{resultModel.PageNumber + 1} of {resultModel.TotalPages}";
 
                 if (resultModel.PageNumber > 1)
                 {
-                    resultModel.PreviousPageUrl = $"{PsfSearchResultsPage}{(resultModel.PageNumber == 2 ? string.Empty : $"?page={resultModel.PageNumber - 1}")}";
+                    resultModel.PreviousPageUrl = new Uri($"{PsfSearchResultsPage}{(resultModel.PageNumber == 2 ? string.Empty : $"?page={resultModel.PageNumber - 1}")}", UriKind.RelativeOrAbsolute);
                     resultModel.PreviousPageUrlText = $"{resultModel.PageNumber - 1} of {resultModel.TotalPages}";
                 }
             }
         }
+
         #endregion Actions
     }
 }

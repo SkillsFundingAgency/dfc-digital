@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Automation.Test.Utilities;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +11,10 @@ namespace DFC.Digital.AutomationTest.Utilities
         {
             return new JobProfileIndex
             {
-                IdentityField = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}",
-                FilterableTitle =
-                    $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}".ToLowerInvariant(),
+                IdentityField = $"dummy{title.ConvertToKey()}",
                 Title = $"dummy{nameof(JobProfileIndex.Title)}{title.ConvertToKey()}",
-                UrlName = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}",
-                FilterableAlternativeTitle =
-                    $"dummy{nameof(JobProfileIndex.FilterableAlternativeTitle)}".ToLowerInvariant(),
                 AlternativeTitle = $"dummy{nameof(JobProfileIndex.AlternativeTitle)}"
-                    .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                 Overview = $"dummy{nameof(JobProfileIndex.Overview)}",
                 SalaryStarter = 10,
                 SalaryExperienced = 10
@@ -33,11 +27,9 @@ namespace DFC.Digital.AutomationTest.Utilities
             {
                 yield return new JobProfileIndex
                 {
-                    IdentityField = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}-{i}",
-                    FilterableTitle = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}-{i}".ToLowerInvariant(),
+                    IdentityField = $"dummy{title.ConvertToKey()}-{i}",
                     Title = $"dummy{nameof(JobProfileIndex.Title)}{title.ConvertToKey()}-{i}",
-                    UrlName = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}-{i}",
-                    FilterableAlternativeTitle = $"dummy{nameof(JobProfileIndex.FilterableAlternativeTitle)}-{i}".ToLowerInvariant(),
+                    UrlName = $"dummy{title.ConvertToKey()}-{i}",
                     AlternativeTitle = $"dummy{nameof(JobProfileIndex.AlternativeTitle)}-{i}".Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                     Overview = $"dummy{nameof(JobProfileIndex.Overview)}-{i}",
                     SalaryStarter = 10,
@@ -58,11 +50,9 @@ namespace DFC.Digital.AutomationTest.Utilities
                     Rank = i,
                     ResultItem = new JobProfileIndex
                     {
-                        IdentityField = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}",
-                        FilterableTitle = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}".ToLowerInvariant(),
+                        IdentityField = $"dummy{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}",
                         Title = $"dummy{nameof(JobProfileIndex.Title)}{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}",
-                        UrlName = $"dummy{nameof(JobProfileIndex.FilterableTitle)}{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}",
-                        FilterableAlternativeTitle = $"dummy{nameof(JobProfileIndex.FilterableAlternativeTitle)}{(useIndex ? i.ToString() : string.Empty)}".ToLowerInvariant(),
+                        UrlName = $"dummy{title.ConvertToKey()}{(useIndex ? i.ToString() : string.Empty)}",
                         AlternativeTitle = $"dummy{nameof(JobProfileIndex.AlternativeTitle)}{(useIndex ? i.ToString() : string.Empty)}".Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                         Overview = $"dummy{nameof(JobProfileIndex.Overview)}{(useIndex ? i.ToString() : string.Empty)}",
                         SalaryStarter = 10,

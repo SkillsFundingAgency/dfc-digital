@@ -12,7 +12,7 @@ namespace DFC.Digital.Service.AzureSearch
     {
         private ISearchQueryBuilder queryBuilder;
 
-        public DfcSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ISearchQueryBuilder queryBuilder, ITolerancePolicy policy, IApplicationLogger applicationLogger) : base(indexClient, queryConverter, policy, applicationLogger)
+        public DfcSearchQueryService(ISearchIndexClient indexClient, IAzSearchQueryConverter queryConverter, ISearchQueryBuilder queryBuilder, IApplicationLogger applicationLogger) : base(indexClient, queryConverter, applicationLogger)
         {
             this.queryBuilder = queryBuilder;
         }

@@ -27,7 +27,7 @@
         /// <value>
         /// The dont have email text.
         /// </value>
-        public string DontHaveEmailText { get; set; }
+        public string DoNotHaveEmailText { get; set; }
 
         /// <summary>
         /// Gets or sets the age limit text.

@@ -97,7 +97,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.Cogniti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests", "DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests\DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests.csproj", "{91A45345-3DCC-48E5-80F5-0D82B590B8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.DfcSearchModuleTests", "DFC.Digital.Web.Sitefinity.DfcSearchModuleTests\DFC.Digital.Web.Sitefinity.DfcSearchModuleTests.csproj", "{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests", "DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests\DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests.csproj", "{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.GovUkNotify.UnitTests", "DFC.Digital.Service.GovUkNotify.UnitTests\DFC.Digital.Service.GovUkNotify.UnitTests.csproj", "{9D331434-EDF0-4212-A01E-EB6D93E3E5EE}"
 EndProject

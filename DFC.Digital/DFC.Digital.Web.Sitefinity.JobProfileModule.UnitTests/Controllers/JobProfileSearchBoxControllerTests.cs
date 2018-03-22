@@ -24,10 +24,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class JobProfileSearchBoxControllerTests
     {
         [Theory]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 20)]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 1)]
-        [InlineData("Test & Core", JobProfileSearchBoxController.PageMode.SearchResults, 5, 2)]
-        public void IndexTestAutomapperAndTotalMessage(string searchTerm, JobProfileSearchBoxController.PageMode mode, int resultsCount, int page = 1)
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, 20)]
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, 1)]
+        [InlineData("Test & Core", SearchWidgetPageMode.SearchResults, 5, 2)]
+        public void IndexTestAutomapperAndTotalMessage(string searchTerm, SearchWidgetPageMode mode, int resultsCount, int page = 1)
         {
             //Setup Fakes & dummies
             var queryServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -89,7 +89,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemSalaryRange = string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", dummyIndexItem.ResultItem.SalaryStarter, dummyIndexItem.ResultItem.SalaryExperienced),
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
-                        Rank = (int)dummyIndexItem.Rank
+                        Rank = (int)dummyIndexItem.Rank,
+                        JobProfileCategoriesWithUrl = Enumerable.Empty<string>()
                     });
                 }
 
@@ -123,11 +124,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 20, 1, 10)]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 1, 10, 10)]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, 353, 10, 10)]
-        [InlineData("Test & Core", JobProfileSearchBoxController.PageMode.SearchResults, 353, 10, 10)]
-        public void SearchResultsPaginationViewModelTest(string searchTerm, JobProfileSearchBoxController.PageMode mode, int resultsCount, int page, int pageSize)
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, 20, 1, 10)]
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, 1, 10, 10)]
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, 353, 10, 10)]
+        [InlineData("Test & Core", SearchWidgetPageMode.SearchResults, 353, 10, 10)]
+        public void SearchResultsPaginationViewModelTest(string searchTerm, SearchWidgetPageMode mode, int resultsCount, int page, int pageSize)
         {
             //Setup Fakes & dummies
             var queryServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -239,7 +240,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Act
             var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page));
 
-            if (mode == JobProfileSearchBoxController.PageMode.SearchResults)
+            if (mode == SearchWidgetPageMode.SearchResults)
             {
                 //Assert
                 searchMethodCall
@@ -294,13 +295,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null, JobProfileSearchBoxController.PageMode.Landing)]
-        [InlineData("", JobProfileSearchBoxController.PageMode.Landing)]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.Landing)]
-        [InlineData(null, JobProfileSearchBoxController.PageMode.SearchResults)]
-        [InlineData("", JobProfileSearchBoxController.PageMode.SearchResults)]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults)]
-        public void IndexTest(string searchTerm, JobProfileSearchBoxController.PageMode mode, int page = 1)
+        [InlineData(null, SearchWidgetPageMode.Landing)]
+        [InlineData("", SearchWidgetPageMode.Landing)]
+        [InlineData("Test", SearchWidgetPageMode.Landing)]
+        [InlineData(null, SearchWidgetPageMode.SearchResults)]
+        [InlineData("", SearchWidgetPageMode.SearchResults)]
+        [InlineData("Test", SearchWidgetPageMode.SearchResults)]
+        public void IndexTest(string searchTerm, SearchWidgetPageMode mode, int page = 1)
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -371,7 +372,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Act
             var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page));
 
-            if (mode == JobProfileSearchBoxController.PageMode.SearchResults)
+            if (mode == SearchWidgetPageMode.SearchResults)
             {
                 //Assert
                 searchMethodCall
@@ -411,15 +412,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null, JobProfileSearchBoxController.PageMode.Landing, "")]
-        [InlineData("", JobProfileSearchBoxController.PageMode.Landing, "")]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.Landing, "")]
-        [InlineData(null, JobProfileSearchBoxController.PageMode.SearchResults, "")]
-        [InlineData("", JobProfileSearchBoxController.PageMode.SearchResults, "")]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.SearchResults, "")]
-        [InlineData("", JobProfileSearchBoxController.PageMode.JobProfile, "test")]
-        [InlineData("Test", JobProfileSearchBoxController.PageMode.JobProfile, "tes")]
-        public void SearchTest(string searchTerm, JobProfileSearchBoxController.PageMode mode, string jobProfileUrl)
+        [InlineData(null, SearchWidgetPageMode.Landing, "")]
+        [InlineData("", SearchWidgetPageMode.Landing, "")]
+        [InlineData("Test", SearchWidgetPageMode.Landing, "")]
+        [InlineData(null, SearchWidgetPageMode.SearchResults, "")]
+        [InlineData("", SearchWidgetPageMode.SearchResults, "")]
+        [InlineData("Test", SearchWidgetPageMode.SearchResults, "")]
+        [InlineData("", SearchWidgetPageMode.JobProfile, "test")]
+        [InlineData("Test", SearchWidgetPageMode.JobProfile, "tes")]
+        public void SearchTest(string searchTerm, SearchWidgetPageMode mode, string jobProfileUrl)
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -445,14 +446,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                if (mode == JobProfileSearchBoxController.PageMode.Landing)
+                if (mode == SearchWidgetPageMode.Landing)
                 {
                     //Assert
                     searchMethodCall
                         .ShouldRenderView("Index") //this is not default for this action
                         .WithModel<JobProfileSearchBoxViewModel>(vm => string.IsNullOrWhiteSpace(vm.PlaceholderText) == false);
                 }
-                else if (mode == JobProfileSearchBoxController.PageMode.SearchResults)
+                else if (mode == SearchWidgetPageMode.SearchResults)
                 {
                     //Assert
                     searchMethodCall
@@ -543,11 +544,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(JobProfileSearchBoxController.PageMode.JobProfile, "ZAP%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%se", HttpStatusCode.NotFound)]
-        [InlineData(JobProfileSearchBoxController.PageMode.JobProfile, "Nurse", HttpStatusCode.Redirect)]
-        [InlineData(JobProfileSearchBoxController.PageMode.JobProfile, "<invalid>", HttpStatusCode.NotFound)]
-        [InlineData(JobProfileSearchBoxController.PageMode.JobProfile, "inval#d", HttpStatusCode.NotFound)]
-        public void ShouldReturnBadRequestIfTheUrlIsinvalidFormatlInRequest(JobProfileSearchBoxController.PageMode mode, string jobProfileUrl, HttpStatusCode expectation)
+        [InlineData(SearchWidgetPageMode.JobProfile, "ZAP%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%se", HttpStatusCode.NotFound)]
+        [InlineData(SearchWidgetPageMode.JobProfile, "Nurse", HttpStatusCode.Redirect)]
+        [InlineData(SearchWidgetPageMode.JobProfile, "<invalid>", HttpStatusCode.NotFound)]
+        [InlineData(SearchWidgetPageMode.JobProfile, "inval#d", HttpStatusCode.NotFound)]
+        public void ShouldReturnBadRequestIfTheUrlIsinvalidFormatlInRequest(SearchWidgetPageMode mode, string jobProfileUrl, HttpStatusCode expectation)
         {
             //Arrange
             var webAppContext = new WebAppContext();   // OUR SERVICE TYPE
@@ -614,7 +615,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 SearchResultsPage = searchResultsPage,
-                CurrentPageMode = JobProfileSearchBoxController.PageMode.SearchResults,
+                CurrentPageMode = SearchWidgetPageMode.SearchResults,
                 JobProfileDetailsPage = defaultJobProfilePage
             };
 

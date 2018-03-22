@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers.Tests
+namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
 {
     public class JobProfileIndexEnhancerTests
     {

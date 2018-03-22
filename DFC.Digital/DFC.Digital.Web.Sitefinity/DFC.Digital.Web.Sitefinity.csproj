@@ -1224,6 +1224,7 @@
     <Content Include="SampleTemplate.cshtml">
       <Generator>RazorGenerator</Generator>
     </Content>
+    <Content Include="dependencybin\**" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

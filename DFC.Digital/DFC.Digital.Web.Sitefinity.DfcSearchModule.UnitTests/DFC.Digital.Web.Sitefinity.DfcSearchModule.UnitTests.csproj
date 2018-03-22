@@ -8,8 +8,8 @@
     <ProjectGuid>{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Web.Sitefinity.DfcSearchModuleTests</RootNamespace>
-    <AssemblyName>DFC.Digital.Web.Sitefinity.DfcSearchModuleTests</AssemblyName>
+    <RootNamespace>DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests</RootNamespace>
+    <AssemblyName>DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

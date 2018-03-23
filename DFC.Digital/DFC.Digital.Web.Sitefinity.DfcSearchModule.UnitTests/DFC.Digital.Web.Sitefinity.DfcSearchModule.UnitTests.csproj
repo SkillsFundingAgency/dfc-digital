@@ -8,8 +8,8 @@
     <ProjectGuid>{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Web.Sitefinity.DfcSearchModuleTests</RootNamespace>
-    <AssemblyName>DFC.Digital.Web.Sitefinity.DfcSearchModuleTests</AssemblyName>
+    <RootNamespace>DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests</RootNamespace>
+    <AssemblyName>DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,9 +54,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
-    </Reference>
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
       <Private>True</Private>

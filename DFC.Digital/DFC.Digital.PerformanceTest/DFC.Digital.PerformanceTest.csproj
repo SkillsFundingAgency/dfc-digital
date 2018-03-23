@@ -65,9 +65,6 @@
     <None Include="WebTests\JobCategory.webtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="WebTests\JobProfile2.webtest">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="WebTests\JobProfile.webtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

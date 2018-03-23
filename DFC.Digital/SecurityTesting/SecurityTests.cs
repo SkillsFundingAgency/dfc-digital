@@ -1,5 +1,4 @@
-﻿#if !DEBUG
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OWASPZAPDotNetAPI;
 using System;
@@ -34,6 +33,7 @@ namespace SecurityTesting
             Md
         }
 
+#if !DEBUG
         [Fact, Priority(1)]
         public void AExecuteSpider()
         {
@@ -69,6 +69,7 @@ namespace SecurityTesting
                 GenerateReport(reportFilename, ReportFileExtention.Html);
             }
         }
+#endif
 
         private static void CheckActiveScanProgress(string activeScanId)
         {
@@ -128,4 +129,3 @@ namespace SecurityTesting
         }
     }
 }
-#endif

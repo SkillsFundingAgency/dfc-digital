@@ -1,21 +1,39 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileSettingsAndPreviewModel
-<div class="job-profile-related">
-   <h2 class="heading-medium">Default Job profile  - <span id="jobProfileName">@Model.DefaultJobProfileUrl</span></h2>
-    <p class="text-secondary font-xsmall">Default job profile to display on this page in design mode, you may change it by editing this widget.</p>
-    <p class="text-secondary font-xsmall">Placing this widget on a Job Profile page, will enable preview when editing content.
-     This text for this widget will not be displayed when not in design mode.</p>
-    <script>
-        //if first time on page save the current job profile
-        if (window.currentJobProfile == null) {
-            window.currentJobProfile = document.getElementById('jobProfileName').innerText;
+@if (Model.VocSetPersonalisationCookie)
+{
+    <script language="JavaScript">
+        var vocCookie = "@Model.VocSetPersonalisationCookieNameAndValue";
+         
+        if (document.location.protocol === "https:") {
+            vocCookie += "; Secure";
         }
-        else if (window.currentJobProfile != document.getElementById('jobProfileName').innerText) {
-
-            window.currentJobProfile = document.getElementById('jobProfileName').innerText;
-
-            //this gets rid of the are you sure you want to leave this page message
-            window.top.zoneEditorShared.set_isPageRefreshControlled(true);
-            location.reload(true);
-        }
+        document.cookie = vocCookie;
+      
     </script>
-</div>
+}
+else
+{
+    <div class="job-profile-related">
+        <h2 class="heading-medium">
+            Default Job profile - <span id="jobProfileName">@Model.DefaultJobProfileUrl</span>
+        </h2>
+        <p class="text-secondary font-xsmall">Default job profile to display on this page in design mode, you may change it by editing this widget.</p>
+        <p class="text-secondary font-xsmall">
+            Placing this widget on a Job Profile page, will enable preview when editing content.
+            This text for this widget will not be displayed when not in design mode.
+        </p>
+        <script>
+            //if first time on page save the current job profile
+            if (window.currentJobProfile == null) {
+                window.currentJobProfile = document.getElementById('jobProfileName').innerText;
+            } else if (window.currentJobProfile != document.getElementById('jobProfileName').innerText) {
+
+                window.currentJobProfile = document.getElementById('jobProfileName').innerText;
+
+                //this gets rid of the are you sure you want to leave this page message
+                window.top.zoneEditorShared.set_isPageRefreshControlled(true);
+                location.reload(true);
+            }
+        </script>
+    </div>
+}

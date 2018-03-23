@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -54,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (webAppContext.IsContentAuthoringAndNotPreviewMode)
             {
-                var model = new JobProfileSettingsAndPreviewModel() { DefaultJobProfileUrl = DefaultJobProfileUrlName };
+                var model = new JobProfileSettingsAndPreviewModel { DefaultJobProfileUrl = DefaultJobProfileUrlName };
                 return View("Index", model);
             }
 
@@ -67,7 +68,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName,  urlName);
+                var model = new JobProfileSettingsAndPreviewModel { VocSetPersonalisationCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
+                return View("Index", model);
             }
 
             return new EmptyResult();

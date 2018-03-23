@@ -77,10 +77,12 @@
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
-    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
-      <RuleParameters>
-        <RuleParameter Name="Tolerance" Value="0" />
-      </RuleParameters>
-    </ValidationRule>
   </ValidationRules>
+  <WebTestPlugins>
+    <WebTestPlugin Classname="DFC.Digital.TLS12PerformancePlugin.Tls12Plugin, DFC.Digital.TLS1.2PerformancePlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Tls12Plugin" Description="">
+      <RuleParameters>
+        <RuleParameter Name="Enabled" Value="True" />
+      </RuleParameters>
+    </WebTestPlugin>
+  </WebTestPlugins>
 </WebTest>

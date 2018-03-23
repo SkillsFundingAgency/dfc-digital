@@ -9,11 +9,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class BauJobProfileSignpostViewTests
     {
+        // Signposting on Beta JP page to point to specific BAU JP page
         [Theory]
         [InlineData("data")]
         [InlineData("test")]
-
-        // Signposting on Beta JP page to point to specific BAU JP page
         public void DFC2223ScenarioA1ForBAUJobProfileSignpostIndex(string contentdata)
         {
             // Arrange

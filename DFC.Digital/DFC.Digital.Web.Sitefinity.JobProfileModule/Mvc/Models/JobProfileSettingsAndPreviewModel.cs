@@ -9,5 +9,9 @@
         public bool VocSetPersonalisationCookie { get; set; }
 
         public string VocSetPersonalisationCookieNameAndValue { get; set; }
+
+        public bool SetCookieServerSide { get; set; }
+
+        public string VocJobProfileUrl { get; set; }
     }
 }

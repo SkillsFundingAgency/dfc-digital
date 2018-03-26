@@ -62,16 +62,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #region Public Properties
 
-        public enum PageMode
-        {
-            Landing,
-            SearchResults,
-            JobProfile
-        }
-
         [TypeConverter(typeof(EnumConverter))]
         [DisplayName("Current Page Mode : 'Landing' or 'JobProfile' (Display only search box) or 'SearchResults' (Display both search box and results")]
-        public PageMode CurrentPageMode { get; set; } = PageMode.Landing;
+        public SearchWidgetPageMode CurrentPageMode { get; set; } = SearchWidgetPageMode.Landing;
 
         /// <summary>
         /// Gets or sets the placeholder text.
@@ -178,7 +171,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             switch (CurrentPageMode)
             {
-                case PageMode.SearchResults:
+                case SearchWidgetPageMode.SearchResults:
                     var searchModel = new JobProfileSearchResultViewModel
                     {
                         PlaceholderText = PlaceholderText,
@@ -189,7 +182,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     };
                     return View("SearchResult", searchModel);
 
-                case PageMode.JobProfile:
+                case SearchWidgetPageMode.JobProfile:
                     bool isValidUrl = this.webAppContext.IsValidAndFormattedUrl($"{JobProfileDetailsPage}{jobProfileUrl}/");
                     return isValidUrl
                             ? (ActionResult)new RedirectResult($"{JobProfileDetailsPage}{jobProfileUrl}")
@@ -221,12 +214,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             switch (CurrentPageMode)
             {
-                case PageMode.SearchResults:
+                case SearchWidgetPageMode.SearchResults:
                     //Damn!!!! Sitefinity doesnt support Async await
                     //https://feedback.telerik.com/Project/153/Feedback/Details/165662-mvc-ability-to-use-async-actions-in-mvc-widgets
                     return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(searchTerm, page));
 
-                case PageMode.Landing:
+                case SearchWidgetPageMode.Landing:
                 default:
                     var model = new JobProfileSearchBoxViewModel
                     {

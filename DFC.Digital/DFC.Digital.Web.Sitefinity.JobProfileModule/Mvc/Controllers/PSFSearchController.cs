@@ -135,6 +135,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("No results found message")]
         public string NoResultsMessage { get; set; } = "0 results found - try again using a different filters";
 
+        [DisplayName("Text when Salary does not have values.  If you change this value, you will also need to change the reciprocal value in JobProfileDetails widget on 'Job profiles' page.")]
+        public string SalaryBlankText { get; set; } = "Variable";
+
         [DisplayName("Demo Interests Value")]
         public string DemoInterestsValues { get; set; } =
             "true,4c029fc4-2d4d-49ab-841a-ff137a6a4040|finance~true,eed1753f-2df8-42c5-bda1-edcb5dc295cb|totaly-wierd-stuff~false,hdhdhdhdhdhdhd";
@@ -365,7 +368,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 },
                 BackPageUrl = new Uri(BackPageUrl, UriKind.RelativeOrAbsolute),
                 BackPageUrlText = BackPageUrlText,
-                JobProfileCategoryPage = JobProfileCategoryPage
+                JobProfileCategoryPage = JobProfileCategoryPage,
+                SalaryBlankText = SalaryBlankText
             };
 
             //Need to do this to force the model we have changed to refresh

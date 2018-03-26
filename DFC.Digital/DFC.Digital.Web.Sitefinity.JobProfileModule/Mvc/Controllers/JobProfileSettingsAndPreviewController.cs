@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                var model = new JobProfileSettingsAndPreviewModel { VocSetPersonalisationCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
+                var model = new JobProfileSettingsAndPreviewModel { ShouldSetVocCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
                 return View("Index", model);
             }
 

@@ -71,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
                     {
-                        vm.VocSetPersonalisationCookie.Should().Be(expectation);
+                        vm.ShouldSetVocCookie.Should().Be(expectation);
                         vm.VocSetPersonalisationCookieNameAndValue.Should().NotBeNullOrWhiteSpace();
                         vm.VocSetPersonalisationCookieNameAndValue.Should().Contain(urlName);
                     })

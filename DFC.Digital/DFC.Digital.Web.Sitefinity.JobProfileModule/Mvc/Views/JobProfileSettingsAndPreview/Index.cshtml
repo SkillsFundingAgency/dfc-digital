@@ -1,6 +1,6 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileSettingsAndPreviewModel
 
-@if (Model.VocSetPersonalisationCookie)
+@if (Model.ShouldSetVocCookie)
 {
     <script language="JavaScript">
         var vocCookie = "@Model.VocSetPersonalisationCookieNameAndValue";

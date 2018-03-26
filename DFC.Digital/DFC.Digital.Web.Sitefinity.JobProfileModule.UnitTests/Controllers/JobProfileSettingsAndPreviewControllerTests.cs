@@ -76,5 +76,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
             }
         }
+
+        [Theory]
+        [InlineData("something", true)]
+        [InlineData("", false)]
+        public void SetVocCookieTest(string urlName, bool expectation)
+        {
+            //Setup the fakes and dummies
+            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+
+            // Set up calls
+            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).DoesNothing();
+
+            //Instantiate & Act
+            var jobProfileSettingsAndPreviewController = new JobProfileSettingsAndPreviewController(repositoryFake, webAppContextFake, loggerFake);
+
+            //Act
+            jobProfileSettingsAndPreviewController.WithCallTo(c => c.SetVocCookie(urlName));
+
+            //Assert
+            if (expectation)
+            {
+                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustNotHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
+            }
+        }
     }
 }

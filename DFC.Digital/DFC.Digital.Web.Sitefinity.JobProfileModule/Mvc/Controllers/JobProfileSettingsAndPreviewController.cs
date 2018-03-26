@@ -80,7 +80,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [Route("rest-api/set-voc-cookie")]
         public ActionResult SetVocCookie(string urlName)
         {
-            webAppContext.SetVocCookie($"ServerSide-{Constants.VocPersonalisationCookieName}", urlName);
+            if (!string.IsNullOrWhiteSpace(urlName))
+            {
+                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName, urlName);
+            }
 
             return new EmptyResult();
         }

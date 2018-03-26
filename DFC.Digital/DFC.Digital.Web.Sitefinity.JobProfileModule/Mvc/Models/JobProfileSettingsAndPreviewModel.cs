@@ -5,5 +5,9 @@
         public string DefaultJobProfileUrl { get; set; }
 
         public bool RefreshAllWidgets { get; set; }
+
+        public bool ShouldSetVocCookie { get; set; }
+
+        public string VocSetPersonalisationCookieNameAndValue { get; set; }
     }
 }

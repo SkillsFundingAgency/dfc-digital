@@ -64,17 +64,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileSettingsAndPreviewController = new JobProfileSettingsAndPreviewController(repositoryFake, webAppContextFake, loggerFake);
 
             //Act
-            jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
+            var indexResult = jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
 
             //Assert
             if (expectation)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustHaveHappened();
+                indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
+                    {
+                        vm.ShouldSetVocCookie.Should().Be(expectation);
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().NotBeNullOrWhiteSpace();
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().Contain(urlName);
+                    })
+                    .AndNoModelErrors();
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(urlName) || isContentAuthoringSite)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
+                indexResult.ShouldReturnEmptyResult();
             }
+
+            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
         }
     }
 }

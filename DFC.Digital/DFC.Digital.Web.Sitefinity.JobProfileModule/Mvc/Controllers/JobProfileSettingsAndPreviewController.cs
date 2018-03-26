@@ -41,8 +41,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string PreviousUrlName { get; set; }
 
-        public bool SetCookieServerSide { get; set; }
-
         #endregion Public Properties
 
         #region Actions
@@ -70,19 +68,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                var model = new JobProfileSettingsAndPreviewModel { VocSetPersonalisationCookie = true, SetCookieServerSide = SetCookieServerSide, VocJobProfileUrl = urlName, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
+                var model = new JobProfileSettingsAndPreviewModel { VocSetPersonalisationCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
                 return View("Index", model);
-            }
-
-            return new EmptyResult();
-        }
-
-        [Route("rest-api/set-voc-cookie")]
-        public ActionResult SetVocCookie(string urlName)
-        {
-            if (!string.IsNullOrWhiteSpace(urlName))
-            {
-                webAppContext.SetVocCookie(Constants.VocPersonalisationCookieName, urlName);
             }
 
             return new EmptyResult();

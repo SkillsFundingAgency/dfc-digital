@@ -1,43 +1,16 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileSettingsAndPreviewModel
-@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@using Telerik.Sitefinity.Modules.Pages;
-
-@Html.Script(ScriptRef.JQuery, "top", false)
 
 @if (Model.VocSetPersonalisationCookie)
 {
+    <script language="JavaScript">
+        var vocCookie = "@Model.VocSetPersonalisationCookieNameAndValue";
 
-    if (Model.SetCookieServerSide)
-    {
-        <script language="JavaScript">
-            (function ($) {
-                $(function () {
-                    $.ajax({
-                        url: '/rest-api/set-voc-cookie',
-                        cache: false,
-                        type: "POST",
-                        dataType: "json",
-                        data: JSON.stringify({
-                            urlName: '@Model.VocJobProfileUrl'
-                        }),
-                        contentType: "application/json; charset=utf-8"
-                    });
-                });
-            }(jQuery));
-        </script>
-    }
-    else
-    {
-        <script language="JavaScript">
-            var vocCookie = "@Model.VocSetPersonalisationCookieNameAndValue";
+        if (document.location.protocol === "https:") {
+            vocCookie += "; Secure";
+        }
 
-            if (document.location.protocol === "https:") {
-                vocCookie += "; Secure";
-            }
-
-            document.cookie = vocCookie;
-        </script>
-    }
+        document.cookie = vocCookie;
+    </script>
 }
 else
 {

@@ -64,47 +64,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileSettingsAndPreviewController = new JobProfileSettingsAndPreviewController(repositoryFake, webAppContextFake, loggerFake);
 
             //Act
-            jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
+            var indexResult = jobProfileSettingsAndPreviewController.WithCallTo(c => c.Index(urlName));
 
             //Assert
             if (expectation)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustHaveHappened();
+                indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
+                    {
+                        vm.VocSetPersonalisationCookie.Should().Be(expectation);
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().NotBeNullOrWhiteSpace();
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().Contain(urlName);
+                    })
+                    .AndNoModelErrors();
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(urlName) || isContentAuthoringSite)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
+                indexResult.ShouldReturnEmptyResult();
             }
-        }
 
-        [Theory]
-        [InlineData("something", true)]
-        [InlineData("", false)]
-        public void SetVocCookieTest(string urlName, bool expectation)
-        {
-            //Setup the fakes and dummies
-            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>();
-            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
-
-            // Set up calls
-            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).DoesNothing();
-
-            //Instantiate & Act
-            var jobProfileSettingsAndPreviewController = new JobProfileSettingsAndPreviewController(repositoryFake, webAppContextFake, loggerFake);
-
-            //Act
-            jobProfileSettingsAndPreviewController.WithCallTo(c => c.SetVocCookie(urlName));
-
-            //Assert
-            if (expectation)
-            {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustNotHaveHappened();
-            }
-            else
-            {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
-            }
+            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
         }
     }
 }

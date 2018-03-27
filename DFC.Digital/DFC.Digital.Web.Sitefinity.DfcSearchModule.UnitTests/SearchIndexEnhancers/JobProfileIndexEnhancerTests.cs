@@ -41,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             };
 
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, A<bool>._)).Returns(dummyJobProfile);
             A.CallTo(() => salaryService.GetSalaryBySocAsync(A<string>._)).Returns(Task.FromResult(dummySalary));
             A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).Returns(1000);
             A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).Returns(2000);
@@ -53,16 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
 
             dummyJobProfileIndex.SalaryExperienced.Should().Be(salaryExperiencedExpected);
             dummyJobProfileIndex.SalaryStarter.Should().Be(salaryStarterExpected);
-            if (isPublishing)
-            {
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustHaveHappened();
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();
-            }
-            else
-            {
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustHaveHappened();
-            }
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, isPublishing)).MustHaveHappened();
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();
 
             if (isSalaryOverriden)
             {
@@ -115,23 +107,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var expectedCategories = dummyCategories.Select(c => $"{c.Title}|{c.Url}");
 
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, A<bool>._)).Returns(dummyJobProfile);
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).Returns(dummyCategories);
 
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
             enhancer.Initialise(dummyJobProfileIndex, isPublishing);
             enhancer.PopulateRelatedFieldsWithUrl();
 
-            if (isPublishing)
-            {
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustHaveHappened();
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();
-            }
-            else
-            {
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustHaveHappened();
-            }
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, isPublishing)).MustHaveHappened();
+            A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();
 
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).MustHaveHappened();
 

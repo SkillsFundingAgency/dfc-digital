@@ -13,7 +13,7 @@ Scenario Outline: PSF - End to End on Pre Search Filter
 	When I select the tags  <interestTags>
 	And I press continue on the page
 	Then I am redirected to the 'Preferred tasks' page
-#	
+	
 	When I select the tags  <tasksTags>
 	And I press continue on the page
 	Then I am redirected to the 'Job areas' page

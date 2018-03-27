@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Data;
 
@@ -20,6 +23,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public DfcSearchService()
         {
+            if (ObjectFactory.Container.IsRegistered<ILifetimeScope>())
+            {
+                var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+                searchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
+                indexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
+                jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
+                asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
+                mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
+            }
         }
 
         public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)

@@ -23,15 +23,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public DfcSearchService()
         {
-            if (ObjectFactory.Container.IsRegistered<ILifetimeScope>())
-            {
-                var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-                searchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
-                indexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
-                jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
-                asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
-                mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
-            }
+            //if (ObjectFactory.Container.IsRegistered<ILifetimeScope>())
+            //{
+            //    var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+            //    searchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
+            //    indexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
+            //    jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
+            //    asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
+            //    mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
+            //}
         }
 
         public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)

@@ -28,6 +28,7 @@
     <add key="aspnet:UseHostHeaderForRequestUrl" value="true" />
     <add key="ClientValidationEnabled" value="true" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
     <add key="sf:appStatusUrl" value="/health/status" />
     <add key="sf:AppStatusPageResponseCode" value="200" />
     <add key="WillBeBackSoonPage" value="~/App_Data/BackSoon.html" />

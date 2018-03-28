@@ -154,6 +154,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\HomePage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomePage.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\JobProfile.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfile.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\JobProfileCategory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileCategory.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\JobProfileSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileSearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\PreSearchFilter.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreSearchFilter.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\VocSurvey.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VocSurvey.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="AcceptanceCriteria\Steps\PreSearchFilterSteps.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
@@ -189,16 +219,28 @@
   <ItemGroup>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">
       <LastGenOutput>HomePage.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
-    <None Include="AcceptanceCriteria\Features\JobProfile.feature" />
-    <None Include="AcceptanceCriteria\Features\JobProfileCategory.feature" />
+    <None Include="AcceptanceCriteria\Features\JobProfile.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfile.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AcceptanceCriteria\Features\JobProfileCategory.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfileCategory.feature.cs</LastGenOutput>
+    </None>
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <None Include="AcceptanceCriteria\Features\PreSearchFilter.feature">
       <LastGenOutput>PreSearchFilter.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
-    <None Include="AcceptanceCriteria\Features\VocSurvey.feature" />
+    <None Include="AcceptanceCriteria\Features\VocSurvey.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>VocSurvey.feature.cs</LastGenOutput>
+    </None>
     <None Include="App.config">
       <TransformOnBuild>true</TransformOnBuild>
     </None>

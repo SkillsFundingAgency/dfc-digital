@@ -164,7 +164,7 @@ namespace DFC.Digital.Core
                 .CircuitBreaker(
                     exceptionsAllowedBeforeBreaking: strategy.AllowedFaults,
                     durationOfBreak: strategy.Breaktime,
-                    onBreak: (ex, breakDelay) => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: Broken : {dependency}: Breaking the circuit for {breakDelay}, failure-{ex.Message}"),
+                    onBreak: (ex, breakDelay) => logger.ErrorJustLogIt($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: Broken : {dependency}: Breaking the circuit for {breakDelay}, failure-{ex.Message}", ex),
                     onReset: () => logger.Info($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Call succeeded. Closed the circuit again!"),
                     onHalfOpen: () => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Half-open: Next call is a trial!"));
         }

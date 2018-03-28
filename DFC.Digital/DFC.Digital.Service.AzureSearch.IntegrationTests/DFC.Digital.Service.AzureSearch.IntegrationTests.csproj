@@ -217,6 +217,26 @@
     <Compile Include="Config\DIHook.cs" />
     <Compile Include="Config\AutofacIntegrationTestModule.cs" />
     <Compile Include="Config\JobProfileIntegrationTestIndex.cs" />
+    <Compile Include="Feature\JobProfileAutosuggest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileAutosuggest.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\JobProfileByCategorySearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileByCategorySearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\JobProfileByPreSearchFilter.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileByPreSearchFilter.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\JobProfileSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileSearch.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\JobProfileAutosuggestSteps.cs" />
     <Compile Include="Steps\JobProfilesByPreSearchFiltersSteps.cs" />
@@ -236,17 +256,30 @@
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="Feature\JobProfileAutosuggest.feature" />
-    <None Include="Feature\JobProfileByCategorySearch.feature" />
-    <None Include="Feature\JobProfileByPreSearchFilter.feature" />
+    <None Include="Feature\JobProfileAutosuggest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfileAutosuggest.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Feature\JobProfileByCategorySearch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfileByCategorySearch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Feature\JobProfileByPreSearchFilter.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfileByPreSearchFilter.feature.cs</LastGenOutput>
+    </None>
     <None Include="Feature\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

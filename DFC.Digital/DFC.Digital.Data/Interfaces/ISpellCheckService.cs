@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public interface ISpellCheckService
+    public interface ISpellcheckService
     {
-        Task<SpellCheckResult> CheckSpellingAsync(string term);
+        Task<SpellcheckResult> CheckSpellingAsync(string term);
     }
 }

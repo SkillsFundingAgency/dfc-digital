@@ -3,11 +3,10 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
-using System;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileDetailsViewTests
     {
@@ -20,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [InlineData("", "")]
 
         //As a content author, I want to enter and edit the hours overview in the job profile template
-        public void DFC_2103_JobProfileWorkingHours(string minHours, string maxHours)
+        public void DFC2103ForJobProfileWorkingHours(string minHours, string maxHours)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
@@ -53,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [InlineData("10000", "")]
         [InlineData("", "3000")]
         [InlineData("", "")]
-        public void DFC_2047_JobProfileSalary(string salaryStarterString, string salaryExperiencedString)
+        public void DFC2047ForJobProfileSalary(string salaryStarterValue, string salaryExperiencedValue)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
@@ -63,15 +62,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             string salaryExperiencedText = "Experienced";
 
             double salaryStarter = 0;
-            double salaryStarterGoodValue;
-            if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
+            if (double.TryParse(salaryStarterValue, out var salaryStarterGoodValue))
             {
                 salaryStarter = salaryStarterGoodValue;
             }
 
             double salaryExperienced = 0;
-            double salaryExperiencedGoodValue;
-            if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+            if (double.TryParse(salaryExperiencedValue, out var salaryExperiencedGoodValue))
             {
                 salaryExperienced = salaryExperiencedGoodValue;
             }
@@ -105,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
         [InlineData("Freelance / self employed", "")]
         [InlineData("", "Attending events or appointments")]
         [InlineData("", "")]
-        public void DFC_2086_JobProfileWorkingPattern(string workingPattern, string workingPatternDetails)
+        public void DFC2086ForJobProfileWorkingPattern(string workingPattern, string workingPatternDetails)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
@@ -162,13 +159,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
             return workingPatternDetailElement?.InnerHtml;
         }
 
-        private static void CheckHoursPeriodText(HtmlDocument htmlDom, string hoursTimePeriodTestText)
-        {
-            var summaryHoursElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jphours')]").FirstOrDefault();
-
-            summaryHoursElement?.InnerHtml.Should().Contain(hoursTimePeriodTestText);
-        }
-
         private static double GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
         {
             var salaryStarterElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsstarter')]").FirstOrDefault();
@@ -180,8 +170,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
                 if (salaryStarterElement.InnerText.Contains(salaryStarterText))
                 {
                     string salaryStarterString = salaryStarterElement.InnerText.Replace(salaryStarterText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    double salaryStarterGoodValue;
-                    if (double.TryParse(salaryStarterString, out salaryStarterGoodValue))
+                    if (double.TryParse(salaryStarterString, out var salaryStarterGoodValue))
                     {
                         salaryStarter = salaryStarterGoodValue;
                     }
@@ -204,8 +193,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.View.Tests
                 if (salaryExperiencedElement.InnerText.Contains(salaryExperiencedText))
                 {
                     string salaryExperiencedString = salaryExperiencedElement.InnerText.Replace(salaryExperiencedText, string.Empty).Replace("&#163;", string.Empty).Trim();
-                    double salaryExperiencedGoodValue;
-                    if (double.TryParse(salaryExperiencedString, out salaryExperiencedGoodValue))
+                    if (double.TryParse(salaryExperiencedString, out var salaryExperiencedGoodValue))
                     {
                         salaryExperienced = salaryExperiencedGoodValue;
                     }

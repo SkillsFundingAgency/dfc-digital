@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Unrecognized>
+      <Word>Autofac</Word>
+      <Word>SpellCheck</Word>
+    </Unrecognized>
+    <Recognized>
+      <Word>Autofac</Word>
+      <Word>Initialise</Word>
+      <Word>Sitefinity</Word>
+      <Word>Api</Word>
+      <Word>Psf</Word>
+      <Word>Dfc</Word>
+      <Word>Gov</Word>
+      <Word>Uk</Word>
+      <Word>Suggester</Word>
+      <Word>Personalisation</Word>
+      <Word>Voc</Word>
+      <Word>Mins</Word>
+      <Word>Synchronise</Word>
+      <Word>jobprofile</Word>
+      <Word>Soc</Word>
+      <Word>Deciles</Word>
+      <Word>TolerancePolicy</Word>
+      <Word>Az</Word>
+      <Word>ToGo</Word>
+    </Recognized>
+    <Deprecated>
+    </Deprecated>
+    <Compound>
+      <Term CompoundAlternate="JobProfile">jobprofile</Term>
+      <Term CompoundAlternate="TolerancePolicy">TolerancePolicy</Term>
+      <Term CompoundAlternate="ToGo">ToGo</Term>
+    </Compound>
+    </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>PSF</Acronym>
+      <Acronym>BAU</Acronym>
+      <Acronym>GA</Acronym>
+      <Acronym>LMI</Acronym>
+      <Acronym>Soc</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

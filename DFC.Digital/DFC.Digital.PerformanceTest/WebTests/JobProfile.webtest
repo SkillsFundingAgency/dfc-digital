@@ -11,9 +11,16 @@
     </DataSource>
   </DataSources>
   <ContextParameters>
-    <ContextParameter Name="WebServer1" Value="http://staging-beta.nationalcareersservice.org.uk" />
+    <ContextParameter Name="WebServer1" Value="http://local-beta.nationalcareersservice.org.uk" />
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
   </ValidationRules>
+  <WebTestPlugins>
+    <WebTestPlugin Classname="DFC.Digital.TLS12PerformancePlugin.Tls12Plugin, DFC.Digital.TLS1.2PerformancePlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Tls12Plugin" Description="">
+      <RuleParameters>
+        <RuleParameter Name="Enabled" Value="True" />
+      </RuleParameters>
+    </WebTestPlugin>
+  </WebTestPlugins>
 </WebTest>

@@ -3,7 +3,7 @@
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
           <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
-                 <div id="BackLink" class="breadcrumbs" >
+                 <div id="BackLink" class="breadcrumbs">
                         <ol>
                             <li>
                                 <button type="submit" class="button-link" id="filter-home">@(Model.Section.PageNumber == 1 ? "Home" : "Back")</button>
@@ -35,14 +35,17 @@
                             {
                                 if (Model.Section.SingleSelectOnly == true)
                                 {
-                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}" })
-                                    <label for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    <div class="filter-option">
+                                        @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}" })
+                                        <label for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    </div>
                                 }
                                 else
                                 {
-
-                                    @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
-                                    <label for="Section_Options_@jj.ToString()__IsSelected" >@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    <div class="filter-option">
+                                        @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
+                                        <label for="Section_Options_@jj.ToString()__IsSelected" >@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    </div>
                                 }
 
                                 @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
@@ -53,6 +56,5 @@
                     <button type="submit" class="button filter-next" id="filter-continue">Continue</button>
                 </div>
             </form>
-
     </div>
 </div>

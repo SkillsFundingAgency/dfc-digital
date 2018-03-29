@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Anchor view tests
@@ -22,7 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void DFC_800_A1_JobProfileAnchorLinks(bool validLinks)
+        public void DFC800A1JobProfileAnchorLinks(bool validLinks)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileAnchorLinks_Index_cshtml();
@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             var htmlDom = indexView.RenderAsHtml(jobProfileAnchorlistViewModel);
 
             // Assert
-            GetViewAnchorLinks(htmlDom).ShouldAllBeEquivalentTo(jobProfileAnchorlistViewModel.AnchorLinks);
+            GetViewAnchorLinks(htmlDom).Should().BeEquivalentTo(jobProfileAnchorlistViewModel.AnchorLinks);
         }
 
         /// <summary>
@@ -43,21 +43,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         /// <returns>returns anchorlink</returns>
         private IEnumerable<AnchorLink> GetViewAnchorLinks(HtmlDocument htmlDom)
         {
-            return htmlDom.DocumentNode.Descendants("li")
-                  .Select(n =>
-                  {
-                      var firstOrDefault = n.Descendants("a").FirstOrDefault();
-                      if (firstOrDefault != null)
-                      {
-                          return new AnchorLink
-                          {
-                              LinkText = firstOrDefault.InnerText,
-                              LinkTarget = firstOrDefault.GetAttributeValue("href", string.Empty).Replace("#", string.Empty)
-                          };
-                      }
-
-                      return null;
-                  })
+            return htmlDom.DocumentNode.Descendants("a")
+                  .Select(n => new AnchorLink
+                {
+                    LinkText = n.InnerText.Trim(),
+                    LinkTarget = n.GetAttributeValue("href", string.Empty).Replace("#", string.Empty).Trim()
+                })
                   .ToList();
         }
 
@@ -67,18 +58,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         /// <returns>enumerator</returns>
         private IEnumerable<AnchorLink> GetDummyLinks()
         {
-            return new List<AnchorLink>
+            yield return new AnchorLink
             {
-                new AnchorLink
-                {
-                    LinkTarget = $"dummy {nameof(AnchorLink.LinkTarget)}",
-                    LinkText = $"dummy {nameof(AnchorLink.LinkTarget)}"
-                },
-                new AnchorLink
-                {
-                    LinkTarget = $"dummy {nameof(AnchorLink.LinkTarget)}",
-                    LinkText = $"dummy {nameof(AnchorLink.LinkTarget)}"
-                }
+                LinkTarget = $"dummy {nameof(AnchorLink.LinkTarget)}",
+                LinkText = $"dummy {nameof(AnchorLink.LinkText)}"
+            };
+            yield return new AnchorLink
+            {
+                LinkTarget = $"dummy {nameof(AnchorLink.LinkTarget)}",
+                LinkText = $"dummy {nameof(AnchorLink.LinkText)}"
             };
         }
 

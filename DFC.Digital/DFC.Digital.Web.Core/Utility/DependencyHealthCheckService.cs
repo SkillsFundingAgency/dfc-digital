@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility
+namespace DFC.Digital.Web.Core
 {
     public class DependencyHealthCheckService
     {

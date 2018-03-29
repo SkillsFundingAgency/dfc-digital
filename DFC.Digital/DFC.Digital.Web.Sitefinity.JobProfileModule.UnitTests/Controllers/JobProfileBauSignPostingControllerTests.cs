@@ -1,6 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -8,9 +9,9 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
-    public class JobProfileBauSignPostingControllerTests
+    public class JobProfileBAUSignpostingControllerTests
     {
         private readonly IApplicationLogger loggerFake = A.Fake<IApplicationLogger>();
         private readonly IJobProfileRepository repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
@@ -23,17 +24,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         [InlineData("BetaJPUrl", true, "", false, "job-profiles/BetaJPUrl")]
         [InlineData("BetaJPUrl", true, "BAUJPUrl", true, "job-profiles/home")]
         [InlineData("BetaJPUrl", false, "BAUJPUrl", true, "job-profiles/BAUJPUrl")]
-        public void SignPostingTest(string urlName, bool doesNotExistInBau, string overRideBauUrl, bool isContentAuthoring, string expectedJpurl)
+        public void SignpostingTest(string urlName, bool doesNotExistInBau, string overrideBauUrl, bool isContentAuthoring, string expectedJpurl)
         {
             //Set up comman call
             SetUpDependeciesAndCall(true, isContentAuthoring);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.BAUSystemOverrideUrl = overrideBauUrl;
             dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            using (var jobprofileController = new JobProfileBAUSignpostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
                 var indexNameMethodCall = jobprofileController.WithCallTo(c => c.Index());
@@ -42,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 if (isContentAuthoring)
                 {
                     indexNameMethodCall.ShouldRenderDefaultView()
-                        .WithModel<BauJpSignPostViewModel>(vm =>
+                        .WithModel<BAUJobProfileSignpostViewModel>(vm =>
                         {
-                            vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                            vm.SignpostingHtml.Should().Contain(expectedJpurl);
                         }).AndNoModelErrors();
                 }
                 else
@@ -59,26 +60,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         [InlineData("BetaJPUrl", true, "", "job-profiles/home")]
         [InlineData("BetaJPUrl", true, "BAUJPUrl", "job-profiles/home")]
         [InlineData("BetaJPUrl", false, "BAUJPUrl", "job-profiles/BAUJPUrl")]
-        public void SignPostingUrlTest(string urlName, bool doesNotExistInBau, string overRideBauUrl, string expectedJpurl)
+        public void SignpostingUrlTest(string urlName, bool doesNotExistInBau, string overrideBauUrl, string expectedJpurl)
         {
             //Set up comman call
             SetUpDependeciesAndCall(true, false);
 
-            dummyJobProfile.BAUSystemOverrideUrl = overRideBauUrl;
+            dummyJobProfile.BAUSystemOverrideUrl = overrideBauUrl;
             dummyJobProfile.DoesNotExistInBAU = doesNotExistInBau;
             dummyJobProfile.UrlName = urlName;
 
             //Instantiate & Act
-            using (var jobprofileController = new JobProfileBauSignPostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            using (var jobprofileController = new JobProfileBAUSignpostingController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
 
                 //Assert
                 indexWithUrlNameMethodCall.ShouldRenderDefaultView()
-                    .WithModel<BauJpSignPostViewModel>(vm =>
+                    .WithModel<BAUJobProfileSignpostViewModel>(vm =>
                     {
-                        vm.SignPostingHtml.Should().Contain(expectedJpurl);
+                        vm.SignpostingHtml.Should().Contain(expectedJpurl);
                     }).AndNoModelErrors();
             }
         }

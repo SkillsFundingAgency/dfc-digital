@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
+using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Service.LMIFeed
@@ -15,6 +16,8 @@ namespace DFC.Digital.Service.LMIFeed
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+
+            builder.RegisterType<HttpClientService<IAsheHttpClientProxy>>().AsImplementedInterfaces().SingleInstance();
         }
     }
 }

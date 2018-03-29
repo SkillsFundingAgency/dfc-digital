@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class DummySettings
     {

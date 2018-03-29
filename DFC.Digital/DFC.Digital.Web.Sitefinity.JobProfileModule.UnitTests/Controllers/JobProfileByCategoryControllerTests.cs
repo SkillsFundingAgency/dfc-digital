@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
@@ -7,7 +8,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileByCategoryControllerTests
     {
@@ -42,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileByCategoryViewModel>(vm =>
                     {
-                        vm.Title.ShouldBeEquivalentTo(dummyJobProfileCategory.Title);
-                        vm.Description.ShouldBeEquivalentTo(dummyJobProfileCategory.Description);
-                        vm.JobProfiles.ShouldBeEquivalentTo(dummyRelatedJobProfiles);
+                        vm.Title.Should().BeEquivalentTo(dummyJobProfileCategory.Title);
+                        vm.Description.Should().BeEquivalentTo(dummyJobProfileCategory.Description);
+                        vm.JobProfiles.Should().BeEquivalentTo(dummyRelatedJobProfiles);
                     })
                     .AndNoModelErrors();
 
@@ -89,9 +90,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileByCategoryViewModel>(vm =>
                     {
-                        vm.Title.ShouldBeEquivalentTo(dummyJobProfileCategory.Title);
-                        vm.Description.ShouldBeEquivalentTo(dummyJobProfileCategory.Description);
-                        vm.JobProfiles.ShouldBeEquivalentTo(dummyRelatedJobProfiles);
+                        vm.Title.Should().BeEquivalentTo(dummyJobProfileCategory.Title);
+                        vm.Description.Should().BeEquivalentTo(dummyJobProfileCategory.Description);
+                        vm.JobProfiles.Should().BeEquivalentTo(dummyRelatedJobProfiles);
                     })
                     .AndNoModelErrors();
 

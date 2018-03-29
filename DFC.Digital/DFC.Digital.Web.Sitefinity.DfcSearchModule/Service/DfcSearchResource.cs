@@ -1,7 +1,7 @@
 ﻿using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Localization.Data;
 
-namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.Service
+namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     [ObjectInfo("DfcSearchServiceResources", ResourceClassId = "DfcSearchServiceResources")]
     public class DfcSearchResource : Resource

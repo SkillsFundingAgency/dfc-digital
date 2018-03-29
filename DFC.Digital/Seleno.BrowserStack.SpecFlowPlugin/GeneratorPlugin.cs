@@ -11,9 +11,12 @@ namespace Seleno.BrowserStack
 {
     public class GeneratorPlugin : IGeneratorPlugin
     {
-        public void Initialize(GeneratorPluginEvents events, GeneratorPluginParameters parameters)
+        public void Initialize(GeneratorPluginEvents generatorPluginEvents, GeneratorPluginParameters generatorPluginParameters)
         {
-            events.CustomizeDependencies += GeneratorPluginEvents_CustomizeDependencies;
+            if (generatorPluginEvents != null)
+            {
+                generatorPluginEvents.CustomizeDependencies += GeneratorPluginEvents_CustomizeDependencies;
+            }
         }
 
         private void GeneratorPluginEvents_CustomizeDependencies(object sender, CustomizeDependenciesEventArgs args)

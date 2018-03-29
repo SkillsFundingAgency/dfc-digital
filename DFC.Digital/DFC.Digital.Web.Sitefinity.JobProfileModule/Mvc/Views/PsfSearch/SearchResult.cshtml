@@ -2,7 +2,7 @@
 <div class="content-container">
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
-        
+
         <form action="@Model.BackPageUrl" method="post">
             <div id="BackLink" class="breadcrumbs">
                 <ol>
@@ -15,7 +15,7 @@
             @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
             @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
         </form>
-     
+
             <header class="filter-results-header">
                 <h1 class="filter-results-heading">@Model.MainPageTitle</h1>
                 <p class="filter-results-subheading">@Model.SecondaryText</p>
@@ -38,7 +38,7 @@
                                             <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
                                         }
                                         <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
-                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @jobProfile.ResultItemSalaryRange</span></p>
+                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
                                         @if (jobProfile.JobProfileCategoriesWithUrl != null)
                                         {<p class="results-categories">
                                                 Found in:
@@ -54,7 +54,7 @@
                                 }
                             </ol>
                             <ul class="previous-next-navigation">
-                                @if (Model.HasNexPage)
+                                @if (Model.HasNextPage)
                                 {
                                     <li class="dfc-code-search-next next">
                                         <form action="@Model.NextPageUrl" method="post">
@@ -90,6 +90,5 @@
                     </div>
                 </div>
             </div>
-        
     </div>
 </div>

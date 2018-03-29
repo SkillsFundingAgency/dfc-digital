@@ -1,5 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.ComponentModel;
 using System.Web.Mvc;
@@ -8,7 +10,7 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "JobProfilesByCategoryController", Title = "JobProfiles by Category", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfilesByCategoryController : Web.Core.Base.BaseDfcController
+    public class JobProfilesByCategoryController : BaseDfcController
     {
         #region Private Fields
 
@@ -26,6 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         #endregion Constructors
+
         #region Public Properties
 
         /// <summary>
@@ -41,12 +44,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string DefaultJobProfileCategoryUrlName { get; set; } = "Health";
 
         #endregion Public Properties
+
         #region Actions
 
         /// <summary>
         /// Indexes this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("")]
         public ActionResult Index()
@@ -61,21 +65,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return GetJobProfilesByCategoryView(urlname);
+            return GetJobProfilesByCategoryView(urlName);
         }
 
-        private ActionResult GetJobProfilesByCategoryView(string urlname)
+        private ActionResult GetJobProfilesByCategoryView(string urlName)
         {
-            var category = categoryRepo.GetByUrlName(urlname);
+            var category = categoryRepo.GetByUrlName(urlName);
 
             //if the category does not exist.
             if (category == null)

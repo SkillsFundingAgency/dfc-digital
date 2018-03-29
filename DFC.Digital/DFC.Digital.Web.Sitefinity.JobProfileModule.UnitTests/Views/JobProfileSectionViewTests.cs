@@ -6,7 +6,7 @@ using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     /// <summary>
     /// Job Profile Section view tests
@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         [InlineData(true, "Why to become", "<p>Why to become top to bottom</p>", "propertyName")]
 
         //As a Citizen, I want to be able to view the Job Profile page
-        public void DFC_796_A1_JobProfileSection(bool validSection, string sectionTitle, string sectionContent, string propertyName)
+        public void DFC796ScenarioA1ForJobProfileSection(bool validSection, string sectionTitle, string sectionContent, string propertyName)
         {
             // Arrange
             var indexView = new _MVC_Views_JobProfileSection_Index_cshtml();
@@ -37,14 +37,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             var htmlDom = indexView.RenderAsHtml(jobProfileSectionViewModel);
 
             // Assert
-            GetH2Heading(htmlDom).ShouldBeEquivalentTo(jobProfileSectionViewModel.Title);
+            GetH2Heading(htmlDom).Should().BeEquivalentTo(jobProfileSectionViewModel.Title);
             if (validSection)
             {
-                CountOfDescendants(htmlDom).ShouldBeEquivalentTo(4);
+                CountOfDescendants(htmlDom).Should().Be(4);
             }
             else
             {
-                CountOfDescendants(htmlDom).ShouldBeEquivalentTo(3);
+                CountOfDescendants(htmlDom).Should().Be(3);
             }
         }
 

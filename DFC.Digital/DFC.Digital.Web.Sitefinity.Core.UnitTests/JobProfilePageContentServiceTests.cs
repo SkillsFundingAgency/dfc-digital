@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class JobProfilePageContentServiceTests
     {
@@ -75,7 +75,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Utility.Tests
             var result = jpContentService.GetJobProfileSections(dummyJobProfileSectionFilters);
 
             //Assert
-            expectedJobProfileSection.ShouldBeEquivalentTo(result, opt => opt.WithStrictOrdering());
+            expectedJobProfileSection.Should().BeEquivalentTo(result, opt => opt.WithStrictOrdering());
             A.CallTo(() => fakeSettings.Values).MustHaveHappened();
             A.CallTo(() => mvcControllerFake.Settings).MustHaveHappened();
             A.CallTo(() => fakeSitefinityPage.GetControlsInOrder(A<IEnumerable<string>>._)).MustHaveHappened();

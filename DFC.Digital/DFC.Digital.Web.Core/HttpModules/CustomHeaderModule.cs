@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Web;
 
-namespace DFC.Digital.Web.Core.HttpModules
+namespace DFC.Digital.Web.Core
 {
     public class CustomHeaderModule : IHttpModule
     {
         public void Init(HttpApplication context)
         {
-            context.PreSendRequestHeaders += OnPreSendRequestHeaders;
+            if (context != null)
+            {
+                context.PreSendRequestHeaders += OnPreSendRequestHeaders;
+            }
         }
 
         public void Dispose()

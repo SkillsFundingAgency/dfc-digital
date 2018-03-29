@@ -2,10 +2,8 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
-using DFC.Digital.Web.Sitefinity.Core.Utility;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for the Search box and Search results for Job Profiles
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileDetails", Title = "JobProfile Details", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileDetailsController : BaseJobProfileWidgetController
     {
@@ -98,13 +96,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// Indexes the specified urlname.
         /// </summary>
-        /// <param name="urlname">The urlname.</param>
+        /// <param name="urlName">The urlname.</param>
         /// <returns>Action Result</returns>
         [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlname)
+        [RelativeRoute("{urlName}")]
+        public ActionResult Index(string urlName)
         {
-            return BaseIndex(urlname);
+            return BaseIndex(urlName);
         }
 
         protected override ActionResult GetDefaultView()

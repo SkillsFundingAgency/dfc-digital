@@ -1,8 +1,6 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.CourseSearchProvider.Converters;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;
@@ -21,8 +19,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
-            IServiceHelper serviceHelper, 
-            IAuditRepository auditRepository, 
+            IServiceHelper serviceHelper,
+            IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy)
         {
@@ -33,7 +31,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.tolerancePolicy = tolerancePolicy;
         }
 
-        private string ServiceName => "Course Search";
+        private static string ServiceName => "Course Search";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -66,9 +64,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return serviceStatus;
         }
 
-        public async Task<IEnumerable<Course>> GetCoursesAsync(string jobprofileKeywords)
+        public async Task<IEnumerable<Course>> GetCoursesAsync(string jobProfileKeywords)
         {
-            var request = MessageConverter.GetCourseListInput(jobprofileKeywords);
+            if (jobProfileKeywords == null)
+            {
+                return null;
+            }
+
+            var request = MessageConverter.GetCourseListInput(jobProfileKeywords);
             auditRepository.CreateAudit(request);
 
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.

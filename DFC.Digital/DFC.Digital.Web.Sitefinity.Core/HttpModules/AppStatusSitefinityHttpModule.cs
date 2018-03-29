@@ -5,13 +5,13 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using Telerik.Sitefinity.Web;
 
-namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {
-        private string SystemRestartingOrUpgradingHtml => GetTextByConfig("WillBeBackSoonPage");
+        private static string SystemRestartingOrUpgradingHtml => GetTextByConfig("WillBeBackSoonPage");
 
-        private string RedirectToUrlScript => GetTextByConfig("WillBeBackSoonJScript");
+        private static string RedirectToUrlScript => GetTextByConfig("WillBeBackSoonJScript");
 
         protected override void OnSystemRestarting(HttpContext context, string html = null, string scriptUrl = null)
         {
@@ -41,7 +41,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
             }
         }
 
-        private void DisplayPage(HttpContext context, string html)
+        private static string GetTextByConfig(string key) => File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings[key]));
+
+        private static void DisplayPage(HttpContext context, string html)
         {
             var statuscodeSetting = ConfigurationManager.AppSettings["sf:AppStatusPageResponseCode"];
             int statuscode;
@@ -57,7 +59,5 @@ namespace DFC.Digital.Web.Sitefinity.Core.HttpModules
             context.Response.Write(html.Replace("_applicat_virtual_path_", applicationVirtualPath).Replace("_inject_javascript_", RedirectToUrlScript));
             context.ApplicationInstance.CompleteRequest();
         }
-
-        private string GetTextByConfig(string key) => File.ReadAllText(HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings[key]));
     }
 }

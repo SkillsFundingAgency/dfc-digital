@@ -11,12 +11,6 @@ namespace DFC.Digital.Data.Model
         [Key]
         public string IdentityField { get; set; }
 
-        // [IsSearchable, IsFilterable, IsSortable, IsSuggestable]//, Analyzer(AnalyzerName.AsString.EnMicrosoft)]
-        public string FilterableTitle { get; set; }
-
-        // [IsSearchable, IsFilterable, IsSortable, IsSuggestable]//, Analyzer(AnalyzerName.AsString.EnMicrosoft)]
-        public string FilterableAlternativeTitle { get; set; }
-
         [IsSearchable, IsFilterable, IsSortable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public string Title { get; set; }
 

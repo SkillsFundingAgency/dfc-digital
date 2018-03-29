@@ -1,6 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileRelatedCareersControllerTests
     {
@@ -49,8 +50,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileRelatedCareersModel>(vm =>
                 {
-                    vm.Title.ShouldBeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
-                    vm.RelatedCareers.ShouldBeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
+                    vm.Title.Should().BeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
+                    vm.RelatedCareers.Should().BeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
                 }).AndNoModelErrors();
 
                 if (!isContentPreviewMode)
@@ -102,8 +103,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileRelatedCareersModel>(vm =>
                 {
-                    vm.Title.ShouldBeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
-                    vm.RelatedCareers.ShouldBeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
+                    vm.Title.Should().BeEquivalentTo(jobProfileRelatedCareersController.SectionTitle);
+                    vm.RelatedCareers.Should().BeEquivalentTo(GetTestRelatedCareers(numberLinksToDisplay));
                 })
                 .AndNoModelErrors();
 

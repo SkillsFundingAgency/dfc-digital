@@ -6,29 +6,29 @@ using RazorGenerator.Testing;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
-    public class BauSearchResultsSignPostViewTests
+    public class BauSearchResultsSignpostViewTests
     {
         [Theory]
         [InlineData("data")]
         [InlineData("test")]
 
         //As a Citizen having searched on the Public Beta site, I want to be signposted to BAU
-        public void DFC_1764_A1_BauSearchResultsSignPostIndex(string contentdata)
+        public void DFC1764A1BauSearchResultsSignpostIndex(string contentData)
         {
             // Arrange
             var indexView = new _MVC_Views_BauSearchResultsSignPost_Index_cshtml();
             var signPostDummyVm = new BauSearchResultsViewModel
             {
-                Content = contentdata
+                Content = contentData
             };
 
             // Act
             var htmlDom = indexView.RenderAsHtml(signPostDummyVm);
 
             // Assert
-            GetContentData(htmlDom).ShouldBeEquivalentTo(contentdata);
+            GetContentData(htmlDom).Should().BeEquivalentTo(contentData);
         }
 
         private static string GetContentData(HtmlDocument htmlDom)

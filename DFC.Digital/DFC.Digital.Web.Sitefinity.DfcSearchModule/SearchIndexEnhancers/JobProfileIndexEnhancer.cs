@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
+namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     public class JobProfileIndexEnhancer : IJobProfileIndexEnhancer
     {
@@ -29,15 +29,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.SearchIndexEnhancers
 
         public JobProfile JobProfile { get; private set; }
 
-        public void Initialise(JobProfileIndex jobProfileIndex, bool isPublishing)
+        public void Initialise(JobProfileIndex initialiseJobProfileIndex, bool isPublishing)
         {
-            if (jobProfileIndex == null)
+            if (initialiseJobProfileIndex == null)
             {
-                throw new ArgumentNullException(nameof(jobProfileIndex));
+                throw new ArgumentNullException(nameof(initialiseJobProfileIndex));
             }
 
-            this.JobProfile = isPublishing ? jobProfileRepository.GetByUrlNameForSearchIndex(jobProfileIndex.UrlName) : jobProfileRepository.GetByUrlName(jobProfileIndex.UrlName);
-            this.jobProfileIndex = jobProfileIndex;
+            this.JobProfile = jobProfileRepository.GetByUrlNameForSearchIndex(initialiseJobProfileIndex.UrlName, isPublishing);
+            this.jobProfileIndex = initialiseJobProfileIndex;
         }
 
         public void PopulateRelatedFieldsWithUrl()

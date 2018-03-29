@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Model
     {
         public Guid CorrelationId { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public object Data { get; set; }
     }

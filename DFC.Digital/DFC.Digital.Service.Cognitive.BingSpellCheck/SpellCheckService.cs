@@ -4,20 +4,19 @@ using DFC.Digital.Data.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 {
-    public class SpellCheckService : ISpellCheckService, IServiceStatus
+    public class SpellCheckService : ISpellcheckService, IServiceStatus
     {
         private readonly string bingSpellApiKey = ConfigurationManager.AppSettings[Constants.BingSpellcheckApiKey];
         private readonly string bingSpellEndpoint = ConfigurationManager.AppSettings[Constants.BingSpellcheckRequestEndPoint];
 
-        private readonly IHttpClientService httpClientService;
+        private readonly IHttpClientService<ISpellcheckService> httpClientService;
         private readonly IApplicationLogger applicationLogger;
 
-        public SpellCheckService(IHttpClientService httpClientService, IApplicationLogger applicationLogger)
+        public SpellCheckService(IHttpClientService<ISpellcheckService> httpClientService, IApplicationLogger applicationLogger)
         {
             this.httpClientService = httpClientService;
             this.applicationLogger = applicationLogger;
@@ -25,7 +24,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
         #region Implement of IServiceStatus
 
-        private string ServiceName => "Spell Check Service";
+        private static string ServiceName => "Spell Check Service";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -73,12 +72,12 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
         #endregion Implement of IServiceStatus
 
-        public async Task<SpellCheckResult> CheckSpellingAsync(string term)
+        public async Task<SpellcheckResult> CheckSpellingAsync(string term)
         {
             var correctedTerm = term;
             bool hasCorrections = false;
 
-            var response = await GetSpellCheckResponseAsync(term);
+            System.Net.Http.HttpResponseMessage response = await GetSpellCheckResponseAsync(term);
             if (response.IsSuccessStatusCode)
             {
                 var resultsString = await response.Content.ReadAsStringAsync();
@@ -93,7 +92,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                 }
             }
 
-            return new SpellCheckResult
+            return new SpellcheckResult
             {
                 OriginalTerm = term,
                 CorrectedTerm = correctedTerm,
@@ -101,11 +100,12 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             };
         }
 
-        private async Task<HttpResponseMessage> GetSpellCheckResponseAsync(string term)
+        private async Task<System.Net.Http.HttpResponseMessage> GetSpellCheckResponseAsync(string term)
         {
-            var httpClient = httpClientService.GetHttpClient();
-            httpClient.DefaultRequestHeaders.Add(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
-            return await httpClient.GetAsync(string.Format(bingSpellEndpoint, term));
+            var requestUri = string.Format(bingSpellEndpoint, term);
+            httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, bingSpellApiKey);
+            var response = await httpClientService.GetAsync(requestUri, FaultToleranceType.CircuitBreaker);
+            return response;
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.DfcSearchModule.Extensions;
 using System;
 using System.Collections.Generic;
+using Telerik.Microsoft.Practices.Unity;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Data;
 
@@ -20,6 +23,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public DfcSearchService()
         {
+            //if (ObjectFactory.Container.IsRegistered<ILifetimeScope>())
+            //{
+            //    var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+            //    searchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
+            //    indexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
+            //    jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
+            //    asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
+            //    mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
+            //}
         }
 
         public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)
@@ -33,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
         {
-            if (name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(name) && name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
             {
                 //TODO: think about mapping from sitefinity field defenitions to domain model?
                 //Or is it correct to keep them in sync anyway?
@@ -47,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
-            if (indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
             {
                 var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
 

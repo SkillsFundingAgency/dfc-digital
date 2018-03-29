@@ -1,13 +1,13 @@
 ﻿using OpenQA.Selenium;
 using TestStack.Seleno.PageObjects;
 
-namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class BauProfilePage : Page
     {
         public bool UrlContains(string urlFragment)
         {
-            return Browser.Url.ToLowerInvariant().Contains(urlFragment.ToLowerInvariant());
+            return Browser.Url.ToUpperInvariant().Contains(urlFragment?.ToUpperInvariant());
         }
 
         public T ClickBetaBanner<T>()

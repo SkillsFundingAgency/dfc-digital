@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Service.LMIFeed.Interfaces
+namespace DFC.Digital.Service.LMIFeed
 {
     public interface IAsheHttpClientProxy
     {

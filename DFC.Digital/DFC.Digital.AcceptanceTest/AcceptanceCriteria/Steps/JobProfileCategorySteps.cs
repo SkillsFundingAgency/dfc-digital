@@ -1,8 +1,7 @@
-﻿using DFC.Digital.AcceptanceTest.Infrastructure.Config;
-using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using DFC.Digital.AcceptanceTest.Infrastructure.Utilities;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
+using System;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -12,7 +11,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     {
         //private HomePage homePage;
         //private JobProfilePage jobProfilePage;
-        private string firstobProfileCategoryUrl;
+        private Uri firstobProfileCategoryUrl;
 
         //private string jobProfileSelected;
         public JobProfileCategorySteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
@@ -24,7 +23,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Given(@"I am viewing the '(.*)' category page")]
         public void GivenIAmViewingTheCategoryPage(string category)
         {
-            category = category.Replace(" ", "-");
+            category = category?.Replace(" ", "-");
             NavigateToCategoryPage<JobProfileCategoryPage, JobProfileByCategoryViewModel>(category);
         }
 
@@ -42,7 +41,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on job profile category no '(\d+)'")]
         public void WhenIClickOnJobProfileCategory(int category)
         {
-            var homePage = GetNavigatedPage<HomePage>();
+            var homePage = GetNavigatedPage<Homepage>();
             firstobProfileCategoryUrl = homePage.GetJobProfileCategoryUrl(category);
             homePage.GoToResult<JobProfileCategoryPage>(category).SaveTo(ScenarioContext);
         }
@@ -63,7 +62,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenDisplayTheJobProfileCategoryPage()
         {
             var jobProfileCategoryPage = GetNavigatedPage<JobProfileCategoryPage>();
-            jobProfileCategoryPage.ContainsUrlName(firstobProfileCategoryUrl).Should().BeTrue();
+            jobProfileCategoryPage.ContainsUrlName(firstobProfileCategoryUrl.OriginalString).Should().BeTrue();
             jobProfileCategoryPage.HasJobProfiles.Should().BeTrue();
         }
 
@@ -84,7 +83,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the '(.*)' category should not be in the other job categories section")]
         public void ThenTheCategoryShouldNotBeInTheOtherJobCategoriesSection(string category)
         {
-            category = category.Replace("\t", " ");
+            category = category?.Replace("\t", " ");
             var jobProfileCategoryPage = GetNavigatedPage<JobProfileCategoryPage>();
             jobProfileCategoryPage.IsCategoryDisplayedInOtherCategorySection(category).Should().BeFalse();
         }

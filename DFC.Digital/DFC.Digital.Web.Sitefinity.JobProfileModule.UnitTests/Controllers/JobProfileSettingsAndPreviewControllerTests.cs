@@ -7,7 +7,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileSettingsAndPreviewControllerTests
     {
@@ -35,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
                 {
-                    vm.DefaultJobProfileUrl.ShouldBeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
+                    vm.DefaultJobProfileUrl.Should().BeEquivalentTo(jobProfileSettingsAndPreviewController.DefaultJobProfileUrlName);
                 })
                .AndNoModelErrors();
             }
@@ -69,12 +69,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             //Assert
             if (expectation)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>.That.IsEqualTo(urlName))).MustHaveHappened();
+                indexResult.ShouldRenderDefaultView().WithModel<JobProfileSettingsAndPreviewModel>(vm =>
+                    {
+                        vm.ShouldSetVocCookie.Should().Be(expectation);
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().NotBeNullOrWhiteSpace();
+                        vm.VocSetPersonalisationCookieNameAndValue.Should().Contain(urlName);
+                    })
+                    .AndNoModelErrors();
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(urlName) || isContentAuthoringSite)
             {
-                A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
+                indexResult.ShouldReturnEmptyResult();
             }
+
+            A.CallTo(() => webAppContextFake.SetVocCookie(Constants.VocPersonalisationCookieName, A<string>._)).MustNotHaveHappened();
         }
     }
 }

@@ -29,15 +29,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Data", "DFC.Dig
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{D7DBE6B0-5A00-4D04-9EAE-C50D6A640885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Repository.Database", "DFC.Digital.Repository.Database\DFC.Digital.Repository.Database.csproj", "{1B206F7C-83C0-468F-903D-1D958BCAA700}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Repository.SitefinityCMS", "DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj", "{11E5EC8F-531D-47E4-9C22-E19044DDD678}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3ECA993B-0314-4506-B8E0-48C18DEC18C7}"
 	ProjectSection(SolutionItems) = preProject
 		CustomDictionary.xml = CustomDictionary.xml
 		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
+		DFC.Digital.Tests.runsettings = DFC.Digital.Tests.runsettings
 		stylecop.json = stylecop.json
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.AzureSearch", "DFC.Digital.Service.AzureSearch\DFC.Digital.Service.AzureSearch.csproj", "{F0161590-6A22-4D74-BA7C-EDE8A4AC602C}"
@@ -98,7 +98,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.Cogniti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests", "DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests\DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests.csproj", "{91A45345-3DCC-48E5-80F5-0D82B590B8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.DfcSearchModuleTests", "DFC.Digital.Web.Sitefinity.DfcSearchModuleTests\DFC.Digital.Web.Sitefinity.DfcSearchModuleTests.csproj", "{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests", "DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests\DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests.csproj", "{1B616DCE-FB72-4AF9-A6F4-52F7F77DAA04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.GovUkNotify.UnitTests", "DFC.Digital.Service.GovUkNotify.UnitTests\DFC.Digital.Service.GovUkNotify.UnitTests.csproj", "{9D331434-EDF0-4212-A01E-EB6D93E3E5EE}"
 EndProject
@@ -113,6 +113,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.PerformanceTest", "DFC.Digital.PerformanceTest\DFC.Digital.PerformanceTest.csproj", "{FF1AFB43-029B-4A62-BC77-82F229CDC9A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Core.UnitTests", "DFC.Digital.Core.UnitTests\DFC.Digital.Core.UnitTests.csproj", "{97351E81-70EE-45C7-86E8-D25857A70AD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.TLS12PerformancePlugin", "DFC.Digital.TLS1.2PerformancePlugin\DFC.Digital.TLS12PerformancePlugin.csproj", "{D5766299-65D0-49D8-B809-37E9A136CF5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,16 +165,6 @@ Global
 		{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.DevRelease|Any CPU.Build.0 = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.OWASP|Any CPU.ActiveCfg = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.OWASP|Any CPU.Build.0 = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Release Pro|Any CPU.Build.0 = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B206F7C-83C0-468F-903D-1D958BCAA700}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11E5EC8F-531D-47E4-9C22-E19044DDD678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11E5EC8F-531D-47E4-9C22-E19044DDD678}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11E5EC8F-531D-47E4-9C22-E19044DDD678}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
@@ -297,8 +289,8 @@ Global
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.DevRelease|Any CPU.Build.0 = Release|Any CPU
-		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.OWASP|Any CPU.ActiveCfg = Release|Any CPU
-		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.OWASP|Any CPU.Build.0 = Release|Any CPU
+		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.OWASP|Any CPU.ActiveCfg = OWASP|Any CPU
+		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.OWASP|Any CPU.Build.0 = OWASP|Any CPU
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{4DCB223C-E883-426F-9CBA-792AE5D84D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -483,6 +475,16 @@ Global
 		{97351E81-70EE-45C7-86E8-D25857A70AD9}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{97351E81-70EE-45C7-86E8-D25857A70AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97351E81-70EE-45C7-86E8-D25857A70AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.DevRelease|Any CPU.Build.0 = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.OWASP|Any CPU.ActiveCfg = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.OWASP|Any CPU.Build.0 = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Release Pro|Any CPU.Build.0 = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5766299-65D0-49D8-B809-37E9A136CF5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -494,7 +496,6 @@ Global
 		{2D1419CF-37B1-41D4-85FF-519F921FB8E3} = {DE37E629-E8E2-4671-B4A8-D62E3C7F2C2E}
 		{2161F904-4D97-4685-8C9F-05C6F4D0DD74} = {FE965C58-131A-4EE9-A52B-0FEDF579E1ED}
 		{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E} = {6F67FE12-6117-403D-9A0A-87505B679468}
-		{1B206F7C-83C0-468F-903D-1D958BCAA700} = {D7DBE6B0-5A00-4D04-9EAE-C50D6A640885}
 		{11E5EC8F-531D-47E4-9C22-E19044DDD678} = {D7DBE6B0-5A00-4D04-9EAE-C50D6A640885}
 		{F0161590-6A22-4D74-BA7C-EDE8A4AC602C} = {28378015-EB0B-4BBA-B20B-043F4FDDA8DC}
 		{BA107F26-09FE-4508-9B39-EED653398C8F} = {2D1419CF-37B1-41D4-85FF-519F921FB8E3}
@@ -533,6 +534,7 @@ Global
 		{35978BAE-EBD1-40D0-8071-F95D5D2CC59F} = {DE37E629-E8E2-4671-B4A8-D62E3C7F2C2E}
 		{FF1AFB43-029B-4A62-BC77-82F229CDC9A3} = {35978BAE-EBD1-40D0-8071-F95D5D2CC59F}
 		{97351E81-70EE-45C7-86E8-D25857A70AD9} = {FE4C0556-F4C8-4644-88B9-6F63D25387D2}
+		{D5766299-65D0-49D8-B809-37E9A136CF5B} = {35978BAE-EBD1-40D0-8071-F95D5D2CC59F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7CD78F-1AE9-4E79-952C-61C6991414A8}

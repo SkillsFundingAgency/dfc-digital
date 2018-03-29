@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
-using Polly;
+﻿using Polly;
 using Polly.CircuitBreaker;
 using Polly.Retry;
 using Polly.Timeout;
@@ -45,8 +44,11 @@ namespace DFC.Digital.Core
                     break;
 
                 case FaultToleranceType.Timeout:
-                default:
                     policy = (Policy)policies.GetOrAdd($"{dependencyName}-sync", Policy.Timeout(strategy.Timeout, TimeoutStrategy.Pessimistic));
+                    break;
+                case FaultToleranceType.NoPolicy:
+                default:
+                    policy = Policy.NoOp();
                     break;
             }
 
@@ -76,8 +78,10 @@ namespace DFC.Digital.Core
                     break;
 
                 case FaultToleranceType.Timeout:
-                default:
                     policy = (Policy)policies.GetOrAdd(dependencyName, Policy.TimeoutAsync(strategy.Timeout, TimeoutStrategy.Pessimistic));
+                    break;
+                default:
+                    policy = Policy.NoOpAsync();
                     break;
             }
 
@@ -99,6 +103,7 @@ namespace DFC.Digital.Core
                 case FaultToleranceType.Retry:
                 case FaultToleranceType.CircuitBreaker:
                 case FaultToleranceType.Timeout:
+                case FaultToleranceType.NoPolicy:
                 default:
                     return await ExecuteAsync(action, dependencyName, toleranceType);
             }
@@ -159,7 +164,7 @@ namespace DFC.Digital.Core
                 .CircuitBreaker(
                     exceptionsAllowedBeforeBreaking: strategy.AllowedFaults,
                     durationOfBreak: strategy.Breaktime,
-                    onBreak: (ex, breakDelay) => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: Broken : {dependency}: Breaking the circuit for {breakDelay}, failure-{ex.Message}"),
+                    onBreak: (ex, breakDelay) => logger.ErrorJustLogIt($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: Broken : {dependency}: Breaking the circuit for {breakDelay}, failure-{ex.Message}", ex),
                     onReset: () => logger.Info($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Call succeeded. Closed the circuit again!"),
                     onHalfOpen: () => logger.Warn($"{nameof(TolerancePolicy)}:Circuit-Breaker logging: {dependency}: Half-open: Next call is a trial!"));
         }

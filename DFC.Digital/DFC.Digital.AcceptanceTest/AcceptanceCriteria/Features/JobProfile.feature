@@ -51,7 +51,7 @@ Scenario: [DFC-1508 - A2] Selecting the Find courses near you link on the job pr
 #	Then I am redirected to the correct 'gov.uk/volunteering' url
 
 @EndToEnd
-Scenario: Apprenticeship displayed on Job Profile Page
+Scenario: Apprenticeships are displayed on Job Profile Page
 	Given that I am viewing the 'plumber' job profile page
 	Then the correct sections should be displayed
 	And '2' apprenticeships should be displayed with valid data

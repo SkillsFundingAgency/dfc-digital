@@ -2,7 +2,6 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.JobProfileModule.Config;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -13,7 +12,7 @@ using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class PsfSearchControllerTests
     {
@@ -98,12 +97,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     .WithModel<PsfSearchResultsViewModel>(vm =>
                     {
                         vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
-                        vm.SecondaryText.ShouldBeEquivalentTo(psfSearchController.SecondaryText);
+                        vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                         vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                         vm.SearchResults.Should().NotBeNull();
-                        vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
-                        vm.BackPageUrl.ShouldBeEquivalentTo(psfSearchController.BackPageUrl);
-                        vm.BackPageUrlText.ShouldBeEquivalentTo(psfSearchController.BackPageUrlText);
+                        vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
+                        vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
+                        vm.BackPageUrlText.Should().BeEquivalentTo(psfSearchController.BackPageUrlText);
                     })
                     .AndNoModelErrors();
 
@@ -203,12 +202,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 .WithModel<PsfSearchResultsViewModel>(vm =>
                 {
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
-                    vm.SecondaryText.ShouldBeEquivalentTo(psfSearchController.SecondaryText);
+                    vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                     vm.SearchResults.Should().NotBeNull();
-                    vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
-                    vm.BackPageUrl.ShouldBeEquivalentTo(psfSearchController.BackPageUrl);
-                    vm.BackPageUrlText.ShouldBeEquivalentTo(psfSearchController.BackPageUrlText);
+                    vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
+                    vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
+                    vm.BackPageUrlText.Should().BeEquivalentTo(psfSearchController.BackPageUrlText);
                 })
                 .AndNoModelErrors();
 
@@ -311,14 +310,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 .WithModel<PsfSearchResultsViewModel>(vm =>
                 {
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
-                    vm.SecondaryText.ShouldBeEquivalentTo(psfSearchController.SecondaryText);
+                    vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                     vm.SearchResults.Should().NotBeNull();
-                    vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
-                    vm.BackPageUrl.ShouldBeEquivalentTo(psfSearchController.BackPageUrl);
-                    vm.BackPageUrlText.ShouldBeEquivalentTo(psfSearchController.BackPageUrlText);
-                    vm.HasNexPage.ShouldBeEquivalentTo(hasNextPage);
-                    vm.HasPreviousPage.ShouldBeEquivalentTo(hasPreviousPage);
+                    vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
+                    vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
+                    vm.BackPageUrlText.Should().BeEquivalentTo(psfSearchController.BackPageUrlText);
+                    vm.HasNextPage.Should().Be(hasNextPage);
+                    vm.HasPreviousPage.Should().Be(hasPreviousPage);
                 })
                 .AndNoModelErrors();
 
@@ -416,12 +415,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 .WithModel<PsfSearchResultsViewModel>(vm =>
                 {
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
-                    vm.SecondaryText.ShouldBeEquivalentTo(psfSearchController.SecondaryText);
+                    vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
                     vm.SearchResults.Should().NotBeNull();
-                    vm.SearchResults.ShouldBeEquivalentTo(expectedSearchResultsViewModel);
-                    vm.BackPageUrl.ShouldBeEquivalentTo(psfSearchController.BackPageUrl);
-                    vm.BackPageUrlText.ShouldBeEquivalentTo(psfSearchController.BackPageUrlText);
+                    vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
+                    vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
+                    vm.BackPageUrlText.Should().BeEquivalentTo(psfSearchController.BackPageUrlText);
                 })
                 .AndNoModelErrors();
 

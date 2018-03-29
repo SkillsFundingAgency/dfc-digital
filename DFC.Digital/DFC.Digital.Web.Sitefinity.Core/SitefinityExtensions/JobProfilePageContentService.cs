@@ -1,10 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.Core.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -25,7 +22,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
         /// <summary>
         /// Gets the job profile anchor links.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="sectionFilters">The section filters.</param>
+        /// <returns>JobProfile Sections</returns>
         public IEnumerable<JobProfileSection> GetJobProfileSections(IEnumerable<JobProfileSectionFilter> sectionFilters)
         {
             var controls = SitefinityPage.GetControlsInOrder(sectionFilters.Select(f => f.SectionCaption));
@@ -60,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .FirstOrDefault(child => !string.IsNullOrEmpty(child.Title) && !string.IsNullOrEmpty(child.ContentField));
         }
 
-        private JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget)
+        private static JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget)
         {
             var titleMember = sectionFilter.TitleMember;
             var contentFieldMember = sectionFilter.ContentFieldMember;

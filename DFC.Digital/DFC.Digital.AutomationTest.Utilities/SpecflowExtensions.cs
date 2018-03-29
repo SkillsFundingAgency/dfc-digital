@@ -1,11 +1,12 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.AutomationTest.Utilities;
+using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
 
-namespace DFC.Digital.Automation.Test.Utilities
+namespace DFC.Digital.AutomationTest.Utilities
 {
     public static class SpecflowExtensions
     {
@@ -15,10 +16,8 @@ namespace DFC.Digital.Automation.Test.Utilities
             {
                 yield return new JobProfileIndex
                 {
-                    FilterableTitle = item[nameof(JobProfileIndex.Title)].ToLowerInvariant(),
                     Title = item[nameof(JobProfileIndex.Title)],
                     IdentityField = item.GetConditionalData(nameof(JobProfileIndex.IdentityField), item[nameof(JobProfileIndex.Title)].ConvertToKey()),
-                    FilterableAlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty).ToLowerInvariant(),
                     AlternativeTitle = item.GetConditionalData(nameof(JobProfileIndex.AlternativeTitle), string.Empty)?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
                     Overview = item.GetConditionalData(nameof(JobProfileIndex.Overview), string.Empty),
                     JobProfileCategories = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategories), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
@@ -44,7 +43,6 @@ namespace DFC.Digital.Automation.Test.Utilities
                 yield return new JobProfileIndex
                 {
                     IdentityField = $"{jobTitle.ConvertToKey()}-{id}",
-                    FilterableTitle = jobTitle.ToLowerInvariant(),
                     Title = jobTitle,
                     UrlName = $"{jobTitle.ConvertToKey()}-{id}"
                 };
@@ -53,6 +51,11 @@ namespace DFC.Digital.Automation.Test.Utilities
 
         public static SearchProperties ToSearchProperties(this Table table)
         {
+            if (table == null || table.Rows.Count < 1)
+            {
+                throw new TestException("Empty or null table passed");
+            }
+
             var interests = table.Rows[0]["Interests"];
             var trainingRoutes = table.Rows[0]["TrainingRoutes"];
             var enablers = table.Rows[0]["Enablers"];
@@ -102,6 +105,7 @@ namespace DFC.Digital.Automation.Test.Utilities
             return result;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification ="String is only used for Azure index test")]
         internal static string ConvertToKey(this string rawKey)
         {
             Regex regex = new Regex(@"[ ()']");

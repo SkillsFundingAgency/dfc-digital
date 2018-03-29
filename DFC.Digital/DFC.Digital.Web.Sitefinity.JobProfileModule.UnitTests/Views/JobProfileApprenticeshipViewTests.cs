@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileApprenticeshipViewTests
     {
         //As a Citizen, I want to the see the current available Apprenticeships
         //A1 - Display of Current opportunities section for available apprenticeships
         [Fact]
-        public void DFC_114_ApprenticeshipFieldsCorrectTest()
+        public void DFC114ApprenticeshipFieldsCorrectTest()
         {
             var index = new _MVC_Views_JobProfileApprenticeships_Index_cshtml();
 
@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
         //As a Citizen, I want to the see the current available Apprenticeships
         //Display of Current opportunities section for unavailable apprenticeships
         [Fact]
-        public void DFC_114_NoApprenticeshipTextTest()
+        public void DFC114NoApprenticeshipTextTest()
         {
             var index = new _MVC_Views_JobProfileApprenticeships_Index_cshtml();
 
@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
 
         //DFC 114 & 583 - As a citizen, I want to see apprenticeships displayed
         [Fact]
-        public void DFC_114_583_SingleApprenticeshipTextTest()
+        public void DFC114And583SingleApprenticeshipTextTest()
         {
             var index = new _MVC_Views_JobProfileApprenticeships_Index_cshtml();
 
@@ -127,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title",
-                URL = "http://test.co.uk",
+                URL = new Uri("http://test.co.uk", UriKind.RelativeOrAbsolute),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",
@@ -136,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title 2",
-                URL = "http://test2.co.uk",
+                URL = new Uri("http://test2.co.uk", UriKind.RelativeOrAbsolute),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",
@@ -149,30 +149,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Tests.Views
             yield return new ApprenticeVacancy
             {
                 Title = "Test Title",
-                URL = "http://test.co.uk",
+                URL = new Uri("http://test.co.uk", UriKind.RelativeOrAbsolute),
                 WageUnitType = "£",
                 WageAmount = "10.00",
                 Location = "test",
                 VacancyId = "1"
             };
-        }
-
-        private IEnumerable<Course> GetDummyCourses(int courseCount)
-        {
-            var courses = new List<Course>();
-            for (int i = 0; i < courseCount; i++)
-            {
-                courses.Add(new Course
-                {
-                    Title = $"dummy {nameof(Course.Title)}",
-                    Location = $"dummy {nameof(Course.Location)}",
-                    CourseId = $"dummy {nameof(Course.CourseId)}",
-                    StartDate = default(DateTime),
-                    ProviderName = $"dummy {nameof(Course.ProviderName)}",
-                });
-            }
-
-            return courses;
         }
     }
 }

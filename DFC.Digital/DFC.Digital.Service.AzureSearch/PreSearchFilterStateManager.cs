@@ -67,7 +67,7 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 foreach (var filter in filters)
                 {
-                    var psfOptionKey = $"{filter.Id}|{filter.UrlName}";
+                    var psfOptionKey = filter.UrlName;
                     var savedStated = savedSection?.Options?.FirstOrDefault(o => o.OptionKey == psfOptionKey);
 
                     filterSection.Options.Add(new PreSearchFilterOption

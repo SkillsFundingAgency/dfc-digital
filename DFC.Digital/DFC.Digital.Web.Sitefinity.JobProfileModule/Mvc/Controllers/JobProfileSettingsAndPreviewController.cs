@@ -3,9 +3,9 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.ContentLocations;
 using Telerik.Sitefinity.Mvc;
@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(urlName) && !webAppContext.IsContentAuthoringSite)
             {
-                var model = new JobProfileSettingsAndPreviewModel { ShouldSetVocCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={urlName}; path=/" };
+                var model = new JobProfileSettingsAndPreviewModel { ShouldSetVocCookie = true, VocSetPersonalisationCookieNameAndValue = $"{Constants.VocPersonalisationCookieName}={HttpUtility.UrlEncode(urlName)}; path=/" };
                 return View("Index", model);
             }
 

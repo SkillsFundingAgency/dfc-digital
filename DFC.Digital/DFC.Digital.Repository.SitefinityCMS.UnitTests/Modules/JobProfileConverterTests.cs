@@ -22,7 +22,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         {
             var dynamicContentFake = A.Fake<DynamicContent>();
 
-            JobProfileConverter.GetRelatedContentIdAndUrl(dynamicContentFake, "something");
+            JobProfileConverter.GetRelatedContentUrl(dynamicContentFake, "something");
         }
 
         //[Fact()]

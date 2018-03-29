@@ -180,7 +180,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 Name = sectionTitle,
                 Options = new List<PreSearchFilterOption>
                 {
-                    new PreSearchFilterOption { Name = nameof(PreSearchFilterOption.Name), IsSelected = true, OptionKey = $"e99079a2-a201-4b45-bc81-85e807dbcb5a|URL-{NumberDummyFilterOptions - 2}" }
+                    new PreSearchFilterOption { Name = nameof(PreSearchFilterOption.Name), IsSelected = true, OptionKey = $"URL-{NumberDummyFilterOptions - 2}" }
                 }
             };
             return section;

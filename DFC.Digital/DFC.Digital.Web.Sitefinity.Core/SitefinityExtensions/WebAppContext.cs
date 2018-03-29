@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var cookie = cookies.Get(cookieName)?.Value;
                 if (!string.IsNullOrEmpty(cookie))
                 {
-                    profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, cookie);
+                    profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, HttpUtility.UrlDecode(cookie));
                 }
             }
 

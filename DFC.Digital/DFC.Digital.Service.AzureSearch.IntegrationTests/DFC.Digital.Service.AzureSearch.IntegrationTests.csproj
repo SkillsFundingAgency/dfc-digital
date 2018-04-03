@@ -352,13 +352,10 @@
     <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.targets'))" />
     <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
-  <Import Project="..\packages\SpecFlow.2.3.1\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\build\SpecFlow.targets')" />
   <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
+  <PropertyGroup>
+    <SpecFlowTasksPath>..\packages\SpecFlow.2.3.1\tools\specflow.exe</SpecFlowTasksPath>
+  </PropertyGroup>
+  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks"  Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks')" />
   <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets')" />
-  <Target Name="AfterUpdateFeatureFilesInProject">
-    <!-- include any files that specflow generated into the compilation of the project -->
-    <ItemGroup>
-      <Compile Include="@(SpecFlowGeneratedFiles)" />
-    </ItemGroup>
-  </Target>
 </Project>

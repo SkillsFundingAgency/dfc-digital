@@ -25,9 +25,9 @@ namespace DFC.Digital.Core
             return false;
         }
 
-        public Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
+        public async Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), this.GetType().Name, toleranceType);
+            return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), response => !response.IsSuccessStatusCode, typeof(TService).Name, toleranceType);
         }
     }
 }

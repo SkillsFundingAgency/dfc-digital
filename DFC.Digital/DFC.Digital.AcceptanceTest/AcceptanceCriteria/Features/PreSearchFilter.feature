@@ -40,7 +40,7 @@ Scenario Outline: PSF - End to End on Pre Search Filter
 
 	Examples: 
 	| jobLevelTags            | interestTags  | tasksTags | jobAreasTags         | waysToGetInTags         | careerFocusTags | restrictionsTags |
-	| Job level 4,Job level 2 | Travel,Gaming | Managing  | Transport,Technology | training,Apprenticeship | None            | None             |
+	| Job level 1,Job level 2 | Animals or pets | Advising  | Healthcare | Industry,college or university | None            | None             |
 
 #TODO: Discuss this, Not sure this is a valid test??
 Scenario Outline: PSF - No Results returned messaging

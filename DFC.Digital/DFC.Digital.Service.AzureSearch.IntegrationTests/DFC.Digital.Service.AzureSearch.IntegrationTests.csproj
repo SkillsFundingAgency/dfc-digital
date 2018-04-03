@@ -340,13 +340,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets')" />
-  <Target Name="AfterUpdateFeatureFilesInProject">
-    <!-- include any files that specflow generated into the compilation of the project -->
-    <ItemGroup>
-      <Compile Include="@(SpecFlowGeneratedFiles)" />
-    </ItemGroup>
-  </Target>
   <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -48,26 +48,33 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         private static void Bootstrapper_Bootstrapped(object sender, EventArgs e)
         {
-            if (Bootstrapper.IsDataInitialized)
+            try
             {
-                if (SystemManager.ApplicationModules.Any(p => p.Key == SearchModule.ModuleName))
+                if (Bootstrapper.IsDataInitialized)
                 {
-                    var typeName = typeof(DfcSearchService).FullName;
-                    App.WorkWith()
-                       .Module(SearchModule.ModuleName)
-                       .Initialize()
-                       .Localization<DfcSearchResource>();
+                    if (SystemManager.ApplicationModules.Any(p => p.Key == SearchModule.ModuleName))
+                    {
+                        var typeName = typeof(DfcSearchService).FullName;
+                        App.WorkWith()
+                           .Module(SearchModule.ModuleName)
+                           .Initialize()
+                           .Localization<DfcSearchResource>();
 
-                    //Cant resolve the ISearchService directly from autofac as sitefinity needs emtpy constructor for boot-up and we had to wire up later with other arguments
-                    var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-                    var jobprofileSearchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
-                    var jobprofileIndexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
-                    var jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
-                    var asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
-                    var mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
-                    RegisterSearchService(typeName, jobprofileSearchService, jobprofileIndexConfig, jobProfileIndexEnhancer, asyncHelper, mapper);
-                    AddSearchServiceConfig(typeName);
+                        //Cant resolve the ISearchService directly from autofac as sitefinity needs emtpy constructor for boot-up and we had to wire up later with other arguments
+                        var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+                        var jobprofileSearchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
+                        var jobprofileIndexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
+                        var jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
+                        var asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
+                        var mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
+                        RegisterSearchService(typeName, jobprofileSearchService, jobprofileIndexConfig, jobProfileIndexEnhancer, asyncHelper, mapper);
+                        AddSearchServiceConfig(typeName);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register search service - Re-start sitefinity -{ex.ToString()}");
             }
         }
 

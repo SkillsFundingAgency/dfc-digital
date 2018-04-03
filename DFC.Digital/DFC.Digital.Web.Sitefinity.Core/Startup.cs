@@ -29,15 +29,22 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private static void Bootstrapper_Bootstrapped(object sender, EventArgs e)
         {
-            if (!Bootstrapper.IsAppRestarting)
+            try
             {
-                ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, AutofacContainerFactory>(new ContainerControlledLifetimeManager());
+                if (!Bootstrapper.IsAppRestarting)
+                {
+                    ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, AutofacContainerFactory>(new ContainerControlledLifetimeManager());
 
-                var factory = ObjectFactory.Resolve<ISitefinityControllerFactory>();
-                ControllerBuilder.Current.SetControllerFactory(factory);
+                    var factory = ObjectFactory.Resolve<ISitefinityControllerFactory>();
+                    ControllerBuilder.Current.SetControllerFactory(factory);
+                }
+
+                FeatherActionInvokerCustom.Register();
             }
-
-            FeatherActionInvokerCustom.Register();
+            catch (Exception ex)
+            {
+                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainerFactory - Re-start sitefinity -{ex.ToString()}");
+            }
         }
 
         private static void Bootstrapper_Initialized(object sender, ExecutedEventArgs e)
@@ -50,26 +57,33 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)
         {
-            IContainer existingAutofacContainer = null;
             try
             {
-                if (ObjectFactory.Container.IsRegistered<IContainer>())
+                IContainer existingAutofacContainer = null;
+                try
                 {
-                    existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                    if (ObjectFactory.Container.IsRegistered<IContainer>())
+                    {
+                        existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
+                    }
                 }
+                catch (ResolutionFailedException)
+                {
+                    //Sitefinity has not got an existing autofac container registered to its bootstrapper unity container.
+                }
+
+                var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
+
+                ObjectFactory.Container.RegisterInstance(autofacContainer);
+                DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+
+                //Application lifetime scope
+                ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());
             }
-            catch (ResolutionFailedException)
+            catch (Exception ex)
             {
-                //Sitefinity has not got an existing autofac container registered to its bootstrapper unity container.
+                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainer - Re-start sitefinity -{ex.ToString()}");
             }
-
-            var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
-
-            ObjectFactory.Container.RegisterInstance(autofacContainer);
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
-
-            //Application lifetime scope
-            ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());
         }
 
         private static void RegisterRoutes(RouteCollection routes)

@@ -26,7 +26,6 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
@@ -52,7 +51,6 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();
             var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var suggestParameters = new SuggestParameters { UseFuzzyMatching = true, Top = null };
-            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
             var azResponse = new AzureOperationResponse<DocumentSuggestResult<JobProfileIndex>>
             {
                 Body = new DocumentSuggestResult<JobProfileIndex>

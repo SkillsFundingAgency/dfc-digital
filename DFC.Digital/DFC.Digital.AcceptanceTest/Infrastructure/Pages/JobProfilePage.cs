@@ -31,7 +31,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public bool HasNoVacancyText => Find.OptionalElement(By.ClassName("dfc-code-jp-novacancyText")) != null;
 
-        public string NoVacancyText => Find.OptionalElement(By.ClassName("dfc-code-jp-novacancyText")).Text;
+        public string NoVacancyText => Find.OptionalElement(By.ClassName("dfc-code-jp-novacancyText"))?.Text;
 
         public int VacancyCount => Find.Elements(By.CssSelector("#appGeneric .opportunity-item")).Count();
 
@@ -43,7 +43,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public bool HasUsefulLinksSection => Find.OptionalElement(By.ClassName("govuk-related-items")) != null;
 
-        public string ProfilePageHeading => Find.OptionalElement(By.ClassName("heading-xlarge")).Text;
+        public string ProfilePageHeading => Find.OptionalElement(By.ClassName("heading-xlarge"))?.Text;
 
         public string HomeCareersText => Find.Element(By.Id("proposition-name")).Text;
 

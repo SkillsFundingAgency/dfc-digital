@@ -1,12 +1,9 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
-using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Xunit.Abstractions;
@@ -16,20 +13,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     [Binding]
     public class JobProfileSearchSteps : BaseStep
     {
-        #region Fields
-
-        private SearchResultItem<JobProfileIndex> givenJobProfile;
-        private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private ISearchService<JobProfileIndex> searchService;
-
-        #endregion Fields
-
         #region Ctor
 
-        public JobProfileSearchSteps(ISearchQueryService<JobProfileIndex> searchQueryService, ISearchService<JobProfileIndex> searchService, ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
-            this.searchQueryService = searchQueryService;
-            this.searchService = searchService;
             OutputHelper = outputHelper;
         }
 
@@ -54,53 +41,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 .SaveTo(ScenarioContext);
         }
 
-        [Given(@"a job profile exists which has an AlternativeTitle")]
-        public async Task GivenAJobProfileExistsWhichHasAnAlternativeTitle()
-        {
-            var result = await searchQueryService.SearchAsync(
-                "*",
-                new SearchProperties { UseRawSearchTerm = true, Count = 1, FilterBy = "(FilterableAlternativeTitle ne '' and FilterableAlternativeTitle ne null)" });
-
-            result.Results.Count().Should().BeGreaterThan(0);
-
-            givenJobProfile = result.Results.First();
-            NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
-        }
-
-        [Given(@"a job profile exists which has no AlternativeTitle")]
-        public async Task GivenAJobProfileExistsWhichHasNoAlternativeTitle()
-        {
-            var result = await searchQueryService.SearchAsync(
-                "*",
-                new SearchProperties { UseRawSearchTerm = true, Count = 1, FilterBy = "(FilterableAlternativeTitle eq '' or FilterableAlternativeTitle eq null)" });
-
-            result.Results.Count().Should().BeGreaterThan(0);
-
-            givenJobProfile = result.Results.First();
-            NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
-        }
-
-        [Given(@"multiple job profiles exist for '(.*)':")]
-        public async Task GivenMultipleJobProfilesPossessSimilarTitles(string searchTerm)
-        {
-            var result = await searchQueryService.SearchAsync(searchTerm);
-
-            result.Results.Count().Should().BeGreaterThan(1);
-            NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
-        }
-
-        [Given(@"the following job profiles exist:")]
-        public async Task GivenTheFollowingJobProfilesExist(Table table)
-        {
-            await searchService.PopulateIndexAsync(table.ToJobProfileSearchIndex());
-        }
-
-        [Given(@"'(.*)' job profiles exist with '(.*)':")]
-        public async Task GivenJobProfilesExistWith(int countOfJobProfiles, string searchTerm)
-        {
-            await searchService.PopulateIndexAsync(countOfJobProfiles.CreateWithTitle(searchTerm));
-        }
-
         [Given(@"that I am viewing the search results page")]
         public void GivenThatIAmViewingTheSearchResultsPage()
         {
@@ -121,17 +61,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 })
                 .SaveTo(ScenarioContext);
             ScenarioContext.Set(searchTerm, "searchTerm");
-        }
-
-        [When(@"I search using the profile's Title")]
-        public void WhenISearchUsingTheProfileSTitle()
-        {
-            GetNavigatedPage<Homepage>()
-                .Search<SearchPage>(new JobProfileSearchBoxViewModel
-                {
-                    SearchTerm = givenJobProfile.ResultItem.Title
-                })
-                .SaveTo(ScenarioContext);
         }
 
         [When(@"I search using '(.*)' on the results page")]

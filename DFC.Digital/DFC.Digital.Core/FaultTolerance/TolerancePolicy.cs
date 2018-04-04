@@ -100,8 +100,10 @@ namespace DFC.Digital.Core
                 case FaultToleranceType.RetryWithCircuitBreaker:
                     policy = (Policy<T>)policies.GetOrAdd(key, GetRetryWithCircuitBreakerAsync(dependencyName, predicate));
                     break;
-                case FaultToleranceType.Retry:
                 case FaultToleranceType.CircuitBreaker:
+                    policy = (Policy<T>)policies.GetOrAdd(key, GetCircuitBreakerAsync(dependencyName, predicate));
+                    break;
+                case FaultToleranceType.Retry:
                 case FaultToleranceType.Timeout:
                 case FaultToleranceType.NoPolicy:
                 default:

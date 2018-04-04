@@ -64,6 +64,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
+        public bool AddOrUpdateJobProfileByProperties(IEnumerable<BauJobProfile> bauJobProfiles, Dictionary<string, string> propertyMappings)
+        {
+            throw new NotImplementedException();
+        }
+
         public Type GetContentType()
         {
             return repository.GetContentType();

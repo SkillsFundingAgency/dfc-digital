@@ -91,8 +91,10 @@
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
     <Compile Include="Interfaces\IJobProfileCategoryRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
+    <Compile Include="Interfaces\IBauJobProfileOdataRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
+    <Compile Include="Interfaces\IManageBauJobProfilesService.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\BauJobProfile.cs" />
     <Compile Include="Model\ServiceStatus.cs" />
     <Compile Include="Model\PreSearchFilterOperator.cs" />
     <Compile Include="Model\Audit.cs" />

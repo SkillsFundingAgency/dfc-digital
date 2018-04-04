@@ -155,6 +155,10 @@
       <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Repository.BAUOdataRepository\DFC.Digital.Repository.BAUOdataRepository.csproj">
+      <Project>{659B0C41-2953-41FC-AE24-A578DFEE8B41}</Project>
+      <Name>DFC.Digital.Repository.BAUOdataRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Repository.CosmosDb\DFC.Digital.Repository.CosmosDb.csproj">
       <Project>{0B25E89F-8314-4EE4-8B5A-CCD7A04BAB5D}</Project>
       <Name>DFC.Digital.Repository.CosmosDb</Name>

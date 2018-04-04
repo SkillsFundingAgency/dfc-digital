@@ -1,0 +1,9 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.DataImportViewModel
+    
+@Html.Raw(Model.ResultText)
+@using (Html.BeginForm("ImportData", "DataImport", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.NotAllowedMessage)
+    <input class="submit" type="submit" value="Import Data">
+
+}

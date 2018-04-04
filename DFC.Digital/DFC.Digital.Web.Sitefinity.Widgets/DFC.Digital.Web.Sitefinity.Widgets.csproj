@@ -363,6 +363,7 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Mvc\Controllers\DataImportController.cs" />
     <Compile Include="Mvc\Controllers\AdminPanelController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
@@ -370,6 +371,7 @@
     <Compile Include="Mvc\Controllers\DfcBreadcrumbController.cs" />
     <Compile Include="Mvc\Models\AdminPanelViewModel.cs" />
     <Compile Include="Mvc\Models\BauSearchResultsViewModel.cs" />
+    <Compile Include="Mvc\Models\DataImportViewModel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbLevel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbViewModel.cs" />
     <Compile Include="Mvc\Models\EmailSubmissionViewModel.cs" />
@@ -425,6 +427,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenAccessNuGet.targets" />
+    <Content Include="Mvc\Views\DataImport\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

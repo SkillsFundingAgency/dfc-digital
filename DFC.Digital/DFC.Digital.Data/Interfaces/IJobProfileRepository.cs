@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Interfaces
 {
@@ -14,5 +15,7 @@ namespace DFC.Digital.Data.Interfaces
         Type GetContentType();
 
         JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
+
+        bool AddOrUpdateJobProfileByProperties(IEnumerable<BauJobProfile> bauJobProfiles, Dictionary<string, string> propertyMappings);
     }
 }

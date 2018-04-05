@@ -18,7 +18,7 @@
         <Header Name="Referer" Value="{{WebServer1}}/" />
       </Headers>
       <QueryStringParameters>
-        <QueryStringParameter Name="maxNumberDisplyed" Value="5" RecordedValue="5" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="maxNumberDisplayed" Value="5" RecordedValue="5" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
         <QueryStringParameter Name="fuzzySearch" Value="True" RecordedValue="True" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
         <QueryStringParameter Name="term" Value="{{SearchData.SearchSource#csv.SearchTerm}}" RecordedValue="nurse" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
       </QueryStringParameters>

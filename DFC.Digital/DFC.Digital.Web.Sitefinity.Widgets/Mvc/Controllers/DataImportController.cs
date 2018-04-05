@@ -27,16 +27,19 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         private readonly IBauJobProfileOdataRepository bauJobProfileRepository;
         private readonly IManageBauJobProfilesService manageBauJobProfilesService;
         private readonly IJobProfileRepository jobProfileRepository;
+        private readonly IAsyncHelper asyncHelper;
 
         #endregion
 
         #region Constructors
 
-        public DataImportController(IApplicationLogger applicationLogger, IBauJobProfileOdataRepository bauJobProfileRepository, IManageBauJobProfilesService manageBauJobProfilesService, IJobProfileRepository jobProfileRepository) : base(applicationLogger)
+        public DataImportController(IApplicationLogger applicationLogger, IBauJobProfileOdataRepository bauJobProfileRepository, IManageBauJobProfilesService manageBauJobProfilesService, IJobProfileRepository jobProfileRepository, IAsyncHelper asyncHelper)
+            : base(applicationLogger)
         {
             this.bauJobProfileRepository = bauJobProfileRepository;
             this.manageBauJobProfilesService = manageBauJobProfilesService;
             this.jobProfileRepository = jobProfileRepository;
+            this.asyncHelper = asyncHelper;
         }
 
         #endregion Constructors
@@ -50,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// The Page Title.
         /// </value>
         [DisplayName("Page Title")]
-        public string PageTitle { get; set; } = "Admin Panel";
+        public string PageTitle { get; set; } = "BAU JP Data Import";
 
         /// <summary>
         /// Gets or sets the source to destination property mapping.
@@ -76,25 +79,27 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         // GET: AdminPanel
         public ActionResult Index()
         {
-            var model = new AdminPanelViewModel();
-            model.PageTitle = PageTitle;
-            model.NotAllowedMessage = NotAllowedMessage;
-            model.IsAdmin = IsUserAdministrator();
+            var model = new DataImportViewModel
+            {
+                PageTitle = PageTitle,
+                NotAllowedMessage = NotAllowedMessage,
+                IsAdmin = IsUserAdministrator()
+            };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult ImportData(DataImportViewModel viewModel)
+        public ActionResult Index(DataImportViewModel viewModel)
         {
             if (IsUserAdministrator())
             {
                 try
                 {
                     var mappingDictionary = GetPropertyMappingDictionary();
-                    var sourceJobProfiles = GetAllJobProfilesBySourcePropertiesAsync(mappingDictionary);
+                    var sourceJobProfiles = asyncHelper.Synchronise(GetAllJobProfilesBySourcePropertiesAsync);
 
-                    var markedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles.Result, new List<string>());
+                    var markedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, new List<string>());
 
                     var result = jobProfileRepository.AddOrUpdateJobProfileByProperties(markedJobProfiles, mappingDictionary);
 
@@ -135,9 +140,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             return userAdminRole != null;
         }
 
-        private async Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync(Dictionary<string, string> mappingDictionary)
+        private async Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync()
         {
-            return await bauJobProfileRepository.GetAllJobProfilesBySourcePropertiesAsync(mappingDictionary.Select(x => x.Key));
+            return await bauJobProfileRepository.GetAllJobProfilesBySourcePropertiesAsync();
         }
         #endregion Non Action Methods
     }

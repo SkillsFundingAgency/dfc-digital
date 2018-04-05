@@ -6,6 +6,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IBauJobProfileOdataRepository
     {
-        Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync(IEnumerable<string> sourceProperties);
+        Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync();
     }
 }

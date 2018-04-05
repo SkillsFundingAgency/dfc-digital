@@ -111,6 +111,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\BauJobProfile.cs" />
+    <Compile Include="Model\PagedOdataResult.cs" />
     <Compile Include="Model\ServiceStatus.cs" />
     <Compile Include="Model\PreSearchFilterOperator.cs" />
     <Compile Include="Model\Audit.cs" />

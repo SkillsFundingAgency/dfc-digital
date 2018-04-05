@@ -1,9 +1,23 @@
 ﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.DataImportViewModel
     
-@Html.Raw(Model.ResultText)
-@using (Html.BeginForm("ImportData", "DataImport", FormMethod.Post))
-{
-    @Html.HiddenFor(x => x.NotAllowedMessage)
-    <input class="submit" type="submit" value="Import Data">
+<div>
+    <h1 class="sfBreadCrumb">
+        @Html.Raw(Model.PageTitle)
+    </h1>
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {
+            @Html.Raw(Model.ResultText)
+            using (Html.BeginForm("Index", "DataImport", FormMethod.Post))
+            {
+                @Html.TextBoxFor(x => x.NotAllowedMessage)
+                <input class="submit" type="submit" value="Import Data">
 
-}
+            }
+        }
+        else
+        {
+            <p>@Model.NotAllowedMessage</p>
+        }
+    </div>
+</div>

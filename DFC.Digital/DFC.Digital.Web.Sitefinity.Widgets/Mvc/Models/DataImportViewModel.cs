@@ -7,5 +7,7 @@
         public bool IsAdmin { get; set; }
 
         public string ResultText { get; set; }
+
+        public string PageTitle { get; internal set; }
     }
 }

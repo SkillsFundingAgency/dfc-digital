@@ -13,15 +13,34 @@ namespace DFC.Digital.Repository.BAUOdataRepository
 {
     public class SitefinityOdataRepository : IBauJobProfileOdataRepository
     {
-        private readonly string bauJopProfileEndPoint = ConfigurationManager.AppSettings["DFC.Digital.BauJobprofileEndPoint"];
-        public async Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync(IEnumerable<string> sourceProperties)
+        public async Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync()
+        {
+            bool hasNextPage;
+            var nextPage = ConfigurationManager.AppSettings["DFC.Digital.BauJobprofileEndPoint"];
+            var bauJobProfilesList = new List<BauJobProfile>();
+            do
+            {
+                var result = await GetNextPage(nextPage);
+                bauJobProfilesList.AddRange(result.Value);
+                hasNextPage = result.HasNextPage;
+                if (hasNextPage)
+                {
+                    nextPage = result.NextLink;
+                }
+
+            } while (hasNextPage);
+
+            return bauJobProfilesList;
+        }
+
+
+        private async Task<PagedOdataResult<BauJobProfile>> GetNextPage(string nextPageUrl)
         {
             using (var client = new HttpClient())
             {
-                var result = await client.GetStringAsync(bauJopProfileEndPoint);
-              
+                var result = await client.GetStringAsync(nextPageUrl);
 
-                return JsonConvert.DeserializeObject<IEnumerable<BauJobProfile>>(result);
+               return JsonConvert.DeserializeObject<PagedOdataResult<BauJobProfile>>(result);
             }
         }
     }

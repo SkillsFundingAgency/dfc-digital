@@ -108,6 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             {
                 var markedJobPrilesUrlnames = new List<string>();
 
+                //1. Get Dictionary from widget property
                 var mappingDictionary = GetPropertyMappingDictionary();
                 var csvreader = new StreamReader(model.JobProfileImportDataFile.InputStream);
 
@@ -117,31 +118,40 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     markedJobPrilesUrlnames.Add(line);
                 }
 
-                var sourceJobProfiles = asyncHelper.Synchronise(GetAllJobProfilesBySourcePropertiesAsync);
-                var markedJobProfiles =
-                    manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobPrilesUrlnames);
+                //No point continuing if not mapping is defined
+                if (mappingDictionary.Any())
+                {
+                    // 2. Get Bau Jop Profiles
+                    var sourceJobProfiles = asyncHelper.Synchronise(GetAllJobProfilesBySourcePropertiesAsync);
 
-                bool errorOccurred = false;
-                foreach (var bauJobProfile in markedJobProfiles)
-                {
-                    try
-                    {
-                        jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary);
-                    }
-                    catch (Exception ex)
-                    {
-                        errorOccurred = true;
-                        model.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
-                    }
-                }
+                    // 3. Select required Bau Job profiles from csv
+                    var markedJobProfiles =
+                        manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobPrilesUrlnames);
 
-                if (!errorOccurred)
-                {
-                    model.ResultText = "Import was completed successfully";
-                }
-                else
-                {
-                    model.ResultText += "There was a problem with the import";
+                    bool errorOccurred = false;
+
+                    //4. Process each bauJob profile
+                    foreach (var bauJobProfile in markedJobProfiles)
+                    {
+                        try
+                        {
+                            jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary);
+                        }
+                        catch (Exception ex)
+                        {
+                            errorOccurred = true;
+                            model.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                        }
+                    }
+
+                    if (!errorOccurred)
+                    {
+                        model.ResultText = "Import was completed successfully";
+                    }
+                    else
+                    {
+                        model.ResultText += "There was a problem with the import";
+                    }
                 }
             }
             else

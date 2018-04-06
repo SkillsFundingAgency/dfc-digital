@@ -21,6 +21,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
             throw new NotImplementedException();
         }
 
+        public Taxon CreateEntity()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(Taxon entity)
         {
             throw new NotImplementedException();

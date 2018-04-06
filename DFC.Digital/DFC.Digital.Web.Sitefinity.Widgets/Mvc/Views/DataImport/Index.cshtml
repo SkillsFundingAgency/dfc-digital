@@ -10,9 +10,14 @@
             @Html.Raw(Model.ResultText)
             using (Html.BeginForm("Index", "DataImport", FormMethod.Post))
             {
-                @Html.TextBoxFor(x => x.NotAllowedMessage)
-                <input class="submit" type="submit" value="Import Data">
+                <p>
+                @Html.Raw(Model.InstructionsText)
+                </p>
 
+                @Html.TextBoxFor(model => model.JobProfileImportDataFile, new {type = "file"})
+                <p>
+        <input class="submit" type="submit" value="Import Data">
+                </p>
             }
         }
         else
@@ -21,3 +26,8 @@
         }
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('form').attr("enctype", "multipart/form-data").attr("encoding", "multipart/form-data");
+    });
+</script>

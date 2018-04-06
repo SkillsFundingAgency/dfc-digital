@@ -1,9 +1,11 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -64,9 +66,33 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public bool AddOrUpdateJobProfileByProperties(IEnumerable<BauJobProfile> bauJobProfiles, Dictionary<string, string> propertyMappings)
+        public bool AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings)
         {
-            throw new NotImplementedException();
+            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName);
+
+            if (betaProfile != null)
+            {
+                foreach (var propertyMapping in propertyMappings)
+                {
+                   betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value) as string);
+                }
+
+                repository.Update(betaProfile);
+            }
+            else
+            {
+                betaProfile = repository.CreateEntity();
+                betaProfile.UrlName = bauJobProfile.UrlName;
+                betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
+                foreach (var propertyMapping in propertyMappings)
+                {
+                    betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value) as string);
+                }
+
+                repository.Add(betaProfile);
+            }
+
+            return true;
         }
 
         public Type GetContentType()

@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -9,7 +10,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
     {
         public IEnumerable<BauJobProfile> SelectMarkedJobProfiles(IEnumerable<BauJobProfile> bauJobProfiles, IEnumerable<string> jobProfileUrlNames)
         {
-            return bauJobProfiles;
+            var profileUrlNames = jobProfileUrlNames as IList<string> ?? jobProfileUrlNames.ToList();
+            return profileUrlNames.Any() ? bauJobProfiles.Where(jp => profileUrlNames.Any(url => url.Equals(jp.UrlName, StringComparison.OrdinalIgnoreCase))) : new List<BauJobProfile>();
         }
     }
 }

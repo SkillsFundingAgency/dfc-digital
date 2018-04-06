@@ -11,5 +11,7 @@ namespace DFC.Digital.Data.Model
         public string SkillsYoullNeed { get; set; }
 
         public string EntryRequirements { get; set; }
+
+        public string WhatYoullDo { get; set; }
     }
 }

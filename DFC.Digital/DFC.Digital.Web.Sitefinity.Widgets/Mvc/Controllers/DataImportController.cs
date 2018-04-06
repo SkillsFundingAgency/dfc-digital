@@ -7,8 +7,10 @@ using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security.Claims;
@@ -56,6 +58,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         public string PageTitle { get; set; } = "BAU JP Data Import";
 
         /// <summary>
+        /// Gets or sets the instructions text.
+        /// </summary>
+        /// <value>
+        /// The instructions text.
+        /// </value>
+        [DisplayName("Instructions Text")]
+        public string InstructionsText { get; set; } = "Please upload a data source for b profiles you have marked";
+
+        /// <summary>
         /// Gets or sets the source to destination property mapping.
         /// </summary>
         /// <value>
@@ -83,6 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             {
                 PageTitle = PageTitle,
                 NotAllowedMessage = NotAllowedMessage,
+                InstructionsText = InstructionsText,
                 IsAdmin = IsUserAdministrator()
             };
 
@@ -90,49 +102,60 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(DataImportViewModel viewModel)
+        public ActionResult Index(DataImportViewModel model, HttpPostedFileBase jobProfileImportDataFile)
         {
+            var viewmodel = new DataImportViewModel();
             if (IsUserAdministrator())
             {
-                try
+                var markedJobPrilesUrlnames = new List<string>();
+
+                var mappingDictionary = GetPropertyMappingDictionary();
+                var csvreader = new StreamReader(jobProfileImportDataFile.InputStream);
+
+                while (!csvreader.EndOfStream)
                 {
-                    var mappingDictionary = GetPropertyMappingDictionary();
-                    var sourceJobProfiles = asyncHelper.Synchronise(GetAllJobProfilesBySourcePropertiesAsync);
+                    var line = csvreader.ReadLine();
+                    markedJobPrilesUrlnames.Add(line);
+                }
 
-                    var markedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, new List<string>());
+                var sourceJobProfiles = asyncHelper.Synchronise(GetAllJobProfilesBySourcePropertiesAsync);
+                var markedJobProfiles =
+                    manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobPrilesUrlnames);
 
-                    var result = jobProfileRepository.AddOrUpdateJobProfileByProperties(markedJobProfiles, mappingDictionary);
-
-                    if (result)
+                bool errorOccurred = false;
+                foreach (var bauJobProfile in markedJobProfiles)
+                {
+                    try
                     {
-                        viewModel.ResultText = "Import was complete successfully";
+                        jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        viewModel.ResultText = "There was a problem with the import";
+                        errorOccurred = true;
+                        viewmodel.ResultText = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
                     }
                 }
-                catch (Exception ex)
+
+                if (errorOccurred)
                 {
-                    viewModel.ResultText = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                    viewmodel.ResultText = "Import was complete successfully";
+                }
+                else
+                {
+                    viewmodel.ResultText = "There was a problem with the import";
                 }
             }
             else
             {
-                viewModel.ResultText = NotAllowedMessage;
+                viewmodel.ResultText = NotAllowedMessage;
             }
 
-            return View(viewModel);
+            return View(viewmodel);
         }
 
         #endregion Actions
 
         #region Non Action Methods
-
-        private static Dictionary<string, string> GetPropertyMappingDictionary()
-        {
-            return new Dictionary<string, string>();
-        }
 
         private static bool IsUserAdministrator()
         {
@@ -143,6 +166,23 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         private async Task<IEnumerable<BauJobProfile>> GetAllJobProfilesBySourcePropertiesAsync()
         {
             return await bauJobProfileRepository.GetAllJobProfilesBySourcePropertiesAsync();
+        }
+
+        private Dictionary<string, string> GetPropertyMappingDictionary()
+        {
+            var dictList = new Dictionary<string, string>();
+            var mappings = SourceToDestinationPropertyMapping.Split(',');
+            foreach (var mapping in mappings)
+            {
+                var keyValue = mapping.Split(':');
+
+                if (keyValue.Length == 2)
+                {
+                    dictList.Add(keyValue[0], keyValue[1]);
+                }
+            }
+
+            return dictList;
         }
         #endregion Non Action Methods
     }

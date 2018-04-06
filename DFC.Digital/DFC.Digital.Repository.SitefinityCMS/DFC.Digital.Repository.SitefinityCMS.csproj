@@ -245,6 +245,7 @@
     <Compile Include="Modules\JobProfileCategoryRepository.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverter.cs" />
     <Compile Include="Modules\JobProfileConverter.cs" />
+    <Compile Include="Modules\JobProfilePropertyExtensions.cs" />
     <Compile Include="Modules\JobProfileRelatedCareerConverter.cs" />
     <Compile Include="Modules\JobProfileSocCodeRepository.cs" />
     <Compile Include="Modules\JobProfileRepository.cs" />

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using Telerik.Sitefinity;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Utilities.TypeConverters;
+using Telerik.Sitefinity.Versioning;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -17,10 +22,41 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private string providerName;
 
         #region NotImplemented
+        public DynamicContent CreateEntity()
+        {
+            return dynamicModuleManager.CreateDataItem(dynamicModuleContentType);
+        }
 
         public void Add(DynamicContent entity)
         {
-            throw new NotImplementedException();
+            // Set a transaction name and get the version manager
+            var transactionName = DateTime.Now.Ticks.ToString();
+
+            entity.SetValue("IncludeInSitemap", false);
+            entity.SetValue("Owner", SecurityManager.GetCurrentUserId());
+            entity.SetValue("PublicationDate", DateTime.UtcNow);
+            var versionManager = VersionManager.GetManager(null, transactionName);
+
+            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft");
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(entity, false);
+
+            // We can now call the following to publish the item
+            dynamicModuleManager.Lifecycle.Publish(entity);
+
+            //You need to set appropriate workflow status
+            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(entity, true);
+
+            // Now the item is published and can be seen in the page
+
+            // Commit the transaction in order for the items to be actually persisted to data store
+            TransactionManager.CommitTransaction(transactionName);
+
+            dynamicModuleManager.SaveChanges();
         }
 
         public void Delete(DynamicContent entity)
@@ -35,7 +71,30 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Update(DynamicContent entity)
         {
-            throw new NotImplementedException();
+            // Set a transaction name and get the version manager
+            var transactionName = "someTransactionName";
+            var versionManager = VersionManager.GetManager(null, transactionName);
+
+            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft");
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(entity, false);
+
+            // We can now call the following to publish the item
+            dynamicModuleManager.Lifecycle.Publish(entity);
+
+            //You need to set appropriate workflow status
+            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
+
+            // Create a version and commit the transaction in order changes to be persisted to data store
+            versionManager.CreateVersion(entity, true);
+
+            // Now the item is published and can be seen in the page
+
+            // Commit the transaction in order for the items to be actually persisted to data store
+            TransactionManager.CommitTransaction(transactionName);
+
+            dynamicModuleManager.SaveChanges();
         }
 
         #endregion NotImplemented

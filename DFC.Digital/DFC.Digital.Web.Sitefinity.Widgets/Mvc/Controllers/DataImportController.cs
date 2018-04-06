@@ -104,7 +104,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(DataImportViewModel model)
         {
-            var viewmodel = new DataImportViewModel();
             if (IsUserAdministrator())
             {
                 var markedJobPrilesUrlnames = new List<string>();
@@ -132,25 +131,26 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     catch (Exception ex)
                     {
                         errorOccurred = true;
-                        viewmodel.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                        model.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
                     }
                 }
 
                 if (!errorOccurred)
                 {
-                    viewmodel.ResultText = "Import was complete successfully";
+                    model.ResultText = "Import was completed successfully";
                 }
                 else
                 {
-                    viewmodel.ResultText += "There was a problem with the import";
+                    model.ResultText += "There was a problem with the import";
                 }
             }
             else
             {
-                viewmodel.ResultText = NotAllowedMessage;
+                model.ResultText = NotAllowedMessage;
             }
 
-            return View(viewmodel);
+            model.PageTitle = PageTitle;
+            return View(model);
         }
 
         #endregion Actions

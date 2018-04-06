@@ -102,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(DataImportViewModel model, HttpPostedFileBase jobProfileImportDataFile)
+        public ActionResult Index(DataImportViewModel model)
         {
             var viewmodel = new DataImportViewModel();
             if (IsUserAdministrator())
@@ -110,7 +110,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var markedJobPrilesUrlnames = new List<string>();
 
                 var mappingDictionary = GetPropertyMappingDictionary();
-                var csvreader = new StreamReader(jobProfileImportDataFile.InputStream);
+                var csvreader = new StreamReader(model.JobProfileImportDataFile.InputStream);
 
                 while (!csvreader.EndOfStream)
                 {

@@ -132,17 +132,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     catch (Exception ex)
                     {
                         errorOccurred = true;
-                        viewmodel.ResultText = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                        viewmodel.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
                     }
                 }
 
-                if (errorOccurred)
+                if (!errorOccurred)
                 {
                     viewmodel.ResultText = "Import was complete successfully";
                 }
                 else
                 {
-                    viewmodel.ResultText = "There was a problem with the import";
+                    viewmodel.ResultText += "There was a problem with the import";
                 }
             }
             else

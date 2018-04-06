@@ -5,18 +5,18 @@
         @Html.Raw(Model.PageTitle)
     </h1>
     <div id="workArea" class="sfWorkArea">
+        @Html.Raw(Model.ResultText)
         @if (Model.IsAdmin)
         {
-            @Html.Raw(Model.ResultText)
             using (Html.BeginForm("Index", "DataImport", FormMethod.Post))
             {
                 <p>
-                @Html.Raw(Model.InstructionsText)
+                    @Html.Raw(Model.InstructionsText)
                 </p>
 
                 @Html.TextBoxFor(model => model.JobProfileImportDataFile, new {type = "file"})
                 <p>
-        <input class="submit" type="submit" value="Import Data">
+                    <input class="submit" type="submit" value="Import Data">
                 </p>
             }
         }

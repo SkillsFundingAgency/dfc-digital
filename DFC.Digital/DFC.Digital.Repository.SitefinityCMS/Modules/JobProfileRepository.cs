@@ -68,13 +68,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public bool AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings)
         {
-            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName);
+            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
 
             if (betaProfile != null)
             {
                 foreach (var propertyMapping in propertyMappings)
                 {
-                   betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value) as string);
+                   betaProfile.SetValue(propertyMapping.Key, $"From import => {DateTime.Now} => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
                 }
 
                 repository.Update(betaProfile);
@@ -86,7 +86,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
                 foreach (var propertyMapping in propertyMappings)
                 {
-                    betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value) as string);
+                    betaProfile.SetValue(propertyMapping.Key, $"From import => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
                 }
 
                 repository.Add(betaProfile);

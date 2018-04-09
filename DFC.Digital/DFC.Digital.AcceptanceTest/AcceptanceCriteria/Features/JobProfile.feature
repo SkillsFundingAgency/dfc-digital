@@ -9,7 +9,7 @@ Scenario: [DFC-1342 - A2] Profile Page displays the correct breadcrumb and links
 	Then I am redirected to the homepage
 
 Scenario: [DFC-1335 - A1] Profile Page displays Related careers with no more than 5 shown and takes you to the correct carers page
-	Given that I am viewing the 'plumber' job profile page
+	Given that I am viewing the 'gp' job profile page
 	Then the Related Careers section is displayed on the page
 	And there should be no more than 5 careers
 
@@ -24,7 +24,7 @@ Scenario: [DFC-1508 - A1] Profile Page displays related courses. Select the cour
 	Then take me back to the job profile I had been viewing
 
 Scenario: [DFC-1508 - A2] Selecting the Find courses near you link on the job profile page for courses should take me to the search page on Course Directory
-	Given that I am viewing the 'nurse' job profile page
+	Given that I am viewing the 'mental-health-nurse' job profile page
 	When I click Find courses near you
 	Then take me to the search page on Course Directory
 	When I click to go back

@@ -8,11 +8,11 @@ Scenario Outline: PSF - End to End on Pre Search Filter
 
 	When I select the tags <jobLevelTags>
 	And I press continue on the page
-	Then I am redirected to the 'Personal interests' page
+	Then I am redirected to the 'Interests' page
 
 	When I select the tags  <interestTags>
 	And I press continue on the page
-	Then I am redirected to the 'Preferred tasks' page
+	Then I am redirected to the 'Preferred work tasks' page
 	
 	When I select the tags  <tasksTags>
 	And I press continue on the page
@@ -39,8 +39,8 @@ Scenario Outline: PSF - End to End on Pre Search Filter
 	Then I am redirected to the correct job profile page
 
 	Examples: 
-	| jobLevelTags            | interestTags  | tasksTags | jobAreasTags         | waysToGetInTags         | careerFocusTags | restrictionsTags |
-	| Job level 3,Job level 4 | Animals or pets,Computing and tech | computer,Listening  | Healthcare | college or university | None            | None             |
+	| jobLevelTags            | interestTags                       | tasksTags          | jobAreasTags | waysToGetInTags       | careerFocusTags | restrictionsTags |
+	| Job level 3,Job level 4 | Animals or pets,Computing and tech | computer,Listening | Healthcare   | college or university | None            | None             | 
 
 #TODO: Discuss this, Not sure this is a valid test??
 Scenario Outline: PSF - No Results returned messaging
@@ -66,7 +66,7 @@ Scenario Outline: PSF - No Results returned messaging
 
 	Examples: 
 	| jobLevelTags | interestTags | tasksTags | jobAreasTags | waysToGetInTags  | careerFocusTags | restrictionsTags |
-	| Job level 1  | Music        | Managing  | Transport    | In-work training | None            | None             |
+	| Job level 1  | Music        | Managing  | Transport    | experience | None            | None             |
 
 Scenario Outline: PSF - Back button redirects to correct Filter
 	Given that I am viewing the Home page
@@ -93,10 +93,10 @@ Scenario Outline: PSF - Back button redirects to correct Filter
 	Then I am redirected to the 'Ways to get in' page
 		And the <waysToGetInTags> tags are still selected
 	When I press the back link on the page
-	Then I am redirected to the 'Preferred tasks' page
+	Then I am redirected to the 'Preferred work tasks' page
 		And the <tasksTags> tags are still selected
 	When I press the back link on the page
-	Then I am redirected to the 'Personal interests' page
+	Then I am redirected to the 'Interests' page
 		And the <interestTags> tags are still selected
 	When I press the back link on the page
 	Then I am redirected to the 'Job level' page
@@ -106,7 +106,7 @@ Scenario Outline: PSF - Back button redirects to correct Filter
 
 	Examples: 
 	| jobLevelTags            | interestTags | tasksTags | jobAreasTags | waysToGetInTags  | careerFocusTags | restrictionsTags            |
-	| Job level 1,Job level 2 | Music        | Managing  | Transport    | In-work training | None            | physically fit,Enhanced DBS |
+	| Job level 1,Job level 2 | Music        | Managing  | Transport    | experience | None            | physically fit,Enhanced DBS |
 
 	#Then I am redirected to the 'Restrictions' page
 	#	And the <restrictionsTags> tags are still selected

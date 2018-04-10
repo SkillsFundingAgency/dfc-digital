@@ -24,7 +24,7 @@ Scenario: [DFC-1508 - A1] Profile Page displays related courses. Select the cour
 	Then take me back to the job profile I had been viewing
 
 Scenario: [DFC-1508 - A2] Selecting the Find courses near you link on the job profile page for courses should take me to the search page on Course Directory
-	Given that I am viewing the 'mental-health-nurse' job profile page
+	Given that I am viewing the 'bin-worker' job profile page
 	When I click Find courses near you
 	Then take me to the search page on Course Directory
 	When I click to go back

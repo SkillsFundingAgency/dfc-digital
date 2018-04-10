@@ -197,9 +197,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the no apprenticeships message should be shown")]
         public void ThenTheNoApprenticeshipsMessageShouldBeShown()
         {
-            string noVacancyText = "Right now there aren't any apprenticeships in " +
-                "this field of work. Consider exploring the related careers or find " +
-                "other apprenticeships.";
+            string noVacancyText = "We can't find any apprenticeship " +
+                "vacancies in England for";
 
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
             jobProfilePage.HasNoVacancyText.Should().BeTrue();

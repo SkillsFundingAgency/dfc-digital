@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 return View("Response", resultViewModel);
             }
 
-            return View("Index", new VocSurveyViewModel());
+            return ReturnSurveyViewModel();
         }
 
         /// <summary>

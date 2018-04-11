@@ -65,6 +65,15 @@
     <None Include="LoadTest\DFC-CircuitBreakerLoad.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="LoadTest\DFC-SoakTest-50-Staging.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTest\DFC-Load-500-Staging.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTest\DFC-Load-250-Staging-NoPSF.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="LoadTest\DFC-SoakTest.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

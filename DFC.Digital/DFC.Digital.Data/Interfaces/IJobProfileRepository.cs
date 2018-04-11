@@ -16,6 +16,6 @@ namespace DFC.Digital.Data.Interfaces
 
         JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
 
-        bool AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings);
+        string AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate);
     }
 }

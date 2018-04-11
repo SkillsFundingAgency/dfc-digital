@@ -43,7 +43,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
             var key = urlName.ToLower();
             if (!cachedJobProfiles.ContainsKey(key))
             {
-                var jobProfile = ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+                var jobProfile = ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true
+                                                        && item.ApprovalWorkflowState != "Draft"));
                 cachedJobProfiles.Add(key, jobProfile);
             }
 
@@ -66,18 +67,22 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public bool AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings)
+        public string AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
         {
+            string actionTaken = string.Empty;
             var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
 
             if (betaProfile != null)
             {
-                foreach (var propertyMapping in propertyMappings)
+                if (disableUpdate)
                 {
-                   betaProfile.SetValue(propertyMapping.Key, $"From import => {DateTime.Now} => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
+                    actionTaken = "NOT updated as set in the preferencies.";
                 }
-
-                repository.Update(betaProfile);
+                else
+                {
+                    repository.UpdateOnImport(betaProfile, bauJobProfile, propertyMappings, changeComment, enforcePublishing);
+                    actionTaken = "updated.";
+                }
             }
             else
             {
@@ -89,10 +94,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     betaProfile.SetValue(propertyMapping.Key, $"From import => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
                 }
 
-                repository.Add(betaProfile);
+                repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
+                actionTaken = "inserted.";
             }
 
-            return true;
+            return actionTaken;
         }
 
         public Type GetContentType()

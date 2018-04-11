@@ -73,10 +73,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string HoursTimePeriodText { get; set; } = "(per week)";
 
         [DisplayName("Working Pattern Text")]
-        public string WorkingPatternText { get; set; } = "You could work"; //"Working Pattern";
+        public string WorkingPatternText { get; set; } = "You could work";
 
         [DisplayName("Working Pattern Span Text")]
-        public string WorkingPatternSpanText { get; set; } = string.Empty; //"(you could also work)";
+        public string WorkingPatternSpanText { get; set; }
 
         #endregion Public Properties
 

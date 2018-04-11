@@ -17,5 +17,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         public HttpPostedFileBase JobProfileImportDataFile { get; set; }
 
         public string InstructionsText { get; set; }
+
+        public bool EnforcePublishing { get; set; }
+
+        public bool DisableUpdate { get; set; }
+
+        public string SourceToDestinationPropertyMapping { get; set; }
+
+        public string ChangeComment { get; set; }
     }
 }

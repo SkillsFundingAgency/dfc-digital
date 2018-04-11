@@ -64,7 +64,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// The instructions text.
         /// </value>
         [DisplayName("Instructions Text")]
-        public string InstructionsText { get; set; } = "Please upload a data source for b profiles you have marked";
+        public string InstructionsText { get; set; } = "Please upload a data source for job profiles you have marked";
+
+        /// <summary>
+        /// Gets or sets the Change Comment.
+        /// </summary>
+        /// <value>
+        /// The Change Comment.
+        /// </value>
+        [DisplayName("Change Comment")]
+        public string ChangeComment { get; set; } = "Item was bulk imported";
 
         /// <summary>
         /// Gets or sets the source to destination property mapping.
@@ -95,7 +104,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 PageTitle = PageTitle,
                 NotAllowedMessage = NotAllowedMessage,
                 InstructionsText = InstructionsText,
-                IsAdmin = IsUserAdministrator()
+                IsAdmin = IsUserAdministrator(),
+                SourceToDestinationPropertyMapping = SourceToDestinationPropertyMapping,
+                ChangeComment = ChangeComment
             };
 
             return View(model);
@@ -109,7 +120,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var markedJobPrilesUrlnames = new List<string>();
 
                 //1. Get Dictionary from widget property
-                var mappingDictionary = GetPropertyMappingDictionary();
+                var mappingDictionary = GetPropertyMappingDictionary(model.SourceToDestinationPropertyMapping);
                 var csvreader = new StreamReader(model.JobProfileImportDataFile.InputStream);
 
                 while (!csvreader.EndOfStream)
@@ -135,18 +146,19 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     {
                         try
                         {
-                            jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary);
+                            string actionTaken = jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary, model.ChangeComment, model.EnforcePublishing, model.DisableUpdate);
+                            model.ResultText += bauJobProfile.Title + " ( " + bauJobProfile.UrlName + " ) - " + actionTaken + "<br />";
                         }
                         catch (Exception ex)
                         {
                             errorOccurred = true;
-                            model.ResultText += ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                            model.ResultText += bauJobProfile.Title + "<br />" + ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace + "<br />";
                         }
                     }
 
                     if (!errorOccurred)
                     {
-                        model.ResultText = "Import was completed successfully";
+                        model.ResultText += "Import was completed successfully";
                     }
                     else
                     {
@@ -178,17 +190,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             return await bauJobProfileRepository.GetAllJobProfilesBySourcePropertiesAsync();
         }
 
-        private Dictionary<string, string> GetPropertyMappingDictionary()
+        private Dictionary<string, string> GetPropertyMappingDictionary(string sourceToDestinationPropertyMapping)
         {
             var dictList = new Dictionary<string, string>();
-            var mappings = SourceToDestinationPropertyMapping.Split(',');
+            var mappings = sourceToDestinationPropertyMapping.Split(',');
             foreach (var mapping in mappings)
             {
                 var keyValue = mapping.Split(':');
 
                 if (keyValue.Length == 2)
                 {
-                    dictList.Add(keyValue[0], keyValue[1]);
+                    dictList.Add(keyValue[0].Trim(), keyValue[1].Trim());
                 }
             }
 

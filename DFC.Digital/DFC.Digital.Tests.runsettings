@@ -51,6 +51,7 @@ Included items must then not match any entries in the exclude list to remain inc
             <Functions>
               <Exclude>
                 <Function>.*\.UnitTest\..*</Function>
+                <Function>.*AutofacModule</Function>
                 <Function>^DFC\.Digital.*\.Models\..*</Function>
                 <Function>^std::.*</Function>
                 <Function>^ATL::.*</Function>

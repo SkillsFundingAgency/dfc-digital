@@ -8,6 +8,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     /// Alert Page status codes
     /// </summary>
     /// <seealso cref="System.Web.UI.Page" />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AlertPageCodeStatusSetter : Page
     {
         /// <summary>

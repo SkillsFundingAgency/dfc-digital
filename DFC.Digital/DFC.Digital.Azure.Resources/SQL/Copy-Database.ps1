@@ -70,6 +70,7 @@ try {
             Where-Object {$_.DatabaseName -NotIn $ExcludedDatabaseList} | `
             Sort-Object -Property DatabaseName -Descending
         $RedundantDatabaseList
+        <#
         if ($RedundantDatabaseList) {
             Write-Host "Found $($RedundantDatabaseList.Count) databases to remove"
             foreach ($Database in $RedundantDatabaseList) {
@@ -79,7 +80,7 @@ try {
         } else {
             Write-Host "No database copies to remove. Skipping"
         }
-
+        #>
         # --- Return environment variables to vsts
         Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"
         

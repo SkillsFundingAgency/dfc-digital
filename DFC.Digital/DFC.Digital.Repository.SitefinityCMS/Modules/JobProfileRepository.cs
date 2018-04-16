@@ -91,7 +91,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
                 foreach (var propertyMapping in propertyMappings)
                 {
-                    betaProfile.SetValue(propertyMapping.Key, $"From import => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
+                    betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
                 }
 
                 repository.AddOnImport(betaProfile, changeComment, enforcePublishing);

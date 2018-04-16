@@ -156,7 +156,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             //checkOutEntityItemTEMP.SetValue("AlternativeTitle", jobProfile.AlternativeTitle);
             foreach (var propertyMapping in propertyMappings)
             {
-                checkOutEntityItemTEMP.SetValue(propertyMapping.Key, $"From import => {DateTime.Now} => {bauJobProfile.GetPropertyValue(propertyMapping.Value) as string}");
+                checkOutEntityItemTEMP.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
             }
 
             //You need to set appropriate workflow status

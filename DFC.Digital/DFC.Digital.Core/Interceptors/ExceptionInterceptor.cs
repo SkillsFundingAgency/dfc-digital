@@ -19,23 +19,39 @@ namespace DFC.Digital.Core.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
-            if (invocation == null)
+            try
             {
-                throw new ArgumentNullException(nameof(invocation));
+                if (invocation == null)
+                {
+                    throw new ArgumentNullException(nameof(invocation));
+                }
+
+                var returnType = invocation.Method.ReturnType;
+                if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                {
+                    invocation.Proceed();
+                }
+                else if (returnType == typeof(Task))
+                {
+                    invocation.ReturnValue = InterceptAsyncAction(invocation);
+                }
+                else
+                {
+                    InterceptSync(invocation);
+                }
+            }
+            catch (LoggedException)
+            {
+                // Ignore already logged exceptions.
+                // We would loose the stack trace to the callee is that an issue?
+                throw;
             }
 
-            var returnType = invocation.Method.ReturnType;
-            if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+            // other exception policies as we go along.
+            catch (Exception ex)
             {
-                invocation.Proceed();
-            }
-            else if (returnType == typeof(Task))
-            {
-                invocation.ReturnValue = InterceptAsyncAction(invocation);
-            }
-            else
-            {
-                InterceptSync(invocation);
+                loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
+                throw;
             }
         }
 

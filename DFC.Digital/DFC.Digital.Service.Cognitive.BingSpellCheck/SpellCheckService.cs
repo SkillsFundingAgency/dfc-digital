@@ -96,9 +96,9 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                     }
                 }
             }
-            catch (HttpRequestException ex)
+            catch (LoggedException)
             {
-                applicationLogger.ErrorJustLogIt($"Failed to GetSpellCheckResponseAsync : {ex.Message}", ex);
+                //applicationLogger.ErrorJustLogIt($"Failed to GetSpellCheckResponseAsync : {ex.Message}", ex);
             }
 
             return new SpellcheckResult

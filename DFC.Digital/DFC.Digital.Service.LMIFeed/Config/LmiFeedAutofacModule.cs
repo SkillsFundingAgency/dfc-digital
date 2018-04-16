@@ -17,7 +17,12 @@ namespace DFC.Digital.Service.LMIFeed
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<HttpClientService<IAsheHttpClientProxy>>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<HttpClientService<IAsheHttpClientProxy>>()
+                .AsImplementedInterfaces()
+                .SingleInstance()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
     }
 }

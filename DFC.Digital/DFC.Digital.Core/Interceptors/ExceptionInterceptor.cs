@@ -2,6 +2,7 @@
 using DFC.Digital.Core.Logging;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Core.Interceptors
@@ -10,6 +11,7 @@ namespace DFC.Digital.Core.Interceptors
     {
         public const string Name = "ExceptionPolicy";
 
+        private static readonly MethodInfo HandleAsyncMethodInfo = typeof(ExceptionInterceptor).GetMethod("HandleAsyncWithResult", BindingFlags.Instance | BindingFlags.NonPublic);
         private IApplicationLogger loggingService;
 
         public ExceptionInterceptor(IApplicationLogger logService)
@@ -29,7 +31,7 @@ namespace DFC.Digital.Core.Interceptors
                 var returnType = invocation.Method.ReturnType;
                 if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
                 {
-                    invocation.Proceed();
+                    InterceptAsyncFunc(invocation);
                 }
                 else if (returnType == typeof(Task))
                 {
@@ -62,7 +64,7 @@ namespace DFC.Digital.Core.Interceptors
                 invocation.Proceed();
                 if (invocation.ReturnValue is Task task)
                 {
-                    await task;
+                    await task.ConfigureAwait(false);
                 }
             }
             catch (LoggedException)
@@ -80,12 +82,19 @@ namespace DFC.Digital.Core.Interceptors
             }
         }
 
-        private async Task<TResult> InterceptAsyncFunc<TResult>(IInvocation invocation)
+        private void InterceptAsyncFunc(IInvocation invocation)
+        {
+            invocation.Proceed();
+            var resultType = invocation.Method.ReturnType.GetGenericArguments()[0];
+            var mi = HandleAsyncMethodInfo.MakeGenericMethod(resultType);
+            invocation.ReturnValue = mi.Invoke(this, new[] { invocation });
+        }
+
+        private async Task<T> HandleAsyncWithResult<T>(IInvocation invocation)
         {
             try
             {
-                invocation.Proceed();
-                return await (Task<TResult>)invocation.ReturnValue;
+                return await ((Task<T>)invocation.ReturnValue).ConfigureAwait(false);
             }
             catch (LoggedException)
             {
@@ -93,10 +102,9 @@ namespace DFC.Digital.Core.Interceptors
                 // We would loose the stack trace to the callee is that an issue?
                 throw;
             }
-
-            // other exception policies as we go along.
             catch (Exception ex)
             {
+                // other exception policies as we go along.
                 loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
                 throw;
             }

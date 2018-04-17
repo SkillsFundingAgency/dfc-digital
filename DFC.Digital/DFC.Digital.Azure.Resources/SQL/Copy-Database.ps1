@@ -11,7 +11,7 @@ Param(
 try {
 
     # --- Extract short name from fqdn
-    $ServerName = $ServerName.Substring(0, $s.IndexOf("."))
+    $ServerName = $ServerName.Substring(0, $ServerName.IndexOf("."))
 
     # --- Retrieve server resource
     Write-Host "Searching for server resource $($ServerName)"
@@ -66,24 +66,6 @@ try {
         $ElapsedTime = $StopWatch.Elapsed.ToString('hh\:mm\:ss')
         Write-Host "Database copy completed in $ElapsedTime"
 
-        # --- Remove any databases that aren't master, currentdb and the most recernt copy
-        Write-Host "Removing redundant databases"
-        $ExcludedDatabaseList = @("master", $DatabaseVersionAppSetting, $CopyDatabaseName)
-        $RedundantDatabaseList = Get-AzureRmSqlDatabase -ResourceGroupName $ServerResource.ResourceGroupName -ServerName $ServerName | `
-            Where-Object {$_.DatabaseName -NotIn $ExcludedDatabaseList} | `
-            Sort-Object -Property DatabaseName -Descending
-        $RedundantDatabaseList
-        <#
-        if ($RedundantDatabaseList) {
-            Write-Host "Found $($RedundantDatabaseList.Count) databases to remove"
-            foreach ($Database in $RedundantDatabaseList) {
-                Write-Host "    - Removing $($Database.DatabaseName)"
-                $null = Remove-AzureRmSqlDatabase -ResourceGroupName $ServerResource.ResourceGroupName -ServerName $ServerName -DatabaseName $($Database.DatabaseName)
-            }
-        } else {
-            Write-Host "No database copies to remove. Skipping"
-        }
-        #>
         # --- Return environment variables to vsts
         Write-Output "##vso[task.setvariable variable=CurrentDatabaseName;]$($DatabaseVersionAppSetting)"
         Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"        

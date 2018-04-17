@@ -82,8 +82,8 @@ try {
         }
         #>
         # --- Return environment variables to vsts
-        Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"
-        
+        Write-Output "##vso[task.setvariable variable=CurrentDatabaseName;]$($DatabaseVersionAppSetting)"
+        Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"        
     } else {
         Write-Host "A database copy with name $CopyDatabaseName exists. Skipping"
     }

@@ -95,18 +95,23 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
                         }
                     }
                 }
-            }
-            catch (HttpRequestException ex)
-            {
-                applicationLogger.ErrorJustLogIt($"Failed to GetSpellCheckResponseAsync : {ex.Message}", ex);
-            }
 
-            return new SpellcheckResult
+                return new SpellcheckResult
+                {
+                    OriginalTerm = term,
+                    CorrectedTerm = correctedTerm,
+                    HasCorrected = hasCorrections
+                };
+            }
+            catch (LoggedException)
             {
-                OriginalTerm = term,
-                CorrectedTerm = correctedTerm,
-                HasCorrected = hasCorrections
-            };
+                //Ignore already logged exception and return default.
+                return new SpellcheckResult
+                {
+                    OriginalTerm = term,
+                    HasCorrected = false
+                };
+            }
         }
 
         private async Task<System.Net.Http.HttpResponseMessage> GetSpellCheckResponseAsync(string term)

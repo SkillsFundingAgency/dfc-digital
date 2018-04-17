@@ -10,6 +10,9 @@ Param(
 
 try {
 
+    # --- Extract short name from fqdn
+    $ServerName = $ServerName.Substring(0, $s.IndexOf("."))
+
     # --- Retrieve server resource
     Write-Host "Searching for server resource $($ServerName)"
     $ServerResource = Find-AzureRmResource -ResourceNameEquals $ServerName -ResourceType "Microsoft.Sql/servers"

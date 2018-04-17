@@ -19,6 +19,9 @@
       },
       "subscriptionId": {
         "value": "__appSubscriptionId__"
-      }
+      },
+      "databaseVersion": {
+        "value": "__CurrentDatabaseVersion__"
+      }      
     }
 }

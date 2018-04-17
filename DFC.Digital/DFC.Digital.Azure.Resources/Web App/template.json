@@ -17,51 +17,86 @@
         },
         "subscriptionId": {
             "type": "string"
-        }
+        },
+        "databaseVersion": {
+          "type": "string"
+      }        
     },
-    "resources": [
-        {
-            "name": "[parameters('name')]",
-            "type": "Microsoft.Web/sites",
-            "dependsOn": [
-                "[resourceId('microsoft.insights/components/', parameters('name'))]"
-            ],
-            "properties": {
-              "siteConfig": {
-                "appSettings": [
-                  {
-                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                    "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
-                  }
-                ],
-                "alwaysOn": true,
-                "phpVersion": "",
-                "use32BitWorkerProcess": false
-              },
-                "name": "[parameters('name')]",
-                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-                "hostingEnvironment": "[parameters('hostingEnvironment')]"
+  "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.Web/sites",
+      "dependsOn": [
+        "[resourceId('microsoft.insights/components/', parameters('name'))]"
+      ],
+      "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
             },
-            "apiVersion": "2016-03-01",
-            "location": "[parameters('location')]",
-            "tags": {
-                "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+            {
+              "name": "DatabaseVersion",
+                "value": "[parameters('databaseVersion')]"
             }
+          ],
+          "alwaysOn": true,
+          "phpVersion": "",
+          "use32BitWorkerProcess": false
         },
-      {
-        "apiVersion": "2015-05-01",
         "name": "[parameters('name')]",
-        "type": "microsoft.insights/components",
-        "location": "[parameters('location')]",
-        "tags": {
-          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('name'))]": "Resource"
-        },
-        "properties": {
-          "ApplicationId": "[parameters('name')]",
-          "Request_Source": "IbizaWebAppExtensionCreate"
-        }
+        "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+      },
+      "apiVersion": "2016-03-01",
+      "location": "[parameters('location')]",
+      "tags": {
+        "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
       }
-    ],
+    },
+    {
+      "name": "staging",
+      "type": "Microsoft.Web/sites/slots",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
+      ],
+      "properties": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
+            }
+          ],
+          "alwaysOn": true,
+          "phpVersion": "",
+          "use32BitWorkerProcess": false
+        },
+        "name": "staging",
+        "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+      },
+      "apiVersion": "2016-03-01",
+      "location": "[parameters('location')]",
+      "tags": {
+        "[concat('hidden-related:', '/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "empty"
+      }
+    },
+    {
+      "apiVersion": "2015-05-01",
+      "name": "[parameters('name')]",
+      "type": "microsoft.insights/components",
+      "location": "[parameters('location')]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('name'))]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[parameters('name')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    }
+  ],
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0"
 }

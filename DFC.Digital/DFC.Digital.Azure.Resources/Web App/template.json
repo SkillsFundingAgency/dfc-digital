@@ -73,7 +73,7 @@
           "phpVersion": "",
           "use32BitWorkerProcess": false
         },
-        "name": "staging",
+        "name": "[concat(parameters('name'),'/staging')]",
         "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
         "hostingEnvironment": "[parameters('hostingEnvironment')]"
       },

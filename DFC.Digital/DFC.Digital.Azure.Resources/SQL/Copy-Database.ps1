@@ -43,6 +43,8 @@ try {
     $FirstRun = [Regex]::Match($DatabaseVersionAppSetting, "\d{3}$").Success
     if ($FirstRun -eq "False") {
         $DatabaseName = $DatabaseVersionAppSetting.Substring(0, $DatabaseVersionAppSetting.LastIndexOf("-"))
+    } else {
+        $DatabaseName = $DatabaseVersionAppSetting
     }
 
     # --- Generate database copy name
@@ -50,8 +52,6 @@ try {
 
     # --- Check for existing db matching $CopyDatabaseName
     $ExistingDatabaseCopy = Get-AzureRmSqlDatabase -ResourceGroupName $ServerResource.ResourceGroupName -ServerName $ServerName -DatabaseName $CopyDatabaseName -ErrorAction SilentlyContinue
-    Write-Host "Copying $($DatabaseVersionAppSetting) to $($CopyDatabaseName)"
-
     if (!$ExistingDatabaseCopy) {
         # --- Execute copy
         Write-Host "Copying $($DatabaseVersionAppSetting) to $($CopyDatabaseName)"

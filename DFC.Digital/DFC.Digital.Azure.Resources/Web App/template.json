@@ -56,7 +56,7 @@
       }
     },
     {
-      "name": "staging",
+      "name": "[concat(parameters('name'),'/staging')]",
       "type": "Microsoft.Web/sites/slots",
       "dependsOn": [
         "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
@@ -73,7 +73,7 @@
           "phpVersion": "",
           "use32BitWorkerProcess": false
         },
-        "name": "staging",
+        "name": "[concat(parameters('name'),'/staging')]",
         "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
         "hostingEnvironment": "[parameters('hostingEnvironment')]"
       },

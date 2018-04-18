@@ -10,8 +10,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return new JobProfileRelatedCareer
             {
-                Title = content?.GetDynamicContentItemValue<Lstring>(nameof(JobProfile.Title)),
-                ProfileLink = content?.GetDynamicContentItemValue<Lstring>(nameof(JobProfile.UrlName)),
+                Title = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Title)),
+                ProfileLink = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
             };
         }
     }

@@ -11,12 +11,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return new ApprenticeVacancy
             {
-                Title = content?.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.Title)),
-                Location = content?.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.Location)),
-                URL = content != null ? new Uri(content.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.URL)), UriKind.RelativeOrAbsolute) : new Uri(string.Empty),
-                VacancyId = content?.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.VacancyId)),
-                WageAmount = content?.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.WageAmount)),
-                WageUnitType = content?.GetDynamicContentItemValue<Lstring>(nameof(ApprenticeVacancy.WageUnitType))
+                Title = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.Title)),
+                Location = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.Location)),
+                URL = content != null ? new Uri(content.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.URL)), UriKind.RelativeOrAbsolute) : new Uri(string.Empty),
+                VacancyId = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.VacancyId)),
+                WageAmount = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.WageAmount)),
+                WageUnitType = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.WageUnitType))
             };
         }
     }

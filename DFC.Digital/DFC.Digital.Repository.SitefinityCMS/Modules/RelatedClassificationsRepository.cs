@@ -15,7 +15,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<string> GetRelatedClassifications(DynamicContent content, string relatedField, string taxonomyName)
         {
-            var relatedClasifications = content?.GetDynamicContentItemValue<IList<Guid>>(relatedField);
+            var relatedClasifications = content?.GetValueOrDefault<IList<Guid>>(relatedField);
             var clasifications = GetMany(c => relatedClasifications.Contains(c.Id) && c.Taxonomy.Name == taxonomyName);
             return clasifications.Select(c => $"{c.Title}");
         }

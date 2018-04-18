@@ -10,12 +10,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         public T ConvertFrom(DynamicContent content) => new T
         {
-            Title = content?.GetValue<Lstring>(nameof(PreSearchFilter.Title)),
-            Description = content?.GetValue<Lstring>(nameof(PreSearchFilter.Description)),
-            NotApplicable = content?.GetValue<bool>(nameof(PreSearchFilter.NotApplicable)),
-            Order = content?.GetValue<decimal?>(nameof(PreSearchFilter.Order)),
-            UrlName = content?.GetValue<Lstring>(nameof(PreSearchFilter.UrlName)),
-            Id = content?.GetValue<Guid>(nameof(PreSearchFilter.Id))
+            Title = content?.GetDynamicContentItemValue<Lstring>(nameof(PreSearchFilter.Title)),
+            Description = content?.GetDynamicContentItemValue<Lstring>(nameof(PreSearchFilter.Description)),
+            NotApplicable = content?.GetDynamicContentItemValue<bool>(nameof(PreSearchFilter.NotApplicable)),
+            Order = content?.GetDynamicContentItemValue<decimal?>(nameof(PreSearchFilter.Order)),
+            UrlName = content?.GetDynamicContentItemValue<Lstring>(nameof(PreSearchFilter.UrlName)),
+            Id = content?.GetDynamicContentItemValue<Guid>(nameof(PreSearchFilter.Id))
         };
     }
 }

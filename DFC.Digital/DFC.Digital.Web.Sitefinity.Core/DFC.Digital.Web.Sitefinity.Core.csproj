@@ -319,7 +319,7 @@
     <Reference Include="Telerik.Sitefinity.Frontend.Taxonomies, Version=10.2.6628.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Feather.10.2.6628\lib\net45\Telerik.Sitefinity.Frontend.Taxonomies.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Model, Version=10.2.6628.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Sitefinity.Model">
       <HintPath>..\packages\Telerik.Sitefinity.Core.10.2.6628\lib\net45\Telerik.Sitefinity.Model.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Mvc, Version=10.2.6628.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">

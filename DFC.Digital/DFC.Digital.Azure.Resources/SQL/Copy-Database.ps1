@@ -65,13 +65,14 @@ try {
         $null = New-AzureRmSqlDatabaseCopy @DatabaseCopyParameters
         $ElapsedTime = $StopWatch.Elapsed.ToString('hh\:mm\:ss')
         Write-Host "Database copy completed in $ElapsedTime"
-
-        # --- Return environment variables to vsts
-        Write-Output "##vso[task.setvariable variable=CurrentDatabaseName;]$($DatabaseVersionAppSetting)"
-        Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"        
+   
     } else {
         Write-Host "A database copy with name $CopyDatabaseName exists. Skipping"
     }
+
+    # --- Always return environment variables to vsts
+    Write-Output "##vso[task.setvariable variable=CurrentDatabaseName;]$($DatabaseVersionAppSetting)"
+    Write-Output "##vso[task.setvariable variable=CopyDatabaseName;]$($CopyDatabaseName)"
 }
 catch {
     throw $_

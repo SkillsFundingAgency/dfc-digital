@@ -18,7 +18,7 @@
         "subscriptionId": {
             "type": "string"
         },
-        "databaseVersion": {
+        "currentDatabaseName": {
           "type": "string"
       }        
     },
@@ -38,7 +38,7 @@
             },
             {
               "name": "DatabaseVersion",
-                "value": "[parameters('databaseVersion')]"
+                "value": "[parameters('currentDatabaseName')]"
             }
           ],
           "alwaysOn": true,

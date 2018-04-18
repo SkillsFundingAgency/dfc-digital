@@ -20,8 +20,8 @@
       "subscriptionId": {
         "value": "__appSubscriptionId__"
       },
-      "databaseVersion": {
-        "value": "__CurrentDatabaseVersion__"
+      "currentDatabaseName": {
+        "value": "__CurrentDatabaseName__"
       }      
     }
 }

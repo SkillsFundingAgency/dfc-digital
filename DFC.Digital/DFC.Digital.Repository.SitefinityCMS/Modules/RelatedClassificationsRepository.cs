@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DFC.Digital.Repository.SitefinityCMS.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
-using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules

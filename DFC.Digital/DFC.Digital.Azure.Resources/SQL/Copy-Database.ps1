@@ -41,7 +41,7 @@ try {
 
     # --- Determine if this is the first run, if not remove the version number
     $FirstRun = [Regex]::Match($DatabaseVersionAppSetting, "\d{3}$").Success
-    if ($FirstRun -eq "False") {
+    if ($FirstRun -eq $False) {
         $DatabaseName = $DatabaseVersionAppSetting.Substring(0, $DatabaseVersionAppSetting.LastIndexOf("-"))
     } else {
         $DatabaseName = $DatabaseVersionAppSetting

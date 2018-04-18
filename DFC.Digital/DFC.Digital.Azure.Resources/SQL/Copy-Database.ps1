@@ -40,15 +40,15 @@ try {
     }
 
     # --- Determine if this is the first run, if not remove the version number
-    $FirstRun = [Regex]::Match($DatabaseVersionAppSetting, "\d{3}$").Success
-    if ($FirstRun -eq $False) {
+    $FirstRun = [Regex]::Match($DatabaseVersionAppSetting, "R[0-9]").Success
+    if ($FirstRun -eq "True") {
         $DatabaseName = $DatabaseVersionAppSetting.Substring(0, $DatabaseVersionAppSetting.LastIndexOf("-"))
     } else {
         $DatabaseName = $DatabaseVersionAppSetting
     }
 
     # --- Generate database copy name
-    $CopyDatabaseName = "$($DatabaseName)-$($ReleaseNumber)"
+    $CopyDatabaseName = "$($DatabaseName)-R$($ReleaseNumber)"
 
     # --- Check for existing db matching $CopyDatabaseName
     $ExistingDatabaseCopy = Get-AzureRmSqlDatabase -ResourceGroupName $ServerResource.ResourceGroupName -ServerName $ServerName -DatabaseName $CopyDatabaseName -ErrorAction SilentlyContinue

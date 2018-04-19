@@ -32,22 +32,49 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).MustHaveHappened();
         }
 
-        [Fact]
-        public void GetByUrlNameForSearchIndexTest()
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void GetByUrlNameForSearchIndexTest(bool publishing)
         {
-            Assert.True(false, "This test needs an implementation");
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            var urlName = "testURLName";
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+            jobProfileRepository.GetByUrlNameForSearchIndex(urlName, publishing);
+
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == (publishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live))))).MustHaveHappened();
         }
 
         [Fact]
         public void GetContentTypeTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            //Assign
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+
+            //Act
+            var result = jobProfileRepository.GetContentType();
+
+            //Assert
+            result.Should().NotBeNull();
         }
 
         [Fact]
         public void GetProviderNameTest()
         {
-            Assert.True(false, "This test needs an implementation");
+            //Assign
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+
+            //Act
+            var result = jobProfileRepository.GetProviderName();
+
+            //Assert
+            result.Should().NotBeNull();
         }
 
         [Fact]
@@ -118,6 +145,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 case ExpressionType.Constant:
                     var hasMatched5 = ((ConstantExpression)x).Value.ToString() == ((ConstantExpression)y).Value.ToString();
                     return hasMatched5;
+
+                case ExpressionType.Conditional:
+                    var hasMatched7 = ExpressionComparer(((ConditionalExpression)x).IfTrue, ((ConditionalExpression)y).IfTrue)
+                                     && ExpressionComparer(((ConditionalExpression)x).IfFalse, ((ConditionalExpression)y).IfFalse);
+                      return hasMatched7;
 
                 default:
                     throw new NotImplementedException($"{x.NodeType}-{x.GetType().Name}-{x.Type.Name}-{x}");

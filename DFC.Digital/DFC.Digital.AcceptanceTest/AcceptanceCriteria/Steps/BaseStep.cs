@@ -26,9 +26,14 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 
         public string GetCookieValue(string cookie)
         {
-            var selecedCookie = Instance.Application.Browser.Manage().Cookies.GetCookieNamed(cookie);
+            var selecedCookie = Instance.Application.Browser.Manage().Cookies.GetCookieNamed(cookie)?.Value;
 
-            return selecedCookie?.Value;
+            if (selecedCookie != null)
+            {
+                selecedCookie = selecedCookie.Replace("%27", "'");
+            }
+
+            return selecedCookie;
         }
 
         public void DeleteCookie(string cookie)

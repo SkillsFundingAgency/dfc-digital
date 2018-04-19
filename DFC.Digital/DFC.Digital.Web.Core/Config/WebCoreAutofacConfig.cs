@@ -21,6 +21,7 @@ using System.Web.Hosting;
 namespace DFC.Digital.Web.Core
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Autofac", Justification = "Reviewed. Product name in correct spelling.")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class WebCoreAutofacConfig
     {
         public static IContainer BuildContainer(IContainer existingContainer)

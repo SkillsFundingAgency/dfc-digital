@@ -41,6 +41,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\\DFC\.Digital.*\.IntegrationTests\.dll$</ModulePath>
                 <ModulePath>.*\\Seleno\.BrowserStack\.SpecFlowPlugin\.dll$</ModulePath>
                 <ModulePath>.*\\Teststack\.Seleno\.dll$</ModulePath>
+                <ModulePath>.*\\Polly\.dll$</ModulePath>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
               </Exclude>
             </ModulePaths>

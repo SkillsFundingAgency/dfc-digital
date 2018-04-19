@@ -192,10 +192,8 @@
     <Compile Include="AcceptanceCriteria\Steps\JobProfileCategorySteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\JobProfileSearchSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\VocSurveySteps.cs" />
-    <Compile Include="Infrastructure\Config\AutofacHook.cs" />
     <Compile Include="Infrastructure\Config\BrowserStackHook.cs" />
     <Compile Include="Infrastructure\Config\BrowserStackSelenoHost.cs" />
-    <Compile Include="Infrastructure\Config\DIHook.cs" />
     <Compile Include="Infrastructure\Config\RunProfile.cs" />
     <Compile Include="Infrastructure\Config\ScreenshotHook.cs" />
     <Compile Include="Infrastructure\LocalBrowserHost.cs" />
@@ -284,18 +282,6 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.AzureSearch\DFC.Digital.Service.AzureSearch.csproj">
-      <Project>{F0161590-6A22-4D74-BA7C-EDE8A4AC602C}</Project>
-      <Name>DFC.Digital.Service.AzureSearch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
-      <Project>{2161F904-4D97-4685-8C9F-05C6F4D0DD74}</Project>
-      <Name>DFC.Digital.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.JobProfileModule\DFC.Digital.Web.Sitefinity.JobProfileModule.csproj">
-      <Project>{524DC675-AB6C-4E91-AA5A-AC4FCCB2BCC5}</Project>
-      <Name>DFC.Digital.Web.Sitefinity.JobProfileModule</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Seleno.BrowserStack.SpecFlowPlugin\Seleno.BrowserStack.SpecFlowPlugin.csproj">
       <Project>{489BA0D1-6FA9-4104-AD6F-14E3C4705BDD}</Project>
       <Name>Seleno.BrowserStack.SpecFlowPlugin</Name>
@@ -311,15 +297,15 @@
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\packages\Chromium.ChromeDriver.2.33\content\chromedriver.exe">
-      <Link>chromedriver.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
     <Analyzer Include="..\packages\xunit.analyzers.0.8.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\Chromium.ChromeDriver.2.37\content\chromedriver.exe">
+      <Link>chromedriver.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />

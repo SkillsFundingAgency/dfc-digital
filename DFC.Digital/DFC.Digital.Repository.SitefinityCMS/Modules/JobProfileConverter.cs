@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,34 +45,34 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var jobProfile = new JobProfile
             {
-                Title = content?.GetValue<Lstring>(nameof(JobProfile.Title)),
-                AlternativeTitle = content?.GetValue<Lstring>(nameof(JobProfile.AlternativeTitle)),
-                Overview = content?.GetValue<Lstring>(nameof(JobProfile.Overview)),
-                IsLMISalaryFeedOverriden = content?.GetValue<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
-                SalaryStarter = content?.GetValue<decimal?>(nameof(JobProfile.SalaryStarter)),
-                SalaryExperienced = content?.GetValue<decimal?>(nameof(JobProfile.SalaryExperienced)),
-                MinimumHours = content?.GetValue<decimal?>(nameof(JobProfile.MinimumHours)),
-                MaximumHours = content?.GetValue<decimal?>(nameof(JobProfile.MaximumHours)),
-                CareerPathAndProgression = content?.GetValue<Lstring>(nameof(JobProfile.CareerPathAndProgression)),
-                Skills = content?.GetValue<Lstring>(nameof(JobProfile.Skills)),
-                HowToBecome = content?.GetValue<Lstring>(nameof(JobProfile.HowToBecome)),
+                Title = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Title)),
+                AlternativeTitle = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.AlternativeTitle)),
+                Overview = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Overview)),
+                IsLMISalaryFeedOverriden = content?.GetValueOrDefault<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
+                SalaryStarter = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.SalaryStarter)),
+                SalaryExperienced = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.SalaryExperienced)),
+                MinimumHours = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.MinimumHours)),
+                MaximumHours = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.MaximumHours)),
+                CareerPathAndProgression = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CareerPathAndProgression)),
+                Skills = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Skills)),
+                HowToBecome = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.HowToBecome)),
                 WhatYouWillDo = content?.GetValue<Lstring>(nameof(JobProfile.WhatYouWillDo)),
-                WorkingHoursPatternsAndEnvironment = content?.GetValue<Lstring>(nameof(JobProfile.WorkingHoursPatternsAndEnvironment)),
-                Salary = content?.GetValue<Lstring>(nameof(JobProfile.Salary)),
-                CourseKeywords = content?.GetValue<Lstring>(nameof(JobProfile.CourseKeywords)),
+                WorkingHoursPatternsAndEnvironment = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.WorkingHoursPatternsAndEnvironment)),
+                Salary = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Salary)),
+                CourseKeywords = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CourseKeywords)),
 
                 //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
-                JobProfileCategoryIdCollection = content?.GetValue<IList<Guid>>(RelatedJobProfileCategoriesField),
-                UrlName = content?.GetValue<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBAU = content?.GetValue<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValue<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl))
+                JobProfileCategoryIdCollection = content?.GetValueOrDefault<IList<Guid>>(RelatedJobProfileCategoriesField),
+                UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
+                DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
+                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl))
             };
 
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode = socItem.GetValue<Lstring>(nameof(JobProfile.SOCCode));
+                jobProfile.SOCCode = socItem.GetValueOrDefault<Lstring>(nameof(JobProfile.SOCCode));
             }
 
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();

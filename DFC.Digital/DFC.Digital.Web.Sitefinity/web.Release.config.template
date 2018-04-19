@@ -39,6 +39,14 @@
                    xdt:Transform="Insert" />
     </sitefinity>
   </telerik>
+  <nlog>
+    <targets>
+      <target name="trace" xdt:Transform="Remove" xdt:Locator="Match(name)" />
+    </targets>
+    <rules>
+      <logger writeTo="trace" xdt:Transform="Remove" xdt:Locator="Match(writeTo)"/>
+    </rules>
+  </nlog>
   <system.diagnostics xdt:Transform="Insert">
     <trace autoflush="true" indentsize="0">
       <listeners>

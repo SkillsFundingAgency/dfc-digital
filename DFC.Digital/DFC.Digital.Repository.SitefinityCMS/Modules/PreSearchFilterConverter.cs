@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
@@ -10,12 +11,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         public T ConvertFrom(DynamicContent content) => new T
         {
-            Title = content?.GetValue<Lstring>(nameof(PreSearchFilter.Title)),
-            Description = content?.GetValue<Lstring>(nameof(PreSearchFilter.Description)),
-            NotApplicable = content?.GetValue<bool>(nameof(PreSearchFilter.NotApplicable)),
-            Order = content?.GetValue<decimal?>(nameof(PreSearchFilter.Order)),
-            UrlName = content?.GetValue<Lstring>(nameof(PreSearchFilter.UrlName)),
-            Id = content?.GetValue<Guid>(nameof(PreSearchFilter.Id))
+            Title = content?.GetValueOrDefault<Lstring>(nameof(PreSearchFilter.Title)),
+            Description = content?.GetValueOrDefault<Lstring>(nameof(PreSearchFilter.Description)),
+            NotApplicable = content?.GetValueOrDefault<bool>(nameof(PreSearchFilter.NotApplicable)),
+            Order = content?.GetValueOrDefault<decimal?>(nameof(PreSearchFilter.Order)),
+            UrlName = content?.GetValueOrDefault<Lstring>(nameof(PreSearchFilter.UrlName)),
+            Id = content?.GetValueOrDefault<Guid>(nameof(PreSearchFilter.Id))
         };
     }
 }

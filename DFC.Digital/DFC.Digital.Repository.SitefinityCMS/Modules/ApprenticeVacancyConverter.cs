@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
@@ -11,12 +12,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return new ApprenticeVacancy
             {
-                Title = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.Title)),
-                Location = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.Location)),
-                URL = content != null ? new Uri(content.GetValue<Lstring>(nameof(ApprenticeVacancy.URL)), UriKind.RelativeOrAbsolute) : new Uri(string.Empty),
-                VacancyId = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.VacancyId)),
-                WageAmount = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.WageAmount)),
-                WageUnitType = content?.GetValue<Lstring>(nameof(ApprenticeVacancy.WageUnitType))
+                Title = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.Title)),
+                Location = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.Location)),
+                URL = content != null ? new Uri(content.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.URL)), UriKind.RelativeOrAbsolute) : new Uri(string.Empty),
+                VacancyId = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.VacancyId)),
+                WageAmount = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.WageAmount)),
+                WageUnitType = content?.GetValueOrDefault<Lstring>(nameof(ApprenticeVacancy.WageUnitType))
             };
         }
     }

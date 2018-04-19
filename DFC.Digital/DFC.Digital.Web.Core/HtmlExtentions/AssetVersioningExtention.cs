@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class AssetVersioningExtention
     {
         public static string VersionAssetFile(this HtmlHelper helper, string fileName)

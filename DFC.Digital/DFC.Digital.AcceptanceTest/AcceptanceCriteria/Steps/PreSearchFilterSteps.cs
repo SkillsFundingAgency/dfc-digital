@@ -84,7 +84,9 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenTheNoFilterResultsMessageIsDisplayed()
         {
             var resultPage = GetNavigatedPage<PreSearchFilterPage>();
-            resultPage.NoResultsMessage.Should().Contain("0 results found - try again using a different filters");
+            resultPage.NoResultsMessage.Should().Contain("0 results - there are currently no " +
+                "jobs that match your selections. You could try using the 'back' button to remove " +
+                "the selection that is least important to you and then submit again.");
         }
 
         [Then(@"the (.*) tags are still selected")]

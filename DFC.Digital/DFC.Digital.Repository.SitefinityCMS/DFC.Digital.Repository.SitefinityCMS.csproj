@@ -240,6 +240,7 @@
     <Compile Include="Base\IDynamicModuleRepository.cs" />
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
+    <Compile Include="Extensions\SitefinityDataExtensions.cs" />
     <Compile Include="ManageBauJobProfilesService.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\JobProfileCategoryRepository.cs" />

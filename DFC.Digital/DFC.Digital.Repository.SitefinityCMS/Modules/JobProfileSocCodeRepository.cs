@@ -16,15 +16,17 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly IDynamicModuleRepository<SocCode> repository;
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.repository = repository;
             this.converter = converter;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         #endregion Ctor
@@ -34,10 +36,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public IQueryable<ApprenticeVacancy> GetBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
-            var vacancies = socCodeItem
-                    .GetRelatedParentItems(DynamicTypes.JobProfileApprenticeshipContentType, repository.GetProviderName())
-                    .OfType<DynamicContent>()
-                    .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible);
+            var vacancies = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobProfileApprenticeshipContentType, repository.GetProviderName());
 
             if (vacancies.Any())
             {

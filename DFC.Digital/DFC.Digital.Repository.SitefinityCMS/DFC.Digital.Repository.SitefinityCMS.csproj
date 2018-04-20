@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\DynamicModuleRepository.cs" />
+    <Compile Include="Base\IDynamicContentExtensions.cs" />
     <Compile Include="Base\IDynamicModuleConverter.cs" />
     <Compile Include="Base\IDynamicModuleRepository.cs" />
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Modules\PreSearchFiltersFactory.cs" />
     <Compile Include="Modules\PreSearchFiltersRepository.cs" />
     <Compile Include="Modules\RelatedClassificationsRepository.cs" />
+    <Compile Include="Modules\DynamicContentExtensions.cs" />
     <Compile Include="SitefinityRepositoryAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

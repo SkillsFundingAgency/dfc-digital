@@ -1,0 +1,19 @@
+﻿using System;
+using System.Linq;
+using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.RelatedData;
+
+namespace DFC.Digital.Repository.SitefinityCMS.Modules
+{
+    public class DynamicContentExtensions : IDynamicContentExtensions
+    {
+        public IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName)
+        {
+            return contentItem?
+                .GetRelatedParentItems(contentTypeName, providerName)
+                .OfType<DynamicContent>()
+                .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible);
+        }
+    }
+}

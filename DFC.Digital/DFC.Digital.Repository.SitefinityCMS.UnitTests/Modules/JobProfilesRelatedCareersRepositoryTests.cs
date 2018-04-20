@@ -36,16 +36,42 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             result.Should().NotBeNull();
         }
 
-        [Fact]
-        public void GetByParentNameTest()
+        [Theory]
+        [InlineData("test", 5)]
+        [InlineData("test", 3)]
+        public void GetByParentNameTest(string urlName, int numberOfItemsToReturn)
         {
-            Assert.True(false, "This test needs an implementation");
+            //Assign
+            var fakeRepo = GetTestJobProfilesRelatedCareersRepository(1, true);
+
+            //Act
+            fakeRepo.GetByParentName(urlName, numberOfItemsToReturn);
+
+            // Assert
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))
+                .MustHaveHappened();
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>
+                .That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible))))
+                .MustHaveHappened();
         }
 
-        [Fact]
-        public void GetByParentNameForPreviewTest()
+        [Theory]
+        [InlineData("test", 5)]
+        [InlineData("test", 3)]
+        public void GetByParentNameForPreviewTest(string urlName, int numberOfItemsToReturn)
         {
-            Assert.True(false, "This test needs an implementation");
+            //Assign
+            var fakeRepo = GetTestJobProfilesRelatedCareersRepository(1, true);
+
+            //Act
+            fakeRepo.GetByParentNameForPreview(urlName, numberOfItemsToReturn);
+
+            // Assert
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))
+                .MustHaveHappened();
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>
+                    .That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp))))
+                .MustHaveHappened();
         }
 
         [Theory]

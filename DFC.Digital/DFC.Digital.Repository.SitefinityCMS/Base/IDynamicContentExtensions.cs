@@ -5,6 +5,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 {
     public interface IDynamicContentExtensions
     {
-        IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent content, string contentTypeName, string providerName);
+        IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName);
+
+        IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn);
     }
 }

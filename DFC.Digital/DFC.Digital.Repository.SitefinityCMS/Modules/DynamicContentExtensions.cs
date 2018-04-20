@@ -15,5 +15,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 .OfType<DynamicContent>()
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible);
         }
+
+        public IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn)
+        {
+            return contentItem?
+                .GetRelatedItems<DynamicContent>(fieldName)
+                .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
+                .Take(maximumItemsToReturn);
+        }
     }
 }

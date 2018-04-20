@@ -248,10 +248,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\JobProfileCategoryRepositoryUnitTests.cs" />
     <Compile Include="Modules\JobProfileConverterTests.cs" />
     <Compile Include="Modules\JobProfileRepositoryTests.cs" />
     <Compile Include="Modules\JobProfileSocCodeRepositoryTests.cs" />
+    <Compile Include="Modules\JobProfilesRelatedCareersRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

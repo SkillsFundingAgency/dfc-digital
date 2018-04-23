@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,11 +10,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 {
     public abstract class TaxonomyRepository : IRepository<Taxon>, IDisposable
     {
+        private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;
 
-        protected TaxonomyRepository(ITaxonomyManager manager)
+        protected TaxonomyRepository(ITaxonomyManager manager, ITaxonomyManagerExtensions taxonomyManagerExtensions)
         {
             this.manager = manager;
+            this.taxonomyManagerExtensions = taxonomyManagerExtensions;
         }
 
         public void Add(Taxon entity)
@@ -54,7 +57,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public IQueryable<Taxon> GetMany(Expression<Func<Taxon, bool>> where)
         {
-            return manager.GetTaxa<Taxon>().Where(where);
+            return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<Taxon>(), where);
         }
 
         public void Update(Taxon entity)

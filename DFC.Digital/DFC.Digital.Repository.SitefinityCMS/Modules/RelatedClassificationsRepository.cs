@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.Digital.Repository.SitefinityCMS.Base;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public RelatedClassificationsRepository(ITaxonomyManager taxonomyManager, IDynamicContentExtensions dynamicContentExtensions) : base(taxonomyManager)
+        public RelatedClassificationsRepository(ITaxonomyManager taxonomyManager, IDynamicContentExtensions dynamicContentExtensions, ITaxonomyManagerExtensions taxonomyManagerExtensions) : base(taxonomyManager, taxonomyManagerExtensions)
         {
             this.dynamicContentExtensions = dynamicContentExtensions;
         }

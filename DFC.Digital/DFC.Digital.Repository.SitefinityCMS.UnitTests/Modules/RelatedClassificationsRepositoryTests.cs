@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using FakeItEasy;
 using System;
@@ -18,6 +19,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
         private ITaxonomyManager fakeTaxonomyManager;
         private IRepository<Taxon> fakeTaxonomyRepository;
         private DynamicContent dummyContentItem;
+        private ITaxonomyManagerExtensions fakeTaxonomyManagerExtensions;
 
         public RelatedClassificationsRepositoryTests()
         {
@@ -25,6 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
             fakeTaxonomyRepository = A.Fake<IRepository<Taxon>>();
             dummyContentItem = A.Dummy<DynamicContent>();
+            fakeTaxonomyManagerExtensions = A.Fake<ITaxonomyManagerExtensions>();
         }
 
         [Theory]
@@ -35,7 +38,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
            //Assign
            SetupCalls(classificationsAvailable);
             var classificationRepo =
-                new RelatedClassificationsRepository(fakeTaxonomyManager, fakeDynamicContentExtensions);
+                new RelatedClassificationsRepository(fakeTaxonomyManager, fakeDynamicContentExtensions, fakeTaxonomyManagerExtensions);
 
             //Act
             classificationRepo.GetRelatedClassifications(dummyContentItem, relatedField, taxonomyName);
@@ -43,7 +46,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             //Assert
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
-            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
+
+          //  A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
         }
 
         private void SetupCalls(bool classificationsAvailable)
@@ -53,7 +58,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
                 .Returns(dummyIdList);
 
             var fakeTaxonlist = A.CollectionOfDummy<Taxon>(2).ToList().AsQueryable();
-            A.CallTo(() => fakeTaxonomyManager.GetTaxa<Taxon>().Where(A<Expression<Func<Taxon, bool>>>._)).Returns(fakeTaxonlist);
+            A.CallTo(() => fakeTaxonomyManager.GetTaxa<Taxon>()).Returns(fakeTaxonlist);
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).Returns(fakeTaxonlist);
         }
     }
 }

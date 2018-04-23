@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -16,7 +17,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService;
         private readonly IMapper mapper;
 
-        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobProfileSearchQueryService, IMapper mapper, ITaxonomyManager taxonomyManager) : base(taxonomyManager)
+        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobProfileSearchQueryService, IMapper mapper, ITaxonomyManager taxonomyManager, ITaxonomyManagerExtensions taxonomyManagerExtensions) : base(taxonomyManager, taxonomyManagerExtensions)
         {
             this.jobprofileSearchQueryService = jobProfileSearchQueryService;
             this.mapper = mapper;

@@ -2,6 +2,7 @@
 using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using DFC.Digital.Web.Sitefinity.JobProfileModule;
 using FakeItEasy;
@@ -62,6 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             var fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
+            var fakeTaxonomyExtensions = A.Fake<ITaxonomyManagerExtensions>();
 
             A.CallTo(() => fakeSearchService.Search("*", null)).WithAnyArguments().Returns(DummySearchResults());
 
@@ -72,7 +74,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             var mapper = config.CreateMapper();
 
             //Instantiate
-            var jobProfileCategoryRepository = new JobProfileCategoryRepository(fakeSearchService, mapper, fakeTaxonomyManager);
+            var jobProfileCategoryRepository = new JobProfileCategoryRepository(fakeSearchService, mapper, fakeTaxonomyManager, fakeTaxonomyExtensions);
 
             var returnedJobProfiles = jobProfileCategoryRepository.GetRelatedJobProfiles("test");
 
@@ -118,12 +120,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             //Setup the fakes and dummies
             var fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             var fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
+            var fakeTaxanomyExtensions = A.Fake<ITaxonomyManagerExtensions>();
             var fakeMapper = A.Fake<IMapper>();
 
             // Set up calls
             A.CallTo(() => fakeTaxonomyManager.GetTaxa<Taxon>()).Returns(DummyTaxons());
 
-            return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager);
+            return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager, fakeTaxanomyExtensions);
         }
 
         private IQueryable<Taxon> DummyTaxons()

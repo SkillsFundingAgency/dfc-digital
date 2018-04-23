@@ -10,6 +10,8 @@ using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Taxonomies.Web;
 using Xunit;
@@ -125,6 +127,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
 
             // Set up calls
             A.CallTo(() => fakeTaxonomyManager.GetTaxa<Taxon>()).Returns(DummyTaxons());
+            A.CallTo(() => fakeTaxanomyExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).Returns(DummyTaxons());
 
             return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyManager, fakeTaxanomyExtensions);
         }

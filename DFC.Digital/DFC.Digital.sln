@@ -119,8 +119,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.TLS12Performanc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Core.UnitTests", "DFC.Digital.Web.Core.UnitTests\DFC.Digital.Web.Core.UnitTests.csproj", "{19FD9C8C-4C42-410C-9C92-CF75B93B34D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Repository.SitefinityCMSTests", "DFC.Digital.Repository.SitefinityCMSTests\DFC.Digital.Repository.SitefinityCMSTests.csproj", "{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -500,16 +498,6 @@ Global
 		{19FD9C8C-4C42-410C-9C92-CF75B93B34D3}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{19FD9C8C-4C42-410C-9C92-CF75B93B34D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19FD9C8C-4C42-410C-9C92-CF75B93B34D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.DevRelease|Any CPU.Build.0 = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.OWASP|Any CPU.ActiveCfg = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.OWASP|Any CPU.Build.0 = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Release Pro|Any CPU.Build.0 = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FBFFCCC-CF42-4D65-BDB3-ECFA74DDBB73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

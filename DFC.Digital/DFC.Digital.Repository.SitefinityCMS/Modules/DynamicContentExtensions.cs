@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
@@ -22,6 +24,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
                 .Take(maximumItemsToReturn);
+        }
+
+        public T GetFieldValue<T>(DynamicContent contentItem, string fieldName)
+        {
+            return contentItem == null ? default(T) : contentItem.GetValue<T>(fieldName);
         }
     }
 }

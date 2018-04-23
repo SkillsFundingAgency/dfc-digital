@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Core
     {
         public static string ReplaceTokens(this HtmlHelper helper, string valueWithTokens)
         {
-            return Regex.Replace(@"{([^\.]+)\.([^}]+)}", valueWithTokens, RegexTokenReplacer);
+            return Regex.Replace(valueWithTokens, @"{([^\.]+)\.([^}]+)}", RegexTokenReplacer);
         }
 
         private static string RegexTokenReplacer(Match match)

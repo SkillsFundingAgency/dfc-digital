@@ -256,6 +256,7 @@
     <Compile Include="Modules\JobProfileRepositoryTests.cs" />
     <Compile Include="Modules\JobProfileSocCodeRepositoryTests.cs" />
     <Compile Include="Modules\JobProfilesRelatedCareersRepositoryTests.cs" />
+    <Compile Include="Modules\PreSearchFilterConverterTests.cs" />
     <Compile Include="Modules\PreSearchFiltersRepositoryTests.cs" />
     <Compile Include="Modules\RelatedClassificationsRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

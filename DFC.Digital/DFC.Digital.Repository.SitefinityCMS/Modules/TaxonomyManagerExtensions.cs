@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {

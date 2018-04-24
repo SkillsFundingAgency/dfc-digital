@@ -8,5 +8,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Base
     public interface ITaxonomyManagerExtensions
     {
         IQueryable<T> WhereQueryable<T>(IQueryable<T> taxons, Expression<Func<T, bool>> where);
+
+        T Where<T>(IQueryable<T> taxons, Expression<Func<T, bool>> where);
     }
 }

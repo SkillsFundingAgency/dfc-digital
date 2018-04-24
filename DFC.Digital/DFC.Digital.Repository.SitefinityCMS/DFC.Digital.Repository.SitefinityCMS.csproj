@@ -241,6 +241,7 @@
     <Compile Include="Base\IDynamicModuleRepository.cs" />
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
+    <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\TaxonomyManagerExtensions.cs" />

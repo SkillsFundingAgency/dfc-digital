@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 using Xunit;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
@@ -42,9 +43,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         {
             //Assign
             var fakeRepo = GetTestJobProfileSocCodeRepository(validSoc);
+            var socCode = nameof(JobProfileSocCodeRepositoryTest);
 
             //Act
-           var result = fakeRepo.GetBySocCode(nameof(JobProfileSocCodeRepositoryTest));
+           var result = fakeRepo.GetBySocCode(socCode);
 
             //Assert
             if (validSoc)
@@ -58,7 +60,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
 
-            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).MustHaveHappened();
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode)))).MustHaveHappened();
         }
 
         private JobProfileSocCodeRepository GetTestJobProfileSocCodeRepository(bool validSoc = false)

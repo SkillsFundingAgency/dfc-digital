@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public abstract class TaxonomyRepository : IRepository<Taxon>, IDisposable
+    public abstract class TaxonomyRepository : ITaxonomyRepository<Taxon>, IDisposable
     {
         private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;
@@ -42,7 +42,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public Taxon Get(Expression<Func<Taxon, bool>> where)
         {
-            return manager.GetTaxa<Taxon>().SingleOrDefault(where);
+            return taxonomyManagerExtensions.Where(manager.GetTaxa<Taxon>(), where);
         }
 
         public IQueryable<Taxon> GetAll()

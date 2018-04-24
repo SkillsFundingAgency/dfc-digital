@@ -10,5 +10,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn);
 
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
+
+        string GetFieldStringValue(DynamicContent contentItem, string fieldName);
     }
 }

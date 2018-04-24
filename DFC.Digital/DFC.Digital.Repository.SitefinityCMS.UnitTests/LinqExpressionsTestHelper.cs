@@ -6,7 +6,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public static class LinqExpressionsTestHelper
     {
-        public static bool IsExpressionEqual(Expression<Func<DynamicContent, bool>> x, Expression<Func<DynamicContent, bool>> y)
+        public static bool IsExpressionEqual<T>(Expression<Func<T, bool>> x, Expression<Func<T, bool>> y)
         {
             return ExpressionComparer(x, y);
         }

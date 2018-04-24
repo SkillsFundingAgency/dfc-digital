@@ -30,5 +30,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default(T);
         }
+
+        public string GetFieldStringValue(DynamicContent contentItem, string fieldName)
+        {
+            if (contentItem != null && contentItem.DoesFieldExist(fieldName))
+            {
+                string value = contentItem.GetValue<Lstring>(fieldName);
+                return value;
+            }
+            else
+            {
+               return default;
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public T GetFieldValue<T>(DynamicContent contentItem, string fieldName)
         {
-            return contentItem == null ? default(T) : contentItem.GetValue<T>(fieldName);
+            return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default(T);
         }
     }
 }

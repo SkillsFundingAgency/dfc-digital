@@ -1,12 +1,8 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using System;
 using System.Linq;
-using Telerik.Sitefinity.Data.ContentLinks;
-using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {

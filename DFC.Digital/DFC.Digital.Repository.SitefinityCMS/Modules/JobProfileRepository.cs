@@ -67,7 +67,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public string AddOrUpdateJobProfileByProperties(BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
+        public string AddOrUpdateJobProfileByProperties(JobProfileImporting bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
         {
             string actionTaken = string.Empty;
             var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
@@ -96,6 +96,23 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                 repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
                 actionTaken = "inserted.";
+            }
+
+            return actionTaken;
+        }
+
+        public string UpdateRelatedCareers(JobProfileImporting bauJobProfile, string changeComment, bool enforcePublishing)
+        {
+            string actionTaken = string.Empty;
+            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
+
+            if (betaProfile != null)
+            {
+                actionTaken = repository.UpdateRelatedCareers(betaProfile, bauJobProfile, changeComment, enforcePublishing);
+            }
+            else
+            {
+                actionTaken = "BETA JobProfile does not exist and cannot be updated.";
             }
 
             return actionTaken;

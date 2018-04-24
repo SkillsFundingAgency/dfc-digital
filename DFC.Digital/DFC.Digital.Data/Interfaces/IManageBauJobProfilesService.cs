@@ -1,10 +1,12 @@
 ﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
 {
     public interface IManageBauJobProfilesService
     {
-        IEnumerable<BauJobProfile> SelectMarkedJobProfiles(IEnumerable<BauJobProfile> bauJobProfiles, IEnumerable<string> jobProfileUrlNames);
+        IEnumerable<JobProfileImporting> SelectMarkedJobProfiles(IEnumerable<JobProfileImporting> bauJobProfiles, List<JobProfileImporting> markedJobPriles);
     }
 }

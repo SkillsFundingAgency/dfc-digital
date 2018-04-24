@@ -1,17 +1,41 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     public class ManageBauJobProfilesService : IManageBauJobProfilesService
     {
-        public IEnumerable<BauJobProfile> SelectMarkedJobProfiles(IEnumerable<BauJobProfile> bauJobProfiles, IEnumerable<string> jobProfileUrlNames)
+        private readonly IBauJobProfileOdataRepository bauJobProfileRepository;
+        private readonly IAsyncHelper asyncHelper;
+
+        public ManageBauJobProfilesService(IBauJobProfileOdataRepository bauJobProfileRepository, IAsyncHelper asyncHelper)
         {
-            var profileUrlNames = jobProfileUrlNames as IList<string> ?? jobProfileUrlNames.ToList();
-            return profileUrlNames.Any() ? bauJobProfiles.Where(jp => profileUrlNames.Any(url => url.Equals(jp.UrlName, StringComparison.OrdinalIgnoreCase))) : new List<BauJobProfile>();
+            this.bauJobProfileRepository = bauJobProfileRepository;
+            this.asyncHelper = asyncHelper;
+        }
+
+        public IEnumerable<JobProfileImporting> SelectMarkedJobProfiles(IEnumerable<JobProfileImporting> bauJobProfiles, List<JobProfileImporting> markedJobProfiles)
+        {
+            if (markedJobProfiles.Any())
+            {
+                var selectedJobProfiles = bauJobProfiles.Where(o => markedJobProfiles.Any(f => f.UrlName.Equals(o.UrlName, StringComparison.OrdinalIgnoreCase)));
+
+                foreach (var selectedJobProfile in selectedJobProfiles)
+                {
+                    selectedJobProfile.CourseKeywords = markedJobProfiles.SingleOrDefault(jp => jp.UrlName.Equals(selectedJobProfile.UrlName, StringComparison.OrdinalIgnoreCase)).CourseKeywords;
+                }
+
+                return selectedJobProfiles;
+            }
+            else
+            {
+                return new List<JobProfileImporting>();
+            }
         }
     }
 }

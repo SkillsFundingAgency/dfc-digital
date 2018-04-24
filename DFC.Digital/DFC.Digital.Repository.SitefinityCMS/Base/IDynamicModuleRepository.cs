@@ -16,6 +16,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         void AddOnImport(DynamicContent entity, string changeComment, bool enforcePublishing = false);
 
-        void UpdateOnImport(DynamicContent entity, BauJobProfile bauJobProfile, Dictionary<string, string> propertyMappingsbool, string changeComment, bool enforcePublishing = false);
+        void UpdateOnImport(DynamicContent entity, JobProfileImporting bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing = false);
+
+        string UpdateRelatedCareers(DynamicContent entity, JobProfileImporting bauJobProfile, string changeComment, bool enforcePublishing = false);
     }
 }

@@ -3,19 +3,17 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
+using DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security.Claims;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Data Import Tool
@@ -99,7 +97,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         #region Actions
 
-        // GET: AdminPanel
         public ActionResult Index()
         {
             var model = new DataImportViewModel

@@ -11,6 +11,8 @@ namespace DFC.Digital.Data.Interfaces
 
         bool IsContentPreviewMode { get; }
 
+        bool IsUserAdministrator { get; }
+
         // If we are in backend design mode but not backend preview mode
         bool IsContentAuthoringAndNotPreviewMode { get; }
 

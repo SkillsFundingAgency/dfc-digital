@@ -21,6 +21,7 @@ try {
     }
 
     # --- Resolve app service and retrieve app settings
+
     $AppService = Get-AzureRmWebApp -ResourceGroupName $AppServiceResource.ResourceGroupName -Name $AppServiceName
     $SearchIndexVersionSetting = ($AppService.SiteConfig.AppSettings | Where-Object {$_.Name -eq "SearchIndexVersion"}).Value
     if (!$SearchIndexVersionSetting){
@@ -37,7 +38,7 @@ try {
 
     # --- Generate search index copy name
     $CopySearchIndex = "$($SearchIndex)-$($ReleaseNumber)"
-
+    Write-Host "Setting search index name to $CopySearchIndex"
     # --- Always return environment variables to vsts
     Write-Output "##vso[task.setvariable variable=CurrentSearchIndexName;]$($SearchIndexVersionSetting)"
     Write-Output "##vso[task.setvariable variable=jobProfileSearchIndex;]$($CopySearchIndex)"

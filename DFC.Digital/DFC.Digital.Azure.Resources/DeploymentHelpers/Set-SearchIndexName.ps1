@@ -40,7 +40,7 @@ try {
 
     # --- Always return environment variables to vsts
     Write-Output "##vso[task.setvariable variable=CurrentSearchIndexName;]$($SearchIndexVersionSetting)"
-    Write-Output "##vso[task.setvariable variable=CopySearchIndexName;]$($CopySearchIndex)"
+    Write-Output "##vso[task.setvariable variable=jobProfileSearchIndex;]$($CopySearchIndex)"
 }
 catch {
     throw $_

@@ -45,6 +45,11 @@ namespace DFC.Digital.Core.Logging
             return activityId;
         }
 
+        public bool IsTraceDisabled()
+        {
+            return !logService.IsTraceEnabled;
+        }
+
         public void Trace(string message)
         {
             logService.Trace(message);

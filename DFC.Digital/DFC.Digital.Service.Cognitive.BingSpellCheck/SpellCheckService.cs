@@ -1,9 +1,11 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Configuration;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck
@@ -77,27 +79,39 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
             var correctedTerm = term;
             bool hasCorrections = false;
 
-            System.Net.Http.HttpResponseMessage response = await GetSpellCheckResponseAsync(term);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var resultsString = await response.Content.ReadAsStringAsync();
-                dynamic spellSuggestions = JObject.Parse(resultsString);
-                hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
-                if (hasCorrections)
+                System.Net.Http.HttpResponseMessage response = await GetSpellCheckResponseAsync(term);
+                if (response.IsSuccessStatusCode)
                 {
-                    foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
+                    var resultsString = await response.Content.ReadAsStringAsync();
+                    dynamic spellSuggestions = JObject.Parse(resultsString);
+                    hasCorrections = spellSuggestions.flaggedTokens.Count > 0;
+                    if (hasCorrections)
                     {
-                        correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
+                        foreach (dynamic tokenTerm in spellSuggestions.flaggedTokens)
+                        {
+                            correctedTerm = correctedTerm.Replace(tokenTerm.token.Value, tokenTerm.suggestions[0].suggestion.Value);
+                        }
                     }
                 }
-            }
 
-            return new SpellcheckResult
+                return new SpellcheckResult
+                {
+                    OriginalTerm = term,
+                    CorrectedTerm = correctedTerm,
+                    HasCorrected = hasCorrections
+                };
+            }
+            catch (LoggedException)
             {
-                OriginalTerm = term,
-                CorrectedTerm = correctedTerm,
-                HasCorrected = hasCorrections
-            };
+                //Ignore already logged exception and return default.
+                return new SpellcheckResult
+                {
+                    OriginalTerm = term,
+                    HasCorrected = false
+                };
+            }
         }
 
         private async Task<System.Net.Http.HttpResponseMessage> GetSpellCheckResponseAsync(string term)

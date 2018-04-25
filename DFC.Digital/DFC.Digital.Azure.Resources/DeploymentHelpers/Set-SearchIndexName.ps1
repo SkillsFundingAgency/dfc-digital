@@ -37,7 +37,7 @@ try {
     }
 
     # --- Generate search index copy name
-    $CopySearchIndex = "$($SearchIndex)-$($ReleaseNumber)"
+    $CopySearchIndex = "$($SearchIndex)-R$($ReleaseNumber)"
     Write-Host "Setting search index name to $CopySearchIndex"
     # --- Always return environment variables to vsts
     Write-Output "##vso[task.setvariable variable=CurrentSearchIndexName;]$($SearchIndexVersionSetting)"

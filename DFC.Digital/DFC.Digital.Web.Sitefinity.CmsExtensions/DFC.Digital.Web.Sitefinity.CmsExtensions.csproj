@@ -406,6 +406,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="OpenAccessNuGet.targets" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -442,9 +443,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenAccessNuGet.targets" />
-    <None Include="packages.config" />
     <Content Include="Mvc\Views\AdminPanel\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

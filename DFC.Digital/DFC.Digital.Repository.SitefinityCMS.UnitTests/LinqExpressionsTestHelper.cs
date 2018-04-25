@@ -65,7 +65,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                     var hasMatched7 = ExpressionComparer(((ConditionalExpression)x).IfTrue, ((ConditionalExpression)y).IfTrue)
                                      && ExpressionComparer(((ConditionalExpression)x).IfFalse, ((ConditionalExpression)y).IfFalse);
                     return hasMatched7;
-
+                case ExpressionType.Call:
+                    return ((MethodCallExpression)x).ToString().Equals(((MethodCallExpression)y).ToString());
                 default:
                     throw new NotImplementedException($"{x.NodeType}-{x.GetType().Name}-{x.Type.Name}-{x}");
             }

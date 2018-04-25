@@ -119,33 +119,32 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
             {
                 var markedJobProfiles = new List<JobProfileImporting>();
 
-                //1. Get Dictionary from widget property
+                // Get JP information (UrlName, CourseKeywords, etc.) from CSV file via widget property
                 var csvreader = new StreamReader(model?.JobProfileImportDataFile.InputStream);
-
                 while (!csvreader.EndOfStream)
                 {
-                    var line = csvreader.ReadLine();
-                    markedJobProfiles.Add(ConvertSingleLineToJobProfileImporting(line));
+                    markedJobProfiles.Add(ConvertSingleLineToJobProfileImporting(csvreader.ReadLine()));
                 }
 
+                // Remove CSV Title row
                 markedJobProfiles.Remove(markedJobProfiles.SingleOrDefault(a => a.UrlName.Contains("ItemDefaultUrl")));
 
                 if (!string.IsNullOrEmpty(importData))
                 {
                     var mappingDictionary = GetPropertyMappingDictionary(model.SourceToDestinationPropertyMapping);
 
-                    //No point continuing if not mapping is defined
+                    // No point continuing if no mapping is defined
                     if (mappingDictionary.Any())
                     {
-                        // 2. Get Bau Jop Profiles
+                        // Get JobProfiles from BAU WS Feed
                         var sourceJobProfiles = asyncHelper.Synchronise(() => GetAllJobProfilesBySourcePropertiesAsync(false));
 
-                        // 3. Select required Bau Job profiles from csv
+                        // Select only required JobProfiles listed in csv from all BAU JP WS Feed
                         var selectedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobProfiles);
 
                         bool errorOccurred = false;
 
-                        //4. Process each bauJob profile
+                        // Process each selected JobProfile
                         foreach (var bauJobProfile in selectedJobProfiles)
                         {
                             try
@@ -169,20 +168,23 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
                             model.ResultText += "<br /><span style=\"font-weight:bold; color:red; \">There was a problem with the import</span>";
                         }
                     }
+                    else
+                    {
+                        model.ResultText += "<br /><span style=\"font-weight:bold; color:red; \">Please, provide mapping for the import</span>";
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(importRelatedCareers))
                 {
-                    // 2. Get Bau Jop Profiles
+                    // Get JobProfiles from BAU WS Feed
                     var sourceJobProfiles = asyncHelper.Synchronise(() => GetAllJobProfilesBySourcePropertiesAsync(true));
 
-                    // 3. Select required Bau Job profiles from csv
-                    var selectedJobProfiles =
-                        manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobProfiles);
+                    // Select only required JobProfiles listed in csv from all BAU JP WS Feed
+                    var selectedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobProfiles);
 
                     bool errorOccurred = false;
 
-                    //4. Process each bauJob profile
+                    // Process each selected JobProfile
                     foreach (var bauJobProfile in selectedJobProfiles)
                     {
                         try

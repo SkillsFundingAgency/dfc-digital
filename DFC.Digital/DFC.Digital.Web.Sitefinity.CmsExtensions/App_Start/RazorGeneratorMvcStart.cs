@@ -1,7 +1,7 @@
-﻿using RazorGenerator.Mvc;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using RazorGenerator.Mvc;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.CmsExtensions.RazorGeneratorMvcStart), "Start")]
 
@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 
             ViewEngines.Engines.Insert(0, engine);
 
-            // StartPage lookups are done by WebPages.
+            // StartPage lookups are done by WebPages. 
             VirtualPathFactoryManager.RegisterVirtualPathFactory(engine);
         }
     }

@@ -367,12 +367,10 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Mvc\Controllers\AdminPanelController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
     <Compile Include="Mvc\Controllers\VocSurveyController.cs" />
     <Compile Include="Mvc\Controllers\DfcBreadcrumbController.cs" />
-    <Compile Include="Mvc\Models\AdminPanelViewModel.cs" />
     <Compile Include="Mvc\Models\BauSearchResultsViewModel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbLevel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbViewModel.cs" />
@@ -409,7 +407,6 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <Content Include="Mvc\Views\DfcBreadcrumb\Index.cshtml" />
-    <Content Include="Mvc\Views\AdminPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

@@ -6,13 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity;
 using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Lifecycle;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Model.ContentLinks;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -52,7 +50,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             // We can now call the following to publish the item
             dynamicModuleManager.Lifecycle.Publish(entity);
 
-            //You need to set appropriate workflow status
+            // You need to set appropriate workflow status
             entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
 
             // Create a version and commit the transaction in order changes to be persisted to data store
@@ -128,7 +126,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             ILifecycleDataItem masterEntity = dynamicModuleManager.Lifecycle.GetMaster(entity);
 
             // Then we check it out
-            // 2. Get a temp version.
             // To get a temp version of the item, check out the master version. This is the version you must modify.
             DynamicContent checkOutEntityItemTEMP = dynamicModuleManager.Lifecycle.CheckOut(masterEntity) as DynamicContent;
 
@@ -138,7 +135,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 checkOutEntityItemTEMP.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
             }
 
-            //You need to set appropriate workflow status
+            // You need to set appropriate workflow status
             if (enforcePublishing)
             {
                 checkOutEntityItemTEMP.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
@@ -148,25 +145,21 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 checkOutEntityItemTEMP.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft");
             }
 
-            // Now we need to check in, so the changes apply from TEMP to MASTER
-            // 3.Update the master version.
-            // Check in the temp version to transfer the changes to the master version.
+            // Check in the temp version to transfer the changes from TEMP to MASTER version.
             ILifecycleDataItem checkInEntityItem = dynamicModuleManager.Lifecycle.CheckIn(checkOutEntityItemTEMP);
 
             if (enforcePublishing)
             {
-                //Finnaly we publish the item again
-                //4.Update the live version.
                 //Publish the master version to transfer the changes to the live version.
                 dynamicModuleManager.Lifecycle.Publish(checkInEntityItem);
 
-                // Create a version
+                // Create a version with a comment
                 var change = versionManager.CreateVersion(checkInEntityItem, true);
                 change.Comment = changeComment;
             }
             else
             {
-                // Create a version
+                // Create a version with a comment
                 var change = versionManager.CreateVersion(checkInEntityItem, false);
                 change.Comment = changeComment;
             }
@@ -188,8 +181,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
             ILifecycleDataItem masterEntity = dynamicModuleManager.Lifecycle.GetMaster(entity);
 
-            // Then we check it out
-            // 2. Get a temp version.
             // To get a temp version of the item, check out the master version. This is the version you must modify.
             DynamicContent checkOutEntityItemTEMP = dynamicModuleManager.Lifecycle.CheckOut(masterEntity) as DynamicContent;
 
@@ -211,7 +202,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 }
             }
 
-            //You need to set appropriate workflow status
+            // You need to set appropriate workflow status
             if (enforcePublishing)
             {
                 checkOutEntityItemTEMP.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Published");
@@ -221,25 +212,21 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 checkOutEntityItemTEMP.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, "Draft");
             }
 
-            // Now we need to check in, so the changes apply from TEMP to MASTER
-            // 3.Update the master version.
-            // Check in the temp version to transfer the changes to the master version.
+            // Check in the temp version to transfer the changes from TEMP to MASTER version.
             ILifecycleDataItem checkInEntityItem = dynamicModuleManager.Lifecycle.CheckIn(checkOutEntityItemTEMP);
 
             if (enforcePublishing)
             {
-                //Finnaly we publish the item again
-                //4.Update the live version.
-                //Publish the master version to transfer the changes to the live version.
+                // Publish the master version to transfer the changes to the live version.
                 dynamicModuleManager.Lifecycle.Publish(checkInEntityItem);
 
-                // Create a version
+                // Create a version with a comment
                 var change = versionManager.CreateVersion(checkInEntityItem, true);
                 change.Comment = changeComment;
             }
             else
             {
-                // Create a version
+                // Create a version with a comment
                 var change = versionManager.CreateVersion(checkInEntityItem, false);
                 change.Comment = changeComment;
             }

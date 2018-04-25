@@ -22,6 +22,9 @@
       },
       "currentDatabaseName": {
         "value": "__CurrentDatabaseName__"
-      }      
+      },
+      "searchIndexVersion": {
+        "value": "__jobProfileSearchIndex__"
+      }        
     }
 }

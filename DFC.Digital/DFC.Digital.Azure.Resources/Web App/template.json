@@ -20,7 +20,10 @@
         },
         "currentDatabaseName": {
           "type": "string"
-      }        
+      },
+      "searchIndexVersion": {
+        "type": "string"
+    }             
     },
   "resources": [
     {
@@ -39,6 +42,10 @@
             {
               "name": "DatabaseVersion",
                 "value": "[parameters('currentDatabaseName')]"
+            },
+            {
+              "name": "SearchIndexVersion",
+                "value": "[parameters('searchIndexVersion')]"
             }
           ],
           "alwaysOn": true,

@@ -29,7 +29,7 @@ try {
     }
 
     # --- Determine if this is the first run, if not remove the version number
-    $FirstRun = [Regex]::Match($SearchIndexVersionSetting, "R[0-9]").Success
+    $FirstRun = [Regex]::Match($SearchIndexVersionSetting, "(?i)R(?-i)[0-9]").Success
     if ($FirstRun -eq "True") {
         $SearchIndex = $SearchIndexVersionSetting.Substring(0, $SearchIndexVersionSetting.LastIndexOf("-"))
     } else {
@@ -37,7 +37,7 @@ try {
     }
 
     # --- Generate search index copy name
-    $CopySearchIndex = "$($SearchIndex)-R$($ReleaseNumber)"
+    $CopySearchIndex = "$($SearchIndex)-r$($ReleaseNumber)"
     Write-Host "Setting search index name to $CopySearchIndex"
     # --- Always return environment variables to vsts
     Write-Output "##vso[task.setvariable variable=CurrentSearchIndexName;]$($SearchIndexVersionSetting)"

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 
@@ -10,8 +11,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return new JobProfileRelatedCareer
             {
-                Title = content?.GetValue<Lstring>(nameof(JobProfile.Title)),
-                ProfileLink = content?.GetValue<Lstring>(nameof(JobProfile.UrlName)),
+                Title = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Title)),
+                ProfileLink = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
             };
         }
     }

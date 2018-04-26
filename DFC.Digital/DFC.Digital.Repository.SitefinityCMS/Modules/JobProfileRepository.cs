@@ -70,34 +70,35 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public string AddOrUpdateJobProfileByProperties(JobProfileImporting bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
         {
             string actionTaken = string.Empty;
-            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
 
-            if (betaProfile != null)
-            {
-                if (disableUpdate)
-                {
-                    actionTaken = "NOT updated as set in the preferencies.";
-                }
-                else
-                {
-                    repository.UpdateOnImport(betaProfile, bauJobProfile, propertyMappings, changeComment, enforcePublishing);
-                    actionTaken = "updated.";
-                }
-            }
-            else
-            {
-                betaProfile = repository.CreateEntity();
-                betaProfile.UrlName = bauJobProfile.UrlName;
-                betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
-                foreach (var propertyMapping in propertyMappings)
-                {
-                    betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
-                }
+            //var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
 
-                repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
-                actionTaken = "inserted.";
-            }
+            //if (betaProfile != null)
+            //{
+            //    if (disableUpdate)
+            //    {
+            //        actionTaken = "NOT updated as set in the preferencies.";
+            //    }
+            //    else
+            //    {
+            //        repository.UpdateOnImport(betaProfile, bauJobProfile, propertyMappings, changeComment, enforcePublishing);
+            //        actionTaken = "updated.";
+            //    }
+            //}
+            //else
+            //{
+            //    betaProfile = repository.CreateEntity();
+            //    betaProfile.UrlName = bauJobProfile.UrlName;
+            //    betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
+            //    foreach (var propertyMapping in propertyMappings)
+            //    {
+            //        betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
+            //    }
 
+            //    repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
+            //    actionTaken = "inserted.";
+            //}
+            // empty
             return actionTaken;
         }
 

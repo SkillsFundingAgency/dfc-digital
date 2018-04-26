@@ -10,8 +10,6 @@ namespace DFC.Digital.Data.Interfaces
         // Marks an entity as new
         void Add(T entity);
 
-        T CreateEntity();
-
         // Marks an entity as modified
         void Update(T entity);
 

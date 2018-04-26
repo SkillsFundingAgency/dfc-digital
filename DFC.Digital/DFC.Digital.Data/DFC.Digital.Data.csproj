@@ -83,6 +83,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
+    <Compile Include="Interfaces\IContentImportService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />

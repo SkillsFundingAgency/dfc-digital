@@ -17,9 +17,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         public const string Name = "DfcSearchService";
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
-        private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig indexConfig;
-        private IJobProfileIndexEnhancer jobProfileIndexEnhancer;
+        private readonly ISearchService<JobProfileIndex> searchService;
+        private readonly string index;
+        private readonly IJobProfileIndexEnhancer jobProfileIndexEnhancer;
 
         public DfcSearchService()
         {
@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)
         {
             this.searchService = searchService;
-            this.indexConfig = indexConfig;
+            this.index = indexConfig?.Name ?? string.Empty;
             this.jobProfileIndexEnhancer = jobProfileIndexEnhancer;
             this.asyncHelper = asyncHelper;
             this.mapper = mapper;
@@ -36,9 +36,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override bool IndexExists(string indexName)
         {
-            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
-                return searchService.IndexExists(indexName);
+                return searchService.IndexExists(index);
             }
             else
             {
@@ -48,9 +48,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override void DeleteIndex(string indexName)
         {
-            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
-                searchService?.DeleteIndex(indexName);
+                searchService?.DeleteIndex(index);
             }
             else
             {
@@ -58,23 +58,23 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
         }
 
-        public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
+        public override void CreateIndex(string indexName, IEnumerable<IFieldDefinition> fieldDefinitions)
         {
-            if (!string.IsNullOrEmpty(name) && name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
                 //TODO: think about mapping from sitefinity field defenitions to domain model?
                 //Or is it correct to keep them in sync anyway?
-                asyncHelper.Synchronise(() => searchService?.EnsureIndexAsync(name));
+                asyncHelper.Synchronise(() => searchService?.EnsureIndexAsync(index));
             }
             else
             {
-                base.CreateIndex(name, fieldDefinitions);
+                base.CreateIndex(indexName, fieldDefinitions);
             }
         }
 
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
-            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
                 var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
 

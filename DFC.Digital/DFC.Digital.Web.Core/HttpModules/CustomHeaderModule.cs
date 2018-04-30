@@ -3,6 +3,7 @@ using System.Web;
 
 namespace DFC.Digital.Web.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class CustomHeaderModule : IHttpModule
     {
         public void Init(HttpApplication context)

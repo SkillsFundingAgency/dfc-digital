@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LoadTest Name="DFC-Load-20-Blue-Green" Description="" Owner="" storage="c:\beta\dfc-digital\dfc.digital\dfc.digital.performancetest\loadtest\dfc-load-20-blue-green.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Run Settings1" Id="d3195d26-e8a3-44f6-82d0-39e78ea1e4c5" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<LoadTest Name="DFC-Load-20-Blue-Green" Description="" Owner="" storage="c:\work\github\dfc-digital\dfc.digital\dfc.digital.performancetest\loadtest\dfc-load-20-blue-green.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Run Settings1" Id="d3195d26-e8a3-44f6-82d0-39e78ea1e4c5" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Scenarios>
     <Scenario Name="DFC-20-Load-Blue-Green" DelayBetweenIterations="0" PercentNewUsers="0" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
       <ThinkProfile Value="0.2" Pattern="NormalDistribution" />

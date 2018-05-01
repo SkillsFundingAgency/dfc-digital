@@ -43,6 +43,10 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\\Teststack\.Seleno\.dll$</ModulePath>
                 <ModulePath>.*\\Polly\.dll$</ModulePath>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
+                <ModulePath>.*fakeiteasy.dll</ModulePath>
+                <ModulePath>.*system\..*\.dll$</ModulePath>
+                <ModulePath>.*microsoft\..*\.dll$</ModulePath>
+                <ModulePath>.*htmlagilitypack.dll</ModulePath>
               </Exclude>
             </ModulePaths>
 
@@ -53,6 +57,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Function>.*\.UnitTest\..*</Function>
                 <Function>.*AutofacModule</Function>
                 <Function>^DFC\.Digital.*\.Models\..*</Function>
+                <Function>^DFC\.Digital\.Service\.CourseSearchProvider\.CourseSearchServiceApi\..*</Function>
                 <Function>^std::.*</Function>
                 <Function>^ATL::.*</Function>
                 <Function>.*::__GetTestMethodInfo.*</Function>

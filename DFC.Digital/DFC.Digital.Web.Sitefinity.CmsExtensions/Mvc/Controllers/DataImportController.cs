@@ -2,14 +2,12 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Models;
-using System;
+using DFC.Digital.Web.Sitefinity.Core;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -28,19 +26,19 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
         private readonly IManageBauJobProfilesService manageBauJobProfilesService;
         private readonly IJobProfileRepository jobProfileRepository;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IContentImportService<JobProfile> contentImport;
         private readonly IWebAppContext webAppContext;
 
-        #endregion
+        #endregion Private members
 
         #region Constructors
 
-        public DataImportController(IWebAppContext webAppContext, IApplicationLogger applicationLogger, IBauJobProfileOdataRepository bauJobProfileRepository, IManageBauJobProfilesService manageBauJobProfilesService, IJobProfileRepository jobProfileRepository, IAsyncHelper asyncHelper)
+        //public DataImportController(IWebAppContext webAppContext, IApplicationLogger applicationLogger, IBauJobProfileOdataRepository bauJobProfileRepository, IManageBauJobProfilesService manageBauJobProfilesService, IJobProfileRepository jobProfileRepository, IAsyncHelper asyncHelper)
+        public DataImportController(IApplicationLogger applicationLogger, IWebAppContext webAppContext, IAsyncHelper asyncHelper, IContentImportService<JobProfile> contentImport)
             : base(applicationLogger)
         {
-            this.bauJobProfileRepository = bauJobProfileRepository;
-            this.manageBauJobProfilesService = manageBauJobProfilesService;
-            this.jobProfileRepository = jobProfileRepository;
             this.asyncHelper = asyncHelper;
+            this.contentImport = contentImport;
             this.webAppContext = webAppContext;
         }
 
@@ -113,101 +111,20 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(DataImportViewModel model, string importData, string importRelatedCareers)
+        public ActionResult Index(DataImportViewModel model)
         {
             if (webAppContext.IsUserAdministrator)
             {
-                var markedJobProfiles = new List<JobProfileImporting>();
-
-                // Get JP information (UrlName, CourseKeywords, etc.) from CSV file via widget property
-                var csvreader = new StreamReader(model?.JobProfileImportDataFile.InputStream);
-                while (!csvreader.EndOfStream)
+                var importConfig = new ImportConfiguration
                 {
-                    markedJobProfiles.Add(ConvertSingleLineToJobProfileImporting(csvreader.ReadLine()));
-                }
+                    Content = ReadLines(model.JobProfileImportDataFile),
+                    Mappings = ParseMapping(model.SourceToDestinationPropertyMapping),
+                    CanUpdate = !model.DisableUpdate,
+                    Comment = model.ChangeComment,
+                    ShouldBePublished = model.EnforcePublishing
+                };
 
-                // Remove CSV Title row
-                markedJobProfiles.Remove(markedJobProfiles.SingleOrDefault(a => a.UrlName.Contains("ItemDefaultUrl")));
-
-                if (!string.IsNullOrEmpty(importData))
-                {
-                    var mappingDictionary = GetPropertyMappingDictionary(model.SourceToDestinationPropertyMapping);
-
-                    // No point continuing if no mapping is defined
-                    if (mappingDictionary.Any())
-                    {
-                        // Get JobProfiles from BAU WS Feed
-                        var sourceJobProfiles = asyncHelper.Synchronise(() => GetAllJobProfilesBySourcePropertiesAsync(false));
-
-                        // Select only required JobProfiles listed in csv from all BAU JP WS Feed
-                        var selectedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobProfiles);
-
-                        bool errorOccurred = false;
-
-                        // Process each selected JobProfile
-                        foreach (var bauJobProfile in selectedJobProfiles)
-                        {
-                            try
-                            {
-                                string actionTaken = jobProfileRepository.AddOrUpdateJobProfileByProperties(bauJobProfile, mappingDictionary, model.ChangeComment, model.EnforcePublishing, model.DisableUpdate);
-                                model.ResultText += bauJobProfile.Title + " ( " + bauJobProfile.UrlName + " ) - " + actionTaken + "<br />";
-                            }
-                            catch (Exception ex)
-                            {
-                                errorOccurred = true;
-                                model.ResultText += bauJobProfile.Title + "<br />" + ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace + "<br />";
-                            }
-                        }
-
-                        if (!errorOccurred)
-                        {
-                            model.ResultText += "<br /><span style=\"font-weight:bold; \">Import was completed successfully</span>";
-                        }
-                        else
-                        {
-                            model.ResultText += "<br /><span style=\"font-weight:bold; color:red; \">There was a problem with the import</span>";
-                        }
-                    }
-                    else
-                    {
-                        model.ResultText += "<br /><span style=\"font-weight:bold; color:red; \">Please, provide mapping for the import</span>";
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(importRelatedCareers))
-                {
-                    // Get JobProfiles from BAU WS Feed
-                    var sourceJobProfiles = asyncHelper.Synchronise(() => GetAllJobProfilesBySourcePropertiesAsync(true));
-
-                    // Select only required JobProfiles listed in csv from all BAU JP WS Feed
-                    var selectedJobProfiles = manageBauJobProfilesService.SelectMarkedJobProfiles(sourceJobProfiles, markedJobProfiles);
-
-                    bool errorOccurred = false;
-
-                    // Process each selected JobProfile
-                    foreach (var bauJobProfile in selectedJobProfiles)
-                    {
-                        try
-                        {
-                            string actionTaken = jobProfileRepository.UpdateRelatedCareers(bauJobProfile, model.ChangeComment, model.EnforcePublishing);
-                            model.ResultText += bauJobProfile.Title + " ( " + bauJobProfile.UrlName + " ) - <br />" + actionTaken + "<br />";
-                        }
-                        catch (Exception ex)
-                        {
-                            errorOccurred = true;
-                            model.ResultText += bauJobProfile.Title + "<br />" + ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace + "<br />";
-                        }
-                    }
-
-                    if (!errorOccurred)
-                    {
-                        model.ResultText += "<br /><span style=\"font-weight:bold; \">Update of RelatedCareers was completed successfully</span>";
-                    }
-                    else
-                    {
-                        model.ResultText += "<br /><span style=\"font-weight:bold; color:red; \">There was a problem with the Update of RelatedCareers</span>";
-                    }
-                }
+                asyncHelper.Synchronise(() => contentImport.ImportAsync(importConfig));
             }
             else
             {
@@ -221,7 +138,18 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
 
         #region Non Action Methods
 
-        private static Dictionary<string, string> GetPropertyMappingDictionary(string sourceToDestinationPropertyMapping)
+        private IEnumerable<string> ReadLines(HttpPostedFileBase input)
+        {
+            using (var csvreader = new StreamReader(input.InputStream))
+            {
+                while (!csvreader.EndOfStream)
+                {
+                    yield return csvreader.ReadLine();
+                }
+            }
+        }
+
+        private Dictionary<string, string> ParseMapping(string sourceToDestinationPropertyMapping)
         {
             var dictList = new Dictionary<string, string>();
             var mappings = sourceToDestinationPropertyMapping.Split(',');
@@ -236,22 +164,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
             }
 
             return dictList;
-        }
-
-        private static JobProfileImporting ConvertSingleLineToJobProfileImporting(string singleLine)
-        {
-            var jobProfileImporting = new JobProfileImporting();
-            var singleLineParts = singleLine.Split(',');
-
-            jobProfileImporting.UrlName = singleLineParts[0].Trim().TrimStart('/');
-            jobProfileImporting.CourseKeywords = singleLineParts[1].Trim();
-
-            return jobProfileImporting;
-        }
-
-        private async Task<IEnumerable<JobProfileImporting>> GetAllJobProfilesBySourcePropertiesAsync(bool includeRelatedCareers)
-        {
-            return await bauJobProfileRepository.GetAllJobProfilesBySourcePropertiesAsync(includeRelatedCareers);
         }
 
         #endregion Non Action Methods

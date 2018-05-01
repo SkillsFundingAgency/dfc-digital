@@ -17,7 +17,7 @@ namespace DFC.Digital.Repository.BAUOdataRepository
 
             if (includeRelatedCareers)
             {
-                nextPage += "&$expand=RelatedCareers";
+                nextPage += "&$expand=RelatedCareers($select=UrlName)";
             }
 
             var bauJobProfilesList = new List<JobProfileImporting>();

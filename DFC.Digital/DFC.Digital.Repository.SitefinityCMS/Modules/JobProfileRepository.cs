@@ -1,15 +1,14 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public class JobProfileRepository : IJobProfileRepository
+    public class JobProfileRepository : IJobProfileRepository, IJobProfileImportRepository
     {
         #region Fields
 
@@ -67,58 +66,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public string AddOrUpdateJobProfileByProperties(JobProfileImporting bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
-        {
-            string actionTaken = string.Empty;
-
-            //var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
-
-            //if (betaProfile != null)
-            //{
-            //    if (disableUpdate)
-            //    {
-            //        actionTaken = "NOT updated as set in the preferencies.";
-            //    }
-            //    else
-            //    {
-            //        repository.UpdateOnImport(betaProfile, bauJobProfile, propertyMappings, changeComment, enforcePublishing);
-            //        actionTaken = "updated.";
-            //    }
-            //}
-            //else
-            //{
-            //    betaProfile = repository.CreateEntity();
-            //    betaProfile.UrlName = bauJobProfile.UrlName;
-            //    betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
-            //    foreach (var propertyMapping in propertyMappings)
-            //    {
-            //        betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
-            //    }
-
-            //    repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
-            //    actionTaken = "inserted.";
-            //}
-            // empty
-            return actionTaken;
-        }
-
-        public string UpdateRelatedCareers(JobProfileImporting bauJobProfile, string changeComment, bool enforcePublishing)
-        {
-            string actionTaken = string.Empty;
-            var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
-
-            if (betaProfile != null)
-            {
-                actionTaken = repository.UpdateRelatedCareers(betaProfile, bauJobProfile, changeComment, enforcePublishing);
-            }
-            else
-            {
-                actionTaken = "BETA JobProfile does not exist and cannot be updated.";
-            }
-
-            return actionTaken;
-        }
-
         public Type GetContentType()
         {
             return repository.GetContentType();
@@ -128,6 +75,74 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             return repository.GetProviderName();
         }
+
+        #endregion IJobProfileRepository Implementations
+
+        #region IJobProfileImportRepository Implementations
+
+        //public string AddOrUpdateJobProfileByProperties(JobProfileImporting bauJobProfile, Dictionary<string, string> propertyMappings, string changeComment, bool enforcePublishing, bool disableUpdate)
+        //{
+        //    string actionTaken = string.Empty;
+
+        //var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
+
+        //if (betaProfile != null)
+        //{
+        //    if (disableUpdate)
+        //    {
+        //        actionTaken = "NOT updated as set in the preferencies.";
+        //    }
+        //    else
+        //    {
+        //        repository.UpdateOnImport(betaProfile, bauJobProfile, propertyMappings, changeComment, enforcePublishing);
+        //        actionTaken = "updated.";
+        //    }
+        //}
+        //else
+        //{
+        //    betaProfile = repository.CreateEntity();
+        //    betaProfile.UrlName = bauJobProfile.UrlName;
+        //    betaProfile.SetPropertyValue("Title", bauJobProfile.Title);
+        //    foreach (var propertyMapping in propertyMappings)
+        //    {
+        //        betaProfile.SetValue(propertyMapping.Key, bauJobProfile.GetPropertyValue(propertyMapping.Value));
+        //    }
+
+        //    repository.AddOnImport(betaProfile, changeComment, enforcePublishing);
+        //    actionTaken = "inserted.";
+        //}
+        // empty
+        //    return actionTaken;
+        //}
+        public Task<IEnumerable<string>> ImportAsync(IEnumerable<JobProfile> jobProfiles, bool allowOverwrite, bool publish)
+        {
+            repository.AddOnImport
+        }
+
+        //public string UpdateRelatedCareers(JobProfileImporting bauJobProfile, string changeComment, bool enforcePublishing)
+        //{
+        //    string actionTaken = string.Empty;
+        //    var betaProfile = repository.Get(item => item.UrlName == bauJobProfile.UrlName && item.Status == ContentLifecycleStatus.Master);
+
+        //    if (betaProfile != null)
+        //    {
+        //        actionTaken = repository.UpdateRelatedCareers(betaProfile, bauJobProfile, changeComment, enforcePublishing);
+        //    }
+        //    else
+        //    {
+        //        actionTaken = "BETA JobProfile does not exist and cannot be updated.";
+        //    }
+
+        //    return actionTaken;
+        //}
+        public Task<IEnumerable<string>> UpdateRelatedCareersAsync(string jobProfileUrl, IEnumerable<string> relatedJobProfiles, bool publish)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion IJobProfileImportRepository Implementations
+
+        #region Private methods
 
         private JobProfile ConvertDynamicContent(DynamicContent dynamicContent)
         {
@@ -139,6 +154,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return null;
         }
 
-        #endregion IJobProfileRepository Implementations
+        #endregion Private methods
     }
 }

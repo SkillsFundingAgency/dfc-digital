@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DFC.Digital.Data.Model
+namespace DFC.Digital.Service.Import
 {
-   public class JobProfileImporting
+   public class LegacyJobProfile
     {
-        public JobProfileImporting()
-        {
-            RelatedCareers = new List<JobProfileImporting>();
-        }
-
         public Guid Id { get; set; }
 
         public string UrlName { get; set; }
@@ -34,6 +29,6 @@ namespace DFC.Digital.Data.Model
 
         public string CareerPathAndProgression { get; set; }
 
-        public IEnumerable<JobProfileImporting> RelatedCareers { get; set; }
+        public IList<string> RelatedCareers { get; set; }
     }
 }

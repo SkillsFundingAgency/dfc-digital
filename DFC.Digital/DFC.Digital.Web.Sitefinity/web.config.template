@@ -64,6 +64,9 @@ that is bundled with the nuget package under the tools folder.
     <!-- Bing  Cognitive API-->
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />
     <add key="DFC.Cognitive.BingSpellCheck.RequestEndPoint" value="https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?text={0}&amp;mode=spell&amp;mkt=en-gb" />
+  
+    <!-- BAU JobProfile API-->
+    <add key="DFC.Digital.BauJobprofileEndPoint" value="__bauJobprofileEndPoint__" />
   </appSettings>
   <system.web.webPages.razor>
     <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />

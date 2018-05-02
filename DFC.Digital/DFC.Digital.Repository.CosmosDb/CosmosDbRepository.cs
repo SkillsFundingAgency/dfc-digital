@@ -27,6 +27,11 @@ namespace DFC.Digital.Repository.CosmosDb
             Task.Run(() => documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(Database, DocumentCollection), entity));
         }
 
+        public Audit CreateEntity()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(Audit entity)
         {
             throw new NotImplementedException();

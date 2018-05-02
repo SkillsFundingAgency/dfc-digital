@@ -91,6 +91,9 @@
     <Compile Include="Extensions\InstrumentationExtensions.cs" />
     <Compile Include="FaultTolerance\FaultToleranceType.cs" />
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
+    <Compile Include="Interfaces\IOdataApiService.cs" />
+    <Compile Include="Interfaces\IODataQueryBuilder.cs" />
+    <Compile Include="Interfaces\ITokenClient.cs" />
     <Compile Include="Interfaces\ITolerancePolicy.cs" />
     <Compile Include="FaultTolerance\TolerancePolicy.cs" />
     <Compile Include="FaultTolerance\TransientFaultHandlingStrategy.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Utilities\HttpClientService.cs" />
     <Compile Include="Interfaces\IAsyncHelper.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
+    <Compile Include="Utilities\OdataFilterOperator.cs" />
     <Compile Include="Utilities\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>

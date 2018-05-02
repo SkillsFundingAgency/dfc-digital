@@ -241,10 +241,12 @@
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="Extensions\SitefinityDataExtensions.cs" />
+    <Compile Include="ManageBauJobProfilesService.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\JobProfileCategoryRepository.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverter.cs" />
     <Compile Include="Modules\JobProfileConverter.cs" />
+    <Compile Include="Modules\JobProfilePropertyExtensions.cs" />
     <Compile Include="Modules\JobProfileRelatedCareerConverter.cs" />
     <Compile Include="Modules\JobProfileSocCodeRepository.cs" />
     <Compile Include="Modules\JobProfileRepository.cs" />

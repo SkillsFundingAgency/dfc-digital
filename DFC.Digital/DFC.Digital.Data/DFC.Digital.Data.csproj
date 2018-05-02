@@ -83,6 +83,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
+    <Compile Include="Interfaces\IContentImportService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
     <Compile Include="Interfaces\IJobProfileCategoryRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
+    <Compile Include="Interfaces\IJobProfileImportRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
@@ -108,6 +110,8 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\ImportConfiguration.cs" />
+    <Compile Include="Model\PagedOdataResult.cs" />
     <Compile Include="Model\ServiceStatus.cs" />
     <Compile Include="Model\PreSearchFilterOperator.cs" />
     <Compile Include="Model\Audit.cs" />

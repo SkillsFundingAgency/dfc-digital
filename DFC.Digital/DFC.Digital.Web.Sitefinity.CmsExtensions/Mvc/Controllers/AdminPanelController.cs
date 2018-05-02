@@ -1,16 +1,15 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Admin Panel
@@ -19,10 +18,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     [ControllerToolboxItem(Name = "AdminPanel", Title = "Admin Panel", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
     public class AdminPanelController : BaseDfcController
     {
+        #region Private members
+
+        private readonly IWebAppContext webAppContext;
+
+        #endregion Private members
+
         #region Constructors
 
-        public AdminPanelController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public AdminPanelController(IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
+            this.webAppContext = webAppContext;
         }
 
         #endregion Constructors
@@ -67,7 +73,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             model.PageTitle = PageTitle;
             model.FirstParagraph = FirstParagraph;
             model.NotAllowedMessage = NotAllowedMessage;
-            model.IsAdmin = IsUserAdministrator();
+            model.IsAdmin = webAppContext.IsUserAdministrator;
 
             return View(model);
         }
@@ -77,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         {
             string resultText = string.Empty;
 
-            if (IsUserAdministrator())
+            if (webAppContext.IsUserAdministrator)
             {
                 try
                 {
@@ -115,14 +121,5 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Actions
-
-        #region Non Action Methods
-        private static bool IsUserAdministrator()
-        {
-            var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();
-            return userAdminRole != null ? true : false;
-        }
-
-        #endregion Non Action Methods
     }
 }

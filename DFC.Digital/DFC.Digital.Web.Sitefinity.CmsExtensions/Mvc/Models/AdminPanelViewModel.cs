@@ -1,4 +1,9 @@
-﻿namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Mvc.Models
 {
     public class AdminPanelViewModel
     {

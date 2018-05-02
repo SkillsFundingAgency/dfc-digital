@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
@@ -28,6 +29,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 {
                     return false;
                 }
+            }
+        }
+
+        public bool IsUserAdministrator
+        {
+            get
+            {
+                var userAdminRole = Telerik.Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity().Roles.FirstOrDefault(x => x.Name == "Administrators");
+                return userAdminRole != null;
             }
         }
 

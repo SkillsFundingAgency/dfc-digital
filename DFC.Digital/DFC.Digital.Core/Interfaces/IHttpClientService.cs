@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Core
@@ -8,5 +9,9 @@ namespace DFC.Digital.Core
         bool AddHeader(string key, string value);
 
         Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker);
+
+        void SetBearerToken(string accessToken);
+
+        void Accept(MediaTypeWithQualityHeaderValue mediaTypeWithQualityHeaderValue);
     }
 }

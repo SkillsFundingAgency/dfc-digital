@@ -43,6 +43,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -363,12 +364,10 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Mvc\Controllers\AdminPanelController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
     <Compile Include="Mvc\Controllers\VocSurveyController.cs" />
     <Compile Include="Mvc\Controllers\DfcBreadcrumbController.cs" />
-    <Compile Include="Mvc\Models\AdminPanelViewModel.cs" />
     <Compile Include="Mvc\Models\BauSearchResultsViewModel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbLevel.cs" />
     <Compile Include="Mvc\Models\DfcBreadcrumbViewModel.cs" />
@@ -388,7 +387,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Mvc\Views\Web.config" />
+    <Content Include="Mvc\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mvc\Views\Shared\" />
@@ -403,7 +404,6 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <Content Include="Mvc\Views\DfcBreadcrumb\Index.cshtml" />
-    <Content Include="Mvc\Views\AdminPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
@@ -425,7 +425,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenAccessNuGet.targets" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

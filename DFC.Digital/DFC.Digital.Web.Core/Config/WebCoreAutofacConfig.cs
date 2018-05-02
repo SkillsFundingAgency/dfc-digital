@@ -3,6 +3,7 @@ using Autofac.Extras.NLog;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Repository.BAUOdataRepository;
 using DFC.Digital.Repository.CosmosDb;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
@@ -53,7 +54,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<GovUkNotifyAutofacModule>()
                 .RegisterModule<LmiFeedAutofacModule>()
                 .RegisterModule<CourseSearchProviderAutofacModule>()
-                .RegisterModule<SpellCheckAutofacModule>();
+                .RegisterModule<SpellCheckAutofacModule>()
+                .RegisterModule<BAUOdataRepositoryAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

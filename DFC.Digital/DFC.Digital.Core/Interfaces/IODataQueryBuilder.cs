@@ -7,7 +7,7 @@ namespace DFC.Digital.Core
     {
         Uri GetBaseUri();
 
-        Uri GetUri();
+        Uri GetQuery();
 
         void Select(IEnumerable<string> fields);
 

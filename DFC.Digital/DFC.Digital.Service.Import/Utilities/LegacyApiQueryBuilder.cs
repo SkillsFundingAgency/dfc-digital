@@ -37,7 +37,7 @@ namespace DFC.Digital.Service.Import.Utilities
             return config.GetConfig<Uri>(BAUJOBPROFILEENDPOINT);
         }
 
-        public Uri GetUri()
+        public Uri GetQuery()
         {
             throw new NotImplementedException();
         }

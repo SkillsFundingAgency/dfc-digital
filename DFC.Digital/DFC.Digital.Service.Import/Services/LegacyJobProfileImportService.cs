@@ -44,7 +44,7 @@ namespace DFC.Digital.Service.Import
             queryBuilder.OrderBy(nameof(LegacyJobProfile.UrlName));
 
             //get all
-            var importedProfiles = await legacyOdataApi.GetAllAsync(queryBuilder.GetUri());
+            var importedProfiles = await legacyOdataApi.GetAllAsync(queryBuilder.GetQuery());
             var profilesToCreate = mapper.Map<IEnumerable<JobProfile>>(importedProfiles);
 
             //create jp

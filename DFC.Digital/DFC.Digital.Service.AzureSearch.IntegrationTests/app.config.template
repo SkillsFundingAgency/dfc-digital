@@ -6,7 +6,7 @@
 
   <appSettings>
     <!-- DFC.Digital settings -->
-    <add key="DFC.Digital.JobProfileSearchIndex" value="__jobProfileSearchIndex__-integration" />
+    <add key="DFC.Digital.JobProfileSearchIndex" value="dfc-digital-integration" />
     <add key="DFC.Digital.SearchServiceName" value="__searchServiceName__" />
     <add key="DFC.Digital.SearchServiceAdminAPIKey" value="__searchServiceAdminApiKey__" />
   </appSettings>

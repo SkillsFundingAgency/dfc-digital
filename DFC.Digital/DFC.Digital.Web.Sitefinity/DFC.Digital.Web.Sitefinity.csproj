@@ -953,16 +953,19 @@
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\Pre Search Filters.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\Dynamic modules\Pre Search Filters\Structure\configs.sf" />
+    <Content Include="AdminApp\assets\manifest.json" />
+    <Content Include="OpenAccessNuGet.targets" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
-    <Content Include="AdminApp\assets\manifest.json" />
-    <Content Include="OpenAccessNuGet.targets" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
-    <None Include="packages.config" />
+    <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1207,7 +1210,6 @@
     <Content Include="App_Data\Sitefinity\Configuration\DynamicModulesConfig.config" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters.1.0.0.3.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.7.10.nupkg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_casestudy.scss" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_signpost.scss" />

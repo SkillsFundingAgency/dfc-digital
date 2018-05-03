@@ -961,6 +961,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="AdminApp\assets\manifest.json" />
     <Content Include="OpenAccessNuGet.targets" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
     <None Include="packages.config" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />

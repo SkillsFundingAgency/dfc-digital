@@ -7,7 +7,7 @@ $contentFolderPath = (Get-ChildItem $installPath -filter "content" | Select-Obje
 $addonFolderPath = (Get-ChildItem $installPath -recurse -filter $package.Id | Select-Object -first 1).FullName
 $addonRelativePath = $addonFolderPath.Replace($contentFolderPath, "")
 
-$projectFullName = $project.FullName
+$projectFullName = $project.FullName 
 $fileInfo = new-object -typename System.IO.FileInfo -ArgumentList $projectFullName
 $projectDirectory = $fileInfo.DirectoryName
 

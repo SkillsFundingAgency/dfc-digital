@@ -145,7 +145,7 @@
           "ParentSectionId": "51c4ecd0-ae49-4142-9103-e1a9ea3631d6",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "0ce61f96-759c-43ef-9592-44d5150a3078",
-          "LastModified": "2018-01-17T15:52:19.437Z"
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -176,7 +176,7 @@
           "ParentSectionId": "51c4ecd0-ae49-4142-9103-e1a9ea3631d6",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "b2c0bc4f-86ce-4956-ae5e-ee1e42aa2e48",
-          "LastModified": "2018-01-17T15:52:19.437Z"
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -210,7 +210,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "4eb04d09-4336-497a-85a8-4892a1ced564",
-          "LastModified": "2018-01-24T17:19:42.65Z"
+          "LastModified": "2018-01-24T14:41:27.4Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -242,7 +242,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "3daddd15-4dc0-4480-99ae-45581c7175d1",
-          "LastModified": "2018-01-26T15:01:52.25Z"
+          "LastModified": "2018-01-24T14:41:27.4Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -274,7 +274,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "86e52f12-4587-4ec8-858b-112e1eff5556",
-          "LastModified": "2018-01-24T17:19:42.65Z"
+          "LastModified": "2018-01-24T14:41:27.4Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -304,7 +304,7 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Yes / No\n                            ",
           "Id": "0463d2e3-e47a-47a3-a3c7-09b4b5e556cd",
-          "LastModified": "2018-01-26T17:21:21.407Z"
+          "LastModified": "2018-01-29T12:07:58.823Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -336,7 +336,7 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "f145f633-b867-4e3c-8cd2-8196a177b082",
-          "LastModified": "2018-01-26T17:21:21.407Z"
+          "LastModified": "2018-01-29T12:07:58.823Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -368,7 +368,7 @@
           "ParentSectionId": "71e448d7-424e-497b-8971-8061feb5c11f",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "df071e72-05d0-4463-bcb1-3930bb125a2e",
-          "LastModified": "2018-01-26T17:21:21.407Z"
+          "LastModified": "2018-01-29T12:07:58.823Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -401,7 +401,7 @@
           "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "05492211-b285-4c7b-803b-249763979e89",
-          "LastModified": "2018-02-26T15:49:06.937Z"
+          "LastModified": "2018-02-27T11:45:54.133Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -435,7 +435,7 @@
           "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "d1d1d5d2-1eff-48df-9b65-7a7f9cc1557a",
-          "LastModified": "2018-02-26T15:49:06.937Z"
+          "LastModified": "2018-02-27T11:45:54.133Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -466,7 +466,7 @@
           "ParentSectionId": "b9cbdccf-0059-4985-a121-0464526bbfdb",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "2bcb42ce-b573-4733-8245-adece3da07ff",
-          "LastModified": "2018-02-20T15:37:06.107Z"
+          "LastModified": "2018-02-27T11:45:54.133Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -496,7 +496,7 @@
           "ParentSectionId": "eace01a1-d84a-454c-8661-17a88a19a750",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "9fa4599d-000e-4da3-ab84-8d6c02ba5466",
-          "LastModified": "2018-02-26T15:49:06.937Z"
+          "LastModified": "2018-02-27T11:45:54.133Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -526,7 +526,7 @@
           "ParentSectionId": "eace01a1-d84a-454c-8661-17a88a19a750",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "4b8de85b-1e8f-4c5c-9c42-e83d045e2769",
-          "LastModified": "2018-01-26T16:31:32.13Z"
+          "LastModified": "2018-01-29T12:07:58.823Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -557,7 +557,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "304b63e8-dfbe-417c-938b-39bafc105fc9",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -589,7 +589,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "c1b8c77c-017b-4315-85df-c4e869e863e7",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -621,7 +621,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "e0580852-b70d-40ba-b090-2fb858feeacd",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -653,7 +653,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "07f8da87-85c7-476d-9e50-9671c8928d05",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -685,7 +685,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "d633e2ef-316a-4cce-8e25-6acc1696a56a",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -717,7 +717,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "a5b01f5f-94bc-449c-a849-169d2f38efc6",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -749,7 +749,7 @@
           "ParentSectionId": "d4e5032d-ccee-4ebd-9221-9b17bf7e8010",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "5fca4295-af88-4684-8337-9bf8fa0f6df0",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2017-09-27T21:26:35.343Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -788,7 +788,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "52b1fb67-25f1-4669-ad54-dad4ac4498db",
-          "LastModified": "2017-12-29T13:02:02.227Z"
+          "LastModified": "2017-11-27T14:44:04.993Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -828,7 +828,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.Interest",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "3da09f36-9d01-459e-8a4e-332cf1500e27",
-          "LastModified": "2018-01-17T15:02:06.32Z"
+          "LastModified": "2018-01-10T08:59:34.747Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -868,7 +868,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.EntryQualification",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "f3217d0d-fe91-40cf-9851-5c06f38ee676",
-          "LastModified": "2018-01-22T17:13:05.863Z"
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -908,7 +908,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.TrainingRoute",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "43b486b6-c9ff-49ff-90c0-70f5989e79d2",
-          "LastModified": "2018-01-22T17:13:05.863Z"
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -948,7 +948,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.Enabler",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "8babc6bd-baad-4732-a79d-919f3a2a79f1",
-          "LastModified": "2018-01-22T17:13:05.863Z"
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -987,8 +987,8 @@
           "TypeUIName": "\n                                Related data\n                            ",
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.JobArea",
           "RelatedDataProvider": "sf-site-default-provider",
-          "Id": "9b552569-6988-4f6a-bb2e-49b246d7602e",
-          "LastModified": "2018-01-24T12:24:43.4Z"
+          "Id": "e20e7260-a014-4652-81eb-d77ef68015ce",
+          "LastModified": "2018-01-24T14:41:27.4Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1027,8 +1027,8 @@
           "TypeUIName": "\n                                Related data\n                            ",
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.PreferredTaskType",
           "RelatedDataProvider": "sf-site-default-provider",
-          "Id": "dc89b638-2059-4b69-9bca-7d8714960724",
-          "LastModified": "2018-01-24T12:25:57.293Z"
+          "Id": "f3ea654a-7873-41f4-ad95-f15cc060df1c",
+          "LastModified": "2018-01-24T14:41:27.4Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1043,7 +1043,7 @@
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
           "DBType": "VARCHAR",
-          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
+          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
           "DBLength": "",
           "InstructionalChoice": "- Select -",
           "NumberUnit": "",
@@ -1058,8 +1058,8 @@
           "ParentSectionId": "258da625-4d7b-44d7-adb1-38a4ff685d2c",
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
-          "Id": "aeb4f46b-0bb9-4d1b-88c5-c1ec7dfbfe8c",
-          "LastModified": "2018-01-22T17:13:05.863Z"
+          "Id": "524960e3-db6b-499a-9603-c9f0c8d43135",
+          "LastModified": "2018-01-22T08:33:59.583Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1075,7 +1075,7 @@
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
           "DBType": "BIT",
-          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
+          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
           "DBLength": "",
           "InstructionalChoice": "- Select -",
           "NumberUnit": "",
@@ -1089,8 +1089,38 @@
           "ChoiceRenderType": "",
           "ParentSectionId": "258da625-4d7b-44d7-adb1-38a4ff685d2c",
           "TypeUIName": "\n                                Yes / No\n                            ",
-          "Id": "5f6d5366-2d0f-46f2-8ca3-3e591f66417f",
-          "LastModified": "2018-01-22T17:13:05.863Z"
+          "Id": "aa18fb09-2859-4362-978b-a2078ea9059d",
+          "LastModified": "2018-01-22T08:33:59.583Z"
+        },
+        {
+          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
+          "Name": "IsImported",
+          "Title": "Is Imported",
+          "FieldType": 4,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "YesNo",
+          "LengthValidationMessage": "",
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
+          "DBType": "BIT",
+          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "IsImported field gets populated on importing JP from BAU. It’s used to prevent new incomplete JP getting served to the users.",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "ParentSectionId": "61da12d8-2f42-42fd-bc1c-3cf1ffd77738",
+          "TypeUIName": "\n                                Yes / No\n                            ",
+          "Id": "11ff422e-eb6c-4ad4-8434-a35903bee31e",
+          "LastModified": "2018-05-03T10:08:58.757Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -1284,8 +1314,17 @@
           "Id": "258da625-4d7b-44d7-adb1-38a4ff685d2c"
         },
         {
-          "Name": "MoreOptions",
+          "Name": "61da12d8-2f42-42fd-bc1c-3cf1ffd77738",
           "Ordinal": 7,
+          "Title": "Is Imported",
+          "IsExpandable": true,
+          "IsExpandedByDefault": true,
+          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
+          "Id": "61da12d8-2f42-42fd-bc1c-3cf1ffd77738"
+        },
+        {
+          "Name": "MoreOptions",
+          "Ordinal": 8,
           "Title": "More Options",
           "IsExpandable": true,
           "IsExpandedByDefault": false,
@@ -1298,7 +1337,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2018-02-26T15:49:06.937Z"
+      "LastModified": "2018-05-03T10:55:41.6Z"
     },
     {
       "DisplayName": "Apprenticeship Vacancy",
@@ -1436,7 +1475,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "cbbbabc2-115e-47c2-ae11-d72596ea7fc9",
-          "LastModified": "2017-10-05T15:14:59.537Z"
+          "LastModified": "2017-10-04T12:06:41.3Z"
         },
         {
           "ParentTypeId": "9ab610f3-35f4-4797-bd28-9bff899975e7",
@@ -1469,7 +1508,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "3c91aca7-4c2c-4193-8705-bd8c67304677",
-          "LastModified": "2017-10-05T15:14:59.537Z"
+          "LastModified": "2017-10-04T12:06:41.3Z"
         },
         {
           "ParentTypeId": "9ab610f3-35f4-4797-bd28-9bff899975e7",
@@ -1501,7 +1540,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "d360e2d1-3f3a-4a7a-88f2-dd78320dc626",
-          "LastModified": "2017-10-05T15:14:59.537Z"
+          "LastModified": "2017-10-04T12:06:41.3Z"
         },
         {
           "ParentTypeId": "9ab610f3-35f4-4797-bd28-9bff899975e7",
@@ -1713,7 +1752,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2018-02-26T15:49:06.937Z"
+      "LastModified": "2018-05-03T10:55:41.6Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -2015,7 +2054,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2018-02-26T15:49:06.937Z"
+      "LastModified": "2018-05-03T10:55:41.6Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

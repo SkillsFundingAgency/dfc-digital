@@ -42,7 +42,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
             if (!cachedJobProfiles.ContainsKey(key))
             {
                 var jobProfile = ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
-                cachedJobProfiles.Add(key, jobProfile);
+                if (jobProfile?.IsImported == false)
+                {
+                    cachedJobProfiles.Add(key, jobProfile);
+                }
             }
 
             return cachedJobProfiles[key];

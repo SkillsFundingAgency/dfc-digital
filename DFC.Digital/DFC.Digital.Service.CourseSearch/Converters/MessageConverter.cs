@@ -25,7 +25,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     },
                     RecordsPerPage = ConfigurationManager.AppSettings[Constants.CourseSearchPageSize],
                     PageNo = "1",
-                    SortBy = SortType.S,
+                    SortBy = SortType.A,
                     SortBySpecified = true
                 }
             };

@@ -53,6 +53,10 @@
 
         public string SalaryExperiencedText { get; set; }
 
+        public string SalaryContextLink { get; set; }
+
+        public string SalaryContextText { get; set; }
+
         public string MaxAndMinHoursAreBlankText { get; set; }
 
         public string HoursTimePeriodText { get; set; }

@@ -17,6 +17,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             List<Task> salaryPopulation = new List<Task>();
             foreach (var item in documents)
             {
+                bool itemIsImported = false;
+                bool result;
+                if (bool.TryParse(item.GetValue(nameof(JobProfileIndex.IsImported))?.ToString(), out result))
+                {
+                    itemIsImported = result;
+                }
+
                 //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
                 var jobProfileIndex = new JobProfileIndex
                 {
@@ -27,13 +34,17 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                     Overview = item.GetValue(nameof(JobProfileIndex.Overview))?.ToString(),
                     JobProfileCategories = item.GetValue(nameof(JobProfileIndex.JobProfileCategories)) as IEnumerable<string>,
                     JobProfileSpecialism = item.GetValue(nameof(JobProfileIndex.JobProfileSpecialism)) as IEnumerable<string>,
-                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>
+                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>,
+                    IsImported = itemIsImported
                 };
 
                 jobProfileIndexEnhancer.Initialise(jobProfileIndex, documents.Count() == 1);
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
                 salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
-                indexes.Add(jobProfileIndex);
+                if (jobProfileIndex.IsImported != true)
+                {
+                    indexes.Add(jobProfileIndex);
+                }
             }
 
             asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));

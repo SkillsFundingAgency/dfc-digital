@@ -19,7 +19,7 @@ The name of the source slot to swap from; defaults to staging
 The name of the destination slot to swap to; defaults to production
 
 .EXAMPLE
-Cancel-SwapWithPreview -AppName $appName -ResourceGroup $resourceGroup
+Cancel-SwapWithPreview -AppName $appName -ResourceGroupName $resourceGroup
 
 .LINK
 http://ruslany.net/2016/10/using-powershell-to-manage-azure-web-app-deployment-slots/
@@ -38,12 +38,10 @@ Param (
     [string]$targetSlot = 'production'
 )
 
-Import-Module (Resolve-Path -Path $PSScriptRoot\..\Modules\Helpers.psm1).Path
-
 $webapp = Get-AzureRmWebApp -ResourceGroupName $ResourceGroupName -name $AppName
 if ($webapp.TargetSwapSlot -eq $sourceSlot) {
-    Write-Log -LogLevel Information "Found swap in progress - targeting $sourceSlot - rejecting swap"
+    Write-Output "Found swap in progress - targeting $sourceSlot - rejecting swap"
     Switch-AzureRmWebAppSlot -ResourceGroupName $ResourceGroupName -Name $AppName -SourceSlotName $sourceSlot -DestinationSlotName $targetSlot -SwapWithPreviewAction ResetSlotSwap
 } else {
-    Write-Log -LogLevel Information "No swap in progress"
+    Write-Output "No swap in progress"
 }

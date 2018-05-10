@@ -19,7 +19,7 @@ The name of the source slot to swap from; defaults to staging
 The name of the destination slot to swap to; defaults to production
 
 .EXAMPLE
-Start-SwapWithPreview -AppName $appName -ResourceGroup $resourceGroup
+Start-SwapWithPreview -AppName $appName -ResourceGroupName $resourceGroup
 
 .LINK
 http://ruslany.net/2016/10/using-powershell-to-manage-azure-web-app-deployment-slots/
@@ -38,15 +38,13 @@ Param (
     [string] $targetSlot = 'production'
 )
 
-Import-Module (Resolve-Path -Path $PSScriptRoot\..\Modules\Helpers.psm1).Path
-
 $slotDetails = Get-AzureRmWebAppSlot -ResourceGroupName $ResourceGroupName -Name $AppName -Slot $sourceSlot
-Write-Log -LogLevel Information "Current config of $sourceSlot"
-Write-Log -LogLevel Information $slotDetails.SiteConfig.AppSettings
+Write-Output "Current config of $sourceSlot"
+Write-Output $slotDetails.SiteConfig.AppSettings
 
 Switch-AzureRmWebAppSlot -ResourceGroupName $ResourceGroupName -Name $AppName -SourceSlotName $sourceSlot -DestinationSlotName $targetSlot -SwapWithPreviewAction ApplySlotConfig
-Write-Log -LogLevel Information 'Swap with preview started'
+Write-Output 'Swap with preview started'
 
 $slotDetails = Get-AzureRmWebAppSlot -ResourceGroupName $ResourceGroupName -Name $AppName -Slot $sourceSlot
-Write-Log -LogLevel Information "Config of $sourceSlot after $targetSlot AppSettings applied"
-Write-Log -LogLevel Information $slotDetails.SiteConfig.AppSettings
+Write-Output "Config of $sourceSlot after $targetSlot AppSettings applied"
+Write-Output $slotDetails.SiteConfig.AppSettings

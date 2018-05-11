@@ -57,7 +57,5 @@ namespace DFC.Digital.Data.Model
 
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
-
-        public bool IsImported { get; set; }
     }
 }

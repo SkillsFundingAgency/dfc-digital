@@ -63,6 +63,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Text for Salary Experienced")]
         public string SalaryExperiencedText { get; set; } = "Experienced";
 
+        [DisplayName("Link for salary context")]
+        public string SalaryContextLink { get; set; } = "#";
+
+        [DisplayName("Text for salary context link")]
+        public string SalaryContextText { get; set; } = "What does this mean?";
+
         [DisplayName("Hours Text")]
         public string HoursText { get; set; } = "Typical hours";
 
@@ -135,6 +141,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.SalaryBlankText = SalaryBlankText;
             model.SalaryStarterText = SalaryStarterText;
             model.SalaryExperiencedText = SalaryExperiencedText;
+            model.SalaryContextLink = SalaryContextLink;
+            model.SalaryContextText = SalaryContextText;
             model.HoursText = HoursText;
             model.MaxAndMinHoursAreBlankText = MaxAndMinHoursAreBlankText;
             model.HoursTimePeriodText = HoursTimePeriodText;

@@ -15,11 +15,10 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             List<JobProfileIndex> indexes = new List<JobProfileIndex>();
             List<Task> salaryPopulation = new List<Task>();
-            foreach (var item in documents)
-            {
-                bool result;
-                bool itemIsImported = bool.TryParse(item.GetValue(nameof(JobProfileIndex.IsImported))?.ToString(), out result) ? result : false;
 
+            var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
+            foreach (var item in betaDocuments)
+            {
                 //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
                 var jobProfileIndex = new JobProfileIndex
                 {
@@ -36,10 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 jobProfileIndexEnhancer.Initialise(jobProfileIndex, documents.Count() == 1);
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
                 salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
-                if (itemIsImported != true)
-                {
-                    indexes.Add(jobProfileIndex);
-                }
+                indexes.Add(jobProfileIndex);
             }
 
             asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));

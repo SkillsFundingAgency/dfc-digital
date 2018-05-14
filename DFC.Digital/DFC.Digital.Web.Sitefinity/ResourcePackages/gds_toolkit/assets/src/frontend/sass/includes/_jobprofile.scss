@@ -59,6 +59,8 @@
         @include core-19;
         line-height: 22px;
         margin-bottom: 10px;
+        @extend %contain-floats;
+
 
         @media (max-width: 749px) {
             font-weight: bold;

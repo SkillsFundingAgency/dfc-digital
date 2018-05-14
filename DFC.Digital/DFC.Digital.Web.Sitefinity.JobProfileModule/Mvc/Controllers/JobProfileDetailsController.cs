@@ -64,10 +64,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string SalaryExperiencedText { get; set; } = "Experienced";
 
         [DisplayName("Link for salary context")]
-        public string SalaryContextLink { get; set; } = "#";
+        public string SalaryContextLink { get; set; }
 
         [DisplayName("Text for salary context link")]
-        public string SalaryContextText { get; set; } = "What does this mean?";
+        public string SalaryContextText { get; set; }
 
         [DisplayName("Hours Text")]
         public string HoursText { get; set; } = "Typical hours";

@@ -59,6 +59,8 @@
         @include core-19;
         line-height: 22px;
         margin-bottom: 10px;
+        @extend %contain-floats;
+
 
         @media (max-width: 749px) {
             font-weight: bold;
@@ -72,6 +74,20 @@
             @include core-14;
             margin-left: 5px;
             display: inline-block;
+        }
+
+        a {
+            font-size: 12px;
+            color: $careers-turquoise;
+            float: right;
+            top: 5px;
+            position: relative;
+            margin-bottom: 5px;
+
+            @media (max-width: 749px) {
+                float: left !important;
+                font-weight: normal !important;
+            }
         }
     }
 
@@ -120,7 +136,7 @@
                 text-align: right;
             }
         }
-}
+    }
 
     .job-profile-salary {
 

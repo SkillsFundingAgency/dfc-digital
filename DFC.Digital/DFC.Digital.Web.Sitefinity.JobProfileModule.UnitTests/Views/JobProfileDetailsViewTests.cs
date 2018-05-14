@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -79,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 SalaryExperienced = salaryExperienced,
                 SalaryBlankText = salaryBlankText,
                 SalaryStarterText = salaryStarterText,
-                SalaryExperiencedText = salaryExperiencedText
+                SalaryExperiencedText = salaryExperiencedText,
             };
 
             // Act
@@ -139,6 +140,38 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 // Display WorkingPattern
                 GetWorkingPatternText(htmlDom).Should().Contain(workingPattern);
             }
+        }
+
+        [Fact]
+        public void DFC3080JobProfileSalaryContextLink()
+        {
+            var indexView = new _MVC_Views_JobProfileDetails_Index_cshtml();
+
+            var model = new JobProfileDetailsViewModel
+            {
+                SalaryContextText = "context text",
+                SalaryContextLink = "contextlink",
+                SalaryStarter = 1000,
+                SalaryExperienced = 2000,
+                SalaryTextSpan = "Salary Text"
+            };
+
+            // Act
+            var htmlDom = indexView.RenderAsHtml(model);
+
+            // Asert
+            var salaryDiv = htmlDom.GetElementbyId("Salary");
+
+            IEnumerable<HtmlNode> links = null;
+
+            if (salaryDiv != null)
+            {
+              links = salaryDiv.Descendants("a");
+            }
+
+            links.Should().NotBeNull();
+            links.Count().Should().Be(1);
+            links.First().InnerText.Should().Be(model.SalaryContextText);
         }
 
         private static string GetHoursSummaryText(HtmlDocument htmlDom)

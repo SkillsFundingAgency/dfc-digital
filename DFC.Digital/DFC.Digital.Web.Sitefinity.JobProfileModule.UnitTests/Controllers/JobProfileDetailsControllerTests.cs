@@ -73,6 +73,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             vm.WorkingPattern.Should().BeEquivalentTo(dummyJobProfile.WorkingPattern);
                             vm.SalaryStarter.Should().Be(starterSalary);
                             vm.SalaryExperienced.Should().Be(experiencedSalary);
+                            vm.SalaryContextLink.Should().Be(jobprofileController.SalaryContextLink);
+                            vm.SalaryContextText.Should().Be(jobprofileController.SalaryContextText);
                         })
                         .AndNoModelErrors();
 
@@ -124,6 +126,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             vm.WorkingPattern.Should().BeEquivalentTo(dummyJobProfile.WorkingPattern);
                             vm.SalaryStarter.Should().Be(starterSalary);
                             vm.SalaryExperienced.Should().Be(experiencedSalary);
+                            vm.SalaryContextLink.Should().Be(jobprofileController.SalaryContextLink);
+                            vm.SalaryContextText.Should().Be(jobprofileController.SalaryContextText);
                         })
                         .AndNoModelErrors();
                 }

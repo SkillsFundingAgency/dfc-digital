@@ -66,7 +66,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 JobProfileCategoryIdCollection = content?.GetValueOrDefault<IList<Guid>>(RelatedJobProfileCategoriesField),
                 UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
                 DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl))
+                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl)),
+                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported))
             };
 
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();

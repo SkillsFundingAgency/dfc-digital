@@ -209,5 +209,7 @@ namespace DFC.Digital.Data.Model
         public string WorkingPattern { get; set; }
 
         public string WorkingPatternDetails { get; set; }
+
+        public bool? IsImported { get; set; }
     }
 }

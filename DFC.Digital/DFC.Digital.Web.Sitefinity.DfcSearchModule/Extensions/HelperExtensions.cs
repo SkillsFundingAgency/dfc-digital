@@ -15,7 +15,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             List<JobProfileIndex> indexes = new List<JobProfileIndex>();
             List<Task> salaryPopulation = new List<Task>();
-            foreach (var item in documents)
+
+            var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
+            foreach (var item in betaDocuments)
             {
                 //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
                 var jobProfileIndex = new JobProfileIndex

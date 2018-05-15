@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
 		DFC.Digital.Tests.runsettings = DFC.Digital.Tests.runsettings
 		Local.testsettings = Local.testsettings
+		RunOnCloud.testsettings = RunOnCloud.testsettings
 		stylecop.json = stylecop.json
 		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection

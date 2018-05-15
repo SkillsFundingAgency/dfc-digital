@@ -19,6 +19,12 @@
       },
       "subscriptionId": {
         "value": "__appSubscriptionId__"
-      }
+      },
+      "currentDatabaseName": {
+        "value": "__CurrentDatabaseName__"
+      },
+      "searchIndexVersion": {
+        "value": "__CurrentSearchIndexName__"
+      }        
     }
 }

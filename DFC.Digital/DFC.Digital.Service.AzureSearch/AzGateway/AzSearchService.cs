@@ -34,6 +34,11 @@ namespace DFC.Digital.Service.AzureSearch
 
         #region Implementations
 
+        public bool IndexExists(string indexName)
+        {
+            return searchClient.Indexes.Exists(indexName);
+        }
+
         public async Task EnsureIndexAsync(string indexName)
         {
             var definition = GetIndexDefenition(indexName);

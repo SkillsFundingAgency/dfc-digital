@@ -5,6 +5,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
     public class JobProfileSearchIndexConfig : ISearchIndexConfig
     {
-        public string Name => ConfigurationManager.AppSettings["DFC.Digital.JobProfileSearchIndex"];
+        public string Name => ConfigurationManager.AppSettings["DFC.Digital.JobProfileSearchIndex"]?.ToLower();
     }
 }

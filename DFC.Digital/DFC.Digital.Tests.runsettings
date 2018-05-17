@@ -34,11 +34,13 @@ Included items must then not match any entries in the exclude list to remain inc
               </Include>
               <Exclude>
                 <ModulePath>.*\\DFC\.Digital\.Data\.dll$</ModulePath>
+                <ModulePath>.*\\DFC\.Digital.*Tests\.dll$</ModulePath>
                 <ModulePath>.*\\DFC\.Digital.*\.UnitTests\.dll$</ModulePath>
                 <ModulePath>.*\\DFC\.Digital.*\.AcceptanceTest\.dll$</ModulePath>
                 <ModulePath>.*\\DFC\.Digital.*\.PerformanceTest\.dll$</ModulePath>
                 <ModulePath>.*\\DFC\.Digital.*\.SecurityTesting\.dll$</ModulePath>
                 <ModulePath>.*\\DFC\.Digital.*\.IntegrationTests\.dll$</ModulePath>
+                <ModulePath>.*\\DFC\.Digital\.AutomationTest\.Utilities\.dll$</ModulePath>
                 <ModulePath>.*\\Seleno\.BrowserStack\.SpecFlowPlugin\.dll$</ModulePath>
                 <ModulePath>.*\\Teststack\.Seleno\.dll$</ModulePath>
                 <ModulePath>.*\\Polly\.dll$</ModulePath>

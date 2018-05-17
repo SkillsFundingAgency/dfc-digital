@@ -5,6 +5,7 @@ using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class CoreAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

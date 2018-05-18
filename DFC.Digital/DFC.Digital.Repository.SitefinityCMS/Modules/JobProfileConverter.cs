@@ -64,11 +64,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
-                JobProfileCategoryIdCollection = content?.GetValueOrDefault<IList<Guid>>(RelatedJobProfileCategoriesField),
-                UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported))
+                JobProfileCategoryIdCollection = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField),
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
+                DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.DoesNotExistInBAU)),
+                BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.BAUSystemOverrideUrl)),
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported))
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();

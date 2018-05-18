@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitefinityRepositoryAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

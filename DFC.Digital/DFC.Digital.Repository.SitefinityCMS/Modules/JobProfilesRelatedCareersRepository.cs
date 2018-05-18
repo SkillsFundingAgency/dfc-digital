@@ -8,21 +8,24 @@ using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    internal class JobProfilesRelatedCareersRepository : IJobProfileRelatedCareersRepository
+    public class JobProfilesRelatedCareersRepository : IJobProfileRelatedCareersRepository
     {
         #region Fields
 
+        private const string RelatedCareersFieldName = "RelatedCareerProfiles";
         private readonly IDynamicModuleConverter<JobProfileRelatedCareer> converter;
         private readonly IDynamicModuleRepository<JobProfile> jobprofileRepository;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfilesRelatedCareersRepository(IDynamicModuleConverter<JobProfileRelatedCareer> converter, IDynamicModuleRepository<JobProfile> jobprofileRepository)
+        public JobProfilesRelatedCareersRepository(IDynamicModuleConverter<JobProfileRelatedCareer> converter, IDynamicModuleRepository<JobProfile> jobprofileRepository, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.converter = converter;
             this.jobprofileRepository = jobprofileRepository;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         #endregion Ctor
@@ -43,17 +46,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IEnumerable<JobProfileRelatedCareer> GetRelatedCareers(DynamicContent jobProfile, int maximumItemsToReturn)
         {
-            if (jobProfile != null)
-            {
-                IQueryable<DynamicContent> relatedCareerProfilesItem = jobProfile.GetRelatedItems<DynamicContent>("RelatedCareerProfiles")
-                    .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible).Take(maximumItemsToReturn);
+            var relatedCareerProfilesItem = dynamicContentExtensions.GetRelatedItems(jobProfile, RelatedCareersFieldName, maximumItemsToReturn);
 
-                if (relatedCareerProfilesItem != null)
+            if (relatedCareerProfilesItem != null)
+            {
+                if (relatedCareerProfilesItem.Any())
                 {
-                    if (relatedCareerProfilesItem.Any())
-                    {
-                        return relatedCareerProfilesItem.Select(item => converter.ConvertFrom(item));
-                    }
+                    return relatedCareerProfilesItem.Select(item => converter.ConvertFrom(item));
                 }
             }
 

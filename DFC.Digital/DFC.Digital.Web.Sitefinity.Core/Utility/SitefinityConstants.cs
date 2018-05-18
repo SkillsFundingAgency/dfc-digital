@@ -1,5 +1,6 @@
 ﻿namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class SitefinityConstants
     {
         /// <summary>

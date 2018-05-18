@@ -16,6 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     /// Used to bubble the exception to application level when Feather widget controls run into an exception
     /// </summary>
     /// <seealso cref="Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Routing.FeatherActionInvoker" />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class FeatherActionInvokerCustom : FeatherActionInvoker
     {
         private readonly IApplicationLogger logger;

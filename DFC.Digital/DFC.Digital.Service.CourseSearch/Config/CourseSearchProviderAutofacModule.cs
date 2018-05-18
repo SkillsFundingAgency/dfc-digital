@@ -4,6 +4,7 @@ using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class CourseSearchProviderAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

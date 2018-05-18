@@ -6,6 +6,7 @@ using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitefinityCurrentContext : ISitefinityCurrentContext
     {
         private PageData currentPage;

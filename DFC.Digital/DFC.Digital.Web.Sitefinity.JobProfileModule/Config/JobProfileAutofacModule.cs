@@ -7,6 +7,7 @@ using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class JobProfileAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

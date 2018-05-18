@@ -6,6 +6,7 @@ using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Service.Cognitive.BingSpellCheck.Config
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SpellCheckAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

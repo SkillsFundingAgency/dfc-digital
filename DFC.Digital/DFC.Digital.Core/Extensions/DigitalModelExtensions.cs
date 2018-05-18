@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace DFC.Digital.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class DigitalModelExtensions
     {
         public static string ToJson(this IDigitalDataModel model)

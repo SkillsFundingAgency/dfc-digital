@@ -1,5 +1,6 @@
 ﻿namespace DFC.Digital.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class Constants
     {
         public const string KeysSearchServiceName = "DFC.Digital.SearchServiceName";

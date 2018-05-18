@@ -9,6 +9,7 @@ using System.Configuration;
 
 namespace DFC.Digital.Service.AzureSearch
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AzSearchAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

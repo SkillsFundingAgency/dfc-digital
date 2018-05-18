@@ -11,5 +11,7 @@ namespace DFC.Digital.Data.Interfaces
         void DeleteIndex(string indexName);
 
         Task PopulateIndexAsync(IEnumerable<T> data);
+
+        bool IndexExists(string indexName);
     }
 }

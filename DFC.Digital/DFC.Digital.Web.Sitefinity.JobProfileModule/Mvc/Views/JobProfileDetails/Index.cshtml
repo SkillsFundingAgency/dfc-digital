@@ -22,6 +22,10 @@
                 {
                     <span>@Model.SalaryTextSpan</span>
                 }
+                @if (!string.IsNullOrEmpty(Model.SalaryContextLink) && !string.IsNullOrEmpty(Model.SalaryContextText))
+                {
+                    <a href='@Model.SalaryContextLink'>@Model.SalaryContextText</a>
+                }
             </h4>
             <div class="job-profile-salary job-profile-heroblock-content">
                 @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)

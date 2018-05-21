@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                 .ForMember(d => d.LinkText, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.LinkTarget, o => o.MapFrom(s => s.ContentField))
                 ;
-
+            CreateMap<JobProfile, JobProfileHowToBecomeViewModel>();
             CreateMap<PsfModel, PreSearchFiltersResultsModel>();
             CreateMap<PsfSection, FilterResultsSection>();
             CreateMap<PsfOption, FilterResultsOption>();

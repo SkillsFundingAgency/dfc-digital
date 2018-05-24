@@ -42,6 +42,71 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return relatedContent.Select(x => $"{x.UrlName}");
         }
 
+        public static List<InfoItem> GetRelatedInfoItems(DynamicContent content, string relatedField)
+        {
+            List<InfoItem> infoItems = new List<InfoItem>();
+            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    var infoItem = new InfoItem
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
+                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                    };
+                    infoItems.Add(infoItem);
+                }
+            }
+
+            return infoItems;
+        }
+
+        public static List<LinkItem> GetRelatedLinkItems(DynamicContent content, string relatedField)
+        {
+            List<LinkItem> linkItems = new List<LinkItem>();
+            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    var linkItem = new LinkItem
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(LinkItem.Title)),
+                        Url = relatedItem.GetValueOrDefault<Lstring>(nameof(LinkItem.Url))
+                    };
+                    linkItems.Add(linkItem);
+                }
+            }
+
+            return linkItems;
+        }
+
+        public static List<LinkItem> ParseLinkItems(string stringLinks)
+        {
+            List<LinkItem> linkItems = new List<LinkItem>();
+
+            if (!string.IsNullOrEmpty(stringLinks))
+            {
+                string[] links = stringLinks.Split('|');
+
+                if (links != null)
+                {
+                    foreach (var link in links)
+                    {
+                        var linkItem = new LinkItem
+                        {
+                            Title = link.Split('^')[0].Trim(),
+                            Url = link.Split('^')[1].Trim()
+                        };
+                        linkItems.Add(linkItem);
+                    }
+                }
+            }
+
+            return linkItems;
+        }
+
         public JobProfile ConvertFrom(DynamicContent content)
         {
             Stopwatch time = new Stopwatch();
@@ -71,8 +136,78 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
                 DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
                 BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported))
+                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported)),
+
+                // How To Become section
+                EntryRoutes = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.EntryRoutes)),
+
+                // UNIVERSITY
+                UniversityRelevantSubjects = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UniversityRelevantSubjects)),
+                UniversityFurtherRouteInfo = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UniversityFurtherRouteInfo)),
+
+                // choices
+                UniversityRequirements = (content?.GetValueOrDefault<ChoiceOption>(nameof(JobProfile.UniversityRequirements)))?.Text,
+
+                // related
+                RelatedUniversityRequirement = GetRelatedInfoItems(content, nameof(JobProfile.RelatedUniversityRequirement)),
+                SpecificUniversityLinks = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.SpecificUniversityLinks)),
+
+                // related
+                UniversityLinks = GetRelatedLinkItems(content, nameof(JobProfile.UniversityLinks)),
+
+                // related to be deleted
+                //Universities { get; set; }
+                UniversityInformation = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UniversityInformation)),
+                UniversityEntryRequirements = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UniversityEntryRequirements)),
+
+                // COLLEGE
+                CollegeRelevantSubjects = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CollegeRelevantSubjects)),
+                CollegeEntryRequirements = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CollegeEntryRequirements)),
+
+                // related
+                Colleges = GetRelatedInfoItems(content, nameof(JobProfile.Colleges)),
+                CollegeFindACourse = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CollegeFindACourse)),
+                CollegeFurtherRouteInfo = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CollegeFurtherRouteInfo)),
+
+                // APPRENTICESHIP
+                ApprenticeshipFurtherRouteInfo = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.ApprenticeshipFurtherRouteInfo)),
+                ApprenticeshipRelevantSubjects = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.ApprenticeshipRelevantSubjects)),
+
+                // related
+                Apprenticeships = GetRelatedInfoItems(content, nameof(JobProfile.Apprenticeships)),
+                ApprenticeshipEntryRequirements = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.ApprenticeshipEntryRequirements)),
+
+                // OTHER
+                Work = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Work)),
+                Volunteering = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Volunteering)),
+                DirectApplication = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.DirectApplication)),
+                OtherRoutes = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.OtherRoutes)),
+                AgeLimitation = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.AgeLimitation)),
+
+                // related
+                Restrictions = GetRelatedInfoItems(content, nameof(JobProfile.Restrictions)),
+
+                // choices
+                DBScheckReason = (content?.GetValueOrDefault<ChoiceOption>(nameof(JobProfile.DBScheckReason)))?.Text,
+                MedicalTestReason = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.MedicalTestReason)),
+                FullDrivingLicence = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.FullDrivingLicence)),
+                OtherRestrictions = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.OtherRestrictions)),
+                OtherRequirements = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.OtherRequirements)),
+
+                // related
+                CommonRegistrations = GetRelatedInfoItems(content, nameof(JobProfile.CommonRegistrations)),
+                OtherRegistration = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.OtherRegistration)),
+                ProfessionalAndIndustryBodies = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.ProfessionalAndIndustryBodies)),
+                CareerTips = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CareerTips)),
+                MoreInfo = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.MoreInfo)),
+                IsHTBCaDReady = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsHTBCaDReady)) ?? false
             };
+
+            jobProfile.SpecificUniversityLinkList = ParseLinkItems(jobProfile.SpecificUniversityLinks);
+            jobProfile.DBSCheck = jobProfile.Restrictions.FirstOrDefault(x => x.Title.Equals(nameof(JobProfile.DBSCheck), StringComparison.OrdinalIgnoreCase))?.Info;
+            jobProfile.Restrictions.Remove(jobProfile.Restrictions.SingleOrDefault(x => x.Title.Equals(nameof(JobProfile.DBSCheck), StringComparison.OrdinalIgnoreCase)));
+            jobProfile.MedicalTest = jobProfile.Restrictions.FirstOrDefault(x => x.Title.Equals(nameof(JobProfile.MedicalTest), StringComparison.OrdinalIgnoreCase))?.Info;
+            jobProfile.Restrictions.Remove(jobProfile.Restrictions.SingleOrDefault(x => x.Title.Equals(nameof(JobProfile.MedicalTest), StringComparison.OrdinalIgnoreCase)));
 
             var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
             if (socItem != null)
@@ -92,6 +227,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
 
             time.Stop();
+            jobProfile.EntryRoutes = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.HowToBecome = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.Skills = jobProfile.Skills + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.WhatYouWillDo = jobProfile.WhatYouWillDo + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";

@@ -45,41 +45,68 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #region Public Properties
 
-        [DisplayName("Salary Text")]
-        public string SalaryText { get; set; } = "Average salary";
+        [DisplayName("Section Title")]
+        public string SectionTitle { get; set; } = "How to become";
 
-        [DisplayName("Salary Text (Span)")]
-        public string SalaryTextSpan { get; set; } = "(per year)";
+        [DisplayName("Subsection University")]
+        public string SubsectionUniversity { get; set; } = "University";
 
-        [DisplayName("Text when Salary does not have values. If you change this value, you will also need to change the reciprocal value in JobProfileSearchBox widget on 'Search results' page.")]
-        public string SalaryBlankText { get; set; } = "Variable";
+        [DisplayName("Subsection University Requirements")]
+        public string SubsectionUniversityRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Text for Salary Starter")]
-        public string SalaryStarterText { get; set; } = "Starter";
+        [DisplayName("Subsection University More Information")]
+        public string SubsectionUniversityMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Text for Salary Experienced")]
-        public string SalaryExperiencedText { get; set; } = "Experienced";
+        [DisplayName("Subsection College")]
+        public string SubsectionCollege { get; set; } = "College";
 
-        [DisplayName("Link for salary context")]
-        public string SalaryContextLink { get; set; }
+        [DisplayName("Subsection College Requirements")]
+        public string SubsectionCollegeRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Text for salary context link")]
-        public string SalaryContextText { get; set; }
+        [DisplayName("Subsection College More Information")]
+        public string SubsectionCollegeMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Hours Text")]
-        public string HoursText { get; set; } = "Typical hours";
+        [DisplayName("Subsection Apprenticeship")]
+        public string SubsectionApprenticeship { get; set; } = "Apprenticeship";
 
-        [DisplayName("Max and Min hours set to blank text")]
-        public string MaxAndMinHoursAreBlankText { get; set; } = "Variable";
+        [DisplayName("Subsection Apprenticeship Requirements")]
+        public string SubsectionApprenticeshipRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Hours time period")]
-        public string HoursTimePeriodText { get; set; }
+        [DisplayName("Subsection Apprenticeship More Information")]
+        public string SubsectionApprenticeshipMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Working Pattern Text")]
-        public string WorkingPatternText { get; set; } = "You could work";
+        [DisplayName("Subsection Work")]
+        public string SubsectionWork { get; set; } = "Work";
 
-        [DisplayName("Working Pattern Span Text")]
-        public string WorkingPatternSpanText { get; set; }
+        [DisplayName("Subsection Volunteering")]
+        public string SubsectionVolunteering { get; set; } = "Volunteering";
+
+        [DisplayName("Subsection Direct Application")]
+        public string SubsectionDirectApplication { get; set; } = "Direct Application";
+
+        [DisplayName("Subsection Other Routes")]
+        public string SubsectionOtherRoutes { get; set; } = "Other Routes";
+
+        [DisplayName("Subsection Restrictions")]
+        public string SubsectionRestrictions { get; set; } = "Restrictions";
+
+        [DisplayName("Subsection Other Requirements")]
+        public string SubsectionOtherRequirements { get; set; } = "Other Requirements";
+
+        [DisplayName("Subsection Registration")]
+        public string SubsectionRegistration { get; set; } = "Registration";
+
+        [DisplayName("Subsection Industry Bodies, tips and more info (IBTMI)")]
+        public string SubsectionIndBodiesTipsMoreInfo { get; set; } = "Industry Bodies, tips and more info";
+
+        [DisplayName("Subsection (IBTMI) Professional and Industry Bodies")]
+        public string SubsectionIndBodiesTipsMoreInfoBodies { get; set; } = "Professional and Industry Bodies";
+
+        [DisplayName("Subsection (IBTMI) Tips")]
+        public string SubsectionIndBodiesTipsMoreInfoTips { get; set; } = "Tips";
+
+        [DisplayName("Subsection (IBTMI) More info")]
+        public string SubsectionIndBodiesTipsMoreInfoMoreInfo { get; set; } = "More info";
 
         #endregion Public Properties
 
@@ -132,19 +159,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 model = mapper.Map<JobProfileHowToBecomeViewModel>(CurrentJobProfile);
             }
 
-            //Map all the related Jobprofie fieldsin the model
-            model.SalaryText = SalaryText;
-            model.SalaryTextSpan = SalaryTextSpan;
-            model.SalaryBlankText = SalaryBlankText;
-            model.SalaryStarterText = SalaryStarterText;
-            model.SalaryExperiencedText = SalaryExperiencedText;
-            model.SalaryContextLink = SalaryContextLink;
-            model.SalaryContextText = SalaryContextText;
-            model.HoursText = HoursText;
-            model.MaxAndMinHoursAreBlankText = MaxAndMinHoursAreBlankText;
-            model.HoursTimePeriodText = HoursTimePeriodText;
-            model.WorkingPatternText = WorkingPatternText;
-            model.WorkingPatternSpanText = WorkingPatternSpanText;
+            model.SectionTitle = SectionTitle;
+            model.SubsectionUniversity = SubsectionUniversity;
+            model.SubsectionUniversityRequirements = SubsectionUniversityRequirements;
+            model.SubsectionUniversityMoreInformation = SubsectionUniversityMoreInformation;
+            model.SubsectionCollege = SubsectionCollege;
+            model.SubsectionCollegeRequirements = SubsectionCollegeRequirements;
+            model.SubsectionCollegeMoreInformation = SubsectionCollegeMoreInformation;
+            model.SubsectionApprenticeship = SubsectionApprenticeship;
+            model.SubsectionApprenticeshipRequirements = SubsectionApprenticeshipRequirements;
+            model.SubsectionApprenticeshipMoreInformation = SubsectionApprenticeshipMoreInformation;
+            model.SubsectionWork = SubsectionWork;
+            model.SubsectionVolunteering = SubsectionVolunteering;
+            model.SubsectionDirectApplication = SubsectionDirectApplication;
+            model.SubsectionOtherRoutes = SubsectionOtherRoutes;
+            model.SubsectionRestrictions = SubsectionRestrictions;
+            model.SubsectionOtherRequirements = SubsectionOtherRequirements;
+            model.SubsectionRegistration = SubsectionRegistration;
+            model.SubsectionIndBodiesTipsMoreInfo = SubsectionIndBodiesTipsMoreInfo;
+            model.SubsectionIndBodiesTipsMoreInfoBodies = SubsectionIndBodiesTipsMoreInfoBodies;
+            model.SubsectionIndBodiesTipsMoreInfoTips = SubsectionIndBodiesTipsMoreInfoTips;
+            model.SubsectionIndBodiesTipsMoreInfoMoreInfo = SubsectionIndBodiesTipsMoreInfoMoreInfo;
 
             return View("Index", model);
         }

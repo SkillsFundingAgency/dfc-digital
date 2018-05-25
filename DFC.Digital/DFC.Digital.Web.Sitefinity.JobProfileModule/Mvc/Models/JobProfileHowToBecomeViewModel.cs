@@ -35,40 +35,34 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         // related
         public List<InfoItem> RelatedUniversityRequirement { get; set; }
 
-        public string SpecificUniversityLinks { get; set; }
-
-        public List<LinkItem> SpecificUniversityLinkList { get; set; }
-
         // related
-        public List<LinkItem> UniversityLinks { get; set; }
-
-        // related to be deleted
-        //public string Universities { get; set; }
-        public string UniversityInformation { get; set; }
-
-        public string UniversityEntryRequirements { get; set; }
+        public List<LinkItem> RelatedUniversityLinks { get; set; }
 
         // COLLEGE
         public string CollegeRelevantSubjects { get; set; }
 
-        public string CollegeEntryRequirements { get; set; }
-
-        // related
-        public List<InfoItem> Colleges { get; set; }
-
-        public string CollegeFindACourse { get; set; }
-
         public string CollegeFurtherRouteInfo { get; set; }
 
-        // APPRENTICESHIP
-        public string ApprenticeshipFurtherRouteInfo { get; set; }
-
-        public string ApprenticeshipRelevantSubjects { get; set; }
+        // choices
+        public string CollegeRequirements { get; set; }
 
         // related
-        public List<InfoItem> Apprenticeships { get; set; }
+        public List<InfoItem> RelatedCollegeRequirements { get; set; }
 
-        public string ApprenticeshipEntryRequirements { get; set; }
+        public List<LinkItem> RelatedCollegeLinks { get; set; }
+
+        // APPRENTICESHIP
+        public string ApprenticeshipRelevantSubjects { get; set; }
+
+        public string ApprenticeshipFurtherRouteInfo { get; set; }
+
+        // choices
+        public string ApprenticeshipRequirements { get; set; }
+
+        // related
+        public List<InfoItem> RelatedApprenticeshipRequirements { get; set; }
+
+        public List<LinkItem> RelatedApprenticeshipLinks { get; set; }
 
         // OTHER
         public string Work { get; set; }
@@ -79,35 +73,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string OtherRoutes { get; set; }
 
-        public string AgeLimitation { get; set; }
-
         // related
-        public List<InfoItem> Restrictions { get; set; }
-
-        public string DBSCheck { get; set; }
-
-        public string DBScheckReason { get; set; }
-
-        public string MedicalTest { get; set; }
-
-        public string MedicalTestReason { get; set; }
-
-        public string FullDrivingLicence { get; set; }
-
-        public string OtherRestrictions { get; set; }
+        public List<InfoItem> RelatedRestrictions { get; set; }
 
         public string OtherRequirements { get; set; }
 
         // related
-        public List<InfoItem> CommonRegistrations { get; set; }
-
-        public string OtherRegistration { get; set; }
+        public List<InfoItem> RelatedRegistrations { get; set; }
 
         public string ProfessionalAndIndustryBodies { get; set; }
 
         public string CareerTips { get; set; }
 
-        public string MoreInfo { get; set; }
+        public string FurtherInformation { get; set; }
 
         #endregion JobProfile Data
 
@@ -143,17 +121,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string SubsectionRestrictions { get; set; }
 
+        public string SubsectionRestrictionsOpeningText { get; set; }
+
         public string SubsectionOtherRequirements { get; set; }
 
-        public string SubsectionRegistration { get; set; }
+        public string SubsectionMoreInfo { get; set; }
 
-        public string SubsectionIndBodiesTipsMoreInfo { get; set; }
+        public string SubsectionMoreInfoRegistration { get; set; }
 
-        public string SubsectionIndBodiesTipsMoreInfoBodies { get; set; }
+        public string SubsectionMoreInfoRegistrationOpeningText { get; set; }
 
-        public string SubsectionIndBodiesTipsMoreInfoTips { get; set; }
+        public string SubsectionMoreInfoTips { get; set; }
 
-        public string SubsectionIndBodiesTipsMoreInfoMoreInfo { get; set; }
+        public string SubsectionMoreInfoBodies { get; set; }
+
+        public string SubsectionMoreInfoFurtherInfo { get; set; }
 
         #endregion supporting fields
     }

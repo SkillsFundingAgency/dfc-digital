@@ -90,23 +90,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Subsection Restrictions")]
         public string SubsectionRestrictions { get; set; } = "Restrictions";
 
+        [DisplayName("Subsection Restrictions - Opening Text")]
+        public string SubsectionRestrictionsOpeningText { get; set; }
+
         [DisplayName("Subsection Other Requirements")]
         public string SubsectionOtherRequirements { get; set; } = "Other Requirements";
 
-        [DisplayName("Subsection Registration")]
-        public string SubsectionRegistration { get; set; } = "Registration";
+        [DisplayName("Subsection More information (MI)")]
+        public string SubsectionMoreInfo { get; set; } = "More information";
 
-        [DisplayName("Subsection Industry Bodies, tips and more info (IBTMI)")]
-        public string SubsectionIndBodiesTipsMoreInfo { get; set; } = "Industry Bodies, tips and more info";
+        [DisplayName("Subsection (MI) Registration")]
+        public string SubsectionMoreInfoRegistration { get; set; } = "Registration";
 
-        [DisplayName("Subsection (IBTMI) Professional and Industry Bodies")]
-        public string SubsectionIndBodiesTipsMoreInfoBodies { get; set; } = "Professional and Industry Bodies";
+        [DisplayName("Subsection (MI) Registration - Opening Text")]
+        public string SubsectionMoreInfoRegistrationOpeningText { get; set; }
 
-        [DisplayName("Subsection (IBTMI) Tips")]
-        public string SubsectionIndBodiesTipsMoreInfoTips { get; set; } = "Tips";
+        [DisplayName("Subsection (MI) Career Tips")]
+        public string SubsectionMoreInfoTips { get; set; } = "Career tips";
 
-        [DisplayName("Subsection (IBTMI) More info")]
-        public string SubsectionIndBodiesTipsMoreInfoMoreInfo { get; set; } = "More info";
+        [DisplayName("Subsection (MI) Professional and Industry Bodies")]
+        public string SubsectionMoreInfoBodies { get; set; } = "Professional and industry bodies";
+
+        [DisplayName("Subsection (MI) More info")]
+        public string SubsectionMoreInfoFurtherInfo { get; set; } = "Further information";
 
         #endregion Public Properties
 
@@ -174,12 +180,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.SubsectionDirectApplication = SubsectionDirectApplication;
             model.SubsectionOtherRoutes = SubsectionOtherRoutes;
             model.SubsectionRestrictions = SubsectionRestrictions;
+            model.SubsectionRestrictionsOpeningText = SubsectionRestrictionsOpeningText;
             model.SubsectionOtherRequirements = SubsectionOtherRequirements;
-            model.SubsectionRegistration = SubsectionRegistration;
-            model.SubsectionIndBodiesTipsMoreInfo = SubsectionIndBodiesTipsMoreInfo;
-            model.SubsectionIndBodiesTipsMoreInfoBodies = SubsectionIndBodiesTipsMoreInfoBodies;
-            model.SubsectionIndBodiesTipsMoreInfoTips = SubsectionIndBodiesTipsMoreInfoTips;
-            model.SubsectionIndBodiesTipsMoreInfoMoreInfo = SubsectionIndBodiesTipsMoreInfoMoreInfo;
+            model.SubsectionMoreInfo = SubsectionMoreInfo;
+            model.SubsectionMoreInfoRegistration = SubsectionMoreInfoRegistration;
+            model.SubsectionMoreInfoRegistrationOpeningText = SubsectionMoreInfoRegistrationOpeningText;
+            model.SubsectionMoreInfoBodies = SubsectionMoreInfoBodies;
+            model.SubsectionMoreInfoTips = SubsectionMoreInfoTips;
+            model.SubsectionMoreInfoFurtherInfo = SubsectionMoreInfoFurtherInfo;
 
             return View("Index", model);
         }

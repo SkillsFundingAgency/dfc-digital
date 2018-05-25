@@ -5,157 +5,217 @@
     @if (Model.IsHTBCaDReady)
     {
         @Html.Raw(Model.EntryRoutes)
-        <section class="job-profile-subsection" id="university">
-            <h3>@Model.SubsectionUniversity</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.UniversityRelevantSubjects)
-                @Html.Raw(Model.UniversityFurtherRouteInfo)
-                <h4>@Model.SubsectionUniversityRequirements</h4>
-                <p>@Model.UniversityRequirements</p>
-                <ul>
-                    @foreach (var requirement in Model.RelatedUniversityRequirement)
-                    {
-                        <li>@requirement.Info</li>
-                    }
-                </ul>
-                <h4>@Model.SubsectionUniversityMoreInformation</h4>
-                <ul class="list-link">
-                    @foreach (var specificUniversityLink in Model.SpecificUniversityLinkList)
-                    {
-                        <li><a class="htb-feature" href="@specificUniversityLink.Url">@specificUniversityLink.Title</a></li>
-                    }
-                    @foreach (var universityLink in Model.UniversityLinks)
-                    {
-                        <li><a class="htb-feature" href="@universityLink.Url">@universityLink.Title</a></li>
-                    }
-                </ul>
-            </div>
-        </section>
-        <section class="job-profile-subsection" id="college">
-            <h3>@Model.SubsectionCollege</h3>
-            <div class="job-profile-subsection-content">
-                <p>You could do a level 2, 3 or 4 course in web development. These can last from a few months to a year.</p>
-                <h4>@Model.SubsectionCollegeRequirements</h4>
-                <p>You'll usually need:</p>
-                <ul>
-                    <li>5 GCSEs at grades 9 to 4 (A* to C) including English and maths</li>
-                </ul>
-                <h4>@Model.SubsectionCollegeMoreInformation</h4>
-                <ul class="list-link">
-                    <li><a class="htb-feature" href="https://www.gov.uk/further-education-courses/financial-help">You may be able to get financial help to do a course.</a></li>
-                    <li><a class="htb-feature" href="https://nationalcareersservice.direct.gov.uk/course-directory/home">Find a web development course near you.</a></li>
-                </ul>
-            </div>
-        </section>
 
-        <section class="job-profile-subsection" id="apprenticeship">
-            <h3>@Model.SubsectionApprenticeship</h3>
-            <div class="job-profile-subsection-content">
-                <p>There are 3 levels of apprenticeship you could do in IT, software, web and telecoms professionals. These are <a href="https://www.gov.uk/apprenticeships-guide">intermediate, advanced and higher apprenticeship</a>. These could take up to 2 and a half years to complete.</p>
-                <p>Alternatively, if you have A levels, you could go straight into a higher apprenticeship lasting 18 months.</p>
-                <h4>@Model.SubsectionApprenticeshipRequirements</h4>
-                <p>You'll usually need:</p>
-                <ul class="list list-bullet">
-                    <li>5 GCSEs at grades 9 to 4 (A* to C) including English and maths</li>
-                    <li>2 to 3 A levels for a higher apprenticeship</li>
-                </ul>
-                <h4>@Model.SubsectionApprenticeshipMoreInformation</h4>
-                <ul class="list-link">
-                    <li><a href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels" class="htb-feature">You may be able to use equivalent level qualifications to get onto a course.</a></li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="work">
-            <h3>@Model.SubsectionWork</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.Work)
-            </div>
-        </section>
-
-
-        <section class="job-profile-subsection" id="volunteering">
-            <h3>@Model.SubsectionVolunteering</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.Volunteering)
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="directapplication">
-            <h3>@Model.SubsectionDirectApplication</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.DirectApplication)
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="otherroutes">
-            <h3>@Model.SubsectionOtherRoutes</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.OtherRoutes)
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="restrictions">
-            <h3>@Model.SubsectionRestrictions</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.AgeLimitation)
-                @Html.Raw(Model.DBSCheck)
-                @Html.Raw(Model.DBScheckReason)
-                @Html.Raw(Model.MedicalTest)
-                @Html.Raw(Model.MedicalTestReason)
-                @Html.Raw(Model.FullDrivingLicence)
-                @Html.Raw(Model.OtherRestrictions)
-
-                @foreach (var restriction in Model.Restrictions)
-                {
-                    @Html.Raw(restriction.Info)
-                }
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="otherrequirements">
-            <h3>@Model.SubsectionOtherRequirements</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.OtherRequirements)
-            </div>
-        </section>
-
-        <section class="job-profile-subsection" id="registration">
-            <h3>@Model.SubsectionRegistration</h3>
-            <div class="job-profile-subsection-content">
-                @foreach (var registration in Model.CommonRegistrations)
-                {
-                    @Html.Raw(registration.Info)
-                }
-                @Html.Raw(Model.OtherRegistration)
-            </div>
-        </section>
-
-        if (!string.IsNullOrEmpty(Model.ProfessionalAndIndustryBodies) || !string.IsNullOrEmpty(Model.CareerTips) || !string.IsNullOrEmpty(Model.MoreInfo))
+        if (!string.IsNullOrEmpty(Model.UniversityRelevantSubjects) || !string.IsNullOrEmpty(Model.UniversityFurtherRouteInfo) || Model.RelatedUniversityRequirement.Any() || Model.RelatedUniversityLinks.Any())
         {
-            <section class="job-profile-subsection" id="sectionname">
-                <h3>@Model.SubsectionIndBodiesTipsMoreInfo</h3>
+            <section class="job-profile-subsection" id="university">
+                <h3>@Model.SubsectionUniversity</h3>
                 <div class="job-profile-subsection-content">
-                    @if (!string.IsNullOrEmpty(Model.ProfessionalAndIndustryBodies))
+                    @Html.Raw(Model.UniversityRelevantSubjects)
+                    @Html.Raw(Model.UniversityFurtherRouteInfo)
+
+                    @if (Model.RelatedUniversityRequirement.Any())
                     {
-                    <h4>@Model.SubsectionIndBodiesTipsMoreInfoBodies</h4>
-                        @Html.Raw(Model.ProfessionalAndIndustryBodies)
+                        <h4>@Model.SubsectionUniversityRequirements</h4>
+                        <p>@Model.UniversityRequirements</p>
+                        <ul>
+                            @foreach (var requirement in Model.RelatedUniversityRequirement)
+                            {
+                                <li>@requirement.Info</li>
+                            }
+                        </ul>
                     }
 
-                    @if (!string.IsNullOrEmpty(Model.CareerTips))
+                    @if (Model.RelatedUniversityLinks.Any())
                     {
-                    <h4>@Model.SubsectionIndBodiesTipsMoreInfoTips</h4>
-                        @Html.Raw(Model.CareerTips)
-                    }
-
-                    @if (!string.IsNullOrEmpty(Model.MoreInfo))
-                    {
-                    <h4>@Model.SubsectionIndBodiesTipsMoreInfoMoreInfo</h4>
-                        @Html.Raw(Model.MoreInfo)
+                        <h4>@Model.SubsectionUniversityMoreInformation</h4>
+                        <ul class="list-link">
+                            @foreach (var universityLink in Model.RelatedUniversityLinks)
+                            {
+                                <li><a class="htb-feature" href="@universityLink.Url">@universityLink.Title</a></li>
+                            }
+                        </ul>
                     }
                 </div>
             </section>
         }
+
+        if (!string.IsNullOrEmpty(Model.CollegeRelevantSubjects) || !string.IsNullOrEmpty(Model.CollegeFurtherRouteInfo) || Model.RelatedCollegeRequirements.Any() || Model.RelatedCollegeLinks.Any())
+        {
+            <section class="job-profile-subsection" id="college">
+                <h3>@Model.SubsectionCollege</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.CollegeRelevantSubjects)
+                    @Html.Raw(Model.CollegeFurtherRouteInfo)
+
+                    @if (Model.RelatedCollegeRequirements.Any())
+                    {
+                        <h4>@Model.SubsectionCollegeRequirements</h4>
+                        <p>@Model.CollegeRequirements</p>
+                        <ul>
+                            @foreach (var requirement in Model.RelatedCollegeRequirements)
+                            {
+                                <li>@requirement.Info</li>
+                            }
+                        </ul>
+                    }
+
+                    @if (Model.RelatedCollegeLinks.Any())
+                    {
+                        <h4>@Model.SubsectionCollegeMoreInformation</h4>
+                        <ul class="list-link">
+                            @foreach (var collegeLink in Model.RelatedCollegeLinks)
+                            {
+                                <li><a class="htb-feature" href="@collegeLink.Url">@collegeLink.Title</a></li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.ApprenticeshipRelevantSubjects) || !string.IsNullOrEmpty(Model.ApprenticeshipFurtherRouteInfo) || Model.RelatedApprenticeshipRequirements.Any() || Model.RelatedApprenticeshipLinks.Any())
+        {
+            <section class="job-profile-subsection" id="apprenticeship">
+                <h3>@Model.SubsectionApprenticeship</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.ApprenticeshipRelevantSubjects)
+                    @Html.Raw(Model.ApprenticeshipFurtherRouteInfo)
+
+                    @if (Model.RelatedApprenticeshipRequirements.Any())
+                    {
+                        <h4>@Model.SubsectionApprenticeshipRequirements</h4>
+                        <p>@Model.ApprenticeshipRequirements</p>
+                        <ul>
+                            @foreach (var requirement in Model.RelatedApprenticeshipRequirements)
+                            {
+                                <li>@requirement.Info</li>
+                            }
+                        </ul>
+                    }
+
+                    @if (Model.RelatedApprenticeshipLinks.Any())
+                    {
+                        <h4>@Model.SubsectionApprenticeshipMoreInformation</h4>
+                        <ul class="list-link">
+                            @foreach (var apprenticeshipLink in Model.RelatedApprenticeshipLinks)
+                            {
+                                <li><a class="htb-feature" href="@apprenticeshipLink.Url">@apprenticeshipLink.Title</a></li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.Work))
+        {
+            <section class="job-profile-subsection" id="work">
+                <h3>@Model.SubsectionWork</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.Work)
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.Volunteering))
+        {
+            <section class="job-profile-subsection" id="volunteering">
+                <h3>@Model.SubsectionVolunteering</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.Volunteering)
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.DirectApplication))
+        {
+            <section class="job-profile-subsection" id="directapplication">
+                <h3>@Model.SubsectionDirectApplication</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.DirectApplication)
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.OtherRoutes))
+        {
+            <section class="job-profile-subsection" id="otherroutes">
+                <h3>@Model.SubsectionOtherRoutes</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.OtherRoutes)
+                </div>
+            </section>
+        }
+
+        if (Model.RelatedRestrictions.Any())
+        {
+            <section class="job-profile-subsection" id="restrictions">
+                <h3>@Model.SubsectionRestrictions</h3>
+                <div class="job-profile-subsection-content">
+                    @if (!string.IsNullOrEmpty(Model.SubsectionRestrictionsOpeningText))
+                    {
+                        <p>@Model.SubsectionRestrictionsOpeningText</p>
+                    }
+                    <ul>
+                        @foreach (var restriction in Model.RelatedRestrictions)
+                        {
+                            <li>@Html.Raw(restriction.Info)</li>
+                        }
+                    </ul>
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.OtherRequirements))
+        {
+            <section class="job-profile-subsection" id="otherrequirements">
+                <h3>@Model.SubsectionOtherRequirements</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.OtherRequirements)
+                </div>
+            </section>
+        }
+
+        if (!string.IsNullOrEmpty(Model.ProfessionalAndIndustryBodies) || !string.IsNullOrEmpty(Model.CareerTips) || !string.IsNullOrEmpty(Model.FurtherInformation) || Model.RelatedRegistrations.Any())
+        {
+            <section class="job-profile-subsection" id="moreinfo">
+                <h3>@Model.SubsectionMoreInfo</h3>
+                <div class="job-profile-subsection-content">
+                    @if (Model.RelatedRegistrations.Any())
+                    {
+
+                        <h4>@Model.SubsectionMoreInfoRegistration</h4>
+                        if (!string.IsNullOrEmpty(Model.SubsectionMoreInfoRegistrationOpeningText))
+                        {
+                            <p>@Model.SubsectionMoreInfoRegistrationOpeningText</p>
+                        }
+                        <ul>
+                            @foreach (var registration in Model.RelatedRegistrations)
+                            {
+                                <li>@Html.Raw(registration.Info)</li>
+                            }
+                        </ul>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.CareerTips))
+                    {
+                        <h4>@Model.SubsectionMoreInfoTips</h4>
+                        @Html.Raw(Model.CareerTips)
+                    }
+                    @if (!string.IsNullOrEmpty(Model.ProfessionalAndIndustryBodies))
+                    {
+                        <h4>@Model.SubsectionMoreInfoBodies</h4>
+                        @Html.Raw(Model.ProfessionalAndIndustryBodies)
+                    }
+                    @if (!string.IsNullOrEmpty(Model.FurtherInformation))
+                    {
+                        <h4>@Model.SubsectionMoreInfoFurtherInfo</h4>
+                        @Html.Raw(Model.FurtherInformation)
+                    }
+                </div>
+            </section>
+        }
+
     }
     else
     {

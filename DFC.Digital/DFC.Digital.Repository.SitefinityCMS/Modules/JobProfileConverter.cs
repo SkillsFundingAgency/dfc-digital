@@ -191,7 +191,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
 
             time.Stop();
-            jobProfile.EntryRoutes = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
+            jobProfile.EntryRoutes = jobProfile.EntryRoutes + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.HowToBecome = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.Skills = jobProfile.Skills + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
             jobProfile.WhatYouWillDo = jobProfile.WhatYouWillDo + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";

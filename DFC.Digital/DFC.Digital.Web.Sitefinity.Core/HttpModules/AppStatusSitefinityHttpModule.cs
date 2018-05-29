@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AppStatusSitefinityHttpModule : SitefinityHttpModule
     {
         private static string SystemRestartingOrUpgradingHtml => GetTextByConfig("WillBeBackSoonPage");

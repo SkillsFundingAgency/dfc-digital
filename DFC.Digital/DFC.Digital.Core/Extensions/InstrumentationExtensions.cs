@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class InstrumentationExtensions
     {
         internal static string ReturnValueString(this IInvocation invocation)

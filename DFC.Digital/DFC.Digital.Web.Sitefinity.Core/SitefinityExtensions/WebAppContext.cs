@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class WebAppContext : IWebAppContext
     {
         public bool IsContentAuthoringSite => SitefinityContext.IsBackend;

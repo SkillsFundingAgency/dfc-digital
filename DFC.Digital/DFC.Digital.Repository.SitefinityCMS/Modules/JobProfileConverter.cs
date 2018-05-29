@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -23,21 +22,23 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository)
+        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         #endregion Ctor
 
-        public static IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
+        public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
         {
-            var relatedContent = content.GetRelatedItems<DynamicContent>(relatedField);
+            var relatedContent = dynamicContentExtensions.GetRelatedItems(content, relatedField, 100);
             return relatedContent.Select(x => $"{x.UrlName}");
         }
 
@@ -45,35 +46,35 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var jobProfile = new JobProfile
             {
-                Title = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Title)),
-                AlternativeTitle = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.AlternativeTitle)),
-                Overview = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Overview)),
-                IsLMISalaryFeedOverriden = content?.GetValueOrDefault<bool?>(nameof(JobProfile.IsLMISalaryFeedOverriden)),
-                SalaryStarter = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.SalaryStarter)),
-                SalaryExperienced = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.SalaryExperienced)),
-                MinimumHours = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.MinimumHours)),
-                MaximumHours = content?.GetValueOrDefault<decimal?>(nameof(JobProfile.MaximumHours)),
-                CareerPathAndProgression = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CareerPathAndProgression)),
-                Skills = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Skills)),
-                HowToBecome = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.HowToBecome)),
-                WhatYouWillDo = content?.GetValue<Lstring>(nameof(JobProfile.WhatYouWillDo)),
-                WorkingHoursPatternsAndEnvironment = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.WorkingHoursPatternsAndEnvironment)),
-                Salary = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.Salary)),
-                CourseKeywords = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.CourseKeywords)),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
+                AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.AlternativeTitle)),
+                Overview = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Overview)),
+                IsLMISalaryFeedOverriden = dynamicContentExtensions.GetFieldValue<bool?>(content, nameof(JobProfile.IsLMISalaryFeedOverriden)),
+                SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryExperienced)),
+                SalaryExperienced = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.SalaryStarter)),
+                MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MinimumHours)),
+                MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)),
+                CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression)),
+                Skills = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Skills)),
+                HowToBecome = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.HowToBecome)),
+                WhatYouWillDo = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),
+                WorkingHoursPatternsAndEnvironment = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WorkingHoursPatternsAndEnvironment)),
+                Salary = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Salary)),
+                CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CourseKeywords)),
 
                 //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
-                JobProfileCategoryIdCollection = content?.GetValueOrDefault<IList<Guid>>(RelatedJobProfileCategoriesField),
-                UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported))
+                JobProfileCategoryIdCollection = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField),
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
+                DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.DoesNotExistInBAU)),
+                BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.BAUSystemOverrideUrl)),
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported))
             };
 
-            var socItem = content.GetRelatedItems<DynamicContent>(SocField).FirstOrDefault();
+            var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode = socItem.GetValueOrDefault<Lstring>(nameof(JobProfile.SOCCode));
+                jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
             }
 
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();

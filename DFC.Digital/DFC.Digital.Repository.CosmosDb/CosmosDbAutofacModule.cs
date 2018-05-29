@@ -7,6 +7,7 @@ using System.Configuration;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class CosmosDbAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -1,25 +1,29 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class JobProfileCategoryRepository : TaxonomyRepository, IJobProfileCategoryRepository
+    public class JobProfileCategoryRepository : IJobProfileCategoryRepository
     {
         private const string JobprofileTaxonomyName = "job-profile-categories";
 
         private readonly ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService;
         private readonly IMapper mapper;
+        private readonly ITaxonomyRepository<Taxon> taxonomyRepository;
 
-        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobProfileSearchQueryService, IMapper mapper, ITaxonomyManager taxonomyManager) : base(taxonomyManager)
+        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, ITaxonomyRepository<Taxon> taxonomyRepository)
         {
-            this.jobprofileSearchQueryService = jobProfileSearchQueryService;
+            this.jobprofileSearchQueryService = jobprofileSearchQueryService;
             this.mapper = mapper;
+            this.taxonomyRepository = taxonomyRepository;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
@@ -43,7 +47,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<JobProfileCategory> GetJobProfileCategories()
         {
-            return GetMany(category => category.Taxonomy.Name == JobprofileTaxonomyName).Select(category => new JobProfileCategory
+            return taxonomyRepository.GetMany(category => category.Taxonomy.Name == JobprofileTaxonomyName).Select(category => new JobProfileCategory
             {
                 Name = category.Name,
                 Title = category.Title,
@@ -54,7 +58,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IEnumerable<JobProfileCategory> GetByIds(IList<Guid> categoryIds)
         {
-            var categories = GetMany(c => categoryIds.Contains(c.Id) && c.Taxonomy.Name == JobprofileTaxonomyName);
+            var categories = taxonomyRepository.GetMany(c => categoryIds.Contains(c.Id) && c.Taxonomy.Name == JobprofileTaxonomyName);
             foreach (var category in categories)
             {
                 yield return new JobProfileCategory
@@ -63,14 +67,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     Title = category.Title,
                     Description = category.Description,
                     Url = category.UrlName,
-                    Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
+                    Subcategories = taxonomyRepository.GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
                 };
             }
         }
 
         public JobProfileCategory GetByUrlName(string categoryUrlName)
         {
-            var category = Get(c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName);
+            var category = taxonomyRepository.Get(c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName);
 
             //if not found via the url return
             if (category == null)
@@ -84,7 +88,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Title = category.Title,
                 Description = category.Description,
                 Url = category.UrlName,
-                Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
+                Subcategories = taxonomyRepository.GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
             };
         }
 

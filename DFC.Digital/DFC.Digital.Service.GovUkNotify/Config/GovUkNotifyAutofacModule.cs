@@ -4,6 +4,7 @@ using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Service.GovUkNotify.Config
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class GovUkNotifyAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

@@ -17,55 +17,70 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         public const string Name = "DfcSearchService";
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
-        private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig indexConfig;
-        private IJobProfileIndexEnhancer jobProfileIndexEnhancer;
+        private readonly ISearchService<JobProfileIndex> searchService;
+        private readonly string index;
+        private readonly IJobProfileIndexEnhancer jobProfileIndexEnhancer;
 
         public DfcSearchService()
         {
-            //if (ObjectFactory.Container.IsRegistered<ILifetimeScope>())
-            //{
-            //    var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-            //    searchService = autofacContainer.Resolve<ISearchService<JobProfileIndex>>();
-            //    indexConfig = autofacContainer.Resolve<ISearchIndexConfig>();
-            //    jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
-            //    asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
-            //    mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
-            //}
         }
 
         public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)
         {
             this.searchService = searchService;
-            this.indexConfig = indexConfig;
+            this.index = indexConfig?.Name ?? string.Empty;
             this.jobProfileIndexEnhancer = jobProfileIndexEnhancer;
             this.asyncHelper = asyncHelper;
             this.mapper = mapper;
         }
 
-        public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
+        public override bool IndexExists(string indexName)
         {
-            if (!string.IsNullOrEmpty(name) && name.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
-                //TODO: think about mapping from sitefinity field defenitions to domain model?
-                //Or is it correct to keep them in sync anyway?
-                asyncHelper.Synchronise(() => this.searchService?.EnsureIndexAsync(name));
+                return searchService.IndexExists(index);
             }
             else
             {
-                base.CreateIndex(name, fieldDefinitions);
+                return base.IndexExists(indexName);
+            }
+        }
+
+        public override void DeleteIndex(string indexName)
+        {
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            {
+                searchService?.DeleteIndex(index);
+            }
+            else
+            {
+                base.DeleteIndex(indexName);
+            }
+        }
+
+        public override void CreateIndex(string indexName, IEnumerable<IFieldDefinition> fieldDefinitions)
+        {
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            {
+                //TODO: think about mapping from sitefinity field defenitions to domain model?
+                //Or is it correct to keep them in sync anyway?
+                asyncHelper.Synchronise(() => searchService?.EnsureIndexAsync(index));
+            }
+            else
+            {
+                base.CreateIndex(indexName, fieldDefinitions);
             }
         }
 
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
-            if (!string.IsNullOrEmpty(indexName) && indexName.Equals(indexConfig?.Name, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
             {
                 var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
 
                 //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
                 var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);
-                asyncHelper.Synchronise(() => this.searchService?.PopulateIndexAsync(copy));
+                asyncHelper.Synchronise(() => searchService?.PopulateIndexAsync(copy));
             }
             else
             {

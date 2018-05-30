@@ -5,7 +5,9 @@ Param(
     [Parameter(Mandatory = $true)]
     [String]$ServerName,
     [Parameter(Mandatory = $false)]
-    [String]$ReleaseNumber
+    [String]$ReleaseNumber,
+    [Parameter(Mandatory = $false)]
+    [String]$OriginalDbName
 )
 
 try {
@@ -36,7 +38,11 @@ try {
     $AppService = Get-AzureRmWebApp -ResourceGroupName $AppServiceResource.ResourceGroupName -Name $AppServiceName
     $DatabaseVersionAppSetting = ($AppService.SiteConfig.AppSettings | Where-Object {$_.Name -eq "DatabaseVersion"}).Value
     if (!$DatabaseVersionAppSetting){
-        throw "Could not determine current database version from DatabaseVersion setting"
+        if ($OriginalDbName){
+            $DatabaseVersionAppSetting = $OriginalDbName
+        } else {
+            throw "Could not determine current database version from DatabaseVersion setting and no OriginalDbName passed"
+        }
     }
 
     # --- Determine if this is the first run, if not remove the version number

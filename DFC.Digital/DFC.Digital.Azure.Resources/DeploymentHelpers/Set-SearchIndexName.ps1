@@ -3,7 +3,9 @@ Param(
     [Parameter(Mandatory = $true)]
     [String]$AppServiceName,
     [Parameter(Mandatory = $false)]
-    [String]$ReleaseNumber
+    [String]$ReleaseNumber,
+    [Parameter(Mandatory = $false)]
+    [String]$OriginalSIName
 )
 
 try {
@@ -25,7 +27,11 @@ try {
     $AppService = Get-AzureRmWebApp -ResourceGroupName $AppServiceResource.ResourceGroupName -Name $AppServiceName
     $SearchIndexVersionSetting = ($AppService.SiteConfig.AppSettings | Where-Object {$_.Name -eq "SearchIndexVersion"}).Value
     if (!$SearchIndexVersionSetting){
-        throw "Could not determine current search index version from SearchIndexVersion setting"
+        if ($OriginalSIName){
+            $SearchIndexVersionSetting = $OriginalSIName
+        } else {
+            throw "Could not determine current search index version from SearchIndexVersion setting and no OriginalSIName passed"
+        }
     }
 
     # --- Determine if this is the first run, if not remove the version number

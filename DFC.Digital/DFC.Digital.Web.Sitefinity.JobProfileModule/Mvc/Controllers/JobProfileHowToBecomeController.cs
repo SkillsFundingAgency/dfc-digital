@@ -46,7 +46,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Section Title")]
-        public string SectionTitle { get; set; } = "How to become";
+        public string MainSectionTitle { get; set; } = "How to become";
+
+        [DisplayName("Section Id- for anchor link href target")]
+        public string SectionId { get; set; } = "how-to-become";
 
         [DisplayName("Subsection University")]
         public string SubsectionUniversity { get; set; } = "University";
@@ -149,7 +152,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected override ActionResult GetEditorView()
         {
             // Sitefinity cannot handle async very well. So initialising it on current UI thread.
-            var model = mapper.Map<JobProfileHowToBecomeViewModel>(CurrentJobProfile);
+            var model = new JobProfileHowToBecomeViewModel();
+
+            LoadViewModel(model);
+
             return GetJobProfileDetailsView(model);
         }
 
@@ -165,10 +171,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 model = new JobProfileHowToBecomeViewModel();
             }
 
-            model.HowToBecomeText = CurrentJobProfile.HowToBecome;
-            model.IsHtbcaDReady = CurrentJobProfile.IsHTBCaDReady;
-            model.HowToBecome = CurrentJobProfile.HowToBecomes.FirstOrDefault();
-            model.SectionTitle = SectionTitle;
+            LoadViewModel(model);
+
+            return View("Index", model);
+        }
+
+        private void LoadViewModel(JobProfileHowToBecomeViewModel model)
+        {
+            if (CurrentJobProfile != null)
+            {
+                model.HowToBecomeText = CurrentJobProfile.HowToBecome;
+                model.IsHtbcaDReady = CurrentJobProfile.IsHTBCaDReady;
+                model.HowToBecome = CurrentJobProfile.HowToBecomes.FirstOrDefault();
+            }
+
+            model.MainSectionTitle = MainSectionTitle;
+            model.SectionId = SectionId;
             model.SubsectionUniversity = SubsectionUniversity;
             model.SubsectionUniversityRequirements = SubsectionUniversityRequirements;
             model.SubsectionUniversityMoreInformation = SubsectionUniversityMoreInformation;
@@ -191,8 +209,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.SubsectionMoreInfoBodies = SubsectionMoreInfoBodies;
             model.SubsectionMoreInfoTips = SubsectionMoreInfoTips;
             model.SubsectionMoreInfoFurtherInfo = SubsectionMoreInfoFurtherInfo;
-
-            return View("Index", model);
         }
 
         #endregion Actions

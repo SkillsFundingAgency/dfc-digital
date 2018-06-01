@@ -5,7 +5,9 @@
 <section class="job-profile-subsection" id="@ViewBag.SubsectionId">
     <h3>@ViewBag.SubsectionTitle</h3>
     <div class="job-profile-subsection-content">
+       
         @Html.Raw(Model.RouteSubjects)
+        
         @Html.Raw(Model.FurtherRouteInformation)
 
         @if (Model.EntryRequirements.Any())

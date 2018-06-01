@@ -1,8 +1,8 @@
 ﻿@using DFC.Digital.Data.Model
 @model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
 
-<section id="how-to-become">
-    <h2 class="heading-large job-profile-heading">@Model.SectionTitle</h2>
+<section id="@Model.SectionId">
+    <h2 class="heading-large job-profile-heading">@Model.MainSectionTitle</h2>
     @if (Model.IsHtbcaDReady)
     {
         @Html.Raw(Model.HowToBecome.IntroText)

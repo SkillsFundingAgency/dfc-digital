@@ -24,6 +24,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private const string Jobprofilesectioncaption = "Job Profile Section";
 
         /// <summary>
+        /// The jobprofilehowto become ssection caption
+        /// </summary>
+        private const string JobprofilehowtoBecomeSectionCaption = "JobProfile HowToBecome";
+
+        /// <summary>
         /// The job profile section title
         /// </summary>
         private const string Jobprofilesectiontitle = "Title";
@@ -36,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// The job profile apprenticeship title
         /// </summary>
-        private const string JobprofileApprenticeshipTitle = "MainSectionTitle";
+        private const string MainSectionTitle = "MainSectionTitle";
 
         /// <summary>
         /// The job profile apprenticeship section caption
@@ -46,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <summary>
         /// The job profile apprenticeship anchor target
         /// </summary>
-        private const string Jobprofileapprenticeshippropertyname = "SectionId";
+        private const string SectionId = "SectionId";
 
         private const string Jobprofileapprenticeships = "JobProfile Apprenticeships";
 
@@ -134,9 +139,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     },
                     new JobProfileSectionFilter
                     {
+                        SectionCaption = JobprofilehowtoBecomeSectionCaption,
+                        ContentFieldMember = SectionId,
+                        TitleMember = MainSectionTitle
+                    },
+                    new JobProfileSectionFilter
+                    {
                         SectionCaption = Jobprofileopportunitiessectioncaption,
-                        ContentFieldMember = Jobprofileapprenticeshippropertyname,
-                        TitleMember = JobprofileApprenticeshipTitle,
+                        ContentFieldMember = SectionId,
+                        TitleMember = MainSectionTitle,
                         SubFilters = new List<string> { Jobprofileapprenticeships, Jobprofilecourses }
                     },
                 });

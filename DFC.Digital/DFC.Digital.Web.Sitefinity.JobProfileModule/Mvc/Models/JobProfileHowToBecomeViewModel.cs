@@ -17,9 +17,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string HowToBecomeText { get; set; }
 
+        public string SectionId { get; set; }
+
         #region supporting fields
 
-        public string SectionTitle { get; set; }
+        public string MainSectionTitle { get; set; }
 
         public string SubsectionUniversity { get; set; }
 

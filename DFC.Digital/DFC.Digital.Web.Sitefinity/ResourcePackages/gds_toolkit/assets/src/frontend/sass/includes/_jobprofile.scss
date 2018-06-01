@@ -335,32 +335,6 @@
     border-color: $careers-turquoise;
 }
 
-
-.job-profile-sections {
-
-    section {
-
-        ul {
-            @extend .list;
-            @extend .list-bullet;
-        }
-
-        ol {
-            @extend .list;
-            @extend .list-number;
-        }
-
-    }
-    /* Fix App Feed Section to remove bullet points that are applied by default */
-    #current-opportunities {
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-    }
-}
-
-
 /* Search From Job Profile */
 .js-enabled {
     .job-profile-search {

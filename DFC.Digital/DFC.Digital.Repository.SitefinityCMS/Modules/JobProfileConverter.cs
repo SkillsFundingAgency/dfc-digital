@@ -45,46 +45,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return relatedContent.Select(x => $"{x.UrlName}");
         }
 
-        public static List<InfoItem> GetRelatedInfoItems(DynamicContent content, string relatedField)
-        {
-            List<InfoItem> infoItems = new List<InfoItem>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var infoItem = new InfoItem
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
-                    };
-                    infoItems.Add(infoItem);
-                }
-            }
-
-            return infoItems;
-        }
-
-        public static List<LinkItem> GetRelatedLinkItems(DynamicContent content, string relatedField)
-        {
-            List<LinkItem> linkItems = new List<LinkItem>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var linkItem = new LinkItem
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(LinkItem.Title)),
-                        Url = relatedItem.GetValueOrDefault<Lstring>(nameof(LinkItem.Url))
-                    };
-                    linkItems.Add(linkItem);
-                }
-            }
-
-            return linkItems;
-        }
-
         public JobProfile ConvertFrom(DynamicContent content)
         {
             Stopwatch time = new Stopwatch();

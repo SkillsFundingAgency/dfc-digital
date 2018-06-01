@@ -113,7 +113,6 @@
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />
-    <Compile Include="Model\LinkItem.cs" />
     <Compile Include="Model\MoreInformationLink.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\Restriction.cs" />

@@ -22,22 +22,29 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string IntroTextField = "EntryRoutes";
         private const string UniversityRelevantSubjectsField = "UniversityRelevantSubjects";
         private const string UniversityFurtherRouteInfoField = "UniversityFurtherRouteInfo";
-        private const string UniversityRequirementsField = "UniversityRequirements";
+        private const string UniversityRequirementsField = "UniversityEntryRequirements";
         private const string RelatedUniversityRequirementField = "RelatedUniversityRequirement";
         private const string RelatedUniversityLinksField = "RelatedUniversityLinks";
         private const string CollegeRelevantSubjectsField = "CollegeRelevantSubjects";
         private const string CollegeFurtherRouteInfoField = "CollegeFurtherRouteInfo";
-        private const string CollegeRequirementsField = "CollegeRequirements";
+        private const string CollegeRequirementsField = "CollegeEntryRequirements";
         private const string RelatedCollegeRequirementField = "RelatedCollegeRequirements";
         private const string RelatedCollegeLinksField = "RelatedCollegeLinks";
         private const string ApprenticeshipRelevantSubjectsField = "ApprenticeshipRelevantSubjects";
         private const string ApprenticeshipFurtherRouteInfoField = "ApprenticeshipFurtherRouteInfo";
-        private const string ApprenticeshipRequirementsField = "ApprenticeshipRequirements";
+        private const string ApprenticeshipRequirementsField = "ApprenticeshipEntryRequirements";
         private const string RelatedApprenticeshipRequirementField = "RelatedApprenticeshipRequirements";
         private const string RelatedApprenticeshipLinksField = "RelatedApprenticeshipLinks";
         private const string RelatedRegistrationsField = "RelatedRegistrations";
         private const string OtherRequirementsField = "OtherRequirements";
         private const string RelatedRestrictionsField = "RelatedRestrictions";
+
+        private readonly IRelatedClassificationsRepository classificationsRepository;
+
+        public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository)
+        {
+            this.classificationsRepository = classificationsRepository;
+        }
 
         public static IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
         {
@@ -147,7 +154,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         RouteName = RouteEntryType.University,
                         RouteSubjects = content?.GetValueOrDefault<Lstring>(UniversityRelevantSubjectsField),
                         FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(UniversityFurtherRouteInfoField),
-                        RouteRequirement = content?.GetValueOrDefault<ChoiceOption>(UniversityRequirementsField)?.Text,
+                        RouteRequirement = classificationsRepository.GetRelatedClassifications(content, UniversityRequirementsField, UniversityRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedUniversityRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedUniversityLinksField)
                     },
@@ -158,7 +165,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         RouteName = RouteEntryType.College,
                         RouteSubjects = content?.GetValueOrDefault<Lstring>(CollegeRelevantSubjectsField),
                         FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(CollegeFurtherRouteInfoField),
-                        RouteRequirement = content?.GetValueOrDefault<ChoiceOption>(CollegeRequirementsField)?.Text,
+                        RouteRequirement = classificationsRepository.GetRelatedClassifications(content, CollegeRequirementsField, CollegeRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedCollegeRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedCollegeLinksField)
                     },
@@ -169,7 +176,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         RouteName = RouteEntryType.Apprenticeship,
                         RouteSubjects = content?.GetValueOrDefault<Lstring>(ApprenticeshipRelevantSubjectsField),
                         FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(ApprenticeshipFurtherRouteInfoField),
-                        RouteRequirement = content?.GetValueOrDefault<ChoiceOption>(ApprenticeshipRequirementsField)?.Text,
+                        RouteRequirement = classificationsRepository.GetRelatedClassifications(content, ApprenticeshipRequirementsField, ApprenticeshipRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedApprenticeshipRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedApprenticeshipLinksField)
                     }

@@ -425,6 +425,10 @@
     <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
     <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileHowToBecome\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\RouteEntry.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\ExtraInformation.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\MoreInformation.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\Restrictions.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

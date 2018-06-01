@@ -1,0 +1,52 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
+    
+@if (!string.IsNullOrEmpty(Model.HowToBecome.ExtraInformation.Work))
+{
+<section class="job-profile-subsection" id="work">
+    <h3>@Model.SubsectionWork</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.HowToBecome.ExtraInformation.Work)
+    </div>
+</section>
+}
+
+@if (!string.IsNullOrEmpty(Model.HowToBecome.ExtraInformation.Volunteering))
+{
+<section class="job-profile-subsection" id="volunteering">
+    <h3>@Model.SubsectionVolunteering</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.HowToBecome.ExtraInformation.Volunteering)
+    </div>
+</section>
+}
+
+@if (!string.IsNullOrEmpty(Model.HowToBecome.ExtraInformation.DirectApplication))
+{
+<section class="job-profile-subsection" id="directapplication">
+    <h3>@Model.SubsectionDirectApplication</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.HowToBecome.ExtraInformation.DirectApplication)
+    </div>
+</section>
+}
+
+@if (!string.IsNullOrEmpty(Model.HowToBecome.ExtraInformation.OtherRoutes))
+{
+<section class="job-profile-subsection" id="otherroutes">
+    <h3>@Model.SubsectionOtherRoutes</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.HowToBecome.ExtraInformation.OtherRoutes)
+    </div>
+</section>
+}
+
+
+@if (!string.IsNullOrEmpty(Model.HowToBecome.ExtraInformation.OtherRequirements))
+{
+<section class="job-profile-subsection" id="otherrequirements">
+    <h3>@Model.SubsectionOtherRequirements</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.HowToBecome.ExtraInformation.OtherRequirements)
+    </div>
+</section>
+}

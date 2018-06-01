@@ -162,9 +162,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (model == null)
             {
-                model = mapper.Map<JobProfileHowToBecomeViewModel>(CurrentJobProfile);
+                model = new JobProfileHowToBecomeViewModel();
             }
 
+            model.HowToBecomeText = CurrentJobProfile.HowToBecome;
+            model.IsHtbcaDReady = CurrentJobProfile.IsHTBCaDReady;
+            model.HowToBecome = CurrentJobProfile.HowToBecomes.FirstOrDefault();
             model.SectionTitle = SectionTitle;
             model.SubsectionUniversity = SubsectionUniversity;
             model.SubsectionUniversityRequirements = SubsectionUniversityRequirements;

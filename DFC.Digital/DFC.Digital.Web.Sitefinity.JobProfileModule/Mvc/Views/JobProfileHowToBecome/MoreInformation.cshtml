@@ -1,0 +1,42 @@
+﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
+
+
+@if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.CareerTips) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.FurtherInformation) || Model.HowToBecome.Registrations.Any())
+{
+    <section class="job-profile-subsection" id="moreinfo">
+        <h3>@Model.SubsectionMoreInfo</h3>
+        <div class="job-profile-subsection-content">
+            @if (Model.HowToBecome.Registrations.Any())
+            {
+
+                <h4>@Model.SubsectionMoreInfoRegistration</h4>
+                if (!string.IsNullOrEmpty(Model.SubsectionMoreInfoRegistrationOpeningText))
+                {
+                    <p>@Model.SubsectionMoreInfoRegistrationOpeningText</p>
+                }
+                <ul>
+                    @foreach (var registration in Model.HowToBecome.Registrations)
+                    {
+                        <li>@Html.Raw(registration.Info)</li>
+                    }
+                </ul>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.CareerTips))
+            {
+                <h4>@Model.SubsectionMoreInfoTips</h4>
+                @Html.Raw(Model.HowToBecome.FurtherInformation.CareerTips)
+            }
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies))
+            {
+                <h4>@Model.SubsectionMoreInfoBodies</h4>
+                @Html.Raw(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies)
+            }
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.FurtherInformation))
+            {
+                <h4>@Model.SubsectionMoreInfoFurtherInfo</h4>
+                @Html.Raw(Model.HowToBecome.FurtherInformation.FurtherInformation)
+            }
+        </div>
+    </section>
+}

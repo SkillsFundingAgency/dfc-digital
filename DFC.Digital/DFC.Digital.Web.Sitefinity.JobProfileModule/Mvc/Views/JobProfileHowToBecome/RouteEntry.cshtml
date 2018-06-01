@@ -1,0 +1,36 @@
+﻿@model DFC.Digital.Data.Model.RouteEntry
+
+@if (!string.IsNullOrEmpty(Model.RouteSubjects) || !string.IsNullOrEmpty(Model.FurtherRouteInformation) || Model.EntryRequirements.Any() || Model.MoreInformationLinks.Any())
+{
+<section class="job-profile-subsection" id="@ViewBag.SubsectionId">
+    <h3>@ViewBag.SubsectionTitle</h3>
+    <div class="job-profile-subsection-content">
+        @Html.Raw(Model.RouteSubjects)
+        @Html.Raw(Model.FurtherRouteInformation)
+
+        @if (Model.EntryRequirements.Any())
+        {
+            <h4>@Model.RouteRequirement</h4>
+            <p>@ViewBag.Requirements</p>
+            <ul>
+                @foreach (var requirement in Model.EntryRequirements)
+                {
+                    <li>@requirement.Info</li>
+                }
+            </ul>
+        }
+
+        @if (Model.MoreInformationLinks.Any())
+        {
+            <h4>@ViewBag.SubsectionMoreInformation</h4>
+            <ul class="list-link">
+                @foreach (var informationLink in Model.MoreInformationLinks)
+                {
+                    <li><a class="htb-feature" href="@informationLink.Url">@informationLink.Title</a></li>
+                }
+            </ul>
+        }
+    </div>
+</section>
+}
+

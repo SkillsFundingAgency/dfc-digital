@@ -212,70 +212,7 @@ namespace DFC.Digital.Data.Model
 
         public bool? IsImported { get; set; }
 
-        // How To Become section
-        public string EntryRoutes { get; set; }
-
-        // UNIVERSITY
-        public string UniversityRelevantSubjects { get; set; }
-
-        public string UniversityFurtherRouteInfo { get; set; }
-
-        // choices
-        public string UniversityRequirements { get; set; }
-
-        // related
-        public List<InfoItem> RelatedUniversityRequirement { get; set; }
-
-        // realted
-        public List<LinkItem> RelatedUniversityLinks { get; set; }
-
-        // COLLEGE
-        public string CollegeRelevantSubjects { get; set; }
-
-        public string CollegeFurtherRouteInfo { get; set; }
-
-        // choices
-        public string CollegeRequirements { get; set; }
-
-        // related
-        public List<InfoItem> RelatedCollegeRequirements { get; set; }
-
-        public List<LinkItem> RelatedCollegeLinks { get; set; }
-
-        // APPRENTICESHIP
-        public string ApprenticeshipRelevantSubjects { get; set; }
-
-        public string ApprenticeshipFurtherRouteInfo { get; set; }
-
-        // choices
-        public string ApprenticeshipRequirements { get; set; }
-
-        // related
-        public List<InfoItem> RelatedApprenticeshipRequirements { get; set; }
-
-        public List<LinkItem> RelatedApprenticeshipLinks { get; set; }
-
-        // OTHER
-        public string Work { get; set; }
-
-        public string Volunteering { get; set; }
-
-        public string DirectApplication { get; set; }
-
-        public string OtherRoutes { get; set; }
-
-        public List<InfoItem> RelatedRestrictions { get; set; }
-
-        public string OtherRequirements { get; set; }
-
-        // related
-        public List<InfoItem> RelatedRegistrations { get; set; }
-
-        public string ProfessionalAndIndustryBodies { get; set; }
-
-        public string CareerTips { get; set; }
-
-        public string FurtherInformation { get; set; }
+        public IQueryable<HowToBecome> HowToBecomes { get; set; }
 
         public bool IsHTBCaDReady { get; set; }
     }

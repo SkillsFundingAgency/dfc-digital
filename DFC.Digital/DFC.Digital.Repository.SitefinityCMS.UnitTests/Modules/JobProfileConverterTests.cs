@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using FakeItEasy;
 using FluentAssertions;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -10,10 +11,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
     public class JobProfileConverterTests
     {
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
+        private readonly IContentPropertyConverter<HowToBecome> htbPropertyConverter;
 
         public JobProfileConverterTests()
         {
             relatedClassificationsRepository = A.Fake<IRelatedClassificationsRepository>();
+            htbPropertyConverter = A.Fake<IContentPropertyConverter<HowToBecome>>();
         }
 
         //[Fact]
@@ -30,7 +33,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         public void DynamicModuleRepositoryTest()
         {
             var dynamicContentFake = A.Fake<DynamicContent>();
-            var jobProfileConverter = new JobProfileConverter(relatedClassificationsRepository);
+            var jobProfileConverter = new JobProfileConverter(relatedClassificationsRepository, htbPropertyConverter);
 
             var expectedJobProfile = new JobProfile
             {

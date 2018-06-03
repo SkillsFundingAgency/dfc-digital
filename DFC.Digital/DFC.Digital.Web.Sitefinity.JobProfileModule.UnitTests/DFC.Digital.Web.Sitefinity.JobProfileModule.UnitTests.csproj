@@ -143,6 +143,7 @@
     <Compile Include="Views\JobProfileAnchorViewTests.cs" />
     <Compile Include="Views\JobProfileCourseOpportunityViewTests.cs" />
     <Compile Include="Views\JobProfileDetailsViewTests.cs" />
+    <Compile Include="Views\JobProfileHowToBecomeViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />
     <Compile Include="Views\PsfSearchViewTests.cs" />
     <Compile Include="Views\JobProfileSettingsAndPreviewViewTests.cs" />

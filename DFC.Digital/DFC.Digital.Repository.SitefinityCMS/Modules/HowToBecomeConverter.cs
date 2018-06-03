@@ -46,86 +46,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.classificationsRepository = classificationsRepository;
         }
 
-        public static IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
-        {
-            var linkItems = new List<MoreInformationLink>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var linkItem = new MoreInformationLink
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Title)),
-                        Url = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Url))
-                    };
-                    linkItems.Add(linkItem);
-                }
-            }
-
-            return linkItems;
-        }
-
-        public static IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)
-        {
-          var requirements = new List<EntryRequirement>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var infoItem = new EntryRequirement
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
-                    };
-                    requirements.Add(infoItem);
-                }
-            }
-
-            return requirements;
-        }
-
-        public static IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
-        {
-            var restrictions = new List<Restriction>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var infoItem = new Restriction
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
-                    };
-                    restrictions.Add(infoItem);
-                }
-            }
-
-            return restrictions;
-        }
-
-        public static IEnumerable<Registration> GetRegistrations(DynamicContent content, string relatedField)
-        {
-            var requirements = new List<Registration>();
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    var infoItem = new Registration
-                    {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
-                    };
-                    requirements.Add(infoItem);
-                }
-            }
-
-            return requirements;
-        }
-
         public HowToBecome ConvertFrom(DynamicContent content)
         {
             return new HowToBecome
@@ -185,6 +105,88 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
                 OtherRequirements = content?.GetValueOrDefault<Lstring>(OtherRequirementsField)
             };
+        }
+
+        private static IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
+        {
+            var linkItems = new List<MoreInformationLink>();
+            var relatedItems = RelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    linkItems.Add(new MoreInformationLink
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Title)),
+                        Url = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Url))
+                    });
+                }
+            }
+
+            return linkItems;
+        }
+
+        private static IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)
+        {
+          var requirements = new List<EntryRequirement>();
+            var relatedItems = RelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    requirements.Add(new EntryRequirement
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
+                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return requirements;
+        }
+
+        private static IQueryable<DynamicContent> RelatedItems(DynamicContent content, string relatedField)
+        {
+            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
+            return relatedItems;
+        }
+
+        private static IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
+        {
+            var restrictions = new List<Restriction>();
+            var relatedItems = RelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    restrictions.Add(new Restriction
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
+                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return restrictions;
+        }
+
+        private static IEnumerable<Registration> GetRegistrations(DynamicContent content, string relatedField)
+        {
+            var requirements = new List<Registration>();
+            var relatedItems = RelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    requirements.Add(new Registration
+                    {
+                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
+                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return requirements;
         }
     }
 }

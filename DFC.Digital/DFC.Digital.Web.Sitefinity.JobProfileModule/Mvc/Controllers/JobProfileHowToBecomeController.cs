@@ -24,8 +24,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     {
         #region Private Fields
 
-        private readonly IMapper mapper;
-
         #endregion Private Fields
 
         #region Constructors
@@ -34,11 +32,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IWebAppContext webAppContext,
             IJobProfileRepository jobProfileRepository,
             IApplicationLogger applicationLogger,
-            ISitefinityPage sitefinityPage,
-            IMapper mapper)
+            ISitefinityPage sitefinityPage)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
-            this.mapper = mapper;
         }
 
         #endregion Constructors

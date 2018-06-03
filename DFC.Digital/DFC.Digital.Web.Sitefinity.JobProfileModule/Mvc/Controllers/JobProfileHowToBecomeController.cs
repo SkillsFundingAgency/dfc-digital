@@ -151,7 +151,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         protected override ActionResult GetEditorView()
         {
-            // Sitefinity cannot handle async very well. So initialising it on current UI thread.
             return GetJobProfileDetailsView();
         }
 
@@ -164,8 +163,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private JobProfileHowToBecomeViewModel LoadViewModel()
         {
-            var model = new JobProfileHowToBecomeViewModel();
-            model = mapper.Map<JobProfileHowToBecomeViewModel>(this);
+            var model = mapper.Map<JobProfileHowToBecomeViewModel>(this);
 
             if (CurrentJobProfile != null)
             {

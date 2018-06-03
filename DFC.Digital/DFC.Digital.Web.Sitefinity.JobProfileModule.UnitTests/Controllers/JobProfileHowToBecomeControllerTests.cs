@@ -6,6 +6,8 @@ using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -69,6 +71,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
             //Act
             var jobprofilehtbController = new JobProfileHowToBecomeController(webAppContextFake, jobProfileRepositoryFake, applicationLoggerFake, sitefinityPageFake, mapper);
             var indexWithUrlNameMethodCall = jobprofilehtbController.WithCallTo(c => c.Index(urlName));
+
+            //Assert
+            if (validJobProfile)
+            {
+                indexWithUrlNameMethodCall
+                    .ShouldRenderDefaultView()
+                    .WithModel<JobProfileHowToBecomeViewModel>(vm =>
+                    {
+                        AssertViewModelProperties(vm, jobprofilehtbController);
+                    })
+                    .AndNoModelErrors();
+                    A.CallTo(() => jobProfileRepositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
+            }
+            else
+            {
+                indexWithUrlNameMethodCall.ShouldGiveHttpStatus(404);
+            }
         }
 
         private static void AssertViewModelProperties(JobProfileHowToBecomeViewModel vm, JobProfileHowToBecomeController jobprofilehtbController)
@@ -101,15 +120,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
 
         private void SetupCallsAndFakes(bool isValidJobProfile, bool inContentAuthoringSite = false, bool isContentPreviewMode = false)
         {
-            webAppContextFake = A.Fake<IWebAppContext>();
-            jobProfileRepositoryFake = A.Fake<IJobProfileRepository>();
+            webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            jobProfileRepositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             applicationLoggerFake = A.Fake<IApplicationLogger>();
-            sitefinityPageFake = A.Fake<ISitefinityPage>();
+            sitefinityPageFake = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            mapper = new MapperConfiguration(c => c.AddProfile<JobProfilesAutoMapperProfile>()).CreateMapper();
 
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => jobProfileRepositoryFake.GetByUrlName(A<string>._))
                 .Returns(GetDummyJobProfile(isValidJobProfile));
+            A.CallTo(() => jobProfileRepositoryFake.GetByUrlNameForPreview(A<string>._))
+                .Returns(GetDummyJobProfile(isValidJobProfile));
+            A.CallTo(() => sitefinityPageFake.GetDefaultJobProfileToUse(A<string>._))
+                .Returns(nameof(JobProfile.UrlName));
         }
 
         private JobProfile GetDummyJobProfile(bool useValidJobProfile)
@@ -127,7 +151,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
                     Salary = nameof(JobProfile.Salary),
                     Skills = nameof(JobProfile.Skills),
                     WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
-                    WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment)
+                    WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
+                    HowToBecomes = new EnumerableQuery<HowToBecome>(new List<HowToBecome>())
                 }
                 : null;
         }

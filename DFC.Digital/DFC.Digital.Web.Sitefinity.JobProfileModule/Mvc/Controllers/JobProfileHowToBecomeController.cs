@@ -24,6 +24,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     {
         #region Private Fields
 
+        private readonly IMapper mapper;
+
         #endregion Private Fields
 
         #region Constructors
@@ -32,9 +34,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IWebAppContext webAppContext,
             IJobProfileRepository jobProfileRepository,
             IApplicationLogger applicationLogger,
-            ISitefinityPage sitefinityPage)
+            ISitefinityPage sitefinityPage,
+            IMapper mapper)
             : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
+            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -148,32 +152,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected override ActionResult GetEditorView()
         {
             // Sitefinity cannot handle async very well. So initialising it on current UI thread.
-            var model = new JobProfileHowToBecomeViewModel();
-
-            LoadViewModel(model);
-
-            return GetJobProfileDetailsView(model);
+            return GetJobProfileDetailsView();
         }
 
-        /// <summary>
-        /// Gets the job profile details view.
-        /// </summary>
-        /// <param name="model">Job profile view model</param>
-        /// <returns>Index View</returns>
-        private ActionResult GetJobProfileDetailsView(JobProfileHowToBecomeViewModel model = null)
+        private ActionResult GetJobProfileDetailsView()
         {
-            if (model == null)
-            {
-                model = new JobProfileHowToBecomeViewModel();
-            }
-
-            LoadViewModel(model);
+           var model = LoadViewModel();
 
             return View("Index", model);
         }
 
-        private void LoadViewModel(JobProfileHowToBecomeViewModel model)
+        private JobProfileHowToBecomeViewModel LoadViewModel()
         {
+            var model = new JobProfileHowToBecomeViewModel();
+            model = mapper.Map<JobProfileHowToBecomeViewModel>(this);
+
             if (CurrentJobProfile != null)
             {
                 model.HowToBecomeText = CurrentJobProfile.HowToBecome;
@@ -181,30 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 model.HowToBecome = CurrentJobProfile.HowToBecomes.FirstOrDefault();
             }
 
-            model.MainSectionTitle = MainSectionTitle;
-            model.SectionId = SectionId;
-            model.SubsectionUniversity = SubsectionUniversity;
-            model.SubsectionUniversityRequirements = SubsectionUniversityRequirements;
-            model.SubsectionUniversityMoreInformation = SubsectionUniversityMoreInformation;
-            model.SubsectionCollege = SubsectionCollege;
-            model.SubsectionCollegeRequirements = SubsectionCollegeRequirements;
-            model.SubsectionCollegeMoreInformation = SubsectionCollegeMoreInformation;
-            model.SubsectionApprenticeship = SubsectionApprenticeship;
-            model.SubsectionApprenticeshipRequirements = SubsectionApprenticeshipRequirements;
-            model.SubsectionApprenticeshipMoreInformation = SubsectionApprenticeshipMoreInformation;
-            model.SubsectionWork = SubsectionWork;
-            model.SubsectionVolunteering = SubsectionVolunteering;
-            model.SubsectionDirectApplication = SubsectionDirectApplication;
-            model.SubsectionOtherRoutes = SubsectionOtherRoutes;
-            model.SubsectionRestrictions = SubsectionRestrictions;
-            model.SubsectionRestrictionsOpeningText = SubsectionRestrictionsOpeningText;
-            model.SubsectionOtherRequirements = SubsectionOtherRequirements;
-            model.SubsectionMoreInfo = SubsectionMoreInfo;
-            model.SubsectionMoreInfoRegistration = SubsectionMoreInfoRegistration;
-            model.SubsectionMoreInfoRegistrationOpeningText = SubsectionMoreInfoRegistrationOpeningText;
-            model.SubsectionMoreInfoBodies = SubsectionMoreInfoBodies;
-            model.SubsectionMoreInfoTips = SubsectionMoreInfoTips;
-            model.SubsectionMoreInfoFurtherInfo = SubsectionMoreInfoFurtherInfo;
+            return model;
         }
 
         #endregion Actions

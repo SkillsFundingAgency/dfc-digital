@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Globalization;
 
@@ -25,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                 .ForMember(d => d.LinkText, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.LinkTarget, o => o.MapFrom(s => s.ContentField))
                 ;
-            CreateMap<JobProfile, JobProfileHowToBecomeViewModel>();
+            CreateMap<JobProfileHowToBecomeController, JobProfileHowToBecomeViewModel>();
             CreateMap<PsfModel, PreSearchFiltersResultsModel>();
             CreateMap<PsfSection, FilterResultsSection>();
             CreateMap<PsfOption, FilterResultsOption>();

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -16,6 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
         private IJobProfileRepository jobProfileRepositoryFake;
         private IApplicationLogger applicationLoggerFake;
         private ISitefinityPage sitefinityPageFake;
+        private IMapper mapper;
 
         [Theory]
         [InlineData(true, true, false)]
@@ -28,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
             SetupCallsAndFakes(validJobProfile, inContentAuthoringSite, isContentPreviewMode);
 
             //Act
-            var jobprofilehtbController = new JobProfileHowToBecomeController(webAppContextFake, jobProfileRepositoryFake, applicationLoggerFake, sitefinityPageFake);
+            var jobprofilehtbController = new JobProfileHowToBecomeController(webAppContextFake, jobProfileRepositoryFake, applicationLoggerFake, sitefinityPageFake, mapper);
             var indexMethodCall = jobprofilehtbController.WithCallTo(c => c.Index());
 
             //Assert
@@ -38,12 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileHowToBecomeViewModel>(vm =>
                     {
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-                        vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
+                        AssertViewModelProperties(vm, jobprofilehtbController);
                     })
                     .AndNoModelErrors();
 
@@ -63,11 +60,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void IndexWithUrlNameTest(bool validJobProfile)
+        [InlineData("test", true)]
+        [InlineData("test", false)]
+        public void IndexWithUrlNameTest(string urlName, bool validJobProfile)
         {
             SetupCallsAndFakes(validJobProfile);
+
+            //Act
+            var jobprofilehtbController = new JobProfileHowToBecomeController(webAppContextFake, jobProfileRepositoryFake, applicationLoggerFake, sitefinityPageFake, mapper);
+            var indexWithUrlNameMethodCall = jobprofilehtbController.WithCallTo(c => c.Index(urlName));
+        }
+
+        private static void AssertViewModelProperties(JobProfileHowToBecomeViewModel vm, JobProfileHowToBecomeController jobprofilehtbController)
+        {
+            vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
+            vm.MainSectionTitle.Should().BeEquivalentTo(jobprofilehtbController.MainSectionTitle);
+            vm.SectionId.Should().BeEquivalentTo(jobprofilehtbController.SectionId);
+            vm.SubsectionUniversity.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversity);
+            vm.SubsectionUniversityMoreInformation.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversityMoreInformation);
+            vm.SubsectionCollege.Should().BeEquivalentTo(jobprofilehtbController.SubsectionCollege);
+            vm.SubsectionCollegeRequirements.Should().BeEquivalentTo(jobprofilehtbController.SubsectionCollegeRequirements);
+            vm.SubsectionCollegeMoreInformation.Should().BeEquivalentTo(jobprofilehtbController.SubsectionCollegeMoreInformation);
+            vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
+            vm.SubsectionApprenticeshipRequirements.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeshipRequirements);
+            vm.SubsectionApprenticeshipMoreInformation.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeshipMoreInformation);
+            vm.SubsectionWork.Should().BeEquivalentTo(jobprofilehtbController.SubsectionWork);
+            vm.SubsectionVolunteering.Should().BeEquivalentTo(jobprofilehtbController.SubsectionVolunteering);
+            vm.SubsectionDirectApplication.Should().BeEquivalentTo(jobprofilehtbController.SubsectionDirectApplication);
+            vm.SubsectionOtherRoutes.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRoutes);
+            vm.SubsectionRestrictions.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictions);
+            vm.SubsectionRestrictionsOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictionsOpeningText);
+            vm.SubsectionOtherRequirements.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRequirements);
+            vm.SubsectionMoreInfo.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfo);
+            vm.SubsectionMoreInfoRegistration.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistration);
+            vm.SubsectionMoreInfoRegistrationOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistrationOpeningText);
+            vm.SubsectionMoreInfoBodies.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoBodies);
+            vm.SubsectionMoreInfoTips.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoTips);
+            vm.SubsectionMoreInfoFurtherInfo.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoFurtherInfo);
         }
 
         private void SetupCallsAndFakes(bool isValidJobProfile, bool inContentAuthoringSite = false, bool isContentPreviewMode = false)

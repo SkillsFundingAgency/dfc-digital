@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 

@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Base;
-using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -126,8 +125,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     linkItems.Add(new MoreInformationLink
                     {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Title)),
-                        Url = relatedItem.GetValueOrDefault<Lstring>(nameof(MoreInformationLink.Url))
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
+                        Url = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url)),
                     });
                 }
             }
@@ -145,8 +144,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new EntryRequirement
                     {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
                     });
                 }
             }
@@ -170,8 +169,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     restrictions.Add(new Restriction
                     {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
                     });
                 }
             }
@@ -189,8 +188,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new Registration
                     {
-                        Title = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Title)),
-                        Info = relatedItem.GetValueOrDefault<Lstring>(nameof(InfoItem.Info))
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
                     });
                 }
             }

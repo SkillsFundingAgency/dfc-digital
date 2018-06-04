@@ -152,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
                     Skills = nameof(JobProfile.Skills),
                     WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                     WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
-                    HowToBecomes = new EnumerableQuery<HowToBecome>(new List<HowToBecome>())
+                    HowToBecomeData = new HowToBecome()
                 }
                 : null;
         }

@@ -1,9 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Base;
-using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
@@ -75,7 +73,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
 
                 // How To Become section
-                HowToBecomes = new EnumerableQuery<HowToBecome>(new List<HowToBecome> { htbContentPropertyConverter.ConvertFrom(content) }),
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
 
                 IsHTBCaDReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsHTBCaDReady))
             };

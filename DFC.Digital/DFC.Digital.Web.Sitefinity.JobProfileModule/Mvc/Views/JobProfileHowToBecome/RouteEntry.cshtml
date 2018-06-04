@@ -1,5 +1,4 @@
 ﻿@model DFC.Digital.Data.Model.RouteEntry
-
 @if (!string.IsNullOrEmpty(Model.RouteSubjects) || !string.IsNullOrEmpty(Model.FurtherRouteInformation) || Model.EntryRequirements.Any() || Model.MoreInformationLinks.Any())
 {
 <section class="job-profile-subsection" id="@ViewBag.SubsectionId">
@@ -14,7 +13,7 @@
         {
             <h4>@Model.RouteRequirement</h4>
             <p>@ViewBag.Requirements</p>
-            <ul>
+            <ul class="list-reqs">
                 @foreach (var requirement in Model.EntryRequirements)
                 {
                     <li>@requirement.Info</li>
@@ -35,4 +34,3 @@
     </div>
 </section>
 }
-

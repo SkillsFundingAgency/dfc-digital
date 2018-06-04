@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>JobProfile</id>
-    <version>1.0.26.1</version>
+    <version>1.0.26.3</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
@@ -12,7 +12,7 @@
     <description>
       Job Profile Dynamic Module, defining the content type(s) and classifications associated with Job Profile Data.
       Includes complete set for MVS Pre Search Filters.
-      Now Updated HTB.
+      Now Updated HTB now uses classifications for entry requirements intro.
     </description>
     <references></references>
     <dependencies>

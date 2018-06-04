@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
+using FluentAssertions.Common;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
 using System;
@@ -38,33 +39,138 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             };
 
             // Act
-            var htmlDom = moreInformationView.RenderAsHtml(jobProfileHowToBecomeView);
+            var htmlDocument = moreInformationView.RenderAsHtml(jobProfileHowToBecomeView);
 
             // Assert
             if (string.IsNullOrWhiteSpace(careerTips) && string.IsNullOrWhiteSpace(professionalAndIndustryBodies) &&
                 string.IsNullOrWhiteSpace(furtherInformation) && !validRegistrations)
             {
-                 htmlDom.DocumentNode.Descendants().Count().Should().Be(0);
+                AssertViewIsEmpty(htmlDocument);
             }
 
             if (!string.IsNullOrWhiteSpace(careerTips))
             {
-                htmlDom.DocumentNode.InnerHtml.IndexOf(careerTips, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+                AssertContentExistsInView(careerTips, htmlDocument);
             }
 
             if (!string.IsNullOrWhiteSpace(professionalAndIndustryBodies))
             {
-                htmlDom.DocumentNode.InnerHtml.IndexOf(professionalAndIndustryBodies, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+                AssertContentExistsInView(professionalAndIndustryBodies, htmlDocument);
             }
 
             if (!string.IsNullOrWhiteSpace(furtherInformation))
             {
-                htmlDom.DocumentNode.InnerHtml.IndexOf(furtherInformation, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+                AssertContentExistsInView(furtherInformation, htmlDocument);
             }
 
             if (validRegistrations)
             {
-                htmlDom.DocumentNode.Descendants("li").Count().Should().BeGreaterThan(0);
+                htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(jobProfileHowToBecomeView.HowToBecome.Registrations.Count());
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc2857RestrictionsViewTests(bool validRestrictions)
+        {
+            // Arrange
+            var restrictionsView = new _MVC_Views_JobProfileHowToBecome_Restrictions_cshtml();
+            var jobProfileHowToBecomeView = new JobProfileHowToBecomeViewModel
+            {
+                HowToBecome = new HowToBecome
+                {
+                    Restrictions = GetRestrictions(validRestrictions)
+                }
+            };
+
+            // Act
+            var htmlDocument = restrictionsView.RenderAsHtml(jobProfileHowToBecomeView);
+
+            // Assert
+            if (validRestrictions)
+            {
+                htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(jobProfileHowToBecomeView.HowToBecome.Restrictions.Count());
+            }
+            else
+            {
+                ContentDisplayedBySectionId(htmlDocument, "restrictions").Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData("test")]
+        [InlineData("content")]
+        public void Dfc2857IndexViewTests(string content)
+        {
+            // Arrange
+            var indexView = new _MVC_Views_JobProfileHowToBecome_Index_cshtml();
+            var jobProfileHowToBecomeView = new JobProfileHowToBecomeViewModel
+            {
+                HowToBecomeText = content
+            };
+
+            // Act
+            var htmlDocument = indexView.RenderAsHtml(jobProfileHowToBecomeView);
+
+            // Assert
+            AssertContentExistsInView(content, htmlDocument);
+        }
+
+        [Theory]
+        [InlineData(true, true, RouteEntryType.Apprenticeship, "subjects", "furtherinformation", "routeRequirement")]
+        [InlineData(true, true, RouteEntryType.College, "subjects", "furtherinformation", "routeRequirement")]
+        [InlineData(true, true, RouteEntryType.University, "subjects", "furtherinformation", "routeRequirement")]
+        [InlineData(false, true, RouteEntryType.Apprenticeship, "subjects", "furtherinformation", "routeRequirement")]
+        [InlineData(true, false, RouteEntryType.Apprenticeship, "subjects", "furtherinformation", "routeRequirement")]
+        [InlineData(false, false, RouteEntryType.Apprenticeship, "", "", "")]
+        public void Dfc2857RouteEntryViewTests(bool entryReqs, bool moreInfoLinks, RouteEntryType routeEntryType, string subjects, string furtherinformation, string routeRequirement)
+        {
+            // Arrange
+            var restrictionsView = new _MVC_Views_JobProfileHowToBecome_RouteEntry_cshtml();
+            var routeEntryVm = new RouteEntry
+            {
+               EntryRequirements = GetEntryRequirements(entryReqs),
+               MoreInformationLinks = GetInformationLinks(moreInfoLinks),
+               RouteName = routeEntryType,
+               RouteSubjects = subjects,
+               FurtherRouteInformation = furtherinformation,
+               RouteRequirement = routeRequirement
+            };
+
+            // Act
+            var htmlDocument = restrictionsView.RenderAsHtml(routeEntryVm);
+
+            // Assert
+            if (string.IsNullOrWhiteSpace(subjects) && string.IsNullOrWhiteSpace(furtherinformation) && string.IsNullOrWhiteSpace(routeRequirement) && !entryReqs && !moreInfoLinks)
+            {
+                AssertViewIsEmpty(htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(subjects))
+            {
+                AssertContentExistsInView(subjects, htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(furtherinformation))
+            {
+                AssertContentExistsInView(furtherinformation, htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(routeRequirement) && entryReqs)
+            {
+                AssertContentExistsInView(routeRequirement, htmlDocument);
+            }
+
+            if (entryReqs)
+            {
+                GetItemCountByUlClass("list-reqs", htmlDocument).Should().IsSameOrEqualTo(routeEntryVm.MoreInformationLinks.Count());
+            }
+
+            // Assert
+            if (moreInfoLinks)
+            {
+                GetItemCountByUlClass("list-link", htmlDocument).Should().IsSameOrEqualTo(routeEntryVm.MoreInformationLinks.Count());
             }
         }
 
@@ -94,33 +200,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             };
 
             // Act
-            var htmlDom = extraInformationView.RenderAsHtml(jobProfileHowToBecomeViewModel);
+            var htmlDocument = extraInformationView.RenderAsHtml(jobProfileHowToBecomeViewModel);
 
             // Assert
             if (!string.IsNullOrWhiteSpace(work))
             {
-                ContentDisplayedBySectionId(htmlDom, "work").Should().BeTrue();
+                ContentDisplayedBySectionId(htmlDocument, "work").Should().BeTrue();
             }
 
             if (!string.IsNullOrWhiteSpace(directApplication))
             {
-                ContentDisplayedBySectionId(htmlDom, "directapplication").Should().BeTrue();
+                ContentDisplayedBySectionId(htmlDocument, "directapplication").Should().BeTrue();
             }
 
             if (!string.IsNullOrWhiteSpace(otherRequirements))
             {
-                ContentDisplayedBySectionId(htmlDom, "otherrequirements").Should().BeTrue();
+                ContentDisplayedBySectionId(htmlDocument, "otherrequirements").Should().BeTrue();
             }
 
             if (!string.IsNullOrWhiteSpace(volunteering))
             {
-                ContentDisplayedBySectionId(htmlDom, "volunteering").Should().BeTrue();
+                ContentDisplayedBySectionId(htmlDocument, "volunteering").Should().BeTrue();
             }
 
             if (!string.IsNullOrWhiteSpace(otherRoutes))
             {
-                ContentDisplayedBySectionId(htmlDom, "otherroutes").Should().BeTrue();
+                ContentDisplayedBySectionId(htmlDocument, "otherroutes").Should().BeTrue();
             }
+        }
+
+        private static void AssertContentExistsInView(string content, HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.InnerHtml.IndexOf(content, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+        }
+
+        private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
         }
 
         private bool ContentDisplayedBySectionId(HtmlDocument htmlDocument, string sectionId)
@@ -137,6 +253,41 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                     new Registration { Info = nameof(Registration.Info), Title = nameof(Registration.Title) }
                 }
                 : new List<Registration>();
+        }
+
+        private IEnumerable<Restriction> GetRestrictions(bool validRestrictions)
+        {
+            return validRestrictions
+                ? new List<Restriction>
+                {
+                    new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) }
+                }
+                : new List<Restriction>();
+        }
+
+        private IEnumerable<MoreInformationLink> GetInformationLinks(bool validInfoLinks)
+        {
+            return validInfoLinks
+                ? new List<MoreInformationLink>
+                {
+                    new MoreInformationLink { Url = nameof(MoreInformationLink.Url), Title = nameof(Registration.Title) }
+                }
+                : new List<MoreInformationLink>();
+        }
+
+        private IEnumerable<EntryRequirement> GetEntryRequirements(bool validEntryReqs)
+        {
+            return validEntryReqs
+                ? new List<EntryRequirement>
+                {
+                    new EntryRequirement { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) }
+                }
+                : new List<EntryRequirement>();
+        }
+
+        private int GetItemCountByUlClass(string className, HtmlDocument htmlDocument)
+        {
+            return htmlDocument.DocumentNode.Descendants("ul").FirstOrDefault(ul => ul.Attributes["class"].Value.Equals(className)).Descendants("li").Count();
         }
     }
 }

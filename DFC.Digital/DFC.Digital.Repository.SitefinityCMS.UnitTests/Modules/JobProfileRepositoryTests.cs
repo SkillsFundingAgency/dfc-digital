@@ -1,32 +1,94 @@
 ﻿using DFC.Digital.Data.Model;
 using FakeItEasy;
+using FluentAssertions;
 using System;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.GenericContent.Model;
 using Xunit;
 
-namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class JobProfileRepositoryTests
     {
-        //Cannot Unit test as unable to fake the var dynamicContent = Get(item => item.UrlName == urlName);
-        //call in the GetByUrlName method call.
-        //[Fact]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Will be used when we implement tests for Sitefinity repositires")]
-        private void GetByUrlNameTest()
+        private IDynamicModuleConverter<JobProfile> fakeJobProfileConverter;
+        private IDynamicModuleRepository<JobProfile> fakeRepository;
+
+        public JobProfileRepositoryTests()
         {
-            var fakeJobProfileConverter = A.Fake<JobProfileConverter>();
-            var fakeRepository = A.Fake<IDynamicModuleRepository<JobProfile>>();
+            fakeJobProfileConverter = A.Fake<IDynamicModuleConverter<JobProfile>>();
+            fakeRepository = A.Fake<IDynamicModuleRepository<JobProfile>>();
+        }
 
+        [Fact]
+        public void GetByUrlNameForPreviewTest()
+        {
             var dummyJobProfile = A.Dummy<JobProfile>();
-
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
 
             var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
-
-            jobProfileRepository.GetByUrlName("testURLName");
+            jobProfileRepository.GetByUrlNameForPreview("testURLName");
 
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void GetByUrlNameForSearchIndexTest(bool publishing)
+        {
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            var urlName = "testURLName";
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+            jobProfileRepository.GetByUrlNameForSearchIndex(urlName, publishing);
+
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == (publishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live))))).MustHaveHappened();
+        }
+
+        [Fact]
+        public void GetContentTypeTest()
+        {
+            //Assign
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+
+            //Act
+            var result = jobProfileRepository.GetContentType();
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void GetProviderNameTest()
+        {
+            //Assign
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+
+            //Act
+            var result = jobProfileRepository.GetProviderName();
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void GetByUrlNameTest()
+        {
+            var dummyJobProfile = A.Dummy<JobProfile>();
+            var urlName = "testURLName";
+            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter);
+            jobProfileRepository.GetByUrlName(urlName);
+
+            //A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => ExpressionEqualityComparer.Instance.Equals()))).MustHaveHappened();
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true)))).MustHaveHappened();
         }
     }
 }

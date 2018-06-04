@@ -7,7 +7,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    internal class PreSearchFiltersRepository<T> : IPreSearchFiltersRepository<T>
+    public class PreSearchFiltersRepository<T> : IPreSearchFiltersRepository<T>
         where T : PreSearchFilter, new()
     {
         #region Fields
@@ -33,12 +33,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             IEnumerable<DynamicContent> filterItems = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 
-            if (filterItems?.Any() == true)
-            {
-                return filterItems.Select(item => converter.ConvertFrom(item));
-            }
-
-            return Enumerable.Empty<T>();
+            return filterItems?.Select(item => converter.ConvertFrom(item));
         }
 
         #endregion IJobProfileRepository Implementations

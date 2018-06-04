@@ -5,6 +5,7 @@ using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class DfcSearchModuleAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

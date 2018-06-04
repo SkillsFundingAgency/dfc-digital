@@ -245,12 +245,14 @@ namespace DFC.Digital.Core.Tests
             }
         }
 
-        [Fact]
-        public void ExecuteTestWithPredicate()
+        [Theory]
+        [InlineData("WaitRetry", FaultToleranceType.WaitRetry)]
+        [InlineData("CircuitBreaker", FaultToleranceType.CircuitBreaker)]
+        [InlineData("RetryWithCircuitBreaker", FaultToleranceType.RetryWithCircuitBreaker)]
+
+        public void ExecuteTestWithPredicate(string dependencyName, FaultToleranceType toleranceType)
         {
             //Assign
-            var dependencyName = "test";
-            var toleranceType = FaultToleranceType.WaitRetry;
             var strategy = new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider());
             var fakeLogger = A.Fake<IApplicationLogger>();
 
@@ -258,18 +260,48 @@ namespace DFC.Digital.Core.Tests
             var actor = new TolerancePolicy(fakeLogger, strategy);
 
             //Assert
-            var executedNumberOfTimes = 0;
-            Func<Task> result2 = async () =>
+            //Assert
+            switch (toleranceType)
             {
-                await actor.ExecuteAsync(
-                () => Task.FromResult(executedNumberOfTimes++),
-                a => a < strategy.Retry,
-                dependencyName,
-                toleranceType);
-            };
 
-            result2.Awaiting(async a => await a()).Should().NotThrow();
-            executedNumberOfTimes.Should().Be(strategy.Retry + 1);
+                case FaultToleranceType.WaitRetry:
+                case FaultToleranceType.RetryWithCircuitBreaker:
+                        var executedNumberOfTimes = 0;
+                        Func<Task> result2 = async () =>
+                        {
+                            await actor.ExecuteAsync(
+                            () => Task.FromResult(executedNumberOfTimes++),
+                            a => a < strategy.Retry,
+                            dependencyName,
+                            toleranceType);
+                        };
+
+                        result2.Awaiting(async a => await a()).Should().NotThrow();
+                        executedNumberOfTimes.Should().Be(strategy.Retry + 1);
+                    break;
+
+                case FaultToleranceType.CircuitBreaker:
+
+                    Func<Task> result3 = async () =>
+                    {
+                        int idx = 0;
+                        while (idx++ <= strategy.AllowedFaults)
+                        {
+                            try
+                            {
+                                await actor.ExecuteAsync(() => ThrowEx(), a => idx < strategy.AllowedFaults, dependencyName, toleranceType);
+                            }
+                            catch (NotImplementedException)
+                            { }
+                        }
+                    };
+                    result3.Awaiting(async a => await a()).Should().Throw<BrokenCircuitException>();
+                    break;
+
+                default:
+                    Assert.False(true, "Missing implementation");
+                    break;
+            }
         }
 
         private Task<string> ThrowEx()

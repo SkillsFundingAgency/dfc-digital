@@ -7,6 +7,7 @@ using DFC.Digital.Web.Sitefinity.Core;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

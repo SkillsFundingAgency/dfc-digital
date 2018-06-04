@@ -5,6 +5,7 @@ using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class WidgetsAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

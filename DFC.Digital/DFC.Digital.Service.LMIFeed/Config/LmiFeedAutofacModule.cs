@@ -5,6 +5,7 @@ using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Service.LMIFeed
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class LmiFeedAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

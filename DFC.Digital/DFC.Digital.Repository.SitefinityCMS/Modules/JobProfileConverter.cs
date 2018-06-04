@@ -48,9 +48,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public JobProfile ConvertFrom(DynamicContent content)
         {
-            Stopwatch time = new Stopwatch();
-            time.Start();
-
             var jobProfile = new JobProfile
             {
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
@@ -71,16 +68,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
-                  JobProfileCategoryIdCollection = content?.GetValueOrDefault<IList<Guid>>(RelatedJobProfileCategoriesField),
-                UrlName = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.UrlName)),
-                DoesNotExistInBAU = content?.GetValueOrDefault<bool>(nameof(JobProfile.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = content?.GetValueOrDefault<Lstring>(nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsImported)),
+                JobProfileCategoryIdCollection = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField),
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
+                DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.DoesNotExistInBAU)),
+                BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.BAUSystemOverrideUrl)),
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
 
                 // How To Become section
                 HowToBecomes = new EnumerableQuery<HowToBecome>(new List<HowToBecome> { htbContentPropertyConverter.ConvertFrom(content) }),
 
-                IsHTBCaDReady = content?.GetValueOrDefault<bool>(nameof(JobProfile.IsHTBCaDReady)) ?? false
+                IsHTBCaDReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsHTBCaDReady))
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
@@ -99,18 +96,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedTrainingRoutes = GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
-
-            time.Stop();
-
-            //  jobProfile.EntryRoutes = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.HowToBecome = jobProfile.HowToBecome + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.Skills = jobProfile.Skills + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.WhatYouWillDo = jobProfile.WhatYouWillDo + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.Salary = jobProfile.Salary + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.WorkingHoursPatternsAndEnvironment = jobProfile.WorkingHoursPatternsAndEnvironment + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            jobProfile.CareerPathAndProgression = jobProfile.CareerPathAndProgression + "<p>* * * Execution time: " + time.ElapsedMilliseconds + " milliseconds * * *</p>";
-            time.Reset();
-
             return jobProfile;
         }
     }

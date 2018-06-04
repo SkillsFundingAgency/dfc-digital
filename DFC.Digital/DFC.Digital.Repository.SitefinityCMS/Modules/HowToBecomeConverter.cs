@@ -1,17 +1,16 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Base;
 using DFC.Digital.Repository.SitefinityCMS.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
     public class HowToBecomeConverter : IContentPropertyConverter<HowToBecome>
     {
+        #region Fields
         private const string WorkField = "Work";
         private const string VolunteeringField = "Volunteering";
         private const string DirectApplicationField = "DirectApplication";
@@ -40,31 +39,38 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedRestrictionsField = "RelatedRestrictions";
 
         private readonly IRelatedClassificationsRepository classificationsRepository;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository)
+        #endregion Fields
+
+        #region Ctor
+        public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.classificationsRepository = classificationsRepository;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
+        #endregion Ctor
 
+        #region Public methods
         public HowToBecome ConvertFrom(DynamicContent content)
         {
             return new HowToBecome
             {
-                IntroText = content?.GetValueOrDefault<Lstring>(IntroTextField),
+                IntroText = dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroTextField),
                 ExtraInformation = new ExtraInformation
                 {
                     // OTHER
-                    Work = content?.GetValueOrDefault<Lstring>(WorkField),
-                    Volunteering = content?.GetValueOrDefault<Lstring>(VolunteeringField),
-                    DirectApplication = content?.GetValueOrDefault<Lstring>(DirectApplicationField),
-                    OtherRoutes = content?.GetValueOrDefault<Lstring>(OtherRoutesField)
+                    Work = dynamicContentExtensions.GetFieldValue<Lstring>(content, WorkField),
+                    Volunteering = dynamicContentExtensions.GetFieldValue<Lstring>(content, VolunteeringField),
+                    DirectApplication = dynamicContentExtensions.GetFieldValue<Lstring>(content, DirectApplicationField),
+                    OtherRoutes = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRoutesField)
                 },
                 FurtherInformation = new MoreInformation
                 {
                     ProfessionalAndIndustryBodies =
-                        content?.GetValueOrDefault<Lstring>(ProfessionalAndIndustryBodiesField),
-                    CareerTips = content?.GetValueOrDefault<Lstring>(CareerTipsField),
-                    FurtherInformation = content?.GetValueOrDefault<Lstring>(FurtherInformationField)
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, ProfessionalAndIndustryBodiesField),
+                    CareerTips = dynamicContentExtensions.GetFieldValue<Lstring>(content, CareerTipsField),
+                    FurtherInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, FurtherInformationField)
                 },
                 RouteEntries = new List<RouteEntry>
                 {
@@ -72,8 +78,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     new RouteEntry
                     {
                         RouteName = RouteEntryType.University,
-                        RouteSubjects = content?.GetValueOrDefault<Lstring>(UniversityRelevantSubjectsField),
-                        FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(UniversityFurtherRouteInfoField),
+                        RouteSubjects = dynamicContentExtensions.GetFieldValue<Lstring>(content, UniversityRelevantSubjectsField),
+                        FurtherRouteInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, UniversityFurtherRouteInfoField),
                         RouteRequirement = classificationsRepository.GetRelatedClassifications(content, UniversityRequirementsField, UniversityRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedUniversityRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedUniversityLinksField)
@@ -83,8 +89,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     new RouteEntry
                     {
                         RouteName = RouteEntryType.College,
-                        RouteSubjects = content?.GetValueOrDefault<Lstring>(CollegeRelevantSubjectsField),
-                        FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(CollegeFurtherRouteInfoField),
+                        RouteSubjects = dynamicContentExtensions.GetFieldValue<Lstring>(content, CollegeRelevantSubjectsField),
+                        FurtherRouteInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, CollegeFurtherRouteInfoField),
                         RouteRequirement = classificationsRepository.GetRelatedClassifications(content, CollegeRequirementsField, CollegeRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedCollegeRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedCollegeLinksField)
@@ -94,8 +100,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     new RouteEntry
                     {
                         RouteName = RouteEntryType.Apprenticeship,
-                        RouteSubjects = content?.GetValueOrDefault<Lstring>(ApprenticeshipRelevantSubjectsField),
-                        FurtherRouteInformation = content?.GetValueOrDefault<Lstring>(ApprenticeshipFurtherRouteInfoField),
+                        RouteSubjects = dynamicContentExtensions.GetFieldValue<Lstring>(content, ApprenticeshipRelevantSubjectsField),
+                        FurtherRouteInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, ApprenticeshipFurtherRouteInfoField),
                         RouteRequirement = classificationsRepository.GetRelatedClassifications(content, ApprenticeshipRequirementsField, ApprenticeshipRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedApprenticeshipRequirementField),
                         MoreInformationLinks = GetRelatedLinkItems(content, RelatedApprenticeshipLinksField)
@@ -103,11 +109,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 },
                 Registrations = GetRegistrations(content, RelatedRegistrationsField),
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
-                OtherRequirements = content?.GetValueOrDefault<Lstring>(OtherRequirementsField)
+                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField)
             };
         }
 
-        private static IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
+        #endregion
+
+        #region private methods
+        private IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
         {
             var linkItems = new List<MoreInformationLink>();
             var relatedItems = RelatedItems(content, relatedField);
@@ -126,7 +135,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return linkItems;
         }
 
-        private static IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)
+        private IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)
         {
           var requirements = new List<EntryRequirement>();
             var relatedItems = RelatedItems(content, relatedField);
@@ -145,13 +154,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return requirements;
         }
 
-        private static IQueryable<DynamicContent> RelatedItems(DynamicContent content, string relatedField)
+        private IQueryable<DynamicContent> RelatedItems(DynamicContent content, string relatedField)
         {
-            var relatedItems = content.GetRelatedItems<DynamicContent>(relatedField);
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField, 100);
             return relatedItems;
         }
 
-        private static IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
+        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
         {
             var restrictions = new List<Restriction>();
             var relatedItems = RelatedItems(content, relatedField);
@@ -170,7 +179,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return restrictions;
         }
 
-        private static IEnumerable<Registration> GetRegistrations(DynamicContent content, string relatedField)
+        private IEnumerable<Registration> GetRegistrations(DynamicContent content, string relatedField)
         {
             var requirements = new List<Registration>();
             var relatedItems = RelatedItems(content, relatedField);
@@ -188,5 +197,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             return requirements;
         }
+
+        #endregion
     }
 }

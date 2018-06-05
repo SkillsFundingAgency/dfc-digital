@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Core
             switch (match)
             {
                 case var resolver when match.Groups.Count > 1 && match.Groups[1].Value.Equals("config", StringComparison.OrdinalIgnoreCase):
-                    returnValue = ConfigurationManager.AppSettings[match.Groups[2].Value] ?? string.Empty;
+                    returnValue = ConfigurationManager.AppSettings[resolver.Groups[2].Value] ?? string.Empty;
                     break;
 
                 default:

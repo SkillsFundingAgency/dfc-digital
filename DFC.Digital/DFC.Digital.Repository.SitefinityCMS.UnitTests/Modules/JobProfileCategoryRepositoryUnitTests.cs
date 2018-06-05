@@ -2,7 +2,6 @@
 using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Base;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using DFC.Digital.Web.Sitefinity.JobProfileModule;
 using FakeItEasy;
@@ -11,9 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Taxonomies.Web;
 using Xunit;
 
 namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
@@ -22,7 +19,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
     {
         private const string JobprofileTaxonomyName = "job-profile-categories";
         private readonly ISearchQueryService<JobProfileIndex> fakeSearchService;
-        private readonly ITaxonomyRepository<Taxon> fakeTaxonomyRepository;
+        private readonly ITaxonomyRepository fakeTaxonomyRepository;
         private readonly IMapper fakeMapper;
         private readonly Taxon dummyTaxon;
 
@@ -31,7 +28,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             fakeMapper = A.Fake<IMapper>();
             dummyTaxon = GetDummyTaxon("categoryTwo");
-            fakeTaxonomyRepository = A.Fake<ITaxonomyRepository<Taxon>>();
+            fakeTaxonomyRepository = A.Fake<ITaxonomyRepository>();
         }
 
         [Theory]

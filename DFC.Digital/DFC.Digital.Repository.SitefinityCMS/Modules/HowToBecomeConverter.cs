@@ -131,6 +131,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     {
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
                         Url = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url)),
+                        Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Text)),
                     });
                 }
             }

@@ -168,7 +168,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             if (CurrentJobProfile != null)
             {
                 model.HowToBecomeText = CurrentJobProfile.HowToBecome;
-                model.IsHtbcaDReady = CurrentJobProfile.IsHTBCaDReady;
                 model.HowToBecome = CurrentJobProfile.HowToBecomeData;
             }
 

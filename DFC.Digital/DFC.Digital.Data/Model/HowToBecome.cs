@@ -8,7 +8,7 @@ namespace DFC.Digital.Data.Model
 
         public MoreInformation FurtherInformation { get; set; }
 
-        public ExtraInformation ExtraInformation { get; set; }
+        public FurtherRoutes FurtherRoutes { get; set; }
 
         public string IntroText { get; set; }
 
@@ -17,5 +17,7 @@ namespace DFC.Digital.Data.Model
         public string OtherRequirements { get; set; }
 
         public IEnumerable<Restriction> Restrictions { get; set; }
+
+        public bool IsHTBCaDReady { get; set; }
     }
 }

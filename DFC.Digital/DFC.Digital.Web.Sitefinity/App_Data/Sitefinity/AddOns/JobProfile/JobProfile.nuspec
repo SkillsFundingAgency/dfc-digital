@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JobProfile</id>
-    <version>1.0.26.3</version>
+    <version>1.0.27.1</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
@@ -10,7 +10,8 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <description>Job Profile Dynamic Module, defining the content type(s) and classifications associated with Job Profile Data.
       Includes complete set for MVS Pre Search Filters.
-      Now Updated HTB now uses classifications for entry requirements intro.</description>
+      Now Updated HTB now uses classifications for entry requirements intro.
+      Reorder edit form in backend and helper messages</description>
     <language>en-GB</language>
     <dependencies>
       <dependency id="PreSearchFilters" version="1.0.0.3" />

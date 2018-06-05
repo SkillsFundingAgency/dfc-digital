@@ -107,7 +107,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             var indexView = new _MVC_Views_JobProfileHowToBecome_Index_cshtml();
             var jobProfileHowToBecomeView = new JobProfileHowToBecomeViewModel
             {
-                HowToBecomeText = content
+                HowToBecomeText = content,
+                HowToBecome = new HowToBecome()
             };
 
             // Act
@@ -183,19 +184,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         public void Dfc2857ExtrainfomationViewTests(string work, string directApplication, string otherRequirements, string otherRoutes, string volunteering)
         {
             // Arrange
-            var extraInformationView = new _MVC_Views_JobProfileHowToBecome_ExtraInformation_cshtml();
+            var extraInformationView = new _MVC_Views_JobProfileHowToBecome_FurtherRoutes_cshtml();
             var jobProfileHowToBecomeViewModel = new JobProfileHowToBecomeViewModel
             {
                 HowToBecome = new HowToBecome
                 {
-                    ExtraInformation = new ExtraInformation
+                    FurtherRoutes = new FurtherRoutes
                     {
                         Work = work,
                         DirectApplication = directApplication,
-                        OtherRequirements = otherRequirements,
                         OtherRoutes = otherRoutes,
                         Volunteering = volunteering
-                    }
+                    },
+                    OtherRequirements = otherRequirements
                 }
             };
 

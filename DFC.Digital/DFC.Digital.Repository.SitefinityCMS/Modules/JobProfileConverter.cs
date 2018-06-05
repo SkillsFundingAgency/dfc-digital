@@ -73,9 +73,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
 
                 // How To Become section
-                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
-
-                IsHTBCaDReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsHTBCaDReady))
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();

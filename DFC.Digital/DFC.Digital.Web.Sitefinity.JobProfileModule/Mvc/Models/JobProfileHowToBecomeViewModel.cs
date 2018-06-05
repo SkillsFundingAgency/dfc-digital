@@ -13,8 +13,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
     {
         public HowToBecome HowToBecome { get; set; }
 
-        public bool IsHtbcaDReady { get; set; }
-
         public string HowToBecomeText { get; set; }
 
         public string SectionId { get; set; }

@@ -3,7 +3,7 @@
 
 <section id="@Model.SectionId">
     <h2 class="heading-large job-profile-heading">@Model.MainSectionTitle</h2>
-    @if (Model.IsHtbcaDReady)
+    @if (Model.HowToBecome.IsHTBCaDReady)
     {
         @Html.Raw(Model.HowToBecome.IntroText)
 
@@ -13,7 +13,7 @@
 
         @Html.Partial("RouteEntry", Model.HowToBecome.RouteEntries.FirstOrDefault(route => route.RouteName.Equals(RouteEntryType.Apprenticeship)), new ViewDataDictionary { { "SubsectionTitle", Model.SubsectionApprenticeship }, { "Requirements", Model.SubsectionApprenticeshipRequirements }, { "SubsectionMoreInformation", Model.SubsectionApprenticeshipMoreInformation }, { "SubsectionId", nameof(RouteEntryType.Apprenticeship) } })
 
-        @Html.Partial("ExtraInformation", Model)
+        @Html.Partial("FurtherRoutes", Model)
 
         @Html.Partial("Restrictions", Model)
 

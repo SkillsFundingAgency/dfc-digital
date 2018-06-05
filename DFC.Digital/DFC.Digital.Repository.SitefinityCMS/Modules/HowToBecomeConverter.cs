@@ -53,10 +53,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Public methods
         public HowToBecome ConvertFrom(DynamicContent content)
         {
-            return new HowToBecome
+            var isCadReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(HowToBecome.IsHTBCaDReady));
+            return !isCadReady ?
+                new HowToBecome() :
+                new HowToBecome
             {
+                    IsHTBCaDReady = true,
                 IntroText = dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroTextField),
-                ExtraInformation = new ExtraInformation
+                FurtherRoutes = new FurtherRoutes
                 {
                     // OTHER
                     Work = dynamicContentExtensions.GetFieldValue<Lstring>(content, WorkField),

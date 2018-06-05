@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -127,10 +128,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 foreach (var relatedItem in relatedItems)
                 {
+                    var link = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url));
                     linkItems.Add(new MoreInformationLink
                     {
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
-                        Url = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url)),
+                        Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
                         Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Text)),
                     });
                 }

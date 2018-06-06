@@ -271,7 +271,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             return validInfoLinks
                 ? new List<MoreInformationLink>
                 {
-                    new MoreInformationLink { Url = nameof(MoreInformationLink.Url), Title = nameof(Registration.Title) }
+                    new MoreInformationLink { Url = new Uri(nameof(MoreInformationLink.Url), UriKind.RelativeOrAbsolute), Title = nameof(Registration.Title) }
                 }
                 : new List<MoreInformationLink>();
         }

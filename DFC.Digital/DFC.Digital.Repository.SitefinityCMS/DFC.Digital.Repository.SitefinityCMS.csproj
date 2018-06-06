@@ -237,15 +237,16 @@
   <ItemGroup>
     <Compile Include="Base\DynamicModuleRepository.cs" />
     <Compile Include="Base\IDynamicContentExtensions.cs" />
+    <Compile Include="Base\IContentPropertyConverter.cs" />
     <Compile Include="Base\IDynamicModuleConverter.cs" />
     <Compile Include="Base\IDynamicModuleRepository.cs" />
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
-    <Compile Include="Extensions\SitefinityDataExtensions.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\TaxonomyManagerExtensions.cs" />
+    <Compile Include="Modules\HowToBecomeConverter.cs" />
     <Compile Include="Modules\JobProfileCategoryRepository.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverter.cs" />
     <Compile Include="Modules\JobProfileConverter.cs" />

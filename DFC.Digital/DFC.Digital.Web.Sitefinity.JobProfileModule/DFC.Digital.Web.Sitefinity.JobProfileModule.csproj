@@ -369,6 +369,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\BaseJobProfileWidgetController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileCourseOpportunityController.cs" />
+    <Compile Include="Mvc\Controllers\JobProfileHowToBecomeController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileSettingsAndPreviewController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileAnchorLinksController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileCategoriesController.cs" />
@@ -389,6 +390,7 @@
     <Compile Include="Mvc\Models\JobProfileApprenticeshipViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileCourseSearchViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileDetailsViewModel.cs" />
+    <Compile Include="Mvc\Models\JobProfileHowToBecomeViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileRelatedCareersModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSearchResultViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSearchBoxViewModel.cs" />
@@ -422,6 +424,11 @@
     <Content Include="Mvc\Views\JobProfileCourseOpportunity\Index.cshtml" />
     <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
     <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\RouteEntry.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\FurtherRoutes.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\MoreInformation.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\Restrictions.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

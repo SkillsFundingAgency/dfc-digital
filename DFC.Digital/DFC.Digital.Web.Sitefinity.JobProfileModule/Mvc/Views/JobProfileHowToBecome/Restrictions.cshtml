@@ -1,0 +1,19 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
+@if (Model.HowToBecome.Restrictions.Any())
+{
+    <section class="job-profile-subsection" id="restrictions">
+        <h3>@Model.SubsectionRestrictions</h3>
+        <div class="job-profile-subsection-content">
+            @if (!string.IsNullOrEmpty(Model.SubsectionRestrictionsOpeningText))
+            {
+                <p>@Model.SubsectionRestrictionsOpeningText</p>
+            }
+            <ul>
+                @foreach (var restriction in Model.HowToBecome.Restrictions)
+                {
+                    <li>@Html.Raw(restriction.Info)</li>
+                }
+            </ul>
+        </div>
+    </section>
+}

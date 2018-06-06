@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
+        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
+            this.htbContentPropertyConverter = htbContentPropertyConverter;
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
@@ -67,7 +70,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
                 DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.DoesNotExistInBAU)),
                 BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported))
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
+
+                // How To Become section
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
@@ -86,7 +92,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedTrainingRoutes = GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
-
             return jobProfile;
         }
     }

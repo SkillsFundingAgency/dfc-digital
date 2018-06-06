@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.SitefinityCMS.Base;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using FakeItEasy;
 using System;
@@ -35,8 +34,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
         [InlineData(false, "test", "test")]
         public void GetRelatedClassificationsTest(bool classificationsAvailable, string relatedField, string taxonomyName)
         {
-           //Assign
-           SetupCalls(classificationsAvailable);
+            //Assign
+            SetupCalls(classificationsAvailable);
             var classificationRepo =
                 new RelatedClassificationsRepository(fakeTaxonomyManager, fakeDynamicContentExtensions, fakeTaxonomyManagerExtensions);
 
@@ -47,7 +46,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
 
-          //  A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
+            //  A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
             A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
         }
 

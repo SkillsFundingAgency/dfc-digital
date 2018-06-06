@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Telerik.Sitefinity.Taxonomies.Model;
-using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -17,9 +14,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService;
         private readonly IMapper mapper;
-        private readonly ITaxonomyRepository<Taxon> taxonomyRepository;
+        private readonly ITaxonomyRepository taxonomyRepository;
 
-        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, ITaxonomyRepository<Taxon> taxonomyRepository)
+        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, ITaxonomyRepository taxonomyRepository)
         {
             this.jobprofileSearchQueryService = jobprofileSearchQueryService;
             this.mapper = mapper;

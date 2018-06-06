@@ -20,14 +20,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 if (distinctProviders > 1)
                 {
                     return courses
-                            .OrderBy(c => c.StartDate)
                             .GroupBy(c => c.ProviderName)
                             .Select(g => g.First())
                             .Take(2);
                 }
             }
 
-            return courses.Take(2).OrderBy(course => course.StartDate);
+            return courses.Take(2);
         }
     }
 }

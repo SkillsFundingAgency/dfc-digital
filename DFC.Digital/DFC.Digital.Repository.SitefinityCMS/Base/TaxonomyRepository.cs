@@ -1,6 +1,4 @@
-﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.SitefinityCMS.Base;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -9,7 +7,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public abstract class TaxonomyRepository : ITaxonomyRepository<Taxon>, IDisposable
+    public abstract class TaxonomyRepository : ITaxonomyRepository, IDisposable
     {
         private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;

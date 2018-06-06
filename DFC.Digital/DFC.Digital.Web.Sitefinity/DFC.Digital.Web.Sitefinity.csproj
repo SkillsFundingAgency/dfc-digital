@@ -956,11 +956,6 @@
     <Content Include="AdminApp\assets\manifest.json" />
     <Content Include="OpenAccessNuGet.targets" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.26.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.26.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.26.3.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.26.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />

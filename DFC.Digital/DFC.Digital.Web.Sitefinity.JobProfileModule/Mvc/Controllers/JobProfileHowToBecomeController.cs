@@ -49,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string MainSectionTitle { get; set; } = "How to become";
 
         [DisplayName("Section Id- for anchor link href target")]
-        public string SectionId { get; set; } = "how-to-become";
+        public string SectionId { get; set; } = "HowToBecome";
 
         [DisplayName("Subsection University")]
         public string SubsectionUniversity { get; set; } = "University";

@@ -70,35 +70,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void Dfc2857RestrictionsViewTests(bool validRestrictions)
-        {
-            // Arrange
-            var restrictionsView = new _MVC_Views_JobProfileHowToBecome_Restrictions_cshtml();
-            var jobProfileHowToBecomeView = new JobProfileHowToBecomeViewModel
-            {
-                HowToBecome = new HowToBecome
-                {
-                    Restrictions = GetRestrictions(validRestrictions)
-                }
-            };
-
-            // Act
-            var htmlDocument = restrictionsView.RenderAsHtml(jobProfileHowToBecomeView);
-
-            // Assert
-            if (validRestrictions)
-            {
-                htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(jobProfileHowToBecomeView.HowToBecome.Restrictions.Count());
-            }
-            else
-            {
-                ContentDisplayedBySectionId(htmlDocument, "restrictions").Should().BeFalse();
-            }
-        }
-
-        [Theory]
         [InlineData("test")]
         [InlineData("content")]
         public void Dfc2857IndexViewTests(string content)
@@ -254,16 +225,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                     new Registration { Info = nameof(Registration.Info), Title = nameof(Registration.Title) }
                 }
                 : new List<Registration>();
-        }
-
-        private IEnumerable<Restriction> GetRestrictions(bool validRestrictions)
-        {
-            return validRestrictions
-                ? new List<Restriction>
-                {
-                    new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) }
-                }
-                : new List<Restriction>();
         }
 
         private IEnumerable<MoreInformationLink> GetInformationLinks(bool validInfoLinks)

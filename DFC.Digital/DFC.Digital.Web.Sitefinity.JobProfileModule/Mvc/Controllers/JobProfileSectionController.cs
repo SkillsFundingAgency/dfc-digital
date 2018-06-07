@@ -3,6 +3,8 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -65,6 +67,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string PropertyName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the restrictions title.
+        /// </summary>
+        /// <value>
+        /// The restrictions title.
+        /// </value>
+        [DisplayName("Restrictions Section Title")]
+        public string RestrictionsTitle { get; set; } = "Restrictions and requirements";
+
+        /// <summary>
+        /// Gets or sets the restrictions intro.
+        /// </summary>
+        /// <value>
+        /// The restrictions intro.
+        /// </value>
+        [DisplayName("Restrictions Section Intro")]
+        public string RestrictionsIntro { get; set; } = "You'll need to:";
+
         #endregion Public Properties
 
         #region Actions
@@ -110,7 +130,28 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var propertyValue = GetPropertyValue(CurrentJobProfile);
 
-            return View("Index", new JobProfileSectionViewModel { TopSectionContent = TopSectionContent, BottomSectionContent = BottomSectionContent, PropertyValue = propertyValue, Title = Title, PropertyName = PropertyName });
+            var model = new JobProfileSectionViewModel
+            {
+                TopSectionContent = TopSectionContent,
+                BottomSectionContent = BottomSectionContent,
+                PropertyValue = propertyValue,
+                Title = Title,
+                PropertyName = PropertyName,
+                IsWhatItTakesCadView = PropertyName.Equals(nameof(JobProfile.Skills), StringComparison.OrdinalIgnoreCase) && CurrentJobProfile.HowToBecomeData.IsHTBCaDReady
+            };
+
+            if (model.IsWhatItTakesCadView)
+            {
+                model.RestrictionsOtherRequirements = new RestrictionsOtherRequirements
+                {
+                    Restrictions = CurrentJobProfile.HowToBecomeData.Restrictions,
+                    OtherRequirements = CurrentJobProfile.HowToBecomeData.OtherRequirements,
+                    SectionIntro = RestrictionsIntro,
+                    SectionTitle = RestrictionsTitle
+                };
+            }
+
+            return View(model);
         }
 
         /// <summary>

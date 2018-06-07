@@ -39,13 +39,3 @@
         </div>
     </section>
 }
-
-@if (!string.IsNullOrEmpty(Model.HowToBecome.OtherRequirements))
-{
-    <section class="job-profile-subsection" id="otherrequirements">
-        <h3>@Model.SubsectionOtherRequirements</h3>
-        <div class="job-profile-subsection-content">
-            @Html.Raw(Model.HowToBecome.OtherRequirements)
-        </div>
-    </section>
-}

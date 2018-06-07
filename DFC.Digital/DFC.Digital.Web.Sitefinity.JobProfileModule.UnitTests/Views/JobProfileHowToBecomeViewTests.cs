@@ -147,12 +147,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
         }
 
         [Theory]
-        [InlineData("data", "", "", "test", "test")]
-        [InlineData("data", "test", "", "", "")]
-        [InlineData("data", "", "test", "test", "test")]
-        [InlineData("data", "test", "", "", "test")]
-        [InlineData("", "", "", "", "")]
-        public void Dfc2857ExtrainfomationViewTests(string work, string directApplication, string otherRequirements, string otherRoutes, string volunteering)
+        [InlineData("data", "", "test", "test")]
+        [InlineData("data", "test", "", "")]
+        [InlineData("data", "test", "", "test")]
+        [InlineData("", "", "", "")]
+        public void Dfc2857ExtrainfomationViewTests(string work, string directApplication, string otherRoutes, string volunteering)
         {
             // Arrange
             var extraInformationView = new _MVC_Views_JobProfileHowToBecome_FurtherRoutes_cshtml();
@@ -166,8 +165,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
                         DirectApplication = directApplication,
                         OtherRoutes = otherRoutes,
                         Volunteering = volunteering
-                    },
-                    OtherRequirements = otherRequirements
+                    }
                 }
             };
 
@@ -183,11 +181,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             if (!string.IsNullOrWhiteSpace(directApplication))
             {
                 ContentDisplayedBySectionId(htmlDocument, "directapplication").Should().BeTrue();
-            }
-
-            if (!string.IsNullOrWhiteSpace(otherRequirements))
-            {
-                ContentDisplayedBySectionId(htmlDocument, "otherrequirements").Should().BeTrue();
             }
 
             if (!string.IsNullOrWhiteSpace(volunteering))

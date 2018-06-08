@@ -144,8 +144,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 model.RestrictionsOtherRequirements = new RestrictionsOtherRequirements
                 {
-                    Restrictions = CurrentJobProfile.HowToBecomeData.Restrictions,
-                    OtherRequirements = CurrentJobProfile.HowToBecomeData.OtherRequirements,
+                    Restrictions = CurrentJobProfile.Restrictions,
+                    OtherRequirements = CurrentJobProfile.OtherRequirements,
                     SectionIntro = RestrictionsIntro,
                     SectionTitle = RestrictionsTitle
                 };

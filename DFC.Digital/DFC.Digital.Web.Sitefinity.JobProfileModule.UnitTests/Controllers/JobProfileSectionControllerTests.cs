@@ -189,9 +189,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         vm.RestrictionsOtherRequirements.SectionTitle.Should()
                             .BeEquivalentTo(jobprofileSectionController.RestrictionsTitle);
                         vm.RestrictionsOtherRequirements.Restrictions.Should()
-                            .BeEquivalentTo(dummyJobProfile.HowToBecomeData.Restrictions);
+                            .BeEquivalentTo(dummyJobProfile.Restrictions);
                         vm.RestrictionsOtherRequirements.OtherRequirements.Should()
-                            .BeEquivalentTo(dummyJobProfile.HowToBecomeData.OtherRequirements);
+                            .BeEquivalentTo(dummyJobProfile.OtherRequirements);
                     }
                 })
                 .AndNoModelErrors();
@@ -213,11 +213,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        Skills = nameof(JobProfile.Skills),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
-                       HowToBecomeData = new HowToBecome
-                       {
-                           Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },
-                           OtherRequirements = nameof(HowToBecome.OtherRequirements)
-                       }
+                       HowToBecomeData = new HowToBecome(),
+                       Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },
+                       OtherRequirements = nameof(JobProfile.OtherRequirements)
                    }
                    : null;
         }

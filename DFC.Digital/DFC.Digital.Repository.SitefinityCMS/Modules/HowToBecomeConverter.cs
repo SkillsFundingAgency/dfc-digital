@@ -11,6 +11,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     public class HowToBecomeConverter : IContentPropertyConverter<HowToBecome>
     {
         #region Fields
+
         private const string WorkField = "Work";
         private const string VolunteeringField = "Volunteering";
         private const string DirectApplicationField = "DirectApplication";
@@ -35,8 +36,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedApprenticeshipRequirementField = "RelatedApprenticeshipRequirements";
         private const string RelatedApprenticeshipLinksField = "RelatedApprenticeshipLinks";
         private const string RelatedRegistrationsField = "RelatedRegistrations";
-        private const string OtherRequirementsField = "OtherRequirements";
-        private const string RelatedRestrictionsField = "RelatedRestrictions";
 
         private readonly IRelatedClassificationsRepository classificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -44,22 +43,23 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #endregion Fields
 
         #region Ctor
+
         public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.classificationsRepository = classificationsRepository;
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
+
         #endregion Ctor
 
         #region Public methods
+
         public HowToBecome ConvertFrom(DynamicContent content)
         {
             var isCadReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(HowToBecome.IsHTBCaDReady));
-            return !isCadReady ?
-                new HowToBecome() :
-                new HowToBecome
+            return !isCadReady ? new HowToBecome() : new HowToBecome
             {
-                    IsHTBCaDReady = true,
+                IsHTBCaDReady = true,
                 IntroText = dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroTextField),
                 FurtherRoutes = new FurtherRoutes
                 {
@@ -72,7 +72,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 FurtherInformation = new MoreInformation
                 {
                     ProfessionalAndIndustryBodies =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, ProfessionalAndIndustryBodiesField),
+                            dynamicContentExtensions.GetFieldValue<Lstring>(content, ProfessionalAndIndustryBodiesField),
                     CareerTips = dynamicContentExtensions.GetFieldValue<Lstring>(content, CareerTipsField),
                     FurtherInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, FurtherInformationField)
                 },
@@ -112,18 +112,17 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     }
                 },
                 Registrations = GetRegistrations(content, RelatedRegistrationsField),
-                Restrictions = GetRestrictions(content, RelatedRestrictionsField),
-                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField)
             };
         }
 
-        #endregion
+        #endregion Public methods
 
         #region private methods
+
         private IEnumerable<MoreInformationLink> GetRelatedLinkItems(DynamicContent content, string relatedField)
         {
             var linkItems = new List<MoreInformationLink>();
-            var relatedItems = RelatedItems(content, relatedField);
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
             if (relatedItems != null)
             {
                 foreach (var relatedItem in relatedItems)
@@ -143,8 +142,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)
         {
-          var requirements = new List<EntryRequirement>();
-            var relatedItems = RelatedItems(content, relatedField);
+            var requirements = new List<EntryRequirement>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
             if (relatedItems != null)
             {
                 foreach (var relatedItem in relatedItems)
@@ -160,35 +159,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return requirements;
         }
 
-        private IQueryable<DynamicContent> RelatedItems(DynamicContent content, string relatedField)
-        {
-            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField, 100);
-            return relatedItems;
-        }
-
-        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
-        {
-            var restrictions = new List<Restriction>();
-            var relatedItems = RelatedItems(content, relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    restrictions.Add(new Restriction
-                    {
-                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
-                    });
-                }
-            }
-
-            return restrictions;
-        }
-
         private IEnumerable<Registration> GetRegistrations(DynamicContent content, string relatedField)
         {
             var requirements = new List<Registration>();
-            var relatedItems = RelatedItems(content, relatedField);
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
             if (relatedItems != null)
             {
                 foreach (var relatedItem in relatedItems)
@@ -204,6 +178,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return requirements;
         }
 
-        #endregion
+        #endregion private methods
     }
 }

@@ -20,6 +20,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedJobProfileCategoriesField = "JobProfileCategories";
         private const string RelatedJobAreasField = "RelatedJobAreas";
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
+        private const string OtherRequirementsField = "OtherRequirements";
+        private const string RelatedRestrictionsField = "RelatedRestrictions";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -73,7 +75,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
 
                 // How To Become section
-                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content)
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
+                Restrictions = GetRestrictions(content, RelatedRestrictionsField),
+                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
@@ -93,6 +97,17 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
             return jobProfile;
+        }
+
+        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
+        {
+            //var restrictions = new List<Restriction>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            return relatedItems?.Select(r => new Restriction
+            {
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(r, nameof(InfoItem.Title)),
+                Info = dynamicContentExtensions.GetFieldValue<Lstring>(r, nameof(InfoItem.Info))
+            });
         }
     }
 }

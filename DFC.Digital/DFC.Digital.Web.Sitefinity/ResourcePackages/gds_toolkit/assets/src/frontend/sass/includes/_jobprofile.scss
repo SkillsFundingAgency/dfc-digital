@@ -1,13 +1,39 @@
 ﻿/*Job Profile*/
 
-.job-profile-heading {
-    font-size: 28px !important;
-    font-weight: bold;
-    padding: 10px 0;
-    border-bottom: 1px solid $grey-3;
+/* Automatically Add Numbers To Sections & style lists within sections */
+.job-profile-sections {
+    counter-reset: section;
 
-    @media(desktop) {
-        margin-top: 1.8em !important;
+
+    section {
+
+        ul {
+            @extend .list;
+            @extend .list-bullet;
+        }
+
+        ol {
+            @extend .list;
+            @extend .list-number;
+        }
+
+        h2 {
+            font-size: 28px !important;
+            font-weight: bold;
+            padding: 10px 0;
+            border-bottom: 1px solid $grey-3;
+
+            @media(desktop) {
+                margin-top: 1.8em !important;
+            }
+        }
+    }
+    /* Fix App Feed Section to remove bullet points that are applied by default */
+    #current-opportunities {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
     }
 }
 

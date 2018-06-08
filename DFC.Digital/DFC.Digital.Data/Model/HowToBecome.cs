@@ -14,10 +14,6 @@ namespace DFC.Digital.Data.Model
 
         public IEnumerable<Registration> Registrations { get; set; }
 
-        public string OtherRequirements { get; set; }
-
-        public IEnumerable<Restriction> Restrictions { get; set; }
-
         public bool IsHTBCaDReady { get; set; }
     }
 }

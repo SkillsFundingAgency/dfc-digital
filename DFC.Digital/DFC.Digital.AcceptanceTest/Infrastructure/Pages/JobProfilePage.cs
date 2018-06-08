@@ -13,7 +13,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public int NumberOfRelatedCareers => Find.Elements(By.CssSelector(".list-big li")).Count();
 
-        public bool HasHowToBecomeSection => Find.OptionalElement(By.Id("HowToBecome")) != null;
+        public bool HasHowToBecomeSection => Find.OptionalElement(By.Id("how-to-become")) != null;
 
         public bool HasSkillsSection => Find.OptionalElement(By.Id("Skills")) != null;
 

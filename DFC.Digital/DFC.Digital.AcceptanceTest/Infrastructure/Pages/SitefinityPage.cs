@@ -47,12 +47,15 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where TPage : UiComponent, new()
         {
             EnterEmail(email);
-            return Navigate.To<TPage>(By.ClassName(SendButton));
+            var navPage = Navigate.To<TPage>(By.ClassName(SendButton));
+            WaitFor.AjaxCallsToComplete(new TimeSpan(0, 0, 2));
+            return navPage;
         }
 
         #endregion Survey Properties / Methods
         public void AwaitInitialisation()
         {
+            WaitFor.AjaxCallsToComplete(new TimeSpan(0, 0, 2));
             while (IsThisStatusPage())
             {
                 Thread.Sleep(TimeSpan.FromSeconds(5));
@@ -80,7 +83,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             try
             {
-                return Browser.Url.Contains("/sitefinity/status");
+                return Browser.Url.Contains("/health/status");
             }
             catch (ArgumentNullException)
             {

@@ -174,18 +174,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileSearch.feature</DependentUpon>
     </Compile>
-    <Compile Include="AcceptanceCriteria\Features\PreSearchFilter.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PreSearchFilter.feature</DependentUpon>
-    </Compile>
     <Compile Include="AcceptanceCriteria\Features\VocSurvey.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
-    <Compile Include="AcceptanceCriteria\Steps\PreSearchFilterSteps.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\HomePageSteps.cs" />
@@ -205,7 +199,6 @@
     <Compile Include="Infrastructure\Pages\DFCElementFinder.cs" />
     <Compile Include="Infrastructure\Pages\JobProfileCategoryPage.cs" />
     <Compile Include="Infrastructure\Pages\JobProfilePage.cs" />
-    <Compile Include="Infrastructure\Pages\PreSearchFilterPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
     <Compile Include="Infrastructure\Pages\SitefinityPage.cs" />
@@ -229,10 +222,6 @@
     </None>
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-    </None>
-    <None Include="AcceptanceCriteria\Features\PreSearchFilter.feature">
-      <LastGenOutput>PreSearchFilter.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature">
@@ -324,6 +313,6 @@
   <PropertyGroup>
     <SpecFlowTasksPath>..\packages\SpecFlow.2.3.1\tools\specflow.exe</SpecFlowTasksPath>
   </PropertyGroup>
-  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks"  Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks')" />
+  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks')" />
   <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets')" />
 </Project>

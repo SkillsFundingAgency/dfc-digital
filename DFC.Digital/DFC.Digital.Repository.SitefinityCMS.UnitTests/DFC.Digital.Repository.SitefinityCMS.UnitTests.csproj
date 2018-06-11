@@ -250,6 +250,7 @@
   <ItemGroup>
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
+    <Compile Include="Modules\HowToBecomeConverterTests.cs" />
     <Compile Include="Modules\JobProfileCategoryRepositoryUnitTests.cs" />
     <Compile Include="Modules\JobProfileConverterTests.cs" />
     <Compile Include="Modules\JobProfileRelatedCareerConverterTests.cs" />

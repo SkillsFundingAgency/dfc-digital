@@ -1,0 +1,51 @@
+﻿@using DFC.Digital.Data.Model
+@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
+
+<section id="@Model.SectionId">
+    <h2 class="heading-large job-profile-heading">@Model.MainSectionTitle</h2>
+    @if (Model.HowToBecome.IsHTBCaDReady)
+    {
+        @Html.Raw(Model.HowToBecome.IntroText)
+
+        @Html.Partial(
+            "RouteEntry",
+            Model.HowToBecome.RouteEntries.FirstOrDefault(route => route.RouteName.Equals(RouteEntryType.University)),
+            new ViewDataDictionary
+            {
+                { "SubsectionTitle", Model.SubsectionUniversity },
+                { "Requirements", Model.SubsectionUniversityRequirements },
+                { "SubsectionMoreInformation", Model.SubsectionUniversityMoreInformation },
+                { "SubsectionId", nameof(RouteEntryType.University) }
+            })
+
+        @Html.Partial(
+            "RouteEntry",
+            Model.HowToBecome.RouteEntries.FirstOrDefault(route => route.RouteName.Equals(RouteEntryType.College)),
+            new ViewDataDictionary
+            {
+                { "SubsectionTitle", Model.SubsectionCollege },
+                { "Requirements", Model.SubsectionCollegeRequirements },
+                { "SubsectionMoreInformation", Model.SubsectionCollegeMoreInformation },
+                { "SubsectionId", nameof(RouteEntryType.College) }
+            })
+
+        @Html.Partial(
+            "RouteEntry",
+            Model.HowToBecome.RouteEntries.FirstOrDefault(route => route.RouteName.Equals(RouteEntryType.Apprenticeship)),
+            new ViewDataDictionary
+            {
+                { "SubsectionTitle", Model.SubsectionApprenticeship },
+                { "Requirements", Model.SubsectionApprenticeshipRequirements },
+                { "SubsectionMoreInformation", Model.SubsectionApprenticeshipMoreInformation },
+                { "SubsectionId", nameof(RouteEntryType.Apprenticeship) }
+            })
+
+        @Html.Partial("FurtherRoutes", Model)
+
+        @Html.Partial("MoreInformation", Model)
+    }
+    else
+    {
+        @Html.Raw(Model.HowToBecomeText)
+    }
+</section>

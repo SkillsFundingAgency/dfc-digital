@@ -108,6 +108,16 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\EntryRequirement.cs" />
+    <Compile Include="Model\FurtherRoutes.cs" />
+    <Compile Include="Model\MoreInformation.cs" />
+    <Compile Include="Model\HowToBecome.cs" />
+    <Compile Include="Model\InfoItem.cs" />
+    <Compile Include="Model\MoreInformationLink.cs" />
+    <Compile Include="Model\Registration.cs" />
+    <Compile Include="Model\Restriction.cs" />
+    <Compile Include="Model\RouteEntry.cs" />
+    <Compile Include="Model\RouteEntryType.cs" />
     <Compile Include="Model\ServiceStatus.cs" />
     <Compile Include="Model\PreSearchFilterOperator.cs" />
     <Compile Include="Model\Audit.cs" />

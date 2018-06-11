@@ -40,5 +40,5 @@ Scenario: [DFC-1562-1808] Personalised Survey - Check Cookies update with last J
 	And the vocPersonaliation cookie should display the last job profile title
 	And the GA client ID should not be empty
 
-	When I enter the email 'dfc-test-voc@mailinator.com' and press send
+	When I enter the email 'simulate-delivered@notifications.service.gov.uk' and press send
 	Then the success message is displayed

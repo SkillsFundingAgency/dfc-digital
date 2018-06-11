@@ -1,8 +1,12 @@
 ﻿using ASP;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
+using FluentAssertions.Common;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -48,6 +52,49 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Theory]
+        [InlineData(true, "Content")]
+        [InlineData(false, "")]
+        public void Dfc3391RestrictionsOtherRequirementsViewTests(bool validRestrictions, string content)
+        {
+            // Arrange
+            var restrictionsView = new _MVC_Views_JobProfileSection_RestrictionsRequirements_cshtml();
+            var restrictionsOtherRequirements = new RestrictionsOtherRequirements
+            {
+                Restrictions = GetRestrictions(validRestrictions),
+                OtherRequirements = content
+            };
+
+            // Act
+            var htmlDocument = restrictionsView.RenderAsHtml(restrictionsOtherRequirements);
+
+            // Assert
+            if (validRestrictions)
+            {
+                htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(restrictionsOtherRequirements.Restrictions.Count());
+            }
+
+            if (string.IsNullOrWhiteSpace(content) && !validRestrictions)
+            {
+                AssertViewIsEmpty(htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                AssertContentExistsInView(content, htmlDocument);
+            }
+        }
+
+        private static void AssertContentExistsInView(string content, HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.InnerHtml.IndexOf(content, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+        }
+
+        private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
+        }
+
         /// <summary>
         /// Gets the h2 heading.
         /// </summary>
@@ -67,8 +114,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         private int CountOfDescendants(HtmlDocument htmlDom)
         {
             return htmlDom.DocumentNode.Element("section").ChildNodes
-                .Where(n => n.NodeType == HtmlNodeType.Element)
-                .Count();
+                .Count(n => n.NodeType == HtmlNodeType.Element);
         }
 
         private JobProfileSectionViewModel GenerateJobProfileSectionViewModelDummy(
@@ -84,6 +130,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 Title = sectionTitle,
                 PropertyName = propertyName
             };
+        }
+
+        private IEnumerable<Restriction> GetRestrictions(bool validRestrictions)
+        {
+            return validRestrictions
+                ? new List<Restriction>
+                {
+                    new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) },
+                    new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) }
+                }
+                : new List<Restriction>();
+        }
+
+        private bool ContentDisplayedBySectionId(HtmlDocument htmlDocument, string sectionId)
+        {
+            return !string.IsNullOrWhiteSpace(htmlDocument.DocumentNode.Descendants("section")?.FirstOrDefault(sec => sec.Id.Equals(sectionId))
+                ?.InnerHtml);
         }
     }
 }

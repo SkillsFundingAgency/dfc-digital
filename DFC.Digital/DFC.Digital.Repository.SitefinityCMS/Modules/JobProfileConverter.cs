@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Extensions;
+using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +20,21 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedJobProfileCategoriesField = "JobProfileCategories";
         private const string RelatedJobAreasField = "RelatedJobAreas";
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
+        private const string OtherRequirementsField = "OtherRequirements";
+        private const string RelatedRestrictionsField = "RelatedRestrictions";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
+        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
+            this.htbContentPropertyConverter = htbContentPropertyConverter;
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
@@ -68,7 +72,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
                 DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.DoesNotExistInBAU)),
                 BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.BAUSystemOverrideUrl)),
-                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported))
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfile.IsImported)),
+
+                // How To Become section
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
+                Restrictions = GetRestrictions(content, RelatedRestrictionsField),
+                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
@@ -87,8 +96,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedTrainingRoutes = GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
-
             return jobProfile;
+        }
+
+        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
+        {
+            var restrictions = new List<Restriction>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    restrictions.Add(new Restriction
+                    {
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return restrictions;
         }
     }
 }

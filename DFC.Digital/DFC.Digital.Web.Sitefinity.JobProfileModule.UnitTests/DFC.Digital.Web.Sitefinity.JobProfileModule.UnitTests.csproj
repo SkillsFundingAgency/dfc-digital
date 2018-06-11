@@ -137,11 +137,13 @@
     <Compile Include="Controllers\JobProfileSettingsAndPreviewControllerTests.cs" />
     <Compile Include="Controllers\PreSearchFiltersControllerTests.cs" />
     <Compile Include="Controllers\PsfSearchControllerTests.cs" />
+    <Compile Include="Controllers\JobProfileHowToBecomeControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\BauJobProfileSignpostViewTests.cs" />
     <Compile Include="Views\JobProfileAnchorViewTests.cs" />
     <Compile Include="Views\JobProfileCourseOpportunityViewTests.cs" />
     <Compile Include="Views\JobProfileDetailsViewTests.cs" />
+    <Compile Include="Views\JobProfileHowToBecomeViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />
     <Compile Include="Views\PsfSearchViewTests.cs" />
     <Compile Include="Views\JobProfileSettingsAndPreviewViewTests.cs" />

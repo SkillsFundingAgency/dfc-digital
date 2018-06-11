@@ -16,7 +16,7 @@
                 <ul class="list-reqs">
                     @foreach (var requirement in Model.EntryRequirements)
                     {
-                        <li>@requirement.Info</li>
+                        <li>@Html.Raw(requirement.Info)</li>
                     }
                 </ul>
             }

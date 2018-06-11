@@ -101,13 +101,21 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
         {
-            //var restrictions = new List<Restriction>();
+            var restrictions = new List<Restriction>();
             var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
-            return relatedItems?.Select(r => new Restriction
+            if (relatedItems != null)
             {
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(r, nameof(InfoItem.Title)),
-                Info = dynamicContentExtensions.GetFieldValue<Lstring>(r, nameof(InfoItem.Info))
-            });
+                foreach (var relatedItem in relatedItems)
+                {
+                    restrictions.Add(new Restriction
+                    {
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return restrictions;
         }
     }
 }

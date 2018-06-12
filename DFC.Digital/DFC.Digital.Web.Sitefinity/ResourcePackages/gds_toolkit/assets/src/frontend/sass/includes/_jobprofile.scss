@@ -4,7 +4,6 @@
 .job-profile-sections {
     counter-reset: section;
 
-
     section {
 
         ul {
@@ -50,12 +49,12 @@
         }
     }
 }
-    /* Fix App Feed Section to remove bullet points that are applied by default */
-    #current-opportunities {
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+
+/* Fix App Feed Section to remove bullet points that are applied by default */
+#current-opportunities {
+    ul {
+        list-style: none;
+        padding: 0;
     }
 }
 

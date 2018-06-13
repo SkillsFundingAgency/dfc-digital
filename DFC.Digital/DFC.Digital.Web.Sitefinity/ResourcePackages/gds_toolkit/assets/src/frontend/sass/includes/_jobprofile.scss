@@ -416,6 +416,24 @@
     border-color: $careers-turquoise;
 }
 
+.govuk-related-items {
+    border-top: 3px solid$careers-turquoise;
+    margin-bottom: 2em;
+
+    @include media(tablet) {
+        border-top: 6px solid$careers-turquoise;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .heading-medium {
+        margin-top: 0.75em;
+        margin-bottom: 0.5em;
+    }
+}
+
 /* Search From Job Profile */
 .js-enabled {
     .job-profile-search {

@@ -18,6 +18,9 @@
 
 
             li {
+                padding-left: 20px;
+                text-indent: -20px;
+
                 &:before {
                     content: ">";
                     color: $govuk-blue;

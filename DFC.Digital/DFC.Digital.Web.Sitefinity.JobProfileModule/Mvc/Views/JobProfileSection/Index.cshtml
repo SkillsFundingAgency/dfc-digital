@@ -6,8 +6,3 @@
     @Html.Raw(Model.PropertyValue)
     @Html.Raw(Model.BottomSectionContent)
 </section>
-
-@if (Model.IsWhatItTakesCadView)
-{
-    @Html.Partial("RestrictionsRequirements", Model.RestrictionsOtherRequirements)
-}

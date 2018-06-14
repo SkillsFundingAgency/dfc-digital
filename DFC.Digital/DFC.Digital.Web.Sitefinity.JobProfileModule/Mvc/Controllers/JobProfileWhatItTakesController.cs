@@ -3,6 +3,8 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -12,19 +14,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// Job Profile Section Controller
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "JobProfileSection", Title = "Job Profile Section", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class JobProfileSectionController : BaseJobProfileWidgetController
+    [ControllerToolboxItem(Name = "JobProfileWhatItTakes", Title = "Job Profile What It Takes", SectionName = SitefinityConstants.CustomWidgetSection)]
+    public class JobProfileWhatItTakesController : BaseJobProfileWidgetController
     {
         #region Ctor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="JobProfileSectionController" /> class.
+        /// Initializes a new instance of the <see cref="JobProfileWhatItTakesController" /> class.
         /// </summary>
         /// <param name="jobProfileRepository">The job profile repository.</param>
         /// <param name="webAppContext">The web application context.</param>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="sitefinityPage">sitefinity</param>
-        public JobProfileSectionController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
+        public JobProfileWhatItTakesController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
         }
@@ -55,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The title.
         /// </value>
-        public string Title { get; set; }
+        public string Title { get; set; } = "What It Takes";
 
         /// <summary>
         /// Gets or sets the name of the property.
@@ -63,7 +65,33 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The name of the property.
         /// </value>
-        public string PropertyName { get; set; }
+        public string SectionId { get; set; } = "Skills";
+
+        /// <summary>
+        /// Gets or sets the what it takes section title.
+        /// </summary>
+        /// <value>
+        /// The what it takes section title.
+        /// </value>
+        public string WhatItTakesSectionTitle { get; set; } = "Skills and Knowledge";
+
+        /// <summary>
+        /// Gets or sets the restrictions title.
+        /// </summary>
+        /// <value>
+        /// The restrictions title.
+        /// </value>
+        [DisplayName("Restrictions Section Title")]
+        public string RestrictionsTitle { get; set; } = "Restrictions and requirements";
+
+        /// <summary>
+        /// Gets or sets the restrictions intro.
+        /// </summary>
+        /// <value>
+        /// The restrictions intro.
+        /// </value>
+        [DisplayName("Restrictions Section Intro")]
+        public string RestrictionsIntro { get; set; } = "You'll need to:";
 
         #endregion Public Properties
 
@@ -108,27 +136,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         private ActionResult ReturnSectionView()
         {
-            var propertyValue = GetPropertyValue(CurrentJobProfile);
-
-            return View("Index", new JobProfileSectionViewModel { TopSectionContent = TopSectionContent, BottomSectionContent = BottomSectionContent, PropertyValue = propertyValue, Title = Title, PropertyName = PropertyName });
-        }
-
-        /// <summary>
-        /// Gets the property value.
-        /// </summary>
-        /// <param name="jobProfile">The urlname.</param>
-        /// <returns>string</returns>
-        private string GetPropertyValue(JobProfile jobProfile)
-        {
-            var propertyValue = string.Empty;
-            if (!string.IsNullOrWhiteSpace(PropertyName))
+            var model = new JobProfileWhatItTakesViewModel
             {
-                propertyValue = jobProfile.GetType()
-                    .GetProperty(PropertyName)
-                    ?.GetValue(jobProfile, null) as string;
+                TopSectionContent = TopSectionContent,
+                BottomSectionContent = BottomSectionContent,
+                PropertyValue = CurrentJobProfile.Skills,
+                Title = Title,
+                SectionId = SectionId,
+                WhatItTakesSectionTitle = WhatItTakesSectionTitle,
+                IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady
+            };
+
+            if (model.IsWhatItTakesCadView)
+            {
+                model.RestrictionsOtherRequirements = new RestrictionsOtherRequirements
+                {
+                    Restrictions = CurrentJobProfile.Restrictions,
+                    OtherRequirements = CurrentJobProfile.OtherRequirements,
+                    SectionIntro = RestrictionsIntro,
+                    SectionTitle = RestrictionsTitle
+                };
             }
 
-            return propertyValue;
+            return View(model);
         }
 
         #endregion Actions

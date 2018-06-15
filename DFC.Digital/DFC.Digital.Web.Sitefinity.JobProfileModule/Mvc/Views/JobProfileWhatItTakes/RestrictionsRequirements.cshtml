@@ -4,16 +4,19 @@
     <section class="job-profile-subsection" id="restrictions">
         <h3>@Model.SectionTitle</h3>
         <div class="job-profile-subsection-content">
-            @if (!string.IsNullOrEmpty(Model.SectionIntro))
+            @if (Model.Restrictions.Any())
             {
-                <p>@Model.SectionIntro</p>
-            }
-            <ul>
-                @foreach (var restriction in Model.Restrictions)
+                if (!string.IsNullOrEmpty(Model.SectionIntro))
                 {
-                    <li>@Html.Raw(restriction.Info)</li>
+                    <p>@Model.SectionIntro</p>
                 }
-            </ul>
+                <ul>
+                    @foreach (var restriction in Model.Restrictions)
+                    {
+                        <li>@Html.Raw(restriction.Info)</li>
+                    }
+                </ul>
+            }
             @Html.Raw(Model.OtherRequirements)
         </div>
     </section>

@@ -57,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The title.
         /// </value>
-        public string Title { get; set; } = "What It Takes";
+        public string MainSectionTitle { get; set; } = "What It Takes";
 
         /// <summary>
         /// Gets or sets the name of the property.
@@ -81,7 +81,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The restrictions title.
         /// </value>
-        [DisplayName("Restrictions Section Title")]
         public string RestrictionsTitle { get; set; } = "Restrictions and requirements";
 
         /// <summary>
@@ -90,7 +89,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The restrictions intro.
         /// </value>
-        [DisplayName("Restrictions Section Intro")]
         public string RestrictionsIntro { get; set; } = "You'll need to:";
 
         #endregion Public Properties
@@ -141,7 +139,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 TopSectionContent = TopSectionContent,
                 BottomSectionContent = BottomSectionContent,
                 PropertyValue = CurrentJobProfile.Skills,
-                Title = Title,
+                Title = MainSectionTitle,
                 SectionId = SectionId,
                 WhatItTakesSectionTitle = WhatItTakesSectionTitle,
                 IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady

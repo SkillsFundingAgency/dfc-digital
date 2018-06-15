@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 using Telerik.Sitefinity.Taxonomies.Model;
 using Xunit;
 
-namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class JobProfileCategoryRepositoryUnitTests
     {

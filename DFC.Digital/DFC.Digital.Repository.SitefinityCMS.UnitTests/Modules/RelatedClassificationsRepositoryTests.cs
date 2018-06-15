@@ -10,13 +10,12 @@ using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Taxonomies.Web;
 using Xunit;
 
-namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class RelatedClassificationsRepositoryTests
     {
         private IDynamicContentExtensions fakeDynamicContentExtensions;
         private ITaxonomyManager fakeTaxonomyManager;
-        private IRepository<Taxon> fakeTaxonomyRepository;
         private DynamicContent dummyContentItem;
         private ITaxonomyManagerExtensions fakeTaxonomyManagerExtensions;
 
@@ -24,7 +23,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
         {
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
             fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
-            fakeTaxonomyRepository = A.Fake<IRepository<Taxon>>();
             dummyContentItem = A.Dummy<DynamicContent>();
             fakeTaxonomyManagerExtensions = A.Fake<ITaxonomyManagerExtensions>();
         }
@@ -46,7 +44,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
 
-            //  A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
             A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
         }
 

@@ -108,9 +108,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             vm.SubsectionVolunteering.Should().BeEquivalentTo(jobprofilehtbController.SubsectionVolunteering);
             vm.SubsectionDirectApplication.Should().BeEquivalentTo(jobprofilehtbController.SubsectionDirectApplication);
             vm.SubsectionOtherRoutes.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRoutes);
-            vm.SubsectionRestrictions.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictions);
-            vm.SubsectionRestrictionsOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictionsOpeningText);
-            vm.SubsectionOtherRequirements.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRequirements);
             vm.SubsectionMoreInfo.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfo);
             vm.SubsectionMoreInfoRegistration.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistration);
             vm.SubsectionMoreInfoRegistrationOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistrationOpeningText);

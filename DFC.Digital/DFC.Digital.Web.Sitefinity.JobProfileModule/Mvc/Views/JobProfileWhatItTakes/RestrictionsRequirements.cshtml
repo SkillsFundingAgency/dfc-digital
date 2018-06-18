@@ -1,0 +1,23 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RestrictionsOtherRequirements
+@if (Model.Restrictions.Any() || !string.IsNullOrWhiteSpace(Model.OtherRequirements))
+{
+    <section class="job-profile-subsection" id="restrictions">
+        <h3>@Model.SectionTitle</h3>
+        <div class="job-profile-subsection-content">
+            @if (Model.Restrictions.Any())
+            {
+                if (!string.IsNullOrEmpty(Model.SectionIntro))
+                {
+                    <p>@Model.SectionIntro</p>
+                }
+                <ul>
+                    @foreach (var restriction in Model.Restrictions)
+                    {
+                        <li>@Html.Raw(restriction.Info)</li>
+                    }
+                </ul>
+            }
+            @Html.Raw(Model.OtherRequirements)
+        </div>
+    </section>
+}

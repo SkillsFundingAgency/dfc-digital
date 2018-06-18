@@ -58,9 +58,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
         }
 
-        public override void CreateIndex(string indexName, IEnumerable<IFieldDefinition> fieldDefinitions)
+        public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
         {
-            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(name) && index.StartsWith(name, StringComparison.OrdinalIgnoreCase))
             {
                 //TODO: think about mapping from sitefinity field defenitions to domain model?
                 //Or is it correct to keep them in sync anyway?
@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
             else
             {
-                base.CreateIndex(indexName, fieldDefinitions);
+                base.CreateIndex(name, fieldDefinitions);
             }
         }
 

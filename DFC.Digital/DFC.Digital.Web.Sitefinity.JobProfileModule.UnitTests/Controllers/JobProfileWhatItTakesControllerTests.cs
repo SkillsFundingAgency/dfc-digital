@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     /// <summary>
     /// Job Profile Section Controller tests
     /// </summary>
-    public class JobProfileSectionControllerTests
+    public class JobProfileWhatItTakesControllerTests
     {
         /// <summary>
         /// Indexes the test.
@@ -47,22 +47,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
-            var jobprofileSectionController = new JobProfileSectionController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage) { PropertyName = nameof(JobProfileSectionController.PropertyName) };
+            var jobProfileWhatItTakesController =
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
 
             //Act
-            var indexMethodCall = jobprofileSectionController.WithCallTo(c => c.Index());
+            var indexMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index());
 
             //Assert
             if (inContentAuthoringSite)
             {
                 indexMethodCall
                     .ShouldRenderDefaultView()
-                    .WithModel<JobProfileSectionViewModel>(vm =>
+                    .WithModel<JobProfileWhatItTakesViewModel>(vm =>
                     {
-                        vm.PropertyName.Should().BeEquivalentTo(jobprofileSectionController.PropertyName);
-                        vm.Title.Should().BeEquivalentTo(jobprofileSectionController.Title);
-                        vm.TopSectionContent.Should().BeEquivalentTo(jobprofileSectionController.TopSectionContent);
-                        vm.BottomSectionContent.Should().BeEquivalentTo(jobprofileSectionController.BottomSectionContent);
+                        vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
+                        vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                        vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                     })
                     .AndNoModelErrors();
 
@@ -109,11 +109,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
-            var jobprofileSectionController =
-                new JobProfileSectionController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage) { PropertyName = nameof(JobProfileSectionController.PropertyName) };
+            var jobProfileWhatItTakesController =
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
 
             //Act
-            var indexWithUrlNameMethodCall = jobprofileSectionController.WithCallTo(c => c.Index(urlName));
+            var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index(urlName));
 
             if (useValidJobProfile)
             {
@@ -121,10 +121,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileSectionViewModel>(vm =>
                     {
-                        vm.PropertyName.Should().BeEquivalentTo(jobprofileSectionController.PropertyName);
-                        vm.Title.Should().BeEquivalentTo(jobprofileSectionController.Title);
-                        vm.TopSectionContent.Should().BeEquivalentTo(jobprofileSectionController.TopSectionContent);
-                        vm.BottomSectionContent.Should().BeEquivalentTo(jobprofileSectionController.BottomSectionContent);
+                        vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
+                        vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                        vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                     })
                     .AndNoModelErrors();
             }
@@ -142,6 +141,56 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
             }
+        }
+
+        [Theory]
+        [InlineData("Test", true, true)]
+        [InlineData("Test", false, false)]
+        public void IndexWithCadHowToBecome(string urlName, bool cadReady, bool expected)
+        {
+            //Setup the fakes and dummies
+            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+
+            var dummyJobProfile = GetDummyJobPRofile(true);
+            dummyJobProfile.HowToBecomeData.IsHTBCaDReady = cadReady;
+
+            // Set up calls
+            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
+            A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+
+            //Instantiate & Act
+            var jobProfileWhatItTakesController =
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
+
+            //Act
+            var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index(urlName));
+
+            indexWithUrlNameMethodCall
+                .ShouldRenderDefaultView()
+                .WithModel<JobProfileWhatItTakesViewModel>(vm =>
+                {
+                    vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
+                    vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                    vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                    vm.IsWhatItTakesCadView.Should().Be(expected);
+                    if (expected)
+                    {
+                        vm.RestrictionsOtherRequirements.SectionIntro.Should()
+                            .BeEquivalentTo(jobProfileWhatItTakesController.RestrictionsIntro);
+                        vm.RestrictionsOtherRequirements.SectionTitle.Should()
+                            .BeEquivalentTo(jobProfileWhatItTakesController.RestrictionsTitle);
+                        vm.RestrictionsOtherRequirements.Restrictions.Should()
+                            .BeEquivalentTo(dummyJobProfile.Restrictions);
+                        vm.RestrictionsOtherRequirements.OtherRequirements.Should()
+                            .BeEquivalentTo(dummyJobProfile.OtherRequirements);
+                    }
+                })
+                .AndNoModelErrors();
         }
 
         private JobProfile GetDummyJobPRofile(bool useValidJobProfile)

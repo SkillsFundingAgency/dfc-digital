@@ -248,6 +248,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
     <Compile Include="Modules\HowToBecomeConverterTests.cs" />

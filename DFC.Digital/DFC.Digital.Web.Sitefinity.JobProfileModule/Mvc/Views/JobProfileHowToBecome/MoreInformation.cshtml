@@ -10,7 +10,7 @@
                 <h4>@Model.SubsectionMoreInfoRegistration</h4>
                 if (!string.IsNullOrEmpty(Model.SubsectionMoreInfoRegistrationOpeningText))
                 {
-                    <p>@Model.SubsectionMoreInfoRegistrationOpeningText</p>
+                    <p>@Html.Raw(Model.SubsectionMoreInfoRegistrationOpeningText)</p>
                 }
                 <ul>
                     @foreach (var registration in Model.HowToBecome.Registrations)

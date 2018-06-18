@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using DFC.Digital.Core;
+using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
@@ -16,7 +17,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible);
         }
 
-        public IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn)
+        public IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
         {
             return contentItem?
                 .GetRelatedItems<DynamicContent>(fieldName)

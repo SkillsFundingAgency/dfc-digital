@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using DFC.Digital.Core;
+using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
@@ -7,7 +8,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
     {
         IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName);
 
-        IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn);
+        IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
 
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 

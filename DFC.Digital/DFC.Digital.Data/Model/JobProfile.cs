@@ -84,6 +84,10 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string Skills { get; set; }
 
+        public IEnumerable<Restriction> Restrictions { get; set; }
+
+        public string OtherRequirements { get; set; }
+
         /// <summary>
         /// Gets or sets the salary.
         /// </summary>

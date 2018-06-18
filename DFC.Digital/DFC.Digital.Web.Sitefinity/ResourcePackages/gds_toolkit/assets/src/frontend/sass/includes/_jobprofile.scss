@@ -1,13 +1,39 @@
 ﻿/*Job Profile*/
 
-.job-profile-heading {
-    font-size: 28px !important;
-    font-weight: bold;
-    padding: 10px 0;
-    border-bottom: 1px solid $grey-3;
+/* Automatically Add Numbers To Sections & style lists within sections */
+.job-profile-sections {
+    counter-reset: section;
 
-    @media(desktop) {
-        margin-top: 1.8em !important;
+
+    section {
+
+        ul {
+            @extend .list;
+            @extend .list-bullet;
+        }
+
+        ol {
+            @extend .list;
+            @extend .list-number;
+        }
+
+        h2 {
+            font-size: 28px !important;
+            font-weight: bold;
+            padding: 10px 0;
+            border-bottom: 1px solid $grey-3;
+
+            @media(desktop) {
+                margin-top: 1.8em !important;
+            }
+        }
+    }
+    /* Fix App Feed Section to remove bullet points that are applied by default */
+    #current-opportunities {
+        ul {
+            list-style: none;
+            padding: 0;
+        }
     }
 }
 
@@ -289,22 +315,56 @@
 }
 
 .jump-links {
+    border-bottom: none;
 
     ol {
-        margin-bottom: 0;
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
         li {
-            padding-bottom: 0.263em;
-            margin-top: 0.263em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            @extend %contain-floats;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            break-inside: avoid;
+
+            a {
+                color: $black;
+                width: 100%;
+                padding: 8px 10px;
+                text-decoration: none;
+                float: left;
+                box-sizing: border-box;
+                background-color: $grey-3;
+                border-radius: 3px;
+
+                &:hover {
+                    background-color: $govuk-blue;
+                    color: $white;
+
+                    &:after {
+                        color: $white;
+                    }
+                }
+
+                &:after {
+                    content: ">";
+                    float: right;
+                    color: $govuk-blue;
+                }
+            }
         }
 
         @include media(tablet) {
             -moz-column-count: 2;
-            -moz-column-gap: 50px;
+            -moz-column-gap: 25px;
             -webkit-column-count: 2;
-            -webkit-column-gap: 50px;
+            -webkit-column-gap: 25px;
             column-count: 2;
-            column-gap: 50px;
+            column-gap: 25px;
         }
     }
 }

@@ -21,39 +21,37 @@ namespace DFC.Digital.Core.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
-            try
+            if (invocation != null)
             {
-                if (invocation == null)
+                try
                 {
-                    throw new ArgumentNullException(nameof(invocation));
+                    var returnType = invocation.Method.ReturnType;
+                    if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                    {
+                        InterceptAsyncFunc(invocation);
+                    }
+                    else if (returnType == typeof(Task))
+                    {
+                        invocation.ReturnValue = InterceptAsyncAction(invocation);
+                    }
+                    else
+                    {
+                        InterceptSync(invocation);
+                    }
+                }
+                catch (LoggedException)
+                {
+                    // Ignore already logged exceptions.
+                    // We would loose the stack trace to the callee is that an issue?
+                    throw;
                 }
 
-                var returnType = invocation.Method.ReturnType;
-                if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                // other exception policies as we go along.
+                catch (Exception ex)
                 {
-                    InterceptAsyncFunc(invocation);
+                    loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
+                    throw;
                 }
-                else if (returnType == typeof(Task))
-                {
-                    invocation.ReturnValue = InterceptAsyncAction(invocation);
-                }
-                else
-                {
-                    InterceptSync(invocation);
-                }
-            }
-            catch (LoggedException)
-            {
-                // Ignore already logged exceptions.
-                // We would loose the stack trace to the callee is that an issue?
-                throw;
-            }
-
-            // other exception policies as we go along.
-            catch (Exception ex)
-            {
-                loggingService.Error($"Async Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? string.Empty).ToString()).ToArray())}' failed with exception.", ex);
-                throw;
             }
         }
 

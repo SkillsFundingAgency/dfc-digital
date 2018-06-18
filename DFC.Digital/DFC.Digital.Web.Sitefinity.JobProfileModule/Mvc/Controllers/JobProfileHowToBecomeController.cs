@@ -44,77 +44,46 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #endregion Constructors
 
         #region Public Properties
-
-        [DisplayName("Section Title")]
         public string MainSectionTitle { get; set; } = "How to become";
 
-        [DisplayName("Section Id- for anchor link href target")]
         public string SectionId { get; set; } = "HowToBecome";
 
-        [DisplayName("Subsection University")]
         public string SubsectionUniversity { get; set; } = "University";
 
-        [DisplayName("Subsection University Requirements")]
         public string SubsectionUniversityRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Subsection University More Information")]
         public string SubsectionUniversityMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Subsection College")]
         public string SubsectionCollege { get; set; } = "College";
 
-        [DisplayName("Subsection College Requirements")]
         public string SubsectionCollegeRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Subsection College More Information")]
         public string SubsectionCollegeMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Subsection Apprenticeship")]
         public string SubsectionApprenticeship { get; set; } = "Apprenticeship";
 
-        [DisplayName("Subsection Apprenticeship Requirements")]
         public string SubsectionApprenticeshipRequirements { get; set; } = "Requirements";
 
-        [DisplayName("Subsection Apprenticeship More Information")]
         public string SubsectionApprenticeshipMoreInformation { get; set; } = "More information";
 
-        [DisplayName("Subsection Work")]
         public string SubsectionWork { get; set; } = "Work";
 
-        [DisplayName("Subsection Volunteering")]
         public string SubsectionVolunteering { get; set; } = "Volunteering";
 
-        [DisplayName("Subsection Direct Application")]
         public string SubsectionDirectApplication { get; set; } = "Direct Application";
 
-        [DisplayName("Subsection Other Routes")]
         public string SubsectionOtherRoutes { get; set; } = "Other Routes";
 
-        [DisplayName("Subsection Restrictions")]
-        public string SubsectionRestrictions { get; set; } = "Restrictions";
-
-        [DisplayName("Subsection Restrictions - Opening Text")]
-        public string SubsectionRestrictionsOpeningText { get; set; }
-
-        [DisplayName("Subsection Other Requirements")]
-        public string SubsectionOtherRequirements { get; set; } = "Other Requirements";
-
-        [DisplayName("Subsection More information (MI)")]
         public string SubsectionMoreInfo { get; set; } = "More information";
 
-        [DisplayName("Subsection (MI) Registration")]
         public string SubsectionMoreInfoRegistration { get; set; } = "Registration";
 
-        [DisplayName("Subsection (MI) Registration - Opening Text")]
         public string SubsectionMoreInfoRegistrationOpeningText { get; set; }
 
-        [DisplayName("Subsection (MI) Career Tips")]
         public string SubsectionMoreInfoTips { get; set; } = "Career tips";
 
-        [DisplayName("Subsection (MI) Professional and Industry Bodies")]
         public string SubsectionMoreInfoBodies { get; set; } = "Professional and industry bodies";
 
-        [DisplayName("Subsection (MI) More info")]
         public string SubsectionMoreInfoFurtherInfo { get; set; } = "Further information";
 
         #endregion Public Properties

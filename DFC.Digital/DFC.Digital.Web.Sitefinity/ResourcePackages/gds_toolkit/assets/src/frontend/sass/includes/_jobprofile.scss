@@ -4,13 +4,37 @@
 .job-profile-sections {
     counter-reset: section;
 
-
     section {
 
         ul {
             @extend .list;
             @extend .list-bullet;
         }
+
+        .list-link {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+
+            li {
+                padding-left: 20px;
+                text-indent: -20px;
+
+                &:before {
+                    content: ">";
+                    color: $govuk-blue;
+                    margin-right: 10px;
+                    font-weight: bold;
+                    position: relative;
+                    top: 1px;
+                }
+
+                a {
+                }
+            }
+        }
+
 
         ol {
             @extend .list;
@@ -393,6 +417,24 @@
 
 .opportunity-item {
     border-color: $careers-turquoise;
+}
+
+.govuk-related-items {
+    border-top: 3px solid$careers-turquoise;
+    margin-bottom: 2em;
+
+    @include media(tablet) {
+        border-top: 6px solid$careers-turquoise;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    .heading-medium {
+        margin-top: 0.75em;
+        margin-bottom: 0.5em;
+    }
 }
 
 /* Search From Job Profile */

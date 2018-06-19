@@ -3,6 +3,7 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
@@ -11,7 +12,7 @@ using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class JobProfileHowToBecomeControllerTests
     {
@@ -107,9 +108,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers.Tests
             vm.SubsectionVolunteering.Should().BeEquivalentTo(jobprofilehtbController.SubsectionVolunteering);
             vm.SubsectionDirectApplication.Should().BeEquivalentTo(jobprofilehtbController.SubsectionDirectApplication);
             vm.SubsectionOtherRoutes.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRoutes);
-            vm.SubsectionRestrictions.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictions);
-            vm.SubsectionRestrictionsOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionRestrictionsOpeningText);
-            vm.SubsectionOtherRequirements.Should().BeEquivalentTo(jobprofilehtbController.SubsectionOtherRequirements);
             vm.SubsectionMoreInfo.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfo);
             vm.SubsectionMoreInfoRegistration.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistration);
             vm.SubsectionMoreInfoRegistrationOpeningText.Should().BeEquivalentTo(jobprofilehtbController.SubsectionMoreInfoRegistrationOpeningText);

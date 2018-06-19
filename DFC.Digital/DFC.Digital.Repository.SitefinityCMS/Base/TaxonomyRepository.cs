@@ -7,7 +7,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public abstract class TaxonomyRepository : ITaxonomyRepository, IDisposable
+    public abstract class TaxonomyRepository : ITaxonomyRepository
     {
         private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;

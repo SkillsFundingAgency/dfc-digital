@@ -227,11 +227,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileByCategorySearch.feature</DependentUpon>
     </Compile>
-    <Compile Include="Feature\JobProfileByPreSearchFilter.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JobProfileByPreSearchFilter.feature</DependentUpon>
-    </Compile>
     <Compile Include="Feature\JobProfileSearch.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -239,7 +234,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\JobProfileAutosuggestSteps.cs" />
-    <Compile Include="Steps\JobProfilesByPreSearchFiltersSteps.cs" />
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
   </ItemGroup>
@@ -263,10 +257,6 @@
     <None Include="Feature\JobProfileByCategorySearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileByCategorySearch.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Feature\JobProfileByPreSearchFilter.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>JobProfileByPreSearchFilter.feature.cs</LastGenOutput>
     </None>
     <None Include="Feature\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
@@ -356,6 +346,6 @@
   <PropertyGroup>
     <SpecFlowTasksPath>..\packages\SpecFlow.2.3.1\tools\specflow.exe</SpecFlowTasksPath>
   </PropertyGroup>
-  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks"  Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks')" />
+  <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.tasks')" />
   <Import Project="..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.3.1\tools\TechTalk.SpecFlow.targets')" />
 </Project>

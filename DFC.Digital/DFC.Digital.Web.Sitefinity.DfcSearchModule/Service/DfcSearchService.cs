@@ -57,8 +57,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             catch (Exception exception)
             {
                 applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
-                throw;
             }
+
+            return false;
         }
 
         public override void DeleteIndex(string indexName)

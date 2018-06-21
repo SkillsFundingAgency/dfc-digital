@@ -67,7 +67,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                         var jobProfileIndexEnhancer = autofacContainer.Resolve<IJobProfileIndexEnhancer>();
                         var asyncHelper = autofacContainer.Resolve<IAsyncHelper>();
                         var mapper = new MapperConfiguration(c => c.CreateMap<JobProfileIndex, JobProfileIndex>()).CreateMapper();
-                        RegisterSearchService(typeName, jobprofileSearchService, jobprofileIndexConfig, jobProfileIndexEnhancer, asyncHelper, mapper);
+                        var applicationLogger = autofacContainer.Resolve<IApplicationLogger>();
+                        RegisterSearchService(typeName, jobprofileSearchService, jobprofileIndexConfig, jobProfileIndexEnhancer, asyncHelper, mapper, applicationLogger);
                         AddSearchServiceConfig(typeName);
                     }
                 }

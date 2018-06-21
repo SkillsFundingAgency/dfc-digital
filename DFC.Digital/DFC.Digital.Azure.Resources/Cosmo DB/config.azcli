@@ -9,13 +9,6 @@ resourceGroupName='ResourceGroupName'
 name='CosmosDBAccountName'
 
 
-# Collection Name \ Database
-############################
-# AuditRecords \ AVFeedAudit
-# ServiceHealthStatus \ AVFeedAudit
-# AuditRecords \ CourseSearch
-
-
 #######################
 #### AV Feed Audit ####
 avFeedDatabaseName='DatabaseName'

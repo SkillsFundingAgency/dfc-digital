@@ -8,10 +8,19 @@ az account set --subscription 'SubscriptionName'
 resourceGroupName='ResourceGroupName'
 name='CosmosDBAccountName'
 
+
+# Collection Name \ Database
+############################
+# AuditRecords \ AVFeedAudit
+# ServiceHealthStatus \ AVFeedAudit
+# AuditRecords \ CourseSearch
+
+
 #######################
 #### AV Feed Audit ####
 avFeedDatabaseName='DatabaseName'
 avFeedCollectionName='CollectionName'
+avFeedCollectionName2='CollectionName2'
 indexPolicy='{"indexingMode":"consistent","automatic":true,"includedPaths":[{"path":"/*","indexes":[{"kind":"Range","dataType":"Number","precision":-1},{"kind":"Hash","dataType":"String","precision":3}]},{"path":"/StartedAt/?","indexes":[{"kind":"Range","dataType":"String","precision":-1},{"kind":"Range","dataType":"Number","precision":-1}]},{"path":"/EndedAt/?","indexes":[{"kind":"Range","dataType":"String","precision":-1},{"kind":"Range","dataType":"Number","precision":-1}]}],"excludedPaths":[]}'
 
 # Create the database 
@@ -33,6 +42,26 @@ az cosmosdb collection create \
 # Update the collection
 az cosmosdb collection update \
 	--collection-name $avFeedCollectionName \
+	--name $name \
+	--db-name $avFeedDatabaseName \
+	--resource-group $resourceGroupName \
+	--indexing-policy $indexPolicy \	
+	--default-ttl 2592000 \
+    --throughput 5000
+    
+# Create the 2nd collection
+az cosmosdb collection create \
+	--collection-name $avFeedCollectionName2 \
+	--name $name \
+	--db-name $avFeedDatabaseName \
+	--resource-group $resourceGroupName \
+	--indexing-policy $indexPolicy \	
+	--default-ttl 2592000 \
+    --throughput 5000
+
+# Update the 2nd collection
+az cosmosdb collection update \
+	--collection-name $avFeedCollectionName2 \
 	--name $name \
 	--db-name $avFeedDatabaseName \
 	--resource-group $resourceGroupName \

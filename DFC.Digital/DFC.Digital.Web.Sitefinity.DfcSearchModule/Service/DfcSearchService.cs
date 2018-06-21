@@ -5,6 +5,8 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
@@ -20,13 +22,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         private readonly ISearchService<JobProfileIndex> searchService;
         private readonly string index;
         private readonly IJobProfileIndexEnhancer jobProfileIndexEnhancer;
+        private readonly IApplicationLogger applicationLogger;
 
         public DfcSearchService()
         {
         }
 
-        public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper)
+        public DfcSearchService(ISearchService<JobProfileIndex> searchService, ISearchIndexConfig indexConfig, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IMapper mapper, IApplicationLogger applicationLogger)
         {
+            this.applicationLogger = applicationLogger;
             this.searchService = searchService;
             this.index = indexConfig?.Name ?? string.Empty;
             this.jobProfileIndexEnhancer = jobProfileIndexEnhancer;
@@ -36,55 +40,122 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         public override bool IndexExists(string indexName)
         {
-            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            var activeIndex = string.Empty;
+            try
             {
-                return searchService.IndexExists(index);
+                if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                {
+                    activeIndex = index;
+                    return searchService.IndexExists(index);
+                }
+                else
+                {
+                    activeIndex = indexName;
+                    return base.IndexExists(indexName);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                return base.IndexExists(indexName);
+                applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
+
+            return false;
         }
 
         public override void DeleteIndex(string indexName)
         {
-            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            var activeIndex = string.Empty;
+            try
             {
-                searchService?.DeleteIndex(index);
+                if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                {
+                    activeIndex = index;
+                    searchService?.DeleteIndex(index);
+                }
+                else
+                {
+                    activeIndex = indexName;
+                    base.DeleteIndex(indexName);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                base.DeleteIndex(indexName);
+                applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
         }
 
         public override void CreateIndex(string name, IEnumerable<IFieldDefinition> fieldDefinitions)
         {
-            if (!string.IsNullOrEmpty(name) && index.StartsWith(name, StringComparison.OrdinalIgnoreCase))
+            var activeIndex = string.Empty;
+            try
             {
-                //TODO: think about mapping from sitefinity field defenitions to domain model?
-                //Or is it correct to keep them in sync anyway?
-                asyncHelper.Synchronise(() => searchService?.EnsureIndexAsync(index));
+                if (!string.IsNullOrEmpty(name) && index.StartsWith(name, StringComparison.OrdinalIgnoreCase))
+                {
+                    //TODO: think about mapping from sitefinity field defenitions to domain model?
+                    //Or is it correct to keep them in sync anyway?
+                    activeIndex = index;
+                    asyncHelper.Synchronise(() => searchService?.EnsureIndexAsync(index));
+                }
+                else
+                {
+                    activeIndex = name;
+                    base.CreateIndex(name, fieldDefinitions);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                base.CreateIndex(name, fieldDefinitions);
+                applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
         }
 
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
-            if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+            var activeIndex = string.Empty;
+            try
             {
-                var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
+                if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                {
+                    activeIndex = index;
+                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
 
-                //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
-                var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);
-                asyncHelper.Synchronise(() => searchService?.PopulateIndexAsync(copy));
+                    //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
+                    var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);
+                    asyncHelper.Synchronise(() => searchService?.PopulateIndexAsync(copy));
+                }
+                else
+                {
+                    activeIndex = indexName;
+                    base.UpdateIndex(indexName, documents);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                base.UpdateIndex(indexName, documents);
+                applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
+            }
+        }
+
+        public override void RemoveDocuments(string indexName, IEnumerable<IDocument> documents)
+        {
+            var activeIndex = string.Empty;
+            try
+            {
+                var allDocuments = documents as IList<IDocument> ?? documents.ToList();
+                if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                {
+                    // This has been put here to remove the documents from the index which is created via a web.config key after a runbook entry on slot deployment
+                    // "index" is the application configured Index name used for slot deployment
+                    activeIndex = index;
+                    base.RemoveDocuments(index, allDocuments);
+                }
+                else
+                {
+                    activeIndex = indexName;
+                    base.RemoveDocuments(indexName, allDocuments);
+                }
+            }
+            catch (Exception exception)
+            {
+               applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
         }
     }

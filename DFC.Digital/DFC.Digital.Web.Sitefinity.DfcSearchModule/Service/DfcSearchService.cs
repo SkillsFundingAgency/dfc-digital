@@ -5,6 +5,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
@@ -86,6 +87,16 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             {
                 base.UpdateIndex(indexName, documents);
             }
+        }
+
+        public override void RemoveDocuments(string indexName, IEnumerable<IDocument> documents)
+        {
+            var allDocuments = documents as IList<IDocument> ?? documents.ToList();
+
+            // This has been put here to remove the documents from the index which is created via a web.config key after a runbook entry on slot deployment
+            // "index" is the application configured Index name used for slot deployment
+            base.RemoveDocuments(index, allDocuments);
+            base.RemoveDocuments(indexName, allDocuments);
         }
     }
 }

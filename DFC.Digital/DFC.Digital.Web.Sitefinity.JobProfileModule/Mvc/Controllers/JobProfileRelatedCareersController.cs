@@ -6,6 +6,7 @@ using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -26,7 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public JobProfileRelatedCareersController(IJobProfileRelatedCareersRepository repository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage) : base(applicationLogger)
         {
-            this.jobProfileRelatedCareersRepository = repository;
+            jobProfileRelatedCareersRepository = repository;
             this.webAppContext = webAppContext;
             this.sitefinityPage = sitefinityPage;
         }
@@ -89,9 +90,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 relatedJobProfiles = jobProfileRelatedCareersRepository.GetByParentName(urlname, MaximumLinksToDisplay);
             }
 
-            if (relatedJobProfiles != null)
+            if (relatedJobProfiles != null && relatedJobProfiles.Any())
             {
-                var model = new JobProfileRelatedCareersModel() { Title = SectionTitle, RelatedCareers = relatedJobProfiles };
+                var model = new JobProfileRelatedCareersModel { Title = SectionTitle, RelatedCareers = relatedJobProfiles };
                 return View("Index", model);
             }
 

@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD3C4F23-E51E-4D79-A922-4CB138642DC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DFC.Digital.Repository.ONET</RootNamespace>
+    <AssemblyName>DFC.Digital.Repository.ONET</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.DynamicProxy2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.DynamicProxy2.3.0.7\lib\net40\Autofac.Extras.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.2.2\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataModel\ability.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\alternate_titles.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\career_changers_matrix.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\career_starters_matrix.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\content_model_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_GDSCombinations.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_GDSContext.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_GDSTranlations.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_GlobalAttributeSuppression.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_SocMappings.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\dwa_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\education_training_experience.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\emerging_tasks.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ete_categories.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\green_dwa_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\green_occupations.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\green_task_statements.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\interest.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\iwa_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\job_zones.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\job_zone_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\knowledge.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\level_scale_anchors.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\occupation_data.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\occupation_level_metadata.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sample_of_reported_titles.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\scales_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\skill.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SkillsFrameworkDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkillsFrameworkDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SkillsFrameworkDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\SkillsFrameworkDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeForEachSectionGrouped_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeGroupedV2_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeGrouped_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetAttributesByOnNetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetInterestsByOnetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetTechnologyDetailsByOnetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetToolsTecByOnetCodeV2_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetToolsTecByOnetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetWorkStylesByOnetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_GetWorkValuesByOnetCode_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sp_helpdiagrams_Result.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\survey_booklet_locations.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\sysdiagram.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\tasks_to_dwas.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\tasks_to_green_dwas.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\task_categories.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\task_ratings.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\task_statements.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\tools_and_technology.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\unspsc_reference.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\work_activities.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\work_context.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\work_context_categories.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\work_styles.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\work_values.cs">
+      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\DbException.cs" />
+    <Compile Include="Helper\ObjectContextFactory.cs" />
+    <Compile Include="Helper\SqlConnectionHelper.cs" />
+    <Compile Include="Helper\SqlDbException.cs" />
+    <Compile Include="Impl\DbSetWrapper.cs" />
+    <Compile Include="Interface\IDbSetWrapper.cs" />
+    <Compile Include="Interface\IRepositoryInitializer.cs" />
+    <Compile Include="IONETRespository.cs" />
+    <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
+    <Compile Include="OnetRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
+      <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
+      <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\SkillsFrameworkDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
+      <LastGenOutput>SkillsFrameworkDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel\SkillsFrameworkDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
+      <LastGenOutput>SkillsFrameworkDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="DataModel\App.config" />
+    <EntityDeploy Include="DataModel\SkillsFrameworkDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SkillsFrameworkDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\SkillsFrameworkDataModel.edmx.diagram">
+      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -108,8 +108,10 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\AttributesData.cs" />
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
+    <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />

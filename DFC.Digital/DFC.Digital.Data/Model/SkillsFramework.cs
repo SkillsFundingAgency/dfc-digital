@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Data.Model
 {
-    public abstract class SkillsFramework
+     public class SkillsFramework
     {
         public string SocCode { get; set; }
 

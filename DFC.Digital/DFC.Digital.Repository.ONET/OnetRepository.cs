@@ -12,7 +12,7 @@ namespace DFC.Digital.Repository.ONET
 {
 
 
-    public class OnetRepository : IRepository<SkillsFramework>, IDisposable
+    public class OnetRepository : ISkillsFrameworkRepository
     {
         private readonly IDbContext _db;
         private readonly IMapper _mapper;
@@ -41,18 +41,12 @@ namespace DFC.Digital.Repository.ONET
         #endregion
 
         #region Implementation of IDisposable
-
-
-
-        #endregion
-
-        #region Implementation of IDisposable
-
         public void Dispose ( )
         {
             _db.Dispose ( );
             GC.SuppressFinalize ( this );
         }
+        #endregion
 
         public SkillsFramework Get ( Expression<Func<SkillsFramework , bool>> where )
         {
@@ -68,7 +62,6 @@ namespace DFC.Digital.Repository.ONET
         {
             throw new NotImplementedException ( );
         }
-        #endregion
 
         #region SkillsFramework Repository Implemetation 
         public IQueryable<SkillsFramework> GetMany ( Expression<Func<SkillsFramework , bool>> where )

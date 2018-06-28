@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #endregion Ctor
 
-        #region Public Properties
+        #region public Properties
 
         /// <summary>
         /// Gets or sets the content of the top section.
@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string EnvironmentTitle { get; set; } = "Working environment";
 
-        #endregion Public Properties
+        #endregion private Properties
 
         #region Actions
 
@@ -137,10 +137,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Environment = CurrentJobProfile.Environment,
                 EnvironmentTitle = EnvironmentTitle
             };
-
-            if (model.IsWhatYouWillDoCadView)
-            {
-            }
 
             return View(model);
         }

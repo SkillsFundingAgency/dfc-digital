@@ -137,46 +137,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
-        [Theory]
-        [InlineData("Test", true, true)]
-        [InlineData("Test", false, false)]
-        public void IndexWithCadHowToBecome(string urlName, bool cadReady, bool expected)
-        {
-            //Setup the fakes and dummies
-            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>();
-            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
-            var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
-
-            var dummyJobProfile = GetDummyJobPRofile(true);
-            dummyJobProfile.HowToBecomeData.IsHTBCaDReady = cadReady;
-
-            // Set up calls
-            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
-            A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
-
-            //Instantiate & Act
-            using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
-            {
-                //Act
-                var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));
-
-                indexWithUrlNameMethodCall
-                    .ShouldRenderDefaultView()
-                    .WithModel<JobProfileWhatItTakesViewModel>(vm =>
-                      {
-                        vm.Title.Should().BeEquivalentTo(jobProfileWhatYouWillDoController.MainSectionTitle);
-                        vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatYouWillDoController.TopSectionContent);
-                        vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatYouWillDoController.BottomSectionContent);
-                        vm.IsWhatItTakesCadView.Should().Be(expected);
-                      })
-                    .AndNoModelErrors();
-            }
-        }
-
         private static JobProfile GetDummyJobPRofile(bool useValidJobProfile)
         {
             return useValidJobProfile ?

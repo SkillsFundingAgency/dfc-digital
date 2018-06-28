@@ -131,10 +131,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Title = MainSectionTitle,
                 SectionId = SectionId,
                 WhatyouWillDoSectionTitle = WhatYouWillDoSectionTitle,
-                IsWhatYouWillDoCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady,
-                Location = CurrentJobProfile.Location,
-                Uniform = CurrentJobProfile.Uniform,
-                Environment = CurrentJobProfile.Environment,
+                IsWhatYouWillDoCadView = CurrentJobProfile.WhatYouWillDoData.IsWYDCaDReady,
+                Location = CurrentJobProfile.WhatYouWillDoData.Location,
+                Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform,
+                Environment = CurrentJobProfile.WhatYouWillDoData.Environment,
                 EnvironmentTitle = EnvironmentTitle
             };
 

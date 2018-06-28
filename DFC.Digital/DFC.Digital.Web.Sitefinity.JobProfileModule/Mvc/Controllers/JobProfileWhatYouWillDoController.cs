@@ -127,14 +127,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 TopSectionContent = TopSectionContent,
                 BottomSectionContent = BottomSectionContent,
-                PropertyValue = CurrentJobProfile.WhatYouWillDo,
+                PropertyValue = CurrentJobProfile?.WhatYouWillDo,
                 Title = MainSectionTitle,
                 SectionId = SectionId,
                 WhatyouWillDoSectionTitle = WhatYouWillDoSectionTitle,
-                IsWhatYouWillDoCadView = CurrentJobProfile.WhatYouWillDoData.IsWYDCaDReady,
-                Location = CurrentJobProfile.WhatYouWillDoData.Location,
-                Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform,
-                Environment = CurrentJobProfile.WhatYouWillDoData.Environment,
+                IsWhatYouWillDoCadView = CurrentJobProfile?.WhatYouWillDoData != null && (CurrentJobProfile != null && CurrentJobProfile.WhatYouWillDoData.IsWYDCaDReady),
+                Location = CurrentJobProfile?.WhatYouWillDoData?.Location,
+                Uniform = CurrentJobProfile?.WhatYouWillDoData?.Uniform,
+                Environment = CurrentJobProfile?.WhatYouWillDoData?.Environment,
                 EnvironmentTitle = EnvironmentTitle
             };
 

@@ -11,5 +11,7 @@
         public string Uniform { get; set; } = "Uniform";
 
         public string Environment { get; set; } = "Environment";
+
+        public string EnvironmentTitle { get; set; } = "Working environment";
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Web.Mvc;
@@ -72,14 +73,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string WhatYouWillDoSectionTitle { get; set; } = "Day-to-day tasks";
 
-        /// <summary>
-        /// Gets or sets the restrictions title.
-        /// </summary>
-        /// <value>
-        /// The restrictions title.
-        /// </value>
-        public string EnvironmentTitle { get; set; } = "Working environment";
-
         #endregion private Properties
 
         #region Actions
@@ -135,7 +128,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Location = CurrentJobProfile?.WhatYouWillDoData?.Location,
                 Uniform = CurrentJobProfile?.WhatYouWillDoData?.Uniform,
                 Environment = CurrentJobProfile?.WhatYouWillDoData?.Environment,
-                EnvironmentTitle = EnvironmentTitle
+                EnvironmentTitle = CurrentJobProfile?.WhatYouWillDoData?.EnvironmentTitle
             };
 
             return View(model);

@@ -2,9 +2,9 @@
 {
     public class WhatYouWillDo
     {
-        public bool IsWYDCaDReady { get; set; }
+        public bool IsWYDCaDReady { get; set; } = true;
 
-        public string IntroText { get; set; }
+        public string IntroText { get; set; } = "What You Will Do";
 
         public string Location { get; set; } = "Location";
 

@@ -4,26 +4,18 @@
     <section class="job-profile-subsection" id="workingenvironment">
         <h3>@Model.EnvironmentTitle</h3>
         <div class="job-profile-subsection-content">
-            {
-                if (!string.IsNullOrEmpty(Model.Location))
+                @if (!string.IsNullOrEmpty(Model.Location))
                 {
                      <p>@Model.Location</p>
                 }
-                if (!string.IsNullOrEmpty(Model.Environment))
+                @if (!string.IsNullOrEmpty(Model.Environment))
                 {
                     <p>@Model.Environment</p>
                 }
-                if (!string.IsNullOrEmpty(Model.Uniform))
+                @if (!string.IsNullOrEmpty(Model.Uniform))
                 {
                     <p>@Model.Uniform</p>
                 }
-                @*<ul>
-                    @foreach (var environment in Model.Workingenvironments )
-                    {
-                        <li>@Html.Raw(environment.Info)</li>
-                    }
-                </ul>*@
-            }
         </div>
     </section>
 }

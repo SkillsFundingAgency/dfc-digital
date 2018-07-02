@@ -116,7 +116,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         private ActionResult ReturnSectionView()
         {
-
             var model = new JobProfileWhatYouWillDoViewModel
             {
                 TopSectionContent = TopSectionContent,

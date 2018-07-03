@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The title.
         /// </value>
-        public string MainSectionTitle { get; set; } = "What you''ll do";
+        public string MainSectionTitle { get; set; } = "What you'll do";
 
         /// <summary>
         /// Gets or sets the name of the property.
@@ -63,7 +63,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <value>
         /// The name of the property.
         /// </value>
-        public string SectionId { get; set; } = "Task";
+        public string SectionId { get; set; } = "WhatYouWillDo";
 
         /// <summary>
         /// Gets or sets the what it takes section title.
@@ -72,6 +72,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The what it takes section title.
         /// </value>
         public string WhatYouWillDoSectionTitle { get; set; } = "Day-to-day tasks";
+
+        /// <summary>
+        /// Gets or sets the environment title.
+        /// </summary>
+        /// <value>
+        /// The environment title.
+        /// </value>
+        public string EnvironmentTitle { get; set; } = "Working environment";
 
         #endregion private Properties
 
@@ -124,11 +132,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Title = MainSectionTitle,
                 SectionId = SectionId,
                 WhatyouWillDoSectionTitle = WhatYouWillDoSectionTitle,
-                IsWhatYouWillDoCadView = CurrentJobProfile?.WhatYouWillDoData != null && (CurrentJobProfile != null && CurrentJobProfile.WhatYouWillDoData.IsWYDCaDReady),
+                EnvironmentTitle = EnvironmentTitle,
+                IsWhatYouWillDoCadView = CurrentJobProfile != null && CurrentJobProfile.WhatYouWillDoData.IsWYWDCadReady,
                 Location = CurrentJobProfile?.WhatYouWillDoData?.Location,
                 Uniform = CurrentJobProfile?.WhatYouWillDoData?.Uniform,
-                Environment = CurrentJobProfile?.WhatYouWillDoData?.Environment,
-                EnvironmentTitle = CurrentJobProfile?.WhatYouWillDoData?.EnvironmentTitle
+                Environment = CurrentJobProfile?.WhatYouWillDoData?.Environment
             };
 
             return View(model);

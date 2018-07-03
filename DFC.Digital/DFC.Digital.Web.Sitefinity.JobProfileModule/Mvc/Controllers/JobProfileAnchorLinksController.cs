@@ -34,6 +34,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private const string JobprofileWhatItTakesCaption = "Job Profile What It Takes";
 
         /// <summary>
+        /// The jobprofile what you will do caption
+        /// </summary>
+        private const string JobprofileWhatYouWillDoCaption = "JobProfile What You Will Do";
+
+        /// <summary>
         /// The job profile section title
         /// </summary>
         private const string Jobprofilesectiontitle = "Title";
@@ -151,6 +156,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     new JobProfileSectionFilter
                     {
                         SectionCaption = JobprofileWhatItTakesCaption,
+                        ContentFieldMember = SectionId,
+                        TitleMember = MainSectionTitle
+                    },
+                    new JobProfileSectionFilter
+                    {
+                        SectionCaption = JobprofileWhatYouWillDoCaption,
                         ContentFieldMember = SectionId,
                         TitleMember = MainSectionTitle
                     },

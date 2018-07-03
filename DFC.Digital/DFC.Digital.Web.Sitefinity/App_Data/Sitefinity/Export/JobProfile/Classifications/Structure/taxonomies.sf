@@ -134,30 +134,6 @@
     ]
   },
   {
-    "Id": "4697627c-2bb0-4b3f-b455-798d27048deb",
-    "Name": "JobProfileKeywords",
-    "Type": "Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy",
-    "LastModified": "2018-07-02T11:12:19.413Z",
-    "Title": [
-      {
-        "Key": "",
-        "Value": "Job Profile Keywords"
-      }
-    ],
-    "Description": [
-      {
-        "Key": "",
-        "Value": ""
-      }
-    ],
-    "TaxonName": [
-      {
-        "Key": "",
-        "Value": "Job Profile Keyword"
-      }
-    ]
-  },
-  {
     "Id": "ae9a3ddd-d8e5-40b7-b7d1-98fb4e8cde11",
     "Name": "UniversityEntryRequirements",
     "Type": "Telerik.Sitefinity.Taxonomies.Model.FlatTaxonomy",

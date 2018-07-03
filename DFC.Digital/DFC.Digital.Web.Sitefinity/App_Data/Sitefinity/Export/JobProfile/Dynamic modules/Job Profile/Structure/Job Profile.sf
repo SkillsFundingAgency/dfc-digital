@@ -272,7 +272,7 @@
       "CheckFieldPermissions": false,
       "PageId": "64fc8ca6-d83e-486f-9301-0073e64d740a",
       "Id": "0fd7ab9b-6c20-4e7a-b757-0d0295bf257b",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Skill",
@@ -545,7 +545,7 @@
       "CheckFieldPermissions": false,
       "PageId": "f223390c-3e6b-4724-b98d-c813fa8604f4",
       "Id": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "College Link",
@@ -815,7 +815,7 @@
       "CheckFieldPermissions": false,
       "PageId": "1cc35603-3732-4004-a348-d09d9259a622",
       "Id": "b2c4f363-63e7-4ec4-b6f3-1d582fbd733e",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Apprenticeship Requirement",
@@ -1053,7 +1053,7 @@
       "CheckFieldPermissions": false,
       "PageId": "425859f4-6e6f-4dd0-bae2-90bbbe98687b",
       "Id": "3d683643-1394-4636-9c27-4d830d903c53",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Restriction",
@@ -1291,7 +1291,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9e64a344-3e50-4707-8aae-ce5648e096ac",
       "Id": "3fa194e3-187c-49c6-9e6f-51a4c579d8e7",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "College Requirement",
@@ -1529,7 +1529,7 @@
       "CheckFieldPermissions": false,
       "PageId": "5c423bbf-67ad-4a95-ae45-30d2fe2aef5e",
       "Id": "42b76ae2-cdc1-4dec-948e-5ebf5e910c10",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "University Link",
@@ -1800,7 +1800,7 @@
       "CheckFieldPermissions": false,
       "PageId": "a6f31a12-b372-4136-8f83-458890b211f3",
       "Id": "21300621-3389-43f0-82cd-780a87bc64ff",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Apprenticeship Vacancy",
@@ -2215,7 +2215,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "University Requirement",
@@ -2453,7 +2453,7 @@
       "CheckFieldPermissions": false,
       "PageId": "73f4bbb7-7be3-4abb-939c-ad70cbc18c1c",
       "Id": "132608ea-139c-4eba-a6d6-cbecc44b9672",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "SOC Skills Matrix",
@@ -2777,7 +2777,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6054b1db-5387-4cf9-9de0-c84ea30069a5",
       "Id": "a476038b-4188-474d-88af-ccc192794d48",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Registration",
@@ -3015,7 +3015,7 @@
       "CheckFieldPermissions": false,
       "PageId": "47e71b55-46fd-4d58-b2d0-fcf9fac81677",
       "Id": "b074b87e-ede1-472c-996b-dcb22db4110e",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -3349,7 +3349,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2018-07-02T11:12:43.83Z"
+      "LastModified": "2018-07-02T11:35:27.04Z"
     },
     {
       "DisplayName": "Job Profile",
@@ -4899,6 +4899,39 @@
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
+          "Name": "Skills",
+          "Title": "Skills",
+          "FieldType": 2,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "LongText",
+          "LengthValidationMessage": "",
+          "Ordinal": 6,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.HtmlField",
+          "DBType": "CLOB",
+          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
+          "TypeUIName": "\n                                Long text\n                            ",
+          "IsLocalizable": true,
+          "Id": "e0580852-b70d-40ba-b090-2fb858feeacd",
+          "LastModified": "2018-07-02T11:35:27.04Z"
+        },
+        {
+          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "Name": "RelatedSkills",
           "Title": "Related Skills",
           "FieldType": 15,
@@ -4911,6 +4944,7 @@
           "MinNumberRange": "0",
           "MaxNumberRange": "0",
           "LengthValidationMessage": "",
+          "Ordinal": 7,
           "CanCreateItemsWhileSelecting": true,
           "CanSelectMultipleItems": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.RelatedDataField",
@@ -4928,28 +4962,28 @@
           "DefaultValue": "",
           "Choices": "",
           "ChoiceRenderType": "RadioButton",
-          "ParentSectionId": "5e9a10e6-c7cd-4a4b-987f-923b59e4f777",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
           "TypeUIName": "\n                                Related data\n                            ",
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "b1e2d23b-cef5-4148-981a-b0afd2341361",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "LastModified": "2018-07-02T11:35:27.04Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
-          "Name": "Skills",
-          "Title": "Skills",
-          "FieldType": 2,
+          "Name": "DigitalSkillsLevel",
+          "Title": "Select Digital Skills Level",
+          "FieldType": 12,
           "SpecialType": 0,
           "MediaType": "",
-          "FieldTypeDisplayName": "LongText",
+          "FieldTypeDisplayName": "Choices",
           "LengthValidationMessage": "",
-          "Ordinal": 1,
+          "Ordinal": 8,
           "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.HtmlField",
-          "DBType": "CLOB",
-          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.DynamicChoiceField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
           "DBLength": "",
           "InstructionalChoice": "- Select -",
           "NumberUnit": "",
@@ -4959,14 +4993,12 @@
           "VideoExtensions": "",
           "FileExtensions": "",
           "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "5e9a10e6-c7cd-4a4b-987f-923b59e4f777",
-          "TypeUIName": "\n                                Long text\n                            ",
-          "IsLocalizable": true,
-          "Id": "e0580852-b70d-40ba-b090-2fb858feeacd",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "Choices": "<choices><choice value=\"0\" text=\"\"></choice><choice value=\"1\" text=\"This job requires a thorough understanding of computer systems and applications.\"></choice><choice value=\"2\" text=\"You will be expected to know how to use a computer and tools to benefit this job.\"></choice><choice value=\"3\" text=\"You will be expected to use a computer confidently as part of this job.\"></choice><choice value=\"4\" text=\"Being able to use a computer terminal or hand-held device may be beneficial for this job.\"></choice></choices>",
+          "ChoiceRenderType": "DropDownList",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
+          "TypeUIName": "\n                                Choices\n                            ",
+          "Id": "b2345d4c-e6a8-49d1-9de2-50df141b1053",
+          "LastModified": "2018-07-03T08:25:48.327Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -4978,6 +5010,7 @@
           "MediaType": "",
           "FieldTypeDisplayName": "LongText",
           "LengthValidationMessage": "",
+          "Ordinal": 9,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.HtmlField",
           "DBType": "CLOB",
@@ -4994,11 +5027,11 @@
           "Choices": "",
           "ChoiceRenderType": "",
           "GridColumnOrdinal": -1,
-          "ParentSectionId": "69f1b663-7698-4cbf-a9be-b27494e7c055",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "07f8da87-85c7-476d-9e50-9671c8928d05",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "LastModified": "2018-07-03T07:57:41.67Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5010,7 +5043,7 @@
           "MediaType": "",
           "FieldTypeDisplayName": "LongText",
           "LengthValidationMessage": "",
-          "Ordinal": 1,
+          "Ordinal": 10,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.HtmlField",
           "DBType": "CLOB",
@@ -5027,11 +5060,11 @@
           "Choices": "",
           "ChoiceRenderType": "",
           "GridColumnOrdinal": -1,
-          "ParentSectionId": "69f1b663-7698-4cbf-a9be-b27494e7c055",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "d633e2ef-316a-4cce-8e25-6acc1696a56a",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "LastModified": "2018-07-03T07:57:41.67Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5043,7 +5076,7 @@
           "MediaType": "",
           "FieldTypeDisplayName": "LongText",
           "LengthValidationMessage": "",
-          "Ordinal": 2,
+          "Ordinal": 11,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.HtmlField",
           "DBType": "CLOB",
@@ -5060,11 +5093,11 @@
           "Choices": "",
           "ChoiceRenderType": "",
           "GridColumnOrdinal": -1,
-          "ParentSectionId": "69f1b663-7698-4cbf-a9be-b27494e7c055",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "a5b01f5f-94bc-449c-a849-169d2f38efc6",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "LastModified": "2018-07-03T07:57:41.67Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5077,7 +5110,7 @@
           "FieldTypeDisplayName": "Classification",
           "IsRequired": true,
           "LengthValidationMessage": "",
-          "Ordinal": 3,
+          "Ordinal": 12,
           "CanCreateItemsWhileSelecting": true,
           "CanSelectMultipleItems": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TaxonField",
@@ -5094,10 +5127,10 @@
           "Choices": "",
           "ChoiceRenderType": "",
           "GridColumnOrdinal": -1,
-          "ParentSectionId": "69f1b663-7698-4cbf-a9be-b27494e7c055",
+          "ParentSectionId": "fae51566-4d3e-4f16-9685-bfad39193afc",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "5fca4295-af88-4684-8337-9bf8fa0f6df0",
-          "LastModified": "2018-07-02T11:19:49.987Z"
+          "LastModified": "2018-07-03T07:57:41.67Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5708,26 +5741,8 @@
           "Id": "fae51566-4d3e-4f16-9685-bfad39193afc"
         },
         {
-          "Name": "5e9a10e6-c7cd-4a4b-987f-923b59e4f777",
-          "Ordinal": 11,
-          "Title": "What It Takes",
-          "IsExpandable": true,
-          "IsExpandedByDefault": false,
-          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-          "Id": "5e9a10e6-c7cd-4a4b-987f-923b59e4f777"
-        },
-        {
-          "Name": "69f1b663-7698-4cbf-a9be-b27494e7c055",
-          "Ordinal": 12,
-          "Title": "Section title",
-          "IsExpandable": true,
-          "IsExpandedByDefault": false,
-          "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-          "Id": "69f1b663-7698-4cbf-a9be-b27494e7c055"
-        },
-        {
           "Name": "RelatedData",
-          "Ordinal": 13,
+          "Ordinal": 11,
           "Title": "Related data",
           "IsExpandable": true,
           "IsExpandedByDefault": true,
@@ -5736,7 +5751,7 @@
         },
         {
           "Name": "258da625-4d7b-44d7-adb1-38a4ff685d2c",
-          "Ordinal": 14,
+          "Ordinal": 12,
           "Title": "BAU sign posting",
           "IsExpandable": true,
           "IsExpandedByDefault": true,
@@ -5745,7 +5760,7 @@
         },
         {
           "Name": "61da12d8-2f42-42fd-bc1c-3cf1ffd77738",
-          "Ordinal": 15,
+          "Ordinal": 13,
           "Title": "Is Imported",
           "IsExpandable": true,
           "IsExpandedByDefault": true,
@@ -5754,7 +5769,7 @@
         },
         {
           "Name": "MoreOptions",
-          "Ordinal": 16,
+          "Ordinal": 14,
           "Title": "More Options",
           "IsExpandable": true,
           "IsExpandedByDefault": false,
@@ -5767,7 +5782,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2018-07-02T11:19:49.987Z"
+      "LastModified": "2018-07-03T08:25:48.327Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

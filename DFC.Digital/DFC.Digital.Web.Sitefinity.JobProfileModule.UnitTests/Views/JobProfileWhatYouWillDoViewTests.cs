@@ -13,42 +13,81 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class JobProfileWhatYouWillDoViewTests
     {
         [Theory]
-        [InlineData(true, "Content")]
-        [InlineData(false, "Content")]
-        public void WhatYouWillDoIndexViewTests(bool cadReady, string content)
+        [InlineData(true, "jpWydData1", "topCnt", "bottomContent", "wydDayToDay", true, "wydDescription", "sectionid")]
+        [InlineData(true, "jpWydData2", "topCnt3", "bottomContent", "wydDayToDay", false, "wydDescription", "sectionid2")]
+        [InlineData(false, "jpWydData3", "topCnt8", "bottomContent", "wydDayToDay", false, "wydDescription", "sectionid4")]
+        public void WhatYouWillDoIndexViewTests(bool cadReady, string jpWydData, string topContent, string bottomContent, string wydDayToDay, bool wydIntroActive, string wydDescription, string sectionId)
         {
             // Arrange
             var whatYouWillDoView = new _MVC_Views_JobProfileWhatYouWillDo_Index_cshtml();
             var jobProfileWhatYouWillDoViewModel = new JobProfileWhatYouWillDoViewModel
             {
-                PropertyValue = content,
+                PropertyValue = jpWydData,
+                TopSectionContent = topContent,
+                BottomSectionContent = bottomContent,
+                IsWYDIntroActive = wydIntroActive,
+                WYDDayToDayTasks = wydDayToDay,
+                WYDIntroduction = wydDescription,
+                SectionId = sectionId,
+                IsWhatYouWillDoCadView = cadReady
             };
 
             // Act
             var htmlDocument = whatYouWillDoView.RenderAsHtml(jobProfileWhatYouWillDoViewModel);
 
+            AssertSectionIdDisplayed(sectionId, htmlDocument);
+
             // Assert
             if (cadReady)
             {
-                htmlDocument.DocumentNode.Should().NotBe(null);
-            }
+                AssertContentDoesNotExistsInView(bottomContent, htmlDocument);
+                AssertContentDoesNotExistsInView(topContent, htmlDocument);
+                AssertContentDoesNotExistsInView(jpWydData, htmlDocument);
+                if (!string.IsNullOrWhiteSpace(wydDayToDay))
+                {
+                    AssertContentExistsInView(wydDayToDay, htmlDocument);
+                }
 
-            if (!string.IsNullOrWhiteSpace(content))
+                if (!string.IsNullOrWhiteSpace(wydDescription) && wydIntroActive)
+                {
+                    AssertContentExistsInView(wydDescription, htmlDocument);
+                }
+                else
+                {
+                    AssertContentDoesNotExistsInView(wydDescription, htmlDocument);
+                }
+            }
+            else
             {
-                AssertContentExistsInView(content, htmlDocument);
+                AssertContentDoesNotExistsInView(wydDayToDay, htmlDocument);
+                AssertContentDoesNotExistsInView(wydDescription, htmlDocument);
+                if (!string.IsNullOrWhiteSpace(jpWydData))
+                {
+                    AssertContentExistsInView(jpWydData, htmlDocument);
+                }
+
+                if (!string.IsNullOrWhiteSpace(topContent))
+                {
+                    AssertContentExistsInView(topContent, htmlDocument);
+                }
+
+                if (!string.IsNullOrWhiteSpace(bottomContent))
+                {
+                    AssertContentExistsInView(bottomContent, htmlDocument);
+                }
             }
         }
 
         [Theory]
-        [InlineData(true, "Environment", "Location", "Uniform")]
-        [InlineData(false, "", "", "")]
-        public void WhatYouWillDoWorkingEnvironmentViewTests(bool workingEnvironments, string environment, string location, string uniform)
+        [InlineData("Environment Title", "Environment", "Location", "Uniform")]
+        [InlineData("Environment Title", "", "", "")]
+        public void WhatYouWillDoWorkingEnvironmentViewTests(string environmentTitle, string environment, string location, string uniform)
         {
             // Arrange
-            var workingEnvironment = new _MVC_Views_JobProfileWhatYouWillDo_Workingenvironments_cshtml();
+            var workingEnvironment = new _MVC_Views_JobProfileWhatYouWillDo_WorkingEnvironments_cshtml();
             var workingEnvironmentView = new JobProfileWhatYouWillDoViewModel
             {
-                EnvironmentTitle = GetEnvironments(workingEnvironments),
+                EnvironmentTitle = environmentTitle,
                 Environment = environment,
                 Uniform = uniform,
                 Location = location
@@ -58,32 +97,42 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var htmlDocument = workingEnvironment.RenderAsHtml(workingEnvironmentView);
 
             // Assert
-            if (workingEnvironments)
-            {
-                htmlDocument.DocumentNode.Should().NotBe(null);
-            }
-
             if (string.IsNullOrWhiteSpace(environment) && string.IsNullOrWhiteSpace(uniform) && string.IsNullOrWhiteSpace(location))
             {
                 AssertViewIsEmpty(htmlDocument);
+                AssertContentDoesNotExistsInView(environmentTitle, htmlDocument);
             }
 
-            if (!string.IsNullOrWhiteSpace(environment) && string.IsNullOrWhiteSpace(uniform) && string.IsNullOrWhiteSpace(location))
+            if (!string.IsNullOrWhiteSpace(environment))
             {
                 AssertContentExistsInView(environment, htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(uniform))
+            {
                 AssertContentExistsInView(uniform, htmlDocument);
+            }
+
+            if (!string.IsNullOrWhiteSpace(location))
+            {
                 AssertContentExistsInView(location, htmlDocument);
             }
         }
 
-        private static string GetEnvironments(bool workingEnvironments)
+        private static void AssertSectionIdDisplayed(string sectionId, HtmlDocument htmlDocument)
         {
-            return workingEnvironments ? "Working Enviroments" : null;
+            htmlDocument.DocumentNode.Descendants("section")
+                       .FirstOrDefault(section => section.Id.Equals(sectionId)).Should().NotBeNull();
         }
 
         private static void AssertContentExistsInView(string element,  HtmlDocument htmlDocument)
         {
             htmlDocument.DocumentNode.InnerHtml.IndexOf(element, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+        }
+
+        private static void AssertContentDoesNotExistsInView(string element, HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.InnerHtml.IndexOf(element, StringComparison.OrdinalIgnoreCase).Should().BeLessOrEqualTo(-1);
         }
 
         private static void AssertViewIsEmpty(HtmlDocument htmlDocument)

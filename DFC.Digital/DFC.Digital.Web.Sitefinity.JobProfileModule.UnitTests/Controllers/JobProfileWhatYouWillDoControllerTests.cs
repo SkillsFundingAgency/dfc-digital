@@ -163,7 +163,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));
-
                 indexWithUrlNameMethodCall
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileWhatYouWillDoViewModel>(vm =>

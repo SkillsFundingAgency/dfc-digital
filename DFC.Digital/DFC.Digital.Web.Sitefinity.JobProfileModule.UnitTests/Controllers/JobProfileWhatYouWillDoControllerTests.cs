@@ -149,7 +149,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
-            dummyJobProfile.WhatYouWillDoData.IsWYDCaDReady = cadReady;
+            dummyJobProfile.WhatYouWillDoData.IsWYDCadReady = cadReady;
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
@@ -173,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         vm.IsWhatYouWillDoCadView.Should().Be(expected);
                         if (expected)
                         {
-                            vm.WhatyouWillDoSectionTitle.Should()
+                            vm.DayToDayTasksSectionTitle.Should()
                                 .BeEquivalentTo(jobProfileWhatYouWillDoController.WhatYouWillDoSectionTitle);
                         }
                     })

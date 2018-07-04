@@ -354,7 +354,6 @@
     </CodeAnalysisDictionary>
     <Content Include="Mvc\Controllers\readme.txt" />
     <Content Include="Mvc\Models\readme.txt" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkingEnvironments.cshtml" />
     <Content Include="Mvc\Views\PreSearchFilters\Index.cshtml" />
     <Content Include="Mvc\Views\readme.txt" />
     <Content Include="Mvc\Views\JobProfileSearchBox\Index.cshtml" />
@@ -440,6 +439,7 @@
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkEnvironment.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

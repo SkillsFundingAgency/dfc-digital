@@ -84,7 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         public void WhatYouWillDoWorkingEnvironmentViewTests(string environmentTitle, string environment, string location, string uniform)
         {
             // Arrange
-            var workingEnvironment = new _MVC_Views_JobProfileWhatYouWillDo_WorkingEnvironments_cshtml();
+            var workingEnvironment = new _MVC_Views_JobProfileWhatYouWillDo_WorkEnvironment_cshtml();
             var workingEnvironmentView = new JobProfileWhatYouWillDoViewModel
             {
                 EnvironmentTitle = environmentTitle,

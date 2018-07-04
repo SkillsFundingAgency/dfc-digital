@@ -370,6 +370,7 @@
     <Compile Include="Mvc\Controllers\BaseJobProfileWidgetController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileCourseOpportunityController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileHowToBecomeController.cs" />
+    <Compile Include="Mvc\Controllers\JobProfileWhatYouWillDoController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileWhatItTakesController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileSettingsAndPreviewController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileAnchorLinksController.cs" />
@@ -381,6 +382,7 @@
     <Compile Include="Mvc\Controllers\PsfSearchController.cs" />
     <Compile Include="Mvc\Models\AnchorLink.cs" />
     <Compile Include="Mvc\Models\BAUJobProfileSignpostViewModel.cs" />
+    <Compile Include="Mvc\Models\DaytoDayTasks.cs" />
     <Compile Include="Mvc\Models\JobProfileAnchorLinksViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileByCategoryViewModel.cs" />
     <Compile Include="Mvc\Controllers\JobProfilesByCategoryController.cs" />
@@ -400,6 +402,7 @@
     <Compile Include="Mvc\Models\JobProfileWhatItTakesViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSectionViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSettingsAndPreviewModel.cs" />
+    <Compile Include="Mvc\Models\JobProfileWhatYouWillDoViewModel.cs" />
     <Compile Include="Mvc\Models\PSFModel.cs" />
     <Compile Include="Mvc\Models\PSFOption.cs" />
     <Compile Include="Mvc\Models\PSFSection.cs" />
@@ -433,6 +436,8 @@
     <Content Include="Mvc\Views\JobProfileHowToBecome\MoreInformation.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\RestrictionsRequirements.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Index.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Workingenvironments.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

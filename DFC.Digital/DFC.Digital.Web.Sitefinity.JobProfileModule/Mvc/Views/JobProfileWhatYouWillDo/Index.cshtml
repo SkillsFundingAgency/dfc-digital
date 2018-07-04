@@ -4,13 +4,13 @@
 {
     <section class="job-profile-subsection" id="@Html.Raw(Model.SectionId)">
         <h2 class="heading-large">@Html.Raw(Model.Title)</h2>
-        @if (Model.IsWYDIntroActive && !string.IsNullOrWhiteSpace(Model.WYDIntroduction))
+        @if (Model.IsIntroActive && !string.IsNullOrWhiteSpace(Model.Introduction))
         {
-            <p>@Model.WYDIntroduction</p>
+            <p>@Model.Introduction</p>
         }
-        <h3>@Model.DayToDayTasksSectionTitle</h3>
+        <h3>@Model.DailyTasksSectionTitle</h3>
         <div class="job-profile-subsection-content">
-            @Html.Raw(Model.WYDDayToDayTasks)
+            @Html.Raw(Model.DailyTasks)
         </div>
     </section>
     @Html.Partial("WorkingEnvironments", Model)

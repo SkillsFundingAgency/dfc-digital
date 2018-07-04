@@ -953,6 +953,13 @@
     <Content Include="AdminApp\assets\manifest.json" />
     <Content Include="OpenAccessNuGet.targets" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.2.nupkg" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.json" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.3.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -960,12 +967,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.2.nupkg" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.json" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

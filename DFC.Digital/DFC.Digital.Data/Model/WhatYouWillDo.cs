@@ -2,9 +2,9 @@
 {
     public class WhatYouWillDo
     {
-        public bool IsWYDCadReady { get; set; }
+        public bool IsCadReady { get; set; }
 
-        public string WYDDayToDayTasks { get; set; }
+        public string DailyTasks { get; set; }
 
         public string Location { get; set; }
 
@@ -12,6 +12,6 @@
 
         public string Environment { get; set; }
 
-        public string WYDIntroduction { get; set; }
+        public string Introduction { get; set; }
     }
 }

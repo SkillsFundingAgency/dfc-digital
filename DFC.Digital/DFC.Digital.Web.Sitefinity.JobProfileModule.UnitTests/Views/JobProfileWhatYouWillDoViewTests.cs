@@ -25,9 +25,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 PropertyValue = jpWydData,
                 TopSectionContent = topContent,
                 BottomSectionContent = bottomContent,
-                IsWYDIntroActive = wydIntroActive,
-                WYDDayToDayTasks = wydDayToDay,
-                WYDIntroduction = wydDescription,
+                IsIntroActive = wydIntroActive,
+                DailyTasks = wydDayToDay,
+                Introduction = wydDescription,
                 SectionId = sectionId,
                 IsWhatYouWillDoCadView = cadReady
             };

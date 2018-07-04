@@ -149,7 +149,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
-            dummyJobProfile.WhatYouWillDoData.IsWYDCadReady = cadReady;
+            dummyJobProfile.WhatYouWillDoData.IsCadReady = cadReady;
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
@@ -173,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         vm.IsWhatYouWillDoCadView.Should().Be(expected);
                         if (expected)
                         {
-                            vm.DayToDayTasksSectionTitle.Should()
+                            vm.DailyTasksSectionTitle.Should()
                                 .BeEquivalentTo(jobProfileWhatYouWillDoController.WhatYouWillDoSectionTitle);
                         }
                     })
@@ -196,7 +196,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
-                       WhatYouWillDoData = new WhatYouWillDo { Location = "Office and Client Site", Uniform = "Casual / Smart Casual / Business Dress", Environment = "Friendly / Business / Secured", IsWYDCadReady = true },
+                       WhatYouWillDoData = new WhatYouWillDo { Location = "Office and Client Site", Uniform = "Casual / Smart Casual / Business Dress", Environment = "Friendly / Business / Secured", IsCadReady = true },
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
                        HowToBecomeData = new HowToBecome(),
                        Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },

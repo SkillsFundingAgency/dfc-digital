@@ -142,10 +142,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     PropertyValue = CurrentJobProfile.WhatYouWillDo,
                     Title = MainSectionTitle,
                     SectionId = SectionId,
-                    IsWYDIntroActive = IsWYDIntroActive,
-                    DayToDayTasksSectionTitle = WhatYouWillDoSectionTitle,
+                    IsIntroActive = IsWYDIntroActive,
+                    DailyTasksSectionTitle = WhatYouWillDoSectionTitle,
                     EnvironmentTitle = EnvironmentTitle,
-                    IsWhatYouWillDoCadView = CurrentJobProfile.WhatYouWillDoData.IsWYDCadReady
+                    IsWhatYouWillDoCadView = CurrentJobProfile.WhatYouWillDoData.IsCadReady
                 };
 
                 if (model.IsWhatYouWillDoCadView)
@@ -153,8 +153,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     model.Location = CurrentJobProfile.WhatYouWillDoData.Location;
                     model.Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform;
                     model.Environment = CurrentJobProfile.WhatYouWillDoData.Environment;
-                    model.WYDIntroduction = CurrentJobProfile.WhatYouWillDoData.WYDIntroduction;
-                    model.WYDDayToDayTasks = CurrentJobProfile.WhatYouWillDoData.WYDDayToDayTasks;
+                    model.Introduction = CurrentJobProfile.WhatYouWillDoData.Introduction;
+                    model.DailyTasks = CurrentJobProfile.WhatYouWillDoData.DailyTasks;
                 }
             }
 

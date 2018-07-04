@@ -16,6 +16,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string DescriptionField = "Description";
         private const string RelatedEnvironmentsField = "RelatedEnvironments";
         private const string RelatedUniformsField = "RelatedUniforms";
+        private const string DailyTasksField = "WYDDayToDayTasks";
+        private const string IntroductionField = "WYDIntroduction";
+        private const string IsCadReadyField = "IsWYDCadReady";
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
@@ -34,16 +37,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public WhatYouWillDo ConvertFrom(DynamicContent content)
         {
             var isCadReady =
-                dynamicContentExtensions.GetFieldValue<bool>(content, nameof(WhatYouWillDo.IsWYDCadReady));
+                dynamicContentExtensions.GetFieldValue<bool>(content, IsCadReadyField);
             return !isCadReady
                 ? new WhatYouWillDo()
                 : new WhatYouWillDo
                 {
-                    IsWYDCadReady = true,
-                    WYDIntroduction =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDo.WYDIntroduction)),
-                    WYDDayToDayTasks =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDo.WYDDayToDayTasks)),
+                    IsCadReady = true,
+                    Introduction =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroductionField),
+                    DailyTasks =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, DailyTasksField),
                     Location = GetRelatedItemDescription(content, RelatedLocationsField),
                     Uniform = GetRelatedItemDescription(content, RelatedUniformsField),
                     Environment = GetRelatedItemDescription(content, RelatedEnvironmentsField)

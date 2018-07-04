@@ -156,7 +156,6 @@
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
-    <Compile Include="Model\Workingenvironment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

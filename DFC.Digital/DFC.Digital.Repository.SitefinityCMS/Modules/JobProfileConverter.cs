@@ -80,7 +80,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
                 OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
 
-                //Whay You will do section
+                //What You will do section
                 WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content)
             };
 

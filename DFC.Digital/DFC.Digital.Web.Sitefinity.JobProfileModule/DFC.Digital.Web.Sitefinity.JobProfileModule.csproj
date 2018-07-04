@@ -382,7 +382,6 @@
     <Compile Include="Mvc\Controllers\PsfSearchController.cs" />
     <Compile Include="Mvc\Models\AnchorLink.cs" />
     <Compile Include="Mvc\Models\BAUJobProfileSignpostViewModel.cs" />
-    <Compile Include="Mvc\Models\DaytoDayTasks.cs" />
     <Compile Include="Mvc\Models\JobProfileAnchorLinksViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileByCategoryViewModel.cs" />
     <Compile Include="Mvc\Controllers\JobProfilesByCategoryController.cs" />

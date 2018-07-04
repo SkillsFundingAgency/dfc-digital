@@ -2,7 +2,7 @@
 {
     public class WhatYouWillDo
     {
-        public bool IsWYDCaDReady { get; set; } = true;
+        public bool IsWYDCaDReady { get; set; }
 
         public string IntroText { get; set; } = "What You Will Do";
 

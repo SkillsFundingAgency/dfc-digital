@@ -81,6 +81,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string EnvironmentTitle { get; set; } = "Working environment";
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is wyd intro active.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is wyd intro active; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsWYDIntroActive { get; set; }
+
         #endregion private Properties
 
         #region Actions
@@ -124,20 +132,31 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         private ActionResult ReturnSectionView()
         {
-            var model = new JobProfileWhatYouWillDoViewModel
+            var model = new JobProfileWhatYouWillDoViewModel();
+            if (CurrentJobProfile != null)
             {
-                TopSectionContent = TopSectionContent,
-                BottomSectionContent = BottomSectionContent,
-                PropertyValue = CurrentJobProfile?.WhatYouWillDo,
-                Title = MainSectionTitle,
-                SectionId = SectionId,
-                WhatyouWillDoSectionTitle = WhatYouWillDoSectionTitle,
-                EnvironmentTitle = EnvironmentTitle,
-                IsWhatYouWillDoCadView = CurrentJobProfile != null && CurrentJobProfile.WhatYouWillDoData.IsWYWDCadReady,
-                Location = CurrentJobProfile?.WhatYouWillDoData?.Location,
-                Uniform = CurrentJobProfile?.WhatYouWillDoData?.Uniform,
-                Environment = CurrentJobProfile?.WhatYouWillDoData?.Environment
-            };
+                 model = new JobProfileWhatYouWillDoViewModel
+                {
+                    TopSectionContent = TopSectionContent,
+                    BottomSectionContent = BottomSectionContent,
+                    PropertyValue = CurrentJobProfile.WhatYouWillDo,
+                    Title = MainSectionTitle,
+                    SectionId = SectionId,
+                    IsWYDIntroActive = IsWYDIntroActive,
+                    DayToDayTasksSectionTitle = WhatYouWillDoSectionTitle,
+                    EnvironmentTitle = EnvironmentTitle,
+                    IsWhatYouWillDoCadView = CurrentJobProfile.WhatYouWillDoData.IsWYDCadReady
+                };
+
+                if (model.IsWhatYouWillDoCadView)
+                {
+                    model.Location = CurrentJobProfile.WhatYouWillDoData.Location;
+                    model.Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform;
+                    model.Environment = CurrentJobProfile.WhatYouWillDoData.Environment;
+                    model.WYDIntroduction = CurrentJobProfile.WhatYouWillDoData.WYDIntroduction;
+                    model.WYDDayToDayTasks = CurrentJobProfile.WhatYouWillDoData.WYDDayToDayTasks;
+                }
+            }
 
             return View(model);
         }

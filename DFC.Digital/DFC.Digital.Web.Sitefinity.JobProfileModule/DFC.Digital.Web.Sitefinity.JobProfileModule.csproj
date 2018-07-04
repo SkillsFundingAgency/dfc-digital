@@ -437,7 +437,9 @@
     <Content Include="Mvc\Views\JobProfileWhatItTakes\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\RestrictionsRequirements.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Workingenvironments.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkingEnvironments.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

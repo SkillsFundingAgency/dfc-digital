@@ -34,16 +34,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public WhatYouWillDo ConvertFrom(DynamicContent content)
         {
             var isCadReady =
-                dynamicContentExtensions.GetFieldValue<bool>(content, nameof(WhatYouWillDo.IsWYWDCadReady));
+                dynamicContentExtensions.GetFieldValue<bool>(content, nameof(WhatYouWillDo.IsWYDCadReady));
             return !isCadReady
                 ? new WhatYouWillDo()
                 : new WhatYouWillDo
                 {
-                    IsWYWDCadReady = true,
-                    WYWDDescription =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDo.WYWDDescription)),
-                    WhatYouWillDoText =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),
+                    IsWYDCadReady = true,
+                    WYDIntroduction =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDo.WYDIntroduction)),
+                    WYDDayToDayTasks =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDo.WYDDayToDayTasks)),
                     Location = GetRelatedItemDescription(content, RelatedLocationsField),
                     Uniform = GetRelatedItemDescription(content, RelatedUniformsField),
                     Environment = GetRelatedItemDescription(content, RelatedEnvironmentsField)

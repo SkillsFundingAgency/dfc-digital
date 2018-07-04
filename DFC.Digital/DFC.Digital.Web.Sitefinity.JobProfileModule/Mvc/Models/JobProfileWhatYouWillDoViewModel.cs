@@ -4,7 +4,7 @@
     {
         public bool IsWhatYouWillDoCadView { get; set; }
 
-        public string WhatyouWillDoSectionTitle { get; set; }
+        public string DayToDayTasksSectionTitle { get; set; }
 
         public string EnvironmentTitle { get; set; }
 
@@ -15,5 +15,11 @@
         public string Environment { get; set; }
 
         public string Uniform { get; set; }
+
+        public bool IsWYDIntroActive { get; set; }
+
+        public string WYDIntroduction { get; set; }
+
+        public string WYDDayToDayTasks { get; set; }
     }
 }

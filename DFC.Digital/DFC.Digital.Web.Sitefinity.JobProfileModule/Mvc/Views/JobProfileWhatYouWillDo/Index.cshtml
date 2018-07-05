@@ -2,18 +2,20 @@
 
 @if (Model.IsWhatYouWillDoCadView)
 {
-    <section class="job-profile-subsection" id="@Html.Raw(Model.SectionId)">
+    <section id="@Html.Raw(Model.SectionId)">
         <h2 class="heading-large">@Html.Raw(Model.Title)</h2>
         @if (Model.IsIntroActive && !string.IsNullOrWhiteSpace(Model.Introduction))
         {
             <p>@Model.Introduction</p>
         }
-        <h3>@Model.DailyTasksSectionTitle</h3>
-        <div class="job-profile-subsection-content">
-            @Html.Raw(Model.DailyTasks)
-        </div>
+        <section class="job-profile-subsection">
+            <h3>@Model.DailyTasksSectionTitle</h3>
+            <div class="job-profile-subsection-content">
+                @Html.Raw(Model.DailyTasks)
+            </div>
+        </section>
+        @Html.Partial("WorkEnvironment", Model)
     </section>
-    @Html.Partial("WorkEnvironment", Model)
 }
 else
 {

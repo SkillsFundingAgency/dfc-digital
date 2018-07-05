@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData(true, "jpWydData1", "topCnt", "bottomContent", "wydDayToDay", true, "wydDescription", "sectionid")]
         [InlineData(true, "jpWydData2", "topCnt3", "bottomContent", "wydDayToDay", false, "wydDescription", "sectionid2")]
         [InlineData(false, "jpWydData3", "topCnt8", "bottomContent", "wydDayToDay", false, "wydDescription", "sectionid4")]
-        public void WhatYouWillDoIndexViewTests(bool cadReady, string jpWydData, string topContent, string bottomContent, string wydDayToDay, bool wydIntroActive, string wydDescription, string sectionId)
+        public void WhatYouWillDoIndexViewTests(bool cadReady, string jpWydData, string topContent, string bottomContent, string wydDailyTasks, bool wydIntroActive, string wydDescription, string sectionId)
         {
             // Arrange
             var whatYouWillDoView = new _MVC_Views_JobProfileWhatYouWillDo_Index_cshtml();
@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 TopSectionContent = topContent,
                 BottomSectionContent = bottomContent,
                 IsIntroActive = wydIntroActive,
-                DailyTasks = wydDayToDay,
+                DailyTasks = wydDailyTasks,
                 Introduction = wydDescription,
                 SectionId = sectionId,
                 IsWhatYouWillDoCadView = cadReady
@@ -43,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 AssertContentDoesNotExistsInView(bottomContent, htmlDocument);
                 AssertContentDoesNotExistsInView(topContent, htmlDocument);
                 AssertContentDoesNotExistsInView(jpWydData, htmlDocument);
-                if (!string.IsNullOrWhiteSpace(wydDayToDay))
+                if (!string.IsNullOrWhiteSpace(wydDailyTasks))
                 {
-                    AssertContentExistsInView(wydDayToDay, htmlDocument);
+                    AssertContentExistsInView(wydDailyTasks, htmlDocument);
                 }
 
                 if (!string.IsNullOrWhiteSpace(wydDescription) && wydIntroActive)
@@ -59,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
             else
             {
-                AssertContentDoesNotExistsInView(wydDayToDay, htmlDocument);
+                AssertContentDoesNotExistsInView(wydDailyTasks, htmlDocument);
                 AssertContentDoesNotExistsInView(wydDescription, htmlDocument);
                 if (!string.IsNullOrWhiteSpace(jpWydData))
                 {

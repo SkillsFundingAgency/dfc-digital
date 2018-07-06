@@ -124,6 +124,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseJobProfileWidgetControllerTests.cs" />
     <Compile Include="Controllers\JobProfileBAUSignpostingControllerTests.cs" />
     <Compile Include="Controllers\JobProfileByCategoryControllerTests.cs" />
     <Compile Include="Controllers\JobProfileCourseOpportunityControllerTests.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Controllers\JobProfileAnchorLinksControllerTests.cs" />
     <Compile Include="Controllers\JobProfileDetailsControllerTests.cs" />
     <Compile Include="Controllers\JobProfileSettingsAndPreviewControllerTests.cs" />
+    <Compile Include="Controllers\JobProfileWhatYouWillDoControllerTests.cs" />
     <Compile Include="Controllers\PreSearchFiltersControllerTests.cs" />
     <Compile Include="Controllers\PsfSearchControllerTests.cs" />
     <Compile Include="Controllers\JobProfileHowToBecomeControllerTests.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Views\JobProfileHowToBecomeViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />
     <Compile Include="Views\JobProfileWhatItTakesViewTests.cs" />
+    <Compile Include="Views\JobProfileWhatYouWillDoViewTests.cs" />
     <Compile Include="Views\PsfSearchViewTests.cs" />
     <Compile Include="Views\JobProfileSettingsAndPreviewViewTests.cs" />
     <Compile Include="Views\PreSearchFiltersViewTests.cs" />

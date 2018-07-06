@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JobProfile</id>
-    <version>1.0.29.2</version>
+    <version>1.0.29.3</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>

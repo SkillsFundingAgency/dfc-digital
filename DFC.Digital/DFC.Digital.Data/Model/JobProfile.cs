@@ -217,5 +217,7 @@ namespace DFC.Digital.Data.Model
         public bool? IsImported { get; set; }
 
         public HowToBecome HowToBecomeData { get; set; }
+
+        public WhatYouWillDo WhatYouWillDoData { get; set; }
     }
 }

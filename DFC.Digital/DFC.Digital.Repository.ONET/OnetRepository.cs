@@ -10,6 +10,9 @@ using System.Diagnostics.Contracts;
 
 namespace DFC.Digital.Repository.ONET
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using DataModel;
 
 
     public class OnetRepository : ISkillsFrameworkRepository
@@ -48,31 +51,72 @@ namespace DFC.Digital.Repository.ONET
         }
         #endregion
 
-        public SkillsFramework Get ( Expression<Func<SkillsFramework , bool>> where )
+
+        public IQueryable<T> GetAll<T> ( ) where T : class
         {
-            throw new NotImplementedException ( );
+            var ret=  _db.Set<T>().ToList().AsQueryable();//.ProjectTo<DFC_GDSTranlations>();
+            return (System.Linq.IQueryable<T>)ret;
         }
 
-        public IQueryable<SkillsFramework> GetAll ( )
+        #region SkillsFramework Repository Implemetation
+        public IQueryable<DFC_GDSTranlations> GetMany ( Expression<Func<DFC_GDSTranlations, bool>> where )
         {
-            throw new NotImplementedException ( );
+
+            var result = _db.Set<SkillsFramework> ( ).AsQueryable ( ).ProjectTo<DFC_GDSTranlations> ( where );
+            return (System.Linq.IQueryable<DFC.Digital.Repository.ONET.DataModel.DFC_GDSTranlations>)_mapper.Map<DFC_GDSTranlations>(result);
         }
 
-        public SkillsFramework GetById ( string id )
+      #endregion
+
+        #region Implementation of IOnetRespository
+
+        public async  Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : class, new()
         {
-            throw new NotImplementedException ( );
+            var ret = await _db.Set<DFC_GDSTranlations>()
+                .AsQueryable()
+                .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
+                .ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<T>>(ret);
         }
 
-        #region SkillsFramework Repository Implemetation 
-        public IQueryable<SkillsFramework> GetMany ( Expression<Func<SkillsFramework , bool>> where )
+        public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : class, new()
         {
-            var result = _db.Set<SkillsFramework> ( ).AsQueryable ( ).ProjectTo<SkillsFramework> ( where );
-            return _mapper.Map<SkillsFramework> ( result ) as IQueryable<SkillsFramework>;
+            var ret = await _db.Set<DFC_SocMappings>()
+                .AsQueryable()
+                .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
+                .ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<T>>(ret);
         }
 
-        public void Update ( SkillsFramework entity )
+        public Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode)
         {
-            throw new NotImplementedException ( );
+            return null;
+        }
+
+        public async Task<T> GetDigitalSkilRank<T>(string socCode) where T : class, new()
+        {
+
+                var r = from o in _db.Set<tools_and_technology>()
+                join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                where o.onetsoc_code == socCode
+                select new DfcGdsToolsAndTechnology()
+                {
+                    ClassTitle = od.class_title,
+                    T2Type = o.t2_type,
+                    T2Example = o.t2_example
+                };
+
+            var ret = await _db.Set<tools_and_technology>()
+                .AsQueryable()
+                .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
+                .ConfigureAwait(false);
+            var res=_mapper.Map<T>(ret);
+            return res;
+        }
+
+        public Task<IEnumerable<T>> GetAttributesValuesAsync<T>(Expression<Func<T, bool>> predicate) where T : class, new()
+        {
+            return null;
         }
 
         #endregion

@@ -9,7 +9,7 @@
     using Repository.ONET.Interface;
 
 
-    public class SkillsFrameworkEngine:IBusinessRuleEngine
+    public class SkillsFrameworkEngine:IBusinessRuleEngine 
     {
         private readonly ISkillsFrameworkRepository _repository;
 
@@ -24,8 +24,9 @@
 
         public async Task<SkillsFramework> GetSkillsFrameworkFor(string socCode)
         {
-           var result= _repository.GetMany(skills => skills.SocCode == socCode)
-                .Select(skills => new SkillsFramework {SocCode = skills.SocCode}).FirstOrDefault();
+           var result= _repository.GetAttributesValuesAsync<DfcGdsTranslation>(s=>s.SocCode==socCode).Result.
+                Select(skills => new SkillsFramework {SocCode = skills.SocCode}).
+                FirstOrDefault();
             return await Task.FromResult ( result).ConfigureAwait ( false );
         }
 

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="JobProfileFrameWorksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="JobProfileFrameWorksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'JobProfileFrameWorks.dbo.abilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="abilities">
@@ -73,6 +73,14 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.career_starters_matrix' d
           <Property Name="element_id" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="element_name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="1500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DFC_GDSAttributeRankOverRide">
+          <Key>
+            <PropertyRef Name="onet_element_id" />
+          </Key>
+          <Property Name="onet_element_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="soccode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="datetimestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="DFC_GDSCombinations">
           <Key>
@@ -1473,6 +1481,10 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
         <Function Name="sp_GetAttributesByOnNetCodeGroupedV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ONetCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_GetAttributesForProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ONetCode" Type="varchar" Mode="In" />
+          <Parameter Name="SOCCode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_GetInterestsByOnetCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ONetCode" Type="varchar" Mode="In" />
         </Function>
@@ -1507,6 +1519,7 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="JobProfileFrameWorksModelStoreContainer">
           <EntitySet Name="content_model_reference" EntityType="Self.content_model_reference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DFC_GDSAttributeRankOverRide" EntityType="Self.DFC_GDSAttributeRankOverRide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSCombinations" EntityType="Self.DFC_GDSCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSContext" EntityType="Self.DFC_GDSContext" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSTranlations" EntityType="Self.DFC_GDSTranlations" Schema="dbo" store:Type="Tables" />
@@ -2069,8 +2082,7 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
             <End Role="work_values" EntitySet="work_values" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="JobProfileFrameWorksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3934,37 +3946,37 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAttributesByOnNetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesByOnNetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAttributesByOnNetCodeForEachSectionGrouped" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesByOnNetCodeForEachSectionGrouped_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAttributesByOnNetCodeForEachSectionGroupedV2" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAttributesByOnNetCodeGrouped" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesByOnNetCodeGrouped_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetAttributesByOnNetCodeGroupedV2" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesByOnNetCodeGroupedV2_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetInterestsByOnetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetInterestsByOnetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetTechnologyDetailsByOnetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetTechnologyDetailsByOnetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetToolsTecByOnetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetToolsTecByOnetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetToolsTecByOnetCodeV2" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetToolsTecByOnetCodeV2_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetWorkStylesByOnetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetWorkStylesByOnetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetWorkValuesByOnetCode" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetWorkValuesByOnetCode_Result)">
-            <Parameter Name="ONetCode" Mode="In" Type="String" />
+          <Parameter Name="ONetCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(JobProfileFrameWorksModel.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -3980,6 +3992,11 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="DFC_GDSAttributeRankOverRide" EntityType="JobProfileFrameWorksModel.DFC_GDSAttributeRankOverRide" />
+          <FunctionImport Name="sp_GetAttributesForProfile" ReturnType="Collection(JobProfileFrameWorksModel.sp_GetAttributesForProfile_Result)">
+            <Parameter Name="ONetCode" Mode="In" Type="String" />
+            <Parameter Name="SOCCode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetAttributesByOnNetCode_Result">
           <Property Type="String" Name="Attribute" Nullable="true" MaxLength="20" />
@@ -4067,6 +4084,23 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="DFC_GDSAttributeRankOverRide">
+          <Key>
+            <PropertyRef Name="onet_element_id" />
+          </Key>
+          <Property Name="onet_element_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="soccode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="datetimestamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="sp_GetAttributesForProfile_Result">
+          <Property Type="String" Name="onet_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Attribute" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="element_id" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="element_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="1500" />
+          <Property Type="Decimal" Name="total_value" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="isCombination" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4714,6 +4748,28 @@ warning 6002: The table/view 'JobProfileFrameWorks.dbo.work_values' does not hav
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="JobProfileFrameWorksModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="JobProfileFrameWorksModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="DFC_GDSAttributeRankOverRide">
+            <EntityTypeMapping TypeName="JobProfileFrameWorksModel.DFC_GDSAttributeRankOverRide">
+              <MappingFragment StoreEntitySet="DFC_GDSAttributeRankOverRide">
+                <ScalarProperty Name="datetimestamp" ColumnName="datetimestamp" />
+                <ScalarProperty Name="soccode" ColumnName="soccode" />
+                <ScalarProperty Name="onet_element_id" ColumnName="onet_element_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAttributesForProfile" FunctionName="JobProfileFrameWorksModel.Store.sp_GetAttributesForProfile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JobProfileFrameWorksModel.sp_GetAttributesForProfile_Result">
+                <ScalarProperty Name="onet_code" ColumnName="onet_code" />
+                <ScalarProperty Name="Attribute" ColumnName="Attribute" />
+                <ScalarProperty Name="element_id" ColumnName="element_id" />
+                <ScalarProperty Name="element_name" ColumnName="element_name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="total_value" ColumnName="total_value" />
+                <ScalarProperty Name="isCombination" ColumnName="isCombination" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

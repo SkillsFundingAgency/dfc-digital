@@ -14,7 +14,6 @@ namespace DFC.Digital.Repository.ONET.Impl
     using System.Linq.Expressions;
     using System.Threading;
     using Interface;
-
     /// <summary>
     /// Wrapper class for a <see cref="IDbSet{TEntity}" /> to aid with unit testing.
     /// </summary>

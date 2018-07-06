@@ -1,15 +1,13 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public abstract class AttributesData
+    public class DfcGdsAttributesData : DfcGdsOnetEntity
     {
         public string Attribute { get; set; }
-
-        public string Value { get; set; }
-
-        public string ElementId { get; set; }
 
         public string ElementDescription { get; set; }
 
         public string ElementName { get; set; }
+
+        public string Value { get; set; }
     }
 }

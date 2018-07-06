@@ -3,8 +3,9 @@
     using System;
     using Data.Interfaces;
     using Data.Model;
+    using DataModel;
 
-    public interface ISkillsFrameworkRepository : IRepository<SkillsFramework>, IDisposable
+    public interface ISkillsFrameworkRepository : IOnetRespository, IDisposable 
     {
     }
 }

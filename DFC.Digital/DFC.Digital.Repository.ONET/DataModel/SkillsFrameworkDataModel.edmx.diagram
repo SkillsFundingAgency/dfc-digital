@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.content_model_reference" Width="1.5" PointX="5.75" PointY="29.25" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GDSCombinations" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GDSContext" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GDSTranlations" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GDSTranlations" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GlobalAttributeSuppression" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.dwa_reference" Width="1.5" PointX="3" PointY="30.875" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.ete_categories" Width="1.5" PointX="3.75" PointY="63.125" IsExpanded="true" />
@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.job_zone_reference" Width="1.5" PointX="6.75" PointY="57.125" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.occupation_data" Width="1.5" PointX="0.75" PointY="41.125" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.scales_reference" Width="1.5" PointX="5.75" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="JobProfileFrameWorksModel.sysdiagram" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JobProfileFrameWorksModel.sysdiagram" Width="1.5" PointX="12.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.task_categories" Width="1.5" PointX="9" PointY="30" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.task_statements" Width="1.5" PointX="3" PointY="34.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JobProfileFrameWorksModel.unspsc_reference" Width="1.5" PointX="6.75" PointY="61" IsExpanded="true" />
@@ -116,6 +116,7 @@
         <AssociationConnector Association="JobProfileFrameWorksModel.FK__tasks_to___task___25518C17" ManuallyRouted="false" />
         <AssociationConnector Association="JobProfileFrameWorksModel.FK__tools_and__commo__282DF8C2" ManuallyRouted="false" />
         <AssociationConnector Association="JobProfileFrameWorksModel.FK__work_context__2EDAF651" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JobProfileFrameWorksModel.DFC_GDSAttributeRankOverRide" Width="1.5" PointX="8.625" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

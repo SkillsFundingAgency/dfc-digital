@@ -6,15 +6,15 @@
         <div class="job-profile-subsection-content">
             @if (!string.IsNullOrEmpty(Model.Location))
             {
-                <p>@Model.Location</p>
+                <p>@Html.Raw(Model.Location)</p>
             }
             @if (!string.IsNullOrEmpty(Model.Environment))
             {
-                <p>@Model.Environment</p>
+                <p>@Html.Raw(Model.Environment)</p>
             }
             @if (!string.IsNullOrEmpty(Model.Uniform))
             {
-                <p>@Model.Uniform</p>
+                <p>@Html.Raw(Model.Uniform)</p>
             }
         </div>
     </section>

@@ -6,7 +6,7 @@
         <h2 class="heading-large">@Html.Raw(Model.Title)</h2>
         @if (Model.IsIntroActive && !string.IsNullOrWhiteSpace(Model.Introduction))
         {
-            <p>@Model.Introduction</p>
+            <p>@Html.Raw(Model.Introduction)</p>
         }
         <section class="job-profile-subsection">
             <h3>@Model.DailyTasksSectionTitle</h3>

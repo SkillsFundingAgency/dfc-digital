@@ -8,6 +8,6 @@
 
         public string ElementName { get; set; }
 
-        public string Value { get; set; }
+        public decimal Value { get; set; }
     }
 }

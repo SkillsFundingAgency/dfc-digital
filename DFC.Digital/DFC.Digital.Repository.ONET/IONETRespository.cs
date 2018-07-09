@@ -9,10 +9,11 @@ namespace DFC.Digital.Repository.ONET
 
     public interface IOnetRespository 
     {
-        Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : class, new();
-        Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : class, new();
+        Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : DfcGdsOnetEntity;
+        Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity;
         Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode);
-        Task<T> GetDigitalSkilRank<T>(string socCode) where T : class, new();
-        Task<IEnumerable<T>> GetAttributesValuesAsync<T>(Expression<Func<T,bool>> predicate) where T : class, new();
+        Task<T> GetDigitalSkillsRankAsync<T>(string socCode) where T : struct;
+        Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity;
+        Task<IEnumerable<T>> GetAttributesValuesAsync<T>(Expression<Func<T,bool>> predicate) where T : DfcGdsOnetEntity;
     }
 }

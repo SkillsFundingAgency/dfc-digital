@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class DfcGdsToolsAndTechnology
+    public class DfcGdsToolsAndTechnology : DfcGdsOnetEntity
     {
         public string ClassTitle { get; set; }
 

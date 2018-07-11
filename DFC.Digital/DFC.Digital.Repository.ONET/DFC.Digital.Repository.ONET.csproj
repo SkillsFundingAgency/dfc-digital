@@ -67,6 +67,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -77,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes.cs" />
     <Compile Include="Config\SkillsFrameworkAutofacModule.cs" />
     <Compile Include="DataModel\ability.cs">
       <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
@@ -271,12 +273,13 @@
     <Compile Include="Helper\SqlConnectionHelper.cs" />
     <Compile Include="Helper\SqlDbException.cs" />
     <Compile Include="Impl\DbSetWrapper.cs" />
-    <Compile Include="Impl\MetaSchemaContext.cs" />
+    <Compile Include="Impl\SkillsFrameworkDbContext.cs" />
     <Compile Include="Interface\IDbContext.cs" />
     <Compile Include="Interface\IDbSetWrapper.cs" />
+    <Compile Include="Interface\IDfcGdsSkillsFramework.cs" />
     <Compile Include="Interface\IRepositoryInitializer.cs" />
-    <Compile Include="Interface\ISkillsFrameworkRepository.cs" />
-    <Compile Include="IONETRespository.cs" />
+    <Compile Include="Interface\ISpecification.cs" />
+    <Compile Include="IOnetSkillsFramework.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="OnetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

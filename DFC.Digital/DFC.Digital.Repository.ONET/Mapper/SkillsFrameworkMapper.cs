@@ -18,15 +18,15 @@ namespace DFC.Digital.Repository.ONET.Mapper
                 .ForMember(s => s.Attribute, m => m.MapFrom(d => d.Attribute))
                 .ForMember(s => s.description, m => m.MapFrom(d => d.ElementDescription))
                 .ForMember(s => s.total_value, m => m.MapFrom(d => d.Value))
-                .ForMember(s => s.element_id, m => m.MapFrom(d => d.OnetElementId))
+                .ForMember(s => s.element_id, m => m.MapFrom(d => d.ElementId))
                 .ForMember(s => s.element_name, m => m.MapFrom(d => d.ElementName));
 
             CreateMap<DFC_GDSTranlations, DfcGdsTranslation>()
                 .ForMember(d => d.DateTimeStamp, m => m.MapFrom(s => s.datetimestamp))
                 .ForMember(d => d.Translation, m => m.MapFrom(s => s.translation))
-                .ForMember(d => d.OnetElementId, m => m.MapFrom(s => s.onet_element_id))
+                .ForMember(d => d.ElementId, m => m.MapFrom(s => s.onet_element_id))
                 .ReverseMap()
-                .ForMember(s=>s.onet_element_id,m=>m.MapFrom(d=>d.OnetElementId))
+                .ForMember(s=>s.onet_element_id,m=>m.MapFrom(d=>d.ElementId))
                 .ForMember(s=>s.datetimestamp,m=>m.MapFrom(d=>d.DateTimeStamp))
                 .ForMember(s=>s.translation,m=>m.MapFrom(d=>d.Translation));
 

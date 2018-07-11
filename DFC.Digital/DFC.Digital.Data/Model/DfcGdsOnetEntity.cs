@@ -2,7 +2,7 @@
 {
     public class DfcGdsOnetEntity
     {
-        public string OnetElementId { get; set; }
+        public string ElementId { get; set; }
 
         public string SocCode { get; set; }
 

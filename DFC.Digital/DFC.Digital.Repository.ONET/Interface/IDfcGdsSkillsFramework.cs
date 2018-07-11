@@ -5,7 +5,7 @@
     using Data.Model;
     using DataModel;
 
-    public interface ISkillsFrameworkRepository : IOnetRespository, IDisposable 
+    public interface IDfcGdsSkillsFramework: IOnetSkillsFramework 
     {
     }
 }

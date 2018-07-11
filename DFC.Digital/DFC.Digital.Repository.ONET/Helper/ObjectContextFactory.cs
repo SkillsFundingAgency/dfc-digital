@@ -3,9 +3,10 @@
 namespace DFC.Digital.Repository.ONET.Helper
 {
     using System;
+    using System.Data.Entity;
     using System.Reflection;
 
-    public static class ObjectContextFactory<T> where T : ObjectContext, new()
+    public static class ObjectContextFactory<T> where T : DbContext, new()
     {
         private static readonly ConstructorInfo ClassConstructor = typeof ( T ) .GetConstructor ( new Type [ ] { typeof ( string ) } );
 

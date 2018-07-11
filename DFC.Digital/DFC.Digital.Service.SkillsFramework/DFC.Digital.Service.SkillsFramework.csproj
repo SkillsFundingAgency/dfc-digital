@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\SkillsFrameworkEngineAutofacModule.cs" />
     <Compile Include="Interface\IBusinessRuleEngine.cs" />
     <Compile Include="SkillsFrameworkEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,8 +68,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

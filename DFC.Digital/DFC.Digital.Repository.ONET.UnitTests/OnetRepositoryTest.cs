@@ -27,9 +27,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         {
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new MetaSchemaContext();
+            IDbContext context = new SkillsFrameworkDbContext();
             var mapper=A.Fake<IMapper>();
-            using(ISkillsFrameworkRepository repository = new OnetRepository(context, iMapper))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, iMapper))
             {
               var all=  repository.GetAllTranslationsAsync<DfcGdsTranslation>().Result;
 
@@ -40,9 +40,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetAllSocMappings()
         {
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new MetaSchemaContext();
+            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
-            using(ISkillsFrameworkRepository repository = new OnetRepository(context, iMapper))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, iMapper))
             {
                 var all = repository.GetAllSocMappingsAsync<DfcGdsSocMappings>().Result;
 
@@ -58,11 +58,11 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //>0 and <50 -return 4
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new MetaSchemaContext();
+            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
             var GetRank = 0;
             var onetCode = "11-1011.00";
-            using(ISkillsFrameworkRepository repository = new OnetRepository(context, iMapper))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, iMapper))
             {
                 var rankResult = repository.GetDigitalSkillsRankAsync<int>(onetCode).Result;
                 if (rankResult > Convert.ToInt32(RangeChecker.FirstRange))
@@ -88,11 +88,11 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //>0 and <50 -return 4
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new MetaSchemaContext();
+            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
             var GetRank = 0;
             var onetCode = "11-1011.00";
-            using(ISkillsFrameworkRepository repository = new OnetRepository(context, iMapper))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, iMapper))
             {
                 var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetCode).Result;
                 foreach (var skill in digitalSkillsData.DigitalSkillsCollection)
@@ -114,12 +114,12 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         {
             IMapper iMapper =
                 new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new MetaSchemaContext();
+            IDbContext context = new SkillsFrameworkDbContext();
             var GetRank = 0;
             var onetCode = "11-1011.00";
-            using (ISkillsFrameworkRepository repository = new OnetRepository(context, iMapper))
+            using (IDfcGdsSkillsFramework repository = new OnetRepository(context, iMapper))
             {
-                var digitalSkillsData = repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetCode);
+                var digitalSkillsData = repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetCode).Result;
 
             }
         }

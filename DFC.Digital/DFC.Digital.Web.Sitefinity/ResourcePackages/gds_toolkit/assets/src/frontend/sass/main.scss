@@ -132,6 +132,17 @@ main {
     }
 }
 
+.js-enabled {
+
+    .js-hidden {
+        display: none;
+    }
+
+    .js-visible {
+        display: block;
+    }
+}
+
 /* --- Individual Section / Page Styling --- */
 
 /*Default SCSS - Sets Default Styling For Elements */

@@ -1,0 +1,21 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileWhatYouWillDoViewModel
+@if (!string.IsNullOrWhiteSpace(Model.Location) || !string.IsNullOrWhiteSpace(Model.Uniform) || !string.IsNullOrWhiteSpace ( Model.Environment ) )
+{
+    <section class="job-profile-subsection" id="workingenvironment">
+        <h3>@Model.EnvironmentTitle</h3>
+        <div class="job-profile-subsection-content">
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                <p>@Model.Location</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.Environment))
+            {
+                <p>@Model.Environment</p>
+            }
+            @if (!string.IsNullOrEmpty(Model.Uniform))
+            {
+                <p>@Model.Uniform</p>
+            }
+        </div>
+    </section>
+}

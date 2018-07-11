@@ -408,6 +408,7 @@
     <Compile Include="Mvc\Models\RelatedJobProfileCategoriesViewModel.cs" />
     <Compile Include="Mvc\Models\RestrictionsOtherRequirements.cs" />
     <Compile Include="Mvc\Models\Suggestion.cs" />
+    <Compile Include="Mvc\Models\JobProfileWhatItTakesSkillsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -433,6 +434,7 @@
     <Content Include="Mvc\Views\JobProfileHowToBecome\MoreInformation.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\Index.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\RestrictionsRequirements.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\WhatItTakesSkills.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

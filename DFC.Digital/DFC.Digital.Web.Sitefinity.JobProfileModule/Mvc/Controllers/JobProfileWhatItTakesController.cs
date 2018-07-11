@@ -91,6 +91,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string RestrictionsIntro { get; set; } = "You'll need to:";
 
+        public string SkillsSectionIntro { get; set; } = "You'll need:";
+
+        public bool UseONetDataCitizenFacing { get; set; } = false;
+
+        public bool UseONetDataInPreview { get; set; } = false;
+
+        public int NumberONetSkillsToDisplay { get; set; } = 8;
+
         #endregion Public Properties
 
         #region Actions
@@ -136,15 +144,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var model = new JobProfileWhatItTakesViewModel
             {
-                TopSectionContent = TopSectionContent,
-                BottomSectionContent = BottomSectionContent,
-                PropertyValue = CurrentJobProfile.Skills,
+                IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady,
                 Title = MainSectionTitle,
                 SectionId = SectionId,
-                WhatItTakesSectionTitle = WhatItTakesSectionTitle,
-                IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady
             };
 
+            model.JobProfileWhatItTakesSkillsViewModel = new JobProfileWhatItTakesSkillsViewModel
+            {
+                UseONetDataCitizenFacing = UseONetDataCitizenFacing,
+                UseONetDataInPreview = UseONetDataInPreview,
+                NumberONetSkillsToDisplay = NumberONetSkillsToDisplay,
+                WhatItTakesSkills = CurrentJobProfile.WhatItTakesSkills,
+                DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
+                SkillsSectionIntro = SkillsSectionIntro,
+                PropertyValue = CurrentJobProfile.Skills,
+                TopSectionContent = TopSectionContent,
+                BottomSectionContent = BottomSectionContent,
+                WhatItTakesSectionTitle = WhatItTakesSectionTitle,
+            };
+
+            // WebAppContext.IsContentPreviewMode
             if (model.IsWhatItTakesCadView)
             {
                 model.RestrictionsOtherRequirements = new RestrictionsOtherRequirements

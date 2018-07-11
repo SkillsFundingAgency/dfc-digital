@@ -51,20 +51,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(true, "Content")]
-        [InlineData(false, "Content")]
-        public void Dfc339IndexViewTests(bool cadReady, string content)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc339IndexViewTests(bool cadReady)
         {
             // Arrange
             var restrictionsView = new _MVC_Views_JobProfileWhatItTakes_Index_cshtml();
             var jobProfileWhatItTakesViewModel = new JobProfileWhatItTakesViewModel
             {
-                PropertyValue = content,
+                Title = "Dummy Title",
                 IsWhatItTakesCadView = cadReady,
                 RestrictionsOtherRequirements = new RestrictionsOtherRequirements
                 {
                     Restrictions = GetRestrictions(cadReady),
-                    OtherRequirements = content
                 }
             };
 
@@ -78,10 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .IsSameOrEqualTo(jobProfileWhatItTakesViewModel.RestrictionsOtherRequirements.Restrictions.Count());
             }
 
-            if (!string.IsNullOrWhiteSpace(content))
-            {
-                AssertContentExistsInView(content, htmlDocument);
-            }
+            htmlDocument.DocumentNode.InnerHtml.IndexOf(jobProfileWhatItTakesViewModel.Title, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
         }
 
         private static void AssertContentExistsInView(string content, HtmlDocument htmlDocument)

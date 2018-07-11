@@ -84,6 +84,10 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string Skills { get; set; }
 
+        public string DigitalSkillsLevel { get; set; }
+
+        public IEnumerable<WhatItTakesSkill> WhatItTakesSkills { get; set; }
+
         public IEnumerable<Restriction> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }

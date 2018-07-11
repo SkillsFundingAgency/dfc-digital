@@ -1,0 +1,34 @@
+﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileWhatItTakesSkillsViewModel
+    <section class="job-profile-subsection" id="skills">
+        <h3>@Model.WhatItTakesSectionTitle</h3>
+        <div class="job-profile-subsection-content">
+            @Html.Raw(Model.TopSectionContent)
+
+            @if (Model.UseONetDataCitizenFacing || Model.UseONetDataInPreview)
+            {
+                if (!string.IsNullOrEmpty(Model.SkillsSectionIntro))
+                {
+                    <p>@Model.SkillsSectionIntro</p>
+                }
+                <ul>
+                    @{int ii = 0; }
+                    @foreach (var skill in Model.WhatItTakesSkills)
+                    {
+                        if (ii++ >= Model.NumberONetSkillsToDisplay)
+                        {
+                            break;
+                        }
+                        <li>
+                            @(skill.Contextualised == string.Empty ? @Html.Raw(skill.Description) : @Html.Raw(skill.Contextualised))
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.Raw(Model.PropertyValue)
+            }
+            @Html.Raw(Model.BottomSectionContent)
+        </div>
+    </section>
+

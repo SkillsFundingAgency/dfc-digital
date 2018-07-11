@@ -1,0 +1,29 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.OnetDataImportViewModel
+<div>
+    <h1 class="sfBreadCrumb">
+        @Html.Raw(Model.PageTitle)
+    </h1>
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {
+            <p>@Html.Raw(Model.FirstParagraph)</p>
+            <br />
+            using (Html.BeginForm("", "OnetDataImport", FormMethod.Post))
+            {
+                <select name="importmode">
+                    <option value="importskills">Import the Onet Skills</option>
+                    <option value="updatesococcupationalcodes">Update the SocCodes with Onet Occupational Codes</option>
+                    <option value="updatejpdigitalskills">Update Job profiles with digital skills</option>
+                    <option value="updatejpskills">Update the Job Profiles with related Onet Skills</option>
+                    <option value="importupdateall">Run complete Onet Data import Cycle</option>
+                </select>
+                <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
+            }
+
+        }
+        else
+        {
+            <p>@Model.NotAllowedMessage</p>
+        }
+    </div>
+</div>

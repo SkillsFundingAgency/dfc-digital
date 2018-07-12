@@ -89,12 +89,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             // Arrange
             int numberSkills = 5;
+            var skillsList = GetSkills(numberSkills);
             var whatItTakesView = new _MVC_Views_JobProfileWhatItTakes_WhatItTakesSkills_cshtml();
             var skillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
                 WhatItTakesSectionTitle = "Dummy Section Title",
                 SkillsSectionIntro = "Dummy Intro",
-                WhatItTakesSkills = GetSkills(numberSkills),
+                WhatItTakesSkills = skillsList,
                 PropertyValue = "Non Onet Skills Text",
                 NumberONetSkillsToDisplay = numberSkills,
                 UseONetDataCitizenFacing = useONetCitizenFacing,
@@ -114,6 +115,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 //Non Onet skills should NOT be displayed
                 htmlDocument.DocumentNode.InnerHtml.IndexOf(skillsViewModel.PropertyValue).Should().Be(-1);
                 htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(skillsViewModel.WhatItTakesSkills.Count());
+                int ii = 0;
+                foreach (HtmlNode li in htmlDocument.DocumentNode.Descendants("li"))
+                {
+                    li.InnerText.Should().Contain(skillsList[ii++].Description);
+                }
             }
             else
             {
@@ -141,6 +147,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Asserts
             //should have the number of skills plus one for  digital skills
             htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(skillsViewModel.WhatItTakesSkills.Count() + 1);
+
+            htmlDocument.DocumentNode.Descendants("li").LastOrDefault().InnerText.Should().Contain(skillsViewModel.DigitalSkillsLevel);
         }
 
         private static void AssertContentExistsInView(string content, HtmlDocument htmlDocument)

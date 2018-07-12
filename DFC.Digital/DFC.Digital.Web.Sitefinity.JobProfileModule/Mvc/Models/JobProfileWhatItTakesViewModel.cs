@@ -7,7 +7,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
     /// <summary>
     /// Job Profile Section View
     /// </summary>
-    public class JobProfileWhatItTakesViewModel : JobProfileSectionViewModel
+    public class JobProfileWhatItTakesViewModel
     {
         public JobProfileWhatItTakesSkillsViewModel JobProfileWhatItTakesSkillsViewModel { get; set; }
 
@@ -34,5 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// The section identifier.
         /// </value>
         public string SectionId { get; set; }
+
+        public string Title { get; set; }
     }
 }

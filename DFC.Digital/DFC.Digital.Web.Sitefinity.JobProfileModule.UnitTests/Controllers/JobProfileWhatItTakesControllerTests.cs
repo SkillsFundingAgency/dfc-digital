@@ -61,8 +61,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .WithModel<JobProfileWhatItTakesViewModel>(vm =>
                     {
                         vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
-                        vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
-                        vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                     })
                     .AndNoModelErrors();
 
@@ -119,11 +119,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 indexWithUrlNameMethodCall
                     .ShouldRenderDefaultView()
-                    .WithModel<JobProfileSectionViewModel>(vm =>
+                    .WithModel<JobProfileWhatItTakesViewModel>(vm =>
                     {
                         vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
-                        vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
-                        vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                        vm.JobProfileWhatItTakesSkillsViewModel.DigitalSkillsLevel.Should().BeEquivalentTo(nameof(JobProfile.DigitalSkillsLevel));
+                        vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
                     })
                     .AndNoModelErrors();
             }
@@ -175,8 +178,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 .WithModel<JobProfileWhatItTakesViewModel>(vm =>
                 {
                     vm.Title.Should().BeEquivalentTo(jobProfileWhatItTakesController.MainSectionTitle);
-                    vm.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
-                    vm.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
+                    vm.JobProfileWhatItTakesSkillsViewModel.TopSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.TopSectionContent);
+                    vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                     vm.IsWhatItTakesCadView.Should().Be(expected);
                     if (expected)
                     {
@@ -207,6 +210,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        HowToBecome = nameof(JobProfile.HowToBecome),
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
+                       WhatItTakesSkills = new List<WhatItTakesSkill> { new WhatItTakesSkill { Description = nameof(WhatItTakesSkill.Description), Contextualised = nameof(WhatItTakesSkill.Contextualised) } },
+                       DigitalSkillsLevel = nameof(JobProfile.DigitalSkillsLevel),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
                        HowToBecomeData = new HowToBecome(),

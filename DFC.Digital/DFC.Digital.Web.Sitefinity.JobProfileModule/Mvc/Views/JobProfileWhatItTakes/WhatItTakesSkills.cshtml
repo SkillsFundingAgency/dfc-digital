@@ -19,10 +19,10 @@
                                 break;
                             }
                     <li>
-                        @(skill.Contextualised == string.Empty ? @Html.Raw(skill.Description) : @Html.Raw(skill.Contextualised))
+                        @Html.Raw(string.IsNullOrEmpty(skill.Contextualised) ? skill.Description : skill.Contextualised)
                     </li>
                         }
-                        if (!string.IsNullOrEmpty(Model.DigitalSkillsLevel))
+                        @if (!string.IsNullOrEmpty(Model.DigitalSkillsLevel))
                         {
                         <li>@Model.DigitalSkillsLevel</li>
                         }

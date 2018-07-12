@@ -42,6 +42,27 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return Enumerable.Empty<ApprenticeVacancy>().AsQueryable();
         }
 
+        public RepoActionResult UpdateSocOccupationalCode(SocCode socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode.SOCCode);
+
+            if (socCodeItem != null)
+            {
+                var master = repository.GetMaster(socCodeItem);
+
+                var temp = repository.GetTemp(master);
+
+                temp.SetValue(nameof(SocCode.OccupationalCode), socCode.OccupationalCode);
+
+                var updatedMaster = repository.CheckinTemp(temp);
+
+                repository.Update(updatedMaster);
+                repository.Commit();
+            }
+
+            return new RepoActionResult { Success = true };
+        }
+
         #endregion JobProfileSocCodeRepository Implementations
     }
 }

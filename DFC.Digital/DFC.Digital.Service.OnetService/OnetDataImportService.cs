@@ -9,11 +9,13 @@ namespace DFC.Digital.Service.OnetService
     {
         private readonly IOnetService onetService;
         private readonly IOnetRepository onetRepository;
+        private readonly IJobProfileSocCodeRepository jobProfileSocCodeRepository;
 
-        public OnetDataImportService(IOnetService onetService, IOnetRepository onetRepository)
+        public OnetDataImportService(IOnetService onetService, IOnetRepository onetRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository)
         {
             this.onetService = onetService;
             this.onetRepository = onetRepository;
+            this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
         }
 
         public OnetSkillsImportResponse ImportOnetSkills()
@@ -33,7 +35,17 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
-            throw new NotImplementedException();
+            var socCodes = onetService.GetUpdateSocOccupationalCodeRequest();
+
+            foreach (var socCode in socCodes.SocCodeList)
+            {
+                jobProfileSocCodeRepository.UpdateSocOccupationalCode(socCode);
+            }
+
+            return new UpdateSocOccupationalCodeResponse
+            {
+                Success = true
+            };
         }
 
         public UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills()

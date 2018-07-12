@@ -17,7 +17,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public RepoActionResult UpsertOnetSkill(OnetSkill onetSkill)
         {
-           var repoSkill = skillRepository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
+            var repoSkill = skillRepository.Get(item =>
+                item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
             if (repoSkill != null)
             {
                 var master = skillRepository.GetMaster(repoSkill);
@@ -30,7 +31,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 var updatedMaster = skillRepository.CheckinTemp(temp);
 
                 skillRepository.Update(updatedMaster);
-                 skillRepository.Commit();
+                skillRepository.Commit();
             }
             else
             {

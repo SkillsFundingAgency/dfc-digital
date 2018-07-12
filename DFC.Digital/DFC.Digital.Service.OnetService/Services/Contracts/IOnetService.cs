@@ -5,5 +5,7 @@ namespace DFC.Digital.Service.OnetService.Services.Contracts
     public interface IOnetService
     {
         OnetSkillsImportRequest GetOnetSkills();
+
+        UpdateSocOccupationalCodeRequest GetUpdateSocOccupationalCodeRequest();
     }
 }

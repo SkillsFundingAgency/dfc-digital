@@ -66,6 +66,7 @@ namespace DFC.Digital.Repository.ONET
             IQueryable<DfcGdsAttributesData> attributes = null;
             using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
             {
+               // just transforming Stored procedure to Linq . Will optimize with specification and predicates
                 await Task.Factory.StartNew(() =>
                 {
                     attributes = (from knwldg in context.knowledges
@@ -157,46 +158,42 @@ namespace DFC.Digital.Repository.ONET
                             })
                         .OrderBy(x => x.Value);
                 }).ConfigureAwait(false);
-                var cnt = attributes.ToList().Count;
-                foreach (var skl in attributes)
-                {
-                    if (skl.Attribute == "Knowledge")
-                    {
-                        if (skl.ElementName.Contains("Mathematics"))
-                        {
-                            var found = true;
-                        }
-                        var kk = skl.Attribute;
-                    }
-                    if (skl.Attribute == "Skills")
-                    {
-                        if(skl.ElementName.Contains("Mathematics"))
-                        {
-                            var found = true;
-                        }
-                        var xx = skl.Attribute;
-                    }
-                }
-                var re = attributes.ToList().FindAll(x =>
-                    (x.Attribute == "Knowledge" || x.Attribute == "Skills") && (x.ElementName.Contains("Mathematics")));
-                foreach (var r in re)
-                {
-                    var e = r.Attribute;
-                }
+                //    var cnt = attributes.ToList().Count;
+                //    foreach (var skl in attributes)
+                //    {
+                //        if (skl.Attribute == "Knowledge")
+                //        {
+                //            if (skl.ElementName.Contains("Mathematics"))
+                //            {
+                //                var found = true;
+                //            }
+                //            var kk = skl.Attribute;
+                //        }
+                //        if (skl.Attribute == "Skills")
+                //        {
+                //            if(skl.ElementName.Contains("Mathematics"))
+                //            {
+                //                var found = true;
+                //            }
+                //            var xx = skl.Attribute;
+                //        }
+                //    }
+                //    var re = attributes.ToList().FindAll(x =>
+                //        (x.Attribute == "Knowledge" || x.Attribute == "Skills") && (x.ElementName.Contains("Mathematics")));
+                //    foreach (var r in re)
+                //    {
+                //        var e = r.Attribute;
+                //    }
+                return (IEnumerable<T>)attributes;
             }
 
-
-           
-
-            foreach (var a in attributes.ToList())
-            {
-                var x = a.ElementName;
-                var y = a.ElementDescription;
-                var z = a.Value;
-                var z1 = a.Attribute;
-            }
-
-            return (IEnumerable<T>) attributes;
+            //foreach (var a in attributes.ToList())
+            //{
+            //    var x = a.ElementName;
+            //    var y = a.ElementDescription;
+            //    var z = a.Value;
+            //    var z1 = a.Attribute;
+            //}
         }
 
         public Task<IEnumerable<T>> GetAttributesValuesAsync<T>

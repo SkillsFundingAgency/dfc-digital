@@ -11,24 +11,29 @@
                     <p>@Model.SkillsSectionIntro</p>
                 }
                 <ul>
-                    @{int ii = 0; }
-                    @foreach (var skill in Model.WhatItTakesSkills)
-                    {
-                        if (ii++ >= Model.NumberONetSkillsToDisplay)
+                        @{int ii = 0; }
+                        @foreach (var skill in Model.WhatItTakesSkills)
                         {
-                            break;
+                            if (ii++ >= Model.NumberONetSkillsToDisplay)
+                            {
+                                break;
+                            }
+                    <li>
+                        @(skill.Contextualised == string.Empty ? @Html.Raw(skill.Description) : @Html.Raw(skill.Contextualised))
+                    </li>
                         }
-                        <li>
-                            @(skill.Contextualised == string.Empty ? @Html.Raw(skill.Description) : @Html.Raw(skill.Contextualised))
-                        </li>
-                    }
-                </ul>
-            }
-            else
-            {
-                @Html.Raw(Model.PropertyValue)
-            }
-            @Html.Raw(Model.BottomSectionContent)
+                        if (!string.IsNullOrEmpty(Model.DigitalSkillsLevel))
+                        {
+                        <li>@Model.DigitalSkillsLevel</li>
+                        }
+                 </ul>
+             }
+             else
+             {
+                        @Html.Raw(Model.PropertyValue)
+                        
+             }
+             @Html.Raw(Model.BottomSectionContent)
         </div>
     </section>
 

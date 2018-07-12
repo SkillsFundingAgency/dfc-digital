@@ -225,6 +225,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+            builder.RegisterType<DynamicModuleRepository<OnetSkill>>()
+                .As<IDynamicModuleRepository<OnetSkill>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.OnetSkillTypeContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
     }
 }

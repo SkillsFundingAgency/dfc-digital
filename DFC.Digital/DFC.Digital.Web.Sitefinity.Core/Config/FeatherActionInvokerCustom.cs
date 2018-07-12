@@ -20,11 +20,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class FeatherActionInvokerCustom : FeatherActionInvoker
     {
         private readonly IApplicationLogger logger;
-        private ILifetimeScope lifetimeScope;
 
         public FeatherActionInvokerCustom(ILifetimeScope lifetimeScope)
         {
-            this.lifetimeScope = lifetimeScope;
             this.logger = lifetimeScope.Resolve<IApplicationLogger>();
         }
 

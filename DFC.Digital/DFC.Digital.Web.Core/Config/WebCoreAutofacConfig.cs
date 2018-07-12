@@ -53,7 +53,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<GovUkNotifyAutofacModule>()
                 .RegisterModule<LmiFeedAutofacModule>()
                 .RegisterModule<CourseSearchProviderAutofacModule>()
-                .RegisterModule<SpellCheckAutofacModule>();
+                .RegisterModule<SpellCheckAutofacModule>()
+                .RegisterModule<OnetServiceAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

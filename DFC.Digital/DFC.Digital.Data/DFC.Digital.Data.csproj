@@ -86,6 +86,7 @@
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />
+    <Compile Include="Interfaces\IImportOnetDataService.cs" />
     <Compile Include="Interfaces\IJobProfileIndexEnhancer.cs" />
     <Compile Include="Interfaces\IJobProfilePage.cs" />
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
+    <Compile Include="Interfaces\IOnetRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
@@ -108,12 +110,18 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\RepoActionResult.cs" />
+    <Compile Include="Model\BuildSocMatrixRequest.cs" />
+    <Compile Include="Model\BuildSocMatrixResponse.cs" />
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />
     <Compile Include="Model\MoreInformationLink.cs" />
+    <Compile Include="Model\OnetSkill.cs" />
+    <Compile Include="Model\OnetSkillsImportRequest.cs" />
+    <Compile Include="Model\OnetSkillsImportResponse.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\Restriction.cs" />
     <Compile Include="Model\RouteEntry.cs" />
@@ -154,6 +162,12 @@
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\UpdateJpDigitalSkillsRequest.cs" />
+    <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
+    <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />
+    <Compile Include="Model\UpdateJpSkillsDataResponse.cs" />
+    <Compile Include="Model\UpdateSocOccupationalCodeRequest.cs" />
+    <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

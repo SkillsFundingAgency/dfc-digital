@@ -184,6 +184,10 @@
       <Project>{4DDF6E01-52E9-4799-89A0-F6C81F59F296}</Project>
       <Name>DFC.Digital.Service.LMIFeed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.OnetService\DFC.Digital.Service.OnetService.csproj">
+      <Project>{92247873-a7d7-4d28-9c94-d31b36cb78b4}</Project>
+      <Name>DFC.Digital.Service.OnetService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

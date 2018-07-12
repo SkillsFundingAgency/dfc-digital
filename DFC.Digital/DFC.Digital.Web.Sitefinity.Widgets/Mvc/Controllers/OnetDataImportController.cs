@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
@@ -19,10 +20,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     [ControllerToolboxItem(Name = "OnetDataImport", Title = "Onet Data Import Widget", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
     public class OnetDataImportController : BaseDfcController
     {
+        #region Private Members
+
+        private readonly IImportOnetDataService importOnetDataService;
+
+        #endregion Private Members
+
         #region Constructors
 
-        public OnetDataImportController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public OnetDataImportController(IApplicationLogger applicationLogger, IImportOnetDataService importOnetDataService) : base(applicationLogger)
         {
+            this.importOnetDataService = importOnetDataService;
         }
 
         #endregion Constructors
@@ -86,13 +94,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     switch (importMode?.ToUpperInvariant().Trim())
                     {
                         case "IMPORTSKILLS":
-                            resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
+                            var result = importOnetDataService.ImportOnetSkills();
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
                             break;
                         case "UPDATEJPDIGITALSKILLS":
                             resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
+                            break;
+                        case "BUILDSOCMATRIX":
+                            resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
                             break;
                         case "UPDATEJPSKILLS":
                             resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";

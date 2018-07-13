@@ -13,15 +13,21 @@ using DFC.Digital.Repository.ONET.Interface;
 
 namespace DFC.Digital.Repository.ONET
 {
+    using Core;
+
     public class OnetRepository : IDfcGdsSkillsFramework
     {
+        private readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
         private readonly IDbContext _db;
+        private readonly IApplicationLogger _logger;
         private readonly IMapper _mapper;
 
-        public OnetRepository(IDbContext db, IMapper mapper)
+        public OnetRepository(IDbContext db, IObjectContextFactory<SkillsFrameworkDbContext> context, IMapper mapper, IApplicationLogger logger)
         {
             _db = db;
+            _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #region Implementation of IDisposable
@@ -33,13 +39,20 @@ namespace DFC.Digital.Repository.ONET
             GC.SuppressFinalize(this);
         }
 
+        public IQueryable<T> GetAll<T>() where T : class
+        {
+            var ret = _db.Set<T>().ToList().AsQueryable();
+            return ret;
+        }
+
         #endregion
 
         public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity
         {
             List<T> ret;
-            using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
+            using(var context = _context.GetContext())
             {
+                context.Database.Log = s => _logger.Info(s);
                 ret = await context.DFC_SocMappings
                     .AsQueryable()
                     .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
@@ -51,7 +64,7 @@ namespace DFC.Digital.Repository.ONET
         public async Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : DfcGdsOnetEntity
         {
             List<T> ret;
-            using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
+            using(var context = _context.GetContext())
             {
                 ret = await context.DFC_GDSTranlations
                     .AsQueryable()
@@ -64,98 +77,98 @@ namespace DFC.Digital.Repository.ONET
         public async Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode)
         {
             IQueryable<DfcGdsAttributesData> attributes = null;
-            using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
+            using(var context = _context.GetContext())
             {
-               // just transforming Stored procedure to Linq . Will optimize with specification and predicates
+                // just transforming Stored procedure to Linq . Will optimize with specification and predicates
                 await Task.Factory.StartNew(() =>
                 {
                     attributes = (from knwldg in context.knowledges
-                            join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
-                                cmr.element_id
-                            where knwldg.recommend_suppress != "Y" && knwldg.not_relevant != "Y" &&
-                                  knwldg.onetsoc_code == socCode
-                            group knwldg by new
-                            {
-                                cmr.element_name,
-                                cmr.description,
-                                knwldg.element_id,
-                                knwldg.onetsoc_code
-                            }
+                                  join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
+                                      cmr.element_id
+                                  where knwldg.recommend_suppress != "Y" && knwldg.not_relevant != "Y" &&
+                                        knwldg.onetsoc_code == socCode
+                                  group knwldg by new
+                                  {
+                                      cmr.element_name,
+                                      cmr.description,
+                                      knwldg.element_id,
+                                      knwldg.onetsoc_code
+                                  }
                             into knwldgGroup
-                            select new DfcGdsAttributesData
-                            {
-                                OnetSocCode = knwldgGroup.Key.onetsoc_code,
-                                ElementId = knwldgGroup.Key.element_id,
-                                ElementDescription = knwldgGroup.Key.description,
-                                ElementName = knwldgGroup.Key.element_name,
-                                Attribute = Attributes.Knowledge.ToString(),
-                                Value = knwldgGroup.Sum(v => v.data_value) / 2
-                            })
+                                  select new DfcGdsAttributesData
+                                  {
+                                      OnetSocCode = knwldgGroup.Key.onetsoc_code,
+                                      ElementId = knwldgGroup.Key.element_id,
+                                      ElementDescription = knwldgGroup.Key.description,
+                                      ElementName = knwldgGroup.Key.element_name,
+                                      Attribute = Attributes.Knowledge.ToString(),
+                                      Value = knwldgGroup.Sum(v => v.data_value) / 2
+                                  })
                         .Union(from skl in context.skills
-                            join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
-                                .element_id
-                            where skl.recommend_suppress != "Y" && skl.not_relevant != "Y" &&
-                                  skl.onetsoc_code == socCode
-                            group skl by new
-                            {
-                                skl.onetsoc_code,
-                                cmr.element_name,
-                                cmr.description,
-                                skl.element_id
-                            }
+                               join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
+                                   .element_id
+                               where skl.recommend_suppress != "Y" && skl.not_relevant != "Y" &&
+                                     skl.onetsoc_code == socCode
+                               group skl by new
+                               {
+                                   skl.onetsoc_code,
+                                   cmr.element_name,
+                                   cmr.description,
+                                   skl.element_id
+                               }
                             into skillGroup
-                            select new DfcGdsAttributesData
-                            {
-                                OnetSocCode = skillGroup.Key.onetsoc_code,
-                                ElementId = skillGroup.Key.element_id,
-                                ElementDescription = skillGroup.Key.description,
-                                ElementName = skillGroup.Key.element_name,
-                                Attribute = Attributes.Skills,
-                                Value = skillGroup.Sum(x => x.data_value) / 2
-                            })
+                               select new DfcGdsAttributesData
+                               {
+                                   OnetSocCode = skillGroup.Key.onetsoc_code,
+                                   ElementId = skillGroup.Key.element_id,
+                                   ElementDescription = skillGroup.Key.description,
+                                   ElementName = skillGroup.Key.element_name,
+                                   Attribute = Attributes.Skills,
+                                   Value = skillGroup.Sum(x => x.data_value) / 2
+                               })
                         .Union(from ablty in context.abilities
-                            join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
-                                cmr.element_id
-                            where ablty.recommend_suppress != "Y" && ablty.not_relevant == "Y" &&
-                                  ablty.onetsoc_code == socCode
-                            group ablty by new
-                            {
-                                cmr.element_name,
-                                cmr.description,
-                                ablty.element_id,
-                                ablty.onetsoc_code
-                            }
+                               join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
+                                   cmr.element_id
+                               where ablty.recommend_suppress != "Y" && ablty.not_relevant == "Y" &&
+                                     ablty.onetsoc_code == socCode
+                               group ablty by new
+                               {
+                                   cmr.element_name,
+                                   cmr.description,
+                                   ablty.element_id,
+                                   ablty.onetsoc_code
+                               }
                             into abilityGroup
-                            select new DfcGdsAttributesData
-                            {
-                                OnetSocCode = abilityGroup.Key.onetsoc_code,
-                                ElementId = abilityGroup.Key.element_id,
-                                ElementDescription = abilityGroup.Key.description,
-                                ElementName = abilityGroup.Key.element_name,
-                                Attribute = @Attributes.Abilities,
-                                Value = abilityGroup.Sum(x => x.data_value) / 2
-                            })
+                               select new DfcGdsAttributesData
+                               {
+                                   OnetSocCode = abilityGroup.Key.onetsoc_code,
+                                   ElementId = abilityGroup.Key.element_id,
+                                   ElementDescription = abilityGroup.Key.description,
+                                   ElementName = abilityGroup.Key.element_name,
+                                   Attribute = @Attributes.Abilities,
+                                   Value = abilityGroup.Sum(x => x.data_value) / 2
+                               })
                         .Union(from wkstyl in context.work_styles
-                            join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
-                                cmr.element_id
-                            where wkstyl.recommend_suppress != "Y" && wkstyl.onetsoc_code == socCode
-                            group wkstyl by new
-                            {
-                                wkstyl.onetsoc_code,
-                                cmr.element_name,
-                                cmr.description,
-                                wkstyl.element_id
-                            }
+                               join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
+                                   cmr.element_id
+                               where wkstyl.recommend_suppress != "Y" && wkstyl.onetsoc_code == socCode
+                               group wkstyl by new
+                               {
+                                   wkstyl.onetsoc_code,
+                                   cmr.element_name,
+                                   cmr.description,
+                                   wkstyl.element_id
+                               }
                             into workStyleGroup
-                            select new DfcGdsAttributesData
-                            {
-                                OnetSocCode = workStyleGroup.Key.onetsoc_code,
-                                ElementId = workStyleGroup.Key.element_id,
-                                ElementDescription = workStyleGroup.Key.description,
-                                ElementName = workStyleGroup.Key.element_name,
-                                Attribute = Attributes.WorkStyles,
-                                Value = workStyleGroup.Sum(x => x.data_value) / 2
-                            })
+                               select new DfcGdsAttributesData
+                               {
+                                   OnetSocCode = workStyleGroup.Key.onetsoc_code,
+                                   ElementId = workStyleGroup.Key.element_id,
+                                   ElementDescription = workStyleGroup.Key.description,
+                                   ElementName = workStyleGroup.Key.element_name,
+                                   Attribute = Attributes.WorkStyles,
+                                   Value = workStyleGroup.Sum(x => x.data_value) / 2
+                               })
                         .OrderBy(x => x.Value);
                 }).ConfigureAwait(false);
                 //    var cnt = attributes.ToList().Count;
@@ -205,22 +218,22 @@ namespace DFC.Digital.Repository.ONET
         public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity
         {
             IQueryable<DfcGdsToolsAndTechnology> dfcToolsandTech = null;
-            using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
+            using(var context = _context.GetContext())
             {
                 await Task.Factory.StartNew(() =>
                 {
                     dfcToolsandTech = from o in _db.Set<tools_and_technology>()
-                        join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
-                        where o.onetsoc_code == socCode
-                        orderby o.t2_type, od.class_title
-                        select new DfcGdsToolsAndTechnology
-                        {
-                            ClassTitle = od.class_title,
-                            T2Example = o.t2_example,
-                            T2Type = o.t2_type,
-                            SocCode = socCode,
-                            OnetSocCode = o.onetsoc_code
-                        };
+                                      join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                                      where o.onetsoc_code == socCode
+                                      orderby o.t2_type, od.class_title
+                                      select new DfcGdsToolsAndTechnology
+                                      {
+                                          ClassTitle = od.class_title,
+                                          T2Example = o.t2_example,
+                                          T2Type = o.t2_type,
+                                          SocCode = socCode,
+                                          OnetSocCode = o.onetsoc_code
+                                      };
                 }).ConfigureAwait(false);
             }
             var digitalSkills = new DfcGdsDigitalSkills
@@ -228,30 +241,24 @@ namespace DFC.Digital.Repository.ONET
                 DigitalSkillsCollection = dfcToolsandTech,
                 DigitalSkillsRank = dfcToolsandTech.Count()
             };
-            return (T) Convert.ChangeType(digitalSkills, typeof(T));
+            return (T)Convert.ChangeType(digitalSkills, typeof(T));
         }
 
         public async Task<T> GetDigitalSkillsRankAsync<T>(string socCode) where T : struct
         {
             var count = 0;
-            using (var context = ObjectContextFactory<SkillsFrameworkDbContext>.GetContext())
+            using(var context = _context.GetContext())
             {
                 await Task.Factory.StartNew(() =>
                 {
                     count = (from o in context.tools_and_technology
-                        join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
-                        where o.onetsoc_code == socCode
-                        orderby o.t2_type, od.class_title
-                        select o).Count();
+                             join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                             where o.onetsoc_code == socCode
+                             orderby o.t2_type, od.class_title
+                             select o).Count();
                 }).ConfigureAwait(false);
             }
-            return (T) (object) count;
-        }
-
-        public IQueryable<T> GetAll<T>() where T : class
-        {
-            var ret = _db.Set<T>().ToList().AsQueryable();
-            return ret;
+            return (T)(object)count;
         }
 
         #region SkillsFramework Repository Implemetation
@@ -259,7 +266,7 @@ namespace DFC.Digital.Repository.ONET
         public IQueryable<DFC_GDSTranlations> GetMany(Expression<Func<DFC_GDSTranlations, bool>> where)
         {
             var result = _db.Set<SkillsFramework>().AsQueryable().ProjectTo<DFC_GDSTranlations>(where);
-            return (IQueryable<DFC_GDSTranlations>) _mapper.Map<DFC_GDSTranlations>(result);
+            return (IQueryable<DFC_GDSTranlations>)_mapper.Map<DFC_GDSTranlations>(result);
         }
 
         #endregion

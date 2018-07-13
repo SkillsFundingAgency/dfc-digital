@@ -6,15 +6,22 @@ namespace DFC.Digital.Repository.ONET.Helper
     using System.Data.Entity;
     using System.Reflection;
 
-    public static class ObjectContextFactory<T> where T : DbContext, new()
+    public interface IObjectContextFactory<out T>
     {
-        private static readonly ConstructorInfo ClassConstructor = typeof ( T ) .GetConstructor ( new Type [ ] { typeof ( string ) } );
+        ConstructorInfo ClassConstructor { get;  }
+        T GetContext();
+        T GetContext(string connectionString);
+    }
+    public class ObjectContextFactory<T> :IObjectContextFactory<T> where T : DbContext, new()
+    {
+
+        public ConstructorInfo ClassConstructor => typeof(T).GetConstructor(new Type[] { typeof(string) });
 
         /// <summary>
         /// Gets the default ObjectContext for the project
         /// </summary>
         /// <returns>The default ObjectContext for the project</returns>
-        public static T GetContext ( )
+        public  T GetContext ( )
         {
 
             return new T ( ) as T;
@@ -25,7 +32,7 @@ namespace DFC.Digital.Repository.ONET.Helper
         /// </summary>
         /// <param name="connectionString">Connection string to use for database queries</param>
         /// <returns>The default ObjectContext for the project</returns>
-        public static T GetContext ( string connectionString )
+        public  T GetContext ( string connectionString )
         {
             //Using Reflection here to dynamically create the ObjectContext
             if ( ClassConstructor == null )

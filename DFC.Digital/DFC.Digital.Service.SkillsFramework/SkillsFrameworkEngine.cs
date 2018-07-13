@@ -1,63 +1,98 @@
-﻿namespace DFC.Digital.Service.SkillsFramework
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DFC.Digital.Service.SkillsFramework.Interface;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.Interface;
+using DFC.Digital.Core;
+
+namespace DFC.Digital.Service.SkillsFramework
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Data.Interfaces;
-    using Interface;
-    using DFC.Digital.Data.Model;
-    using Repository.ONET.Interface;
+    using SkillsFramework = Data.Model.SkillsFramework;
 
-
-    public class SkillsFrameworkEngine:IBusinessRuleEngine 
+    public class SkillsFrameworkEngine:IBusinessRuleEngine
     {
         private readonly IDfcGdsSkillsFramework _repository;
+        private readonly IApplicationLogger _logger;
 
-        // Business Rule Engine implemetation 
+        // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(IDfcGdsSkillsFramework repository )
+        public SkillsFrameworkEngine(IDfcGdsSkillsFramework repository, IApplicationLogger logger )
         {
             _repository = repository;
+            _logger = logger;
         }
 
         #region Implementation of IBusinessRuleEngine
-
-        public async Task<SkillsFramework> GetSkillsFrameworkFor(string socCode)
+        [Obsolete]
+        public Task<SkillsFramework> GetSkillsFrameworkForAsync(string socCode)
         {
-           var result= _repository.GetAttributesValuesAsync<DfcGdsTranslation>(s=>s.SocCode==socCode).Result.
-                Select(skills => new SkillsFramework {SocCode = skills.SocCode}).
-                FirstOrDefault();
-            return await Task.FromResult ( result).ConfigureAwait ( false );
+            return null;
         }
 
-        #endregion
-
-        #region Implementation of IBusinessRuleEngine
-
-        public Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappings()
+        public async Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync()
         {
-            return _repository.GetAllSocMappingsAsync<DfcGdsSocMappings>();
+            try
+            {
+                return await _repository.GetAllSocMappingsAsync<DfcGdsSocMappings>();
+            }
+            catch (Exception e)
+            {
+               _logger.Error($"GetAllSocMappingsAsync :{e.Message}",e);
+                throw;
+            }
         }
 
-        public Task<IEnumerable<DfcGdsTranslation>> GetAllTranslations()
+        public  async Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync()
         {
-            return _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+            try
+            { 
+            return await  _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+            }
+            catch(Exception e)
+            {
+                _logger.Error($"GetAllTranslationsAsync :{e.Message}", e);
+                throw;
+            }
         }
 
-        public Task<DfcGdsDigitalSkills> GetAllDigitalSkills(string onetSocCode)
+        public async Task<DfcGdsDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode)
         {
-            return _repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
+            try
+            {
+                return await _repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
+            }
+            catch(Exception e)
+            {
+                _logger.Error($"GetAllDigitalSkillsAsync :{e.Message}", e);
+                throw;
+            }
         }
 
-        public Task<int> GetDigitalSkillRank(string onetSocCode)
+        public async  Task<int> GetDigitalSkillRankAsync(string onetSocCode)
         {
-           return _repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
+            try
+            {
+                return await _repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
+            }
+            catch(Exception e)
+            {
+                _logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
+                throw;
+            }
         }
 
-        public Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributes(string onetSocCode)
+        public async Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)
         {
-            return _repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
+            try
+            {
+                return await _repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
+            }
+            catch(Exception e)
+            {
+                _logger.Error($"GetBusinessRuleAttributesAsync :{e.Message}", e);
+                throw;
+            }
         }
 
         #endregion

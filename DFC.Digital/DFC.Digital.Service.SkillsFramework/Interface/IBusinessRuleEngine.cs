@@ -1,5 +1,6 @@
 ﻿namespace DFC.Digital.Service.SkillsFramework.Interface
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -7,10 +8,13 @@
 
     public interface IBusinessRuleEngine
     {
-        Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappings();
-        Task<IEnumerable<DfcGdsTranslation>> GetAllTranslations();
-        Task<DfcGdsDigitalSkills> GetAllDigitalSkills(string onetSocCode);
-        Task<int> GetDigitalSkillRank(string onetSocCode);
-        Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributes(string onetSocCode);
+        [Obsolete]
+        Task<SkillsFramework> GetSkillsFrameworkForAsync(string socCode);
+
+        Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync();
+        Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync();
+        Task<DfcGdsDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode);
+        Task<int> GetDigitalSkillRankAsync(string onetSocCode);
+        Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode);
     }
 }

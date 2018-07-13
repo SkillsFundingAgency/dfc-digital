@@ -88,6 +88,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             if (socItem != null)
             {
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
+                jobProfile.ONetOccupationalCode =
+                    dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
             }
 
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();

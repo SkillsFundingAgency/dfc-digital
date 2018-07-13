@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class BuildSocMatrixResponse
+    public class BuildSocMatrixResponse : RepoActionResult
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using System.Collections.Generic;
+using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.OnetService.Services.Contracts
 {
@@ -6,6 +7,10 @@ namespace DFC.Digital.Service.OnetService.Services.Contracts
     {
         OnetSkillsImportRequest GetOnetSkills();
 
-        UpdateSocOccupationalCodeRequest GetUpdateSocOccupationalCodeRequest();
+        string GetSocOccupationalCode(string socCode);
+
+        string GetDigitalSkillLevel(string onetOccupationalCode);
+
+        IEnumerable<OccupationOnetSkill> GetOccupationalCodeSkills(string onetOccupationalCode);
     }
 }

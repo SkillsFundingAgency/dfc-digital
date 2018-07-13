@@ -219,5 +219,9 @@ namespace DFC.Digital.Data.Model
         public HowToBecome HowToBecomeData { get; set; }
 
         public WhatYouWillDo WhatYouWillDoData { get; set; }
+
+        public string DigitalSkillsLevel { get; set; }
+
+        public string ONetOccupationalCode { get; set; }
     }
 }

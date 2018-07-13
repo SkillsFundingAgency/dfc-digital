@@ -30,6 +30,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default;
         }
 
+        public void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value)
+        {
+            if (contentItem.DoesFieldExist(fieldName))
+            {
+                contentItem.SetValue(fieldName, value);
+            }
+        }
+
+        public void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName)
+        {
+            contentItem.CreateRelation(relatedContentItem, fieldName);
+        }
+
         public string GetFieldStringValue(DynamicContent contentItem, string fieldName)
         {
             if (contentItem != null && contentItem.DoesFieldExist(fieldName))
@@ -41,6 +54,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 return default;
             }
+        }
+
+        public void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName)
+        {
+            contentItem.DeleteRelations(fieldName);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DFC.Digital.Data.Interfaces;
+using System;
 
 namespace DFC.Digital.Data.Model
 {
-    public class SocCode
+    public class SocCode : IDigitalDataModel
     {
         public Guid Id { get; set; }
 
@@ -10,6 +11,8 @@ namespace DFC.Digital.Data.Model
 
         public string Title { get; set; }
 
-        public string OccupationalCode { get; set; }
+        public string ONetOccupationalCode { get; set; }
+
+        public string UrlName { get; set; }
     }
 }

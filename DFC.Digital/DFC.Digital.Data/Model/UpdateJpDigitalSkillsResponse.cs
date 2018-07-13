@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class UpdateJpDigitalSkillsResponse
+    public class UpdateJpDigitalSkillsResponse : RepoActionResult
     {
     }
 }

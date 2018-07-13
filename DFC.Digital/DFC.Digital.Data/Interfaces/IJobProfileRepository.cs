@@ -1,5 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DFC.Digital.Data.Interfaces
 {
@@ -14,5 +16,11 @@ namespace DFC.Digital.Data.Interfaces
         Type GetContentType();
 
         JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
+
+        IQueryable<JobProfile> GetLiveJobProfiles();
+
+        RepoActionResult UpdateDigitalSkill(JobProfile jobProfile);
+
+        RepoActionResult UpdateSocSkillMatrices(JobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices);
     }
 }

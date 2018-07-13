@@ -110,6 +110,7 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\RepoActionResult.cs" />
     <Compile Include="Model\BuildSocMatrixRequest.cs" />
     <Compile Include="Model\BuildSocMatrixResponse.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Model\SearchResult.cs" />
     <Compile Include="Model\SearchResultItem.cs" />
     <Compile Include="Model\SocCode.cs" />
+    <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
     <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />
     <Compile Include="Model\UpdateJpSkillsDataResponse.cs" />
+    <Compile Include="Model\UpdateJpSocSkillMatrixResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeRequest.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />

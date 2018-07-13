@@ -8,5 +8,7 @@ namespace DFC.Digital.Data.Interfaces
         IQueryable<ApprenticeVacancy> GetBySocCode(string socCode);
 
         RepoActionResult UpdateSocOccupationalCode(SocCode socCode);
+
+        IQueryable<SocCode> GetLiveSocCodes();
     }
 }

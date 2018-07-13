@@ -244,6 +244,7 @@
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
+    <Compile Include="Modules\SocCodeConverter.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\OnetRepository.cs" />
     <Compile Include="Modules\WhatYouWillDoConverter.cs" />

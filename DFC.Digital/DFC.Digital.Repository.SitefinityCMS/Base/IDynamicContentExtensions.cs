@@ -12,6 +12,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 
+        void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value);
+
+        void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName);
+
+        void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName);
+
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
     }
 }

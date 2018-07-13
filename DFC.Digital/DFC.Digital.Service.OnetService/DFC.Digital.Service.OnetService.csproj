@@ -54,7 +54,7 @@
     <Compile Include="Config\OnetServiceAutofacModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\IOnetService.cs" />
-    <Compile Include="Services\Contracts\OnetService.cs" />
+    <Compile Include="Services\OnetService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

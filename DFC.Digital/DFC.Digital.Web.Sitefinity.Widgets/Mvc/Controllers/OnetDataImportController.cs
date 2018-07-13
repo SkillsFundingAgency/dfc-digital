@@ -97,16 +97,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                             var result = importOnetDataService.ImportOnetSkills();
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
-                            resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
+                            var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
                             break;
                         case "UPDATEJPDIGITALSKILLS":
-                            resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
+                          var updatejpDigiResult = importOnetDataService.UpdateJobProfilesDigitalSkills();
                             break;
                         case "BUILDSOCMATRIX":
-                            resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
+                            var buildsocResult = importOnetDataService.BuildSocMatrixData();
                             break;
                         case "UPDATEJPSKILLS":
-                            resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
+                            importOnetDataService.UpdateJpSocSkillMatrix();
                             break;
                     }
                    }

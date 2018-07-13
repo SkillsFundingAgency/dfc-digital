@@ -11,5 +11,7 @@ namespace DFC.Digital.Data.Interfaces
         UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills();
 
         BuildSocMatrixResponse BuildSocMatrixData();
+
+        UpdateJpSocSkillMatrixResponse UpdateJpSocSkillMatrix();
     }
 }

@@ -104,7 +104,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfile;
         }
 
-        public IEnumerable<WhatItTakesSkill> GetRelatedSkills(DynamicContent content, string relatedField)
+        private IEnumerable<WhatItTakesSkill> GetRelatedSkills(DynamicContent content, string relatedField)
         {
             var skills = new List<WhatItTakesSkill>();
             var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);

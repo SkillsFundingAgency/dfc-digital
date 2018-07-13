@@ -31,6 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var skillsRepositoryFake = A.Fake<IJobProfileRelatedSkillsRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -48,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var jobProfileWhatItTakesController =
-                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, skillsRepositoryFake);
 
             //Act
             var indexMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index());
@@ -96,6 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var skillsRepositoryFake = A.Fake<IJobProfileRelatedSkillsRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -110,7 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var jobProfileWhatItTakesController =
-                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, skillsRepositoryFake);
 
             //Act
             var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index(urlName));
@@ -153,6 +155,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var skillsRepositoryFake = A.Fake<IJobProfileRelatedSkillsRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -168,7 +171,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var jobProfileWhatItTakesController =
-                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage);
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, skillsRepositoryFake);
 
             //Act
             var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index(urlName));
@@ -210,7 +213,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        HowToBecome = nameof(JobProfile.HowToBecome),
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
-                       WhatItTakesSkills = new List<WhatItTakesSkill> { new WhatItTakesSkill { Description = nameof(WhatItTakesSkill.Description), Contextualised = nameof(WhatItTakesSkill.Contextualised) } },
+
+                   //    RelatedSkills = new List<WhatItTakesSkill> { new WhatItTakesSkill { Description = nameof(WhatItTakesSkill.Description), Contextualised = nameof(WhatItTakesSkill.Contextualised) } },
                        DigitalSkillsLevel = nameof(JobProfile.DigitalSkillsLevel),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),

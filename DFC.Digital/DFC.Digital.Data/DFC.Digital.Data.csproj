@@ -91,6 +91,7 @@
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
     <Compile Include="Interfaces\IJobProfileCategoryRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
+    <Compile Include="Interfaces\IJobProfileRelatedSkillsRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />

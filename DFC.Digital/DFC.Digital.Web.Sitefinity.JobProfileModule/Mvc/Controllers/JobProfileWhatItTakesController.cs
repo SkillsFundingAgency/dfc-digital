@@ -17,6 +17,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "JobProfileWhatItTakes", Title = "Job Profile What It Takes", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileWhatItTakesController : BaseJobProfileWidgetController
     {
+        #region fields
+
+        private readonly IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository;
+
+        #endregion fields
         #region Ctor
 
         /// <summary>
@@ -26,9 +31,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="webAppContext">The web application context.</param>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="sitefinityPage">sitefinity</param>
-        public JobProfileWhatItTakesController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
+        /// <param name="jobProfileRelatedSkillsRepository">The job profile related skills repository.</param>
+        public JobProfileWhatItTakesController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage, IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
+            this.jobProfileRelatedSkillsRepository = jobProfileRelatedSkillsRepository;
         }
 
         #endregion Ctor
@@ -154,7 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 UseONetDataCitizenFacing = UseONetDataCitizenFacing,
                 UseONetDataInPreview = UseONetDataInPreview,
                 NumberONetSkillsToDisplay = NumberONetSkillsToDisplay,
-                WhatItTakesSkills = CurrentJobProfile.WhatItTakesSkills,
+                WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay),
                 DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
                 SkillsSectionIntro = SkillsSectionIntro,
                 PropertyValue = CurrentJobProfile.Skills,

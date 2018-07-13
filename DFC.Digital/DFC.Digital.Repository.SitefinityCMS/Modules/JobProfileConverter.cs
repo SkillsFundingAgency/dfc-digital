@@ -63,7 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression)),
                 Skills = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Skills)),
-                WhatItTakesSkills = GetRelatedSkills(content, RelatedSkillsField),
+                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField),
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel)).Text,
                 HowToBecome = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.HowToBecome)),
                 WhatYouWillDo = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),
@@ -102,48 +102,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
             return jobProfile;
-        }
-
-        private IEnumerable<WhatItTakesSkill> GetRelatedSkills(DynamicContent content, string relatedField)
-        {
-            var skills = new List<WhatItTakesSkill>();
-            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
-            if (relatedItems != null)
-            {
-                string skillDescription;
-
-                foreach (var relatedItem in relatedItems)
-                {
-                    skillDescription = string.Empty;
-                    try
-                    {
-                        skillDescription = GetSkillDescription(relatedItem);
-                    }
-                    catch (LoggedException)
-                    {
-                        //This is here in case somebody deletes the related skill in Sitefinity, This is an error
-                        //The exception will have been logged and the system needs to continue but not display this skill to the citizen
-                    }
-
-                    if (skillDescription != string.Empty)
-                    {
-                        skills.Add(new WhatItTakesSkill
-                        {
-                            Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(WhatItTakesSkill.Title)),
-                            Description = skillDescription,
-                            Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(WhatItTakesSkill.Contextualised)),
-                        });
-                    }
-                }
-            }
-
-            return skills;
-        }
-
-        private string GetSkillDescription(DynamicContent relatedSkill)
-        {
-            var skill = dynamicContentExtensions.GetRelatedItems(relatedSkill, RelatedSkillField).FirstOrDefault();
-            return dynamicContentExtensions.GetFieldValue<Lstring>(skill, nameof(WhatItTakesSkill.Description));
         }
 
         private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)

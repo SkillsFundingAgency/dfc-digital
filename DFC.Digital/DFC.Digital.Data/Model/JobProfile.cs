@@ -86,8 +86,6 @@ namespace DFC.Digital.Data.Model
 
         public string DigitalSkillsLevel { get; set; }
 
-        public IEnumerable<WhatItTakesSkill> WhatItTakesSkills { get; set; }
-
         public IEnumerable<Restriction> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }
@@ -221,5 +219,8 @@ namespace DFC.Digital.Data.Model
         public bool? IsImported { get; set; }
 
         public HowToBecome HowToBecomeData { get; set; }
+
+        [JsonIgnore]
+        public IQueryable<string> RelatedSkills { get; set; }
     }
 }

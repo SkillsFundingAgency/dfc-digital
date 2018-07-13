@@ -279,6 +279,10 @@
       <Project>{79ba3500-3882-4862-b9ea-134a23c7eed6}</Project>
       <Name>DFC.Digital.AutomationTest.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
+      <Project>{2080FBA6-AE04-49B0-B343-B60CF097C1A3}</Project>
+      <Name>DFC.Digital.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
       <Name>DFC.Digital.Data</Name>

@@ -1,7 +1,9 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core.Logging;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -77,6 +79,45 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                     .MustNotHaveHappened();
                 jobProfile.SOCCode.Should().BeNullOrEmpty();
             }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ConvertRelatedSkillsTest(bool hasValidSkill)
+        {
+            //set up
+            SetupCalls();
+            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter);
+            var expectedSkillDescription = "TestSkillDescription";
+
+            if (hasValidSkill)
+            {
+                A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(WhatItTakesSkill.Description))).Returns(expectedSkillDescription);
+            }
+            else
+            {
+                A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(WhatItTakesSkill.Description))).Throws(new LoggedException());
+            }
+
+            //Act
+            var jobProfile = jobprofileConverter.ConvertFrom(fakeDynamicContentItem);
+
+           //Assert
+            if (hasValidSkill)
+            {
+                jobProfile.WhatItTakesSkills.FirstOrDefault().Description.Should().BeEquivalentTo(expectedSkillDescription);
+            }
+            else
+            {
+                jobProfile.WhatItTakesSkills.Should().BeEmpty();
+            }
+        }
+
+        private List<DynamicContent> GetRelatedContentSkills()
+        {
+            var dummyRelatedSkills = new List<DynamicContent>() { new DynamicContent(System.Guid.NewGuid(), "TestApp") };
+            return dummyRelatedSkills;
         }
 
         private void SetupCalls()

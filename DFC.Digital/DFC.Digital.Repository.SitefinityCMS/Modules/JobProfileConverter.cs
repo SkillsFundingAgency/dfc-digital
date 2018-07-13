@@ -104,26 +104,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfile;
         }
 
-        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
-        {
-            var restrictions = new List<Restriction>();
-            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    restrictions.Add(new Restriction
-                    {
-                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
-                    });
-                }
-            }
-
-            return restrictions;
-        }
-
-        private IEnumerable<WhatItTakesSkill> GetRelatedSkills(DynamicContent content, string relatedField)
+        public IEnumerable<WhatItTakesSkill> GetRelatedSkills(DynamicContent content, string relatedField)
         {
             var skills = new List<WhatItTakesSkill>();
             var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
@@ -163,6 +144,25 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var skill = dynamicContentExtensions.GetRelatedItems(relatedSkill, RelatedSkillField).FirstOrDefault();
             return dynamicContentExtensions.GetFieldValue<Lstring>(skill, nameof(WhatItTakesSkill.Description));
+        }
+
+        private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
+        {
+            var restrictions = new List<Restriction>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    restrictions.Add(new Restriction
+                    {
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
+                    });
+                }
+            }
+
+            return restrictions;
         }
     }
 }

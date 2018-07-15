@@ -115,7 +115,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
                 {
-                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
+                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
                     if (relatedSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(newSocMatrix, relatedSkillItem, RelatedSkillField);
@@ -124,7 +124,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.SocCode))
                 {
-                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
+                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
                     if (relatedSocItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(newSocMatrix, relatedSocItem, RelatedSocField);

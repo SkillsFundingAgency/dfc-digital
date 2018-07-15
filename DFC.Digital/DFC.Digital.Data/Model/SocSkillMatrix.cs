@@ -5,6 +5,8 @@ namespace DFC.Digital.Data.Model
 {
     public class SocSkillMatrix : IDigitalDataModel
     {
+        private const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+
         public string Title { get; set; }
 
         public string Contextualised { get; set; }
@@ -19,6 +21,6 @@ namespace DFC.Digital.Data.Model
 
         public string Skill { get; set; }
 
-        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
+        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
     }
 }

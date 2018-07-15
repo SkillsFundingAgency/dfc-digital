@@ -8,7 +8,5 @@ namespace DFC.Digital.Data.Interfaces
         RepoActionResult UpsertOnetSkill(OnetSkill onetSkill);
 
         RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix);
-
-        IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
     }
 }

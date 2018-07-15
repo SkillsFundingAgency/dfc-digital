@@ -118,15 +118,15 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateJpSocSkillMatrixResponse UpdateJpSocSkillMatrix()
         {
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().ToList().Take(2);
+            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => !string.IsNullOrWhiteSpace(jp.SOCCode)).ToList().Take(2);
 
             foreach (var jobProfile in jobprofilesToUpdate)
             {
-                var socSkillMatrixData = onetRepository.GetSocSkillMatricesBySocCode(jobProfile.SOCCode);
+                var socSkillMatrixData = jobProfileSocCodeRepository.GetSocSkillMatricesBySocCode(jobProfile.SOCCode);
                
                 if (socSkillMatrixData.Any())
                 {
-                    jobProfileRepository.UpdateSocSkillMatrices(jobProfile, socSkillMatrixData);
+                    jobProfileRepository.UpdateSocSkillMatrices(jobProfile, socSkillMatrixData.ToList());
                 }
             }
 

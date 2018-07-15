@@ -10,5 +10,7 @@ namespace DFC.Digital.Data.Interfaces
         RepoActionResult UpdateSocOccupationalCode(SocCode socCode);
 
         IQueryable<SocCode> GetLiveSocCodes();
+
+        IQueryable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
     }
 }

@@ -120,7 +120,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                 foreach (var socSkillMatrix in socSkillMatrices)
                 {
-                    var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
+                    var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.UrlName == socSkillMatrix.SfUrlName);
                     if (relatedSocSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSocSkillItem, RelatedSkillField);

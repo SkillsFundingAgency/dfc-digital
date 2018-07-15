@@ -1,8 +1,10 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -14,17 +16,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeConverter = socCodeConverter;
+            this.socSkillConverter = socSkillConverter;
         }
 
         #endregion Ctor
@@ -63,6 +67,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return new RepoActionResult { Success = true };
+        }
+
+        public IQueryable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
+            var socSkillMatrices = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.SocSkillMatrixTypeContentType, repository.GetProviderName());
+
+            if (socSkillMatrices.Any())
+            {
+                return socSkillMatrices.Select(item => socSkillConverter.ConvertFrom(item));
+            }
+
+            return Enumerable.Empty<SocSkillMatrix>().AsQueryable();
         }
 
         public IQueryable<SocCode> GetLiveSocCodes()

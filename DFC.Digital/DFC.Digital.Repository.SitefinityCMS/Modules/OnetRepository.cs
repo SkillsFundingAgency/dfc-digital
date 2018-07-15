@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 
@@ -80,7 +81,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
                 {
                     dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSkillField);
-                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
+                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
                     if (relatedSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSkillItem, RelatedSkillField);
@@ -90,7 +91,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.SocCode))
                 {
                     dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSocField);
-                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
+                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
                     if (relatedSocItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSocItem, RelatedSocField);
@@ -138,11 +139,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 Success = true
             };
-        }
-
-        public IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
-        {
-            throw new NotImplementedException();
         }
     }
 }

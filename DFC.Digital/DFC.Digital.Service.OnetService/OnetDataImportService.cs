@@ -177,6 +177,7 @@ namespace DFC.Digital.Service.OnetService
                 }
             }
 
+            response.SummaryDetails = summaryDetails.ToString();
             response.ActionDetails = details.ToString();
             response.Success = true;
             return response;

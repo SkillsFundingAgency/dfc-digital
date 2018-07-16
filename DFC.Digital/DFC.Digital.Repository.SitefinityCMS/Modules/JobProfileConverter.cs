@@ -48,7 +48,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
         {
             var relatedContent = dynamicContentExtensions.GetRelatedItems(content, relatedField, 100);
-            return relatedContent.Select(x => $"{x.UrlName}");
+            return relatedContent?.Select(x => $"{x.UrlName}");
         }
 
         public JobProfile ConvertFrom(DynamicContent content)
@@ -65,7 +65,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression)),
                 Skills = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Skills)),
-                DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel)).Text,
                 HowToBecome = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.HowToBecome)),
                 WhatYouWillDo = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),
                 WorkingHoursPatternsAndEnvironment = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WorkingHoursPatternsAndEnvironment)),
@@ -88,9 +87,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 //What You will do section
                 WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
 
+                //TODO: Ensure these are properly unit tested. Including null reference!!
                 //What it takes
-                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField).ToList()
-        };
+                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel))?.Text
+            };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)

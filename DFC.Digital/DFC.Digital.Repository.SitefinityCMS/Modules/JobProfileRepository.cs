@@ -73,7 +73,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public IQueryable<JobProfile> GetLiveJobProfiles()
         {
-            var jobProfiles = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live).Take(5);
+            var jobProfiles = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 
             if (jobProfiles.Any())
             {

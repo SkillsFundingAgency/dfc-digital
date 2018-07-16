@@ -13,6 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
 
         private const string SocField = "SOC";
+        private const string RelatedSkillsField = "RelatedSkillss";
         private const string RelatedInterestsField = "RelatedInterests";
         private const string RelatedEnablersField = "RelatedEnablers";
         private const string RelatedEntryQualificationsField = "RelatedEntryQualifications";
@@ -90,6 +91,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
                 jobProfile.ONetOccupationalCode =
                     dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
+            }
+
+            var relatedSkilSocMatrices = dynamicContentExtensions.GetRelatedItems(content, RelatedSkillsField, 1);
+            if (relatedSkilSocMatrices.Any())
+            {
+                jobProfile.HasRelatedSocSkillMatrices = true;
             }
 
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();

@@ -85,7 +85,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(string importMode)
         {
-            string resultText = string.Empty;
+            var importResult = new OnetImportResultsViewModel
+            {
+                PageTitle = PageTitle,
+                FirstParagraph = FirstParagraph,
+                NotAllowedMessage = NotAllowedMessage,
+                IsAdmin = IsUserAdministrator()
+            };
+
+            var otherMessage = string.Empty;
 
             if (IsUserAdministrator())
             {
@@ -95,32 +103,54 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     {
                         case "IMPORTSKILLS":
                             var result = importOnetDataService.ImportOnetSkills();
+                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.SummaryDetails = result.SummaryDetails;
+                            importResult.ErrorMessages = result.ErrorMessages;
+                            importResult.ImportDetails = result.ActionDetails;
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
+                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.SummaryDetails = updateResult.SummaryDetails;
+                            importResult.ErrorMessages = updateResult.ErrorMessages;
+                            importResult.ImportDetails = updateResult.ActionDetails;
                             break;
                         case "UPDATEJPDIGITALSKILLS":
                           var updatejpDigiResult = importOnetDataService.UpdateJobProfilesDigitalSkills();
+                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.SummaryDetails = updatejpDigiResult.SummaryDetails;
+                            importResult.ErrorMessages = updatejpDigiResult.ErrorMessages;
+                            importResult.ImportDetails = updatejpDigiResult.ActionDetails;
                             break;
                         case "BUILDSOCMATRIX":
                             var buildsocResult = importOnetDataService.BuildSocMatrixData();
+                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.SummaryDetails = buildsocResult.SummaryDetails;
+                            importResult.ErrorMessages = buildsocResult.ErrorMessages;
+                            importResult.ImportDetails = buildsocResult.ActionDetails;
                             break;
                         case "UPDATEJPSKILLS":
-                            importOnetDataService.UpdateJpSocSkillMatrix();
+                            var upjpsocResult = importOnetDataService.UpdateJpSocSkillMatrix();
+                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.SummaryDetails = upjpsocResult.SummaryDetails;
+                            importResult.ErrorMessages = upjpsocResult.ErrorMessages;
+                            importResult.ImportDetails = upjpsocResult.ActionDetails;
                             break;
                     }
                    }
                 catch (Exception ex)
                 {
-                    resultText = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                    otherMessage = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
                 }
             }
             else
             {
-                resultText = NotAllowedMessage;
+                otherMessage = NotAllowedMessage;
             }
 
-            return Json(new { Result = resultText }, JsonRequestBehavior.AllowGet);
+            importResult.OtherMessage = otherMessage;
+
+            return View("ImportResults", importResult);
         }
 
         #endregion Actions

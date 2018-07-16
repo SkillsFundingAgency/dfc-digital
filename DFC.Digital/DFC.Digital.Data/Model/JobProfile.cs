@@ -223,5 +223,7 @@ namespace DFC.Digital.Data.Model
         public string DigitalSkillsLevel { get; set; }
 
         public string ONetOccupationalCode { get; set; }
+
+        public bool HasRelatedSocSkillMatrices { get; set; }
     }
 }

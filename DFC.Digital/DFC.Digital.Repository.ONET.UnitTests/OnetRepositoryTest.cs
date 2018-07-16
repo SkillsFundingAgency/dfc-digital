@@ -6,14 +6,13 @@ using DFC.Digital.Repository.ONET.Mapper;
 using FakeItEasy;
 using DFC.Digital.Repository.ONET.Impl;
 using Xunit;
+using DFC.Digital.Core;
+using System;
+using DFC.Digital.Repository.ONET.Helper;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
-    using DFC.Digital.Core;
-    using System;
-    using System.Linq;
-    using System.Runtime.Hosting;
-    using Helper;
+
 
     public enum RangeChecker
     {
@@ -34,7 +33,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory=new ObjectContextFactory<SkillsFrameworkDbContext>();
             var mapper=A.Fake<IMapper>();
-            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, contextFactory, iMapper,appLogger))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(contextFactory, iMapper,appLogger))
             {
               var all=  repository.GetAllTranslationsAsync<DfcGdsTranslation>().Result;
 
@@ -50,7 +49,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory = new ObjectContextFactory<SkillsFrameworkDbContext>();
 
-            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, contextFactory, iMapper, appLogger))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
                 var all = repository.GetAllSocMappingsAsync<DfcGdsSocMappings>().Result;
 
@@ -73,7 +72,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory = new ObjectContextFactory<SkillsFrameworkDbContext>();
 
-            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, contextFactory, iMapper, appLogger))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
                 var rankResult = repository.GetDigitalSkillsRankAsync<int>(onetCode).Result;
                 if (rankResult > Convert.ToInt32(RangeChecker.FirstRange))
@@ -94,7 +93,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetDigitalSkills()
         {
             //Ranks >150 - return 1
-            // >100 and <150 - return 2 
+            // >100 and <150 - return 2
             //>50 and <100 -return 3
             //>0 and <50 -return 4
 
@@ -106,7 +105,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory = new ObjectContextFactory<SkillsFrameworkDbContext>();
 
-            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, contextFactory, iMapper, appLogger))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
                 var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetCode).Result;
                 foreach (var skill in digitalSkillsData.DigitalSkillsCollection)
@@ -134,7 +133,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory = new ObjectContextFactory<SkillsFrameworkDbContext>();
 
-            using(IDfcGdsSkillsFramework repository = new OnetRepository(context, contextFactory, iMapper, appLogger))
+            using(IDfcGdsSkillsFramework repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
                 var digitalSkillsData = repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetCode).Result;
 

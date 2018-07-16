@@ -18,13 +18,11 @@ namespace DFC.Digital.Repository.ONET
     public class OnetRepository : IDfcGdsSkillsFramework
     {
         private readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
-        private readonly IDbContext _db;
         private readonly IApplicationLogger _logger;
         private readonly IMapper _mapper;
 
-        public OnetRepository(IDbContext db, IObjectContextFactory<SkillsFrameworkDbContext> context, IMapper mapper, IApplicationLogger logger)
+        public OnetRepository(IObjectContextFactory<SkillsFrameworkDbContext> context, IMapper mapper, IApplicationLogger logger)
         {
-            _db = db;
             _context = context;
             _mapper = mapper;
             _logger = logger;
@@ -34,17 +32,9 @@ namespace DFC.Digital.Repository.ONET
 
         public void Dispose()
         {
-            _db.Dispose();
 
             GC.SuppressFinalize(this);
         }
-
-        public IQueryable<T> GetAll<T>() where T : class
-        {
-            var ret = _db.Set<T>().ToList().AsQueryable();
-            return ret;
-        }
-
         #endregion
 
         public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity
@@ -222,8 +212,8 @@ namespace DFC.Digital.Repository.ONET
             {
                 await Task.Factory.StartNew(() =>
                 {
-                    dfcToolsandTech = from o in _db.Set<tools_and_technology>()
-                                      join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                    dfcToolsandTech = from o in context?.Set<tools_and_technology>()
+                                      join od in context?.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
                                       where o.onetsoc_code == socCode
                                       orderby o.t2_type, od.class_title
                                       select new DfcGdsToolsAndTechnology
@@ -252,7 +242,7 @@ namespace DFC.Digital.Repository.ONET
                 await Task.Factory.StartNew(() =>
                 {
                     count = (from o in context.tools_and_technology
-                             join od in _db.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                             join od in context.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
                              where o.onetsoc_code == socCode
                              orderby o.t2_type, od.class_title
                              select o).Count();
@@ -265,8 +255,11 @@ namespace DFC.Digital.Repository.ONET
 
         public IQueryable<DFC_GDSTranlations> GetMany(Expression<Func<DFC_GDSTranlations, bool>> where)
         {
-            var result = _db.Set<SkillsFramework>().AsQueryable().ProjectTo<DFC_GDSTranlations>(where);
-            return (IQueryable<DFC_GDSTranlations>)_mapper.Map<DFC_GDSTranlations>(result);
+            using (var context = _context.GetContext())
+            {
+                var result = context.Set<SkillsFramework>().AsQueryable().ProjectTo<DFC_GDSTranlations>(where);
+                return (IQueryable<DFC_GDSTranlations>) _mapper.Map<DFC_GDSTranlations>(result);
+            }
         }
 
         #endregion

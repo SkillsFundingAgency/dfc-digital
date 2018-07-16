@@ -245,6 +245,7 @@
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
+    <Compile Include="Modules\WhatYouWillDoConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillsRepository.cs" />
     <Compile Include="Modules\TaxonomyManagerExtensions.cs" />

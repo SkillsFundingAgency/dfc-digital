@@ -29,16 +29,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
+        private readonly IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter)
+        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
             this.htbContentPropertyConverter = htbContentPropertyConverter;
             this.dynamicContentExtensions = dynamicContentExtensions;
+            this.whatYouWillDoPropertyConverter = whatYouWillDoPropertyConverter;
         }
 
         #endregion Ctor
@@ -82,7 +84,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 // How To Become section
                 HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
-                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField)
+                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
+
+                //What You will do section
+                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();

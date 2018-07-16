@@ -19,12 +19,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         private readonly IDynamicContentExtensions fakeDynamicContentExtensions;
         private readonly DynamicContent fakeDynamicContentItem;
         private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
+        private readonly IContentPropertyConverter<WhatYouWillDo> wywdPropertyConverter;
 
         public JobProfileConverterTests()
         {
             fakeRelatedClassificationsRepository = A.Fake<IRelatedClassificationsRepository>();
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
             htbContentPropertyConverter = A.Fake<IContentPropertyConverter<HowToBecome>>();
+            wywdPropertyConverter = A.Fake<IContentPropertyConverter<WhatYouWillDo>>();
             fakeDynamicContentItem = A.Dummy<DynamicContent>();
             SetupCalls();
         }
@@ -35,7 +37,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         public void GetRelatedContentUrlTest(string relatedField)
         {
             //Assign
-            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter);
+            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
 
             //Act
             jobprofileConverter.GetRelatedContentUrl(fakeDynamicContentItem, relatedField);
@@ -52,7 +54,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         {
             //Assign
             SetupSocCall(socAssigned);
-            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter);
+            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
 
             //Act
             var jobProfile = jobprofileConverter.ConvertFrom(fakeDynamicContentItem);

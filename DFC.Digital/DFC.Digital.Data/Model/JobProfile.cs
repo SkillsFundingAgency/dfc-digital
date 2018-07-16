@@ -220,6 +220,8 @@ namespace DFC.Digital.Data.Model
 
         public HowToBecome HowToBecomeData { get; set; }
 
+        public WhatYouWillDo WhatYouWillDoData { get; set; }
+
         [JsonIgnore]
         public IList<string> RelatedSkills { get; set; }
     }

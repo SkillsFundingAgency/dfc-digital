@@ -74,7 +74,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
             var socSkillMatrices = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.SocSkillMatrixTypeContentType, repository.GetProviderName());
 
-            if (socSkillMatrices.Any())
+            if (socSkillMatrices != null && socSkillMatrices.Any())
             {
                 return socSkillMatrices.Select(item => socSkillConverter.ConvertFrom(item));
             }

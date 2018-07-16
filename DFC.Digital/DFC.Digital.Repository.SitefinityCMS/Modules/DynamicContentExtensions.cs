@@ -56,6 +56,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
         }
 
+        public string GetFieldChoiceValue(DynamicContent contentItem, string fieldName)
+        {
+            if (contentItem != null && contentItem.DoesFieldExist(fieldName))
+            {
+                string value = contentItem.GetValue<ChoiceOption>(fieldName)?.Text;
+                return value;
+            }
+            else
+            {
+                return default;
+            }
+        }
+
         public void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName)
         {
             contentItem.DeleteRelations(fieldName);

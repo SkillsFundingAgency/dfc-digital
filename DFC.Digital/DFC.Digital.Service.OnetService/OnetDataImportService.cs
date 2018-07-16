@@ -78,15 +78,15 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills()
         {
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel) && !string.IsNullOrWhiteSpace(jp.SOCCode)).Take(50);
+            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel) && !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode)).Take(50);
 
             var jobProfilesUpdated = jobProfileRepository.GetLiveJobProfiles().Count(jp => !string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel));
 
             var response = new UpdateJpDigitalSkillsResponse();
             var details = new StringBuilder();
             var summaryDetails = new StringBuilder();
-            summaryDetails.AppendLine($"Found {jobprofilesToUpdate.Count()} job profiles to update with Onet Dgital skill  <br /> ");
-            summaryDetails.AppendLine($"Found {jobProfilesUpdated} job profiles already updated with Onet Dgital skill  <br /> ");
+            summaryDetails.AppendLine($"Found {jobprofilesToUpdate.Count()} job profiles to update with Onet Digital skill  <br /> ");
+            summaryDetails.AppendLine($"Found {jobProfilesUpdated} job profiles already updated with Onet Digital skill  <br /> ");
 
             foreach (var jobProfile in jobprofilesToUpdate)
             {
@@ -121,8 +121,8 @@ namespace DFC.Digital.Service.OnetService
             summaryDetails.AppendLine($"Found {socSkillMatrices.Count()} soc skill matrices in the repo  <br /> ");
 
             var importedSocs = socSkillMatrices.Select(socSkil => socSkil.SocCode).ToList();
-
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => !importedSocs.Contains(jp.SOCCode)).Take(50);
+              
+            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode) && !importedSocs.Contains(jp.SOCCode)).Take(50);
             summaryDetails.AppendLine($"Found {jobprofilesToUpdate.Count()} jobprofiles without skill matrices in the repo, based on soc Code  <br /> ");
 
             foreach (var jobProfile in jobprofilesToUpdate)
@@ -148,6 +148,7 @@ namespace DFC.Digital.Service.OnetService
                 }
             }
 
+            response.SummaryDetails = summaryDetails.ToString();
             response.ActionDetails = details.ToString();
             response.Success = true;
             return response;

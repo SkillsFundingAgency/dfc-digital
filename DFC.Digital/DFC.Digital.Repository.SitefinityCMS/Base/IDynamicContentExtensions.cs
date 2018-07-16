@@ -19,5 +19,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName);
 
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
+
+        string GetFieldChoiceValue(DynamicContent contentItem, string fieldName);
     }
 }

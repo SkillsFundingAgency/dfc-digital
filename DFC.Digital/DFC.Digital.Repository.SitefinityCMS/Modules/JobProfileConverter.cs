@@ -82,7 +82,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
 
                 //What You will do section
-                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content)
+                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel))
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();

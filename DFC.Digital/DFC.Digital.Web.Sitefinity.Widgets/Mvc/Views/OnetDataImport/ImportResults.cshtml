@@ -29,21 +29,25 @@
     </div>
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
-        { 
+        {
             <h4>@Model.ActionCompleted - Import Action Summary</h4>
             <p> @Html.Raw(Model.SummaryDetails)</p>
             <br />
 
             if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
-             {
-                 <h4>Error Details</h4>
-                 <p> @Html.Raw(Model.ErrorMessages)</p>
-                 <br />
-             }
-          
+            {
+                <h4>Error Details</h4>
+                <p> @Html.Raw(Model.ErrorMessages)</p>
+                <br />
+            }
+
 
             <h4>Action Details</h4>
             <p> @Html.Raw(Model.ImportDetails)</p>
+            <br />
+
+            <h4>Other Messages</h4>
+            <p> @Html.Raw(Model.OtherMessage)</p>
             <br />
         }
     </div>

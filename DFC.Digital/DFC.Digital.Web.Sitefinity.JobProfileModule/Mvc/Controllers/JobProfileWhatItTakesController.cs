@@ -1,10 +1,8 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System;
-using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -19,9 +17,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     {
         #region fields
 
-        private readonly IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository;
+        private readonly IJobProfileRelatedSkillsRepository jobProfileSkillsRepository;
 
         #endregion fields
+
         #region Ctor
 
         /// <summary>
@@ -32,10 +31,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="applicationLogger">application logger</param>
         /// <param name="sitefinityPage">sitefinity</param>
         /// <param name="jobProfileRelatedSkillsRepository">The job profile related skills repository.</param>
-        public JobProfileWhatItTakesController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage, IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository)
+        public JobProfileWhatItTakesController(
+            IJobProfileRepository jobProfileRepository,
+            IWebAppContext webAppContext,
+            IApplicationLogger applicationLogger,
+            ISitefinityPage sitefinityPage,
+            IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
-            this.jobProfileRelatedSkillsRepository = jobProfileRelatedSkillsRepository;
+            this.jobProfileSkillsRepository = jobProfileRelatedSkillsRepository;
         }
 
         #endregion Ctor
@@ -170,7 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (model.JobProfileWhatItTakesSkillsViewModel.UseONetData)
             {
-                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay);
+                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileSkillsRepository.GetContextualisedSkillsById(CurrentJobProfile.RelatedSkills.Take(NumberONetSkillsToDisplay));
             }
 
             if (model.IsWhatItTakesCadView)

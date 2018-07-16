@@ -62,7 +62,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private string GetSkillDescription(DynamicContent relatedSkill)
         {
             var skill = dynamicContentExtensions.GetRelatedItems(relatedSkill, RelatedSkillField).FirstOrDefault();
-            return dynamicContentExtensions.GetFieldValue<Lstring>(skill, nameof(WhatItTakesSkill.Description));
+            if (skill != null)
+            {
+                return dynamicContentExtensions.GetFieldValue<Lstring>(skill, nameof(WhatItTakesSkill.Description));
+            }
+
+            return string.Empty;
         }
     }
 }

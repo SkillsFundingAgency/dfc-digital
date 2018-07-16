@@ -65,7 +65,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression)),
                 Skills = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Skills)),
-                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField).ToList(),
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel)).Text,
                 HowToBecome = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.HowToBecome)),
                 WhatYouWillDo = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),
@@ -87,8 +86,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
 
                 //What You will do section
-                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content)
-            };
+                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
+
+                //What it takes
+                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField).ToList()
+        };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
@@ -100,12 +102,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();
             jobProfile.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPatternDetails), nameof(JobProfile.WorkingPatternDetails)).FirstOrDefault();
 
+            //PSF
             jobProfile.RelatedInterests = GetRelatedContentUrl(content, RelatedInterestsField);
             jobProfile.RelatedEnablers = GetRelatedContentUrl(content, RelatedEnablersField);
             jobProfile.RelatedEntryQualifications = GetRelatedContentUrl(content, RelatedEntryQualificationsField);
             jobProfile.RelatedTrainingRoutes = GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
+
             return jobProfile;
         }
 

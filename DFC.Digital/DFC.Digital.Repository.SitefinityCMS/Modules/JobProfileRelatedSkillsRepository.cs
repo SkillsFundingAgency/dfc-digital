@@ -1,14 +1,7 @@
-﻿using DFC.Digital.Core.Logging;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -35,25 +28,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region JobProfileRelatedSkillsRepository Implementations
 
-       public IEnumerable<WhatItTakesSkill> GetRelatedSkills(IList<string> relatedSkills, int maximumItemsToReturn)
+        public IEnumerable<WhatItTakesSkill> GetContextualisedSkillsById(IEnumerable<string> skillsIdCollection)
         {
-            var skills = new List<WhatItTakesSkill>();
-
-            if (relatedSkills != null)
+            if (skillsIdCollection != null)
             {
-                foreach (var skillUrl in relatedSkills.Take(maximumItemsToReturn))
+                foreach (var skillUrl in skillsIdCollection)
                 {
-                    var relatedSkill = converter.ConvertFrom(repository.Get(item =>
-                        item.UrlName == skillUrl && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
-
+                    var relatedSkill = converter.ConvertFrom(repository.Get(item => item.UrlName == skillUrl && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
                     if (relatedSkill != null)
                     {
-                        skills.Add(relatedSkill);
+                        yield return relatedSkill;
                     }
                 }
             }
-
-            return skills;
         }
 
         #endregion JobProfileRelatedSkillsRepository Implementations

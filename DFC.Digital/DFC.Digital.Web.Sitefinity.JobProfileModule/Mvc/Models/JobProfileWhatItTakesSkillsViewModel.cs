@@ -14,16 +14,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// </value>
         public string WhatItTakesSectionTitle { get; set; }
 
-        public bool UseONetDataCitizenFacing { get; set; }
-
-        public bool UseONetDataInPreview { get; set; }
+        public bool UseONetData { get; set; }
 
         public string SkillsSectionIntro { get; set; }
 
         public IEnumerable<WhatItTakesSkill> WhatItTakesSkills { get; set; } = Enumerable.Empty<WhatItTakesSkill>();
 
         public string DigitalSkillsLevel { get; set; }
-
-        public int NumberONetSkillsToDisplay { get; set; }
     }
 }

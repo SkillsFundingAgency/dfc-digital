@@ -135,19 +135,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         protected override ActionResult GetDefaultView()
         {
-            return ReturnSectionView();
+            return ReturnSectionView(UseONetDataCitizenFacing);
         }
 
         protected override ActionResult GetEditorView()
         {
-            return ReturnSectionView();
+            return ReturnSectionView(UseONetDataInPreview);
         }
 
         /// <summary>
         /// Returns the section view.
         /// </summary>
+        /// <param name="useOnetData">Control if the ONet data feed should be used to display WIT</param>
         /// <returns>Action Result</returns>
-        private ActionResult ReturnSectionView()
+        private ActionResult ReturnSectionView(bool useOnetData)
         {
             var model = new JobProfileWhatItTakesViewModel
             {
@@ -158,9 +159,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             model.JobProfileWhatItTakesSkillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
-                UseONetDataCitizenFacing = UseONetDataCitizenFacing,
-                UseONetDataInPreview = UseONetDataInPreview,
-                NumberONetSkillsToDisplay = NumberONetSkillsToDisplay,
+                UseONetData = useOnetData,
                 DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
                 SkillsSectionIntro = SkillsSectionIntro,
                 PropertyValue = CurrentJobProfile.Skills,
@@ -169,7 +168,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 WhatItTakesSectionTitle = WhatItTakesSectionTitle,
             };
 
-            model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay);
+            if (model.JobProfileWhatItTakesSkillsViewModel.UseONetData)
+            {
+                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay);
+            }
 
             if (model.IsWhatItTakesCadView)
             {

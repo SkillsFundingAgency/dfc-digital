@@ -45,11 +45,15 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
-            var socCodesToUpdate = jobProfileSocCodeRepository.GetLiveSocCodes();
+            var socCodesToUpdate = jobProfileSocCodeRepository.GetLiveSocCodes().Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode)).Take(50);
+
+            var socCodesUpdated = jobProfileSocCodeRepository.GetLiveSocCodes().Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
 
             var response = new UpdateSocOccupationalCodeResponse();
             var details = new StringBuilder();
-            response.SummaryDetails = $"Found {socCodesToUpdate.Count()} socs to update";
+            var summaryDetails = new StringBuilder();
+            summaryDetails.AppendLine($"Found {socCodesUpdated} socs already update with occupational codes <br />");
+            summaryDetails.AppendLine($"Found {socCodesToUpdate.Count()} socs to update <br />");
 
             foreach (var socCode in socCodesToUpdate)
             {
@@ -66,6 +70,7 @@ namespace DFC.Digital.Service.OnetService
                 }
             }
 
+            response.SummaryDetails = summaryDetails.ToString();
             response.ActionDetails = details.ToString();
             response.Success = true;
             return response;
@@ -73,7 +78,7 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills()
         {
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel)).Take(50);
+            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel) && !string.IsNullOrWhiteSpace(jp.SOCCode)).Take(50);
 
             var jobProfilesUpdated = jobProfileRepository.GetLiveJobProfiles().Count(jp => !string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel));
 

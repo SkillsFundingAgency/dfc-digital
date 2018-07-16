@@ -35,7 +35,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region JobProfileRelatedSkillsRepository Implementations
 
-       public IEnumerable<WhatItTakesSkill> GetRelatedSkills(IQueryable<string> relatedSkills, int maximumItemsToReturn)
+       public IEnumerable<WhatItTakesSkill> GetRelatedSkills(IList<string> relatedSkills, int maximumItemsToReturn)
         {
             var skills = new List<WhatItTakesSkill>();
 
@@ -55,6 +55,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             return skills;
         }
+
         #endregion JobProfileRelatedSkillsRepository Implementations
     }
 }

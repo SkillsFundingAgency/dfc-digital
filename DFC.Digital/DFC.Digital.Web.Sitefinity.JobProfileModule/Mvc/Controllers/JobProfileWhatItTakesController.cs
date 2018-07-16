@@ -161,7 +161,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 UseONetDataCitizenFacing = UseONetDataCitizenFacing,
                 UseONetDataInPreview = UseONetDataInPreview,
                 NumberONetSkillsToDisplay = NumberONetSkillsToDisplay,
-                WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay),
                 DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
                 SkillsSectionIntro = SkillsSectionIntro,
                 PropertyValue = CurrentJobProfile.Skills,
@@ -170,7 +169,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 WhatItTakesSectionTitle = WhatItTakesSectionTitle,
             };
 
-            // WebAppContext.IsContentPreviewMode
+            model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileRelatedSkillsRepository.GetRelatedSkills(CurrentJobProfile.RelatedSkills, NumberONetSkillsToDisplay);
+
             if (model.IsWhatItTakesCadView)
             {
                 model.RestrictionsOtherRequirements = new RestrictionsOtherRequirements

@@ -63,7 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfile.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression)),
                 Skills = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Skills)),
-                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField),
+                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField).ToList(),
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel)).Text,
                 HowToBecome = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.HowToBecome)),
                 WhatYouWillDo = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WhatYouWillDo)),

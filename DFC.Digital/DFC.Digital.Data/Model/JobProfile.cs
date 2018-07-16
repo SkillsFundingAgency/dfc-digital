@@ -221,6 +221,6 @@ namespace DFC.Digital.Data.Model
         public HowToBecome HowToBecomeData { get; set; }
 
         [JsonIgnore]
-        public IQueryable<string> RelatedSkills { get; set; }
+        public IList<string> RelatedSkills { get; set; }
     }
 }

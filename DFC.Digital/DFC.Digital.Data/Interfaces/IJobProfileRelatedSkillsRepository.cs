@@ -9,6 +9,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileRelatedSkillsRepository
     {
-         IEnumerable<WhatItTakesSkill> GetRelatedSkills(IQueryable<string> relatedSkills, int maximumItemsToReturn);
+        IEnumerable<WhatItTakesSkill> GetRelatedSkills(IList<string> relatedSkills, int maximumItemsToReturn);
     }
 }

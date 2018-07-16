@@ -10,7 +10,7 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class JobProfileRelatedSkillConverter
+    public class JobProfileRelatedSkillConverter : IDynamicModuleConverter<WhatItTakesSkill>
     {
         #region Fields
 

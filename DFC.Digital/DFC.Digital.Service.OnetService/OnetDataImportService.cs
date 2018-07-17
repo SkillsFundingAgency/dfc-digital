@@ -17,7 +17,10 @@ namespace DFC.Digital.Service.OnetService
 
         public OnetDataImportService(IOnetService onetService, IOnetRepository onetRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IJobProfileRepository jobProfileRepository)
         {
+            //CodeReview: Please do not use ONET anywhere other than the actual repo by dinesh to pull the data out of onet.db
             this.onetService = onetService;
+            
+            //CodeReview: Please re-name this to sitefinity content type specific repo.
             this.onetRepository = onetRepository;
             this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
             this.jobProfileRepository = jobProfileRepository;
@@ -31,6 +34,8 @@ namespace DFC.Digital.Service.OnetService
             var allOnetSkills = onetRepository.GetOnetSkills().Count();
 
             var response = new OnetSkillsImportResponse();
+
+            //CodeReview: Please use aspect like an audit or report service with inmemory store to keep these audit records.
             var details = new StringBuilder();
             var summaryDetails = new StringBuilder();
             summaryDetails.AppendLine($"Found {allOnetSkills} onet skills in the repo <br />");

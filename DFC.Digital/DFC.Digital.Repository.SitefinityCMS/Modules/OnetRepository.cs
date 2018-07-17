@@ -31,6 +31,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public RepoActionResult UpsertOnetSkill(OnetSkill onetSkill)
         {
+            //CodeReview: Worth abstrating this out 
             var repoSkill = onetSkillRepository.Get(item =>
                 item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
             if (repoSkill != null)

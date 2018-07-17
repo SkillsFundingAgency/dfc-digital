@@ -15,10 +15,10 @@ namespace DFC.Digital.Repository.ONET.DataModel
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class JobProfileFrameWorksEntities1 : DbContext
+    public partial class JobProfileFrameWorksEntities : DbContext
     {
-        public JobProfileFrameWorksEntities1()
-            : base("name=JobProfileFrameWorksEntities1")
+        public JobProfileFrameWorksEntities()
+            : base("name=JobProfileFrameWorksEntities")
         {
         }
     

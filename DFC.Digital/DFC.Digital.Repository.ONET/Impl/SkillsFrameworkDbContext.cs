@@ -9,7 +9,7 @@ namespace DFC.Digital.Repository.ONET.Impl
 
     public class SkillsFrameworkDbContext : DbContext, IDbContext
     {
-        public SkillsFrameworkDbContext() : base("name=JobProfileFrameWorksEntities1")
+        public SkillsFrameworkDbContext() : base("name=JobProfileFrameWorksEntities")
         {
             Database.CommandTimeout = 60;
         }

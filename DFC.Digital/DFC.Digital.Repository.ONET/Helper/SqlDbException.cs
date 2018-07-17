@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DFC.Digital.Repository.ONET.Helper
+﻿namespace DFC.Digital.Repository.ONET.Helper
 {
-    using System.Data.Common;
     using System.Runtime.Serialization;
 
     public class SqlDbException : DbException

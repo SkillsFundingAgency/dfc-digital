@@ -81,13 +81,14 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />
-    <Compile Include="Interfaces\IImportOnetDataService.cs" />
+    <Compile Include="Interfaces\IImportSkillsFrameworkDataService.cs" />
     <Compile Include="Interfaces\IJobProfileIndexEnhancer.cs" />
     <Compile Include="Interfaces\IJobProfilePage.cs" />
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
-    <Compile Include="Interfaces\IOnetRepository.cs" />
+    <Compile Include="Interfaces\IFrameworkSkillRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
@@ -121,9 +122,9 @@
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />
     <Compile Include="Model\MoreInformationLink.cs" />
-    <Compile Include="Model\OnetSkill.cs" />
-    <Compile Include="Model\OnetSkillsImportRequest.cs" />
-    <Compile Include="Model\OnetSkillsImportResponse.cs" />
+    <Compile Include="Model\FrameworkSkill.cs" />
+    <Compile Include="Model\FrameworkSkillsImportRequest.cs" />
+    <Compile Include="Model\FrameworkSkillsImportResponse.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\Restriction.cs" />
     <Compile Include="Model\RouteEntry.cs" />

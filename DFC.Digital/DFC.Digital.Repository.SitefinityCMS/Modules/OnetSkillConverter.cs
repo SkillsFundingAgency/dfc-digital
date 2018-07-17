@@ -4,7 +4,7 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class OnetSkillConverter : IDynamicModuleConverter<OnetSkill>
+    public class OnetSkillConverter : IDynamicModuleConverter<FrameworkSkill>
     {
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
@@ -13,14 +13,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
-        public OnetSkill ConvertFrom(DynamicContent content)
+        public FrameworkSkill ConvertFrom(DynamicContent content)
         {
-            return new OnetSkill
+            return new FrameworkSkill
             {
-                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(OnetSkill.Description)),
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(OnetSkill.Title)),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.Description)),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.Title)),
                 OnetElementId =
-                    dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(OnetSkill.OnetElementId))
+                    dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.OnetElementId))
             };
         }
     }

@@ -8,64 +8,23 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-   public class OnetRepository : IOnetRepository
+   public class SocSkillMatrixRepository : ISocSkillMatrixRepository
     {
         private const string RelatedSkillField = "RelatedSkill";
         private const string RelatedSocField = "RelatedSoc";
-        private readonly IDynamicModuleRepository<OnetSkill> onetSkillRepository;
+        private readonly IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository;
         private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
-        private readonly IDynamicModuleConverter<OnetSkill> onetskillConverter;
 
-        public OnetRepository(IDynamicModuleRepository<OnetSkill> onetSkillRepository, IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocCode> socCodeRepository, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<OnetSkill> onetskillConverter)
+        public SocSkillMatrixRepository(IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository, IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocCode> socCodeRepository, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
         {
-            this.onetSkillRepository = onetSkillRepository;
+            this.frameworkSkillRepository = frameworkSkillRepository;
             this.socMatrixRepository = socMatrixRepository;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeRepository = socCodeRepository;
             this.socSkillConverter = socSkillConverter;
-            this.onetskillConverter = onetskillConverter;
-        }
-
-        public RepoActionResult UpsertOnetSkill(OnetSkill onetSkill)
-        {
-            //CodeReview: Worth abstrating this out to a get by url
-            var repoSkill = onetSkillRepository.Get(item =>
-                item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
-
-            if (repoSkill != null)
-            {
-                var master = onetSkillRepository.GetMaster(repoSkill);
-                var temp = onetSkillRepository.GetTemp(master);
-
-                dynamicContentExtensions.SetFieldValue(temp, nameof(OnetSkill.Description), onetSkill.Description);
-                dynamicContentExtensions.SetFieldValue(temp, nameof(OnetSkill.OnetElementId), onetSkill.OnetElementId);
-
-                var updatedMaster = onetSkillRepository.CheckinTemp(temp);
-
-                //CodeReview: Change it to publish
-                onetSkillRepository.Update(updatedMaster);
-                onetSkillRepository.Commit();
-            }
-            else
-            {
-                var newRepoSkill = onetSkillRepository.Create();
-                newRepoSkill.UrlName = onetSkill.SfUrlName;
-
-                dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(OnetSkill.Title), onetSkill.Title);
-                dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(OnetSkill.Description), onetSkill.Description);
-                dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(OnetSkill.OnetElementId), onetSkill.OnetElementId);
-
-                onetSkillRepository.Add(newRepoSkill);
-                onetSkillRepository.Commit();
-            }
-
-            return new RepoActionResult
-            {
-                Success = true
-            };
         }
 
         public RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix)
@@ -87,7 +46,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
                 {
                     dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSkillField);
-                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
+                    var relatedSkillItem = frameworkSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
                     if (relatedSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSkillItem, RelatedSkillField);
@@ -121,7 +80,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
                 {
-                    var relatedSkillItem = onetSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(OnetSkill.Title)) == socSkillMatrix.Skill);
+                    var relatedSkillItem = frameworkSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
                     if (relatedSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(newSocMatrix, relatedSkillItem, RelatedSkillField);
@@ -157,18 +116,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return Enumerable.Empty<SocSkillMatrix>();
-        }
-
-        public IQueryable<OnetSkill> GetOnetSkills()
-        {
-            var socSkillMatrices = onetSkillRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
-
-            if (socSkillMatrices.Any())
-            {
-                return socSkillMatrices.Select(item => onetskillConverter.ConvertFrom(item));
-            }
-
-            return Enumerable.Empty<OnetSkill>().AsQueryable();
         }
     }
 }

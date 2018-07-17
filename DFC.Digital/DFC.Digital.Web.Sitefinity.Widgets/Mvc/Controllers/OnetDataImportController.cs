@@ -22,14 +22,14 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     {
         #region Private Members
 
-        private readonly IImportOnetDataService importOnetDataService;
+        private readonly IImportSkillsFrameworkDataService importOnetDataService;
         private readonly IReportAuditRepository reportAuditRepository;
 
         #endregion Private Members
 
         #region Constructors
 
-        public OnetDataImportController(IApplicationLogger applicationLogger, IImportOnetDataService importOnetDataService, IReportAuditRepository reportAuditRepository) : base(applicationLogger)
+        public OnetDataImportController(IApplicationLogger applicationLogger, IImportSkillsFrameworkDataService importOnetDataService, IReportAuditRepository reportAuditRepository) : base(applicationLogger)
         {
             this.importOnetDataService = importOnetDataService;
             this.reportAuditRepository = reportAuditRepository;
@@ -110,30 +110,22 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                         case "UPDATESOCOCCUPATIONALCODES":
                             var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
-                            importResult.SummaryDetails = updateResult.SummaryDetails;
                             importResult.ErrorMessages = updateResult.ErrorMessages;
-                            importResult.ImportDetails = updateResult.ActionDetails;
                             break;
                         case "UPDATEJPDIGITALSKILLS":
                           var updatejpDigiResult = importOnetDataService.UpdateJobProfilesDigitalSkills();
                             importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
-                            importResult.SummaryDetails = updatejpDigiResult.SummaryDetails;
                             importResult.ErrorMessages = updatejpDigiResult.ErrorMessages;
-                            importResult.ImportDetails = updatejpDigiResult.ActionDetails;
                             break;
                         case "BUILDSOCMATRIX":
                             var buildsocResult = importOnetDataService.BuildSocMatrixData();
                             importResult.ActionCompleted = "Build Soc Skill Matrix";
-                            importResult.SummaryDetails = buildsocResult.SummaryDetails;
                             importResult.ErrorMessages = buildsocResult.ErrorMessages;
-                            importResult.ImportDetails = buildsocResult.ActionDetails;
                             break;
                         case "UPDATEJPSKILLS":
                             var upjpsocResult = importOnetDataService.UpdateJpSocSkillMatrix();
                             importResult.ActionCompleted = "Update Job Profiles with related Soc sklii Matrices";
-                            importResult.SummaryDetails = upjpsocResult.SummaryDetails;
                             importResult.ErrorMessages = upjpsocResult.ErrorMessages;
-                            importResult.ImportDetails = upjpsocResult.ActionDetails;
                             break;
                     }
                    }

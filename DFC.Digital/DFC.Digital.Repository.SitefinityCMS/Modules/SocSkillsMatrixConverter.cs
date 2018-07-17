@@ -40,7 +40,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var skillItem = dynamicContentExtensions.GetRelatedItems(content, SkillField, 1).FirstOrDefault();
             if (skillItem != null)
             {
-                socSkillsMatrix.Skill = dynamicContentExtensions.GetFieldValue<Lstring>(skillItem, nameof(OnetSkill.Title));
+                socSkillsMatrix.Skill = dynamicContentExtensions.GetFieldValue<Lstring>(skillItem, nameof(FrameworkSkill.Title));
             }
 
             return socSkillsMatrix;

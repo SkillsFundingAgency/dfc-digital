@@ -226,8 +226,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<DynamicModuleRepository<OnetSkill>>()
-                .As<IDynamicModuleRepository<OnetSkill>>()
+            builder.RegisterType<DynamicModuleRepository<FrameworkSkill>>()
+                .As<IDynamicModuleRepository<FrameworkSkill>>()
                 .InstancePerLifetimeScope()
                 .OnActivating(t => t.Instance.Initialise(DynamicTypes.OnetSkillTypeContentType, DynamicTypes.JobProfileModuleName))
                 .EnableInterfaceInterceptors()

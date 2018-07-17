@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class OnetSkillsImportRequest
+    public class FrameworkSkillsImportRequest
     {
-        public IEnumerable<OnetSkill> OnetSkillsList { get; set; }
+        public IEnumerable<FrameworkSkill> OnetSkillsList { get; set; }
     }
 }

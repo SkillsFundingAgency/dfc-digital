@@ -3,9 +3,9 @@ using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.OnetService.Services.Contracts
 {
-    public interface IOnetService
+    public interface SkillsFrameworkService
     {
-        OnetSkillsImportRequest GetOnetSkills();
+        FrameworkSkillsImportRequest GetOnetSkills();
 
         string GetSocOccupationalCode(string socCode);
 

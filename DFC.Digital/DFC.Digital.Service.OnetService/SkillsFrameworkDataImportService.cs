@@ -7,40 +7,39 @@ using DFC.Digital.Service.OnetService.Services.Contracts;
 
 namespace DFC.Digital.Service.OnetService
 {
-    public class OnetDataImportService : IImportOnetDataService
+    public class SkillsFrameworkDataImportService : IImportSkillsFrameworkDataService
     {
         private const string SummaryDetailsKey = "SummaryDetails";
         private const string ActionDetailsKey = "ActionDetails";
-        private readonly IOnetService onetService;
-        private readonly IOnetRepository onetRepository;
+        private readonly SkillsFrameworkService skillsFrameworkService;
+        private readonly IFrameworkSkillRepository frameworkSkillRepository;
+        private readonly ISocSkillMatrixRepository socSkillMatrixRepository;
         private readonly IJobProfileSocCodeRepository jobProfileSocCodeRepository;
         private readonly IJobProfileRepository jobProfileRepository;
         private readonly IReportAuditRepository reportAuditRepository;
 
-        public OnetDataImportService(IOnetService onetService, IOnetRepository onetRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IJobProfileRepository jobProfileRepository, IReportAuditRepository reportAuditRepository)
+        public SkillsFrameworkDataImportService(SkillsFrameworkService skillsFrameworkService, IFrameworkSkillRepository frameworkSkillRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IJobProfileRepository jobProfileRepository, ISocSkillMatrixRepository socSkillMatrixRepository, IReportAuditRepository reportAuditRepository)
         {
-            //CodeReview: Please do not use ONET anywhere other than the actual repo by dinesh to pull the data out of onet.db
-            this.onetService = onetService;
-            
-            //CodeReview: Please re-name this to sitefinity content type specific repo.
-            this.onetRepository = onetRepository;
+            this.skillsFrameworkService = skillsFrameworkService;
+            this.frameworkSkillRepository = frameworkSkillRepository;
             this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
             this.jobProfileRepository = jobProfileRepository;
             this.reportAuditRepository = reportAuditRepository;
+            this.socSkillMatrixRepository = socSkillMatrixRepository;
         }
 
-        public OnetSkillsImportResponse ImportOnetSkills()
+        public FrameworkSkillsImportResponse ImportOnetSkills()
         {
             // this will be async once integrated
-            var onetSkills = onetService.GetOnetSkills();
-            var allOnetSkills = onetRepository.GetOnetSkills().Count();
-            var response = new OnetSkillsImportResponse();
+            var onetSkills = skillsFrameworkService.GetOnetSkills();
+            var allOnetSkills = frameworkSkillRepository.GetOnetSkills().Count();
+            var response = new FrameworkSkillsImportResponse();
             reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(SummaryDetailsKey, $"Found {allOnetSkills} onet skills in the repo"));
             reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(SummaryDetailsKey, $"Found {onetSkills.OnetSkillsList.Count()} onet skills to import"));
 
             foreach (var onetSkill in onetSkills.OnetSkillsList)
             {
-                onetRepository.UpsertOnetSkill(onetSkill);
+                frameworkSkillRepository.UpsertOnetSkill(onetSkill);
                 reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(ActionDetailsKey, $"Added/Updated {onetSkill.Title} to repository"));
             }
 
@@ -63,7 +62,7 @@ namespace DFC.Digital.Service.OnetService
  
             foreach (var socCode in socCodesToUpdate)
             {
-                var occupationalCode = onetService.GetSocOccupationalCode(socCode.SOCCode);
+                var occupationalCode = skillsFrameworkService.GetSocOccupationalCode(socCode.SOCCode);
 
                 reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(ActionDetailsKey, $"Found {occupationalCode} for SocCocde : {socCode.SOCCode} from Onet Service  <br /> "));
 
@@ -98,7 +97,7 @@ namespace DFC.Digital.Service.OnetService
             {
                 if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
                 {
-                    var digitalSkillLevel = onetService.GetDigitalSkillLevel(jobProfile.ONetOccupationalCode);
+                    var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(jobProfile.ONetOccupationalCode);
 
                     reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(ActionDetailsKey, $"Found {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} from Onet Service  <br /> "));
 
@@ -119,7 +118,7 @@ namespace DFC.Digital.Service.OnetService
         public BuildSocMatrixResponse BuildSocMatrixData()
         {
             var response = new BuildSocMatrixResponse();
-            var socSkillMatrices = onetRepository.GetSocSkillMatrices();
+            var socSkillMatrices = socSkillMatrixRepository.GetSocSkillMatrices();
             reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(SummaryDetailsKey, $"Found {socSkillMatrices.Count()} soc skill matrices in the repo  <br /> "));
 
             var importedSocs = socSkillMatrices.Select(socSkil => socSkil.SocCode).Distinct().ToList();
@@ -138,13 +137,13 @@ namespace DFC.Digital.Service.OnetService
             {
                 if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
                 {
-                    var occupationSkills = onetService.GetOccupationalCodeSkills(jobProfile.ONetOccupationalCode);
+                    var occupationSkills = skillsFrameworkService.GetOccupationalCodeSkills(jobProfile.ONetOccupationalCode);
 
                     reportAuditRepository.CreateAudit(new KeyValuePair<string, object>(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.Title))} skills : for occupation code {jobProfile.ONetOccupationalCode} from Onet Service  <br /> "));
                         var rankGenerated = 1;
                     foreach (var occupationSkill in occupationSkills)
                     {
-                        onetRepository.UpsertSocSkillMatrix(new SocSkillMatrix
+                        socSkillMatrixRepository.UpsertSocSkillMatrix(new SocSkillMatrix
                         {
                             Title = $"{jobProfile.SOCCode}-{occupationSkill.Title}",
                             SocCode = jobProfile.SOCCode,

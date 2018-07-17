@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Data.Model
 {
-    public class OnetSkill
+    public class FrameworkSkill
     {
         public Guid Id { get; set; }
 

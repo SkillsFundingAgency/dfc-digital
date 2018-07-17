@@ -6,7 +6,7 @@ using DFC.Digital.Service.OnetService.Services.Contracts;
 
 namespace DFC.Digital.Service.OnetService.Services
 {
-    public class OnetService : IOnetService
+    public class SkillsFrameworkService : Contracts.SkillsFrameworkService
     {
         public string GetDigitalSkillLevel(string onetOccupationalCode)
         {
@@ -18,30 +18,30 @@ namespace DFC.Digital.Service.OnetService.Services
         {
             yield return new OccupationOnetSkill
             {
-                Title = $"{nameof(OnetSkill.Title)} - 1",
+                Title = $"{nameof(FrameworkSkill.Title)} - 1",
                 OnetRank = 7
             };
             yield return new OccupationOnetSkill
             {
-                Title = $"{nameof(OnetSkill.Title)} - 2",
+                Title = $"{nameof(FrameworkSkill.Title)} - 2",
                 OnetRank = 4
             };
             yield return new OccupationOnetSkill
             {
-                Title = $"{nameof(OnetSkill.Title)} - 3",
+                Title = $"{nameof(FrameworkSkill.Title)} - 3",
                 OnetRank = 2
             };
         }
 
-        public OnetSkillsImportRequest GetOnetSkills()
+        public FrameworkSkillsImportRequest GetOnetSkills()
         {
-            return new OnetSkillsImportRequest
+            return new FrameworkSkillsImportRequest
             {
-                OnetSkillsList = new List<OnetSkill>
+                OnetSkillsList = new List<FrameworkSkill>
                 {
-                    new OnetSkill { Description = $"{nameof(OnetSkill.Description)} updated", OnetElementId = nameof(OnetSkill.OnetElementId), Title = $"{nameof(OnetSkill.Title)} - 1" },
-                    new OnetSkill { Description = nameof(OnetSkill.Description), OnetElementId = nameof(OnetSkill.OnetElementId), Title = $"{nameof(OnetSkill.Title)} - 2" },
-                    new OnetSkill { Description = nameof(OnetSkill.Description), OnetElementId = nameof(OnetSkill.OnetElementId), Title = $"{nameof(OnetSkill.Title)} - 3" }
+                    new FrameworkSkill { Description = $"{nameof(FrameworkSkill.Description)} updated", OnetElementId = nameof(FrameworkSkill.OnetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 1" },
+                    new FrameworkSkill { Description = nameof(FrameworkSkill.Description), OnetElementId = nameof(FrameworkSkill.OnetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 2" },
+                    new FrameworkSkill { Description = nameof(FrameworkSkill.Description), OnetElementId = nameof(FrameworkSkill.OnetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 3" }
                 }
             };
         }

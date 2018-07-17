@@ -11,17 +11,15 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly IDynamicModuleRepository<WhatItTakesSkill> repository;
         private readonly IDynamicModuleConverter<WhatItTakesSkill> converter;
-        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileRelatedSkillsRepository(IDynamicModuleRepository<WhatItTakesSkill> repository, IDynamicModuleConverter<WhatItTakesSkill> converter, IDynamicContentExtensions dynamicContentExtensions)
+        public JobProfileRelatedSkillsRepository(IDynamicModuleRepository<WhatItTakesSkill> repository, IDynamicModuleConverter<WhatItTakesSkill> converter)
         {
             this.repository = repository;
             this.converter = converter;
-            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         #endregion Ctor

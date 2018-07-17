@@ -108,6 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
@@ -166,6 +167,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(false);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
@@ -216,6 +218,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
+
             dummyJobProfile.RelatedSkills = new List<string> { "DummyRelated1", "DummyRelated2" };
 
             // Set up calls

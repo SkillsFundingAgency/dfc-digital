@@ -45,12 +45,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #endregion Ctor
 
-        public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
-        {
-            var relatedContent = dynamicContentExtensions.GetRelatedItems(content, relatedField, 100);
-            return relatedContent?.Select(x => $"{x.UrlName}");
-        }
-
         public JobProfile ConvertFrom(DynamicContent content)
         {
             var jobProfile = new JobProfile
@@ -89,7 +83,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 //TODO: Ensure these are properly unit tested. Including null reference!!
                 //What it takes
-                RelatedSkills = GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
+                RelatedSkills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel))?.Text
             };
 
@@ -104,12 +98,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPatternDetails), nameof(JobProfile.WorkingPatternDetails)).FirstOrDefault();
 
             //PSF
-            jobProfile.RelatedInterests = GetRelatedContentUrl(content, RelatedInterestsField);
-            jobProfile.RelatedEnablers = GetRelatedContentUrl(content, RelatedEnablersField);
-            jobProfile.RelatedEntryQualifications = GetRelatedContentUrl(content, RelatedEntryQualificationsField);
-            jobProfile.RelatedTrainingRoutes = GetRelatedContentUrl(content, RelatedTrainingRoutesField);
-            jobProfile.RelatedPreferredTaskTypes = GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
-            jobProfile.RelatedJobAreas = GetRelatedContentUrl(content, RelatedJobAreasField);
+            jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
+            jobProfile.RelatedEnablers = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEnablersField);
+            jobProfile.RelatedEntryQualifications = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEntryQualificationsField);
+            jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
+            jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
+            jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
 
             return jobProfile;
         }

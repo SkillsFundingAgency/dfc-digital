@@ -249,8 +249,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
+    <Compile Include="Modules\JobProfileRelatedSkillConverterTests.cs" />
     <Compile Include="Modules\WhatYouWillDoConverterTests.cs" />
     <Compile Include="Modules\HowToBecomeConverterTests.cs" />
     <Compile Include="Modules\JobProfileCategoryRepositoryUnitTests.cs" />

@@ -32,22 +32,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         }
 
         [Theory]
-        [InlineData("fieldOne")]
-        [InlineData("fieldTwo")]
-        public void GetRelatedContentUrlTest(string relatedField)
-        {
-            //Assign
-            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
-
-            //Act
-            jobprofileConverter.GetRelatedContentUrl(fakeDynamicContentItem, relatedField);
-
-            //Assert
-            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, relatedField, A<int>._))
-                .MustHaveHappened();
-        }
-
-        [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void ConvertFromTest(bool socAssigned)
@@ -55,6 +39,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             //Assign
             SetupSocCall(socAssigned);
             var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
+
+            var dummyRelatedItems = A.CollectionOfDummy<string>(1).AsEnumerable().AsQueryable();
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedContentUrl(A<DynamicContent>._, A<string>._)).Returns(dummyRelatedItems);
 
             //Act
             var jobProfile = jobprofileConverter.ConvertFrom(fakeDynamicContentItem);
@@ -81,45 +68,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                     .MustNotHaveHappened();
                 jobProfile.SOCCode.Should().BeNullOrEmpty();
             }
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void ConvertRelatedSkillsTest(bool hasValidSkill)
-        {
-            //set up
-            SetupCalls();
-            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter);
-            var expectedSkillDescription = "TestSkillDescription";
-
-            if (hasValidSkill)
-            {
-                A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(WhatItTakesSkill.Description))).Returns(expectedSkillDescription);
-            }
-            else
-            {
-                A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(WhatItTakesSkill.Description))).Throws(new LoggedException());
-            }
-
-            //Act
-            var jobProfile = jobprofileConverter.ConvertFrom(fakeDynamicContentItem);
-
-           //Assert
-            if (hasValidSkill)
-            {
-               // jobProfile.RelatedSkills.FirstOrDefault().Description.Should().BeEquivalentTo(expectedSkillDescription);
-            }
-            else
-            {
-              //  jobProfile.WhatItTakesSkills.Should().BeEmpty();
-            }
-        }
-
-        private List<DynamicContent> GetRelatedContentSkills()
-        {
-            var dummyRelatedSkills = new List<DynamicContent>() { new DynamicContent(System.Guid.NewGuid(), "TestApp") };
-            return dummyRelatedSkills;
         }
 
         private void SetupCalls()

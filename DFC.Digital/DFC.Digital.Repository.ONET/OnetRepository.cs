@@ -72,131 +72,224 @@ namespace DFC.Digital.Repository.ONET
                 // just transforming Stored procedure to Linq . Will optimize with specification and predicates
                 await Task.Factory.StartNew(() =>
                 {
-                    attributes = (from knwldg in context.knowledges
-                                  join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
-                                      cmr.element_id
-                                  where knwldg.recommend_suppress != "Y" && knwldg.not_relevant != "Y" &&
-                                        knwldg.onetsoc_code == socCode
-                                  group knwldg by new
-                                  {
-                                      cmr.element_name,
-                                      cmr.description,
-                                      knwldg.element_id,
-                                      knwldg.onetsoc_code
-                                  }
-                            into knwldgGroup
-                                  select new DfcGdsAttributesData
-                                  {
-                                      OnetSocCode = knwldgGroup.Key.onetsoc_code,
-                                      ElementId = knwldgGroup.Key.element_id,
-                                      ElementDescription = knwldgGroup.Key.description,
-                                      ElementName = knwldgGroup.Key.element_name,
-                                      Attribute = Attributes.Knowledge.ToString(),
-                                      Value = knwldgGroup.Sum(v => v.data_value) / 2
-                                  })
-                        .Union(from skl in context.skills
-                               join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
-                                   .element_id
-                               where skl.recommend_suppress != "Y" && skl.not_relevant != "Y" &&
-                                     skl.onetsoc_code == socCode
-                               group skl by new
-                               {
-                                   skl.onetsoc_code,
-                                   cmr.element_name,
-                                   cmr.description,
-                                   skl.element_id
-                               }
-                            into skillGroup
-                               select new DfcGdsAttributesData
-                               {
-                                   OnetSocCode = skillGroup.Key.onetsoc_code,
-                                   ElementId = skillGroup.Key.element_id,
-                                   ElementDescription = skillGroup.Key.description,
-                                   ElementName = skillGroup.Key.element_name,
-                                   Attribute = Attributes.Skills,
-                                   Value = skillGroup.Sum(x => x.data_value) / 2
-                               })
-                        .Union(from ablty in context.abilities
-                               join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
-                                   cmr.element_id
-                               where ablty.recommend_suppress != "Y" && ablty.not_relevant == "Y" &&
-                                     ablty.onetsoc_code == socCode
-                               group ablty by new
-                               {
-                                   cmr.element_name,
-                                   cmr.description,
-                                   ablty.element_id,
-                                   ablty.onetsoc_code
-                               }
-                            into abilityGroup
-                               select new DfcGdsAttributesData
-                               {
-                                   OnetSocCode = abilityGroup.Key.onetsoc_code,
-                                   ElementId = abilityGroup.Key.element_id,
-                                   ElementDescription = abilityGroup.Key.description,
-                                   ElementName = abilityGroup.Key.element_name,
-                                   Attribute = @Attributes.Abilities,
-                                   Value = abilityGroup.Sum(x => x.data_value) / 2
-                               })
-                        .Union(from wkstyl in context.work_styles
-                               join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
-                                   cmr.element_id
-                               where wkstyl.recommend_suppress != "Y" && wkstyl.onetsoc_code == socCode
-                               group wkstyl by new
-                               {
-                                   wkstyl.onetsoc_code,
-                                   cmr.element_name,
-                                   cmr.description,
-                                   wkstyl.element_id
-                               }
-                            into workStyleGroup
-                               select new DfcGdsAttributesData
-                               {
-                                   OnetSocCode = workStyleGroup.Key.onetsoc_code,
-                                   ElementId = workStyleGroup.Key.element_id,
-                                   ElementDescription = workStyleGroup.Key.description,
-                                   ElementName = workStyleGroup.Key.element_name,
-                                   Attribute = Attributes.WorkStyles,
-                                   Value = workStyleGroup.Sum(x => x.data_value) / 2
-                               })
-                        .OrderBy(x => x.Value);
+                    attributes = (KnowledgeSource(socCode, context))
+                        .Union(SkillSource(socCode, context))
+                        .Union(AbilitiesSource(socCode, context))
+                        .Union(WorkStyleSource(socCode, context))
+                        .OrderByDescending(x => x.Value);
                 }).ConfigureAwait(false);
-                //    var cnt = attributes.ToList().Count;
-                //    foreach (var skl in attributes)
-                //    {
-                //        if (skl.Attribute == "Knowledge")
-                //        {
-                //            if (skl.ElementName.Contains("Mathematics"))
-                //            {
-                //                var found = true;
-                //            }
-                //            var kk = skl.Attribute;
-                //        }
-                //        if (skl.Attribute == "Skills")
-                //        {
-                //            if(skl.ElementName.Contains("Mathematics"))
-                //            {
-                //                var found = true;
-                //            }
-                //            var xx = skl.Attribute;
-                //        }
-                //    }
-                //    var re = attributes.ToList().FindAll(x =>
-                //        (x.Attribute == "Knowledge" || x.Attribute == "Skills") && (x.ElementName.Contains("Mathematics")));
-                //    foreach (var r in re)
-                //    {
-                //        var e = r.Attribute;
-                //    }
-                return (IEnumerable<T>)attributes;
-            }
+                var newAtt = CheckAndUpdateForMathematics(attributes);
+                /*  // This combination list is not used as some clarification is needed based on stored procedure
+                var combinationList = context.DFC_GDSCombinations.ToList();
+                    foreach (var cl in combinationList)
+                    {
+                        var totVal1 = (newAtt
+                            .Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.WorkStyles)
+                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5)
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Skills)
+                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Abilities)
+                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Knowledge)
+                            .OrderByDescending(z => z.Attribute).Select(x => new { val=x.Value,Att=x.Attribute}).Take(5)));
 
-            //foreach (var a in attributes.ToList())
-            //{
-            //    var x = a.ElementName;
-            //    var y = a.ElementDescription;
-            //    var z = a.Value;
-            //    var z1 = a.Attribute;
-            //}
+                        var totVal2 = newAtt
+                            .Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.WorkStyles)
+                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5)
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Skills)
+                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Abilities)
+                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
+                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Knowledge)
+                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5));
+                    }
+                    */
+                var dfcGdsAttributesDatas = DfcGdsAttributesDatas(newAtt);
+                return (IEnumerable<T>) dfcGdsAttributesDatas;
+                }
+        }
+
+        private static IQueryable<DfcGdsAttributesData> KnowledgeSource(string socCode, SkillsFrameworkDbContext context)
+        {
+            return from knwldg in context.knowledges
+                join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
+                    cmr.element_id
+                where knwldg.recommend_suppress != "Y" && knwldg.not_relevant != "Y" &&
+                      knwldg.onetsoc_code == socCode
+                group knwldg by new
+                {
+                    cmr.element_name,
+                    cmr.description,
+                    knwldg.element_id,
+                    knwldg.onetsoc_code
+                }
+                into knwldgGroup
+                select new DfcGdsAttributesData
+                {
+                    OnetSocCode = knwldgGroup.Key.onetsoc_code,
+                    ElementId = knwldgGroup.Key.element_id,
+                    ElementDescription = knwldgGroup.Key.description,
+                    ElementName = knwldgGroup.Key.element_name,
+                    Attribute = Attributes.Knowledge.ToString(),
+                    Value = knwldgGroup.Sum(v => v.data_value) / 2
+                };
+        }
+
+        private static IQueryable<DfcGdsAttributesData> WorkStyleSource(string socCode, SkillsFrameworkDbContext context)
+        {
+            return from wkstyl in context.work_styles
+                join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
+                    cmr.element_id
+                where wkstyl.recommend_suppress != "Y" && wkstyl.onetsoc_code == socCode
+                group wkstyl by new
+                {
+                    wkstyl.onetsoc_code,
+                    cmr.element_name,
+                    cmr.description,
+                    wkstyl.element_id
+                }
+                into workStyleGroup
+                select new DfcGdsAttributesData
+                {
+                    OnetSocCode = workStyleGroup.Key.onetsoc_code,
+                    ElementId = workStyleGroup.Key.element_id,
+                    ElementDescription = workStyleGroup.Key.description,
+                    ElementName = workStyleGroup.Key.element_name,
+                    Attribute = Attributes.WorkStyles,
+                    Value = workStyleGroup.Sum(x => x.data_value) / 2
+                };
+        }
+
+        private static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, SkillsFrameworkDbContext context)
+        {
+            return from ablty in context.abilities
+                join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
+                    cmr.element_id
+                where ablty.recommend_suppress != "Y" && ablty.not_relevant != "Y" &&
+                      ablty.onetsoc_code == socCode
+                group ablty by new
+                {
+                    cmr.element_name,
+                    cmr.description,
+                    ablty.element_id,
+                    ablty.onetsoc_code
+                }
+                into abilityGroup
+                select new DfcGdsAttributesData
+                {
+                    OnetSocCode = abilityGroup.Key.onetsoc_code,
+                    ElementId = abilityGroup.Key.element_id,
+                    ElementDescription = abilityGroup.Key.description,
+                    ElementName = abilityGroup.Key.element_name,
+                    Attribute = @Attributes.Abilities,
+                    Value = abilityGroup.Sum(x => x.data_value) / 2
+                };
+        }
+
+        private static IQueryable<DfcGdsAttributesData> SkillSource(string socCode, SkillsFrameworkDbContext context)
+        {
+            return from skl in context.skills
+                join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
+                    .element_id
+                where skl.recommend_suppress != "Y" && skl.not_relevant != "Y" &&
+                      skl.onetsoc_code == socCode
+                group skl by new
+                {
+                    skl.onetsoc_code,
+                    cmr.element_name,
+                    cmr.description,
+                    skl.element_id
+                }
+                into skillGroup
+                select new DfcGdsAttributesData
+                {
+                    OnetSocCode = skillGroup.Key.onetsoc_code,
+                    ElementId = skillGroup.Key.element_id,
+                    ElementDescription = skillGroup.Key.description,
+                    ElementName = skillGroup.Key.element_name,
+                    Attribute = Attributes.Skills,
+                    Value = skillGroup.Sum(x => x.data_value) / 2
+                };
+        }
+
+        private static IQueryable<DfcGdsAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcGdsAttributesData> attributes)
+        {
+            var mathsKnowledge = attributes.ToList().FindAll(x => x.ElementName == "Mathematics").ToList();
+            IQueryable<DfcGdsAttributesData> newAtt = null;
+            if (mathsKnowledge.Count > 1)
+            {
+                var mathsKnowledgeValue = attributes.ToList().FirstOrDefault(x =>
+                    x.ElementName == "Mathematics" && x.Value == mathsKnowledge.ToList().Min(x1 => x1.Value));
+
+                newAtt = attributes;
+                //Remove the Min Total Value for Mathematics from attributes Skills or Knowledge
+                var suc = attributes.ToList().RemoveAll(x => x.ElementId.All(c =>
+                    x.ElementId.Contains(attributes?.ToList()?.FirstOrDefault(x2 =>
+                            x2.ElementName == "Mathematics" && x2.Value == mathsKnowledge?.ToList()?.Min(x3 => x3.Value))
+                        ?.ElementId)));
+
+                var update = mathsKnowledge.RemoveAll(x => x.ElementId == mathsKnowledgeValue?.ElementId);
+                // Add 110% to the Total Value in the Skills or Knowledge for Mathematics
+                var val = mathsKnowledge.Select(c =>
+                {
+                    c.Value = c.Value * (decimal) 1.1;
+                    return c;
+                }).ToList();
+                //Add the Mathematics back to the Complete Attribute List
+                foreach (var k in mathsKnowledge)
+                {
+                    newAtt.ToList().RemoveAll(x => x.ElementId == k.ElementId);
+                    newAtt.ToList().AddRange(val);
+                }
+            }
+            return newAtt;
+        }
+
+        private static IList<DfcGdsAttributesData> DfcGdsAttributesDatas(IQueryable<DfcGdsAttributesData> newAtt)
+        {
+            var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Value)
+                .Where(x => x.Attribute == Attributes.WorkStyles)
+                .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                {
+                    Value = x.Value,
+                    Attribute = x.Attribute,
+                    ElementId = x.ElementId,
+                    ElementDescription = x.ElementDescription,
+                    OnetSocCode = x.OnetSocCode,
+                    SocCode = x.SocCode
+                }).Take(5)
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Skills)
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    {
+                        Value = x.Value,
+                        Attribute = x.Attribute,
+                        ElementId = x.ElementId,
+                        ElementDescription = x.ElementDescription,
+                        OnetSocCode = x.OnetSocCode,
+                        SocCode = x.SocCode
+                    }).Take(5))
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Abilities)
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    {
+                        Value = x.Value,
+                        Attribute = x.Attribute,
+                        ElementId = x.ElementId,
+                        ElementDescription = x.ElementDescription,
+                        OnetSocCode = x.OnetSocCode,
+                        SocCode = x.SocCode
+                    }).Take(5))
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Knowledge)
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    {
+                        Value = x.Value,
+                        Attribute = x.Attribute,
+                        ElementId = x.ElementId,
+                        ElementDescription = x.ElementDescription,
+                        OnetSocCode = x.OnetSocCode,
+                        SocCode = x.SocCode
+                    }).Take(5));
+            var dfcGdsAttributesDatas = elementAttribute as IList<DfcGdsAttributesData> ?? elementAttribute?.ToList();
+            return dfcGdsAttributesDatas;
         }
 
         public Task<IEnumerable<T>> GetAttributesValuesAsync<T>

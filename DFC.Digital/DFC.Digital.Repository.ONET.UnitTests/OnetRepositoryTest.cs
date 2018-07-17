@@ -29,7 +29,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         {
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new SkillsFrameworkDbContext();
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory=new ObjectContextFactory<SkillsFrameworkDbContext>();
             var mapper=A.Fake<IMapper>();
@@ -44,7 +43,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetAllSocMappings()
         {
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
             var appLogger = A.Fake<IApplicationLogger>();
             IObjectContextFactory<SkillsFrameworkDbContext> contextFactory = new ObjectContextFactory<SkillsFrameworkDbContext>();
@@ -65,7 +63,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //>0 and <50 -return 4
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
             var GetRank = 0;
             var onetCode = "11-1011.00";
@@ -84,8 +81,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 if((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) && (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
                     GetRank = 4;
 
-             
-
             }
         }
 
@@ -98,7 +93,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //>0 and <50 -return 4
 
             IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new SkillsFrameworkDbContext();
             var mapper = A.Fake<IMapper>();
             var GetRank = 0;
             var onetCode = "11-1011.00";
@@ -127,7 +121,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         {
             IMapper iMapper =
                 new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            IDbContext context = new SkillsFrameworkDbContext();
             var GetRank = 0;
             var onetCode = "11-1011.00";
             var appLogger = A.Fake<IApplicationLogger>();

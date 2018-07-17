@@ -9,30 +9,24 @@
         {
             <h3>@Model.ActionCompleted - Import Action Summary</h3>
             <p> @Html.Raw(Model.SummaryDetails)</p>
-            <br />
+            <br/>
 
             if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
             {
                 <h3>Error Details</h3>
                 <p> @Html.Raw(Model.ErrorMessages)</p>
-                <br />
+                <br/>
             }
 
-
-            if (!string.IsNullOrWhiteSpace(Model.ImportDetails))
+            foreach (var records in Model.AuditRecords.GroupBy(x => x.Key))
             {
-                <h3>Action Details</h3>
-                <p> @Html.Raw(Model.ImportDetails)</p>
-                <br />
-            }
-
-            if (!string.IsNullOrWhiteSpace(Model.OtherMessage))
-            {
-                <h3>Other Messages</h3>
-                <p> @Html.Raw(Model.OtherMessage)</p>
-                <br />
-                <br />
-                <br />
+                <h3>@records.Key</h3>
+                <ul>
+                    @foreach (var record in records)
+                    {
+                        <li>@record.Value</li>
+                    }
+                </ul>
             }
         }
     </div>

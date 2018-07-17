@@ -23,14 +23,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #region Private Members
 
         private readonly IImportOnetDataService importOnetDataService;
+        private readonly IReportAuditRepository reportAuditRepository;
 
         #endregion Private Members
 
         #region Constructors
 
-        public OnetDataImportController(IApplicationLogger applicationLogger, IImportOnetDataService importOnetDataService) : base(applicationLogger)
+        public OnetDataImportController(IApplicationLogger applicationLogger, IImportOnetDataService importOnetDataService, IReportAuditRepository reportAuditRepository) : base(applicationLogger)
         {
             this.importOnetDataService = importOnetDataService;
+            this.reportAuditRepository = reportAuditRepository;
         }
 
         #endregion Constructors
@@ -104,9 +106,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                         case "IMPORTSKILLS":
                             var result = importOnetDataService.ImportOnetSkills();
                             importResult.ActionCompleted = "Import Onet Skills";
-                            importResult.SummaryDetails = result.SummaryDetails;
-                            importResult.ErrorMessages = result.ErrorMessages;
-                            importResult.ImportDetails = result.ActionDetails;
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
@@ -148,6 +147,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 otherMessage = NotAllowedMessage;
             }
 
+            importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
             importResult.OtherMessage = otherMessage;
 
             return View("ImportResults", importResult);

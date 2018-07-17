@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IReportAuditRepository.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />

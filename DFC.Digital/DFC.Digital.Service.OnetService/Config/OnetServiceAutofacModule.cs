@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Service.OnetService.Services;
 
 namespace DFC.Digital.Service.GovUkNotify.Config
 {
@@ -13,6 +14,12 @@ namespace DFC.Digital.Service.GovUkNotify.Config
 
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+            builder.RegisterType<InMemoryReportAuditRepository>()
+                .AsImplementedInterfaces()
+                .InstancePerRequest()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

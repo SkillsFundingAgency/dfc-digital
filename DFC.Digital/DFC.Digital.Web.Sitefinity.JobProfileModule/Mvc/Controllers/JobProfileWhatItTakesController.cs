@@ -104,11 +104,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string SkillsSectionIntro { get; set; } = "You'll need:";
 
-        public bool UseONetDataCitizenFacing { get; set; } = false;
+        public bool ShouldUseSkillsFrameworkForCitizen { get; set; } = false;
 
-        public bool UseONetDataInPreview { get; set; } = false;
+        public bool ShouldUseSkillsFrameworkInPreview { get; set; } = false;
 
-        public int NumberONetSkillsToDisplay { get; set; } = 8;
+        public int NumberOfSkillsToDisplay { get; set; } = 8;
 
         #endregion Public Properties
 
@@ -158,7 +158,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             model.JobProfileWhatItTakesSkillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
-                UseONetData = (WebAppContext.IsContentPreviewMode || WebAppContext.IsContentAuthoringSite) ? UseONetDataInPreview : UseONetDataCitizenFacing,
+                UseSkillsFramework = (WebAppContext.IsContentPreviewMode || WebAppContext.IsContentAuthoringSite) ? ShouldUseSkillsFrameworkInPreview : ShouldUseSkillsFrameworkForCitizen,
                 DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
                 SkillsSectionIntro = SkillsSectionIntro,
                 PropertyValue = CurrentJobProfile.Skills,
@@ -167,9 +167,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 WhatItTakesSectionTitle = WhatItTakesSectionTitle,
             };
 
-            if (model.JobProfileWhatItTakesSkillsViewModel.UseONetData)
+            if (model.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework)
             {
-                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileSkillsRepository.GetContextualisedSkillsById(CurrentJobProfile.RelatedSkills.Take(NumberONetSkillsToDisplay));
+                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileSkillsRepository.GetContextualisedSkillsById(CurrentJobProfile.RelatedSkills.Take(NumberOfSkillsToDisplay));
             }
 
             if (model.IsWhatItTakesCadView)

@@ -209,7 +209,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData(true, false, false)]
         [InlineData(false, true, false)]
         [InlineData(false, false, false)]
-        public void IndexWithONetData(bool useONetDataCitizenFacing, bool useONetDataInPreview, bool isContentPreviewMode)
+        public void IndexWithONetData(bool shouldUseSkillsFrameworkForCitizen, bool shouldUseSkillsFrameworkInPreview, bool isContentPreviewMode)
         {
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var skillsRepositoryFake = A.Fake<IJobProfileRelatedSkillsRepository>(ops => ops.Strict());
@@ -236,9 +236,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileWhatItTakesController =
                 new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, skillsRepositoryFake);
 
-            jobProfileWhatItTakesController.UseONetDataCitizenFacing = useONetDataCitizenFacing;
-            jobProfileWhatItTakesController.UseONetDataInPreview = useONetDataInPreview;
-            jobProfileWhatItTakesController.NumberONetSkillsToDisplay = 1;
+            jobProfileWhatItTakesController.ShouldUseSkillsFrameworkForCitizen = shouldUseSkillsFrameworkForCitizen;
+            jobProfileWhatItTakesController.ShouldUseSkillsFrameworkInPreview = shouldUseSkillsFrameworkInPreview;
+            jobProfileWhatItTakesController.NumberOfSkillsToDisplay = 1;
 
             //Act
             var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index("Test"));
@@ -249,27 +249,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 {
                     if (isContentPreviewMode)
                     {
-                        if (useONetDataInPreview)
+                        if (shouldUseSkillsFrameworkInPreview)
                         {
-                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeTrue();
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework.Should().BeTrue();
                             vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
                         }
                         else
                         {
-                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeFalse();
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework.Should().BeFalse();
                             vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().BeNullOrEmpty();
                         }
                     }
                     else
                     {
-                        if (useONetDataCitizenFacing)
+                        if (shouldUseSkillsFrameworkForCitizen)
                         {
-                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeTrue();
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework.Should().BeTrue();
                             vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
                         }
                         else
                         {
-                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeFalse();
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework.Should().BeFalse();
                             vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().BeNullOrEmpty();
                         }
                     }

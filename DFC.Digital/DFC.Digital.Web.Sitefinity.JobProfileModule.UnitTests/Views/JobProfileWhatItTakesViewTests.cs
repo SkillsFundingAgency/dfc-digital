@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Dfc339IndexViewTests(bool cadReady)
+        public void Dfc3391IndexViewTests(bool cadReady)
         {
             // Arrange
             var restrictionsView = new _MVC_Views_JobProfileWhatItTakes_Index_cshtml();
@@ -83,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Dfc3361SkillsViewFlagsTests(bool useONetData)
+        public void Dfc3361SkillsViewFlagsTests(bool useSkillsFramework)
         {
             // Arrange
             int numberSkills = 5;
@@ -95,7 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 SkillsSectionIntro = "Dummy Intro",
                 WhatItTakesSkills = skillsList,
                 PropertyValue = "Non Onet Skills Text",
-                UseONetData = useONetData
+                UseSkillsFramework = useSkillsFramework
             };
 
             // Act
@@ -106,7 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             sectionTitle.InnerText.Should().BeEquivalentTo(skillsViewModel.WhatItTakesSectionTitle);
 
             //If using the Onet view
-            if (useONetData)
+            if (useSkillsFramework)
             {
                 //Non Onet skills should NOT be displayed
                 htmlDocument.DocumentNode.InnerHtml.IndexOf(skillsViewModel.PropertyValue).Should().Be(-1);
@@ -133,7 +133,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var skillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
                 WhatItTakesSkills = GetSkills(numberSkills),
-                UseONetData = true,
+                UseSkillsFramework = true,
                 DigitalSkillsLevel = "Digital skills"
             };
 

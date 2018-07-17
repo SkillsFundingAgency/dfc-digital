@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// </value>
         public string WhatItTakesSectionTitle { get; set; }
 
-        public bool UseONetData { get; set; }
+        public bool UseSkillsFramework { get; set; }
 
         public string SkillsSectionIntro { get; set; }
 

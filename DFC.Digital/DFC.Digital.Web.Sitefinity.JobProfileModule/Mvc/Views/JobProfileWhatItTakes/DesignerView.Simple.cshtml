@@ -1,57 +1,77 @@
 ﻿<ul class="sfForm">
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
-
         <label for="prop-Title">Main Section Title</label>
         <div>
             <input class="form-control" ng-model="properties.MainSectionTitle.PropertyValue" type="text" />
         </div>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
-
         <label for="prop-Title">Section Id - for anchor link href target</label>
         <div>
             <input class="form-control" ng-model="properties.SectionId.PropertyValue" type="text" />
         </div>
     </li>
-    <li class="sfFormSeparator" style="padding-bottom: 15px;">
 
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
         <h4 for="prop-Title">SKILLS AND KNOWLEDGE SETTINGS</h4>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
-
         <label for="prop-Title">What It Takes Section Title</label>
         <div>
             <input class="form-control" ng-model="properties.WhatItTakesSectionTitle.PropertyValue" type="text" />
         </div>
     </li>
-    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Introduction</label>
+        <div>
+            <input class="form-control" ng-model="properties.SkillsSectionIntro.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Number of Skills to display</label>
+        <div>
+            <input class="form-control" ng-model="properties.NumberOfSkillsToDisplay.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Use Skills Framework for citizen view</label>
+        <div>
+            <input ng-model="properties.ShouldUseSkillsFrameworkForCitizen.PropertyValue" type="checkbox" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Use Skills Framework for preview</label>
+        <div>
+            <input ng-model="properties.ShouldUseSkillsFrameworkInPreview.PropertyValue" type="checkbox" />
+        </div>
+    </li>
 
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">OLD SKILLS AND KNOWLEDGE SETTINGS</h4>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
         <label for="prop-TopSectionContent">Top Section Content - Before Job Profile Skills Content</label>
         <div>
             <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.TopSectionContent.PropertyValue"></sf-html-field>
         </div>
     </li>
-
     <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
-
         <label for="prop-BottomSectionContent">Bottom Section Content - After Job Profile Skills Content </label>
         <div>
             <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.JobProfileModule" sf-model="properties.BottomSectionContent.PropertyValue"></sf-html-field>
         </div>
     </li>
-    <li class="sfFormSeparator" style="padding-bottom: 15px;">
 
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
         <h4 for="prop-Title">RESTRICTIONS AND REQUIREMENTS SETTINGS</h4>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
-
         <label for="prop-Title">Section Title</label>
         <div>
             <input class="form-control" ng-model="properties.RestrictionsTitle.PropertyValue" type="text" />
         </div>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
-
         <label for="prop-Title">Section Intro</label>
         <div>
             <input class="form-control" ng-model="properties.RestrictionsIntro.PropertyValue" type="text" />

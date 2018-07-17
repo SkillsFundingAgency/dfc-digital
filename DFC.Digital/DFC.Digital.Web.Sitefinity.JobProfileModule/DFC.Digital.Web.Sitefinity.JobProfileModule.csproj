@@ -441,6 +441,8 @@
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.json" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkEnvironment.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\WhatItTakesSkills.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

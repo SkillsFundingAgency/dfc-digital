@@ -139,20 +139,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         protected override ActionResult GetDefaultView()
         {
-            return ReturnSectionView(UseONetDataCitizenFacing);
+            return ReturnSectionView();
         }
 
         protected override ActionResult GetEditorView()
         {
-            return ReturnSectionView(UseONetDataInPreview);
+            return ReturnSectionView();
         }
 
-        /// <summary>
-        /// Returns the section view.
-        /// </summary>
-        /// <param name="useOnetData">Control if the ONet data feed should be used to display WIT</param>
-        /// <returns>Action Result</returns>
-        private ActionResult ReturnSectionView(bool useOnetData)
+        private ActionResult ReturnSectionView()
         {
             var model = new JobProfileWhatItTakesViewModel
             {
@@ -163,7 +158,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             model.JobProfileWhatItTakesSkillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
-                UseONetData = useOnetData,
+                UseONetData = (WebAppContext.IsContentPreviewMode || WebAppContext.IsContentAuthoringSite) ? UseONetDataInPreview : UseONetDataCitizenFacing,
                 DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
                 SkillsSectionIntro = SkillsSectionIntro,
                 PropertyValue = CurrentJobProfile.Skills,

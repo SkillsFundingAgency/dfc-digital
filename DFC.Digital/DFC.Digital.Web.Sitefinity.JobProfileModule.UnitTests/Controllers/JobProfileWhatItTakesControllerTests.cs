@@ -128,7 +128,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                         vm.JobProfileWhatItTakesSkillsViewModel.BottomSectionContent.Should().BeEquivalentTo(jobProfileWhatItTakesController.BottomSectionContent);
                         vm.JobProfileWhatItTakesSkillsViewModel.DigitalSkillsLevel.Should().BeEquivalentTo(nameof(JobProfile.DigitalSkillsLevel));
-                        vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
                     })
                     .AndNoModelErrors();
             }
@@ -199,6 +198,81 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 .AndNoModelErrors();
         }
 
+        [Theory]
+        [InlineData(true, true, true)]
+        [InlineData(true, false, true)]
+        [InlineData(false, true, true)]
+        [InlineData(false, false, true)]
+        [InlineData(true, true, false)]
+        [InlineData(true, false, false)]
+        [InlineData(false, true, false)]
+        [InlineData(false, false, false)]
+        public void IndexWithONetData(bool useONetDataCitizenFacing, bool useONetDataInPreview, bool isContentPreviewMode)
+        {
+            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var skillsRepositoryFake = A.Fake<IJobProfileRelatedSkillsRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+
+            var dummyJobProfile = GetDummyJobPRofile(true);
+            dummyJobProfile.RelatedSkills = new List<string> { "DummyRelated1", "DummyRelated2" };
+
+            // Set up calls
+            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
+
+            //These two are linked you cannot be in content preview mode with out being in editor mode.
+            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentPreviewMode);
+
+            A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => skillsRepositoryFake.GetContextualisedSkillsById(A<IEnumerable<string>>._)).Returns(new List<WhatItTakesSkill> { new WhatItTakesSkill() });
+
+            //Instantiate & Act
+            var jobProfileWhatItTakesController =
+                new JobProfileWhatItTakesController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, skillsRepositoryFake);
+
+            jobProfileWhatItTakesController.UseONetDataCitizenFacing = useONetDataCitizenFacing;
+            jobProfileWhatItTakesController.UseONetDataInPreview = useONetDataInPreview;
+            jobProfileWhatItTakesController.NumberONetSkillsToDisplay = 1;
+
+            //Act
+            var indexWithUrlNameMethodCall = jobProfileWhatItTakesController.WithCallTo(c => c.Index("Test"));
+
+            indexWithUrlNameMethodCall
+                .ShouldRenderDefaultView()
+                .WithModel<JobProfileWhatItTakesViewModel>(vm =>
+                {
+                    if (isContentPreviewMode)
+                    {
+                        if (useONetDataInPreview)
+                        {
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeTrue();
+                            vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
+                        }
+                        else
+                        {
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeFalse();
+                            vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().BeNullOrEmpty();
+                        }
+                    }
+                    else
+                    {
+                        if (useONetDataCitizenFacing)
+                        {
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeTrue();
+                            vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().HaveCount(1);
+                        }
+                        else
+                        {
+                            vm.JobProfileWhatItTakesSkillsViewModel.UseONetData.Should().BeFalse();
+                            vm.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills.Should().BeNullOrEmpty();
+                        }
+                    }
+                }).AndNoModelErrors();
+        }
+
         private JobProfile GetDummyJobPRofile(bool useValidJobProfile)
         {
             return useValidJobProfile ?
@@ -213,8 +287,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        HowToBecome = nameof(JobProfile.HowToBecome),
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
-
-                   //    RelatedSkills = new List<WhatItTakesSkill> { new WhatItTakesSkill { Description = nameof(WhatItTakesSkill.Description), Contextualised = nameof(WhatItTakesSkill.Contextualised) } },
                        DigitalSkillsLevel = nameof(JobProfile.DigitalSkillsLevel),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),

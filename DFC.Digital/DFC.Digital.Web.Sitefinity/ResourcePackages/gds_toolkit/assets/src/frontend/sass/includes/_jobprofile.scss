@@ -572,6 +572,7 @@
     border-top: 3px solid $govuk-blue;
     padding: 10px 0;
     display: none;
+    z-index: 1000;
 
     p {
         margin: 0;

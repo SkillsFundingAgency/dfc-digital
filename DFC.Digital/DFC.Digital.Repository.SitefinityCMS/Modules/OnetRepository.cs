@@ -31,13 +31,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public RepoActionResult UpsertOnetSkill(OnetSkill onetSkill)
         {
-            //CodeReview: Worth abstrating this out 
+            //CodeReview: Worth abstrating this out to a get by url
             var repoSkill = onetSkillRepository.Get(item =>
                 item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
+
             if (repoSkill != null)
             {
                 var master = onetSkillRepository.GetMaster(repoSkill);
-
                 var temp = onetSkillRepository.GetTemp(master);
 
                 dynamicContentExtensions.SetFieldValue(temp, nameof(OnetSkill.Description), onetSkill.Description);
@@ -45,6 +45,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 var updatedMaster = onetSkillRepository.CheckinTemp(temp);
 
+                //CodeReview: Change it to publish
                 onetSkillRepository.Update(updatedMaster);
                 onetSkillRepository.Commit();
             }

@@ -41,6 +41,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Update(DynamicContent entity)
         {
+            //CodeReview: Change it to Update(t, comment); so that it is consistent (updated as draft)
             Publish(entity, null);
         }
 
@@ -74,6 +75,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Add(DynamicContent entity, string changeComment)
         {
+            //CodeReview: Constants please
             entity.SetValue("IncludeInSitemap", false);
             entity.SetValue("Owner", SecurityManager.GetCurrentUserId());
             entity.SetValue("PublicationDate", DateTime.UtcNow);
@@ -93,9 +95,14 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Publish(DynamicContent entity, string changeComment)
         {
+            //CodeReview: Consider audit / log transaction name as well, might be an useful instrument for prd troubleshooting.
+            //CodeReview: and also consider prepending transaction name with typeof(T).Name
             var transactionName = DateTime.Now.Ticks.ToString();
+
+            //CodeReview: Don't you need to pass the provider name as this.providerName
             var versionManager = VersionManager.GetManager(null, transactionName);
 
+            //CodeReview: Consider creating an enum for the status = Published, Draft etc.
             // You need to set appropriate workflow status
             // Now the item is published and can be seen in the page
             CreateVersion(entity, changeComment, versionManager, "Published");
@@ -179,6 +186,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, status);
 
+            //CodeReview: Will the flag isPublished always be false?
             // Create a version and commit the transaction in order changes to be persisted to data store
             var change = versionManager.CreateVersion(entity, false);
             if (changeComment != null)

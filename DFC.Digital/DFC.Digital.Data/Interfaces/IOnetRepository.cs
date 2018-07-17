@@ -10,6 +10,8 @@ namespace DFC.Digital.Data.Interfaces
 
         RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix);
 
-        IQueryable<SocSkillMatrix> GetSocSkillMatrices();
+        IEnumerable<SocSkillMatrix> GetSocSkillMatrices();
+
+        IQueryable<OnetSkill> GetOnetSkills();
     }
 }

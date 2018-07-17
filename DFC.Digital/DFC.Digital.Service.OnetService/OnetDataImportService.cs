@@ -28,9 +28,13 @@ namespace DFC.Digital.Service.OnetService
             // this will be async once integrated
             var onetSkills = onetService.GetOnetSkills();
 
+            var allOnetSkills = onetRepository.GetOnetSkills().Count();
+
             var response = new OnetSkillsImportResponse();
             var details = new StringBuilder();
-            response.SummaryDetails = $"Found {onetSkills.OnetSkillsList.Count()} onet skills to import";
+            var summaryDetails = new StringBuilder();
+            summaryDetails.AppendLine($"Found {allOnetSkills} onet skills in the repo <br />");
+            summaryDetails.AppendLine($"Found {onetSkills.OnetSkillsList.Count()} onet skills to import <br />");
 
             foreach (var onetSkill in onetSkills.OnetSkillsList)
             {
@@ -38,6 +42,7 @@ namespace DFC.Digital.Service.OnetService
                 details.AppendLine($"Added/Updated {onetSkill.Title} to repository <br /> ");
             }
 
+            response.SummaryDetails = summaryDetails.ToString();
             response.ActionDetails = details.ToString();
             response.Success = true;
             return response;
@@ -45,15 +50,18 @@ namespace DFC.Digital.Service.OnetService
 
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
-            var socCodesToUpdate = jobProfileSocCodeRepository.GetLiveSocCodes().Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode)).Take(50);
-
-            var socCodesUpdated = jobProfileSocCodeRepository.GetLiveSocCodes().Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
+            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
+            var socCodesToUpdate = allSocCodes.Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode)).Take(50);
+            var socCodesNotUpdated = allSocCodes.Count(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
+            var socCodesUpdated = allSocCodes.Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
 
             var response = new UpdateSocOccupationalCodeResponse();
             var details = new StringBuilder();
             var summaryDetails = new StringBuilder();
-            summaryDetails.AppendLine($"Found {socCodesUpdated} socs already update with occupational codes <br />");
-            summaryDetails.AppendLine($"Found {socCodesToUpdate.Count()} socs to update <br />");
+            summaryDetails.AppendLine($"Found {allSocCodes.Count} socs in the repo <br />");
+            summaryDetails.AppendLine($"Found {socCodesUpdated} socs already updated with occupational codes <br />");
+            summaryDetails.AppendLine($"Found {socCodesNotUpdated} socs not yet updated with occupational codes <br />");
+            summaryDetails.AppendLine($"Going to update {socCodesToUpdate.Count()} socs with occupational code <br />");
 
             foreach (var socCode in socCodesToUpdate)
             {
@@ -120,10 +128,15 @@ namespace DFC.Digital.Service.OnetService
             var socSkillMatrices = onetRepository.GetSocSkillMatrices();
             summaryDetails.AppendLine($"Found {socSkillMatrices.Count()} soc skill matrices in the repo  <br /> ");
 
-            var importedSocs = socSkillMatrices.Select(socSkil => socSkil.SocCode).ToList();
-              
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode) && !importedSocs.Contains(jp.SOCCode)).Take(50);
-            summaryDetails.AppendLine($"Found {jobprofilesToUpdate.Count()} jobprofiles without skill matrices in the repo, based on soc Code  <br /> ");
+            var importedSocs = socSkillMatrices.Select(socSkil => socSkil.SocCode).Distinct().ToList();
+            var allJobProfiles = jobProfileRepository.GetLiveJobProfiles().ToList();
+            var jobprofilesToUpdate = allJobProfiles.Where(jp => !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode) && !importedSocs.Contains(jp.SOCCode)).Take(50);
+            var jobprofilesWithRelatedSocs = allJobProfiles.Count(jp => !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode) && importedSocs.Contains(jp.SOCCode));
+            var jobprofilesWithoutRelatedSocs = allJobProfiles.Count(jp => !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode) && !importedSocs.Contains(jp.SOCCode));
+            summaryDetails.AppendLine($"Found {allJobProfiles.Count} jobprofiles  in the repo <br /> ");
+            summaryDetails.AppendLine($"Found {jobprofilesWithRelatedSocs} jobprofiles with skill matrices in the repo, based on soc Code  <br /> ");
+            summaryDetails.AppendLine($"Found {jobprofilesWithoutRelatedSocs} jobprofiles without skill matrices in the repo, based on soc Code  <br /> ");
+            summaryDetails.AppendLine($"Going to  use {jobprofilesToUpdate.Count()} jobprofiles to add soc skill matrices in the repo, based on soc Code  <br /> ");
 
             foreach (var jobProfile in jobprofilesToUpdate)
             {
@@ -159,10 +172,14 @@ namespace DFC.Digital.Service.OnetService
             var response = new UpdateJpSocSkillMatrixResponse();
             var details = new StringBuilder();
             var summaryDetails = new StringBuilder();
-            var jobprofilesToUpdate = jobProfileRepository.GetLiveJobProfiles().Where(jp => !jp.HasRelatedSocSkillMatrices).Take(50);
-            var jobprofilesWithSkills = jobProfileRepository.GetLiveJobProfiles().Count(jp => jp.HasRelatedSocSkillMatrices);
-            summaryDetails.AppendLine($"Found {jobprofilesToUpdate.Count()} jobprofiles without related skill matrices in the repo  <br /> ");
+            var allJobProfiles = jobProfileRepository.GetLiveJobProfiles().ToList();
+            var jobprofilesToUpdate = allJobProfiles.Where(jp => !jp.HasRelatedSocSkillMatrices).Take(50);
+            var jobprofilesWithSkills = allJobProfiles.Count(jp => jp.HasRelatedSocSkillMatrices);
+            var jobprofilesWithoutSkills = allJobProfiles.Count(jp => !jp.HasRelatedSocSkillMatrices);
+            summaryDetails.AppendLine($"Found {allJobProfiles.Count} jobprofiles  in the repo <br /> ");
+            summaryDetails.AppendLine($"Found {jobprofilesWithoutSkills} jobprofiles without related skill matrices in the repo  <br /> ");
             summaryDetails.AppendLine($"Found {jobprofilesWithSkills} jobprofiles with related skill matrices in the repo  <br /> ");
+            summaryDetails.AppendLine($"Going to update {jobprofilesToUpdate.Count()} jobprofiles with related skill matrices in the repo  <br /> ");
 
             foreach (var jobProfile in jobprofilesToUpdate)
             {

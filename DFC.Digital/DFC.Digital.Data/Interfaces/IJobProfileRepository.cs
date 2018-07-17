@@ -17,7 +17,7 @@ namespace DFC.Digital.Data.Interfaces
 
         JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
 
-        IQueryable<JobProfile> GetLiveJobProfiles();
+        IEnumerable<JobProfile> GetLiveJobProfiles();
 
         RepoActionResult UpdateDigitalSkill(JobProfile jobProfile);
 

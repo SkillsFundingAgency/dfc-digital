@@ -71,16 +71,16 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public IQueryable<JobProfile> GetLiveJobProfiles()
+        public IEnumerable<JobProfile> GetLiveJobProfiles()
         {
             var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible == true).ToList();
 
             if (jobProfiles.Any())
             {
-                return jobProfiles.Select(item => converter.ConvertFrom(item)).AsQueryable();
+                return jobProfiles.Select(item => converter.ConvertFrom(item));
             }
 
-            return Enumerable.Empty<JobProfile>().AsQueryable();
+            return Enumerable.Empty<JobProfile>();
         }
 
         public RepoActionResult UpdateDigitalSkill(JobProfile jobProfile)

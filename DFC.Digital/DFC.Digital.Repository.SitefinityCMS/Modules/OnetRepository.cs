@@ -17,14 +17,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
+        private readonly IDynamicModuleConverter<OnetSkill> onetskillConverter;
 
-        public OnetRepository(IDynamicModuleRepository<OnetSkill> onetSkillRepository, IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocCode> socCodeRepository, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
+        public OnetRepository(IDynamicModuleRepository<OnetSkill> onetSkillRepository, IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocCode> socCodeRepository, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<OnetSkill> onetskillConverter)
         {
             this.onetSkillRepository = onetSkillRepository;
             this.socMatrixRepository = socMatrixRepository;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeRepository = socCodeRepository;
             this.socSkillConverter = socSkillConverter;
+            this.onetskillConverter = onetskillConverter;
         }
 
         public RepoActionResult UpsertOnetSkill(OnetSkill onetSkill)
@@ -143,16 +145,28 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             };
         }
 
-        public IQueryable<SocSkillMatrix> GetSocSkillMatrices()
+        public IEnumerable<SocSkillMatrix> GetSocSkillMatrices()
         {
-            var socSkillMatrices = socMatrixRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
+            var socSkillMatrices = socMatrixRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live).ToList();
 
             if (socSkillMatrices.Any())
             {
                 return socSkillMatrices.Select(item => socSkillConverter.ConvertFrom(item));
             }
 
-            return Enumerable.Empty<SocSkillMatrix>().AsQueryable();
+            return Enumerable.Empty<SocSkillMatrix>();
+        }
+
+        public IQueryable<OnetSkill> GetOnetSkills()
+        {
+            var socSkillMatrices = onetSkillRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
+
+            if (socSkillMatrices.Any())
+            {
+                return socSkillMatrices.Select(item => onetskillConverter.ConvertFrom(item));
+            }
+
+            return Enumerable.Empty<OnetSkill>().AsQueryable();
         }
     }
 }

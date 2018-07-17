@@ -103,35 +103,35 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     {
                         case "IMPORTSKILLS":
                             var result = importOnetDataService.ImportOnetSkills();
-                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.ActionCompleted = "Import Onet Skills";
                             importResult.SummaryDetails = result.SummaryDetails;
                             importResult.ErrorMessages = result.ErrorMessages;
                             importResult.ImportDetails = result.ActionDetails;
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
-                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
                             importResult.SummaryDetails = updateResult.SummaryDetails;
                             importResult.ErrorMessages = updateResult.ErrorMessages;
                             importResult.ImportDetails = updateResult.ActionDetails;
                             break;
                         case "UPDATEJPDIGITALSKILLS":
                           var updatejpDigiResult = importOnetDataService.UpdateJobProfilesDigitalSkills();
-                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
                             importResult.SummaryDetails = updatejpDigiResult.SummaryDetails;
                             importResult.ErrorMessages = updatejpDigiResult.ErrorMessages;
                             importResult.ImportDetails = updatejpDigiResult.ActionDetails;
                             break;
                         case "BUILDSOCMATRIX":
                             var buildsocResult = importOnetDataService.BuildSocMatrixData();
-                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.ActionCompleted = "Build Soc Skill Matrix";
                             importResult.SummaryDetails = buildsocResult.SummaryDetails;
                             importResult.ErrorMessages = buildsocResult.ErrorMessages;
                             importResult.ImportDetails = buildsocResult.ActionDetails;
                             break;
                         case "UPDATEJPSKILLS":
                             var upjpsocResult = importOnetDataService.UpdateJpSocSkillMatrix();
-                            importResult.ActionCompleted = importMode.ToUpperInvariant().Trim();
+                            importResult.ActionCompleted = "Update Job Profiles with related Soc sklii Matrices";
                             importResult.SummaryDetails = upjpsocResult.SummaryDetails;
                             importResult.ErrorMessages = upjpsocResult.ErrorMessages;
                             importResult.ImportDetails = upjpsocResult.ActionDetails;

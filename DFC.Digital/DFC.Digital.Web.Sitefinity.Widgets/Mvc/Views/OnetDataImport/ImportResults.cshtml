@@ -7,6 +7,39 @@
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
         {
+            <h3>@Model.ActionCompleted - Import Action Summary</h3>
+            <p> @Html.Raw(Model.SummaryDetails)</p>
+            <br />
+
+            if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
+            {
+                <h3>Error Details</h3>
+                <p> @Html.Raw(Model.ErrorMessages)</p>
+                <br />
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(Model.ImportDetails))
+            {
+                <h3>Action Details</h3>
+                <p> @Html.Raw(Model.ImportDetails)</p>
+                <br />
+            }
+
+            if (!string.IsNullOrWhiteSpace(Model.OtherMessage))
+            {
+                <h3>Other Messages</h3>
+                <p> @Html.Raw(Model.OtherMessage)</p>
+                <br />
+                <br />
+                <br />
+            }
+        }
+    </div>
+    
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {
             <p>@Html.Raw(Model.FirstParagraph)</p>
             <br />
             using (Html.BeginForm("", "OnetDataImport", FormMethod.Post))
@@ -25,30 +58,6 @@
         else
         {
             <p>@Model.NotAllowedMessage</p>
-        }
-    </div>
-    <div id="workArea" class="sfWorkArea">
-        @if (Model.IsAdmin)
-        {
-            <h4>@Model.ActionCompleted - Import Action Summary</h4>
-            <p> @Html.Raw(Model.SummaryDetails)</p>
-            <br />
-
-            if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
-            {
-                <h4>Error Details</h4>
-                <p> @Html.Raw(Model.ErrorMessages)</p>
-                <br />
-            }
-
-
-            <h4>Action Details</h4>
-            <p> @Html.Raw(Model.ImportDetails)</p>
-            <br />
-
-            <h4>Other Messages</h4>
-            <p> @Html.Raw(Model.OtherMessage)</p>
-            <br />
         }
     </div>
 </div>

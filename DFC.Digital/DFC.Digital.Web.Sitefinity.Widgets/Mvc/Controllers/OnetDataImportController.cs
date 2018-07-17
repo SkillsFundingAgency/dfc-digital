@@ -156,6 +156,8 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #endregion Actions
 
         #region Non Action Methods
+
+        //CodeReview: This should be in ISitefinityContext to enable us unit test the controller.
         private static bool IsUserAdministrator()
         {
             var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();

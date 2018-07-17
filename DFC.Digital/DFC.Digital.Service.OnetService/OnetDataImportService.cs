@@ -19,7 +19,10 @@ namespace DFC.Digital.Service.OnetService
 
         public OnetDataImportService(IOnetService onetService, IOnetRepository onetRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IJobProfileRepository jobProfileRepository, IReportAuditRepository reportAuditRepository)
         {
+            //CodeReview: Please do not use ONET anywhere other than the actual repo by dinesh to pull the data out of onet.db
             this.onetService = onetService;
+            
+            //CodeReview: Please re-name this to sitefinity content type specific repo.
             this.onetRepository = onetRepository;
             this.jobProfileSocCodeRepository = jobProfileSocCodeRepository;
             this.jobProfileRepository = jobProfileRepository;

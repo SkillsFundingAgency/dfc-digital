@@ -16,22 +16,24 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
     /// Custom Widget for Admin Panel
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "OnetDataImport", Title = "Onet Data Import Widget", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
-    public class OnetDataImportController : BaseDfcController
+    [ControllerToolboxItem(Name = "SkillsFrameworkImport", Title = "Skills Framework Data Import Widget", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
+    public class SkillsFrameworkDataImportController : BaseDfcController
     {
         #region Private Members
 
         private readonly IImportSkillsFrameworkDataService importOnetDataService;
         private readonly IReportAuditRepository reportAuditRepository;
+        private readonly IWebAppContext webAppContext;
 
         #endregion Private Members
 
         #region Constructors
 
-        public OnetDataImportController(IApplicationLogger applicationLogger, IImportSkillsFrameworkDataService importOnetDataService, IReportAuditRepository reportAuditRepository) : base(applicationLogger)
+        public SkillsFrameworkDataImportController(IApplicationLogger applicationLogger, IImportSkillsFrameworkDataService importOnetDataService, IReportAuditRepository reportAuditRepository, IWebAppContext webAppContext) : base(applicationLogger)
         {
             this.importOnetDataService = importOnetDataService;
             this.reportAuditRepository = reportAuditRepository;
+            this.webAppContext = webAppContext;
         }
 
         #endregion Constructors
@@ -72,12 +74,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         // GET: AdminPanel
         public ActionResult Index()
         {
-            var model = new OnetDataImportViewModel
+            var model = new SkillsFrameworkImportViewModel
             {
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = IsUserAdministrator()
+                IsAdmin = webAppContext.IsUserAdministrator
             };
 
             return View(model);
@@ -86,45 +88,41 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         [HttpPost]
         public ActionResult Index(string importMode)
         {
-            var importResult = new OnetImportResultsViewModel
+            var importResult = new SkillsFrameworkResultsViewModel
             {
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = IsUserAdministrator()
+                IsAdmin = webAppContext.IsUserAdministrator
             };
 
             var otherMessage = string.Empty;
 
-            if (IsUserAdministrator())
+            if (webAppContext.IsUserAdministrator)
             {
                 try
                 {
                     switch (importMode?.ToUpperInvariant().Trim())
                     {
                         case "IMPORTSKILLS":
-                            var result = importOnetDataService.ImportOnetSkills();
+                            importOnetDataService.ImportOnetSkills();
                             importResult.ActionCompleted = "Import Onet Skills";
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
-                            var updateResult = importOnetDataService.UpdateSocCodesOccupationalCode();
+                            importOnetDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
-                            importResult.ErrorMessages = updateResult.ErrorMessages;
                             break;
                         case "UPDATEJPDIGITALSKILLS":
-                          var updatejpDigiResult = importOnetDataService.UpdateJobProfilesDigitalSkills();
+                            importOnetDataService.UpdateJobProfilesDigitalSkills();
                             importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
-                            importResult.ErrorMessages = updatejpDigiResult.ErrorMessages;
                             break;
                         case "BUILDSOCMATRIX":
-                            var buildsocResult = importOnetDataService.BuildSocMatrixData();
+                            importOnetDataService.BuildSocMatrixData();
                             importResult.ActionCompleted = "Build Soc Skill Matrix";
-                            importResult.ErrorMessages = buildsocResult.ErrorMessages;
                             break;
                         case "UPDATEJPSKILLS":
-                            var upjpsocResult = importOnetDataService.UpdateJpSocSkillMatrix();
+                            importOnetDataService.UpdateJpSocSkillMatrix();
                             importResult.ActionCompleted = "Update Job Profiles with related Soc sklii Matrices";
-                            importResult.ErrorMessages = upjpsocResult.ErrorMessages;
                             break;
                     }
                    }
@@ -145,16 +143,5 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         }
 
         #endregion Actions
-
-        #region Non Action Methods
-
-        //CodeReview: This should be in ISitefinityContext to enable us unit test the controller.
-        private static bool IsUserAdministrator()
-        {
-            var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();
-            return userAdminRole != null ? true : false;
-        }
-
-        #endregion Non Action Methods
     }
 }

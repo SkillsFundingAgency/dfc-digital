@@ -1253,6 +1253,10 @@
       <Project>{2161f904-4d97-4685-8c9f-05c6f4d0dd74}</Project>
       <Name>DFC.Digital.Web.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.CmsExtensions\DFC.Digital.Web.Sitefinity.CmsExtensions.csproj">
+      <Project>{bcef086e-575b-4bbb-9b84-291d50d66b71}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.CmsExtensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
       <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>

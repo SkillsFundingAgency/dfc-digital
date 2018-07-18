@@ -2,14 +2,8 @@
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models
 {
-    public class OnetImportResultsViewModel : OnetDataImportViewModel
+    public class SkillsFrameworkResultsViewModel : SkillsFrameworkImportViewModel
     {
-        public string SummaryDetails { get; set; }
-
-        public string ErrorMessages { get; set; }
-
-        public string ImportDetails { get; set; }
-
         public string ActionCompleted { get; set; }
 
         public string OtherMessage { get; set; }

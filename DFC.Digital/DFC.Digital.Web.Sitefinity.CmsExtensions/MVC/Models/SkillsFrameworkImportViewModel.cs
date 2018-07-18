@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models
 {
-    public class OnetDataImportViewModel
+    public class SkillsFrameworkImportViewModel
     {
         public string PageTitle { get; set; }
 

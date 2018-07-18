@@ -30,12 +30,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 var temp = onetSkillRepository.GetTemp(master);
 
                 dynamicContentExtensions.SetFieldValue(temp, nameof(FrameworkSkill.Description), onetSkill.Description);
-                dynamicContentExtensions.SetFieldValue(temp, nameof(FrameworkSkill.OnetElementId), onetSkill.OnetElementId);
+                dynamicContentExtensions.SetFieldValue(temp, nameof(FrameworkSkill.ONetElementId), onetSkill.ONetElementId);
 
                 var updatedMaster = onetSkillRepository.CheckinTemp(temp);
-
-                //CodeReview: Change it to publish
-                onetSkillRepository.Update(updatedMaster);
+                onetSkillRepository.Publish(updatedMaster, "Updated via Framework Skills Repo");
                 onetSkillRepository.Commit();
             }
             else
@@ -45,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.Title), onetSkill.Title);
                 dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.Description), onetSkill.Description);
-                dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.OnetElementId), onetSkill.OnetElementId);
+                dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.ONetElementId), onetSkill.ONetElementId);
 
                 onetSkillRepository.Add(newRepoSkill);
                 onetSkillRepository.Commit();

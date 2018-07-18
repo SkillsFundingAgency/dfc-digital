@@ -244,6 +244,7 @@
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
+    <Compile Include="Base\WorkflowStatus.cs" />
     <Compile Include="Modules\SocSkillMatrixRepository.cs" />
     <Compile Include="Modules\OnetSkillConverter.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverter.cs" />

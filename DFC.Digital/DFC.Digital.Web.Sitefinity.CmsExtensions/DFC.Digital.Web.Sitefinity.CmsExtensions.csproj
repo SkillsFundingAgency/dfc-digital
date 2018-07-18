@@ -391,9 +391,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CmsExtensionsAutofacModule.cs" />
-    <Compile Include="MVC\Controllers\OnetDataImportController.cs" />
-    <Compile Include="MVC\Models\OnetDataImportViewModel.cs" />
-    <Compile Include="MVC\Models\OnetImportResultsViewModel.cs" />
+    <Compile Include="MVC\Controllers\SkillsFrameworkDataImportController.cs" />
+    <Compile Include="MVC\Models\SkillsFrameworkImportViewModel.cs" />
+    <Compile Include="MVC\Models\SkillsFrameworkResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -407,8 +407,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenAccessNuGet.targets" />
-    <Content Include="MVC\Views\OnetDataImport\ImportResults.cshtml" />
-    <Content Include="MVC\Views\OnetDataImport\Index.cshtml" />
+    <Content Include="MVC\Views\SkillsFrameworkDataImport\ImportResults.cshtml" />
+    <Content Include="MVC\Views\SkillsFrameworkDataImport\Index.cshtml" />
+    <Content Include="MVC\Views\Web.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

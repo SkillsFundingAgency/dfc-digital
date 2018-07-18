@@ -7,9 +7,9 @@ namespace DFC.Digital.Service.OnetService.Services.Contracts
     {
         FrameworkSkillsImportRequest GetOnetSkills();
 
-        string GetSocOccupationalCode(string socCode);
+        IDictionary<string, string> GetSocOccupationalCodeMappings();
 
-        string GetDigitalSkillLevel(string onetOccupationalCode);
+        int GetDigitalSkillLevel(string onetOccupationalCode);
 
         IEnumerable<OccupationOnetSkill> GetOccupationalCodeSkills(string onetOccupationalCode);
     }

@@ -1,18 +1,21 @@
-﻿using System;
+﻿using DFC.Digital.Data.Interfaces;
+using System;
 using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Data.Model
 {
-    public class FrameworkSkill
+    public class FrameworkSkill : IDigitalDataModel
     {
+        private const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+
         public Guid Id { get; set; }
 
         public string Title { get; set; }
 
-        public string OnetElementId { get; set; }
+        public string ONetElementId { get; set; }
 
         public string Description { get; set; }
 
-        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), @"[^\w\-\!\$\'\(\)\=\@\d_]+", "-");
+        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
     }
 }

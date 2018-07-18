@@ -1,4 +1,4 @@
-﻿@model DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models.OnetImportResultsViewModel
+﻿@model DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models.SkillsFrameworkResultsViewModel
 <div>
     <h1 class="sfBreadCrumb">
         @Html.Raw(Model.PageTitle)
@@ -7,16 +7,7 @@
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
         {
-            <h3>@Model.ActionCompleted - Import Action Summary</h3>
-            <p> @Html.Raw(Model.SummaryDetails)</p>
-            <br/>
-
-            if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
-            {
-                <h3>Error Details</h3>
-                <p> @Html.Raw(Model.ErrorMessages)</p>
-                <br/>
-            }
+            <h2>@Model.ActionCompleted - Import Action Summary</h2>
 
             foreach (var records in Model.AuditRecords)
             {
@@ -36,7 +27,7 @@
         {
             <p>@Html.Raw(Model.FirstParagraph)</p>
             <br />
-            using (Html.BeginForm("", "OnetDataImport", FormMethod.Post))
+            using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
             {
                 <select name="importmode">
                     <option value="importskills">Import Onet Skills</option>

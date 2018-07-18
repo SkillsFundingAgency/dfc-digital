@@ -19,8 +19,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.Description)),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.Title)),
-                OnetElementId =
-                    dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.OnetElementId))
+                ONetElementId =
+                    dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(FrameworkSkill.ONetElementId))
             };
         }
     }

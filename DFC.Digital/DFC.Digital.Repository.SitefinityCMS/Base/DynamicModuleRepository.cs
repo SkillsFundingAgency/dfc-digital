@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Repository.SitefinityCMS.Base;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity;
@@ -16,18 +18,23 @@ namespace DFC.Digital.Repository.SitefinityCMS
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public sealed class DynamicModuleRepository<T> : IDynamicModuleRepository<T>, IDisposable
     {
+        private const string IncludeInSitemapFieldName = "IncludeInSitemap";
+        private const string OwnerFieldName = "Owner";
+        private const string PublicationDateFieldName = "PublicationDate";
+        private readonly IApplicationLogger applicationLogger;
+
         private DynamicModuleManager dynamicModuleManager;
 
         private Type dynamicModuleContentType;
 
         private string providerName;
 
-        #region NotImplemented
-
-        public void Add(DynamicContent entity)
+        public DynamicModuleRepository(IApplicationLogger applicationLogger)
         {
-            Add(entity, null);
+            this.applicationLogger = applicationLogger;
         }
+
+        #region NotImplemented
 
         public void Delete(DynamicContent entity)
         {
@@ -39,15 +46,19 @@ namespace DFC.Digital.Repository.SitefinityCMS
             throw new NotImplementedException();
         }
 
-        public void Update(DynamicContent entity)
-        {
-            //CodeReview: Change it to Update(t, comment); so that it is consistent (updated as draft)
-            Publish(entity, null);
-        }
-
         #endregion NotImplemented
 
         #region IRepository implementations
+
+        public void Add(DynamicContent entity)
+        {
+            Add(entity, null);
+        }
+
+        public void Update(DynamicContent entity)
+        {
+            Update(entity, null);
+        }
 
         public void Initialise(string contentType, string dynamicModuleName)
         {
@@ -75,19 +86,20 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Add(DynamicContent entity, string changeComment)
         {
-            //CodeReview: Constants please
-            entity.SetValue("IncludeInSitemap", false);
-            entity.SetValue("Owner", SecurityManager.GetCurrentUserId());
-            entity.SetValue("PublicationDate", DateTime.UtcNow);
+            entity.SetValue(IncludeInSitemapFieldName, false);
+            entity.SetValue(OwnerFieldName, SecurityManager.GetCurrentUserId());
+            entity.SetValue(PublicationDateFieldName, DateTime.UtcNow);
             Publish(entity, changeComment);
         }
 
         public void Update(DynamicContent entity, string changeComment)
         {
             // Set a transaction name and get the version manager
-            var transactionName = DateTime.Now.Ticks.ToString();
+            var transactionName = $"{entity.GetType().Name}-DateTime.Now.Ticks.ToString()";
+
+            applicationLogger.Info($"Updating entity with transaction name {transactionName} for {entity.UrlName}");
             var versionManager = VersionManager.GetManager(null, transactionName);
-            CreateVersion(entity, changeComment, versionManager, "Draft");
+            CreateVersion(entity, changeComment, versionManager, WorkflowStatus.Draft);
 
             // Commit the transaction in order for the items to be actually persisted to data store
             TransactionManager.CommitTransaction(transactionName);
@@ -96,16 +108,15 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public void Publish(DynamicContent entity, string changeComment)
         {
             //CodeReview: Consider audit / log transaction name as well, might be an useful instrument for prd troubleshooting.
-            //CodeReview: and also consider prepending transaction name with typeof(T).Name
-            var transactionName = DateTime.Now.Ticks.ToString();
+            var transactionName = $"{entity.GetType().Name}-DateTime.Now.Ticks.ToString()";
 
-            //CodeReview: Don't you need to pass the provider name as this.providerName
+            applicationLogger.Info($"Publishing entity with transaction name {transactionName} for {entity.UrlName}");
+
             var versionManager = VersionManager.GetManager(null, transactionName);
 
-            //CodeReview: Consider creating an enum for the status = Published, Draft etc.
             // You need to set appropriate workflow status
             // Now the item is published and can be seen in the page
-            CreateVersion(entity, changeComment, versionManager, "Published");
+            CreateVersion(entity, changeComment, versionManager, WorkflowStatus.Published);
 
             // We can now call the following to publish the item
             dynamicModuleManager.Lifecycle.Publish(entity);
@@ -182,9 +193,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
             }
         }
 
-        private void CreateVersion(DynamicContent entity, string changeComment, VersionManager versionManager, string status)
+        private void CreateVersion(DynamicContent entity, string changeComment, VersionManager versionManager, WorkflowStatus status)
         {
-            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, status);
+            entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, status.ToString());
 
             //CodeReview: Will the flag isPublished always be false?
             // Create a version and commit the transaction in order changes to be persisted to data store

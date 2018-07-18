@@ -1,30 +1,29 @@
-﻿using System;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET;
+using DFC.Digital.Service.SkillsFramework.Interface;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.Digital.Service.SkillsFramework.Interface;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.ONET.Interface;
-using DFC.Digital.Core;
 
 namespace DFC.Digital.Service.SkillsFramework
 {
-    using Repository.ONET;
-    using SkillsFramework = Data.Model.SkillsFramework;
-
-    public class SkillsFrameworkEngine:IBusinessRuleEngine
+    public class SkillsFrameworkEngine : IBusinessRuleEngine
     {
+        //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
         private readonly IOnetSkillsFramework _repository;
         private readonly IApplicationLogger _logger;
 
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(IOnetSkillsFramework repository, IApplicationLogger logger )
+        public SkillsFrameworkEngine(IOnetSkillsFramework repository, IApplicationLogger logger)
         {
             _repository = repository;
             _logger = logger;
         }
 
         #region Implementation of IBusinessRuleEngine
+
         public async Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync()
         {
             try
@@ -33,18 +32,18 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-               _logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}",e);
+                _logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}", e);
                 throw;
             }
         }
 
-        public  async Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync()
+        public async Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync()
         {
             try
             {
-              return await  _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+                return await _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error($"GetAllTranslationsAsync :{e.Message}", e);
                 throw;
@@ -57,14 +56,14 @@ namespace DFC.Digital.Service.SkillsFramework
             {
                 return await _repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error($"GetAllDigitalSkillsAsync :{e.Message}", e);
                 throw;
             }
         }
 
-        public async  Task<int> GetDigitalSkillRankAsync(string onetSocCode)
+        public async Task<int> GetDigitalSkillRankAsync(string onetSocCode)
         {
             var returnDigitalRank = 0;
             try
@@ -87,7 +86,7 @@ namespace DFC.Digital.Service.SkillsFramework
                 _logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
                 throw;
             }
-                return returnDigitalRank;
+            return returnDigitalRank;
         }
 
         public async Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)
@@ -96,13 +95,13 @@ namespace DFC.Digital.Service.SkillsFramework
             {
                 return await _repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error($"GetBusinessRuleAttributesAsync :{e.Message}", e);
                 throw;
             }
         }
 
-        #endregion
+        #endregion Implementation of IBusinessRuleEngine
     }
 }

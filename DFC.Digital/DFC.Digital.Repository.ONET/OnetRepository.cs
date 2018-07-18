@@ -78,42 +78,10 @@ namespace DFC.Digital.Repository.ONET
                         .OrderByDescending(x => x.Value);
                 }).ConfigureAwait(false);
                 var updatedAttributes = CheckAndUpdateForMathematics(attributes);
-                /*  // This combination list is not used as some clarification is needed based on stored procedure
-                var combinationList = context.DFC_GDSCombinations.ToList();
-                    foreach (var cl in combinationList)
-                    {
-                        var totVal1 = (newAtt
-                            .Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.WorkStyles)
-                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5)
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Skills)
-                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Abilities)
-                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_one_id && x.Attribute == Attributes.Knowledge)
-                            .OrderByDescending(z => z.Attribute).Select(x => new { val=x.Value,Att=x.Attribute}).Take(5)));
-
-                        var totVal2 = newAtt
-                            .Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.WorkStyles)
-                            .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5)
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Skills)
-                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Abilities)
-                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5))
-                            .Union(newAtt.Where(x => x.ElementId == cl.onet_element_two_id && x.Attribute == Attributes.Knowledge)
-                                .OrderByDescending(z => z.Attribute).Select(x => new { val = x.Value, Att = x.Attribute }).Take(5));
-                    }
-                    */
                 var dfcGdsAttributesDatas = DfcGdsUpdatedAttributesDatas(updatedAttributes);
                 return (IEnumerable<T>)dfcGdsAttributesDatas;
             }
         }
-
-        public Task<IEnumerable<T>> GetAttributesValuesAsync<T>
-            (Expression<Func<T, bool>> predicate) where T : DfcGdsOnetEntity
-        {
-            return null;
-        }
-        
         public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity
         {
             IQueryable<DfcGdsToolsAndTechnology> dfcToolsandTech = null;

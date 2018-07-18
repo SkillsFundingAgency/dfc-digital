@@ -14,6 +14,5 @@ namespace DFC.Digital.Repository.ONET
         Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode);
         Task<T> GetDigitalSkillsRankAsync<T>(string socCode) where T : struct;
         Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity;
-        Task<IEnumerable<T>> GetAttributesValuesAsync<T>(Expression<Func<T,bool>> predicate) where T : DfcGdsOnetEntity;
-    }
+      }
 }

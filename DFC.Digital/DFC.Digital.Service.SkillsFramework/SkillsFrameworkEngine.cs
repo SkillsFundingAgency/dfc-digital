@@ -24,12 +24,6 @@ namespace DFC.Digital.Service.SkillsFramework
         }
 
         #region Implementation of IBusinessRuleEngine
-        [Obsolete]
-        public Task<SkillsFramework> GetSkillsFrameworkForAsync(string socCode)
-        {
-            return null;
-        }
-
         public async Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync()
         {
             try
@@ -71,15 +65,28 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public async  Task<int> GetDigitalSkillRankAsync(string onetSocCode)
         {
+            var returnDigitalRank = 0;
             try
             {
-                return await _repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
+                var rankResult = await _repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
+                if (rankResult > Convert.ToInt32(RangeChecker.FirstRange))
+                    returnDigitalRank = 1;
+                else if ((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) &&
+                    (rankResult < Convert.ToInt32(RangeChecker.FirstRange)))
+                    returnDigitalRank = 2;
+                else if ((rankResult > Convert.ToInt32(RangeChecker.ThirdRange)) &&
+                    (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
+                    returnDigitalRank = 3;
+                else if ((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) &&
+                    (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
+                    returnDigitalRank = 4;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
                 throw;
             }
+                return returnDigitalRank;
         }
 
         public async Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)

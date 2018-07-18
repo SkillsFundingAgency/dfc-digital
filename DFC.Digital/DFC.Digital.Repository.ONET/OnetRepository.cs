@@ -162,15 +162,6 @@ namespace DFC.Digital.Repository.ONET
 
         #region SkillsFramework Repository Implemetation
 
-        public IQueryable<DFC_GDSTranlations> GetMany(Expression<Func<DFC_GDSTranlations, bool>> where)
-        {
-            using(var context = _context.GetContext())
-            {
-                var result = context.Set<SkillsFramework>().AsQueryable().ProjectTo<DFC_GDSTranlations>(where);
-                return (IQueryable<DFC_GDSTranlations>)_mapper.Map<DFC_GDSTranlations>(result);
-            }
-        }
-
         private static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from ablty in context.abilities

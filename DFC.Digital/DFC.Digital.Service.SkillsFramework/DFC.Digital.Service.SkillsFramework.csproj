@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Config\SkillsFrameworkEngineAutofacModule.cs" />
     <Compile Include="Interface\IBusinessRuleEngine.cs" />
+    <Compile Include="RangeChecker.cs" />
     <Compile Include="SkillsFrameworkEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,10 +8,7 @@
 
     public interface IBusinessRuleEngine
     {
-        [Obsolete]
-        Task<SkillsFramework> GetSkillsFrameworkForAsync(string socCode);
-
-        Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync();
+       Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync();
         Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync();
         Task<DfcGdsDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode);
         Task<int> GetDigitalSkillRankAsync(string onetSocCode);

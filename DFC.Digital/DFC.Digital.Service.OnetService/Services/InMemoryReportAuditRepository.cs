@@ -7,14 +7,36 @@ namespace DFC.Digital.Service.OnetService.Services
 {
     public class InMemoryReportAuditRepository : IReportAuditRepository
     {
-        private List<KeyValuePair<string, object>> auditRecords = new List<KeyValuePair<string, object>>();
+        private Dictionary<string, IList<string>> auditRecords = new Dictionary<string, IList<string>>();
 
-        public void CreateAudit(KeyValuePair<string, object> auditItem)
+        public void CreateAudit(string category, string auditItem)
         {
-            auditRecords.Add(auditItem);
+            if (auditRecords.ContainsKey(category))
+            {
+                auditRecords[category].Add(auditItem);
+            }
+            else
+            {
+                auditRecords.Add(category, new List<string> { auditItem });
+            }
         }
 
-        public IEnumerable<KeyValuePair<string, object>> GetAllAuditRecords()
+        public IEnumerable<string> GetAllAuditRecordsByCategory(string category)
+        {
+            if (auditRecords.ContainsKey(category))
+            {
+                return auditRecords[category];
+            }
+
+            return default;
+        }
+
+        public IEnumerable<string> GetAllAuditRecordsCategories()
+        {
+            return auditRecords.Keys;
+        }
+
+        public IDictionary<string, IList<string>> GetAllAuditRecords()
         {
             return auditRecords;
         }

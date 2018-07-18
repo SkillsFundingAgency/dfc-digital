@@ -1,36 +1,8 @@
-﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.OnetImportResultsViewModel
+﻿@model DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models.OnetDataImportViewModel
 <div>
     <h1 class="sfBreadCrumb">
         @Html.Raw(Model.PageTitle)
     </h1>
-    
-    <div id="workArea" class="sfWorkArea">
-        @if (Model.IsAdmin)
-        {
-            <h3>@Model.ActionCompleted - Import Action Summary</h3>
-            <p> @Html.Raw(Model.SummaryDetails)</p>
-            <br/>
-
-            if (!string.IsNullOrWhiteSpace(Model.ErrorMessages))
-            {
-                <h3>Error Details</h3>
-                <p> @Html.Raw(Model.ErrorMessages)</p>
-                <br/>
-            }
-
-            foreach (var records in Model.AuditRecords.GroupBy(x => x.Key))
-            {
-                <h3>@records.Key</h3>
-                <ul>
-                    @foreach (var record in records)
-                    {
-                        <li>@record.Value</li>
-                    }
-                </ul>
-            }
-        }
-    </div>
-    
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
         {

@@ -4,8 +4,12 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IReportAuditRepository
     {
-        void CreateAudit(KeyValuePair<string, object> auditItem);
+        void CreateAudit(string category, string auditItem);
 
-        IEnumerable<KeyValuePair<string, object>> GetAllAuditRecords();
+        IEnumerable<string> GetAllAuditRecordsByCategory(string category);
+
+        IEnumerable<string> GetAllAuditRecordsCategories();
+
+        IDictionary<string, IList<string>> GetAllAuditRecords();
     }
 }

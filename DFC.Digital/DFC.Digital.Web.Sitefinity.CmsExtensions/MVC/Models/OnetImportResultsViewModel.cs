@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models
 {
     public class OnetImportResultsViewModel : OnetDataImportViewModel
     {
@@ -14,6 +14,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
 
         public string OtherMessage { get; set; }
 
-        public IEnumerable<KeyValuePair<string, object>> AuditRecords { get; set; }
+        public IDictionary<string, IList<string>> AuditRecords { get; set; }
     }
 }

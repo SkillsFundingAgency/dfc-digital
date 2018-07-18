@@ -6,7 +6,7 @@ using DFC.Digital.Service.OnetService.Services.Contracts;
 
 namespace DFC.Digital.Service.OnetService.Services
 {
-    public class SkillsFrameworkService : Contracts.SkillsFrameworkService
+    public class SkillsFrameworkService : Contracts.ISkillsFrameworkService
     {
         public string GetDigitalSkillLevel(string onetOccupationalCode)
         {

@@ -3,7 +3,7 @@ using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.OnetService.Services.Contracts
 {
-    public interface SkillsFrameworkService
+    public interface ISkillsFrameworkService
     {
         FrameworkSkillsImportRequest GetOnetSkills();
 

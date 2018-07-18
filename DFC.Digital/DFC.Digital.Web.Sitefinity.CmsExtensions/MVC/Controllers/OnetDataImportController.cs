@@ -1,17 +1,16 @@
-﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models;
+using DFC.Digital.Web.Sitefinity.Core;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Services;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 {
     /// <summary>
     /// Custom Widget for Admin Panel

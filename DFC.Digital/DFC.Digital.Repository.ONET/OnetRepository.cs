@@ -14,9 +14,9 @@ namespace DFC.Digital.Repository.ONET
 {
     public class OnetRepository : IDfcGdsSkillsFramework
     {
-        private readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
-        private readonly IApplicationLogger _logger;
-        private readonly IMapper _mapper;
+        readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
+        readonly IApplicationLogger _logger;
+        readonly IMapper _mapper;
         public OnetRepository(IObjectContextFactory<SkillsFrameworkDbContext> context, IMapper mapper, IApplicationLogger logger)
         {
             _context = context;
@@ -126,7 +126,7 @@ namespace DFC.Digital.Repository.ONET
         #endregion
 
         #region Private helper function for the interface
-        private static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, SkillsFrameworkDbContext context)
+        static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from ablty in context.abilities
                    join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
@@ -152,7 +152,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        private static IQueryable<DfcGdsAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcGdsAttributesData> attributes)
+        static IQueryable<DfcGdsAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcGdsAttributesData> attributes)
         {
             var mathsKnowledge = attributes.ToList().FindAll(x => x.ElementName == "Mathematics").ToList();
             IQueryable<DfcGdsAttributesData> newAtt = null;
@@ -185,7 +185,7 @@ namespace DFC.Digital.Repository.ONET
             return newAtt;
         }
 
-        private static IList<DfcGdsAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcGdsAttributesData> newAtt)
+        static IList<DfcGdsAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcGdsAttributesData> newAtt)
         {
             var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Value)
                 .Where(x => x.Attribute == Attributes.WorkStyles)
@@ -232,7 +232,7 @@ namespace DFC.Digital.Repository.ONET
             return dfcGdsAttributesDatas;
         }
 
-        private static IQueryable<DfcGdsAttributesData> KnowledgeSource(string socCode, SkillsFrameworkDbContext context)
+        static IQueryable<DfcGdsAttributesData> KnowledgeSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from knwldg in context.knowledges
                    join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
@@ -258,7 +258,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        private static IQueryable<DfcGdsAttributesData> SkillSource(string socCode, SkillsFrameworkDbContext context)
+        static IQueryable<DfcGdsAttributesData> SkillSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from skl in context.skills
                    join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
@@ -284,7 +284,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        private static IQueryable<DfcGdsAttributesData> WorkStyleSource(string socCode, SkillsFrameworkDbContext context)
+        static IQueryable<DfcGdsAttributesData> WorkStyleSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from wkstyl in context.work_styles
                    join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals

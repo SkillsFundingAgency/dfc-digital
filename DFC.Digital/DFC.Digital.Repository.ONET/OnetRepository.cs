@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Helper;
 using DFC.Digital.Repository.ONET.Impl;
 using DFC.Digital.Repository.ONET.Interface;
+using DFC.Digital.Core;
 
 namespace DFC.Digital.Repository.ONET
 {
-    using Core;
-
     public class OnetRepository : IDfcGdsSkillsFramework
     {
         private readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
         private readonly IApplicationLogger _logger;
         private readonly IMapper _mapper;
-        private bool _disposed = false;
         public OnetRepository(IObjectContextFactory<SkillsFrameworkDbContext> context, IMapper mapper, IApplicationLogger logger)
         {
             _context = context;
@@ -35,7 +31,7 @@ namespace DFC.Digital.Repository.ONET
             GC.SuppressFinalize(this);
         }
         #endregion
-
+        #region SkillsFramework Repository Implemetation
         public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity
         {
             List<T> ret;
@@ -127,9 +123,9 @@ namespace DFC.Digital.Repository.ONET
             }
             return (T)(object)count;
         }
+        #endregion
 
-        #region SkillsFramework Repository Implemetation
-
+        #region Private helper function for the interface
         private static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, SkillsFrameworkDbContext context)
         {
             return from ablty in context.abilities
@@ -312,7 +308,6 @@ namespace DFC.Digital.Repository.ONET
                        Value = workStyleGroup.Sum(x => x.data_value) / 2
                    };
         }
-
         #endregion
     }
 }

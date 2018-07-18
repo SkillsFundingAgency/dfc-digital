@@ -8,16 +8,17 @@ using DFC.Digital.Core;
 
 namespace DFC.Digital.Service.SkillsFramework
 {
+    using Repository.ONET;
     using SkillsFramework = Data.Model.SkillsFramework;
 
     public class SkillsFrameworkEngine:IBusinessRuleEngine
     {
-        private readonly IDfcGdsSkillsFramework _repository;
+        private readonly IOnetSkillsFramework _repository;
         private readonly IApplicationLogger _logger;
 
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(IDfcGdsSkillsFramework repository, IApplicationLogger logger )
+        public SkillsFrameworkEngine(IOnetSkillsFramework repository, IApplicationLogger logger )
         {
             _repository = repository;
             _logger = logger;
@@ -32,7 +33,7 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-               _logger.Error($"GetAllSocMappingsAsync :{e.Message}",e);
+               _logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}",e);
                 throw;
             }
         }
@@ -40,8 +41,8 @@ namespace DFC.Digital.Service.SkillsFramework
         public  async Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync()
         {
             try
-            { 
-            return await  _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+            {
+              return await  _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
             }
             catch(Exception e)
             {

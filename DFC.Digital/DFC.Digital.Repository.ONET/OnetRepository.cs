@@ -12,7 +12,7 @@ using DFC.Digital.Core;
 
 namespace DFC.Digital.Repository.ONET
 {
-    public class OnetRepository : IDfcGdsSkillsFramework
+    public class OnetRepository : IOnetSkillsFramework
     {
         readonly IObjectContextFactory<SkillsFrameworkDbContext> _context;
         readonly IApplicationLogger _logger;

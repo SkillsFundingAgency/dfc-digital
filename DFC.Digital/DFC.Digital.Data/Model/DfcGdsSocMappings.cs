@@ -4,6 +4,6 @@
     {
         public string JobProfile { get; set; }
 
-        public string QualityRating { get; set; }
+        public int QualityRating { get; set; }
     }
 }

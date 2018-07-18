@@ -34,29 +34,27 @@ namespace DFC.Digital.Repository.ONET
         #region SkillsFramework Repository Implemetation
         public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity
         {
-            List<T> ret;
-            using(var context = _context.GetContext())
+            using (var context = _context.GetContext())
             {
                 context.Database.Log = s => _logger.Info(s);
-                ret = await context.DFC_SocMappings
+                var ret = await context.DFC_SocMappings
                     .AsQueryable()
                     .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
                     .ConfigureAwait(false);
+                return _mapper.Map<IEnumerable<T>>(ret);
             }
-            return _mapper.Map<IEnumerable<T>>(ret);
         }
 
         public async Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : DfcGdsOnetEntity
         {
-            List<T> ret;
-            using(var context = _context.GetContext())
+            using (var context = _context.GetContext())
             {
-                ret = await context.DFC_GDSTranlations
+                var ret = await context.DFC_GDSTranlations
                     .AsQueryable()
                     .ProjectToListAsync<T>(_mapper.ConfigurationProvider)
                     .ConfigureAwait(false);
+                return _mapper.Map<IEnumerable<T>>(ret);
             }
-            return _mapper.Map<IEnumerable<T>>(ret);
         }
 
         public async Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode)
@@ -81,47 +79,47 @@ namespace DFC.Digital.Repository.ONET
         public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity
         {
             IQueryable<DfcGdsToolsAndTechnology> dfcToolsandTech = null;
-            using(var context = _context.GetContext())
+            using (var context = _context.GetContext())
             {
                 await Task.Factory.StartNew(() =>
                 {
                     dfcToolsandTech = from o in context?.Set<tools_and_technology>()
-                                      join od in context?.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
-                                      where o.onetsoc_code == socCode
-                                      orderby o.t2_type, od.class_title
-                                      select new DfcGdsToolsAndTechnology
-                                      {
-                                          ClassTitle = od.class_title,
-                                          T2Example = o.t2_example,
-                                          T2Type = o.t2_type,
-                                          SocCode = socCode,
-                                          OnetSocCode = o.onetsoc_code
-                                      };
+                        join od in context?.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                        where o.onetsoc_code == socCode
+                        orderby o.t2_type, od.class_title
+                        select new DfcGdsToolsAndTechnology
+                        {
+                            ClassTitle = od.class_title,
+                            T2Example = o.t2_example,
+                            T2Type = o.t2_type,
+                            SocCode = socCode,
+                            OnetSocCode = o.onetsoc_code
+                        };
                 }).ConfigureAwait(false);
+                var digitalSkills = new DfcGdsDigitalSkills
+                {
+                    DigitalSkillsCollection = dfcToolsandTech,
+                    DigitalSkillsRank = dfcToolsandTech.Count()
+                };
+                return (T) Convert.ChangeType(digitalSkills, typeof(T));
             }
-            var digitalSkills = new DfcGdsDigitalSkills
-            {
-                DigitalSkillsCollection = dfcToolsandTech,
-                DigitalSkillsRank = dfcToolsandTech.Count()
-            };
-            return (T)Convert.ChangeType(digitalSkills, typeof(T));
         }
 
         public async Task<T> GetDigitalSkillsRankAsync<T>(string socCode) where T : struct
         {
             var count = 0;
-            using(var context = _context.GetContext())
+            using (var context = _context.GetContext())
             {
                 await Task.Factory.StartNew(() =>
                 {
                     count = (from o in context.tools_and_technology
-                             join od in context.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
-                             where o.onetsoc_code == socCode
-                             orderby o.t2_type, od.class_title
-                             select o).Count();
+                        join od in context.Set<unspsc_reference>() on o.commodity_code equals od.commodity_code
+                        where o.onetsoc_code == socCode
+                        orderby o.t2_type, od.class_title
+                        select o).Count();
                 }).ConfigureAwait(false);
+                return (T) (object) count;
             }
-            return (T)(object)count;
         }
         #endregion
 

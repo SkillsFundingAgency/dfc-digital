@@ -13,5 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
+
+        IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField);
     }
 }

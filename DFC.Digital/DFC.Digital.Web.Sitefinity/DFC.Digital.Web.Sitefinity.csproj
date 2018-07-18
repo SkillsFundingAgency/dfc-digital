@@ -956,8 +956,6 @@
     <Content Include="OpenAccessNuGet.targets" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.2.nupkg" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
     <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.json" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />

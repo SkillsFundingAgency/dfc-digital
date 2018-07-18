@@ -51,20 +51,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(true, "Content")]
-        [InlineData(false, "Content")]
-        public void Dfc339IndexViewTests(bool cadReady, string content)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc3391IndexViewTests(bool cadReady)
         {
             // Arrange
             var restrictionsView = new _MVC_Views_JobProfileWhatItTakes_Index_cshtml();
             var jobProfileWhatItTakesViewModel = new JobProfileWhatItTakesViewModel
             {
-                PropertyValue = content,
+                Title = "Dummy Title",
                 IsWhatItTakesCadView = cadReady,
                 RestrictionsOtherRequirements = new RestrictionsOtherRequirements
                 {
                     Restrictions = GetRestrictions(cadReady),
-                    OtherRequirements = content
                 }
             };
 
@@ -78,10 +77,74 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .IsSameOrEqualTo(jobProfileWhatItTakesViewModel.RestrictionsOtherRequirements.Restrictions.Count());
             }
 
-            if (!string.IsNullOrWhiteSpace(content))
+            htmlDocument.DocumentNode.InnerHtml.IndexOf(jobProfileWhatItTakesViewModel.Title, StringComparison.OrdinalIgnoreCase).Should().BeGreaterThan(-1);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc3361SkillsViewFlagsTests(bool useSkillsFramework)
+        {
+            // Arrange
+            int numberSkills = 5;
+            var skillsList = GetSkills(numberSkills);
+            var whatItTakesView = new _MVC_Views_JobProfileWhatItTakes_WhatItTakesSkills_cshtml();
+            var skillsViewModel = new JobProfileWhatItTakesSkillsViewModel
             {
-                AssertContentExistsInView(content, htmlDocument);
+                WhatItTakesSectionTitle = "Dummy Section Title",
+                SkillsSectionIntro = "Dummy Intro",
+                WhatItTakesSkills = skillsList,
+                PropertyValue = "Non Onet Skills Text",
+                UseSkillsFramework = useSkillsFramework
+            };
+
+            // Act
+            var htmlDocument = whatItTakesView.RenderAsHtml(skillsViewModel);
+
+            //Asserts
+            var sectionTitle = htmlDocument.DocumentNode.Descendants("h3").FirstOrDefault();
+            sectionTitle.InnerText.Should().BeEquivalentTo(skillsViewModel.WhatItTakesSectionTitle);
+
+            //If using the Onet view
+            if (useSkillsFramework)
+            {
+                //Non Onet skills should NOT be displayed
+                htmlDocument.DocumentNode.InnerHtml.IndexOf(skillsViewModel.PropertyValue).Should().Be(-1);
+                htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(skillsViewModel.WhatItTakesSkills.Count());
+                int ii = 0;
+                foreach (HtmlNode li in htmlDocument.DocumentNode.Descendants("li"))
+                {
+                    li.InnerText.Should().Contain(skillsList[ii++].Description);
+                }
             }
+            else
+            {
+                //Non Onet skills should be displayed
+                htmlDocument.DocumentNode.InnerHtml.IndexOf(skillsViewModel.PropertyValue).Should().BeGreaterThan(-1);
+            }
+        }
+
+        [Fact]
+        public void Dfc3361SkillsViewDigitalSkills()
+        {
+            // Arrange
+            int numberSkills = 5;
+            var whatItTakesView = new _MVC_Views_JobProfileWhatItTakes_WhatItTakesSkills_cshtml();
+            var skillsViewModel = new JobProfileWhatItTakesSkillsViewModel
+            {
+                WhatItTakesSkills = GetSkills(numberSkills),
+                UseSkillsFramework = true,
+                DigitalSkillsLevel = "Digital skills"
+            };
+
+            // Act
+            var htmlDocument = whatItTakesView.RenderAsHtml(skillsViewModel);
+
+            //Asserts
+            //should have the number of skills plus one for  digital skills
+            htmlDocument.DocumentNode.Descendants("li").Count().Should().IsSameOrEqualTo(skillsViewModel.WhatItTakesSkills.Count() + 1);
+
+            htmlDocument.DocumentNode.Descendants("li").LastOrDefault().InnerText.Should().Contain(skillsViewModel.DigitalSkillsLevel);
         }
 
         private static void AssertContentExistsInView(string content, HtmlDocument htmlDocument)
@@ -92,6 +155,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
         {
             htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
+        }
+
+        private List<WhatItTakesSkill> GetSkills(int numberOfSkills)
+        {
+            var skills = new List<WhatItTakesSkill>();
+            for (int ii = 0; ii < numberOfSkills; ii++)
+            {
+                skills.Add(new WhatItTakesSkill { Title = $"Title-{ii}", Description = $"Description-{ii}" });
+            }
+
+            return skills;
         }
 
         private IEnumerable<Restriction> GetRestrictions(bool validRestrictions)

@@ -84,6 +84,8 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string Skills { get; set; }
 
+        public string DigitalSkillsLevel { get; set; }
+
         public IEnumerable<Restriction> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }
@@ -219,5 +221,8 @@ namespace DFC.Digital.Data.Model
         public HowToBecome HowToBecomeData { get; set; }
 
         public WhatYouWillDo WhatYouWillDoData { get; set; }
+
+        [JsonIgnore]
+        public IList<string> RelatedSkills { get; set; }
     }
 }

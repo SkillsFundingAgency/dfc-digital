@@ -4,11 +4,11 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class OnetSkillConverter : IDynamicModuleConverter<FrameworkSkill>
+    public class FrameworkSkillConverter : IDynamicModuleConverter<FrameworkSkill>
     {
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public OnetSkillConverter(IDynamicContentExtensions dynamicContentExtensions)
+        public FrameworkSkillConverter(IDynamicContentExtensions dynamicContentExtensions)
         {
             this.dynamicContentExtensions = dynamicContentExtensions;
         }

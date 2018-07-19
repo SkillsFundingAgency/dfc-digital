@@ -13,7 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
 
         private const string SocField = "SOC";
-        private const string RelatedSkillsField = "RelatedSkillss";
+        private const string RelatedSkillsField = "RelatedSkills";
         private const string RelatedInterestsField = "RelatedInterests";
         private const string RelatedEnablersField = "RelatedEnablers";
         private const string RelatedEntryQualificationsField = "RelatedEntryQualifications";

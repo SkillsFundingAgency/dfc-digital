@@ -122,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             break;
                         case "UPDATEJPSKILLS":
                             importOnetDataService.UpdateJpSocSkillMatrix();
-                            importResult.ActionCompleted = "Update Job Profiles with related Soc sklii Matrices";
+                            importResult.ActionCompleted = "Update Job Profiles with related Soc skill Matrices";
                             break;
                     }
                    }

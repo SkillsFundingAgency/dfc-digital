@@ -3,7 +3,7 @@
     <h1 class="sfBreadCrumb">
         @Html.Raw(Model.PageTitle)
     </h1>
-    
+
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
         {
@@ -11,21 +11,27 @@
 
             foreach (var records in Model.AuditRecords)
             {
-                <h3>@records.Key</h3>
-                <ul>
-                    @foreach (var record in records.Value)
-                    {
-                        <li>@record</li>
-                    }
-                </ul>
+                <p>
+                    <h3>@records.Key</h3>
+                    <ul>
+                        @foreach (var record in records.Value)
+                        {
+                            <li>@record</li>
+                        }
+                    </ul>
+                </p>
             }
         }
     </div>
-    
+    <br />
+    <br />
+    <br />
     <div id="workArea" class="sfWorkArea">
         @if (Model.IsAdmin)
-        {
-            <p>@Html.Raw(Model.FirstParagraph)</p>
+        {<p>
+                <h2>@Html.Raw(Model.FirstParagraph)</h2>
+            </p>
+
             <br />
             using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
             {

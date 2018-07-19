@@ -7,46 +7,54 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
    public class FrameworkSkillRepository : IFrameworkSkillRepository
     {
-        private readonly IDynamicModuleRepository<FrameworkSkill> onetSkillRepository;
+        #region Fields
+        private const string UpdateComment = "Updated via the SkillsFramework import process";
+        private readonly IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
-        private readonly IDynamicModuleConverter<FrameworkSkill> onetskillConverter;
+        private readonly IDynamicModuleConverter<FrameworkSkill> frameworkSkillConverter;
+        #endregion Fields
 
-        public FrameworkSkillRepository(IDynamicModuleRepository<FrameworkSkill> onetSkillRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<FrameworkSkill> onetskillConverter)
+        #region Ctor
+        public FrameworkSkillRepository(IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<FrameworkSkill> frameworkSkillConverter)
         {
-            this.onetSkillRepository = onetSkillRepository;
+            this.frameworkSkillRepository = frameworkSkillRepository;
             this.dynamicContentExtensions = dynamicContentExtensions;
-            this.onetskillConverter = onetskillConverter;
+            this.frameworkSkillConverter = frameworkSkillConverter;
         }
+
+        #endregion Ctor
+
+        #region Interface Implementations
 
         public RepoActionResult UpsertOnetSkill(FrameworkSkill onetSkill)
         {
             //CodeReview: Worth abstrating this out to a get by url
-            var repoSkill = onetSkillRepository.Get(item =>
+            var repoSkill = frameworkSkillRepository.Get(item =>
                 item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == onetSkill.SfUrlName);
 
             if (repoSkill != null)
             {
-                var master = onetSkillRepository.GetMaster(repoSkill);
-                var temp = onetSkillRepository.GetTemp(master);
+                var master = frameworkSkillRepository.GetMaster(repoSkill);
+                var temp = frameworkSkillRepository.GetTemp(master);
 
                 dynamicContentExtensions.SetFieldValue(temp, nameof(FrameworkSkill.Description), onetSkill.Description);
                 dynamicContentExtensions.SetFieldValue(temp, nameof(FrameworkSkill.ONetElementId), onetSkill.ONetElementId);
 
-                var updatedMaster = onetSkillRepository.CheckinTemp(temp);
-                onetSkillRepository.Publish(updatedMaster, "Updated via Framework Skills Repo");
-                onetSkillRepository.Commit();
+                var updatedMaster = frameworkSkillRepository.CheckinTemp(temp);
+                frameworkSkillRepository.Publish(updatedMaster, UpdateComment);
+                frameworkSkillRepository.Commit();
             }
             else
             {
-                var newRepoSkill = onetSkillRepository.Create();
+                var newRepoSkill = frameworkSkillRepository.Create();
                 newRepoSkill.UrlName = onetSkill.SfUrlName;
 
                 dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.Title), onetSkill.Title);
                 dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.Description), onetSkill.Description);
                 dynamicContentExtensions.SetFieldValue(newRepoSkill, nameof(FrameworkSkill.ONetElementId), onetSkill.ONetElementId);
 
-                onetSkillRepository.Add(newRepoSkill);
-                onetSkillRepository.Commit();
+                frameworkSkillRepository.Add(newRepoSkill);
+                frameworkSkillRepository.Commit();
             }
 
             return new RepoActionResult
@@ -57,14 +65,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<FrameworkSkill> GetOnetSkills()
         {
-            var socSkillMatrices = onetSkillRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
+            var socSkillMatrices = frameworkSkillRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 
             if (socSkillMatrices.Any())
             {
-                return socSkillMatrices.Select(item => onetskillConverter.ConvertFrom(item));
+                return socSkillMatrices.Select(item => frameworkSkillConverter.ConvertFrom(item));
             }
 
             return Enumerable.Empty<FrameworkSkill>().AsQueryable();
         }
+
+        #endregion Interface Implementations
     }
 }

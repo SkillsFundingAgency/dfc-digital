@@ -14,6 +14,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         #region Fields
 
         private const string RelatedSkillField = "RelatedSkills";
+        private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<JobProfile> repository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
@@ -98,7 +99,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                 var updatedMaster = repository.CheckinTemp(temp);
 
-                repository.Update(updatedMaster);
+                repository.Publish(updatedMaster, UpdateComment);
                 repository.Commit();
             }
 
@@ -110,26 +111,26 @@ namespace DFC.Digital.Repository.SitefinityCMS
             var jobprofile = repository.Get(item =>
                 item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == jobProfile.UrlName);
 
-            if (jobprofile != null)
+            var skillMatrices = socSkillMatrices as IList<SocSkillMatrix> ?? socSkillMatrices.ToList();
+            if (jobprofile != null && skillMatrices.Any())
             {
                 var master = repository.GetMaster(jobprofile);
 
-                var temp = repository.GetTemp(master);
+                dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSkillField);
 
-                dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSkillField);
-
-                foreach (var socSkillMatrix in socSkillMatrices)
+                foreach (var socSkillMatrix in skillMatrices)
                 {
-                    var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.UrlName == socSkillMatrix.SfUrlName);
+                    var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.UrlName == socSkillMatrix.SfUrlName);
                     if (relatedSocSkillItem != null)
                     {
-                        dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSocSkillItem, RelatedSkillField);
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocSkillItem, RelatedSkillField);
                     }
                 }
 
-                var updatedMaster = repository.CheckinTemp(temp);
+                repository.Commit();
 
-                repository.Update(updatedMaster);
+                repository.Publish(master, UpdateComment);
+
                 repository.Commit();
             }
 

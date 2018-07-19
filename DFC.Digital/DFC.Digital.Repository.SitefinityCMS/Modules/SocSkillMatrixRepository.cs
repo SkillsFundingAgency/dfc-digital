@@ -10,14 +10,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
    public class SocSkillMatrixRepository : ISocSkillMatrixRepository
     {
+        #region Fields
         private const string RelatedSkillField = "RelatedSkill";
         private const string RelatedSocField = "RelatedSoc";
+        private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository;
         private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
 
+        #endregion Fields
+
+        #region Ctor
         public SocSkillMatrixRepository(IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository, IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocCode> socCodeRepository, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
         {
             this.frameworkSkillRepository = frameworkSkillRepository;
@@ -27,6 +32,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.socSkillConverter = socSkillConverter;
         }
 
+        #endregion
+
+        #region Interface Implementations
         public RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix)
         {
             var repoSocMatrix = socMatrixRepository.Get(item =>
@@ -34,6 +42,33 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             if (repoSocMatrix != null)
             {
                 var master = socMatrixRepository.GetMaster(repoSocMatrix);
+
+                if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
+                {
+                    dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSkillField);
+                    var relatedSkillItem = frameworkSkillRepository.Get(d =>
+                        d.Status == ContentLifecycleStatus.Master &&
+                        d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
+                    if (relatedSkillItem != null)
+                    {
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSkillItem, RelatedSkillField);
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(socSkillMatrix.SocCode))
+                {
+                    dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSocField);
+                    var relatedSocItem = socCodeRepository.Get(d =>
+                        d.Status == ContentLifecycleStatus.Master &&
+                        d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
+                    if (relatedSocItem != null)
+                    {
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocItem, RelatedSocField);
+                    }
+                }
+
+                // Save related on live version
+                socMatrixRepository.Commit();
 
                 var temp = socMatrixRepository.GetTemp(master);
 
@@ -43,61 +78,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 dynamicContentExtensions.SetFieldValue(temp, nameof(SocSkillMatrix.ONetRank), socSkillMatrix.ONetRank);
                 dynamicContentExtensions.SetFieldValue(temp, nameof(SocSkillMatrix.Rank), socSkillMatrix.Rank);
 
-                if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
-                {
-                    dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSkillField);
-                    var relatedSkillItem = frameworkSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
-                    if (relatedSkillItem != null)
-                    {
-                        dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSkillItem, RelatedSkillField);
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(socSkillMatrix.SocCode))
-                {
-                    dynamicContentExtensions.DeleteRelatedFieldValues(temp, RelatedSocField);
-                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
-                    if (relatedSocItem != null)
-                    {
-                        dynamicContentExtensions.SetRelatedFieldValue(temp, relatedSocItem, RelatedSocField);
-                    }
-                }
-
                 var updatedMaster = socMatrixRepository.CheckinTemp(temp);
 
-                socMatrixRepository.Update(updatedMaster);
+                socMatrixRepository.Publish(updatedMaster, UpdateComment);
                 socMatrixRepository.Commit();
             }
             else
             {
                 var newSocMatrix = socMatrixRepository.Create();
                 newSocMatrix.UrlName = socSkillMatrix.SfUrlName;
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, nameof(SocSkillMatrix.Title), socSkillMatrix.Title);
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, nameof(SocSkillMatrix.Contextualised), socSkillMatrix.Contextualised);
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, nameof(SocSkillMatrix.ONetAttributeType), socSkillMatrix.ONetAttributeType);
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, nameof(SocSkillMatrix.ONetRank), socSkillMatrix.ONetRank);
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, nameof(SocSkillMatrix.Rank), socSkillMatrix.Rank);
-
-                if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
-                {
-                    var relatedSkillItem = frameworkSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
-                    if (relatedSkillItem != null)
-                    {
-                        dynamicContentExtensions.SetRelatedFieldValue(newSocMatrix, relatedSkillItem, RelatedSkillField);
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(socSkillMatrix.SocCode))
-                {
-                    var relatedSocItem = socCodeRepository.Get(d => d.Status == ContentLifecycleStatus.Live && d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
-                    if (relatedSocItem != null)
-                    {
-                        dynamicContentExtensions.SetRelatedFieldValue(newSocMatrix, relatedSocItem, RelatedSocField);
-                    }
-                }
-
                 socMatrixRepository.Add(newSocMatrix);
+
                 socMatrixRepository.Commit();
+                var newlyCreated = socMatrixRepository.Get(item =>
+                    item.Visible && item.Status == ContentLifecycleStatus.Live &&
+                    item.UrlName == socSkillMatrix.SfUrlName);
+
+                if (newlyCreated != null)
+                {
+                    UpsertSocSkillMatrix(socSkillMatrix);
+                }
             }
 
             return new RepoActionResult
@@ -117,5 +117,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             return Enumerable.Empty<SocSkillMatrix>();
         }
+        #endregion Interface Implementations
     }
 }

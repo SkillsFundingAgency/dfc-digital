@@ -4,39 +4,41 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 {
+    using Repository.ONET;
+
     public class HelperOnetDatas
     {
-        private static readonly IEnumerable<DfcGdsSocMappings> SocMappingsData = new List<DfcGdsSocMappings>
+        private static readonly IEnumerable<DfcOnetSocMappings> SocMappingsData = new List<DfcOnetSocMappings>
         {
-            new DfcGdsSocMappings
+            new DfcOnetSocMappings
             {
                 JobProfile = "Bank Manager",
                 OnetSocCode = "11-3031.02",
                 QualityRating = 2,
                 SocCode = "1150"
             },
-            new DfcGdsSocMappings
+            new DfcOnetSocMappings
             {
                 JobProfile = "Restaurant manager",
                 OnetSocCode = "11-9051.00",
                 QualityRating = 2,
                 SocCode = "1223"
             },
-            new DfcGdsSocMappings
+            new DfcOnetSocMappings
             {
                 JobProfile = "Forensic scientist",
                 OnetSocCode = "19-4092.00",
                 QualityRating = 2,
                 SocCode = "2112"
             },
-            new DfcGdsSocMappings
+            new DfcOnetSocMappings
             {
                 JobProfile = "Mechanical engineerr",
                 OnetSocCode = "17-2141.00",
                 QualityRating = 2,
                 SocCode = "2122"
             },
-            new DfcGdsSocMappings
+            new DfcOnetSocMappings
             {
                 JobProfile = "Electrical engineer",
                 OnetSocCode = "17-2071.00",
@@ -46,51 +48,51 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 
         };
 
-        private static readonly IEnumerable<DfcGdsTranslation> TranslatedData = new List<DfcGdsTranslation>
+        private static readonly IEnumerable<DfcOnetTranslation> TranslatedData = new List<DfcOnetTranslation>
         {
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1",
                 Translation = "problem-solving skills"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1.a",
                 Translation = "excellent verbal communication skills"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1.b",
                 Translation = "thinking and reasoning skills"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1.c",
                 Translation = "maths skills"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1.d",
                 Translation = "a good memory"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.1.g",
                 Translation = "concentration skills"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.2",
                 Translation = "physcial skills like movement, coordination, dexterity and grace"
             },
-            new DfcGdsTranslation
+            new DfcOnetTranslation
             {
                 DateTimeStamp = DateTime.UtcNow,
                 ElementId = "1.A.2.a",
@@ -98,11 +100,215 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             },
         };
 
-        private static readonly DfcGdsDigitalSkills DigitalSkills1150 = new DfcGdsDigitalSkills
+        private static readonly IEnumerable<DfcOnetAttributesData> AttributeData = new List<DfcOnetAttributesData>
         {
-            DigitalSkillsCollection = new List<DfcGdsToolsAndTechnology>
+            new DfcOnetAttributesData()
             {
-                new DfcGdsToolsAndTechnology
+                Attribute = Attributes.Abilities,
+                ElementDescription = "Enduring attributes of the individual that influence performance",
+                ElementId = "1.A",
+                ElementName = "Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Abilities,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "1.A.1",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Abilities,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "1.A.2",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Abilities,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "1.A.3",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Abilities,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "1.A.4",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Knowledge,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "2.A.1",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Knowledge,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "2.A.2",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Knowledge,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "2.A.3",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Knowledge,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "2.A.4",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Knowledge,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "2.A.5",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.WorkStyles,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "3.A.1",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.WorkStyles,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "3.A.2",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.WorkStyles,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "3.A.3",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.WorkStyles,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "3.A.4",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.WorkStyles,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "3.A.5",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Skills,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "4.A.1",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Skills,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "4.A.2",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Skills,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "4.A.3",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Skills,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "4.A.4",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+            new DfcOnetAttributesData()
+            {
+                Attribute = Attributes.Skills,
+                ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
+                ElementId = "4.A.5",
+                ElementName = "Cognitive Abilities",
+                OnetSocCode = "17-2071.00",
+                SocCode = "1150",
+                Value = (decimal) 4.58
+            },
+        };
+
+        private static readonly DfcOnetDigitalSkills DigitalSkills1150 = new DfcOnetDigitalSkills
+        {
+            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
+            {
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Personal Communication Device",
                     ElementId = "",
@@ -111,7 +317,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Smartphones",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Media storage devices",
                     ElementId = "",
@@ -120,7 +326,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Universal serial bus USB flash drives",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -129,7 +335,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -143,11 +349,11 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             DigitalSkillsCount = Convert.ToInt32(RangeChecker.FirstRange)
         };
 
-        private static readonly DfcGdsDigitalSkills DigitalSkills1223 = new DfcGdsDigitalSkills
+        private static readonly DfcOnetDigitalSkills DigitalSkills1223 = new DfcOnetDigitalSkills
         {
-            DigitalSkillsCollection = new List<DfcGdsToolsAndTechnology>
+            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
             {
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -156,7 +362,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Computer data input scanners",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -165,7 +371,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Desktop computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -174,7 +380,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Handheld computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -183,7 +389,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Media storage devices",
                     ElementId = "",
@@ -192,7 +398,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Universal serial bus USB flash drives",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Duplicating machines",
                     ElementId = "",
@@ -205,11 +411,11 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             DigitalSkillsCount = Convert.ToInt32(RangeChecker.SecondRange)
         };
 
-        private static readonly DfcGdsDigitalSkills DigitalSkills2112 = new DfcGdsDigitalSkills
+        private static readonly DfcOnetDigitalSkills DigitalSkills2112 = new DfcOnetDigitalSkills
         {
-            DigitalSkillsCollection = new List<DfcGdsToolsAndTechnology>
+            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
             {
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -218,7 +424,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Computer data input scanners",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -227,7 +433,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Desktop computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -236,7 +442,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Duplicating machines",
                     ElementId = "",
@@ -245,7 +451,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Laser facsimile machines",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Personal communication devices",
                     ElementId = "",
@@ -254,7 +460,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                     T2Example = "Multi-line telephone systems",
                     T2Type = "Tools"
                 },
-                new DfcGdsToolsAndTechnology
+                new DfcOnetToolsAndTechnology
                 {
                     ClassTitle = "Finance accounting and enterprise resource planning ERP software",
                     ElementId = "",
@@ -326,6 +532,22 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                 "41-3031.03",
                 Convert.ToInt32(RangeChecker.ThirdRange),
                 3
+            };
+        }
+
+        public static IEnumerable<object[]> AttributeDataSet()
+        {
+            yield return new object[]
+            {
+                AttributeData,
+                "11-10011.00",
+                20
+            };
+            yield return new object[]
+            {
+                AttributeData,
+                "17-2071.00",
+                20
             };
         }
     }

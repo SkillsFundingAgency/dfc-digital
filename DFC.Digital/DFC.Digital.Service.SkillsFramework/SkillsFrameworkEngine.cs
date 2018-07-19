@@ -24,11 +24,11 @@ namespace DFC.Digital.Service.SkillsFramework
 
         #region Implementation of IBusinessRuleEngine
 
-        public async Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync()
+        public async Task<IEnumerable<DfcOnetSocMappings>> GetAllSocMappingsAsync()
         {
             try
             {
-                return await repository.GetAllSocMappingsAsync<DfcGdsSocMappings>();
+                return await repository.GetAllSocMappingsAsync<DfcOnetSocMappings>();
             }
             catch (Exception e)
             {
@@ -37,11 +37,11 @@ namespace DFC.Digital.Service.SkillsFramework
             }
         }
 
-        public async Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync()
+        public async Task<IEnumerable<DfcOnetTranslation>> GetAllTranslationsAsync()
         {
             try
             {
-                return await repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+                return await repository.GetAllTranslationsAsync<DfcOnetTranslation>();
             }
             catch (Exception e)
             {
@@ -50,11 +50,11 @@ namespace DFC.Digital.Service.SkillsFramework
             }
         }
 
-        public async Task<DfcGdsDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode)
+        public async Task<DfcOnetDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode)
         {
             try
             {
-                return await repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
+                return await repository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetSocCode);
             }
             catch (Exception e)
             {
@@ -89,11 +89,11 @@ namespace DFC.Digital.Service.SkillsFramework
             return returnDigitalRank;
         }
 
-        public async Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)
+        public async Task<IEnumerable<DfcOnetAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)
         {
             try
             {
-                return await repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
+                return await repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetSocCode);
             }
             catch (Exception e)
             {

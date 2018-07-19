@@ -10,63 +10,65 @@ using DFC.Digital.Repository.ONET;
 using DFC.Digital.Service.SkillsFramework.UnitTests.Model;
 namespace DFC.Digital.Service.SkillsFramework.Tests
 {
+    using System.Linq;
+
     public class SkillsFrameworkTest:HelperOnetDatas
     {
         [Theory]
         [MemberData(nameof(TranslationData))]
-        public void GetAllTranslationsAsyncTest(List<DfcGdsTranslation> translatedData)
+        public void GetAllTranslationsAsyncTest(List<DfcOnetTranslation> translatedData)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var onetSkillsRepository = A.Fake<IOnetRepository>();
 
             //Act
-            A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcGdsTranslation>()).Returns(translatedData);
+            A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcOnetTranslation>()).Returns(translatedData);
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
             IBusinessRuleEngine ruleEngine = new SkillsFrameworkEngine(onetSkillsRepository, applicationLogger);
 
             //Assert
             var response = ruleEngine.GetAllTranslationsAsync();
-            A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcGdsTranslation>()).MustHaveHappened();
+            A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcOnetTranslation>()).MustHaveHappened();
             response.Result.Should().BeSameAs(translatedData);
         }
 
         [Theory]
         [MemberData(nameof(SocMappings))]
-        public void GetAllSocMappingsAsyncTest(List<DfcGdsSocMappings> socMappings)
+        public void GetAllSocMappingsAsyncTest(List<DfcOnetSocMappings> socMappings)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var onetSkillsRepository = A.Fake<IOnetRepository>();
 
             //Act
-            A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<DfcGdsSocMappings>()).Returns(socMappings);
+            A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<DfcOnetSocMappings>()).Returns(socMappings);
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
             IBusinessRuleEngine ruleEngine =new SkillsFrameworkEngine(onetSkillsRepository,applicationLogger);
 
             //Assert
             var response = ruleEngine.GetAllSocMappingsAsync();
-            A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<DfcGdsSocMappings>()).MustHaveHappened();
+            A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<DfcOnetSocMappings>()).MustHaveHappened();
             response.Result.Should().BeSameAs(socMappings);
 
         }
 
         [Theory]
         [MemberData(nameof(DigitalSkillsData))]
-        public void GetAllDigitalSkillsAsyncTest(DfcGdsDigitalSkills digitalSkillsData,string onetCode,int digitialSkillsCount)
+        public void GetAllDigitalSkillsAsyncTest(DfcOnetDigitalSkills digitalSkillsData,string onetCode,int digitialSkillsCount)
         {
             //Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var onetSkillsRepository = A.Fake<IOnetRepository>();
 
             //Act
-            A.CallTo(() => onetSkillsRepository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetCode)).Returns(digitalSkillsData);
+            A.CallTo(() => onetSkillsRepository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetCode)).Returns(digitalSkillsData);
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
             IBusinessRuleEngine ruleEngine = new SkillsFrameworkEngine(onetSkillsRepository, applicationLogger);
 
             //Assert
             var response = ruleEngine.GetAllDigitalSkillsAsync(onetCode);
-            A.CallTo(() => onetSkillsRepository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(A<string>._)).MustHaveHappened();
+            A.CallTo(() => onetSkillsRepository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(A<string>._)).MustHaveHappened();
             response.Result.Should().BeSameAs(digitalSkillsData);
             response.Result.DigitalSkillsCount.Should().Be(digitialSkillsCount);
         }
@@ -91,10 +93,27 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             response.Result.Should().Be(digitalRank);
         }
 
-        [Fact()]
-        public void GetBusinessRuleAttributesAsyncTest()
+        [Theory]
+        [MemberData(nameof(AttributeDataSet))]
+        public void GetBusinessRuleAttributesAsyncTest(List<DfcOnetAttributesData> onetAttributes, string onetSocCode, int totalCount)
         {
-            Xunit.Assert.True(false, "This test needs an implementation");
+            //Arrange
+            var applicationLogger = A.Fake<IApplicationLogger>();
+            var onetSkillsRepository = A.Fake<IOnetRepository>();
+
+            //Act
+            A.CallTo(() => onetSkillsRepository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetSocCode)).Returns(onetAttributes);
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+            IBusinessRuleEngine ruleEngine = new SkillsFrameworkEngine(onetSkillsRepository, applicationLogger);
+
+            //Assert
+            var response = ruleEngine.GetBusinessRuleAttributesAsync(onetSocCode);
+            A.CallTo(() => onetSkillsRepository.GetAttributesValuesAsync<DfcOnetAttributesData>(A<string>._)).MustHaveHappened();
+            response.Result.Should().Contain(x => x.Attribute == Attributes.Abilities);
+            response.Result.Should().Contain(x => x.Attribute == Attributes.Skills);
+            response.Result.Should().Contain(x => x.Attribute == Attributes.Knowledge);
+            response.Result.Should().Contain(x => x.Attribute == Attributes.WorkStyles);
+            response.Result.Count().Should().Be(totalCount);
         }
     }
 }

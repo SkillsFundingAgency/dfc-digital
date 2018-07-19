@@ -8,10 +8,10 @@
 
     public interface IBusinessRuleEngine
     {
-       Task<IEnumerable<DfcGdsSocMappings>> GetAllSocMappingsAsync();
-        Task<IEnumerable<DfcGdsTranslation>> GetAllTranslationsAsync();
-        Task<DfcGdsDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode);
+       Task<IEnumerable<DfcOnetSocMappings>> GetAllSocMappingsAsync();
+        Task<IEnumerable<DfcOnetTranslation>> GetAllTranslationsAsync();
+        Task<DfcOnetDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode);
         Task<int> GetDigitalSkillRankAsync(string onetSocCode);
-        Task<IEnumerable<DfcGdsAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode);
+        Task<IEnumerable<DfcOnetAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode);
     }
 }

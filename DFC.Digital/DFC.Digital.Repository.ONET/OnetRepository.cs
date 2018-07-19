@@ -30,7 +30,7 @@ namespace DFC.Digital.Repository.ONET
         }
         #endregion
         #region SkillsFramework Repository Implemetation
-        public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity
+        public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : OnetEntity
         {
             using (var context = this.context.GetContext())
             {
@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.ONET
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : DfcGdsOnetEntity
+        public async Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : OnetEntity
         {
             IEnumerable<T> ret=null;
             using (var context = this.context.GetContext())
@@ -59,7 +59,7 @@ namespace DFC.Digital.Repository.ONET
 
         public async Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode)
         {
-            IQueryable<DfcGdsAttributesData> attributes = null;
+            IQueryable<DfcOnetAttributesData> attributes = null;
             IList<T> dfcGdsAttributesDatas = null;
             using(var context = this.context.GetContext())
             {
@@ -77,10 +77,10 @@ namespace DFC.Digital.Repository.ONET
             }
             return (IEnumerable<T>)dfcGdsAttributesDatas;
         }
-        public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : DfcGdsOnetEntity
+        public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : OnetEntity
         {
-            IQueryable<DfcGdsToolsAndTechnology> dfcToolsandTech = null;
-            DfcGdsDigitalSkills digitalSkills = new DfcGdsDigitalSkills();
+            IQueryable<DfcOnetToolsAndTechnology> dfcToolsandTech = null;
+            DfcOnetDigitalSkills digitalSkills = new DfcOnetDigitalSkills();
             using (var context = this.context.GetContext())
             {
                 await Task.Factory.StartNew(() =>
@@ -89,7 +89,7 @@ namespace DFC.Digital.Repository.ONET
                         join od in context?.unspsc_reference on o.commodity_code equals od.commodity_code
                         where o.onetsoc_code == socCode
                         orderby o.t2_type, od.class_title
-                        select new DfcGdsToolsAndTechnology
+                        select new DfcOnetToolsAndTechnology
                         {
                             ClassTitle = od.class_title,
                             T2Example = o.t2_example,
@@ -98,7 +98,7 @@ namespace DFC.Digital.Repository.ONET
                             OnetSocCode = o.onetsoc_code
                         };
                 }).ConfigureAwait(false);
-                 digitalSkills = new DfcGdsDigitalSkills
+                 digitalSkills = new DfcOnetDigitalSkills
                 {
                     DigitalSkillsCollection = dfcToolsandTech,
                     DigitalSkillsCount = dfcToolsandTech.Count()
@@ -126,7 +126,7 @@ namespace DFC.Digital.Repository.ONET
         #endregion
 
         #region Private helper function for the interface
-        static IQueryable<DfcGdsAttributesData> AbilitiesSource(string socCode, OnetRepositoryDbContext context)
+        static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetRepositoryDbContext context)
         {
             return from ablty in context.abilities
                    join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
@@ -141,7 +141,7 @@ namespace DFC.Digital.Repository.ONET
                        ablty.onetsoc_code
                    }
                 into abilityGroup
-                   select new DfcGdsAttributesData
+                   select new DfcOnetAttributesData
                    {
                        OnetSocCode = abilityGroup.Key.onetsoc_code,
                        ElementId = abilityGroup.Key.element_id,
@@ -152,10 +152,10 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcGdsAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcGdsAttributesData> attributes)
+        static IQueryable<DfcOnetAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcOnetAttributesData> attributes)
         {
             var mathsKnowledge = attributes.ToList().FindAll(x => x.ElementName == "Mathematics").ToList();
-            IQueryable<DfcGdsAttributesData> newAtt = null;
+            IQueryable<DfcOnetAttributesData> newAtt = null;
             if(mathsKnowledge.Count > 1)
             {
                 var mathsKnowledgeValue = attributes.ToList().FirstOrDefault(x =>
@@ -185,11 +185,11 @@ namespace DFC.Digital.Repository.ONET
             return newAtt;
         }
 
-        static IList<DfcGdsAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcGdsAttributesData> newAtt)
+        static IList<DfcOnetAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcOnetAttributesData> newAtt)
         {
             var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Value)
                 .Where(x => x.Attribute == Attributes.WorkStyles)
-                .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
                 {
                     Value = x.Value,
                     Attribute = x.Attribute,
@@ -199,7 +199,7 @@ namespace DFC.Digital.Repository.ONET
                     SocCode = x.SocCode
                 }).Take(5)
                 .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Skills)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
                     {
                         Value = x.Value,
                         Attribute = x.Attribute,
@@ -209,7 +209,7 @@ namespace DFC.Digital.Repository.ONET
                         SocCode = x.SocCode
                     }).Take(5))
                 .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Abilities)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
                     {
                         Value = x.Value,
                         Attribute = x.Attribute,
@@ -219,7 +219,7 @@ namespace DFC.Digital.Repository.ONET
                         SocCode = x.SocCode
                     }).Take(5))
                 .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Knowledge)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcGdsAttributesData
+                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
                     {
                         Value = x.Value,
                         Attribute = x.Attribute,
@@ -228,11 +228,11 @@ namespace DFC.Digital.Repository.ONET
                         OnetSocCode = x.OnetSocCode,
                         SocCode = x.SocCode
                     }).Take(5));
-            var dfcGdsAttributesDatas = elementAttribute as IList<DfcGdsAttributesData> ?? elementAttribute?.ToList();
+            var dfcGdsAttributesDatas = elementAttribute as IList<DfcOnetAttributesData> ?? elementAttribute?.ToList();
             return dfcGdsAttributesDatas;
         }
 
-        static IQueryable<DfcGdsAttributesData> KnowledgeSource(string socCode, OnetRepositoryDbContext context)
+        static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetRepositoryDbContext context)
         {
             return from knwldg in context.knowledges
                    join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
@@ -247,7 +247,7 @@ namespace DFC.Digital.Repository.ONET
                        knwldg.onetsoc_code
                    }
                 into knwldgGroup
-                   select new DfcGdsAttributesData
+                   select new DfcOnetAttributesData
                    {
                        OnetSocCode = knwldgGroup.Key.onetsoc_code,
                        ElementId = knwldgGroup.Key.element_id,
@@ -258,7 +258,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcGdsAttributesData> SkillSource(string socCode, OnetRepositoryDbContext context)
+        static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetRepositoryDbContext context)
         {
             return from skl in context.skills
                    join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
@@ -273,7 +273,7 @@ namespace DFC.Digital.Repository.ONET
                        skl.element_id
                    }
                 into skillGroup
-                   select new DfcGdsAttributesData
+                   select new DfcOnetAttributesData
                    {
                        OnetSocCode = skillGroup.Key.onetsoc_code,
                        ElementId = skillGroup.Key.element_id,
@@ -284,7 +284,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcGdsAttributesData> WorkStyleSource(string socCode, OnetRepositoryDbContext context)
+        static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetRepositoryDbContext context)
         {
             return from wkstyl in context.work_styles
                    join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
@@ -298,7 +298,7 @@ namespace DFC.Digital.Repository.ONET
                        wkstyl.element_id
                    }
                 into workStyleGroup
-                   select new DfcGdsAttributesData
+                   select new DfcOnetAttributesData
                    {
                        OnetSocCode = workStyleGroup.Key.onetsoc_code,
                        ElementId = workStyleGroup.Key.element_id,

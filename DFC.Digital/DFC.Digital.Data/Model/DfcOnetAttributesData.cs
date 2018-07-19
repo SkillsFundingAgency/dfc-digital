@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class DfcGdsAttributesData : DfcGdsOnetEntity
+    public class DfcOnetAttributesData : OnetEntity
     {
         public string Attribute { get; set; }
 

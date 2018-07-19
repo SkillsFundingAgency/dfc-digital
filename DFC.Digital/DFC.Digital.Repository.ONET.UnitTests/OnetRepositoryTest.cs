@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             IObjectContextFactory<OnetRepositoryDbContext> contextFactory=new ObjectContextFactory<OnetRepositoryDbContext>();
             using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper,appLogger))
             {
-              var all=  repository.GetAllTranslationsAsync<DfcGdsTranslation>().Result;
+              var all=  repository.GetAllTranslationsAsync<DfcOnetTranslation>().Result;
               all.Should().NotBeNull();
             }
         }
@@ -42,8 +42,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
-                var all = repository.GetAllSocMappingsAsync<DfcGdsSocMappings>().Result;
-                var dfcGdsSocMappingses = all as IList<DfcGdsSocMappings> ?? all.ToList();
+                var all = repository.GetAllSocMappingsAsync<DfcOnetSocMappings>().Result;
+                var dfcGdsSocMappingses = all as IList<DfcOnetSocMappings> ?? all.ToList();
                 dfcGdsSocMappingses.Should().NotBeNull();
                 dfcGdsSocMappingses.Should().HaveCountGreaterThan(0);
 
@@ -83,7 +83,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
             using (IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
-                var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetCode).Result;
+                var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetCode).Result;
                 digitalSkillsData.DigitalSkillsCollection.Should().NotBeNull();
                 digitalSkillsData.DigitalSkillsCount.Should().NotBe(0);
             }
@@ -99,8 +99,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
             {
-                var digitalSkillsData = repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetCode).Result;
-                var dfcGdsAttributesDatas = digitalSkillsData as IList<DfcGdsAttributesData> ?? digitalSkillsData.ToList();
+                var digitalSkillsData = repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetCode).Result;
+                var dfcGdsAttributesDatas = digitalSkillsData as IList<DfcOnetAttributesData> ?? digitalSkillsData.ToList();
                 dfcGdsAttributesDatas.Should().HaveCount(20);
                 dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Knowledge);
                 dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Skills);

@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Data.Model
 {
-    public class DfcGdsTranslation : DfcGdsOnetEntity
+    public class DfcOnetTranslation : OnetEntity
     {
         public string Translation { get; set; }
 

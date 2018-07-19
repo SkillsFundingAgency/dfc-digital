@@ -178,13 +178,16 @@ namespace DFC.Digital.Service.OnetService
         {
             var response = new UpdateJpSocSkillMatrixResponse();
             var allJobProfiles = jobProfileRepository.GetLiveJobProfiles().ToList();
-            var jobprofilesToUpdate = allJobProfiles.Where(jp => !jp.HasRelatedSocSkillMatrices).Take(50);
+            var jobprofilesToUpdate = allJobProfiles.Where(jp => !jp.HasRelatedSocSkillMatrices && !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode)).Take(50);
             var jobprofilesWithSkills = allJobProfiles.Count(jp => jp.HasRelatedSocSkillMatrices);
             var jobprofilesWithoutSkills = allJobProfiles.Count(jp => !jp.HasRelatedSocSkillMatrices);
+            var jobprofilesWithoutOcCode = allJobProfiles.Where(jp => string.IsNullOrWhiteSpace(jp.ONetOccupationalCode));
+
 
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allJobProfiles.Count} jobprofiles  in the repo  ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithoutSkills} jobprofiles without related skill matrices in the repo");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithSkills} jobprofiles with related skill matrices in the repo");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithoutOcCode.Count()} jobprofiles without coccupational codes with the following urlnames {string.Join(",", jobprofilesWithoutOcCode.Select(jp => jp.UrlName))}");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {jobprofilesToUpdate.Count()} jobprofiles with related skill matrices in the repo");
 
             foreach (var jobProfile in jobprofilesToUpdate)

@@ -90,6 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\DbSetWrapperTests.cs" />
+    <Compile Include="Impl\OnetRepositoryDbContextTests.cs" />
     <Compile Include="OnetRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -10,6 +10,8 @@ using DFC.Digital.Core;
 
 namespace DFC.Digital.Repository.ONET
 {
+    using DataModel;
+
     public class OnetRepository : IOnetRepository
     {
         readonly IObjectContextFactory<OnetRepositoryDbContext> context;
@@ -35,7 +37,7 @@ namespace DFC.Digital.Repository.ONET
             using (var context = this.context.GetContext())
             {
                 context.Database.Log = s => logger.Info(s);
-                var ret = await context.DFC_SocMappings
+                var ret = await context.Set<DFC_SocMappings>()
                     .AsQueryable()
                     .ProjectToListAsync<T>(mapper.ConfigurationProvider)
                     .ConfigureAwait(false);

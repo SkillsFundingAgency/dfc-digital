@@ -57,6 +57,7 @@ namespace DFC.Digital.Repository.ONET.Impl
         {
             var set = base.Set<TEntity>();
             return new DbSetWrapper<TEntity>(set);
+            
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

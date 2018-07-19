@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.SkillsFramework
             catch (Exception e)
             {
                 logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}", e);
-                throw;
+                return null;
             }
         }
 
@@ -45,8 +45,8 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-                logger.Error($"GetAllTranslationsAsync :{e.Message}", e);
-                throw;
+                logger.ErrorJustLogIt($"GetAllTranslationsAsync :{e.Message}", e);
+                return null;
             }
         }
 
@@ -58,8 +58,8 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-                logger.Error($"GetAllDigitalSkillsAsync :{e.Message}", e);
-                throw;
+                logger.ErrorJustLogIt($"GetAllDigitalSkillsAsync :{e.Message}", e);
+                return null;
             }
         }
 
@@ -83,8 +83,8 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-                logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
-                throw;
+                logger.ErrorJustLogIt($"GetDigitalSkillRankAsync :{e.Message}", e);
+                return 0;
             }
             return returnDigitalRank;
         }
@@ -97,8 +97,8 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-                logger.Error($"GetBusinessRuleAttributesAsync :{e.Message}", e);
-                throw;
+                logger.ErrorJustLogIt($"GetBusinessRuleAttributesAsync :{e.Message}", e);
+                return null;
             }
         }
 

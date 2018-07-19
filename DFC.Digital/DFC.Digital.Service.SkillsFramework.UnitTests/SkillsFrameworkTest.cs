@@ -30,6 +30,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             //Assert
             var response = ruleEngine.GetAllTranslationsAsync();
             A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcOnetTranslation>()).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+
+            response.Result.Should().NotBeNull();
             response.Result.Should().BeSameAs(translatedData);
         }
 
@@ -53,6 +56,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             A.CallTo(() => onetSkillsRepository.GetAllTranslationsAsync<DfcOnetTranslation>()).ThrowsAsync(new Exception());
             A.CallTo(() => businessRuleEngine.GetAllTranslationsAsync()).ThrowsAsync(new Exception());
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+
             response.Result.Should().BeNull();
         }
 
@@ -72,6 +76,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             //Assert
             var response = ruleEngine.GetAllSocMappingsAsync();
             A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<DfcOnetSocMappings>()).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+
+            response.Result.Should().NotBeNull();
             response.Result.Should().BeSameAs(socMappings);
 
         }
@@ -115,6 +122,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             //Assert
             var response = ruleEngine.GetAllDigitalSkillsAsync(onetCode);
             A.CallTo(() => onetSkillsRepository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(A<string>._)).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+
+            response.Result.Should().NotBeNull();
             response.Result.Should().BeSameAs(digitalSkillsData);
             response.Result.DigitalSkillsCount.Should().Be(digitialSkillsCount);
         }
@@ -161,6 +171,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             //Assert
             var response = ruleEngine.GetDigitalSkillRankAsync(onetCode);
             A.CallTo(() => onetSkillsRepository.GetDigitalSkillsRankAsync<int>(A<string>._)).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+
+            response.Result.Should().NotBe(0);
             response.Result.Should().Be(digitalRank);
         }
 
@@ -185,6 +198,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             A.CallTo(() => onetSkillsRepository.GetDigitalSkillsRankAsync<int>(A<string>._)).MustHaveHappened();
             A.CallTo(() => onetSkillsRepository.GetDigitalSkillsRankAsync<int>(A<string>._)).ThrowsAsync(new Exception());
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+
             response.Result.Should().Be(digitalRank);
         }
 
@@ -204,6 +218,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             //Assert
             var response = ruleEngine.GetBusinessRuleAttributesAsync(onetSocCode);
             A.CallTo(() => onetSkillsRepository.GetAttributesValuesAsync<DfcOnetAttributesData>(A<string>._)).MustHaveHappened();
+            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+
+            response.Result.Should().NotBeNull();
             response.Result.Should().Contain(x => x.Attribute == Attributes.Abilities);
             response.Result.Should().Contain(x => x.Attribute == Attributes.Skills);
             response.Result.Should().Contain(x => x.Attribute == Attributes.Knowledge);

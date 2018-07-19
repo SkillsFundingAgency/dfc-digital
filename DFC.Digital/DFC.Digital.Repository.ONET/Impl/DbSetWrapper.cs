@@ -9,7 +9,6 @@ using System.Linq.Expressions;
 
 namespace DFC.Digital.Repository.ONET.Impl
 {
-    
 
     public class DbSetWrapper<TEntity> : IDbSetWrapper<TEntity> where TEntity : class
     {

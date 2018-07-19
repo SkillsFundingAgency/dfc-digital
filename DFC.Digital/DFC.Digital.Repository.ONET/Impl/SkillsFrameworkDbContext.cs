@@ -1,15 +1,12 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Interface;
 namespace DFC.Digital.Repository.ONET.Impl
 {
-
-    public class SkillsFrameworkDbContext : DbContext, IDbContext
+    public class OnetRepositoryDbContext : DbContext, IDbContext
     {
-        public SkillsFrameworkDbContext() : base("name=JobProfileFrameWorksEntities")
+        public OnetRepositoryDbContext() : base("name=JobProfileFrameWorksEntities")
         {
             Database.CommandTimeout = 60;
         }
@@ -17,7 +14,6 @@ namespace DFC.Digital.Repository.ONET.Impl
         public virtual DbSet<alternate_titles> alternate_titles { get; set; }
         public virtual DbSet<career_changers_matrix> career_changers_matrix { get; set; }
         public virtual DbSet<career_starters_matrix> career_starters_matrix { get; set; }
-
         public virtual DbSet<content_model_reference> content_model_reference { get; set; }
         public virtual DbSet<DFC_GDSCombinations> DFC_GDSCombinations { get; set; }
         public virtual DbSet<DFC_GDSContext> DFC_GDSContext { get; set; }
@@ -62,105 +58,6 @@ namespace DFC.Digital.Repository.ONET.Impl
             var set = base.Set<TEntity>();
             return new DbSetWrapper<TEntity>(set);
         }
-
-        //public virtual ObjectResult<sp_GetAttributesByOnNetCode_Result> sp_GetAttributesByOnNetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAttributesByOnNetCode_Result>("sp_GetAttributesByOnNetCode", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetAttributesByOnNetCodeForEachSectionGrouped_Result> sp_GetAttributesByOnNetCodeForEachSectionGrouped(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAttributesByOnNetCodeForEachSectionGrouped_Result>("sp_GetAttributesByOnNetCodeForEachSectionGrouped", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result> sp_GetAttributesByOnNetCodeForEachSectionGroupedV2(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result>("sp_GetAttributesByOnNetCodeForEachSectionGroupedV2", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetAttributesByOnNetCodeGrouped_Result> sp_GetAttributesByOnNetCodeGrouped(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAttributesByOnNetCodeGrouped_Result>("sp_GetAttributesByOnNetCodeGrouped", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetAttributesByOnNetCodeGroupedV2_Result> sp_GetAttributesByOnNetCodeGroupedV2(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAttributesByOnNetCodeGroupedV2_Result>("sp_GetAttributesByOnNetCodeGroupedV2", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetInterestsByOnetCode_Result> sp_GetInterestsByOnetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetInterestsByOnetCode_Result>("sp_GetInterestsByOnetCode", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetTechnologyDetailsByOnetCode_Result> sp_GetTechnologyDetailsByOnetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTechnologyDetailsByOnetCode_Result>("sp_GetTechnologyDetailsByOnetCode", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetToolsTecByOnetCode_Result> sp_GetToolsTecByOnetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetToolsTecByOnetCode_Result>("sp_GetToolsTecByOnetCode", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetToolsTecByOnetCodeV2_Result> sp_GetToolsTecByOnetCodeV2(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetToolsTecByOnetCodeV2_Result>("sp_GetToolsTecByOnetCodeV2", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetWorkStylesByOnetCode_Result> sp_GetWorkStylesByOnetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetWorkStylesByOnetCode_Result>("sp_GetWorkStylesByOnetCode", oNetCodeParameter);
-        //}
-
-        //public virtual ObjectResult<sp_GetWorkValuesByOnetCode_Result> sp_GetWorkValuesByOnetCode(string oNetCode)
-        //{
-        //    var oNetCodeParameter = oNetCode != null ?
-        //        new ObjectParameter("ONetCode", oNetCode) :
-        //        new ObjectParameter("ONetCode", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetWorkValuesByOnetCode_Result>("sp_GetWorkValuesByOnetCode", oNetCodeParameter);
-        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,20 +1,11 @@
-﻿using System .Data .Entity .Core .Objects;
+﻿using System;
+using System.Data.Entity;
+using System.Reflection;
 
 namespace DFC.Digital.Repository.ONET.Helper
 {
-    using System;
-    using System.Data.Entity;
-    using System.Reflection;
-
-    public interface IObjectContextFactory<out T>
-    {
-        ConstructorInfo ClassConstructor { get;  }
-        T GetContext();
-        T GetContext(string connectionString);
-    }
     public class ObjectContextFactory<T> :IObjectContextFactory<T> where T : DbContext, new()
     {
-
         public ConstructorInfo ClassConstructor => typeof(T).GetConstructor(new Type[] { typeof(string) });
 
         /// <summary>

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 namespace DFC.Digital.Repository.ONET
 {
-    using System.Collections.Generic;
-
     //CodeReview: if it is a repo, then change this to IOnetRepo
-    public interface IOnetSkillsFramework  :IDisposable
+    public interface IOnetRepository  :IDisposable
     {
         Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : DfcGdsOnetEntity;
         Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : DfcGdsOnetEntity;

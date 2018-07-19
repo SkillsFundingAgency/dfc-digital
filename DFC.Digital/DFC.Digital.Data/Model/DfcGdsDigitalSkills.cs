@@ -6,6 +6,6 @@ namespace DFC.Digital.Data.Model
     {
         public IEnumerable<DfcGdsToolsAndTechnology> DigitalSkillsCollection { get; set; }
 
-        public int DigitalSkillsRank { get; set; }
+        public int DigitalSkillsCount { get; set; }
     }
 }

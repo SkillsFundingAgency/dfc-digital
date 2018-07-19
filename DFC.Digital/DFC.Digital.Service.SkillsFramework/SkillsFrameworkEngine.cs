@@ -11,15 +11,15 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkEngine : IBusinessRuleEngine
     {
         //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
-        private readonly IOnetSkillsFramework _repository;
-        private readonly IApplicationLogger _logger;
+        private readonly IOnetRepository repository;
+        private readonly IApplicationLogger logger;
 
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(IOnetSkillsFramework repository, IApplicationLogger logger)
+        public SkillsFrameworkEngine(IOnetRepository repository, IApplicationLogger logger)
         {
-            _repository = repository;
-            _logger = logger;
+            this.repository = repository;
+            this.logger = logger;
         }
 
         #region Implementation of IBusinessRuleEngine
@@ -28,11 +28,11 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             try
             {
-                return await _repository.GetAllSocMappingsAsync<DfcGdsSocMappings>();
+                return await repository.GetAllSocMappingsAsync<DfcGdsSocMappings>();
             }
             catch (Exception e)
             {
-                _logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}", e);
+                logger.ErrorJustLogIt($"GetAllSocMappingsAsync :{e.Message}", e);
                 throw;
             }
         }
@@ -41,11 +41,11 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             try
             {
-                return await _repository.GetAllTranslationsAsync<DfcGdsTranslation>();
+                return await repository.GetAllTranslationsAsync<DfcGdsTranslation>();
             }
             catch (Exception e)
             {
-                _logger.Error($"GetAllTranslationsAsync :{e.Message}", e);
+                logger.Error($"GetAllTranslationsAsync :{e.Message}", e);
                 throw;
             }
         }
@@ -54,11 +54,11 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             try
             {
-                return await _repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
+                return await repository.GetDigitalSkillsAsync<DfcGdsDigitalSkills>(onetSocCode);
             }
             catch (Exception e)
             {
-                _logger.Error($"GetAllDigitalSkillsAsync :{e.Message}", e);
+                logger.Error($"GetAllDigitalSkillsAsync :{e.Message}", e);
                 throw;
             }
         }
@@ -68,7 +68,7 @@ namespace DFC.Digital.Service.SkillsFramework
             var returnDigitalRank = 0;
             try
             {
-                var rankResult = await _repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
+                var rankResult = await repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
                 if (rankResult > Convert.ToInt32(RangeChecker.FirstRange))
                     returnDigitalRank = 1;
                 else if ((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) &&
@@ -83,7 +83,7 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             catch (Exception e)
             {
-                _logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
+                logger.Error($"GetDigitalSkillRankAsync :{e.Message}", e);
                 throw;
             }
             return returnDigitalRank;
@@ -93,11 +93,11 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             try
             {
-                return await _repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
+                return await repository.GetAttributesValuesAsync<DfcGdsAttributesData>(onetSocCode);
             }
             catch (Exception e)
             {
-                _logger.Error($"GetBusinessRuleAttributesAsync :{e.Message}", e);
+                logger.Error($"GetBusinessRuleAttributesAsync :{e.Message}", e);
                 throw;
             }
         }

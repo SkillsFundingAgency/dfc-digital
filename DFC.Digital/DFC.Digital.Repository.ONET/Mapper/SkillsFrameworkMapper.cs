@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.DataModel;
 
 namespace DFC.Digital.Repository.ONET.Mapper
 {
-    using AutoMapper;
-    using Data.Model;
-    using DataModel;
-
     public class SkillsFrameworkMapper :Profile
     {
         public SkillsFrameworkMapper()

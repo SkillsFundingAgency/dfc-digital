@@ -272,20 +272,13 @@
     <Compile Include="DataModel\work_values.cs">
       <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helper\DbConnectionFactory.cs" />
-    <Compile Include="Helper\DbException.cs" />
-    <Compile Include="Helper\IDbConnectionFactory.cs" />
+    <Compile Include="Helper\IObjectContextFactory.cs" />
     <Compile Include="Helper\ObjectContextFactory.cs" />
-    <Compile Include="Helper\SqlConnectionHelper.cs" />
-    <Compile Include="Helper\SqlDbException.cs" />
     <Compile Include="Impl\DbSetWrapper.cs" />
     <Compile Include="Impl\SkillsFrameworkDbContext.cs" />
     <Compile Include="Interface\IDbContext.cs" />
     <Compile Include="Interface\IDbSetWrapper.cs" />
-    <Compile Include="Interface\IDfcGdsSkillsFramework.cs" />
-    <Compile Include="Interface\IRepositoryInitializer.cs" />
-    <Compile Include="Interface\ISpecification.cs" />
-    <Compile Include="IOnetSkillsFramework.cs" />
+    <Compile Include="IOnetRepository.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="OnetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

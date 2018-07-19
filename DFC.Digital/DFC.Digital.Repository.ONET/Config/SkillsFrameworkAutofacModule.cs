@@ -1,16 +1,10 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Autofac;
+using AutoMapper;
 
 namespace DFC.Digital.Repository.ONET.Config
 {
-    using Autofac;
-    using AutoMapper;
-    using Data.Interfaces;
-
     public class SkillsFrameworkAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

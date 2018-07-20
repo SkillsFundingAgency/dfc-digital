@@ -36,13 +36,15 @@
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
         <label for="prop-Title">Use Skills Framework for citizen view</label>
         <div>
-            <input ng-model="properties.ShouldUseSkillsFrameworkForCitizen.PropertyValue" type="checkbox" />
+            <input id="ShouldUseSkillsFrameworkForCitizen" type="checkbox" ng-model="properties.ShouldUseSkillsFrameworkForCitizen.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShouldUseSkillsFrameworkForCitizen.PropertyValue === 'True'" />
         </div>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
         <label for="prop-Title">Use Skills Framework for preview</label>
         <div>
-            <input ng-model="properties.ShouldUseSkillsFrameworkInPreview.PropertyValue" type="checkbox" />
+            <input id="ShouldUseSkillsFrameworkInPreview" type="checkbox" ng-model="properties.ShouldUseSkillsFrameworkInPreview.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.ShouldUseSkillsFrameworkInPreview.PropertyValue === 'True'" />
         </div>
     </li>
 

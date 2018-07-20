@@ -9,36 +9,33 @@ Param(
 )
 
 try {
-    if ($ServerName.IndexOf(".") -ne -1) {
-        # --- Extract short name from fqdn
-        $ServerName = $ServerName.Substring(0, $ServerName.IndexOf("."))
-    }
+
+    # --- Extract short name from fqdn
+    $ServerName = $ServerName.Substring(0, $ServerName.IndexOf("."))
 
     # --- Retrieve server resource
     Write-Host "Searching for server resource $($ServerName)"
-    #$ServerResource = Find-AzureRmResource -ResourceNameEquals $ServerName -ResourceType "Microsoft.Sql/servers"
-    $ServerResource = Get-AzureRmResource -Name $ServerName -ResourceType "Microsoft.Sql/servers"
+    $ServerResource = Find-AzureRmResource -ResourceNameEquals $ServerName -ResourceType "Microsoft.Sql/servers"
     if (!$ServerResource) {
         throw "Could not find server resource $($ServerName)"
     }
 
     # --- Extract the build number if it is not provided
-    if (!$PSBoundParameters.ContainsKey("ReleaseNumber")) {
+    if (!$PSBoundParameters.ContainsKey("ReleaseNumber")){
         $ReleaseNumber = $ENV:RELEASE_RELEASENAME.Split("-")[0]
     }
 
     # --- Get the database version that is currently being used in production
     Write-Host "Searching for app service $AppServiceName"
-    #$AppServiceResource = Find-AzureRmResource -ResourceNameEquals $AppServiceName -ResourceType "Microsoft.Web/sites" -ErrorAction SilentlyContinue
-    $AppServiceResource = Get-AzureRmResource -Name $AppServiceName -ResourceType "Microsoft.Web/sites" -ErrorAction SilentlyContinue
-    if (!$AppServiceResource) {
+    $AppServiceResource = Find-AzureRmResource -ResourceNameEquals $AppServiceName -ResourceType "Microsoft.Web/sites" -ErrorAction SilentlyContinue
+    if (!$AppServiceResource){
         throw "Could not find app service with name $AppServiceName"
     }
 
     # --- Resolve app service and retrieve app settings
     $AppService = Get-AzureRmWebApp -ResourceGroupName $AppServiceResource.ResourceGroupName -Name $AppServiceName
     $DatabaseVersionAppSetting = ($AppService.SiteConfig.AppSettings | Where-Object {$_.Name -eq "DatabaseVersion"}).Value
-    if (!$DatabaseVersionAppSetting) {
+    if (!$DatabaseVersionAppSetting){
         throw "Could not determine current database version from DatabaseVersion setting"
     }
 
@@ -46,8 +43,7 @@ try {
     $FirstRun = [Regex]::Match($DatabaseVersionAppSetting, "(?i)R(?-i)[0-9]").Success
     if ($FirstRun -eq "True") {
         $DatabaseName = $DatabaseVersionAppSetting.Substring(0, $DatabaseVersionAppSetting.LastIndexOf("-"))
-    }
-    else {
+    } else {
         $DatabaseName = $DatabaseVersionAppSetting
     }
 
@@ -70,8 +66,7 @@ try {
         $ElapsedTime = $StopWatch.Elapsed.ToString('hh\:mm\:ss')
         Write-Host "Database copy completed in $ElapsedTime"
    
-    }
-    else {
+    } else {
         Write-Host "A database copy with name $CopyDatabaseName exists. Skipping"
     }
 

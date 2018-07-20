@@ -87,91 +87,109 @@
     <Compile Include="Attributes.cs" />
     <Compile Include="Config\SkillsFrameworkAutofacModule.cs" />
     <Compile Include="DataModel\ability.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\alternate_titles.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\career_changers_matrix.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\career_starters_matrix.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\content_model_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GDSAttributeRankOverRide.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GDSCombinations.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GDSContext.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\DFC_GDSONetSKATranslations_staging.cs">
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GDSTranlations.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GlobalAttributeSuppression.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_SocMappings.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\dwa_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\education_training_experience.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\emerging_tasks.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ete_categories.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\green_dwa_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\green_occupations.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\green_task_statements.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\interest.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\iwa_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\job_zones.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\job_zone_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\knowledge.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\level_scale_anchors.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\occupation_data.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\occupation_level_metadata.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OnetSkillsFramework.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnetSkillsFramework.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OnetSkillsFramework.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\OnetSkillsFramework.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataModel\sample_of_reported_titles.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\scales_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\skill.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\SkillsFrameworkDataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -231,57 +249,55 @@
       <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\survey_booklet_locations.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\sysdiagram.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\tasks_to_dwas.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\tasks_to_green_dwas.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\task_categories.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\task_ratings.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\task_statements.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\tools_and_technology.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\unspsc_reference.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\work_activities.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\work_context.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\work_context_categories.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\work_styles.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\work_values.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
+      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helper\IObjectContextFactory.cs" />
-    <Compile Include="Helper\ObjectContextFactory.cs" />
     <Compile Include="Impl\DbSetWrapper.cs" />
-    <Compile Include="Impl\SkillsFrameworkDbContext.cs" />
     <Compile Include="Interface\IDbContext.cs" />
     <Compile Include="Interface\IDbSetWrapper.cs" />
     <Compile Include="IOnetRepository.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="OnetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\SocMappingsQueryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
@@ -294,6 +310,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataModel\OnetSkillsFramework.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
+      <LastGenOutput>OnetSkillsFramework.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel\OnetSkillsFramework.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
+      <LastGenOutput>OnetSkillsFramework.cs</LastGenOutput>
+    </Content>
     <Content Include="DataModel\SkillsFrameworkDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
@@ -312,6 +338,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SkillsFrameworkDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="DataModel\OnetSkillsFramework.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataModel\OnetSkillsFramework.edmx.diagram">
+      <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
+    </None>
     <None Include="DataModel\SkillsFrameworkDataModel.edmx.diagram">
       <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
     </None>

@@ -96,6 +96,8 @@
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
+    <Compile Include="Interfaces\ICommandRepository.cs" />
+    <Compile Include="Interfaces\IQueryRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISalaryCalculator.cs" />
     <Compile Include="Interfaces\ISalaryService.cs" />

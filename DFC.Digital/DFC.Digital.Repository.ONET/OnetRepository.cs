@@ -1,61 +1,55 @@
-﻿using System;
+﻿using AutoMapper;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.DataModel;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.ONET.Helper;
-using DFC.Digital.Repository.ONET.Impl;
-using DFC.Digital.Core;
 
 namespace DFC.Digital.Repository.ONET
 {
-    using DataModel;
-
     public class OnetRepository : IOnetRepository
     {
-        readonly IObjectContextFactory<OnetRepositoryDbContext> context;
-        readonly IApplicationLogger logger;
-        readonly IMapper mapper;
-        public OnetRepository(IObjectContextFactory<OnetRepositoryDbContext> context, IMapper mapper, IApplicationLogger logger)
+        #region Fields
+
+        private readonly OnetSkillsFramework dbContext;
+        private readonly IMapper mapper;
+        private readonly IApplicationLogger logger;
+
+        #endregion Fields
+
+        #region ctor
+
+        public OnetRepository(OnetSkillsFramework dbContext, IMapper mapper, IApplicationLogger logger)
         {
-            this.context = context;
+            this.dbContext = dbContext;
             this.mapper = mapper;
             this.logger = logger;
+
+            dbContext.Database.Log = s => logger.Info(s);
         }
 
-        #region Implementation of IDisposable
+        #endregion ctor
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-        #endregion
         #region SkillsFramework Repository Implemetation
+
         public async Task<IEnumerable<T>> GetAllSocMappingsAsync<T>() where T : OnetEntity
         {
-            using (var context = this.context.GetContext())
-            {
-                context.Database.Log = s => logger.Info(s);
-                var ret = await context.DFC_SocMappings
-                    .AsQueryable()
-                    .ProjectToListAsync<T>(mapper.ConfigurationProvider)
-                    .ConfigureAwait(false);
-                return mapper.Map<IEnumerable<T>>(ret);
-            }
+            var ret = await dbContext.DFC_SocMappings
+                .ProjectToListAsync<T>(mapper.ConfigurationProvider)
+                .ConfigureAwait(false);
+
+            return mapper.Map<IEnumerable<T>>(ret);
         }
 
         public async Task<IEnumerable<T>> GetAllTranslationsAsync<T>() where T : OnetEntity
         {
-            IEnumerable<T> ret=null;
-            using (var context = this.context.GetContext())
-            {
-                 ret = await context.DFC_GDSTranlations
-                    .AsQueryable()
-                    .ProjectToListAsync<T>(mapper.ConfigurationProvider)
-                    .ConfigureAwait(false);
-               
-            }
+            var ret = await dbContext.DFC_GDSTranlations
+               .ProjectToListAsync<T>(mapper.ConfigurationProvider)
+               .ConfigureAwait(false);
+
             return mapper.Map<IEnumerable<T>>(ret);
         }
 
@@ -63,72 +57,67 @@ namespace DFC.Digital.Repository.ONET
         {
             IQueryable<DfcOnetAttributesData> attributes = null;
             IList<T> dfcGdsAttributesDatas = null;
-            using(var context = this.context.GetContext())
+
+            // just transforming Stored procedure to Linq . Will optimize with specification and predicates
+            await Task.Factory.StartNew(() =>
             {
-                // just transforming Stored procedure to Linq . Will optimize with specification and predicates
-                await Task.Factory.StartNew(() =>
-                {
-                    attributes = (KnowledgeSource(socCode, context))
-                        .Union(SkillSource(socCode, context))
-                        .Union(AbilitiesSource(socCode, context))
-                        .Union(WorkStyleSource(socCode, context))
-                        .OrderByDescending(x => x.Value);
-                }).ConfigureAwait(false);
-                var updatedAttributes = CheckAndUpdateForMathematics(attributes);
-                 dfcGdsAttributesDatas = (IList<T>) DfcGdsUpdatedAttributesDatas(updatedAttributes);
-            }
+                attributes = (KnowledgeSource(socCode, dbContext))
+                    .Union(SkillSource(socCode, dbContext))
+                    .Union(AbilitiesSource(socCode, dbContext))
+                    .Union(WorkStyleSource(socCode, dbContext))
+                    .OrderByDescending(x => x.Value);
+            }).ConfigureAwait(false);
+            var updatedAttributes = CheckAndUpdateForMathematics(attributes);
+            dfcGdsAttributesDatas = (IList<T>)DfcGdsUpdatedAttributesDatas(updatedAttributes);
             return (IEnumerable<T>)dfcGdsAttributesDatas;
         }
+
         public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : OnetEntity
         {
             IQueryable<DfcOnetToolsAndTechnology> dfcToolsandTech = null;
             DfcOnetDigitalSkills digitalSkills = new DfcOnetDigitalSkills();
-            using (var context = this.context.GetContext())
+            await Task.Factory.StartNew(() =>
             {
-                await Task.Factory.StartNew(() =>
-                {
-                    dfcToolsandTech = from o in context?.tools_and_technology
-                        join od in context?.unspsc_reference on o.commodity_code equals od.commodity_code
-                        where o.onetsoc_code == socCode
-                        orderby o.t2_type, od.class_title
-                        select new DfcOnetToolsAndTechnology
-                        {
-                            ClassTitle = od.class_title,
-                            T2Example = o.t2_example,
-                            T2Type = o.t2_type,
-                            SocCode = socCode,
-                            OnetSocCode = o.onetsoc_code
-                        };
-                }).ConfigureAwait(false);
-                 digitalSkills = new DfcOnetDigitalSkills
-                {
-                    DigitalSkillsCollection = dfcToolsandTech,
-                    DigitalSkillsCount = dfcToolsandTech.Count()
-                };
-            }
+                dfcToolsandTech = from o in dbContext?.tools_and_technology
+                                  join od in dbContext?.unspsc_reference on o.commodity_code equals od.commodity_code
+                                  where o.onetsoc_code == socCode
+                                  orderby o.t2_type, od.class_title
+                                  select new DfcOnetToolsAndTechnology
+                                  {
+                                      ClassTitle = od.class_title,
+                                      T2Example = o.t2_example,
+                                      T2Type = o.t2_type,
+                                      SocCode = socCode,
+                                      OnetSocCode = o.onetsoc_code
+                                  };
+            }).ConfigureAwait(false);
+            digitalSkills = new DfcOnetDigitalSkills
+            {
+                DigitalSkillsCollection = dfcToolsandTech,
+                DigitalSkillsCount = dfcToolsandTech.Count()
+            };
             return (T)Convert.ChangeType(digitalSkills, typeof(T));
         }
 
         public async Task<T> GetDigitalSkillsRankAsync<T>(string socCode) where T : struct
         {
             var count = 0;
-            using (var context = this.context.GetContext())
+            await Task.Factory.StartNew(() =>
             {
-                await Task.Factory.StartNew(() =>
-                {
-                    count = (from o in context.tools_and_technology
-                        join od in context.unspsc_reference on o.commodity_code equals od.commodity_code
-                        where o.onetsoc_code == socCode
-                        orderby o.t2_type, od.class_title
-                        select o).Count();
-                }).ConfigureAwait(false);
-            }
+                count = (from o in dbContext.tools_and_technology
+                         join od in dbContext.unspsc_reference on o.commodity_code equals od.commodity_code
+                         where o.onetsoc_code == socCode
+                         orderby o.t2_type, od.class_title
+                         select o).Count();
+            }).ConfigureAwait(false);
             return (T)(object)count;
         }
-        #endregion
+
+        #endregion SkillsFramework Repository Implemetation
 
         #region Private helper function for the interface
-        static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetRepositoryDbContext context)
+
+        private static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetRepositoryDbContext context)
         {
             return from ablty in context.abilities
                    join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
@@ -154,11 +143,11 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcOnetAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcOnetAttributesData> attributes)
+        private static IQueryable<DfcOnetAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcOnetAttributesData> attributes)
         {
             var mathsKnowledge = attributes.ToList().FindAll(x => x.ElementName == "Mathematics").ToList();
             IQueryable<DfcOnetAttributesData> newAtt = null;
-            if(mathsKnowledge.Count > 1)
+            if (mathsKnowledge.Count > 1)
             {
                 var mathsKnowledgeValue = attributes.ToList().FirstOrDefault(x =>
                     x.ElementName == "Mathematics" && x.Value == mathsKnowledge.ToList().Min(x1 => x1.Value));
@@ -178,7 +167,7 @@ namespace DFC.Digital.Repository.ONET
                     return c;
                 }).ToList();
                 //Add the Mathematics back to the Complete Attribute List
-                foreach(var k in mathsKnowledge)
+                foreach (var k in mathsKnowledge)
                 {
                     newAtt.ToList().RemoveAll(x => x.ElementId == k.ElementId);
                     newAtt.ToList().AddRange(val);
@@ -187,7 +176,7 @@ namespace DFC.Digital.Repository.ONET
             return newAtt;
         }
 
-        static IList<DfcOnetAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcOnetAttributesData> newAtt)
+        private static IList<DfcOnetAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcOnetAttributesData> newAtt)
         {
             var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Value)
                 .Where(x => x.Attribute == Attributes.WorkStyles)
@@ -234,7 +223,7 @@ namespace DFC.Digital.Repository.ONET
             return dfcGdsAttributesDatas;
         }
 
-        static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetRepositoryDbContext context)
         {
             return from knwldg in context.knowledges
                    join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
@@ -260,7 +249,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetRepositoryDbContext context)
         {
             return from skl in context.skills
                    join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
@@ -286,7 +275,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetRepositoryDbContext context)
         {
             return from wkstyl in context.work_styles
                    join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
@@ -310,6 +299,7 @@ namespace DFC.Digital.Repository.ONET
                        Value = workStyleGroup.Sum(x => x.data_value) / 2
                    };
         }
-        #endregion
+
+        #endregion Private helper function for the interface
     }
 }

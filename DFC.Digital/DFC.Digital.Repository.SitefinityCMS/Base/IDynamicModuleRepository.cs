@@ -4,7 +4,7 @@ using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public interface IDynamicModuleRepository<T> : IRepository<DynamicContent>
+    public interface IDynamicModuleRepository<T> : IQueryRepository<DynamicContent>
     {
         Type GetContentType();
 

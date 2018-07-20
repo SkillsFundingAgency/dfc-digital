@@ -4,7 +4,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IImportSkillsFrameworkDataService
     {
-        FrameworkSkillsImportResponse ImportOnetSkills();
+        FrameworkSkillsImportResponse ImportFrameworkSkills();
 
         UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode();
 

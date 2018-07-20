@@ -28,7 +28,7 @@ namespace DFC.Digital.Service.OnetService
             this.socSkillMatrixRepository = socSkillMatrixRepository;
         }
 
-        public FrameworkSkillsImportResponse ImportOnetSkills()
+        public FrameworkSkillsImportResponse ImportFrameworkSkills()
         {
             // this will be async once integrated
             var onetSkills = skillsFrameworkService.GetOnetSkills();

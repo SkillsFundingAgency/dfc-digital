@@ -1,0 +1,152 @@
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers;
+using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models;
+using FakeItEasy;
+using FluentAssertions;
+using TestStack.FluentMVCTesting;
+using Xunit;
+
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
+{
+    public class SkillsFrameworkDataImportControllerTests
+    {
+
+        private readonly IImportSkillsFrameworkDataService fakeImportSkillsFrameworkDataService;
+        private readonly IReportAuditRepository fakeReportAuditRepository;
+        private readonly IWebAppContext fakeWebAppContext;
+        private readonly IApplicationLogger fakeApplicationLogger;
+
+        public SkillsFrameworkDataImportControllerTests()
+        {
+            fakeImportSkillsFrameworkDataService = A.Fake<IImportSkillsFrameworkDataService>(ops => ops.Strict());
+            fakeReportAuditRepository = A.Fake<IReportAuditRepository>(ops => ops.Strict());
+            fakeWebAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+            fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            SetupCalls();
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void IndexTest(bool isAdmin)
+        {
+            // Assign
+            var skillsFrameworkDataImportController = SkillsFrameworkDataImportController(isAdmin);
+
+            // Act
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index());
+
+            // Assert
+            indexMethodCall
+                .ShouldRenderDefaultView()
+                .WithModel<SkillsFrameworkImportViewModel>(vm =>
+                {
+                    vm.FirstParagraph.Should().BeEquivalentTo(skillsFrameworkDataImportController.FirstParagraph);
+                    vm.IsAdmin.Should().Be(fakeWebAppContext.IsUserAdministrator);
+                    vm.NotAllowedMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
+                    vm.PageTitle.Should().BeEquivalentTo(skillsFrameworkDataImportController.PageTitle);
+                })
+                .AndNoModelErrors();
+
+            A.CallTo(() => fakeWebAppContext.IsUserAdministrator).MustHaveHappened();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustNotHaveHappened();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustNotHaveHappened();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustNotHaveHappened();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustNotHaveHappened();
+        }
+
+        [Theory]
+        [InlineData("IMPORTSKILLS")]
+        [InlineData("UPDATESOCOCCUPATIONALCODES")]
+        [InlineData("UPDATEJPDIGITALSKILLS")]
+        [InlineData("BUILDSOCMATRIX")]
+        [InlineData("UPDATEJPSKILLS")]
+        [InlineData("")]
+        public void IndexModeTest(string mode)
+        {
+            // Assign
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+            var skillsFrameworkDataImportController = SkillsFrameworkDataImportController(true);
+
+            // Act
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index(mode));
+
+            // Assert
+            indexMethodCall
+                .ShouldRenderView("ImportResults")
+                .WithModel<SkillsFrameworkResultsViewModel>(vm =>
+                {
+                    vm.FirstParagraph.Should().BeEquivalentTo(skillsFrameworkDataImportController.FirstParagraph);
+                    vm.IsAdmin.Should().Be(fakeWebAppContext.IsUserAdministrator);
+                    vm.NotAllowedMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
+                    vm.PageTitle.Should().BeEquivalentTo(skillsFrameworkDataImportController.PageTitle);
+                    vm.AuditRecords.Should().BeEquivalentTo(fakeReportAuditRepository.GetAllAuditRecords());
+                })
+                .AndNoModelErrors();
+
+            switch (mode?.ToUpperInvariant().Trim())
+            {
+                case "IMPORTSKILLS":
+                    A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustHaveHappened();
+                    break;
+                case "UPDATESOCOCCUPATIONALCODES":
+                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustHaveHappened();
+                    break;
+                case "UPDATEJPDIGITALSKILLS":
+                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustHaveHappened();
+                    break;
+                case "BUILDSOCMATRIX":
+                    A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustHaveHappened();
+                    break;
+                case "UPDATEJPSKILLS":
+                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustHaveHappened();
+                    break;
+                    default:
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustNotHaveHappened();
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustNotHaveHappened();
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustNotHaveHappened();
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
+                    break;
+            }
+
+            A.CallTo(() => fakeWebAppContext.IsUserAdministrator).MustHaveHappened();
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
+        }
+
+        private SkillsFrameworkDataImportController SkillsFrameworkDataImportController(bool isAdmin)
+        {
+            A.CallTo(() => fakeWebAppContext.IsUserAdministrator).Returns(isAdmin);
+
+            var skillsFrameworkDataImportController = new SkillsFrameworkDataImportController(fakeApplicationLogger,
+                fakeImportSkillsFrameworkDataService, fakeReportAuditRepository, fakeWebAppContext)
+            {
+                FirstParagraph = nameof(MVC.Controllers.SkillsFrameworkDataImportController.FirstParagraph),
+                NotAllowedMessage = nameof(MVC.Controllers.SkillsFrameworkDataImportController.NotAllowedMessage),
+                PageTitle = nameof(MVC.Controllers.SkillsFrameworkDataImportController.PageTitle),
+            };
+            return skillsFrameworkDataImportController;
+        }
+
+        private void SetupCalls()
+        {
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).Returns(new BuildSocMatrixResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).Returns(new UpdateJpDigitalSkillsResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).Returns(new UpdateJpSocSkillMatrixResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Returns(new UpdateSocOccupationalCodeResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Returns(new FrameworkSkillsImportResponse());
+        }
+
+        private IDictionary<string, IList<string>> GetAuditRecords()
+        {
+            var records = new Dictionary<string, IList<string>> { { "key", new List<string> { "test" } } };
+            return records;
+        }
+    }
+}

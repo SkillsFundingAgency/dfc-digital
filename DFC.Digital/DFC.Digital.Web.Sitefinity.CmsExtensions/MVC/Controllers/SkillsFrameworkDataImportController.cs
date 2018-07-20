@@ -21,7 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
     {
         #region Private Members
 
-        private readonly IImportSkillsFrameworkDataService importOnetDataService;
+        private readonly IImportSkillsFrameworkDataService importSkillsFrameworkDataService;
         private readonly IReportAuditRepository reportAuditRepository;
         private readonly IWebAppContext webAppContext;
 
@@ -29,9 +29,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 
         #region Constructors
 
-        public SkillsFrameworkDataImportController(IApplicationLogger applicationLogger, IImportSkillsFrameworkDataService importOnetDataService, IReportAuditRepository reportAuditRepository, IWebAppContext webAppContext) : base(applicationLogger)
+        public SkillsFrameworkDataImportController(IApplicationLogger applicationLogger, IImportSkillsFrameworkDataService importSkillsFrameworkDataService, IReportAuditRepository reportAuditRepository, IWebAppContext webAppContext) : base(applicationLogger)
         {
-            this.importOnetDataService = importOnetDataService;
+            this.importSkillsFrameworkDataService = importSkillsFrameworkDataService;
             this.reportAuditRepository = reportAuditRepository;
             this.webAppContext = webAppContext;
         }
@@ -105,30 +105,30 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     switch (importMode?.ToUpperInvariant().Trim())
                     {
                         case "IMPORTSKILLS":
-                            importOnetDataService.ImportOnetSkills();
+                            importSkillsFrameworkDataService.ImportFrameworkSkills();
                             importResult.ActionCompleted = "Import Onet Skills";
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
-                            importOnetDataService.UpdateSocCodesOccupationalCode();
+                            importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
                             break;
                         case "UPDATEJPDIGITALSKILLS":
-                            importOnetDataService.UpdateJobProfilesDigitalSkills();
+                            importSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills();
                             importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
                             break;
                         case "BUILDSOCMATRIX":
-                            importOnetDataService.BuildSocMatrixData();
+                            importSkillsFrameworkDataService.BuildSocMatrixData();
                             importResult.ActionCompleted = "Build Soc Skill Matrix";
                             break;
                         case "UPDATEJPSKILLS":
-                            importOnetDataService.UpdateJpSocSkillMatrix();
+                            importSkillsFrameworkDataService.UpdateJpSocSkillMatrix();
                             importResult.ActionCompleted = "Update Job Profiles with related Soc skill Matrices";
                             break;
                     }
                    }
                 catch (Exception ex)
                 {
-                    otherMessage = ex.Message + "<br />" + ex.InnerException + "<br />" + ex.StackTrace;
+                    otherMessage = $"{ex.Message} <br /> {ex.InnerException} <br /> {ex.StackTrace}";
                 }
             }
             else

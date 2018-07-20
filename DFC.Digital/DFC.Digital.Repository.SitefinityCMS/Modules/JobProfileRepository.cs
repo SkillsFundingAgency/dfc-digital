@@ -41,14 +41,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
             var key = urlName.ToLower();
             if (!cachedJobProfiles.ContainsKey(key))
             {
-                var jobProfile = ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
-                if (jobProfile?.IsImported != true)
-                {
-                    cachedJobProfiles.Add(key, jobProfile);
-                }
+                var jobProfile = ConvertDynamicContent(repository.Get(item =>
+                    item.UrlName == urlName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+                cachedJobProfiles.Add(key, jobProfile);
             }
 
-            return cachedJobProfiles[key];
+            return cachedJobProfiles[key]?.IsImported == true ? null : cachedJobProfiles[key];
         }
 
         /// <summary>

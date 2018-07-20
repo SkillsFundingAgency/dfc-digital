@@ -58,6 +58,10 @@
             list-style: none;
             padding: 0;
         }
+
+        .heading-medium {
+            margin-top: 0.5em !important;
+        }
     }
 }
 
@@ -557,5 +561,69 @@
     .heading-medium {
         margin-top: 0.75em;
         margin-bottom: 0.5em;
+    }
+}
+
+.job-profile-feedback {
+    position: sticky;
+    bottom: 0;
+    background-color: $white;
+    color: $govuk-blue;
+    border-top: 3px solid $govuk-blue;
+    padding: 10px 0;
+    display: none;
+    z-index: 1000;
+
+    p {
+        margin: 0;
+        float: left;
+        font-size: 16px;
+    }
+
+    .job-profile-feedback-start {
+        a {
+            float: left;
+            margin-left: 10px;
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:before {
+                content: "";
+                width: 25px;
+                height: 17px;
+                display: inline-block;
+                float: left;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .yes {
+        &:before {
+            background: file-url("thumbs-up.svg") no-repeat center;
+        }
+
+        &:hover:before {
+            opacity: 0.7;
+        }
+    }
+
+    .no {
+        &:before {
+            background: file-url("thumbs-down.svg") no-repeat center;
+            position: relative;
+            top: 2px;
+        }
+
+        &:hover:before {
+            opacity: 0.7;
+        }
+    }
+
+    .job-profile-feedback-end-no {
+        a {
+            font-weight: bold;
+        }
     }
 }

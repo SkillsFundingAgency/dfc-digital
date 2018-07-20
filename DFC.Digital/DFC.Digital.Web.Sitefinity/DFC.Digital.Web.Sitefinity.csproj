@@ -942,6 +942,8 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\checked.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\clock.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\pound-sign.svg" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\thumbs-down.svg" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\thumbs-up.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\tree.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-1.12.4.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-ui.min.js" />
@@ -953,6 +955,11 @@
     <Content Include="AdminApp\assets\manifest.json" />
     <Content Include="OpenAccessNuGet.targets" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.25.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.2.nupkg" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.json" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.3.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -960,9 +967,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.27.2.nupkg" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -983,6 +987,7 @@
     <Content Include="ResourcePackages\gds_toolkit\gruntfile.js" />
     <Content Include="Default.aspx" />
     <Content Include="robots.txt" />
+    <Content Include="DetailFormViewCustom.js" />
     <Content Include="Silverlight.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Thunder\ThunderService.svc" />

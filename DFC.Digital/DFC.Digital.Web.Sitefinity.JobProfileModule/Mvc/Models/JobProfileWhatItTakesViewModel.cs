@@ -1,12 +1,16 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
     /// <summary>
     /// Job Profile Section View
     /// </summary>
-    public class JobProfileWhatItTakesViewModel : JobProfileSectionViewModel
+    public class JobProfileWhatItTakesViewModel
     {
+        public JobProfileWhatItTakesSkillsViewModel JobProfileWhatItTakesSkillsViewModel { get; set; }
+
         /// <summary>
         /// Gets or sets the restrictions other requirements.
         /// </summary>
@@ -24,19 +28,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public bool IsWhatItTakesCadView { get; set; }
 
         /// <summary>
-        /// Gets or sets the section title.
-        /// </summary>
-        /// <value>
-        /// The section title.
-        /// </value>
-        public string WhatItTakesSectionTitle { get; set; }
-
-        /// <summary>
         /// Gets or sets the section identifier.
         /// </summary>
         /// <value>
         /// The section identifier.
         /// </value>
         public string SectionId { get; set; }
+
+        public string Title { get; set; }
     }
 }

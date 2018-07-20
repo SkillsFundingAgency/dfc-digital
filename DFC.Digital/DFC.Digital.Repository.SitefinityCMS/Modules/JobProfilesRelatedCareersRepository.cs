@@ -12,6 +12,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
 
         private const string RelatedCareersFieldName = "RelatedCareerProfiles";
+        private const string IsImportedField = "IsImported";
         private readonly IDynamicModuleConverter<JobProfileRelatedCareer> converter;
         private readonly IDynamicModuleRepository<JobProfile> jobprofileRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -51,7 +52,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 if (relatedCareerProfilesItem.Any())
                 {
-                    return relatedCareerProfilesItem.Select(item => converter.ConvertFrom(item));
+                    return relatedCareerProfilesItem.ToList().Where(x => !dynamicContentExtensions.GetFieldValue<bool>(x, IsImportedField)).Select(item => converter.ConvertFrom(item));
                 }
             }
 

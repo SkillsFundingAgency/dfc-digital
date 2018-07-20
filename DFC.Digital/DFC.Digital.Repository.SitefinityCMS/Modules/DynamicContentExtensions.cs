@@ -42,5 +42,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 return default;
             }
         }
+
+        public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
+        {
+                var relatedContent = GetRelatedItems(content, relatedField, 100);
+                return relatedContent?.Select(x => $"{x.UrlName}");
+        }
     }
 }

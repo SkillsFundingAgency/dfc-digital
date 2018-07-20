@@ -51,6 +51,23 @@ $(document).ready(function () {
         }
     });
 
+    //JP Thumbs Up / Down
+    if (GOVUK.cookie('JPsurvey') != "dismissed") {
+        $(".job-profile-feedback").addClass("js-visible");
+    };
+
+    $("#jp-feedback-yes").click(function () {
+        GOVUK.cookie('JPsurvey', 'dismissed', { days: 31 });
+        $(".job-profile-feedback-start").addClass("hidden");
+        $(".job-profile-feedback-end-yes").removeClass("hidden");
+    });
+
+    $("#jp-feedback-no").click(function () {
+        GOVUK.cookie('JPsurvey', 'dismissed', { days: 31 });
+        $(".job-profile-feedback-start").addClass("hidden");
+        $(".job-profile-feedback-end-no").removeClass("hidden");
+
+    });
 });
 
 function sendEmail(e) {

@@ -91,6 +91,7 @@
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
     <Compile Include="Interfaces\IJobProfileCategoryRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRelatedCareersRepository.cs" />
+    <Compile Include="Interfaces\IJobProfileRelatedSkillsRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
@@ -164,6 +165,8 @@
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
+    <Compile Include="Model\WhatYouWillDo.cs" />
+    <Compile Include="Model\WhatItTakesSkill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

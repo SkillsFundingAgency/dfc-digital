@@ -1,15 +1,9 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileWhatItTakesViewModel
 <section class="job-profile-subsection" id="@Html.Raw(Model.SectionId)">
     <h2 class="heading-large">@Html.Raw(Model.Title)</h2>
-    <h3>@Model.WhatItTakesSectionTitle</h3>
-    <div class="job-profile-subsection-content">
-        @Html.Raw(Model.TopSectionContent)
-        @Html.Raw(Model.PropertyValue)
-        @Html.Raw(Model.BottomSectionContent)
-    </div>
+    @Html.Partial("WhatItTakesSkills", Model.JobProfileWhatItTakesSkillsViewModel)
+    @if (Model.IsWhatItTakesCadView)
+    {
+        @Html.Partial("RestrictionsRequirements", Model.RestrictionsOtherRequirements)
+    }
 </section>
-
-@if (Model.IsWhatItTakesCadView)
-{
-    @Html.Partial("RestrictionsRequirements", Model.RestrictionsOtherRequirements)
-}

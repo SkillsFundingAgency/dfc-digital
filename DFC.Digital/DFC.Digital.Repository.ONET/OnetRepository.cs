@@ -37,7 +37,7 @@ namespace DFC.Digital.Repository.ONET
             using (var context = this.context.GetContext())
             {
                 context.Database.Log = s => logger.Info(s);
-                var ret = await context.Set<DFC_SocMappings>()
+                var ret = await context.DFC_SocMappings
                     .AsQueryable()
                     .ProjectToListAsync<T>(mapper.ConfigurationProvider)
                     .ConfigureAwait(false);

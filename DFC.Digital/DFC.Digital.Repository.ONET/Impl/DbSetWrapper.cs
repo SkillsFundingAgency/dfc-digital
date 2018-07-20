@@ -9,26 +9,39 @@ using System.Linq.Expressions;
 
 namespace DFC.Digital.Repository.ONET.Impl
 {
+    using System.Collections.ObjectModel;
 
     public class DbSetWrapper<TEntity> : IDbSetWrapper<TEntity> where TEntity : class
     {
 
-        private readonly IDbSet<TEntity> set;
-        private readonly Expression expression;
-        private readonly Type elementType;
-        private readonly IQueryProvider provider;
+        private readonly IDbSet<TEntity> Set;
 
-        public Expression Expression => expression;
-        public Type ElementType => elementType;
-        public IQueryProvider Provider => provider;
 
+        public Expression Expression
+        {
+            get; private set;
+        }
+        public Type ElementType
+        {
+            get; private set;
+        }
+        public IQueryProvider Provider
+        {
+            get; private set;
+        }
+
+        public ObservableCollection<TEntity> Local
+        {
+            get; private set;
+        }
         #region Constructors and Destructors
         public DbSetWrapper ( IDbSet<TEntity> set )
         {
-            this.set = set;
-            this.expression = set.Expression;
-            this.elementType = set.ElementType;
-            this.provider = set.Provider;
+            this.Set = set;
+            this.Expression = set.Expression;
+            this.ElementType = set.ElementType;
+            this.Provider = set.Provider;
+            this.Local = set.Local;
         }
 
         #endregion
@@ -37,7 +50,7 @@ namespace DFC.Digital.Repository.ONET.Impl
 
         public IDbAsyncEnumerator<TEntity> GetAsyncEnumerator()
         {
-            return ((IDbAsyncEnumerable<TEntity>)this.set).GetAsyncEnumerator();
+            return ((IDbAsyncEnumerable<TEntity>)this.Set).GetAsyncEnumerator();
         }
 
         IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator()
@@ -51,7 +64,7 @@ namespace DFC.Digital.Repository.ONET.Impl
 
         public IEnumerator<TEntity> GetEnumerator()
         {
-            return ((IEnumerable<TEntity>)this.set).GetEnumerator();
+            return ((IEnumerable<TEntity>)this.Set).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

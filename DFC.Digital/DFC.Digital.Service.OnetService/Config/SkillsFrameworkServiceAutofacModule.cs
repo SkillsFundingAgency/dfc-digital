@@ -1,12 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Service.OnetService.Services;
+using DFC.Digital.Service.SkillsFramework.Services;
 
-namespace DFC.Digital.Service.GovUkNotify.Config
+namespace DFC.Digital.Service.SkillsFramework.Config
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class OnetServiceAutofacModule : Module
+    public class SkillsFrameworkServiceAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

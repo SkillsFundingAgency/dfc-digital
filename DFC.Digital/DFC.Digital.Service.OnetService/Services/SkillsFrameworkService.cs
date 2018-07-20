@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.OnetService.Services.Contracts;
+using DFC.Digital.Service.SkillsFramework.Services.Contracts;
 
-namespace DFC.Digital.Service.OnetService.Services
+namespace DFC.Digital.Service.SkillsFramework.Services
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {

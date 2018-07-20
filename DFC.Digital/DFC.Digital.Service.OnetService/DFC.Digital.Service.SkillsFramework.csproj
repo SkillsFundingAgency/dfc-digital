@@ -7,8 +7,8 @@
     <ProjectGuid>{92247873-A7D7-4D28-9C94-D31B36CB78B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Service.OnetService</RootNamespace>
-    <AssemblyName>DFC.Digital.Service.OnetService</AssemblyName>
+    <RootNamespace>DFC.Digital.Service.SkillsFramework</RootNamespace>
+    <AssemblyName>DFC.Digital.Service.SkillsFramework</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SkillsFrameworkDataImportService.cs" />
-    <Compile Include="Config\OnetServiceAutofacModule.cs" />
+    <Compile Include="Config\SkillsFrameworkServiceAutofacModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\ISkillsFrameworkService.cs" />
     <Compile Include="Services\InMemoryReportAuditRepository.cs" />

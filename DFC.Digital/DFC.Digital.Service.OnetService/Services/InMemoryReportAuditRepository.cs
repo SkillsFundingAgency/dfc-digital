@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using DFC.Digital.Data.Interfaces;
 
-namespace DFC.Digital.Service.OnetService.Services
+namespace DFC.Digital.Service.SkillsFramework.Services
 {
     public class InMemoryReportAuditRepository : IReportAuditRepository
     {

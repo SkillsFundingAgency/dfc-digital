@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.OnetService.Services.Contracts;
+using DFC.Digital.Service.SkillsFramework.Services.Contracts;
 
-namespace DFC.Digital.Service.OnetService
+namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkDataImportService : IImportSkillsFrameworkDataService
     {

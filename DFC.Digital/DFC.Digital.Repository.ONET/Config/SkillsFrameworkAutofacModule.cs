@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Mapper;
@@ -29,7 +30,8 @@ namespace DFC.Digital.Repository.ONET.Config
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<OnetSkillsFramework>()
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope()
+                .OnActivated(e => e.Instance.Database.Log = message => e.Context.Resolve<IApplicationLogger>().Info(message));
         }
     }
 }

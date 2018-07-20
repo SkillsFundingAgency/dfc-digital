@@ -1,9 +1,11 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET;
 using DFC.Digital.Service.SkillsFramework.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.SkillsFramework
@@ -13,22 +15,24 @@ namespace DFC.Digital.Service.SkillsFramework
         //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
         private readonly IOnetRepository repository;
         private readonly IApplicationLogger logger;
+        private readonly IRepository<SocCode> socRepository;
 
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(IOnetRepository repository, IApplicationLogger logger)
+        public SkillsFrameworkEngine(IOnetRepository repository, IApplicationLogger logger, IRepository<SocCode> socRepository)
         {
             this.repository = repository;
             this.logger = logger;
+            this.socRepository = socRepository;
         }
 
         #region Implementation of IBusinessRuleEngine
 
-        public async Task<IEnumerable<DfcOnetSocMappings>> GetAllSocMappingsAsync()
+        public IEnumerable<SocCode> GetAllSocMappingsAsync()
         {
             try
             {
-                return await repository.GetAllSocMappingsAsync<DfcOnetSocMappings>();
+                return socRepository.GetAll().ToList();
             }
             catch (Exception e)
             {

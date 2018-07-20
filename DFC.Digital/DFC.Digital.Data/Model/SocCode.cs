@@ -13,5 +13,7 @@ namespace DFC.Digital.Data.Model
         public string SOCCode { get; set; }
 
         public string Title { get; set; }
+
+        public string ONetOccupationalCode { get; set; }
     }
 }

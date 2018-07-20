@@ -117,7 +117,7 @@ namespace DFC.Digital.Repository.ONET
 
         #region Private helper function for the interface
 
-        private static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetSkillsFramework context)
         {
             return from ablty in context.abilities
                    join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
@@ -223,7 +223,7 @@ namespace DFC.Digital.Repository.ONET
             return dfcGdsAttributesDatas;
         }
 
-        private static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetSkillsFramework context)
         {
             return from knwldg in context.knowledges
                    join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
@@ -249,7 +249,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        private static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetSkillsFramework context)
         {
             return from skl in context.skills
                    join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
@@ -275,7 +275,7 @@ namespace DFC.Digital.Repository.ONET
                    };
         }
 
-        private static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetRepositoryDbContext context)
+        private static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetSkillsFramework context)
         {
             return from wkstyl in context.work_styles
                    join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals

@@ -24,18 +24,11 @@ namespace DFC.Digital.Repository.ONET.Mapper
                 .ForMember(s=>s.datetimestamp,m=>m.MapFrom(d=>d.DateTimeStamp))
                 .ForMember(s=>s.translation,m=>m.MapFrom(d=>d.Translation));
 
-            CreateMap<DFC_SocMappings, DfcOnetSocMappings>()
-                .ForMember(d => d.JobProfile, m => m.MapFrom(s => s.JobProfile))
-                .ForMember(d => d.QualityRating, m => m.MapFrom(s => s.QualityRating))
-                .ForMember(d => d.SocCode, m => m.MapFrom(s => s.SocCode))
-                .ForMember(d => d.OnetSocCode, m => m.MapFrom(s => s.ONetCode))
-                .ReverseMap()
-                .ForMember(s => s.SocCode, m => m.MapFrom(d => d.SocCode))
-                .ForMember(s => s.JobProfile, m => m.MapFrom(d => d.JobProfile))
-                .ForMember(s => s.ONetCode, m => m.MapFrom(d => d.OnetSocCode))
-                .ForMember(s => s.QualityRating, m => m.MapFrom(d => d.QualityRating));
-
+            CreateMap<DFC_SocMappings, SocCode>()
+                .ForMember(d => d.ONetOccupationalCode, m => m.MapFrom(s => s.ONetCode))
+                .ForMember(d => d.SOCCode, m => m.MapFrom(s => s.SocCode));
         }
+
         public override string ProfileName => this.GetType().Name;
     }
 }

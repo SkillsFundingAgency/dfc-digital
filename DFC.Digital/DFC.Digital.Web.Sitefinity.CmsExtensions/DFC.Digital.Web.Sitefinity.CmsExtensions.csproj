@@ -38,6 +38,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -410,6 +412,9 @@
     <Content Include="MVC\Views\SkillsFrameworkDataImport\ImportResults.cshtml" />
     <Content Include="MVC\Views\SkillsFrameworkDataImport\Index.cshtml" />
     <Content Include="MVC\Views\Web.config" />
+    <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">
+      <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
+    </CodeAnalysisDictionary>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

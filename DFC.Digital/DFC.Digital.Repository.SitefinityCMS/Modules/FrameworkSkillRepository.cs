@@ -26,7 +26,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Interface Implementations
 
-        public RepoActionResult UpsertOnetSkill(FrameworkSkill onetSkill)
+        public RepoActionResult UpsertFrameworkSkill(FrameworkSkill onetSkill)
         {
             //CodeReview: Worth abstrating this out to a get by url
             var repoSkill = frameworkSkillRepository.Get(item =>
@@ -63,7 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             };
         }
 
-        public IQueryable<FrameworkSkill> GetOnetSkills()
+        public IQueryable<FrameworkSkill> GetFrameworkSkills()
         {
             var socSkillMatrices = frameworkSkillRepository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 

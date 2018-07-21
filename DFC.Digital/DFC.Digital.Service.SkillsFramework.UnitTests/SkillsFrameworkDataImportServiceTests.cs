@@ -40,8 +40,8 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             //Dummies and Fakes
             A.CallTo(() => fakeSkillsFrameworkService.GetOnetSkills()).Returns(GetFrameworkSkills(numberOfskills));
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeFrameworkSkillRepository.GetOnetSkills()).Returns(Enumerable.Empty<FrameworkSkill>().AsQueryable());
-            A.CallTo(() => fakeFrameworkSkillRepository.UpsertOnetSkill(A<FrameworkSkill>._)).Returns(new RepoActionResult());
+            A.CallTo(() => fakeFrameworkSkillRepository.GetFrameworkSkills()).Returns(Enumerable.Empty<FrameworkSkill>().AsQueryable());
+            A.CallTo(() => fakeFrameworkSkillRepository.UpsertFrameworkSkill(A<FrameworkSkill>._)).Returns(new RepoActionResult());
 
             // Act
             skillsImportService.ImportFrameworkSkills();
@@ -49,7 +49,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             // Assert
             A.CallTo(() => fakeSkillsFrameworkService.GetOnetSkills()).MustHaveHappened();
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeFrameworkSkillRepository.UpsertOnetSkill(A<FrameworkSkill>._)).MustHaveHappened(numberOfskills, Times.Exactly);
+            A.CallTo(() => fakeFrameworkSkillRepository.UpsertFrameworkSkill(A<FrameworkSkill>._)).MustHaveHappened(numberOfskills, Times.Exactly);
         }
 
         [Theory]

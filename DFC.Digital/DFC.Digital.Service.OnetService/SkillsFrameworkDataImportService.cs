@@ -32,14 +32,14 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             // this will be async once integrated
             var onetSkills = skillsFrameworkService.GetOnetSkills().ToList();
-            var allOnetSkills = frameworkSkillRepository.GetOnetSkills().Count();
+            var allOnetSkills = frameworkSkillRepository.GetFrameworkSkills().Count();
            
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} SkillFrameworkskills in the repo");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {onetSkills.Count} SkillFramework skills to import");
 
             foreach (var onetSkill in onetSkills)
             {
-                frameworkSkillRepository.UpsertOnetSkill(onetSkill);
+                frameworkSkillRepository.UpsertFrameworkSkill(onetSkill);
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated {onetSkill.Title} to repository");
             }
 

@@ -5,8 +5,8 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IFrameworkSkillRepository
     {
-        RepoActionResult UpsertOnetSkill(FrameworkSkill onetSkill);
+        RepoActionResult UpsertFrameworkSkill(FrameworkSkill onetSkill);
 
-        IQueryable<FrameworkSkill> GetOnetSkills();
+        IQueryable<FrameworkSkill> GetFrameworkSkills();
     }
 }

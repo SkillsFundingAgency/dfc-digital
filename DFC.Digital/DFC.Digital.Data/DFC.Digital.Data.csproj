@@ -123,7 +123,6 @@
     <Compile Include="Model\InfoItem.cs" />
     <Compile Include="Model\MoreInformationLink.cs" />
     <Compile Include="Model\FrameworkSkill.cs" />
-    <Compile Include="Model\FrameworkSkillsImportRequest.cs" />
     <Compile Include="Model\FrameworkSkillsImportResponse.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\Restriction.cs" />

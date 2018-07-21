@@ -38,15 +38,27 @@ namespace DFC.Digital.Service.SkillsFramework.Services
             };
         }
 
-        public FrameworkSkillsImportRequest GetOnetSkills()
+        public IEnumerable<FrameworkSkill> GetOnetSkills()
         {
-            return new FrameworkSkillsImportRequest
+            return new List<FrameworkSkill>
             {
-                OnetSkillsList = new List<FrameworkSkill>
+                new FrameworkSkill
                 {
-                    new FrameworkSkill { Description = $"{nameof(FrameworkSkill.Description)} updated", ONetElementId = nameof(FrameworkSkill.ONetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 1" },
-                    new FrameworkSkill { Description = nameof(FrameworkSkill.Description), ONetElementId = nameof(FrameworkSkill.ONetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 2" },
-                    new FrameworkSkill { Description = nameof(FrameworkSkill.Description), ONetElementId = nameof(FrameworkSkill.ONetElementId), Title = $"{nameof(FrameworkSkill.Title)} - 3" }
+                    Description = $"{nameof(FrameworkSkill.Description)} updated",
+                    ONetElementId = nameof(FrameworkSkill.ONetElementId),
+                    Title = $"{nameof(FrameworkSkill.Title)}-1"
+                },
+                new FrameworkSkill
+                {
+                    Description = nameof(FrameworkSkill.Description),
+                    ONetElementId = nameof(FrameworkSkill.ONetElementId),
+                    Title = $"{nameof(FrameworkSkill.Title)}-2"
+                },
+                new FrameworkSkill
+                {
+                    Description = nameof(FrameworkSkill.Description),
+                    ONetElementId = nameof(FrameworkSkill.ONetElementId),
+                    Title = $"{nameof(FrameworkSkill.Title)}-3"
                 }
             };
         }

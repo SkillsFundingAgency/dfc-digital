@@ -5,7 +5,7 @@ namespace DFC.Digital.Service.SkillsFramework.Services.Contracts
 {
     public interface ISkillsFrameworkService
     {
-        FrameworkSkillsImportRequest GetOnetSkills();
+       IEnumerable<FrameworkSkill> GetOnetSkills();
 
         IDictionary<string, string> GetSocOccupationalCodeMappings();
 

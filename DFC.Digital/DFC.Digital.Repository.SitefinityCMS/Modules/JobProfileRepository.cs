@@ -74,7 +74,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public IEnumerable<JobProfile> GetLiveJobProfiles()
         {
-            var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible == true).ToList();
+            var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
 
             if (jobProfiles.Any())
             {
@@ -87,7 +87,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public RepoActionResult UpdateDigitalSkill(JobProfile jobProfile)
         {
             var jobprofile = repository.Get(item =>
-                item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == jobProfile.UrlName);
+                item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
 
             if (jobprofile != null)
             {
@@ -109,7 +109,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public RepoActionResult UpdateSocSkillMatrices(JobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
         {
             var jobprofile = repository.Get(item =>
-                item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == jobProfile.UrlName);
+                item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
 
             var skillMatrices = socSkillMatrices as IList<SocSkillMatrix> ?? socSkillMatrices.ToList();
             if (jobprofile != null && skillMatrices.Any())

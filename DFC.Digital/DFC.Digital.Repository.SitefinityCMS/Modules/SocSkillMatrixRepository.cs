@@ -14,6 +14,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedSkillField = "RelatedSkill";
         private const string RelatedSocField = "RelatedSoc";
         private const string UpdateComment = "Updated via the SkillsFramework import process";
+        private const string UrlNameField = "UrlName";
         private readonly IDynamicModuleRepository<FrameworkSkill> frameworkSkillRepository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socMatrixRepository;
         private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
@@ -86,7 +87,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             else
             {
                 var newSocMatrix = socMatrixRepository.Create();
-                newSocMatrix.UrlName = socSkillMatrix.SfUrlName;
+                dynamicContentExtensions.SetFieldValue(newSocMatrix, UrlNameField, socSkillMatrix.SfUrlName);
                 socMatrixRepository.Add(newSocMatrix);
 
                 socMatrixRepository.Commit();
@@ -97,6 +98,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 if (newlyCreated != null)
                 {
                     UpsertSocSkillMatrix(socSkillMatrix);
+                }
+                else
+                {
+                    return new RepoActionResult();
                 }
             }
 

@@ -2,39 +2,42 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET;
-using DFC.Digital.Service.SkillsFramework.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.SkillsFramework
 {
-    public class SkillsFrameworkEngine : IBusinessRuleEngine
+    public class SkillsFrameworkService : ISkillsFrameworkService
     {
         //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
         private readonly IOnetRepository repository;
+
         private readonly IApplicationLogger logger;
         private readonly IRepository<SocCode> socRepository;
-        private readonly IRepository<DigitalSkill> digitalSkillRepository;
+
+        //private readonly IRepository<DigitalSkill> digitalSkillRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
+        private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
         private readonly IRepository<WhatItTakesSkill> skillsRepository;
 
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
-        public SkillsFrameworkEngine(
-            IOnetRepository repository, 
-            IApplicationLogger logger, 
-            IRepository<SocCode> socRepository, 
-            IRepository<DigitalSkill> digitalSkillRepository,
+        public SkillsFrameworkService(
+            IOnetRepository repository,
+            IApplicationLogger logger,
+            IRepository<SocCode> socRepository,
+            //IRepository<DigitalSkill> digitalSkillRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
+            IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRepository<WhatItTakesSkill> skillsRepository)
         {
             this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
-            this.digitalSkillRepository = digitalSkillRepository;
+            //this.digitalSkillRepository = digitalSkillRepository;
             this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
+            this.skillsMappingRepository = skillsMappingRepository;
             this.skillsRepository = skillsRepository;
         }
 
@@ -42,18 +45,28 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<SocCode> GetAllSocMappings()
         {
-            return socRepository.GetAll().ToList();
+            return socRepository.GetAll();
         }
 
         public IEnumerable<WhatItTakesSkill> GetAllTranslations()
         {
-            return skillsRepository.GetAll().ToList();
+            return skillsRepository.GetAll();
         }
 
-        public DigitalSkill GetDigitalSkills(string onetSocCode)
+        public int GetDigitalSkillRank(string onetOccupationalCode)
         {
-            return digitalSkillRepository.GetById(onetSocCode);
+            throw new NotImplementedException();
         }
+
+        public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)
+        {
+            return skillsMappingRepository.GetMany(r => r.ONetOccupationalCode == onetOccupationalCode);
+        }
+
+        //public DigitalSkill GetDigitalSkills(string onetSocCode)
+        //{
+        //    return digitalSkillRepository.GetById(onetSocCode);
+        //}
 
         //CodeReview: Who needs this?
         //public async Task<int> GetDigitalSkillRankAsync(string onetSocCode)

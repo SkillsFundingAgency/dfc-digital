@@ -59,6 +59,11 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var singleByExpression = repository.Get(s => s.SOCCode == "2123");
                 singleByExpression.Should().NotBeNull();
                 singleByExpression.ONetOccupationalCode.Should().Be("17-2071.00");
+
+                var manyByExpression = repository.GetMany(s => s.SOCCode.StartsWith("212"));
+                manyByExpression.Should().NotBeNull();
+                manyByExpression.Count().Should().Be();
+
             }
         }
 

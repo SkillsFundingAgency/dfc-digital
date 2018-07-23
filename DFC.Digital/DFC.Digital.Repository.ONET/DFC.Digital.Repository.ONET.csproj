@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes.cs" />
+    <Compile Include="BusinessRule\SkillsFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Config\SkillsFrameworkAutofacModule.cs" />
     <Compile Include="DataModel\ability.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
@@ -191,63 +192,6 @@
     <Compile Include="DataModel\skill.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SkillsFrameworkDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SkillsFrameworkDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SkillsFrameworkDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\SkillsFrameworkDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeForEachSectionGrouped_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeGroupedV2_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesByOnNetCodeGrouped_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesByOnNetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetAttributesForProfile_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetInterestsByOnetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetTechnologyDetailsByOnetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetToolsTecByOnetCodeV2_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetToolsTecByOnetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetWorkStylesByOnetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_GetWorkValuesByOnetCode_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\sp_helpdiagrams_Result.cs">
-      <DependentUpon>SkillsFrameworkDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\survey_booklet_locations.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
@@ -290,9 +234,10 @@
     <Compile Include="DataModel\work_values.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
+    <Compile Include="DfcOnetAttributesData.cs" />
+    <Compile Include="DigitalSkill.cs" />
+    <Compile Include="DigitalToolsAndTechnology.cs" />
     <Compile Include="Impl\DbSetWrapper.cs" />
-    <Compile Include="Interface\IDbContext.cs" />
-    <Compile Include="Interface\IDbSetWrapper.cs" />
     <Compile Include="IOnetRepository.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="OnetRepository.cs" />
@@ -320,33 +265,16 @@
       <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
       <LastGenOutput>OnetSkillsFramework.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel\SkillsFrameworkDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
-      <LastGenOutput>SkillsFrameworkDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModel\SkillsFrameworkDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
-      <LastGenOutput>SkillsFrameworkDataModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="DataModel\App.config" />
-    <EntityDeploy Include="DataModel\SkillsFrameworkDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SkillsFrameworkDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="DataModel\OnetSkillsFramework.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="DataModel\OnetSkillsFramework.edmx.diagram">
       <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
-    </None>
-    <None Include="DataModel\SkillsFrameworkDataModel.edmx.diagram">
-      <DependentUpon>SkillsFrameworkDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

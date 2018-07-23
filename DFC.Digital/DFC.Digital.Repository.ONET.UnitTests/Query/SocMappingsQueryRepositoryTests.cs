@@ -11,6 +11,7 @@ using AutoMapper;
 using DFC.Digital.Repository.ONET.Mapper;
 using System.Data.Entity;
 using FluentAssertions;
+using System.Data.Entity.Infrastructure;
 
 namespace DFC.Digital.Repository.ONET.Query.Tests
 {
@@ -21,7 +22,9 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
         {
             OnetSkillsFramework fakeDbContext = A.Fake<OnetSkillsFramework>();
             var actualMapper = new MapperConfiguration(c => c.AddProfile<SkillsFrameworkMapper>()).CreateMapper();
-            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                .Implements(typeof(IQueryable<DFC_SocMappings>))
+                .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)));
 
             fakeDbSet.SetupData(new List<DFC_SocMappings> { new DFC_SocMappings { SocCode = "1234" } });
 
@@ -36,6 +39,12 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             result.First().SOCCode.Should().Be("1234");
 
             A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
+        [Fact()]
+        public void GetByIdTest()
+        {
+            Assert.True(false, "This test needs an implementation");
         }
     }
 }

@@ -55,7 +55,7 @@ namespace DFC.Digital.Repository.ONET
 
         public async Task<IEnumerable<T>> GetAttributesValuesAsync<T>(string socCode)
         {
-            IQueryable<DfcOnetAttributesData> attributes = null;
+            IQueryable<OnetAttribute> attributes = null;
             IList<T> dfcGdsAttributesDatas = null;
 
             // just transforming Stored procedure to Linq . Will optimize with specification and predicates
@@ -65,7 +65,7 @@ namespace DFC.Digital.Repository.ONET
                     .Union(SkillSource(socCode, dbContext))
                     .Union(AbilitiesSource(socCode, dbContext))
                     .Union(WorkStyleSource(socCode, dbContext))
-                    .OrderByDescending(x => x.Value);
+                    .OrderByDescending(x => x.Score);
             }).ConfigureAwait(false);
             var updatedAttributes = CheckAndUpdateForMathematics(attributes);
             dfcGdsAttributesDatas = (IList<T>)DfcGdsUpdatedAttributesDatas(updatedAttributes);
@@ -117,7 +117,7 @@ namespace DFC.Digital.Repository.ONET
 
         #region Private helper function for the interface
 
-        private static IQueryable<DfcOnetAttributesData> AbilitiesSource(string socCode, OnetSkillsFramework context)
+        private static IQueryable<OnetAttribute> AbilitiesSource(string socCode, OnetSkillsFramework context)
         {
             return from ablty in context.abilities
                    join cmr in context.content_model_reference on ablty.element_id.Substring(0, 7) equals
@@ -132,98 +132,98 @@ namespace DFC.Digital.Repository.ONET
                        ablty.onetsoc_code
                    }
                 into abilityGroup
-                   select new DfcOnetAttributesData
+                   select new OnetAttribute
                    {
-                       OnetSocCode = abilityGroup.Key.onetsoc_code,
-                       ElementId = abilityGroup.Key.element_id,
-                       ElementDescription = abilityGroup.Key.description,
-                       ElementName = abilityGroup.Key.element_name,
+                       OnetOccupationalCode = abilityGroup.Key.onetsoc_code,
+                       Id = abilityGroup.Key.element_id,
+                       Description = abilityGroup.Key.description,
+                       Name = abilityGroup.Key.element_name,
                        Attribute = @Attributes.Abilities,
-                       Value = abilityGroup.Sum(x => x.data_value) / 2
+                       Score = abilityGroup.Sum(x => x.data_value) / 2
                    };
         }
 
-        private static IQueryable<DfcOnetAttributesData> CheckAndUpdateForMathematics(IQueryable<DfcOnetAttributesData> attributes)
+        private static IQueryable<OnetAttribute> CheckAndUpdateForMathematics(IQueryable<OnetAttribute> attributes)
         {
-            var mathsKnowledge = attributes.ToList().FindAll(x => x.ElementName == "Mathematics").ToList();
-            IQueryable<DfcOnetAttributesData> newAtt = null;
+            var mathsKnowledge = attributes.ToList().FindAll(x => x.Name == "Mathematics").ToList();
+            IQueryable<OnetAttribute> newAtt = null;
             if (mathsKnowledge.Count > 1)
             {
                 var mathsKnowledgeValue = attributes.ToList().FirstOrDefault(x =>
-                    x.ElementName == "Mathematics" && x.Value == mathsKnowledge.ToList().Min(x1 => x1.Value));
+                    x.Name == "Mathematics" && x.Score == mathsKnowledge.ToList().Min(x1 => x1.Score));
 
                 newAtt = attributes;
                 //Remove the Min Total Value for Mathematics from attributes Skills or Knowledge
-                var suc = attributes.ToList().RemoveAll(x => x.ElementId.All(c =>
-                    x.ElementId.Contains(attributes?.ToList()?.FirstOrDefault(x2 =>
-                            x2.ElementName == "Mathematics" && x2.Value == mathsKnowledge?.ToList()?.Min(x3 => x3.Value))
-                        ?.ElementId)));
+                var suc = attributes.ToList().RemoveAll(x => x.Id.All(c =>
+                    x.Id.Contains(attributes?.ToList()?.FirstOrDefault(x2 =>
+                            x2.Name == "Mathematics" && x2.Score == mathsKnowledge?.ToList()?.Min(x3 => x3.Score))
+                        ?.Id)));
 
-                var update = mathsKnowledge.RemoveAll(x => x.ElementId == mathsKnowledgeValue?.ElementId);
+                var update = mathsKnowledge.RemoveAll(x => x.Id == mathsKnowledgeValue?.Id);
                 // Add 110% to the Total Value in the Skills or Knowledge for Mathematics
                 var val = mathsKnowledge.Select(c =>
                 {
-                    c.Value = c.Value * (decimal)1.1;
+                    c.Score = c.Score * (decimal)1.1;
                     return c;
                 }).ToList();
                 //Add the Mathematics back to the Complete Attribute List
                 foreach (var k in mathsKnowledge)
                 {
-                    newAtt.ToList().RemoveAll(x => x.ElementId == k.ElementId);
+                    newAtt.ToList().RemoveAll(x => x.Id == k.Id);
                     newAtt.ToList().AddRange(val);
                 }
             }
             return newAtt;
         }
 
-        private static IList<DfcOnetAttributesData> DfcGdsUpdatedAttributesDatas(IQueryable<DfcOnetAttributesData> newAtt)
+        private static IList<OnetAttribute> DfcGdsUpdatedAttributesDatas(IQueryable<OnetAttribute> newAtt)
         {
-            var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Value)
+            var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Score)
                 .Where(x => x.Attribute == Attributes.WorkStyles)
-                .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
+                .OrderByDescending(z => z.Score).ThenByDescending(y => y.Attribute).Select(x => new OnetAttribute
                 {
-                    Value = x.Value,
+                    Score = x.Score,
                     Attribute = x.Attribute,
-                    ElementId = x.ElementId,
-                    ElementDescription = x.ElementDescription,
-                    OnetSocCode = x.OnetSocCode,
+                    Id = x.Id,
+                    Description = x.Description,
+                    OnetOccupationalCode = x.OnetOccupationalCode,
                     SocCode = x.SocCode
                 }).Take(5)
-                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Skills)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Attribute == Attributes.Skills)
+                    .OrderByDescending(z => z.Score).ThenByDescending(y => y.Attribute).Select(x => new OnetAttribute
                     {
-                        Value = x.Value,
+                        Score = x.Score,
                         Attribute = x.Attribute,
-                        ElementId = x.ElementId,
-                        ElementDescription = x.ElementDescription,
-                        OnetSocCode = x.OnetSocCode,
+                        Id = x.Id,
+                        Description = x.Description,
+                        OnetOccupationalCode = x.OnetOccupationalCode,
                         SocCode = x.SocCode
                     }).Take(5))
-                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Abilities)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Attribute == Attributes.Abilities)
+                    .OrderByDescending(z => z.Score).ThenByDescending(y => y.Attribute).Select(x => new OnetAttribute
                     {
-                        Value = x.Value,
+                        Score = x.Score,
                         Attribute = x.Attribute,
-                        ElementId = x.ElementId,
-                        ElementDescription = x.ElementDescription,
-                        OnetSocCode = x.OnetSocCode,
+                        Id = x.Id,
+                        Description = x.Description,
+                        OnetOccupationalCode = x.OnetOccupationalCode,
                         SocCode = x.SocCode
                     }).Take(5))
-                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Value).Where(x => x.Attribute == Attributes.Knowledge)
-                    .OrderByDescending(z => z.Value).ThenByDescending(y => y.Attribute).Select(x => new DfcOnetAttributesData
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Attribute == Attributes.Knowledge)
+                    .OrderByDescending(z => z.Score).ThenByDescending(y => y.Attribute).Select(x => new OnetAttribute
                     {
-                        Value = x.Value,
+                        Score = x.Score,
                         Attribute = x.Attribute,
-                        ElementId = x.ElementId,
-                        ElementDescription = x.ElementDescription,
-                        OnetSocCode = x.OnetSocCode,
+                        Id = x.Id,
+                        Description = x.Description,
+                        OnetOccupationalCode = x.OnetOccupationalCode,
                         SocCode = x.SocCode
                     }).Take(5));
-            var dfcGdsAttributesDatas = elementAttribute as IList<DfcOnetAttributesData> ?? elementAttribute?.ToList();
+            var dfcGdsAttributesDatas = elementAttribute as IList<OnetAttribute> ?? elementAttribute?.ToList();
             return dfcGdsAttributesDatas;
         }
 
-        private static IQueryable<DfcOnetAttributesData> KnowledgeSource(string socCode, OnetSkillsFramework context)
+        private static IQueryable<OnetAttribute> KnowledgeSource(string socCode, OnetSkillsFramework context)
         {
             return from knwldg in context.knowledges
                    join cmr in context.content_model_reference on knwldg.element_id.Substring(0, 7) equals
@@ -238,18 +238,18 @@ namespace DFC.Digital.Repository.ONET
                        knwldg.onetsoc_code
                    }
                 into knwldgGroup
-                   select new DfcOnetAttributesData
+                   select new OnetAttribute
                    {
-                       OnetSocCode = knwldgGroup.Key.onetsoc_code,
-                       ElementId = knwldgGroup.Key.element_id,
-                       ElementDescription = knwldgGroup.Key.description,
-                       ElementName = knwldgGroup.Key.element_name,
+                       OnetOccupationalCode = knwldgGroup.Key.onetsoc_code,
+                       Id = knwldgGroup.Key.element_id,
+                       Description = knwldgGroup.Key.description,
+                       Name = knwldgGroup.Key.element_name,
                        Attribute = Attributes.Knowledge.ToString(),
-                       Value = knwldgGroup.Sum(v => v.data_value) / 2
+                       Score = knwldgGroup.Sum(v => v.data_value) / 2
                    };
         }
 
-        private static IQueryable<DfcOnetAttributesData> SkillSource(string socCode, OnetSkillsFramework context)
+        private static IQueryable<OnetAttribute> SkillSource(string socCode, OnetSkillsFramework context)
         {
             return from skl in context.skills
                    join cmr in context.content_model_reference on skl.element_id.Substring(0, 7) equals cmr
@@ -264,18 +264,18 @@ namespace DFC.Digital.Repository.ONET
                        skl.element_id
                    }
                 into skillGroup
-                   select new DfcOnetAttributesData
+                   select new OnetAttribute
                    {
-                       OnetSocCode = skillGroup.Key.onetsoc_code,
-                       ElementId = skillGroup.Key.element_id,
-                       ElementDescription = skillGroup.Key.description,
-                       ElementName = skillGroup.Key.element_name,
+                       OnetOccupationalCode = skillGroup.Key.onetsoc_code,
+                       Id = skillGroup.Key.element_id,
+                       Description = skillGroup.Key.description,
+                       Name = skillGroup.Key.element_name,
                        Attribute = Attributes.Skills,
-                       Value = skillGroup.Sum(x => x.data_value) / 2
+                       Score = skillGroup.Sum(x => x.data_value) / 2
                    };
         }
 
-        private static IQueryable<DfcOnetAttributesData> WorkStyleSource(string socCode, OnetSkillsFramework context)
+        private static IQueryable<OnetAttribute> WorkStyleSource(string socCode, OnetSkillsFramework context)
         {
             return from wkstyl in context.work_styles
                    join cmr in context.content_model_reference on wkstyl.element_id.Substring(0, 7) equals
@@ -289,14 +289,14 @@ namespace DFC.Digital.Repository.ONET
                        wkstyl.element_id
                    }
                 into workStyleGroup
-                   select new DfcOnetAttributesData
+                   select new OnetAttribute
                    {
-                       OnetSocCode = workStyleGroup.Key.onetsoc_code,
-                       ElementId = workStyleGroup.Key.element_id,
-                       ElementDescription = workStyleGroup.Key.description,
-                       ElementName = workStyleGroup.Key.element_name,
+                       OnetOccupationalCode = workStyleGroup.Key.onetsoc_code,
+                       Id = workStyleGroup.Key.element_id,
+                       Description = workStyleGroup.Key.description,
+                       Name = workStyleGroup.Key.element_name,
                        Attribute = Attributes.WorkStyles,
-                       Value = workStyleGroup.Sum(x => x.data_value) / 2
+                       Score = workStyleGroup.Sum(x => x.data_value) / 2
                    };
         }
 

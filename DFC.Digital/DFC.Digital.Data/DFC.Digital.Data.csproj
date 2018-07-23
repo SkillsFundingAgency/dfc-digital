@@ -99,6 +99,7 @@
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
     <Compile Include="Interfaces\ICommandRepository.cs" />
     <Compile Include="Interfaces\IQueryRepository.cs" />
+    <Compile Include="Interfaces\IRelatedSkillsMappingRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISalaryCalculator.cs" />
     <Compile Include="Interfaces\ISalaryService.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
     <Compile Include="Interfaces\IServiceStatus.cs" />
-    <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

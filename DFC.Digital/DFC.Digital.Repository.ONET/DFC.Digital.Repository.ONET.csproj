@@ -84,7 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes.cs" />
+    <Compile Include="BusinessRule\ISkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="BusinessRule\SkillsFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Config\SkillsFrameworkAutofacModule.cs" />
     <Compile Include="DataModel\ability.cs">
@@ -93,6 +93,7 @@
     <Compile Include="DataModel\alternate_titles.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\AttributeType.cs" />
     <Compile Include="DataModel\career_changers_matrix.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
@@ -234,14 +235,15 @@
     <Compile Include="DataModel\work_values.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
-    <Compile Include="DfcOnetAttributesData.cs" />
     <Compile Include="DigitalSkill.cs" />
     <Compile Include="DigitalToolsAndTechnology.cs" />
     <Compile Include="Impl\DbSetWrapper.cs" />
     <Compile Include="IOnetRepository.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
+    <Compile Include="DataModel\OnetAttribute.cs" />
     <Compile Include="OnetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\SkillsMappingQueryRepository.cs" />
     <Compile Include="Query\SocMappingsQueryRepository.cs" />
   </ItemGroup>
   <ItemGroup>

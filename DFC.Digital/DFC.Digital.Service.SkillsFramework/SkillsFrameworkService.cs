@@ -18,7 +18,9 @@ namespace DFC.Digital.Service.SkillsFramework
 
         //private readonly IRepository<DigitalSkill> digitalSkillRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
-        private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
+        private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
+
+        //private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
         private readonly IRepository<WhatItTakesSkill> skillsRepository;
 
         // Business Rule Engine implemetation
@@ -28,15 +30,16 @@ namespace DFC.Digital.Service.SkillsFramework
             IApplicationLogger logger,
             IRepository<SocCode> socRepository,
             //IRepository<DigitalSkill> digitalSkillRepository,
-            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
-            IRepository<RelatedSkillMapping> skillsMappingRepository,
+            //ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
+            //IRepository<RelatedSkillMapping> skillsMappingRepository,
+            IRelatedSkillsMappingRepository skillsMappingRepository,
             IRepository<WhatItTakesSkill> skillsRepository)
         {
             this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
             //this.digitalSkillRepository = digitalSkillRepository;
-            this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
+            //this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
             this.skillsMappingRepository = skillsMappingRepository;
             this.skillsRepository = skillsRepository;
         }
@@ -60,7 +63,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)
         {
-            return skillsMappingRepository.GetMany(r => r.ONetOccupationalCode == onetOccupationalCode);
+            return skillsMappingRepository.GetByONetOccupationalCode(onetOccupationalCode);
         }
 
         //public DigitalSkill GetDigitalSkills(string onetSocCode)

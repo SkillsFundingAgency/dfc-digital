@@ -8,12 +8,12 @@ namespace DFC.Digital.Repository.ONET.Mapper
     {
         public SkillsFrameworkMapper()
         {
-            CreateMap<DfcOnetAttributesData, sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result>()
+            CreateMap<OnetAttribute, sp_GetAttributesByOnNetCodeForEachSectionGroupedV2_Result>()
                 .ForMember(s => s.Attribute, m => m.MapFrom(d => d.Attribute))
-                .ForMember(s => s.description, m => m.MapFrom(d => d.ElementDescription))
-                .ForMember(s => s.total_value, m => m.MapFrom(d => d.Value))
-                .ForMember(s => s.element_id, m => m.MapFrom(d => d.ElementId))
-                .ForMember(s => s.element_name, m => m.MapFrom(d => d.ElementName));
+                .ForMember(s => s.description, m => m.MapFrom(d => d.Description))
+                .ForMember(s => s.total_value, m => m.MapFrom(d => d.Score))
+                .ForMember(s => s.element_id, m => m.MapFrom(d => d.Id))
+                .ForMember(s => s.element_name, m => m.MapFrom(d => d.Name));
 
             CreateMap<DFC_GDSTranlations, DfcOnetTranslation>()
                 .ForMember(d => d.DateTimeStamp, m => m.MapFrom(s => s.datetimestamp))

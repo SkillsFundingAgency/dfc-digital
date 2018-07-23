@@ -418,10 +418,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
       <Project>{2080FBA6-AE04-49B0-B343-B60CF097C1A3}</Project>
       <Name>DFC.Digital.Core</Name>

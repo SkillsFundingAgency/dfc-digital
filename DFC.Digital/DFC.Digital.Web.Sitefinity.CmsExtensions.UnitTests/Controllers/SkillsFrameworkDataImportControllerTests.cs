@@ -1,10 +1,9 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CmsExtensions;
 using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers;
-using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models;
 using FakeItEasy;
 using FluentAssertions;
 using TestStack.FluentMVCTesting;
@@ -35,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         public void IndexTest(bool isAdmin)
         {
             // Assign
-            var skillsFrameworkDataImportController = SkillsFrameworkDataImportController(isAdmin);
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin);
 
             // Act
             var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index());
@@ -72,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         {
             // Assign
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
-            var skillsFrameworkDataImportController = SkillsFrameworkDataImportController(true);
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(true);
 
             // Act
             var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index(mode));
@@ -120,16 +119,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
         }
 
-        private SkillsFrameworkDataImportController SkillsFrameworkDataImportController(bool isAdmin)
+        private SkillsFrameworkDataImportController GetSkillsFrameworkDataImportController(bool isAdmin)
         {
             A.CallTo(() => fakeWebAppContext.IsUserAdministrator).Returns(isAdmin);
 
             var skillsFrameworkDataImportController = new SkillsFrameworkDataImportController(fakeApplicationLogger,
                 fakeImportSkillsFrameworkDataService, fakeReportAuditRepository, fakeWebAppContext)
             {
-                FirstParagraph = nameof(MVC.Controllers.SkillsFrameworkDataImportController.FirstParagraph),
-                NotAllowedMessage = nameof(MVC.Controllers.SkillsFrameworkDataImportController.NotAllowedMessage),
-                PageTitle = nameof(MVC.Controllers.SkillsFrameworkDataImportController.PageTitle),
+                FirstParagraph = nameof(SkillsFrameworkDataImportController.FirstParagraph),
+                NotAllowedMessage = nameof(SkillsFrameworkDataImportController.NotAllowedMessage),
+                PageTitle = nameof(SkillsFrameworkDataImportController.PageTitle),
             };
             return skillsFrameworkDataImportController;
         }

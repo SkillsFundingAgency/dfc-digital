@@ -393,6 +393,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CmsExtensionsAutofacModule.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MVC\Controllers\SkillsFrameworkDataImportController.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkImportViewModel.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkResultsViewModel.cs" />

@@ -1,11 +1,12 @@
-﻿using Autofac;
+﻿using System.Diagnostics.CodeAnalysis;
+using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
 
-namespace DFC.Digital.Web.Sitefinity.CmsExtensions.Config
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public class CmsExtensionsAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)

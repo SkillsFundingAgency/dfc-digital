@@ -1,22 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Security.Claims;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 {
     /// <summary>
     /// Custom Widget for Admin Panel
     /// </summary>
-    /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "SkillsFrameworkImport", Title = "Skills Framework Data Import Widget", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
+    /// <seealso cref="BaseDfcController" />
+    [ControllerToolboxItem(Name = "SkillsFrameworkImport", Title = "Framework Skills Data Import Widget", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
     public class SkillsFrameworkDataImportController : BaseDfcController
     {
         #region Private Members

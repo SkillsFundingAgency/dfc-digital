@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Repository.SitefinityCMS.Base
+﻿namespace DFC.Digital.Repository.SitefinityCMS
 {
     public enum WorkflowStatus
     {

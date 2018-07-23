@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models
+﻿namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {
     public class SkillsFrameworkImportViewModel
     {

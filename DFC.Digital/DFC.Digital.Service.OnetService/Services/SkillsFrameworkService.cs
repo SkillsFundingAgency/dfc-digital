@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.SkillsFramework.Services.Contracts;
 
-namespace DFC.Digital.Service.SkillsFramework.Services
+namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {

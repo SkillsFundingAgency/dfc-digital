@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Repository.SitefinityCMS.Base;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -52,11 +51,21 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Add(DynamicContent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             Add(entity, null);
         }
 
         public void Update(DynamicContent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             Update(entity, null);
         }
 
@@ -86,6 +95,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Add(DynamicContent entity, string changeComment)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             entity.SetValue(IncludeInSitemapFieldName, false);
             entity.SetValue(OwnerFieldName, SecurityManager.GetCurrentUserId());
             entity.SetValue(PublicationDateFieldName, DateTime.UtcNow);
@@ -94,8 +108,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Update(DynamicContent entity, string changeComment)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             // Set a transaction name and get the version manager
-            var transactionName = $"{entity.GetType().Name}-DateTime.Now.Ticks.ToString()";
+            var transactionName = $"{entity.GetType().Name}-{DateTime.Now.Ticks}";
 
             applicationLogger.Info($"Updating entity with transaction name {transactionName} for {entity.UrlName}");
             var versionManager = VersionManager.GetManager(null, transactionName);
@@ -107,8 +126,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public void Publish(DynamicContent entity, string changeComment)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             //CodeReview: Consider audit / log transaction name as well, might be an useful instrument for prd troubleshooting.
-            var transactionName = $"{entity.GetType().Name}-DateTime.Now.Ticks.ToString()";
+            var transactionName = $"{entity.GetType().Name}-{DateTime.Now.Ticks}";
 
             applicationLogger.Info($"Publishing entity with transaction name {transactionName} for {entity.UrlName}");
 
@@ -155,17 +179,32 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public DynamicContent GetMaster(DynamicContent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return dynamicModuleManager.Lifecycle.GetMaster(entity) as DynamicContent;
         }
 
         public DynamicContent GetTemp(DynamicContent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return dynamicModuleManager.Lifecycle.CheckOut(entity) as DynamicContent;
         }
 
         public DynamicContent CheckinTemp(DynamicContent entity)
         {
-           return dynamicModuleManager.Lifecycle.CheckIn(entity) as DynamicContent;
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            return dynamicModuleManager.Lifecycle.CheckIn(entity) as DynamicContent;
         }
 
         #endregion IRepository implementations

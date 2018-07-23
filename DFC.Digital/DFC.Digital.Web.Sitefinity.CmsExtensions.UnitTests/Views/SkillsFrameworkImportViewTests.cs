@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ASP;
-using DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;

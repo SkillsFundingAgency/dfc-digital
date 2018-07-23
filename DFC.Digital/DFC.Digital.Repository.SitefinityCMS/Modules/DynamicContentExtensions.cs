@@ -73,5 +73,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             contentItem.DeleteRelations(fieldName);
         }
+
+        public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
+        {
+                var relatedContent = GetRelatedItems(content, relatedField, 100);
+                return relatedContent?.Select(x => $"{x.UrlName}");
+        }
     }
 }

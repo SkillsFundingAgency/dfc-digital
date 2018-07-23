@@ -1,7 +1,9 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core.Logging;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -30,22 +32,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         }
 
         [Theory]
-        [InlineData("fieldOne")]
-        [InlineData("fieldTwo")]
-        public void GetRelatedContentUrlTest(string relatedField)
-        {
-            //Assign
-            var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
-
-            //Act
-            jobprofileConverter.GetRelatedContentUrl(fakeDynamicContentItem, relatedField);
-
-            //Assert
-            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, relatedField, A<int>._))
-                .MustHaveHappened();
-        }
-
-        [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void ConvertFromTest(bool socAssigned)
@@ -53,6 +39,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             //Assign
             SetupSocCall(socAssigned);
             var jobprofileConverter = new JobProfileConverter(fakeRelatedClassificationsRepository, fakeDynamicContentExtensions, htbContentPropertyConverter, wywdPropertyConverter);
+
+            var dummyRelatedItems = A.CollectionOfDummy<string>(1).AsEnumerable().AsQueryable();
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedContentUrl(A<DynamicContent>._, A<string>._)).Returns(dummyRelatedItems);
 
             //Act
             var jobProfile = jobprofileConverter.ConvertFrom(fakeDynamicContentItem);

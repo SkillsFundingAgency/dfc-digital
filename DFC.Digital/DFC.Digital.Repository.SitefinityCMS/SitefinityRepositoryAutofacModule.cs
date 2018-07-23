@@ -162,6 +162,14 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
+            builder.RegisterType<DynamicModuleRepository<WhatItTakesSkill>>()
+                .As<IDynamicModuleRepository<WhatItTakesSkill>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileSkillsMatrixContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+
             builder.RegisterType<DynamicModuleRepository<ApprenticeVacancy>>()
                 .As<IDynamicModuleRepository<ApprenticeVacancy>>()
                 .InstancePerLifetimeScope()

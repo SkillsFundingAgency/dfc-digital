@@ -1,10 +1,8 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System;
-using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -17,6 +15,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "JobProfileWhatItTakes", Title = "Job Profile What It Takes", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileWhatItTakesController : BaseJobProfileWidgetController
     {
+        #region fields
+
+        private readonly IJobProfileRelatedSkillsRepository jobProfileSkillsRepository;
+
+        #endregion fields
+
         #region Ctor
 
         /// <summary>
@@ -26,9 +30,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="webAppContext">The web application context.</param>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="sitefinityPage">sitefinity</param>
-        public JobProfileWhatItTakesController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
+        /// <param name="jobProfileRelatedSkillsRepository">The job profile related skills repository.</param>
+        public JobProfileWhatItTakesController(
+            IJobProfileRepository jobProfileRepository,
+            IWebAppContext webAppContext,
+            IApplicationLogger applicationLogger,
+            ISitefinityPage sitefinityPage,
+            IJobProfileRelatedSkillsRepository jobProfileRelatedSkillsRepository)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
+            this.jobProfileSkillsRepository = jobProfileRelatedSkillsRepository;
         }
 
         #endregion Ctor
@@ -91,6 +102,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </value>
         public string RestrictionsIntro { get; set; } = "You'll need to:";
 
+        public string SkillsSectionIntro { get; set; } = "You'll need:";
+
+        public bool ShouldUseSkillsFrameworkForCitizen { get; set; } = false;
+
+        public bool ShouldUseSkillsFrameworkInPreview { get; set; } = false;
+
+        public int NumberOfSkillsToDisplay { get; set; } = 8;
+
         #endregion Public Properties
 
         #region Actions
@@ -128,22 +147,30 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return ReturnSectionView();
         }
 
-        /// <summary>
-        /// Returns the section view.
-        /// </summary>
-        /// <returns>Action Result</returns>
         private ActionResult ReturnSectionView()
         {
             var model = new JobProfileWhatItTakesViewModel
             {
-                TopSectionContent = TopSectionContent,
-                BottomSectionContent = BottomSectionContent,
-                PropertyValue = CurrentJobProfile.Skills,
+                IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady,
                 Title = MainSectionTitle,
                 SectionId = SectionId,
-                WhatItTakesSectionTitle = WhatItTakesSectionTitle,
-                IsWhatItTakesCadView = CurrentJobProfile.HowToBecomeData.IsHTBCaDReady
             };
+
+            model.JobProfileWhatItTakesSkillsViewModel = new JobProfileWhatItTakesSkillsViewModel
+            {
+                UseSkillsFramework = (WebAppContext.IsContentPreviewMode || WebAppContext.IsContentAuthoringSite) ? ShouldUseSkillsFrameworkInPreview : ShouldUseSkillsFrameworkForCitizen,
+                DigitalSkillsLevel = CurrentJobProfile.DigitalSkillsLevel,
+                SkillsSectionIntro = SkillsSectionIntro,
+                PropertyValue = CurrentJobProfile.Skills,
+                TopSectionContent = TopSectionContent,
+                BottomSectionContent = BottomSectionContent,
+                WhatItTakesSectionTitle = WhatItTakesSectionTitle,
+            };
+
+            if (model.JobProfileWhatItTakesSkillsViewModel.UseSkillsFramework)
+            {
+                model.JobProfileWhatItTakesSkillsViewModel.WhatItTakesSkills = jobProfileSkillsRepository.GetContextualisedSkillsById(CurrentJobProfile.RelatedSkills.Take(NumberOfSkillsToDisplay));
+            }
 
             if (model.IsWhatItTakesCadView)
             {

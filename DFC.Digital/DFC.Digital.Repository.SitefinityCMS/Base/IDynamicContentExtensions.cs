@@ -21,5 +21,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
 
         string GetFieldChoiceValue(DynamicContent contentItem, string fieldName);
+
+        IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField);
     }
 }

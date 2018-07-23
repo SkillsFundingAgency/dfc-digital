@@ -6,45 +6,45 @@
 
     public class HelperOnetDatas
     {
-        private static readonly IEnumerable<DfcOnetSocMappings> SocMappingsData = new List<DfcOnetSocMappings>
-        {
-            new DfcOnetSocMappings
-            {
-                JobProfile = "Bank Manager",
-                OnetSocCode = "11-3031.02",
-                QualityRating = 2,
-                SocCode = "1150"
-            },
-            new DfcOnetSocMappings
-            {
-                JobProfile = "Restaurant manager",
-                OnetSocCode = "11-9051.00",
-                QualityRating = 2,
-                SocCode = "1223"
-            },
-            new DfcOnetSocMappings
-            {
-                JobProfile = "Forensic scientist",
-                OnetSocCode = "19-4092.00",
-                QualityRating = 2,
-                SocCode = "2112"
-            },
-            new DfcOnetSocMappings
-            {
-                JobProfile = "Mechanical engineerr",
-                OnetSocCode = "17-2141.00",
-                QualityRating = 2,
-                SocCode = "2122"
-            },
-            new DfcOnetSocMappings
-            {
-                JobProfile = "Electrical engineer",
-                OnetSocCode = "17-2071.00",
-                QualityRating = 2,
-                SocCode = "2123"
-            },
+        //private static readonly IEnumerable<DfcOnetSocMappings> SocMappingsData = new List<DfcOnetSocMappings>
+        //{
+        //    new DfcOnetSocMappings
+        //    {
+        //        JobProfile = "Bank Manager",
+        //        OnetSocCode = "11-3031.02",
+        //        QualityRating = 2,
+        //        SocCode = "1150"
+        //    },
+        //    new DfcOnetSocMappings
+        //    {
+        //        JobProfile = "Restaurant manager",
+        //        OnetSocCode = "11-9051.00",
+        //        QualityRating = 2,
+        //        SocCode = "1223"
+        //    },
+        //    new DfcOnetSocMappings
+        //    {
+        //        JobProfile = "Forensic scientist",
+        //        OnetSocCode = "19-4092.00",
+        //        QualityRating = 2,
+        //        SocCode = "2112"
+        //    },
+        //    new DfcOnetSocMappings
+        //    {
+        //        JobProfile = "Mechanical engineerr",
+        //        OnetSocCode = "17-2141.00",
+        //        QualityRating = 2,
+        //        SocCode = "2122"
+        //    },
+        //    new DfcOnetSocMappings
+        //    {
+        //        JobProfile = "Electrical engineer",
+        //        OnetSocCode = "17-2071.00",
+        //        QualityRating = 2,
+        //        SocCode = "2123"
+        //    },
 
-        };
+        //};
 
         private static readonly IEnumerable<DfcOnetTranslation> TranslatedData = new List<DfcOnetTranslation>
         {
@@ -302,11 +302,11 @@
             },
         };
 
-        private static readonly DfcOnetDigitalSkills DigitalSkills1150 = new DfcOnetDigitalSkills
+        private static readonly DigitalSkill DigitalSkills1150 = new DigitalSkill
         {
-            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
+            DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
             {
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Personal Communication Device",
                     ElementId = "",
@@ -315,7 +315,7 @@
                     T2Example = "Smartphones",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Media storage devices",
                     ElementId = "",
@@ -324,7 +324,7 @@
                     T2Example = "Universal serial bus USB flash drives",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -333,7 +333,7 @@
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -347,11 +347,11 @@
             DigitalSkillsCount = Convert.ToInt32(RangeChecker.FirstRange)
         };
 
-        private static readonly DfcOnetDigitalSkills DigitalSkills1223 = new DfcOnetDigitalSkills
+        private static readonly DigitalSkill DigitalSkills1223 = new DigitalSkill
         {
-            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
+            DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
             {
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -360,7 +360,7 @@
                     T2Example = "Computer data input scanners",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -369,7 +369,7 @@
                     T2Example = "Desktop computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -378,7 +378,7 @@
                     T2Example = "Handheld computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -387,7 +387,7 @@
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Media storage devices",
                     ElementId = "",
@@ -396,7 +396,7 @@
                     T2Example = "Universal serial bus USB flash drives",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Duplicating machines",
                     ElementId = "",
@@ -409,11 +409,11 @@
             DigitalSkillsCount = Convert.ToInt32(RangeChecker.SecondRange)
         };
 
-        private static readonly DfcOnetDigitalSkills DigitalSkills2112 = new DfcOnetDigitalSkills
+        private static readonly DigitalSkill DigitalSkills2112 = new DigitalSkill
         {
-            DigitalSkillsCollection = new List<DfcOnetToolsAndTechnology>
+            DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
             {
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computer data input devices",
                     ElementId = "",
@@ -422,7 +422,7 @@
                     T2Example = "Computer data input scanners",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -431,7 +431,7 @@
                     T2Example = "Desktop computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Computers",
                     ElementId = "",
@@ -440,7 +440,7 @@
                     T2Example = "Laptop computers",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Duplicating machines",
                     ElementId = "",
@@ -449,7 +449,7 @@
                     T2Example = "Laser facsimile machines",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Personal communication devices",
                     ElementId = "",
@@ -458,7 +458,7 @@
                     T2Example = "Multi-line telephone systems",
                     T2Type = "Tools"
                 },
-                new DfcOnetToolsAndTechnology
+                new DigitalToolsAndTechnology
                 {
                     ClassTitle = "Finance accounting and enterprise resource planning ERP software",
                     ElementId = "",
@@ -471,13 +471,13 @@
             DigitalSkillsCount = Convert.ToInt32(RangeChecker.ThirdRange)
         };
 
-        public static IEnumerable<object[]> SocMappings()
-        {
-            yield return new object[]
-            {
-                SocMappingsData
-            };
-        }
+        //public static IEnumerable<object[]> SocMappings()
+        //{
+        //    yield return new object[]
+        //    {
+        //        SocMappingsData
+        //    };
+        //}
 
         public static IEnumerable<object[]> TranslationData()
         {

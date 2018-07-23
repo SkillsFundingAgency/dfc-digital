@@ -74,15 +74,15 @@ namespace DFC.Digital.Repository.ONET
 
         public async Task<T> GetDigitalSkillsAsync<T>(string socCode) where T : OnetEntity
         {
-            IQueryable<DfcOnetToolsAndTechnology> dfcToolsandTech = null;
-            DfcOnetDigitalSkills digitalSkills = new DfcOnetDigitalSkills();
+            IQueryable<DigitalToolsAndTechnology> dfcToolsandTech = null;
+            DigitalSkill digitalSkills = new DigitalSkill();
             await Task.Factory.StartNew(() =>
             {
                 dfcToolsandTech = from o in dbContext?.tools_and_technology
                                   join od in dbContext?.unspsc_reference on o.commodity_code equals od.commodity_code
                                   where o.onetsoc_code == socCode
                                   orderby o.t2_type, od.class_title
-                                  select new DfcOnetToolsAndTechnology
+                                  select new DigitalToolsAndTechnology
                                   {
                                       ClassTitle = od.class_title,
                                       T2Example = o.t2_example,
@@ -91,7 +91,7 @@ namespace DFC.Digital.Repository.ONET
                                       OnetSocCode = o.onetsoc_code
                                   };
             }).ConfigureAwait(false);
-            digitalSkills = new DfcOnetDigitalSkills
+            digitalSkills = new DigitalSkill
             {
                 DigitalSkillsCollection = dfcToolsandTech,
                 DigitalSkillsCount = dfcToolsandTech.Count()

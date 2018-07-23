@@ -6,14 +6,12 @@
 
     public interface IBusinessRuleEngine
     {
-        IEnumerable<SocCode> GetAllSocMappingsAsync();
+        IEnumerable<SocCode> GetAllSocMappings();
 
-        Task<IEnumerable<DfcOnetTranslation>> GetAllTranslationsAsync();
+        IEnumerable<WhatItTakesSkill> GetAllTranslations();
 
-        Task<DfcOnetDigitalSkills> GetAllDigitalSkillsAsync(string onetSocCode);
+        DigitalSkill GetDigitalSkills(string onetSocCode);
 
-        Task<int> GetDigitalSkillRankAsync(string onetSocCode);
-
-        Task<IEnumerable<DfcOnetAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode);
+        //IEnumerable<DfcOnetAttributesData> GetBusinessRuleAttributes(string onetSocCode);
     }
 }

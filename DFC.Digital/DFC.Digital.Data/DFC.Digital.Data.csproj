@@ -108,13 +108,14 @@
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
     <Compile Include="Interfaces\IServiceStatus.cs" />
+    <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\DfcOnetAttributesData.cs" />
-    <Compile Include="Model\DfcOnetDigitalSkills.cs" />
     <Compile Include="Model\DfcOnetSocMappings.cs" />
-    <Compile Include="Model\DfcOnetToolsAndTechnology.cs" />
+    <Compile Include="Model\DigitalSkill.cs" />
+    <Compile Include="Model\DigitalToolsAndTechnology.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\DfcOnetTranslation.cs" />
     <Compile Include="Model\EntryRequirement.cs" />

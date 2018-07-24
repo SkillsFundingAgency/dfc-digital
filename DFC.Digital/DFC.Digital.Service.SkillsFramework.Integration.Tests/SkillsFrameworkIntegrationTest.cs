@@ -21,19 +21,35 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
     [TestClass]
     public class SkillsFrameworkIntegrationTest
     {
-        //[Fact]
-        //public void GetAllTransalations()
-        //{
+        [Fact]
+        public void GetAllTransalations()
+        {
 
-        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-        //    var appLogger = A.Fake<IApplicationLogger>();
-        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-        //    {
-        //        var all = repository.GetAllTranslationsAsync<DfcOnetTranslation>().Result;
-        //        all.Should().NotBeNull();
-        //    }
-        //}
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
+            var appLogger = A.Fake<IApplicationLogger>();
+
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new TranslationQueryRepository(dbcontext, mapper);
+                var all = repository.GetAll();
+                all.Should().NotBeNull();
+                var count = all.Count();
+                count.Should().Be(153);
+
+                var single = repository.GetById("1.A.1.a");
+                single.Should().NotBeNull();
+                single.Title.Should().Be("1.A.1.a");
+
+                var singleByExpression = repository.Get(s => s.Title == "1.A.1.a");
+                singleByExpression.Should().NotBeNull();
+                singleByExpression.Title.Should().Be("1.A.1.a");
+
+                var manyByExpression = repository.GetMany(s => s.Title.StartsWith("1.A.", StringComparison.Ordinal));
+                manyByExpression.Should().NotBeNull();
+
+            }
+        }
 
         [Fact]
         public void GetAllSocMappings()
@@ -62,7 +78,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var manyByExpression = repository.GetMany(s => s.SOCCode.StartsWith("212"));
                 manyByExpression.Should().NotBeNull();
-                manyByExpression.Count().Should().Be();
 
             }
         }

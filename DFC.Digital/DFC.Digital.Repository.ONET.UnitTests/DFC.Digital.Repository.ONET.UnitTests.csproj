@@ -118,6 +118,7 @@
     <Compile Include="OnetRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\SocMappingsQueryRepositoryTests.cs" />
+    <Compile Include="Query\TranslationQueryRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

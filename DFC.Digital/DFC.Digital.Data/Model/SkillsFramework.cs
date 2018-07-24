@@ -8,6 +8,6 @@ namespace DFC.Digital.Data.Model
 
         public string JobProfileName { get; set; }
 
-        public ICollection<DfcOnetAttributesData> SkillsAttributes { get; set; }
+        public ICollection<WhatItTakesSkill> SkillsAttributes { get; set; }
     }
 }

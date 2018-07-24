@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Interfaces
 {

@@ -1,7 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.ONET;
+//using DFC.Digital.Repository.ONET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
         //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
-        private readonly IOnetRepository repository;
+        //private readonly IOnetRepository repository;
 
         private readonly IApplicationLogger logger;
         private readonly IRepository<SocCode> socRepository;
@@ -26,7 +26,7 @@ namespace DFC.Digital.Service.SkillsFramework
         // Business Rule Engine implemetation
         // Repository will be called with the Expression predicate (Rule Engine)
         public SkillsFrameworkService(
-            IOnetRepository repository,
+            //IOnetRepository repository,
             IApplicationLogger logger,
             IRepository<SocCode> socRepository,
             //IRepository<DigitalSkill> digitalSkillRepository,
@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.SkillsFramework
             IRelatedSkillsMappingRepository skillsMappingRepository,
             IRepository<WhatItTakesSkill> skillsRepository)
         {
-            this.repository = repository;
+            //this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
             //this.digitalSkillRepository = digitalSkillRepository;

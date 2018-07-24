@@ -35,9 +35,9 @@ namespace DFC.Digital.Repository.ONET.Query
                 .OrderByDescending(r => r.Score);
 
             businessRuleEngine.TrimDuplicateMathsSkillOrKnowledge(result);
-            businessRuleEngine.CombineSimilarAttributes(result);
+            var combinedResult = businessRuleEngine.CombineSimilarAttributes(result);
 
-            return autoMapper.Map<IEnumerable<RelatedSkillMapping>>(result);
+            return autoMapper.Map<IEnumerable<RelatedSkillMapping>>(combinedResult);
         }
     }
 }

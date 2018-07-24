@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace DFC.Digital.Repository.ONET
+namespace DFC.Digital.Data.Interfaces
 {
     public interface ISkillFrameworkBusinessRuleEngine
     {
@@ -14,8 +16,8 @@ namespace DFC.Digital.Repository.ONET
 
         IQueryable<OnetAttribute> GetSelectedWorkStyles(string onetOccupationalCode);
 
-        void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> result);
+        void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> attributes);
 
-        void CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> result);
+        IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes);
     }
 }

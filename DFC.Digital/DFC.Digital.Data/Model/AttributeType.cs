@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Repository.ONET
+﻿namespace DFC.Digital.Data.Model
 {
     public enum AttributeType
     {

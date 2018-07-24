@@ -109,10 +109,13 @@
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
     <Compile Include="Interfaces\IServiceStatus.cs" />
+    <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\AttributeType.cs" />
+    <Compile Include="Model\OnetAttribute.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />

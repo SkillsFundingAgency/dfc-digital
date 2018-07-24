@@ -69,10 +69,6 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Repository.ONET\DFC.Digital.Repository.ONET.csproj">
-      <Project>{AD3C4F23-E51E-4D79-A922-4CB138642DC1}</Project>
-      <Name>DFC.Digital.Repository.ONET</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

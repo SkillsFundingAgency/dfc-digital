@@ -11,6 +11,8 @@ using DFC.Digital.Repository.ONET.Tests.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.Tests
 {
+    using Repository.ONET;
+    using Repository.ONET.DataModel;
 
     public class SkillsFrameworkTest : HelperOnetDatas
     {
@@ -23,10 +25,10 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
             var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
-
+            var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             // Act
             A.CallTo(() => skillsRepository.GetAll()).Returns(translatedData.AsQueryable());
-            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger, socRepository, skillsMappingRepository, skillsRepository);
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger, socRepository, digitalSkill, skillsMappingRepository, skillsRepository);
             var response = skillsFrameworkService.GetAllTranslations();
 
             // Assert
@@ -37,28 +39,29 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }
 
-        //[Theory]
-        //[MemberData(nameof(SocMappings))]
-        //public void GetAllSocMappingsAsyncTest(List<SocCode> socMappings)
-        //{
-        //    Arrange
-        //    var applicationLogger = A.Fake<IApplicationLogger>();
-        //    var onetSkillsRepository = A.Fake<IOnetRepository>();
+        [Theory]
+        [MemberData(nameof(GetAllSocMappingsData))]
+        public void GetAllSocMappingsAsyncTest(List<SocCode> responseData)
+        {
+            // Arrange
+            var applicationLogger = A.Fake<IApplicationLogger>();
+            var socRepository = A.Fake<IRepository<SocCode>>();
+            var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
+            var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
+            var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
+            // Act
+            A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger, socRepository, digitalSkill, skillsMappingRepository, skillsRepository);
+            var response = skillsFrameworkService.GetAllSocMappings();
 
-        //    Act
-        //    A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<SocCode>()).Returns(socMappings);
-        //    A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
-        //    IBusinessRuleEngine ruleEngine = new SkillsFrameworkEngine(onetSkillsRepository, applicationLogger);
+            // Assert
+            A.CallTo(() => socRepository.GetAll()).MustHaveHappened();
 
-        //    Assert
-        //    var response = ruleEngine.GetAllSocMappingsAsync();
-        //    A.CallTo(() => onetSkillsRepository.GetAllSocMappingsAsync<SocCode>()).MustHaveHappened();
-        //    A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustNotHaveHappened();
+            var socCodeData = response as IList<SocCode> ?? response.ToList();
+            socCodeData.Should().NotBeNull();
+            socCodeData.Should().BeEquivalentTo(responseData);
 
-        //    response.Result.Should().NotBeNull();
-        //    response.Result.Should().BeSameAs(socMappings);
-
-        //}
+        }
 
         //[Fact]
         //public void GetAllSocMappingsAsyncTestException()

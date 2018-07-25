@@ -22,12 +22,6 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             this.onetDbContext = onetDbContext;
             this.autoMapper = autoMapper;
         }
-
-        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> result)
-        {
-            throw new NotImplementedException();
-        }
-
         public int GetDigitalSkillRank(string onetSocCode)
         {
             throw new NotImplementedException();

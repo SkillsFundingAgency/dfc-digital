@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
 using AutoMapper;
 using DFC.Digital.Data.Interfaces;
@@ -11,7 +8,6 @@ using DFC.Digital.Repository.ONET.DataModel;
 
 namespace DFC.Digital.Repository.ONET.Query
 {
-    
     public class TranslationQueryRepository: IQueryRepository<WhatItTakesSkill>
     {
         private readonly OnetSkillsFramework onetDbContext;
@@ -27,9 +23,7 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public WhatItTakesSkill GetById(string id)
         {
-            var val=onetDbContext.DFC_GDSTranlations.ProjectToSingle<DFC_GDSTranlations,WhatItTakesSkill>(x => x.onet_element_id == id,
-                autoMapper.ConfigurationProvider);
-            return val;// autoMapper.Map<WhatItTakesSkill>(onetDbContext.DFC_GDSTranlations.Single(x=>x.onet_element_id==id));
+            return onetDbContext.DFC_GDSTranlations.ProjectToSingle<DFC_GDSTranlations, WhatItTakesSkill>(x => x.onet_element_id == id, autoMapper.ConfigurationProvider);
         }
 
         public WhatItTakesSkill Get(Expression<Func<WhatItTakesSkill, bool>> @where)
@@ -39,7 +33,6 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<WhatItTakesSkill> GetAll()
         {
-           
             return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<WhatItTakesSkill>(autoMapper.ConfigurationProvider);
         }
 

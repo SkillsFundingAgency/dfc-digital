@@ -54,42 +54,51 @@
             new WhatItTakesSkill
             {
                 Title = "1.A.1",
-                Description = "problem-solving skills"
+                Description = "problem-solving skills",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.1.a",
-                Description = "excellent verbal communication skills"
+                Description = "excellent verbal communication skills",
+                Contextualised = null,
+
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.1.b",
-                Description = "thinking and reasoning skills"
+                Description = "thinking and reasoning skills",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.1.c",
-                Description = "maths skills"
+                Description = "maths skills",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.1.d",
-                Description = "a good memory"
+                Description = "a good memory",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.1.g",
-                Description = "concentration skills"
+                Description = "concentration skills",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.2",
-                Description = "physcial skills like movement, coordination, dexterity and grace"
+                Description = "physcial skills like movement, coordination, dexterity and grace",
+                Contextualised = null,
             },
             new WhatItTakesSkill
             {
                 Title = "1.A.2.a",
-                Description = "the ability to work well with your hands"
+                Description = "the ability to work well with your hands",
+                Contextualised = null,
             },
         };
 

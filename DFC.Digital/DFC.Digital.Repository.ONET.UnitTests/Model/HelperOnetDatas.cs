@@ -7,44 +7,33 @@
     using DataModel;
     public class HelperOnetDatas:HelperEFOnetDatas
     {
-        private static readonly IEnumerable<WhatItTakesSkill> SocMappingsData = new List<WhatItTakesSkill>
+        private static readonly IEnumerable<SocCode> SocMappingsData = new List<SocCode>
         {
-        //    new DfcOnetSocMappings
-        //    {
-        //        JobProfile = "Bank Manager",
-        //        OnetSocCode = "11-3031.02",
-        //        QualityRating = 2,
-        //        SocCode = "1150"
-        //    },
-        //    new DfcOnetSocMappings
-        //    {
-        //        JobProfile = "Restaurant manager",
-        //        OnetSocCode = "11-9051.00",
-        //        QualityRating = 2,
-        //        SocCode = "1223"
-        //    },
-        //    new DfcOnetSocMappings
-        //    {
-        //        JobProfile = "Forensic scientist",
-        //        OnetSocCode = "19-4092.00",
-        //        QualityRating = 2,
-        //        SocCode = "2112"
-        //    },
-        //    new DfcOnetSocMappings
-        //    {
-        //        JobProfile = "Mechanical engineerr",
-        //        OnetSocCode = "17-2141.00",
-        //        QualityRating = 2,
-        //        SocCode = "2122"
-        //    },
-        //    new DfcOnetSocMappings
-        //    {
-        //        JobProfile = "Electrical engineer",
-        //        OnetSocCode = "17-2071.00",
-        //        QualityRating = 2,
-        //        SocCode = "2123"
-        //    },
+            new SocCode
+            {
+                ONetOccupationalCode = "11-3031.02",
+                SOCCode = "1150",
+              
+            },
+            new SocCode
+            {
+                ONetOccupationalCode = "11-9051.00",
+                SOCCode = "1223",
 
+            },
+            new SocCode
+            {
+                ONetOccupationalCode = "19-4092.00",
+                SOCCode = "2112",
+
+            },
+            new SocCode
+            {
+                ONetOccupationalCode = "17-2141.00",
+                SOCCode = "2122",
+
+            },
+          
         };
 
         private static readonly IEnumerable<WhatItTakesSkill> TranslatedData = new List<WhatItTakesSkill>
@@ -543,13 +532,90 @@
         }
 
 
-        public static IEnumerable<object[]> OnetSocMappingData()
+        public static IEnumerable<object[]> GetAllSocMappingData()
         {
             yield return new object[]
             {
                 DfcSocMappings,
                 SocMappingsData
             };
+        }
+
+        public static IEnumerable<object[]> GetByIdSocMappingData()
+        {
+            yield return new object[]
+            {
+                DfcSocMappings,
+                SocMappingsData.ToList()[0],
+                "1150"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                SocMappingsData.ToList()[1],
+                "1223"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                SocMappingsData.ToList()[2],
+                "2112"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                SocMappingsData.ToList()[3],
+                "2122"
+            };
+           
+        }
+        public static IEnumerable<object[]> GetManySocMappingData()
+        {
+            yield return new object[]
+            {
+                DfcSocMappings,
+                new List<SocCode>()
+                {
+                SocMappingsData.ToList()[0],
+                SocMappingsData.ToList()[1],
+                },
+                "1150",
+                "1223"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                new List<SocCode>()
+                {
+                    SocMappingsData.ToList()[1],
+                    SocMappingsData.ToList()[2],
+                },
+                "1223",
+                "2112"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                new List<SocCode>()
+                {
+                    SocMappingsData.ToList()[2],
+                    SocMappingsData.ToList()[3],
+                },
+                "2112",
+                "2122"
+            };
+            yield return new object[]
+            {
+                DfcSocMappings,
+                new List<SocCode>()
+                {
+                    SocMappingsData.ToList()[1],
+                    SocMappingsData.ToList()[3],
+                },
+                "1223",
+                "2122"
+            };
+
         }
         public static IEnumerable<object[]> OnetTranslationsData()
         {
@@ -646,40 +712,29 @@
     {
         protected static readonly IEnumerable<DFC_SocMappings> DfcSocMappings = new List<DFC_SocMappings>
         {
-            new DFC_SocMappings()
+            new DFC_SocMappings
             {
-                JobProfile = "Bank Manager",
-                ONetCode= "11-3031.02",
-                QualityRating = 2,
-                SocCode = "1150"
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+
             },
             new DFC_SocMappings
             {
-                JobProfile = "Restaurant manager",
                 ONetCode = "11-9051.00",
-                QualityRating = 2,
-                SocCode = "1223"
+                SocCode = "1223",
+
             },
             new DFC_SocMappings
             {
-                JobProfile = "Forensic scientist",
                 ONetCode = "19-4092.00",
-                QualityRating = 2,
-                SocCode = "2112"
+                SocCode = "2112",
+
             },
             new DFC_SocMappings
             {
-                JobProfile = "Mechanical engineerr",
                 ONetCode = "17-2141.00",
-                QualityRating = 2,
-                SocCode = "2122"
-            },
-            new DFC_SocMappings
-            {
-                JobProfile = "Electrical engineer",
-                ONetCode = "17-2071.00",
-                QualityRating = 2,
-                SocCode = "2123"
+                SocCode = "2122",
+
             },
 
         };

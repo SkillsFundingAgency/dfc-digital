@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace DFC.Digital.Repository.ONET.BusinessRule
 {
+    using System.Collections.Generic;
+    using Data.Interfaces;
+    using Data.Model;
+
     public class SkillsFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
         private readonly OnetSkillsFramework onetDbContext;
@@ -16,7 +20,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             this.autoMapper = autoMapper;
         }
 
-        public void CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> result)
+        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> result)
         {
             throw new NotImplementedException();
         }

@@ -62,8 +62,9 @@ namespace DFC.Digital.Service.SkillsFrameworkData
        
             foreach (var socCode in socCodesToUpdate)
             {
-                var occupationalCode = string.Empty;
-                occupationalCodeMappings.TryGetValue(socCode.SOCCode, out occupationalCode);
+                var occupationalCode = occupationalCodeMappings
+                    .FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode, StringComparison.OrdinalIgnoreCase))
+                    ?.ONetOccupationalCode;
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationalCode} for SocCocde : {socCode.SOCCode} from SkillFramework Service");
 
                 if (!string.IsNullOrWhiteSpace(occupationalCode) &&

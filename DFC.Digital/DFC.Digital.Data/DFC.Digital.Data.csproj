@@ -28,6 +28,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -101,6 +103,9 @@
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
+    <Compile Include="Interfaces\ICommandRepository.cs" />
+    <Compile Include="Interfaces\IQueryRepository.cs" />
+    <Compile Include="Interfaces\IRelatedSkillsMappingRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISalaryCalculator.cs" />
     <Compile Include="Interfaces\ISalaryService.cs" />
@@ -110,15 +115,23 @@
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
     <Compile Include="Interfaces\IServiceStatus.cs" />
+    <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
+    <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\AttributeType.cs" />
+    <Compile Include="Model\DigitalSkill.cs" />
+    <Compile Include="Model\OnetAttribute.cs" />
+    <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\RepoActionResult.cs" />
     <Compile Include="Model\BuildSocMatrixRequest.cs" />
     <Compile Include="Model\BuildSocMatrixResponse.cs" />
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
+    <Compile Include="Model\RelatedSkillMapping.cs" />
+    <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />

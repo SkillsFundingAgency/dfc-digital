@@ -160,6 +160,10 @@
       <Project>{0B25E89F-8314-4EE4-8B5A-CCD7A04BAB5D}</Project>
       <Name>DFC.Digital.Repository.CosmosDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Repository.ONET\DFC.Digital.Repository.ONET.csproj">
+      <Project>{AD3C4F23-E51E-4D79-A922-4CB138642DC1}</Project>
+      <Name>DFC.Digital.Repository.ONET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
       <Project>{11e5ec8f-531d-47e4-9c22-e19044ddd678}</Project>
       <Name>DFC.Digital.Repository.SitefinityCMS</Name>

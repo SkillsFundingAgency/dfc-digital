@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             var onetSkills = skillsFrameworkService.GetOnetSkills().ToList();
             var allOnetSkills = frameworkSkillRepository.GetFrameworkSkills().Count();
            
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} SkillFrameworkskills in the repo");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} Frameworkskills in the repo");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {onetSkills.Count} SkillFramework skills to import");
 
             foreach (var onetSkill in onetSkills)

@@ -96,9 +96,9 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.OnetService\DFC.Digital.Service.SkillsFramework.csproj">
+    <ProjectReference Include="..\DFC.Digital.Service.OnetService\DFC.Digital.Service.SkillsFrameworkData.csproj">
       <Project>{92247873-A7D7-4D28-9C94-D31B36CB78B4}</Project>
-      <Name>DFC.Digital.Service.SkillsFramework</Name>
+      <Name>DFC.Digital.Service.SkillsFrameworkData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

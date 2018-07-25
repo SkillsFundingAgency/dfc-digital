@@ -10,7 +10,7 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
-using DFC.Digital.Service.SkillsFramework;
+using DFC.Digital.Service.SkillsFrameworkData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

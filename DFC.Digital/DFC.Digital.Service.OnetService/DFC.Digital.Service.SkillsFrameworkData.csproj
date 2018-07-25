@@ -7,8 +7,8 @@
     <ProjectGuid>{92247873-A7D7-4D28-9C94-D31B36CB78B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Service.SkillsFramework</RootNamespace>
-    <AssemblyName>DFC.Digital.Service.SkillsFramework</AssemblyName>
+    <RootNamespace>DFC.Digital.Service.SkillsFrameworkData</RootNamespace>
+    <AssemblyName>DFC.Digital.Service.SkillsFrameworkData</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

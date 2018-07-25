@@ -2,7 +2,7 @@
 using Autofac.Extras.DynamicProxy2;
 using DFC.Digital.Core.Interceptors;
 
-namespace DFC.Digital.Service.SkillsFramework
+namespace DFC.Digital.Service.SkillsFrameworkData
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SkillsFrameworkServiceAutofacModule : Module

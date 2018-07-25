@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Service.SkillsFramework
+namespace DFC.Digital.Service.SkillsFrameworkData
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {

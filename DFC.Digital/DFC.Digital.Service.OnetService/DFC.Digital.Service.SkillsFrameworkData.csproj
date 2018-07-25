@@ -58,9 +58,6 @@
     <Compile Include="SkillsFrameworkDataImportService.cs" />
     <Compile Include="Config\SkillsFrameworkServiceAutofacModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Contracts\ISkillsFrameworkService.cs" />
-    <Compile Include="Services\InMemoryReportAuditRepository.cs" />
-    <Compile Include="Services\SkillsFrameworkService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

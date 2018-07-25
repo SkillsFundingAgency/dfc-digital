@@ -30,7 +30,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
         public FrameworkSkillsImportResponse ImportFrameworkSkills()
         {
             // this will be async once integrated
-            var onetSkills = skillsFrameworkService.GetOnetSkills().ToList();
+            var onetSkills = skillsFrameworkService.GetAllTranslations().ToList();
             var allOnetSkills = frameworkSkillRepository.GetFrameworkSkills().Count();
            
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} Frameworkskills in the repo");
@@ -51,7 +51,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             var socCodesToUpdate = allSocCodes.Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode)).Take(50);
             var socCodesNotUpdated = allSocCodes.Count(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
             var socCodesUpdated = allSocCodes.Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
-            var occupationalCodeMappings = skillsFrameworkService.GetSocOccupationalCodeMappings();
+            var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
 
           
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} socs in the repo ");
@@ -93,7 +93,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             {
                 if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
                 {
-                    var digitalSkillLevel = Convert.ToString(skillsFrameworkService.GetDigitalSkillLevel(jobProfile.ONetOccupationalCode));
+                    var digitalSkillLevel = Convert.ToString(skillsFrameworkService.GetDigitalSkillRank(jobProfile.ONetOccupationalCode));
 
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} from SkillFramework Service");
 
@@ -135,7 +135,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             {
                 if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
                 {
-                    var occupationSkills = skillsFrameworkService.GetOccupationalCodeSkills(jobProfile.ONetOccupationalCode);
+                    var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(jobProfile.ONetOccupationalCode);
 
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.Title))} skills : for occupation code {jobProfile.ONetOccupationalCode} from SkillFramework Service");
                         var rankGenerated = 1;
@@ -148,9 +148,9 @@ namespace DFC.Digital.Service.SkillsFrameworkData
 
                         socSkillMatrixRepository.UpsertSocSkillMatrix(new SocSkillMatrix
                         {
-                            Title = $"{jobProfile.SOCCode}-{occupationSkill.Title}",
+                            Title = $"{jobProfile.SOCCode}-{occupationSkill.WhatItTakesSkillTitle}",
                             SocCode = jobProfile.SOCCode,
-                            Skill = occupationSkill.Title,
+                            Skill = occupationSkill.WhatItTakesSkillTitle,
                             ONetRank = occupationSkill.OnetRank,
                             Rank = rankGenerated
                         });

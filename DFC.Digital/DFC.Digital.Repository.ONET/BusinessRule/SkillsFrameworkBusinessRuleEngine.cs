@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DFC.Digital.Repository.ONET.BusinessRule
@@ -16,11 +19,6 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             this.autoMapper = autoMapper;
         }
 
-        public void CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> result)
-        {
-            throw new NotImplementedException();
-        }
-
         public int GetDigitalSkillRank(string onetSocCode)
         {
             throw new NotImplementedException();
@@ -28,8 +26,8 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
 
         public IQueryable<OnetAttribute> GetSelectedAbilities(string onetOccupationalCode)
         {
-            var selectedAbilities = from ability    in onetDbContext.abilities
-                                    join cmr        in onetDbContext.content_model_reference
+            var selectedAbilities = from ability in onetDbContext.abilities
+                                    join cmr in onetDbContext.content_model_reference
                                         on ability.element_id.Substring(0, 7) equals cmr.element_id
                                     where ability.recommend_suppress != "Y"
                                         && ability.not_relevant != "Y"
@@ -58,7 +56,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
         public IQueryable<OnetAttribute> GetSelectedKnowledge(string onetOccupationalCode)
         {
             var selectedKnowledge = from knwldg in onetDbContext.knowledges
-                                    join cmr    in onetDbContext.content_model_reference
+                                    join cmr in onetDbContext.content_model_reference
                                         on knwldg.element_id.Substring(0, 7) equals cmr.element_id
                                     where knwldg.recommend_suppress != "Y"
                                         && knwldg.not_relevant != "Y"
@@ -87,7 +85,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
         public IQueryable<OnetAttribute> GetSelectedSkills(string onetOccupationalCode)
         {
             var selectedSkills = from skill in onetDbContext.skills
-                                 join cmr   in onetDbContext.content_model_reference
+                                 join cmr in onetDbContext.content_model_reference
                                     on skill.element_id.Substring(0, 7) equals cmr.element_id
                                  where skill.recommend_suppress != "Y"
                                     && skill.not_relevant != "Y"
@@ -116,7 +114,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
         public IQueryable<OnetAttribute> GetSelectedWorkStyles(string onetOccupationalCode)
         {
             var selectedAbilities = from workkStyle in onetDbContext.work_styles
-                                    join cmr        in onetDbContext.content_model_reference
+                                    join cmr in onetDbContext.content_model_reference
                                     on workkStyle.element_id.Substring(0, 7) equals cmr.element_id
                                     where workkStyle.recommend_suppress != "Y"
                                         && workkStyle.onetsoc_code == onetOccupationalCode
@@ -142,6 +140,11 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
         }
 
         public void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes)
         {
             throw new NotImplementedException();
         }

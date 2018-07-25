@@ -10,26 +10,20 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
-        //CodeReview: Remove the leading underscore, we are not using them, ensure code analysis and style cop are run for this project.
-        //private readonly IOnetRepository repository;
-
         private readonly IApplicationLogger logger;
         private readonly IRepository<SocCode> socRepository;
 
-        //private readonly IRepository<DigitalSkill> digitalSkillRepository;
+        private readonly IRepository<DigitalSkill> digitalSkillRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
         private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
 
         //private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
         private readonly IRepository<WhatItTakesSkill> skillsRepository;
 
-        // Business Rule Engine implemetation
-        // Repository will be called with the Expression predicate (Rule Engine)
         public SkillsFrameworkService(
-            //IOnetRepository repository,
             IApplicationLogger logger,
             IRepository<SocCode> socRepository,
-            //IRepository<DigitalSkill> digitalSkillRepository,
+            IRepository<DigitalSkill> digitalSkillRepository,
             //ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRelatedSkillsMappingRepository skillsMappingRepository,
@@ -38,7 +32,7 @@ namespace DFC.Digital.Service.SkillsFramework
             //this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
-            //this.digitalSkillRepository = digitalSkillRepository;
+            this.digitalSkillRepository = digitalSkillRepository;
             //this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
             this.skillsMappingRepository = skillsMappingRepository;
             this.skillsRepository = skillsRepository;
@@ -58,7 +52,8 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public int GetDigitalSkillRank(string onetOccupationalCode)
         {
-            throw new NotImplementedException();
+            var result = digitalSkillRepository.GetById(onetOccupationalCode);
+            return result?.Level ?? default;
         }
 
         public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)

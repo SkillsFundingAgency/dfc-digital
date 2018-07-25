@@ -28,6 +28,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -115,6 +117,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\AttributeType.cs" />
+    <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\OnetAttribute.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\EntryRequirement.cs" />

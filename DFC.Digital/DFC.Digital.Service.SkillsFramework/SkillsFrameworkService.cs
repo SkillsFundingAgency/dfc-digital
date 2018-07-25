@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
 
         //private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
-        private readonly IRepository<WhatItTakesSkill> skillsRepository;
+        private readonly IRepository<FrameworkSkill> skillsRepository;
 
         public SkillsFrameworkService(
             IApplicationLogger logger,
@@ -27,7 +27,7 @@ namespace DFC.Digital.Service.SkillsFramework
             //ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRelatedSkillsMappingRepository skillsMappingRepository,
-            IRepository<WhatItTakesSkill> skillsRepository)
+            IRepository<FrameworkSkill> skillsRepository)
         {
             //this.repository = repository;
             this.logger = logger;

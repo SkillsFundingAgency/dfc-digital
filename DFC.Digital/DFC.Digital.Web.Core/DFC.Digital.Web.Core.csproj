@@ -192,6 +192,10 @@
       <Project>{92247873-a7d7-4d28-9c94-d31b36cb78b4}</Project>
       <Name>DFC.Digital.Service.SkillsFrameworkData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
+      <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
+      <Name>DFC.Digital.Service.SkillsFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

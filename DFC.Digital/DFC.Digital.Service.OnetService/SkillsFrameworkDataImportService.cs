@@ -57,13 +57,13 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} socs in the repo ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesUpdated} socs already updated with occupational codes ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesNotUpdated} socs not yet updated with occupational codes ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count} socOccupation Code Mappings from Framework Service");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {socCodesToUpdate.Count()} socs with occupational code ");
        
             foreach (var socCode in socCodesToUpdate)
             {
                 var occupationalCode = occupationalCodeMappings
-                    .FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode.SOCCode, StringComparison.OrdinalIgnoreCase))
                     ?.ONetOccupationalCode;
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationalCode} for SocCocde : {socCode.SOCCode} from SkillFramework Service");
 
@@ -94,14 +94,13 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             {
                 if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
                 {
-                    var digitalSkillLevel = Convert.ToString(skillsFrameworkService.GetDigitalSkillRank(jobProfile.ONetOccupationalCode));
+                    var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(jobProfile.ONetOccupationalCode);
 
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} from SkillFramework Service");
 
-                    if (!string.IsNullOrWhiteSpace(digitalSkillLevel) && (string.IsNullOrWhiteSpace(jobProfile.DigitalSkillsLevel) ||
-                        !jobProfile.DigitalSkillsLevel.Equals(digitalSkillLevel, StringComparison.OrdinalIgnoreCase)))
+                    if (!jobProfile.DigitalSkillsLevel.Equals(digitalSkillLevel.ToString(), StringComparison.OrdinalIgnoreCase))
                     {
-                        jobProfile.DigitalSkillsLevel = digitalSkillLevel;
+                        jobProfile.DigitalSkillsLevel = digitalSkillLevel.ToString();
                         jobProfileRepository.UpdateDigitalSkill(jobProfile);
                         reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated Job profile {jobProfile.UrlName} with digital skill level : {digitalSkillLevel}");
                     }
@@ -138,7 +137,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                 {
                     var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(jobProfile.ONetOccupationalCode);
 
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.Title))} skills : for occupation code {jobProfile.ONetOccupationalCode} from SkillFramework Service");
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.WhatItTakesSkillTitle))} skills : for occupation code {jobProfile.ONetOccupationalCode} from SkillFramework Service");
                         var rankGenerated = 1;
                     foreach (var occupationSkill in occupationSkills)
                     {
@@ -155,7 +154,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                             ONetRank = occupationSkill.OnetRank,
                             Rank = rankGenerated
                         });
-                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {jobProfile.SOCCode}-{occupationSkill.Title}  into socskill matrix repo");
+                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {jobProfile.SOCCode}-{occupationSkill.WhatItTakesSkillTitle}  into socskill matrix repo");
                         rankGenerated++;
                     }
                 }

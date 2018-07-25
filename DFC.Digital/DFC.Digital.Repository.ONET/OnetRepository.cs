@@ -93,8 +93,8 @@ namespace DFC.Digital.Repository.ONET
             }).ConfigureAwait(false);
             digitalSkills = new DigitalSkill
             {
-                DigitalSkillsCollection = dfcToolsandTech,
-                DigitalSkillsCount = dfcToolsandTech.Count()
+                // DigitalSkillsCollection = dfcToolsandTech,
+                // DigitalSkillsCount = dfcToolsandTech.Count()
             };
             return (T)Convert.ChangeType(digitalSkills, typeof(T));
         }

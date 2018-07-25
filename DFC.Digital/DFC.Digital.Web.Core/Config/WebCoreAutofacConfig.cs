@@ -11,6 +11,7 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
+using DFC.Digital.Service.SkillsFramework.Config;
 using DFC.Digital.Service.SkillsFrameworkData;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<LmiFeedAutofacModule>()
                 .RegisterModule<CourseSearchProviderAutofacModule>()
                 .RegisterModule<SpellCheckAutofacModule>()
+                .RegisterModule<SkillsFrameworkEngineAutofacModule>()
+                .RegisterModule<SkillsFrameworkServiceAutofacModule>()
                 .RegisterModule<SkillsFrameworkAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies

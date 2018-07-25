@@ -18,13 +18,13 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
     {
         [Theory]
         [MemberData(nameof(TranslationData))]
-        public void GetAllTranslationsAsyncTest(List<WhatItTakesSkill> translatedData)
+        public void GetAllTranslationsAsyncTest(List<FrameworkSkill> translatedData)
         {
            // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
-            var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             // Act
             A.CallTo(() => skillsRepository.GetAll()).Returns(translatedData.AsQueryable());
@@ -34,7 +34,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             // Assert
             A.CallTo(() => skillsRepository.GetAll()).MustHaveHappened();
 
-            var whatItTakesSkills = response as IList<WhatItTakesSkill> ?? response.ToList();
+            var whatItTakesSkills = response as IList<FrameworkSkill> ?? response.ToList();
             whatItTakesSkills.Should().NotBeNull();
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }
@@ -47,7 +47,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
-            var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             // Act
             A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());

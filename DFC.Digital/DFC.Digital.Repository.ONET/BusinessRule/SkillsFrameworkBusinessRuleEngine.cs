@@ -139,6 +139,11 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             throw new NotImplementedException();
         }
 
+        public IEnumerable<OnetAttribute> BoostMathsSkills(IOrderedQueryable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes)
         {
             throw new NotImplementedException();

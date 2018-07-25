@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISkillFrameworkBusinessRuleEngine
     {
-        int GetDigitalSkillRank(string onetSocCode);
+        DigitalSkillsLevel GetDigitalSkillsLevel(int count);
 
         IQueryable<OnetAttribute> GetSelectedKnowledge(string onetOccupationalCode);
 
@@ -17,6 +17,8 @@ namespace DFC.Digital.Data.Interfaces
         IQueryable<OnetAttribute> GetSelectedWorkStyles(string onetOccupationalCode);
 
         void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> attributes);
+
+        IEnumerable<OnetAttribute> BoostMathsSkills(IOrderedQueryable<OnetAttribute> attributes);
 
         IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes);
     }

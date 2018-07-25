@@ -12,7 +12,7 @@ using DFC.Digital.Repository.ONET.DataModel;
 namespace DFC.Digital.Repository.ONET.Query
 {
     
-    public class TranslationQueryRepository: IQueryRepository<WhatItTakesSkill>
+    public class TranslationQueryRepository: IQueryRepository<FrameworkSkill>
     {
         private readonly OnetSkillsFramework onetDbContext;
         private readonly IMapper autoMapper;
@@ -23,27 +23,25 @@ namespace DFC.Digital.Repository.ONET.Query
             this.autoMapper = autoMapper;
         }
 
-        #region Implementation of IQueryRepository<WhatItTakesSkill>
+        #region Implementation of IQueryRepository<FrameworkSkill>
 
-        public WhatItTakesSkill GetById(string id)
+        public FrameworkSkill GetById(string id)
         {
-            var val=onetDbContext.DFC_GDSTranlations.ProjectToSingle<DFC_GDSTranlations,WhatItTakesSkill>(x => x.onet_element_id == id,
-                autoMapper.ConfigurationProvider);
-            return val;// autoMapper.Map<WhatItTakesSkill>(onetDbContext.DFC_GDSTranlations.Single(x=>x.onet_element_id==id));
+            return autoMapper.Map<FrameworkSkill>(onetDbContext.DFC_GDSTranlations.Single(x=>x.onet_element_id==id));
         }
 
-        public WhatItTakesSkill Get(Expression<Func<WhatItTakesSkill, bool>> @where)
+        public FrameworkSkill Get(Expression<Func<FrameworkSkill, bool>> where)
         {
             return GetAll().Single(where);
         }
 
-        public IQueryable<WhatItTakesSkill> GetAll()
+        public IQueryable<FrameworkSkill> GetAll()
         {
            
-            return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<WhatItTakesSkill>(autoMapper.ConfigurationProvider);
+            return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
         }
 
-        public IQueryable<WhatItTakesSkill> GetMany(Expression<Func<WhatItTakesSkill, bool>> @where)
+        public IQueryable<FrameworkSkill> GetMany(Expression<Func<FrameworkSkill, bool>> where)
         {
             return GetAll().Where(where);
         }

@@ -51,12 +51,69 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
+        [Theory]
+        [InlineData("1.A.1.a")]
+        public void GetById(string onetElementId)
+        {
+            IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new TranslationQueryRepository(dbcontext, autoMapper);
+
+
+                var single = repository.GetById(onetElementId);
+                single.Should().NotBeNull();
+                single.Title.Should().Be(onetElementId);
+
+
+            }
+        }
+
+        [Theory]
+        [InlineData("1.A.1.a")]
+        public void Get(string onetElementId)
+        {
+            IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new TranslationQueryRepository(dbcontext, autoMapper);
+
+
+                var single = repository.Get(x=>x.Title==onetElementId);
+                single.Should().NotBeNull();
+                single.Title.Should().Be(onetElementId);
+
+
+            }
+
+        }
+
+        [Theory]
+        [InlineData("1.A.1.a", "excellent verbal communication skills")]
+        [InlineData("1.A.1.b", "thinking and reasoning skills")]
+        [InlineData("1.A.1.c", "maths skills")]
+        public void GetMany(string field1, string field2)
+        {
+            IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new TranslationQueryRepository(dbcontext, autoMapper);
+
+
+                var single = repository.GetMany(x => x.Title == field1 && x.Description==field2 );
+                single.Should().NotBeNull();
+                single.Should().Contain(x => x.Title == field1);
+
+            }
+        }
         [Fact]
         public void GetAllSocMappings()
         {
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
-            var appLogger = A.Fake<IApplicationLogger>();
             //IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
 
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())

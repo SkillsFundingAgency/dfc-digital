@@ -19,11 +19,6 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             this.autoMapper = autoMapper;
         }
 
-        public int GetDigitalSkillRank(string onetSocCode)
-        {
-            throw new NotImplementedException();
-        }
-
         public IQueryable<OnetAttribute> GetSelectedAbilities(string onetOccupationalCode)
         {
             var selectedAbilities = from ability in onetDbContext.abilities
@@ -147,6 +142,14 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
         public IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes)
         {
             throw new NotImplementedException();
+        }
+
+        public DigitalSkillsLevel GetDigitalSkillsLevel(int count)
+        {
+            return count > 150 ? DigitalSkillsLevel.Level1
+                 : count > 100 ? DigitalSkillsLevel.Level2
+                 : count > 50 ? DigitalSkillsLevel.Level3
+                 : DigitalSkillsLevel.Level4;
         }
     }
 }

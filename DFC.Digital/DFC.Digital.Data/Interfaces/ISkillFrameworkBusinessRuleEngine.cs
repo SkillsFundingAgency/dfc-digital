@@ -18,6 +18,8 @@ namespace DFC.Digital.Data.Interfaces
 
         void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> attributes);
 
+        IEnumerable<OnetAttribute> BoostMathsSkills(IOrderedQueryable<OnetAttribute> attributes);
+
         IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes);
     }
 }

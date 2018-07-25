@@ -25,10 +25,10 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             //Arrange
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            var fakeDbSet = A.Fake<DbSet<DFC_GDSTranlations>>(c => c
-                .Implements(typeof(IQueryable<DFC_GDSTranlations>))
-                .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>))).SetupData(setupDbSetData);
-
+            var fakeDbSet= A.Fake<DbSet<DFC_GDSTranlations>>(c => c
+            .Implements(typeof(IQueryable<DFC_GDSTranlations>))
+            .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>)))
+            .SetupData(setupDbSetData);
             //Act
             A.CallTo(() => fakeDbContext.DFC_GDSTranlations).Returns(fakeDbSet);
             var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
@@ -39,6 +39,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
             result.Title.Should().Be(onetElementId);
+            A.CallTo(() => fakeDbContext.DFC_GDSTranlations).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Theory]
@@ -63,6 +64,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
             result.Title.Should().Be(onetElementId);
+            A.CallTo(() => fakeDbContext.DFC_GDSTranlations).MustHaveHappened(Repeated.Exactly.Once);
         }
 
         [Theory]
@@ -82,6 +84,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             //Assert
             var result = repo.GetAll();
             result.Should().BeEquivalentTo(mappedReturnDbSetData);
+            A.CallTo(() => fakeDbContext.DFC_GDSTranlations).MustHaveHappened(Repeated.Exactly.Once);
 
         }
 
@@ -102,6 +105,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             //Assert
             var result = repo.GetMany(x => x.Title == onetElementId && x.Description == description);
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
+            A.CallTo(() => fakeDbContext.DFC_GDSTranlations).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

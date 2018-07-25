@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class DigitalSkill
+    public enum DigitalSkillsLevel
     {
-        public DigitalSkillsLevel Level { get; set; }
+        Level0 = 0,
+        Level1 = 1,
+        Level2 = 2,
+        Level3 = 3,
+        Level4 = 4
     }
 }

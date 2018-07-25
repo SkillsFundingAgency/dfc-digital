@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISkillFrameworkBusinessRuleEngine
     {
-        int GetDigitalSkillRank(string onetSocCode);
+        DigitalSkillsLevel GetDigitalSkillsLevel(int count);
 
         IQueryable<OnetAttribute> GetSelectedKnowledge(string onetOccupationalCode);
 

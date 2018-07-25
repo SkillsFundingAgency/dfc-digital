@@ -45,12 +45,12 @@ namespace DFC.Digital.Service.SkillsFramework
             return socRepository.GetAll();
         }
 
-        public IEnumerable<WhatItTakesSkill> GetAllTranslations()
+        public IEnumerable<FrameworkSkill> GetAllTranslations()
         {
             return skillsRepository.GetAll();
         }
 
-        public int GetDigitalSkillRank(string onetOccupationalCode)
+        public DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode)
         {
             var result = digitalSkillRepository.GetById(onetOccupationalCode);
             return result?.Level ?? default;

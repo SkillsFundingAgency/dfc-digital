@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessRule\SkillsFrameworkBusinessRuleEngineTests.cs" />
     <Compile Include="Impl\DbSetWrapperTests.cs" />
     <Compile Include="Impl\OnetRepositoryDbContextTests.cs" />
     <Compile Include="Model\HelperOnetDatas.cs" />

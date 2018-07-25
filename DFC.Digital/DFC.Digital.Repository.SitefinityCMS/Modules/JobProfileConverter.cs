@@ -24,7 +24,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
         private const string OtherRequirementsField = "OtherRequirements";
         private const string RelatedRestrictionsField = "RelatedRestrictions";
-        private const string RelatedSkillsField = "RelatedSkills";
         private const string RelatedSkillField = "RelatedSkill";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;

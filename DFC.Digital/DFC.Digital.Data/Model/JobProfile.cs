@@ -225,8 +225,6 @@ namespace DFC.Digital.Data.Model
         [JsonIgnore]
         public IList<string> RelatedSkills { get; set; }
 
-        public string DigitalSkillsLevel { get; set; }
-
         public string ONetOccupationalCode { get; set; }
 
         public bool HasRelatedSocSkillMatrices { get; set; }

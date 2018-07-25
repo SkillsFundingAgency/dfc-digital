@@ -17,13 +17,11 @@ namespace DFC.Digital.Repository.ONET.Query
         private readonly IMapper autoMapper;
         private readonly ISkillFrameworkBusinessRuleEngine businessRuleEngine;
 
-        //public SkillsMappingQueryRepository(IQueryRepository<knowledge> knowledgeRepo)
         public SkillsMappingQueryRepository(OnetSkillsFramework onetDbContext, IMapper autoMapper, ISkillFrameworkBusinessRuleEngine businessRuleEngine)
         {
             this.onetDbContext = onetDbContext;
             this.autoMapper = autoMapper;
             this.businessRuleEngine = businessRuleEngine;
-            //this.knowledgeRepo = knowledgeRepo;
         }
 
         public IEnumerable<RelatedSkillMapping> GetByONetOccupationalCode(string onetOccupationalCode)

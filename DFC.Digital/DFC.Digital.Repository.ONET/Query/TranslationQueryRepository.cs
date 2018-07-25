@@ -23,7 +23,7 @@ namespace DFC.Digital.Repository.ONET.Query
             this.autoMapper = autoMapper;
         }
 
-        #region Implementation of IQueryRepository<WhatItTakesSkill>
+        #region Implementation of IQueryRepository<FrameworkSkill>
 
         public FrameworkSkill GetById(string id)
         {

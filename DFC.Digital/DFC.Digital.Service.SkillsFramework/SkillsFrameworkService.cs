@@ -11,23 +11,23 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
         private readonly IApplicationLogger logger;
-        private readonly IRepository<SocCode> socRepository;
+        private readonly IQueryRepository<SocCode> socRepository;
 
-        private readonly IRepository<DigitalSkill> digitalSkillRepository;
+        private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
         private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
 
         //private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
-        private readonly IRepository<FrameworkSkill> skillsRepository;
+        private readonly IQueryRepository<FrameworkSkill> skillsRepository;
 
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IRepository<SocCode> socRepository,
-            IRepository<DigitalSkill> digitalSkillRepository,
+            IQueryRepository<SocCode> socRepository,
+            IQueryRepository<DigitalSkill> digitalSkillRepository,
             //ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRelatedSkillsMappingRepository skillsMappingRepository,
-            IRepository<FrameworkSkill> skillsRepository)
+            IQueryRepository<FrameworkSkill> skillsRepository)
         {
             //this.repository = repository;
             this.logger = logger;

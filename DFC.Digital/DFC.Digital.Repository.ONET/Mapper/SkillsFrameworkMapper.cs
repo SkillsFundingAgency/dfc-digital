@@ -9,7 +9,7 @@ namespace DFC.Digital.Repository.ONET.Mapper
         public SkillsFrameworkMapper()
         {
            
-            CreateMap<DFC_GDSTranlations, WhatItTakesSkill>()
+            CreateMap<DFC_GDSTranlations, FrameworkSkill>()
                 .ForMember(d => d.Description, m => m.MapFrom(s => s.translation.Trim()))
                 .ForMember(d => d.Title, m => m.MapFrom(d => d.onet_element_id))
                 .ReverseMap()

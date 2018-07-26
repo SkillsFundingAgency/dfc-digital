@@ -138,7 +138,7 @@ namespace DFC.Digital.Repository.ONET
                        Id = abilityGroup.Key.element_id,
                        Description = abilityGroup.Key.description,
                        Name = abilityGroup.Key.element_name,
-                       Type = AttributeType.Abilities,
+                       Type = AttributeType.Ability,
                        Score = abilityGroup.Sum(x => x.data_value) / 2
                    };
         }
@@ -179,7 +179,7 @@ namespace DFC.Digital.Repository.ONET
         private static IList<OnetAttribute> DfcGdsUpdatedAttributesDatas(IQueryable<OnetAttribute> newAtt)
         {
             var elementAttribute = newAtt?.ToList()?.OrderByDescending(x => x.Score)
-                .Where(x => x.Type == AttributeType.WorkStyles)
+                .Where(x => x.Type == AttributeType.WorkStyle)
                 .OrderByDescending(z => z.Score).ThenByDescending(y => y.Type).Select(x => new OnetAttribute
                 {
                     Score = x.Score,
@@ -189,7 +189,7 @@ namespace DFC.Digital.Repository.ONET
                     OnetOccupationalCode = x.OnetOccupationalCode,
                     SocCode = x.SocCode
                 }).Take(5)
-                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Type == AttributeType.Skills)
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Type == AttributeType.Skill)
                     .OrderByDescending(z => z.Score).ThenByDescending(y => y.Type).Select(x => new OnetAttribute
                     {
                         Score = x.Score,
@@ -199,7 +199,7 @@ namespace DFC.Digital.Repository.ONET
                         OnetOccupationalCode = x.OnetOccupationalCode,
                         SocCode = x.SocCode
                     }).Take(5))
-                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Type == AttributeType.Abilities)
+                .Union(newAtt?.ToList()?.OrderByDescending(x => x.Score).Where(x => x.Type == AttributeType.Ability)
                     .OrderByDescending(z => z.Score).ThenByDescending(y => y.Type).Select(x => new OnetAttribute
                     {
                         Score = x.Score,
@@ -270,7 +270,7 @@ namespace DFC.Digital.Repository.ONET
                        Id = skillGroup.Key.element_id,
                        Description = skillGroup.Key.description,
                        Name = skillGroup.Key.element_name,
-                       Type = AttributeType.Skills,
+                       Type = AttributeType.Skill,
                        Score = skillGroup.Sum(x => x.data_value) / 2
                    };
         }
@@ -295,7 +295,7 @@ namespace DFC.Digital.Repository.ONET
                        Id = workStyleGroup.Key.element_id,
                        Description = workStyleGroup.Key.description,
                        Name = workStyleGroup.Key.element_name,
-                       Type = AttributeType.WorkStyles,
+                       Type = AttributeType.WorkStyle,
                        Score = workStyleGroup.Sum(x => x.data_value) / 2
                    };
         }

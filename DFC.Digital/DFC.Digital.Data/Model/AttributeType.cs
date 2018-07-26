@@ -3,8 +3,9 @@
     public enum AttributeType
     {
         Knowledge,
-        Skills,
-        Abilities,
-        WorkStyles
+        Skill,
+        Ability,
+        WorkStyle,
+        Combination
     }
 }

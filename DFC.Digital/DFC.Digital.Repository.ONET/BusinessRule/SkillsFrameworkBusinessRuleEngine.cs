@@ -19,7 +19,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             this.autoMapper = autoMapper;
         }
 
-        public IQueryable<OnetAttribute> GetSelectedAbilities(string onetOccupationalCode)
+        public IQueryable<OnetAttribute> GetAbilities(string onetOccupationalCode)
         {
             var selectedAbilities = from ability in onetDbContext.abilities
                                     join cmr in onetDbContext.content_model_reference
@@ -41,14 +41,14 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
                                         Id = abilityGroup.Key.element_id,
                                         Description = abilityGroup.Key.description,
                                         Name = abilityGroup.Key.element_name,
-                                        Type = AttributeType.Abilities,
+                                        Type = AttributeType.Ability,
                                         Score = abilityGroup.Sum(x => x.data_value) / 2
                                     };
 
             return selectedAbilities;
         }
 
-        public IQueryable<OnetAttribute> GetSelectedKnowledge(string onetOccupationalCode)
+        public IQueryable<OnetAttribute> GetKnowledgeForOccupation(string onetOccupationalCode)
         {
             var selectedKnowledge = from knwldg in onetDbContext.knowledges
                                     join cmr in onetDbContext.content_model_reference
@@ -77,7 +77,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
             return selectedKnowledge;
         }
 
-        public IQueryable<OnetAttribute> GetSelectedSkills(string onetOccupationalCode)
+        public IQueryable<OnetAttribute> GetSkillsForOccupation(string onetOccupationalCode)
         {
             var selectedSkills = from skill in onetDbContext.skills
                                  join cmr in onetDbContext.content_model_reference
@@ -99,14 +99,14 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
                                      Id = skillGroup.Key.element_id,
                                      Description = skillGroup.Key.description,
                                      Name = skillGroup.Key.element_name,
-                                     Type = AttributeType.Skills,
+                                     Type = AttributeType.Skill,
                                      Score = skillGroup.Sum(x => x.data_value) / 2
                                  };
 
             return selectedSkills;
         }
 
-        public IQueryable<OnetAttribute> GetSelectedWorkStyles(string onetOccupationalCode)
+        public IQueryable<OnetAttribute> GetWorkStylesForOccupation(string onetOccupationalCode)
         {
             var selectedAbilities = from workkStyle in onetDbContext.work_styles
                                     join cmr in onetDbContext.content_model_reference
@@ -127,14 +127,14 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
                                         Id = workStyleGroup.Key.element_id,
                                         Description = workStyleGroup.Key.description,
                                         Name = workStyleGroup.Key.element_name,
-                                        Type = AttributeType.WorkStyles,
+                                        Type = AttributeType.WorkStyle,
                                         Score = workStyleGroup.Sum(x => x.data_value)
                                     };
 
             return selectedAbilities;
         }
 
-        public void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> result)
+        public void RemoveDuplicateAttributes(IOrderedQueryable<OnetAttribute> result)
         {
             throw new NotImplementedException();
         }

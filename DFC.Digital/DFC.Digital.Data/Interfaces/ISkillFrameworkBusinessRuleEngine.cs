@@ -8,18 +8,22 @@ namespace DFC.Digital.Data.Interfaces
     {
         DigitalSkillsLevel GetDigitalSkillsLevel(int count);
 
-        IQueryable<OnetAttribute> GetSelectedKnowledge(string onetOccupationalCode);
+        IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode);
 
-        IQueryable<OnetAttribute> GetSelectedSkills(string onetOccupationalCode);
+        IEnumerable<OnetAttribute> RemoveDFCSuppressions(IOrderedQueryable<OnetAttribute> attributes);
 
-        IQueryable<OnetAttribute> GetSelectedAbilities(string onetOccupationalCode);
+        IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes);
 
-        IQueryable<OnetAttribute> GetSelectedWorkStyles(string onetOccupationalCode);
+        IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes);
 
-        void TrimDuplicateMathsSkillOrKnowledge(IOrderedQueryable<OnetAttribute> attributes);
+        IEnumerable<OnetAttribute> AverageOutScoreScales(IEnumerable<OnetAttribute> attributes);
 
-        IEnumerable<OnetAttribute> BoostMathsSkills(IOrderedQueryable<OnetAttribute> attributes);
+        IEnumerable<OnetAttribute> BoostMathsSkills(IEnumerable<OnetAttribute> attributes);
 
-        IEnumerable<OnetAttribute> CombineSimilarAttributes(IOrderedQueryable<OnetAttribute> attributes);
+        IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes);
+
+        IEnumerable<OnetAttribute> SelectFinalAttributes(IEnumerable<OnetAttribute> attributes);
+
+        IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes);
     }
 }

@@ -24,7 +24,7 @@ namespace DFC.Digital.Service.SkillsFramework
             IApplicationLogger logger,
             IRepository<SocCode> socRepository,
             IRepository<DigitalSkill> digitalSkillRepository,
-            //ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
+            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRelatedSkillsMappingRepository skillsMappingRepository,
             IRepository<WhatItTakesSkill> skillsRepository)
@@ -58,53 +58,32 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)
         {
-            return skillsMappingRepository.GetByONetOccupationalCode(onetOccupationalCode);
+
+            //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
+           var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
+
+            attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
+
+
+            //Average out the skill thats have LV and LM scales
+            attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+
+            attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
+
+            attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+
+            attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
+
+            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+
+            attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+
+            attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+
+            return skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
         }
 
-        //public DigitalSkill GetDigitalSkills(string onetSocCode)
-        //{
-        //    return digitalSkillRepository.GetById(onetSocCode);
-        //}
 
-        //CodeReview: Who needs this?
-        //public async Task<int> GetDigitalSkillRankAsync(string onetSocCode)
-        //{
-        //    var returnDigitalRank = 0;
-        //    try
-        //    {
-        //        var rankResult = await repository.GetDigitalSkillsRankAsync<int>(onetSocCode);
-        //        if (rankResult > Convert.ToInt32(RangeChecker.FirstRange))
-        //            returnDigitalRank = 1;
-        //        else if ((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) &&
-        //            (rankResult < Convert.ToInt32(RangeChecker.FirstRange)))
-        //            returnDigitalRank = 2;
-        //        else if ((rankResult > Convert.ToInt32(RangeChecker.ThirdRange)) &&
-        //            (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
-        //            returnDigitalRank = 3;
-        //        else if ((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) &&
-        //            (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
-        //            returnDigitalRank = 4;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        logger.ErrorJustLogIt($"GetDigitalSkillRankAsync :{e.Message}", e);
-        //        return 0;
-        //    }
-        //    return returnDigitalRank;
-        //}
-
-        //public async Task<IEnumerable<DfcOnetAttributesData>> GetBusinessRuleAttributesAsync(string onetSocCode)
-        //{
-        //    try
-        //    {
-        //        return await repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetSocCode);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        logger.ErrorJustLogIt($"GetBusinessRuleAttributesAsync :{e.Message}", e);
-        //        return null;
-        //    }
-        //}
 
         #endregion Implementation of IBusinessRuleEngine
     }

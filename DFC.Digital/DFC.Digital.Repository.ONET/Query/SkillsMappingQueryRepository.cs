@@ -26,13 +26,13 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IEnumerable<RelatedSkillMapping> GetByONetOccupationalCode(string onetOccupationalCode)
         {
-            var result = businessRuleEngine.GetSelectedKnowledge(onetOccupationalCode)
-                .Union(businessRuleEngine.GetSelectedSkills(onetOccupationalCode))
-                .Union(businessRuleEngine.GetSelectedAbilities(onetOccupationalCode))
-                .Union(businessRuleEngine.GetSelectedWorkStyles(onetOccupationalCode))
+            var result = businessRuleEngine.GetKnowledgeForOccupation(onetOccupationalCode)
+                .Union(businessRuleEngine.GetSkillsForOccupation(onetOccupationalCode))
+                .Union(businessRuleEngine.GetAbilitiesForOccupatio(onetOccupationalCode))
+                .Union(businessRuleEngine.GetWorkStylesForOccupation(onetOccupationalCode))
                 .OrderByDescending(r => r.Score);
 
-            businessRuleEngine.TrimDuplicateMathsSkillOrKnowledge(result);
+            businessRuleEngine.RemoveDuplicateAttributes(result);
             var combinedResult = businessRuleEngine.CombineSimilarAttributes(result);
 
             return autoMapper.Map<IEnumerable<RelatedSkillMapping>>(combinedResult);

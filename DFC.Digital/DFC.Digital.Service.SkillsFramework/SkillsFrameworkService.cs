@@ -22,8 +22,8 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IRepository<SocCode> socRepository,
-            IRepository<DigitalSkill> digitalSkillRepository,
+            IQueryRepository<SocCode> socRepository,
+            IQueryRepository<DigitalSkill> digitalSkillRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
             IRelatedSkillsMappingRepository skillsMappingRepository,
@@ -59,28 +59,28 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)
         {
 
-            //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
-           var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
+           // //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
+           //var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
 
-            attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
+           // attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes.OrderByDescending(x => x.));
 
 
-            //Average out the skill thats have LV and LM scales
-            attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+           // //Average out the skill thats have LV and LM scales
+           // attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
 
-            attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
+           // attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
 
-            attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+           // attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
 
-            attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
+           // attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
-            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+           // attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
 
-            attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+           // attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
 
-            attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+           // attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
 
-            return skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+            return default;
         }
 
 

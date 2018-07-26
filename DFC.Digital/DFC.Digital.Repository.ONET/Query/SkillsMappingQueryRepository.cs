@@ -26,11 +26,7 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IEnumerable<RelatedSkillMapping> GetByONetOccupationalCode(string onetOccupationalCode)
         {
-            var result = businessRuleEngine.GetKnowledgeForOccupation(onetOccupationalCode)
-                .Union(businessRuleEngine.GetSkillsForOccupation(onetOccupationalCode))
-                .Union(businessRuleEngine.GetAbilitiesForOccupatio(onetOccupationalCode))
-                .Union(businessRuleEngine.GetWorkStylesForOccupation(onetOccupationalCode))
-                .OrderByDescending(r => r.Score);
+            var result = new List<OnetAttribute>();
 
             businessRuleEngine.RemoveDuplicateAttributes(result);
             var combinedResult = businessRuleEngine.CombineSimilarAttributes(result);

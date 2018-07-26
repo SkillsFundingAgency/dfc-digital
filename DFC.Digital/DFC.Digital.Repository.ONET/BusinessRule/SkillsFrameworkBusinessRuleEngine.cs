@@ -156,5 +156,50 @@ namespace DFC.Digital.Repository.ONET.BusinessRule
                  : count > 50 ? DigitalSkillsLevel.Level3
                  : DigitalSkillsLevel.Level4;
         }
+
+        public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IOrderedQueryable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> AverageOutScoreScales(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> BoostMathsSkills(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> SelectFinalAttributes(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

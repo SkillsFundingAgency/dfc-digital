@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                 ;
             builder.RegisterType<InMemoryReportAuditRepository>()
                 .AsImplementedInterfaces()
-                .InstancePerRequest()
+                .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

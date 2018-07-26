@@ -33,8 +33,8 @@ namespace DFC.Digital.Repository.ONET.Config
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<OnetSkillsFramework>()
-                .InstancePerLifetimeScope()
-                .OnActivated(e => e.Instance.Database.Log = message => e.Context.Resolve<IApplicationLogger>().Info(message));
+                .InstancePerLifetimeScope();
+                //.OnActivated(e => e.Instance.Database.Log = message => e.Context.Resolve<IApplicationLogger>().Info(message));
         }
     }
 }

@@ -39,7 +39,6 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<FrameworkSkill> GetAll()
         {
-            logger.Info($"The lifetime is {lifetime.Tag.ToString()}");
             return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
         }
 

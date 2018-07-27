@@ -16,6 +16,6 @@ namespace DFC.Digital.Data.Model
 
         public string Description { get; set; }
 
-        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
+        public string SfUrlName => string.IsNullOrWhiteSpace(Title) ? string.Empty : Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
     }
 }

@@ -98,9 +98,10 @@ namespace DFC.Digital.Service.SkillsFrameworkData
 
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} from SkillFramework Service");
 
-                    if (!jobProfile.DigitalSkillsLevel.Equals(digitalSkillLevel.ToString(), StringComparison.OrdinalIgnoreCase))
+                    var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
+                    if (!jobProfile.DigitalSkillsLevel.Equals(digitSkillValue, StringComparison.OrdinalIgnoreCase))
                     {
-                        jobProfile.DigitalSkillsLevel = digitalSkillLevel.ToString();
+                        jobProfile.DigitalSkillsLevel = digitSkillValue;
                         jobProfileRepository.UpdateDigitalSkill(jobProfile);
                         reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated Job profile {jobProfile.UrlName} with digital skill level : {digitalSkillLevel}");
                     }

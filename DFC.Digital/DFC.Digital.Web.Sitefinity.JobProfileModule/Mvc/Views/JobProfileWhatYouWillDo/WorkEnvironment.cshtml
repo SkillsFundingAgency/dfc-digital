@@ -1,20 +1,30 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileWhatYouWillDoViewModel
-@if (!string.IsNullOrWhiteSpace(Model.Location) || !string.IsNullOrWhiteSpace(Model.Uniform) || !string.IsNullOrWhiteSpace ( Model.Environment ) )
+@if (Model.Locations.Any() || Model.Uniforms.Any() || Model.Environments.Any())
 {
     <section class="job-profile-subsection" id="workingenvironment">
         <h3>@Model.EnvironmentTitle</h3>
         <div class="job-profile-subsection-content">
-            @if (!string.IsNullOrEmpty(Model.Location))
+            @if (Model.Locations.Any())
             {
-                <p>@Model.Location</p>
+                foreach (var location in Model.Locations)
+                {
+                    <p>@location</p>
+                }
             }
-            @if (!string.IsNullOrEmpty(Model.Environment))
+            @if (Model.Environments.Any())
             {
-                <p>@Model.Environment</p>
+                foreach (var environment in Model.Environments)
+                {
+                    <p>@environment</p>
+                }
             }
-            @if (!string.IsNullOrEmpty(Model.Uniform))
+            @if (Model.Uniforms.Any())
             {
-                <p>@Model.Uniform</p>
+                foreach (var uniform in Model.Uniforms)
+                {
+                <p>@uniform</p>
+                }
+                
             }
         </div>
     </section>

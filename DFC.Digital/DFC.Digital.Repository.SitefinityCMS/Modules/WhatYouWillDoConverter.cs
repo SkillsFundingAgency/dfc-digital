@@ -47,9 +47,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroductionField),
                     DailyTasks =
                         dynamicContentExtensions.GetFieldValue<Lstring>(content, DailyTasksField),
-                    Location = GetRelatedItemDescription(content, RelatedLocationsField),
-                    Uniform = GetRelatedItemDescription(content, RelatedUniformsField),
-                    Environment = GetRelatedItemDescription(content, RelatedEnvironmentsField)
+                    Locations = GetRelatedItemDescription(content, RelatedLocationsField),
+                    Uniforms = GetRelatedItemDescription(content, RelatedUniformsField),
+                    Environments = GetRelatedItemDescription(content, RelatedEnvironmentsField)
                 };
         }
 
@@ -57,15 +57,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region private methods
 
-        private string GetRelatedItemDescription(DynamicContent content, string relatedField)
+        private IEnumerable<string> GetRelatedItemDescription(DynamicContent content, string relatedField)
         {
-            var item = dynamicContentExtensions.GetRelatedItems(content, relatedField).FirstOrDefault();
-            if (item != null)
+            var items = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+
+            if (items != null && items.Any())
             {
-                return dynamicContentExtensions.GetFieldValue<Lstring>(item, DescriptionField);
+                foreach (var item in items)
+                {
+                    yield return dynamicContentExtensions.GetFieldValue<Lstring>(item, DescriptionField);
+                }
             }
 
-            return null;
+            yield return null;
         }
 
         #endregion private methods

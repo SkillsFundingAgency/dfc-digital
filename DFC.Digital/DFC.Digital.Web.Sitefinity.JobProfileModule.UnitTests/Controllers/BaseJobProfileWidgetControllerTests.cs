@@ -117,7 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
-                       WhatYouWillDoData = new WhatYouWillDo { Location = "Office and Client Site", Uniform = "Casual / Smart Casual / Business Dress", Environment = "Friendly / Business / Secured", IsCadReady = true },
+                       WhatYouWillDoData = new WhatYouWillDo { Locations = new List<string> { "Office and Client Site" }, Uniforms = new List<string> { "Casual / Smart Casual / Business Dress" }, Environments = new List<string> { "Friendly / Business / Secured" }, IsCadReady = true },
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
                        HowToBecomeData = new HowToBecome(),
                        Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },

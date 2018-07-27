@@ -150,9 +150,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 if (model.IsWhatYouWillDoCadView)
                 {
-                    model.Location = CurrentJobProfile.WhatYouWillDoData.Location;
-                    model.Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform;
-                    model.Environment = CurrentJobProfile.WhatYouWillDoData.Environment;
+                    model.Locations = CurrentJobProfile.WhatYouWillDoData.Locations;
+                    model.Uniforms = CurrentJobProfile.WhatYouWillDoData.Uniforms;
+                    model.Environments = CurrentJobProfile.WhatYouWillDoData.Environments;
                     model.Introduction = CurrentJobProfile.WhatYouWillDoData.Introduction;
                     model.DailyTasks = CurrentJobProfile.WhatYouWillDoData.DailyTasks;
                 }

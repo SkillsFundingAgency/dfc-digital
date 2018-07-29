@@ -68,8 +68,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     yield return dynamicContentExtensions.GetFieldValue<Lstring>(item, DescriptionField);
                 }
             }
-
-            yield return null;
         }
 
         #endregion private methods

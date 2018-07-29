@@ -26,6 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
 
@@ -40,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index());
@@ -92,6 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(useValidJobProfile);
 
@@ -103,7 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));
@@ -147,6 +149,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
             dummyJobProfile.WhatYouWillDoData.IsCadReady = cadReady;
@@ -159,7 +162,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));

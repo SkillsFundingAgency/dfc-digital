@@ -12,11 +12,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string SectionId { get; set; }
 
-        public IEnumerable<string> Locations { get; set; }
+        public string Location { get; set; }
 
-        public IEnumerable<string> Environments { get; set; }
+        public string Environment { get; set; }
 
-        public IEnumerable<string> Uniforms { get; set; }
+        public string Uniform { get; set; }
 
         public bool IsIntroActive { get; set; }
 

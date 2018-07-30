@@ -10,10 +10,10 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Query;
-using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 {
+
     using Data.Interfaces;
 
     [TestClass]

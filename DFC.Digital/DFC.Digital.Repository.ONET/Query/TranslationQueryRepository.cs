@@ -37,8 +37,20 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<FrameworkSkill> GetAll()
         {
-           
-            return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
+            var result = (from trans in onetDbContext.DFC_GDSTranlations
+                join el in onetDbContext.content_model_reference on trans.onet_element_id equals el.element_id
+                where el.element_id == trans.onet_element_id
+                orderby trans.onet_element_id
+                select new FrameworkSkill()
+                {
+                    OnetElementId = trans.onet_element_id,
+                    Title = el.element_name,
+                    Description = trans.translation
+
+                });
+
+            return result;
+            //  return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
         }
 
         public IQueryable<FrameworkSkill> GetMany(Expression<Func<FrameworkSkill, bool>> where)

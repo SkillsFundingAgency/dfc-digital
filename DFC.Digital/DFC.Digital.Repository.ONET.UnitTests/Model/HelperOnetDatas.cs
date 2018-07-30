@@ -36,47 +36,56 @@
           
         };
 
-        private static readonly IEnumerable<WhatItTakesSkill> TranslatedData = new List<WhatItTakesSkill>
+        private static readonly IEnumerable<FrameworkSkill> TranslatedData = new List<FrameworkSkill>
         {
-            new WhatItTakesSkill
+           
+            new FrameworkSkill
             {
-                Title = "1.A.1",
-                Description = "problem-solving skills"
+                OnetElementId = "1.A.1.a",
+                Title="Mathematics",
+                Description = "excellent verbal communication skills and mathematics knowledge"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.1.a",
-                Description = "excellent verbal communication skills"
+                OnetElementId = "1.A.1a",
+                Title="abilties",
+                Description = "problem-solving skills and working characterstics"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.1.b",
-                Description = "thinking and reasoning skills"
+                OnetElementId = "1.A.1.b",
+                Title = "workstyle",
+                Description = "thinking and reasoning skills and adventourus workstlye"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.1.c",
-                Description = "maths skills"
+                OnetElementId = "1.A.1.c",
+                Title = "knowledge",
+                Description = "maths skills  knowledge and algorithms knowledge"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.1.d",
-                Description = "a good memory"
+                OnetElementId = "1.A.1.d",
+                Title = "Mathematics",
+                Description = "a good memory and mathematics solving skills"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.1.g",
+                OnetElementId = "1.A.1.g",
+                Title = "skills 3",
                 Description = "concentration skills"
             },
-            new WhatItTakesSkill
+            new FrameworkSkill
             {
-                Title = "1.A.2",
-                Description = "physcial skills like movement, coordination, dexterity and grace"
-            },
-            new WhatItTakesSkill
-            {
-                Title = "1.A.2.a",
+                OnetElementId = "1.A.1.h",
+                Title="skills 4",
                 Description = "the ability to work well with your hands"
+            },
+            new FrameworkSkill
+            {
+                OnetElementId = "1.A.1.e",
+                Title = "skills 2",
+                Description = "great leadership and behavioural characterstics"
             },
         };
 
@@ -622,62 +631,67 @@
             yield return new object[]
             {
                     DfcTranslations,
+                    OnetContentModelReference,
                     TranslatedData,
                     "1.A.1.a"
             };
             yield return new object[]
             {
                     DfcTranslations,
+                    OnetContentModelReference,
                     TranslatedData,
                     "1.A.1.b"
             };
 
         }
-        public static IEnumerable<object[]> OnetWhatitTakesData()
+        public static IEnumerable<object[]> OnetFrameworkSkillTranslationData()
         {
+           
             yield return new object[]
             {
                 DfcTranslations,
+                OnetContentModelReference,
                 TranslatedData.ToList()[0],
-                "1.A.1"
-            };
-            yield return new object[]
-            {
-                DfcTranslations,
-                TranslatedData.ToList()[1],
                 "1.A.1.a"
             };
             yield return new object[]
             {
                 DfcTranslations,
+                OnetContentModelReference,
                 TranslatedData.ToList()[2],
                 "1.A.1.b"
+            };
+            yield return new object[]
+            {
+                DfcTranslations,
+                OnetContentModelReference,
+                TranslatedData.ToList()[3],
+                "1.A.1.c"
             };
 
         }
         public static IEnumerable<object[]> OnetWhatitTakesManyData()
         {
+            
             yield return new object[]
             {
                 DfcTranslations,
+                OnetContentModelReference,
+                new List<FrameworkSkill>(){
                 TranslatedData.ToList()[0],
-                "1.A.1",
-                "problem-solving skills"
-            };
-            yield return new object[]
-            {
-                DfcTranslations,
-                TranslatedData.ToList()[1],
-                "1.A.1.a",
-                "excellent verbal communication skills"
-            };
-            yield return new object[]
-            {
-                DfcTranslations,
                 TranslatedData.ToList()[2],
-                "1.A.1.b",
-                "thinking and reasoning skills"
+                    },
+                "1.A.1.a",
+                "1.A.1.b"
             };
+            //yield return new object[]
+            //{
+            //    DfcTranslations,
+            //    OnetContentModelReference,
+            //    TranslatedData.ToList()[2],
+            //    "1.A.1.b",
+            //    "thinking and reasoning skills"
+            //};
 
         }
 
@@ -741,35 +755,42 @@
 
         protected static readonly IEnumerable<DFC_GDSTranlations> DfcTranslations = new List<DFC_GDSTranlations>
         {
-            new DFC_GDSTranlations
-            {
-                datetimestamp = DateTime.Today,
-                onet_element_id = "1.A.1",
-                translation = "problem-solving skills"
-            },
+          
             new DFC_GDSTranlations
             {
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.1.a",
-                translation = "excellent verbal communication skills"
+                translation = "excellent verbal communication skills and mathematics knowledge"
+            },
+            new DFC_GDSTranlations
+            {
+                datetimestamp = DateTime.Today,
+                onet_element_id = "1.A.1a",
+                translation = "problem-solving skills and working characterstics"
             },
             new DFC_GDSTranlations
             {
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.1.b",
-                translation = "thinking and reasoning skills"
+                translation = "thinking and reasoning skills and adventourus workstlye"
             },
             new DFC_GDSTranlations
             {
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.1.c",
-                translation = "maths skills "
+                translation = "maths skills  knowledge and algorithms knowledge"
             },
             new DFC_GDSTranlations
             {
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.1.d",
-                translation = "a good memory"
+                translation = "a good memory and mathematics solving skills"
+            },
+            new DFC_GDSTranlations
+            {
+                datetimestamp = DateTime.Today,
+                onet_element_id = "1.A.1.e",
+                translation = "great leadership and behavioural characterstics"
             },
             new DFC_GDSTranlations
             {
@@ -777,16 +798,11 @@
                 onet_element_id = "1.A.1.g",
                 translation = "concentration skills"
             },
+          
             new DFC_GDSTranlations
             {
                 datetimestamp = DateTime.Today,
-                onet_element_id = "1.A.2",
-                translation = "physcial skills like movement, coordination, dexterity and grace"
-            },
-            new DFC_GDSTranlations
-            {
-                datetimestamp = DateTime.Today,
-                onet_element_id = "1.A.2.a",
+                onet_element_id = "1.A.1.h",
                 translation = "the ability to work well with your hands"
             },
 
@@ -942,19 +958,19 @@
                 new content_model_reference()
                 {
                     element_id = "1.A.1.e",
-                    element_name = "skills",
+                    element_name = "skills 2",
                     description = "Worker Characteristics d"
                 },
                 new content_model_reference()
                 {
                     element_id = "1.A.1.g",
-                    element_name = "skills",
+                    element_name = "skills 3",
                     description = "Worker Characteristics"
                 },
                 new content_model_reference()
                 {
                     element_id = "1.A.1.h",
-                    element_name = "skills ",
+                    element_name = "skills 4",
                     description = "Worker Characteristics e"
                 },
             };

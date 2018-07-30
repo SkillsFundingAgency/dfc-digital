@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.SkillsFramework
 {
-    public class OnetBusinessRulesEngine : ISkillFrameworkBusinessRuleEngine
+    public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
         private readonly IMapper autoMapper;
         private readonly ISkillsRepository knowledgeRepository;
 
 
-        public OnetBusinessRulesEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository)
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository )
         {
             this.autoMapper = autoMapper;
             this.knowledgeRepository = knowledgeRepository;

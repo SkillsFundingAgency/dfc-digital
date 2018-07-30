@@ -12,10 +12,15 @@ using System.Threading.Tasks;
 namespace DFC.Digital.Repository.ONET.Query
 {
 
-    public class KnowledgeRepository : ISkillsRepository
+    public class KnowledgeOueryRepository : ISkillsRepository
     {
         private readonly OnetSkillsFramework onetDbContext;
-      
+
+        public KnowledgeOueryRepository(OnetSkillsFramework onetDbContext)
+        {
+            this.onetDbContext = onetDbContext;
+        }
+
         public IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from knowledge in onetDbContext.knowledges
@@ -26,10 +31,9 @@ namespace DFC.Digital.Repository.ONET.Query
                                     {
                                         OnetOccupationalCode = knowledge.onetsoc_code,
                                         Id = knowledge.element_id,
-                                        Type = AttributeType.Ability,
+                                        Type = AttributeType.Knowledge,
                                         Score = knowledge.data_value
                                     };
-
             return attributes;
         }
     }

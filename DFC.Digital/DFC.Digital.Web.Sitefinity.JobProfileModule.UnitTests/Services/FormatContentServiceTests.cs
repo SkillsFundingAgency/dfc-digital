@@ -12,14 +12,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             // Arrange
            var formatContentService = new FormatContentService();
-            var list = GetRelatedItems(numberOfItems);
 
             // Act
-             var result = formatContentService.GetParagraphText(leadingText, list, conjunction);
+             var result = formatContentService.GetParagraphText(leadingText, GetRelatedItems(numberOfItems), conjunction);
 
             // Assert
             result.Should().Be(expected);
-
         }
 
         private IEnumerable<string> GetRelatedItems(int numberOfItems)

@@ -3,13 +3,26 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.SkillsFramework
 {
-    public class OnetBusinessRulesEngine : ISkillFrameworkBusinessRuleEngine
+    public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
+        private readonly IMapper autoMapper;
+        private readonly ISkillsRepository knowledgeRepository;
+
+
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository )
+        {
+            this.autoMapper = autoMapper;
+            this.knowledgeRepository = knowledgeRepository;
+
+        }
+
+
         public IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes)
         {
             throw new NotImplementedException();
@@ -32,12 +45,22 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
         {
-            throw new NotImplementedException();
+
+            var allSkillForOccupation = knowledgeRepository.GetSkillsForONetOccupationCode(onetOccupationalCode);
+            //.Union(businessRuleEngine.GetSkillsForOccupation(onetOccupationalCode))
+            //.Union(businessRuleEngine.GetAbilitiesForOccupatio(onetOccupationalCode))
+            //.Union(businessRuleEngine.GetWorkStylesForOccupation(onetOccupationalCode))
+            //.OrderByDescending(r => r.Score);
+
+            return allSkillForOccupation;
         }
 
         public DigitalSkillsLevel GetDigitalSkillsLevel(int count)
         {
-            throw new NotImplementedException();
+                return count > 150 ? DigitalSkillsLevel.Level1
+                     : count > 100 ? DigitalSkillsLevel.Level2
+                     : count > 50 ? DigitalSkillsLevel.Level3
+                     : DigitalSkillsLevel.Level4;
         }
 
         public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)

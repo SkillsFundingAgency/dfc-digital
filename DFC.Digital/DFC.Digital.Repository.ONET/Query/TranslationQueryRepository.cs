@@ -27,7 +27,20 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public FrameworkSkill GetById(string id)
         {
-            return autoMapper.Map<FrameworkSkill>(onetDbContext.DFC_GDSTranlations.Single(x=>x.onet_element_id==id));
+
+            var result = (from trans in onetDbContext.DFC_GDSTranlations
+                join el in onetDbContext.content_model_reference on trans.onet_element_id equals el.element_id
+                where el.element_id == id
+                          orderby trans.onet_element_id
+                select new FrameworkSkill()
+                {
+                    OnetElementId = trans.onet_element_id,
+                    Title = el.element_name,
+                    Description = trans.translation
+
+                }).First();
+
+            return result;
         }
 
         public FrameworkSkill Get(Expression<Func<FrameworkSkill, bool>> where)

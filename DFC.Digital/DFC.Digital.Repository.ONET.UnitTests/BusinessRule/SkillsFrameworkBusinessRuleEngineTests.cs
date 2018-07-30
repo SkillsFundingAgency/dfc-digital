@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.ONET.BusinessRule.Tests
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             var fakeMapper = A.Fake<IMapper>();
-            var ruleEngine = new SkillsFrameworkBusinessRuleEngine(fakeDbContext, fakeMapper);
+            var ruleEngine = new ToDeleteSkillsFrameworkBusinessRuleEngine(fakeDbContext, fakeMapper);
 
             var result = ruleEngine.GetDigitalSkillsLevel(input);
 

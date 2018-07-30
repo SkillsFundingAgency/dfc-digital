@@ -1,5 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using AutoMapper;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,47 +12,25 @@ using System.Threading.Tasks;
 namespace DFC.Digital.Repository.ONET.Query
 {
 
-    public class KnowledgeRepository : IQueryRepository<OnetAttribute>
+    public class KnowledgeRepository : ISkillsRepository
     {
-        public OnetAttribute Get(Expression<Func<OnetAttribute, bool>> where)
+        private readonly OnetSkillsFramework onetDbContext;
+      
+        public IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode)
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<OnetAttribute> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public OnetAttribute GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<OnetAttribute> GetMany(Expression<Func<OnetAttribute, bool>> where)
-        {
-            //Get by occupation code just the knowledge items not titles
-
-          /*    var selectedKnowledge = from knwldg in onetDbContext.knowledges
-                                                               
-                                    where knwldg.recommend_suppress != "Y"
-                                        && knwldg.not_relevant != "Y"
-                                        && knwldg.onetsoc_code == onetOccupationalCode
-                                   
+            var attributes = from knowledge in onetDbContext.knowledges
+                                    where knowledge.recommend_suppress != "Y"
+                                        && knowledge.not_relevant != "Y"
+                                        && knowledge.onetsoc_code == oNetOccupationCode
                                     select new OnetAttribute
                                     {
-                                        OnetOccupationalCode = knwldgGroup.Key.onetsoc_code,
-                                        Id = knwldgGroup.Key.element_id,
-                                        Description = knwldgGroup.Key.description,
-                                        Name = knwldgGroup.Key.element_name,
-                                        Type = AttributeType.Knowledge,
-                                        Score = knwldgGroup.Sum(v => v.data_value) / 2
+                                        OnetOccupationalCode = knowledge.onetsoc_code,
+                                        Id = knowledge.element_id,
+                                        Type = AttributeType.Ability,
+                                        Score = knowledge.data_value
                                     };
-                           */
 
-            throw new NotImplementedException();
+            return attributes;
         }
-
-       
     }
 }

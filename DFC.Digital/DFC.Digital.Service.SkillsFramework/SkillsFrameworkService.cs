@@ -16,17 +16,14 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IRepository<FrameworkSkill> translationRepository;
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
-        private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
-
+   
         public SkillsFrameworkService(
             IApplicationLogger logger,
             IRepository<SocCode> socRepository,
             IRepository<DigitalSkill> digitalSkillRepository,
             IRepository<FrameworkSkill> translationRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
-            //IRepository<RelatedSkillMapping> skillsMappingRepository,
         {
-            //this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
             this.digitalSkillRepository = digitalSkillRepository;

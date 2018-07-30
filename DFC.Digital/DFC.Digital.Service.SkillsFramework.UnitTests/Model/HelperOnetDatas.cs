@@ -95,50 +95,50 @@
         {
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1",
+                ONetElementId = "1.A.1",
                 Description = "problem-solving skills",
                 Title = "Problem Skills",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.a",
+                ONetElementId = "1.A.1.a",
                 Description = "excellent verbal communication skills",
                 Title = "communication skill",
 
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.b",
+                ONetElementId = "1.A.1.b",
                 Description = "thinking and reasoning skills",
                 Title = "Reasoing",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.c",
+                ONetElementId = "1.A.1.c",
                 Description = "maths skills",
                 Title = "maths",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.d",
+                ONetElementId = "1.A.1.d",
                 Description = "a good memory",
                 Title = "memory",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.g",
+                ONetElementId = "1.A.1.g",
                 Description = "concentration skills",
                 Title = "concentrate",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.2",
+                ONetElementId = "1.A.2",
                 Description = "physcial skills like movement, coordination, dexterity and grace",
                 Title = "phyisical skill",
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.2.a",
+                ONetElementId = "1.A.2.a",
                 Description = "the ability to work well with your hands",
                 Title = "ability hand",
             },
@@ -546,19 +546,19 @@
             {
             //    DigitalSkills1150,
                 "11-10011.00",
-                Convert.ToInt32(RangeChecker.FirstRange),
+             //   Convert.ToInt32(RangeChecker.FirstRange),
             };
             yield return new object[]
             {
                 //DigitalSkills1223,
                 "11-2011.01",
-                Convert.ToInt32(RangeChecker.SecondRange),
+              //  Convert.ToInt32(RangeChecker.SecondRange),
             };
             yield return new object[]
             {
               //  DigitalSkills2112,
                 "41-3031.03",
-                Convert.ToInt32(RangeChecker.ThirdRange),
+              //  Convert.ToInt32(RangeChecker.ThirdRange),
             };
         }
         public static IEnumerable<object[]> DigitalSkillsRank()
@@ -567,21 +567,21 @@
             {
               //  DigitalSkills1150,
                 "11-10011.00",
-                Convert.ToInt32(RangeChecker.FirstRange),
+            //    Convert.ToInt32(RangeChecker.FirstRange),
                 1,
             };
             yield return new object[]
             {
              //   DigitalSkills1223,
                 "11-2011.01",
-                Convert.ToInt32(RangeChecker.SecondRange),
+           //     Convert.ToInt32(RangeChecker.SecondRange),
                 2
             };
             yield return new object[]
             {
                 //DigitalSkills2112,
                 "41-3031.03",
-                Convert.ToInt32(RangeChecker.ThirdRange),
+              //  Convert.ToInt32(RangeChecker.ThirdRange),
                 3
             };
         }

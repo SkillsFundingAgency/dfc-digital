@@ -34,7 +34,7 @@ namespace DFC.Digital.Repository.ONET.Query
                           orderby trans.onet_element_id
                 select new FrameworkSkill()
                 {
-                    OnetElementId = trans.onet_element_id,
+                    ONetElementId = trans.onet_element_id,
                     Title = el.element_name,
                     Description = trans.translation
 
@@ -56,7 +56,7 @@ namespace DFC.Digital.Repository.ONET.Query
                 orderby trans.onet_element_id
                 select new FrameworkSkill()
                 {
-                    OnetElementId = trans.onet_element_id,
+                    ONetElementId = trans.onet_element_id,
                     Title = el.element_name,
                     Description = trans.translation
 

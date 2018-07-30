@@ -138,7 +138,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                 {
                     var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(jobProfile.ONetOccupationalCode);
 
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.WhatItTakesSkillTitle))} skills : for occupation code {jobProfile.ONetOccupationalCode} from SkillFramework Service");
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(",", occupationSkills.Select(oc => oc.Id))} skills : for occupation code {jobProfile.ONetOccupationalCode} from SkillFramework Service");
                         var rankGenerated = 1;
                     foreach (var occupationSkill in occupationSkills)
                     {
@@ -149,13 +149,13 @@ namespace DFC.Digital.Service.SkillsFrameworkData
 
                         socSkillMatrixRepository.UpsertSocSkillMatrix(new SocSkillMatrix
                         {
-                            Title = $"{jobProfile.SOCCode}-{occupationSkill.WhatItTakesSkillTitle}",
+                            Title = $"{jobProfile.SOCCode}-{occupationSkill.Name}",
                             SocCode = jobProfile.SOCCode,
-                            Skill = occupationSkill.WhatItTakesSkillTitle,
-                            ONetRank = occupationSkill.OnetRank,
+                            Skill = occupationSkill.Name,
+                            ONetRank = occupationSkill.Score,
                             Rank = rankGenerated
                         });
-                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {jobProfile.SOCCode}-{occupationSkill.WhatItTakesSkillTitle}  into socskill matrix repo");
+                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {jobProfile.SOCCode}-{occupationSkill.Id}  into socskill matrix repo");
                         rankGenerated++;
                     }
                 }

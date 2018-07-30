@@ -11,6 +11,6 @@ namespace DFC.Digital.Data.Interfaces
 
         DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode);
 
-        IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode);
+        IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode);
     }
 }

@@ -11,31 +11,24 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
         private readonly IApplicationLogger logger;
-        private readonly IQueryRepository<SocCode> socRepository;
+        private readonly IRepository<SocCode> socRepository;
+        private readonly IRepository<DigitalSkill> digitalSkillRepository;
+        private readonly IRepository<FrameworkSkill> translationRepository;
 
-        private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
-        private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
-
-        //private readonly IRepository<RelatedSkillMapping> skillsMappingRepository;
-        private readonly IQueryRepository<FrameworkSkill> skillsRepository;
-
+   
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IQueryRepository<SocCode> socRepository,
-            IQueryRepository<DigitalSkill> digitalSkillRepository,
-            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
-            //IRepository<RelatedSkillMapping> skillsMappingRepository,
-            IRelatedSkillsMappingRepository skillsMappingRepository,
-            IQueryRepository<FrameworkSkill> skillsRepository)
+            IRepository<SocCode> socRepository,
+            IRepository<DigitalSkill> digitalSkillRepository,
+            IRepository<FrameworkSkill> translationRepository,
+            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
         {
-            //this.repository = repository;
             this.logger = logger;
             this.socRepository = socRepository;
             this.digitalSkillRepository = digitalSkillRepository;
-            //this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
-            this.skillsMappingRepository = skillsMappingRepository;
-            this.skillsRepository = skillsRepository;
+            this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
+            this.translationRepository = translationRepository;
         }
 
         #region Implementation of IBusinessRuleEngine
@@ -47,40 +40,40 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<FrameworkSkill> GetAllTranslations()
         {
-            return skillsRepository.GetAll();
+            return translationRepository.GetAll();
         }
 
         public DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode)
         {
-            var result = digitalSkillRepository.GetById(onetOccupationalCode);
-            return result?.Level ?? default;
+            var digitalSkill = digitalSkillRepository.GetById(onetOccupationalCode);
+            return skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
         }
 
-        public IEnumerable<RelatedSkillMapping> GetRelatedSkillMapping(string onetOccupationalCode)
+        public IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode)
         {
 
-           // //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
-           //var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
+            //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
+           var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
 
-           // attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes.OrderByDescending(x => x.));
+           //attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
 
 
-           // //Average out the skill thats have LV and LM scales
-           // attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+            //Average out the skill thats have LV and LM scales
+            //attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
 
-           // attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
+            //attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
 
-           // attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+            //attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
 
-           // attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
+            //attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
-           // attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+            //attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
 
-           // attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+            //attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
 
-           // attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+            //attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
 
-            return default;
+            return skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
         }
 
 

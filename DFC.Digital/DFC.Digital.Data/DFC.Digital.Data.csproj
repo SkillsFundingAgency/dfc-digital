@@ -117,6 +117,7 @@
     <Compile Include="Interfaces\IServiceStatus.cs" />
     <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
+    <Compile Include="Interfaces\ISkillsRepository.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />

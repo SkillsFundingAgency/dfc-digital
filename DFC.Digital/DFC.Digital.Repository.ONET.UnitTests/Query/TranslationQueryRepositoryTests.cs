@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
-            result.OnetElementId.Should().Be(onetElementId);
+            result.ONetElementId.Should().Be(onetElementId);
           
         }
 
@@ -68,11 +68,11 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
 
             //Assert
-            var result = repo.Get(x => x.OnetElementId == onetElementId);
+            var result = repo.Get(x => x.ONetElementId == onetElementId);
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
-            result.OnetElementId.Should().Be(onetElementId);
+            result.ONetElementId.Should().Be(onetElementId);
            
         }
 
@@ -121,7 +121,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
 
             //Assert
-            var result = repo.GetMany(x => x.OnetElementId == onetElementId1 || x.OnetElementId==onetElementId2);
+            var result = repo.GetMany(x => x.ONetElementId == onetElementId1 || x.ONetElementId==onetElementId2);
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
           
         }

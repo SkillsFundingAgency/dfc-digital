@@ -64,7 +64,7 @@ namespace DFC.Digital.Repository.ONET.Query
                           orderby comb.combined_element_id
                           select new FrameworkSkill()
                           {
-                              OnetElementId = comb.combined_element_id,
+                              ONetElementId = comb.combined_element_id,
                               Title = comb.element_name,
                               Description = comb.description
                           });

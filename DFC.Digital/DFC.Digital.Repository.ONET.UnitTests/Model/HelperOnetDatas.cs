@@ -41,49 +41,49 @@
            
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.a",
+                ONetElementId = "1.A.1.a",
                 Title="Mathematics",
                 Description = "excellent verbal communication skills and mathematics knowledge"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1a",
+                ONetElementId = "1.A.1a",
                 Title="abilties",
                 Description = "problem-solving skills and working characterstics"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.b",
+                ONetElementId = "1.A.1.b",
                 Title = "workstyle",
                 Description = "thinking and reasoning skills and adventourus workstlye"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.c",
+                ONetElementId = "1.A.1.c",
                 Title = "knowledge",
                 Description = "maths skills  knowledge and algorithms knowledge"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.d",
+                ONetElementId = "1.A.1.d",
                 Title = "Mathematics",
                 Description = "a good memory and mathematics solving skills"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.g",
+                ONetElementId = "1.A.1.g",
                 Title = "skills 3",
                 Description = "concentration skills"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.h",
+                ONetElementId = "1.A.1.h",
                 Title="skills 4",
                 Description = "the ability to work well with your hands"
             },
             new FrameworkSkill
             {
-                OnetElementId = "1.A.1.e",
+                ONetElementId = "1.A.1.e",
                 Title = "skills 2",
                 Description = "great leadership and behavioural characterstics"
             },

@@ -25,16 +25,15 @@ namespace DFC.Digital.Repository.ONET.Config
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
+            builder.RegisterType<OnetSkillsFramework>()
+                .InstancePerLifetimeScope();
+
             builder.Register(ctx => new MapperConfiguration(cfg => cfg.AddProfile<SkillsFrameworkMapper>()))
                 .InstancePerLifetimeScope();
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper())
                 .As<IMapper>()
                 .InstancePerLifetimeScope();
-
-            builder.RegisterType<OnetSkillsFramework>()
-                .InstancePerLifetimeScope();
-                //.OnActivated(e => e.Instance.Database.Log = message => e.Context.Resolve<IApplicationLogger>().Info(message));
         }
     }
 }

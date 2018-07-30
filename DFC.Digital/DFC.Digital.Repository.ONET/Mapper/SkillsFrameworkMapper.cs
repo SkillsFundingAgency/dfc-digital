@@ -26,6 +26,6 @@ namespace DFC.Digital.Repository.ONET.Mapper
             ;
         }
 
-        public override string ProfileName => this.GetType().Name;
+        public override string ProfileName => "DFC.Digital.Repository.ONET.Mapper";
     }
 }

@@ -3,20 +3,17 @@ using AutoMapper;
 using FakeItEasy;
 using Xunit;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using DFC.Digital.Repository.ONET.Mapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
-//using DFC.Digital.Repository.ONET.Impl;
-//using DFC.Digital.Repository.ONET.Helper;
-using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Query;
 
 namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 {
+    using Data.Interfaces;
 
     [TestClass]
     public class SkillsFrameworkIntegrationTest
@@ -53,7 +50,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         [Theory]
         [InlineData("1.A.1.a")]
-        public void GetById(string onetElementId)
+        public void GetTranslationById(string onetElementId)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -72,7 +69,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         [Theory]
         [InlineData("1.A.1.a")]
-        public void Get(string onetElementId)
+        public void GetTranslation(string onetElementId)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -94,7 +91,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [InlineData("1.A.1.a", "excellent verbal communication skills")]
         [InlineData("1.A.1.b", "thinking and reasoning skills")]
         [InlineData("1.A.1.c", "maths skills")]
-        public void GetMany(string field1, string field2)
+        public void GetTranslationsMany(string field1, string field2)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -137,6 +134,43 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 manyByExpression.Should().NotBeNull();
 
             }
+        }
+
+        [Fact]
+        public void GetDigitalSkillsRank()
+        {
+
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
+
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new DigitalSkillsQueryRepository(dbcontext, mapper);
+
+                var single = repository.GetById("11-1011.00");
+                single.Should().NotBeNull();
+                single.ApplicationCount.Should().BeGreaterThan(0);
+            }
+        }
+
+        [Fact]
+        public void SkillsFrameworkServiceGetDigitalSkills()
+        {
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+
+            IQueryRepository<SocCode> socCodeRepository=new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<DigitalSkill> digitalSkillsRepository=new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<FrameworkSkill> frameWorkRepository=new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
+            ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository);
+
+           ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
+
+            var level= (int)skillService.GetDigitalSkillLevel("11-1011.00");
+            level.Should().BeGreaterThan(0);
+
         }
 
         //[Fact]

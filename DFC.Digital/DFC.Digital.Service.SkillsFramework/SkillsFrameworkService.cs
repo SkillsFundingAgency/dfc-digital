@@ -11,18 +11,18 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
         private readonly IApplicationLogger logger;
-        private readonly IRepository<SocCode> socRepository;
-        private readonly IRepository<DigitalSkill> digitalSkillRepository;
-        private readonly IRepository<FrameworkSkill> translationRepository;
+        private readonly IQueryRepository<SocCode> socRepository;
+        private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
+        private readonly IQueryRepository<FrameworkSkill> translationRepository;
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
         private readonly IRelatedSkillsMappingRepository skillsMappingRepository;
 
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IRepository<SocCode> socRepository,
-            IRepository<DigitalSkill> digitalSkillRepository,
-            IRepository<FrameworkSkill> translationRepository,
+            IQueryRepository<SocCode> socRepository,
+            IQueryRepository<DigitalSkill> digitalSkillRepository,
+            IQueryRepository<FrameworkSkill> translationRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
             //IRepository<RelatedSkillMapping> skillsMappingRepository,
         {
@@ -49,7 +49,8 @@ namespace DFC.Digital.Service.SkillsFramework
         public DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode)
         {
             var digitalSkill = digitalSkillRepository.GetById(onetOccupationalCode);
-            return skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
+            var rank= skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
+            return rank;
         }
 
         public IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode)

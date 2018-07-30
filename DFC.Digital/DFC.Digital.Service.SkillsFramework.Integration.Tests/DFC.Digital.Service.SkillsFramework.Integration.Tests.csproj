@@ -98,6 +98,7 @@
     <None Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +118,10 @@
     <ProjectReference Include="..\DFC.Digital.Repository.ONET\DFC.Digital.Repository.ONET.csproj">
       <Project>{AD3C4F23-E51E-4D79-A922-4CB138642DC1}</Project>
       <Name>DFC.Digital.Repository.ONET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
+      <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
+      <Name>DFC.Digital.Service.SkillsFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -32,9 +32,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
                 socRepository,
                 digitalSkill,
-                skillsBusinessRuleEngine,
-                skillsMappingRepository,
-                skillsRepository);
+                skillsRepository,
+                skillsBusinessRuleEngine
+                );
             var response = skillsFrameworkService.GetAllTranslations();
 
             // Assert
@@ -61,9 +61,9 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
                 socRepository,
                 digitalSkill,
-                skillsBusinessRuleEngine,
-                skillsMappingRepository,
-                skillsRepository);
+                skillsRepository,
+                skillsBusinessRuleEngine
+               );
             var response = skillsFrameworkService.GetAllSocMappings();
 
             // Assert

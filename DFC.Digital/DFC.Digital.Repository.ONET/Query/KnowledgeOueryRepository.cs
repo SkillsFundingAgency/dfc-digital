@@ -24,6 +24,7 @@ namespace DFC.Digital.Repository.ONET.Query
         public IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from knowledge in onetDbContext.knowledges
+                
                                     where knowledge.recommend_suppress != "Y"
                                         && knowledge.not_relevant != "Y"
                                         && knowledge.onetsoc_code == oNetOccupationCode
@@ -36,5 +37,7 @@ namespace DFC.Digital.Repository.ONET.Query
                                     };
             return attributes;
         }
+
+       
     }
 }

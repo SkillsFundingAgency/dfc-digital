@@ -19,7 +19,11 @@ namespace DFC.Digital.Repository.ONET.Mapper
 
             CreateMap<DFC_SocMappings, SocCode>()
                 .ForMember(d => d.ONetOccupationalCode, m => m.MapFrom(s => s.ONetCode))
-                .ForMember(d => d.SOCCode, m => m.MapFrom(s => s.SocCode));
+                .ForMember(d => d.SOCCode, m => m.MapFrom(s => s.SocCode))
+                .ReverseMap()
+                .ForMember(d => d.ONetCode, m => m.MapFrom(s => s.ONetOccupationalCode))
+                .ForMember(d => d.SocCode, m => m.MapFrom(s => s.SOCCode))
+            ;
         }
 
         public override string ProfileName => this.GetType().Name;

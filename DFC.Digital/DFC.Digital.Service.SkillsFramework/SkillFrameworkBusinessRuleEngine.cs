@@ -66,10 +66,11 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public DigitalSkillsLevel GetDigitalSkillsLevel(int count)
         {
-                return count > 150 ? DigitalSkillsLevel.Level1
+                var rankValue= count > 150 ? DigitalSkillsLevel.Level1
                      : count > 100 ? DigitalSkillsLevel.Level2
                      : count > 50 ? DigitalSkillsLevel.Level3
                      : DigitalSkillsLevel.Level4;
+            return rankValue;
         }
 
         public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)

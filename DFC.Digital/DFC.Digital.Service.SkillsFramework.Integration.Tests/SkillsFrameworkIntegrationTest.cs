@@ -3,21 +3,18 @@ using AutoMapper;
 using FakeItEasy;
 using Xunit;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using DFC.Digital.Repository.ONET.Mapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
-//using DFC.Digital.Repository.ONET.Impl;
-//using DFC.Digital.Repository.ONET.Helper;
-using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Query;
-using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 {
+
+    using Data.Interfaces;
 
     [TestClass]
     public class SkillsFrameworkIntegrationTest
@@ -33,10 +30,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
                 var repository = new TranslationQueryRepository(dbcontext, mapper);
-                var all = repository.GetAll();
+                var all = repository.GetAll().ToList();
                 all.Should().NotBeNull();
                 var count = all.Count();
-                count.Should().Be(153);
 
                 var single = repository.GetById("1.A.1.a");
                 single.Should().NotBeNull();
@@ -54,7 +50,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         [Theory]
         [InlineData("1.A.1.a")]
-        public void GetById(string onetElementId)
+        public void GetTranslationById(string onetElementId)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -73,7 +69,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         [Theory]
         [InlineData("1.A.1.a")]
-        public void Get(string onetElementId)
+        public void GetTranslation(string onetElementId)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -95,7 +91,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [InlineData("1.A.1.a", "excellent verbal communication skills")]
         [InlineData("1.A.1.b", "thinking and reasoning skills")]
         [InlineData("1.A.1.c", "maths skills")]
-        public void GetMany(string field1, string field2)
+        public void GetTranslationsMany(string field1, string field2)
         {
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
@@ -170,64 +166,119 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
-            //[Fact]
-            //public void GetDigitalSkillRanks()
-            //{
-            //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            //    var GetRank = 0;
-            //    const string onetCode = "11-1011.00";
-            //    var appLogger = A.Fake<IApplicationLogger>();
-            //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
+        [Fact]
+        public void GetDigitalSkillsRank()
+        {
 
-            //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-            //    {
-            //        var rankResult = repository.GetDigitalSkillsRankAsync<int>(onetCode).Result;
-            //        rankResult.Should().BeGreaterThan(0);
-            //        if(rankResult > Convert.ToInt32(RangeChecker.FirstRange))
-            //            GetRank = 1;
-            //        if((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) && (rankResult < Convert.ToInt32(RangeChecker.FirstRange)))
-            //            GetRank = 2;
-            //        if((rankResult > Convert.ToInt32(RangeChecker.ThirdRange)) && (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
-            //            GetRank = 3;
-            //        if((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) && (rankResult < Convert.ToInt32(RangeChecker.ThirdRange)))
-            //            GetRank = 4;
-            //    }
-            //}
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
 
-            //[Fact]
-            //public void GetDigitalSkills()
-            //{
-            //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            //    const string onetCode = "11-1011.00";
-            //    var appLogger = A.Fake<IApplicationLogger>();
-            //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-            //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-            //    {
-            //        var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetCode).Result;
-            //        digitalSkillsData.DigitalSkillsCollection.Should().NotBeNull();
-            //        digitalSkillsData.DigitalSkillsCount.Should().NotBe(0);
-            //    }
-            //}
+            using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
+            {
+                var repository = new DigitalSkillsQueryRepository(dbcontext, mapper);
 
-            //[Fact]
-            //public void GetAttributes()
-            //{
-            //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-            //    const string onetCode = "11-1011.00";
-            //    var appLogger = A.Fake<IApplicationLogger>();
-            //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-
-            //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-            //    {
-            //        var digitalSkillsData = repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetCode).Result;
-            //        var dfcGdsAttributesDatas = digitalSkillsData as IList<DfcOnetAttributesData> ?? digitalSkillsData.ToList();
-            //        dfcGdsAttributesDatas.Should().HaveCount(20);
-            //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Knowledge);
-            //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Skills);
-            //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Abilities);
-            //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.WorkStyles);
-
-            //    }
-            //}
+                var single = repository.GetById("11-1011.00");
+                single.Should().NotBeNull();
+                single.ApplicationCount.Should().BeGreaterThan(0);
+            }
         }
+
+        [Fact]
+        public void SkillsFrameworkServiceGetDigitalSkills()
+        {
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+
+            IQueryRepository<SocCode> socCodeRepository=new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<DigitalSkill> digitalSkillsRepository=new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<FrameworkSkill> frameWorkRepository=new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
+            ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository);
+
+           ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
+
+            var level= (int)skillService.GetDigitalSkillLevel("11-1011.00");
+            level.Should().BeGreaterThan(0);
+
+        }
+        [Fact]
+        public void GetAllSocMapping()
+        {
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
+            var mapper = mapperConfig.CreateMapper();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+
+            IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
+            ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository);
+
+            ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
+
+            var level = skillService.GetAllSocMappings().ToList();
+            level.Should().NotBeNull();
+
+        }
+        //[Fact]
+        //public void GetDigitalSkillRanks()
+        //{
+        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+        //    var GetRank = 0;
+        //    const string onetCode = "11-1011.00";
+        //    var appLogger = A.Fake<IApplicationLogger>();
+        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
+
+        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
+        //    {
+        //        var rankResult = repository.GetDigitalSkillsRankAsync<int>(onetCode).Result;
+        //        rankResult.Should().BeGreaterThan(0);
+        //        if(rankResult > Convert.ToInt32(RangeChecker.FirstRange))
+        //            GetRank = 1;
+        //        if((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) && (rankResult < Convert.ToInt32(RangeChecker.FirstRange)))
+        //            GetRank = 2;
+        //        if((rankResult > Convert.ToInt32(RangeChecker.ThirdRange)) && (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
+        //            GetRank = 3;
+        //        if((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) && (rankResult < Convert.ToInt32(RangeChecker.ThirdRange)))
+        //            GetRank = 4;
+        //    }
+        //}
+
+        //[Fact]
+        //public void GetDigitalSkills()
+        //{
+        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+        //    const string onetCode = "11-1011.00";
+        //    var appLogger = A.Fake<IApplicationLogger>();
+        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
+        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
+        //    {
+        //        var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetCode).Result;
+        //        digitalSkillsData.DigitalSkillsCollection.Should().NotBeNull();
+        //        digitalSkillsData.DigitalSkillsCount.Should().NotBe(0);
+        //    }
+        //}
+
+        //[Fact]
+        //public void GetAttributes()
+        //{
+        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
+        //    const string onetCode = "11-1011.00";
+        //    var appLogger = A.Fake<IApplicationLogger>();
+        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
+
+        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
+        //    {
+        //        var digitalSkillsData = repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetCode).Result;
+        //        var dfcGdsAttributesDatas = digitalSkillsData as IList<DfcOnetAttributesData> ?? digitalSkillsData.ToList();
+        //        dfcGdsAttributesDatas.Should().HaveCount(20);
+        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Knowledge);
+        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Skills);
+        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Abilities);
+        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.WorkStyles);
+
+        //    }
+        //}
+    }
     }

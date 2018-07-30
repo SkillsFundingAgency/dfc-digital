@@ -31,7 +31,11 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public DigitalSkill GetById(string onetOccupationalCode)
         {
-            var applicationCount = onetDbContext.tools_and_technology.Count(toolsandtech => toolsandtech.onetsoc_code == onetOccupationalCode);
+            var applicationCount = (from o in onetDbContext.tools_and_technology
+                                    join od in onetDbContext.unspsc_reference on o.commodity_code equals od.commodity_code
+                                    where o.onetsoc_code == onetOccupationalCode
+                                    orderby o.t2_type, od.class_title
+                                    select o).Count();
             return new DigitalSkill
             {
                 ApplicationCount = applicationCount

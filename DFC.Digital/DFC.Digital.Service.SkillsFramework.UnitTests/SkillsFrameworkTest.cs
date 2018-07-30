@@ -17,24 +17,30 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
     public class SkillsFrameworkTest : HelperOnetDatas
     {
         [Theory]
-        [MemberData(nameof(TranslationData))]
-        public void GetAllTranslationsAsyncTest(List<WhatItTakesSkill> translatedData)
+        [MemberData(nameof(FrameworkTranslationData))]
+        public void GetAllTranslationsAsyncTest(List<FrameworkSkill> translatedData)
         {
-           // Arrange
+            // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
-            var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
+            var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
             // Act
             A.CallTo(() => skillsRepository.GetAll()).Returns(translatedData.AsQueryable());
-            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger, socRepository, digitalSkill, skillsMappingRepository, skillsRepository);
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
+                socRepository,
+                digitalSkill,
+                skillsBusinessRuleEngine,
+                skillsMappingRepository,
+                skillsRepository);
             var response = skillsFrameworkService.GetAllTranslations();
 
             // Assert
             A.CallTo(() => skillsRepository.GetAll()).MustHaveHappened();
 
-            var whatItTakesSkills = response as IList<WhatItTakesSkill> ?? response.ToList();
+            var whatItTakesSkills = response as IList<FrameworkSkill> ?? response.ToList();
             whatItTakesSkills.Should().NotBeNull();
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }
@@ -47,11 +53,17 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsMappingRepository = A.Fake<IRelatedSkillsMappingRepository>();
-            var skillsRepository = A.Fake<IRepository<WhatItTakesSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
+            var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
             // Act
             A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());
-            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger, socRepository, digitalSkill, skillsMappingRepository, skillsRepository);
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
+                socRepository,
+                digitalSkill,
+                skillsBusinessRuleEngine,
+                skillsMappingRepository,
+                skillsRepository);
             var response = skillsFrameworkService.GetAllSocMappings();
 
             // Assert
@@ -60,7 +72,6 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var socCodeData = response as IList<SocCode> ?? response.ToList();
             socCodeData.Should().NotBeNull();
             socCodeData.Should().BeEquivalentTo(responseData);
-
         }
 
         //[Fact]
@@ -235,5 +246,3 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
         //}
     }
 }
-
-

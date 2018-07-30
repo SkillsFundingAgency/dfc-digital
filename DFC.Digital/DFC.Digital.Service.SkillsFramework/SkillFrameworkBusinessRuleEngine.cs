@@ -12,17 +12,17 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
         private readonly IMapper autoMapper;
-        private readonly ISkillsRepository knowledgeRepository;
+        private readonly ISkillsRepository knowledgeQueryRepository;
         private readonly ISkillsRepository abilitiesOueryRepository;
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly ISkillsRepository workStyleRepository;
 
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository, ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeQueryRepository, ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
           ISkillsRepository workStyleRepository)
         {
             this.autoMapper = autoMapper;
-            this.knowledgeRepository = knowledgeRepository;
+            this.knowledgeQueryRepository = knowledgeQueryRepository;
         }
 
 
@@ -49,7 +49,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
         {
 
-            var allSkillForOccupation = knowledgeRepository.GetSkillsForONetOccupationCode(onetOccupationalCode);
+            var allSkillForOccupation = knowledgeQueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode);
             //.Union(businessRuleEngine.GetSkillsForOccupation(onetOccupationalCode))
             //.Union(businessRuleEngine.GetAbilitiesForOccupatio(onetOccupationalCode))
             //.Union(businessRuleEngine.GetWorkStylesForOccupation(onetOccupationalCode))

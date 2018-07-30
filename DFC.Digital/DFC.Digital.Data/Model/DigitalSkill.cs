@@ -8,6 +8,8 @@ namespace DFC.Digital.Data.Model
 {
     public class DigitalSkill
     {
+        public int ApplicationCount { get; set; }
+
         public DigitalSkillsLevel Level { get; set; }
     }
 }

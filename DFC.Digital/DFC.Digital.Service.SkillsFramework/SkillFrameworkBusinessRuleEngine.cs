@@ -13,13 +13,16 @@ namespace DFC.Digital.Service.SkillsFramework
     {
         private readonly IMapper autoMapper;
         private readonly ISkillsRepository knowledgeRepository;
+        private readonly ISkillsRepository abilitiesOueryRepository;
+        private readonly ISkillsRepository skillsOueryRepository;
+        private readonly ISkillsRepository workStyleRepository;
 
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository )
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeRepository, ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
+          ISkillsRepository workStyleRepository)
         {
             this.autoMapper = autoMapper;
             this.knowledgeRepository = knowledgeRepository;
-
         }
 
 

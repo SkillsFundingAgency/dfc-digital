@@ -152,11 +152,15 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             using (OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
                 var knowledgeRepository = new KnowledgeOueryRepository(dbcontext);
+                var abilitiesRepository = new AbilitiesOueryRepository(dbcontext);
+                var skillsRepository = new SkillsOueryRepository(dbcontext);
+                var workstylesRepository = new WorkStylesOueryRepository(dbcontext);
 
                 var fakeSkillsRepository = A.Fake<ISkillsRepository>();
 
 
-                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(autoMapper, knowledgeRepository, fakeSkillsRepository, fakeSkillsRepository, fakeSkillsRepository);
+                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(autoMapper, knowledgeRepository, skillsRepository, abilitiesRepository, workstylesRepository);
+
                 var skillsFrameworkService = new SkillsFrameworkService(fakeLogger, fakeSocRepository, fakeDigitalSkillRepository, fakeDigitalTranslationRepository, skillFrameworkBusinessRuleEngine);
                 var result = skillsFrameworkService.GetRelatedSkillMapping(testOnetCode);
             }

@@ -12,13 +12,11 @@ namespace DFC.Digital.Repository.ONET.Query
     {
         private readonly OnetSkillsFramework onetDbContext;
         private readonly IMapper autoMapper;
-        private readonly ISkillFrameworkBusinessRuleEngine businessRuleEngine;
-
-        public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext, IMapper autoMapper, ISkillFrameworkBusinessRuleEngine businessRuleEngine)
+    
+        public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext, IMapper autoMapper)
         {
             this.onetDbContext = onetDbContext;
             this.autoMapper = autoMapper;
-            this.businessRuleEngine = businessRuleEngine;
         }
 
         public DigitalSkill Get(Expression<Func<DigitalSkill, bool>> where)
@@ -33,10 +31,10 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public DigitalSkill GetById(string onetOccupationalCode)
         {
-            var count = onetDbContext.tools_and_technology.Count(toolsandtech => toolsandtech.onetsoc_code == onetOccupationalCode);
+            var applicationCount = onetDbContext.tools_and_technology.Count(toolsandtech => toolsandtech.onetsoc_code == onetOccupationalCode);
             return new DigitalSkill
             {
-                Level = businessRuleEngine.GetDigitalSkillsLevel(count)
+                ApplicationCount = applicationCount
             };
         }
 

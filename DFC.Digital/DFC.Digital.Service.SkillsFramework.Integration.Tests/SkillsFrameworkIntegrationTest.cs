@@ -199,7 +199,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill);
 
-           ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
+            ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
 
             var level= (int)skillService.GetDigitalSkillLevel("11-1011.00");
             level.Should().BeGreaterThan(0);

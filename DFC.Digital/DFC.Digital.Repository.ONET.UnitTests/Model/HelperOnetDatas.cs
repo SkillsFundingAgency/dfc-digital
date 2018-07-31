@@ -87,6 +87,18 @@
                 Title = "skills 2",
                 Description = "great leadership and behavioural characterstics"
             },
+            new FrameworkSkill()
+            {
+                OnetElementId = "C1",
+                Title = "Hello Unit1",
+                Description = "Hello Unit Test"
+            },
+            new FrameworkSkill()
+            {
+                OnetElementId = "C2",
+                Title = "Hello Unit2",
+                Description = "Hello Unit Test 2"
+            },
         };
 
         //private static readonly IEnumerable<WhatItTakesSkill> AttributeData = new List<DfcOnetAttributesData>
@@ -632,6 +644,7 @@
             {
                     DfcTranslations,
                     OnetContentModelReference,
+                    DfcCombination,
                     TranslatedData,
                     "1.A.1.a"
             };
@@ -639,6 +652,7 @@
             {
                     DfcTranslations,
                     OnetContentModelReference,
+                    DfcCombination,
                     TranslatedData,
                     "1.A.1.b"
             };
@@ -651,6 +665,7 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[0],
                 "1.A.1.a"
             };
@@ -658,6 +673,7 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[2],
                 "1.A.1.b"
             };
@@ -665,6 +681,7 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[3],
                 "1.A.1.c"
             };
@@ -677,10 +694,12 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
-                new List<FrameworkSkill>(){
-                TranslatedData.ToList()[0],
-                TranslatedData.ToList()[2],
-                    },
+                DfcCombination,
+                new List<FrameworkSkill>()
+                {
+                    TranslatedData.ToList()[0],
+                    TranslatedData.ToList()[2],
+                },
                 "1.A.1.a",
                 "1.A.1.b"
             };
@@ -804,6 +823,31 @@
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.1.h",
                 translation = "the ability to work well with your hands"
+            },
+
+        };
+
+        protected static readonly IEnumerable<DFC_GDSCombinations> DfcCombination = new List<DFC_GDSCombinations>
+        {
+            new DFC_GDSCombinations()
+            {
+                application_order = 1,
+                combined_element_id = "C1",
+                datetimestamp = DateTime.Today,
+                description = "Hello Unit Test",
+                element_name = "Hello Unit1",
+                onet_element_one_id = "1.A.1.a",
+                onet_element_two_id = "1.A.1a",
+            },
+            new DFC_GDSCombinations()
+            {
+                application_order = 2,
+                combined_element_id = "C2",
+                datetimestamp = DateTime.Today,
+                description = "Hello Unit Test 2" ,
+                element_name = "Hello Unit2",
+                onet_element_one_id = "1.A.1.b",
+                onet_element_two_id = "1.A.1.c",
             },
 
         };

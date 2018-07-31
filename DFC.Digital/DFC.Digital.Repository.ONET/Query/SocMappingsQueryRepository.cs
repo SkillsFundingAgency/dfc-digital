@@ -33,7 +33,7 @@ namespace DFC.Digital.Repository.ONET.Query
                     Id = Guid.Empty,
                     ONetOccupationalCode = soc.ONetCode,
                     SOCCode = soc.SocCode,
-                    Title = string.Empty
+                    Title = null
                 });
             return result;
             // return onetDbContext.DFC_SocMappings.ProjectToQueryable<SocCode>(autoMapper.ConfigurationProvider);

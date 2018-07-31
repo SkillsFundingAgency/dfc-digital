@@ -139,7 +139,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [Fact]
         public void GetSkillsForOnetCodeTest()
         {
-            string testOnetCode = "53-2011.00";
+            string testOnetCode = "17-1011.00";
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeSocRepository = A.Fake<IRepository<SocCode>>();
             var fakeDigitalSkillRepository = A.Fake<IRepository<DigitalSkill>>();
@@ -156,11 +156,15 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var skillsRepository = new SkillsOueryRepository(dbcontext);
                 var workstylesRepository = new WorkStylesOueryRepository(dbcontext);
 
+
                 var fakeSkillsRepository = A.Fake<ISkillsRepository>();
                 var fakeframeworkSkill = A.Fake<IQueryRepository<FrameworkSkill>>();
-                var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
 
-                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(autoMapper, knowledgeRepository, skillsRepository, abilitiesRepository, workstylesRepository,fakeframeworkSkill,fakeCombinationSkill);
+                var combinationRepository = new CombinationsQueryRepository(dbcontext);
+                var suppressionRepository = new SuppressionsQueryRepository(dbcontext);
+
+
+                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(autoMapper, knowledgeRepository, skillsRepository, abilitiesRepository, workstylesRepository, suppressionRepository, combinationRepository);
 
                 var skillsFrameworkService = new SkillsFrameworkService(fakeLogger, fakeSocRepository, fakeDigitalSkillRepository, fakeDigitalTranslationRepository, skillFrameworkBusinessRuleEngine);
                 var result = skillsFrameworkService.GetRelatedSkillMapping(testOnetCode);

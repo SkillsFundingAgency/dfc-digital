@@ -23,7 +23,5 @@ namespace DFC.Digital.Data.Interfaces
         IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes);
 
         IEnumerable<OnetAttribute> SelectFinalAttributes(IEnumerable<OnetAttribute> attributes);
-
-        IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes);
     }
 }

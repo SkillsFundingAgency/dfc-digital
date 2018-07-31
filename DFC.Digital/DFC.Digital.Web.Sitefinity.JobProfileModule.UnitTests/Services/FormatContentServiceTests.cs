@@ -7,7 +7,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class FormatContentServiceTests
     {
         [Theory]
-        [InlineData("intro", 1, "and", "intro item")]
+        [InlineData("intro", 0, "and", "")]
+        [InlineData("intro", 1, "and", "intro item.")]
+        [InlineData("intro", 2, "and", "intro item and item.")]
+        [InlineData("intro", 3, "and", "intro item, item and item.")]
         public void GetParagraphTextTest(string leadingText, int numberOfItems, string conjunction, string expected)
         {
             // Arrange

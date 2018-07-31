@@ -38,6 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
 
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
@@ -102,6 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
@@ -159,10 +161,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake)
+                {
+                    TopSectionContent = nameof(JobProfileWhatYouWillDoController.TopSectionContent),
+                    BottomSectionContent = nameof(JobProfileWhatYouWillDoController.BottomSectionContent),
+                    MainSectionTitle = nameof(JobProfileWhatYouWillDoController.MainSectionTitle),
+                    SectionId = nameof(JobProfileWhatYouWillDoController.SectionId),
+                    WhatYouWillDoSectionTitle = nameof(JobProfileWhatYouWillDoController.WhatYouWillDoSectionTitle),
+                    EnvironmentTitle = nameof(JobProfileWhatYouWillDoController.EnvironmentTitle),
+                    IsWYDIntroActive = true
+                })
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));

@@ -89,9 +89,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var workingEnvironmentView = new JobProfileWhatYouWillDoViewModel
             {
                 EnvironmentTitle = environmentTitle,
-                Location = "Office and Client Site",
-                Uniform = "Casual / Smart Casual / Business Dress",
-                Environment = "Friendly / Business / Secured"
+                Location = location,
+                Uniform = uniform,
+                Environment = environment
             };
 
             // Act

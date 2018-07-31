@@ -83,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Dfc3361SkillsViewFlagsTests(bool useSkillsFramework)
+        public void Dfc3361SkillsViewTests(bool useSkillsFramework)
         {
             // Arrange
             int numberSkills = 5;

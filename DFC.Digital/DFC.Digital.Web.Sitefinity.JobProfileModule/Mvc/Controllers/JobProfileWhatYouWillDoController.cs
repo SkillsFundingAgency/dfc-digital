@@ -19,13 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #region Ctor
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JobProfileWhatYouWillDoController" /> class.
-        /// </summary>
-        /// <param name="jobProfileRepository">The job profile repository.</param>
-        /// <param name="webAppContext">The web application context.</param>
-        /// <param name="applicationLogger">application logger</param>
-        /// <param name="sitefinityPage">sitefinity</param>
         public JobProfileWhatYouWillDoController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage, IFormatContentService formatContentService)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {

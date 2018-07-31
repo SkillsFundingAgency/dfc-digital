@@ -10,7 +10,7 @@ namespace DFC.Digital.Data.Interfaces
 
         IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode);
 
-        IEnumerable<OnetAttribute> RemoveDFCSuppressions(IOrderedQueryable<OnetAttribute> attributes);
+        IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes);
 
         IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes);
 

@@ -17,12 +17,18 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly ISkillsRepository workStyleRepository;
 
+        private readonly IQueryRepository<FrameworkSkill> suppressionsQueryRepository;
+        private readonly IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository;
 
         public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeQueryRepository, ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
-          ISkillsRepository workStyleRepository)
+          ISkillsRepository workStyleRepository, IQueryRepository<FrameworkSkill> suppressionsQueryRepository, IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository)
         {
             this.autoMapper = autoMapper;
             this.knowledgeQueryRepository = knowledgeQueryRepository;
+            this.abilitiesOueryRepository = abilitiesOueryRepository;
+            this.skillsOueryRepository = skillsOueryRepository;
+            this.workStyleRepository = workStyleRepository;
+            this.combinationsQueryRepository = combinationsQueryRepository;            
         }
 
 
@@ -49,8 +55,8 @@ namespace DFC.Digital.Service.SkillsFramework
         public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
         {
 
-            var allSkillForOccupation = knowledgeQueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode);
-            //.Union(businessRuleEngine.GetSkillsForOccupation(onetOccupationalCode))
+            var allSkillForOccupation = knowledgeQueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode)
+                .Union(abilitiesOueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode));
             //.Union(businessRuleEngine.GetAbilitiesForOccupatio(onetOccupationalCode))
             //.Union(businessRuleEngine.GetWorkStylesForOccupation(onetOccupationalCode))
             //.OrderByDescending(r => r.Score);
@@ -72,7 +78,7 @@ namespace DFC.Digital.Service.SkillsFramework
             throw new NotImplementedException();
         }
 
-        public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IOrderedQueryable<OnetAttribute> attributes)
+        public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
         {
             throw new NotImplementedException();
         }

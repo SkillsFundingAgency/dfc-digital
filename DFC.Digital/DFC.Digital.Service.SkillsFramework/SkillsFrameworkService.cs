@@ -16,7 +16,7 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IQueryRepository<FrameworkSkill> translationRepository;
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
-
+   
         public SkillsFrameworkService(
             IApplicationLogger logger,
             IQueryRepository<SocCode> socRepository,
@@ -46,7 +46,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode)
         {
             var digitalSkill = digitalSkillRepository.GetById(onetOccupationalCode);
-            var rank = skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
+            var rank= skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
             return rank;
         }
 
@@ -54,9 +54,9 @@ namespace DFC.Digital.Service.SkillsFramework
         {
 
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
-            var attributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode);
+            var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode); 
 
-            //attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
+            var attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(rawAttributes);
 
 
             //Average out the skill thats have LV and LM scales

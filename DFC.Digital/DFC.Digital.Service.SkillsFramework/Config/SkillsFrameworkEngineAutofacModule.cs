@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac.Extras.DynamicProxy2;
-using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.ONET.Query;
+﻿using Autofac;
+using DFC.Digital.Repository.ONET.Config;
 
 namespace DFC.Digital.Service.SkillsFramework.Config
 {
-    using Autofac;
 
     public class SkillsFrameworkEngineAutofacModule : Module
     {
@@ -19,8 +10,7 @@ namespace DFC.Digital.Service.SkillsFramework.Config
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
-
-
+               builder.RegisterModule<SkillsFrameworkAutofacModule>();
         }
     }
 }

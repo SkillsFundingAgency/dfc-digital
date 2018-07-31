@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using DFC.Digital.Service.SkillsFramework;
+using Xunit;
 using System;
 using System.Collections.Generic;
 using DFC.Digital.Data.Model;
@@ -72,6 +73,18 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             var socCodeData = response as IList<SocCode> ?? response.ToList();
             socCodeData.Should().NotBeNull();
             socCodeData.Should().BeEquivalentTo(responseData);
+        }
+
+        [Fact()]
+        public void GetDigitalSkillLevelTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        public void GetDigitalSkillsLevelTest()
+        {
+            Assert.True(false, "This test needs an implementation");
         }
 
         //[Fact]

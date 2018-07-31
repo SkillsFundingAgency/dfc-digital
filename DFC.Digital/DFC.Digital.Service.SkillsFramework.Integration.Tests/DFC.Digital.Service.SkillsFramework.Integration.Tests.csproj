@@ -120,7 +120,7 @@
       <Name>DFC.Digital.Repository.ONET</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
-      <Project>{da543f75-f32b-4f8f-ad1a-3c25602ee68f}</Project>
+      <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
       <Name>DFC.Digital.Service.SkillsFramework</Name>
     </ProjectReference>
   </ItemGroup>

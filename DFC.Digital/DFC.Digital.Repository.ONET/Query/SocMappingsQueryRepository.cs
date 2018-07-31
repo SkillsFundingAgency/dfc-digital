@@ -26,7 +26,17 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<SocCode> GetAll()
         {
-            return onetDbContext.DFC_SocMappings.ProjectToQueryable<SocCode>(autoMapper.ConfigurationProvider);
+            var result = (from soc in onetDbContext.DFC_SocMappings
+                orderby soc.SocCode
+                select new SocCode()
+                {
+                    Id = Guid.Empty,
+                    ONetOccupationalCode = soc.ONetCode,
+                    SOCCode = soc.SocCode,
+                    Title = null
+                });
+            return result;
+            // return onetDbContext.DFC_SocMappings.ProjectToQueryable<SocCode>(autoMapper.ConfigurationProvider);
         }
 
         public SocCode GetById(string id)

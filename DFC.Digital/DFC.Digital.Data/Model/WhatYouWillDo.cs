@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Data.Model
+﻿using System.Collections.Generic;
+
+namespace DFC.Digital.Data.Model
 {
     public class WhatYouWillDo
     {
@@ -6,11 +8,11 @@
 
         public string DailyTasks { get; set; }
 
-        public string Location { get; set; }
+        public IEnumerable<string> Locations { get; set; }
 
-        public string Uniform { get; set; }
+        public IEnumerable<string> Uniforms { get; set; }
 
-        public string Environment { get; set; }
+        public IEnumerable<string> Environments { get; set; }
 
         public string Introduction { get; set; }
     }

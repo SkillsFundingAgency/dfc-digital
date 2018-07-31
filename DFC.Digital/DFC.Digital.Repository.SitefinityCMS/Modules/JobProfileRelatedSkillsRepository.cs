@@ -26,11 +26,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region JobProfileRelatedSkillsRepository Implementations
 
-        public IEnumerable<WhatItTakesSkill> GetContextualisedSkillsById(IEnumerable<string> skillsIdCollection)
+        public IEnumerable<WhatItTakesSkill> GetContextualisedSkillsById(IEnumerable<string> relatedSkills)
         {
-            if (skillsIdCollection != null)
+            if (relatedSkills != null)
             {
-                foreach (var skillUrl in skillsIdCollection)
+                foreach (var skillUrl in relatedSkills)
                 {
                     var relatedSkill = converter.ConvertFrom(repository.Get(item => item.UrlName == skillUrl && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
                     if (relatedSkill != null)

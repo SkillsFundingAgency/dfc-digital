@@ -35,7 +35,6 @@
             },
           
         };
-
         private static readonly IEnumerable<FrameworkSkill> TranslatedData = new List<FrameworkSkill>
         {
            
@@ -87,460 +86,19 @@
                 Title = "skills 2",
                 Description = "great leadership and behavioural characterstics"
             },
+            new FrameworkSkill()
+            {
+                OnetElementId = "C1",
+                Title = "Hello Unit1",
+                Description = "Hello Unit Test"
+            },
+            new FrameworkSkill()
+            {
+                OnetElementId = "C2",
+                Title = "Hello Unit2",
+                Description = "Hello Unit Test 2"
+            },
         };
-
-        //private static readonly IEnumerable<WhatItTakesSkill> AttributeData = new List<DfcOnetAttributesData>
-        //{
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Abilities,
-        //        ElementDescription = "Enduring attributes of the individual that influence performance",
-        //        ElementId = "1.A",
-        //        ElementName = "Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Abilities,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "1.A.1",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Abilities,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "1.A.2",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Abilities,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "1.A.3",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Abilities,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "1.A.4",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Knowledge,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "2.A.1",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Knowledge,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "2.A.2",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Knowledge,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "2.A.3",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Knowledge,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "2.A.4",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Knowledge,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "2.A.5",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.WorkStyles,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "3.A.1",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.WorkStyles,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "3.A.2",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.WorkStyles,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "3.A.3",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.WorkStyles,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "3.A.4",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.WorkStyles,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "3.A.5",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Skills,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "4.A.1",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Skills,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "4.A.2",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Skills,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "4.A.3",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Skills,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "4.A.4",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //    new DfcOnetAttributesData()
-        //    {
-        //        Attribute = Attributes.Skills,
-        //        ElementDescription = "Abilities that influence the acquisition and application of knowledge in problem solving",
-        //        ElementId = "4.A.5",
-        //        ElementName = "Cognitive Abilities",
-        //        OnetSocCode = "17-2071.00",
-        //        SocCode = "1150",
-        //        Value = (decimal) 4.58
-        //    },
-        //};
-
-        //private static readonly DigitalSkill DigitalSkills1150 = new DigitalSkill
-        //{
-        //    DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
-        //    {
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Personal Communication Device",
-        //            ElementId = "",
-        //            OnetSocCode = "11-10011.00",
-        //            SocCode = "1150",
-        //            T2Example = "Smartphones",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Media storage devices",
-        //            ElementId = "",
-        //            OnetSocCode = "11-10011.00",
-        //            SocCode = "1150",
-        //            T2Example = "Universal serial bus USB flash drives",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "11-10011.00",
-        //            SocCode = "1150",
-        //            T2Example = "Laptop computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "11-10011.00",
-        //            SocCode = "1150",
-        //            T2Example = "Personal Digital Assistance PDA",
-        //            T2Type = "Tools"
-        //        },
-
-        //    },
-        //    DigitalSkillsCount = Convert.ToInt32(RangeChecker.FirstRange)
-        //};
-
-        //private static readonly DigitalSkill DigitalSkills1223 = new DigitalSkill
-        //{
-        //    DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
-        //    {
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computer data input devices",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Computer data input scanners",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Desktop computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computer data input devices",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Handheld computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Laptop computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Media storage devices",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Universal serial bus USB flash drives",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Duplicating machines",
-        //            ElementId = "",
-        //            OnetSocCode = "11-2011.01",
-        //            SocCode = "1223",
-        //            T2Example = "Laser facsimile machines",
-        //            T2Type = "Tools"
-        //        },
-        //    },
-        //    DigitalSkillsCount = Convert.ToInt32(RangeChecker.SecondRange)
-        //};
-
-        //private static readonly DigitalSkill DigitalSkills2112 = new DigitalSkill
-        //{
-        //    DigitalSkillsCollection = new List<DigitalToolsAndTechnology>
-        //    {
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computer data input devices",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Computer data input scanners",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Desktop computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Computers",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Laptop computers",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Duplicating machines",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Laser facsimile machines",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Personal communication devices",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Multi-line telephone systems",
-        //            T2Type = "Tools"
-        //        },
-        //        new DigitalToolsAndTechnology
-        //        {
-        //            ClassTitle = "Finance accounting and enterprise resource planning ERP software",
-        //            ElementId = "",
-        //            OnetSocCode = "41-3031.03",
-        //            SocCode = "2112",
-        //            T2Example = "Bloomberg Professional",
-        //            T2Type = "Technology"
-        //        },
-        //    },
-        //    DigitalSkillsCount = Convert.ToInt32(RangeChecker.ThirdRange)
-        //};
-
-        //public static IEnumerable<object[]> SocMappings()
-        //{
-        //    yield return new object[]
-        //    {
-        //        SocMappingsData
-        //    };
-        //}
-
-        public static IEnumerable<object[]> TranslationData()
-        {
-            yield return new object[]
-            {
-                TranslatedData
-            };
-        }
-
-        public static IEnumerable<object[]> DigitalSkillsData()
-        {
-            yield return new object[]
-            {
-            //    DigitalSkills1150,
-                "11-10011.00",
-                Convert.ToInt32(RangeChecker.FirstRange),
-            };
-            yield return new object[]
-            {
-                //DigitalSkills1223,
-                "11-2011.01",
-                Convert.ToInt32(RangeChecker.SecondRange),
-            };
-            yield return new object[]
-            {
-              //  DigitalSkills2112,
-                "41-3031.03",
-                Convert.ToInt32(RangeChecker.ThirdRange),
-            };
-        }
-        public static IEnumerable<object[]> DigitalSkillsRank()
-        {
-            yield return new object[]
-            {
-              //  DigitalSkills1150,
-                "11-10011.00",
-                Convert.ToInt32(RangeChecker.FirstRange),
-                1,
-            };
-            yield return new object[]
-            {
-             //   DigitalSkills1223,
-                "11-2011.01",
-                Convert.ToInt32(RangeChecker.SecondRange),
-                2
-            };
-            yield return new object[]
-            {
-                //DigitalSkills2112,
-                "41-3031.03",
-                Convert.ToInt32(RangeChecker.ThirdRange),
-                3
-            };
-        }
-
-        public static IEnumerable<object[]> AttributeDataSet()
-        {
-            yield return new object[]
-            {
-               // AttributeData,
-                "11-10011.00",
-                20
-            };
-            yield return new object[]
-            {
-              //  AttributeData,
-                "17-2071.00",
-                20
-            };
-        }
-
-
         public static IEnumerable<object[]> GetAllSocMappingData()
         {
             yield return new object[]
@@ -549,7 +107,6 @@
                 SocMappingsData
             };
         }
-
         public static IEnumerable<object[]> GetByIdSocMappingData()
         {
             yield return new object[]
@@ -632,6 +189,7 @@
             {
                     DfcTranslations,
                     OnetContentModelReference,
+                    DfcCombination,
                     TranslatedData,
                     "1.A.1.a"
             };
@@ -639,6 +197,7 @@
             {
                     DfcTranslations,
                     OnetContentModelReference,
+                    DfcCombination,
                     TranslatedData,
                     "1.A.1.b"
             };
@@ -646,11 +205,11 @@
         }
         public static IEnumerable<object[]> OnetFrameworkSkillTranslationData()
         {
-           
             yield return new object[]
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[0],
                 "1.A.1.a"
             };
@@ -658,6 +217,7 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[2],
                 "1.A.1.b"
             };
@@ -665,6 +225,7 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
+                DfcCombination,
                 TranslatedData.ToList()[3],
                 "1.A.1.c"
             };
@@ -677,10 +238,12 @@
             {
                 DfcTranslations,
                 OnetContentModelReference,
-                new List<FrameworkSkill>(){
-                TranslatedData.ToList()[0],
-                TranslatedData.ToList()[2],
-                    },
+                DfcCombination,
+                new List<FrameworkSkill>()
+                {
+                    TranslatedData.ToList()[0],
+                    TranslatedData.ToList()[2],
+                },
                 "1.A.1.a",
                 "1.A.1.b"
             };
@@ -693,32 +256,6 @@
             //    "thinking and reasoning skills"
             //};
 
-        }
-
-        public static IEnumerable<object[]> OnetDigitalSkillsRankData()
-        {
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsReference,
-                "11-3071.03"
-            };
-        }
-
-        public static IEnumerable<object[]> OnetAttributesData()
-        {
-            yield return new object[]
-            {
-                OnetKnowledges,
-                OnetAbilities,
-                OnetSkills,
-                OnetWorkStyles,
-                OnetContentModelReference,
-                DfcUnspcsReference,
-                "11-1011.00"
-
-
-            };
         }
     }
 
@@ -752,7 +289,6 @@
             },
 
         };
-
         protected static readonly IEnumerable<DFC_GDSTranlations> DfcTranslations = new List<DFC_GDSTranlations>
         {
           
@@ -807,7 +343,30 @@
             },
 
         };
+        protected static readonly IEnumerable<DFC_GDSCombinations> DfcCombination = new List<DFC_GDSCombinations>
+        {
+            new DFC_GDSCombinations()
+            {
+                application_order = 1,
+                combined_element_id = "C1",
+                datetimestamp = DateTime.Today,
+                description = "Hello Unit Test",
+                element_name = "Hello Unit1",
+                onet_element_one_id = "1.A.1.a",
+                onet_element_two_id = "1.A.1a",
+            },
+            new DFC_GDSCombinations()
+            {
+                application_order = 2,
+                combined_element_id = "C2",
+                datetimestamp = DateTime.Today,
+                description = "Hello Unit Test 2" ,
+                element_name = "Hello Unit2",
+                onet_element_one_id = "1.A.1.b",
+                onet_element_two_id = "1.A.1.c",
+            },
 
+        };
         protected static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
         {
             new tools_and_technology()
@@ -857,7 +416,6 @@
             },
 
         };
-
         protected static readonly IEnumerable<unspsc_reference> DfcUnspcsReference = new List<unspsc_reference>
         {
             new unspsc_reference()
@@ -921,7 +479,6 @@
                 tools_and_technology = DfcToolsandTechnology.ToList()
             }
         };
-
         protected static readonly IEnumerable<content_model_reference> OnetContentModelReference =
             new List<content_model_reference>()
             {
@@ -1043,7 +600,6 @@
                 scale_id = "IM"
             }
         };
-
         protected static readonly IEnumerable<skill> OnetSkills = new List<skill>
         {
             new skill()
@@ -1069,7 +625,6 @@
                 scale_id = "LV"
             },
         };
-
         protected static readonly IEnumerable<ability> OnetAbilities = new List<ability>()
         {
             new ability()
@@ -1097,7 +652,6 @@
                 occupation_data = new occupation_data(),
             },
         };
-
         protected static readonly IEnumerable<work_styles> OnetWorkStyles = new List<work_styles>()
         {
             new work_styles()
@@ -1123,6 +677,5 @@
                 occupation_data = new occupation_data(),
             },
         };
-
     }
 }

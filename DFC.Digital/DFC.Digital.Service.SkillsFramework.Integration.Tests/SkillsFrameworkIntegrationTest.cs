@@ -36,13 +36,13 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var single = repository.GetById("1.A.1.a");
                 single.Should().NotBeNull();
-                single.Title.Should().Be("1.A.1.a");
+                single.OnetElementId.Should().Be("1.A.1.a");
 
-                var singleByExpression = repository.Get(s => s.Title == "1.A.1.a");
+                var singleByExpression = repository.Get(s => s.OnetElementId == "1.A.1.a");
                 singleByExpression.Should().NotBeNull();
-                singleByExpression.Title.Should().Be("1.A.1.a");
+                singleByExpression.OnetElementId.Should().Be("1.A.1.a");
 
-                var manyByExpression = repository.GetMany(s => s.Title.StartsWith("1.A.", StringComparison.Ordinal));
+                var manyByExpression = repository.GetMany(s => s.OnetElementId.StartsWith("1.A.", StringComparison.Ordinal));
                 manyByExpression.Should().NotBeNull();
 
             }
@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var single = repository.GetById(onetElementId);
                 single.Should().NotBeNull();
-                single.Title.Should().Be(onetElementId);
+                single.OnetElementId.Should().Be(onetElementId);
 
 
             }
@@ -78,9 +78,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var repository = new TranslationQueryRepository(dbcontext, autoMapper);
 
 
-                var single = repository.Get(x=>x.Title==onetElementId);
+                var single = repository.Get(x=>x.OnetElementId==onetElementId);
                 single.Should().NotBeNull();
-                single.Title.Should().Be(onetElementId);
+                single.OnetElementId.Should().Be(onetElementId);
 
 
             }
@@ -100,9 +100,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var repository = new TranslationQueryRepository(dbcontext, autoMapper);
 
 
-                var single = repository.GetMany(x => x.Title == field1 && x.Description==field2 );
+                var single = repository.GetMany(x => x.OnetElementId == field1 && x.Description==field2 );
                 single.Should().NotBeNull();
-                single.Should().Contain(x => x.Title == field1);
+                single.Should().Contain(x => x.OnetElementId == field1);
 
             }
         }
@@ -203,7 +203,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill);
 
-           ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
+            ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
 
             var level= (int)skillService.GetDigitalSkillLevel("11-1011.00");
             level.Should().BeGreaterThan(0);

@@ -54,27 +54,25 @@ namespace DFC.Digital.Service.SkillsFramework
         {
 
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
-            var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode); 
+            var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList(); 
 
             var attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(rawAttributes);
 
-
             //Average out the skill thats have LV and LM scales
-            //attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+            attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
 
-            //attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
+            attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
+            attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
 
-            //attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes).ToList();
 
-            //attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
-
-            return skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+            return attributes;
+      
         }
 
 

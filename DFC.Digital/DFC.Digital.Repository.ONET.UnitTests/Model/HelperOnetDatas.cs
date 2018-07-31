@@ -88,13 +88,13 @@
             },
             new FrameworkSkill()
             {
-                OnetElementId = "C1",
+                ONetElementId = "C1",
                 Title = "Hello Unit1",
                 Description = "Hello Unit Test"
             },
             new FrameworkSkill()
             {
-                OnetElementId = "C2",
+                ONetElementId = "C2",
                 Title = "Hello Unit2",
                 Description = "Hello Unit Test 2"
             },

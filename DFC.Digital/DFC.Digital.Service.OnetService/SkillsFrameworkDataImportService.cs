@@ -48,7 +48,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
             var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
-            var socCodesToUpdate = allSocCodes.Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode)).Take(50);
+            var socCodesToUpdate = allSocCodes.Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
             var socCodesNotUpdated = allSocCodes.Count(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
             var socCodesUpdated = allSocCodes.Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
             var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
@@ -59,7 +59,8 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesNotUpdated} socs not yet updated with occupational codes ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {socCodesToUpdate.Count()} socs with occupational code ");
-       
+
+            var updatedSocs = new List<string>();
             foreach (var socCode in socCodesToUpdate)
             {
                 var occupationalCode = occupationalCodeMappings
@@ -73,8 +74,12 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                     socCode.ONetOccupationalCode = occupationalCode;
                     jobProfileSocCodeRepository.UpdateSocOccupationalCode(socCode);
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated Soc code {socCode.SOCCode} with occupational code : {occupationalCode}");
+                    updatedSocs.Add($"{socCode.SOCCode}-{socCode.ONetOccupationalCode}");
                 }
             }
+
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Used the following {updatedSocs.Count} soc code/onet occupational code combination {string.Join(",", updatedSocs)} to update soc codes repo");
+
             return new UpdateSocOccupationalCodeResponse {Success = true};
         }
 

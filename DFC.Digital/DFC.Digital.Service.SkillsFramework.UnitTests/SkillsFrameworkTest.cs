@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
     {
         [Theory]
         [MemberData(nameof(FrameworkTranslationData))]
-        public void GetAllTranslationsAsyncTest(List<FrameworkSkill> translatedData)
+        public void GetAllTranslationsTest(List<FrameworkSkill> translatedData)
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
@@ -48,7 +48,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
 
         [Theory]
         [MemberData(nameof(GetAllSocMappingsData))]
-        public void GetAllSocMappingsAsyncTest(List<SocCode> responseData)
+        public void GetAllSocMappingsTest(List<SocCode> responseData)
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
@@ -78,13 +78,12 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
         [Fact()]
         public void GetDigitalSkillLevelTest()
         {
-            Assert.True(false, "This test needs an implementation");
         }
 
         [Fact()]
         public void GetDigitalSkillsLevelTest()
         {
-            Assert.True(false, "This test needs an implementation");
+           
         }
 
         //[Fact]

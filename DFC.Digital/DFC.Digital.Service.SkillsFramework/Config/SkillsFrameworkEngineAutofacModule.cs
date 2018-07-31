@@ -10,7 +10,7 @@ namespace DFC.Digital.Service.SkillsFramework.Config
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
-               builder.RegisterModule<SkillsFrameworkAutofacModule>();
+            builder.RegisterModule<SkillsFrameworkAutofacModule>();
         }
     }
 }

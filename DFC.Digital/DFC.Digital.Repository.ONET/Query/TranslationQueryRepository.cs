@@ -38,7 +38,7 @@ namespace DFC.Digital.Repository.ONET.Query
                     Title = el.element_name,
                     Description = trans.translation
 
-                }).First();
+                }).Single();
 
             return result;
         }
@@ -70,7 +70,6 @@ namespace DFC.Digital.Repository.ONET.Query
                           });
 
             return result;
-            //  return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
         }
 
         public IQueryable<FrameworkSkill> GetMany(Expression<Func<FrameworkSkill, bool>> where)

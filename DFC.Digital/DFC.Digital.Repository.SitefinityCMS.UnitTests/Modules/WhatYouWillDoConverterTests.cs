@@ -14,7 +14,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
         public WhatYouWillDoConverterTests()
         {
-            fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
+            fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>(ops => ops.Strict());
             fakeDynamicContentItem = A.Dummy<DynamicContent>();
         }
 

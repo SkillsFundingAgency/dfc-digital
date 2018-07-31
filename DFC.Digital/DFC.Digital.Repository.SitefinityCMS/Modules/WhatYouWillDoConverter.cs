@@ -61,13 +61,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var items = dynamicContentExtensions.GetRelatedItems(content, relatedField);
 
+            var descriptionList = new List<string>();
             if (items != null && items.Any())
             {
                 foreach (var item in items)
                 {
-                    yield return dynamicContentExtensions.GetFieldValue<Lstring>(item, DescriptionField);
+                    var description = dynamicContentExtensions.GetFieldValue<Lstring>(item, DescriptionField);
+                   descriptionList.Add(description);
                 }
+
+                return descriptionList;
             }
+
+            return Enumerable.Empty<string>();
         }
 
         #endregion private methods

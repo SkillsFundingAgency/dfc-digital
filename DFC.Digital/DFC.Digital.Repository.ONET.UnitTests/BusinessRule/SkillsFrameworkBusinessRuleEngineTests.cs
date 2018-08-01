@@ -28,24 +28,24 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         [InlineData(2000, DigitalSkillsLevel.Level1)]
         public void GetDigitalSkillsLevelTest(int input, DigitalSkillsLevel expectedLevel)
         {
-
+            //Arrange
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             var fakeFrameworkSkill = A.Fake<IQueryRepository<FrameworkSkill>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
-
+            //Act
             ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkill, fakeCombinationSkill, fakeContentReference);
-
+            //Assert
             var result = ruleEngine.GetDigitalSkillsLevel(input);
-
             result.Should().Be(expectedLevel);
         }
         [Theory]
         [InlineData("11-1011.00", DigitalSkillsLevel.Level3)]
         public void GetDigitalSkillsLevel(string onetSocCode, DigitalSkillsLevel expectedLevel)
         {
+            //Arrange
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             var fakeLogger = A.Fake<IApplicationLogger>();
@@ -53,11 +53,13 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var skillsRepository = A.Fake<ISkillsRepository>();
+            //Act
             IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkill, fakeCombinationSkill, fakeContentReference);
             ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
+            //Assert
             var result= skillService.GetDigitalSkillLevel(onetSocCode);
             result.Should().Be(expectedLevel);
         }

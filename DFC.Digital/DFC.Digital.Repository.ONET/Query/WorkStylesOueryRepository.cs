@@ -24,7 +24,6 @@ namespace DFC.Digital.Repository.ONET.Query
         public IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from workStyle in onetDbContext.work_styles
-                             join reference in onetDbContext.content_model_reference on workStyle.element_id equals reference.element_id
                              where workStyle.recommend_suppress != "Y"
                                         && workStyle.onetsoc_code == oNetOccupationCode
                                     select new OnetAttribute
@@ -33,7 +32,6 @@ namespace DFC.Digital.Repository.ONET.Query
                                         Id = workStyle.element_id,
                                         Type = AttributeType.WorkStyle,
                                         Score = workStyle.data_value,
-                                        Name = reference.element_name
                                     };
             return attributes;
         }

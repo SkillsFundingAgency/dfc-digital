@@ -65,6 +65,8 @@ namespace DFC.Digital.Service.SkillsFramework
 
             attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
 
+            attributes = skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+
             attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
             attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);

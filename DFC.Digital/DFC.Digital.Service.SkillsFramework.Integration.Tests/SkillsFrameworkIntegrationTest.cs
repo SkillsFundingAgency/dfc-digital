@@ -162,9 +162,12 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var combinationRepository = new CombinationsQueryRepository(dbcontext);
                 var suppressionRepository = new SuppressionsQueryRepository(dbcontext);
+                var contentReferenceRepository = new ContentReferenceQueryRepository(dbcontext);
 
 
-                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(autoMapper, knowledgeRepository, skillsRepository, abilitiesRepository, workstylesRepository, suppressionRepository, combinationRepository);
+                ISkillFrameworkBusinessRuleEngine skillFrameworkBusinessRuleEngine = new SkillFrameworkBusinessRuleEngine(
+                    autoMapper, knowledgeRepository, skillsRepository, abilitiesRepository, workstylesRepository, 
+                    suppressionRepository, combinationRepository, contentReferenceRepository);
 
                 var skillsFrameworkService = new SkillsFrameworkService(fakeLogger, fakeSocRepository, fakeDigitalSkillRepository, fakeDigitalTranslationRepository, skillFrameworkBusinessRuleEngine);
                 var result = skillsFrameworkService.GetRelatedSkillMapping(testOnetCode);
@@ -195,13 +198,14 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             var mapper = mapperConfig.CreateMapper();
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeframeworkSkill = A.Fake<IQueryRepository<FrameworkSkill>>();
+            var fakeContentReference = A.Fake<IQueryRepository<FrameworkSkill>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
 
             IQueryRepository<SocCode> socCodeRepository=new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<DigitalSkill> digitalSkillsRepository=new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<FrameworkSkill> frameWorkRepository=new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
             ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
-            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill);
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill,fakeContentReference);
 
             ISkillsFrameworkService skillService =new SkillsFrameworkService(fakeLogger,socCodeRepository,digitalSkillsRepository,frameWorkRepository,ruleEngine);
 
@@ -216,13 +220,15 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             var mapper = mapperConfig.CreateMapper();
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeframeworkSkill = A.Fake<IQueryRepository<FrameworkSkill>>();
+            var fakeContentReference = A.Fake<IQueryRepository<FrameworkSkill>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
 
             IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<FrameworkSkill> contentRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
             ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
-            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill);
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository,fakeframeworkSkill,fakeCombinationSkill, fakeContentReference);
 
             ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
 

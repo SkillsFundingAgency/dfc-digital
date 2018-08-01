@@ -91,19 +91,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
+    <None Include="app.config">
       <TransformOnBuild>true</TransformOnBuild>
     </None>
     <None Include="App.Debug.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.OWASP.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="App.Release.config">
-      <DependentUpon>App.config</DependentUpon>
+      <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
     <AdditionalFiles Include="..\stylecop.json">

@@ -234,6 +234,7 @@
     <Compile Include="DataModel\work_values.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\CombinationsQueryRepository.cs" />

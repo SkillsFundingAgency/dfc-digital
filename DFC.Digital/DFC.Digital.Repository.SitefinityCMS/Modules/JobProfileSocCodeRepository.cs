@@ -11,7 +11,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     public class JobProfileSocCodeRepository : IJobProfileSocCodeRepository
     {
         #region Fields
-
+        private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<SocCode> repository;
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
@@ -62,7 +62,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 var updatedMaster = repository.CheckinTemp(temp);
 
-                repository.Update(updatedMaster);
+                repository.Publish(updatedMaster, UpdateComment);
                 repository.Commit();
             }
 

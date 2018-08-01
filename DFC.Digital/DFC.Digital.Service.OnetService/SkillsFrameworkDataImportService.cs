@@ -69,7 +69,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationalCode} for SocCocde : {socCode.SOCCode} from SkillFramework Service");
 
                 if (!string.IsNullOrWhiteSpace(occupationalCode) &&
-                    !socCode.SOCCode.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase))
+                    !socCode.ONetOccupationalCode.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase))
                 {
                     socCode.ONetOccupationalCode = occupationalCode;
                     jobProfileSocCodeRepository.UpdateSocOccupationalCode(socCode);

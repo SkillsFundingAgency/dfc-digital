@@ -15,13 +15,13 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
 
-        private readonly IList<FrameworkSkill> suppressions;
+        private readonly IList<FrameWorkSkill> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
         private readonly string MathsTitle = "Mathematics";
 
         public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
-               IQueryRepository<FrameworkSkill> suppressionsQueryRepository,
+               IQueryRepository<FrameWorkSkill> suppressionsQueryRepository,
                IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
                IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)
         {

@@ -38,7 +38,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
     <VisualStudioVersion>11.0</VisualStudioVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -1311,7 +1311,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60876/</IISUrl>
+          <IISUrl>http://local-beta.nationalcareersservice.org.uk/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

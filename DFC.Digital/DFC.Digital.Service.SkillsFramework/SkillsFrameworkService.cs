@@ -31,7 +31,7 @@ namespace DFC.Digital.Service.SkillsFramework
             this.translationRepository = translationRepository;
         }
 
-        #region Implementation of IBusinessRuleEngine
+        #region Implementation of ISkillsFrameworkService
 
         public IEnumerable<SocCode> GetAllSocMappings()
         {
@@ -72,12 +72,12 @@ namespace DFC.Digital.Service.SkillsFramework
 
             attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
 
-            attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes).ToList();
+            attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
 
             return attributes;
       
         }
 
-        #endregion Implementation of IBusinessRuleEngine
+        #endregion Implementation of ISkillsFrameworkService
     }
 }

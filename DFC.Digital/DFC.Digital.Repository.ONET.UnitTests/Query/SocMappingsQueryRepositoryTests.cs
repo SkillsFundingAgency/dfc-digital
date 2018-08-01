@@ -6,13 +6,15 @@ using DFC.Digital.Repository.ONET.DataModel;
 using AutoMapper;
 using DFC.Digital.Repository.ONET.Mapper;
 using System.Data.Entity;
-using FluentAssertions;
 using System.Data.Entity.Infrastructure;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.UnitTests.Model;
+using FluentAssertions;
+using DFC.Digital.Repository.ONET.Query;
 
-namespace DFC.Digital.Repository.ONET.Query.Tests
+namespace DFC.Digital.Repository.ONET.UnitTests.Query
 {
-    using Data.Model;
-    using ONET.Tests.Model;
+
     public class SocMappingsQueryRepositoryTests:HelperOnetDatas
     {
         [Theory]

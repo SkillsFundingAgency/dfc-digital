@@ -237,12 +237,10 @@
     <Compile Include="Mapper\SkillsFrameworkMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\CombinationsQueryRepository.cs" />
+    <Compile Include="Query\ContentReferenceQueryRepository.cs" />
     <Compile Include="Query\SuppressionsQueryRepository.cs" />
-    <Compile Include="Query\WorkStylesOueryRepository.cs" />
     <Compile Include="Query\DigitalSkillsQueryRepository.cs" />
-    <Compile Include="Query\AbilitiesOueryRepository.cs" />
     <Compile Include="Query\SkillsOueryRepository.cs" />
-    <Compile Include="Query\KnowledgeOueryRepository.cs" />
     <Compile Include="Query\SocMappingsQueryRepository.cs" />
     <Compile Include="Query\TranslationQueryRepository.cs" />
   </ItemGroup>

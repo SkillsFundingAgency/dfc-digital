@@ -27,13 +27,14 @@ namespace DFC.Digital.Repository.ONET.Query
         public IQueryable<FrameWorkSkillCombination> GetAll()
         {
             var result = (from c in onetDbContext.DFC_GDSCombinations
-                          orderby c.application_order descending
+                          orderby c.application_order
                           select new FrameWorkSkillCombination()
                           {
                               OnetElementOneId = c.onet_element_one_id,
                               OnetElementTwoId = c.onet_element_two_id,
                               Title = c.element_name,
                               Description = c.description,
+                              CombinedElementId = c.combined_element_id
                           });
 
             return result;

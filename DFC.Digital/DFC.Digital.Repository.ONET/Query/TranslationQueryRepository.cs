@@ -12,7 +12,7 @@ using DFC.Digital.Repository.ONET.DataModel;
 namespace DFC.Digital.Repository.ONET.Query
 {
     
-    public class TranslationQueryRepository: IQueryRepository<FrameworkSkill>
+    public class TranslationQueryRepository: IQueryRepository<FrameWorkSkill>
     {
         private readonly OnetSkillsFramework onetDbContext;
         private readonly IMapper autoMapper;
@@ -25,36 +25,36 @@ namespace DFC.Digital.Repository.ONET.Query
 
         #region Implementation of IQueryRepository<FrameworkSkill>
 
-        public FrameworkSkill GetById(string id)
+        public FrameWorkSkill GetById(string id)
         {
 
             var result = (from trans in onetDbContext.DFC_GDSTranlations
                 join el in onetDbContext.content_model_reference on trans.onet_element_id equals el.element_id
                 where el.element_id == id
                           orderby trans.onet_element_id
-                select new FrameworkSkill()
+                select new FrameWorkSkill()
                 {
                     ONetElementId = trans.onet_element_id,
                     Title = el.element_name,
                     Description = trans.translation
 
-                }).First();
+                }).Single();
 
             return result;
         }
 
-        public FrameworkSkill Get(Expression<Func<FrameworkSkill, bool>> where)
+        public FrameWorkSkill Get(Expression<Func<FrameWorkSkill, bool>> where)
         {
             return GetAll().Single(where);
         }
 
-        public IQueryable<FrameworkSkill> GetAll()
+        public IQueryable<FrameWorkSkill> GetAll()
         {
             var result = (from trans in onetDbContext.DFC_GDSTranlations
                 join el in onetDbContext.content_model_reference on trans.onet_element_id equals el.element_id
                 where el.element_id == trans.onet_element_id
                 orderby trans.onet_element_id
-                select new FrameworkSkill()
+                select new FrameWorkSkill()
                 {
                     ONetElementId = trans.onet_element_id,
                     Title = el.element_name,
@@ -62,7 +62,7 @@ namespace DFC.Digital.Repository.ONET.Query
 
                 }).Concat(from comb in onetDbContext.DFC_GDSCombinations
                           orderby comb.combined_element_id
-                          select new FrameworkSkill()
+                          select new FrameWorkSkill()
                           {
                               ONetElementId = comb.combined_element_id,
                               Title = comb.element_name,
@@ -70,10 +70,9 @@ namespace DFC.Digital.Repository.ONET.Query
                           });
 
             return result;
-            //  return onetDbContext.DFC_GDSTranlations.ProjectToQueryable<FrameworkSkill>(autoMapper.ConfigurationProvider);
         }
 
-        public IQueryable<FrameworkSkill> GetMany(Expression<Func<FrameworkSkill, bool>> where)
+        public IQueryable<FrameWorkSkill> GetMany(Expression<Func<FrameWorkSkill, bool>> where)
         {
             return GetAll().Where(where);
         }

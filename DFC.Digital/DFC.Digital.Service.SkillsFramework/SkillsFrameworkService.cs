@@ -13,7 +13,7 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IApplicationLogger logger;
         private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
-        private readonly IQueryRepository<FrameworkSkill> translationRepository;
+        private readonly IQueryRepository<FrameWorkSkill> translationRepository;
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
    
@@ -21,7 +21,7 @@ namespace DFC.Digital.Service.SkillsFramework
             IApplicationLogger logger,
             IQueryRepository<SocCode> socRepository,
             IQueryRepository<DigitalSkill> digitalSkillRepository,
-            IQueryRepository<FrameworkSkill> translationRepository,
+            IQueryRepository<FrameWorkSkill> translationRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
         {
             this.logger = logger;
@@ -31,14 +31,14 @@ namespace DFC.Digital.Service.SkillsFramework
             this.translationRepository = translationRepository;
         }
 
-        #region Implementation of IBusinessRuleEngine
+        #region Implementation of ISkillsFrameworkService
 
         public IEnumerable<SocCode> GetAllSocMappings()
         {
             return socRepository.GetAll();
         }
 
-        public IEnumerable<FrameworkSkill> GetAllTranslations()
+        public IEnumerable<FrameWorkSkill> GetAllTranslations()
         {
             return translationRepository.GetAll();
         }
@@ -54,31 +54,30 @@ namespace DFC.Digital.Service.SkillsFramework
         {
 
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
-            var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode); 
+            var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList(); 
 
-            var attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(rawAttributes);
-
-
+           
             //Average out the skill thats have LV and LM scales
-            //attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+            var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);
 
-            //attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
+            attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
+            attributes = skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+            attributes = skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
 
-            //attributes = skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
-            //attributes =  skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
 
-            return skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
+
+            return attributes;
+      
         }
 
-
-
-        #endregion Implementation of IBusinessRuleEngine
+        #endregion Implementation of ISkillsFrameworkService
     }
 }

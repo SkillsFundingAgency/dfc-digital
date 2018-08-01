@@ -16,7 +16,6 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly ISkillsRepository abilitiesOueryRepository;
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly ISkillsRepository workStyleRepository;
-       
         private readonly IList<FrameworkSkill> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 

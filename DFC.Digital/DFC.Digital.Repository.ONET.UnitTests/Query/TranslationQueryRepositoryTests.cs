@@ -9,10 +9,11 @@ using FluentAssertions;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Mapper;
-using DFC.Digital.Repository.ONET.Tests.Model;
-
-namespace DFC.Digital.Repository.ONET.Query.Tests
+using DFC.Digital.Repository.ONET.UnitTests.Model;
+using DFC.Digital.Repository.ONET.Query;
+namespace DFC.Digital.Repository.ONET.UnitTests.Query
 {
+
 
     public class TranslationQueryRepositoryTests : HelperOnetDatas
     {
@@ -21,7 +22,6 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
         public void GetByIdTest(List<DFC_GDSTranlations> setupDbSetData,List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, FrameworkSkill mappedWhatitTakesData, string onetElementId)
         {
 
-            //InProgress as have to yield single object against collection
             //Arrange
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
@@ -49,7 +49,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
             result.OnetElementId.Should().Be(onetElementId);
-          
+
         }
 
         [Theory]
@@ -83,12 +83,12 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
             result.OnetElementId.Should().Be(onetElementId);
-           
+
         }
 
         [Theory]
-        [MemberData(nameof(OnetTranslationsData))]
-        public void GetAllTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData, List<DFC_GDSCombinations> combinationSetupData, List<FrameworkSkill> mappedReturnDbSetData, string onetElementId)
+        [MemberData(nameof(OnetGetAllTranslationsData))]
+        public void GetAllTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData, List<DFC_GDSCombinations> combinationSetupData, List<FrameworkSkill> mappedReturnDbSetData)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
@@ -118,7 +118,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
 
         [Theory]
         [MemberData(nameof(OnetWhatitTakesManyData))]
-        public void GetManyTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, List<FrameworkSkill> mappedWhatitTakesData, string onetElementId1, string onetElementId2)
+        public void GetManyTest(ICollection<DFC_GDSTranlations> setupDbSetData, ICollection<content_model_reference> contentModelSetupData, ICollection<DFC_GDSCombinations> combinationSetupData, ICollection<FrameworkSkill> mappedWhatitTakesData, string onetElementId1, string onetElementId2)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
@@ -143,7 +143,7 @@ namespace DFC.Digital.Repository.ONET.Query.Tests
             //Assert
             var result = repo.GetMany(x => x.OnetElementId == onetElementId1 || x.OnetElementId==onetElementId2);
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
-          
+
         }
     }
 }

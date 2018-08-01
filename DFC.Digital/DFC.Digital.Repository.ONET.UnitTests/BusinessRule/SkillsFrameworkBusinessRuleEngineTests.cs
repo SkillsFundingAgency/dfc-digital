@@ -6,7 +6,7 @@ using AutoMapper;
 using FluentAssertions;
 using DFC.Digital.Service.SkillsFramework;
 
-namespace DFC.Digital.Repository.ONET.UnitTests.BusinessRule
+namespace DFC.Digital.Repository.ONET.UnitTests
 {
     using Core;
     using Data.Interfaces;
@@ -52,7 +52,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.BusinessRule
             var fakeFrameworkSkill = A.Fake<IQueryRepository<FrameworkSkill>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
-            ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
+            var skillsRepository = A.Fake<ISkillsRepository>();
             IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);

@@ -5,11 +5,11 @@ using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 {
-    using Repository.ONET.UnitTests.Model;
+    using Repository.ONET.UnitTests;
 
     public class HelperOnetDatas : HelperEfOnetDatas
     {
-        public HelperOnetDatas()
+        internal HelperOnetDatas()
         {
 
         }

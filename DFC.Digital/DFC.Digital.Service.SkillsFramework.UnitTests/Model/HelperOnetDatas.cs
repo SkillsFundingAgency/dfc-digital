@@ -9,10 +9,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 
     public class HelperOnetDatas : HelperEfOnetDatas
     {
-        internal HelperOnetDatas()
-        {
-
-        }
         private static readonly IEnumerable<FrameworkSkill> FrameWorkTranslatedData = new List<FrameworkSkill>
         {
             new FrameworkSkill
@@ -222,30 +218,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             {
                 DfcSocMappings,
                 SocMappingsData
-            };
-        }
-        public static IEnumerable<object[]> OnetAttributesData()
-        {
-            yield return new object[]
-            {
-                OnetKnowledges,
-                OnetAbilities,
-                OnetSkills,
-                OnetWorkStyles,
-                OnetContentModelReference,
-                DfcUnspcsReference,
-                "11-1011.00"
-
-
-            };
-        }
-        public static IEnumerable<object[]> OnetDigitalSkillsRankData()
-        {
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsReference,
-                "11-3071.03"
             };
         }
         public static IEnumerable<object[]> OnetTranslationsData()

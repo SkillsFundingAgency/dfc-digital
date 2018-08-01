@@ -8,7 +8,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 
     public class HelperEfOnetDatas
     {
-        protected static readonly IEnumerable<DFC_SocMappings> DfcSocMappings = new List<DFC_SocMappings>
+        public static readonly  IEnumerable<DFC_SocMappings> DfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {
@@ -36,7 +36,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             },
 
         };
-        protected static readonly IEnumerable<DFC_GDSTranlations> DfcTranslations = new List<DFC_GDSTranlations>
+        public static readonly IEnumerable<DFC_GDSTranlations> DfcTranslations = new List<DFC_GDSTranlations>
         {
 
             new DFC_GDSTranlations
@@ -90,7 +90,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             },
 
         };
-        protected static readonly IEnumerable<DFC_GDSCombinations> DfcCombination = new List<DFC_GDSCombinations>
+        public static readonly IEnumerable<DFC_GDSCombinations> DfcCombination = new List<DFC_GDSCombinations>
         {
             new DFC_GDSCombinations()
             {
@@ -114,7 +114,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             },
 
         };
-        protected static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
+        public static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
         {
             new tools_and_technology()
             {
@@ -163,7 +163,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             },
 
         };
-        protected static readonly IEnumerable<content_model_reference> OnetContentModelReference =
+        public static readonly IEnumerable<content_model_reference> OnetContentModelReference =
             new List<content_model_reference>()
             {
                 new content_model_reference()

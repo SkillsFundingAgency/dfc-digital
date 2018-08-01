@@ -43,7 +43,7 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             var content = contentReferenceQueryRepository.GetAll();
 
-            var withTitlesAdded = attributes.Join( content, a => a.Id, c => c.OnetElementId, 
+            var withTitlesAdded = attributes.Join( content, a => a.Id, c => c.ONetElementId, 
                 (a, c) => new OnetAttribute
                 {
                         Id = a.Id ,
@@ -157,7 +157,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
         {
-            var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.OnetElementId == a.Id));
+            var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.ONetElementId == a.Id));
             return suppressionsRemoved;
         }
 

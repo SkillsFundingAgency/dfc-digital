@@ -2,7 +2,7 @@
 {
     public class FrameworkSkill
     {
-        public string OnetElementId { get; set; }
+        public string ONetElementId { get; set; }
 
         public string Title { get; set; }
 

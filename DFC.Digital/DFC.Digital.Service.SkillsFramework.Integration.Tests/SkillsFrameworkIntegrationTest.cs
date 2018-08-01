@@ -36,13 +36,13 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var single = repository.GetById("1.A.1.a");
                 single.Should().NotBeNull();
-                single.OnetElementId.Should().Be("1.A.1.a");
+                single.ONetElementId.Should().Be("1.A.1.a");
 
-                var singleByExpression = repository.Get(s => s.OnetElementId == "1.A.1.a");
+                var singleByExpression = repository.Get(s => s.ONetElementId == "1.A.1.a");
                 singleByExpression.Should().NotBeNull();
-                singleByExpression.OnetElementId.Should().Be("1.A.1.a");
+                singleByExpression.ONetElementId.Should().Be("1.A.1.a");
 
-                var manyByExpression = repository.GetMany(s => s.OnetElementId.StartsWith("1.A.", StringComparison.Ordinal));
+                var manyByExpression = repository.GetMany(s => s.ONetElementId.StartsWith("1.A.", StringComparison.Ordinal));
                 manyByExpression.Should().NotBeNull();
 
             }
@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
                 var single = repository.GetById(onetElementId);
                 single.Should().NotBeNull();
-                single.OnetElementId.Should().Be(onetElementId);
+                single.ONetElementId.Should().Be(onetElementId);
 
 
             }
@@ -78,9 +78,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var repository = new TranslationQueryRepository(dbcontext, autoMapper);
 
 
-                var single = repository.Get(x=>x.OnetElementId==onetElementId);
+                var single = repository.Get(x=>x.ONetElementId==onetElementId);
                 single.Should().NotBeNull();
-                single.OnetElementId.Should().Be(onetElementId);
+                single.ONetElementId.Should().Be(onetElementId);
 
 
             }
@@ -100,9 +100,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var repository = new TranslationQueryRepository(dbcontext, autoMapper);
 
 
-                var single = repository.GetMany(x => x.OnetElementId == field1 && x.Description==field2 );
+                var single = repository.GetMany(x => x.ONetElementId == field1 && x.Description==field2 );
                 single.Should().NotBeNull();
-                single.Should().Contain(x => x.OnetElementId == field1);
+                single.Should().Contain(x => x.ONetElementId == field1);
 
             }
         }

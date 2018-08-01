@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.ONET.Query
             var result = (from s in onetDbContext.DFC_GlobalAttributeSuppression
                           select new FrameworkSkill()
                           {
-                              OnetElementId = s.onet_element_id            
+                              ONetElementId = s.onet_element_id            
                           });
 
             return result;

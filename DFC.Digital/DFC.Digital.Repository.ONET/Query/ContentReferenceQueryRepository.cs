@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.ONET.Query
             var result = (from c in onetDbContext.content_model_reference
                           select new FrameworkSkill()
                           {
-                              OnetElementId = c.element_id,
+                              ONetElementId = c.element_id,
                               Title = c.element_name
                           });
 

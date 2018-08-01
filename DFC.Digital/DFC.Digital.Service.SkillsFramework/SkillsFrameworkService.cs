@@ -78,8 +78,6 @@ namespace DFC.Digital.Service.SkillsFramework
       
         }
 
-
-
         #endregion Implementation of IBusinessRuleEngine
     }
 }

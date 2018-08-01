@@ -46,8 +46,8 @@ namespace DFC.Digital.Repository.ONET.BusinessRule.Tests
             IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
             IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
-            ISkillsRepository skillsRepository = new KnowledgeOueryRepository(new OnetSkillsFramework());
-            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, skillsRepository, skillsRepository, skillsRepository, fakeframeworkSkill, fakeCombinationSkill, fakeContentReference);
+            ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeframeworkSkill, fakeCombinationSkill, fakeContentReference);
             ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
 
             var result = ruleEngine.GetDigitalSkillsLevel(input);

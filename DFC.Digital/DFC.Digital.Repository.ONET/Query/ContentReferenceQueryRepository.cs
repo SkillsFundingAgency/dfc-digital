@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.ONET.Query
 {
-    public class ContentReferenceQueryRepository : IQueryRepository<FrameworkSkill>
+    public class ContentReferenceQueryRepository : IQueryRepository<FrameWorkContent>
     {
         private readonly OnetSkillsFramework onetDbContext;
   
@@ -18,15 +18,15 @@ namespace DFC.Digital.Repository.ONET.Query
             this.onetDbContext = onetDbContext;
         }
 
-        public FrameworkSkill Get(System.Linq.Expressions.Expression<Func<FrameworkSkill, bool>> where)
+        public FrameWorkContent Get(System.Linq.Expressions.Expression<Func<FrameWorkContent, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<FrameworkSkill> GetAll()
+        public IQueryable<FrameWorkContent> GetAll()
         {
             var result = (from c in onetDbContext.content_model_reference
-                          select new FrameworkSkill()
+                          select new FrameWorkContent()
                           {
                               ONetElementId = c.element_id,
                               Title = c.element_name
@@ -35,12 +35,12 @@ namespace DFC.Digital.Repository.ONET.Query
             return result;
         }
 
-        public FrameworkSkill GetById(string id)
+        public FrameWorkContent GetById(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<FrameworkSkill> GetMany(System.Linq.Expressions.Expression<Func<FrameworkSkill, bool>> where)
+        public IQueryable<FrameWorkContent> GetMany(System.Linq.Expressions.Expression<Func<FrameWorkContent, bool>> where)
         {
             throw new NotImplementedException();
         }

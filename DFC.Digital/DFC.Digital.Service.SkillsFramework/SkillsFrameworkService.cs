@@ -13,7 +13,7 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IApplicationLogger logger;
         private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
-        private readonly IQueryRepository<FrameworkSkill> translationRepository;
+        private readonly IQueryRepository<FrameWorkSkill> translationRepository;
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
    
@@ -21,7 +21,7 @@ namespace DFC.Digital.Service.SkillsFramework
             IApplicationLogger logger,
             IQueryRepository<SocCode> socRepository,
             IQueryRepository<DigitalSkill> digitalSkillRepository,
-            IQueryRepository<FrameworkSkill> translationRepository,
+            IQueryRepository<FrameWorkSkill> translationRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
         {
             this.logger = logger;
@@ -38,7 +38,7 @@ namespace DFC.Digital.Service.SkillsFramework
             return socRepository.GetAll();
         }
 
-        public IEnumerable<FrameworkSkill> GetAllTranslations()
+        public IEnumerable<FrameWorkSkill> GetAllTranslations()
         {
             return translationRepository.GetAll();
         }

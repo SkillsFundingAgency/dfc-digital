@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class FrameworkSkill
+    public class FrameWorkSkill
     {
         public string ONetElementId { get; set; }
 

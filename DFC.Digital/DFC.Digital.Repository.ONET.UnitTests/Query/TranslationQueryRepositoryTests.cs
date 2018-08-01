@@ -19,7 +19,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
     {
         [Theory]
         [MemberData(nameof(OnetFrameworkSkillTranslationData))]
-        public void GetByIdTest(List<DFC_GDSTranlations> setupDbSetData,List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, FrameworkSkill mappedWhatitTakesData, string onetElementId)
+        public void GetByIdTest(List<DFC_GDSTranlations> setupDbSetData,List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, FrameWorkSkill mappedWhatitTakesData, string onetElementId)
         {
 
             //Arrange
@@ -54,7 +54,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
 
         [Theory]
         [MemberData(nameof(OnetFrameworkSkillTranslationData))]
-        public void GetTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, FrameworkSkill mappedWhatitTakesData, string onetElementId)
+        public void GetTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData,List<DFC_GDSCombinations> combinationSetupData, FrameWorkSkill mappedWhatitTakesData, string onetElementId)
         {
             //InProgress as have to yield single object against collection
             //Arrange
@@ -88,7 +88,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
 
         [Theory]
         [MemberData(nameof(OnetGetAllTranslationsData))]
-        public void GetAllTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData, List<DFC_GDSCombinations> combinationSetupData, List<FrameworkSkill> mappedReturnDbSetData)
+        public void GetAllTest(List<DFC_GDSTranlations> setupDbSetData, List<content_model_reference> contentModelSetupData, List<DFC_GDSCombinations> combinationSetupData, List<FrameWorkSkill> mappedReturnDbSetData)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
@@ -118,7 +118,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
 
         [Theory]
         [MemberData(nameof(OnetWhatitTakesManyData))]
-        public void GetManyTest(ICollection<DFC_GDSTranlations> setupDbSetData, ICollection<content_model_reference> contentModelSetupData, ICollection<DFC_GDSCombinations> combinationSetupData, ICollection<FrameworkSkill> mappedWhatitTakesData, string onetElementId1, string onetElementId2)
+        public void GetManyTest(ICollection<DFC_GDSTranlations> setupDbSetData, ICollection<content_model_reference> contentModelSetupData, ICollection<DFC_GDSCombinations> combinationSetupData, ICollection<FrameWorkSkill> mappedWhatitTakesData, string onetElementId1, string onetElementId2)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));

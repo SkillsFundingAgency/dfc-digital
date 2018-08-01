@@ -16,14 +16,14 @@ namespace DFC.Digital.Repository.ONET.Mapper
                 .ForMember(s => s.translation, m => m.MapFrom(d => d.Description))
                 .ForMember(s => s.onet_element_id, m => m.MapFrom(d => d.Title));
 
-            CreateMap<DFC_GDSTranlations, FrameworkSkill>()
+            CreateMap<DFC_GDSTranlations, FrameWorkSkill>()
                 .ForMember(d => d.Description, m => m.MapFrom(s => s.translation.Trim()))
                 .ForMember(d => d.ONetElementId, m => m.MapFrom(d => d.onet_element_id))
                 .ReverseMap()
                 .ForMember(s => s.translation, m => m.MapFrom(d => d.Description))
                 .ForMember(s => s.onet_element_id, m => m.MapFrom(d => d.ONetElementId));
 
-            CreateMap<content_model_reference, FrameworkSkill>()
+            CreateMap<content_model_reference, FrameWorkSkill>()
                 .ForMember(d => d.Description, m => m.MapFrom(s => s.description.Trim()))
                 .ForMember(d => d.Title, m => m.MapFrom(d => d.element_name))
                 .ForMember(d => d.ONetElementId, m => m.MapFrom(d => d.element_id))

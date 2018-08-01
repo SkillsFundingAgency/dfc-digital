@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
-            var skillsRepository = A.Fake<IRepository<FrameWorkSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
             // Act
@@ -41,12 +41,12 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
         }
         [Theory]
         [MemberData(nameof(FrameworkTranslationData))]
-        public void GetAllTranslationsTest(IReadOnlyCollection<FrameWorkSkill> translatedData)
+        public void GetAllTranslationsTest(IReadOnlyCollection<FrameworkSkill> translatedData)
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
             var socRepository = A.Fake<IRepository<SocCode>>();
-            var skillsRepository = A.Fake<IRepository<FrameWorkSkill>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
             // Act
@@ -62,7 +62,7 @@ namespace DFC.Digital.Service.SkillsFramework.Tests
             // Assert
             A.CallTo(() => skillsRepository.GetAll()).MustHaveHappened();
 
-            var whatItTakesSkills = response as IList<FrameWorkSkill> ?? response.ToList();
+            var whatItTakesSkills = response as IList<FrameworkSkill> ?? response.ToList();
             whatItTakesSkills.Should().NotBeNull();
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }

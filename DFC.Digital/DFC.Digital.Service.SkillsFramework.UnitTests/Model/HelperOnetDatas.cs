@@ -13,52 +13,52 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
         {
 
         }
-        private static readonly IEnumerable<FrameWorkSkill> FrameWorkTranslatedData = new List<FrameWorkSkill>
+        private static readonly IEnumerable<FrameworkSkill> FrameWorkTranslatedData = new List<FrameworkSkill>
         {
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1",
                 Description = "problem-solving skills",
                 Title = "Problem Skills",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.a",
                 Description = "excellent verbal communication skills",
                 Title = "communication skill",
 
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.b",
                 Description = "thinking and reasoning skills",
                 Title = "Reasoing",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.c",
                 Description = "maths skills",
                 Title = "maths",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.d",
                 Description = "a good memory",
                 Title = "memory",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.g",
                 Description = "concentration skills",
                 Title = "concentrate",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.2",
                 Description = "physcial skills like movement, coordination, dexterity and grace",
                 Title = "phyisical skill",
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.2.a",
                 Description = "the ability to work well with your hands",

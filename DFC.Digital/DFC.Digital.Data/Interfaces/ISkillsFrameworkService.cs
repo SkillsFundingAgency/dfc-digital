@@ -7,7 +7,7 @@ namespace DFC.Digital.Data.Interfaces
     {
         IEnumerable<SocCode> GetAllSocMappings();
 
-        IEnumerable<FrameWorkSkill> GetAllTranslations();
+        IEnumerable<FrameworkSkill> GetAllTranslations();
 
         DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode);
 

@@ -33,64 +33,64 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Model
             },
 
         };
-        private static readonly IEnumerable<FrameWorkSkill> TranslatedData = new List<FrameWorkSkill>
+        private static readonly IEnumerable<FrameworkSkill> TranslatedData = new List<FrameworkSkill>
         {
 
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.a",
                 Title="Mathematics",
                 Description = "excellent verbal communication skills and mathematics knowledge"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1a",
                 Title="abilties",
                 Description = "problem-solving skills and working characterstics"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.b",
                 Title = "workstyle",
                 Description = "thinking and reasoning skills and adventourus workstlye"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.c",
                 Title = "knowledge",
                 Description = "maths skills  knowledge and algorithms knowledge"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.d",
                 Title = "Mathematics",
                 Description = "a good memory and mathematics solving skills"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.g",
                 Title = "skills 3",
                 Description = "concentration skills"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.h",
                 Title="skills 4",
                 Description = "the ability to work well with your hands"
             },
-            new FrameWorkSkill
+            new FrameworkSkill
             {
                 ONetElementId = "1.A.1.e",
                 Title = "skills 2",
                 Description = "great leadership and behavioural characterstics"
             },
-            new FrameWorkSkill()
+            new FrameworkSkill()
             {
                 ONetElementId = "C1",
                 Title = "Hello Unit1",
                 Description = "Hello Unit Test"
             },
-            new FrameWorkSkill()
+            new FrameworkSkill()
             {
                 ONetElementId = "C2",
                 Title = "Hello Unit2",
@@ -235,7 +235,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Model
                 DfcTranslations,
                 OnetContentModelReference,
                 DfcCombination,
-                new List<FrameWorkSkill>()
+                new List<FrameworkSkill>()
                 {
                     TranslatedData.ToList()[0],
                     TranslatedData.ToList()[2],

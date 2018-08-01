@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.ONET.Query
 {
-    public class SuppressionsQueryRepository : IQueryRepository<FrameworkSkill>
+    public class ContentReferenceQueryRepository : IQueryRepository<FrameworkSkill>
     {
         private readonly OnetSkillsFramework onetDbContext;
   
-        public SuppressionsQueryRepository(OnetSkillsFramework onetDbContext)
+        public ContentReferenceQueryRepository(OnetSkillsFramework onetDbContext)
         {
             this.onetDbContext = onetDbContext;
         }
@@ -25,10 +25,11 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<FrameworkSkill> GetAll()
         {
-            var result = (from s in onetDbContext.DFC_GlobalAttributeSuppression
+            var result = (from c in onetDbContext.content_model_reference
                           select new FrameworkSkill()
                           {
-                              ONetElementId = s.onet_element_id            
+                              ONetElementId = c.element_id,
+                              Title = c.element_name
                           });
 
             return result;

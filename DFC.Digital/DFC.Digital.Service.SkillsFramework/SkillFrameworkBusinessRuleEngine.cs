@@ -16,22 +16,44 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly ISkillsRepository abilitiesOueryRepository;
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly ISkillsRepository workStyleRepository;
+        private readonly IQueryRepository<FrameworkSkill> contentReferenceQueryRepository;
+
         private readonly IList<FrameworkSkill> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
         private readonly string MathsTitle = "Mathematics";
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeQueryRepository, ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
-          ISkillsRepository workStyleQueryRepository, IQueryRepository<FrameworkSkill> suppressionsQueryRepository, IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository)
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeQueryRepository, 
+               ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
+               ISkillsRepository workStyleQueryRepository, IQueryRepository<FrameworkSkill> suppressionsQueryRepository,
+               IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, IQueryRepository<FrameworkSkill> contentReferenceQueryRepository)
         {
             this.autoMapper = autoMapper;
             this.knowledgeQueryRepository = knowledgeQueryRepository;
             this.abilitiesOueryRepository = abilitiesOueryRepository;
             this.skillsOueryRepository = skillsOueryRepository;
             this.workStyleRepository = workStyleQueryRepository;
+            this.contentReferenceQueryRepository = contentReferenceQueryRepository;
 
             suppressions = suppressionsQueryRepository.GetAll().ToList();
             combinations = combinationsQueryRepository.GetAll().ToList(); 
+        }
+
+        public IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes)
+        {
+            var content = contentReferenceQueryRepository.GetAll();
+
+            var withTitlesAdded = attributes.Join( content, a => a.Id, c => c.ONetElementId, 
+                (a, c) => new OnetAttribute
+                {
+                        Id = a.Id ,
+                        Type = a.Type,
+                        OnetOccupationalCode = a.OnetOccupationalCode,
+                        Name = c.Title,
+                        Score = a.Score
+                });
+
+            return withTitlesAdded;
         }
 
         public IEnumerable<OnetAttribute> AverageOutScoreScales(IEnumerable<OnetAttribute> attributes)
@@ -42,7 +64,7 @@ namespace DFC.Digital.Service.SkillsFramework
                 Type = c.Key.Type,
                 OnetOccupationalCode = c.Key.OnetOccupationalCode,
                 Name = c.Key.Name,
-                Score = (c.Sum(s => (s.Score)) / 2) });
+                Score = (c.Sum(s => (s.Score)) / c.Count()) });
            // var ret = averagedScales.ToList();
             return averagedScales;
         }
@@ -135,7 +157,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
         {
-            var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.OnetElementId == a.Id));
+            var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.ONetElementId == a.Id));
             return suppressionsRemoved;
         }
 

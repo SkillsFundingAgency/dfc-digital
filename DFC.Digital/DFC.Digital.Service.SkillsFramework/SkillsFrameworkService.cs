@@ -56,14 +56,17 @@ namespace DFC.Digital.Service.SkillsFramework
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
             var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList(); 
 
-            var attributes =  skillsBusinessRuleEngine.RemoveDFCSuppressions(rawAttributes);
-
+           
             //Average out the skill thats have LV and LM scales
-            attributes = skillsBusinessRuleEngine.AverageOutScoreScales(attributes);
+            var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);
 
             attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
 
             attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
+
+            attributes = skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
+
+            attributes = skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
 
             attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 

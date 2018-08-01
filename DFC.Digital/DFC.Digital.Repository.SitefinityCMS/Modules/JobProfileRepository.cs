@@ -18,6 +18,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private readonly IDynamicModuleRepository<JobProfile> repository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
+        private readonly IDynamicModuleConverter<ImportJobProfile> converterLight;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private Dictionary<string, JobProfile> cachedJobProfiles = new Dictionary<string, JobProfile>();
 
@@ -25,12 +26,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #region Ctor
 
-        public JobProfileRepository(IDynamicModuleRepository<JobProfile> repository, IDynamicModuleConverter<JobProfile> converter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocSkillMatrix> socSkillRepository)
+        public JobProfileRepository(IDynamicModuleRepository<JobProfile> repository, IDynamicModuleConverter<JobProfile> converter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocSkillMatrix> socSkillRepository, IDynamicModuleConverter<ImportJobProfile> converterLight)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socSkillRepository = socSkillRepository;
+            this.converterLight = converterLight;
         }
 
         #endregion Ctor
@@ -72,19 +74,19 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
         }
 
-        public IEnumerable<JobProfile> GetLiveJobProfiles()
+        public IEnumerable<ImportJobProfile> GetLiveJobProfiles()
         {
             var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
 
             if (jobProfiles.Any())
             {
-                return jobProfiles.Select(item => converter.ConvertFrom(item));
+                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
             }
 
-            return Enumerable.Empty<JobProfile>();
+            return Enumerable.Empty<ImportJobProfile>();
         }
 
-        public RepoActionResult UpdateDigitalSkill(JobProfile jobProfile)
+        public RepoActionResult UpdateDigitalSkill(ImportJobProfile jobProfile)
         {
             var jobprofile = repository.Get(item =>
                 item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
@@ -106,7 +108,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return new RepoActionResult { Success = true };
         }
 
-        public RepoActionResult UpdateSocSkillMatrices(JobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
+        public RepoActionResult UpdateSocSkillMatrices(ImportJobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
         {
             var jobprofile = repository.Get(item =>
                 item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);

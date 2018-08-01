@@ -127,6 +127,7 @@
     <Compile Include="Model\FrameWorkContent.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />
     <Compile Include="Model\FrameWorkSkillCombination.cs" />
+    <Compile Include="Model\ImportJobProfile.cs" />
     <Compile Include="Model\OnetAttribute.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />

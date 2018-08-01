@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Repository.ONET.UnitTests.Model
+﻿namespace DFC.Digital.Repository.ONET.UnitTests
 {
     public enum RangeChecker
     {

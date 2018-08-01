@@ -5,6 +5,7 @@ using FluentAssertions.Common;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -88,9 +89,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var workingEnvironmentView = new JobProfileWhatYouWillDoViewModel
             {
                 EnvironmentTitle = environmentTitle,
-                Environment = environment,
+                Location = location,
                 Uniform = uniform,
-                Location = location
+                Environment = environment
             };
 
             // Act

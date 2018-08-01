@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
+﻿using System.Collections.Generic;
+
+namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
     public class JobProfileWhatYouWillDoViewModel : JobProfileSectionViewModel
     {

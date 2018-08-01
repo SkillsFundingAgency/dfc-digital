@@ -87,7 +87,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             else
             {
                 var newSocMatrix = socMatrixRepository.Create();
-                dynamicContentExtensions.SetFieldValue(newSocMatrix, UrlNameField, socSkillMatrix.SfUrlName);
+                dynamicContentExtensions.SetFieldValue(newSocMatrix, UrlNameField, (Lstring)socSkillMatrix.SfUrlName);
                 socMatrixRepository.Add(newSocMatrix);
 
                 socMatrixRepository.Commit();

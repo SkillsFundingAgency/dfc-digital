@@ -12,21 +12,27 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
         private readonly IMapper autoMapper;
+        private readonly ISkillsRepository knowledgeQueryRepository;
+        private readonly ISkillsRepository abilitiesOueryRepository;
         private readonly ISkillsRepository skillsOueryRepository;
-        private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
+        private readonly ISkillsRepository workStyleRepository;
+        private readonly IQueryRepository<FrameworkSkill> contentReferenceQueryRepository;
 
         private readonly IList<FrameworkSkill> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
         private readonly string MathsTitle = "Mathematics";
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
-               IQueryRepository<FrameworkSkill> suppressionsQueryRepository,
-               IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
-               IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)
+        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository knowledgeQueryRepository,
+               ISkillsRepository skillsOueryRepository, ISkillsRepository abilitiesOueryRepository,
+               ISkillsRepository workStyleQueryRepository, IQueryRepository<FrameworkSkill> suppressionsQueryRepository,
+               IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, IQueryRepository<FrameworkSkill> contentReferenceQueryRepository)
         {
             this.autoMapper = autoMapper;
+            this.knowledgeQueryRepository = knowledgeQueryRepository;
+            this.abilitiesOueryRepository = abilitiesOueryRepository;
             this.skillsOueryRepository = skillsOueryRepository;
+            this.workStyleRepository = workStyleQueryRepository;
             this.contentReferenceQueryRepository = contentReferenceQueryRepository;
 
             suppressions = suppressionsQueryRepository.GetAll().ToList();
@@ -120,10 +126,10 @@ namespace DFC.Digital.Service.SkillsFramework
         public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
         {
 
-            var allSkillForOccupation = skillsOueryRepository.GetAbilitiesForONetOccupationCode(onetOccupationalCode)
-                .Union(skillsOueryRepository.GetKowledgeForONetOccupationCode(onetOccupationalCode)
+            var allSkillForOccupation = knowledgeQueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode)
+                .Union(abilitiesOueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode)
                 .Union(skillsOueryRepository.GetSkillsForONetOccupationCode(onetOccupationalCode))
-                .Union(skillsOueryRepository.GetWorkStylesForONetOccupationCode(onetOccupationalCode)));
+                .Union(workStyleRepository.GetSkillsForONetOccupationCode(onetOccupationalCode)));
     
             return allSkillForOccupation;
         }

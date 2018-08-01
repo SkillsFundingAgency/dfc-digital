@@ -48,7 +48,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
-            result.OnetElementId.Should().Be(onetElementId);
+            result.ONetElementId.Should().Be(onetElementId);
 
         }
 
@@ -82,7 +82,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests.Query
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(mappedWhatitTakesData);
-            result.OnetElementId.Should().Be(onetElementId);
+            result.ONetElementId.Should().Be(onetElementId);
 
         }
 

@@ -8,7 +8,7 @@
         {
             <p>@Model.Introduction</p>
         }
-        @if(Model.DailyTasks !="")
+        @if (!string.IsNullOrWhiteSpace(Model.DailyTasks))
         {
             <section class="job-profile-subsection">
                 <h3>@Model.DailyTasksSectionTitle</h3>

@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\HelperEfOnetDatas.cs" />
     <Compile Include="Model\HelperOnetDatas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

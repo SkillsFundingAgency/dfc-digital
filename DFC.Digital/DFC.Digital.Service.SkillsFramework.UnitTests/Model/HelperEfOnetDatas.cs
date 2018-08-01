@@ -8,9 +8,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 
     public class HelperEfOnetDatas
     {
-        public HelperEfOnetDatas()
-        {
-        }
 
 
         internal static readonly IEnumerable<DFC_SocMappings> DfcSocMappings = new List<DFC_SocMappings>
@@ -38,6 +35,55 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                 ONetCode = "17-2141.00",
                 SocCode = "2122",
 
+            },
+
+        };
+        internal static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
+        {
+            new tools_and_technology()
+            {
+                commodity_code = 44101805,
+                hot_technology = "Y",
+                occupation_data = new occupation_data(),
+                onetsoc_code = "11-3071.03",
+                t2_type = "Tools",
+                t2_example = "Laptop small"
+            },
+            new tools_and_technology()
+            {
+                commodity_code = 44101806,
+                hot_technology = "Y",
+                occupation_data = new occupation_data(),
+                onetsoc_code = "11-3071.04",
+                t2_type = "Tools",
+                t2_example = "Laptop big"
+            },
+            new tools_and_technology()
+            {
+                commodity_code = 44101807,
+                hot_technology = "Y",
+                occupation_data = new occupation_data(),
+                onetsoc_code = "11-3071.05",
+                t2_type = "Tools",
+                t2_example = "Laptop medium"
+            },
+            new tools_and_technology()
+            {
+                commodity_code = 44101808,
+                hot_technology = "Y",
+                occupation_data = new occupation_data(),
+                onetsoc_code = "11-3071.06",
+                t2_type = "Technology",
+                t2_example = "tablet C"
+            },
+            new tools_and_technology()
+            {
+                commodity_code = 44101819,
+                hot_technology = "Y",
+                occupation_data = new occupation_data(),
+                onetsoc_code = "11-3071.07",
+                t2_type = "Technology",
+                t2_example = "Laptop B"
             },
 
         };
@@ -90,55 +136,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                 datetimestamp = DateTime.Today,
                 onet_element_id = "1.A.2.a",
                 translation = "the ability to work well with your hands"
-            },
-
-        };
-        internal static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
-        {
-            new tools_and_technology()
-            {
-                commodity_code = 44101805,
-                hot_technology = "Y",
-                occupation_data = new occupation_data(),
-                onetsoc_code = "11-3071.03",
-                t2_type = "Tools",
-                t2_example = "Laptop small"
-            },
-            new tools_and_technology()
-            {
-                commodity_code = 44101806,
-                hot_technology = "Y",
-                occupation_data = new occupation_data(),
-                onetsoc_code = "11-3071.04",
-                t2_type = "Tools",
-                t2_example = "Laptop big"
-            },
-            new tools_and_technology()
-            {
-                commodity_code = 44101807,
-                hot_technology = "Y",
-                occupation_data = new occupation_data(),
-                onetsoc_code = "11-3071.05",
-                t2_type = "Tools",
-                t2_example = "Laptop medium"
-            },
-            new tools_and_technology()
-            {
-                commodity_code = 44101808,
-                hot_technology = "Y",
-                occupation_data = new occupation_data(),
-                onetsoc_code = "11-3071.06",
-                t2_type = "Technology",
-                t2_example = "tablet C"
-            },
-            new tools_and_technology()
-            {
-                commodity_code = 44101819,
-                hot_technology = "Y",
-                occupation_data = new occupation_data(),
-                onetsoc_code = "11-3071.07",
-                t2_type = "Technology",
-                t2_example = "Laptop B"
             },
 
         };
@@ -204,6 +201,33 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                 segment_title = "office equipment",
                 tools_and_technology = DfcToolsandTechnology.ToList()
             }
+        };
+        internal static readonly IEnumerable<ability> OnetAbilities = new List<ability>()
+        {
+            new ability()
+            {
+                content_model_reference = OnetContentModelReference.ToList()[0],
+                data_value = (decimal)4.7,
+                date_updated = DateTime.Today,
+                element_id = "1.A.1.a",
+                not_relevant = "N",
+                recommend_suppress = "N",
+                scale_id = "IM",
+                onetsoc_code = "11-1011.00",
+                occupation_data = new occupation_data(),
+            },
+            new ability()
+            {
+                content_model_reference = OnetContentModelReference.ToList()[0],
+                data_value = (decimal)4.7,
+                date_updated = DateTime.Today,
+                element_id = "1.A.1.d",
+                not_relevant = "N",
+                recommend_suppress = "N",
+                scale_id = "LV",
+                onetsoc_code = "11-1011.00",
+                occupation_data = new occupation_data(),
+            },
         };
         internal static readonly IEnumerable<content_model_reference> OnetContentModelReference =
             new List<content_model_reference>()
@@ -349,33 +373,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
                 recommend_suppress = "N",
                 onetsoc_code = "11-1011.00",
                 scale_id = "LV"
-            },
-        };
-        internal static readonly IEnumerable<ability> OnetAbilities = new List<ability>()
-        {
-            new ability()
-            {
-                content_model_reference = OnetContentModelReference.ToList()[0],
-                data_value = (decimal)4.7,
-                date_updated = DateTime.Today,
-                element_id = "1.A.1.a",
-                not_relevant = "N",
-                recommend_suppress = "N",
-                scale_id = "IM",
-                onetsoc_code = "11-1011.00",
-                occupation_data = new occupation_data(),
-            },
-            new ability()
-            {
-                content_model_reference = OnetContentModelReference.ToList()[0],
-                data_value = (decimal)4.7,
-                date_updated = DateTime.Today,
-                element_id = "1.A.1.d",
-                not_relevant = "N",
-                recommend_suppress = "N",
-                scale_id = "LV",
-                onetsoc_code = "11-1011.00",
-                occupation_data = new occupation_data(),
             },
         };
         internal static readonly IEnumerable<work_styles> OnetWorkStyles = new List<work_styles>()

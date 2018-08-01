@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.Digital.Repository.ONET.DataModel;
-namespace DFC.Digital.Repository.ONET.UnitTests.Model
+namespace DFC.Digital.Repository.ONET.UnitTests
 {
 
     public class HelperEfOnetDatas

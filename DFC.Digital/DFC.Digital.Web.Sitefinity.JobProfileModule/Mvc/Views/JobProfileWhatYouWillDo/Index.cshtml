@@ -8,12 +8,15 @@
         {
             <p>@Model.Introduction</p>
         }
-        <section class="job-profile-subsection">
-            <h3>@Model.DailyTasksSectionTitle</h3>
-            <div class="job-profile-subsection-content">
-                @Html.Raw(Model.DailyTasks)
-            </div>
-        </section>
+        @if (!string.IsNullOrWhiteSpace(Model.DailyTasks))
+        {
+            <section class="job-profile-subsection">
+                <h3>@Model.DailyTasksSectionTitle</h3>
+                <div class="job-profile-subsection-content">
+                    @Html.Raw(Model.DailyTasks)
+                </div>
+            </section>
+        }
         @Html.Partial("WorkEnvironment", Model)
     </section>
 }

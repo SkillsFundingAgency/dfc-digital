@@ -25,7 +25,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             // CodeReview: TK: Please rmeove unused fields
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
-            var appLogger = A.Fake<IApplicationLogger>();
 
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {

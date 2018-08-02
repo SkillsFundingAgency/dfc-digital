@@ -2,7 +2,6 @@
 using System.Linq;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Service.SkillsFrameworkData;
 using FakeItEasy;
 using Xunit;
 

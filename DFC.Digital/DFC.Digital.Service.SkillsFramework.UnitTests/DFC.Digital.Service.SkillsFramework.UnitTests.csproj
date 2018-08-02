@@ -114,10 +114,6 @@
       <Project>{AD3C4F23-E51E-4D79-A922-4CB138642DC1}</Project>
       <Name>DFC.Digital.Repository.ONET</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.OnetService\DFC.Digital.Service.SkillsFrameworkData.csproj">
-      <Project>{92247873-A7D7-4D28-9C94-D31B36CB78B4}</Project>
-      <Name>DFC.Digital.Service.SkillsFrameworkData</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
       <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
       <Name>DFC.Digital.Service.SkillsFramework</Name>

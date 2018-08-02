@@ -4,7 +4,7 @@ using System.Linq;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Service.SkillsFrameworkData
+namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkDataImportService : IImportSkillsFrameworkDataService
     {

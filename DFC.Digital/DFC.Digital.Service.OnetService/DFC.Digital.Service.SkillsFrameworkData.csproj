@@ -55,8 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryReportAuditRepository.cs" />
-    <Compile Include="SkillsFrameworkDataImportService.cs" />
     <Compile Include="Config\SkillsFrameworkServiceAutofacModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

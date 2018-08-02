@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy2;
+using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Repository.ONET.Config;
 
 namespace DFC.Digital.Service.SkillsFramework.Config
@@ -11,6 +13,12 @@ namespace DFC.Digital.Service.SkillsFramework.Config
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
             builder.RegisterModule<SkillsFrameworkAutofacModule>();
+            builder.RegisterType<InMemoryReportAuditRepository>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
     }
 }

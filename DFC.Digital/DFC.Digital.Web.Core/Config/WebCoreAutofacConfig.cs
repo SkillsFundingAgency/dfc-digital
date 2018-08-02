@@ -12,7 +12,6 @@ using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
 using DFC.Digital.Service.SkillsFramework.Config;
-using DFC.Digital.Service.SkillsFrameworkData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +57,6 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<CourseSearchProviderAutofacModule>()
                 .RegisterModule<SpellCheckAutofacModule>()
                 .RegisterModule<SkillsFrameworkEngineAutofacModule>()
-                .RegisterModule<SkillsFrameworkServiceAutofacModule>()
                 .RegisterModule<SkillsFrameworkAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies

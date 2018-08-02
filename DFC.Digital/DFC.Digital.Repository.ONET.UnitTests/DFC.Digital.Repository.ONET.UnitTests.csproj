@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessRule\SkillsFrameworkBusinessRuleEngineTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\HelperEfOnetDatas.cs" />
     <Compile Include="Model\HelperOnetDatas.cs" />
     <Compile Include="Model\RangeChecker.cs" />

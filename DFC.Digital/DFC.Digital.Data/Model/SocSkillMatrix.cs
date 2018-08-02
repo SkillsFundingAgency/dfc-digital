@@ -21,6 +21,8 @@ namespace DFC.Digital.Data.Model
 
         public string Skill { get; set; }
 
+        public string ONetElementId { get; set; }
+
         public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
     }
 }

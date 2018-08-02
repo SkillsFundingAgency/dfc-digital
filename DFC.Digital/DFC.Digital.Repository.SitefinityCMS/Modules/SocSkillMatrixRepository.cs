@@ -44,12 +44,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 var master = socMatrixRepository.GetMaster(repoSocMatrix);
 
-                if (!string.IsNullOrWhiteSpace(socSkillMatrix.Skill))
+                if (!string.IsNullOrWhiteSpace(socSkillMatrix.ONetElementId))
                 {
                     dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSkillField);
                     var relatedSkillItem = frameworkSkillRepository.Get(d =>
                         d.Status == ContentLifecycleStatus.Master &&
-                        d.GetValue<string>(nameof(FrameworkSkill.Title)) == socSkillMatrix.Skill);
+                        d.GetValue<string>(nameof(FrameworkSkill.ONetElementId)) == socSkillMatrix.ONetElementId);
                     if (relatedSkillItem != null)
                     {
                         dynamicContentExtensions.SetRelatedFieldValue(master, relatedSkillItem, RelatedSkillField);

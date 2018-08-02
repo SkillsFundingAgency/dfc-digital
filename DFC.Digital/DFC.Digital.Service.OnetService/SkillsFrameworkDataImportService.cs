@@ -147,7 +147,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                 {
                     var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(socCode.ONetOccupationalCode);
 
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(", ", occupationSkills.Select(oc => oc.Id))} skills : for occupation code {socCode.ONetOccupationalCode} from SkillFramework Service");
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {string.Join(", ", occupationSkills.Select(oc => oc.Name))} skills : for occupation code {socCode.ONetOccupationalCode} from SkillFramework Service");
                         var rankGenerated = 1;
                     foreach (var occupationSkill in occupationSkills)
                     {
@@ -157,7 +157,8 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                             SocCode = socCode.SOCCode,
                             Skill = occupationSkill.Name,
                             ONetRank = occupationSkill.Score,
-                            Rank = rankGenerated
+                            Rank = rankGenerated,
+                            ONetElementId = occupationSkill.Id
                         };
                         if (!importedSocs.Contains(socSkillToAdd.Title.ToLowerInvariant()))
                         {

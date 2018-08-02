@@ -145,8 +145,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         {
             string testOnetCode = "17-1011.00";
 
-            testOnetCode = "17-2199.03";
-
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeSocRepository = A.Fake<IRepository<SocCode>>();
             var fakeDigitalSkillRepository = A.Fake<IRepository<DigitalSkill>>();
@@ -154,8 +152,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
             IMapper autoMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
 
-
-
+            
             using (OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
                 var skillsRepository = new SkillsOueryRepository(dbcontext);
@@ -176,8 +173,10 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
                 var skillsFrameworkService = new SkillsFrameworkService(fakeLogger, fakeSocRepository, fakeDigitalSkillRepository, fakeDigitalTranslationRepository, skillFrameworkBusinessRuleEngine);
                 var result = skillsFrameworkService.GetRelatedSkillMapping(testOnetCode);
 
-                var resultList = result.ToList();
+                result.Should().NotBeNull();
+
             }
+
         }
 
         // CodeReview: TK: Magic strings could used as inline data to test different conditions

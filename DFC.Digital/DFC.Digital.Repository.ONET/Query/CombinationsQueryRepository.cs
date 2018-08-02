@@ -19,6 +19,7 @@ namespace DFC.Digital.Repository.ONET.Query
             this.onetDbContext = onetDbContext;
         }
 
+        #region Implementation of IQueryRepository<FrameWorkSkillCombination>
         public FrameWorkSkillCombination Get(Expression<Func<FrameWorkSkillCombination, bool>> where)
         {
             throw new NotImplementedException();
@@ -50,5 +51,7 @@ namespace DFC.Digital.Repository.ONET.Query
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

@@ -21,6 +21,7 @@ namespace DFC.Digital.Repository.ONET.Query
             this.onetDbContext = onetDbContext;
         }
 
+        #region Implementation of ISkillsRepository
         public IQueryable<OnetAttribute> GetAbilitiesForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from ability in onetDbContext.abilities
@@ -84,5 +85,6 @@ namespace DFC.Digital.Repository.ONET.Query
                              };
             return attributes;
         }
+        #endregion
     }
 }

@@ -15,13 +15,13 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
 
-        private readonly IList<FrameworkSkill> suppressions;
+        private readonly IList<FrameworkSkillSuppression> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
         private readonly string MathsTitle = "Mathematics";
 
         public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
-               IQueryRepository<FrameworkSkill> suppressionsQueryRepository,
+               IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository,
                IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
                IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)
         {
@@ -32,6 +32,8 @@ namespace DFC.Digital.Service.SkillsFramework
             suppressions = suppressionsQueryRepository.GetAll().ToList();
             combinations = combinationsQueryRepository.GetAll().ToList(); 
         }
+
+        #region Implementation of ISkillFrameworkBusinessRuleEngine
 
         public IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes)
         {
@@ -184,8 +186,6 @@ namespace DFC.Digital.Service.SkillsFramework
 
             return topAttributes;
         }
-
-
-
+        #endregion
     }
 }

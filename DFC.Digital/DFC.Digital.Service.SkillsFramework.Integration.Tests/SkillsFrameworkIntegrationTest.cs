@@ -22,7 +22,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [Fact]
         public void GetAllTransalations()
         {
-
+            // CodeReview: TK: Please rmeove unused fields
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             var appLogger = A.Fake<IApplicationLogger>();
@@ -106,6 +106,8 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
             }
         }
+
+        // CodeReview: TK: Magic strings could used as inline data to test different conditions
         [Fact]
         public void GetAllSocMappings()
         {
@@ -136,6 +138,8 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
+        // CodeReview: TK: Magic strings could used as inline data to test different conditions
+        // Remove unused variables liek fakeskillsRepository, resultList
         [Fact]
         public void GetSkillsForOnetCodeTest()
         {
@@ -176,6 +180,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
+        // CodeReview: TK: Magic strings could used as inline data to test different conditions
         [Fact]
         public void GetDigitalSkillsRank()
         {
@@ -193,6 +198,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
+        // CodeReview: TK: Magic strings could used as inline data to test different conditions
         [Fact]
         public void SkillsFrameworkServiceGetDigitalSkills()
         {
@@ -216,6 +222,8 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             level.Should().BeGreaterThan(0);
 
         }
+
+        // CodeReview: TK: removed unused variables
         [Fact]
         public void GetAllSocMapping()
         {
@@ -240,6 +248,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             level.Should().NotBeNull();
 
         }
+
+        // CodeReview: TK: Remove commented out code
+
         //[Fact]
         //public void GetDigitalSkillRanks()
         //{
@@ -300,4 +311,4 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         //    }
         //}
     }
-    }
+}

@@ -10,6 +10,7 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
+        // CodeReview: TK;  Please remove unused private fields
         private readonly IApplicationLogger logger;
         private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;

@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿//code Review:  TK please fix the using statements
+
+using Xunit;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using DFC.Digital.Repository.ONET.DataModel;
@@ -29,9 +31,11 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetDigitalSkillsLevelTest(int input, DigitalSkillsLevel expectedLevel)
         {
             //Arrange
+            // CodeReview: Tk Place this in the Ctor so your test is cleaner and easier to follow as this not specific for this test
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
-            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
+            // CodeReview: TK : If you are setting these up you should validate they have been called in your Assertions or set these up in the constructor outside the method if they are not used directly
+            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameWorkSkillSuppression>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
             //Act
@@ -46,6 +50,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetDigitalSkillsLevel(string onetSocCode, DigitalSkillsLevel expectedLevel)
         {
             //Arrange
+            // CodeReview: Tk Place this in the Ctor so your test is cleaner and easier to follow as this not specific for this test
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             var fakeLogger = A.Fake<IApplicationLogger>();
@@ -60,7 +65,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
             ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
             //Assert
-            var result= skillService.GetDigitalSkillLevel(onetSocCode);
+            // CodeReview: Tk: Cannot see where you have faked your repos to get this result. 
+            var result = skillService.GetDigitalSkillLevel(onetSocCode);
             result.Should().Be(expectedLevel);
         }
     }

@@ -79,7 +79,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.unspsc_reference).Returns(fakeUnspcDataSet);
 
 
-            var repo = new DigitalSkillsQueryRepository(fakeDbContext, mapper);
+            var repo = new DigitalSkillsQueryRepository(fakeDbContext);
 
             //Assert
             var result= repo.GetById(onetSocCode);

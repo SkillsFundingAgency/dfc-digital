@@ -12,12 +12,10 @@ namespace DFC.Digital.Repository.ONET.Query
     {
         // CodeReview: TK;  Please remove unused private fields
         private readonly OnetSkillsFramework onetDbContext;
-        private readonly IMapper autoMapper;
     
-        public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext, IMapper autoMapper)
+        public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext)
         {
             this.onetDbContext = onetDbContext;
-            this.autoMapper = autoMapper;
         }
 
         public DigitalSkill Get(Expression<Func<DigitalSkill, bool>> where)

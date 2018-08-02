@@ -108,31 +108,30 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         }
 
         // CodeReview: TK: Magic strings could used as inline data to test different conditions
-        [Fact]
-        public void GetAllSocMappings()
+        [Theory]
+        [InlineData("2215A", "29-1021.00")]
+        public void GetAllSocMappings(string socCode,string onetSocCode)
         {
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
-            //IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
 
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
                 var repository = new SocMappingsQueryRepository(dbcontext, mapper);
                 var all = repository.GetAll();
-                //var dfcGdsSocMappingses = all as IList<SocCode> ?? all.ToList();
                 all.Should().NotBeNull();
                 var count = all.Count();
                 count.Should().Be(780);
 
-                var single = repository.GetById("2215A");
+                var single = repository.GetById(socCode);
                 single.Should().NotBeNull();
-                single.ONetOccupationalCode.Should().Be("29-1021.00");
+                single.ONetOccupationalCode.Should().Be(onetSocCode);
 
-                var singleByExpression = repository.Get(s => s.SOCCode == "2215A");
+                var singleByExpression = repository.Get(s => s.SOCCode == socCode);
                 singleByExpression.Should().NotBeNull();
-                singleByExpression.ONetOccupationalCode.Should().Be("29-1021.00");
+                singleByExpression.ONetOccupationalCode.Should().Be(onetSocCode);
 
-                var manyByExpression = repository.GetMany(s => s.SOCCode.StartsWith("212"));
+                var manyByExpression = repository.GetMany(s => s.SOCCode.StartsWith(socCode.Substring(0, 2), StringComparison.CurrentCulture));
                 manyByExpression.Should().NotBeNull();
 
             }
@@ -183,13 +182,9 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [Fact]
         public void GetDigitalSkillsRank()
         {
-
-            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
-            var mapper = mapperConfig.CreateMapper();
-
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
-                var repository = new DigitalSkillsQueryRepository(dbcontext, mapper);
+                var repository = new DigitalSkillsQueryRepository(dbcontext);
 
                 var single = repository.GetById("11-1011.00");
                 single.Should().NotBeNull();
@@ -209,7 +204,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
 
             IQueryRepository<SocCode> socCodeRepository=new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
-            IQueryRepository<DigitalSkill> digitalSkillsRepository=new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<DigitalSkill> digitalSkillsRepository=new DigitalSkillsQueryRepository(new OnetSkillsFramework());
             IQueryRepository<FrameworkSkill> frameWorkRepository=new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
             ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
 
@@ -234,9 +229,8 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
 
             IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
-            IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
+            IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework());
             IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
-            IQueryRepository<FrameworkSkill> contentRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
             ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
 
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
@@ -248,66 +242,5 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         }
 
-        // CodeReview: TK: Remove commented out code
-
-        //[Fact]
-        //public void GetDigitalSkillRanks()
-        //{
-        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-        //    var GetRank = 0;
-        //    const string onetCode = "11-1011.00";
-        //    var appLogger = A.Fake<IApplicationLogger>();
-        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-
-        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-        //    {
-        //        var rankResult = repository.GetDigitalSkillsRankAsync<int>(onetCode).Result;
-        //        rankResult.Should().BeGreaterThan(0);
-        //        if(rankResult > Convert.ToInt32(RangeChecker.FirstRange))
-        //            GetRank = 1;
-        //        if((rankResult > Convert.ToInt32(RangeChecker.SecondRange)) && (rankResult < Convert.ToInt32(RangeChecker.FirstRange)))
-        //            GetRank = 2;
-        //        if((rankResult > Convert.ToInt32(RangeChecker.ThirdRange)) && (rankResult < Convert.ToInt32(RangeChecker.SecondRange)))
-        //            GetRank = 3;
-        //        if((rankResult > Convert.ToInt32(RangeChecker.FourthRange)) && (rankResult < Convert.ToInt32(RangeChecker.ThirdRange)))
-        //            GetRank = 4;
-        //    }
-        //}
-
-        //[Fact]
-        //public void GetDigitalSkills()
-        //{
-        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-        //    const string onetCode = "11-1011.00";
-        //    var appLogger = A.Fake<IApplicationLogger>();
-        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-        //    {
-        //        var digitalSkillsData = repository.GetDigitalSkillsAsync<DfcOnetDigitalSkills>(onetCode).Result;
-        //        digitalSkillsData.DigitalSkillsCollection.Should().NotBeNull();
-        //        digitalSkillsData.DigitalSkillsCount.Should().NotBe(0);
-        //    }
-        //}
-
-        //[Fact]
-        //public void GetAttributes()
-        //{
-        //    IMapper iMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
-        //    const string onetCode = "11-1011.00";
-        //    var appLogger = A.Fake<IApplicationLogger>();
-        //    IObjectContextFactory<OnetRepositoryDbContext> contextFactory = new ObjectContextFactory<OnetRepositoryDbContext>();
-
-        //    using(IOnetRepository repository = new OnetRepository(contextFactory, iMapper, appLogger))
-        //    {
-        //        var digitalSkillsData = repository.GetAttributesValuesAsync<DfcOnetAttributesData>(onetCode).Result;
-        //        var dfcGdsAttributesDatas = digitalSkillsData as IList<DfcOnetAttributesData> ?? digitalSkillsData.ToList();
-        //        dfcGdsAttributesDatas.Should().HaveCount(20);
-        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Knowledge);
-        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Skills);
-        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.Abilities);
-        //        dfcGdsAttributesDatas.Should().Contain(x => x.Attribute == Attributes.WorkStyles);
-
-        //    }
-        //}
     }
 }

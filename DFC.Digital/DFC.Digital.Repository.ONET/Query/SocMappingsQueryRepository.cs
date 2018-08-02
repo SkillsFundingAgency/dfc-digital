@@ -37,7 +37,6 @@ namespace DFC.Digital.Repository.ONET.Query
                     Title = null
                 });
             return result;
-            // return onetDbContext.DFC_SocMappings.ProjectToQueryable<SocCode>(autoMapper.ConfigurationProvider);
         }
 
         public SocCode GetById(string id)

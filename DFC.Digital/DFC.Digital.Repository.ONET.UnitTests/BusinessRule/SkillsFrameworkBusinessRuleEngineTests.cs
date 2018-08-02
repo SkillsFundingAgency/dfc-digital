@@ -8,14 +8,17 @@ using DFC.Digital.Service.SkillsFramework;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
     using Core;
     using Data.Interfaces;
     using Mapper;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using ONET.Query;
 
-    [TestClass]
-    public class SkillsFrameworkBusinessRuleEngineTests
+    public class SkillsFrameworkBusinessRuleEngineTests:HelperOnetDatas
     {
         [Theory]
         [InlineData(0, DigitalSkillsLevel.Level4)]
@@ -42,26 +45,43 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             result.Should().Be(expectedLevel);
         }
         [Theory]
-        [InlineData("11-1011.00", DigitalSkillsLevel.Level3)]
-        public void GetDigitalSkillsLevel(string onetSocCode, DigitalSkillsLevel expectedLevel)
+        [MemberData(nameof(OnetDigitalSkills))]
+        public void GetDigitalSkillsLevel(IReadOnlyCollection<tools_and_technology> setupDataToolsAndTechnologies,IReadOnlyCollection<unspsc_reference> setupDataUnspscReferences,string onetSocCode,int numberOfRecords,int applicationCount)
         {
             //Arrange
+
+            var setupTools = new List<tools_and_technology>(numberOfRecords);
+            setupTools.AddRange(Enumerable.Repeat(setupDataToolsAndTechnologies.ToList()[0], numberOfRecords));
+
+            var setupUnspscReferences = new List<unspsc_reference>(numberOfRecords);
+            setupUnspscReferences.AddRange(Enumerable.Repeat(setupDataUnspscReferences.ToList()[0], numberOfRecords));
+
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
-            var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
-            var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
-            var skillsRepository = A.Fake<ISkillsRepository>();
+
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var fakeToolsAndTechnologyDbSet = A.Fake<DbSet<tools_and_technology>>(c => c
+                    .Implements(typeof(IQueryable<tools_and_technology>))
+                    .Implements(typeof(IDbAsyncEnumerable<tools_and_technology>)))
+                .SetupData(setupTools.ToList());
+            var fakeUnspcDataSet = A.Fake<DbSet<unspsc_reference>>(c => c
+                    .Implements(typeof(IQueryable<unspsc_reference>))
+                    .Implements(typeof(IDbAsyncEnumerable<unspsc_reference>)))
+                .SetupData(setupUnspscReferences.ToList());
+
             //Act
-            IQueryRepository<SocCode> socCodeRepository = new SocMappingsQueryRepository(new OnetSkillsFramework(), mapper);
-            IQueryRepository<DigitalSkill> digitalSkillsRepository = new DigitalSkillsQueryRepository(new OnetSkillsFramework(), mapper);
-            IQueryRepository<FrameworkSkill> frameWorkRepository = new TranslationQueryRepository(new OnetSkillsFramework(), mapper);
-            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
-            ISkillsFrameworkService skillService = new SkillsFrameworkService(fakeLogger, socCodeRepository, digitalSkillsRepository, frameWorkRepository, ruleEngine);
+            A.CallTo(() => fakeDbContext.tools_and_technology).Returns(fakeToolsAndTechnologyDbSet);
+            A.CallTo(() => fakeDbContext.unspsc_reference).Returns(fakeUnspcDataSet);
+
+
+            var repo = new DigitalSkillsQueryRepository(fakeDbContext, mapper);
+
             //Assert
-            var result= skillService.GetDigitalSkillLevel(onetSocCode);
-            result.Should().Be(expectedLevel);
+            var result= repo.GetById(onetSocCode);
+            result.Should().NotBeNull();
+            result.ApplicationCount.Should().NotBe(0);
+            result.ApplicationCount.Should().Be(applicationCount);
         }
     }
 }

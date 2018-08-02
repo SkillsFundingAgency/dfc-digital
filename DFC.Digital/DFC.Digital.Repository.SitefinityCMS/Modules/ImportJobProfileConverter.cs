@@ -31,6 +31,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var jobProfile = new ImportJobProfile
             {
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
                 DigitalSkillsLevel =
                     dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel))

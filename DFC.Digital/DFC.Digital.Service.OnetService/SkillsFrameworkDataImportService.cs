@@ -10,12 +10,14 @@ namespace DFC.Digital.Service.SkillsFrameworkData
     {
         private const string SummaryDetailsKey = "SummaryDetails";
         private const string ActionDetailsKey = "ActionDetails";
+        private const string ErrorDetailsKey = "ErrorDetails";
         private readonly ISkillsFrameworkService skillsFrameworkService;
         private readonly IFrameworkSkillRepository frameworkSkillRepository;
         private readonly ISocSkillMatrixRepository socSkillMatrixRepository;
         private readonly IJobProfileSocCodeRepository jobProfileSocCodeRepository;
         private readonly IJobProfileRepository jobProfileRepository;
         private readonly IReportAuditRepository reportAuditRepository;
+
 
         public SkillsFrameworkDataImportService(ISkillsFrameworkService skillsFrameworkService, IFrameworkSkillRepository frameworkSkillRepository, IJobProfileSocCodeRepository jobProfileSocCodeRepository, IJobProfileRepository jobProfileRepository, ISocSkillMatrixRepository socSkillMatrixRepository, IReportAuditRepository reportAuditRepository)
         {
@@ -121,17 +123,18 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             var socSkillMatrices = socSkillMatrixRepository.GetSocSkillMatrices().ToList();
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socSkillMatrices.Count} soc skill matrices in the repo");
 
-            var importedSocs = socSkillMatrices.Select(socSkil => socSkil.SocCode).Distinct().ToList();
-            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes();
-            var socCodesToUpdate = allSocCodes.Where(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && !string.IsNullOrWhiteSpace(sc.SOCCode) && !importedSocs.Contains(sc.SOCCode));
-            var socCodesWithRelatedSocSkills = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importedSocs.Contains(sc.SOCCode));
-            var socCodesWithoutRelatedSocs = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && !importedSocs.Contains(sc.SOCCode));
+            var importedSocs = socSkillMatrices.Select(socSkil => socSkil.Title.ToLowerInvariant()).Distinct().ToList();
+            var importSocCount = socSkillMatrices.Select(socSkil => socSkil.SocCode.ToLowerInvariant()).ToList();
+            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
+            var socCodesToUpdate = allSocCodes.Where(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && !string.IsNullOrWhiteSpace(sc.SOCCode) && importSocCount.Select(x => x.Equals(sc.SOCCode)).Count() < 20);
+            var socCodesWithRelatedSocSkills = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importSocCount.Select(x => x.Equals(sc.SOCCode)).Count() >= 20);
+            var socCodesWithoutRelatedSocs = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importSocCount.Select(x => x.Equals(sc.SOCCode)).Count() < 20);
             var socCodesWithoutOcCode = allSocCodes.Where(sc => string.IsNullOrWhiteSpace(sc.ONetOccupationalCode));
 
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count()} soc codes  in the repo  ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithRelatedSocSkills} soc codes with skill matrices in the repo, based on soc Code");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithRelatedSocSkills} soc codes with 20 skill matrices in the repo");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {string.Join(", ", importedSocs)} soc codes in the skill matrix repo  ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutRelatedSocs} soc codes without skill matrices in the repo, based on soc Code");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutRelatedSocs} soc codes without 20 skill matrices in the repo, based on soc Code");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutOcCode.Count()} soc codes without coccupational codes with the following urlnames {string.Join(", ", socCodesWithoutOcCode.Select(jp => jp.UrlName))}");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to  use {socCodesToUpdate.Count()} soc codes to add soc skill matrices in the repo, based on soc Code");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to  use {string.Join(", ", socCodesToUpdate.Select(sc => sc.SOCCode))} socs to add soc skill matrices in the repo, based on soc Code");
@@ -139,6 +142,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             var addedSocs = new List<string>();
             foreach (var socCode in socCodesToUpdate)
             {
+               
                 if (!string.IsNullOrWhiteSpace(socCode.ONetOccupationalCode))
                 {
                     var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(socCode.ONetOccupationalCode);
@@ -147,21 +151,33 @@ namespace DFC.Digital.Service.SkillsFrameworkData
                         var rankGenerated = 1;
                     foreach (var occupationSkill in occupationSkills)
                     {
-                        if (!addedSocs.Contains(socCode.SOCCode))
-                        {
-                            addedSocs.Add(socCode.SOCCode);
-                        }
-
-                        socSkillMatrixRepository.UpsertSocSkillMatrix(new SocSkillMatrix
+                        var socSkillToAdd = new SocSkillMatrix
                         {
                             Title = $"{socCode.SOCCode}-{occupationSkill.Name}",
                             SocCode = socCode.SOCCode,
                             Skill = occupationSkill.Name,
                             ONetRank = occupationSkill.Score,
                             Rank = rankGenerated
-                        });
-                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {socCode.SOCCode}-{occupationSkill.Id}  into socskill matrix repo");
-                        rankGenerated++;
+                        };
+                        if (!importedSocs.Contains(socSkillToAdd.Title.ToLowerInvariant()))
+                        {
+                            try
+                            {
+                                socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
+                                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {socSkillToAdd.Title}  into socskill matrix repo");
+                                rankGenerated++;
+                                if (!addedSocs.Contains(socCode.SOCCode))
+                                {
+                                    addedSocs.Add(socCode.SOCCode);
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Error adding  {socSkillToAdd.Title} into socskill matrix repo with exception {ex.Message}");
+                            }
+                        }
+                       
                     }
                 }
             }

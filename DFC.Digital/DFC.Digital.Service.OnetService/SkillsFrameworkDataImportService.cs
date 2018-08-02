@@ -126,7 +126,7 @@ namespace DFC.Digital.Service.SkillsFrameworkData
             var importedSocs = socSkillMatrices.Select(socSkil => socSkil.Title.ToLowerInvariant()).Distinct().ToList();
             var importSocCount = socSkillMatrices.Select(socSkil => socSkil.SocCode.ToLowerInvariant()).ToList();
             var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
-            var socCodesToUpdate = allSocCodes.Where(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && !string.IsNullOrWhiteSpace(sc.SOCCode) && importSocCount.Count(x => x.Equals(sc.SOCCode)) < 20).ToList();
+            var socCodesToUpdate = allSocCodes.Where(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && !string.IsNullOrWhiteSpace(sc.SOCCode) && importSocCount.Count(x => x.Equals(sc.SOCCode)) < 20).Take(50).ToList();
             var socCodesWithRelatedSocSkills = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importSocCount.Count(x => x.Equals(sc.SOCCode)) >= 20);
             var socCodesWithoutRelatedSocs = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importSocCount.Count(x => x.Equals(sc.SOCCode)) < 20);
             var socCodesWithoutOcCode = allSocCodes.Where(sc => string.IsNullOrWhiteSpace(sc.ONetOccupationalCode));

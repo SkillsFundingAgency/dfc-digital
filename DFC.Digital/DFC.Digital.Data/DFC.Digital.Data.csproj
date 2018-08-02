@@ -125,6 +125,7 @@
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
     <Compile Include="Model\FrameWorkContent.cs" />
+    <Compile Include="Model\FrameworkSkillSuppression.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />
     <Compile Include="Model\FrameWorkSkillCombination.cs" />
     <Compile Include="Model\ImportJobProfile.cs" />

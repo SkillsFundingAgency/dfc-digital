@@ -63,8 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\SkillsFrameworkEngineAutofacModule.cs" />
+    <Compile Include="InMemoryReportAuditRepository.cs" />
     <Compile Include="SkillFrameworkBusinessRuleEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SkillsFrameworkDataImportService.cs" />
     <Compile Include="SkillsFrameworkService.cs" />
   </ItemGroup>
   <ItemGroup>

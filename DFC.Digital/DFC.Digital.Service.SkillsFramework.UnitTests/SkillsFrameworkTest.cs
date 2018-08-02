@@ -8,7 +8,7 @@ using System.Linq;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Service.SkillsFramework.UnitTests.Model;
 
-namespace DFC.Digital.Service.SkillsFramework.Tests
+namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
     public class SkillsFrameworkTest : HelperOnetDatas
     {

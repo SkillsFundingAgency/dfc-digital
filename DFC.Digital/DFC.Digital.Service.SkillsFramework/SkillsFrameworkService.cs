@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+//CodeReview; Please remove if not needed
 //using DFC.Digital.Repository.ONET;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
+        // CodeReview: TK;  Please remove unused private fields
         private readonly IApplicationLogger logger;
         private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;

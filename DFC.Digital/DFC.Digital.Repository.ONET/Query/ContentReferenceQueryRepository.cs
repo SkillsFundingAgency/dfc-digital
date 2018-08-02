@@ -2,10 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.ONET.Query
 {

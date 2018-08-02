@@ -11,6 +11,7 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
+        // CodeReview: TK: Please remove unsed fields
         private readonly IMapper autoMapper;
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
@@ -18,6 +19,7 @@ namespace DFC.Digital.Service.SkillsFramework
         private readonly IList<FrameworkSkillSuppression> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
+        // CodeReview: TK: Please make this a const
         private readonly string MathsTitle = "Mathematics";
 
         public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
@@ -52,6 +54,11 @@ namespace DFC.Digital.Service.SkillsFramework
             return withTitlesAdded;
         }
 
+        /// <summary>
+        /// / CodeReview: TK: this method needs a brief comment to clarify its purpose      
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns></returns>
         public IEnumerable<OnetAttribute> AverageOutScoreScales(IEnumerable<OnetAttribute> attributes)
         {
 
@@ -66,10 +73,15 @@ namespace DFC.Digital.Service.SkillsFramework
         }
 
 
+        /// <summary>
+        /// / CodeReview:  TK: this method needs a brief comment to clarify its purpose    
+        /// </summary>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns></returns>
         public IEnumerable<OnetAttribute> BoostMathsSkills(IEnumerable<OnetAttribute> attributes)
         {
-            OnetAttribute skillsMaths = attributes.Where(a => a.Name == MathsTitle && a.Type == AttributeType.Skill).FirstOrDefault();
-            OnetAttribute knowledgeMaths = attributes.Where(a => a.Name == MathsTitle && a.Type == AttributeType.Knowledge).FirstOrDefault();
+            OnetAttribute skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Skill);
+            OnetAttribute knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Knowledge);
 
             //if we have both remove one
             if (skillsMaths != null && knowledgeMaths != null)
@@ -101,7 +113,7 @@ namespace DFC.Digital.Service.SkillsFramework
             foreach (var combination in combinations)
             {
                 var topAttributes = SelectTopAttributes(attributes);
-
+                // Code Review: TK: Simply these two to topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
                 OnetAttribute elementOne = topAttributes.Where(a => a.Id == combination.OnetElementOneId).FirstOrDefault();
                 OnetAttribute elementTwo = topAttributes.Where(a => a.Id == combination.OnetElementTwoId).FirstOrDefault();
 
@@ -138,7 +150,7 @@ namespace DFC.Digital.Service.SkillsFramework
                      : DigitalSkillsLevel.Level4;
             return rankValue;
         }
-
+        
         /// <summary>
         /// Any items that have a key length > 7 are at the bottom level so trim them to 7 to move up one node
         /// </summary>
@@ -147,6 +159,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)
         {
             var bottomNodesUpOne = attributes.Select(a => { a.Id = (a.Id.Length < 7) ? a.Id : a.Id.Substring(0, 7); return a; });
+            // Code Review: TK: Please remove commented out code
             //var ret = bottomNodesUpOne.ToList();
             return bottomNodesUpOne;
         }
@@ -165,6 +178,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes)
         {
             var duplicatesRemoved = attributes.GroupBy(a => a.Id).Select(b => b.OrderByDescending(c => c.Score).First());
+            // Code Review: TK: Please remove commented out code
             //var ret = duplicatesRemoved.ToList();
             return duplicatesRemoved;
         }

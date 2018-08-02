@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DFC.Digital.Data.Interfaces;
 
-namespace DFC.Digital.Service.SkillsFrameworkData
+namespace DFC.Digital.Service.SkillsFramework
 {
     public class InMemoryReportAuditRepository : IReportAuditRepository
     {

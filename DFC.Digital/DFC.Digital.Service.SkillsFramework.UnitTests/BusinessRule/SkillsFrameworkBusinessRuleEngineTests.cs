@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿//code Review:  TK please fix the using statements
+
+using Xunit;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using DFC.Digital.Repository.ONET.DataModel;
@@ -32,9 +34,11 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetDigitalSkillsLevelTest(int input, DigitalSkillsLevel expectedLevel)
         {
             //Arrange
+            // CodeReview: Tk Place this in the Ctor so your test is cleaner and easier to follow as this not specific for this test
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
-            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
+            // CodeReview: TK : If you are setting these up you should validate they have been called in your Assertions or set these up in the constructor outside the method if they are not used directly
+            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameWorkSkillSuppression>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
             //Act

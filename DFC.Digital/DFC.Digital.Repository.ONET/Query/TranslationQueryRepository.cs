@@ -11,6 +11,7 @@ namespace DFC.Digital.Repository.ONET.Query
     
     public class TranslationQueryRepository: IQueryRepository<FrameworkSkill>
     {
+        // CodeReview: TK;  Please remove unused private fields
         private readonly OnetSkillsFramework onetDbContext;
         private readonly IMapper autoMapper;
 
@@ -22,6 +23,7 @@ namespace DFC.Digital.Repository.ONET.Query
 
         #region Implementation of IQueryRepository<FrameworkSkill>
 
+        // CodeReview: Tk: is this being used by the translations processes, if not why we do have it
         public FrameworkSkill GetById(string id)
         {
 

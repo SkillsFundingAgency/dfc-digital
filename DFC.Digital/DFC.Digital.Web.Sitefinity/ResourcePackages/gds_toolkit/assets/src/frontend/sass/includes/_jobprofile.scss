@@ -566,6 +566,7 @@
 
 .job-profile-feedback {
     position: sticky;
+    position: -webkit-sticky;
     bottom: 0;
     background-color: $white;
     color: $govuk-blue;

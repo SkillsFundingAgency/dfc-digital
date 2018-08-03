@@ -13,7 +13,7 @@ using DFC.Digital.Repository.ONET.Query;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
 
-    public class SkillsFrameworkBusinessRuleEngineTests:HelperOnetDatas
+    public class SkillsFrameworkBusinessRuleEngineTests
     {
         [Theory]
         [InlineData(0, DigitalSkillsLevel.Level4)]

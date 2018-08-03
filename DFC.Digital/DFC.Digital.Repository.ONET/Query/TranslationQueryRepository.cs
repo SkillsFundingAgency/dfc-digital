@@ -11,8 +11,8 @@ namespace DFC.Digital.Repository.ONET.Query
     
     public class TranslationQueryRepository: IQueryRepository<FrameworkSkill>
     {
-        // CodeReview: TK;  Please remove unused private fields
-        //Done-Dinesh
+        // CodeReview: TK;  Please remove unused private fields ( Done - Dinesh)
+        
         private readonly OnetSkillsFramework onetDbContext;
 
         public TranslationQueryRepository(OnetSkillsFramework onetDbContext)

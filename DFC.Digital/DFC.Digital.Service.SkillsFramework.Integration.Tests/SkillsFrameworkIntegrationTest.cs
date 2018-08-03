@@ -18,7 +18,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
         [Fact]
         public void GetAllTransalations()
         {
-            // CodeReview: TK: Please rmeove unused fields (Done - Dinesh)
 
             using(OnetSkillsFramework dbcontext = new OnetSkillsFramework())
             {
@@ -93,8 +92,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
             }
         }
-
-        // CodeReview: TK: Magic strings could used as inline data to test different conditions (Done - Dinesh)
         [Theory]
         [InlineData("2215A", "29-1021.00")]
         public void GetAllSocMappings(string socCode,string onetSocCode)
@@ -124,9 +121,7 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
-        // CodeReview: TK: Magic strings could used as inline data to test different conditions
-        // Remove unused variables liek fakeskillsRepository, resultList - (Done - Dinesh)
-        [Theory]
+         [Theory]
         [InlineData("17-1011.00")]
         public void GetSkillsForOnetCodeTest(string onetSocCode)
         {
@@ -156,7 +151,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
 
         }
 
-        // CodeReview: TK: Magic strings could used as inline data to test different conditions (Done - Dinesh)
         [Theory]
         [InlineData("11-1011.00")]
         public void GetDigitalSkillsRank(string onetSocCode)
@@ -171,7 +165,6 @@ namespace DFC.Digital.Service.SkillsFramework.Integration.Tests
             }
         }
 
-        // CodeReview: TK: Magic strings could used as inline data to test different conditions (Done-Dinesh)
         [Theory]
         [InlineData("11-1011.00")]
         public void SkillsFrameworkServiceGetDigitalSkills(string onetSocCode)

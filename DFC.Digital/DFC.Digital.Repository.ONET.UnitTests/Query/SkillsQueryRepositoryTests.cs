@@ -11,7 +11,7 @@ using DFC.Digital.Repository.ONET.Query;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
-    public class SuppressionsQueryRepositoryTests 
+    public class SkillsQueryRepositoryTests 
     {
               
         [Fact]

@@ -115,6 +115,7 @@
     <Compile Include="Model\HelperEfOnetDatas.cs" />
     <Compile Include="Model\HelperOnetDatas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\DigitalSkillsQueryRepositoryTests.cs" />
     <Compile Include="Query\SocMappingsQueryRepositoryTests.cs" />
     <Compile Include="Query\SuppressionsQueryRepositoryTests.cs" />
     <Compile Include="Query\TranslationQueryRepositoryTests.cs" />

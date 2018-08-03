@@ -25,7 +25,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             //Arrange
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
-            IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
             var fakeTranslationDbSet= A.Fake<DbSet<DFC_GDSTranlations>>(c => c
                     .Implements(typeof(IQueryable<DFC_GDSTranlations>))
                     .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>)))
@@ -42,7 +41,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_GDSTranlations).Returns(fakeTranslationDbSet);
             A.CallTo(() => fakeDbContext.content_model_reference).Returns(fakeContentDbSet);
             A.CallTo(() => fakeDbContext.DFC_GDSCombinations).Returns(fakeCombinationDbSet);
-            var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
+            var repo = new TranslationQueryRepository(fakeDbContext);
 
             //Assert
             var result = repo.GetById(onetElementId);
@@ -67,7 +66,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //InProgress as have to yield single object against collection
             //Arrange
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
-            IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
             var fakeTranslationDbSet = A.Fake<DbSet<DFC_GDSTranlations>>(c => c
                 .Implements(typeof(IQueryable<DFC_GDSTranlations>))
                 .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>))).SetupData(setupDbSetData.ToList());
@@ -83,7 +81,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_GDSTranlations).Returns(fakeTranslationDbSet);
             A.CallTo(() => fakeDbContext.content_model_reference).Returns(fakeContentDbSet);
             A.CallTo(() => fakeDbContext.DFC_GDSCombinations).Returns(fakeCombinationDbSet);
-            var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
+            var repo = new TranslationQueryRepository(fakeDbContext);
 
             //Assert
             var result = repo.Get(x => x.ONetElementId == onetElementId);
@@ -106,7 +104,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetAllTest(IReadOnlyCollection<DFC_GDSTranlations> setupDbSetData, IReadOnlyCollection<content_model_reference> contentModelSetupData, IReadOnlyCollection<DFC_GDSCombinations> combinationSetupData, IReadOnlyCollection<FrameworkSkill> mappedReturnDbSetData)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
-            IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
             var fakeTransDataDbSet = A.Fake<DbSet<DFC_GDSTranlations>>(c => c
                 .Implements(typeof(IQueryable<DFC_GDSTranlations>))
                 .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>))).SetupData(setupDbSetData.ToList());
@@ -123,7 +120,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_GDSTranlations).Returns(fakeTransDataDbSet);
             A.CallTo(() => fakeDbContext.content_model_reference).Returns(fakeContentDbSet);
             A.CallTo(() => fakeDbContext.DFC_GDSCombinations).Returns(fakeCombinationDbSet);
-            var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
+            var repo = new TranslationQueryRepository(fakeDbContext);
 
             //Assert
             var result = repo.GetAll();
@@ -143,7 +140,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetManyTest(IReadOnlyCollection<DFC_GDSTranlations> setupDbSetData, IReadOnlyCollection<content_model_reference> contentModelSetupData, IReadOnlyCollection<DFC_GDSCombinations> combinationSetupData, IReadOnlyCollection<FrameworkSkill> mappedWhatitTakesData, string onetElementId1, string onetElementId2)
         {
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
-            IMapper actualMapper = new AutoMapper.Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper())));
             var fakeTranslationDbSet = A.Fake<DbSet<DFC_GDSTranlations>>(c => c
                 .Implements(typeof(IQueryable<DFC_GDSTranlations>))
                 .Implements(typeof(IDbAsyncEnumerable<DFC_GDSTranlations>))).SetupData(setupDbSetData.ToList());
@@ -160,7 +156,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.content_model_reference).Returns(fakeContentDbSet);
             A.CallTo(() => fakeDbContext.DFC_GDSCombinations).Returns(fakeCombinationDbSet);
 
-            var repo = new TranslationQueryRepository(fakeDbContext, actualMapper);
+            var repo = new TranslationQueryRepository(fakeDbContext);
 
             //Assert
             var result = repo.GetMany(x => x.ONetElementId == onetElementId1 || x.ONetElementId==onetElementId2);

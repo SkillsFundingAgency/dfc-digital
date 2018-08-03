@@ -57,7 +57,6 @@ namespace DFC.Digital.Service.SkillsFramework
 
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
             var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList(); 
-
            
             //Average out the skill thats have LV and LM scales
             var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);

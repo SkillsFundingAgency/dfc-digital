@@ -13,7 +13,7 @@ using DFC.Digital.Repository.ONET.Query;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
 
-    public class SkillsFrameworkBusinessRuleEngineTests:HelperOnetDatas
+    public class SkillsFrameworkBusinessRuleEngineTests
     {
         [Theory]
         [InlineData(0, DigitalSkillsLevel.Level4)]
@@ -27,16 +27,15 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetDigitalSkillsLevelTest(int input, DigitalSkillsLevel expectedLevel)
         {
             //Arrange
-            // CodeReview: Tk Place this in the Ctor so your test is cleaner and easier to follow as this not specific for this test
-            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
-            var mapper = mapperConfig.CreateMapper();
-            // CodeReview: TK : If you are setting these up you should validate they have been called in your Assertions or set these up in the constructor outside the method if they are not used directly
+            // CodeReview: Tk Place this in the Ctor soe up you should validate they have been called in your Assertions or set these up in the constructor outside the method if they are not used directly
             var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
+            
             //Act
             ISkillsRepository skillsRepository = new SkillsOueryRepository(new OnetSkillsFramework());
-            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(mapper, skillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(skillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+        
             //Assert
             var result = ruleEngine.GetDigitalSkillsLevel(input);
             result.Should().Be(expectedLevel);

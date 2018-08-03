@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         private const string MathsTitle = "Mathematics";
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
+        public SkillFrameworkBusinessRuleEngine(ISkillsRepository skillsOueryRepository, 
                IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository,
                IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
                IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)

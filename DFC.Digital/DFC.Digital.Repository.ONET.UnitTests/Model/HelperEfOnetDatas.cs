@@ -115,6 +115,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         };
         protected static readonly IEnumerable<tools_and_technology> DfcToolsandTechnology = new List<tools_and_technology>
         {
+
             new tools_and_technology()
             {
                 commodity_code = 44101805,
@@ -161,6 +162,64 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 t2_example = "Laptop B"
             },
 
+        };
+        protected static readonly IEnumerable<unspsc_reference> DfcUnspcsreference = new List<unspsc_reference>
+        {
+            new unspsc_reference()
+            {
+                commodity_code = 44101805,
+                class_title = "Technology",
+                class_code = (decimal) 0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal) 0.4,
+                segment_code = (decimal) 0.7,
+                segment_title = "title",
+                tools_and_technology = DfcToolsandTechnology.ToList(),
+            },
+            new unspsc_reference()
+            {
+                commodity_code = 44101806,
+                class_title = "Technology",
+                class_code = (decimal) 0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal) 0.4,
+                segment_code = (decimal) 0.7,
+                segment_title = "title",
+                tools_and_technology = DfcToolsandTechnology.ToList(),
+            },
+            new unspsc_reference()
+            {
+                commodity_code = 44101807,
+                class_title = "Technology",
+                class_code = (decimal) 0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal) 0.4,
+                segment_code = (decimal) 0.7,
+                segment_title = "title",
+                tools_and_technology = DfcToolsandTechnology.ToList(),
+            },
+            new unspsc_reference()
+            {
+                commodity_code = 44101808,
+                class_title = "Technology",
+                class_code = (decimal) 0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal) 0.4,
+                segment_code = (decimal) 0.7,
+                segment_title = "title",
+                tools_and_technology = DfcToolsandTechnology.ToList(),
+            },
+            new unspsc_reference()
+            {
+                commodity_code = 44101809,
+                class_title = "Technology",
+                class_code = (decimal) 0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal) 0.4,
+                segment_code = (decimal) 0.7,
+                segment_title = "title",
+                tools_and_technology = DfcToolsandTechnology.ToList(),
+            },
         };
         protected static readonly IEnumerable<content_model_reference> OnetContentModelReference =
             new List<content_model_reference>()

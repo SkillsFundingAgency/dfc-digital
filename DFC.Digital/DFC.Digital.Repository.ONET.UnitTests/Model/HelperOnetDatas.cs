@@ -3,6 +3,9 @@ using System.Linq;
 using DFC.Digital.Data.Model;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
+    using System.Collections;
+    using DataModel;
+
     public class HelperOnetDatas : HelperEfOnetDatas
     {
         private static readonly IEnumerable<SocCode> SocMappingsData = new List<SocCode>
@@ -252,6 +255,43 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //    "thinking and reasoning skills"
             //};
 
+        }
+        public static IEnumerable<object[]> OnetDigitalSkills()
+        {
+            yield return new object[]
+            {
+                DfcToolsandTechnology,
+                DfcUnspcsreference,
+                "11-3071.03",
+                9,
+                81
+
+            };
+            yield return new object[]
+            {
+                DfcToolsandTechnology,
+                DfcUnspcsreference,
+                "11-3071.03",
+                7,
+                49
+
+            };
+            yield return new object[]
+            {
+                DfcToolsandTechnology,
+                DfcUnspcsreference,
+                "11-3071.03",
+                12,
+                144
+            };
+            yield return new object[]
+            {
+                DfcToolsandTechnology,
+                DfcUnspcsreference,
+                "11-3071.03",
+                20,
+                400
+            };
         }
     }
 }

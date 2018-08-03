@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using AutoMapper;
-using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using DFC.Digital.Repository.ONET.Mapper;
-using DFC.Digital.Repository.ONET.Query;
 
 namespace DFC.Digital.Repository.ONET.Config
 {

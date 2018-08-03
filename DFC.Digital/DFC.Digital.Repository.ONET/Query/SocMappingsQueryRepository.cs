@@ -24,6 +24,7 @@ namespace DFC.Digital.Repository.ONET.Query
             return GetAll().Single(where);
         }
 
+        // CodeReview: TK. Can we remove commented out code, amd why are we set Id if we not using for anything. Lets set properties we are using
         public IQueryable<SocCode> GetAll()
         {
             var result = (from soc in onetDbContext.DFC_SocMappings
@@ -36,7 +37,6 @@ namespace DFC.Digital.Repository.ONET.Query
                     Title = null
                 });
             return result;
-            // return onetDbContext.DFC_SocMappings.ProjectToQueryable<SocCode>(autoMapper.ConfigurationProvider);
         }
 
         public SocCode GetById(string id)

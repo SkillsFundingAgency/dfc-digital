@@ -243,14 +243,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 "1.A.1.a",
                 "1.A.1.b"
             };
-            //yield return new object[]
-            //{
-            //    DfcTranslations,
-            //    OnetContentModelReference,
-            //    TranslatedData.ToList()[2],
-            //    "1.A.1.b",
-            //    "thinking and reasoning skills"
-            //};
+           
 
         }
         public static IEnumerable<object[]> OnetDigitalSkills()

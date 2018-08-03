@@ -4,8 +4,6 @@ using DFC.Digital.Repository.ONET.DataModel;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
 {
-    using System.Linq;
-
     public class HelperEfOnetDatas
     {
         public static readonly  IEnumerable<DFC_SocMappings> DfcSocMappings = new List<DFC_SocMappings>

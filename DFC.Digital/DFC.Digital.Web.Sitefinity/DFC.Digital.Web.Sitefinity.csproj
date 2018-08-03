@@ -966,6 +966,7 @@
     <Content Include="Mvc\Views\JobProfileHowToBecome\DesignerView.Simple.json" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.3.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.31.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -973,6 +974,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.31.2.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1315,7 +1317,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

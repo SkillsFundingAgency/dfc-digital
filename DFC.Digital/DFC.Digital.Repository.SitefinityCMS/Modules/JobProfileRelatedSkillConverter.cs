@@ -28,7 +28,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public WhatItTakesSkill ConvertFrom(DynamicContent content)
         {
-            var whatItTakesSkill = new WhatItTakesSkill();
             var skillDescription = GetSkillDescription(content);
 
             if (!string.IsNullOrEmpty(skillDescription))

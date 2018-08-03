@@ -15,7 +15,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
     {
 
         [Fact]
-        public void GetAllTest()
+        public void GetAllContentReferenceTest()
         {
             //Setup
             var fakeDbContext = A.Fake<OnetSkillsFramework>();

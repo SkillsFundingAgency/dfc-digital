@@ -1,5 +1,4 @@
-﻿//code Review:  TK please fix the using statements
-
+﻿//code Review:  TK please fix the using statements (Done- Dinesh)
 using Xunit;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
@@ -7,18 +6,15 @@ using DFC.Digital.Repository.ONET.DataModel;
 using AutoMapper;
 using FluentAssertions;
 using DFC.Digital.Service.SkillsFramework;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Repository.ONET.Mapper;
+using DFC.Digital.Repository.ONET.Query;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    using System.Linq;
-    using Core;
-    using Data.Interfaces;
-    using Mapper;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using ONET.Query;
 
     public class SkillsFrameworkBusinessRuleEngineTests:HelperOnetDatas
     {
@@ -38,7 +34,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
             var mapper = mapperConfig.CreateMapper();
             // CodeReview: TK : If you are setting these up you should validate they have been called in your Assertions or set these up in the constructor outside the method if they are not used directly
-            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameWorkSkillSuppression>>();
+            var fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
             var fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
             var fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
             //Act
@@ -60,18 +56,16 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var setupUnspscReferences = new List<unspsc_reference>(numberOfRecords);
             setupUnspscReferences.AddRange(Enumerable.Repeat(setupDataUnspscReferences.ToList()[0], numberOfRecords));
 
-            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new SkillsFrameworkMapper()));
-            var mapper = mapperConfig.CreateMapper();
-            var fakeLogger = A.Fake<IApplicationLogger>();
 
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             var fakeToolsAndTechnologyDbSet = A.Fake<DbSet<tools_and_technology>>(c => c
                     .Implements(typeof(IQueryable<tools_and_technology>))
-                    .Implements(typeof(IDbAsyncEnumerable<tools_and_technology>)))
+                    .Implements(typeof(System.Data.Entity.Infrastructure.IDbAsyncEnumerable<tools_and_technology>)))
                 .SetupData(setupTools.ToList());
+
             var fakeUnspcDataSet = A.Fake<DbSet<unspsc_reference>>(c => c
                     .Implements(typeof(IQueryable<unspsc_reference>))
-                    .Implements(typeof(IDbAsyncEnumerable<unspsc_reference>)))
+                    .Implements(typeof(System.Data.Entity.Infrastructure.IDbAsyncEnumerable<unspsc_reference>)))
                 .SetupData(setupUnspscReferences.ToList());
 
             //Act

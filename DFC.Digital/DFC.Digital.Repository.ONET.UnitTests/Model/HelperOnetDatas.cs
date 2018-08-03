@@ -3,9 +3,6 @@ using System.Linq;
 using DFC.Digital.Data.Model;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
-    using System.Collections;
-    using DataModel;
-
     public class HelperOnetDatas : HelperEfOnetDatas
     {
         private static readonly IEnumerable<SocCode> SocMappingsData = new List<SocCode>

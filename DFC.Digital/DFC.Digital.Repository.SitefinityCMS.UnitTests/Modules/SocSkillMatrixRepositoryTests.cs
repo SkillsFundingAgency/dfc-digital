@@ -43,8 +43,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 .Returns(skillAvailable ? dummyDynamicContent : null);
             A.CallTo(() => fakeFrameworkSkillRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
                 .Returns(dummyDynamicContent);
+
             A.CallTo(() => fakeSocCodeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
                 .Returns(dummyDynamicContent);
+
             A.CallTo(() => fakeSocMatrixRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
             A.CallTo(() => fakeSocMatrixRepository.GetTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
             A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
@@ -54,7 +56,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeSocMatrixRepository.Commit()).DoesNothing();
             A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
             A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<string>._))
+                   fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<string>._))
+               .DoesNothing();
+            A.CallTo(() =>
+                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<Lstring>._))
                 .DoesNothing();
             A.CallTo(() =>
                     fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<decimal?>._))
@@ -86,22 +91,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 A.CallTo(() => fakeSocMatrixRepository.Publish(dummyDynamicContent, A<string>._))
                     .MustHaveHappenedOnceExactly();
                 A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).MustHaveHappened(2, Times.Exactly);
+                    fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).MustHaveHappened(2, Times.OrLess);
                 A.CallTo(() =>
                         fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._))
-                    .MustHaveHappened(2, Times.Exactly);
+                    .MustHaveHappened(2, Times.OrLess);
                 A.CallTo(() =>
                         fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() =>
                         fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<decimal?>._))
                     .MustHaveHappened(2, Times.Exactly);
-
-                A.CallTo(() => fakeFrameworkSkillRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m =>
-                        LinqExpressionsTestHelper.IsExpressionEqual(m, d =>
-                            d.Status == ContentLifecycleStatus.Master &&
-                            d.GetValue<string>(nameof(FrameworkSkill.Title)) == dummySocSkill.Skill))))
-                    .MustHaveHappened();
                 A.CallTo(() => fakeSocCodeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m =>
                 LinqExpressionsTestHelper.IsExpressionEqual(m, d =>
                     d.Status == ContentLifecycleStatus.Master &&

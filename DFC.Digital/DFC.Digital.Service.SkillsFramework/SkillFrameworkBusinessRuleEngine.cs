@@ -11,23 +11,18 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
-        // CodeReview: TK: Please remove unsed fields
-        private readonly IMapper autoMapper;
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
-
         private readonly IList<FrameworkSkillSuppression> suppressions;
         private readonly IList<FrameWorkSkillCombination> combinations;
 
-        // CodeReview: TK: Please make this a const
-        private readonly string MathsTitle = "Mathematics";
+        private const string MathsTitle = "Mathematics";
 
-        public SkillFrameworkBusinessRuleEngine(IMapper autoMapper, ISkillsRepository skillsOueryRepository, 
+        public SkillFrameworkBusinessRuleEngine(ISkillsRepository skillsOueryRepository, 
                IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository,
                IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
                IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)
         {
-            this.autoMapper = autoMapper;
             this.skillsOueryRepository = skillsOueryRepository;
             this.contentReferenceQueryRepository = contentReferenceQueryRepository;
 
@@ -55,7 +50,9 @@ namespace DFC.Digital.Service.SkillsFramework
         }
 
         /// <summary>
-        /// / CodeReview: TK: this method needs a brief comment to clarify its purpose      
+        /// For Knowledge, Skills and Abilities we will have records with LV and IM scales 
+        /// Combine in to a single record and average the ranking by adding the LV and IM values and dividing by the number of records
+        /// For Work Styles there is just one scale and hence no need to work out an average.
         /// </summary>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
@@ -68,13 +65,15 @@ namespace DFC.Digital.Service.SkillsFramework
                 OnetOccupationalCode = c.Key.OnetOccupationalCode,
                 Name = c.Key.Name,
                 Score = (c.Sum(s => (s.Score)) / c.Count()) });
-           // var ret = averagedScales.ToList();
             return averagedScales;
         }
 
 
         /// <summary>
-        /// / CodeReview:  TK: this method needs a brief comment to clarify its purpose    
+        /// This rule tries to boost the ranking for Mathematics if it appears under multiple attribute types.
+        /// If Mathematics appears for both Skills and Knowledge in our result set.
+        /// Delete the  lowest ranking one.
+        /// Times the rank for the remaining one by 1.1 adds 10%  (this number was as a result of testing the results) 
         /// </summary>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
@@ -108,6 +107,14 @@ namespace DFC.Digital.Service.SkillsFramework
             return attributes;
         }
 
+        /// <summary>
+        /// Some times in our top 20 results set we get attributes that are similar - 
+        /// We improve user experience by combining similar in the top 20.
+        /// Using the combination table we combine simular attributes that are in the top 20 results"
+        /// After each combination we need to get a new top 20 of the attributes
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
         public IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes)
         {
             foreach (var combination in combinations)
@@ -164,6 +171,11 @@ namespace DFC.Digital.Service.SkillsFramework
             return bottomNodesUpOne;
         }
 
+        /// <summary>
+        /// Some attributes appear most job profiles. We have a table that indicated which ones we need to suppres.
+        /// </summary>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
         public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
         {
             var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.ONetElementId == a.Id));

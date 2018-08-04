@@ -88,7 +88,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="SkillsFrameworkIntegrationTest.cs" />
-    <Compile Include="RangeChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

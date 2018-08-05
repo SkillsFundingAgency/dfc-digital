@@ -69,17 +69,17 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return new RepoActionResult { Success = true };
         }
 
-        public IQueryable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
+        public IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
-            var socSkillMatrices = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.SocSkillMatrixTypeContentType, repository.GetProviderName());
+            var socSkillMatrices = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.SocSkillMatrixTypeContentType, repository.GetProviderName()).ToList();
 
             if (socSkillMatrices != null && socSkillMatrices.Any())
             {
                 return socSkillMatrices.Select(item => socSkillConverter.ConvertFrom(item));
             }
 
-            return Enumerable.Empty<SocSkillMatrix>().AsQueryable();
+            return Enumerable.Empty<SocSkillMatrix>();
         }
 
         public IQueryable<SocCode> GetLiveSocCodes()

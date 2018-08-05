@@ -31,7 +31,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
             //Assert
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
-                .MustHaveHappened(5, Times.Exactly);
+                .MustHaveHappened(6, Times.Exactly);
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened(2, Times.Exactly);
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DFC.Digital.Data.Interfaces
@@ -11,6 +12,6 @@ namespace DFC.Digital.Data.Interfaces
 
         IQueryable<SocCode> GetLiveSocCodes();
 
-        IQueryable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
+        IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
     }
 }

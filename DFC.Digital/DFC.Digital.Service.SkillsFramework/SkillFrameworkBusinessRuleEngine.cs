@@ -166,8 +166,6 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)
         {
             var bottomNodesUpOne = attributes.Select(a => { a.Id = (a.Id.Length < 7) ? a.Id : a.Id.Substring(0, 7); return a; });
-            // Code Review: TK: Please remove commented out code
-            //var ret = bottomNodesUpOne.ToList();
             return bottomNodesUpOne;
         }
 
@@ -190,8 +188,6 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes)
         {
             var duplicatesRemoved = attributes.GroupBy(a => a.Id).Select(b => b.OrderByDescending(c => c.Score).First());
-            // Code Review: TK: Please remove commented out code
-            //var ret = duplicatesRemoved.ToList();
             return duplicatesRemoved;
         }
 

@@ -154,16 +154,80 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             };
 
             //Act
-            var results = ruleEngine.MoveBottomLevelAttributesUpOneLevel(testAttributeMoveLevelsData).ToList();
+            var results = ruleEngine.MoveBottomLevelAttributesUpOneLevel(testAttributeMoveLevelsData);
 
             //Asserts
-            results.Count().Should().Be(testAttributeMoveLevelsData.Count());
-
+         
             //This is the only thing that should have changed in the list - set it to the expected value
             testAttributeMoveLevelsData[0].Id = (testAttributeMoveLevelsData[0].Id).Substring(0, 7);
 
             results.Should().BeEquivalentTo(testAttributeMoveLevelsData);
         }
+
+        [Fact]
+        public void RemoveDuplicateAttributesTest()
+        {
+            //Setup
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+
+            List<OnetAttribute> testAttributeDuplicatesData = new List<OnetAttribute>
+            {
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(AttributeType.WorkStyle, 1, KeyLength.five),
+            };
+
+            //make the score for the first dupicate ability higher
+            testAttributeDuplicatesData[0].Score = 5;
+
+            //Act
+            var results = ruleEngine.RemoveDuplicateAttributes(testAttributeDuplicatesData);
+
+            //Asserts
+
+            //The lower ranking ability should have been removed, so remove it from our test data
+            var expectedResults = testAttributeDuplicatesData.FindAll(a => a.Type != AttributeType.Ability || a.Score != 1 ).ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
+        }
+
+        [Fact]
+        public void RemoveDFCSuppressionsTest()
+        {
+            //Setup
+            List<OnetAttribute> testSuppressionsData = new List<OnetAttribute>
+            {
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five),
+                GetOnetAttribute(AttributeType.WorkStyle, 1, KeyLength.five),
+            };
+
+            var indexToSuppress = 1;
+
+
+            //set the second ability in our test data for suppression 
+            var fakeSuppressionsDbSet = A.Fake<DbSet<FrameworkSkillSuppression>>(c => c
+                  .Implements(typeof(IQueryable<FrameworkSkillSuppression>))
+                  .Implements(typeof(IDbAsyncEnumerable<FrameworkSkillSuppression>)))
+                  .SetupData(new List<FrameworkSkillSuppression> { new FrameworkSkillSuppression { ONetElementId = testSuppressionsData[indexToSuppress].Id } }).AsQueryable();
+
+            var fakeSuppressions = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
+            A.CallTo(() => fakeSuppressions.GetAll()).Returns(fakeSuppressionsDbSet);
+
+
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeSuppressions, fakeCombinationSkill, fakeContentReference);
+
+            //Act
+            var results = ruleEngine.RemoveDFCSuppressions(testSuppressionsData).ToList();
+
+            //Asserts
+            //The second abbility should get suppressioned , so remove it from our test data
+            var expectedResults = testSuppressionsData.FindAll(a => a.Id != testSuppressionsData[indexToSuppress].Id).ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
+        }
+
+
 
         private List<OnetAttribute> GetTestAttribute(AttributeType type)
         {

@@ -240,7 +240,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                         fakeDynamicContentExtensions.DeleteRelatedFieldValues(A<DynamicContent>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() => fakeSocSkillRepo.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m =>
-                    LinqExpressionsTestHelper.IsExpressionEqual(m, d => d.Status == ContentLifecycleStatus.Master && d.GetValue<string>(nameof(SocSkillMatrix.ONetElementId)) == socSkill.ONetElementId)))).MustHaveHappened();
+                    LinqExpressionsTestHelper.IsExpressionEqual(m, d => d.Status == ContentLifecycleStatus.Master && d.UrlName == socSkill.SfUrlName)))).MustHaveHappened();
             }
             else
             {

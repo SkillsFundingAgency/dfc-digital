@@ -10,7 +10,6 @@ namespace DFC.Digital.Repository.ONET.Query
 {
     public class DigitalSkillsQueryRepository : IQueryRepository<DigitalSkill>
     {
-        // CodeReview: TK;  Please remove unused private fields (Done- Dinesh)
         private readonly OnetSkillsFramework onetDbContext;
     
         public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext)

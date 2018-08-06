@@ -1,13 +1,10 @@
-﻿//code Review:  TK please fix the using statements (Done- Dinesh)
-using Xunit;
+﻿using Xunit;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using DFC.Digital.Repository.ONET.DataModel;
-using AutoMapper;
 using FluentAssertions;
 using DFC.Digital.Service.SkillsFramework;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.ONET.Mapper;
 using DFC.Digital.Repository.ONET.Query;
 using System.Collections.Generic;
 using System.Data.Entity;

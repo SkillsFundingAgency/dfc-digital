@@ -35,12 +35,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 
             if (vaidSkillsIdCollection)
             {
-                var relatedSkills = jobProfileRelatedSkillsRepository.GetContextualisedSkillsById(new List<string>() { "dummyRelatedSkillId" }).ToList();
+              jobProfileRelatedSkillsRepository.GetContextualisedSkillsById(new List<string>() { "dummyRelatedSkillId" }).ToList();
                 A.CallTo(() => fakeConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
             }
             else
             {
-                var relatedSkills = jobProfileRelatedSkillsRepository.GetContextualisedSkillsById(null).ToList();
+               jobProfileRelatedSkillsRepository.GetContextualisedSkillsById(null).ToList();
                 A.CallTo(() => fakeConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
             }
         }

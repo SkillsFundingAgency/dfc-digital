@@ -92,12 +92,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
             }
 
-            var relatedSkilSocMatrices = dynamicContentExtensions.GetRelatedItems(content, RelatedSkillsField, 1);
-            if (relatedSkilSocMatrices.Any())
-            {
-                jobProfile.HasRelatedSocSkillMatrices = true;
-            }
-
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();
             jobProfile.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPatternDetails), nameof(JobProfile.WorkingPatternDetails)).FirstOrDefault();

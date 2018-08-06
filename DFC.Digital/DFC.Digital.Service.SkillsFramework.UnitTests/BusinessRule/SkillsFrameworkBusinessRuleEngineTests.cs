@@ -228,6 +228,147 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         }
 
 
+        [Fact]
+        public void AddTitlesTest()
+        {
+            //Setup
+            List<OnetAttribute> testTitlesData = new List<OnetAttribute>
+            {
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five)
+            };
+
+            var fakeContentDbSet = A.Fake<DbSet<FrameWorkContent>>(c => c
+                  .Implements(typeof(IQueryable<FrameWorkContent>))
+                  .Implements(typeof(IDbAsyncEnumerable<FrameWorkContent>)))
+                  .SetupData(new List<FrameWorkContent> {
+                      new FrameWorkContent { ONetElementId = testTitlesData[0].Id, Title = "Title 1" },
+                      new FrameWorkContent { ONetElementId = testTitlesData[1].Id, Title = "Title 2" }
+                  }).AsQueryable();
+
+            var fakeContent = A.Fake<IQueryRepository<FrameWorkContent>>();
+            A.CallTo(() => fakeContent.GetAll()).Returns(fakeContentDbSet);
+
+
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContent);
+
+            //Act
+            var results = ruleEngine.RemoveDFCSuppressions(testTitlesData);
+
+            //Asserts
+            //update our original list with the expected titles
+            testTitlesData[0].Name = "Title 1";
+            testTitlesData[1].Name = "Title 2";
+
+            //Results should remain the same as original except for updated name.
+            results.Should().BeEquivalentTo(testTitlesData);
+        }
+
+        [Fact]
+        public void BoostMathsSkillsTest()
+        {
+            //Setup
+
+            const string maths = "Mathematics";
+
+            List<OnetAttribute> testMathsData = new List<OnetAttribute>
+            {
+                GetOnetAttribute(AttributeType.Skill, 1, KeyLength.seven),
+                GetOnetAttribute(AttributeType.Knowledge, 5, KeyLength.five),
+                GetOnetAttribute(AttributeType.WorkStyle, 5, KeyLength.three)
+            };
+
+            //Set the skill and Knowledge items to be maths
+            testMathsData[0].Name = maths;
+            testMathsData[1].Name = maths;
+
+
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+
+            //Act
+            var results = ruleEngine.BoostMathsSkills(testMathsData).ToList();
+
+            //Asserts
+            //The first maths for skills should get removed and the second one for knowledge should have its score boosted by 10% 
+            testMathsData[1].Score = testMathsData[1].Score * 1.1m;
+            var expectedResults = testMathsData.FindAll(a => a.Type != AttributeType.Skill);
+
+            results.Should().BeEquivalentTo(expectedResults);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void CombineSimilarAttributesTest(bool shouldGetCombination)
+        {
+            //Setup
+            //This return 10 each of each of the 4 attributes total 40  items with a max score of 10 
+            var testAttributeData = GetAllTestAttribute();
+
+            var testCombination = new FrameWorkSkillCombination { OnetElementOneId = "C1", OnetElementTwoId = "C2", CombinedElementId = "CombinedId1", Title = "CombinedTitle1" };
+            var combinationsData = new List<FrameWorkSkillCombination> {testCombination};
+
+            var scoreForCombination = shouldGetCombination ? 9 : 2;
+
+            //Add records that we know will get combined to the attribute list
+            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Ability, OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementOneId, Score = scoreForCombination });
+            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Skill,   OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementTwoId, Score = scoreForCombination-1 });
+
+
+            var fakeCombinationDbSet = A.Fake<DbSet<FrameWorkSkillCombination>>(c => c
+                .Implements(typeof(IQueryable<FrameWorkSkillCombination>))
+                .Implements(typeof(IDbAsyncEnumerable<FrameWorkSkillCombination>)))
+                .SetupData(combinationsData).AsQueryable();
+
+            var fakeCombination = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
+            A.CallTo(() => fakeCombination.GetAll()).Returns(fakeCombinationDbSet);
+
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombination, fakeContentReference);
+
+
+            //Act
+            var results = ruleEngine.CombineSimilarAttributes(testAttributeData);
+
+            //Asserts
+          
+            if (shouldGetCombination)
+            {
+                var expectedResults = GetAllTestAttribute();
+
+                //Add in expected combination
+                expectedResults.Add(new OnetAttribute { Type = AttributeType.Combination, Name = testCombination.Title, OnetOccupationalCode = "testONetCode", Id = testCombination.CombinedElementId, Score = scoreForCombination });
+                //Everything else should reamin as is expect for the combination, if there is one
+                results.Should().BeEquivalentTo(expectedResults);
+            }
+            else
+            {
+                //should be the same as the data that went in as there is no combination
+                results.Should().BeEquivalentTo(testAttributeData);
+            }
+        }
+
+        [Fact]
+        public void SelectFinalAttributesTest()
+        {
+            //Setup
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+
+            var testAttributeData = GetAllTestAttribute();
+
+            //Add in some combinations, one with a high rank and one with a low
+            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C1", Score = 9 });
+            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C2", Score = 1 });
+
+
+            //Act
+            var results = ruleEngine.SelectFinalAttributes(testAttributeData);
+
+            //Asserts
+            results.Count().Should().Be(20);
+            results.Should().BeInDescendingOrder(a => a.Score);
+            results.FirstOrDefault(a => a.Id == "C1").Should().NotBeNull();
+        }
+
 
         private List<OnetAttribute> GetTestAttribute(AttributeType type)
         {
@@ -244,18 +385,13 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             for (int ii = 0; ii < 10; ii++)
             {
-                //Add duplicates for Abilities, skill, Knowledge to test duplicate for diffrent scales in the DB 
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Ability, ii, KeyLength.nine));
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Ability, ii + 1, KeyLength.nine));
-
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Knowledge, ii, KeyLength.nine));
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Knowledge, ii + 1, KeyLength.nine));
-
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Skill, ii, KeyLength.nine));
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Skill, ii + 1, KeyLength.nine));
-
-                //Work styles only have one scale
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.WorkStyle, ii, KeyLength.nine));
+                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Ability, ii, KeyLength.seven));
+      
+                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Knowledge, ii, KeyLength.five));
+      
+                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Skill, ii, KeyLength.seven));
+      
+                testAttributeDataData.Add(GetOnetAttribute(AttributeType.WorkStyle, ii, KeyLength.five));
             }
 
             return testAttributeDataData;

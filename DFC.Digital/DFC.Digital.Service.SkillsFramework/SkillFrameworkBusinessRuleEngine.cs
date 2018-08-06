@@ -115,26 +115,24 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IList<OnetAttribute> attributes)
         {
             foreach (var combination in combinations)
             {
                 var topAttributes = SelectTopAttributes(attributes);
-                // Code Review: TK: Simply these two to topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
-                OnetAttribute elementOne = topAttributes.Where(a => a.Id == combination.OnetElementOneId).FirstOrDefault();
-                OnetAttribute elementTwo = topAttributes.Where(a => a.Id == combination.OnetElementTwoId).FirstOrDefault();
+                OnetAttribute elementOne = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
+                OnetAttribute elementTwo = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementTwoId);
 
                 //if we have both combine them
                 if (elementOne != null && elementTwo != null)
                 {
                     var scoreToUse = (elementOne.Score > elementTwo.Score) ? elementOne.Score : elementTwo.Score;
 
-                    attributes = attributes.Where(a => a.Id != elementOne.Id && a.Id != elementTwo.Id);
+                    attributes = attributes.Where(a => a.Id != elementOne.Id && a.Id != elementTwo.Id).ToList();
 
-                    attributes.ToList().Add(new OnetAttribute { Name = combination.Title, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
+                    attributes.Add(new OnetAttribute { Name = combination.Title, Type= AttributeType.Combination, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
                 }
             }
-
             return attributes;
         }
 

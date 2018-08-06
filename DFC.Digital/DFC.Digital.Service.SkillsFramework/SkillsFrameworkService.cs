@@ -73,7 +73,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
             attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
 
-            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes);
+            attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes.ToList());
 
             attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
 

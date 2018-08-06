@@ -20,7 +20,7 @@ namespace DFC.Digital.Data.Interfaces
 
         IEnumerable<OnetAttribute> BoostMathsSkills(IEnumerable<OnetAttribute> attributes);
 
-        IEnumerable<OnetAttribute> CombineSimilarAttributes(IEnumerable<OnetAttribute> attributes);
+        IEnumerable<OnetAttribute> CombineSimilarAttributes(IList<OnetAttribute> attributes);
 
         IEnumerable<OnetAttribute> SelectFinalAttributes(IEnumerable<OnetAttribute> attributes);
 

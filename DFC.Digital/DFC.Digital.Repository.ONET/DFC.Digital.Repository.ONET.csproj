@@ -268,7 +268,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataModel\App.config" />
     <EntityDeploy Include="DataModel\OnetSkillsFramework.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>

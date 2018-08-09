@@ -97,10 +97,8 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => skillsBusinessRuleEngine.GetDigitalSkillsLevel(outputData.ApplicationCount))
                 .MustHaveHappened();
 
-           
             response.Should().NotBeNull();
             response.Should().Be(outputData.Level);
-           // result.ApplicationCount.Should().Be(applicationCount);
         }
 
 

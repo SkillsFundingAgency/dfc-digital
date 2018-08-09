@@ -67,5 +67,51 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }
 
+
+        [Fact]
+        public void GetRelatedSkillMappingTest()
+        {
+            // Arrange
+            var applicationLogger = A.Fake<IApplicationLogger>();
+            var socRepository = A.Fake<IRepository<SocCode>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
+            var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
+            var fakeSkillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
+
+            var fakeQuerable = A.Fake<IQueryable<OnetAttribute>>();
+
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(A<string>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutScoreScales(A<IList<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+
+
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
+                socRepository,
+                digitalSkill,
+                skillsRepository,
+                fakeSkillsBusinessRuleEngine
+               );
+
+            //act
+            var response = skillsFrameworkService.GetRelatedSkillMapping("dummyCode");
+
+            //asserts
+            response.Should().NotBeNull();
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(A<string>._)).MustHaveHappened()
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutScoreScales(A<IList<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetAttribute>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened());
+        }
     }
 }

@@ -13,9 +13,9 @@ namespace DFC.Digital.Service.SkillsFramework
     {
         private readonly ISkillsRepository skillsOueryRepository;
         private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
-        private readonly IList<FrameworkSkillSuppression> suppressions;
-        private readonly IList<FrameWorkSkillCombination> combinations;
-
+        private readonly IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository;
+        private readonly IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository;
+             
         private const string MathsTitle = "Mathematics";
 
         public SkillFrameworkBusinessRuleEngine(ISkillsRepository skillsOueryRepository, 
@@ -25,9 +25,8 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             this.skillsOueryRepository = skillsOueryRepository;
             this.contentReferenceQueryRepository = contentReferenceQueryRepository;
-
-            suppressions = suppressionsQueryRepository.GetAll().ToList();
-            combinations = combinationsQueryRepository.GetAll().ToList(); 
+            this.combinationsQueryRepository = combinationsQueryRepository;
+            this.suppressionsQueryRepository = suppressionsQueryRepository;
         }
 
         #region Implementation of ISkillFrameworkBusinessRuleEngine
@@ -117,6 +116,8 @@ namespace DFC.Digital.Service.SkillsFramework
         /// <returns></returns>
         public IEnumerable<OnetAttribute> CombineSimilarAttributes(IList<OnetAttribute> attributes)
         {
+            var combinations = combinationsQueryRepository.GetAll();
+
             foreach (var combination in combinations)
             {
                 var topAttributes = SelectTopAttributes(attributes);
@@ -174,6 +175,7 @@ namespace DFC.Digital.Service.SkillsFramework
         /// <returns></returns>
         public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
         {
+            var suppressions = suppressionsQueryRepository.GetAll().ToList();
             var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.ONetElementId == a.Id));
             return suppressionsRemoved;
         }

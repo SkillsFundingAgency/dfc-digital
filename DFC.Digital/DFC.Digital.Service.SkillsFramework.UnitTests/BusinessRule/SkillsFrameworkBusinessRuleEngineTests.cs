@@ -253,7 +253,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContent);
 
             //Act
-            var results = ruleEngine.RemoveDFCSuppressions(testTitlesData);
+            var results = ruleEngine.AddTitlesToAttributes(testTitlesData);
 
             //Asserts
             //update our original list with the expected titles

@@ -100,5 +100,23 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests.Model
             };
         }
 
+        public static IEnumerable<object[]> OnetDigitalSkills()
+        {
+            yield return new object[]
+            {
+                new DigitalSkill() { ApplicationCount = 100,Level = DigitalSkillsLevel.Level2},
+                "11-3071.03"
+
+
+            };
+            yield return new object[]
+            {
+                new DigitalSkill() { ApplicationCount = 151,Level = DigitalSkillsLevel.Level1},
+                "11-3071.05",
+
+
+            };
+         }
+
     }
 }

@@ -10,6 +10,10 @@ using DFC.Digital.Service.SkillsFramework.UnitTests.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
+    using System.Data.Entity;
+    using Repository.ONET.DataModel;
+    using Repository.ONET.Query;
+
     public class SkillsFrameworkTest : HelperOnetDatas
     {
         [Theory]
@@ -66,6 +70,39 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             whatItTakesSkills.Should().NotBeNull();
             whatItTakesSkills.Should().BeEquivalentTo(translatedData);
         }
+
+          [Theory]
+        [MemberData(nameof(OnetDigitalSkills))]
+        public void GetDigitalSkillsLevel(DigitalSkill outputData,string onetSocCode)
+        {
+            var applicationLogger = A.Fake<IApplicationLogger>();
+            var socRepository = A.Fake<IRepository<SocCode>>();
+            var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
+            var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
+            var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
+            // Act
+            A.CallTo(() => digitalSkill.GetById(onetSocCode)).Returns(outputData);
+            A.CallTo(() => skillsBusinessRuleEngine.GetDigitalSkillsLevel(outputData.ApplicationCount))
+                .Returns(outputData.Level);
+            var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
+                socRepository,
+                digitalSkill,
+                skillsRepository,
+                skillsBusinessRuleEngine
+            );
+            var response = skillsFrameworkService.GetDigitalSkillLevel(onetSocCode);
+
+            // Assert
+            A.CallTo(() => digitalSkill.GetById(onetSocCode)).MustHaveHappened();
+            A.CallTo(() => skillsBusinessRuleEngine.GetDigitalSkillsLevel(outputData.ApplicationCount))
+                .MustHaveHappened();
+
+           
+            response.Should().NotBeNull();
+            response.Should().Be(outputData.Level);
+           // result.ApplicationCount.Should().Be(applicationCount);
+        }
+
 
     }
 }

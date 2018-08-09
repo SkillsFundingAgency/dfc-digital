@@ -10,6 +10,10 @@ using DFC.Digital.Service.SkillsFramework.UnitTests.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
+    using System.Data.Entity;
+    using Repository.ONET.DataModel;
+    using Repository.ONET.Query;
+
     public class SkillsFrameworkTest : HelperOnetDatas
     {
         [Theory]

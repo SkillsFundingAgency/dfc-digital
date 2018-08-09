@@ -14,6 +14,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
 
         private const string SocField = "SOC";
+        private const string RelatedSkillsField = "RelatedSkills";
         private const string RelatedInterestsField = "RelatedInterests";
         private const string RelatedEnablersField = "RelatedEnablers";
         private const string RelatedEntryQualificationsField = "RelatedEntryQualifications";
@@ -23,7 +24,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
         private const string OtherRequirementsField = "OtherRequirements";
         private const string RelatedRestrictionsField = "RelatedRestrictions";
-        private const string RelatedSkillsField = "RelatedSkills";
         private const string RelatedSkillField = "RelatedSkill";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
@@ -80,17 +80,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 //What You will do section
                 WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
-
-                //TODO: Ensure these are properly unit tested. Including null reference!!
-                //What it takes
                 RelatedSkills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
-                DigitalSkillsLevel = dynamicContentExtensions.GetFieldValue<ChoiceOption>(content, nameof(JobProfile.DigitalSkillsLevel))?.Text
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel))
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
+                jobProfile.ONetOccupationalCode =
+                    dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
             }
 
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();

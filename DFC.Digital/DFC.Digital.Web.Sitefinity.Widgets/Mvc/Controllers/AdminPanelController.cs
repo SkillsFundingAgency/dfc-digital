@@ -63,11 +63,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         // GET: AdminPanel
         public ActionResult Index()
         {
-            var model = new AdminPanelViewModel();
-            model.PageTitle = PageTitle;
-            model.FirstParagraph = FirstParagraph;
-            model.NotAllowedMessage = NotAllowedMessage;
-            model.IsAdmin = IsUserAdministrator();
+            var model = new AdminPanelViewModel
+            {
+                PageTitle = PageTitle,
+                FirstParagraph = FirstParagraph,
+                NotAllowedMessage = NotAllowedMessage,
+                IsAdmin = IsUserAdministrator()
+            };
 
             return View(model);
         }

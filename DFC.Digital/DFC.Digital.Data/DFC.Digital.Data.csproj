@@ -81,11 +81,14 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
+    <Compile Include="Interfaces\IReportAuditRepository.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
     <Compile Include="Interfaces\IBuildSearchFilterService.cs" />
     <Compile Include="Interfaces\ICourseOpportunityBuilder.cs" />
     <Compile Include="Interfaces\ICourseSearchService.cs" />
     <Compile Include="Interfaces\IGovUkNotify.cs" />
+    <Compile Include="Interfaces\IImportSkillsFrameworkDataService.cs" />
     <Compile Include="Interfaces\IJobProfileIndexEnhancer.cs" />
     <Compile Include="Interfaces\IJobProfilePage.cs" />
     <Compile Include="Interfaces\IDigitalDataModel.cs" />
@@ -94,9 +97,13 @@
     <Compile Include="Interfaces\IJobProfileRelatedSkillsRepository.cs" />
     <Compile Include="Interfaces\IJobProfileRepository.cs" />
     <Compile Include="Interfaces\IJobProfileSocCodeRepository.cs" />
+    <Compile Include="Interfaces\IFrameworkSkillRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersFactory.cs" />
     <Compile Include="Interfaces\IPreSearchFiltersRepository.cs" />
     <Compile Include="Interfaces\IPreSearchFilterStateManager.cs" />
+    <Compile Include="Interfaces\ICommandRepository.cs" />
+    <Compile Include="Interfaces\IQueryRepository.cs" />
+    <Compile Include="Interfaces\IRelatedSkillsMappingRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISalaryCalculator.cs" />
     <Compile Include="Interfaces\ISalaryService.cs" />
@@ -106,15 +113,35 @@
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\IServiceHelper.cs" />
     <Compile Include="Interfaces\IServiceStatus.cs" />
+    <Compile Include="Interfaces\ISkillFrameworkBusinessRuleEngine.cs" />
+    <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
+    <Compile Include="Interfaces\ISkillsRepository.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\AttributeType.cs" />
+    <Compile Include="Model\DigitalSkill.cs" />
+    <Compile Include="Model\DigitalSkillsLevel.cs" />
+    <Compile Include="Model\FrameWorkContent.cs" />
+    <Compile Include="Model\FrameworkSkillSuppression.cs" />
+    <Compile Include="Model\FrameWorkSkill.cs" />
+    <Compile Include="Model\FrameWorkSkillCombination.cs" />
+    <Compile Include="Model\ImportJobProfile.cs" />
+    <Compile Include="Model\OnetAttribute.cs" />
+    <Compile Include="Model\OnetEntity.cs" />
+    <Compile Include="Model\OccupationOnetSkill.cs" />
+    <Compile Include="Model\RepoActionResult.cs" />
+    <Compile Include="Model\BuildSocMatrixRequest.cs" />
+    <Compile Include="Model\BuildSocMatrixResponse.cs" />
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
+    <Compile Include="Model\RelatedSkillMapping.cs" />
+    <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />
     <Compile Include="Model\InfoItem.cs" />
     <Compile Include="Model\MoreInformationLink.cs" />
+    <Compile Include="Model\FrameworkSkillsImportResponse.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\Restriction.cs" />
     <Compile Include="Model\RouteEntry.cs" />
@@ -150,11 +177,19 @@
     <Compile Include="Model\SearchResult.cs" />
     <Compile Include="Model\SearchResultItem.cs" />
     <Compile Include="Model\SocCode.cs" />
+    <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\UpdateJpDigitalSkillsRequest.cs" />
+    <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
+    <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />
+    <Compile Include="Model\UpdateJpSkillsDataResponse.cs" />
+    <Compile Include="Model\UpdateJpSocSkillMatrixResponse.cs" />
+    <Compile Include="Model\UpdateSocOccupationalCodeRequest.cs" />
+    <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Model\WhatItTakesSkill.cs" />
@@ -164,7 +199,17 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="app.Debug.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="app.Release.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

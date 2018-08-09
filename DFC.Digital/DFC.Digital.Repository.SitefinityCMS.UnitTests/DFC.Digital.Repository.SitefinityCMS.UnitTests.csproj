@@ -252,6 +252,12 @@
     <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
+    <Compile Include="Modules\FrameworkSkillConverterTests.cs" />
+    <Compile Include="Modules\FrameworkSkillRepositoryTests.cs" />
+    <Compile Include="Modules\ImportJobProfileConverterTests.cs" />
+    <Compile Include="Modules\SocCodeConverterTests.cs" />
+    <Compile Include="Modules\SocSkillMatrixRepositoryTests.cs" />
+    <Compile Include="Modules\SocSkillsMatrixConverterTests.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverterTests.cs" />
     <Compile Include="Modules\WhatYouWillDoConverterTests.cs" />
     <Compile Include="Modules\HowToBecomeConverterTests.cs" />

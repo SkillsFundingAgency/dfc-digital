@@ -1,0 +1,61 @@
+﻿@model SkillsFrameworkResultsViewModel
+<div>
+    <h1 class="sfBreadCrumb">
+        @Html.Raw(Model.PageTitle)
+    </h1>
+
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {
+            <h2>@Model.ActionCompleted - Import Action Summary</h2>
+
+            foreach (var records in Model.AuditRecords)
+            {
+                <p>
+                    <h3>@records.Key</h3>
+                    <ul>
+                        @foreach (var record in records.Value)
+                        {
+                            <li>@record</li>
+                        }
+                    </ul>
+                </p>
+            }
+        }
+        
+        @if (!string.IsNullOrWhiteSpace(Model.OtherMessage))
+        {
+            <h3> Other Messages</h3>
+            <p>@Model.OtherMessage</p>
+        }
+       
+    </div>
+    <br />
+    <br />
+    <br />
+    <div id="workArea" class="sfWorkArea">
+        @if (Model.IsAdmin)
+        {<p>
+                <h2>@Html.Raw(Model.FirstParagraph)</h2>
+            </p>
+
+            <br />
+            using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
+            {
+                <select name="importmode">
+                    <option value="importskills">Import Onet Skills</option>
+                    <option value="updatesococcupationalcodes">Update SocCodes with Onet Occupational Codes</option>
+                    <option value="updatejpdigitalskills">Update Job profiles with digital skills</option>
+                    <option value="buildsocmatrix">Build Soc Matrix - create Soc to Onet Skill mapping which will allow contextualisation</option>
+                    <option value="updatejpskills">Update Job Profiles with related Onet Skills</option>
+                </select>
+                <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
+            }
+
+        }
+        else
+        {
+            <p>@Model.NotAllowedMessage</p>
+        }
+    </div>
+</div>

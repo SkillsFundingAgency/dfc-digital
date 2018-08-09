@@ -19,6 +19,8 @@
       <section name="pages" type="System.Web.WebPages.Razor.Configuration.RazorPagesSection, System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" requirePermission="false" />
     </sectionGroup>
     <section name="nlog" type="NLog.Config.ConfigSectionHandler, NLog" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
   </configSections>
   <appSettings>
    <add key="TestLocalization" value="false" />
@@ -65,6 +67,9 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />
     <add key="DFC.Cognitive.BingSpellCheck.RequestEndPoint" value="https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?text={0}&amp;mode=spell&amp;mkt=en-gb" />
   </appSettings>
+  <connectionStrings>
+    <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />
+  </connectionStrings>
   <system.web.webPages.razor>
     <host factoryType="System.Web.Mvc.MvcWebRazorHostFactory, System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
     <pages pageBaseType="System.Web.Mvc.WebViewPage">
@@ -625,4 +630,14 @@ that is bundled with the nuget package under the tools folder.
       <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
     </compilers>
   </system.codedom>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqllocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
 </configuration>

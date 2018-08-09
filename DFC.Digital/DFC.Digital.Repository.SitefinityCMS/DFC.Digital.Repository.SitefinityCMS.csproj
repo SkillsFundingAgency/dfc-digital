@@ -244,7 +244,14 @@
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
+    <Compile Include="Base\WorkflowStatus.cs" />
+    <Compile Include="Modules\ImportJobProfileConverter.cs" />
+    <Compile Include="Modules\SocSkillMatrixRepository.cs" />
+    <Compile Include="Modules\FrameworkSkillConverter.cs" />
+    <Compile Include="Modules\SocSkillsMatrixConverter.cs" />
+    <Compile Include="Modules\SocCodeConverter.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
+    <Compile Include="Modules\FrameworkSkillRepository.cs" />
     <Compile Include="Modules\WhatYouWillDoConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillsRepository.cs" />

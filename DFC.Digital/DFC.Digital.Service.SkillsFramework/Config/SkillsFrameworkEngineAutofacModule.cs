@@ -11,14 +11,11 @@ namespace DFC.Digital.Service.SkillsFramework.Config
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
-            builder.RegisterModule<SkillsFrameworkAutofacModule>();
-            builder.RegisterType<InMemoryReportAuditRepository>()
+            builder.RegisterAssemblyTypes(ThisAssembly)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                ;
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

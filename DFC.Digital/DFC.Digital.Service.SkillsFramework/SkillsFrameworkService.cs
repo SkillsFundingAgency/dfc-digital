@@ -62,21 +62,13 @@ namespace DFC.Digital.Service.SkillsFramework
 
             //Average out the skill thats have LV and LM scales
             var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);
-
             attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
-
             attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
-
             attributes = skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
-
             attributes = skillsBusinessRuleEngine.AddTitlesToAttributes(attributes);
-
             attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
-
             attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes.ToList());
-
             attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
-
             logger.Trace($"Returning {attributes.Count()} attributes for ONetCode {onetOccupationalCode}");
 
             return attributes;

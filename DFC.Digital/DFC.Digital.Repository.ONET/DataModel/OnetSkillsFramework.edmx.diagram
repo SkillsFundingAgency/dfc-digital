@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d06297a035594a228159a15226713bf2" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.content_model_reference" Width="1.5" PointX="5.75" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GDSAttributeRankOverRide" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GDSCombinations" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GDSContext" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GDSTranlations" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GlobalAttributeSuppression" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.dwa_reference" Width="1.5" PointX="3" PointY="30.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ete_categories" Width="1.5" PointX="3.75" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.green_dwa_reference" Width="1.5" PointX="6" PointY="54" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.iwa_reference" Width="1.5" PointX="0.75" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.job_zone_reference" Width="1.5" PointX="6.75" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.occupation_data" Width="1.5" PointX="0.75" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.scales_reference" Width="1.5" PointX="5.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.task_categories" Width="1.5" PointX="9" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.task_statements" Width="1.5" PointX="3" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.unspsc_reference" Width="1.5" PointX="6.75" PointY="61" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.work_context_categories" Width="1.5" PointX="9.75" PointY="55.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ability" Width="1.5" PointX="6" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.alternate_titles" Width="1.5" PointX="3" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.career_changers_matrix" Width="1.5" PointX="3" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.career_starters_matrix" Width="1.5" PointX="3" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_GDSONetSKATranslations_staging" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_SocMappings" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.education_training_experience" Width="1.5" PointX="6" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.emerging_tasks" Width="1.5" PointX="5.25" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.green_occupations" Width="1.5" PointX="3" PointY="60" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.green_task_statements" Width="1.5" PointX="8.25" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.interest" Width="1.5" PointX="3" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.job_zones" Width="1.5" PointX="9" PointY="43.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.knowledge" Width="1.5" PointX="9" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.level_scale_anchors" Width="1.5" PointX="8" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.occupation_level_metadata" Width="1.5" PointX="3" PointY="76.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sample_of_reported_titles" Width="1.5" PointX="3" PointY="79.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.skill" Width="1.5" PointX="11" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.survey_booklet_locations" Width="1.5" PointX="11" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.task_ratings" Width="1.5" PointX="11.25" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tasks_to_dwas" Width="1.5" PointX="5.25" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tasks_to_green_dwas" Width="1.5" PointX="8.25" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tools_and_technology" Width="1.5" PointX="9" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.work_activities" Width="1.5" PointX="12" PointY="43.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.work_context" Width="1.5" PointX="12" PointY="48.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.work_styles" Width="1.5" PointX="3" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.work_values" Width="1.5" PointX="8" PointY="33" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__abilities__eleme__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__dwa_refer__eleme__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__education__eleme__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__ete_categ__eleme__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__green_dwa__eleme__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__interests__eleme__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__iwa_refer__eleme__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__knowledge__eleme__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__level_sca__eleme__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__skills__element___17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__survey_bo__eleme__19DFD96B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_acti__eleme__2A164134" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_cont__eleme__2CF2ADDF" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_cont__eleme__2FCF1A8A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_styl__eleme__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_valu__eleme__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__dwa_refer__iwa_i__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___dwa_i__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__education_traini__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__ete_categ__scale__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___green__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__job_zones__job_z__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__abilities__onets__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__alternate__onets__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__career_ch__onets__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__career_ch__relat__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__career_st__onets__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__career_st__relat__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__education__onets__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__emerging___onets__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__green_occ__onets__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__green_tas__onets__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__interests__onets__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__job_zones__onets__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__knowledge__onets__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__occupatio__onets__151B244E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__sample_of__onets__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__skills__onetsoc___17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_rati__onets__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_stat__onets__208CD6FA" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___onets__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___onets__245D67DE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tools_and__onets__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_acti__onets__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_cont__onets__2BFE89A6" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_styl__onets__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_valu__onets__3493CFA7" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__abilities__scale__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__education__scale__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__interests__scale__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__knowledge__scale__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__level_sca__scale__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__skills__scale_id__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__survey_bo__scale__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_cate__scale__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_rati__scale__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_acti__scale__2B0A656D" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_cont__scale__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_cont__scale__30C33EC3" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_styl__scale__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_valu__scale__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_ratings__1F98B2C1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__emerging___origi__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__green_tas__task___09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__task_rati__task___1DB06A4F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___task___22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tasks_to___task___25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__tools_and__commo__282DF8C2" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__work_context__2EDAF651" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

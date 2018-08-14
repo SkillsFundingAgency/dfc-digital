@@ -15,18 +15,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "JobProfileWhatYouWillDo", Title = "JobProfile What You Will Do", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileWhatYouWillDoController : BaseJobProfileWidgetController
     {
+        private readonly IFormatContentService formatContentService;
+
         #region Ctor
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JobProfileWhatYouWillDoController" /> class.
-        /// </summary>
-        /// <param name="jobProfileRepository">The job profile repository.</param>
-        /// <param name="webAppContext">The web application context.</param>
-        /// <param name="applicationLogger">application logger</param>
-        /// <param name="sitefinityPage">sitefinity</param>
-        public JobProfileWhatYouWillDoController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage)
+        public JobProfileWhatYouWillDoController(IJobProfileRepository jobProfileRepository, IWebAppContext webAppContext, IApplicationLogger applicationLogger, ISitefinityPage sitefinityPage, IFormatContentService formatContentService)
              : base(webAppContext, jobProfileRepository, applicationLogger, sitefinityPage)
         {
+            this.formatContentService = formatContentService;
         }
 
         #endregion Ctor
@@ -80,6 +76,54 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The environment title.
         /// </value>
         public string EnvironmentTitle { get; set; } = "Working environment";
+
+        /// <summary>
+        /// Gets or sets the environments leading text.
+        /// </summary>
+        /// <value>
+        /// The environments leading text.
+        /// </value>
+        public string EnvironmentsLeadingText { get; set; } = "Your working environment may be";
+
+        /// <summary>
+        /// Gets or sets the uniform leading text.
+        /// </summary>
+        /// <value>
+        /// The uniform leading text.
+        /// </value>
+        public string UniformLeadingText { get; set; } = "You may need to wear";
+
+        /// <summary>
+        /// Gets or sets the location leading text.
+        /// </summary>
+        /// <value>
+        /// The location leading text.
+        /// </value>
+        public string LocationLeadingText { get; set; } = "You could work";
+
+        /// <summary>
+        /// Gets or sets the environments conjunction.
+        /// </summary>
+        /// <value>
+        /// The environments conjunction.
+        /// </value>
+        public string EnvironmentsConjunction { get; set; } = "and";
+
+        /// <summary>
+        /// Gets or sets the uniform conjunction.
+        /// </summary>
+        /// <value>
+        /// The uniform conjunction.
+        /// </value>
+        public string UniformConjunction { get; set; } = "and";
+
+        /// <summary>
+        /// Gets or sets the location conjunction.
+        /// </summary>
+        /// <value>
+        /// The location conjunction.
+        /// </value>
+        public string LocationConjunction { get; set; } = "or";
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is wyd intro active.
@@ -150,9 +194,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 if (model.IsWhatYouWillDoCadView)
                 {
-                    model.Location = CurrentJobProfile.WhatYouWillDoData.Location;
-                    model.Uniform = CurrentJobProfile.WhatYouWillDoData.Uniform;
-                    model.Environment = CurrentJobProfile.WhatYouWillDoData.Environment;
+                    model.Location = formatContentService.GetParagraphText(LocationLeadingText, CurrentJobProfile.WhatYouWillDoData.Locations, LocationConjunction);
+                    model.Uniform = formatContentService.GetParagraphText(UniformLeadingText, CurrentJobProfile.WhatYouWillDoData.Uniforms, UniformConjunction);
+                    model.Environment = formatContentService.GetParagraphText(EnvironmentsLeadingText, CurrentJobProfile.WhatYouWillDoData.Environments, EnvironmentsConjunction);
                     model.Introduction = CurrentJobProfile.WhatYouWillDoData.Introduction;
                     model.DailyTasks = CurrentJobProfile.WhatYouWillDoData.DailyTasks;
                 }

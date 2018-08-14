@@ -27,7 +27,20 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public T GetFieldValue<T>(DynamicContent contentItem, string fieldName)
         {
-            return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default(T);
+            return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default;
+        }
+
+        public void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value)
+        {
+            if (contentItem.DoesFieldExist(fieldName))
+            {
+                contentItem.SetValue(fieldName, value);
+            }
+        }
+
+        public void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName)
+        {
+            contentItem.CreateRelation(relatedContentItem, fieldName);
         }
 
         public string GetFieldStringValue(DynamicContent contentItem, string fieldName)
@@ -41,6 +54,30 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 return default;
             }
+        }
+
+        public string GetFieldChoiceValue(DynamicContent contentItem, string fieldName)
+        {
+            if (contentItem != null && contentItem.DoesFieldExist(fieldName))
+            {
+                string value = contentItem.GetValue<ChoiceOption>(fieldName)?.Text;
+                return value;
+            }
+            else
+            {
+                return default;
+            }
+        }
+
+        public void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName)
+        {
+            contentItem.DeleteRelations(fieldName);
+        }
+
+        public IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField)
+        {
+                var relatedContent = GetRelatedItems(content, relatedField, 100);
+                return relatedContent?.Select(x => $"{x.UrlName}");
         }
     }
 }

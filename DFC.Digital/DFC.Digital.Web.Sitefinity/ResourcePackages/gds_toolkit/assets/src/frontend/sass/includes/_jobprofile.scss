@@ -183,7 +183,6 @@
                 color: $careers-turquoise;
                 width: 100%;
                 display: block;
-                text-transform: uppercase;
             }
         }
 
@@ -566,12 +565,14 @@
 
 .job-profile-feedback {
     position: sticky;
+    position: -webkit-sticky;
     bottom: 0;
     background-color: $white;
     color: $govuk-blue;
     border-top: 3px solid $govuk-blue;
     padding: 10px 0;
     display: none;
+    z-index: 1000;
 
     p {
         margin: 0;

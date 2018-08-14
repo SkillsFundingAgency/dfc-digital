@@ -4,9 +4,12 @@
     {
         internal const string JobprofileContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
         internal const string JobProfileModuleName = "Job Profile";
+        internal const string OnetSkillTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill";
+        internal const string SocSkillMatrixTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix";
 
         internal const string JobProfileApprenticeshipContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.ApprenticeshipVacancy";
         internal const string JobProfileSocContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc";
+        internal const string JobProfileSkillsMatrixContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix";
 
         internal const string PreSearchFiltersModuleName = "Pre Search Filters";
         internal const string InterestContentType = "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.Interest";

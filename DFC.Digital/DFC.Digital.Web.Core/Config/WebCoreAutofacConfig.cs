@@ -4,12 +4,14 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
+using DFC.Digital.Repository.ONET.Config;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
+using DFC.Digital.Service.SkillsFramework.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +55,9 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<GovUkNotifyAutofacModule>()
                 .RegisterModule<LmiFeedAutofacModule>()
                 .RegisterModule<CourseSearchProviderAutofacModule>()
-                .RegisterModule<SpellCheckAutofacModule>();
+                .RegisterModule<SpellCheckAutofacModule>()
+                .RegisterModule<SkillsFrameworkEngineAutofacModule>()
+                .RegisterModule<SkillsFrameworkAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

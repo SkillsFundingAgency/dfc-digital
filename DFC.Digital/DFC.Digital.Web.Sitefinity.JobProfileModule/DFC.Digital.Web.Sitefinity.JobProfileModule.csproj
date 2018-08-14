@@ -410,7 +410,10 @@
     <Compile Include="Mvc\Models\RelatedJobProfileCategoriesViewModel.cs" />
     <Compile Include="Mvc\Models\RestrictionsOtherRequirements.cs" />
     <Compile Include="Mvc\Models\Suggestion.cs" />
+    <Compile Include="Mvc\Models\JobProfileWhatItTakesSkillsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Contracts\IFormatContentService.cs" />
+    <Compile Include="Services\FormatContentService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mvc\Views\Web.config" />
@@ -439,6 +442,9 @@
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.json" />
     <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkEnvironment.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\WhatItTakesSkills.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

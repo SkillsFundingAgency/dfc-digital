@@ -42,3 +42,6 @@ Scenario: [DFC-1562-1808] Personalised Survey - Check Cookies update with last J
 
 	When I enter the email 'simulate-delivered@notifications.service.gov.uk' and press send
 	Then the success message is displayed
+
+	When I delete the cookie and refresh the page
+	Then the survey banner should be displayed

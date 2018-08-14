@@ -15,6 +15,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
     public class JobProfileSocCodeRepositoryTests
     {
         private IDynamicModuleConverter<ApprenticeVacancy> fakeJobProfileSocConverter;
+        private IDynamicModuleConverter<SocSkillMatrix> fakeSocSkillConverter;
+        private IDynamicModuleConverter<SocCode> fakeSocConverter;
         private IDynamicModuleRepository<SocCode> fakeRepository;
         private IDynamicContentExtensions fakeDynamicContentExtensions;
 
@@ -23,6 +25,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             fakeJobProfileSocConverter = A.Fake<IDynamicModuleConverter<ApprenticeVacancy>>();
             fakeRepository = A.Fake<IDynamicModuleRepository<SocCode>>();
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
+            fakeSocSkillConverter = A.Fake<IDynamicModuleConverter<SocSkillMatrix>>();
+            fakeSocConverter = A.Fake<IDynamicModuleConverter<SocCode>>();
         }
 
         [Fact]
@@ -83,7 +87,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                 A.CallTo(() => fakeJobProfileSocConverter.ConvertFrom(dummySocCode)).Returns(null);
             }
 
-            return new JobProfileSocCodeRepository(fakeRepository, fakeJobProfileSocConverter, fakeDynamicContentExtensions);
+            return new JobProfileSocCodeRepository(fakeRepository, fakeJobProfileSocConverter, fakeSocConverter, fakeDynamicContentExtensions, fakeSocSkillConverter);
         }
     }
 }

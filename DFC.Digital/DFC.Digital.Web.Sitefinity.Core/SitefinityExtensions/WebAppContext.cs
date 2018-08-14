@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
@@ -35,6 +36,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public bool IsContentAuthoringAndNotPreviewMode => IsContentAuthoringSite && !IsPreviewMode;
 
         public bool IsSearchResultsPage => HttpContext.Current.Request.Url.ToString().ToLower().Contains("/search-results");
+
+        public bool IsUserAdministrator
+        {
+            get
+            {
+                return Telerik.Sitefinity.Security.Claims.ClaimsManager.GetCurrentIdentity().Roles.ToList().Exists(x => x.Name == "Administrators");
+            }
+        }
 
         public bool IsCategoryPage => HttpContext.Current.Request.Url.ToString().ToLower().Contains("/job-categories");
 

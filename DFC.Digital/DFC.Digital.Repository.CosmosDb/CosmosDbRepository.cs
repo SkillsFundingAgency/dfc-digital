@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
-    public abstract class CosmosDbRepository : IRepository<Audit>
+    public abstract class CosmosDbRepository : ICommandRepository<Audit>
     {
         private readonly IDocumentClient documentClient;
 
@@ -33,26 +33,6 @@ namespace DFC.Digital.Repository.CosmosDb
         }
 
         public void Delete(Expression<Func<Audit, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Audit Get(Expression<Func<Audit, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Audit> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Audit GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Audit> GetMany(Expression<Func<Audit, bool>> where)
         {
             throw new NotImplementedException();
         }

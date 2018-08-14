@@ -26,6 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
 
@@ -37,10 +38,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
 
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index());
@@ -92,6 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(useValidJobProfile);
 
@@ -100,10 +103,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));
@@ -147,6 +151,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
 
             var dummyJobProfile = GetDummyJobPRofile(true);
             dummyJobProfile.WhatYouWillDoData.IsCadReady = cadReady;
@@ -156,10 +161,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
             using (var jobProfileWhatYouWillDoController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage))
+                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake)
+                {
+                    TopSectionContent = nameof(JobProfileWhatYouWillDoController.TopSectionContent),
+                    BottomSectionContent = nameof(JobProfileWhatYouWillDoController.BottomSectionContent),
+                    MainSectionTitle = nameof(JobProfileWhatYouWillDoController.MainSectionTitle),
+                    SectionId = nameof(JobProfileWhatYouWillDoController.SectionId),
+                    WhatYouWillDoSectionTitle = nameof(JobProfileWhatYouWillDoController.WhatYouWillDoSectionTitle),
+                    EnvironmentTitle = nameof(JobProfileWhatYouWillDoController.EnvironmentTitle),
+                    IsWYDIntroActive = true
+                })
             {
                 //Act
                 var indexWithUrlNameMethodCall = jobProfileWhatYouWillDoController.WithCallTo(c => c.Index(urlName));
@@ -196,7 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        Salary = nameof(JobProfile.Salary),
                        Skills = nameof(JobProfile.Skills),
                        WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
-                       WhatYouWillDoData = new WhatYouWillDo { Location = "Office and Client Site", Uniform = "Casual / Smart Casual / Business Dress", Environment = "Friendly / Business / Secured", IsCadReady = true },
+                       WhatYouWillDoData = new WhatYouWillDo { Locations = new List<string> { "Office and Client Site" }, Uniforms = new List<string> { "Casual / Smart Casual / Business Dress" }, Environments = new List<string> { "Friendly / Business / Secured" }, IsCadReady = true },
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
                        HowToBecomeData = new HowToBecome(),
                        Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },

@@ -2,8 +2,10 @@
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -11,19 +13,26 @@ namespace DFC.Digital.Repository.SitefinityCMS
     {
         #region Fields
 
+        private const string RelatedSkillField = "RelatedSkills";
+        private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<JobProfile> repository;
+        private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
-
+        private readonly IDynamicModuleConverter<ImportJobProfile> converterLight;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
         private Dictionary<string, JobProfile> cachedJobProfiles = new Dictionary<string, JobProfile>();
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileRepository(IDynamicModuleRepository<JobProfile> repository, IDynamicModuleConverter<JobProfile> converter)
+        public JobProfileRepository(IDynamicModuleRepository<JobProfile> repository, IDynamicModuleConverter<JobProfile> converter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocSkillMatrix> socSkillRepository, IDynamicModuleConverter<ImportJobProfile> converterLight)
         {
             this.repository = repository;
             this.converter = converter;
+            this.dynamicContentExtensions = dynamicContentExtensions;
+            this.socSkillRepository = socSkillRepository;
+            this.converterLight = converterLight;
         }
 
         #endregion Ctor
@@ -63,6 +72,71 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
         {
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
+        }
+
+        public IEnumerable<ImportJobProfile> GetLiveJobProfiles()
+        {
+            var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
+
+            if (jobProfiles.Any())
+            {
+                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
+            }
+
+            return Enumerable.Empty<ImportJobProfile>();
+        }
+
+        public RepoActionResult UpdateDigitalSkill(ImportJobProfile jobProfile)
+        {
+            var jobprofile = repository.Get(item =>
+                item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
+
+            if (jobprofile != null)
+            {
+                var master = repository.GetMaster(jobprofile);
+
+                var temp = repository.GetTemp(master);
+
+                dynamicContentExtensions.SetFieldValue(temp, nameof(JobProfile.DigitalSkillsLevel), jobProfile.DigitalSkillsLevel);
+
+                var updatedMaster = repository.CheckinTemp(temp);
+
+                repository.Publish(updatedMaster, UpdateComment);
+                repository.Commit();
+            }
+
+            return new RepoActionResult { Success = true };
+        }
+
+        public RepoActionResult UpdateSocSkillMatrices(ImportJobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
+        {
+            var jobprofile = repository.Get(item =>
+                item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
+
+            var skillMatrices = socSkillMatrices as IList<SocSkillMatrix> ?? socSkillMatrices.ToList();
+            if (jobprofile != null && skillMatrices.Any())
+            {
+                var master = repository.GetMaster(jobprofile);
+
+                dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSkillField);
+
+                foreach (var socSkillMatrix in skillMatrices)
+                {
+                    var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.UrlName == socSkillMatrix.SfUrlName);
+                    if (relatedSocSkillItem != null)
+                    {
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocSkillItem, RelatedSkillField);
+                    }
+                }
+
+                repository.Commit();
+
+                repository.Publish(master, UpdateComment);
+
+                repository.Commit();
+            }
+
+            return new RepoActionResult { Success = true };
         }
 
         public Type GetContentType()

@@ -1,9 +1,8 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Repository.ONET.Config;
 
-namespace DFC.Digital.Service.SkillsFramework.Config
+namespace DFC.Digital.Service.SkillsFramework
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SkillsFrameworkEngineAutofacModule : Module

@@ -66,7 +66,7 @@ namespace DFC.Digital.Service.SkillsFramework
                 var auditMessage = $"{(totalRecordsCount++).ToString("0000")} - Got occupational code [{occupationalCode}] for SOC : {socCode.SOCCode} from SkillFramework Service ";
 
                 //if the existing ocupational code is not the same update it.
-                if (!socCode.ONetOccupationalCode.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase))
+                if (socCode.ONetOccupationalCode?.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase) == false)
                 {
                     socCode.ONetOccupationalCode = occupationalCode;
                     jobProfileSocCodeRepository.UpdateSocOccupationalCode(socCode);

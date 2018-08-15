@@ -72,7 +72,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetLiveSocCodes()).MustHaveHappened();
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).MustHaveHappened();
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs, Times.OrLess);
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs * 2, Times.OrLess);
         }
 
         [Theory]
@@ -201,6 +201,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                 list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
             }
 
+            //Some with null ONetOccupationalCode
             for (var i = 0; i < count; i++)
             {
                 list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode) });

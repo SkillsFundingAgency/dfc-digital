@@ -58,7 +58,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
             {
                 PageTitle = nameof(SkillsFrameworkImportViewModel.PageTitle),
                 NotAllowedMessage = nameof(SkillsFrameworkImportViewModel.NotAllowedMessage),
-                FirstParagraph = nameof(SkillsFrameworkImportViewModel.FirstParagraph),
                 IsAdmin = isAdmin,
                 ActionCompleted = actionCompleted,
                 AuditRecords = GetAuditRecords(numberOfKeys, numberOfAuditRecords)
@@ -72,10 +71,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
             if (isAdmin)
             {
                 AssertContentDoesNotExistsInView(skillsFrameworkResultsViewModel.NotAllowedMessage, htmlDom);
-                AssertContentExistsInView(skillsFrameworkResultsViewModel.FirstParagraph, htmlDom);
                 AssertContentExistsInView(skillsFrameworkResultsViewModel.ActionCompleted, htmlDom);
                 AssertContentDoesNotExistsInView(skillsFrameworkResultsViewModel.NotAllowedMessage, htmlDom);
-                AssertImportDropDownAvailable(htmlDom, true);
                 foreach (var key in skillsFrameworkResultsViewModel.AuditRecords.Keys)
                 {
                     AssertContentExistsInView(key, htmlDom);

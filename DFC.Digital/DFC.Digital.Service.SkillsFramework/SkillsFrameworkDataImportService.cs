@@ -35,8 +35,8 @@ namespace DFC.Digital.Service.SkillsFramework
             var onetSkills = skillsFrameworkService.GetAllTranslations().ToList();
             var allOnetSkills = frameworkSkillRepository.GetFrameworkSkills().Count();
            
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} Frameworkskills in the repo");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {onetSkills.Count} SkillFramework skills to import");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} translated frameworkskills in the Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {onetSkills.Count} skill translations to import");
 
             foreach (var onetSkill in onetSkills)
             {
@@ -50,70 +50,75 @@ namespace DFC.Digital.Service.SkillsFramework
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
             var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
-            var socCodesToUpdate = allSocCodes.Where(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
-            var socCodesNotUpdated = allSocCodes.Count(soc => string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
-            var socCodesUpdated = allSocCodes.Count(soc => !string.IsNullOrWhiteSpace(soc.ONetOccupationalCode));
             var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
-
-          
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} socs in the repo ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesUpdated} socs already updated with occupational codes ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesNotUpdated} socs not yet updated with occupational codes ");
+                      
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} SOCs in the Sitefinity ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {socCodesToUpdate.Count()} socs with occupational code ");
+            var updatedCount = 0;
+            var totalRecordsCount = 0;
+            var noActionCount = 0;
 
-            var updatedSocs = new List<string>();
-            foreach (var socCode in socCodesToUpdate)
+            foreach (var socCode in allSocCodes)
             {
-                var occupationalCode = occupationalCodeMappings
-                    .FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode.SOCCode, StringComparison.OrdinalIgnoreCase))
+                var occupationalCode = occupationalCodeMappings.FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode.SOCCode, StringComparison.OrdinalIgnoreCase))
                     ?.ONetOccupationalCode;
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationalCode} for SocCocde : {socCode.SOCCode} from SkillFramework Service");
 
-                if (!string.IsNullOrWhiteSpace(occupationalCode) &&
-                    !socCode.ONetOccupationalCode.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase))
+                var auditMessage = $"{(totalRecordsCount++).ToString("0000")} - Got occupational code [{occupationalCode}] for SOC : {socCode.SOCCode} from SkillFramework Service ";
+
+                //if the existing ocupational code is not the same update it.
+                if (socCode.ONetOccupationalCode?.Equals(occupationalCode, StringComparison.OrdinalIgnoreCase) == false)
                 {
                     socCode.ONetOccupationalCode = occupationalCode;
                     jobProfileSocCodeRepository.UpdateSocOccupationalCode(socCode);
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated Soc code {socCode.SOCCode} with occupational code : {occupationalCode}");
-                    updatedSocs.Add($"{socCode.SOCCode}-{socCode.ONetOccupationalCode}");
+                    auditMessage += " - Updated";
+                    updatedCount++;
                 }
-            }
+                else
+                {
+                    auditMessage += " - No action as it already the same";
+                    noActionCount++;
+                }
 
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Used the following {updatedSocs.Count} soc code/onet occupational code combination {string.Join(", ", updatedSocs)} to update soc codes repo");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, auditMessage);
+            }
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Total number checked : {totalRecordsCount} updated : {updatedCount} no action : {noActionCount}");
 
             return new UpdateSocOccupationalCodeResponse {Success = true};
         }
 
         public UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills()
         {
-            var allJobProfiles = jobProfileRepository.GetLiveJobProfiles().ToList();
-            var jobprofilesToUpdate = allJobProfiles.Where(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel) && !string.IsNullOrWhiteSpace(jp.ONetOccupationalCode)).ToList();
-            var jobProfilesUpdated = allJobProfiles.Count(jp => !string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel));
-            var jobProfileswithoutDigitalSkills = allJobProfiles.Count(jp => string.IsNullOrWhiteSpace(jp.DigitalSkillsLevel));
+            var jobProfiles = jobProfileRepository.GetLiveJobProfiles().ToList();
+            var totalJobProfilesCount = jobProfiles.Count();
+            var profilesWithOccupationalCode = jobProfiles.Where(j => !string.IsNullOrWhiteSpace(j.ONetOccupationalCode)).ToList();
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {totalJobProfilesCount} job profiles  - {profilesWithOccupationalCode.Count} have an occupational code in Sitefinity");
 
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allJobProfiles.Count} job profiles in the repo");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found a total of {jobProfileswithoutDigitalSkills} job profiles without an SkillFramework Digital skill");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobProfilesUpdated} job profiles already updated with SkillFramework Digital skill");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {jobprofilesToUpdate.Count} job profiles with an SkillFramework Digital skill");
+            var updatedCount = 0;
+            var totalRecordsCount = 0;
+            var noActionCount = 0;
 
-            foreach (var jobProfile in jobprofilesToUpdate)
+            foreach (var jobProfile in profilesWithOccupationalCode)
             {
-                if (!string.IsNullOrWhiteSpace(jobProfile.ONetOccupationalCode))
-                {
                     var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(jobProfile.ONetOccupationalCode);
 
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} from SkillFramework Service");
+                    var auditMessage = $"{(totalRecordsCount++).ToString("0000")} - Got {digitalSkillLevel} for Occupational Code : {jobProfile.ONetOccupationalCode} job profile {jobProfile.UrlName}  from SkillFramework Service";
 
                     var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
-                    if (string.IsNullOrWhiteSpace(jobProfile.DigitalSkillsLevel) || !jobProfile.DigitalSkillsLevel.Equals(digitSkillValue, StringComparison.OrdinalIgnoreCase))
+                    if (jobProfile.DigitalSkillsLevel?.Equals(digitSkillValue, StringComparison.OrdinalIgnoreCase) == true)
+                    {
+                        auditMessage += " - No action as it already the same";
+                        noActionCount++;
+                    }
+                    else
                     {
                         jobProfile.DigitalSkillsLevel = digitSkillValue;
                         jobProfileRepository.UpdateDigitalSkill(jobProfile);
-                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated Job profile {jobProfile.UrlName} with digital skill level : {digitalSkillLevel}");
+                        auditMessage += " - Updated";
+                        updatedCount++;
                     }
-                }
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, auditMessage);
             }
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Total number checked : {totalRecordsCount} updated : {updatedCount} no action : {noActionCount}");
 
             return new UpdateJpDigitalSkillsResponse {Success = true};
         }
@@ -121,7 +126,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public BuildSocMatrixResponse BuildSocMatrixData()
         {
             var socSkillMatrices = socSkillMatrixRepository.GetSocSkillMatrices().ToList();
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socSkillMatrices.Count} soc skill matrices in the repo");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socSkillMatrices.Count} soc skill matrix records in Sitefinity");
 
             var importedSocs = socSkillMatrices.Select(socSkil => socSkil.Title.ToLowerInvariant()).Distinct().ToList();
             var importSocCount = socSkillMatrices.Select(socSkil => socSkil.SocCode.ToLowerInvariant()).ToList();

@@ -72,7 +72,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetLiveSocCodes()).MustHaveHappened();
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).MustHaveHappened();
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs, Times.OrLess);
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs * 2, Times.OrLess);
         }
 
         [Theory]
@@ -95,9 +95,9 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
             // Assert
             A.CallTo(() => fakeImportJobProfileRepository.GetLiveJobProfiles()).MustHaveHappened();
-            A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).MustHaveHappened(numberOfImportJobProfiles, Times.Exactly);
+            A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).MustHaveHappened(numberOfImportJobProfiles * 2, Times.Exactly);
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeImportJobProfileRepository.UpdateDigitalSkill(A<ImportJobProfile>._)).MustHaveHappened(numberOfImportJobProfiles, Times.Exactly);
+            A.CallTo(() => fakeImportJobProfileRepository.UpdateDigitalSkill(A<ImportJobProfile>._)).MustHaveHappened(numberOfImportJobProfiles * 2, Times.Exactly);
         }
 
         [Theory]
@@ -201,6 +201,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                 list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
             }
 
+            //Some with null ONetOccupationalCode
             for (var i = 0; i < count; i++)
             {
                 list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode) });
@@ -218,9 +219,16 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                 list.Add(new ImportJobProfile { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(ImportJobProfile.DigitalSkillsLevel), HasRelatedSocSkillMatrices = true });
             }
 
+            //Some with a null digital level
             for (var i = 0; i < count; i++)
             {
                 list.Add(new ImportJobProfile { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
+            }
+
+            //Some with a blank onet occupation code 
+            for (var i = 0; i < count; i++)
+            {
+                list.Add(new ImportJobProfile { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = string.Empty});
             }
 
             return list;

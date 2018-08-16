@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class ImportJobProfileConverter : IDynamicModuleConverter<ImportJobProfile>
+    public class ImportJobProfileConverter : IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>
     {
         #region Fields
 
@@ -27,30 +27,22 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #endregion Ctor
 
-        public ImportJobProfile ConvertFrom(DynamicContent content)
+        public JobProfileOverloadForWhatItTakes ConvertFrom(DynamicContent content)
         {
-            var jobProfile = new ImportJobProfile
-            {
-                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName)),
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
-                DigitalSkillsLevel =
-                    dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel))
-            };
+            var jobProfile = new JobProfileOverloadForWhatItTakes();
+
+            jobProfile.UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.UrlName));
+            jobProfile.Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title));
+            jobProfile.DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel));
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode =
-                    dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
-                jobProfile.ONetOccupationalCode =
-                    dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
+                jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
+                jobProfile.ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
             }
 
-            var relatedSkilSocMatrices = dynamicContentExtensions.GetRelatedItems(content, RelatedSkillsField, 1);
-            if (relatedSkilSocMatrices.Any())
-            {
-                jobProfile.HasRelatedSocSkillMatrices = true;
-            }
+            jobProfile.HasRelatedSocSkillMatrices = dynamicContentExtensions.GetRelatedItems(content, RelatedSkillsField, 1)?.Any() == true;
 
             return jobProfile;
         }

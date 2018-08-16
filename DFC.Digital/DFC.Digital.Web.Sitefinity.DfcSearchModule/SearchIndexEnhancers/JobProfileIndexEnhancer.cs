@@ -45,30 +45,15 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             if (JobProfile != null)
             {
                 jobProfileIndex.JobProfileCategoriesWithUrl = GetJobProfileCategoriesWithUrl();
-
-                jobProfileIndex.Interests = JobProfile.RelatedInterests.ToList();
-                jobProfileIndex.Enablers = JobProfile.RelatedEnablers.ToList();
-                jobProfileIndex.EntryQualifications = JobProfile.RelatedEntryQualifications.ToList();
-                jobProfileIndex.TrainingRoutes = JobProfile.RelatedTrainingRoutes.ToList();
-                jobProfileIndex.JobAreas = JobProfile.RelatedJobAreas.ToList();
-                jobProfileIndex.PreferredTaskTypes = JobProfile.RelatedPreferredTaskTypes.ToList();
             }
         }
 
         public Task PopulateSalary()
         {
-            // Conversions taking place because sitefinity returns Decimal and Azure Search accepts Double fields
-            if (JobProfile.IsLMISalaryFeedOverriden == true)
-            {
-                jobProfileIndex.SalaryStarter = Convert.ToDouble(JobProfile.SalaryStarter);
-                jobProfileIndex.SalaryExperienced = Convert.ToDouble(JobProfile.SalaryExperienced);
-            }
-            else if (!string.IsNullOrEmpty(JobProfile.SOCCode))
+            if (!string.IsNullOrEmpty(JobProfile.SOCCode))
             {
                 //When there are no SOC code, leave the salary as default. Displayed as variable by the screen.
-                //Mutate soc code
-                var socCode = JobProfile.SOCCode;
-                return Task.Run(() => PopulateSalaryFromLMIAsync(socCode));
+                return Task.Run(() => PopulateSalaryFromLMIAsync(JobProfile.SOCCode));
             }
 
             return Task.CompletedTask;

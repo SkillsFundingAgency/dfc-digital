@@ -126,7 +126,7 @@ namespace DFC.Digital.Service.SkillsFramework
         public BuildSocMatrixResponse BuildSocMatrixData()
         {
             var socSkillMatrices = socSkillMatrixRepository.GetSocSkillMatrices().ToList();
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socSkillMatrices.Count} soc skill matrix records in Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socSkillMatrices.Count} SOC skill matrix records in Sitefinity");
 
             var importedSocs = socSkillMatrices.Select(socSkil => socSkil.Title.ToLowerInvariant()).Distinct().ToList();
             var importSocCount = socSkillMatrices.Select(socSkil => socSkil.SocCode.ToLowerInvariant()).ToList();
@@ -136,13 +136,13 @@ namespace DFC.Digital.Service.SkillsFramework
             var socCodesWithoutRelatedSocs = allSocCodes.Count(sc => !string.IsNullOrWhiteSpace(sc.ONetOccupationalCode) && importSocCount.Count(x => x.Equals(sc.SOCCode)) < 5);
             var socCodesWithoutOcCode = allSocCodes.Where(sc => string.IsNullOrWhiteSpace(sc.ONetOccupationalCode));
 
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count()} soc codes  in the repo  ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithRelatedSocSkills} soc codes with 5 skill matrices in the repo");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {string.Join(", ", importedSocs)} soc codes in the skill matrix repo  ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutRelatedSocs} soc codes without 5 skill matrices in the repo, based on soc Code");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutOcCode.Count()} soc codes without coccupational codes with the following urlnames {string.Join(", ", socCodesWithoutOcCode.Select(jp => jp.UrlName))}");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to  use {socCodesToUpdate.Count()} soc codes to add soc skill matrices in the repo, based on soc Code");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to  use {string.Join(", ", socCodesToUpdate.Select(sc => sc.SOCCode))} socs to add soc skill matrices in the repo, based on soc Code");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count()} SOC records in the Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithRelatedSocSkills} SOC records with 5 or more skill matrices in Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {string.Join(", ", importedSocs)} SOC records in the skill matrix in Sitefinity ");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutRelatedSocs} SOC records without 5 skill matrices in Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {socCodesWithoutOcCode.Count()} SOC records without coccupational codes with the following urlnames {string.Join(", ", socCodesWithoutOcCode.Select(jp => jp.UrlName))}");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to  import for  {socCodesToUpdate.Count()} SOCs");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to import for these SOCs {string.Join(", ", socCodesToUpdate.Select(sc => sc.SOCCode))}");
 
             var addedSocs = new List<string>();
             foreach (var socCode in socCodesToUpdate)
@@ -203,11 +203,11 @@ namespace DFC.Digital.Service.SkillsFramework
             var jobprofilesWithoutOcCode = allJobProfiles.Where(jp => string.IsNullOrWhiteSpace(jp.ONetOccupationalCode));
 
 
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allJobProfiles.Count} jobprofiles  in the repo  ");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithoutSkills} jobprofiles without related skill matrices in the repo");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithSkills} jobprofiles with related skill matrices in the repo");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allJobProfiles.Count} jobprofiles  in Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithoutSkills} jobprofiles without related skills Sitefinity");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithSkills} jobprofiles have already got related skill in Sitefinity");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobprofilesWithoutOcCode.Count()} jobprofiles without coccupational codes with the following urlnames {string.Join(", ", jobprofilesWithoutOcCode.Select(jp => jp.UrlName))}");
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {jobprofilesToUpdate.Count()} jobprofiles with related skill matrices in the repo");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Going to update {jobprofilesToUpdate.Count()} jobprofiles with related skill in Sitefinity");
 
             foreach (var jobProfile in jobprofilesToUpdate)
             {

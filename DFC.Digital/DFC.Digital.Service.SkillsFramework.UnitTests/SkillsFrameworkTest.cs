@@ -6,7 +6,6 @@ using FakeItEasy;
 using FluentAssertions;
 using System.Linq;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Service.SkillsFramework.UnitTests.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {

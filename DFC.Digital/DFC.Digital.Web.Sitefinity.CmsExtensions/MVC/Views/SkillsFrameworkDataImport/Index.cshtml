@@ -10,16 +10,28 @@
             <br />
             using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
             {
-                <select name="importmode">
-                    <option value="importskills">Import Onet Skills</option>
-                    <option value="updatesococcupationalcodes">Update SocCodes with Onet Occupational Codes</option>
-                    <option value="updatejpdigitalskills">Update Job profiles with digital skills</option>
-                    <option value="buildsocmatrix">Build Soc Matrix - create Soc to Onet Skill mapping which will allow contextualisation</option>
-                    <option value="updatejpskills">Update Job Profiles with related Onet Skills</option>
-                </select>
+            <select name="importmode">
+                <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
+                <option value="importskills">Import ONet translated skills</option>
+                <option value="updatejpdigitalskills">Update job profiles with digital skills levels</option>
+                <option value="buildsocmatrix">Build SOC Matrix - Create skills list for each SOC</option>
+                <option value="updatejpskills">Link related skills to each job profile</option>
+            </select>
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
             }
 
+            <div style="margin-top:20px">
+
+            <h2>You should run these options in the following order</h2>
+
+            <ol>
+                <li>Update SOCs with ONet Occupational Codes</li>
+                <li>Import ONet translated skills</li>
+                <li>Update job profiles with digital skills levels</li>
+                <li>Build SOC Matrix - Create skills list for each SOC</li>
+                <li>Link related skills to each job profile</li>
+            </ol>
+            </div>
         }
         else
         {

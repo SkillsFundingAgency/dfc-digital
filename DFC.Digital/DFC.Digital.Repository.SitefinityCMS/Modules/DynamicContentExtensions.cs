@@ -60,7 +60,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             if (contentItem != null && contentItem.DoesFieldExist(fieldName))
             {
-                string value = contentItem.GetValue<ChoiceOption>(fieldName)?.Text;
+                string value = contentItem.GetValue<ChoiceOption>(fieldName)?.PersistedValue;
                 return value;
             }
             else

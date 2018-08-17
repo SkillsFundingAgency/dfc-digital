@@ -35,10 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 };
 
                 var isSalaryOverriden = Convert.ToBoolean(item.GetValue(nameof(JobProfile.IsLMISalaryFeedOverriden)));
-
                 jobProfileIndexEnhancer.Initialise(jobProfileIndex, documents.Count() == 1);
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
-
                 if (!isSalaryOverriden)
                 {
                     salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
@@ -49,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
             applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index.");
 
-            //asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
+            asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
             return indexes;
         }
     }

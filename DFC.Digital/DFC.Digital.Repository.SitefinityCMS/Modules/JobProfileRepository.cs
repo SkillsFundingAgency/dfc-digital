@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,6 +129,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
                         dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocSkillItem, RelatedSkillField);
                     }
                 }
+
+                dynamicContentExtensions.SetFieldValue(master, nameof(JobProfile.DigitalSkillsLevel), jobProfile.DigitalSkillsLevel);
 
                 repository.Commit();
 

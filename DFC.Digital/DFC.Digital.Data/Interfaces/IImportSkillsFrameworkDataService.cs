@@ -8,10 +8,6 @@ namespace DFC.Digital.Data.Interfaces
 
         UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode();
 
-        UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills();
-
-        BuildSocMatrixResponse BuildSocMatrixData();
-
-        UpdateJpSocSkillMatrixResponse UpdateJpSocSkillMatrix();
+        UpdateJpSocSkillMatrixResponse ImportForSoc(string jobProfileSoc);
     }
 }

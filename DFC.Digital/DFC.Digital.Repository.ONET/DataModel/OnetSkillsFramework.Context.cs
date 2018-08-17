@@ -16,7 +16,7 @@ namespace DFC.Digital.Repository.ONET.DataModel
     public partial class OnetSkillsFramework : DbContext
     {
         public OnetSkillsFramework()
-            : base("name=DFC.Digital.OnetSkillsFramework")
+            : base("name=OnetSkillsFramework")
         {
         }
     

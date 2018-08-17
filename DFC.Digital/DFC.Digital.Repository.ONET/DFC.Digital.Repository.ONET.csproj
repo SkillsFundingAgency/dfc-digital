@@ -272,6 +272,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="DataModel\OnetSkillsFramework.edmx.diagram">
       <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
     </None>

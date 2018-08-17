@@ -17,18 +17,20 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
+        private readonly IDynamicModuleConverter<ImportJobProfile> converterLight;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<ImportJobProfile> converterLight)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeConverter = socCodeConverter;
             this.socSkillConverter = socSkillConverter;
+            this.converterLight = converterLight;
         }
 
         #endregion Ctor
@@ -46,6 +48,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return Enumerable.Empty<ApprenticeVacancy>().AsQueryable();
+        }
+
+        public IEnumerable<ImportJobProfile> GetLiveJobProfilesBySocCode(string socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
+            var jobProfiles = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobprofileContentType, repository.GetProviderName());
+
+            if (jobProfiles.Any())
+            {
+                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
+            }
+
+            return Enumerable.Empty<ImportJobProfile>().AsQueryable();
         }
 
         public RepoActionResult UpdateSocOccupationalCode(SocCode socCode)

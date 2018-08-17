@@ -109,20 +109,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
                             break;
-                        case "UPDATEJPDIGITALSKILLS":
-                            importSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills();
-                            importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
-                            break;
-                        case "BUILDSOCMATRIX":
-                            importSkillsFrameworkDataService.BuildSocMatrixData();
-                            importResult.ActionCompleted = "Build Soc Skill Matrix";
-                            break;
-                        case "UPDATEJPSKILLS":
-                            importSkillsFrameworkDataService.UpdateJpSocSkillMatrix();
-                            importResult.ActionCompleted = "Update Job Profiles with related Soc skill Matrices";
-                            break;
                     }
-                   }
+                }
                 catch (Exception ex)
                 {
                     otherMessage = $"{ex.Message} <br /> {ex.InnerException} <br /> {ex.StackTrace}";
@@ -135,6 +123,37 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 
             importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
             importResult.OtherMessage = otherMessage;
+
+            return View("ImportResults", importResult);
+        }
+
+
+        [HttpPost]
+        public ActionResult ImportJobProfile(string jobProfileSoc)
+        {
+            var importResult = new SkillsFrameworkResultsViewModel
+            {
+                PageTitle = PageTitle,
+                FirstParagraph = FirstParagraph,
+                NotAllowedMessage = NotAllowedMessage,
+                IsAdmin = webAppContext.IsUserAdministrator,
+                ActionCompleted = "Partial"
+            };
+
+            var otherMessage = string.Empty;
+
+            if (webAppContext.IsUserAdministrator)
+            {
+                importSkillsFrameworkDataService.ImportForSoc(jobProfileSoc);
+            }
+            else
+            {
+                otherMessage = NotAllowedMessage;
+            }
+
+            importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
+            importResult.OtherMessage = otherMessage;
+            importResult.ActionCompleted = "Completed";
 
             return View("ImportResults", importResult);
         }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.abilities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="abilities">
@@ -74,14 +74,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.career_star
           <Property Name="element_name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="1500" Nullable="false" />
         </EntityType>
-        <EntityType Name="DFC_GDSAttributeRankOverRide">
-          <Key>
-            <PropertyRef Name="onet_element_id" />
-          </Key>
-          <Property Name="onet_element_id" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="soccode" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="datetimestamp" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="DFC_GDSCombinations">
           <Key>
             <PropertyRef Name="combined_element_id" />
@@ -93,30 +85,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.career_star
           <Property Name="description" Type="varchar" MaxLength="1500" />
           <Property Name="application_order" Type="smallint" />
           <Property Name="datetimestamp" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DFC_GDSContext">
-          <Key>
-            <PropertyRef Name="onet_element_id" />
-          </Key>
-          <Property Name="onet_element_id" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="soccode" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="context" Type="varchar" MaxLength="1500" />
-          <Property Name="datetimestamp" Type="datetime" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.DFC_GDSONetSKATranslations_staging' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="DFC_GDSONetSKATranslations_staging">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="Skill" />
-            <PropertyRef Name="Description" />
-            <PropertyRef Name="Translation" />
-          </Key>
-          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Skill" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Translation" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Comments" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="DFC_GDSTranlations">
           <Key>
@@ -145,6 +113,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.DFC_SocMapp
           <Property Name="SocCode" Type="varchar" MaxLength="10" />
           <Property Name="ONetCode" Type="varchar" MaxLength="10" />
           <Property Name="QualityRating" Type="int" Nullable="false" />
+          <Property Name="UpdateStatus" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="dwa_reference">
           <Key>
@@ -1466,9 +1435,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="content_model_reference" EntityType="Self.content_model_reference" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DFC_GDSAttributeRankOverRide" EntityType="Self.DFC_GDSAttributeRankOverRide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSCombinations" EntityType="Self.DFC_GDSCombinations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DFC_GDSContext" EntityType="Self.DFC_GDSContext" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSTranlations" EntityType="Self.DFC_GDSTranlations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GlobalAttributeSuppression" EntityType="Self.DFC_GlobalAttributeSuppression" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dwa_reference" EntityType="Self.dwa_reference" Schema="dbo" store:Type="Tables" />
@@ -1521,21 +1488,13 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
     [career_starters_matrix].[related_index] AS [related_index]
     FROM [dbo].[career_starters_matrix] AS [career_starters_matrix]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="DFC_GDSONetSKATranslations_staging" EntityType="Self.DFC_GDSONetSKATranslations_staging" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [DFC_GDSONetSKATranslations_staging].[ID] AS [ID], 
-    [DFC_GDSONetSKATranslations_staging].[Skill] AS [Skill], 
-    [DFC_GDSONetSKATranslations_staging].[Description] AS [Description], 
-    [DFC_GDSONetSKATranslations_staging].[Translation] AS [Translation], 
-    [DFC_GDSONetSKATranslations_staging].[Comments] AS [Comments]
-    FROM [dbo].[DFC_GDSONetSKATranslations_staging] AS [DFC_GDSONetSKATranslations_staging]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="DFC_SocMappings" EntityType="Self.DFC_SocMappings" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [DFC_SocMappings].[JobProfile] AS [JobProfile], 
     [DFC_SocMappings].[SocCode] AS [SocCode], 
     [DFC_SocMappings].[ONetCode] AS [ONetCode], 
-    [DFC_SocMappings].[QualityRating] AS [QualityRating]
+    [DFC_SocMappings].[QualityRating] AS [QualityRating], 
+    [DFC_SocMappings].[UpdateStatus] AS [UpdateStatus]
     FROM [dbo].[DFC_SocMappings] AS [DFC_SocMappings]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="education_training_experience" EntityType="Self.education_training_experience" store:Type="Tables" store:Schema="dbo">
@@ -2038,8 +1997,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
             <End Role="work_values" EntitySet="work_values" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2378,6 +2336,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <Property Name="SocCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="ONetCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="QualityRating" Type="Int32" Nullable="false" />
+          <Property Name="UpdateStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="education_training_experience">
           <Key>
@@ -3925,15 +3884,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DFC_GDSAttributeRankOverRide">
-            <EntityTypeMapping TypeName="Model.DFC_GDSAttributeRankOverRide">
-              <MappingFragment StoreEntitySet="DFC_GDSAttributeRankOverRide">
-                <ScalarProperty Name="onet_element_id" ColumnName="onet_element_id" />
-                <ScalarProperty Name="soccode" ColumnName="soccode" />
-                <ScalarProperty Name="datetimestamp" ColumnName="datetimestamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DFC_GDSCombinations">
             <EntityTypeMapping TypeName="Model.DFC_GDSCombinations">
               <MappingFragment StoreEntitySet="DFC_GDSCombinations">
@@ -3943,16 +3893,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
                 <ScalarProperty Name="element_name" ColumnName="element_name" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="application_order" ColumnName="application_order" />
-                <ScalarProperty Name="datetimestamp" ColumnName="datetimestamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DFC_GDSContext">
-            <EntityTypeMapping TypeName="Model.DFC_GDSContext">
-              <MappingFragment StoreEntitySet="DFC_GDSContext">
-                <ScalarProperty Name="onet_element_id" ColumnName="onet_element_id" />
-                <ScalarProperty Name="soccode" ColumnName="soccode" />
-                <ScalarProperty Name="context" ColumnName="context" />
                 <ScalarProperty Name="datetimestamp" ColumnName="datetimestamp" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4148,20 +4088,10 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DFC_GDSONetSKATranslations_staging">
-            <EntityTypeMapping TypeName="Model.DFC_GDSONetSKATranslations_staging">
-              <MappingFragment StoreEntitySet="DFC_GDSONetSKATranslations_staging">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Skill" ColumnName="Skill" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Translation" ColumnName="Translation" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DFC_SocMappings">
             <EntityTypeMapping TypeName="Model.DFC_SocMappings">
               <MappingFragment StoreEntitySet="DFC_SocMappings">
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
                 <ScalarProperty Name="JobProfile" ColumnName="JobProfile" />
                 <ScalarProperty Name="SocCode" ColumnName="SocCode" />
                 <ScalarProperty Name="ONetCode" ColumnName="ONetCode" />

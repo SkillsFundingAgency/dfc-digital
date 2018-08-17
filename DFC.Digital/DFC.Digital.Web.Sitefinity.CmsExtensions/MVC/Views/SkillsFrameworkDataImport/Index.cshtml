@@ -10,27 +10,38 @@
             <br />
             using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
             {
-            <select name="importmode">
-                <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
-                <option value="importskills">Import ONet translated skills</option>
-                <option value="updatejpdigitalskills">Update job profiles with digital skills levels</option>
-                <option value="buildsocmatrix">Build SOC Matrix - Create skills list for each SOC</option>
-                <option value="updatejpskills">Link related skills to each job profile</option>
-            </select>
+                <select name="importmode">
+                    <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
+                    <option value="importskills">Import ONet translated skills</option>
+                </select>
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
             }
 
             <div style="margin-top:20px">
+                @using (Html.BeginForm("ImportJobProfile", "SkillsFrameworkDataImport", FormMethod.Post))
+                {
+                    <table style="padding:10px; width:600px" >
+                        <tr>
+                            <td>
+                                <input type="text" style="height:25px" value="" name="jobprofilesoc">
+                            </td>
+                            <td>
+                                <input class="submit sfLinkBtn sfSave" type="submit" value="Import skills for Job profiles by SOC">
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
 
-            <h2>You should run these options in the following order</h2>
+            <div style="margin-top:20px">
 
-            <ol>
-                <li>Update SOCs with ONet Occupational Codes</li>
-                <li>Import ONet translated skills</li>
-                <li>Update job profiles with digital skills levels</li>
-                <li>Build SOC Matrix - Create skills list for each SOC</li>
-                <li>Link related skills to each job profile</li>
-            </ol>
+                <h2>You should run these options in the following order</h2>
+
+                <ol>
+                    <li>Update SOCs with ONet Occupational Codes</li>
+                    <li>Import ONet translated skills</li>
+                    <li>Import and link related skills to each Job profile</li>
+                </ol>
             </div>
         }
         else

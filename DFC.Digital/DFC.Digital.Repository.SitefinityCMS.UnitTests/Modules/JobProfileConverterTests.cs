@@ -58,9 +58,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(JobProfile.SalaryStarter)))
                    .MustHaveHappened();
+            jobProfile.SalaryStarter.HasValue(10);
 
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(JobProfile.SalaryExperienced)))
                   .MustHaveHappened();
+            jobProfile.SalaryExperienced.HasValue(20);
 
             if (socAssigned)
             {

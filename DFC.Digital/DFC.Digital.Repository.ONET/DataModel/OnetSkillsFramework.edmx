@@ -102,15 +102,12 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.career_star
           <Property Name="reason" Type="varchar" MaxLength="200" />
           <Property Name="datetimestamp" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.DFC_SocMappings' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DFC_SocMappings">
           <Key>
-            <PropertyRef Name="JobProfile" />
-            <PropertyRef Name="QualityRating" />
+            <PropertyRef Name="SocCode" />
           </Key>
           <Property Name="JobProfile" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="SocCode" Type="varchar" MaxLength="10" />
+          <Property Name="SocCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ONetCode" Type="varchar" MaxLength="10" />
           <Property Name="QualityRating" Type="int" Nullable="false" />
           <Property Name="UpdateStatus" Type="varchar" MaxLength="20" />
@@ -1438,6 +1435,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <EntitySet Name="DFC_GDSCombinations" EntityType="Self.DFC_GDSCombinations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GDSTranlations" EntityType="Self.DFC_GDSTranlations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DFC_GlobalAttributeSuppression" EntityType="Self.DFC_GlobalAttributeSuppression" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DFC_SocMappings" EntityType="Self.DFC_SocMappings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dwa_reference" EntityType="Self.dwa_reference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ete_categories" EntityType="Self.ete_categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="green_dwa_reference" EntityType="Self.green_dwa_reference" Schema="dbo" store:Type="Tables" />
@@ -1487,15 +1485,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
     [career_starters_matrix].[related_onetsoc_code] AS [related_onetsoc_code], 
     [career_starters_matrix].[related_index] AS [related_index]
     FROM [dbo].[career_starters_matrix] AS [career_starters_matrix]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="DFC_SocMappings" EntityType="Self.DFC_SocMappings" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [DFC_SocMappings].[JobProfile] AS [JobProfile], 
-    [DFC_SocMappings].[SocCode] AS [SocCode], 
-    [DFC_SocMappings].[ONetCode] AS [ONetCode], 
-    [DFC_SocMappings].[QualityRating] AS [QualityRating], 
-    [DFC_SocMappings].[UpdateStatus] AS [UpdateStatus]
-    FROM [dbo].[DFC_SocMappings] AS [DFC_SocMappings]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="education_training_experience" EntityType="Self.education_training_experience" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2025,14 +2014,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <NavigationProperty Name="work_styles" Relationship="Self.FK__work_styl__eleme__32AB8735" FromRole="content_model_reference" ToRole="work_styles" />
           <NavigationProperty Name="work_values" Relationship="Self.FK__work_valu__eleme__3587F3E0" FromRole="content_model_reference" ToRole="work_values" />
         </EntityType>
-        <EntityType Name="DFC_GDSAttributeRankOverRide">
-          <Key>
-            <PropertyRef Name="onet_element_id" />
-          </Key>
-          <Property Name="onet_element_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="soccode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="datetimestamp" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="DFC_GDSCombinations">
           <Key>
             <PropertyRef Name="combined_element_id" />
@@ -2043,15 +2024,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <Property Name="element_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <Property Name="application_order" Type="Int16" />
-          <Property Name="datetimestamp" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="DFC_GDSContext">
-          <Key>
-            <PropertyRef Name="onet_element_id" />
-          </Key>
-          <Property Name="onet_element_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="soccode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="context" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <Property Name="datetimestamp" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="DFC_GDSTranlations">
@@ -2314,26 +2286,12 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <NavigationProperty Name="occupation_data" Relationship="Self.FK__career_st__onets__7B5B524B" FromRole="career_starters_matrix" ToRole="occupation_data" />
           <NavigationProperty Name="occupation_data1" Relationship="Self.FK__career_st__relat__7C4F7684" FromRole="career_starters_matrix" ToRole="occupation_data" />
         </EntityType>
-        <EntityType Name="DFC_GDSONetSKATranslations_staging">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="Skill" />
-            <PropertyRef Name="Description" />
-            <PropertyRef Name="Translation" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Skill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Translation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="DFC_SocMappings">
           <Key>
-            <PropertyRef Name="JobProfile" />
-            <PropertyRef Name="QualityRating" />
+            <PropertyRef Name="SocCode" />
           </Key>
           <Property Name="JobProfile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SocCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SocCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ONetCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="QualityRating" Type="Int32" Nullable="false" />
           <Property Name="UpdateStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3549,9 +3507,7 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
         </Association>
         <EntityContainer Name="OnetSkillsFramework" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="content_model_reference" EntityType="Self.content_model_reference" />
-          <EntitySet Name="DFC_GDSAttributeRankOverRide" EntityType="Self.DFC_GDSAttributeRankOverRide" />
           <EntitySet Name="DFC_GDSCombinations" EntityType="Self.DFC_GDSCombinations" />
-          <EntitySet Name="DFC_GDSContext" EntityType="Self.DFC_GDSContext" />
           <EntitySet Name="DFC_GDSTranlations" EntityType="Self.DFC_GDSTranlations" />
           <EntitySet Name="DFC_GlobalAttributeSuppression" EntityType="Self.DFC_GlobalAttributeSuppression" />
           <EntitySet Name="dwa_reference" EntityType="Self.dwa_reference" />
@@ -3570,7 +3526,6 @@ warning 6002: The table/view 'dfc-beta-local-onetskillsframework.dbo.work_values
           <EntitySet Name="alternate_titles" EntityType="Self.alternate_titles" />
           <EntitySet Name="career_changers_matrix" EntityType="Self.career_changers_matrix" />
           <EntitySet Name="career_starters_matrix" EntityType="Self.career_starters_matrix" />
-          <EntitySet Name="DFC_GDSONetSKATranslations_staging" EntityType="Self.DFC_GDSONetSKATranslations_staging" />
           <EntitySet Name="DFC_SocMappings" EntityType="Self.DFC_SocMappings" />
           <EntitySet Name="education_training_experience" EntityType="Self.education_training_experience" />
           <EntitySet Name="emerging_tasks" EntityType="Self.emerging_tasks" />

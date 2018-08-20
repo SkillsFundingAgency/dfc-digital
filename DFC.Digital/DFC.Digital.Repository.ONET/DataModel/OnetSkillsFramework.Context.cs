@@ -16,8 +16,9 @@ namespace DFC.Digital.Repository.ONET.DataModel
     public partial class OnetSkillsFramework : DbContext
     {
         public OnetSkillsFramework()
-            : base("name=OnetSkillsFramework")
+            : base("name=DFC.Digital.OnetSkillsFramework")
         {
+            Database.CommandTimeout = int.MaxValue;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,9 +27,7 @@ namespace DFC.Digital.Repository.ONET.DataModel
         }
     
         public virtual DbSet<content_model_reference> content_model_reference { get; set; }
-        public virtual DbSet<DFC_GDSAttributeRankOverRide> DFC_GDSAttributeRankOverRide { get; set; }
         public virtual DbSet<DFC_GDSCombinations> DFC_GDSCombinations { get; set; }
-        public virtual DbSet<DFC_GDSContext> DFC_GDSContext { get; set; }
         public virtual DbSet<DFC_GDSTranlations> DFC_GDSTranlations { get; set; }
         public virtual DbSet<DFC_GlobalAttributeSuppression> DFC_GlobalAttributeSuppression { get; set; }
         public virtual DbSet<dwa_reference> dwa_reference { get; set; }
@@ -47,7 +46,6 @@ namespace DFC.Digital.Repository.ONET.DataModel
         public virtual DbSet<alternate_titles> alternate_titles { get; set; }
         public virtual DbSet<career_changers_matrix> career_changers_matrix { get; set; }
         public virtual DbSet<career_starters_matrix> career_starters_matrix { get; set; }
-        public virtual DbSet<DFC_GDSONetSKATranslations_staging> DFC_GDSONetSKATranslations_staging { get; set; }
         public virtual DbSet<DFC_SocMappings> DFC_SocMappings { get; set; }
         public virtual DbSet<education_training_experience> education_training_experience { get; set; }
         public virtual DbSet<emerging_tasks> emerging_tasks { get; set; }

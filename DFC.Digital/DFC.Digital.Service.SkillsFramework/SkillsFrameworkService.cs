@@ -43,6 +43,11 @@ namespace DFC.Digital.Service.SkillsFramework
             return socRepository.GetAll();
         }
 
+        public IEnumerable<SocCode> GetNextBatchSocMappingsForUpdate(int batchSize)
+        {
+            return socRepository.GetAll().Take(batchSize);
+        }
+
         public IEnumerable<FrameworkSkill> GetAllTranslations()
         {
             return translationRepository.GetAll();
@@ -81,6 +86,15 @@ namespace DFC.Digital.Service.SkillsFramework
         public void ResetSocStatus(IEnumerable<SocCode> socCodes)
         {
             socMappingRepository.SetUpdateStatusForSocs(socCodes, UpdateStatus.AwaitingUpdate);
+        }
+        public void SetSocStatusCompleted(SocCode socCodes)
+        {
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.UpdateCompleted);
+        }
+
+        public void SetSocStatusSelectedForUpdate (SocCode socCodes)
+        {
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.SelectedForUpdate);
         }
 
         #endregion Implementation of ISkillsFrameworkService

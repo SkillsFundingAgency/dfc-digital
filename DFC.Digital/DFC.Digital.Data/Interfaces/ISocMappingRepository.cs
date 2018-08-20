@@ -14,8 +14,12 @@ namespace DFC.Digital.Data.Interfaces
         UpdateCompleted
     }
 
-    public interface ISocMappingRepository
+    public interface ISocMappingRepository : IQueryRepository<SocCode>
     {
         void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, UpdateStatus updateStatus);
+
+        IQueryable<SocCode> GetSocsAwaitingUpdate();
+
+        SocMappingStatus GetSocMappingStatus();
     }
 }

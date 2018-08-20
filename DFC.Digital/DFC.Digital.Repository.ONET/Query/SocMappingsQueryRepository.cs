@@ -46,7 +46,7 @@ namespace DFC.Digital.Repository.ONET.Query
 
         public IQueryable<SocCode> GetMany(Expression<Func<SocCode, bool>> where)
         {
-            return GetAll().Where(where);
+            throw new NotImplementedException();
         }
     }
 }

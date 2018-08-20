@@ -96,6 +96,8 @@ namespace DFC.Digital.Service.SkillsFramework
                 reportAuditRepository.CreateAudit(SummaryDetailsKey, $"SOC - {jobProfileSoc} NOT found!");
             }
 
+            skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
+
             var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobProfilesForSoc.Count()} profile for SOC");
 
@@ -137,8 +139,11 @@ namespace DFC.Digital.Service.SkillsFramework
                         reportAuditRepository.CreateAudit(ActionDetailsKey, $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
                     }
                 }
+
+                skillsFrameworkService.SetSocStatusCompleted(soc);
+                reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
             }
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
+           
             return new UpdateJpSocSkillMatrixResponse { Success = true };
         }
 

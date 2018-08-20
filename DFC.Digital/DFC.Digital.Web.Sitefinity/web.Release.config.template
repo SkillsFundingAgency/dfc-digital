@@ -47,11 +47,4 @@
       <logger writeTo="trace" xdt:Transform="Remove" xdt:Locator="Match(writeTo)"/>
     </rules>
   </nlog>
-  <system.diagnostics xdt:Transform="Insert">
-    <trace autoflush="true" indentsize="0">
-      <listeners>
-        <add name="myAppInsightsListener" type="Microsoft.ApplicationInsights.TraceListener.ApplicationInsightsTraceListener, Microsoft.ApplicationInsights.TraceListener" />
-      </listeners>
-    </trace>
-  </system.diagnostics>
 </configuration>

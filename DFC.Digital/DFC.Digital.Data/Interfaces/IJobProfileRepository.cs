@@ -16,10 +16,10 @@ namespace DFC.Digital.Data.Interfaces
 
         JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
 
-        IEnumerable<ImportJobProfile> GetLiveJobProfiles();
+        IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfiles();
 
-        RepoActionResult UpdateDigitalSkill(ImportJobProfile jobProfile);
+        RepoActionResult UpdateDigitalSkill(JobProfileOverloadForWhatItTakes jobProfile);
 
-        RepoActionResult UpdateSocSkillMatrices(ImportJobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices);
+        RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices);
     }
 }

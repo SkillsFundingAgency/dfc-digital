@@ -244,6 +244,7 @@
     <Compile Include="Query\SkillsOueryRepository.cs" />
     <Compile Include="Query\SocMappingsQueryRepository.cs" />
     <Compile Include="Query\TranslationQueryRepository.cs" />
+    <Compile Include="SocMappingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

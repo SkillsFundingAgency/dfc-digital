@@ -141,5 +141,11 @@ namespace DFC.Digital.Service.SkillsFramework
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
             return new UpdateJpSocSkillMatrixResponse { Success = true };
         }
+
+        public void ResetAllSocStatus()
+        {
+            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes();
+            skillsFrameworkService.ResetSocStatus(allSocCodes);
+        }
     }
 }

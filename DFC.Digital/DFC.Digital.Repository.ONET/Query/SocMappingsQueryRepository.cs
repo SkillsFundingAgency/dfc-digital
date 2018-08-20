@@ -3,11 +3,13 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace DFC.Digital.Repository.ONET.Query
 {
+  
     public class SocMappingsQueryRepository : IQueryRepository<SocCode>
     {
         private readonly OnetSkillsFramework onetDbContext;

@@ -103,11 +103,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     {
                         case "IMPORTSKILLS":
                             importSkillsFrameworkDataService.ImportFrameworkSkills();
-                            importResult.ActionCompleted = "Import Onet Skills";
+                            importResult.ActionCompleted = "Imported Onet Skills";
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
-                            importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
+                            importResult.ActionCompleted = "Updated SOC with Onet Occupational Codes";
+                            break;
+                        case "RESETSOCIMPORTSTATUS":
+                            importSkillsFrameworkDataService.ResetAllSocStatus();
+                            importResult.ActionCompleted = "Import status for all SOCs has been reset  ";
                             break;
                     }
                 }

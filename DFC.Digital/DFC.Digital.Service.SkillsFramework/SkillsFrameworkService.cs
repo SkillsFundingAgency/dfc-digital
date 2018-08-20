@@ -11,11 +11,12 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
-        // CodeReview: TK;  Please remove unused private fields
         private readonly IApplicationLogger logger;
         private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
         private readonly IQueryRepository<FrameworkSkill> translationRepository;
+        private readonly ISocMappingRepository socMappingRepository;
+
 
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
    
@@ -24,13 +25,15 @@ namespace DFC.Digital.Service.SkillsFramework
             IQueryRepository<SocCode> socRepository,
             IQueryRepository<DigitalSkill> digitalSkillRepository,
             IQueryRepository<FrameworkSkill> translationRepository,
-            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
+            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
+            ISocMappingRepository socMappingRepository)
         {
             this.logger = logger;
             this.socRepository = socRepository;
             this.digitalSkillRepository = digitalSkillRepository;
             this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
             this.translationRepository = translationRepository;
+            this.socMappingRepository = socMappingRepository;
         }
 
         #region Implementation of ISkillsFrameworkService
@@ -73,6 +76,11 @@ namespace DFC.Digital.Service.SkillsFramework
 
             return attributes;
       
+        }
+
+        public void ResetSocStatus(IEnumerable<SocCode> socCodes)
+        {
+            socMappingRepository.SetUpdateStatusForSocs(socCodes, UpdateStatus.AwaitingUpdate);
         }
 
         #endregion Implementation of ISkillsFrameworkService

@@ -52,9 +52,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 .AndNoModelErrors();
 
             A.CallTo(() => fakeWebAppContext.IsUserAdministrator).MustHaveHappened();
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustNotHaveHappened();
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustNotHaveHappened();
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustNotHaveHappened();
             A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
             A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustNotHaveHappened();
@@ -97,19 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 case "UPDATESOCOCCUPATIONALCODES":
                     A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustHaveHappened();
                     break;
-                case "UPDATEJPDIGITALSKILLS":
-                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustHaveHappened();
-                    break;
-                case "BUILDSOCMATRIX":
-                    A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustHaveHappened();
-                    break;
-                case "UPDATEJPSKILLS":
-                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustHaveHappened();
-                    break;
                     default:
-                        A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).MustNotHaveHappened();
-                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).MustNotHaveHappened();
-                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).MustNotHaveHappened();
                         A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
                         A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
                     break;
@@ -135,9 +120,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         private void SetupCalls()
         {
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.BuildSocMatrixData()).Returns(new BuildSocMatrixResponse());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills()).Returns(new UpdateJpDigitalSkillsResponse());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateJpSocSkillMatrix()).Returns(new UpdateJpSocSkillMatrixResponse());
             A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Returns(new UpdateSocOccupationalCodeResponse());
             A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Returns(new FrameworkSkillsImportResponse());
         }

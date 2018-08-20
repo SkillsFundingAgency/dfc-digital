@@ -10,10 +10,11 @@
             <br />
             using (Html.BeginForm("", "SkillsFrameworkDataImport", FormMethod.Post))
             {
-                <select name="importmode">
-                    <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
-                    <option value="importskills">Import ONet translated skills</option>
-                </select>
+            <select name="importmode">
+                <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
+                <option value="importskills">Import ONet translated skills</option>
+                <option value="resetsocimportstatus">Reset Soc Import Status</option>
+            </select>
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
             }
 
@@ -41,6 +42,7 @@
                     <li>Update SOCs with ONet Occupational Codes</li>
                     <li>Import ONet translated skills</li>
                     <li>Import and link related skills to each Job profile</li>
+                    <li>Reset Soc Import Status - ONLY DO THIS IF YOU WANT TO START AGAIN</li>
                 </ol>
             </div>
         }

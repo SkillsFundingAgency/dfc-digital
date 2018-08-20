@@ -9,5 +9,7 @@ namespace DFC.Digital.Data.Interfaces
         UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode();
 
         UpdateJpSocSkillMatrixResponse ImportForSoc(string jobProfileSoc);
+
+        void ResetAllSocStatus();
     }
 }

@@ -25,13 +25,15 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
-            // Act
-            A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());
+            var ISocMappingRepository = A.Fake<ISocMappingRepository>();
+        // Act
+        A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
                 socRepository,
                 digitalSkill,
                 skillsRepository,
-                skillsBusinessRuleEngine
+                skillsBusinessRuleEngine,
+                ISocMappingRepository
                );
             var response = skillsFrameworkService.GetAllSocMappings();
 
@@ -52,13 +54,15 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
+            var ISocMappingRepository = A.Fake<ISocMappingRepository>();
             // Act
             A.CallTo(() => skillsRepository.GetAll()).Returns(translatedData.AsQueryable());
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
                 socRepository,
                 digitalSkill,
                 skillsRepository,
-                skillsBusinessRuleEngine
+                skillsBusinessRuleEngine,
+                ISocMappingRepository
                 );
             var response = skillsFrameworkService.GetAllTranslations();
 
@@ -80,6 +84,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var fakeSkillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
+            var ISocMappingRepository = A.Fake<ISocMappingRepository>();
 
             var fakeQuerable = A.Fake<IQueryable<OnetAttribute>>();
 
@@ -98,7 +103,8 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                 socRepository,
                 digitalSkill,
                 skillsRepository,
-                fakeSkillsBusinessRuleEngine
+                fakeSkillsBusinessRuleEngine,
+                ISocMappingRepository
                );
 
             //act

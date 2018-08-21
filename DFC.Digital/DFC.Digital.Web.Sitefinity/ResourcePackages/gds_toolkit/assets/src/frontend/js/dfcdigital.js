@@ -68,6 +68,25 @@ $(document).ready(function () {
         $(".job-profile-feedback-end-no").removeClass("hidden");
 
     });
+
+    $("#job-profile-feedback-survey").click(function (e) {
+        e.preventDefault();
+        var profileURL = window.location.href;
+        sessionStorage.setItem("profileURL", profileURL);
+        window.location = $(this).attr('href');
+    });
+
+    $("#job-profile-feedback-survey-finish").click(function (e) {
+        e.preventDefault();
+        var profileURL = sessionStorage.getItem("profileURL");
+        if (sessionStorage.getItem("profileURL") !== null) {
+            window.location = profileURL;
+        }
+        else {
+            window.location = $(this).attr('href');
+        }
+    });
+
 });
 
 function sendEmail(e) {
@@ -105,3 +124,4 @@ $('.js-autocomplete').each(function () {
         minLength: $(this).data('autocomplete-minlength')
     });
 });
+

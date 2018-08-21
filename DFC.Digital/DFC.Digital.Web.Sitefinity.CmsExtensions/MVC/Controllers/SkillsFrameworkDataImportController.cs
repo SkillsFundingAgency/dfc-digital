@@ -64,6 +64,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         [DisplayName("Not Allowed Message")]
         public string NotAllowedMessage { get; set; } = "You are not allowed to use this functionality. Only Administrators are.";
 
+
+        /// <summary>
+        /// Gets or sets the First Paragraph.
+        /// </summary>
+        /// <value>
+        /// The Page Title.
+        /// </value>
+        [DisplayName("Batch Size for Import - ON Azure this number should not take more then 2 minutes to complete")]
+        public int BatchSizeForImport { get; set; } = 10;
+
         #endregion Public Properties
 
         #region Actions
@@ -78,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 NotAllowedMessage = NotAllowedMessage,
                 IsAdmin = webAppContext.IsUserAdministrator,
                 SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
-                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(5)
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(BatchSizeForImport)
             };
 
             return View(model);
@@ -94,7 +104,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 NotAllowedMessage = NotAllowedMessage,
                 IsAdmin = webAppContext.IsUserAdministrator,
                 SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
-                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(5)
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(BatchSizeForImport)
             };
 
             var otherMessage = string.Empty;

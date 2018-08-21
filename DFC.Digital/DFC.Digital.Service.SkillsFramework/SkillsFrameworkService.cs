@@ -40,7 +40,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<SocCode> GetNextBatchSocMappingsForUpdate(int batchSize)
         {
-            return socMappingRepository.GetAll().Take(batchSize);
+            return socMappingRepository.GetSocsAwaitingUpdate().Take(batchSize);
         }
 
         public IEnumerable<FrameworkSkill> GetAllTranslations()

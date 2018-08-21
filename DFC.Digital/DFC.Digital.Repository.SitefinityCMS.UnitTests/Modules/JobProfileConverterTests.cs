@@ -56,11 +56,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             A.CallTo(() => fakeRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
           A.CallTo(() => htbContentPropertyConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
 
-            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(JobProfile.SalaryStarter)))
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryStarter)))
                    .MustHaveHappened();
             jobProfile.SalaryStarter.Should().Be(10);
 
-            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(JobProfile.SalaryExperienced)))
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryExperienced)))
                   .MustHaveHappened();
             jobProfile.SalaryExperienced.Should().Be(20);
 

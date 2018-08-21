@@ -233,7 +233,6 @@
     <Compile Include="Query\SuppressionsQueryRepository.cs" />
     <Compile Include="Query\DigitalSkillsQueryRepository.cs" />
     <Compile Include="Query\SkillsOueryRepository.cs" />
-    <Compile Include="Query\SocMappingsQueryRepository.cs" />
     <Compile Include="Query\TranslationQueryRepository.cs" />
     <Compile Include="SocMappingRepository.cs" />
   </ItemGroup>
@@ -264,7 +263,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config" />
     <None Include="DataModel\OnetSkillsFramework.edmx.diagram">
       <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
     </None>

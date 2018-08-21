@@ -13,20 +13,27 @@
             <select name="importmode">
                 <option value="updatesococcupationalcodes">Update SOCs with ONet Occupational Codes</option>
                 <option value="importskills">Import ONet translated skills</option>
-                <option value="resetsocimportstatus">Reset Soc Import Status</option>
+                <option value="resetsocimportstartedstatus">Reset import Status for SOCs started by not completed correctly</option>
+                <option value="resetsocimportallstatus">Reset import Status for ALL SOCS</option>
             </select>
-                <input class="submit sfLinkBtn sfSave" type="submit" value="Import Onet Data">
+                <input class="submit sfLinkBtn sfSave" type="submit" value="Run Selected Option">
             }
 
             <div style="margin-top:20px">
                 @using (Html.BeginForm("ImportJobProfile", "SkillsFrameworkDataImport", FormMethod.Post))
                 {
-                    <table style="padding:10px; width:600px" >
+                    <table style="width:1000px;" >
+                        <tr style="background-color:aliceblue;">
+                            <td>SOCs awaiting import : @Model.SocMappingStatus.AwaitingUpdate</td>
+                            <td>SOCs completed : @Model.SocMappingStatus.UpdateCompleted</td>
+                            <td>SOCs started but not completed : @Model.SocMappingStatus.SelectedForUpdate</td>
+                        </tr>
                         <tr>
-                            <td>
-                                <input type="text" style="height:25px" value="" name="jobprofilesoc">
+                            <td style="padding-top:10px;" colspan="2">
+                                <input type="text" style="height:100px; width:600px;" value="@Model.NextBatchOfSOCsToImport" name="jobprofilesoc">
+                                <p>This can be a comma seperated list of SOCs</p>
                             </td>
-                            <td>
+                            <td style="text-align:left">
                                 <input class="submit sfLinkBtn sfSave" type="submit" value="Import skills for Job profiles by SOC">
                             </td>
                         </tr>
@@ -35,15 +42,20 @@
             </div>
 
             <div style="margin-top:20px">
-
                 <h2>You should run these options in the following order</h2>
-
                 <ol>
                     <li>Update SOCs with ONet Occupational Codes</li>
                     <li>Import ONet translated skills</li>
-                    <li>Import and link related skills to each Job profile</li>
-                    <li>Reset Soc Import Status - ONLY DO THIS IF YOU WANT TO START AGAIN</li>
+                    <li>Import and link related skills to each Job profile  </li>
                 </ol>
+
+                <div style="margin-top:20px">
+                    <h2>Only use these options if you have problems</h2>
+                    <ol>
+                        <li>Reset import Status for SOCs started by not completed correctly - DO THIS FOR SOCS THAT HAVE THROWN ERRORS</li>
+                        <li>Reset import Status for ALL SOCS - ONLY DO THIS IF YOU WANT TO START AGAIN</li>
+                    </ol>
+                </div>
             </div>
         }
         else

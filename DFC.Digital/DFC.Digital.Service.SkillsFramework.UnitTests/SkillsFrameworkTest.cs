@@ -21,15 +21,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
-            var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
             var ISocMappingRepository = A.Fake<ISocMappingRepository>();
         // Act
-        A.CallTo(() => socRepository.GetAll()).Returns(responseData.AsQueryable());
+        A.CallTo(() => ISocMappingRepository.GetAll()).Returns(responseData.AsQueryable());
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
-                socRepository,
                 digitalSkill,
                 skillsRepository,
                 skillsBusinessRuleEngine,
@@ -38,7 +36,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var response = skillsFrameworkService.GetAllSocMappings();
 
             // Assert
-            A.CallTo(() => socRepository.GetAll()).MustHaveHappened();
+            A.CallTo(() => ISocMappingRepository.GetAll()).MustHaveHappened();
 
             var socCodeData = response as IList<SocCode> ?? response.ToList();
             socCodeData.Should().NotBeNull();
@@ -50,7 +48,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
-            var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var skillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
@@ -58,7 +55,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             // Act
             A.CallTo(() => skillsRepository.GetAll()).Returns(translatedData.AsQueryable());
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
-                socRepository,
                 digitalSkill,
                 skillsRepository,
                 skillsBusinessRuleEngine,
@@ -80,7 +76,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         {
             // Arrange
             var applicationLogger = A.Fake<IApplicationLogger>();
-            var socRepository = A.Fake<IRepository<SocCode>>();
             var skillsRepository = A.Fake<IRepository<FrameworkSkill>>();
             var digitalSkill = A.Fake<IRepository<DigitalSkill>>();
             var fakeSkillsBusinessRuleEngine = A.Fake<ISkillFrameworkBusinessRuleEngine>();
@@ -100,7 +95,6 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
 
             var skillsFrameworkService = new SkillsFrameworkService(applicationLogger,
-                socRepository,
                 digitalSkill,
                 skillsRepository,
                 fakeSkillsBusinessRuleEngine,

@@ -86,20 +86,71 @@ namespace DFC.Digital.Service.SkillsFramework
             return new UpdateSocOccupationalCodeResponse {Success = true};
         }
 
-        public UpdateJpSocSkillMatrixResponse ImportForSoc(string jobProfileSoc)
+        public SkillsServiceResponse ImportForSocs(string jobProfileSocs)
         {
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
+            if (jobProfileSocs == null)
+            {
+                throw new ArgumentNullException(nameof(jobProfileSocs));
+            }
+
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updating Job profiles for SOC(s) - {jobProfileSocs}");
+            var startingNumber = skillsFrameworkService.GetSocMappingStatus();
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Before Import  - SOCs awaiting import-{startingNumber.AwaitingUpdate} : SOCs completed-{startingNumber.UpdateCompleted} :  SOCs started but not completed-{startingNumber.SelectedForUpdate} ");
+
+            var Socs = jobProfileSocs.Split(',');
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Importing {Socs.Count()} SOC(s)");
+            foreach (string Soc in Socs)
+            {
+                ImportForsingleSoc(Soc);
+            }
+
+            var endingNumber = skillsFrameworkService.GetSocMappingStatus();
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"After Import  - SOCs awaiting import-{endingNumber.AwaitingUpdate} : SOCs completed-{endingNumber.UpdateCompleted} :  SOCs started but not completed-{endingNumber.SelectedForUpdate} ");
+            return new SkillsServiceResponse { Success = true };
+        }
+
+        public void ResetAllSocStatus()
+        {
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Reseting status of all SOCs to awaiting import");
+            skillsFrameworkService.ResetAllSocStatus();
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Status has been reset");
+
+        }
+
+        public void ResetStartedSocStatus()
+        {
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Reseting status of all SOCs stuck in started import status");
+            skillsFrameworkService.ResetStartedSocStatus();
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Status has been reset");
+        }
+
+        public SocMappingStatus GetSocMappingStatus()
+        {
+            return skillsFrameworkService.GetSocMappingStatus();
+        }
+
+        public string GetNextBatchOfSOCsToImport(int batchsize)
+        {
+            var Socs = skillsFrameworkService.GetNextBatchSocMappingsForUpdate(batchsize);
+            return string.Join(",", Socs.ToList().Select(s => s.SOCCode));
+        }
+
+        private void ImportForsingleSoc(string jobProfileSoc)
+        {
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
 
             var soc = jobProfileSocCodeRepository.GetLiveSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
-            if(soc == null)
+            if (soc == null)
             {
-                reportAuditRepository.CreateAudit(SummaryDetailsKey, $"SOC - {jobProfileSoc} NOT found!");
+                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found!");
             }
 
             skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
 
             var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {jobProfilesForSoc.Count()} profile for SOC");
+
+
+            reportAuditRepository.CreateAudit((jobProfilesForSoc.Count() > 0) ? ActionDetailsKey : ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} profile for SOC");
 
             //We have job linked to the SOC
             if (jobProfilesForSoc?.Count() > 0)
@@ -130,6 +181,7 @@ namespace DFC.Digital.Service.SkillsFramework
                 var auditMessage = $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} from SkillFramework Service";
                 var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
 
+                //DO all profiles that exist for this code
                 foreach (var profile in jobProfilesForSoc)
                 {
                     if (socSkillMatrixData.Any())
@@ -141,16 +193,11 @@ namespace DFC.Digital.Service.SkillsFramework
                 }
 
                 skillsFrameworkService.SetSocStatusCompleted(soc);
-                reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
-            }
-           
-            return new UpdateJpSocSkillMatrixResponse { Success = true };
-        }
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
 
-        public void ResetAllSocStatus()
-        {
-            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes();
-            skillsFrameworkService.ResetSocStatus(allSocCodes);
+            }
         }
     }
 }

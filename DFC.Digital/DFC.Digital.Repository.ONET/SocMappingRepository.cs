@@ -38,19 +38,14 @@ namespace DFC.Digital.Repository.ONET
 
         public IQueryable<SocCode> GetSocsAwaitingUpdate()
         {
-            var mapping = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == UpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null);
-            var result = (from soc in mapping
-                          orderby soc.SocCode
-                          select new SocCode()
-                          {
-                              Id = Guid.Empty,
-                              ONetOccupationalCode = soc.ONetCode,
-                              SOCCode = soc.SocCode,
-                              Title = null
-                          });
-            return result;
+            return GetSocsQuery(s => s.UpdateStatus == UpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null);
         }
 
+        public IQueryable<SocCode> GetSocsInStartedState()
+        {
+            return GetSocsQuery(s => s.UpdateStatus == UpdateStatus.SelectedForUpdate.ToString());
+        }
+                
         public SocMappingStatus GetSocMappingStatus()
         {
             var socMappingStatus = new SocMappingStatus
@@ -89,6 +84,21 @@ namespace DFC.Digital.Repository.ONET
         public IQueryable<SocCode> GetMany(Expression<Func<SocCode, bool>> where)
         {
              return GetAll().Where(where);
+        }
+
+        private IQueryable<SocCode> GetSocsQuery(Expression<Func<DFC_SocMappings, bool>> where)
+        {
+            var mapping = onetDbContext.DFC_SocMappings.Where(where);
+            var result = (from soc in mapping
+                          orderby soc.SocCode
+                          select new SocCode()
+                          {
+                              Id = Guid.Empty,
+                              ONetOccupationalCode = soc.ONetCode,
+                              SOCCode = soc.SocCode,
+                              Title = null
+                          });
+            return result;
         }
     }
 }

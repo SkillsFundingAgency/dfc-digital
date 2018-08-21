@@ -189,7 +189,7 @@
     <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
     <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />
     <Compile Include="Model\UpdateJpSkillsDataResponse.cs" />
-    <Compile Include="Model\UpdateJpSocSkillMatrixResponse.cs" />
+    <Compile Include="Model\SkillsServiceResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeRequest.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />

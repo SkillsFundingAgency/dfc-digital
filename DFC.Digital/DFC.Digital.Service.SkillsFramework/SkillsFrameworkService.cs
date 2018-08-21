@@ -12,24 +12,19 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
         private readonly IApplicationLogger logger;
-        private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
         private readonly IQueryRepository<FrameworkSkill> translationRepository;
         private readonly ISocMappingRepository socMappingRepository;
-
-
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
    
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IQueryRepository<SocCode> socRepository,
             IQueryRepository<DigitalSkill> digitalSkillRepository,
             IQueryRepository<FrameworkSkill> translationRepository,
             ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
             ISocMappingRepository socMappingRepository)
         {
             this.logger = logger;
-            this.socRepository = socRepository;
             this.digitalSkillRepository = digitalSkillRepository;
             this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
             this.translationRepository = translationRepository;
@@ -40,12 +35,12 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<SocCode> GetAllSocMappings()
         {
-            return socRepository.GetAll();
+            return socMappingRepository.GetAll();
         }
 
         public IEnumerable<SocCode> GetNextBatchSocMappingsForUpdate(int batchSize)
         {
-            return socRepository.GetAll().Take(batchSize);
+            return socMappingRepository.GetAll().Take(batchSize);
         }
 
         public IEnumerable<FrameworkSkill> GetAllTranslations()
@@ -62,7 +57,6 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode)
         {
-
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
             var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList();
 
@@ -79,22 +73,34 @@ namespace DFC.Digital.Service.SkillsFramework
             attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
             logger.Trace($"Returning {attributes.Count()} attributes for ocupational code {onetOccupationalCode}");
 
-            return attributes;
-      
+            return attributes;      
         }
 
-        public void ResetSocStatus(IEnumerable<SocCode> socCodes)
+        public void ResetAllSocStatus()
         {
-            socMappingRepository.SetUpdateStatusForSocs(socCodes, UpdateStatus.AwaitingUpdate);
+            var allSocCodes = GetAllSocMappings();
+            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, UpdateStatus.AwaitingUpdate);
         }
+
+        public void ResetStartedSocStatus()
+        {
+            var socInStartedStateCodes = socMappingRepository.GetSocsInStartedState();
+            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, UpdateStatus.AwaitingUpdate);
+        }
+
         public void SetSocStatusCompleted(SocCode socCodes)
         {
             socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.UpdateCompleted);
         }
-
+               
         public void SetSocStatusSelectedForUpdate (SocCode socCodes)
         {
             socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.SelectedForUpdate);
+        }
+
+        public SocMappingStatus GetSocMappingStatus()
+        {
+            return socMappingRepository.GetSocMappingStatus();
         }
 
         #endregion Implementation of ISkillsFrameworkService

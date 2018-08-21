@@ -8,8 +8,14 @@ namespace DFC.Digital.Data.Interfaces
 
         UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode();
 
-        UpdateJpSocSkillMatrixResponse ImportForSoc(string jobProfileSoc);
+        SkillsServiceResponse ImportForSocs(string jobProfileSocs);
 
         void ResetAllSocStatus();
+
+        void ResetStartedSocStatus();
+
+        SocMappingStatus GetSocMappingStatus();
+
+        string GetNextBatchOfSOCsToImport(int batchsize);
     }
 }

@@ -21,5 +21,7 @@ namespace DFC.Digital.Data.Interfaces
         IQueryable<SocCode> GetSocsAwaitingUpdate();
 
         SocMappingStatus GetSocMappingStatus();
+
+        IQueryable<SocCode> GetSocsInStartedState();
     }
 }

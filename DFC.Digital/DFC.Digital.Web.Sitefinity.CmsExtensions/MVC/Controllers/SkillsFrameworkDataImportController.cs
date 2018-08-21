@@ -76,7 +76,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = webAppContext.IsUserAdministrator
+                IsAdmin = webAppContext.IsUserAdministrator,
+                SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(5)
             };
 
             return View(model);
@@ -90,7 +92,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = webAppContext.IsUserAdministrator
+                IsAdmin = webAppContext.IsUserAdministrator,
+                SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(5)
             };
 
             var otherMessage = string.Empty;
@@ -109,10 +113,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Updated SOC with Onet Occupational Codes";
                             break;
-                        case "RESETSOCIMPORTSTATUS":
+                        case "RESETSOCIMPORTALLSTATUS":
                             importSkillsFrameworkDataService.ResetAllSocStatus();
                             importResult.ActionCompleted = "Import status for all SOCs has been reset  ";
                             break;
+
+                        case "RESETSOCIMPORTSTARTEDSTATUS":
+                            importSkillsFrameworkDataService.ResetStartedSocStatus();
+                            importResult.ActionCompleted = "Import status for Started SOCs has been reset  ";
+                         break;
+
                     }
                 }
                 catch (Exception ex)
@@ -141,14 +151,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
                 IsAdmin = webAppContext.IsUserAdministrator,
-                ActionCompleted = "Partial"
             };
 
             var otherMessage = string.Empty;
 
             if (webAppContext.IsUserAdministrator)
             {
-                importSkillsFrameworkDataService.ImportForSoc(jobProfileSoc);
+                importSkillsFrameworkDataService.ImportForSocs(jobProfileSoc);
             }
             else
             {
@@ -157,8 +166,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 
             importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
             importResult.OtherMessage = otherMessage;
-            importResult.ActionCompleted = "Completed";
-
             return View("ImportResults", importResult);
         }
 

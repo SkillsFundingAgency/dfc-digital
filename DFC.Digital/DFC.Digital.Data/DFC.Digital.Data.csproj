@@ -184,6 +184,7 @@
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
+    <Compile Include="Model\TimedLinks.cs" />
     <Compile Include="Model\UpdateJpDigitalSkillsRequest.cs" />
     <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
     <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />

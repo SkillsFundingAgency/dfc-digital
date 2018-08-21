@@ -2,9 +2,13 @@
 using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Model.ContentLinks;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -39,15 +43,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly IRelatedClassificationsRepository classificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IDynamicModuleRepository<MoreInformationLink> moreInfoRepository;
+        private readonly IDynamicModuleRepository<JobProfile> repository;
 
         #endregion Fields
 
         #region Ctor
 
-        public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository, IDynamicContentExtensions dynamicContentExtensions)
+        public HowToBecomeConverter(IRelatedClassificationsRepository classificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<MoreInformationLink> moreInfoRepository, IDynamicModuleRepository<JobProfile> repository)
         {
             this.classificationsRepository = classificationsRepository;
             this.dynamicContentExtensions = dynamicContentExtensions;
+            this.moreInfoRepository = moreInfoRepository;
+            this.repository = repository;
         }
 
         #endregion Ctor
@@ -86,7 +94,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         FurtherRouteInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, UniversityFurtherRouteInfoField),
                         RouteRequirement = classificationsRepository.GetRelatedClassifications(content, UniversityRequirementsField, UniversityRequirementsField).FirstOrDefault(),
                         EntryRequirements = GetEntryRequirements(content, RelatedUniversityRequirementField),
-                        MoreInformationLinks = GetRelatedLinkItems(content, RelatedUniversityLinksField)
+                        MoreInformationCmLinks = GetRelatedLinksByCm(content, RelatedUniversityLinksField),
+                        MoreInformationDmLinks = GetRelatedLinkItemsByDm(content, RelatedUniversityLinksField),
+                        MoreInformationLinks = new List<MoreInformationLink>()
                     },
 
                     // College
@@ -138,6 +148,66 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return linkItems;
+        }
+
+        private TimedLinks GetRelatedLinkItemsByDm(DynamicContent content, string relatedField)
+        {
+            var watch = Stopwatch.StartNew();
+            var linkItems = new List<MoreInformationLink>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    var link = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url));
+                    linkItems.Add(new MoreInformationLink
+                    {
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
+                        Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
+                        Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Text)),
+                    });
+                }
+            }
+
+            return new TimedLinks
+            {
+                MoreInformationLinks = linkItems,
+                TimeToExecute = $"Took {watch.Elapsed}"
+            };
+        }
+
+        private TimedLinks GetRelatedLinksByCm(DynamicContent content, string relatedField)
+        {
+            var watch = Stopwatch.StartNew();
+            var contentLinkManager = new ContentLinksManager();
+            var masterContentItem = repository.GetMaster(content);
+
+            var relatedLinksByMaster = contentLinkManager.GetContentLinks()
+                .Where(cl => cl.ParentItemId == masterContentItem.Id && cl.ComponentPropertyName == relatedField).AsQueryable();
+
+            var guidList = relatedLinksByMaster.Where(rl => content.Status == ContentLifecycleStatus.Live ? rl.AvailableForLive : rl.AvailableForTemp).Select(rl => rl.ChildItemId).ToList();
+
+            var relatedItems = moreInfoRepository.GetMany(item => guidList.Contains(item.Id));
+
+            var linkItems = new List<MoreInformationLink>();
+            foreach (var relatedItem in relatedItems)
+            {
+                var linkurl =
+                    dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url));
+
+                linkItems.Add(new MoreInformationLink
+                {
+                    Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
+                    Url = !string.IsNullOrWhiteSpace(linkurl) ? new Uri(linkurl, UriKind.RelativeOrAbsolute) : default,
+                    Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Text)),
+                });
+            }
+
+            return new TimedLinks
+            {
+                MoreInformationLinks = linkItems,
+                TimeToExecute = $"Took {watch.Elapsed}"
+            };
         }
 
         private IEnumerable<EntryRequirement> GetEntryRequirements(DynamicContent content, string relatedField)

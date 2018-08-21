@@ -10,6 +10,10 @@ namespace DFC.Digital.Data.Model
 
         public IEnumerable<MoreInformationLink> MoreInformationLinks { get; set; }
 
+        public TimedLinks MoreInformationCmLinks { get; set; }
+
+        public TimedLinks MoreInformationDmLinks { get; set; }
+
         public string RouteSubjects { get; set; }
 
         public string FurtherRouteInformation { get; set; }

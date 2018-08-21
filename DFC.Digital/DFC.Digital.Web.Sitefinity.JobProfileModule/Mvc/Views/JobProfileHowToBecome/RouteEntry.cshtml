@@ -32,6 +32,28 @@
                     }
                 </ul>
             }
+            @if (Model.MoreInformationCmLinks != null && Model.MoreInformationCmLinks.MoreInformationLinks.Any())
+            {
+                <h4>@ViewBag.SubsectionMoreInformation</h4>
+                <ul class="list-link">
+                    @foreach (var informationLink in Model.MoreInformationCmLinks.MoreInformationLinks)
+                    {
+                        <li><a class="htb-feature" href="@informationLink.Url">@informationLink.Text</a></li>
+                    }
+                </ul>
+                <h3>@Model.MoreInformationCmLinks.TimeToExecute - Content Links Mgr</h3>
+            }
+            @if (Model.MoreInformationDmLinks != null && Model.MoreInformationDmLinks.MoreInformationLinks.Any())
+            {
+                <h4>@ViewBag.SubsectionMoreInformation</h4>
+                <ul class="list-link">
+                    @foreach (var informationLink in Model.MoreInformationDmLinks.MoreInformationLinks)
+                    {
+                        <li><a class="htb-feature" href="@informationLink.Url">@informationLink.Text</a></li>
+                    }
+                </ul>
+                <h3>@Model.MoreInformationDmLinks.TimeToExecute - Dynamic Module Mgr</h3>
+            }
         </div>
     </section>
 }

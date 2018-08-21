@@ -142,22 +142,27 @@ namespace DFC.Digital.Service.SkillsFramework
             var soc = jobProfileSocCodeRepository.GetLiveSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
             if (soc == null)
             {
-                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found!");
+                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
             }
 
             skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
 
             var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
-
-
-            reportAuditRepository.CreateAudit((jobProfilesForSoc.Count() > 0) ? ActionDetailsKey : ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} profile for SOC");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
 
             //We have job linked to the SOC
             if (jobProfilesForSoc?.Count() > 0)
             {
                 //Create SOC skill matrix records  
                 var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(soc.ONetOccupationalCode);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} from SkillFramework Service");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+
+                //Save it as an error as well
+                if (occupationSkills.Count() == 0)
+                {
+                    reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+                }
+
                 var rankGenerated = 1;
                 foreach (var occupationSkill in occupationSkills)
                 {
@@ -194,10 +199,18 @@ namespace DFC.Digital.Service.SkillsFramework
 
                 skillsFrameworkService.SetSocStatusCompleted(soc);
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
-
             }
+            else
+            {
+                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
+            }
+
+            skillsFrameworkService.SetSocStatusCompleted(soc);
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+
+
         }
     }
 }

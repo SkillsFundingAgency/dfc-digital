@@ -60,7 +60,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
 
             //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetLiveSocCodes()).Returns(GetLiveSocs(numberOfSocs));
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(GetLiveSocs(numberOfSocs));
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).Returns(new List<SocCode>());
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).Returns(new RepoActionResult());
@@ -69,7 +69,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             skillsImportService.UpdateSocCodesOccupationalCode();
 
             // Assert
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetLiveSocCodes()).MustHaveHappened();
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).MustHaveHappened();
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).MustHaveHappened();
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs * 2, Times.OrLess);
@@ -110,7 +110,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
 
             //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetLiveSocCodes()).Returns(GetLiveSocs(numberOfSocSkills));
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(GetLiveSocs(numberOfSocSkills));
             A.CallTo(() => fakeSocSkillMatrixRepository.GetSocSkillMatrices()).Returns(GetSocSkillMatrices(numberOfSocSkills));
 
             A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(new List<OnetAttribute> { new OnetAttribute { OnetOccupationalCode = nameof(OnetAttribute.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) } });

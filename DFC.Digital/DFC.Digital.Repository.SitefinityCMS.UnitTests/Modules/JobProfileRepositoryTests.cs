@@ -149,7 +149,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
                 .Returns(jobProfileAvailable ? dummyDynamicContent : null);
             A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, digitalSkill)).DoesNothing();
+            A.CallTo(() => fakeRepository.Update(dummyDynamicContent, digitalSkill)).DoesNothing();
             A.CallTo(() => fakeRepository.Commit()).DoesNothing();
             A.CallTo(() =>
                 fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).DoesNothing();
@@ -174,7 +174,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             if (jobProfileAvailable)
             {
                 A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustHaveHappened();
-                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustHaveHappened();
+                A.CallTo(() => fakeRepository.Update(dummyDynamicContent, A<string>._)).MustHaveHappened();
                 A.CallTo(() => fakeRepository.Commit()).MustHaveHappened();
                    A.CallTo(() =>
                     fakeDynamicContentExtensions.SetRelatedFieldValue(A<DynamicContent>._, A<DynamicContent>._, "RelatedSkills")).MustHaveHappened();
@@ -187,7 +187,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             else
             {
                 A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.Update(dummyDynamicContent, A<string>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeRepository.Commit()).MustNotHaveHappened();
                 A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
                  A.CallTo(() =>

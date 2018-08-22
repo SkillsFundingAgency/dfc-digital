@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Interfaces
 {
@@ -10,6 +11,8 @@ namespace DFC.Digital.Data.Interfaces
 
         SkillsServiceResponse ImportForSocs(string jobProfileSocs);
 
+        void ImportForsingleSoc(string jobProfileSoc);
+
         void ResetAllSocStatus();
 
         void ResetStartedSocStatus();
@@ -17,5 +20,7 @@ namespace DFC.Digital.Data.Interfaces
         SocMappingStatus GetSocMappingStatus();
 
         string GetNextBatchOfSOCsToImport(int batchsize);
+
+        IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc);
     }
 }

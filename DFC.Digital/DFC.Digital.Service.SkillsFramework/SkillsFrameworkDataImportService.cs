@@ -135,56 +135,25 @@ namespace DFC.Digital.Service.SkillsFramework
             return string.Join(",", Socs.ToList().Select(s => s.SOCCode));
         }
 
-        private void ImportForsingleSoc(string jobProfileSoc)
+        public void ImportForsingleSoc(string jobProfileSoc)
         {
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
 
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
             var soc = jobProfileSocCodeRepository.GetSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
             if (soc == null)
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
             }
-
             skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
-
             var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
-
-
-            var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(soc.ONetOccupationalCode);
-            //Create SOC skill matrix records  
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
-            //Save it as an error as well
-            if (occupationSkills.Count() == 0)
-            {
-                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
-            }
 
             //We have job linked to the SOC
             if (jobProfilesForSoc?.Count() > 0)
             {
-            
-                var rankGenerated = 1;
-                foreach (var occupationSkill in occupationSkills)
-                {
-                    var socSkillToAdd = new SocSkillMatrix
-                    {
-                        Title = $"{soc.SOCCode}-{occupationSkill.Name}",
-                        SocCode = soc.SOCCode,
-                        Skill = occupationSkill.Name,
-                        ONetRank = occupationSkill.Score,
-                        Rank = rankGenerated,
-                        ONetElementId = occupationSkill.Id
-                    };
-                    socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {socSkillToAdd.Title}  into socskill matrix repo");
-                    rankGenerated++;
-                }
-
-                var socSkillMatrixData = jobProfileSocCodeRepository.GetSocSkillMatricesBySocCode(jobProfileSoc);
-
+                var socSkillMatrixData = CreateSocSkillsMatrixRecords(soc);
                 var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(soc.ONetOccupationalCode);
-                var auditMessage = $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} from SkillFramework Service";
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
                 var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
 
                 //DO all profiles that exist for this code
@@ -193,7 +162,7 @@ namespace DFC.Digital.Service.SkillsFramework
                     if (socSkillMatrixData.Any())
                     {
                         profile.DigitalSkillsLevel = digitSkillValue;
-                        jobProfileRepository.UpdateSocSkillMatrices(profile, socSkillMatrixData.ToList());
+                        jobProfileRepository.UpdateSocSkillMatrices(profile, socSkillMatrixData);
                         reportAuditRepository.CreateAudit(ActionDetailsKey, $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
                     }
                 }
@@ -210,8 +179,45 @@ namespace DFC.Digital.Service.SkillsFramework
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
             reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+        }
 
+        public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)
+        {
+            if (soc == null)
+            {
+                throw new ArgumentNullException(nameof(soc));
+            }
 
+            var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(soc.ONetOccupationalCode);
+            //Create SOC skill matrix records  
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+            //Save it as an error as well
+            if (occupationSkills.Count() == 0)
+            {
+                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+            }
+
+            var rankGenerated = 1;
+            var socSkillMatrixData = new List<SocSkillMatrix>();
+
+            foreach (var occupationSkill in occupationSkills)
+            {
+                var socSkillToAdd = new SocSkillMatrix
+                {
+                    Title = $"{soc.SOCCode}-{occupationSkill.Name}",
+                    SocCode = soc.SOCCode,
+                    Skill = occupationSkill.Name,
+                    ONetRank = occupationSkill.Score,
+                    Rank = rankGenerated,
+                    ONetElementId = occupationSkill.Id
+                };
+                socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
+                socSkillMatrixData.Add(socSkillToAdd);
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated Soc Skill Matrix profile {socSkillToAdd.Title}  into socskill matrix repo");
+                rankGenerated++;
+            }
+
+            return socSkillMatrixData;
         }
     }
 }

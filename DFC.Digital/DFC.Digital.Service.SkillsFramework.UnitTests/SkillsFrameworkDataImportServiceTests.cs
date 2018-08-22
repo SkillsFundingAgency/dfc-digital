@@ -115,7 +115,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
             A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(new List<OnetAttribute> { new OnetAttribute { OnetOccupationalCode = nameof(OnetAttribute.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) } });
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).Returns(new RepoActionResult());
+          //  A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).Returns(new RepoActionResult());
 
 
             // Act

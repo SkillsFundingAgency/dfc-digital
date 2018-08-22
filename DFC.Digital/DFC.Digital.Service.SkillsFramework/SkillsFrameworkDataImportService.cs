@@ -101,7 +101,7 @@ namespace DFC.Digital.Service.SkillsFramework
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Importing {Socs.Count()} SOC(s)");
             foreach (string Soc in Socs)
             {
-                ImportForsingleSoc(Soc);
+                ImportForSingleSoc(Soc);
             }
 
             var endingNumber = skillsFrameworkService.GetSocMappingStatus();
@@ -135,7 +135,7 @@ namespace DFC.Digital.Service.SkillsFramework
             return string.Join(",", Socs.ToList().Select(s => s.SOCCode));
         }
 
-        public void ImportForsingleSoc(string jobProfileSoc)
+        public void ImportForSingleSoc(string jobProfileSoc)
         {
 
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");

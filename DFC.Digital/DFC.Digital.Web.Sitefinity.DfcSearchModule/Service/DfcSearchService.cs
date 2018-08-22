@@ -1,14 +1,12 @@
-﻿using Autofac;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Telerik.Microsoft.Practices.Unity;
-using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Search;
 using Telerik.Sitefinity.Services.Search.Data;
 
@@ -111,12 +109,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         public override void UpdateIndex(string indexName, IEnumerable<IDocument> documents)
         {
             var activeIndex = string.Empty;
+            var measure = Stopwatch.StartNew();
             try
             {
                 if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
                 {
                     activeIndex = index;
-                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper);
+                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper, applicationLogger);
 
                     //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
                     var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);
@@ -132,6 +131,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             {
                 applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
+
+            applicationLogger.Info($"Took {measure.Elapsed} to complete the indexing on {activeIndex}");
         }
 
         public override void RemoveDocuments(string indexName, IEnumerable<IDocument> documents)
@@ -155,7 +156,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
             catch (Exception exception)
             {
-               applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
+                applicationLogger.Error($" Method - {MethodBase.GetCurrentMethod().Name} on index {activeIndex} failed with an exception", exception);
             }
         }
     }

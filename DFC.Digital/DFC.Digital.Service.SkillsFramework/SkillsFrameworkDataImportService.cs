@@ -49,7 +49,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
-            var allSocCodes = jobProfileSocCodeRepository.GetLiveSocCodes().ToList();
+            var allSocCodes = jobProfileSocCodeRepository.GetSocCodes().ToList();
             var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
                       
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} SOCs in the Sitefinity ");
@@ -139,7 +139,7 @@ namespace DFC.Digital.Service.SkillsFramework
         {
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
 
-            var soc = jobProfileSocCodeRepository.GetLiveSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
+            var soc = jobProfileSocCodeRepository.GetSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
             if (soc == null)
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");

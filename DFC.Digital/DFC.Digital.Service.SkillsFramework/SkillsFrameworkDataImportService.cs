@@ -150,19 +150,20 @@ namespace DFC.Digital.Service.SkillsFramework
             var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
 
+
+            var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(soc.ONetOccupationalCode);
+            //Create SOC skill matrix records  
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+            //Save it as an error as well
+            if (occupationSkills.Count() == 0)
+            {
+                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+            }
+
             //We have job linked to the SOC
             if (jobProfilesForSoc?.Count() > 0)
             {
-                //Create SOC skill matrix records  
-                var occupationSkills = skillsFrameworkService.GetRelatedSkillMapping(soc.ONetOccupationalCode);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
-
-                //Save it as an error as well
-                if (occupationSkills.Count() == 0)
-                {
-                    reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {occupationSkills.Count()} Skills for {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
-                }
-
+            
                 var rankGenerated = 1;
                 foreach (var occupationSkill in occupationSkills)
                 {

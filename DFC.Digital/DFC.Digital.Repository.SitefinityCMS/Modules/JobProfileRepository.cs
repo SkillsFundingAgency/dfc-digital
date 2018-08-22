@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -19,7 +18,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private readonly IDynamicModuleRepository<JobProfile> repository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
-        private readonly IDynamicModuleConverter<ImportJobProfile> converterLight;
+        private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterForWITOnly;
+        private readonly IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private Dictionary<string, JobProfile> cachedJobProfiles = new Dictionary<string, JobProfile>();
 
@@ -27,13 +27,20 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #region Ctor
 
-        public JobProfileRepository(IDynamicModuleRepository<JobProfile> repository, IDynamicModuleConverter<JobProfile> converter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleRepository<SocSkillMatrix> socSkillRepository, IDynamicModuleConverter<ImportJobProfile> converterLight)
+        public JobProfileRepository(
+            IDynamicModuleRepository<JobProfile> repository,
+            IDynamicModuleConverter<JobProfile> converter,
+            IDynamicContentExtensions dynamicContentExtensions,
+            IDynamicModuleRepository<SocSkillMatrix> socSkillRepository,
+            IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight,
+            IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socSkillRepository = socSkillRepository;
-            this.converterLight = converterLight;
+            this.converterForWITOnly = converterLight;
+            this.converterForSearchableFieldsOnly = converterForSearchableFieldsOnly;
         }
 
         #endregion Ctor
@@ -72,22 +79,23 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
         {
-            return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live)));
+            var content = repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live));
+            return converterForSearchableFieldsOnly.ConvertFrom(content);
         }
 
-        public IEnumerable<ImportJobProfile> GetLiveJobProfiles()
+        public IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfiles()
         {
             var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
 
             if (jobProfiles.Any())
             {
-                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
+                return jobProfiles.Select(item => converterForWITOnly.ConvertFrom(item));
             }
 
-            return Enumerable.Empty<ImportJobProfile>();
+            return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();
         }
 
-        public RepoActionResult UpdateDigitalSkill(ImportJobProfile jobProfile)
+        public RepoActionResult UpdateDigitalSkill(JobProfileOverloadForWhatItTakes jobProfile)
         {
             var jobprofile = repository.Get(item =>
                 item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
@@ -109,7 +117,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return new RepoActionResult { Success = true };
         }
 
-        public RepoActionResult UpdateSocSkillMatrices(ImportJobProfile jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
+        public RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
         {
             var jobprofile = repository.Get(item =>
                 item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);

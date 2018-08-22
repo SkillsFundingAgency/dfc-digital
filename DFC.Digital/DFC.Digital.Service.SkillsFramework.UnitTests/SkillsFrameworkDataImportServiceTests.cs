@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
+using FluentAssertions;
 using Xunit;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests
@@ -75,96 +77,85 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs * 2, Times.OrLess);
         }
 
+        
         [Theory]
         [InlineData(0)]
         [InlineData(20)]
-        [InlineData(11)]
-        public void UpdateImportJobProfilesDigitalSkillsTest(int numberOfImportJobProfiles)
+        public void CreateSocSkillsMatrixRecordsTest(int numberOfSocSkills)
         {
             // Arrange
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
 
             //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileRepository.GetLiveJobProfiles()).Returns(GetLiveImportJobProfiles(numberOfImportJobProfiles));
-            A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).Returns(DigitalSkillsLevel.Level3);
-            A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeImportJobProfileRepository.UpdateDigitalSkill(A<JobProfileOverloadForWhatItTakes>._)).Returns(new RepoActionResult());
+            A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(GetRelatedSkill(numberOfSocSkills));
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("ActionDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("ErrorDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).DoesNothing();
 
             // Act
-           // skillsImportService.UpdateJobProfilesDigitalSkills();
+            var results  = skillsImportService.CreateSocSkillsMatrixRecords(new SocCode {SOCCode = "dummySOC" } );
 
             // Assert
-         //   A.CallTo(() => fakeImportJobProfileRepository.GetLiveJobProfiles()).MustHaveHappened();
-         //   A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).MustHaveHappened(numberOfImportJobProfiles * 2, Times.Exactly);
-         //   A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
-         //   A.CallTo(() => fakeImportJobProfileRepository.UpdateDigitalSkill(A<JobProfileOverloadForWhatItTakes>._)).MustHaveHappened(numberOfImportJobProfiles * 2, Times.Exactly);
+            A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("ActionDetails", A<string>._)).MustHaveHappened((numberOfSocSkills + 1), Times.Exactly);
+            A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).MustHaveHappened(numberOfSocSkills, Times.Exactly);
+
+            if (numberOfSocSkills == 0)
+            {
+                A.CallTo(() => fakeReportAuditRepository.CreateAudit("ErrorDetails", A<string>._)).MustHaveHappened();
+            }
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(20)]
-        [InlineData(80)]
-        public void BuildSocMatrixDataTest(int numberOfSocSkills)
+        [Fact]
+        public void CreateSocSkillsMatrixRecordsTestNullParmeterTest()
         {
             // Arrange
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
-
-            //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(GetLiveSocs(numberOfSocSkills));
-            A.CallTo(() => fakeSocSkillMatrixRepository.GetSocSkillMatrices()).Returns(GetSocSkillMatrices(numberOfSocSkills));
-
-            A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(new List<OnetAttribute> { new OnetAttribute { OnetOccupationalCode = nameof(OnetAttribute.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) } });
-            A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
-          //  A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).Returns(new RepoActionResult());
-
-
-            // Act
-            //skillsImportService.BuildSocMatrixData();
-
-
-            // Assert
-            //A.CallTo(() => fakeSocSkillMatrixRepository.GetSocSkillMatrices()).MustHaveHappenedOnceExactly();
-
-            //A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(new List<OnetAttribute>());
-            //A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
-           // A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).MustHaveHappened(50, Times.OrLess);
+            Assert.Throws<ArgumentNullException>(() => skillsImportService.CreateSocSkillsMatrixRecords(null));
         }
 
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(20)]
-        [InlineData(80)]
-        public void UpdateJpSocSkillMatrixTest(int numberOfImportJobProfiles)
+        [Fact]
+        public void ResetAllSocStatusTest()
         {
             // Arrange
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
-
-            //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileRepository.GetLiveJobProfiles()).Returns(GetLiveImportJobProfiles(numberOfImportJobProfiles));
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocSkillMatricesBySocCode(A<string>._)).Returns(new EnumerableQuery<SocSkillMatrix>(GetSocSkillMatrices(5)));
-            A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeImportJobProfileRepository.UpdateSocSkillMatrices(A<JobProfileOverloadForWhatItTakes>._, A<IEnumerable<SocSkillMatrix>>._)).Returns(new RepoActionResult());
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeSkillsFrameworkService.ResetAllSocStatus()).DoesNothing();
 
             // Act
-            //skillsImportService.UpdateJpSocSkillMatrix();
+            skillsImportService.ResetAllSocStatus();
+            A.CallTo(() => fakeSkillsFrameworkService.ResetAllSocStatus()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).MustHaveHappened(2, Times.Exactly);
+        }
 
-            // Assert
-          //  A.CallTo(() => fakeImportJobProfileRepository.GetLiveJobProfiles()).MustHaveHappened();
+        [Fact]
+        public void ResetStartedSocStatusTest()
+        {
+            // Arrange
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeSkillsFrameworkService.ResetStartedSocStatus()).DoesNothing();
 
-           // A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).MustHaveHappened();
-            if (numberOfImportJobProfiles > 0)
-            {
-            //    A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocSkillMatricesBySocCode(A<string>._))
-           //         .MustHaveHappened();
-            }
-            else
-            {
-           //     A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocSkillMatricesBySocCode(A<string>._))
-          //          .MustNotHaveHappened();
-            }
+            // Act
+            skillsImportService.ResetStartedSocStatus();
+            A.CallTo(() => fakeSkillsFrameworkService.ResetStartedSocStatus()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).MustHaveHappened(2, Times.Exactly);
+        }
 
-       //     A.CallTo(() => fakeImportJobProfileRepository.UpdateSocSkillMatrices(A<JobProfileOverloadForWhatItTakes>._, A<IEnumerable<SocSkillMatrix>>._)).MustHaveHappened(50, Times.OrLess);
+        [Fact]
+        public void GetSocMappingStatusTest()
+        {
+            // Arrange
+            var dummySocMappingStatus = new SocMappingStatus { AwaitingUpdate = 1, SelectedForUpdate = 2, UpdateCompleted = 3 };
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+            A.CallTo(() => fakeSkillsFrameworkService.GetSocMappingStatus()).Returns(dummySocMappingStatus);
+
+            // Act
+            var result = skillsImportService.GetSocMappingStatus();
+            A.CallTo(() => fakeSkillsFrameworkService.GetSocMappingStatus()).MustHaveHappenedOnceExactly();
+            result.Should().BeEquivalentTo(dummySocMappingStatus);
         }
 
 
@@ -180,13 +171,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             return list;
         }
 
-        private static IEnumerable<SocSkillMatrix> GetSocSkillMatrices(int count)
+        private static IEnumerable<OnetAttribute> GetRelatedSkill(int count)
         {
-            var list = new List<SocSkillMatrix>();
+            var list = new List<OnetAttribute>();
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new SocSkillMatrix { Title = nameof(SocSkillMatrix.Title), SocCode = $"{i}-{nameof(SocSkillMatrix.SocCode)}" });
+                list.Add(new OnetAttribute { Name = nameof(OnetAttribute.Name), SocCode = $"{i}-{nameof(OnetAttribute.SocCode)}", OnetOccupationalCode = nameof(OnetAttribute.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) });
             }
 
             return list;

@@ -84,6 +84,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return new RepoActionResult { Success = true };
         }
 
+        public SocCode GetBySocCode(string socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
+
+            return socCodeItem != null ? socCodeConverter.ConvertFrom(socCodeItem) : null;
+        }
+
         public IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);

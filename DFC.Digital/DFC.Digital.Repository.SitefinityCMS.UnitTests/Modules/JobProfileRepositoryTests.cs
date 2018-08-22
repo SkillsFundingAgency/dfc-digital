@@ -135,66 +135,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void UpdateDigitalSkillTest(bool jobProfileAvailable)
-        {
-            // Arrange
-            var urlname = "test-url";
-            var digitalSkill = "digiSkill";
-            var jobProfile = new JobProfileOverloadForWhatItTakes { UrlName = urlname, DigitalSkillsLevel = digitalSkill };
-            var dummyDynamicContent = A.Dummy<DynamicContent>();
-
-            // Fakes Setup
-            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
-                .Returns(jobProfileAvailable ? dummyDynamicContent : null);
-            A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, digitalSkill)).DoesNothing();
-            A.CallTo(() => fakeRepository.Commit()).DoesNothing();
-            A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() =>
-                fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(JobProfile.DigitalSkillsLevel), A<string>._)).DoesNothing();
-            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
-                .Returns(jobProfileAvailable ? dummyDynamicContent : null);
-
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
-
-            // Act
-            jobProfileRepository.UpdateDigitalSkill(jobProfile);
-
-            // Assert
-            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m =>
-                    LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live &&
-                                item.Visible))))
-                .MustHaveHappened();
-
-            if (jobProfileAvailable)
-            {
-                A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustHaveHappened();
-                A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).MustHaveHappened();
-                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustHaveHappened();
-                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustHaveHappened();
-                A.CallTo(() => fakeRepository.Commit()).MustHaveHappened();
-                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustHaveHappened();
-                A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(JobProfile.DigitalSkillsLevel), A<string>._)).MustHaveHappened();
-            }
-            else
-            {
-                A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.Commit()).MustNotHaveHappened();
-                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
-                A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(JobProfile.DigitalSkillsLevel), A<string>._)).MustNotHaveHappened();
-            }
-        }
-
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
         public void UpdateSocSkillMatricesTest(bool jobProfileAvailable)
         {
             // Arrange

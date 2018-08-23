@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -29,12 +30,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void IndexTest(bool isAdmin)
+        [InlineData(true, 10)]
+        [InlineData(false, 10)]
+        public void IndexTest(bool isAdmin, int batchSizeForImport)
         {
             // Assign
-            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin);
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin, batchSizeForImport);
 
             // Act
             var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index());
@@ -58,23 +59,18 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         }
 
         [Theory]
-        [InlineData("IMPORTSKILLS")]
-        [InlineData("UPDATESOCOCCUPATIONALCODES")]
-        [InlineData("UPDATEJPDIGITALSKILLS")]
-        [InlineData("BUILDSOCMATRIX")]
-        [InlineData("UPDATEJPSKILLS")]
-        [InlineData("")]
-        public void IndexModeTest(string mode)
+        [InlineData(true, 10,"test")]
+        [InlineData(false, 10, "test")]
+        public void ImportJobProfileTest(bool isAdmin, int batchSizeForImport, string jobProfileSoc)
         {
             // Assign
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin, batchSizeForImport);
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
-            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(true);
 
             // Act
-            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index(mode));
-
+            var importJobProfileMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.ImportJobProfile(jobProfileSoc));
             // Assert
-            indexMethodCall
+            importJobProfileMethodCall
                 .ShouldRenderView("ImportResults")
                 .WithModel<SkillsFrameworkResultsViewModel>(vm =>
                 {
@@ -82,29 +78,137 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     vm.IsAdmin.Should().Be(fakeWebAppContext.IsUserAdministrator);
                     vm.NotAllowedMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
                     vm.PageTitle.Should().BeEquivalentTo(skillsFrameworkDataImportController.PageTitle);
-                    vm.AuditRecords.Should().BeEquivalentTo(fakeReportAuditRepository.GetAllAuditRecords());
                 })
                 .AndNoModelErrors();
 
-            switch (mode?.ToUpperInvariant().Trim())
-            {
-                case "IMPORTSKILLS":
-                    A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustHaveHappened();
-                    break;
-                case "UPDATESOCOCCUPATIONALCODES":
-                    A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustHaveHappened();
-                    break;
-                    default:
-                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
-                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
-                    break;
-            }
-
             A.CallTo(() => fakeWebAppContext.IsUserAdministrator).MustHaveHappened();
+
+            if (isAdmin)
+            {
+                A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportForSocs(jobProfileSoc)).MustHaveHappened();
+            }
+            else
+            {
+                importJobProfileMethodCall
+              .ShouldRenderView("ImportResults")
+              .WithModel<SkillsFrameworkResultsViewModel>(vm =>
+              {    vm.OtherMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);  
+              }).AndNoModelErrors();
+            } 
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
         }
 
-        private SkillsFrameworkDataImportController GetSkillsFrameworkDataImportController(bool isAdmin)
+        
+
+        [Theory]
+        [InlineData(false, "", 10)]
+        [InlineData(true, "IMPORTSKILLS", 10)]
+        [InlineData(true, "UPDATESOCOCCUPATIONALCODES", 10)]
+        [InlineData(true, "UPDATEJPDIGITALSKILLS", 10)]
+        [InlineData(true, "BUILDSOCMATRIX", 10)]
+        [InlineData(true, "UPDATEJPSKILLS", 10)]
+        [InlineData(true, "RESETSOCIMPORTALLSTATUS", 10)]
+        [InlineData(true, "RESETSOCIMPORTSTARTEDSTATUS", 10)]
+        [InlineData(true, "", 10)]
+        public void IndexModeTest(bool isAdmin, string mode, int batchSizeForImport)
+        {
+            // Assign
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin, batchSizeForImport);
+
+            // Act
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index(mode));
+
+            // Assert
+
+
+            if (isAdmin)
+            {
+                indexMethodCall
+               .ShouldRenderView("ImportResults")
+               .WithModel<SkillsFrameworkResultsViewModel>(vm =>
+               {
+                   vm.FirstParagraph.Should().BeEquivalentTo(skillsFrameworkDataImportController.FirstParagraph);
+                   vm.IsAdmin.Should().Be(fakeWebAppContext.IsUserAdministrator);
+                   vm.NotAllowedMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
+                   vm.PageTitle.Should().BeEquivalentTo(skillsFrameworkDataImportController.PageTitle);
+                   vm.AuditRecords.Should().BeEquivalentTo(fakeReportAuditRepository.GetAllAuditRecords());
+
+               })
+               .AndNoModelErrors();
+                switch (mode?.ToUpperInvariant().Trim())
+                {
+                    case "IMPORTSKILLS":
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustHaveHappened();
+                        break;
+                    case "UPDATESOCOCCUPATIONALCODES":
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustHaveHappened();
+                        break;
+
+                    case "RESETSOCIMPORTALLSTATUS":
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetAllSocStatus()).MustHaveHappened();
+
+                        break;
+                    case "RESETSOCIMPORTSTARTEDSTATUS":
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetStartedSocStatus()).MustHaveHappened();
+                        break;
+                    default:
+
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
+                        break;
+                }
+
+                A.CallTo(() => fakeWebAppContext.IsUserAdministrator).MustHaveHappened();
+                A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
+                A.CallTo(() => fakeImportSkillsFrameworkDataService.GetSocMappingStatus()).MustHaveHappened();
+                A.CallTo(() => fakeImportSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(10)).MustHaveHappened();
+            }
+            else
+            {
+                indexMethodCall
+               .ShouldRenderView("ImportResults")
+               .WithModel<SkillsFrameworkResultsViewModel>(vm =>
+               {
+                   vm.FirstParagraph.Should().BeEquivalentTo(skillsFrameworkDataImportController.FirstParagraph);
+                   vm.IsAdmin.Should().Be(fakeWebAppContext.IsUserAdministrator);
+                   vm.NotAllowedMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
+                   vm.PageTitle.Should().BeEquivalentTo(skillsFrameworkDataImportController.PageTitle);
+                   vm.OtherMessage.Should().BeEquivalentTo(skillsFrameworkDataImportController.NotAllowedMessage);
+                   vm.AuditRecords.Should().BeEquivalentTo(fakeReportAuditRepository.GetAllAuditRecords());
+
+               }).AndNoModelErrors();
+            }
+
+        }
+
+        [Fact]
+        public void IndexModeExceptionTest()
+        {
+            //set up calls
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(true, 10);
+
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+
+            //// Act
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index("test"));
+
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Throws(new Exception());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Throws(new Exception());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetAllSocStatus()).Throws(new Exception());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetStartedSocStatus()).Throws(new Exception());
+
+            //var otherMessage = skillsFrameworkDataImportController.
+            //Assert
+            {
+               // indexMethodCall
+               //.ShouldRenderView("ImportResults")
+               //.WithModel<SkillsFrameworkResultsViewModel>(vm => vm.OtherMessage.Should().NotBeNull());
+                A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
+            }
+        }
+
+        private SkillsFrameworkDataImportController GetSkillsFrameworkDataImportController(bool isAdmin, int batchSizeForImport)
         {
             A.CallTo(() => fakeWebAppContext.IsUserAdministrator).Returns(isAdmin);
 
@@ -114,14 +218,22 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 FirstParagraph = nameof(SkillsFrameworkDataImportController.FirstParagraph),
                 NotAllowedMessage = nameof(SkillsFrameworkDataImportController.NotAllowedMessage),
                 PageTitle = nameof(SkillsFrameworkDataImportController.PageTitle),
+                BatchSizeForImport = batchSizeForImport,
             };
             return skillsFrameworkDataImportController;
         }
+
 
         private void SetupCalls()
         {
             A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Returns(new UpdateSocOccupationalCodeResponse());
             A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Returns(new FrameworkSkillsImportResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.GetSocMappingStatus()).Returns(new SocMappingStatus());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(10)).Returns("test");
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportForSocs("test")).Returns(new SkillsServiceResponse());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetAllSocStatus()).DoesNothing();
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetStartedSocStatus()).DoesNothing();
+
         }
 
         private IDictionary<string, IList<string>> GetAuditRecords()

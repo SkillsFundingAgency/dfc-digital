@@ -79,23 +79,23 @@ namespace DFC.Digital.Service.SkillsFramework
         public void ResetAllSocStatus()
         {
             var allSocCodes = GetAllSocMappings();
-            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, UpdateStatus.AwaitingUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, SkillsFrameWorkUpdateStatus.AwaitingUpdate);
         }
 
         public void ResetStartedSocStatus()
         {
             var socInStartedStateCodes = socMappingRepository.GetSocsInStartedState();
-            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, UpdateStatus.AwaitingUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, SkillsFrameWorkUpdateStatus.AwaitingUpdate);
         }
 
         public void SetSocStatusCompleted(SocCode socCodes)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.UpdateCompleted);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, SkillsFrameWorkUpdateStatus.UpdateCompleted);
         }
                
         public void SetSocStatusSelectedForUpdate (SocCode socCodes)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, UpdateStatus.SelectedForUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, SkillsFrameWorkUpdateStatus.SelectedForUpdate);
         }
 
         public SocMappingStatus GetSocMappingStatus()

@@ -178,6 +178,7 @@
     <Compile Include="Model\SearchProperties.cs" />
     <Compile Include="Model\SearchResult.cs" />
     <Compile Include="Model\SearchResultItem.cs" />
+    <Compile Include="Model\SkillsFrameworkImportStatus.cs" />
     <Compile Include="Model\SocCode.cs" />
     <Compile Include="Model\SocMappingStatus.cs" />
     <Compile Include="Model\SocSkillMatrix.cs" />

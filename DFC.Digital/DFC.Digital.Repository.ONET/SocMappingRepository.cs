@@ -22,7 +22,7 @@ namespace DFC.Digital.Repository.ONET
             this.autoMapper = autoMapper;
         }
 
-        public void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, UpdateStatus updateStatus)
+        public void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, SkillsFrameWorkUpdateStatus updateStatus)
         {
             var socArray = socCodes.Select(s => s.SOCCode).ToArray();
             var socMappings = onetDbContext.DFC_SocMappings.Where(s => socArray.Contains(s.SocCode)).ToList();
@@ -38,21 +38,21 @@ namespace DFC.Digital.Repository.ONET
 
         public IQueryable<SocCode> GetSocsAwaitingUpdate()
         {
-            return GetSocsQuery(s => s.UpdateStatus == UpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null);
+            return GetSocsQuery(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null);
         }
 
         public IQueryable<SocCode> GetSocsInStartedState()
         {
-            return GetSocsQuery(s => s.UpdateStatus == UpdateStatus.SelectedForUpdate.ToString());
+            return GetSocsQuery(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.SelectedForUpdate.ToString());
         }
                 
         public SocMappingStatus GetSocMappingStatus()
         {
             var socMappingStatus = new SocMappingStatus
             {
-                AwaitingUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == UpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null).Count(),
-                SelectedForUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == UpdateStatus.SelectedForUpdate.ToString()).Count(),
-                UpdateCompleted = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == UpdateStatus.UpdateCompleted.ToString()).Count()
+                AwaitingUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null).Count(),
+                SelectedForUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.SelectedForUpdate.ToString()).Count(),
+                UpdateCompleted = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.UpdateCompleted.ToString()).Count()
             };
             return socMappingStatus;
         }

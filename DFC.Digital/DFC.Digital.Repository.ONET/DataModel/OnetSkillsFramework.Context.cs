@@ -18,7 +18,8 @@ namespace DFC.Digital.Repository.ONET.DataModel
         public OnetSkillsFramework()
             : base("name=DFC.Digital.OnetSkillsFramework")
         {
-            Database.CommandTimeout = int.MaxValue;
+            //Seconds
+            Database.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

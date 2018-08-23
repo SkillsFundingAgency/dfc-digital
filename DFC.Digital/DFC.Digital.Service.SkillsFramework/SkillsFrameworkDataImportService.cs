@@ -88,7 +88,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public SkillsServiceResponse ImportForSocs(string jobProfileSocs)
         {
-            if (jobProfileSocs == null)
+            if (string.IsNullOrWhiteSpace(jobProfileSocs))
             {
                 throw new ArgumentNullException(nameof(jobProfileSocs));
             }
@@ -144,7 +144,6 @@ namespace DFC.Digital.Service.SkillsFramework
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
                 soc = new SocCode {SOCCode = jobProfileSoc};
-                skillsFrameworkService.SetSocStatusCompleted(soc);
             }
             else
             {
@@ -171,7 +170,6 @@ namespace DFC.Digital.Service.SkillsFramework
                         }
                     }
 
-                    skillsFrameworkService.SetSocStatusCompleted(soc);
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
                 }
                 else
@@ -179,12 +177,12 @@ namespace DFC.Digital.Service.SkillsFramework
                     reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
                 }
 
-                skillsFrameworkService.SetSocStatusCompleted(soc);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
             }
-          
+
+            skillsFrameworkService.SetSocStatusCompleted(soc);
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)

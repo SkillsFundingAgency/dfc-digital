@@ -53,11 +53,21 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfilesBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
-            var jobProfiles = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobprofileContentType, repository.GetProviderName());
 
-            if (jobProfiles.Any())
+            if (socCodeItem != null)
             {
-                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
+                var jobProfiles = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobprofileContentType, repository.GetProviderName());
+
+                if (jobProfiles.Any())
+                {
+                    var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
+                    foreach (var jobProfile in jobProfiles)
+                    {
+                        jobProfileOverloadForWhatItTakesList.Add(converterLight.ConvertFrom(jobProfile));
+                    }
+
+                    return jobProfileOverloadForWhatItTakesList;
+                }
             }
 
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>().AsQueryable();
@@ -73,7 +83,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 var temp = repository.GetTemp(master);
 
-                temp.SetValue(nameof(SocCode.ONetOccupationalCode), socCode.ONetOccupationalCode);
+                dynamicContentExtensions.SetFieldValue(temp, nameof(SocCode.ONetOccupationalCode), socCode.ONetOccupationalCode);
 
                 var updatedMaster = repository.CheckinTemp(temp);
 
@@ -89,19 +99,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
 
             return socCodeItem != null ? socCodeConverter.ConvertFrom(socCodeItem) : null;
-        }
-
-        public IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
-        {
-            var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
-            var socSkillMatrices = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.SocSkillMatrixTypeContentType, repository.GetProviderName()).ToList();
-
-            if (socSkillMatrices != null && socSkillMatrices.Any())
-            {
-                return socSkillMatrices.Select(item => socSkillConverter.ConvertFrom(item));
-            }
-
-            return Enumerable.Empty<SocSkillMatrix>();
         }
 
         public IQueryable<SocCode> GetSocCodes()

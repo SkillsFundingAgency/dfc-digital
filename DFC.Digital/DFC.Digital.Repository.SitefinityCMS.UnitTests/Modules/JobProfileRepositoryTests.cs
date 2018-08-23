@@ -16,7 +16,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
     {
         private readonly IDynamicModuleConverter<JobProfile> fakeJobProfileConverter;
         private readonly IDynamicModuleConverter<JobProfileOverloadForSearch> fakeJobProfileSearchConverter;
-        private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> importfakeJobProfileConverter;
+        private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> fakeWitConverter;
         private readonly IDynamicModuleRepository<SocSkillMatrix> fakeSocSkillRepo;
         private readonly IDynamicModuleRepository<JobProfile> fakeRepository;
         private readonly IDynamicContentExtensions fakeDynamicContentExtensions;
@@ -26,7 +26,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             fakeJobProfileConverter = A.Fake<IDynamicModuleConverter<JobProfile>>();
             fakeJobProfileSearchConverter = A.Fake<IDynamicModuleConverter<JobProfileOverloadForSearch>>();
             fakeRepository = A.Fake<IDynamicModuleRepository<JobProfile>>();
-            importfakeJobProfileConverter = A.Fake<IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>>();
+            fakeWitConverter = A.Fake<IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>>();
             fakeSocSkillRepo = A.Fake<IDynamicModuleRepository<SocSkillMatrix>>();
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
         }
@@ -37,7 +37,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             var dummyJobProfile = A.Dummy<JobProfile>();
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
 
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
             jobProfileRepository.GetByUrlNameForPreview("testURLName");
 
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).MustHaveHappened();
@@ -52,7 +52,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             var urlName = "testURLName";
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
 
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
             jobProfileRepository.GetByUrlNameForSearchIndex(urlName, publishing);
 
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == urlName && item.Status == (publishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live))))).MustHaveHappened();
@@ -64,7 +64,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //Assign
             var dummyJobProfile = A.Dummy<JobProfile>();
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
 
             //Act
             var result = jobProfileRepository.GetContentType();
@@ -79,7 +79,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //Assign
             var dummyJobProfile = A.Dummy<JobProfile>();
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
 
             //Act
             var result = jobProfileRepository.GetProviderName();
@@ -95,7 +95,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             var urlName = "testURLName";
             A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
 
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
             jobProfileRepository.GetByUrlName(urlName);
 
             //A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => ExpressionEqualityComparer.Instance.Equals()))).MustHaveHappened();
@@ -108,27 +108,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
         public void GetLiveJobProfilesTest(bool jobProfilesAvailable)
         {
             //Arrange
-            var dummyJobProfile = A.Dummy<JobProfile>();
+            var dummyJobProfile = A.Dummy<JobProfileOverloadForWhatItTakes>();
 
             // Dummies and fakes
-            A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
-            A.CallTo(() => fakeRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>._)).Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { jobProfilesAvailable ? new DynamicContent() : null }));
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            A.CallTo(() => fakeWitConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyJobProfile);
+            A.CallTo(() => fakeRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>._)).Returns(jobProfilesAvailable ? new EnumerableQuery<DynamicContent>(new List<DynamicContent> { new DynamicContent() }) : Enumerable.Empty<DynamicContent>().AsQueryable());
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
 
             // Act
             jobProfileRepository.GetLiveJobProfiles();
 
             // Assert
+            if (jobProfilesAvailable)
+            {
+                A.CallTo(() => fakeWitConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeWitConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
+            }
 
-            // Needs investigation as fake convertor not registering call made to it when there is a job profile available.s
-            //if (jobProfilesAvailable)
-            //{
-            //    A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
-            //}
-            //else
-            //{
-            //    A.CallTo(() => fakeJobProfileConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
-            //}
             A.CallTo(() => fakeRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Status == ContentLifecycleStatus.Live && item.Visible)))).MustHaveHappened();
         }
 
@@ -160,7 +159,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeSocSkillRepo.Get(A<Expression<Func<DynamicContent, bool>>>._))
                 .Returns(dummyDynamicContent);
 
-            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, importfakeJobProfileConverter, fakeJobProfileSearchConverter);
+            var jobProfileRepository = new JobProfileRepository(fakeRepository, fakeJobProfileConverter, fakeDynamicContentExtensions, fakeSocSkillRepo, fakeWitConverter, fakeJobProfileSearchConverter);
 
             // Act
             jobProfileRepository.UpdateSocSkillMatrices(jobProfile, socSkills);

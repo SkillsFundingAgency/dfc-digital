@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Interfaces
 {
@@ -8,10 +9,18 @@ namespace DFC.Digital.Data.Interfaces
 
         UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode();
 
-        UpdateJpDigitalSkillsResponse UpdateJobProfilesDigitalSkills();
+        SkillsServiceResponse ImportForSocs(string jobProfileSocs);
 
-        BuildSocMatrixResponse BuildSocMatrixData();
+        void ImportForSingleSoc(string jobProfileSoc);
 
-        UpdateJpSocSkillMatrixResponse UpdateJpSocSkillMatrix();
+        void ResetAllSocStatus();
+
+        void ResetStartedSocStatus();
+
+        SocMappingStatus GetSocMappingStatus();
+
+        string GetNextBatchOfSOCsToImport(int batchsize);
+
+        IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc);
     }
 }

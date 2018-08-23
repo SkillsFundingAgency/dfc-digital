@@ -74,7 +74,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).Returns(dummyApprenticeships);
+            A.CallTo(() => socRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).Returns(dummyApprenticeships);
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
 
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
@@ -134,7 +134,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                                 .BeLessOrEqualTo(jobProfileApprenticeshipsController.MaxApprenticeshipCount);
                             vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                         });
-                    A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => socRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).MustHaveHappened();
                 }
             }
             else
@@ -199,7 +199,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).Returns(dummyApprenticeships);
+            A.CallTo(() => socRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).Returns(dummyApprenticeships);
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
 
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
@@ -266,7 +266,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                     })
                     .AndNoModelErrors();
-                A.CallTo(() => socRepositoryFake.GetBySocCode(A<string>._)).MustHaveHappened();
+                A.CallTo(() => socRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).MustHaveHappened();
             }
 
             if (!isContentPreviewMode)

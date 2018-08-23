@@ -17,25 +17,27 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
+        private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeConverter = socCodeConverter;
             this.socSkillConverter = socSkillConverter;
+            this.converterLight = converterLight;
         }
 
         #endregion Ctor
 
         #region JobProfileSocCodeRepository Implementations
 
-        public IQueryable<ApprenticeVacancy> GetBySocCode(string socCode)
+        public IQueryable<ApprenticeVacancy> GetApprenticeVacanciesBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
             var vacancies = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobProfileApprenticeshipContentType, repository.GetProviderName());
@@ -46,6 +48,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return Enumerable.Empty<ApprenticeVacancy>().AsQueryable();
+        }
+
+        public IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfilesBySocCode(string socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
+            var jobProfiles = dynamicContentExtensions.GetRelatedParentItems(socCodeItem, DynamicTypes.JobprofileContentType, repository.GetProviderName());
+
+            if (jobProfiles.Any())
+            {
+                return jobProfiles.Select(item => converterLight.ConvertFrom(item));
+            }
+
+            return Enumerable.Empty<JobProfileOverloadForWhatItTakes>().AsQueryable();
         }
 
         public RepoActionResult UpdateSocOccupationalCode(SocCode socCode)
@@ -69,6 +84,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return new RepoActionResult { Success = true };
         }
 
+        public SocCode GetBySocCode(string socCode)
+        {
+            var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
+
+            return socCodeItem != null ? socCodeConverter.ConvertFrom(socCodeItem) : null;
+        }
+
         public IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode)
         {
             var socCodeItem = repository.Get(item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode);
@@ -82,7 +104,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return Enumerable.Empty<SocSkillMatrix>();
         }
 
-        public IQueryable<SocCode> GetLiveSocCodes()
+        public IQueryable<SocCode> GetSocCodes()
         {
             var socCodes = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 

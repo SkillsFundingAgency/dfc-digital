@@ -62,7 +62,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
 
             //Dummies and Fakes
-            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(GetLiveSocs(numberOfSocs));
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(GetSOCs(numberOfSocs));
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).Returns(new List<SocCode>());
             A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
             A.CallTo(() => fakeImportJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).Returns(new RepoActionResult());
@@ -158,6 +158,38 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             result.Should().BeEquivalentTo(dummySocMappingStatus);
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(20)]
+        public void GetNextBatchOfSOCsToImportTests(int batchSize)
+        {
+            // Arrange
+            var dummySocs = GetSOCs(batchSize);
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+            A.CallTo(() => fakeSkillsFrameworkService.GetNextBatchSocMappingsForUpdate(batchSize)).Returns(dummySocs);
+
+            // Act
+            var result = skillsImportService.GetNextBatchOfSOCsToImport(batchSize);
+            A.CallTo(() => fakeSkillsFrameworkService.GetNextBatchSocMappingsForUpdate(batchSize)).MustHaveHappenedOnceExactly();
+
+            result.Should().BeEquivalentTo(string.Join(",", dummySocs.ToList().Select(s => s.SOCCode)));
+        }
+
+        [Fact]
+        public void ImportForSingleSocTest()
+        {
+            var dummySocs = GetSOCs(2);
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeImportJobProfileSocCodeRepository, fakeImportJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+            A.CallTo(() => fakeImportJobProfileSocCodeRepository.GetSocCodes()).Returns(dummySocs);
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("ActionDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("ErrorDetails", A<string>._)).DoesNothing();
+            A.CallTo(() => fakeSkillsFrameworkService.ResetAllSocStatus()).DoesNothing();
+
+            A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).Returns(DigitalSkillsLevel.Level3);
+          
+        }
+
 
         private static IEnumerable<FrameworkSkill> GetFrameworkSkills(int count)
         {
@@ -183,19 +215,19 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             return list;
         }
 
-        private static IQueryable<SocCode> GetLiveSocs(int count)
+        private static IQueryable<SocCode> GetSOCs(int count)
         {
             var list = new List<SocCode>();
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
+                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = $"A-{nameof(SocCode.SOCCode) + i}", ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
             }
 
             //Some with null ONetOccupationalCode
             for (var i = 0; i < count; i++)
             {
-                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode) });
+                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = $"B-{nameof(SocCode.SOCCode) + i}" });
             }
 
             return list.AsQueryable();

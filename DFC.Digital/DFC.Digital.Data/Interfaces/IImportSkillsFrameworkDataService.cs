@@ -11,7 +11,7 @@ namespace DFC.Digital.Data.Interfaces
 
         SkillsServiceResponse ImportForSocs(string jobProfileSocs);
 
-        void ImportForsingleSoc(string jobProfileSoc);
+        void ImportForSingleSoc(string jobProfileSoc);
 
         void ResetAllSocStatus();
 

@@ -7,16 +7,9 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public enum UpdateStatus
-    {
-        AwaitingUpdate,
-        SelectedForUpdate,
-        UpdateCompleted
-    }
-
     public interface ISocMappingRepository : IQueryRepository<SocCode>
     {
-        void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, UpdateStatus updateStatus);
+        void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, SkillsFrameWorkUpdateStatus updateStatus);
 
         IQueryable<SocCode> GetSocsAwaitingUpdate();
 

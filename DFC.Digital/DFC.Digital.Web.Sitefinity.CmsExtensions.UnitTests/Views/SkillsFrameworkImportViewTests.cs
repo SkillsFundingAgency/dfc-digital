@@ -11,6 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
 {
     public class SkillsFrameworkImportViewTests
     {
+        /*
         [Theory]
         [InlineData(true,10,5,5)]
         [InlineData(false,6000989,10,10)]
@@ -49,6 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
                 AssertImportDropDownAvailable(htmlDom, false);
             }
         }
+        */
 
         private void AssertSocMappingStatusValues(HtmlDocument htmlDom, string socMappingStatusId, string innerTextValue)
         {

@@ -254,7 +254,8 @@
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
     <Compile Include="Modules\FrameworkSkillConverterTests.cs" />
     <Compile Include="Modules\FrameworkSkillRepositoryTests.cs" />
-    <Compile Include="Modules\ImportJobProfileConverterTests.cs" />
+    <Compile Include="Modules\JobProfileOverloadForSearchConverterConverterTests.cs" />
+    <Compile Include="Modules\JobProfileOverloadForWhatItTakesConverterTests.cs" />
     <Compile Include="Modules\SocCodeConverterTests.cs" />
     <Compile Include="Modules\SocSkillMatrixRepositoryTests.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverterTests.cs" />

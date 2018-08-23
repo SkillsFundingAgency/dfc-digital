@@ -8,12 +8,12 @@ using Xunit;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 {
-    public class ImportJobProfileConverterTests
+    public class JobProfileOverloadForWhatItTakesConverterTests
     {
         private readonly IDynamicContentExtensions fakeDynamicContentExtensions;
         private readonly DynamicContent fakeDynamicContentItem;
 
-        public ImportJobProfileConverterTests()
+        public JobProfileOverloadForWhatItTakesConverterTests()
         {
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
             fakeDynamicContentItem = A.Dummy<DynamicContent>();
@@ -26,7 +26,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         {
             // Arrange
             SetupCalls(hasRelatedSocs);
-            var jobprofileConverter = new ImportJobProfileConverter(fakeDynamicContentExtensions);
+            var jobprofileConverter = new JobProfileOverloadForWhatItTakesConverter(fakeDynamicContentExtensions);
 
             var dummyRelatedItems = A.CollectionOfDummy<string>(1).AsEnumerable().AsQueryable();
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedContentUrl(A<DynamicContent>._, A<string>._))

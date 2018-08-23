@@ -139,46 +139,52 @@ namespace DFC.Digital.Service.SkillsFramework
         {
 
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
-            var soc = jobProfileSocCodeRepository.GetSocCodes().FirstOrDefault(s => s.SOCCode == jobProfileSoc);
+            var soc = jobProfileSocCodeRepository.GetBySocCode(jobProfileSoc);
             if (soc == null)
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
-            }
-            skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
-            var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
-
-            //We have job linked to the SOC
-            if (jobProfilesForSoc?.Count() > 0)
-            {
-                var socSkillMatrixData = CreateSocSkillsMatrixRecords(soc);
-                var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(soc.ONetOccupationalCode);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
-                var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
-
-                //DO all profiles that exist for this code
-                foreach (var profile in jobProfilesForSoc)
-                {
-                    if (socSkillMatrixData.Any())
-                    {
-                        profile.DigitalSkillsLevel = digitSkillValue;
-                        jobProfileRepository.UpdateSocSkillMatrices(profile, socSkillMatrixData);
-                        reportAuditRepository.CreateAudit(ActionDetailsKey, $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
-                    }
-                }
-
+                soc = new SocCode {SOCCode = jobProfileSoc};
                 skillsFrameworkService.SetSocStatusCompleted(soc);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
             }
             else
             {
-                reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
-            }
+                skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
+                var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
 
-            skillsFrameworkService.SetSocStatusCompleted(soc);
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+                //We have job linked to the SOC
+                if (jobProfilesForSoc?.Count() > 0)
+                {
+                    var socSkillMatrixData = CreateSocSkillsMatrixRecords(soc);
+                    var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(soc.ONetOccupationalCode);
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+                    var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
+
+                    //DO all profiles that exist for this code
+                    foreach (var profile in jobProfilesForSoc)
+                    {
+                        if (socSkillMatrixData.Any())
+                        {
+                            profile.DigitalSkillsLevel = digitSkillValue;
+                            jobProfileRepository.UpdateSocSkillMatrices(profile, socSkillMatrixData);
+                            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
+                        }
+                    }
+
+                    skillsFrameworkService.SetSocStatusCompleted(soc);
+                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
+                }
+                else
+                {
+                    reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
+                }
+
+                skillsFrameworkService.SetSocStatusCompleted(soc);
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+            }
+          
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)

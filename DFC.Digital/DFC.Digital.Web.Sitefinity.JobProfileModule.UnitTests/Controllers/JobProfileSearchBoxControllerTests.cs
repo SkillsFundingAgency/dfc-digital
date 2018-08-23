@@ -514,7 +514,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     UrlName = "dummy-url"
                 };
 
-                dummySuggestResult.Results = A.CollectionOfDummy<SuggestionResultItem<JobProfileIndex>>(2).GroupBy(x => x.MatchedSuggestion).Select(x => x.First());
+                dummySuggestResult.Results = A.CollectionOfDummy<SuggestionResultItem<JobProfileIndex>>(2);
                 dummySuggestResult.Results.First().Index = dummyIndex;
             }
 

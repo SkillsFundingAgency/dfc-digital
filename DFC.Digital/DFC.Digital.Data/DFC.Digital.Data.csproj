@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />
     <Compile Include="Interfaces\IAuditRepository.cs" />
@@ -177,19 +178,16 @@
     <Compile Include="Model\SearchProperties.cs" />
     <Compile Include="Model\SearchResult.cs" />
     <Compile Include="Model\SearchResultItem.cs" />
+    <Compile Include="Model\SkillsFrameworkImportStatus.cs" />
     <Compile Include="Model\SocCode.cs" />
+    <Compile Include="Model\SocMappingStatus.cs" />
     <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
-    <Compile Include="Model\UpdateJpDigitalSkillsRequest.cs" />
-    <Compile Include="Model\UpdateJpDigitalSkillsResponse.cs" />
-    <Compile Include="Model\UpdateJpSkillsDataRequest.cs" />
-    <Compile Include="Model\UpdateJpSkillsDataResponse.cs" />
-    <Compile Include="Model\UpdateJpSocSkillMatrixResponse.cs" />
-    <Compile Include="Model\UpdateSocOccupationalCodeRequest.cs" />
+    <Compile Include="Model\SkillsServiceResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />

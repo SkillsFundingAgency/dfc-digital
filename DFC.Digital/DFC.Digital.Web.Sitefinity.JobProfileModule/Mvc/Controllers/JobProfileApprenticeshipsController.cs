@@ -135,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IQueryable<ApprenticeVacancy> apprenticeshipVacancies = null;
             if (!string.IsNullOrWhiteSpace(CurrentJobProfile.SOCCode))
             {
-                apprenticeshipVacancies = jobProfileSocCodeRepository.GetBySocCode(CurrentJobProfile.SOCCode)
+                apprenticeshipVacancies = jobProfileSocCodeRepository.GetApprenticeVacanciesBySocCode(CurrentJobProfile.SOCCode)
                     ?.Where(x => !string.IsNullOrEmpty(x.Title)
                         && !string.IsNullOrEmpty(x.URL.OriginalString)
                         && !string.IsNullOrEmpty(x.WageUnitType)

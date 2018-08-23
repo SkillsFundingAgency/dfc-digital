@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Web.Sitefinity.CmsExtensions
+﻿using DFC.Digital.Data.Model;
+
+namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {
     public class SkillsFrameworkImportViewModel
     {
@@ -9,5 +11,9 @@
         public string NotAllowedMessage { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public SocMappingStatus SocMappingStatus { get; set; }
+
+        public string NextBatchOfSOCsToImport { get; set; }
     }
 }

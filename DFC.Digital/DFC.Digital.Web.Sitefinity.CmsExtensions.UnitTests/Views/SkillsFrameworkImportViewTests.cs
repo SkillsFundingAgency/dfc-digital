@@ -11,6 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
 {
     public class SkillsFrameworkImportViewTests
     {
+        /*
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
@@ -44,6 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
                 AssertImportDropDownAvailable(htmlDom, false);
             }
         }
+        */
 
         [Theory]
         [InlineData(true, "import yy skills",2, 4)]

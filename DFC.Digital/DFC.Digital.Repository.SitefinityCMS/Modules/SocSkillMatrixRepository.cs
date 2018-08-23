@@ -36,7 +36,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #endregion
 
         #region Interface Implementations
-        public RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix)
+        public void UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix)
         {
             var repoSocMatrix = socMatrixRepository.Get(item =>
                 item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == socSkillMatrix.SfUrlName);
@@ -99,16 +99,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     UpsertSocSkillMatrix(socSkillMatrix);
                 }
-                else
-                {
-                    return new RepoActionResult();
-                }
             }
-
-            return new RepoActionResult
-            {
-                Success = true
-            };
         }
 
         public IEnumerable<SocSkillMatrix> GetSocSkillMatrices()

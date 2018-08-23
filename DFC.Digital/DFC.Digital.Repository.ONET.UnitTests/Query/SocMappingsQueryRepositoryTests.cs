@@ -31,7 +31,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
 
 
-            var repo = new SocMappingsQueryRepository(fakeDbContext, actualMapper);
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
 
             var result = repo.GetAll();
             A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
@@ -63,7 +63,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
 
 
-            var repo = new SocMappingsQueryRepository(fakeDbContext, actualMapper);
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
 
             var result = repo.GetById(socCode);
             A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
@@ -92,7 +92,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
 
 
-            var repo = new SocMappingsQueryRepository(fakeDbContext, actualMapper);
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
 
             var result = repo.Get(x=>x.SOCCode==socCode);
             A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
@@ -117,11 +117,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                     .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)))
                 .SetupData(setupData.ToList());
 
-
             A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
 
-
-            var repo = new SocMappingsQueryRepository(fakeDbContext, actualMapper);
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
 
             var result = repo.GetMany(x => x.SOCCode == colData1 || x.SOCCode==colData2);
             result.Count().Should().BeGreaterOrEqualTo(2);

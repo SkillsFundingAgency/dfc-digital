@@ -53,6 +53,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                 .MustHaveHappened();
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
+
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldChoiceLabel(A<DynamicContent>._, A<string>._))
+           .MustHaveHappened();
+
             A.CallTo(() => fakeRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
 
             A.CallTo(() => htbContentPropertyConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();

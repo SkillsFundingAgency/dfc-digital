@@ -114,14 +114,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         {
             // Assign
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Returns(new FrameworkSkillsImportResponse());
             var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(isAdmin, batchSizeForImport);
 
             // Act
             var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index(mode));
 
             // Assert
-
-
             if (isAdmin)
             {
                 indexMethodCall
@@ -182,30 +181,30 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         }
 
-        [Fact]
-        public void IndexModeExceptionTest()
+        [Theory]
+        [InlineData("Error to test coverage")]
+        [InlineData("Error to test coverage number 3")]
+        [InlineData("number 2 of the errors to test coverage")]
+        public void IndexModeExceptionTest(string errorMessage)
         {
             //set up calls
             var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(true, 10);
 
             A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Throws(new Exception(errorMessage));
 
             //// Act
-            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index("test"));
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.Index("IMPORTSKILLS"));
 
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Throws(new Exception());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Throws(new Exception());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetAllSocStatus()).Throws(new Exception());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetStartedSocStatus()).Throws(new Exception());
 
-            //var otherMessage = skillsFrameworkDataImportController.
             //Assert
-            {
-               // indexMethodCall
-               //.ShouldRenderView("ImportResults")
-               //.WithModel<SkillsFrameworkResultsViewModel>(vm => vm.OtherMessage.Should().NotBeNull());
-                A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
-            }
+            indexMethodCall
+                .ShouldRenderView("ImportResults")
+                .WithModel<SkillsFrameworkResultsViewModel>(
+                vm => vm.OtherMessage.Should().Contain(errorMessage)
+                );
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
+
         }
 
         private SkillsFrameworkDataImportController GetSkillsFrameworkDataImportController(bool isAdmin, int batchSizeForImport)
@@ -227,7 +226,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         private void SetupCalls()
         {
             A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).Returns(new UpdateSocOccupationalCodeResponse());
-            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).Returns(new FrameworkSkillsImportResponse());
             A.CallTo(() => fakeImportSkillsFrameworkDataService.GetSocMappingStatus()).Returns(new SocMappingStatus());
             A.CallTo(() => fakeImportSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(10)).Returns("test");
             A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportForSocs("test")).Returns(new SkillsServiceResponse());

@@ -110,7 +110,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         }
 
         [Fact]
-        public void AverageOutScoresScalesTest()
+        public void AverageOutscoresScalesTest()
         {
             //Setup
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);

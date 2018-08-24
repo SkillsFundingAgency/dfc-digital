@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,28 +95,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();
         }
 
-        public RepoActionResult UpdateDigitalSkill(JobProfileOverloadForWhatItTakes jobProfile)
-        {
-            var jobprofile = repository.Get(item =>
-                item.UrlName == jobProfile.UrlName && item.Status == ContentLifecycleStatus.Live && item.Visible);
-
-            if (jobprofile != null)
-            {
-                var master = repository.GetMaster(jobprofile);
-
-                var temp = repository.GetTemp(master);
-
-                dynamicContentExtensions.SetFieldValue(temp, nameof(JobProfile.DigitalSkillsLevel), jobProfile.DigitalSkillsLevel);
-
-                var updatedMaster = repository.CheckinTemp(temp);
-
-                repository.Publish(updatedMaster, UpdateComment);
-                repository.Commit();
-            }
-
-            return new RepoActionResult { Success = true };
-        }
-
         public RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)
         {
             var jobprofile = repository.Get(item =>
@@ -137,9 +116,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
                     }
                 }
 
+                dynamicContentExtensions.SetFieldValue(master, nameof(JobProfile.DigitalSkillsLevel), jobProfile.DigitalSkillsLevel);
+
                 repository.Commit();
 
-                repository.Publish(master, UpdateComment);
+                repository.Update(master, UpdateComment);
 
                 repository.Commit();
             }

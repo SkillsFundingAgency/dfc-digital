@@ -6,9 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d06297a035594a228159a15226713bf2" Name="Diagram1">
         <EntityTypeShape EntityType="Model.content_model_reference" Width="1.5" PointX="5.75" PointY="29.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DFC_GDSAttributeRankOverRide" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.DFC_GDSCombinations" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DFC_GDSContext" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.DFC_GDSTranlations" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.DFC_GlobalAttributeSuppression" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.dwa_reference" Width="1.5" PointX="3" PointY="30.875" IsExpanded="true" />
@@ -27,8 +25,7 @@
         <EntityTypeShape EntityType="Model.alternate_titles" Width="1.5" PointX="3" PointY="43.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.career_changers_matrix" Width="1.5" PointX="3" PointY="46.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.career_starters_matrix" Width="1.5" PointX="3" PointY="48.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DFC_GDSONetSKATranslations_staging" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.DFC_SocMappings" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DFC_SocMappings" Width="1.5" PointX="8.625" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.education_training_experience" Width="1.5" PointX="6" PointY="48.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.emerging_tasks" Width="1.5" PointX="5.25" PointY="35.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.green_occupations" Width="1.5" PointX="3" PointY="60" IsExpanded="true" />

@@ -199,7 +199,7 @@ namespace DFC.Digital.Service.SkillsFramework
             return finalAttributes.OrderByDescending(s => s.Score).Take(20);
         }
 
-        private IEnumerable<OnetAttribute> SelectTopAttributes(IEnumerable<OnetAttribute> attributes)
+        private static IEnumerable<OnetAttribute> SelectTopAttributes(IEnumerable<OnetAttribute> attributes)
         {
             var topAttributes = attributes.Where(a => a.Type == AttributeType.Ability).OrderByDescending(s => s.Score).Take(5)
                 .Union(attributes.Where(a => a.Type == AttributeType.Knowledge).OrderByDescending(s => s.Score).Take(5))

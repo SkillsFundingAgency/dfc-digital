@@ -1,0 +1,21 @@
+﻿#global-header.with-proposition {
+    .header-wrapper {
+        .header-proposition {
+            width: 100% !important;
+
+            #proposition-links {
+                .active {
+                    a {
+                    color: $link-hover-colour;
+                    }
+                }
+            }
+
+            .phase-tag {
+                margin: 0 0 0 4px;
+                top: -6px;
+                font-size: 10px;
+            }
+        }
+    }
+}

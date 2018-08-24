@@ -5,7 +5,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISocSkillMatrixRepository
     {
-        RepoActionResult UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix);
+        void UpsertSocSkillMatrix(SocSkillMatrix socSkillMatrix);
 
         IEnumerable<SocSkillMatrix> GetSocSkillMatrices();
     }

@@ -18,8 +18,6 @@ namespace DFC.Digital.Data.Interfaces
 
         IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfiles();
 
-        RepoActionResult UpdateDigitalSkill(JobProfileOverloadForWhatItTakes jobProfile);
-
         RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices);
     }
 }

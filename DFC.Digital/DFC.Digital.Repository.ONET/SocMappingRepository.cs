@@ -50,9 +50,9 @@ namespace DFC.Digital.Repository.ONET
         {
             var socMappingStatus = new SocMappingStatus
             {
-                AwaitingUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null).Count(),
-                SelectedForUpdate = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.SelectedForUpdate.ToString()).Count(),
-                UpdateCompleted = onetDbContext.DFC_SocMappings.Where(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.UpdateCompleted.ToString()).Count()
+                AwaitingUpdate = onetDbContext.DFC_SocMappings.Count(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.AwaitingUpdate.ToString() || s.UpdateStatus == null),
+                SelectedForUpdate = onetDbContext.DFC_SocMappings.Count(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.SelectedForUpdate.ToString()),
+                UpdateCompleted = onetDbContext.DFC_SocMappings.Count(s => s.UpdateStatus == SkillsFrameWorkUpdateStatus.UpdateCompleted.ToString())
             };
             return socMappingStatus;
         }

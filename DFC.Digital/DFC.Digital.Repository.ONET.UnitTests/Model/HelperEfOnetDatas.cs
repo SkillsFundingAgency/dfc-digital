@@ -35,6 +35,95 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             },
 
         };
+
+        protected static readonly IEnumerable<DFC_SocMappings> AwaitingUpdateDfcSocMappings = new List<DFC_SocMappings>
+        {
+            new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "AwaitingUpdate"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "AwaitingUpdate"
+            }
+            ,
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "AwaitingUpdate"
+            }
+        };
+
+        protected static readonly IEnumerable<DFC_SocMappings> UpdateCompletedDfcSocMappings = new List<DFC_SocMappings>
+        {
+            new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "UpdateCompleted"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "UpdateCompleted"
+            }, new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "UpdateCompleted"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "UpdateCompleted"
+            }
+        };
+
+        protected static readonly IEnumerable<DFC_SocMappings> SelectedForUpdateDfcSocMappings = new List<DFC_SocMappings>
+        {
+            new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "SelectedForUpdate"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "SelectedForUpdate"
+            }, new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "SelectedForUpdate"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "SelectedForUpdate"
+            }, new DFC_SocMappings
+            {
+                ONetCode = "11-3031.02",
+                SocCode = "1150",
+                UpdateStatus = "SelectedForUpdate"
+            },
+            new DFC_SocMappings
+            {
+                ONetCode = "11-9051.00",
+                SocCode = "1223",
+                UpdateStatus = "SelectedForUpdate"
+            }
+        };
+
         protected static readonly IEnumerable<DFC_GDSTranlations> DfcTranslations = new List<DFC_GDSTranlations>
         {
 

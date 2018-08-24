@@ -96,7 +96,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).DoesNothing();
 
             // Act
-            var results  = skillsImportService.CreateSocSkillsMatrixRecords(new SocCode {SOCCode = "dummySOC" } );
+            skillsImportService.CreateSocSkillsMatrixRecords(new SocCode {SOCCode = "dummySOC" } );
 
             // Assert
             A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).MustHaveHappenedOnceExactly();
@@ -163,7 +163,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         [InlineData(20)]
         public void GetNextBatchOfSOCsToImportTests(int batchSize)
         {
-            // Arrange
+            //Arrange
             var dummySocs = GetSOCs(batchSize);
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
             A.CallTo(() => fakeSkillsFrameworkService.GetNextBatchSocMappingsForUpdate(batchSize)).Returns(dummySocs);
@@ -179,12 +179,11 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         public void ImportForSingleSocNoSocTest()
         {
             var dummySoc = GetSOCs(1).FirstOrDefault();
-            var dummyJobPRofiles = GetLiveImportJobProfiles(1);
       
+            //Arrange
             A.CallTo(() => fakeSkillsFrameworkService.SetSocStatusCompleted(A<SocCode>._)).DoesNothing();
             A.CallTo(() => fakeJobProfileSocCodeRepository.GetBySocCode(A<string>._)).Returns(null);
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
-
 
             //Act
             skillsImportService.ImportForSingleSoc(dummySoc.SOCCode);

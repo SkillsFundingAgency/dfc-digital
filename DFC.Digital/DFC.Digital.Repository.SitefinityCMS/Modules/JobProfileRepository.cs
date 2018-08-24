@@ -89,7 +89,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
             if (jobProfiles.Any())
             {
-                return jobProfiles.Select(item => converterForWITOnly.ConvertFrom(item));
+                var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
+                    foreach (var jobProfile in jobProfiles)
+                    {
+                        jobProfileOverloadForWhatItTakesList.Add(converterForWITOnly.ConvertFrom(jobProfile));
+                    }
+
+                    return jobProfileOverloadForWhatItTakesList;
             }
 
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();

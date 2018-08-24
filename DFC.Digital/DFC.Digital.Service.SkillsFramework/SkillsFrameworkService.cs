@@ -88,14 +88,14 @@ namespace DFC.Digital.Service.SkillsFramework
             socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, SkillsFrameWorkUpdateStatus.AwaitingUpdate);
         }
 
-        public void SetSocStatusCompleted(SocCode socCodes)
+        public void SetSocStatusCompleted(SocCode socCode)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, SkillsFrameWorkUpdateStatus.UpdateCompleted);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameWorkUpdateStatus.UpdateCompleted);
         }
                
-        public void SetSocStatusSelectedForUpdate (SocCode socCodes)
+        public void SetSocStatusSelectedForUpdate (SocCode socCode)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCodes }, SkillsFrameWorkUpdateStatus.SelectedForUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameWorkUpdateStatus.SelectedForUpdate);
         }
 
         public SocMappingStatus GetSocMappingStatus()

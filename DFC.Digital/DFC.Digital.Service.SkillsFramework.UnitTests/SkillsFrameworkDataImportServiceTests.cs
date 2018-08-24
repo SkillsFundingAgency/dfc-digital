@@ -321,17 +321,5 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             }
             return list;
         }
-
-        private static IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveMatrixImportJobProfiles(int count)
-        {
-            var list = new List<JobProfileOverloadForWhatItTakes>();
-
-            for (var i = 0; i < count; i++)
-            {
-                list.Add(new JobProfileOverloadForWhatItTakes { Title = nameof(SocCode.Title), SOCCode = $"{i}-{nameof(SocSkillMatrix.SocCode)}", ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(JobProfileOverloadForWhatItTakes.DigitalSkillsLevel) });
-            }
-            return list;
-        }
-
     }
 }

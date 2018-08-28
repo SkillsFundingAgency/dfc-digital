@@ -58,8 +58,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
            .MustHaveHappened();
 
             A.CallTo(() => fakeRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
+          A.CallTo(() => htbContentPropertyConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
 
-            A.CallTo(() => htbContentPropertyConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryStarter)))
+                   .MustHaveHappened();
+            jobProfile.SalaryStarter.Should().Be(10);
+
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryExperienced)))
+                  .MustHaveHappened();
+            jobProfile.SalaryExperienced.Should().Be(20);
+
             if (socAssigned)
             {
                 A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, nameof(JobProfile.SOCCode)))
@@ -82,6 +90,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                 .Returns(false);
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, A<string>._))
                 .Returns(10);
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryStarter)))
+               .Returns(10);
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<decimal?>(A<DynamicContent>._, nameof(JobProfile.SalaryExperienced)))
+              .Returns(20);
             A.CallTo(() => fakeRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).Returns(new EnumerableQuery<string>(new List<string> { "test" }));
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))
                 .Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { fakeDynamicContentItem }));

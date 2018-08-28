@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LoadTest Name="DFC-Load-500-Staging" Description="" Owner="" storage="c:\beta\dfc-digital\dfc.digital\dfc.digital.performancetest\loadtest\dfc-load-500-staging.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Run Settings1" Id="e755a3ff-9b2e-4a88-866f-37d885d50551" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Scenarios>
-    <Scenario Name="DFC-Live-Load-500-Staging" DelayBetweenIterations="0" PercentNewUsers="0" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
+    <Scenario Name="DFC-Load-500-Staging" DelayBetweenIterations="0" PercentNewUsers="0" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
       <ThinkProfile Value="0.2" Pattern="NormalDistribution" />
       <LoadProfile Pattern="Step" InitialUsers="100" MaxUsers="500" StepUsers="100" StepDuration="180" StepRampTime="90" />
       <TestMix>
         <TestProfile Name="JobCategory" Path="..\webtests\jobcategory.webtest" Id="daf29a62-c485-4a84-a627-5945778845b4" Percentage="14" Type="Microsoft.VisualStudio.TestTools.WebStress.DeclarativeWebTestElement, Microsoft.VisualStudio.QualityTools.LoadTest, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
         <TestProfile Name="JobProfile" Path="..\webtests\jobprofile.webtest" Id="1fd22a34-6b6f-43c1-b98e-85e9d9dee9b6" Percentage="56" Type="Microsoft.VisualStudio.TestTools.WebStress.DeclarativeWebTestElement, Microsoft.VisualStudio.QualityTools.LoadTest, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
         <TestProfile Name="Search" Path="..\webtests\search.webtest" Id="e2e1b23e-43c5-4c52-b0d0-f2771088cc03" Percentage="15" Type="Microsoft.VisualStudio.TestTools.WebStress.DeclarativeWebTestElement, Microsoft.VisualStudio.QualityTools.LoadTest, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-        <TestProfile Name="HomePage" Path="..\webtests\homepage.webtest" Id="4f08dcc9-6c01-46f5-ae4a-5dd8b64bd883" Percentage="15" Type="Microsoft.VisualStudio.TestTools.WebStress.DeclarativeWebTestElement, Microsoft.VisualStudio.QualityTools.LoadTest, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestProfile Name="PreSearchFilter" Path="..\webtests\presearchfilter.webtest" Id="51da30fe-edda-4dc9-921f-75ac1271a7cf" Percentage="15" Type="Microsoft.VisualStudio.TestTools.WebStress.DeclarativeWebTestElement, Microsoft.VisualStudio.QualityTools.LoadTest, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
       </TestMix>
       <BrowserMix>
         <BrowserProfile Percentage="100">
@@ -442,7 +442,7 @@
         <GeoLocation Location="West Europe" Percentage="100" />
       </LoadGeneratorLocations>
       <ContextParameters>
-        <ContextParameter Name="WebServer1" Value="https://staging-beta.nationalcareersservice.direct.gov.uk" />
+        <ContextParameter Name="WebServer1" Value="https://staging-beta.nationalcareersservice.org.uk" />
       </ContextParameters>
     </RunConfiguration>
   </RunConfigurations>

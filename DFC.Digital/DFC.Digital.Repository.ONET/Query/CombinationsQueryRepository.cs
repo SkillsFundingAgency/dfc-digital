@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace DFC.Digital.Repository.ONET.Query
 {
-    public class CombinationsQueryRepository : IQueryRepository<FrameWorkSkillCombination>
+    public class CombinationsQueryRepository : IQueryRepository<FrameworkSkillCombination>
     {
         private readonly OnetSkillsFramework onetDbContext;
 
@@ -17,16 +17,16 @@ namespace DFC.Digital.Repository.ONET.Query
         }
 
         #region Implementation of IQueryRepository<FrameWorkSkillCombination>
-        public FrameWorkSkillCombination Get(Expression<Func<FrameWorkSkillCombination, bool>> where)
+        public FrameworkSkillCombination Get(Expression<Func<FrameworkSkillCombination, bool>> where)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<FrameWorkSkillCombination> GetAll()
+        public IQueryable<FrameworkSkillCombination> GetAll()
         {
             var result = (from c in onetDbContext.DFC_GDSCombinations
                           orderby c.application_order
-                          select new FrameWorkSkillCombination()
+                          select new FrameworkSkillCombination()
                           {
                               OnetElementOneId = c.onet_element_one_id,
                               OnetElementTwoId = c.onet_element_two_id,
@@ -39,12 +39,12 @@ namespace DFC.Digital.Repository.ONET.Query
 
         }
 
-        public FrameWorkSkillCombination GetById(string id)
+        public FrameworkSkillCombination GetById(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<FrameWorkSkillCombination> GetMany(Expression<Func<FrameWorkSkillCombination, bool>> where)
+        public IQueryable<FrameworkSkillCombination> GetMany(Expression<Func<FrameworkSkillCombination, bool>> where)
         {
             throw new NotImplementedException();
         }

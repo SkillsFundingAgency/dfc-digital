@@ -281,13 +281,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             return list;
         }
 
-        private static IEnumerable<OnetAttribute> GetRelatedSkill(int count)
+        private static IEnumerable<OnetSkill> GetRelatedSkill(int count)
         {
-            var list = new List<OnetAttribute>();
+            var list = new List<OnetSkill>();
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new OnetAttribute { Name = nameof(OnetAttribute.Name), SocCode = $"{i}-{nameof(OnetAttribute.SocCode)}", OnetOccupationalCode = nameof(OnetAttribute.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) });
+                list.Add(new OnetSkill { Name = nameof(OnetSkill.Name), SocCode = $"{i}-{nameof(OnetSkill.SocCode)}", OnetOccupationalCode = nameof(OnetSkill.OnetOccupationalCode), Description = nameof(OccupationOnetSkill.Description) });
             }
 
             return list;

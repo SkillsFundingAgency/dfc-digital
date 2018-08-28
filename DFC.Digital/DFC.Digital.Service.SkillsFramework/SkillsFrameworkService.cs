@@ -55,7 +55,7 @@ namespace DFC.Digital.Service.SkillsFramework
             return rank;
         }
 
-        public IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode)
+        public IEnumerable<OnetSkill> GetRelatedSkillMapping(string onetOccupationalCode)
         {
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
             var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList();
@@ -63,7 +63,7 @@ namespace DFC.Digital.Service.SkillsFramework
             logger.Trace($"Got {rawAttributes.Count()} raw attributes for occupational code {onetOccupationalCode}");
 
             //Average out the skill thats have LV and LM scales
-            var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);
+            var attributes = skillsBusinessRuleEngine.AverageOutscoreScales(rawAttributes);
             attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
             attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
             attributes = skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
@@ -79,23 +79,23 @@ namespace DFC.Digital.Service.SkillsFramework
         public void ResetAllSocStatus()
         {
             var allSocCodes = GetAllSocMappings();
-            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, SkillsFrameWorkUpdateStatus.AwaitingUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, SkillsFrameworkUpdateStatus.AwaitingUpdate);
         }
 
         public void ResetStartedSocStatus()
         {
             var socInStartedStateCodes = socMappingRepository.GetSocsInStartedState();
-            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, SkillsFrameWorkUpdateStatus.AwaitingUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, SkillsFrameworkUpdateStatus.AwaitingUpdate);
         }
 
         public void SetSocStatusCompleted(SocCode socCode)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameWorkUpdateStatus.UpdateCompleted);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameworkUpdateStatus.UpdateCompleted);
         }
                
         public void SetSocStatusSelectedForUpdate (SocCode socCode)
         {
-            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameWorkUpdateStatus.SelectedForUpdate);
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameworkUpdateStatus.SelectedForUpdate);
         }
 
         public SocMappingStatus GetSocMappingStatus()

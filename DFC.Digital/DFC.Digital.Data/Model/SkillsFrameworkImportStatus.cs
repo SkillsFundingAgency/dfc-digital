@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public enum SkillsFrameWorkUpdateStatus
+    public enum SkillsFrameworkUpdateStatus
     {
         AwaitingUpdate,
         SelectedForUpdate,

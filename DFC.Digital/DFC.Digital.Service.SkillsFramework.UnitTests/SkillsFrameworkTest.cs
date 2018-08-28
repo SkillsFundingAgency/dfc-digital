@@ -78,17 +78,17 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         public void GetRelatedSkillMappingTest()
         {
             // Arrange
-            var fakeQuerable = A.Fake<IQueryable<OnetAttribute>>();
+            var fakeQuerable = A.Fake<IQueryable<OnetSkill>>();
 
             A.CallTo(() => fakeSkillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(A<string>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutScoreScales(A<IList<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetAttribute>>._)).Returns(fakeQuerable);
-            A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetAttribute>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutscoreScales(A<IList<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetSkill>>._)).Returns(fakeQuerable);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetSkill>>._)).Returns(fakeQuerable);
 
 
             var skillsFrameworkService = new SkillsFrameworkService(fakeApplicationLogger,
@@ -103,14 +103,14 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             //asserts
             response.Should().NotBeNull();
             A.CallTo(() => fakeSkillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(A<string>._)).MustHaveHappened()
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutScoreScales(A<IList<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetAttribute>>._)).MustHaveHappened())
-                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetAttribute>>._)).MustHaveHappened());
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AverageOutscoreScales(A<IList<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(A<IEnumerable<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDuplicateAttributes(A<IEnumerable<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.RemoveDFCSuppressions(A<IEnumerable<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.AddTitlesToAttributes(A<IEnumerable<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.BoostMathsSkills(A<IEnumerable<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.CombineSimilarAttributes(A<IList<OnetSkill>>._)).MustHaveHappened())
+                .Then(A.CallTo(() => fakeSkillsBusinessRuleEngine.SelectFinalAttributes(A<IEnumerable<OnetSkill>>._)).MustHaveHappened());
         }
 
         [Theory]
@@ -147,9 +147,9 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                       fakeSocMappingRepository
                      );
 
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameWorkUpdateStatus.AwaitingUpdate)).DoesNothing();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameworkUpdateStatus.AwaitingUpdate)).DoesNothing();
             skillsFrameworkService.ResetAllSocStatus();
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameWorkUpdateStatus.AwaitingUpdate)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameworkUpdateStatus.AwaitingUpdate)).MustHaveHappenedOnceExactly();
         }
 
         [Theory]
@@ -164,9 +164,9 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                       fakeSocMappingRepository
                      );
 
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameWorkUpdateStatus.AwaitingUpdate)).DoesNothing();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameworkUpdateStatus.AwaitingUpdate)).DoesNothing();
             skillsFrameworkService.ResetStartedSocStatus();
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameWorkUpdateStatus.AwaitingUpdate)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<IQueryable<SocCode>>._, SkillsFrameworkUpdateStatus.AwaitingUpdate)).MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -179,9 +179,9 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                       fakeSocMappingRepository
                      );
 
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameWorkUpdateStatus.UpdateCompleted)).DoesNothing();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameworkUpdateStatus.UpdateCompleted)).DoesNothing();
             skillsFrameworkService.SetSocStatusCompleted(new SocCode {SOCCode="dummySoc"});
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameWorkUpdateStatus.UpdateCompleted)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameworkUpdateStatus.UpdateCompleted)).MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -194,9 +194,9 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
                       fakeSocMappingRepository
                      );
 
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameWorkUpdateStatus.SelectedForUpdate)).DoesNothing();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameworkUpdateStatus.SelectedForUpdate)).DoesNothing();
             skillsFrameworkService.SetSocStatusSelectedForUpdate(new SocCode { SOCCode = "dummySoc" });
-            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameWorkUpdateStatus.SelectedForUpdate)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameworkUpdateStatus.SelectedForUpdate)).MustHaveHappenedOnceExactly();
         }
 
         [Fact]

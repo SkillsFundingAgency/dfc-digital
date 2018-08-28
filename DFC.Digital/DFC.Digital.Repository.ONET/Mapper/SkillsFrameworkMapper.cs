@@ -2,7 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 
-namespace DFC.Digital.Repository.ONET.Mapper
+namespace DFC.Digital.Repository.ONET
 {
     public class SkillsFrameworkMapper : Profile
     {

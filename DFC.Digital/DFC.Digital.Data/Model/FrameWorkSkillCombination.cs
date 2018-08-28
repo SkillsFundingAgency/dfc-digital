@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class FrameWorkSkillCombination
+    public class FrameworkSkillCombination
     {
         public string OnetElementOneId { get; set; }
 

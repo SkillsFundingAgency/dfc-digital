@@ -5,7 +5,7 @@ Scenario: [DFC-1342 - A3] Job Category Page displays the correct breadcrumb and 
 	Given I am viewing the 'Managerial' category page
 	Then the correct 'Job category' breadcrumb is displayed
 
-	When I click the Find a Career breadcrumb on 'Job category'
+	When I click the Explore career breadcrumb on 'Job category'
 	Then I am redirected to the homepage
 
 

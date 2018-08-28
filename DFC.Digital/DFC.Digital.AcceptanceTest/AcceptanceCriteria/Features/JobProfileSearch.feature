@@ -28,7 +28,7 @@ Scenario: [DFC-1342 - A1] Search Page displays the correct breadcrumb and links 
 	Then the first result is 'shown' on the page
 	And the correct 'Search results' breadcrumb is displayed
 
-	When I click the Find a Career breadcrumb on 'Search results'
+	When I click the Explore career breadcrumb on 'Search results'
 	Then I am redirected to the homepage
 
 @EndToEnd

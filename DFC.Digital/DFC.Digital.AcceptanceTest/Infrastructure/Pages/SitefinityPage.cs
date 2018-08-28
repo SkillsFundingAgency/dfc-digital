@@ -73,10 +73,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return Browser.Url.ToUpperInvariant().Contains(urlFragment?.ToUpperInvariant());
         }
 
-        public TPage ClickFindACareerBreadcrumb<TPage>()
+        public TPage ClickExploreCareerBreadcrumb<TPage>()
             where TPage : UiComponent, new()
         {
-            return Navigate.To<TPage>(By.PartialLinkText("Find a career home"));
+            return Navigate.To<TPage>(By.PartialLinkText("Explore careers home"));
         }
 
         private bool IsThisStatusPage()

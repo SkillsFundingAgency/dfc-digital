@@ -19,9 +19,11 @@
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Run Selected Option">
             }
 
-            <div style="margin-top:20px">
+
+            <div style="margin-top:20px; border-top:solid; border-top-color:black">
                 @using (Html.BeginForm("ImportJobProfile", "SkillsFrameworkDataImport", FormMethod.Post))
                 {
+                    <h2>Current Import status of SOCs in Onet</h2>
                     <table style="width:900px;" >
                         <tr style="background-color:aliceblue;">
                             <td id="awaiting-update">SOCs awaiting import : @Model.SocMappingStatus.AwaitingUpdate</td>
@@ -41,7 +43,7 @@
                 }
             </div>
 
-            <div style="margin-top:20px">
+            <div style="margin-top:20px; border-top:solid; border-top-color:black">
                 <h2>You should run these options in the following order</h2>
                 <ol>
                     <li>Update SOCs with ONet Occupational Codes</li>

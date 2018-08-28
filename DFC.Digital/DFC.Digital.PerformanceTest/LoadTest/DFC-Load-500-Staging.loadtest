@@ -442,7 +442,7 @@
         <GeoLocation Location="West Europe" Percentage="100" />
       </LoadGeneratorLocations>
       <ContextParameters>
-        <ContextParameter Name="WebServer1" Value="https://staging-beta.nationalcareersservice.direct.gov.uk" />
+        <ContextParameter Name="WebServer1" Value="http://local-beta.nationalcareersservice.org.uk" />
       </ContextParameters>
     </RunConfiguration>
   </RunConfigurations>

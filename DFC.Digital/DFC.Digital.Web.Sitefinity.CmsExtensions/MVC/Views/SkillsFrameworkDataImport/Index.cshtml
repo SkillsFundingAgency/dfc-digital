@@ -19,18 +19,20 @@
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Run Selected Option">
             }
 
-            <div style="margin-top:20px">
+
+            <div style="margin-top:20px; border-top:solid; border-top-color:black">
                 @using (Html.BeginForm("ImportJobProfile", "SkillsFrameworkDataImport", FormMethod.Post))
                 {
+                    <h2>Current Import status of SOCs in Onet</h2>
                     <table style="width:900px;" >
                         <tr style="background-color:aliceblue;">
-                            <td>SOCs awaiting import : @Model.SocMappingStatus.AwaitingUpdate</td>
-                            <td>SOCs completed : @Model.SocMappingStatus.UpdateCompleted</td>
-                            <td>SOCs started but not completed : @Model.SocMappingStatus.SelectedForUpdate</td>
+                            <td id="awaiting-update">SOCs awaiting import : @Model.SocMappingStatus.AwaitingUpdate</td>
+                            <td id="update-completed">SOCs completed : @Model.SocMappingStatus.UpdateCompleted</td>
+                            <td id="selected-for-update">SOCs started but not completed : @Model.SocMappingStatus.SelectedForUpdate</td>
                         </tr>
                         <tr>
                             <td style="padding-top:10px;" colspan="2">
-                                <input type="text" style="height:100px; width:600px;" value="@Model.NextBatchOfSOCsToImport" name="jobprofilesoc">
+                                <input id="next-batch-of-SOCs-to-import" type="text" style="height:100px; width:600px;" value="@Model.NextBatchOfSOCsToImport" name="jobprofilesoc">
                                 <p>This can be a comma seperated list of SOCs, you can update the batch size in widget properties BUT the time taken should not exceed 2 minutes on Azure</p>
                             </td>
                             <td>
@@ -41,7 +43,7 @@
                 }
             </div>
 
-            <div style="margin-top:20px">
+            <div style="margin-top:20px; border-top:solid; border-top-color:black">
                 <h2>You should run these options in the following order</h2>
                 <ol>
                     <li>Update SOCs with ONet Occupational Codes</li>

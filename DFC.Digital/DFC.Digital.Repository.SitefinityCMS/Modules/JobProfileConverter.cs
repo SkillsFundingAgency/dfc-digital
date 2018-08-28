@@ -81,7 +81,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 //What You will do section
                 WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
                 RelatedSkills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
-                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceValue(content, nameof(JobProfile.DigitalSkillsLevel))
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfile.DigitalSkillsLevel))
             };
 
             var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();

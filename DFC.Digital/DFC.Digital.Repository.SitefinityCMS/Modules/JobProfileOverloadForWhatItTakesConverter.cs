@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class ImportJobProfileConverter : IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>
+    public class JobProfileOverloadForWhatItTakesConverter : IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>
     {
         #region Fields
 
@@ -20,7 +20,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public ImportJobProfileConverter(IDynamicContentExtensions dynamicContentExtensions)
+        public JobProfileOverloadForWhatItTakesConverter(IDynamicContentExtensions dynamicContentExtensions)
         {
             this.dynamicContentExtensions = dynamicContentExtensions;
         }

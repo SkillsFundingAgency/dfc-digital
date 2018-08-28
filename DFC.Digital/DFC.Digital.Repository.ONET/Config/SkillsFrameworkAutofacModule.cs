@@ -3,9 +3,8 @@ using Autofac.Extras.DynamicProxy2;
 using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Repository.ONET.DataModel;
-using DFC.Digital.Repository.ONET.Mapper;
 
-namespace DFC.Digital.Repository.ONET.Config
+namespace DFC.Digital.Repository.ONET
 {
     public class SkillsFrameworkAutofacModule : Module
     {

@@ -13,15 +13,15 @@ namespace DFC.Digital.Data.Interfaces
 
         DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode);
 
-        IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode);
+        IEnumerable<OnetSkill> GetRelatedSkillMapping(string onetOccupationalCode);
 
         void ResetAllSocStatus();
 
         void ResetStartedSocStatus();
 
-        void SetSocStatusCompleted(SocCode socCodes);
+        void SetSocStatusCompleted(SocCode socCode);
 
-        void SetSocStatusSelectedForUpdate(SocCode socCodes);
+        void SetSocStatusSelectedForUpdate(SocCode socCode);
 
         SocMappingStatus GetSocMappingStatus();
     }

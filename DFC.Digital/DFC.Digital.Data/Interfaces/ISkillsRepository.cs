@@ -9,12 +9,12 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISkillsRepository
     {
-        IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode);
+        IQueryable<OnetSkill> GetSkillsForONetOccupationCode(string oNetOccupationCode);
 
-        IQueryable<OnetAttribute> GetAbilitiesForONetOccupationCode(string oNetOccupationCode);
+        IQueryable<OnetSkill> GetAbilitiesForONetOccupationCode(string oNetOccupationCode);
 
-        IQueryable<OnetAttribute> GetKowledgeForONetOccupationCode(string oNetOccupationCode);
+        IQueryable<OnetSkill> GetKowledgeForONetOccupationCode(string oNetOccupationCode);
 
-        IQueryable<OnetAttribute> GetWorkStylesForONetOccupationCode(string oNetOccupationCode);
+        IQueryable<OnetSkill> GetWorkStylesForONetOccupationCode(string oNetOccupationCode);
     }
 }

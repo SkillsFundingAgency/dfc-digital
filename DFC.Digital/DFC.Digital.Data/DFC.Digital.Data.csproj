@@ -123,13 +123,13 @@
     <Compile Include="Model\AttributeType.cs" />
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
-    <Compile Include="Model\FrameWorkContent.cs" />
+    <Compile Include="Model\FrameworkContent.cs" />
     <Compile Include="Model\FrameworkSkillSuppression.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />
-    <Compile Include="Model\FrameWorkSkillCombination.cs" />
+    <Compile Include="Model\FrameworkSkillCombination.cs" />
     <Compile Include="Model\JobProfileOverloadForSearch.cs" />
     <Compile Include="Model\JobProfileOverloadForWhatItTakes.cs" />
-    <Compile Include="Model\OnetAttribute.cs" />
+    <Compile Include="Model\OnetSkill.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\RepoActionResult.cs" />

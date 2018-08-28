@@ -9,7 +9,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISocMappingRepository : IQueryRepository<SocCode>
     {
-        void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, SkillsFrameWorkUpdateStatus updateStatus);
+        void SetUpdateStatusForSocs(IEnumerable<SocCode> socCodes, SkillsFrameworkUpdateStatus updateStatus);
 
         IQueryable<SocCode> GetSocsAwaitingUpdate();
 

@@ -12,16 +12,16 @@ namespace DFC.Digital.Service.SkillsFramework
     public class SkillFrameworkBusinessRuleEngine : ISkillFrameworkBusinessRuleEngine
     {
         private readonly ISkillsRepository skillsOueryRepository;
-        private readonly IQueryRepository<FrameWorkContent> contentReferenceQueryRepository;
+        private readonly IQueryRepository<FrameworkContent> contentReferenceQueryRepository;
         private readonly IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository;
-        private readonly IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository;
+        private readonly IQueryRepository<FrameworkSkillCombination> combinationsQueryRepository;
              
         private const string MathsTitle = "Mathematics";
 
         public SkillFrameworkBusinessRuleEngine(ISkillsRepository skillsOueryRepository, 
                IQueryRepository<FrameworkSkillSuppression> suppressionsQueryRepository,
-               IQueryRepository<FrameWorkSkillCombination> combinationsQueryRepository, 
-               IQueryRepository<FrameWorkContent> contentReferenceQueryRepository)
+               IQueryRepository<FrameworkSkillCombination> combinationsQueryRepository, 
+               IQueryRepository<FrameworkContent> contentReferenceQueryRepository)
         {
             this.skillsOueryRepository = skillsOueryRepository;
             this.contentReferenceQueryRepository = contentReferenceQueryRepository;
@@ -31,12 +31,12 @@ namespace DFC.Digital.Service.SkillsFramework
 
         #region Implementation of ISkillFrameworkBusinessRuleEngine
 
-        public IEnumerable<OnetAttribute> AddTitlesToAttributes(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> AddTitlesToAttributes(IEnumerable<OnetSkill> attributes)
         {
             var content = contentReferenceQueryRepository.GetAll();
 
             var withTitlesAdded = attributes.Join( content, a => a.Id, c => c.ONetElementId, 
-                (a, c) => new OnetAttribute
+                (a, c) => new OnetSkill
                 {
                         Id = a.Id ,
                         Type = a.Type,
@@ -55,11 +55,11 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> AverageOutScoreScales(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> AverageOutscoreScales(IEnumerable<OnetSkill> attributes)
         {
 
             var averagedScales = attributes.GroupBy(a => new { a.Id, a.Type, a.OnetOccupationalCode, a.Name }).
-            Select(c => new OnetAttribute { Id = c.Key.Id,
+            Select(c => new OnetSkill { Id = c.Key.Id,
                 Type = c.Key.Type,
                 OnetOccupationalCode = c.Key.OnetOccupationalCode,
                 Name = c.Key.Name,
@@ -76,10 +76,10 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes">The attributes.</param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> BoostMathsSkills(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> BoostMathsSkills(IEnumerable<OnetSkill> attributes)
         {
-            OnetAttribute skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Skill);
-            OnetAttribute knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Knowledge);
+            OnetSkill skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Skill);
+            OnetSkill knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Knowledge);
 
             //if we have both remove one
             if (skillsMaths != null && knowledgeMaths != null)
@@ -114,15 +114,15 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> CombineSimilarAttributes(IList<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> CombineSimilarAttributes(IList<OnetSkill> attributes)
         {
             var combinations = combinationsQueryRepository.GetAll();
 
             foreach (var combination in combinations)
             {
                 var topAttributes = SelectTopAttributes(attributes);
-                OnetAttribute elementOne = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
-                OnetAttribute elementTwo = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementTwoId);
+                OnetSkill elementOne = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementOneId);
+                OnetSkill elementTwo = topAttributes.FirstOrDefault(a => a.Id == combination.OnetElementTwoId);
 
                 //if we have both combine them
                 if (elementOne != null && elementTwo != null)
@@ -131,13 +131,13 @@ namespace DFC.Digital.Service.SkillsFramework
 
                     attributes = attributes.Where(a => a.Id != elementOne.Id && a.Id != elementTwo.Id).ToList();
 
-                    attributes.Add(new OnetAttribute { Name = combination.Title, Type= AttributeType.Combination, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
+                    attributes.Add(new OnetSkill { Name = combination.Title, Type= AttributeType.Combination, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
                 }
             }
             return attributes;
         }
 
-        public IQueryable<OnetAttribute> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
+        public IQueryable<OnetSkill> GetAllRawOnetSkillsForOccupation(string onetOccupationalCode)
         {
 
             var allSkillForOccupation = skillsOueryRepository.GetAbilitiesForONetOccupationCode(onetOccupationalCode)
@@ -162,7 +162,7 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> MoveBottomLevelAttributesUpOneLevel(IEnumerable<OnetSkill> attributes)
         {
             var bottomNodesUpOne = attributes.Select(a => { a.Id = (a.Id.Length < 7) ? a.Id : a.Id.Substring(0, 7); return a; });
             return bottomNodesUpOne;
@@ -173,7 +173,7 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> RemoveDFCSuppressions(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> RemoveDFCSuppressions(IEnumerable<OnetSkill> attributes)
         {
             var suppressions = suppressionsQueryRepository.GetAll().ToList();
             var suppressionsRemoved = attributes.Where(a => !suppressions.Any(s => s.ONetElementId == a.Id));
@@ -185,13 +185,13 @@ namespace DFC.Digital.Service.SkillsFramework
         /// </summary>
         /// <param name="attributes"></param>
         /// <returns></returns>
-        public IEnumerable<OnetAttribute> RemoveDuplicateAttributes(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> RemoveDuplicateAttributes(IEnumerable<OnetSkill> attributes)
         {
             var duplicatesRemoved = attributes.GroupBy(a => a.Id).Select(b => b.OrderByDescending(c => c.Score).First());
             return duplicatesRemoved;
         }
 
-        public IEnumerable<OnetAttribute> SelectFinalAttributes(IEnumerable<OnetAttribute> attributes)
+        public IEnumerable<OnetSkill> SelectFinalAttributes(IEnumerable<OnetSkill> attributes)
         {
             var finalAttributes = attributes.Where(a => a.Type == AttributeType.Combination)
                 .Union(SelectTopAttributes(attributes));
@@ -199,7 +199,7 @@ namespace DFC.Digital.Service.SkillsFramework
             return finalAttributes.OrderByDescending(s => s.Score).Take(20);
         }
 
-        private static IEnumerable<OnetAttribute> SelectTopAttributes(IEnumerable<OnetAttribute> attributes)
+        private static IEnumerable<OnetSkill> SelectTopAttributes(IEnumerable<OnetSkill> attributes)
         {
             var topAttributes = attributes.Where(a => a.Type == AttributeType.Ability).OrderByDescending(s => s.Score).Take(5)
                 .Union(attributes.Where(a => a.Type == AttributeType.Knowledge).OrderByDescending(s => s.Score).Take(5))

@@ -34,7 +34,7 @@ namespace DFC.Digital.Service.SkillsFramework
             // this will be async once integrated
             var onetSkills = skillsFrameworkService.GetAllTranslations().ToList();
             var allOnetSkills = frameworkSkillRepository.GetFrameworkSkills().Count();
-           
+
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allOnetSkills} translated frameworkskills in the Sitefinity");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {onetSkills.Count} skill translations to import");
 
@@ -44,14 +44,14 @@ namespace DFC.Digital.Service.SkillsFramework
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Added/Updated {onetSkill.Title} to repository");
             }
 
-            return new FrameworkSkillsImportResponse {Success = true};
+            return new FrameworkSkillsImportResponse { Success = true };
         }
 
         public UpdateSocOccupationalCodeResponse UpdateSocCodesOccupationalCode()
         {
             var allSocCodes = jobProfileSocCodeRepository.GetSocCodes().ToList();
             var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
-                      
+
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} SOCs in the Sitefinity ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
             var updatedCount = 0;
@@ -83,12 +83,12 @@ namespace DFC.Digital.Service.SkillsFramework
             }
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Total number checked : {totalRecordsCount} updated : {updatedCount} no action : {noActionCount}");
 
-            return new UpdateSocOccupationalCodeResponse {Success = true};
+            return new UpdateSocOccupationalCodeResponse { Success = true };
         }
 
         public SkillsServiceResponse ImportForSocs(string jobProfileSocs)
         {
-            if (jobProfileSocs == null)
+            if (string.IsNullOrWhiteSpace(jobProfileSocs))
             {
                 throw new ArgumentNullException(nameof(jobProfileSocs));
             }
@@ -143,8 +143,7 @@ namespace DFC.Digital.Service.SkillsFramework
             if (soc == null)
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
-                soc = new SocCode {SOCCode = jobProfileSoc};
-                skillsFrameworkService.SetSocStatusCompleted(soc);
+                soc = new SocCode { SOCCode = jobProfileSoc };
             }
             else
             {
@@ -171,7 +170,6 @@ namespace DFC.Digital.Service.SkillsFramework
                         }
                     }
 
-                    skillsFrameworkService.SetSocStatusCompleted(soc);
                     reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updated job profiles SOC {jobProfileSoc}");
                 }
                 else
@@ -179,12 +177,12 @@ namespace DFC.Digital.Service.SkillsFramework
                     reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
                 }
 
-                skillsFrameworkService.SetSocStatusCompleted(soc);
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
             }
-          
+
+            skillsFrameworkService.SetSocStatusCompleted(soc);
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)

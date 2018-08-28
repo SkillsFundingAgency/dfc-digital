@@ -41,7 +41,7 @@ Scenario: Search End To End Test
 	Then I am redirected to the correct job profile page
 	And the correct sections should be displayed
 
-	When I click the Home careers link
+	When I click the Explore careers link
 	And I search using 'manager'
 	Then the first result is 'shown' on the page
 

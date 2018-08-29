@@ -49,7 +49,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
 
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
-            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedSearchItems(A<DynamicContent>._, A<string>._, A<int>._))
                 .MustHaveHappened();
         }
 
@@ -59,7 +59,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                 .Returns("test");
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .Returns(new List<Guid>());
-            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedItems(A<DynamicContent>._, A<string>._, A<int>._))
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedSearchItems(A<DynamicContent>._, A<string>._, A<int>._))
                 .Returns(hasRelatedSocs ? new EnumerableQuery<DynamicContent>(new List<DynamicContent> { fakeDynamicContentItem }) : Enumerable.Empty<DynamicContent>().AsQueryable());
         }
     }

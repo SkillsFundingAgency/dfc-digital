@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             if (!string.IsNullOrEmpty(JobProfile.SOCCode))
             {
                 //When there are no SOC code, leave the salary as default. Displayed as variable by the screen.
-                return Task.Run(() => PopulateSalaryFromLMIAsync(JobProfile.SOCCode));
+                return PopulateSalaryFromLMIAsync(JobProfile.SOCCode);
             }
 
             return Task.CompletedTask;

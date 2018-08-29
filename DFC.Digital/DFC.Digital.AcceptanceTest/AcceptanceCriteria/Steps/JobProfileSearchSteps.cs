@@ -109,26 +109,26 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             RefreshPage();
         }
 
-        [When(@"I click the Find a Career breadcrumb on '(.*)'")]
-        public void WhenIClickTheFindACareerBreadcrumb(string page)
+        [When(@"I click the Explore career breadcrumb on '(.*)'")]
+        public void WhenIClickTheExploreCareerBreadcrumb(string page)
         {
             switch (page)
             {
                 case "Search results":
                     var searchPage = GetNavigatedPage<SearchPage>();
-                    searchPage.ClickFindACareerBreadcrumb<Homepage>()
+                    searchPage.ClickExploreCareerBreadcrumb<Homepage>()
                         .SaveTo(ScenarioContext);
                     break;
 
                 case "Job profile":
                     var jobProfile = GetNavigatedPage<JobProfilePage>();
-                    jobProfile.ClickFindACareerBreadcrumb<Homepage>()
+                    jobProfile.ClickExploreCareerBreadcrumb<Homepage>()
                         .SaveTo(ScenarioContext);
                     break;
 
                 case "Job category":
                     var jobCategory = GetNavigatedPage<JobProfileCategoryPage>();
-                    jobCategory.ClickFindACareerBreadcrumb<Homepage>()
+                    jobCategory.ClickExploreCareerBreadcrumb<Homepage>()
                         .SaveTo(ScenarioContext);
                     break;
             }

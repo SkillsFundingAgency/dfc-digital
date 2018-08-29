@@ -47,10 +47,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public string HomeCareersText => Find.Element(By.Id("proposition-name")).Text;
 
-        public T ClickHomeCareersLink<T>()
+        public T ClickExploreCareersLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.Id("proposition-name"));
+            return Navigate.To<T>(By.Id("nav-EC"));
         }
 
         public string RelatedCareersTitle(int index)

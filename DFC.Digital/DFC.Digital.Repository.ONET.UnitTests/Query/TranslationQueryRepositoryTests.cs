@@ -8,7 +8,7 @@ using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
-using DFC.Digital.Repository.ONET.Mapper;
+using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.ONET.Query;
 
 

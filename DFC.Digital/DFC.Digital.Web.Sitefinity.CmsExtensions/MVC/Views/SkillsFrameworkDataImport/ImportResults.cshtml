@@ -26,15 +26,15 @@
 
         @if (!string.IsNullOrWhiteSpace(Model.OtherMessage))
         {
-            <h3> Other Messages</h3>
-            <p>@Model.OtherMessage</p>
+            <h3 id="other-message-heading">Other Messages</h3>
+            <p id="other-message-paragraph">@Model.OtherMessage</p>
         }
 
     </div>
 
     <script type="text/javascript">
        jQuery(document).ready(function () {
-           $(".sfFooter").hide()
+           $(".sfFooter").hide();
        });
     </script>
 

@@ -20,8 +20,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         private const string testONetOccupationCode = "TestCode";
 
         private readonly ISkillsRepository fakeskillsRepository;
-        private readonly IQueryRepository<FrameWorkContent> fakeContentReference;
-        private readonly IQueryRepository<FrameWorkSkillCombination> fakeCombinationSkill;
+        private readonly IQueryRepository<FrameworkContent> fakeContentReference;
+        private readonly IQueryRepository<FrameworkSkillCombination> fakeCombinationSkill;
         private readonly IQueryRepository<FrameworkSkillSuppression> fakeFrameworkSkillSuppression;
 
         private enum KeyLength
@@ -36,8 +36,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         {
             //Setup fakes that will get used by multiple tests
             fakeFrameworkSkillSuppression = A.Fake<IQueryRepository<FrameworkSkillSuppression>>();
-            fakeCombinationSkill = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
-            fakeContentReference = A.Fake<IQueryRepository<FrameWorkContent>>();
+            fakeCombinationSkill = A.Fake<IQueryRepository<FrameworkSkillCombination>>();
+            fakeContentReference = A.Fake<IQueryRepository<FrameworkContent>>();
             fakeskillsRepository = A.Fake<ISkillsRepository>();
 
         }
@@ -65,26 +65,26 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void GetAllRawOnetSkillsForOccupationTest()
         {
             //Arrange
-            var fakeAbilityDbSet = A.Fake<DbSet<OnetAttribute>>(c => c
-                   .Implements(typeof(IQueryable<OnetAttribute>))
-                   .Implements(typeof(IDbAsyncEnumerable<OnetAttribute>)))
+            var fakeAbilityDbSet = A.Fake<DbSet<OnetSkill>>(c => c
+                   .Implements(typeof(IQueryable<OnetSkill>))
+                   .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
                    .SetupData(GetTestAttribute(AttributeType.Ability));
 
-            var fakeKowledgeDbSet = A.Fake<DbSet<OnetAttribute>>(c => c
-                    .Implements(typeof(IQueryable<OnetAttribute>))
-                    .Implements(typeof(IDbAsyncEnumerable<OnetAttribute>)))
+            var fakeKowledgeDbSet = A.Fake<DbSet<OnetSkill>>(c => c
+                    .Implements(typeof(IQueryable<OnetSkill>))
+                    .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
                     .SetupData(GetTestAttribute(AttributeType.Knowledge));
 
 
-            var fakeSkillDbSet = A.Fake<DbSet<OnetAttribute>>(c => c
-                    .Implements(typeof(IQueryable<OnetAttribute>))
-                    .Implements(typeof(IDbAsyncEnumerable<OnetAttribute>)))
+            var fakeSkillDbSet = A.Fake<DbSet<OnetSkill>>(c => c
+                    .Implements(typeof(IQueryable<OnetSkill>))
+                    .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
                     .SetupData(GetTestAttribute(AttributeType.Skill));
 
 
-            var fakeWorkStyleDbSet = A.Fake<DbSet<OnetAttribute>>(c => c
-                    .Implements(typeof(IQueryable<OnetAttribute>))
-                    .Implements(typeof(IDbAsyncEnumerable<OnetAttribute>)))
+            var fakeWorkStyleDbSet = A.Fake<DbSet<OnetSkill>>(c => c
+                    .Implements(typeof(IQueryable<OnetSkill>))
+                    .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
                     .SetupData(GetTestAttribute(AttributeType.WorkStyle));
 
 
@@ -115,7 +115,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Setup
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
 
-            List<OnetAttribute> testAttributeAverageData = new List<OnetAttribute>
+            List<OnetSkill> testAttributeAverageData = new List<OnetSkill>
             {
 
                 //Abilities should get avearged and workStyle should remain as is
@@ -128,7 +128,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             testAttributeAverageData[0].Score = 5;
 
             //Act
-            var results = ruleEngine.AverageOutScoreScales(testAttributeAverageData);
+            var results = ruleEngine.AverageOutscoreScales(testAttributeAverageData);
 
             //Asserts
             //Abititles should have got grouped and hence should have only 2 records.
@@ -144,7 +144,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Setup
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
 
-            List<OnetAttribute> testAttributeMoveLevelsData = new List<OnetAttribute>
+            List<OnetSkill> testAttributeMoveLevelsData = new List<OnetSkill>
             {
                 //Abilities should get avearged and workStyle should remain as is
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.nine),
@@ -170,7 +170,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Setup
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
 
-            List<OnetAttribute> testAttributeDuplicatesData = new List<OnetAttribute>
+            List<OnetSkill> testAttributeDuplicatesData = new List<OnetSkill>
             {
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
@@ -195,7 +195,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void RemoveDFCSuppressionsTest()
         {
             //Setup
-            List<OnetAttribute> testSuppressionsData = new List<OnetAttribute>
+            List<OnetSkill> testSuppressionsData = new List<OnetSkill>
             {
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five),
@@ -232,21 +232,21 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         public void AddTitlesTest()
         {
             //Setup
-            List<OnetAttribute> testTitlesData = new List<OnetAttribute>
+            List<OnetSkill> testTitlesData = new List<OnetSkill>
             {
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
                 GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five)
             };
 
-            var fakeContentDbSet = A.Fake<DbSet<FrameWorkContent>>(c => c
-                  .Implements(typeof(IQueryable<FrameWorkContent>))
-                  .Implements(typeof(IDbAsyncEnumerable<FrameWorkContent>)))
-                  .SetupData(new List<FrameWorkContent> {
-                      new FrameWorkContent { ONetElementId = testTitlesData[0].Id, Title = "Title 1" },
-                      new FrameWorkContent { ONetElementId = testTitlesData[1].Id, Title = "Title 2" }
+            var fakeContentDbSet = A.Fake<DbSet<FrameworkContent>>(c => c
+                  .Implements(typeof(IQueryable<FrameworkContent>))
+                  .Implements(typeof(IDbAsyncEnumerable<FrameworkContent>)))
+                  .SetupData(new List<FrameworkContent> {
+                      new FrameworkContent { ONetElementId = testTitlesData[0].Id, Title = "Title 1" },
+                      new FrameworkContent { ONetElementId = testTitlesData[1].Id, Title = "Title 2" }
                   }).AsQueryable();
 
-            var fakeContent = A.Fake<IQueryRepository<FrameWorkContent>>();
+            var fakeContent = A.Fake<IQueryRepository<FrameworkContent>>();
             A.CallTo(() => fakeContent.GetAll()).Returns(fakeContentDbSet);
 
 
@@ -271,7 +271,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             const string maths = "Mathematics";
 
-            List<OnetAttribute> testMathsData = new List<OnetAttribute>
+            List<OnetSkill> testMathsData = new List<OnetSkill>
             {
                 GetOnetAttribute(AttributeType.Skill, 1, KeyLength.seven),
                 GetOnetAttribute(AttributeType.Knowledge, 5, KeyLength.five),
@@ -305,22 +305,22 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //This return 10 each of each of the 4 attributes total 40  items with a max score of 10 
             var testAttributeData = GetAllTestAttribute();
 
-            var testCombination = new FrameWorkSkillCombination { OnetElementOneId = "C1", OnetElementTwoId = "C2", CombinedElementId = "CombinedId1", Title = "CombinedTitle1" };
-            var combinationsData = new List<FrameWorkSkillCombination> {testCombination};
+            var testCombination = new FrameworkSkillCombination { OnetElementOneId = "C1", OnetElementTwoId = "C2", CombinedElementId = "CombinedId1", Title = "CombinedTitle1" };
+            var combinationsData = new List<FrameworkSkillCombination> {testCombination};
 
             var scoreForCombination = shouldGetCombination ? 9 : 2;
 
             //Add records that we know will get combined to the attribute list
-            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Ability, OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementOneId, Score = scoreForCombination });
-            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Skill,   OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementTwoId, Score = scoreForCombination-1 });
+            testAttributeData.Add(new OnetSkill { Type = AttributeType.Ability, OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementOneId, Score = scoreForCombination });
+            testAttributeData.Add(new OnetSkill { Type = AttributeType.Skill,   OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementTwoId, Score = scoreForCombination-1 });
 
 
-            var fakeCombinationDbSet = A.Fake<DbSet<FrameWorkSkillCombination>>(c => c
-                .Implements(typeof(IQueryable<FrameWorkSkillCombination>))
-                .Implements(typeof(IDbAsyncEnumerable<FrameWorkSkillCombination>)))
+            var fakeCombinationDbSet = A.Fake<DbSet<FrameworkSkillCombination>>(c => c
+                .Implements(typeof(IQueryable<FrameworkSkillCombination>))
+                .Implements(typeof(IDbAsyncEnumerable<FrameworkSkillCombination>)))
                 .SetupData(combinationsData).AsQueryable();
 
-            var fakeCombination = A.Fake<IQueryRepository<FrameWorkSkillCombination>>();
+            var fakeCombination = A.Fake<IQueryRepository<FrameworkSkillCombination>>();
             A.CallTo(() => fakeCombination.GetAll()).Returns(fakeCombinationDbSet);
 
             ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombination, fakeContentReference);
@@ -336,7 +336,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 var expectedResults = GetAllTestAttribute();
 
                 //Add in expected combination
-                expectedResults.Add(new OnetAttribute { Type = AttributeType.Combination, Name = testCombination.Title, OnetOccupationalCode = "testONetCode", Id = testCombination.CombinedElementId, Score = scoreForCombination });
+                expectedResults.Add(new OnetSkill { Type = AttributeType.Combination, Name = testCombination.Title, OnetOccupationalCode = "testONetCode", Id = testCombination.CombinedElementId, Score = scoreForCombination });
                 //Everything else should reamin as is expect for the combination, if there is one
                 results.Should().BeEquivalentTo(expectedResults);
             }
@@ -356,8 +356,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var testAttributeData = GetAllTestAttribute();
 
             //Add in some combinations, one with a high rank and one with a low
-            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C1", Score = 9 });
-            testAttributeData.Add(new OnetAttribute { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C2", Score = 1 });
+            testAttributeData.Add(new OnetSkill { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C1", Score = 9 });
+            testAttributeData.Add(new OnetSkill { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C2", Score = 1 });
 
 
             //Act
@@ -370,18 +370,18 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         }
 
 
-        private List<OnetAttribute> GetTestAttribute(AttributeType type)
+        private List<OnetSkill> GetTestAttribute(AttributeType type)
         {
-            List<OnetAttribute> testData = new List<OnetAttribute>
+            List<OnetSkill> testData = new List<OnetSkill>
             {
-                new OnetAttribute { Id = $"A1", Type = type}
+                new OnetSkill { Id = $"A1", Type = type}
             };
             return testData;
         }
 
-        private List<OnetAttribute> GetAllTestAttribute()
+        private List<OnetSkill> GetAllTestAttribute()
         {
-            List<OnetAttribute> testAttributeDataData = new List<OnetAttribute>();
+            List<OnetSkill> testAttributeDataData = new List<OnetSkill>();
 
             for (int ii = 0; ii < 10; ii++)
             {
@@ -397,10 +397,10 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             return testAttributeDataData;
         }
 
-        private OnetAttribute GetOnetAttribute(AttributeType type, int id, KeyLength keyLength)
+        private OnetSkill GetOnetAttribute(AttributeType type, int id, KeyLength keyLength)
         {
             var keyId = $"{id}-A.B.C.D";
-            return new OnetAttribute { Id = $"{keyId.Substring(0, (int) keyLength)}", OnetOccupationalCode = "testONetCode", Score = id, Type = type, Name = $"Name-{type}-{id}" };
+            return new OnetSkill { Id = $"{keyId.Substring(0, (int) keyLength)}", OnetOccupationalCode = "testONetCode", Score = id, Type = type, Name = $"Name-{type}-{id}" };
         }
     }
 }

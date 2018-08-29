@@ -14,8 +14,6 @@ namespace DFC.Digital.Data.Interfaces
 
         SocCode GetBySocCode(string socCode);
 
-        IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
-
         IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfilesBySocCode(string socCode);
     }
 }

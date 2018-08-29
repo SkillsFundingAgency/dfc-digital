@@ -4,12 +4,13 @@ using System.Linq;
 using FakeItEasy;
 using DFC.Digital.Repository.ONET.DataModel;
 using AutoMapper;
-using DFC.Digital.Repository.ONET.Mapper;
+using DFC.Digital.Repository.ONET;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using DFC.Digital.Repository.ONET.Query;
+using System;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
@@ -47,6 +48,101 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             }
 
         }
+
+        [Theory]
+        [MemberData(nameof(GetSocMappingStatusData))]
+        public void GetSocMappingStatusTest(IReadOnlyCollection<DFC_SocMappings> setupSocData, IReadOnlyList<int> itemCount)
+        {
+            if (itemCount == null)
+            {
+                throw new ArgumentNullException(nameof(itemCount));
+            }
+
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var actualMapper = new MapperConfiguration(c => c.AddProfile<SkillsFrameworkMapper>()).CreateMapper();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                    .Implements(typeof(IQueryable<DFC_SocMappings>))
+                    .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)))
+                .SetupData(setupSocData.ToList());
+
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
+
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
+
+            var result = repo.GetSocMappingStatus();
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Times(3));
+
+            result.AwaitingUpdate.Should().Be(itemCount[0]);
+            result.SelectedForUpdate.Should().Be(itemCount[1]);
+            result.UpdateCompleted.Should().Be(itemCount[2]);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSocsAwaitingUpdateData))]
+        public void GetSocsAwaitingUpdateTest(IReadOnlyCollection<DFC_SocMappings> setupSocData, IQueryable<SocCode> responseData)
+        {
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var actualMapper = new MapperConfiguration(c => c.AddProfile<SkillsFrameworkMapper>()).CreateMapper();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                    .Implements(typeof(IQueryable<DFC_SocMappings>))
+                    .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)))
+                .SetupData(setupSocData.ToList());
+
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
+
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
+
+            var result = repo.GetSocsAwaitingUpdate();
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
+
+            result.Should().BeEquivalentTo(responseData);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSocsSelectedForUpdateData))]
+        public void GetSocsInStartedStateTest(IReadOnlyCollection<DFC_SocMappings> setupSocData, IQueryable<SocCode> responseData)
+        {
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var actualMapper = new MapperConfiguration(c => c.AddProfile<SkillsFrameworkMapper>()).CreateMapper();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                    .Implements(typeof(IQueryable<DFC_SocMappings>))
+                    .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)))
+                .SetupData(setupSocData.ToList());
+
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
+
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
+
+            var result = repo.GetSocsInStartedState();
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).MustHaveHappened(Repeated.Exactly.Once);
+
+            result.Should().BeEquivalentTo(responseData);
+        }
+
+        [Theory]
+        [InlineData(SkillsFrameworkUpdateStatus.UpdateCompleted)]
+        [InlineData(SkillsFrameworkUpdateStatus.SelectedForUpdate)]
+        [InlineData(SkillsFrameworkUpdateStatus.AwaitingUpdate)]
+        public void SetUpdateStatusForSocsTest(SkillsFrameworkUpdateStatus status)
+        {
+            var setupSocData = MixedCombination();
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var actualMapper = new MapperConfiguration(c => c.AddProfile<SkillsFrameworkMapper>()).CreateMapper();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                    .Implements(typeof(IQueryable<DFC_SocMappings>))
+                    .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)))
+                .SetupData(setupSocData.ToList());
+
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
+
+            A.CallTo(() => fakeDbContext.SaveChanges()).Returns(1);
+
+            var repo = new SocMappingRepository(fakeDbContext, actualMapper);
+            repo.SetUpdateStatusForSocs(new List<SocCode> {new SocCode { SOCCode = nameof(SocCode.SOCCode)}}, status);
+
+            A.CallTo(() => fakeDbContext.SaveChanges()).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
 
         [Theory]
         [MemberData(nameof(GetByIdSocMappingData))]

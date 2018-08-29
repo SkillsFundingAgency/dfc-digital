@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class OnetAttribute
+    public class OnetSkill
     {
         public string Id { get; set; }
 

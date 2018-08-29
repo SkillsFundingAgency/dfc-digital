@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -27,20 +28,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 .Take(maximumItemsToReturn);
         }
 
-        public IQueryable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
+        public IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
         {
-            if (contentItem.Status == ContentLifecycleStatus.Live)
-            {
-                return contentItem?
-                    .GetRelatedItems<DynamicContent>(fieldName)
-                    .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
-                    .Take(maximumItemsToReturn);
-            }
-
             return contentItem?
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.ApprovalWorkflowState == PublishedWorkFlowStatus && (d.Status == ContentLifecycleStatus.Live || d.Status == ContentLifecycleStatus.Master))
-                .Take(maximumItemsToReturn);
+                .Take(maximumItemsToReturn).ToList();
         }
 
         public T GetFieldValue<T>(DynamicContent contentItem, string fieldName)

@@ -29,13 +29,15 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public JobProfileOverloadForSearch ConvertFrom(DynamicContent content)
         {
-            var jobProfile = new JobProfileOverloadForSearch();
+            var jobProfile = new JobProfileOverloadForSearch
+            {
+                //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
+                //index and we will get a clash
+                JobProfileCategoryIdCollection =
+                    dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField)
+            };
 
-            //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
-            //index and we will get a clash
-            jobProfile.JobProfileCategoryIdCollection = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField);
-
-            var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
+            var socItem = dynamicContentExtensions.GetRelatedSearchItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));

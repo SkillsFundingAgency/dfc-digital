@@ -10,6 +10,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
 
+        IQueryable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
+
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 
         void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value);

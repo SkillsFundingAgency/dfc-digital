@@ -9,6 +9,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
     public class DynamicContentExtensions : IDynamicContentExtensions
     {
+        private const string PublishedWorkFlowStatus = "Published";
+
         public IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName)
         {
             return contentItem?
@@ -22,6 +24,22 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return contentItem?
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
+                .Take(maximumItemsToReturn);
+        }
+
+        public IQueryable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
+        {
+            if (contentItem.Status == ContentLifecycleStatus.Live)
+            {
+                return contentItem?
+                    .GetRelatedItems<DynamicContent>(fieldName)
+                    .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
+                    .Take(maximumItemsToReturn);
+            }
+
+            return contentItem?
+                .GetRelatedItems<DynamicContent>(fieldName)
+                .Where(d => d.ApprovalWorkflowState == PublishedWorkFlowStatus && (d.Status == ContentLifecycleStatus.Live || d.Status == ContentLifecycleStatus.Master))
                 .Take(maximumItemsToReturn);
         }
 

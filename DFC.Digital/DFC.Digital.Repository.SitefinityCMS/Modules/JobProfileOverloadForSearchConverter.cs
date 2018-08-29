@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
@@ -40,7 +41,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socItem = dynamicContentExtensions.GetRelatedSearchItems(content, SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
-                jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
+                jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode)).GetString(CultureInfo.CurrentCulture, false);
                 jobProfile.ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
             }
 

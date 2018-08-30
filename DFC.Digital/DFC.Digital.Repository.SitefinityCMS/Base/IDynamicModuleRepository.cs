@@ -27,5 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         DynamicContent GetTemp(DynamicContent entity);
 
         DynamicContent CheckinTemp(DynamicContent entity);
+
+        bool IsCheckedOut(DynamicContent entity);
     }
 }

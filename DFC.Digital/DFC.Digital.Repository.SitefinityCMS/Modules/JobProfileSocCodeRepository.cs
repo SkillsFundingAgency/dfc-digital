@@ -13,6 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
         private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<SocCode> repository;
+        private readonly IDynamicModuleRepository<JobProfile> jprepository;
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -23,7 +24,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jprepository)
         {
             this.repository = repository;
             this.converter = converter;
@@ -31,6 +32,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.socCodeConverter = socCodeConverter;
             this.socSkillConverter = socSkillConverter;
             this.converterLight = converterLight;
+            this.jprepository = jprepository;
         }
 
         #endregion Ctor
@@ -63,6 +65,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
                     foreach (var jobProfile in jobProfiles)
                     {
+                        var master = jprepository.GetMaster(jobProfile);
+
                         jobProfileOverloadForWhatItTakesList.Add(converterLight.ConvertFrom(jobProfile));
                     }
 

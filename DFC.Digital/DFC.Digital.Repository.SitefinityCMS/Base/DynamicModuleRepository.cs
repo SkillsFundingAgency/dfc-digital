@@ -207,6 +207,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return dynamicModuleManager.Lifecycle.CheckIn(entity) as DynamicContent;
         }
 
+        public bool IsCheckedOut(DynamicContent entity)
+        {
+            return entity.Status == ContentLifecycleStatus.Master ? dynamicModuleManager.Lifecycle.IsCheckedOut(entity) : dynamicModuleManager.Lifecycle.IsCheckedOut(dynamicModuleManager.Lifecycle.GetMaster(entity));
+        }
+
         #endregion IRepository implementations
 
         public void Commit()

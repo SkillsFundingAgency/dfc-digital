@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("")]
-
+        [BreadCrumb]
         public ActionResult Index()
         {
             if (SidePageDisplay)
@@ -66,6 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 return Index(string.Empty);
             }
 
+            BreadCrumb.SetLabel("Explore a Careers ");
             var jobProfileCategories = GetJobProfileCategories().ToList();
 
             UpdateJobProfileCategoryUrl(jobProfileCategories);
@@ -87,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 .ToList();
 
             UpdateJobProfileCategoryUrl(jobProfileCategories);
-            BreadCrumb.SetLabel("Category " + urlName);
+            BreadCrumb.SetLabel(urlName);
             return View("RelatedJobCategories", new RelatedJobProfileCategoriesViewModel { JobProfileCategories = jobProfileCategories, IsContentAuthoring = webAppContext.IsContentAuthoringSite, OtherCategoriesTitle = OtherJobCategoriesTitle });
         }
 

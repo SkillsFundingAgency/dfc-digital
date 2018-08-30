@@ -1,20 +1,13 @@
-﻿@using DFC.Digital.Web.Core.HtmlExtentions
-@using MvcBreadCrumbs
-<ul class="homepage-jobcategories">
-    @* Repeat Below LI for each category *@
+﻿@using MvcBreadCrumbs
+<div class="content-container">
     <div class="breadcrumbs">
         <ol>
-            @*<li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>*@
-            @*@if(ViewContext.RouteData.Values["controller"].ToString() != "Home") {
-            @:> @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())
-        }
-        @if(ViewContext.RouteData.Values["action"].ToString() != "Index"){
-            @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-        }*@
             @Html.Raw(BreadCrumb.Display())
-            @*@Html.Raw(Html.BuildBreadcrumbNavigation())*@
-            @*<li>@Model.BreadcrumbPageTitleText</li>*@
         </ol>
     </div>
-    <li><a href="#">Job Category</a></li>
-</ul>
+</div>
+<ul class="homepage-jobcategories">
+        @* Repeat Below LI for each category *@
+       
+        <li><a href="#">Job Category</a></li>
+    </ul>

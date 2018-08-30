@@ -74,6 +74,11 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
                 jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
             }
+            catch (Exception ex)
+            {
+                //If there is a failure for this profile, log and continue with other profiles
+                applicationLogger.ErrorJustLogIt($"ERROR: Method '{nameof(PopulateSalaryFromLMIAsync)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' failed with exception '{ex.Message}'.", ex);
+            }
             finally
             {
                 applicationLogger.Trace($"END: Method '{nameof(PopulateSalaryFromLMIAsync)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' returned {JsonConvert.SerializeObject(salary)}.");

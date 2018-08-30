@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     internal static class HelperExtensions
     {
-        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IApplicationLogger applicationLogger)
+        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger)
         {
             var measure = Stopwatch.StartNew();
             List<JobProfileIndex> indexes = new List<JobProfileIndex>();
@@ -37,7 +37,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 var isSalaryOverriden = Convert.ToBoolean(item.GetValue(nameof(JobProfile.IsLMISalaryFeedOverriden)));
                 jobProfileIndexEnhancer.Initialise(jobProfileIndex, documents.Count() == 1);
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
-                if (!isSalaryOverriden)
+                if (isSalaryOverriden)
+                {
+                    jobProfileIndex.SalaryStarter = Convert.ToDouble(item.GetValue(nameof(JobProfile.SalaryStarter)));
+                    jobProfileIndex.SalaryExperienced = Convert.ToDouble(item.GetValue(nameof(JobProfile.SalaryExperienced)));
+                }
+                else
                 {
                     salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
                 }

@@ -236,9 +236,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, status.ToString());
 
-            //CodeReview: Will the flag isPublished always be false?
-            // Create a version and commit the transaction in order changes to be persisted to data store
-            var change = versionManager.CreateVersion(entity, true);
+            var change = versionManager.CreateVersion(entity, status == WorkflowStatus.Published);
             if (changeComment != null)
             {
                 change.Comment = changeComment;

@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async Task GetSalaryRangeAsyncTestAsync(bool isPublishing)
+        public void GetSalaryRangeAsyncTestAsync(bool isPublishing)
         {
             var fakeJobProfileRepo = A.Fake<IJobProfileRepository>();
             var fakeJobProfileCategoryRepo = A.Fake<IJobProfileCategoryRepository>();
@@ -44,7 +44,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
             enhancer.Initialise(dummyJobProfileIndex, isPublishing);
 
-            await enhancer.PopulateSalary();
+            enhancer.PopulateSalary();
 
             A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, isPublishing)).MustHaveHappened();
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();

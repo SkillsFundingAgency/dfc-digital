@@ -9,6 +9,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void PopulateRelatedFieldsWithUrl();
 
-        Task PopulateSalary();
+        void PopulateSalary();
     }
 }

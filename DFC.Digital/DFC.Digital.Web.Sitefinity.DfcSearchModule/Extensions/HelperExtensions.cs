@@ -45,9 +45,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 indexes.Add(jobProfileIndex);
             }
 
+            Task.WaitAll(salaryPopulation.ToArray());
             applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index.");
-
-            asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
             return indexes;
         }
     }

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;
@@ -21,6 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var fakeJobProfileCategoryRepo = A.Fake<IJobProfileCategoryRepository>();
             var salaryService = A.Fake<ISalaryService>();
             var salaryCalculator = A.Fake<ISalaryCalculator>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
             var dummyJobProfile = new JobProfile
             {
@@ -41,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             A.CallTo(() => salaryCalculator.GetStarterSalary(A<JobProfileSalary>._)).Returns(1000);
             A.CallTo(() => salaryCalculator.GetExperiencedSalary(A<JobProfileSalary>._)).Returns(2000);
 
-            var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
+            var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator, fakeLogger);
             enhancer.Initialise(dummyJobProfileIndex, isPublishing);
 
             await enhancer.PopulateSalary();
@@ -63,6 +65,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var fakeJobProfileCategoryRepo = A.Fake<IJobProfileCategoryRepository>();
             var salaryService = A.Fake<ISalaryService>();
             var salaryCalculator = A.Fake<ISalaryCalculator>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
             var dummyJobProfile = A.Dummy<JobProfile>();
             var dummyCategories = new List<JobProfileCategory>
@@ -85,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, A<bool>._)).Returns(dummyJobProfile);
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).Returns(dummyCategories);
 
-            var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator);
+            var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator, fakeLogger);
             enhancer.Initialise(dummyJobProfileIndex, isPublishing);
             enhancer.PopulateRelatedFieldsWithUrl();
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.Digital.Core.Interceptors;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.Taxonomies.Model;
@@ -18,11 +19,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
             this.taxonomyManagerExtensions = taxonomyManagerExtensions;
         }
 
+        [IgnoreInputInInterception]
         public void Add(Taxon entity)
         {
             throw new NotImplementedException();
         }
 
+        [IgnoreInputInInterception]
         public void Delete(Taxon entity)
         {
             throw new NotImplementedException();
@@ -39,26 +42,33 @@ namespace DFC.Digital.Repository.SitefinityCMS
             GC.SuppressFinalize(this);
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public Taxon Get(Expression<Func<Taxon, bool>> where)
         {
             return taxonomyManagerExtensions.Where(manager.GetTaxa<Taxon>(), where);
         }
 
+        [IgnoreOutputInInterception]
         public IQueryable<Taxon> GetAll()
         {
             return manager.GetTaxa<Taxon>();
         }
 
+        [IgnoreOutputInInterception]
         public Taxon GetById(string id)
         {
             return manager.GetTaxon(new Guid(id)) as Taxon;
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public IQueryable<Taxon> GetMany(Expression<Func<Taxon, bool>> where)
         {
             return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<Taxon>(), where);
         }
 
+        [IgnoreInputInInterception]
         public void Update(Taxon entity)
         {
             throw new NotImplementedException();

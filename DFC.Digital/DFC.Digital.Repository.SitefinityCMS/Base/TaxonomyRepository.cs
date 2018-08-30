@@ -19,23 +19,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
             this.taxonomyManagerExtensions = taxonomyManagerExtensions;
         }
 
-        [IgnoreInputInInterception]
-        public void Add(Taxon entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        [IgnoreInputInInterception]
-        public void Delete(Taxon entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Expression<Func<Taxon, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -66,12 +49,6 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public IQueryable<Taxon> GetMany(Expression<Func<Taxon, bool>> where)
         {
             return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<Taxon>(), where);
-        }
-
-        [IgnoreInputInInterception]
-        public void Update(Taxon entity)
-        {
-            throw new NotImplementedException();
         }
 
         protected virtual void Dispose(bool disposing)

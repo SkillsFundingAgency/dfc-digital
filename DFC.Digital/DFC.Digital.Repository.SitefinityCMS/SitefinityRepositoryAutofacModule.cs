@@ -132,53 +132,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
-                */
-        }
-
-        private static void RegisterDynamicModuleRepository(ContainerBuilder builder)
-        {
-            /* builder.RegisterGeneric(typeof(DynamicModuleRepository<>))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                .OnActivating(t => InitialiseDynamicModuleRepository(t.Instance))
-                ;
-                */
-
-            builder.RegisterType<DynamicModuleRepository<JobProfile>>()
-                .As<IDynamicModuleRepository<JobProfile>>()
-                .InstancePerLifetimeScope()
-                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName))
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                ;
-
-            builder.RegisterType<DynamicModuleRepository<SocCode>>()
-                .As<IDynamicModuleRepository<SocCode>>()
-                .InstancePerLifetimeScope()
-                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileSocContentType, DynamicTypes.JobProfileModuleName))
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                ;
-
-            builder.RegisterType<DynamicModuleRepository<WhatItTakesSkill>>()
-                .As<IDynamicModuleRepository<WhatItTakesSkill>>()
-                .InstancePerLifetimeScope()
-                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileSkillsMatrixContentType, DynamicTypes.JobProfileModuleName))
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                ;
-
-            builder.RegisterType<DynamicModuleRepository<ApprenticeVacancy>>()
-                .As<IDynamicModuleRepository<ApprenticeVacancy>>()
-                .InstancePerLifetimeScope()
-                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileApprenticeshipContentType, DynamicTypes.JobProfileModuleName))
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
-                ;
-
-            builder.RegisterType<DynamicModuleRepository<PsfInterest>>()
+                            builder.RegisterType<DynamicModuleRepository<PsfInterest>>()
                 .As<IDynamicModuleRepository<PsfInterest>>()
                 .InstancePerLifetimeScope()
                 .OnActivating(t => t.Instance.Initialise(DynamicTypes.InterestContentType, DynamicTypes.PreSearchFiltersModuleName))
@@ -233,6 +187,52 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+                */
+        }
+
+        private static void RegisterDynamicModuleRepository(ContainerBuilder builder)
+        {
+            /* builder.RegisterGeneric(typeof(DynamicModuleRepository<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                .OnActivating(t => InitialiseDynamicModuleRepository(t.Instance))
+                ;
+                */
+
+            /*
+            builder.RegisterType<DynamicModuleRepository<JobProfile>>()
+                .As<IDynamicModuleRepository<JobProfile>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+
+            builder.RegisterType<DynamicModuleRepository<SocCode>>()
+                .As<IDynamicModuleRepository<SocCode>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileSocContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+
+            builder.RegisterType<DynamicModuleRepository<WhatItTakesSkill>>()
+                .As<IDynamicModuleRepository<WhatItTakesSkill>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileSkillsMatrixContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+
+            builder.RegisterType<DynamicModuleRepository<ApprenticeVacancy>>()
+                .As<IDynamicModuleRepository<ApprenticeVacancy>>()
+                .InstancePerLifetimeScope()
+                .OnActivating(t => t.Instance.Initialise(DynamicTypes.JobProfileApprenticeshipContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
 
             builder.RegisterType<DynamicModuleRepository<FrameworkSkill>>()
                 .As<IDynamicModuleRepository<FrameworkSkill>>()
@@ -246,6 +246,43 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .As<IDynamicModuleRepository<SocSkillMatrix>>()
                 .InstancePerLifetimeScope()
                 .OnActivating(t => t.Instance.Initialise(DynamicTypes.SocSkillMatrixTypeContentType, DynamicTypes.JobProfileModuleName))
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
+                */
+
+            builder.RegisterGeneric(typeof(DynamicModuleRepository<>))
+                .As(typeof(IDynamicModuleRepository<>))
+                .InstancePerLifetimeScope()
+                .OnActivating(t =>
+                {
+                    switch (t)
+                    {
+                        case var _ when t.Instance is DynamicModuleRepository<JobProfile> instance:
+                            instance.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<SocCode> instance:
+                            instance.Initialise(DynamicTypes.JobProfileSocContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<WhatItTakesSkill> instance:
+                            instance.Initialise(DynamicTypes.JobProfileSkillsMatrixContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<ApprenticeVacancy> instance:
+                            instance.Initialise(DynamicTypes.JobProfileApprenticeshipContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<FrameworkSkill> instance:
+                            instance.Initialise(DynamicTypes.OnetSkillTypeContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<SocSkillMatrix> instance:
+                            instance.Initialise(DynamicTypes.SocSkillMatrixTypeContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+                    }
+                })
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

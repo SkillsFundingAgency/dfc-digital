@@ -31,7 +31,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                     Overview = item.GetValue(nameof(JobProfileIndex.Overview))?.ToString(),
                     JobProfileCategories = item.GetValue(nameof(JobProfileIndex.JobProfileCategories)) as IEnumerable<string>,
                     JobProfileSpecialism = item.GetValue(nameof(JobProfileIndex.JobProfileSpecialism)) as IEnumerable<string>,
-                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>
+                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>,
+                    SalaryStarter = Convert.ToDouble(item.GetValue(nameof(JobProfileIndex.SalaryStarter))),
+                    SalaryExperienced = Convert.ToDouble(item.GetValue(nameof(JobProfileIndex.SalaryExperienced)))
                 };
 
                 var isSalaryOverriden = Convert.ToBoolean(item.GetValue(nameof(JobProfile.IsLMISalaryFeedOverriden)));
@@ -39,15 +41,13 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
                 if (!isSalaryOverriden)
                 {
-                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
+                     jobProfileIndexEnhancer.PopulateSalary();
                 }
 
                 indexes.Add(jobProfileIndex);
             }
 
             applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index.");
-
-            asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
             return indexes;
         }
     }

@@ -7,10 +7,22 @@ namespace DFC.Digital.Data.Interfaces
     {
         IEnumerable<SocCode> GetAllSocMappings();
 
+        IEnumerable<SocCode> GetNextBatchSocMappingsForUpdate(int batchSize);
+
         IEnumerable<FrameworkSkill> GetAllTranslations();
 
         DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode);
 
-        IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode);
+        IEnumerable<OnetSkill> GetRelatedSkillMapping(string onetOccupationalCode);
+
+        void ResetAllSocStatus();
+
+        void ResetStartedSocStatus();
+
+        void SetSocStatusCompleted(SocCode socCode);
+
+        void SetSocStatusSelectedForUpdate(SocCode socCode);
+
+        SocMappingStatus GetSocMappingStatus();
     }
 }

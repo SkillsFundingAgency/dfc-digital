@@ -4,7 +4,7 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
-using DFC.Digital.Repository.ONET.Config;
+using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;

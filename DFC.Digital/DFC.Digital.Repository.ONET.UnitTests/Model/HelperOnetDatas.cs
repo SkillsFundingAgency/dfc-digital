@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.ONET.DataModel;
+
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
     public class HelperOnetDatas : HelperEfOnetDatas
@@ -105,6 +108,44 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 SocMappingsData
             };
         }
+        public static IEnumerable<object[]> GetSocMappingStatusData()
+        {
+            yield return new object[]
+            {
+                MixedCombination(),
+                new List<int> {AwaitingUpdateDfcSocMappings.Count(), SelectedForUpdateDfcSocMappings.Count(), UpdateCompletedDfcSocMappings.Count() } 
+            };
+        }
+
+        public static IEnumerable<object[]> GetSocsAwaitingUpdateData()
+        {
+            yield return new object[]
+            {
+                MixedCombination(),
+                AwaitingUpdateDfcSocMappings
+                    .Select(soc => new SocCode {SOCCode = soc.SocCode, ONetOccupationalCode = soc.ONetCode})
+                    .AsQueryable()
+            };
+        }
+
+        public static IEnumerable<object[]> GetSocsSelectedForUpdateData()
+        {
+
+            yield return new object[]
+            {
+                MixedCombination(),
+                SelectedForUpdateDfcSocMappings
+                    .Select(soc => new SocCode {SOCCode = soc.SocCode, ONetOccupationalCode = soc.ONetCode})
+                    .AsQueryable()
+            };
+
+        }
+
+        public static ReadOnlyCollection<DFC_SocMappings> MixedCombination()
+        {
+            return AwaitingUpdateDfcSocMappings.Concat(SelectedForUpdateDfcSocMappings).Concat(UpdateCompletedDfcSocMappings).ToList().AsReadOnly();
+        }
+
         public static IEnumerable<object[]> GetByIdSocMappingData()
         {
             yield return new object[]

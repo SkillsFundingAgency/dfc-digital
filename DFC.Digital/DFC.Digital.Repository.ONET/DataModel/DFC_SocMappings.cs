@@ -18,5 +18,6 @@ namespace DFC.Digital.Repository.ONET.DataModel
         public string SocCode { get; set; }
         public string ONetCode { get; set; }
         public int QualityRating { get; set; }
+        public string UpdateStatus { get; set; }
     }
 }

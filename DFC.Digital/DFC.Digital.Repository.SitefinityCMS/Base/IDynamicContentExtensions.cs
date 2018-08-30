@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 
@@ -9,6 +10,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
         IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName);
 
         IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
+
+        IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems);
 
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 
@@ -21,6 +24,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
 
         string GetFieldChoiceValue(DynamicContent contentItem, string fieldName);
+
+        string GetFieldChoiceLabel(DynamicContent contentItem, string fieldName);
 
         IQueryable<string> GetRelatedContentUrl(DynamicContent content, string relatedField);
     }

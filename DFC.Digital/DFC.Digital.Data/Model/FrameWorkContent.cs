@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class FrameWorkContent
+    public class FrameworkContent
     {
         public string ONetElementId { get; set; }
 

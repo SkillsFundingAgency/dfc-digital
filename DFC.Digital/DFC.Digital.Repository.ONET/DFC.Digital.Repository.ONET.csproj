@@ -102,16 +102,7 @@
     <Compile Include="DataModel\content_model_reference.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\DFC_GDSAttributeRankOverRide.cs">
-      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\DFC_GDSCombinations.cs">
-      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\DFC_GDSContext.cs">
-      <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\DFC_GDSONetSKATranslations_staging.cs">
       <DependentUpon>OnetSkillsFramework.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\DFC_GDSTranlations.cs">
@@ -242,8 +233,8 @@
     <Compile Include="Query\SuppressionsQueryRepository.cs" />
     <Compile Include="Query\DigitalSkillsQueryRepository.cs" />
     <Compile Include="Query\SkillsOueryRepository.cs" />
-    <Compile Include="Query\SocMappingsQueryRepository.cs" />
     <Compile Include="Query\TranslationQueryRepository.cs" />
+    <Compile Include="SocMappingRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

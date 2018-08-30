@@ -3,6 +3,7 @@ using DFC.Digital.Repository.SitefinityCMS.UnitTests;
 using FakeItEasy;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -17,6 +18,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         private IDynamicModuleConverter<ApprenticeVacancy> fakeJobProfileSocConverter;
         private IDynamicModuleConverter<SocSkillMatrix> fakeSocSkillConverter;
         private IDynamicModuleConverter<SocCode> fakeSocConverter;
+        private IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> fakeConverterLight;
         private IDynamicModuleRepository<SocCode> fakeRepository;
         private IDynamicContentExtensions fakeDynamicContentExtensions;
 
@@ -27,6 +29,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
             fakeSocSkillConverter = A.Fake<IDynamicModuleConverter<SocSkillMatrix>>();
             fakeSocConverter = A.Fake<IDynamicModuleConverter<SocCode>>();
+            fakeConverterLight = A.Fake<IDynamicModuleConverter<JobProfileOverloadForWhatItTakes>>();
         }
 
         [Fact]
@@ -43,14 +46,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public void GetBySocCodeTest(bool validSoc)
+        public void GetApprenticeVacanciesBySocCodeTest(bool validSoc)
         {
             //Assign
             var fakeRepo = GetTestJobProfileSocCodeRepository(validSoc);
             var socCode = nameof(JobProfileSocCodeRepositoryTest);
 
             //Act
-           var result = fakeRepo.GetBySocCode(socCode);
+           var result = fakeRepo.GetApprenticeVacanciesBySocCode(socCode);
 
             //Assert
             if (validSoc)
@@ -67,14 +70,160 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode)))).MustHaveHappened();
         }
 
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void GetBySocCodeTest(bool validSoc)
+        {
+            //Assign
+            var fakeRepo = GetTestJobProfileSocCodeRepository(validSoc);
+            var socCode = nameof(JobProfileSocCodeRepositoryTest);
+
+            //Act
+            fakeRepo.GetBySocCode(socCode);
+
+            //Assert
+            if (validSoc)
+            {
+                A.CallTo(() => fakeSocConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeSocConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
+            }
+
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode)))).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void GetSocCodesTest(bool validSoc)
+        {
+            //Assign
+            var fakeRepo = GetTestJobProfileSocCodeRepository();
+            var dummyDynamicContent = A.Dummy<DynamicContent>();
+
+            // Setup Fakes
+            A.CallTo(() => fakeRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>._)).Returns(validSoc
+                ? new EnumerableQuery<DynamicContent>(new List<DynamicContent> { dummyDynamicContent })
+                : Enumerable.Empty<DynamicContent>().AsQueryable());
+
+            //Act
+            fakeRepo.GetSocCodes();
+
+            //Assert
+            A.CallTo(() => fakeRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live)))).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData(false, false)]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        public void GetLiveJobProfilesBySocCodeTest(bool validSoc, bool jobsAvailable)
+        {
+            //Assign
+            var fakeRepo = GetTestJobProfileSocCodeRepository(validSoc);
+
+            var dummyJobProfiles = jobsAvailable ? A.CollectionOfDummy<DynamicContent>(2).AsEnumerable().AsQueryable() : Enumerable.Empty<DynamicContent>().AsQueryable();
+            A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).Returns(dummyJobProfiles);
+            var socCode = nameof(JobProfileSocCodeRepositoryTest);
+
+            //Act
+            fakeRepo.GetLiveJobProfilesBySocCode(socCode);
+
+            //Assert
+            if (validSoc)
+            {
+                A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
+
+                if (jobsAvailable)
+                {
+                    A.CallTo(() => fakeConverterLight.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
+                }
+                else
+                {
+                    A.CallTo(() => fakeConverterLight.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
+                }
+            }
+            else
+            {
+                A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).MustNotHaveHappened();
+            }
+
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Status == ContentLifecycleStatus.Live && item.GetValue<string>(nameof(SocCode.SOCCode)) == socCode)))).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void UpdateSocOccupationalCodeTest(bool validSoc)
+        {
+            //Assign
+            var fakeRepo = GetTestJobProfileSocCodeRepository();
+            var socCode = new SocCode();
+            var dummyDynamicContent = A.Dummy<DynamicContent>();
+
+            // Setup Fakes
+            if (validSoc)
+            {
+                A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).Returns(dummyDynamicContent);
+            }
+            else
+            {
+                A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).Returns(null);
+            }
+
+            A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).DoesNothing();
+            A.CallTo(() => fakeRepository.Commit()).DoesNothing();
+            A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() =>
+                fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(socCode.ONetOccupationalCode), A<string>._)).DoesNothing();
+
+            //Act
+            fakeRepo.UpdateSocOccupationalCode(socCode);
+
+            //Assert
+            if (validSoc)
+            {
+                A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustHaveHappened();
+                A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).MustHaveHappened();
+                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustHaveHappened();
+                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustHaveHappened();
+                A.CallTo(() => fakeRepository.Commit()).MustHaveHappened();
+                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustHaveHappened();
+                A.CallTo(() =>
+                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(socCode.ONetOccupationalCode), A<string>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeRepository.GetMaster(dummyDynamicContent)).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.GetTemp(dummyDynamicContent)).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.Publish(dummyDynamicContent, A<string>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.Commit()).MustNotHaveHappened();
+                A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
+                A.CallTo(() =>
+                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, nameof(socCode.ONetOccupationalCode), A<string>._)).MustNotHaveHappened();
+            }
+
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live && item.UrlName == socCode.UrlName)))).MustHaveHappened();
+        }
+
         private JobProfileSocCodeRepository GetTestJobProfileSocCodeRepository(bool validSoc = false)
         {
             //Setup the fakes and dummies
             var dummySocCode = A.Dummy<DynamicContent>();
             var dummyAppVacancy = A.Dummy<ApprenticeVacancy>();
+            var witJp = new JobProfileOverloadForWhatItTakes();
 
             var dummyVacancies = validSoc ? A.CollectionOfDummy<DynamicContent>(2).AsEnumerable().AsQueryable() : Enumerable.Empty<DynamicContent>().AsQueryable();
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).Returns(dummyVacancies);
+
+            A.CallTo(() => fakeConverterLight.ConvertFrom(A<DynamicContent>._)).Returns(witJp);
 
             if (validSoc)
             {
@@ -87,7 +236,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
                 A.CallTo(() => fakeJobProfileSocConverter.ConvertFrom(dummySocCode)).Returns(null);
             }
 
-            return new JobProfileSocCodeRepository(fakeRepository, fakeJobProfileSocConverter, fakeSocConverter, fakeDynamicContentExtensions, fakeSocSkillConverter);
+            return new JobProfileSocCodeRepository(fakeRepository, fakeJobProfileSocConverter, fakeSocConverter, fakeDynamicContentExtensions, fakeSocSkillConverter, fakeConverterLight);
         }
     }
 }

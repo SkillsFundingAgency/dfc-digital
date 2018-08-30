@@ -64,6 +64,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         [DisplayName("Not Allowed Message")]
         public string NotAllowedMessage { get; set; } = "You are not allowed to use this functionality. Only Administrators are.";
 
+
+        /// <summary>
+        /// Gets or sets the First Paragraph.
+        /// </summary>
+        /// <value>
+        /// The Page Title.
+        /// </value>
+        [DisplayName("Batch Size for Import - ON Azure this number should not take more then 2 minutes to complete")]
+        public int BatchSizeForImport { get; set; } = 10;
+
         #endregion Public Properties
 
         #region Actions
@@ -76,7 +86,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = webAppContext.IsUserAdministrator
+                IsAdmin = webAppContext.IsUserAdministrator,
+                SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(BatchSizeForImport)
             };
 
             return View(model);
@@ -90,7 +102,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 PageTitle = PageTitle,
                 FirstParagraph = FirstParagraph,
                 NotAllowedMessage = NotAllowedMessage,
-                IsAdmin = webAppContext.IsUserAdministrator
+                IsAdmin = webAppContext.IsUserAdministrator,
+                SocMappingStatus = importSkillsFrameworkDataService.GetSocMappingStatus(),
+                NextBatchOfSOCsToImport = importSkillsFrameworkDataService.GetNextBatchOfSOCsToImport(BatchSizeForImport)
             };
 
             var otherMessage = string.Empty;
@@ -103,26 +117,24 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     {
                         case "IMPORTSKILLS":
                             importSkillsFrameworkDataService.ImportFrameworkSkills();
-                            importResult.ActionCompleted = "Import Onet Skills";
+                            importResult.ActionCompleted = "Imported Onet Skills";
                             break;
                         case "UPDATESOCOCCUPATIONALCODES":
                             importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
-                            importResult.ActionCompleted = "Update Soc Codes with Onet Occupational Codes";
+                            importResult.ActionCompleted = "Updated SOC with Onet Occupational Codes";
                             break;
-                        case "UPDATEJPDIGITALSKILLS":
-                            importSkillsFrameworkDataService.UpdateJobProfilesDigitalSkills();
-                            importResult.ActionCompleted = "Update Job Profiles With Digital Skill levels";
+                        case "RESETSOCIMPORTALLSTATUS":
+                            importSkillsFrameworkDataService.ResetAllSocStatus();
+                            importResult.ActionCompleted = "Import status for all SOCs has been reset  ";
                             break;
-                        case "BUILDSOCMATRIX":
-                            importSkillsFrameworkDataService.BuildSocMatrixData();
-                            importResult.ActionCompleted = "Build Soc Skill Matrix";
+
+                        case "RESETSOCIMPORTSTARTEDSTATUS":
+                            importSkillsFrameworkDataService.ResetStartedSocStatus();
+                            importResult.ActionCompleted = "Import status for Started SOCs has been reset  ";
                             break;
-                        case "UPDATEJPSKILLS":
-                            importSkillsFrameworkDataService.UpdateJpSocSkillMatrix();
-                            importResult.ActionCompleted = "Update Job Profiles with related Soc skill Matrices";
-                            break;
+
                     }
-                   }
+                }
                 catch (Exception ex)
                 {
                     otherMessage = $"{ex.Message} <br /> {ex.InnerException} <br /> {ex.StackTrace}";
@@ -136,6 +148,34 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
             importResult.OtherMessage = otherMessage;
 
+            return View("ImportResults", importResult);
+        }
+
+
+        [HttpPost]
+        public ActionResult ImportJobProfile(string jobProfileSoc)
+        {
+            var importResult = new SkillsFrameworkResultsViewModel
+            {
+                PageTitle = PageTitle,
+                FirstParagraph = FirstParagraph,
+                NotAllowedMessage = NotAllowedMessage,
+                IsAdmin = webAppContext.IsUserAdministrator,
+            };
+
+            var otherMessage = string.Empty;
+
+            if (webAppContext.IsUserAdministrator)
+            {
+                importSkillsFrameworkDataService.ImportForSocs(jobProfileSoc);
+            }
+            else
+            {
+                otherMessage = NotAllowedMessage;
+            }
+
+            importResult.AuditRecords = reportAuditRepository.GetAllAuditRecords();
+            importResult.OtherMessage = otherMessage;
             return View("ImportResults", importResult);
         }
 

@@ -6,12 +6,14 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileSocCodeRepository
     {
-        IQueryable<ApprenticeVacancy> GetBySocCode(string socCode);
+        IQueryable<ApprenticeVacancy> GetApprenticeVacanciesBySocCode(string socCode);
 
         RepoActionResult UpdateSocOccupationalCode(SocCode socCode);
 
-        IQueryable<SocCode> GetLiveSocCodes();
+        IQueryable<SocCode> GetSocCodes();
 
-        IEnumerable<SocSkillMatrix> GetSocSkillMatricesBySocCode(string socCode);
+        SocCode GetBySocCode(string socCode);
+
+        IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfilesBySocCode(string socCode);
     }
 }

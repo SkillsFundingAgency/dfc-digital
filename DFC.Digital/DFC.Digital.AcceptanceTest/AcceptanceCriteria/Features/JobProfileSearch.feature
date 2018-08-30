@@ -28,7 +28,7 @@ Scenario: [DFC-1342 - A1] Search Page displays the correct breadcrumb and links 
 	Then the first result is 'shown' on the page
 	And the correct 'Search results' breadcrumb is displayed
 
-	When I click the Find a Career breadcrumb on 'Search results'
+	When I click the Explore career breadcrumb on 'Search results'
 	Then I am redirected to the homepage
 
 @EndToEnd
@@ -41,7 +41,7 @@ Scenario: Search End To End Test
 	Then I am redirected to the correct job profile page
 	And the correct sections should be displayed
 
-	When I click the Home careers link
+	When I click the Explore careers link
 	And I search using 'manager'
 	Then the first result is 'shown' on the page
 

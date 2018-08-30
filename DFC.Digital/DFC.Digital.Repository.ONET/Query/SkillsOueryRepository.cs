@@ -16,13 +16,13 @@ namespace DFC.Digital.Repository.ONET.Query
         }
 
         #region Implementation of ISkillsRepository
-        public IQueryable<OnetAttribute> GetAbilitiesForONetOccupationCode(string oNetOccupationCode)
+        public IQueryable<OnetSkill> GetAbilitiesForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from ability in onetDbContext.abilities
                              where ability.recommend_suppress != "Y"
                                         && ability.not_relevant != "Y"
                                         && ability.onetsoc_code == oNetOccupationCode
-                             select new OnetAttribute
+                             select new OnetSkill
                              {
                                  OnetOccupationalCode = ability.onetsoc_code,
                                  Id = ability.element_id,
@@ -32,14 +32,14 @@ namespace DFC.Digital.Repository.ONET.Query
             return attributes;
         }
 
-        public IQueryable<OnetAttribute> GetKowledgeForONetOccupationCode(string oNetOccupationCode)
+        public IQueryable<OnetSkill> GetKowledgeForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from knowledge in onetDbContext.knowledges
                              where knowledge.recommend_suppress != "Y"
                                  && knowledge.not_relevant != "Y"
                                  && knowledge.onetsoc_code == oNetOccupationCode
 
-                             select new OnetAttribute
+                             select new OnetSkill
                              {
                                  OnetOccupationalCode = knowledge.onetsoc_code,
                                  Id = knowledge.element_id,
@@ -49,13 +49,13 @@ namespace DFC.Digital.Repository.ONET.Query
             return attributes;
         }
 
-        public IQueryable<OnetAttribute> GetSkillsForONetOccupationCode(string oNetOccupationCode)
+        public IQueryable<OnetSkill> GetSkillsForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from skill in onetDbContext.skills
                              where skill.recommend_suppress != "Y"
                                         && skill.not_relevant != "Y"
                                         && skill.onetsoc_code == oNetOccupationCode
-                             select new OnetAttribute
+                             select new OnetSkill
                              {
                                  OnetOccupationalCode = skill.onetsoc_code,
                                  Id = skill.element_id,
@@ -65,12 +65,12 @@ namespace DFC.Digital.Repository.ONET.Query
             return attributes;
         }
 
-        public IQueryable<OnetAttribute> GetWorkStylesForONetOccupationCode(string oNetOccupationCode)
+        public IQueryable<OnetSkill> GetWorkStylesForONetOccupationCode(string oNetOccupationCode)
         {
             var attributes = from workStyle in onetDbContext.work_styles
                              where workStyle.recommend_suppress != "Y"
                                         && workStyle.onetsoc_code == oNetOccupationCode
-                             select new OnetAttribute
+                             select new OnetSkill
                              {
                                  OnetOccupationalCode = workStyle.onetsoc_code,
                                  Id = workStyle.element_id,

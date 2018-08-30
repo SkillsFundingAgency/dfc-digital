@@ -11,33 +11,36 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class SkillsFrameworkService : ISkillsFrameworkService
     {
-        // CodeReview: TK;  Please remove unused private fields
         private readonly IApplicationLogger logger;
-        private readonly IQueryRepository<SocCode> socRepository;
         private readonly IQueryRepository<DigitalSkill> digitalSkillRepository;
         private readonly IQueryRepository<FrameworkSkill> translationRepository;
-
+        private readonly ISocMappingRepository socMappingRepository;
         private readonly ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine;
    
         public SkillsFrameworkService(
             IApplicationLogger logger,
-            IQueryRepository<SocCode> socRepository,
             IQueryRepository<DigitalSkill> digitalSkillRepository,
             IQueryRepository<FrameworkSkill> translationRepository,
-            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine)
+            ISkillFrameworkBusinessRuleEngine skillsBusinessRuleEngine,
+            ISocMappingRepository socMappingRepository)
         {
             this.logger = logger;
-            this.socRepository = socRepository;
             this.digitalSkillRepository = digitalSkillRepository;
             this.skillsBusinessRuleEngine = skillsBusinessRuleEngine;
             this.translationRepository = translationRepository;
+            this.socMappingRepository = socMappingRepository;
         }
 
         #region Implementation of ISkillsFrameworkService
 
         public IEnumerable<SocCode> GetAllSocMappings()
         {
-            return socRepository.GetAll();
+            return socMappingRepository.GetAll();
+        }
+
+        public IEnumerable<SocCode> GetNextBatchSocMappingsForUpdate(int batchSize)
+        {
+            return socMappingRepository.GetSocsAwaitingUpdate().Take(batchSize);
         }
 
         public IEnumerable<FrameworkSkill> GetAllTranslations()
@@ -52,16 +55,15 @@ namespace DFC.Digital.Service.SkillsFramework
             return rank;
         }
 
-        public IEnumerable<OnetAttribute> GetRelatedSkillMapping(string onetOccupationalCode)
+        public IEnumerable<OnetSkill> GetRelatedSkillMapping(string onetOccupationalCode)
         {
-
             //Get All raw attributes linked to occ code from the repository (Skill, knowledge, work styles, ablities)
             var rawAttributes = skillsBusinessRuleEngine.GetAllRawOnetSkillsForOccupation(onetOccupationalCode).ToList();
 
-            logger.Trace($"Got {rawAttributes.Count()} raw attributes for ocupational code {onetOccupationalCode}");
+            logger.Trace($"Got {rawAttributes.Count()} raw attributes for occupational code {onetOccupationalCode}");
 
             //Average out the skill thats have LV and LM scales
-            var attributes = skillsBusinessRuleEngine.AverageOutScoreScales(rawAttributes);
+            var attributes = skillsBusinessRuleEngine.AverageOutscoreScales(rawAttributes);
             attributes = skillsBusinessRuleEngine.MoveBottomLevelAttributesUpOneLevel(attributes);
             attributes =  skillsBusinessRuleEngine.RemoveDuplicateAttributes(attributes);
             attributes = skillsBusinessRuleEngine.RemoveDFCSuppressions(attributes);
@@ -69,10 +71,36 @@ namespace DFC.Digital.Service.SkillsFramework
             attributes =  skillsBusinessRuleEngine.BoostMathsSkills(attributes);
             attributes =  skillsBusinessRuleEngine.CombineSimilarAttributes(attributes.ToList());
             attributes =  skillsBusinessRuleEngine.SelectFinalAttributes(attributes);
-            logger.Trace($"Returning {attributes.Count()} attributes for ocupational code {onetOccupationalCode}");
+            logger.Trace($"Returning {attributes.Count()} attributes for occupational code {onetOccupationalCode}");
 
-            return attributes;
-      
+            return attributes;      
+        }
+
+        public void ResetAllSocStatus()
+        {
+            var allSocCodes = GetAllSocMappings();
+            socMappingRepository.SetUpdateStatusForSocs(allSocCodes, SkillsFrameworkUpdateStatus.AwaitingUpdate);
+        }
+
+        public void ResetStartedSocStatus()
+        {
+            var socInStartedStateCodes = socMappingRepository.GetSocsInStartedState();
+            socMappingRepository.SetUpdateStatusForSocs(socInStartedStateCodes, SkillsFrameworkUpdateStatus.AwaitingUpdate);
+        }
+
+        public void SetSocStatusCompleted(SocCode socCode)
+        {
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameworkUpdateStatus.UpdateCompleted);
+        }
+               
+        public void SetSocStatusSelectedForUpdate (SocCode socCode)
+        {
+            socMappingRepository.SetUpdateStatusForSocs(new List<SocCode> { socCode }, SkillsFrameworkUpdateStatus.SelectedForUpdate);
+        }
+
+        public SocMappingStatus GetSocMappingStatus()
+        {
+            return socMappingRepository.GetSocMappingStatus();
         }
 
         #endregion Implementation of ISkillsFrameworkService

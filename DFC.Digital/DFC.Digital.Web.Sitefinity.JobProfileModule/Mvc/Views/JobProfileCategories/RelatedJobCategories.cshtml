@@ -1,6 +1,24 @@
-﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RelatedJobProfileCategoriesViewModel
+﻿@using DFC.Digital.Web.Core.HtmlExtentions
+@using MvcBreadCrumbs
+@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RelatedJobProfileCategoriesViewModel
+<div class="breadcrumbs">
+    <ol>
+        @*<li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>*@
+        @*@if(ViewContext.RouteData.Values["controller"].ToString() != "Home") {
+            @:> @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())
+        }
+        @if(ViewContext.RouteData.Values["action"].ToString() != "Index"){
+            @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        }*@
+        @Html.Raw(BreadCrumb.Display())
+        @*@Html.Raw(Html.BuildBreadcrumbNavigation())*@
+        @*<li>@Model.BreadcrumbPageTitleText</li>*@
+    </ol>
+</div>
 <aside class="govuk-related-items job-categories_list">
+
     <h2 class="heading-medium">@Model.OtherCategoriesTitle</h2>
+    @*@Html.Raw(Html.BuildBreadcrumbNavigation())*@
     <ul class="font-xsmall">
         @foreach (var jobrofileCategory in Model.JobProfileCategories)
         {

@@ -1,10 +1,19 @@
-﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.DfcBreadcrumbViewModel
+﻿@using DFC.Digital.Web.Core.HtmlExtentions
+@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.DfcBreadcrumbViewModel
 
 <div class="content-container">
     <div class="breadcrumbs">
         <ol>
-            <li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>
-            <li>@Model.BreadcrumbPageTitleText</li>
+            @*<li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>*@
+            @*@if(ViewContext.RouteData.Values["controller"].ToString() != "Home") {
+                @:> @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString()) 
+            }
+            @if(ViewContext.RouteData.Values["action"].ToString() != "Index"){
+                @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString()) 
+            }*@
+           
+            @*@Html.Raw(Html.BuildBreadcrumbNavigation())*@
+            @*<li>@Model.BreadcrumbPageTitleText</li>*@
         </ol>
     </div>
 </div>

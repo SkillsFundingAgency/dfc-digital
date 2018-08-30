@@ -1,7 +1,26 @@
 ﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileDetailsViewModel
 
 @using System.Globalization;
+@using DFC.Digital.Web.Core.HtmlExtentions
+@using MvcBreadCrumbs
 
+<div class="breadcrumbs">
+    <ol>
+        @Html.Raw(BreadCrumb.Display())
+        @*<li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>*@
+        @*@if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+        {
+            @:> @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())
+        }
+        @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
+        {
+            @:> @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
+        }*@
+
+        @*@Html.Raw(Html.BuildBreadcrumbNavigation())*@
+        @*<li>@Model.BreadcrumbPageTitleText</li>*@
+    </ol>
+</div>
 <div class="content-container">
     <div class="grid-row">
         <div class="column-desktop-two-thirds">
@@ -51,7 +70,7 @@
                     {
                         @Model.MinimumHours <text>to</text> @Model.MaximumHours
                     }
-                    <span  class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetails</span>
+                    <span class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetails</span>
                 </h5>
             </div>
         </div>

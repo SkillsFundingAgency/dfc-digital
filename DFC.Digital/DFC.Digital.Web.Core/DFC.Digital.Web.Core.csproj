@@ -131,7 +131,9 @@
     <Compile Include="Base\BaseDfcController.cs" />
     <Compile Include="Config\WebCoreAutofacConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HtmlExtentions\BreadCrumbNavigationExtension.cs" />
     <Compile Include="HtmlExtentions\ReplaceStringTokensExtension.cs" />
+    <Compile Include="HtmlExtentions\StringExtensions.cs" />
     <Compile Include="Utility\DependencyHealthCheckService.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="HtmlExtentions\AssetVersioningExtention.cs" />

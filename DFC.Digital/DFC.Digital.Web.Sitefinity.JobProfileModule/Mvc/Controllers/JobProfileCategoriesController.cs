@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using MvcBreadCrumbs;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for displaying job profile categories
     /// </summary>
-    /// <seealso cref="Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileCategories", Title = "JobProfile Categories", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileCategoriesController : BaseDfcController
     {
@@ -57,6 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("")]
+
         public ActionResult Index()
         {
             if (SidePageDisplay)
@@ -78,13 +80,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("{urlName}")]
+        [BreadCrumb]
         public ActionResult Index(string urlName)
         {
             var jobProfileCategories = GetJobProfileCategories()?.Where(jpCat => jpCat.Url.ToLower() != urlName.ToLower())
                 .ToList();
 
             UpdateJobProfileCategoryUrl(jobProfileCategories);
-
+            BreadCrumb.SetLabel("Category " + urlName);
             return View("RelatedJobCategories", new RelatedJobProfileCategoriesViewModel { JobProfileCategories = jobProfileCategories, IsContentAuthoring = webAppContext.IsContentAuthoringSite, OtherCategoriesTitle = OtherJobCategoriesTitle });
         }
 

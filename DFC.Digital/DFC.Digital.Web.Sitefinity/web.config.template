@@ -152,16 +152,6 @@ that is bundled with the nuget package under the tools folder.
       </security>
     </system.webServer>
   </location>
-  <location path="Sitefinity/admin-dashboard/onet-data-import">
-    <system.web>
-      <httpRuntime executionTimeout="900" />
-    </system.web>
-  </location>
-  <location path="Sitefinity/Services/Publishing/PublishingService.svc/reindex/00d96fef-95d3-4525-a8f1-f23283788bff">
-    <system.web>
-      <httpRuntime executionTimeout="600" />
-    </system.web>
-  </location>
   <!--
     For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
 

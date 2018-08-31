@@ -13,7 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         #region Fields
         private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<SocCode> repository;
-        private readonly IDynamicModuleRepository<JobProfile> jprepository;
+        private readonly IDynamicModuleRepository<JobProfile> jpRepository;
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -24,7 +24,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jprepository)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jpRepository)
         {
             this.repository = repository;
             this.converter = converter;
@@ -32,7 +32,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.socCodeConverter = socCodeConverter;
             this.socSkillConverter = socSkillConverter;
             this.converterLight = converterLight;
-            this.jprepository = jprepository;
+            this.jpRepository = jpRepository;
         }
 
         #endregion Ctor
@@ -65,7 +65,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
                     foreach (var jobProfile in jobProfiles)
                     {
-                        var isCheckedOut = jprepository.IsCheckedOut(jobProfile);
+                        var isCheckedOut = jpRepository.IsCheckedOut(jobProfile);
 
                         jobProfileOverloadForWhatItTakesList.Add(isCheckedOut ? new JobProfileOverloadForWhatItTakes { UrlName = dynamicContentExtensions.GetFieldValue<string>(jobProfile, nameof(JobProfile.UrlName)), Locked = true } : converterLight.ConvertFrom(jobProfile));
                     }

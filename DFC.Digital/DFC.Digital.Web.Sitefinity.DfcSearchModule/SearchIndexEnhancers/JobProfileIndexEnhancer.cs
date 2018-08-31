@@ -1,5 +1,7 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +15,21 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         private readonly IJobProfileCategoryRepository jobProfileCategoryRepository;
         private readonly ISalaryService salaryService;
         private readonly ISalaryCalculator salaryCalculator;
+        private readonly IApplicationLogger applicationLogger;
         private JobProfileIndex jobProfileIndex;
 
         public JobProfileIndexEnhancer(
             IJobProfileRepository jobProfileRepository,
             IJobProfileCategoryRepository jobProfileCategoryRepository,
             ISalaryService salaryService,
-            ISalaryCalculator salaryCalculator)
+            ISalaryCalculator salaryCalculator,
+            IApplicationLogger applicationLogger)
         {
             this.jobProfileRepository = jobProfileRepository;
             this.jobProfileCategoryRepository = jobProfileCategoryRepository;
             this.salaryService = salaryService;
             this.salaryCalculator = salaryCalculator;
+            this.applicationLogger = applicationLogger;
         }
 
         public JobProfile JobProfile { get; private set; }
@@ -61,9 +66,23 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
         private async Task PopulateSalaryFromLMIAsync(string socCode)
         {
-            var salary = await salaryService.GetSalaryBySocAsync(socCode);
-            jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
-            jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
+            applicationLogger.Trace($"BEGIN: Method '{nameof(PopulateSalaryFromLMIAsync)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}'.");
+            JobProfileSalary salary = new JobProfileSalary();
+            try
+            {
+                salary = await salaryService.GetSalaryBySocAsync(socCode);
+                jobProfileIndex.SalaryStarter = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
+                jobProfileIndex.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
+            }
+            catch (Exception ex)
+            {
+                //If there is a failure for this profile, log and continue with other profiles
+                applicationLogger.ErrorJustLogIt($"ERROR: Method '{nameof(PopulateSalaryFromLMIAsync)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' failed with exception '{ex.Message}'.", ex);
+            }
+            finally
+            {
+                applicationLogger.Trace($"END: Method '{nameof(PopulateSalaryFromLMIAsync)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' returned {JsonConvert.SerializeObject(salary)}.");
+            }
         }
 
         private IEnumerable<string> GetJobProfileCategoriesWithUrl()

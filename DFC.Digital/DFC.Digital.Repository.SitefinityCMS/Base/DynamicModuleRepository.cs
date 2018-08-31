@@ -20,6 +20,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private const string IncludeInSitemapFieldName = "IncludeInSitemap";
         private const string OwnerFieldName = "Owner";
         private const string PublicationDateFieldName = "PublicationDate";
+        private const string DraftApprovalWorkflowState = "Draft";
         private readonly IApplicationLogger applicationLogger;
 
         private DynamicModuleManager dynamicModuleManager;
@@ -209,7 +210,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public bool IsCheckedOut(DynamicContent entity)
         {
-            return entity.Status == ContentLifecycleStatus.Master ? dynamicModuleManager.Lifecycle.IsCheckedOut(entity) : dynamicModuleManager.Lifecycle.IsCheckedOut(dynamicModuleManager.Lifecycle.GetMaster(entity));
+            var master = entity.Status == ContentLifecycleStatus.Master
+                ? entity
+                : dynamicModuleManager.Lifecycle.GetMaster(entity);
+            var workFlowItem = master as DynamicContent;
+            var inprogress = dynamicModuleManager.Lifecycle.IsCheckedOut(master) || workFlowItem?.ApprovalWorkflowState == DraftApprovalWorkflowState;
+
+            return inprogress;
         }
 
         #endregion IRepository implementations

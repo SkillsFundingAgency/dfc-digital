@@ -65,9 +65,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
                     foreach (var jobProfile in jobProfiles)
                     {
-                        var master = jprepository.GetMaster(jobProfile);
+                        var isCheckedOut = jprepository.IsCheckedOut(jobProfile);
 
-                        jobProfileOverloadForWhatItTakesList.Add(converterLight.ConvertFrom(jobProfile));
+                        jobProfileOverloadForWhatItTakesList.Add(isCheckedOut ? new JobProfileOverloadForWhatItTakes { UrlName = dynamicContentExtensions.GetFieldValue<string>(jobProfile, nameof(JobProfile.UrlName)), Locked = true } : converterLight.ConvertFrom(jobProfile));
                     }
 
                     return jobProfileOverloadForWhatItTakesList;

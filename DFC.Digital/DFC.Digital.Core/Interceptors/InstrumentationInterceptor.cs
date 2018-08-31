@@ -55,8 +55,8 @@ namespace DFC.Digital.Core.Interceptors
 
         private void InterceptSync(IInvocation invocation)
         {
-            bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
-            bool shouldIgnoreOutput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreOutputInInterceptionAttribute));
+            bool shouldIgnoreInput = invocation.Method.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true);
+            bool shouldIgnoreOutput = invocation.Method.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true);
             loggingService.Trace($"BEGIN: Method '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
             Stopwatch watch = Stopwatch.StartNew();
             try
@@ -71,8 +71,8 @@ namespace DFC.Digital.Core.Interceptors
 
         private async Task InterceptAsyncAction(IInvocation invocation)
         {
-            bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
-            bool shouldIgnoreOutput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreOutputInInterceptionAttribute));
+            bool shouldIgnoreInput = invocation.Method.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true);
+            bool shouldIgnoreOutput = invocation.Method.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true);
             loggingService.Trace($"BEGIN: Async action '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
             Stopwatch watch = Stopwatch.StartNew();
             try
@@ -91,7 +91,7 @@ namespace DFC.Digital.Core.Interceptors
 
         private void InterceptAsyncFunc(IInvocation invocation)
         {
-            bool shouldIgnoreInput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreInputInInterceptionAttribute));
+            bool shouldIgnoreInput = invocation.Method.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreInputInInterceptionAttribute), true);
             loggingService.Trace($"BEGIN: Async Func '{invocation.Method.Name}' called from '{invocation.TargetType.FullName}' with parameters '{(shouldIgnoreInput ? "ignored" : JsonConvert.SerializeObject(invocation.Arguments))}'.");
             invocation.Proceed();
             var resultType = invocation.Method.ReturnType.GetGenericArguments()[0];
@@ -101,7 +101,7 @@ namespace DFC.Digital.Core.Interceptors
 
         private async Task<T> HandleAsyncWithResult<T>(IInvocation invocation)
         {
-            bool shouldIgnoreOutput = invocation.Method.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreOutputInInterceptionAttribute));
+            bool shouldIgnoreOutput = invocation.Method.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true) | invocation.MethodInvocationTarget.IsDefined(typeof(IgnoreOutputInInterceptionAttribute), true);
             T result = default;
             Stopwatch watch = Stopwatch.StartNew();
             try

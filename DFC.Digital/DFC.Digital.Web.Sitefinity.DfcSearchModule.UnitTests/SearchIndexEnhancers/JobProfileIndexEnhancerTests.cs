@@ -46,7 +46,10 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var enhancer = new JobProfileIndexEnhancer(fakeJobProfileRepo, fakeJobProfileCategoryRepo, salaryService, salaryCalculator, fakeLogger);
             enhancer.Initialise(dummyJobProfileIndex, isPublishing);
 
-            await enhancer.PopulateSalary();
+            var result = await enhancer.PopulateSalary("1", "2");
+
+            result.StarterSalary.Should().Be(1000);
+            result.SalaryExperienced.Should().Be(2000);
 
             A.CallTo(() => fakeJobProfileRepo.GetByUrlNameForSearchIndex(A<string>._, isPublishing)).MustHaveHappened();
             A.CallTo(() => fakeJobProfileRepo.GetByUrlName(A<string>._)).MustNotHaveHappened();

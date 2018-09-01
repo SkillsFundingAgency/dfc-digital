@@ -38,5 +38,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
         DynamicContent CheckinTemp(DynamicContent entity);
+
+        bool IsCheckedOut(DynamicContent entity);
     }
 }

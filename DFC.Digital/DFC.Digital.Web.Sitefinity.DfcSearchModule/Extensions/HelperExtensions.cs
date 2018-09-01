@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,12 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     internal static class HelperExtensions
     {
-        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger)
+        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper)
         {
             var measure = Stopwatch.StartNew();
-            List<JobProfileIndex> indexes = new List<JobProfileIndex>();
+            Dictionary<string, JobProfileIndex> indexes = new Dictionary<string, JobProfileIndex>();
 
-            List<Task> salaryPopulation = new List<Task>();
+            List<Task<JobProfileSalary>> salaryPopulation = new List<Task<JobProfileSalary>>();
             var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
             foreach (var item in betaDocuments)
             {
@@ -44,15 +45,28 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 }
                 else
                 {
-                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
+                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary(jobProfileIndex.SocCode, jobProfileIndex.UrlName));
                 }
 
-                indexes.Add(jobProfileIndex);
+                indexes.Add(jobProfileIndex.UrlName.ToLower(), jobProfileIndex);
             }
 
-            Task.WaitAll(salaryPopulation.ToArray());
-            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index.");
-            return indexes;
+            var results = Task.Run(() => Task.WhenAll(salaryPopulation.ToArray())).GetAwaiter().GetResult();
+            foreach (var idx in indexes)
+            {
+                var item = results.SingleOrDefault(r => r.JobProfileUrlName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
+                if (item == null)
+                {
+                    applicationLogger.Info($"WARN: Failed to get salary for '{idx.Key}'.");
+                    continue;
+                }
+
+                idx.Value.SalaryStarter = item.StarterSalary;
+                idx.Value.SalaryExperienced = item.SalaryExperienced;
+            }
+
+            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got {results.Count()} salary info and {results.Count(r => r.StarterSalary == 0)} results that have salary missing. But {indexes.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {indexes.Values.Count()}");
+            return indexes.Values;
         }
     }
 }

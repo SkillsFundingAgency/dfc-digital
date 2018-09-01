@@ -11,5 +11,11 @@ namespace DFC.Digital.Data.Model
 
         [JsonProperty("deciles")]
         public IDictionary<int, decimal> Deciles { get; set; }
+
+        public string JobProfileUrlName { get; set; }
+
+        public double StarterSalary { get; set; }
+
+        public double SalaryExperienced { get; set; }
     }
 }

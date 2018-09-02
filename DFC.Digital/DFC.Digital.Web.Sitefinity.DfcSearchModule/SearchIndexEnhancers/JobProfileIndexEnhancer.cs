@@ -67,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
                 if (salary.StarterSalary == 0 || salary.SalaryExperienced == 0)
                 {
-                    applicationLogger.Info($"ERROR: Method '{nameof(PopulateSalary)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' failed to get salary '{JsonConvert.SerializeObject(salary)}'.");
+                    applicationLogger.Warn($"ERROR: Method '{nameof(PopulateSalary)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' failed to get salary '{JsonConvert.SerializeObject(salary)}'.");
                 }
             }
             catch (Exception ex)

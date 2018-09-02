@@ -45,7 +45,10 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 }
                 else
                 {
-                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary(jobProfileIndex.SocCode, jobProfileIndex.UrlName));
+                    if (!string.IsNullOrEmpty(jobProfileIndex.SocCode))
+                    {
+                        salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary(jobProfileIndex.SocCode, jobProfileIndex.UrlName));
+                    }
                 }
 
                 indexes.Add(jobProfileIndex.UrlName.ToLower(), jobProfileIndex);
@@ -57,7 +60,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 var item = results.SingleOrDefault(r => r.JobProfileUrlName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
                 if (item == null)
                 {
-                    applicationLogger.Info($"WARN: Failed to get salary for '{idx.Key}'.");
+                    applicationLogger.Warn($"WARN: Failed to get salary for '{idx.Key}'.");
                     continue;
                 }
 

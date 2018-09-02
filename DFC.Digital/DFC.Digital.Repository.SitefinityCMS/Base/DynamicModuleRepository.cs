@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Core.Interceptors;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -20,6 +21,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private const string IncludeInSitemapFieldName = "IncludeInSitemap";
         private const string OwnerFieldName = "Owner";
         private const string PublicationDateFieldName = "PublicationDate";
+        private const string DraftApprovalWorkflowState = "Draft";
         private readonly IApplicationLogger applicationLogger;
 
         private DynamicModuleManager dynamicModuleManager;
@@ -49,6 +51,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #region IRepository implementations
 
+        [IgnoreInputInInterception]
         public void Add(DynamicContent entity)
         {
             if (entity == null)
@@ -59,6 +62,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             Add(entity, null);
         }
 
+        [IgnoreInputInInterception]
         public void Update(DynamicContent entity)
         {
             if (entity == null)
@@ -88,11 +92,13 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return providerName;
         }
 
+        [IgnoreOutputInInterception]
         public DynamicContent Create()
         {
             return dynamicModuleManager.CreateDataItem(dynamicModuleContentType);
         }
 
+        [IgnoreInputInInterception]
         public void Add(DynamicContent entity, string changeComment)
         {
             if (entity == null)
@@ -106,6 +112,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             Publish(entity, changeComment);
         }
 
+        [IgnoreInputInInterception]
         public void Update(DynamicContent entity, string changeComment)
         {
             if (entity == null)
@@ -124,6 +131,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             TransactionManager.CommitTransaction(transactionName);
         }
 
+        [IgnoreInputInInterception]
         public void Publish(DynamicContent entity, string changeComment)
         {
             if (entity == null)
@@ -149,22 +157,27 @@ namespace DFC.Digital.Repository.SitefinityCMS
             TransactionManager.CommitTransaction(transactionName);
         }
 
+        [IgnoreOutputInInterception]
         public DynamicContent Checkout(string urlName)
         {
             var master = Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Master);
             return dynamicModuleManager.Lifecycle.CheckOut(master) as DynamicContent;
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public DynamicContent Get(Expression<Func<DynamicContent, bool>> where)
         {
             return GetAll().FirstOrDefault(where);
         }
 
+        [IgnoreOutputInInterception]
         public IQueryable<DynamicContent> GetAll()
         {
             return dynamicModuleManager.GetDataItems(dynamicModuleContentType);
         }
 
+        [IgnoreOutputInInterception]
         public DynamicContent GetById(string id)
         {
             return dynamicModuleManager.GetDataItems(dynamicModuleContentType)
@@ -172,11 +185,15 @@ namespace DFC.Digital.Repository.SitefinityCMS
                                         item.Id == new Guid(id));
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public IQueryable<DynamicContent> GetMany(Expression<Func<DynamicContent, bool>> where)
         {
             return GetAll().Where(where);
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public DynamicContent GetMaster(DynamicContent entity)
         {
             if (entity == null)
@@ -187,6 +204,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return dynamicModuleManager.Lifecycle.GetMaster(entity) as DynamicContent;
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public DynamicContent GetTemp(DynamicContent entity)
         {
             if (entity == null)
@@ -197,6 +216,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return dynamicModuleManager.Lifecycle.CheckOut(entity) as DynamicContent;
         }
 
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         public DynamicContent CheckinTemp(DynamicContent entity)
         {
             if (entity == null)
@@ -205,6 +226,17 @@ namespace DFC.Digital.Repository.SitefinityCMS
             }
 
             return dynamicModuleManager.Lifecycle.CheckIn(entity) as DynamicContent;
+        }
+
+        public bool IsCheckedOut(DynamicContent entity)
+        {
+            var master = entity.Status == ContentLifecycleStatus.Master
+                ? entity
+                : dynamicModuleManager.Lifecycle.GetMaster(entity);
+            var workFlowItem = master as DynamicContent;
+            var inprogress = dynamicModuleManager.Lifecycle.IsCheckedOut(master) || workFlowItem?.ApprovalWorkflowState == DraftApprovalWorkflowState;
+
+            return inprogress;
         }
 
         #endregion IRepository implementations
@@ -236,9 +268,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             entity.SetWorkflowStatus(dynamicModuleManager.Provider.ApplicationName, status.ToString());
 
-            //CodeReview: Will the flag isPublished always be false?
-            // Create a version and commit the transaction in order changes to be persisted to data store
-            var change = versionManager.CreateVersion(entity, true);
+            var change = versionManager.CreateVersion(entity, status == WorkflowStatus.Published);
             if (changeComment != null)
             {
                 change.Comment = changeComment;

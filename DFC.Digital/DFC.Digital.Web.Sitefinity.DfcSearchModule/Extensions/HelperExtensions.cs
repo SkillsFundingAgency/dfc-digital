@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,12 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     internal static class HelperExtensions
     {
-        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IAsyncHelper asyncHelper, IApplicationLogger applicationLogger)
+        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper)
         {
             var measure = Stopwatch.StartNew();
-            List<JobProfileIndex> indexes = new List<JobProfileIndex>();
+            Dictionary<string, JobProfileIndex> indexes = new Dictionary<string, JobProfileIndex>();
 
-            List<Task> salaryPopulation = new List<Task>();
+            List<Task<JobProfileSalary>> salaryPopulation = new List<Task<JobProfileSalary>>();
             var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
             foreach (var item in betaDocuments)
             {
@@ -37,18 +38,35 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 var isSalaryOverriden = Convert.ToBoolean(item.GetValue(nameof(JobProfile.IsLMISalaryFeedOverriden)));
                 jobProfileIndexEnhancer.Initialise(jobProfileIndex, documents.Count() == 1);
                 jobProfileIndexEnhancer.PopulateRelatedFieldsWithUrl();
-                if (!isSalaryOverriden)
+                if (isSalaryOverriden)
                 {
-                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary());
+                    jobProfileIndex.SalaryStarter = Convert.ToDouble(item.GetValue(nameof(JobProfile.SalaryStarter)));
+                    jobProfileIndex.SalaryExperienced = Convert.ToDouble(item.GetValue(nameof(JobProfile.SalaryExperienced)));
+                }
+                else
+                {
+                    salaryPopulation.Add(jobProfileIndexEnhancer.PopulateSalary(jobProfileIndex.SocCode, jobProfileIndex.UrlName));
                 }
 
-                indexes.Add(jobProfileIndex);
+                indexes.Add(jobProfileIndex.UrlName.ToLower(), jobProfileIndex);
             }
 
-            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index.");
+            var results = Task.Run(() => Task.WhenAll(salaryPopulation.ToArray())).GetAwaiter().GetResult();
+            foreach (var idx in indexes)
+            {
+                var item = results.SingleOrDefault(r => r.JobProfileUrlName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
+                if (item == null)
+                {
+                    applicationLogger.Info($"WARN: Failed to get salary for '{idx.Key}'.");
+                    continue;
+                }
 
-            asyncHelper.Synchronise(() => Task.WhenAll(salaryPopulation));
-            return indexes;
+                idx.Value.SalaryStarter = item.StarterSalary;
+                idx.Value.SalaryExperienced = item.SalaryExperienced;
+            }
+
+            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got {results.Count()} salary info and {results.Count(r => r.StarterSalary == 0)} results that have salary missing. But {indexes.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {indexes.Values.Count()}");
+            return indexes.Values;
         }
     }
 }

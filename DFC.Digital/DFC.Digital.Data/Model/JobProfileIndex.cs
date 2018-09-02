@@ -11,6 +11,9 @@ namespace DFC.Digital.Data.Model
         [Key]
         public string IdentityField { get; set; }
 
+        [IsFilterable, IsSortable, IsFacetable]
+        public string SocCode { get; set; }
+
         [IsSearchable, IsFilterable, IsSortable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public string Title { get; set; }
 

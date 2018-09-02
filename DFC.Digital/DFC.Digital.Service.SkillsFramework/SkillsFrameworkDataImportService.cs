@@ -137,36 +137,46 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public void ImportForSingleSoc(string jobProfileSoc)
         {
-
+            var lockedJobProfiles = new List<JobProfileOverloadForWhatItTakes>();
             reportAuditRepository.CreateAudit(ActionDetailsKey, $"Updating Job profiles for SOC - {jobProfileSoc}");
             var soc = jobProfileSocCodeRepository.GetBySocCode(jobProfileSoc);
             if (soc == null)
             {
                 reportAuditRepository.CreateAudit(ErrorDetailsKey, $"SOC - {jobProfileSoc} NOT found in Sitefinity!");
-                soc = new SocCode { SOCCode = jobProfileSoc };
+                soc = new SocCode {SOCCode = jobProfileSoc};
             }
             else
             {
                 skillsFrameworkService.SetSocStatusSelectedForUpdate(soc);
                 var jobProfilesForSoc = jobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(soc.SOCCode).ToList();
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
+                reportAuditRepository.CreateAudit(ActionDetailsKey,
+                    $"Found {jobProfilesForSoc.Count} job profiles for SOC {soc.SOCCode}");
 
-                //We have job linked to the SOC
-                if (jobProfilesForSoc?.Count() > 0)
+                lockedJobProfiles = jobProfilesForSoc.Where(x => x.Locked).ToList();
+                foreach (var lockedJobProfile in lockedJobProfiles)
+                {
+                    reportAuditRepository.CreateAudit(SummaryDetailsKey, $"{lockedJobProfile.UrlName} could not be updated as it is locked or already in a Draft status with Soc code {jobProfileSoc}");
+                }
+
+                var safeJobProfiles = jobProfilesForSoc.Where(x => !x.Locked).ToList();
+                //We have safe job linked to the SOC
+                if (safeJobProfiles.Any())
                 {
                     var socSkillMatrixData = CreateSocSkillsMatrixRecords(soc);
                     var digitalSkillLevel = skillsFrameworkService.GetDigitalSkillLevel(soc.ONetOccupationalCode);
-                    reportAuditRepository.CreateAudit(ActionDetailsKey, $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
+                    reportAuditRepository.CreateAudit(ActionDetailsKey,
+                        $"Got {digitalSkillLevel} for Occupational Code : {soc.ONetOccupationalCode} SOC {soc.SOCCode} from SkillFramework Service");
                     var digitSkillValue = Convert.ToInt32(digitalSkillLevel).ToString();
 
                     //DO all profiles that exist for this code
-                    foreach (var profile in jobProfilesForSoc)
+                    foreach (var profile in safeJobProfiles)
                     {
                         if (socSkillMatrixData.Any())
                         {
                             profile.DigitalSkillsLevel = digitSkillValue;
                             jobProfileRepository.UpdateSocSkillMatrices(profile, socSkillMatrixData);
-                            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
+                            reportAuditRepository.CreateAudit(ActionDetailsKey,
+                                $"Linked Job Profile {profile.UrlName} with the following socskilmatrices {string.Join(", ", socSkillMatrixData.ToList().Select(sk => sk.Title))}");
                         }
                     }
 
@@ -174,15 +184,18 @@ namespace DFC.Digital.Service.SkillsFramework
                 }
                 else
                 {
-                    reportAuditRepository.CreateAudit(ErrorDetailsKey, $"Found {jobProfilesForSoc.Count()} job profiles for SOC {soc.SOCCode}");
+                    reportAuditRepository.CreateAudit(ErrorDetailsKey,
+                        $"Found {safeJobProfiles.Count} unlocked job profiles for SOC {soc.SOCCode}");
                 }
 
             }
-
-            skillsFrameworkService.SetSocStatusCompleted(soc);
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+            if (!lockedJobProfiles.Any())
+            {
+                skillsFrameworkService.SetSocStatusCompleted(soc);
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
+                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+            } 
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)

@@ -2,6 +2,7 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -115,7 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
                 {
                     activeIndex = index;
-                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, asyncHelper, applicationLogger);
+                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper);
 
                     //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
                     var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);

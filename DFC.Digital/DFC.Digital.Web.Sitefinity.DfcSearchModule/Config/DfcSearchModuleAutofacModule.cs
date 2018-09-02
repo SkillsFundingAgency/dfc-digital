@@ -18,7 +18,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 
             builder.RegisterType<JobProfileIndexEnhancer>()
                 .As<IJobProfileIndexEnhancer>()
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

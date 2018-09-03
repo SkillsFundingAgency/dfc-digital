@@ -261,7 +261,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     term,
                     new SuggestProperties { UseFuzzyMatching = fuzzySearch, MaxResultCount = maxNumberDisplayed });
                 return Json(
-                    results.Results.Select(s => new Suggestion { label = s.MatchedSuggestion }).GroupBy(x => x.label).Select(x => x.First()),
+                    results.Results.Select(s => new Suggestion
+                    {
+                        label = s.MatchedSuggestion.First().ToString().ToUpper() + s.MatchedSuggestion.Substring(1)
+                    }).GroupBy(x => x.label).Select(x => x.First()),
                     JsonRequestBehavior.AllowGet);
             }
 

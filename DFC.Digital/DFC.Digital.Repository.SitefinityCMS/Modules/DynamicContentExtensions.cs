@@ -49,9 +49,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
         }
 
-        public void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName)
+        public void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName, float ordinal)
         {
-            contentItem.CreateRelation(relatedContentItem, fieldName);
+           var item = contentItem.CreateRelation(relatedContentItem, fieldName);
+            item.Ordinal = ordinal;
         }
 
         public string GetFieldStringValue(DynamicContent contentItem, string fieldName)

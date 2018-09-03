@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.SkillsFramework
             foreach (var socCode in allSocCodes)
             {
                 var occupationalCode = occupationalCodeMappings.FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode.SOCCode, StringComparison.OrdinalIgnoreCase))
-                    ?.ONetOccupationalCode;
+                    ?.ONetOccupationalCode ?? string.Empty;
 
                 var auditMessage = $"{(totalRecordsCount++).ToString("0000")} - Got occupational code [{occupationalCode}] for SOC : {socCode.SOCCode} from SkillFramework Service ";
 
@@ -226,7 +226,8 @@ namespace DFC.Digital.Service.SkillsFramework
                     Skill = occupationSkill.Name,
                     ONetRank = occupationSkill.Score,
                     Rank = rankGenerated,
-                    ONetElementId = occupationSkill.Id
+                    ONetElementId = occupationSkill.Id,
+                    ONetAttributeType = occupationSkill.Type.ToString()
                 };
                 socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
                 socSkillMatrixData.Add(socSkillToAdd);

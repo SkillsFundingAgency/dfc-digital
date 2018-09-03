@@ -67,7 +67,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     {
                         var isCheckedOut = jpRepository.IsCheckedOut(jobProfile);
 
-                        jobProfileOverloadForWhatItTakesList.Add(isCheckedOut ? new JobProfileOverloadForWhatItTakes { UrlName = dynamicContentExtensions.GetFieldValue<string>(jobProfile, nameof(JobProfile.UrlName)), Locked = true } : converterLight.ConvertFrom(jobProfile));
+                        jobProfileOverloadForWhatItTakesList.Add(isCheckedOut ? new JobProfileOverloadForWhatItTakes { UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfile, nameof(JobProfile.UrlName)), Locked = true } : converterLight.ConvertFrom(jobProfile));
                     }
 
                     return jobProfileOverloadForWhatItTakesList;

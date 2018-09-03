@@ -1,5 +1,14 @@
-﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RelatedJobProfileCategoriesViewModel
+﻿@using MvcBreadCrumbs
+@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.RelatedJobProfileCategoriesViewModel
+<div class="content-container">
+    <div class="breadcrumbs">
+        <ol>
+            @Html.Raw(BreadCrumb.Display())
+        </ol>
+    </div>
+</div>
 <aside class="govuk-related-items job-categories_list">
+
     <h2 class="heading-medium">@Model.OtherCategoriesTitle</h2>
     <ul class="font-xsmall">
         @foreach (var jobrofileCategory in Model.JobProfileCategories)

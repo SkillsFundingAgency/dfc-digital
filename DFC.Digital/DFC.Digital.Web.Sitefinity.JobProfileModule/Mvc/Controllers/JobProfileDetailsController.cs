@@ -4,6 +4,8 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using MvcBreadCrumbs;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -106,8 +108,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <returns>Action Result</returns>
         [HttpGet]
         [RelativeRoute("{urlName}")]
+        [BreadCrumb]
         public ActionResult Index(string urlName)
         {
+            string title = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(urlName.Replace('-', ' '));
+            BreadCrumb.SetLabel(title);
             return BaseIndex(urlName);
         }
 
@@ -148,7 +153,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             model.HoursTimePeriodText = HoursTimePeriodText;
             model.WorkingPatternText = WorkingPatternText;
             model.WorkingPatternSpanText = WorkingPatternSpanText;
-
             if (model.IsLMISalaryFeedOverriden != true)
             {
                 model = await PopulateSalaryAsync(model);

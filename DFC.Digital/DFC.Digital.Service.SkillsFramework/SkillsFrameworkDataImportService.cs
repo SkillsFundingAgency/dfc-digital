@@ -226,7 +226,8 @@ namespace DFC.Digital.Service.SkillsFramework
                     Skill = occupationSkill.Name,
                     ONetRank = occupationSkill.Score,
                     Rank = rankGenerated,
-                    ONetElementId = occupationSkill.Id
+                    ONetElementId = occupationSkill.Id,
+                    ONetAttributeType = occupationSkill.Type.ToString()
                 };
                 socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
                 socSkillMatrixData.Add(socSkillToAdd);

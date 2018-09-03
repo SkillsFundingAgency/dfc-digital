@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// The Text of the home page.
         /// </value>
         [DisplayName("Home page Text")]
-        public string HomepageText { get; set; } = "Find a career home";
+        public string HomepageText { get; set; } = "Explore careers home";
 
         #endregion Public Properties
 
@@ -117,7 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                         model.BreadcrumbPageTitleText = currentPageNode.Title;
                     }
                 } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
+                else if (nodeUrl.ToUpperInvariant().Contains("JOB-PROFILES") && !string.IsNullOrEmpty(urlName))
                 {
                     var jobProfile = jobProfileRepository.GetByUrlName(urlName);
 

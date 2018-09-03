@@ -207,6 +207,32 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         }
 
+        [Theory]
+        [InlineData("Error to test coverage")]
+        [InlineData("Error to test coverage number 3")]
+        [InlineData("number 2 of the errors to test coverage")]
+        public void ImportJobProfileExceptionTest(string errorMessage)
+        {
+            //set up calls
+            var skillsFrameworkDataImportController = GetSkillsFrameworkDataImportController(true, 10);
+
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).Returns(GetAuditRecords());
+            A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportForSocs("test")).Throws(new Exception(errorMessage));
+
+            //// Act
+            var indexMethodCall = skillsFrameworkDataImportController.WithCallTo(c => c.ImportJobProfile("test"));
+
+
+            //Assert
+            indexMethodCall
+                .ShouldRenderView("ImportResults")
+                .WithModel<SkillsFrameworkResultsViewModel>(
+                    vm => vm.OtherMessage.Should().Contain(errorMessage)
+                );
+            A.CallTo(() => fakeReportAuditRepository.GetAllAuditRecords()).MustHaveHappened();
+
+        }
+
         private SkillsFrameworkDataImportController GetSkillsFrameworkDataImportController(bool isAdmin, int batchSizeForImport)
         {
             A.CallTo(() => fakeWebAppContext.IsUserAdministrator).Returns(isAdmin);

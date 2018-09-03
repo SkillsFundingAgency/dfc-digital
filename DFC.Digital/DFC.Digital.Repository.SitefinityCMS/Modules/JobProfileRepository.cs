@@ -113,13 +113,17 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                 dynamicContentExtensions.DeleteRelatedFieldValues(master, RelatedSkillField);
 
+                float ordinal = 1;
                 foreach (var socSkillMatrix in skillMatrices)
                 {
                     var relatedSocSkillItem = socSkillRepository.Get(d => d.Status == ContentLifecycleStatus.Master && d.UrlName == socSkillMatrix.SfUrlName);
+
                     if (relatedSocSkillItem != null)
                     {
-                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocSkillItem, RelatedSkillField);
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocSkillItem, RelatedSkillField, socSkillMatrix.Rank.HasValue ? (float)socSkillMatrix.Rank.Value : ordinal);
                     }
+
+                    ordinal++;
                 }
 
                 dynamicContentExtensions.SetFieldValue(master, nameof(JobProfile.DigitalSkillsLevel), jobProfile.DigitalSkillsLevel);

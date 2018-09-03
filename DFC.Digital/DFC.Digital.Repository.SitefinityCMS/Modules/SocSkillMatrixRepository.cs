@@ -52,7 +52,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         d.GetValue<string>(nameof(FrameworkSkill.ONetElementId)) == socSkillMatrix.ONetElementId);
                     if (relatedSkillItem != null)
                     {
-                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSkillItem, RelatedSkillField);
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSkillItem, RelatedSkillField, 1);
                     }
                 }
 
@@ -64,7 +64,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         d.GetValue<string>(nameof(SocCode.SOCCode)) == socSkillMatrix.SocCode);
                     if (relatedSocItem != null)
                     {
-                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocItem, RelatedSocField);
+                        dynamicContentExtensions.SetRelatedFieldValue(master, relatedSocItem, RelatedSocField, 1);
                     }
                 }
 

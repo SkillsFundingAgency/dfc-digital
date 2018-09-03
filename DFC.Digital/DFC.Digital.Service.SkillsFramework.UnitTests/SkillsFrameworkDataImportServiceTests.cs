@@ -82,7 +82,35 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustHaveHappened(numberOfSocs * 2, Times.OrLess);
         }
 
-        
+        [Fact]
+        public void UpdateSocCodesOccupationalCodeNullTest()
+        {
+            // Arrange
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+
+            var SocCodesFromOnet = new List<SocCode>();
+            SocCodesFromOnet.Add(new SocCode { SOCCode = "1", ONetOccupationalCode = null });
+            SocCodesFromOnet.Add(new SocCode { SOCCode = "3", ONetOccupationalCode = "" });
+
+            var SocCodesFromSitefinity = new List<SocCode>();
+            SocCodesFromSitefinity.Add(new SocCode { SOCCode = "1", ONetOccupationalCode = "" });   //Null gets translated to ""
+            SocCodesFromSitefinity.Add(new SocCode { SOCCode = "3", ONetOccupationalCode = "" });
+
+            //Dummies and Fakes
+            A.CallTo(() => fakeJobProfileSocCodeRepository.GetSocCodes()).Returns(SocCodesFromSitefinity.AsQueryable());
+            A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).Returns(SocCodesFromOnet);
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit(A<string>._, A<string>._)).DoesNothing();
+            A.CallTo(() => fakeJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).Returns(new RepoActionResult());
+
+            // Act
+            skillsImportService.UpdateSocCodesOccupationalCode();
+
+            // Assert
+            A.CallTo(() => fakeJobProfileSocCodeRepository.GetSocCodes()).MustHaveHappened();
+            A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).MustHaveHappened();
+            A.CallTo(() => fakeJobProfileSocCodeRepository.UpdateSocOccupationalCode(A<SocCode>._)).MustNotHaveHappened();
+        }
+
         [Theory]
         [InlineData(0)]
         [InlineData(20)]

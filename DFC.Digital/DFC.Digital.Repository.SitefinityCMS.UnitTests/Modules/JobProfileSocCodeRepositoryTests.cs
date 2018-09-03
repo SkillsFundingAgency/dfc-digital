@@ -254,6 +254,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             var witJp = new JobProfileOverloadForWhatItTakes();
 
             var dummyVacancies = validSoc ? A.CollectionOfDummy<DynamicContent>(2).AsEnumerable().AsQueryable() : Enumerable.Empty<DynamicContent>().AsQueryable();
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._)).Returns("test");
             A.CallTo(() => fakeDynamicContentExtensions.GetRelatedParentItems(A<DynamicContent>._, A<string>._, A<string>._)).Returns(dummyVacancies);
 
             A.CallTo(() => fakeConverterLight.ConvertFrom(A<DynamicContent>._)).Returns(witJp);

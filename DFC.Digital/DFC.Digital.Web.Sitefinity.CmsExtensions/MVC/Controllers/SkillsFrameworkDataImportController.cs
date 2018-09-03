@@ -167,7 +167,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 
             if (webAppContext.IsUserAdministrator)
             {
-                importSkillsFrameworkDataService.ImportForSocs(jobProfileSoc);
+                try
+                {
+                    importSkillsFrameworkDataService.ImportForSocs(jobProfileSoc);
+                }
+                catch (Exception ex)
+                {
+                    otherMessage = $"{ex.Message} <br /> {ex.InnerException} <br /> {ex.StackTrace}";
+                }
+               
             }
             else
             {

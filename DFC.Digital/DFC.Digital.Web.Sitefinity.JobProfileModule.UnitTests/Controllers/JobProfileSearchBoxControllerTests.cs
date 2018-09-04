@@ -7,12 +7,14 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -540,6 +542,85 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 A.CallTo(() => serviceFake.GetSuggestion(A<string>.That.Matches(m => m == searchTerm), A<SuggestProperties>._))
                     .MustHaveHappened(Repeated.Exactly.Once);
+            }
+        }
+
+           // DFC-1496 Autocomplete - bug/DFC-1640
+        [Theory]
+        [InlineData("", true, 5, 2)]
+        [InlineData("police", true, 5, 2)]
+        [InlineData("instructor", true, 5, 2)]
+        public void SuggestionsAutoCompleteUpperCaseTest(string searchTerm, bool useFuzzyAutoCompleteMatching, int maximumNumberOfDisplayedSuggestions, int autoCompleteMinimumCharacters)
+        {
+            //Setup Fakes & dummies
+            var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
+            var fakeAsyncHelper = new AsyncHelper();
+            var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var mapperCfg = new MapperConfiguration(cfg =>
+                        {
+                            cfg.AddProfile<JobProfilesAutoMapperProfile>();
+                        });
+
+            var dummySuggestResult = A.Dummy<SuggestionResult<JobProfileIndex>>();
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                dummySuggestResult.Results = Enumerable.Empty<SuggestionResultItem<JobProfileIndex>>();
+            }
+            else
+            {
+                var dummyIndex = new JobProfileIndex
+                {
+                    Title = searchTerm,
+                    AlternativeTitle = new[] { "alt" },
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
+                    Overview = "overview",
+                    UrlName = "dummy-url"
+                };
+                var dummyIndex2 = new JobProfileIndex
+                {
+                    Title = searchTerm + "constable",
+                    AlternativeTitle = new[] { "alt2" },
+                    SalaryStarter = 10,
+                    SalaryExperienced = 10,
+                    Overview = "overview 2",
+                    UrlName = "dummy-url 2"
+                };
+
+                dummySuggestResult.Results = A.CollectionOfDummy<SuggestionResultItem<JobProfileIndex>>(2);
+                dummySuggestResult.Results.ToList()[0].Index = dummyIndex;
+                dummySuggestResult.Results.ToList()[0].MatchedSuggestion = searchTerm;
+                dummySuggestResult.Results.ToList()[1].Index = dummyIndex2;
+                dummySuggestResult.Results.ToList()[1].MatchedSuggestion = searchTerm;
+            }
+
+            //Set-up calls
+            A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).Returns(dummySuggestResult);
+
+            //Instantiate
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
+            {
+                UseFuzzyAutoCompleteMatching = useFuzzyAutoCompleteMatching,
+                MaximumNumberOfDisplayedSuggestions = maximumNumberOfDisplayedSuggestions,
+                AutoCompleteMinimumCharacters = autoCompleteMinimumCharacters
+            };
+
+            //Act
+            searchController.WithCallTo(c => c.Suggestions(searchTerm, maximumNumberOfDisplayedSuggestions, useFuzzyAutoCompleteMatching));
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).MustNotHaveHappened();
+            }
+            else
+            {
+                var result = searchController.Suggestions(searchTerm, maximumNumberOfDisplayedSuggestions, useFuzzyAutoCompleteMatching) as JsonResult;
+                A.CallTo(() => serviceFake.GetSuggestion(A<string>.That.Matches(m => m == searchTerm), A<SuggestProperties>._))
+                    .MustHaveHappened();
+                var jsonResultData = JsonConvert.DeserializeObject<List<AutocompleteModel>>(JsonConvert.SerializeObject(result.Data));
+                jsonResultData.First().Label.First().ToString().Should().Be(jsonResultData.First().Label.First().ToString().ToUpper());
             }
         }
 

@@ -70,6 +70,11 @@ namespace DFC.Digital.Service.LMIFeed
 
         public async Task<JobProfileSalary> GetSalaryBySocAsync(string socCode)
         {
+            if (socCode == null)
+            {
+                throw new ArgumentNullException(nameof(socCode));
+            }
+
             try
             {
                 // Four digit soccode

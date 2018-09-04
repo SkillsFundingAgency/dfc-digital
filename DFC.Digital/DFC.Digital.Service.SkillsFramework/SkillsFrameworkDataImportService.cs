@@ -61,7 +61,7 @@ namespace DFC.Digital.Service.SkillsFramework
             foreach (var socCode in allSocCodes)
             {
                 var occupationalCode = occupationalCodeMappings.FirstOrDefault(occmap => occmap.SOCCode.Equals(socCode.SOCCode, StringComparison.OrdinalIgnoreCase))
-                    ?.ONetOccupationalCode;
+                    ?.ONetOccupationalCode ?? string.Empty;
 
                 var auditMessage = $"{(totalRecordsCount++).ToString("0000")} - Got occupational code [{occupationalCode}] for SOC : {socCode.SOCCode} from SkillFramework Service ";
 
@@ -97,11 +97,11 @@ namespace DFC.Digital.Service.SkillsFramework
             var startingNumber = skillsFrameworkService.GetSocMappingStatus();
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Before Import  - SOCs awaiting import-{startingNumber.AwaitingUpdate} : SOCs completed-{startingNumber.UpdateCompleted} :  SOCs started but not completed-{startingNumber.SelectedForUpdate} ");
 
-            var Socs = jobProfileSocs.Split(',');
-            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Importing {Socs.Count()} SOC(s)");
-            foreach (string Soc in Socs)
+            var socs = jobProfileSocs.Split(',');
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Importing {socs.Count()} SOC(s)");
+            foreach (var soc in socs)
             {
-                ImportForSingleSoc(Soc);
+                ImportForSingleSoc(soc.Trim());
             }
 
             var endingNumber = skillsFrameworkService.GetSocMappingStatus();
@@ -193,9 +193,9 @@ namespace DFC.Digital.Service.SkillsFramework
             {
                 skillsFrameworkService.SetSocStatusCompleted(soc);
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-                reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
-            } 
+            }
+            reportAuditRepository.CreateAudit(ActionDetailsKey, "-----------------------------------------------------------------------------------------------------------------------------");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, " ");
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)
@@ -226,7 +226,8 @@ namespace DFC.Digital.Service.SkillsFramework
                     Skill = occupationSkill.Name,
                     ONetRank = occupationSkill.Score,
                     Rank = rankGenerated,
-                    ONetElementId = occupationSkill.Id
+                    ONetElementId = occupationSkill.Id,
+                    ONetAttributeType = occupationSkill.Type.ToString()
                 };
                 socSkillMatrixRepository.UpsertSocSkillMatrix(socSkillToAdd);
                 socSkillMatrixData.Add(socSkillToAdd);

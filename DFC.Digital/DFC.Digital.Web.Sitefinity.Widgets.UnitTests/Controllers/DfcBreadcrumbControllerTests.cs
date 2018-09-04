@@ -55,10 +55,14 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         }
 
         [Theory]
-        [InlineData("administration", "~/job-categories", "Administration")]
-        [InlineData("border-force-officer", "~/job-profiles", "Border force officer")]
-        [InlineData("", "~/search-results", "Search results")]
-        public void IndexUrlNameTest(string urlName, string nodeUrl, string nodeTitle)
+        [InlineData("administration", "~/job-categories", "Administration", true)]
+        [InlineData("administration", "~/job-categories", "Administration", false)]
+        [InlineData("border-force-officer", "~/job-profiles", "Border force officer", true)]
+        [InlineData("", "~/search-results", "Search results", true)]
+        [InlineData("test", "~/job-categories", "", true)]
+        [InlineData("test", "~/job-profiles", "", true)]
+
+        public void IndexUrlNameTest(string urlName, string nodeUrl, string nodeTitle, bool hasDfcPageSiteNode)
         {
             //Setup the fakes and dummies
             var repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
@@ -75,24 +79,57 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             dummyDfcPageSiteNode.Url = new Uri(nodeUrl, UriKind.RelativeOrAbsolute);
 
             // Set up calls
-            A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);
-            A.CallTo(() => repositoryJobProfileFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
-            A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(dummyDfcPageSiteNode);
+            if (string.IsNullOrEmpty(nodeTitle))
+            {
+                A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(null);
+                A.CallTo(() => repositoryJobProfileFake.GetByUrlName(A<string>._)).Returns(null);
+            }
+            else
+            {
+                A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(dummyCategory);
+                A.CallTo(() => repositoryJobProfileFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            }
+
+            if (hasDfcPageSiteNode)
+            {
+                A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(dummyDfcPageSiteNode);
+            }
+            else
+            {
+                A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(null);
+            }
 
             //Instantiate & Act
-            var dfcBreadcrumbController = new DfcBreadcrumbController(repositoryCategoryFake, repositoryJobProfileFake, sitefinityCurrentContext, loggerFake);
+            var dfcBreadcrumbController = new DfcBreadcrumbController(repositoryCategoryFake, repositoryJobProfileFake, sitefinityCurrentContext, loggerFake)
+            {
+                 HomepageLink = nameof(DfcBreadcrumbController.HomepageLink),
+                HomepageText = nameof(DfcBreadcrumbController.HomepageText)
+            };
 
             //Act
             var indexMethodCall = dfcBreadcrumbController.WithCallTo(c => c.Index(urlName));
 
             //Assert
-            indexMethodCall
-                   .ShouldRenderDefaultView()
-                   .WithModel<DfcBreadcrumbViewModel>(vm =>
-                   {
-                       vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
-                   })
-                   .AndNoModelErrors();
+            if (hasDfcPageSiteNode)
+            {
+                indexMethodCall
+                       .ShouldRenderDefaultView()
+                       .WithModel<DfcBreadcrumbViewModel>(vm =>
+                       {
+                           vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
+                       })
+                       .AndNoModelErrors();
+            }
+            else
+            {
+                indexMethodCall
+                  .ShouldRenderDefaultView()
+                  .WithModel<DfcBreadcrumbViewModel>(vm =>
+                  {
+                      vm.BreadcrumbPageTitleText.Should().BeEquivalentTo("Breadcrumb cannot establish the page node");
+                  })
+                  .AndNoModelErrors();
+            }
         }
     }
 }

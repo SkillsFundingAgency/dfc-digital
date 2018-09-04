@@ -194,8 +194,8 @@ namespace DFC.Digital.Service.SkillsFramework
                 skillsFrameworkService.SetSocStatusCompleted(soc);
                 reportAuditRepository.CreateAudit(ActionDetailsKey, $"Set status to Completed for SOC {soc.SOCCode}");
             }
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $"-----------------------------------------------------------------------------------------------------------------------------");
-            reportAuditRepository.CreateAudit(ActionDetailsKey, $" ");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, "-----------------------------------------------------------------------------------------------------------------------------");
+            reportAuditRepository.CreateAudit(ActionDetailsKey, " ");
         }
 
         public IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc)

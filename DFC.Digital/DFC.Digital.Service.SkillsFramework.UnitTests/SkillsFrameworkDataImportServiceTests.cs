@@ -262,6 +262,46 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         }
 
         [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ImportForSingleSocJobProfileLockedTest(bool lockedJp)
+        {
+            var numberOfRelatedSkills = 2;
+            var dummySoc = GetSOCs(1).FirstOrDefault();
+            var dummyJobProfiles = GetLiveImportJobProfiles(1, lockedJp);
+
+
+            A.CallTo(() => fakeSkillsFrameworkService.SetSocStatusCompleted(A<SocCode>._)).DoesNothing();
+            A.CallTo(() => fakeSkillsFrameworkService.SetSocStatusSelectedForUpdate(A<SocCode>._)).DoesNothing();
+            A.CallTo(() => fakeSocSkillMatrixRepository.UpsertSocSkillMatrix(A<SocSkillMatrix>._)).DoesNothing();
+
+            A.CallTo(() => fakeJobProfileSocCodeRepository.GetBySocCode(A<string>._)).Returns(dummySoc);
+            A.CallTo(() => fakeJobProfileSocCodeRepository.GetLiveJobProfilesBySocCode(dummySoc.SOCCode)).Returns(dummyJobProfiles);
+            A.CallTo(() => fakeSkillsFrameworkService.GetDigitalSkillLevel(A<string>._)).Returns(DigitalSkillsLevel.Level3);
+            A.CallTo(() => fakeSkillsFrameworkService.GetRelatedSkillMapping(A<string>._)).Returns(GetRelatedSkill(numberOfRelatedSkills));
+            A.CallTo(() => fakeJobProfileRepository.UpdateSocSkillMatrices(A<JobProfileOverloadForWhatItTakes>._, A<IEnumerable<SocSkillMatrix>>._)).Returns(new RepoActionResult { Success = true });
+
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+
+            //Act
+            skillsImportService.ImportForSingleSoc(dummySoc.SOCCode);
+
+            if (lockedJp)
+            {
+                A.CallTo(() => fakeJobProfileRepository.UpdateSocSkillMatrices(A<JobProfileOverloadForWhatItTakes>._, A<IEnumerable<SocSkillMatrix>>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>.That.Contains("could not be updated as it is locked or already in a Draft status with Soc code"))).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeJobProfileRepository.UpdateSocSkillMatrices(A<JobProfileOverloadForWhatItTakes>._, A<IEnumerable<SocSkillMatrix>>._)).MustHaveHappened(dummyJobProfiles.Count(), Times.Exactly);
+                A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>.That.Contains("could not be updated as it is locked or already in a Draft status with Soc code"))).MustNotHaveHappened();
+            }
+
+              A.CallTo(() => fakeReportAuditRepository.CreateAudit("ActionDetails", A<string>._)).MustHaveHappened(4, Times.OrMore);
+
+        }
+
+        [Theory]
         [InlineData(1)]
         [InlineData(2)]
         public void ImportForSocsTest(int numberOfJobProfiles)
@@ -339,13 +379,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             return list.AsQueryable();
         }
 
-        private static IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveImportJobProfiles(int count)
+        private static IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveImportJobProfiles(int count, bool locked = false)
         {
             var list = new List<JobProfileOverloadForWhatItTakes>();
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new JobProfileOverloadForWhatItTakes { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(JobProfileOverloadForWhatItTakes.DigitalSkillsLevel), HasRelatedSocSkillMatrices = true });
+                list.Add(new JobProfileOverloadForWhatItTakes { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(JobProfileOverloadForWhatItTakes.DigitalSkillsLevel), HasRelatedSocSkillMatrices = true, Locked = locked});
             }
             return list;
         }

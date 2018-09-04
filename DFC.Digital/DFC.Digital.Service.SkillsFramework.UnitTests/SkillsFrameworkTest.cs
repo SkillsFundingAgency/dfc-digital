@@ -184,6 +184,34 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             A.CallTo(() => fakeSocMappingRepository.SetUpdateStatusForSocs(A<List<SocCode>>._, SkillsFrameworkUpdateStatus.UpdateCompleted)).MustHaveHappenedOnceExactly();
         }
 
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetDigitalSkillLevelTest(bool digitalSkillAvailable)
+        {
+            var skillsFrameworkService = new SkillsFrameworkService(fakeApplicationLogger,
+                fakeDigitalSkill,
+                fakeSkillsRepository,
+                fakeSkillsBusinessRuleEngine,
+                fakeSocMappingRepository
+            );
+
+            A.CallTo(() => fakeDigitalSkill.GetById(A<string>._)).Returns(digitalSkillAvailable ? new DigitalSkill() : null);
+            A.CallTo(() => fakeSkillsBusinessRuleEngine.GetDigitalSkillsLevel(A<int>._)).Returns(DigitalSkillsLevel.Level0);
+            skillsFrameworkService.GetDigitalSkillLevel("test");
+
+            A.CallTo(() => fakeDigitalSkill.GetById(A<string>._)).MustHaveHappened();
+            if (digitalSkillAvailable)
+            {
+                A.CallTo(() => fakeSkillsBusinessRuleEngine.GetDigitalSkillsLevel(A<int>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeSkillsBusinessRuleEngine.GetDigitalSkillsLevel(A<int>._)).MustNotHaveHappened();
+            }
+        }
+
         [Fact]
         public void SetSocStatusSelectedForUpdateTest()
         {

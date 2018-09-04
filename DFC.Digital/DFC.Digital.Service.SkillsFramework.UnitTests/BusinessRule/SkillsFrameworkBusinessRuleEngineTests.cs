@@ -296,6 +296,48 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             results.Should().BeEquivalentTo(expectedResults);
         }
 
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void BoostMathsSkillsNoSkillsKnowledgeTest(bool mathsAvailable)
+        {
+            //Setup
+
+            const string maths = "Mathematics";
+
+            List<OnetSkill> testMathsData = new List<OnetSkill>
+            {
+                GetOnetAttribute(AttributeType.Skill, 10, KeyLength.seven),
+                GetOnetAttribute(AttributeType.Knowledge, 5, KeyLength.five),
+                GetOnetAttribute(AttributeType.WorkStyle, 5, KeyLength.three)
+            };
+
+            //Set the skill and Knowledge items to be maths
+            if (mathsAvailable)
+            {
+                testMathsData[0].Name = maths;
+                testMathsData[1].Name = maths;
+            }
+
+
+            ISkillFrameworkBusinessRuleEngine ruleEngine = new SkillFrameworkBusinessRuleEngine(fakeskillsRepository, fakeFrameworkSkillSuppression, fakeCombinationSkill, fakeContentReference);
+
+            //Act
+            var results = ruleEngine.BoostMathsSkills(testMathsData).ToList();
+
+            //Asserts
+            if (mathsAvailable)
+            {
+                //The first maths for skills should get removed and the second one for knowledge should have its score boosted by 10% 
+                testMathsData[0].Score = testMathsData[0].Score * 1.1m;
+                var expectedResults = testMathsData.FindAll(a => a.Type != AttributeType.Knowledge);
+
+                results.Should().BeEquivalentTo(expectedResults);
+            }
+       
+        }
+
         [Theory]
         [InlineData(true)]
         [InlineData(false)]

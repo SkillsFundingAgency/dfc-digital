@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value);
 
         [IgnoreInputInInterception]
-        void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName);
+        void SetRelatedFieldValue(DynamicContent contentItem, DynamicContent relatedContentItem, string fieldName, float ordinal);
 
         [IgnoreInputInInterception]
         void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName);

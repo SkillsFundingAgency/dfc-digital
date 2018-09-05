@@ -278,11 +278,11 @@
 
                 &:nth-child(even) {
                     float: left;
+                }
 
-                    &:before {
-                        content: "- ";
-                        margin-left: 3px;
-                    }
+                .job-profile-salary-to {
+                    display: inline !important;
+                    margin: 0;
                 }
 
                 span {

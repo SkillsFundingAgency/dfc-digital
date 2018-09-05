@@ -43,15 +43,14 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                     .Implements(typeof(System.Data.Entity.Infrastructure.IDbAsyncEnumerable<unspsc_reference>)))
                 .SetupData(unspscReferences.ToList());
 
-            //Act
             A.CallTo(() => fakeDbContext.tools_and_technology).Returns(fakeToolsAndTechnologyDbSet);
             A.CallTo(() => fakeDbContext.unspsc_reference).Returns(fakeUnspcDataSet);
 
-
+            //Act
             var repo = new DigitalSkillsQueryRepository(fakeDbContext);
+            var result = repo.GetById(testONetCode);
 
             //Assert
-            var result = repo.GetById(testONetCode);
             result.Should().NotBeNull();
             result.ApplicationCount.Should().Be(1);
         }
@@ -62,7 +61,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             {
                 commodity_code = 123,
                 hot_technology = "Y",
-          //      occupation_data = new occupation_data(),
                 onetsoc_code = OnetCode,
                 t2_type = toolOrTechnology,
                 t2_example = "DummyExample"

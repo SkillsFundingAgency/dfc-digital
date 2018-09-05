@@ -6,47 +6,80 @@ using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Repository.ONET.Query;
 using Xunit;
+using DFC.Digital.Core;
+
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
-    public class DigitalSkillsQueryRepositoryTests:HelperOnetDatas
+    public class DigitalSkillsQueryRepositoryTests : HelperOnetDatas
     {
-        [Theory]
-        [MemberData(nameof(OnetDigitalSkills))]
-        public void GetDigitalSkillsLevel(IReadOnlyCollection<tools_and_technology> setupDataToolsAndTechnologies, IReadOnlyCollection<unspsc_reference> setupDataUnspscReferences, string onetSocCode, int numberOfRecords, int applicationCount)
+        [Fact]
+        public void GetDigitalSkillsLevel()
         {
+            var testONetCode = "test123";
+
             //Arrange
+            var toolsAndTechnology = new List<tools_and_technology>();
 
-            var setupTools = new List<tools_and_technology>(numberOfRecords);
-            setupTools.AddRange(Enumerable.Repeat(setupDataToolsAndTechnologies.ToList()[0], numberOfRecords));
+            //This is the one record that should count
+            toolsAndTechnology.Add(GetToolsAndTechnologyRecord(testONetCode, Constants.Technology));
 
-            var setupUnspscReferences = new List<unspsc_reference>(numberOfRecords);
-            setupUnspscReferences.AddRange(Enumerable.Repeat(setupDataUnspscReferences.ToList()[0], numberOfRecords));
+            //Not a Technology
+            toolsAndTechnology.Add(GetToolsAndTechnologyRecord(testONetCode, "DummyTool"));
 
+            //Not linked to test onet code
+            toolsAndTechnology.Add(GetToolsAndTechnologyRecord("DummyCode", Constants.Technology));
+
+            var unspscReferences = new List<unspsc_reference>();
+            unspscReferences.Add(GetUnspscReferenceRecord());
 
             var fakeDbContext = A.Fake<OnetSkillsFramework>();
             var fakeToolsAndTechnologyDbSet = A.Fake<DbSet<tools_and_technology>>(c => c
                     .Implements(typeof(IQueryable<tools_and_technology>))
                     .Implements(typeof(System.Data.Entity.Infrastructure.IDbAsyncEnumerable<tools_and_technology>)))
-                .SetupData(setupTools.ToList());
+                .SetupData(toolsAndTechnology.ToList());
 
             var fakeUnspcDataSet = A.Fake<DbSet<unspsc_reference>>(c => c
                     .Implements(typeof(IQueryable<unspsc_reference>))
                     .Implements(typeof(System.Data.Entity.Infrastructure.IDbAsyncEnumerable<unspsc_reference>)))
-                .SetupData(setupUnspscReferences.ToList());
+                .SetupData(unspscReferences.ToList());
 
-            //Act
             A.CallTo(() => fakeDbContext.tools_and_technology).Returns(fakeToolsAndTechnologyDbSet);
             A.CallTo(() => fakeDbContext.unspsc_reference).Returns(fakeUnspcDataSet);
 
-
+            //Act
             var repo = new DigitalSkillsQueryRepository(fakeDbContext);
+            var result = repo.GetById(testONetCode);
 
             //Assert
-            var result = repo.GetById(onetSocCode);
             result.Should().NotBeNull();
-            result.ApplicationCount.Should().NotBe(0);
-            result.ApplicationCount.Should().Be(applicationCount);
+            result.ApplicationCount.Should().Be(1);
         }
 
+        private tools_and_technology GetToolsAndTechnologyRecord(string OnetCode, string toolOrTechnology)
+        {
+            return new tools_and_technology()
+            {
+                commodity_code = 123,
+                hot_technology = "Y",
+                onetsoc_code = OnetCode,
+                t2_type = toolOrTechnology,
+                t2_example = "DummyExample"
+            };
+        }
+
+        private  unspsc_reference GetUnspscReferenceRecord()
+        {
+            return new unspsc_reference()
+            {
+                commodity_code = 123,
+                class_title = "Technology",
+                class_code = (decimal)0.2,
+                commodity_title = "commoditytitle",
+                family_code = (decimal)0.4,
+                segment_code = (decimal)0.7,
+                segment_title = "title"
+            };
+        }
     }
+
 }

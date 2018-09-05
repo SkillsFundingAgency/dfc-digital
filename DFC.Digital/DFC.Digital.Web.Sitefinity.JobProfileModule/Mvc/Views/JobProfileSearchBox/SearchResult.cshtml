@@ -3,10 +3,10 @@
 {
     <div class="search-header">
         <div class="searchfield">
-            <fieldset class="search-input ui-front">
+            <div class="search-input ui-front">
                 <label for="search-main">
                     <h1 class="search-title">
-                        Search results for <span class="visuallyhidden">“@Model.SearchTerm”</span>
+                        Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
                     </h1>
                 </label>
                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
@@ -18,10 +18,10 @@
                data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
                data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
                })
-            </fieldset>
-            <fieldset class="search-submit">
+            </div>
+            <div class="search-submit">
                 <button type="submit" class="button">Search</button>
-            </fieldset>
+            </div>
         </div>
         <div class="search-dym">
             @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl?.OriginalString))

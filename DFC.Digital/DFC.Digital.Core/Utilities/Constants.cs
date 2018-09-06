@@ -33,5 +33,6 @@
         public const string ServiceStatusFailedCheckLogsMessage = "Service status check failed, check logs with activity id";
         public const int DefaultMaxRelatedItems = 100;
         public const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
+        public const string Technology = "Technology";
     }
 }

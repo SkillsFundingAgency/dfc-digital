@@ -11,7 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
 {
     public class SkillsFrameworkImportViewTests
     {
-        /*
+        
         [Theory]
         [InlineData(true,10,5,5)]
         [InlineData(false,6000989,10,10)]
@@ -25,7 +25,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
                 NotAllowedMessage = nameof(SkillsFrameworkImportViewModel.NotAllowedMessage),
                 FirstParagraph = nameof(SkillsFrameworkImportViewModel.FirstParagraph),
                 SocMappingStatus = new Data.Model.SocMappingStatus { AwaitingUpdate= awaitingUpdate, SelectedForUpdate=selectedForUpdate, UpdateCompleted=updateCompleted},
-                IsAdmin = isAdmin
+                IsAdmin = isAdmin,
+                NextBatchOfSOCsToImport = nameof(SkillsFrameworkResultsViewModel.NextBatchOfSOCsToImport)
             };
             
              // Act
@@ -50,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
                 AssertImportDropDownAvailable(htmlDom, false);
             }
         }
-        */
+        
 
         private void AssertSocMappingStatusValues(HtmlDocument htmlDom, string socMappingStatusId, string innerTextValue)
         {

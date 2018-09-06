@@ -482,10 +482,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData("Techer")]
-        [InlineData("Teacher")]
-        public void SuggestionsTest(string searchTerm)
+        [InlineData("", "")]
+        [InlineData("Techer", "Teacher")]
+        public void SuggestionsTest(string searchTerm, string expectation)
         {
             //Setup Fakes & dummies
             var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -494,14 +493,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var fakeAsyncHelper = new AsyncHelper();
             var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             var mapperCfg = new MapperConfiguration(cfg =>
-                        {
-                            cfg.AddProfile<JobProfilesAutoMapperProfile>();
-                        });
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
 
             var dummySuggestResult = new SuggestionResult<JobProfileIndex>();
-            var results = new List<SuggestionResultItem<JobProfileIndex>>();
-            results.Add(new SuggestionResultItem<JobProfileIndex>() { MatchedSuggestion = "matched" });
-            dummySuggestResult.Results = results;
+            dummySuggestResult.Results = new List<SuggestionResultItem<JobProfileIndex>>
+            {
+                new SuggestionResultItem<JobProfileIndex>() { MatchedSuggestion = expectation.ToLower() }
+            };
 
             //Set-up calls
             A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).Returns(dummySuggestResult);
@@ -510,18 +510,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake);
 
             var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
-
-            //var b = JsonConvert.DeserializeObject<Suggestion>(result.ShouldReturnJson().Data.ToString());
-            //var result = (JsonResult)searchController.Suggestions(searchTerm, 5, true);
-
-            //JObject o = JObject.Parse(result.ToString());
-            //Suggestion br = o["Data"].ToObject<Suggestion>();
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
+                result.ShouldReturnEmptyResult();
                 A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).MustNotHaveHappened();
             }
             else
             {
+                result.ShouldReturnJson(json =>
+                {
+                    var suggestions = json as IEnumerable<Suggestion>;
+                    suggestions.First().label.Should().Be(expectation);
+                });
                 A.CallTo(() => serviceFake.GetSuggestion(A<string>.That.Matches(m => m == searchTerm), A<SuggestProperties>._))
                     .MustHaveHappened(Repeated.Exactly.Once);
             }

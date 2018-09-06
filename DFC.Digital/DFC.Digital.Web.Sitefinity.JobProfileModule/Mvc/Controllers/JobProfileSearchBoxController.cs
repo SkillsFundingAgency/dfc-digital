@@ -257,15 +257,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var results = searchQueryService.GetSuggestion(
-                    term,
-                    new SuggestProperties { UseFuzzyMatching = fuzzySearch, MaxResultCount = maxNumberDisplayed });
-                return Json(
-                    results.Results.Select(s => new Suggestion
-                    {
-                        label = s.MatchedSuggestion.First().ToString().ToUpper() + s.MatchedSuggestion.Substring(1)
-                    }).GroupBy(x => x.label).Select(x => x.First()),
-                    JsonRequestBehavior.AllowGet);
+                var props = new SuggestProperties
+                {
+                    UseFuzzyMatching = fuzzySearch,
+                    MaxResultCount = maxNumberDisplayed
+                };
+                var results = searchQueryService.GetSuggestion(term, props);
+                var suggestions = results.Results.Select(s => new Suggestion
+                {
+                    label = s.MatchedSuggestion.First().ToString().ToUpper() + s.MatchedSuggestion.Substring(1)
+                });
+                var distinctSuggestions = suggestions.GroupBy(x => x.label).Select(x => x.First());
+                return Json(distinctSuggestions, JsonRequestBehavior.AllowGet);
             }
 
             return new EmptyResult();

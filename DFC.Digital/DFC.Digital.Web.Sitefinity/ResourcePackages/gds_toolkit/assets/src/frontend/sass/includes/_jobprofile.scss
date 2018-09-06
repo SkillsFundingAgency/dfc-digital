@@ -280,13 +280,16 @@
                     float: left;
                 }
 
-                .job-profile-salary-to {
+                i {
                     display: inline !important;
-                    margin: 0;
+                    font-style: normal;
+                    margin: 0 5px !important;
+                    float: none !important;
                 }
 
                 span {
                     margin-top: 0;
+                    display: none;
 
                     &:after, &:before {
                         display: none;

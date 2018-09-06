@@ -132,6 +132,11 @@ main {
     }
 }
 
+.sr-hidden {
+    float: left;
+    margin-left: -10000px;
+}
+
 .js-enabled {
 
     .js-hidden {

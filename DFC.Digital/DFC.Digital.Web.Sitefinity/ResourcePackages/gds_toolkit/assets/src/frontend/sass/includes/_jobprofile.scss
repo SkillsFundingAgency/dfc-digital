@@ -276,20 +276,19 @@
                 float: left;
                 text-align: left;
 
+                i {
+                    display: inline;
+                    float: none;
+                    margin: 0 5px;
+                    font-style: normal;
+                }
+
                 &:nth-child(even) {
                     float: left;
                 }
 
-                i {
-                    display: inline !important;
-                    font-style: normal;
-                    margin: 0 5px !important;
-                    float: none !important;
-                }
-
                 span {
                     margin-top: 0;
-                    display: none;
 
                     &:after, &:before {
                         display: none;

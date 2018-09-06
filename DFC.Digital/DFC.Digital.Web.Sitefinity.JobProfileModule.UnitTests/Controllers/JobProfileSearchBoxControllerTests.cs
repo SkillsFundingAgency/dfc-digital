@@ -509,13 +509,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Instantiate
             var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake);
 
-            // var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
+            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
+
             //var b = JsonConvert.DeserializeObject<Suggestion>(result.ShouldReturnJson().Data.ToString());
-            var result = (JsonResult)searchController.Suggestions(searchTerm, 5, true);
+            //var result = (JsonResult)searchController.Suggestions(searchTerm, 5, true);
 
-            JObject o = JObject.Parse(result.ToString());
-            Suggestion br = o["Data"].ToObject<Suggestion>();
-
+            //JObject o = JObject.Parse(result.ToString());
+            //Suggestion br = o["Data"].ToObject<Suggestion>();
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
                 A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).MustNotHaveHappened();

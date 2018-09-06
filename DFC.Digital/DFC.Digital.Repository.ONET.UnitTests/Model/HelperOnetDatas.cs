@@ -270,7 +270,6 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         }
         public static IEnumerable<object[]> OnetWhatitTakesManyData()
         {
-
             yield return new object[]
             {
                 DfcTranslations,
@@ -284,45 +283,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 "1.A.1.a",
                 "1.A.1.b"
             };
-           
 
-        }
-        public static IEnumerable<object[]> OnetDigitalSkills()
-        {
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsreference,
-                "11-3071.03",
-                9,
-                81
-
-            };
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsreference,
-                "11-3071.03",
-                7,
-                49
-
-            };
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsreference,
-                "11-3071.03",
-                12,
-                144
-            };
-            yield return new object[]
-            {
-                DfcToolsandTechnology,
-                DfcUnspcsreference,
-                "11-3071.03",
-                20,
-                400
-            };
         }
     }
 }

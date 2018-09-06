@@ -67,7 +67,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() =>
                 fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
             A.CallTo(() =>
-                fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).DoesNothing();
+                fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._, A<float>._)).DoesNothing();
             A.CallTo(() =>
                 fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
 
@@ -91,7 +91,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 A.CallTo(() => fakeSocMatrixRepository.Publish(dummyDynamicContent, A<string>._))
                     .MustHaveHappenedOnceExactly();
                 A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).MustHaveHappened(2, Times.OrLess);
+                    fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._, A<float>._)).MustHaveHappened(2, Times.OrLess);
                 A.CallTo(() =>
                         fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._))
                     .MustHaveHappened(2, Times.OrLess);

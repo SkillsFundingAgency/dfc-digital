@@ -151,7 +151,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeRepository.Update(dummyDynamicContent, digitalSkill)).DoesNothing();
             A.CallTo(() => fakeRepository.Commit()).DoesNothing();
             A.CallTo(() =>
-                fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._)).DoesNothing();
+                fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._, A<float>._)).DoesNothing();
             A.CallTo(() =>
                 fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
             A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
@@ -176,7 +176,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 A.CallTo(() => fakeRepository.Update(dummyDynamicContent, A<string>._)).MustHaveHappened();
                 A.CallTo(() => fakeRepository.Commit()).MustHaveHappened();
                    A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetRelatedFieldValue(A<DynamicContent>._, A<DynamicContent>._, "RelatedSkills")).MustHaveHappened();
+                    fakeDynamicContentExtensions.SetRelatedFieldValue(A<DynamicContent>._, A<DynamicContent>._, "RelatedSkills", A<float>._)).MustHaveHappened();
                 A.CallTo(() =>
                         fakeDynamicContentExtensions.DeleteRelatedFieldValues(A<DynamicContent>._, A<string>._))
                     .MustHaveHappened();
@@ -190,7 +190,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 A.CallTo(() => fakeRepository.Commit()).MustNotHaveHappened();
                 A.CallTo(() => fakeRepository.CheckinTemp(dummyDynamicContent)).MustNotHaveHappened();
                  A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetRelatedFieldValue(A<DynamicContent>._, A<DynamicContent>._, A<string>._)).MustNotHaveHappened();
+                    fakeDynamicContentExtensions.SetRelatedFieldValue(A<DynamicContent>._, A<DynamicContent>._, A<string>._, A<float>._)).MustNotHaveHappened();
                 A.CallTo(() =>
                     fakeDynamicContentExtensions.DeleteRelatedFieldValues(A<DynamicContent>._, A<string>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeSocSkillRepo.Get(A<Expression<Func<DynamicContent, bool>>>._))

@@ -5,7 +5,7 @@ namespace DFC.Digital.Service.SkillsFramework
 {
     public class InMemoryReportAuditRepository : IReportAuditRepository
     {
-        private Dictionary<string, IList<string>> auditRecords = new Dictionary<string, IList<string>>();
+        private readonly Dictionary<string, IList<string>> auditRecords = new Dictionary<string, IList<string>>();
 
         public void CreateAudit(string category, string auditItem)
         {
@@ -18,22 +18,6 @@ namespace DFC.Digital.Service.SkillsFramework
                 auditRecords.Add(category, new List<string> { auditItem });
             }
         }
-
-        public IEnumerable<string> GetAllAuditRecordsByCategory(string category)
-        {
-            if (auditRecords.ContainsKey(category))
-            {
-                return auditRecords[category];
-            }
-
-            return default;
-        }
-
-        public IEnumerable<string> GetAllAuditRecordsCategories()
-        {
-            return auditRecords.Keys;
-        }
-
         public IDictionary<string, IList<string>> GetAllAuditRecords()
         {
             return auditRecords;

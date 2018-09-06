@@ -127,7 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModel\AutocompleteModel.cs" />
     <Compile Include="Controllers\BaseJobProfileWidgetControllerTests.cs" />
     <Compile Include="Controllers\JobProfileBAUSignpostingControllerTests.cs" />
     <Compile Include="Controllers\JobProfileByCategoryControllerTests.cs" />

@@ -8,7 +8,7 @@
             <h1 class="heading-xlarge"> @Model.Title</h1>
             @if (!string.IsNullOrWhiteSpace(Model.AlternativeTitle))
             {
-                <h2 class="heading-secondary">@Model.AlternativeTitle</h2>
+                <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>@Model.AlternativeTitle</h2>
             }
 
             <p>@Model.Overview</p>

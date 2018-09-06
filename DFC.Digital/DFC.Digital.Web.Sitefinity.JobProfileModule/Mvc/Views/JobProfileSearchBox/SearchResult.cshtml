@@ -48,7 +48,7 @@
                             <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
                             @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
                             {
-                                <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                                <p class="meta dfc-code-search-jpAltTitle"><span class="sr-hidden">Alternative titles for this job include </span>@jobProfile.ResultItemAlternativeTitle</p>
                             }
                             <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
                             <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary">@if (string.IsNullOrEmpty(jobProfile.ResultItemSalaryRange))

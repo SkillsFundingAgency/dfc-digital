@@ -86,5 +86,49 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             A.CallTo(() => fakeDocuments.SuggestWithHttpMessagesAsync<JobProfileIndex>(A<string>._, A<string>._, A<SuggestParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.ConvertToSuggestionResult(A<DocumentSuggestResult<JobProfileIndex>>._, A<SuggestProperties>._)).MustHaveHappened();
         }
+
+        [Fact]
+        public async Task GetSuggestionAsyncTest()
+        {
+            var fakeDocuments = A.Fake<IDocumentsOperations>();
+            var fakeIndexClient = A.Fake<ISearchIndexClient>();
+            var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>();
+            var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            var suggestParameters = new SuggestParameters { UseFuzzyMatching = true, Top = null };
+            var azResponse = new AzureOperationResponse<DocumentSuggestResult<JobProfileIndex>>
+            {
+                Body = new DocumentSuggestResult<JobProfileIndex>
+                {
+                    Coverage = 1,
+                    Results = new List<SuggestResult<JobProfileIndex>>
+                    {
+                        new SuggestResult<JobProfileIndex>
+                        {
+                            Document = DummyJobProfileIndex.GenerateJobProfileIndexDummy("one"),
+                            Text = "one",
+                        },
+                        new SuggestResult<JobProfileIndex>
+                        {
+                            Document = DummyJobProfileIndex.GenerateJobProfileIndexDummy("two"),
+                            Text = "two",
+                        }
+                    }
+                }
+            };
+
+            A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).Returns(suggestParameters);
+            A.CallTo(() => fakeDocuments.SuggestWithHttpMessagesAsync<JobProfileIndex>(A<string>._, A<string>._, A<SuggestParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
+                .Returns(azResponse);
+            A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocuments);
+
+            // Act
+            var searchService = new AzSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakeLogger);
+            await searchService.GetSuggestionAsync("searchTerm", new SuggestProperties { MaxResultCount = 20, UseFuzzyMatching = true });
+
+            A.CallTo(() => fakeQueryConverter.BuildSuggestParameters(A<SuggestProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
+            A.CallTo(() => fakeDocuments.SuggestWithHttpMessagesAsync<JobProfileIndex>(A<string>._, A<string>._, A<SuggestParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryConverter.ConvertToSuggestionResult(A<DocumentSuggestResult<JobProfileIndex>>._, A<SuggestProperties>._)).MustHaveHappened();
+        }
     }
 }

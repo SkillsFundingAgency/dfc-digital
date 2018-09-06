@@ -51,8 +51,12 @@ namespace DFC.Digital.Service.SkillsFramework
         public DigitalSkillsLevel GetDigitalSkillLevel(string onetOccupationalCode)
         {
             var digitalSkill = digitalSkillRepository.GetById(onetOccupationalCode);
-            var rank= skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
-            return rank;
+            if (digitalSkill != null)
+            {
+                var rank = skillsBusinessRuleEngine.GetDigitalSkillsLevel(digitalSkill.ApplicationCount);
+                return rank;
+            }
+            return default;
         }
 
         public IEnumerable<OnetSkill> GetRelatedSkillMapping(string onetOccupationalCode)

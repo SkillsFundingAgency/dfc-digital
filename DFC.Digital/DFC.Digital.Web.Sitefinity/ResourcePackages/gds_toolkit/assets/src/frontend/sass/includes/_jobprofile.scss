@@ -20,18 +20,6 @@
             li {
                 padding-left: 20px;
                 text-indent: -20px;
-
-                &:before {
-                    content: ">";
-                    color: $govuk-blue;
-                    margin-right: 10px;
-                    font-weight: bold;
-                    position: relative;
-                    top: 1px;
-                }
-
-                a {
-                }
             }
         }
 

@@ -6,10 +6,6 @@ namespace DFC.Digital.Data.Interfaces
     {
         void CreateAudit(string category, string auditItem);
 
-        IEnumerable<string> GetAllAuditRecordsByCategory(string category);
-
-        IEnumerable<string> GetAllAuditRecordsCategories();
-
         IDictionary<string, IList<string>> GetAllAuditRecords();
     }
 }

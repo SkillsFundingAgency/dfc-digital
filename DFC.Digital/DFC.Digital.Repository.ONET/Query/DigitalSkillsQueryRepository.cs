@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
@@ -11,7 +12,7 @@ namespace DFC.Digital.Repository.ONET.Query
     public class DigitalSkillsQueryRepository : IQueryRepository<DigitalSkill>
     {
         private readonly OnetSkillsFramework onetDbContext;
-    
+      
         public DigitalSkillsQueryRepository(OnetSkillsFramework onetDbContext)
         {
             this.onetDbContext = onetDbContext;
@@ -31,7 +32,7 @@ namespace DFC.Digital.Repository.ONET.Query
         {
             var applicationCount = (from o in onetDbContext.tools_and_technology
                                     join od in onetDbContext.unspsc_reference on o.commodity_code equals od.commodity_code
-                                    where o.onetsoc_code == onetOccupationalCode
+                                    where o.onetsoc_code == onetOccupationalCode && o.t2_type == Constants.Technology
                                     orderby o.t2_type, od.class_title
                                     select o).Count();
             return new DigitalSkill

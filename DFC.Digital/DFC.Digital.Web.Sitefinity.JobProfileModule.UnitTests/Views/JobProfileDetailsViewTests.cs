@@ -203,6 +203,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 if (salaryStarterElement.InnerText.Contains(salaryStarterText))
                 {
                     string salaryStarterString = salaryStarterElement.InnerText.Replace(salaryStarterText, string.Empty).Replace("&#163;", string.Empty).Trim();
+                    salaryStarterString = salaryStarterString.Replace("to", string.Empty);
                     if (double.TryParse(salaryStarterString, out var salaryStarterGoodValue))
                     {
                         salaryStarter = salaryStarterGoodValue;

@@ -264,13 +264,15 @@
                 float: left;
                 text-align: left;
 
+                i {
+                    display: inline;
+                    float: none;
+                    margin: 0 5px;
+                    font-style: normal;
+                }
+
                 &:nth-child(even) {
                     float: left;
-
-                    &:before {
-                        content: "- ";
-                        margin-left: 3px;
-                    }
                 }
 
                 span {

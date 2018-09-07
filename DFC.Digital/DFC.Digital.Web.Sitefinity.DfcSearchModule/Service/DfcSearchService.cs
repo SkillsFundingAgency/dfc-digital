@@ -13,6 +13,7 @@ using Telerik.Sitefinity.Services.Search.Data;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class DfcSearchService : AzureSearchService
     {
         public const string Name = "DfcSearchService";

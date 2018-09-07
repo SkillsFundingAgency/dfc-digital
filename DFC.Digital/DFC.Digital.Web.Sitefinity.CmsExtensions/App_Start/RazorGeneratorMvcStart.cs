@@ -6,6 +6,7 @@ using RazorGenerator.Mvc;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.CmsExtensions.RazorGeneratorMvcStart), "Start")]
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class RazorGeneratorMvcStart {
         public static void Start() {
             var engine = new PrecompiledMvcEngine(typeof(RazorGeneratorMvcStart).Assembly) {

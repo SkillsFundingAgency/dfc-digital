@@ -3,10 +3,10 @@
 {
     <div class="search-header">
         <div class="searchfield">
-            <fieldset class="search-input ui-front">
+            <div class="search-input ui-front">
                 <label for="search-main">
                     <h1 class="search-title">
-                        Search results for <span class="visuallyhidden">“@Model.SearchTerm”</span>
+                        Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
                     </h1>
                 </label>
                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
@@ -18,10 +18,10 @@
                data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
                data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
                })
-            </fieldset>
-            <fieldset class="search-submit">
+            </div>
+            <div class="search-submit">
                 <button type="submit" class="button">Search</button>
-            </fieldset>
+            </div>
         </div>
         <div class="search-dym">
             @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl?.OriginalString))
@@ -48,7 +48,7 @@
                             <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
                             @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
                             {
-                                <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                                <p class="meta dfc-code-search-jpAltTitle"><span class="sr-hidden">Alternative titles for this job include </span>@jobProfile.ResultItemAlternativeTitle</p>
                             }
                             <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
                             <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary">@if (string.IsNullOrEmpty(jobProfile.ResultItemSalaryRange))

@@ -101,14 +101,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         
 
         [Theory]
+        [InlineData(false, null, 10)]
         [InlineData(false, "", 10)]
-        [InlineData(true, "IMPORTSKILLS", 10)]
-        [InlineData(true, "UPDATESOCOCCUPATIONALCODES", 10)]
-        [InlineData(true, "UPDATEJPDIGITALSKILLS", 10)]
-        [InlineData(true, "BUILDSOCMATRIX", 10)]
-        [InlineData(true, "UPDATEJPSKILLS", 10)]
+        [InlineData(true, " IMPORTSKILLS ", 10)]
+        [InlineData(true, " UPDATESOCOCCUPATIONALCODES", 10)]
+        [InlineData(true, " UPDATEJPDIGITALSKILLS", 10)]
+        [InlineData(true, "buildsocmatrix  ", 10)]
+        [InlineData(true, "UPDATEJPSKILLS  ", 10)]
         [InlineData(true, "RESETSOCIMPORTALLSTATUS", 10)]
-        [InlineData(true, "RESETSOCIMPORTSTARTEDSTATUS", 10)]
+        [InlineData(true, "resetsocimportstartedstatus", 10)]
         [InlineData(true, "", 10)]
         public void IndexModeTest(bool isAdmin, string mode, int batchSizeForImport)
         {

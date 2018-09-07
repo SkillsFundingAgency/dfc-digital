@@ -70,6 +70,27 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 A<string>.That.IsEqualTo("test"), A<SearchRequestOptions>._, A<AccessCondition>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
         }
 
+        [Fact]
+        public void IndexExistsTest()
+        {
+            //Arrange or configure
+            var azOpResponse = new AzureOperationResponse<bool>
+            {
+                Body = true
+            };
+            A.CallTo(() => fakeSearchClient.Indexes).Returns(fakeIndexes);
+            A.CallTo(() => fakeIndexes.ExistsWithHttpMessagesAsync(
+                    A<string>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._))
+                .Returns(azOpResponse);
+
+            var azSearchService = new AzSearchService<JobProfileIndex>(fakeSearchClient, fakeIndexClient, fakeSuggesterBuilder, policy);
+            azSearchService.IndexExists("test");
+
+            A.CallTo(() => fakeSearchClient.Indexes).MustHaveHappened();
+            A.CallTo(() => fakeIndexes.ExistsWithHttpMessagesAsync(
+                A<string>.That.IsEqualTo("test"), A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+        }
+
         [Theory]
         [InlineData(201)]
         [InlineData(500)]

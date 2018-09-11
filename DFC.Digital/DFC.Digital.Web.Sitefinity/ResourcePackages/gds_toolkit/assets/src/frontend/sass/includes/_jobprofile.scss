@@ -20,18 +20,6 @@
             li {
                 padding-left: 20px;
                 text-indent: -20px;
-
-                &:before {
-                    content: ">";
-                    color: $govuk-blue;
-                    margin-right: 10px;
-                    font-weight: bold;
-                    position: relative;
-                    top: 1px;
-                }
-
-                a {
-                }
             }
         }
 
@@ -276,13 +264,15 @@
                 float: left;
                 text-align: left;
 
+                i {
+                    display: inline;
+                    float: none;
+                    margin: 0 5px;
+                    font-style: normal;
+                }
+
                 &:nth-child(even) {
                     float: left;
-
-                    &:before {
-                        content: "- ";
-                        margin-left: 3px;
-                    }
                 }
 
                 span {

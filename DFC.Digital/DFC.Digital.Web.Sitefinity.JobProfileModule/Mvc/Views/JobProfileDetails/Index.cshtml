@@ -8,7 +8,7 @@
             <h1 class="heading-xlarge"> @Model.Title</h1>
             @if (!string.IsNullOrWhiteSpace(Model.AlternativeTitle))
             {
-                <h2 class="heading-secondary">@Model.AlternativeTitle</h2>
+                <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>@Model.AlternativeTitle</h2>
             }
 
             <p>@Model.Overview</p>
@@ -30,7 +30,7 @@
             <div class="job-profile-salary job-profile-heroblock-content">
                 @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                 {
-                    <h5 class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter)<span>@Model.SalaryStarterText</span></h5>
+                    <h5 class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <i class="sr-hidden">@Model.SalaryRangeDivider</i><span>@Model.SalaryStarterText</span></h5> 
                     <h5 class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></h5>
                 }
                 else

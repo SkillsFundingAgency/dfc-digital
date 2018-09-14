@@ -213,7 +213,7 @@
                 position: relative;
             }
 
-            &:nth-child(odd) {
+            &:nth-child(1) {
                 float: left;
 
                 span {
@@ -222,13 +222,13 @@
                         font-size: 20px;
                         position: absolute;
                         font-weight: bold;
-                        top: -24px;
+                        top: -21px;
                         left: -2px;
                     }
                 }
             }
 
-            &:nth-child(even) {
+            &:nth-child(3) {
                 float: right;
                 text-align: right;
 
@@ -241,7 +241,7 @@
                         font-size: 20px;
                         position: absolute;
                         font-weight: bold;
-                        top: -24px;
+                        top: -21px;
                         right: -2px;
                     }
                 }
@@ -259,17 +259,19 @@
                 display: none;
             }
 
+            i {
+                margin: 0 5px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+            }
+
             h5 {
                 margin: 0;
                 float: left;
                 text-align: left;
 
-                i {
-                    display: inline;
-                    float: none;
-                    margin: 0 5px;
-                    font-style: normal;
-                }
+
 
                 &:nth-child(even) {
                     float: left;

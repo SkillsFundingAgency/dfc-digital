@@ -342,13 +342,12 @@
         padding: 0;
 
         li {
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin: 0;
             font-size: 16px;
+            display: inline-block;
+            width: 100%;
             @extend %contain-floats;
-            -webkit-column-break-inside: avoid;
-            page-break-inside: avoid;
-            break-inside: avoid;
 
             a {
                 color: $black;
@@ -365,14 +364,21 @@
                     color: $white;
 
                     &:after {
-                        color: $white;
+                        border: solid $white;
+                        border-width: 0 3px 3px 0;
                     }
                 }
 
                 &:after {
-                    content: ">";
+                    content: "";
+                    border: solid $govuk-blue;
+                    border-width: 0 3px 3px 0;
+                    display: inline-block;
+                    padding: 3px;
+                    margin: 6px;
+                    transform: rotate(-45deg);
+                    -webkit-transform: rotate(-45deg);
                     float: right;
-                    color: $govuk-blue;
                 }
             }
         }
@@ -384,6 +390,7 @@
             -webkit-column-gap: 25px;
             column-count: 2;
             column-gap: 25px;
+            margin-top: -5px;
         }
     }
 }

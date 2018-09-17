@@ -57,6 +57,8 @@
 
         public string SalaryContextText { get; set; }
 
+        public string SalaryRangeDivider { get; set; } = "to";
+
         public string MaxAndMinHoursAreBlankText { get; set; }
 
         public string HoursTimePeriodText { get; set; }

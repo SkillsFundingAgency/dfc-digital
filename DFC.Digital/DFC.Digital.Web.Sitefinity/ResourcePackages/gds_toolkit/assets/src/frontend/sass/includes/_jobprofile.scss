@@ -213,7 +213,7 @@
                 position: relative;
             }
 
-            &:nth-child(odd) {
+            &:nth-child(1) {
                 float: left;
 
                 span {
@@ -222,13 +222,13 @@
                         font-size: 20px;
                         position: absolute;
                         font-weight: bold;
-                        top: -24px;
+                        top: -21px;
                         left: -2px;
                     }
                 }
             }
 
-            &:nth-child(even) {
+            &:nth-child(3) {
                 float: right;
                 text-align: right;
 
@@ -241,7 +241,7 @@
                         font-size: 20px;
                         position: absolute;
                         font-weight: bold;
-                        top: -24px;
+                        top: -21px;
                         right: -2px;
                     }
                 }
@@ -259,17 +259,19 @@
                 display: none;
             }
 
+            i {
+                margin: 0 5px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+            }
+
             h5 {
                 margin: 0;
                 float: left;
                 text-align: left;
 
-                i {
-                    display: inline;
-                    float: none;
-                    margin: 0 5px;
-                    font-style: normal;
-                }
+
 
                 &:nth-child(even) {
                     float: left;
@@ -340,13 +342,12 @@
         padding: 0;
 
         li {
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin: 0;
             font-size: 16px;
+            display: inline-block;
+            width: 100%;
             @extend %contain-floats;
-            -webkit-column-break-inside: avoid;
-            page-break-inside: avoid;
-            break-inside: avoid;
 
             a {
                 color: $black;
@@ -363,14 +364,21 @@
                     color: $white;
 
                     &:after {
-                        color: $white;
+                        border: solid $white;
+                        border-width: 0 3px 3px 0;
                     }
                 }
 
                 &:after {
-                    content: ">";
+                    content: "";
+                    border: solid $govuk-blue;
+                    border-width: 0 3px 3px 0;
+                    display: inline-block;
+                    padding: 3px;
+                    margin: 6px;
+                    transform: rotate(-45deg);
+                    -webkit-transform: rotate(-45deg);
                     float: right;
-                    color: $govuk-blue;
                 }
             }
         }
@@ -382,6 +390,7 @@
             -webkit-column-gap: 25px;
             column-count: 2;
             column-gap: 25px;
+            margin-top: -5px;
         }
     }
 }

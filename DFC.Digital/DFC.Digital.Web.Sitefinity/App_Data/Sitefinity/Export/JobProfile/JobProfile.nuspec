@@ -2,27 +2,19 @@
 <package>
   <metadata>
     <id>JobProfile</id>
-    <version>1.0.31.2</version>
+    <version>1.0.33.1</version>
     <title>JobProfile</title>
-    <authors>DFC development team</authors>
-    <owners>DFC</owners>
-    <language>en-GB</language>
+    <authors>system</authors>
+    <owners>system</owners>
+    <language>en-US</language>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Job Profile Dynamic Module, defining the content type(s) and classifications associated with Job Profile Data.
-      Includes complete set for MVS Pre Search Filters.
-      Now Updated HTB now uses classifications for entry requirements intro.
-      Reorder edit form in backend and helper messages
-    </description>
+    <description>JobProfile</description>
     <references></references>
-    <dependencies>
-      <dependency id="PreSearchFilters" version="1.0.0.3" />
-    </dependencies>
   </metadata>
   <files>
-    <file src="..\JobProfile\**\*.*" exclude="..\JobProfile\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\JobProfile" />
-    <file src="..\JobProfile\**\*.ps1" target="tools" />
-    <file src="..\JobProfile\**\*.psm1" target="tools" />
+    <file src="C:\Hari\SkillsFunding\DFC\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\JobProfile\**\*.*" exclude="C:\Hari\SkillsFunding\DFC\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\JobProfile\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\JobProfile" />
+    <file src="C:\Hari\SkillsFunding\DFC\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\JobProfile\**\*.ps1" target="tools" />
+    <file src="C:\Hari\SkillsFunding\DFC\DFC.Digital\DFC.Digital.Web.Sitefinity\App_Data\Sitefinity\Export\JobProfile\**\*.psm1" target="tools" />
   </files>
 </package>

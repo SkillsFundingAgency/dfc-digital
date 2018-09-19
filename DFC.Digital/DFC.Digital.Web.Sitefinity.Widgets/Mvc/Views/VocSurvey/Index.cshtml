@@ -7,7 +7,7 @@
         <div class="survey_email">
             <label class="form-label survey_label" for="survey-emailaddress">Email address <span class="font-xsmall">@Html.Raw(Model.AgeLimitText)</span></label>
 
-            @Html.TextBoxFor(model => model.EmailAddress, new {type = "email", required = "required", @class="form-control survey_input", id = "survey-emailaddress"})
+            @Html.TextBoxFor(model => model.EmailAddress, new {type = "email", required = "required", @class="form-control survey_input", autocomplete = "off", id = "survey-emailaddress"})
         </div>
         <div>
             <input type="submit" value="Send" class="button survey_button js-survey-button" />

@@ -65,8 +65,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, HttpUtility.UrlDecode(cookie));
                 }
             }
-
-            if (!profile.Personalisation.ContainsKey(Constants.LastVisitedJobProfileKey))
+            else
             {
                 profile.Personalisation.Add(Constants.LastVisitedJobProfileKey, Constants.Unknown);
             }

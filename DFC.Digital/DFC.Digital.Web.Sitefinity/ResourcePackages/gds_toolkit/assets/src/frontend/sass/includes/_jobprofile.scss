@@ -105,7 +105,7 @@
 }
 
 .job-profile-heroblock {
-    h4 {
+    h2 {
         width: 100%;
         border-bottom: 1px solid $grey-3;
         color: $careers-turquoise;
@@ -161,10 +161,11 @@
         }
 
 
-        h5 {
+        p {
             font-size: 20px;
             line-height: 1.25;
             letter-spacing: -0.25px;
+            margin: 0;
 
             span {
                 @include core-14;
@@ -184,7 +185,7 @@
                 display: none;
             }
 
-            h5 {
+            p {
                 text-align: right;
             }
         }
@@ -206,7 +207,7 @@
             top: 45px;
         }
 
-        h5 {
+        p {
 
             span {
                 margin-top: 20px;
@@ -266,7 +267,7 @@
                 font-size: 20px;
             }
 
-            h5 {
+            p {
                 margin: 0;
                 float: left;
                 text-align: left;
@@ -293,7 +294,7 @@
             background: file-url("clock.svg") no-repeat center;
         }
 
-        h5 {
+        p {
             margin-left: 60px;
         }
     }
@@ -303,7 +304,7 @@
             background: file-url("calendar-alt.svg") no-repeat center;
         }
 
-        h5 {
+        p {
             margin-left: 60px;
         }
     }
@@ -313,7 +314,7 @@
             background-color: darken($grey-4, 5%);
         }
 
-        h4 {
+        h2 {
             width: 50%;
             float: left;
             border: none;

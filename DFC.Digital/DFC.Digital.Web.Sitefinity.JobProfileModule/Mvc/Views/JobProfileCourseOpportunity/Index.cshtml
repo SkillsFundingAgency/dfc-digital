@@ -34,16 +34,12 @@
 @if (!Model.CoursesAvailable)
 {
     <div class="dfc-code-jp-NoTrainingCoursesText">
-        <p>
-            @Html.Raw(Model.NoTrainingCoursesText)
-        </p>
+        @Html.Raw(Model.NoTrainingCoursesText)
     </div>
 }
 else
 {
     <div class="dfc-code-jp-TrainingCoursesText">
-        <p>
-            @Html.Raw(Model.TrainingCoursesText)
-        </p>
+         @Html.Raw(Model.TrainingCoursesText)
     </div>
 }

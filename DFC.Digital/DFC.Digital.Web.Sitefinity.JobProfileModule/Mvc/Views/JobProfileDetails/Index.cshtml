@@ -16,7 +16,7 @@
     </div>
     <div class="grid-row">
         <div id="Salary" class="column-40 job-profile-heroblock">
-            <h4>
+            <h2>
                 @Model.SalaryText
                 @if (!string.IsNullOrEmpty(Model.SalaryTextSpan))
                 {
@@ -26,13 +26,13 @@
                 {
                     <a href='@Model.SalaryContextLink'>@Model.SalaryContextText</a>
                 }
-            </h4>
+            </h2>
             <div class="job-profile-salary job-profile-heroblock-content">
                 @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                 {
-                    <h5 class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></h5> 
+                    <p class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></p> 
                      <i class="sr-hidden">@Model.SalaryRangeDivider</i>
-                    <h5 class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></h5>
+                    <p class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></p>
                 }
                 else
                 {
@@ -41,9 +41,9 @@
             </div>
         </div>
         <div id="WorkingHours" class="column-30 job-profile-heroblock">
-            <h4>@Model.HoursText <span>@Model.HoursTimePeriodText</span></h4>
+            <h2>@Model.HoursText <span>@Model.HoursTimePeriodText</span></h2>
             <div class="job-profile-hours job-profile-heroblock-content">
-                <h5 class="dfc-code-jphours">
+                <p class="dfc-code-jphours">
                     @if (string.IsNullOrWhiteSpace(Model.MinimumHours) || string.IsNullOrWhiteSpace(Model.MaximumHours))
                     {
                         @Model.MaxAndMinHoursAreBlankText
@@ -53,27 +53,27 @@
                         @Model.MinimumHours <text>to</text> @Model.MaximumHours
                     }
                     <span  class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetails</span>
-                </h5>
+                </p>
             </div>
         </div>
         @if (!string.IsNullOrEmpty(Model.WorkingPattern))
         {
             <div id="WorkingHoursPatterns" class="column-30 job-profile-heroblock">
-                <h4>
+                <h2>
                     @Model.WorkingPatternText
                     @if (!string.IsNullOrEmpty(Model.WorkingPatternSpanText))
                     {
                         <span>@Model.WorkingPatternSpanText</span>
                     }
-                </h4>
+                </h2>
                 <div class="job-profile-pattern job-profile-heroblock-content">
-                    <h5 class="dfc-code-jpwpattern">
+                    <p class="dfc-code-jpwpattern">
                         @Model.WorkingPattern
                         @if (!string.IsNullOrEmpty(Model.WorkingPatternDetails))
                         {
                             <span class="dfc-code-jpwpatterndetail">@Model.WorkingPatternDetails</span>
                         }
-                    </h5>
+                    </p>
                 </div>
             </div>
         }

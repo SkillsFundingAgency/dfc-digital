@@ -44,8 +44,8 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <value>
         /// The Suffix for page title.
         /// </value>
-        [DisplayName("Page Title Suffix (e.g. Find a career )")]
-        public string PageTitleSuffix { get; set; } = "Find a career ";
+        [DisplayName("Page Title Suffix (e.g. Explorer Careers )")]
+        public string PageTitleSuffix { get; set; } = "Explore Careers";
 
         [DisplayName("Title Seperator (e.g. |)")]
         public string PageTitleSeparator { get; set; } = "|";

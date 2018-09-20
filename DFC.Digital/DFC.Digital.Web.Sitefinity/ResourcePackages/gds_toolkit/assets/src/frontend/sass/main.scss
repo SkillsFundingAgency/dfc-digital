@@ -119,17 +119,24 @@ main {
 
     li {
         &:before {
-            content: ">";
-            color: $govuk-blue;
+            content: "";
+            border: solid $govuk-blue;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
             margin-right: 10px;
-            font-weight: bold;
-            position: relative;
-            top: 1px;
         }
 
         a {
         }
     }
+}
+
+.sr-hidden {
+    float: left;
+    margin-left: -10000px;
 }
 
 .js-enabled {

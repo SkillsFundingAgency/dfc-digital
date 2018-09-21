@@ -9,7 +9,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
-using DFC.Digital.Repository.ONET.Query;
 using System;
 
 namespace DFC.Digital.Repository.ONET.UnitTests

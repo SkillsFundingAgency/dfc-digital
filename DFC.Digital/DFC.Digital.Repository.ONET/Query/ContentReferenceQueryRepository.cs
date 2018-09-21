@@ -4,7 +4,7 @@ using DFC.Digital.Repository.ONET.DataModel;
 using System;
 using System.Linq;
 
-namespace DFC.Digital.Repository.ONET.Query
+namespace DFC.Digital.Repository.ONET
 {
     public class ContentReferenceQueryRepository : IQueryRepository<FrameworkContent>
     {

@@ -5,7 +5,6 @@ using DFC.Digital.Repository.ONET.DataModel;
 using FluentAssertions;
 using DFC.Digital.Service.SkillsFramework;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.ONET.Query;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;

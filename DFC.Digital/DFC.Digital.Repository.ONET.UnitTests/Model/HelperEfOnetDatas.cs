@@ -36,7 +36,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
         };
 
-        protected static IEnumerable<DFC_SocMappings> AwaitingUpdateDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> AwaitingUpdateDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {
@@ -59,7 +59,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             }
         };
 
-        protected static IEnumerable<DFC_SocMappings> UpdateCompletedDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> UpdateCompletedDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {
@@ -86,7 +86,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             }
         };
 
-        protected static IEnumerable<DFC_SocMappings> SelectedForUpdateDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> SelectedForUpdateDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {

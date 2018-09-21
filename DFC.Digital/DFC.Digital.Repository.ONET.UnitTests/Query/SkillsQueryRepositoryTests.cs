@@ -6,7 +6,6 @@ using System.Data.Entity.Infrastructure;
 using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Repository.ONET.DataModel;
-using DFC.Digital.Repository.ONET.Query;
 using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Repository.ONET.UnitTests

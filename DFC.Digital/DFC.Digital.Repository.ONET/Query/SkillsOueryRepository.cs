@@ -26,7 +26,7 @@ namespace DFC.Digital.Repository.ONET.Query
                              {
                                  OnetOccupationalCode = ability.onetsoc_code,
                                  Id = ability.element_id,
-                                 Type = AttributeType.Ability,
+                                 Category = CategoryType.Ability,
                                  Score = ability.data_value,
                              };
             return attributes;
@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.ONET.Query
                              {
                                  OnetOccupationalCode = knowledge.onetsoc_code,
                                  Id = knowledge.element_id,
-                                 Type = AttributeType.Knowledge,
+                                 Category = CategoryType.Knowledge,
                                  Score = knowledge.data_value,
                              };
             return attributes;
@@ -59,7 +59,7 @@ namespace DFC.Digital.Repository.ONET.Query
                              {
                                  OnetOccupationalCode = skill.onetsoc_code,
                                  Id = skill.element_id,
-                                 Type = AttributeType.Skill,
+                                 Category = CategoryType.Skill,
                                  Score = skill.data_value,
                              };
             return attributes;
@@ -74,7 +74,7 @@ namespace DFC.Digital.Repository.ONET.Query
                              {
                                  OnetOccupationalCode = workStyle.onetsoc_code,
                                  Id = workStyle.element_id,
-                                 Type = AttributeType.WorkStyle,
+                                 Category = CategoryType.WorkStyle,
                                  Score = workStyle.data_value,
                              };
             return attributes;

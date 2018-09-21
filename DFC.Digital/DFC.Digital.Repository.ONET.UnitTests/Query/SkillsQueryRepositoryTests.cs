@@ -45,7 +45,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 r.Id.Should().Be(expectedResults[index].element_id);
                 r.Score.Should().Be(expectedResults[index++].data_value);
                 r.OnetOccupationalCode.Should().Be(oNetOccupationCodeForTestJP);
-                r.Type.Should().Be(AttributeType.Ability);
+                r.Category.Should().Be(CategoryType.Ability);
             }
 
         }
@@ -79,7 +79,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 r.Id.Should().Be(expectedResults[index].element_id);
                 r.Score.Should().Be(expectedResults[index++].data_value);
                 r.OnetOccupationalCode.Should().Be(oNetOccupationCodeForTestJP);
-                r.Type.Should().Be(AttributeType.Knowledge);
+                r.Category.Should().Be(CategoryType.Knowledge);
             }
 
         }
@@ -113,7 +113,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 r.Id.Should().Be(expectedResults[index].element_id);
                 r.Score.Should().Be(expectedResults[index++].data_value);
                 r.OnetOccupationalCode.Should().Be(oNetOccupationCodeForTestJP);
-                r.Type.Should().Be(AttributeType.Skill);
+                r.Category.Should().Be(CategoryType.Skill);
             }
 
         }
@@ -147,7 +147,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 r.Id.Should().Be(expectedResults[index].element_id);
                 r.Score.Should().Be(expectedResults[index++].data_value);
                 r.OnetOccupationalCode.Should().Be(oNetOccupationCodeForTestJP);
-                r.Type.Should().Be(AttributeType.WorkStyle);
+                r.Category.Should().Be(CategoryType.WorkStyle);
             }
         }
 

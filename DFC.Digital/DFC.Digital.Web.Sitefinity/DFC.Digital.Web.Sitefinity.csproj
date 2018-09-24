@@ -989,6 +989,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\thumbs-down.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\thumbs-up.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\tree.svg" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\webchat.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-1.12.4.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\jquery-ui.min.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\js\selectivizr.min.js" />
@@ -1276,6 +1277,7 @@
       <Generator>RazorGenerator</Generator>
     </Content>
     <Content Include="dependencybin\**" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_webchat.scss" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DFC.Digital.Repository.ONET.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.Digital.Repository.ONET.DataModel;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
 

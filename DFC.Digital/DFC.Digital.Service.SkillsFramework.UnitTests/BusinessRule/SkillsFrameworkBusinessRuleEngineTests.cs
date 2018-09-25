@@ -10,7 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Data.Entity.Infrastructure;
 
-namespace DFC.Digital.Repository.ONET.UnitTests
+namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
 
     public class SkillsFrameworkBusinessRuleEngineTests

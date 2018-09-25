@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using FakeItEasy;
-using DFC.Digital.Repository.ONET.DataModel;
 using AutoMapper;
-using DFC.Digital.Repository.ONET;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
+using DFC.Digital.Repository.ONET.DataModel;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {

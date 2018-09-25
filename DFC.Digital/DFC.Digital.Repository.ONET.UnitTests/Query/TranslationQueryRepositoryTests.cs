@@ -8,7 +8,6 @@ using FakeItEasy;
 using FluentAssertions;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
-using DFC.Digital.Repository.ONET;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
 {

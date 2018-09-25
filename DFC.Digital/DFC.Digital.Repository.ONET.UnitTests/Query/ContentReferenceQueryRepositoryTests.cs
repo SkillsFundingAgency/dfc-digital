@@ -8,7 +8,7 @@ using FluentAssertions;
 using DFC.Digital.Repository.ONET.DataModel;
 
 namespace DFC.Digital.Repository.ONET.UnitTests
-{
+{ 
     public class ContentReferenceQueryRepositoryTests
     {
 

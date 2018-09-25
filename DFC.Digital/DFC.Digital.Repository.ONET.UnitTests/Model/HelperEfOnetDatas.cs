@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DFC.Digital.Repository.ONET.DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.Digital.Repository.ONET.DataModel;
 namespace DFC.Digital.Repository.ONET.UnitTests
 {
 
@@ -36,7 +36,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
         };
 
-        protected static IEnumerable<DFC_SocMappings> AwaitingUpdateDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> AwaitingUpdateDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {
@@ -59,7 +59,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             }
         };
 
-        protected static IEnumerable<DFC_SocMappings> UpdateCompletedDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> UpdateCompletedDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {
@@ -86,7 +86,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             }
         };
 
-        protected static IEnumerable<DFC_SocMappings> SelectedForUpdateDfcSocMappings = new List<DFC_SocMappings>
+        protected static readonly IEnumerable<DFC_SocMappings> SelectedForUpdateDfcSocMappings = new List<DFC_SocMappings>
         {
             new DFC_SocMappings
             {

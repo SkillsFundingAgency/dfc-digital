@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
@@ -7,7 +6,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DFC.Digital.Repository.ONET.Query
+namespace DFC.Digital.Repository.ONET
 {
     public class DigitalSkillsQueryRepository : IQueryRepository<DigitalSkill>
     {
@@ -28,11 +27,11 @@ namespace DFC.Digital.Repository.ONET.Query
             throw new NotImplementedException();
         }
 
-        public DigitalSkill GetById(string onetOccupationalCode)
+        public DigitalSkill GetById(string id)
         {
             var applicationCount = (from o in onetDbContext.tools_and_technology
                                     join od in onetDbContext.unspsc_reference on o.commodity_code equals od.commodity_code
-                                    where o.onetsoc_code == onetOccupationalCode && o.t2_type == Constants.Technology
+                                    where o.onetsoc_code == id && o.t2_type == Constants.Technology
                                     orderby o.t2_type, od.class_title
                                     select o).Count();
             return new DigitalSkill

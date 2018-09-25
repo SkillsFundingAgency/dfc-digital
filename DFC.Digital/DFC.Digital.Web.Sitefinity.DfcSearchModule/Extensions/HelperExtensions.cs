@@ -57,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             var results = Task.Run(() => Task.WhenAll(salaryPopulation.ToArray())).GetAwaiter().GetResult();
             foreach (var idx in indexes)
             {
-                var item = results.SingleOrDefault(r => r.JobProfileUrlName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
+                var item = results.SingleOrDefault(r => r.JobProfileName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
                 if (item == null)
                 {
                     applicationLogger.Warn($"WARN: Failed to get salary for '{idx.Key}'.");

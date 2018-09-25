@@ -39,37 +39,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             var dummyDynamicContent = A.Dummy<DynamicContent>();
 
             // Dummies and fakes
-            A.CallTo(() => fakeSocMatrixRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
-                .Returns(skillAvailable ? dummyDynamicContent : null);
-            A.CallTo(() => fakeFrameworkSkillRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
-                .Returns(dummyDynamicContent);
-
-            A.CallTo(() => fakeSocCodeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
-                .Returns(dummyDynamicContent);
-
-            A.CallTo(() => fakeSocMatrixRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeSocMatrixRepository.GetTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeSocMatrixRepository.Create()).Returns(dummyDynamicContent);
-            A.CallTo(() => fakeSocMatrixRepository.Add(dummyDynamicContent)).DoesNothing();
-            A.CallTo(() => fakeSocMatrixRepository.Publish(dummyDynamicContent, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeSocMatrixRepository.Commit()).DoesNothing();
-            A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
-            A.CallTo(() =>
-                   fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<string>._))
-               .DoesNothing();
-            A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<Lstring>._))
-                .DoesNothing();
-            A.CallTo(() =>
-                    fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<decimal?>._))
-                .DoesNothing();
-            A.CallTo(() =>
-                fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
-            A.CallTo(() =>
-                fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._, A<float>._)).DoesNothing();
-            A.CallTo(() =>
-                fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
+            SetupRepositoryCalls(dummyDynamicContent, skillAvailable);
 
             var socSkillMatrixRepository = new SocSkillMatrixRepository(fakeFrameworkSkillRepository, fakeSocMatrixRepository, fakeDynamicContentExtensions, fakeSocCodeRepository, fakeSocSkillConverter);
 
@@ -144,6 +114,42 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //    A.CallTo(() => fakeFrameworkSkillConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
             //}
             A.CallTo(() => fakeSocMatrixRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Visible && item.Status == ContentLifecycleStatus.Live)))).MustHaveHappened();
+        }
+
+        private void SetupRepositoryCalls(DynamicContent dummyDynamicContent, bool skillAvailable)
+        {
+            A.CallTo(() => fakeSocMatrixRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
+                .Returns(skillAvailable ? dummyDynamicContent : null);
+
+            A.CallTo(() => fakeFrameworkSkillRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
+                    .Returns(dummyDynamicContent);
+
+            A.CallTo(() => fakeSocCodeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._))
+                    .Returns(dummyDynamicContent);
+
+            A.CallTo(() => fakeSocMatrixRepository.GetMaster(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeSocMatrixRepository.GetTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeSocMatrixRepository.Create()).Returns(dummyDynamicContent);
+            A.CallTo(() => fakeSocMatrixRepository.Add(dummyDynamicContent)).DoesNothing();
+            A.CallTo(() => fakeSocMatrixRepository.Publish(dummyDynamicContent, A<string>._)).DoesNothing();
+            A.CallTo(() => fakeSocMatrixRepository.Commit()).DoesNothing();
+            A.CallTo(() => fakeSocMatrixRepository.CheckinTemp(dummyDynamicContent)).Returns(dummyDynamicContent);
+            A.CallTo(() =>
+                       fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<string>._))
+                   .DoesNothing();
+            A.CallTo(() =>
+                        fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<Lstring>._))
+                    .DoesNothing();
+            A.CallTo(() =>
+                        fakeDynamicContentExtensions.SetFieldValue(dummyDynamicContent, A<string>._, A<decimal?>._))
+                    .DoesNothing();
+            A.CallTo(() =>
+                    fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
+            A.CallTo(() =>
+                    fakeDynamicContentExtensions.SetRelatedFieldValue(dummyDynamicContent, dummyDynamicContent, A<string>._, A<float>._)).DoesNothing();
+            A.CallTo(() =>
+                    fakeDynamicContentExtensions.DeleteRelatedFieldValues(dummyDynamicContent, A<string>._)).DoesNothing();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             try
             {
                 salary = await salaryService.GetSalaryBySocAsync(socCode);
-                salary.JobProfileUrlName = jobProfileUrlName;
+                salary.JobProfileName = jobProfileUrlName;
                 salary.StarterSalary = Convert.ToDouble(salaryCalculator.GetStarterSalary(salary));
                 salary.SalaryExperienced = Convert.ToDouble(salaryCalculator.GetExperiencedSalary(salary));
 
@@ -77,7 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
             finally
             {
-                salary.JobProfileUrlName = jobProfileUrlName;
+                salary.JobProfileName = jobProfileUrlName;
                 applicationLogger.Trace($"END: Method '{nameof(PopulateSalary)}' called from '{nameof(JobProfileIndexEnhancer)}' with parameters '{socCode}' returned {JsonConvert.SerializeObject(salary)}.");
             }
 

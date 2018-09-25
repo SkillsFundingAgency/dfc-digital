@@ -39,7 +39,7 @@ namespace DFC.Digital.Service.SkillsFramework
                 (a, c) => new OnetSkill
                 {
                         Id = a.Id ,
-                        Type = a.Type,
+                        Category = a.Category,
                         OnetOccupationalCode = a.OnetOccupationalCode,
                         Name = c.Title,
                         Score = a.Score
@@ -58,9 +58,9 @@ namespace DFC.Digital.Service.SkillsFramework
         public IEnumerable<OnetSkill> AverageOutscoreScales(IEnumerable<OnetSkill> attributes)
         {
 
-            var averagedScales = attributes.GroupBy(a => new { a.Id, a.Type, a.OnetOccupationalCode, a.Name }).
+            var averagedScales = attributes.GroupBy(a => new { a.Id, a.Category, a.OnetOccupationalCode, a.Name }).
             Select(c => new OnetSkill { Id = c.Key.Id,
-                Type = c.Key.Type,
+                Category = c.Key.Category,
                 OnetOccupationalCode = c.Key.OnetOccupationalCode,
                 Name = c.Key.Name,
                 Score = (c.Sum(s => (s.Score)) / c.Count()) });
@@ -78,19 +78,19 @@ namespace DFC.Digital.Service.SkillsFramework
         /// <returns></returns>
         public IEnumerable<OnetSkill> BoostMathsSkills(IEnumerable<OnetSkill> attributes)
         {
-            OnetSkill skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Skill);
-            OnetSkill knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Type == AttributeType.Knowledge);
+            OnetSkill skillsMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Skill);
+            OnetSkill knowledgeMaths = attributes.FirstOrDefault(a => a.Name == MathsTitle && a.Category == CategoryType.Knowledge);
 
             //if we have both remove one
             if (skillsMaths != null && knowledgeMaths != null)
             {
                 if (skillsMaths.Score > knowledgeMaths.Score)
                 {
-                    attributes = attributes.Where(a => a.Name != MathsTitle || a.Type != AttributeType.Knowledge);
+                    attributes = attributes.Where(a => a.Name != MathsTitle || a.Category != CategoryType.Knowledge);
                 }
                 else
                 {
-                    attributes = attributes.Where(a => a.Name != MathsTitle || a.Type != AttributeType.Skill);
+                    attributes = attributes.Where(a => a.Name != MathsTitle || a.Category != CategoryType.Skill);
                 }
 
                 var attributeList = attributes.ToList();
@@ -131,7 +131,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
                     attributes = attributes.Where(a => a.Id != elementOne.Id && a.Id != elementTwo.Id).ToList();
 
-                    attributes.Add(new OnetSkill { Name = combination.Title, Type= AttributeType.Combination, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
+                    attributes.Add(new OnetSkill { Name = combination.Title, Category= CategoryType.Combination, Id = combination.CombinedElementId, OnetOccupationalCode = elementOne.OnetOccupationalCode, Score = scoreToUse });
                 }
             }
             return attributes;
@@ -193,7 +193,7 @@ namespace DFC.Digital.Service.SkillsFramework
 
         public IEnumerable<OnetSkill> SelectFinalAttributes(IEnumerable<OnetSkill> attributes)
         {
-            var finalAttributes = attributes.Where(a => a.Type == AttributeType.Combination)
+            var finalAttributes = attributes.Where(a => a.Category == CategoryType.Combination)
                 .Union(SelectTopAttributes(attributes));
 
             return finalAttributes.OrderByDescending(s => s.Score).Take(20);
@@ -201,10 +201,10 @@ namespace DFC.Digital.Service.SkillsFramework
 
         private static IEnumerable<OnetSkill> SelectTopAttributes(IEnumerable<OnetSkill> attributes)
         {
-            var topAttributes = attributes.Where(a => a.Type == AttributeType.Ability).OrderByDescending(s => s.Score).Take(5)
-                .Union(attributes.Where(a => a.Type == AttributeType.Knowledge).OrderByDescending(s => s.Score).Take(5))
-                .Union(attributes.Where(a => a.Type == AttributeType.Skill).OrderByDescending(s => s.Score).Take(5))
-                .Union(attributes.Where(a => a.Type == AttributeType.WorkStyle).OrderByDescending(s => s.Score).Take(5));
+            var topAttributes = attributes.Where(a => a.Category == CategoryType.Ability).OrderByDescending(s => s.Score).Take(5)
+                .Union(attributes.Where(a => a.Category == CategoryType.Knowledge).OrderByDescending(s => s.Score).Take(5))
+                .Union(attributes.Where(a => a.Category == CategoryType.Skill).OrderByDescending(s => s.Score).Take(5))
+                .Union(attributes.Where(a => a.Category == CategoryType.WorkStyle).OrderByDescending(s => s.Score).Take(5));
 
             return topAttributes;
         }

@@ -8,7 +8,7 @@
 
         public string Description { get; set; }
 
-        public AttributeType Type { get; set; }
+        public CategoryType Category { get; set; }
 
         public string OnetOccupationalCode { get; set; }
 

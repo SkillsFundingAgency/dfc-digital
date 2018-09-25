@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public enum AttributeType
+    public enum CategoryType
     {
         Knowledge,
         Skill,

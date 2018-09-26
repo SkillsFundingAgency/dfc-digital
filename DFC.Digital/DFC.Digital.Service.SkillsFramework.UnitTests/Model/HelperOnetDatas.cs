@@ -3,7 +3,7 @@ using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
-    public class HelperOnetDatas : HelperEfOnetDatas
+    public class HelperOnetDatas
     {
         private static readonly IEnumerable<FrameworkSkill> FrameWorkTranslatedData = new List<FrameworkSkill>
         {

@@ -6,7 +6,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.ONET.DataModel;
 
-namespace DFC.Digital.Repository.ONET.Query
+namespace DFC.Digital.Repository.ONET
 {
     
     public class TranslationQueryRepository: IQueryRepository<FrameworkSkill>

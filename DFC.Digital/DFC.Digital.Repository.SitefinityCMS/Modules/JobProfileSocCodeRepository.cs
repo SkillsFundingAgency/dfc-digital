@@ -17,20 +17,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleConverter<ApprenticeVacancy> converter;
         private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
-        private readonly IDynamicModuleConverter<SocSkillMatrix> socSkillConverter;
         private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight;
 
         #endregion Fields
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<SocSkillMatrix> socSkillConverter, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jpRepository)
+        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jpRepository)
         {
             this.repository = repository;
             this.converter = converter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.socCodeConverter = socCodeConverter;
-            this.socSkillConverter = socSkillConverter;
             this.converterLight = converterLight;
             this.jpRepository = jpRepository;
         }

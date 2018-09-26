@@ -393,6 +393,7 @@
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="SitefinityExtensions\CustomWorkflowNotifier.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
     <Compile Include="Interfaces\ISitefinityPage.cs" />

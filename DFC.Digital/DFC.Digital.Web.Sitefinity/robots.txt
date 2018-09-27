@@ -1,4 +1,6 @@
-﻿User-agent: *
+﻿User-agent: SemrushBot-SA
+Disallow:
 
+User-agent: *
 Disallow: /
 

@@ -1147,6 +1147,7 @@
     <Content Include="Sitefinity\Services\Versioning\HistoryService.svc" />
     <Content Include="Sitefinity\Services\Workflow\WorkflowDefinitionService.svc" />
     <Content Include="Sitefinity\Services\Workflow\WorkflowService.svc" />
+    <Content Include="sitemap.xml" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>

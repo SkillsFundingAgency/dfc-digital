@@ -78,17 +78,20 @@
 				</div>
 	 		    <table>
 	 			    <tr ng-repeat="infoItem in appInfoCollection" class="{{infoItem.severity}}">
-	 				    <td> 
+                        <td>
                             <span ng-if="infoItem.severity === 'warning'" class="warning-indicator">Warning</span>
                             <span ng-if="infoItem.severity === 'error'" class="error-indicator">Error</span>
                             <div ng-class="{'long-text': infoItem.longMessage, 'log-item': true}">
                                 {{ infoItem.message }}
+                                <div ng-if="infoItem.stackTrace && infoItem.displayStackTrace" style="white-space: pre-line">
+                                    {{ infoItem.stackTrace }}
+                                </div>
                             </div>
-                            <a href class="show-full-item" ng-if="infoItem.longMessage" expand-collapse>Expand</a>
-	 				    </td>
+                            <a href class="show-full-item" expand-collapse ng-click="toggleExpand(infoItem)">Expand</a>
+                        </td>
                         <td>
                             {{ infoItem.date | date:'HH:mm:ss' }}
-                        </td>	 				
+                        </td>                        				
 	 			    </tr>	 			
 	 		    </table>
 	 	    </div>

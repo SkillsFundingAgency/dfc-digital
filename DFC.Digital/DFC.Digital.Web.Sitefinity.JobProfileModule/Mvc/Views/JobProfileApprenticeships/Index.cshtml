@@ -33,16 +33,12 @@
 @if (!Model.ApprenticeshipsAvailable)
 {
     <div class="dfc-code-jp-novacancyText">
-        <p>
             @Html.Raw(Model.NoVacancyText)
-        </p>
     </div>
 }
 else
 {
     <div class="dfc-code-jp-vacancyText">
-        <p>
             @Html.Raw(Model.ApprenticeshipText)
-        </p>
     </div>
 }

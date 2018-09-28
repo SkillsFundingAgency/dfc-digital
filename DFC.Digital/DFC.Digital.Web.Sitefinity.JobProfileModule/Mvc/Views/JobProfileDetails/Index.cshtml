@@ -1,7 +1,9 @@
 ﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileDetailsViewModel
 
 @using System.Globalization;
-
+ 
+<meta name="description" content="@Model.Overview" >
+ 
 <div class="content-container">
     <div class="grid-row">
         <div class="column-desktop-two-thirds">
@@ -30,8 +32,8 @@
             <div class="job-profile-salary job-profile-heroblock-content">
                 @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                 {
-                    <p class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></p> 
-                     <i class="sr-hidden">@Model.SalaryRangeDivider</i>
+                    <p class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></p>
+                    <i class="sr-hidden">@Model.SalaryRangeDivider</i>
                     <p class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></p>
                 }
                 else
@@ -52,7 +54,7 @@
                     {
                         @Model.MinimumHours <text>to</text> @Model.MaximumHours
                     }
-                    <span  class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetails</span>
+                    <span class="dfc-code-jpwhoursdetail">@Model.WorkingHoursDetails</span>
                 </p>
             </div>
         </div>

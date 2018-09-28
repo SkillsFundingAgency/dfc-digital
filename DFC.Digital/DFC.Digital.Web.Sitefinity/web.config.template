@@ -503,11 +503,11 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Windows.Documents.Flow" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2015.1.225.40" newVersion="2015.1.225.40" />
+        <bindingRedirect oldVersion="0.0.0.0-2018.1.112.40" newVersion="2018.1.112.40" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Windows.Documents.Core" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2015.1.225.40" newVersion="2015.1.225.40" />
+        <bindingRedirect oldVersion="0.0.0.0-2018.1.112.40" newVersion="2018.1.112.40" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.WindowsAzure.Storage" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -628,23 +628,23 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6728.0" newVersion="11.0.6728.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6728.0" newVersion="11.0.6728.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6728.0" newVersion="11.0.6728.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6728.0" newVersion="11.0.6728.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6728.0" newVersion="11.0.6728.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>

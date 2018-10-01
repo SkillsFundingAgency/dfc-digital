@@ -47,5 +47,5 @@ if ($webapp.TargetSwapSlot -eq $sourceSlot) {
     Write-Output "Final config of $targetSlot"
     Write-Output $slotDetails.SiteConfig.AppSettings
 } else {
-    Write-Output "No swap in progress"
+    throw "No swap in progress"
 }

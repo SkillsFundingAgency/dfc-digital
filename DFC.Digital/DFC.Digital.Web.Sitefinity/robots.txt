@@ -1,4 +1,9 @@
-﻿User-agent: *
+﻿User-agent: SemrushBot-SA
+Disallow: /sitefinity/
+Disallow: /health/
+Disallow: /alerts/
+Disallow: /ab/
 
+User-agent: *
 Disallow: /
 

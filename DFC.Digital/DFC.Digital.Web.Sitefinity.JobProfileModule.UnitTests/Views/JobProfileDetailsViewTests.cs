@@ -176,13 +176,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private static string GetHoursSummaryText(HtmlDocument htmlDom)
         {
-            var summaryHoursElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jphours')]").FirstOrDefault();
+            var summaryHoursElement = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'dfc-code-jphours')]").FirstOrDefault();
             return summaryHoursElement?.InnerText.Replace("\r\n", string.Empty).Trim();
         }
 
         private static string GetWorkingPatternText(HtmlDocument htmlDom)
         {
-            var workingPatternElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpwpattern')]")?.FirstOrDefault();
+            var workingPatternElement = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'dfc-code-jpwpattern')]")?.FirstOrDefault();
             return workingPatternElement?.InnerHtml;
         }
 
@@ -194,7 +194,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private static double GetSalaryStarter(HtmlDocument htmlDom, string salaryStarterText)
         {
-            var salaryStarterElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsstarter')]").FirstOrDefault();
+            var salaryStarterElement = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'dfc-code-jpsstarter')]").FirstOrDefault();
 
             double salaryStarter = 0;
 
@@ -218,7 +218,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private static double GetSalaryExperienced(HtmlDocument htmlDom, string salaryExperiencedText)
         {
-            var salaryExperiencedElement = htmlDom.DocumentNode.SelectNodes("//h5[contains(@class, 'dfc-code-jpsexperienced')]").FirstOrDefault();
+            var salaryExperiencedElement = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'dfc-code-jpsexperienced')]").FirstOrDefault();
 
             double salaryExperienced = 0;
 

@@ -4,7 +4,6 @@ using System.Linq;
 using DFC.Digital.Repository.ONET.DataModel;
 using FakeItEasy;
 using FluentAssertions;
-using DFC.Digital.Repository.ONET.Query;
 using Xunit;
 using DFC.Digital.Core;
 

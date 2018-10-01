@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DFC.Digital.Repository.ONET.Query
+namespace DFC.Digital.Repository.ONET
 {
     public class CombinationsQueryRepository : IQueryRepository<FrameworkSkillCombination>
     {

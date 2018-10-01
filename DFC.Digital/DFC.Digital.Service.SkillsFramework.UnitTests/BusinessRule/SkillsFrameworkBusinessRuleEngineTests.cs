@@ -5,13 +5,12 @@ using DFC.Digital.Repository.ONET.DataModel;
 using FluentAssertions;
 using DFC.Digital.Service.SkillsFramework;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.ONET.Query;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Data.Entity.Infrastructure;
 
-namespace DFC.Digital.Repository.ONET.UnitTests
+namespace DFC.Digital.Service.SkillsFramework.UnitTests
 {
 
     public class SkillsFrameworkBusinessRuleEngineTests
@@ -68,24 +67,24 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var fakeAbilityDbSet = A.Fake<DbSet<OnetSkill>>(c => c
                    .Implements(typeof(IQueryable<OnetSkill>))
                    .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
-                   .SetupData(GetTestAttribute(AttributeType.Ability));
+                   .SetupData(GetTestAttribute(CategoryType.Ability));
 
             var fakeKowledgeDbSet = A.Fake<DbSet<OnetSkill>>(c => c
                     .Implements(typeof(IQueryable<OnetSkill>))
                     .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
-                    .SetupData(GetTestAttribute(AttributeType.Knowledge));
+                    .SetupData(GetTestAttribute(CategoryType.Knowledge));
 
 
             var fakeSkillDbSet = A.Fake<DbSet<OnetSkill>>(c => c
                     .Implements(typeof(IQueryable<OnetSkill>))
                     .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
-                    .SetupData(GetTestAttribute(AttributeType.Skill));
+                    .SetupData(GetTestAttribute(CategoryType.Skill));
 
 
             var fakeWorkStyleDbSet = A.Fake<DbSet<OnetSkill>>(c => c
                     .Implements(typeof(IQueryable<OnetSkill>))
                     .Implements(typeof(IDbAsyncEnumerable<OnetSkill>)))
-                    .SetupData(GetTestAttribute(AttributeType.WorkStyle));
+                    .SetupData(GetTestAttribute(CategoryType.WorkStyle));
 
 
             A.CallTo(() => fakeskillsRepository.GetAbilitiesForONetOccupationCode(testONetOccupationCode)).Returns(fakeAbilityDbSet);
@@ -119,9 +118,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             {
 
                 //Abilities should get avearged and workStyle should remain as is
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.nine),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.nine),
-                GetOnetAttribute(AttributeType.WorkStyle, 3, KeyLength.nine)
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.nine),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.nine),
+                GetOnetAttribute(CategoryType.WorkStyle, 3, KeyLength.nine)
             };
 
             //make score for first ability 5
@@ -135,7 +134,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             results.Count().Should().Be(2);
 
             //Score for abilities should be (1+5)/2
-            results.Where(a => a.Type == AttributeType.Ability).FirstOrDefault().Score.Should().Be(3);
+            results.Where(a => a.Category == CategoryType.Ability).FirstOrDefault().Score.Should().Be(3);
         }
 
         [Fact]
@@ -147,10 +146,10 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             List<OnetSkill> testAttributeMoveLevelsData = new List<OnetSkill>
             {
                 //Abilities should get avearged and workStyle should remain as is
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.nine),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five),
-                GetOnetAttribute(AttributeType.WorkStyle, 1, KeyLength.five),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.nine),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.five),
+                GetOnetAttribute(CategoryType.WorkStyle, 1, KeyLength.five),
             };
 
             //Act
@@ -172,9 +171,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             List<OnetSkill> testAttributeDuplicatesData = new List<OnetSkill>
             {
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.WorkStyle, 1, KeyLength.five),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.WorkStyle, 1, KeyLength.five),
             };
 
             //make the score for the first dupicate ability higher
@@ -186,7 +185,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Asserts
 
             //The lower ranking ability should have been removed, so remove it from our test data
-            var expectedResults = testAttributeDuplicatesData.FindAll(a => a.Type != AttributeType.Ability || a.Score != 1 ).ToList();
+            var expectedResults = testAttributeDuplicatesData.FindAll(a => a.Category != CategoryType.Ability || a.Score != 1 ).ToList();
 
             results.Should().BeEquivalentTo(expectedResults);
         }
@@ -197,9 +196,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Setup
             List<OnetSkill> testSuppressionsData = new List<OnetSkill>
             {
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five),
-                GetOnetAttribute(AttributeType.WorkStyle, 1, KeyLength.five),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.five),
+                GetOnetAttribute(CategoryType.WorkStyle, 1, KeyLength.five),
             };
 
             var indexToSuppress = 1;
@@ -234,8 +233,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Setup
             List<OnetSkill> testTitlesData = new List<OnetSkill>
             {
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Ability, 1, KeyLength.five)
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Ability, 1, KeyLength.five)
             };
 
             var fakeContentDbSet = A.Fake<DbSet<FrameworkContent>>(c => c
@@ -273,9 +272,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             List<OnetSkill> testMathsData = new List<OnetSkill>
             {
-                GetOnetAttribute(AttributeType.Skill, 1, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Knowledge, 5, KeyLength.five),
-                GetOnetAttribute(AttributeType.WorkStyle, 5, KeyLength.three)
+                GetOnetAttribute(CategoryType.Skill, 1, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Knowledge, 5, KeyLength.five),
+                GetOnetAttribute(CategoryType.WorkStyle, 5, KeyLength.three)
             };
 
             //Set the skill and Knowledge items to be maths
@@ -291,7 +290,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             //Asserts
             //The first maths for skills should get removed and the second one for knowledge should have its score boosted by 10% 
             testMathsData[1].Score = testMathsData[1].Score * 1.1m;
-            var expectedResults = testMathsData.FindAll(a => a.Type != AttributeType.Skill);
+            var expectedResults = testMathsData.FindAll(a => a.Category != CategoryType.Skill);
 
             results.Should().BeEquivalentTo(expectedResults);
         }
@@ -308,9 +307,9 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             List<OnetSkill> testMathsData = new List<OnetSkill>
             {
-                GetOnetAttribute(AttributeType.Skill, 10, KeyLength.seven),
-                GetOnetAttribute(AttributeType.Knowledge, 5, KeyLength.five),
-                GetOnetAttribute(AttributeType.WorkStyle, 5, KeyLength.three)
+                GetOnetAttribute(CategoryType.Skill, 10, KeyLength.seven),
+                GetOnetAttribute(CategoryType.Knowledge, 5, KeyLength.five),
+                GetOnetAttribute(CategoryType.WorkStyle, 5, KeyLength.three)
             };
 
             //Set the skill and Knowledge items to be maths
@@ -331,7 +330,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             {
                 //The first maths for skills should get removed and the second one for knowledge should have its score boosted by 10% 
                 testMathsData[0].Score = testMathsData[0].Score * 1.1m;
-                var expectedResults = testMathsData.FindAll(a => a.Type != AttributeType.Knowledge);
+                var expectedResults = testMathsData.FindAll(a => a.Category != CategoryType.Knowledge);
 
                 results.Should().BeEquivalentTo(expectedResults);
             }
@@ -353,8 +352,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var scoreForCombination = shouldGetCombination ? 9 : 2;
 
             //Add records that we know will get combined to the attribute list
-            testAttributeData.Add(new OnetSkill { Type = AttributeType.Ability, OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementOneId, Score = scoreForCombination });
-            testAttributeData.Add(new OnetSkill { Type = AttributeType.Skill,   OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementTwoId, Score = scoreForCombination-1 });
+            testAttributeData.Add(new OnetSkill { Category = CategoryType.Ability, OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementOneId, Score = scoreForCombination });
+            testAttributeData.Add(new OnetSkill { Category = CategoryType.Skill,   OnetOccupationalCode = "testONetCode", Id = testCombination.OnetElementTwoId, Score = scoreForCombination-1 });
 
 
             var fakeCombinationDbSet = A.Fake<DbSet<FrameworkSkillCombination>>(c => c
@@ -378,7 +377,7 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 var expectedResults = GetAllTestAttribute();
 
                 //Add in expected combination
-                expectedResults.Add(new OnetSkill { Type = AttributeType.Combination, Name = testCombination.Title, OnetOccupationalCode = "testONetCode", Id = testCombination.CombinedElementId, Score = scoreForCombination });
+                expectedResults.Add(new OnetSkill { Category = CategoryType.Combination, Name = testCombination.Title, OnetOccupationalCode = "testONetCode", Id = testCombination.CombinedElementId, Score = scoreForCombination });
                 //Everything else should reamin as is expect for the combination, if there is one
                 results.Should().BeEquivalentTo(expectedResults);
             }
@@ -398,8 +397,8 @@ namespace DFC.Digital.Repository.ONET.UnitTests
             var testAttributeData = GetAllTestAttribute();
 
             //Add in some combinations, one with a high rank and one with a low
-            testAttributeData.Add(new OnetSkill { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C1", Score = 9 });
-            testAttributeData.Add(new OnetSkill { Type = AttributeType.Combination, OnetOccupationalCode = "testONetCode", Id = "C2", Score = 1 });
+            testAttributeData.Add(new OnetSkill { Category = CategoryType.Combination, OnetOccupationalCode = "testONetCode", Id = "C1", Score = 9 });
+            testAttributeData.Add(new OnetSkill { Category = CategoryType.Combination, OnetOccupationalCode = "testONetCode", Id = "C2", Score = 1 });
 
 
             //Act
@@ -412,11 +411,11 @@ namespace DFC.Digital.Repository.ONET.UnitTests
         }
 
 
-        private List<OnetSkill> GetTestAttribute(AttributeType type)
+        private List<OnetSkill> GetTestAttribute(CategoryType type)
         {
             List<OnetSkill> testData = new List<OnetSkill>
             {
-                new OnetSkill { Id = $"A1", Type = type}
+                new OnetSkill { Id = $"A1", Category = type}
             };
             return testData;
         }
@@ -427,22 +426,22 @@ namespace DFC.Digital.Repository.ONET.UnitTests
 
             for (int ii = 0; ii < 10; ii++)
             {
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Ability, ii, KeyLength.seven));
+                testAttributeDataData.Add(GetOnetAttribute(CategoryType.Ability, ii, KeyLength.seven));
       
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Knowledge, ii, KeyLength.five));
+                testAttributeDataData.Add(GetOnetAttribute(CategoryType.Knowledge, ii, KeyLength.five));
       
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.Skill, ii, KeyLength.seven));
+                testAttributeDataData.Add(GetOnetAttribute(CategoryType.Skill, ii, KeyLength.seven));
       
-                testAttributeDataData.Add(GetOnetAttribute(AttributeType.WorkStyle, ii, KeyLength.five));
+                testAttributeDataData.Add(GetOnetAttribute(CategoryType.WorkStyle, ii, KeyLength.five));
             }
 
             return testAttributeDataData;
         }
 
-        private OnetSkill GetOnetAttribute(AttributeType type, int id, KeyLength keyLength)
+        private OnetSkill GetOnetAttribute(CategoryType type, int id, KeyLength keyLength)
         {
             var keyId = $"{id}-A.B.C.D";
-            return new OnetSkill { Id = $"{keyId.Substring(0, (int) keyLength)}", OnetOccupationalCode = "testONetCode", Score = id, Type = type, Name = $"Name-{type}-{id}" };
+            return new OnetSkill { Id = $"{keyId.Substring(0, (int) keyLength)}", OnetOccupationalCode = "testONetCode", Score = id, Category = type, Name = $"Name-{type}-{id}" };
         }
     }
 }

@@ -37,4 +37,5 @@ using System.Web;
 [assembly: PreApplicationStartMethod(typeof(Startup), "Install")]
 
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ControllerContainer]
+
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ResourcePackage]

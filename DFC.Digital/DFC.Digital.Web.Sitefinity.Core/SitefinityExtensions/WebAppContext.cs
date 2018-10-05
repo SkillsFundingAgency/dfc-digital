@@ -5,6 +5,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -96,6 +97,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public void SetResponseStatusCode(int statusCode)
         {
             HttpContext.Current.Response.StatusCode = statusCode;
+        }
+
+        public void MetaDescription(string description)
+        {
+            var page = HttpContext.Current.CurrentHandler as Page;
+             page.MetaDescription = description;
         }
     }
 }

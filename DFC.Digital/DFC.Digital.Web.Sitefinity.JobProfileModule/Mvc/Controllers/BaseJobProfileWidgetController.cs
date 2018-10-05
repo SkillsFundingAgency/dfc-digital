@@ -78,6 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             else
             {
                 var timer = Stopwatch.StartNew();
+                WebAppContext.MetaDescription(CurrentJobProfile.Overview);
                 var actionResult = GetDefaultView();
                 timer.Stop();
                 Log.Trace($"Completed executing action in {timer.Elapsed}");

@@ -34,6 +34,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void SetResponseStatusCode(int statusCode);
 
-        void MetaDescription(string description);
+        void SetMetaDescription(string description);
     }
 }

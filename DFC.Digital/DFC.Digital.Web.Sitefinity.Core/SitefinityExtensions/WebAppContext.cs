@@ -99,10 +99,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             HttpContext.Current.Response.StatusCode = statusCode;
         }
 
-        public void MetaDescription(string description)
+        public void SetMetaDescription(string description)
         {
-            var page = HttpContext.Current.CurrentHandler as Page;
-             page.MetaDescription = description;
+            if (HttpContext.Current.CurrentHandler is Page page)
+            {
+                page.MetaDescription = description;
+            }
         }
     }
 }

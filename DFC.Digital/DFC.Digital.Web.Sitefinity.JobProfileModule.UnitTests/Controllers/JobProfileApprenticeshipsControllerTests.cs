@@ -201,7 +201,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => socRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).Returns(dummyApprenticeships);
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
-            A.CallTo(() => webAppContextFake.MetaDescription(A<string>._)).DoesNothing();
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._))
@@ -211,8 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socRepositoryFake, loggerFake, sitefinityPage)
             {
                 ApprenticeshipText = nameof(JobProfileApprenticeshipsController.ApprenticeshipText),
-                ApprenticeshipLocationDetails =
-                    nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
+                ApprenticeshipLocationDetails = nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
                 MainSectionTitle = nameof(JobProfileApprenticeshipsController.MainSectionTitle),
                 DefaultJobProfileUrlName = nameof(JobProfileApprenticeshipsController.DefaultJobProfileUrlName),

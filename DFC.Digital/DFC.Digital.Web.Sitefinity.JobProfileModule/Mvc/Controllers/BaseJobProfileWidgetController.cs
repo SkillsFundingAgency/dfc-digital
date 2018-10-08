@@ -71,14 +71,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public ActionResult BaseIndex(string urlName)
         {
             CurrentJobProfileUrl = urlName;
-            if (CurrentJobProfile == null)
+            if (CurrentJobProfile is null)
             {
                 return HttpNotFound();
             }
             else
             {
                 var timer = Stopwatch.StartNew();
-                WebAppContext.MetaDescription(CurrentJobProfile.Overview);
+                WebAppContext.SetMetaDescription(CurrentJobProfile.Overview);
                 var actionResult = GetDefaultView();
                 timer.Stop();
                 Log.Trace($"Completed executing action in {timer.Elapsed}");

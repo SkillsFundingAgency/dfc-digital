@@ -4,6 +4,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -42,6 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Default Job Profile Category Url Name - Mainly for preview purposes")]
         public string DefaultJobProfileCategoryUrlName { get; set; } = "Health";
+
+        [DisplayName("Meta Description for Job Categories")]
+        public string MetaDescription { get; set; } = "Find out more about {jobcategory} careers.";
 
         #endregion Public Properties
 
@@ -88,6 +92,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             var jobProfiles = categoryRepo.GetRelatedJobProfiles(category.Title);
+            var description = Regex.Replace(MetaDescription, @"{jobcategory}", m => category.Title, RegexOptions.IgnoreCase);
+            webAppContext.SetMetaDescription(description);
+
             var model = new JobProfileByCategoryViewModel
             {
                 Title = category.Title,

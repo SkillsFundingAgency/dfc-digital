@@ -47,9 +47,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Widget displayed in the side bar")]
         public bool SidePageDisplay { get; set; }
 
-        [DisplayName("Meta Description for Job Categories")]
-        public string MetaDescription { get; set; } = "Find out more about JC careers";
-
         #endregion Public Properties
 
         #region Actions
@@ -87,8 +84,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 .ToList();
 
             UpdateJobProfileCategoryUrl(jobProfileCategories);
-
-            webAppContext.SetMetaDescription(MetaDescription);
 
             return View("RelatedJobCategories", new RelatedJobProfileCategoriesViewModel { JobProfileCategories = jobProfileCategories, IsContentAuthoring = webAppContext.IsContentAuthoringSite, OtherCategoriesTitle = OtherJobCategoriesTitle });
         }

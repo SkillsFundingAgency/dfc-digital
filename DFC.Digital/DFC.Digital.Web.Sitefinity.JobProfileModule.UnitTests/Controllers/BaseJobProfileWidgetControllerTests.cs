@@ -15,10 +15,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class BaseJobProfileWidgetControllerTests
     {
         [Theory]
-        [InlineData(true, "Test", true)]
-        [InlineData(false, "Test", true)]
-        [InlineData(false, "Test", false)]
-        public void BaseIndexTest(bool inContentAuthoringSite, string urlName, bool isContentPreviewMode)
+        [InlineData(true, true)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void BaseIndexTest(bool inContentAuthoringSite, bool isContentPreviewMode)
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
@@ -26,18 +26,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
             var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
-
-            // var baseJobprofileController = A.Fake<BaseJobProfileWidgetController>();
             var dummyJobProfile = GetDummyJobPRofile(true);
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
-
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
-
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
             //Instantiate & Act
@@ -47,9 +43,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 var indexMethodCall = baseJobprofileController.WithCallTo(c => c.BaseIndex());
 
                 //Assert
+                A.CallTo(() => webAppContextFake.IsContentAuthoringSite).MustHaveHappened();
+
                 if (inContentAuthoringSite)
                 {
-                    A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(urlName)).Should().NotBeNull(); //.MustHaveHappened();
+                    A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 }
                 else
                 {
@@ -58,12 +56,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
-        /// <summary>
-        /// Indexes the URL name test.
-        /// </summary>
-        /// <param name="urlName">Name of the URL.</param>
-        /// <param name="useValidJobProfile">if set to <c>true</c> [valid job profile].</param>
-        /// <param name="isContentPreviewMode">iscontentpreviewmode</param>
         [Theory]
         [InlineData("Test", true, false)]
         [InlineData("Test", false, false)]
@@ -84,24 +76,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
             A.CallTo(() => formatContentServiceFake.GetParagraphText(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns("test");
 
             //Instantiate & Act
-            using (var baseJobprofileController =
-                new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
+            using (var baseJobprofileController = new JobProfileWhatYouWillDoController(repositoryFake, webAppContextFake, loggerFake, sitefinityPage, formatContentServiceFake))
             {
                 //Act
                 var indexWithUrlNameMethodCall = baseJobprofileController.WithCallTo(c => c.BaseIndex(urlName));
-
-                if (useValidJobProfile)
+                A.CallTo(() => webAppContextFake.IsContentPreviewMode).MustHaveHappened();
+                if (isContentPreviewMode)
                 {
-                    indexWithUrlNameMethodCall.Should().NotBeNull();
+                    A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustNotHaveHappened();
                 }
                 else
                 {
-                    indexWithUrlNameMethodCall
-                        .ShouldGiveHttpStatus(404);
+                    A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
+                    A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).MustNotHaveHappened();
+                }
+
+                if (useValidJobProfile)
+                {
+                    A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).MustHaveHappened();
+                }
+                else
+                {
+                    A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).MustNotHaveHappened();
+                    indexWithUrlNameMethodCall.ShouldGiveHttpStatus(404);
                 }
             }
         }

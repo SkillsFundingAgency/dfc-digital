@@ -108,6 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentPreviewMode);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
@@ -167,6 +168,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(false);
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(false);
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
 
@@ -228,7 +230,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //These two are linked you cannot be in content preview mode with out being in editor mode.
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(isContentPreviewMode);
-
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
             A.CallTo(() => skillsRepositoryFake.GetContextualisedSkillsById(A<IEnumerable<string>>._)).Returns(new List<WhatItTakesSkill> { new WhatItTakesSkill() });
 

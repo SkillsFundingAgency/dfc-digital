@@ -15,10 +15,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class BaseJobProfileWidgetControllerTests
     {
         [Theory]
-        [InlineData(true, "Test", true)]
-        [InlineData(false, "Test", true)]
-        [InlineData(false, "Test", false)]
-        public void BaseIndexTest(bool inContentAuthoringSite, string urlName, bool isContentPreviewMode)
+        [InlineData(true, true)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void BaseIndexTest(bool inContentAuthoringSite, bool isContentPreviewMode)
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
                 if (inContentAuthoringSite)
                 {
-                    A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(urlName)).MustHaveHappened();
+                    A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
                 }
                 else
                 {

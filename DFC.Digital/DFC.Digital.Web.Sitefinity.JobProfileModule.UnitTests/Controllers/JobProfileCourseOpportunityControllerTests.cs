@@ -182,7 +182,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
-            A.CallTo(() => webAppContextFake.MetaDescription(A<string>._)).DoesNothing();
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(isContentPreviewMode);
             A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
 

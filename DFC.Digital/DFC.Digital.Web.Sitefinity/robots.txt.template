@@ -1,0 +1,5 @@
+﻿User-agent: *
+Disallow: /sitefinity/
+Disallow: /health/
+Disallow: /alerts/
+Disallow: /ab/

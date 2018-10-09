@@ -1,4 +1,4 @@
-﻿User-agent: SemrushBot-SA
+﻿User-agent: *
 Disallow: /sitefinity/
 Disallow: /health/
 Disallow: /alerts/
@@ -6,6 +6,3 @@ Disallow: /ab/
 Disallow: /webchat/
 Disallow: /api/
 Sitemap: https://__targetUrl__/sitemap.xml
-
-User-agent: *
-Disallow: /

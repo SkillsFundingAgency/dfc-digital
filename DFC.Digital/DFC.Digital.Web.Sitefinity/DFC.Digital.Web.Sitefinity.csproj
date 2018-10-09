@@ -973,9 +973,8 @@
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
-    <None Include="robots.txt.template" />
+    <None Include="robots.prod.txt.template" />
     <None Include="sitemap.xml.template" />
-    <Content Include="sitemap.xml" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
     <Content Include="favicon.ico" />
@@ -1040,7 +1039,7 @@
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS two thirds one third.html" />
     <Content Include="ResourcePackages\gds_toolkit\gruntfile.js" />
     <Content Include="Default.aspx" />
-    <Content Include="robots.txt" />
+    <None Include="robots.txt.template" />
     <Content Include="DetailFormViewCustom.js" />
     <Content Include="Silverlight.js" />
     <Content Include="Sitefinity\Default.aspx" />

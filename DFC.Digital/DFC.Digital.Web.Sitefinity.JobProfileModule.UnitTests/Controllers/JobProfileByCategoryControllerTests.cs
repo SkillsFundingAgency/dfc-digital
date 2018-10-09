@@ -13,9 +13,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class JobProfileByCategoryControllerTests
     {
         [Theory]
-        [InlineData("Test", true)]
-        [InlineData("Test", false)]
-        public void IndexMetaDescriptionTest(string urlName, bool validJobCategory)
+        [InlineData("JCat", true)]
+        [InlineData("JCat", false)]
+        public void IndexMetaDescriptionTest(string titleAndUrlName, bool validJobCategory)
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
@@ -23,25 +23,25 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
 
             var dummyJobProfileCategory = A.Dummy<JobProfileCategory>();
+            dummyJobProfileCategory.Title = titleAndUrlName;
             var dummyRelatedJobProfiles = A.CollectionOfDummy<JobProfile>(5);
 
             // Set up calls
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(validJobCategory ? dummyJobProfileCategory : null);
-
             A.CallTo(() => repositoryFake.GetRelatedJobProfiles(A<string>._)).Returns(dummyRelatedJobProfiles);
-
             A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
 
             //Instantiate & Act
             var jobprofileController = new JobProfilesByCategoryController(repositoryFake, webAppContextFake, loggerFake);
 
             //Act
-            var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(urlName));
+            jobprofileController.MetaDescription = "Test {JobCategory}-{JOBCATEGORY}-{jobcategory}";
+            var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(titleAndUrlName));
 
             //Assert
             if (validJobCategory)
             {
-                A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).MustHaveHappened();
+                A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>.That.Contains($"Test {titleAndUrlName}-{titleAndUrlName}-{titleAndUrlName}"))).MustHaveHappened();
             }
             else
             {

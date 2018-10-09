@@ -38,7 +38,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
     <VisualStudioVersion>11.0</VisualStudioVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -973,6 +973,9 @@
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
+    <None Include="robots.txt.template" />
+    <None Include="sitemap.xml.template" />
+    <Content Include="sitemap.xml" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
     <Content Include="favicon.ico" />

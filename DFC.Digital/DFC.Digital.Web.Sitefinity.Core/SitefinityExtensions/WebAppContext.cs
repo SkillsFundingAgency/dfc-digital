@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -104,6 +105,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
             if (HttpContext.Current.CurrentHandler is Page page)
             {
                 page.MetaDescription = description;
+            }
+        }
+
+        public void SetCanonicalTag(string urlName)
+        {
+            if (HttpContext.Current.CurrentHandler is Page page)
+            {
+                var htmlLink = new HtmlLink();
+                htmlLink.Href = urlName;
+                htmlLink.Attributes.Add(HtmlTextWriterAttribute.Rel.ToString().ToLower(), "canonical");
             }
         }
     }

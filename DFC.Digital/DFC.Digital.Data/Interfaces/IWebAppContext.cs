@@ -35,5 +35,7 @@ namespace DFC.Digital.Data.Interfaces
         void SetResponseStatusCode(int statusCode);
 
         void SetMetaDescription(string description);
+
+        void SetCanonicalTag(string urlName);
     }
 }

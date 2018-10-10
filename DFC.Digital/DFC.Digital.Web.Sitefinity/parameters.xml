@@ -164,7 +164,7 @@
                     match="/configuration/system.webServer/applicationInitialization/add/@hostName" />
     <parameterEntry kind="TextFile" scope="\\sitemap\.xml\.template$"
                     match="__targetUrl__" />
-    <parameterEntry kind="TextFile" scope="\\robots[.prod]?\.txt\.template$"
+    <parameterEntry kind="TextFile" scope="\\robots(\.prod)?\.txt\.template$"
                     match="__targetUrl__" />
   </parameter>
   <parameter name="ONetSkillsFramework_ConnectionString"

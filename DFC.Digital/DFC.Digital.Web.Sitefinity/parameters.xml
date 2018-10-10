@@ -164,7 +164,7 @@
                     match="/configuration/system.webServer/applicationInitialization/add/@hostName" />
   </parameter>
   <parameter name="CitizenFacing_Hostname"
-            description="Tokenize the application initialisation to be replaced by VSTS task"
+            description="Tokenize the host name to be replaced by VSTS task"
             defaultValue="__baseUrl__">
     <parameterEntry kind="TextFile" scope="\\sitemap\.xml\.template$"
                     match="__baseUrl__" />

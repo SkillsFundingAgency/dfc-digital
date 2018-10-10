@@ -1,3 +1,4 @@
+@ECHO OFF
 RENAME %WEBROOT_PATH%\sitemap.xml.template sitemap.xml
 IF "%APPSETTING_ENVIRONMENT%" EQU "PRD" (
     ECHO Renaming prod robots.txt 

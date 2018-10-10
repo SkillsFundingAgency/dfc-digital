@@ -5,4 +5,4 @@ Disallow: /alerts/
 Disallow: /ab/
 Disallow: /webchat/
 Disallow: /api/
-Sitemap: https://__targetUrl__/sitemap.xml
+Sitemap: https://__baseUrl__/sitemap.xml

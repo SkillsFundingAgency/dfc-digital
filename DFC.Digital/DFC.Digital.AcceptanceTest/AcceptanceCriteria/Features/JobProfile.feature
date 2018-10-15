@@ -58,7 +58,7 @@ Scenario: Apprenticeships are displayed on Job Profile Page
 
 @EndToEnd
 Scenario: Apprenticeship are not displayed on Job Profile Page and correct message shown
-	Given that I am viewing the 'border-force-officer' job profile page
+	Given that I am viewing the 'gp' job profile page
 	Then the correct sections should be displayed
 	And the no apprenticeships message should be shown
 
@@ -69,7 +69,7 @@ Scenario: Valid Search on Job Profile Page
 	When I search using 'nurse' on the profile page
 	Then the first result is 'shown' on the page
 
-Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redirects to the corresponding BAU JP Page
+	Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redirects to the corresponding BAU JP Page
 	Given that I am viewing the 'GP' job profile page
 	Then the 'profile' page signpost banner is displayed
 	When I click on the 'profile' page banner link
@@ -77,6 +77,5 @@ Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redi
 
 	When I click the BAU JP signpost banner
 	Then I am redirected to corresponding 'Beta' profile page
-
 
 

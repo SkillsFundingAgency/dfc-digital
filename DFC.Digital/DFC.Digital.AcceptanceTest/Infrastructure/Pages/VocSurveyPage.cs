@@ -9,7 +9,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             Browser.SwitchTo().Frame(0);
 
-            return Find.Element(By.ClassName("ss-button-submit")) != null;
+            return Find.Element(By.ClassName("ss-question-title")) != null;
         }
 
         public void StartSurvey()

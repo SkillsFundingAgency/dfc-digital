@@ -973,6 +973,8 @@
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
+    <Content Include="robots.prod.txt.template" />
+    <Content Include="sitemap.xml.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
     <Content Include="favicon.ico" />
@@ -1007,6 +1009,8 @@
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.2.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.29.3.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.31.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.31.2.nupkg" />
+    <Content Include="AdminApp\assets\js\kendo-editor\kendo.custom.min.js.map" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -1014,8 +1018,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.31.2.nupkg" />
-    <Content Include="AdminApp\assets\js\kendo-editor\kendo.custom.min.js.map" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.35.1.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1036,7 +1039,7 @@
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS two thirds one third.html" />
     <Content Include="ResourcePackages\gds_toolkit\gruntfile.js" />
     <Content Include="Default.aspx" />
-    <Content Include="robots.txt" />
+    <Content Include="robots.txt.template" />
     <Content Include="DetailFormViewCustom.js" />
     <Content Include="Silverlight.js" />
     <Content Include="Sitefinity\Default.aspx" />

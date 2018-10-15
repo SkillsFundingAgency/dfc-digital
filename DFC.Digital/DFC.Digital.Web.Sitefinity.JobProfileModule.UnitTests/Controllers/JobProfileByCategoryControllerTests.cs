@@ -13,6 +13,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     public class JobProfileByCategoryControllerTests
     {
         [Theory]
+        [InlineData("JCat", true)]
+        [InlineData("JCat", false)]
+        public void IndexMetaDescriptionTest(string titleAndUrlName, bool validJobCategory)
+        {
+            //Setup the fakes and dummies
+            var repositoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+
+            var dummyJobProfileCategory = A.Dummy<JobProfileCategory>();
+            dummyJobProfileCategory.Title = titleAndUrlName;
+            var dummyRelatedJobProfiles = A.CollectionOfDummy<JobProfile>(5);
+
+            // Set up calls
+            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(validJobCategory ? dummyJobProfileCategory : null);
+            A.CallTo(() => repositoryFake.GetRelatedJobProfiles(A<string>._)).Returns(dummyRelatedJobProfiles);
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
+
+            //Instantiate & Act
+            var jobprofileController = new JobProfilesByCategoryController(repositoryFake, webAppContextFake, loggerFake);
+
+            //Act
+            jobprofileController.MetaDescription = "Test {JobCategory}-{JOBCATEGORY}-{jobcategory}";
+            var indexWithUrlNameMethodCall = jobprofileController.WithCallTo(c => c.Index(titleAndUrlName));
+
+            //Assert
+            if (validJobCategory)
+            {
+                A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>.That.Contains($"Test {titleAndUrlName}-{titleAndUrlName}-{titleAndUrlName}"))).MustHaveHappened();
+            }
+            else
+            {
+                indexWithUrlNameMethodCall.ShouldGiveHttpStatus(404);
+            }
+        }
+
+        [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void IndexTest(bool inContentAuthoringSite)
@@ -27,6 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             // Set up calls
             A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(inContentAuthoringSite);
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfileCategory);
             A.CallTo(() => repositoryFake.GetRelatedJobProfiles(A<string>._)).Returns(dummyRelatedJobProfiles);
 
@@ -74,6 +112,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(validJobCategory ? dummyJobProfileCategory : null);
 
             A.CallTo(() => repositoryFake.GetRelatedJobProfiles(A<string>._)).Returns(dummyRelatedJobProfiles);
+
+            A.CallTo(() => webAppContextFake.SetMetaDescription(A<string>._)).DoesNothing();
 
             //Instantiate & Act
             var jobprofileController = new JobProfilesByCategoryController(repositoryFake, webAppContextFake, loggerFake);

@@ -33,5 +33,7 @@ namespace DFC.Digital.Data.Interfaces
         string GetGAClientId();
 
         void SetResponseStatusCode(int statusCode);
+
+        void SetMetaDescription(string description);
     }
 }

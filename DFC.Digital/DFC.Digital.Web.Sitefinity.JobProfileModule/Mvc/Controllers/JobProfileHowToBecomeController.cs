@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -138,11 +132,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 model.HowToBecomeText = CurrentJobProfile.HowToBecome;
                 model.HowToBecome = CurrentJobProfile.HowToBecomeData;
+                model.HtBSectionTitle = MainSectionTitle + GetHtBTitle();
             }
 
             return model;
         }
 
         #endregion Actions
+
     }
 }

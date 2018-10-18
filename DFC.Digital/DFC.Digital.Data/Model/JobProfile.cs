@@ -228,5 +228,13 @@ namespace DFC.Digital.Data.Model
         public string ONetOccupationalCode { get; set; }
 
         public bool HasRelatedSocSkillMatrices { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HtBTitlePrefix.
+        /// </summary>
+        /// <value>
+        /// HtBTitlePrefix.
+        /// </value>
+        public string HtBTitlePrefix { get; set; }
     }
 }

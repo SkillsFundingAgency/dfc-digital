@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Diagnostics;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
@@ -43,6 +44,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 }
 
                 return jobProfile;
+            }
+        }
+
+        public string GetHtBTitle()
+        {
+            switch (CurrentJobProfile.HtBTitlePrefix)
+            {
+                case "No Prefix":
+                    return " " + CurrentJobProfile.Title;
+
+                case "Prefix with a":
+                    return " a " + CurrentJobProfile.Title;
+
+                case "Prefix with an":
+                    return " an " + CurrentJobProfile.Title;
+
+                default:
+                    return (IsVowel(CurrentJobProfile.Title[0]) ? " an " : " a ") + CurrentJobProfile.Title;
             }
         }
 
@@ -90,5 +109,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected abstract ActionResult GetDefaultView();
 
         protected abstract ActionResult GetEditorView();
+
+        private bool IsVowel(char character)
+        {
+            return new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(char.ToLower(character));
+        }
     }
 }

@@ -2,7 +2,7 @@
 @model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
 
 <section id="@Model.SectionId">
-    <h2 class="heading-large job-profile-heading">@Model.MainSectionTitle</h2>
+    <h2 class="heading-large job-profile-heading">@Model.HtBSectionTitle</h2>
     @if (Model.HowToBecome.IsHTBCaDReady)
     {
         @Html.Raw(Model.HowToBecome.IntroText)

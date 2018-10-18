@@ -23,6 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string SubsectionUniversity { get; set; }
 
+        public string HtBTitlePrefix { get; set; }
+
+        public string HtBSectionTitle { get; set; }
+
         public string SubsectionUniversityRequirements { get; set; }
 
         public string SubsectionUniversityMoreInformation { get; set; }

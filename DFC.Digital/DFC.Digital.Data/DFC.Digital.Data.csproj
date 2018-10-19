@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Model\FrameworkSkillCombination.cs" />
     <Compile Include="Model\JobProfileOverloadForSearch.cs" />
     <Compile Include="Model\JobProfileOverloadForWhatItTakes.cs" />
+    <Compile Include="CMSExtension\Model\JobProfileReport.cs" />
     <Compile Include="Model\OnetSkill.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Model\SocMappingStatus.cs" />
     <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
+    <Compile Include="CMSExtension\Model\StandardAndFrameworkReport.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />
@@ -220,5 +223,6 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

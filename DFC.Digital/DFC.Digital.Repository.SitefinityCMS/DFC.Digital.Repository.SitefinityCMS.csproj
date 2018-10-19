@@ -245,6 +245,9 @@
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="Base\WorkflowStatus.cs" />
+    <Compile Include="CMSExtensions\JobProfileReportConverter.cs" />
+    <Compile Include="CMSExtensions\JobProfileReportRepository.cs" />
+    <Compile Include="CMSExtensions\StandardAndFrameworkReportConverter.cs" />
     <Compile Include="Modules\JobProfileOverloadForWhatItTakesConverter.cs" />
     <Compile Include="Modules\JobProfileOverloadForSearchConverter.cs" />
     <Compile Include="Modules\SocSkillMatrixRepository.cs" />

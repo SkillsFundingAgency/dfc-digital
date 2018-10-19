@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
     public class JobProfileSocCodeRepository : IJobProfileSocCodeRepository
     {
         #region Fields
+
         private const string UpdateComment = "Updated via the SkillsFramework import process";
         private readonly IDynamicModuleRepository<SocCode> repository;
         private readonly IDynamicModuleRepository<JobProfile> jpRepository;
@@ -23,7 +23,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public JobProfileSocCodeRepository(IDynamicModuleRepository<SocCode> repository, IDynamicModuleConverter<ApprenticeVacancy> converter, IDynamicModuleConverter<SocCode> socCodeConverter, IDynamicContentExtensions dynamicContentExtensions, IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight, IDynamicModuleRepository<JobProfile> jpRepository)
+        public JobProfileSocCodeRepository(
+            IDynamicModuleRepository<SocCode> repository,
+            IDynamicModuleConverter<ApprenticeVacancy> converter,
+            IDynamicModuleConverter<SocCode> socCodeConverter,
+            IDynamicContentExtensions dynamicContentExtensions,
+            IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight,
+            IDynamicModuleRepository<JobProfile> jpRepository)
         {
             this.repository = repository;
             this.converter = converter;

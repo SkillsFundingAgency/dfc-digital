@@ -2,6 +2,7 @@
 using System;
 using TechTalk.SpecFlow;
 using TestStack.Seleno.Configuration;
+using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 {
@@ -49,6 +50,15 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void PressBack()
         {
             Instance.Application.Browser.Navigate().Back();
+        }
+
+        public TPage NavigateToHealthStatusPage<TPage>()
+             where TPage : UiComponent, new()
+        {
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/health/servicestatus");
+            ScenarioContext.Set(page);
+
+            return page;
         }
 
         internal TPage NavigateToHomePage<TPage, TModel>()

@@ -27,6 +27,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
         }
 
+        [Given(@"that I am viewing the health status page")]
+        public void GivenThatIAmViewingTheHealthStatusPage()
+        {
+            NavigateToHealthStatusPage<HealthStatusPage>();
+        }
+
         #endregion Givens
 
         #region Whens
@@ -132,6 +138,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var infoSourcesPage = GetNavigatedPage<InformationSourcesPage>();
             infoSourcesPage.PageTitle.Should().Contain("Salary information");
+        }
+
+        [Then(@"I am redirected to the Health Status page")]
+        public void ThenIAmRedirectedToTheHealthStatusPage()
+        {
+            GetNavigatedPage<HealthStatusPage>().ListOfServices.Should().BeTrue();
         }
 
         #endregion Thens

@@ -194,14 +194,17 @@
     <Compile Include="Infrastructure\Config\ZapHook.cs" />
     <Compile Include="Infrastructure\Pages\BauProfilePage.cs" />
     <Compile Include="Infrastructure\Pages\BauSearchPage.cs" />
-    <Compile Include="Infrastructure\Pages\CookiesPage.cs" />
     <Compile Include="Infrastructure\Pages\CourseDirectoryPage.cs" />
     <Compile Include="Infrastructure\Pages\DFCElementFinder.cs" />
+    <Compile Include="Infrastructure\Pages\HealthStatusPage.cs" />
+    <Compile Include="Infrastructure\Pages\InformationSourcesPage.cs" />
     <Compile Include="Infrastructure\Pages\JobProfileCategoryPage.cs" />
     <Compile Include="Infrastructure\Pages\JobProfilePage.cs" />
+    <Compile Include="Infrastructure\Pages\PrivacyPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
     <Compile Include="Infrastructure\Pages\SitefinityPage.cs" />
+    <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
     <Compile Include="AcceptanceCriteria\Steps\JobProfileSteps.cs" />
@@ -270,6 +273,10 @@
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
+      <Project>{22CFB09D-D5C9-4376-85A2-BA564FBABBC2}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Seleno.BrowserStack.SpecFlowPlugin\Seleno.BrowserStack.SpecFlowPlugin.csproj">
       <Project>{489BA0D1-6FA9-4104-AD6F-14E3C4705BDD}</Project>

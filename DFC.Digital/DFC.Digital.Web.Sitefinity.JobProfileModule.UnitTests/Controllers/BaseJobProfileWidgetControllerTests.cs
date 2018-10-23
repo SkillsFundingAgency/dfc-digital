@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -14,6 +15,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 {
     public class BaseJobProfileWidgetControllerTests
     {
+        [Theory]
+        [InlineData("No Prefix", "test", " test")]
+        [InlineData("Prefix with a", "test", " a test")]
+        [InlineData("Prefix with an", "test", " an test")]
+        [InlineData("test", "test", " a test")]
+        [InlineData("test", "etest", " an etest")]
+        public void HtBSectionTitleTest(string htbPrefix, string title, string expected)
+        {
+            //Setup the fakes and dummies
+            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
+            var dummyJobProfile = GetDummyJobPRofile(true);
+            dummyJobProfile.HtBTitlePrefix = htbPrefix;
+            dummyJobProfile.Title = title;
+            var mapper = new MapperConfiguration(c => c.AddProfile<JobProfilesAutoMapperProfile>()).CreateMapper();
+
+            // Set up calls
+            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(true);
+            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(true);
+
+            //Instantiate & Act
+            using (var jobProfileHowToBecomeController = new JobProfileHowToBecomeController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage, mapper))
+            {
+                //Act
+                var indexMethodCall = jobProfileHowToBecomeController.WithCallTo(c => c.Index());
+
+                //Assert
+                jobProfileHowToBecomeController.GetHtBTitle().Should().BeEquivalentTo(expected);
+            }
+        }
+
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, true)]
@@ -128,7 +166,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                        WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
                        HowToBecomeData = new HowToBecome(),
                        Restrictions = new List<Restriction> { new Restriction { Info = nameof(Restriction.Info), Title = nameof(Restriction.Title) } },
-                       OtherRequirements = nameof(JobProfile.OtherRequirements)
+                       OtherRequirements = nameof(JobProfile.OtherRequirements),
+                       HtBTitlePrefix = nameof(JobProfile.HtBTitlePrefix)
                    }
                    : null;
         }

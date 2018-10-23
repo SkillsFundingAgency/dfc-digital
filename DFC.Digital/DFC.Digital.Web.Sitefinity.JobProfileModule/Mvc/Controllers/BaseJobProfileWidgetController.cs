@@ -52,17 +52,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             switch (CurrentJobProfile.HtBTitlePrefix)
             {
                 case "No Prefix":
-                    return " " + CurrentJobProfile.Title;
+                    return $" {CurrentJobProfile.Title}";
 
                 case "Prefix with a":
-                    return " a " + CurrentJobProfile.Title;
+                    return $" a {CurrentJobProfile.Title}";
 
                 case "Prefix with an":
-                    return " an " + CurrentJobProfile.Title;
+                    return $" an {CurrentJobProfile.Title}";
 
                 default:
-                    return (IsVowel(CurrentJobProfile.Title[0]) ? " an " : " a ") + CurrentJobProfile.Title;
+                    return IsVowel(CurrentJobProfile.Title[0]) ? $" an {CurrentJobProfile.Title}" : $" a {CurrentJobProfile.Title}";
             }
+        }
+
+        public bool IsVowel(char character)
+        {
+            return new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(char.ToLower(character));
         }
 
         /// <summary>
@@ -109,10 +114,5 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected abstract ActionResult GetDefaultView();
 
         protected abstract ActionResult GetEditorView();
-
-        private bool IsVowel(char character)
-        {
-            return new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(char.ToLower(character));
-        }
     }
 }

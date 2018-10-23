@@ -9,7 +9,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             Browser.SwitchTo().Frame(0);
 
-            return Find.Element(By.ClassName("ss-button-submit")) != null;
+            return Find.Element(By.ClassName("ss-question-title")) != null;
         }
 
         public void StartSurvey()
@@ -23,5 +23,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             var close = Find.Element(By.ClassName("survey_close"));
             close.Click();
         }
+
+        public bool IsJPSurveyQuestionDisplayed() => Find.Element(By.Id("ss-question-title-7271726")) != null;
     }
 }

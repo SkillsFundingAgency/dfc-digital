@@ -121,6 +121,36 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             }
         }
 
+        [When(@"I select '(.*)' on the survey")]
+        public void WhenISelectAnswerOnTheSurvey(string answer)
+        {
+            switch (answer)
+            {
+                case "yes":
+                    GetNavigatedPage<JobProfilePage>().ClickYesOnSurvey<JobProfilePage>();
+                    break;
+                case "no":
+                    GetNavigatedPage<JobProfilePage>().ClickNoOnSurvey<JobProfilePage>();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        [When(@"I delete the job profile survey cookie")]
+        public void WhenIDeleteTheJobProfileSurveyCookie()
+        {
+            DeleteCookie("JPsurvey");
+            RefreshPage();
+        }
+
+        [When(@"I click the jp click here feedback survey link")]
+        public void WhenIClickTheJpClickHereFeedbackSurveyLink()
+        {
+            GetNavigatedPage<JobProfilePage>().ClickToAnswerNoJPSurvey<VocSurveyPage>()
+                .SaveTo(ScenarioContext);
+        }
+
         #endregion
 
         #region Thens
@@ -324,6 +354,37 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                     break;
             }
         }
+
+        [Then(@"the job profile survey banner is displayed on the page")]
+        public void ThenTheJobProfileSurveyBannerIsDisplayedOnThePage()
+        {
+            GetNavigatedPage<JobProfilePage>().IsJPSurveyDisplayed.Should().BeTrue();
+        }
+
+        [Then(@"the thank you message is displayed")]
+        public void ThenTheThankYouMessageIsDisplayed()
+        {
+            GetNavigatedPage<JobProfilePage>().ThankYouText.Contains("Thank you");
+        }
+
+        [Then(@"the job profile cookie is set")]
+        public void ThenTheJobProfileCookieIsSet()
+        {
+            GetCookieValue("JPsurvey").Should().NotBeNullOrEmpty();
+        }
+
+        [Then(@"the alternate message is displayed")]
+        public void ThenTheAlternateMessageIsDisplayed()
+        {
+            GetNavigatedPage<JobProfilePage>().JPSurveyNoText.Contains("improve the service");
+        }
+
+        [Then(@"I am redirected to the JP survey page")]
+        public void ThenIAmRedirectedToTheJPSurveyPage()
+        {
+            GetNavigatedPage<VocSurveyPage>().IsJPSurveyQuestionDisplayed().Should().BeTrue();
+        }
+
         #endregion
     }
 }

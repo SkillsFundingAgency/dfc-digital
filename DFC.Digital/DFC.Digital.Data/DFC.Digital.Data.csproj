@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
+    <Compile Include="CMSExtension\Model\ApprenticeshipVacancyReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
@@ -185,7 +186,6 @@
     <Compile Include="Model\SocMappingStatus.cs" />
     <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
-    <Compile Include="CMSExtension\Model\StandardAndFrameworkReport.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />

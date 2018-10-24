@@ -367,13 +367,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = $"A-{nameof(SocCode.SOCCode) + i}", ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
+                list.Add(new SocCode { Description = nameof(SocCode.Description), SOCCode = $"A-{nameof(SocCode.SOCCode) + i}", ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode) });
             }
 
             //Some with null ONetOccupationalCode
             for (var i = 0; i < count; i++)
             {
-                list.Add(new SocCode { Title = nameof(SocCode.Title), SOCCode = $"B-{nameof(SocCode.SOCCode) + i}" });
+                list.Add(new SocCode { Description = nameof(SocCode.Description), SOCCode = $"B-{nameof(SocCode.SOCCode) + i}" });
             }
 
             return list.AsQueryable();
@@ -385,7 +385,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
             for (var i = 0; i < count; i++)
             {
-                list.Add(new JobProfileOverloadForWhatItTakes { Title = nameof(SocCode.Title), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(JobProfileOverloadForWhatItTakes.DigitalSkillsLevel), HasRelatedSocSkillMatrices = true, Locked = locked});
+                list.Add(new JobProfileOverloadForWhatItTakes { Title = nameof(SocCode.Description), SOCCode = nameof(SocCode.SOCCode), ONetOccupationalCode = nameof(SocCode.ONetOccupationalCode), DigitalSkillsLevel = nameof(JobProfileOverloadForWhatItTakes.DigitalSkillsLevel), HasRelatedSocSkillMatrices = true, Locked = locked});
             }
             return list;
         }

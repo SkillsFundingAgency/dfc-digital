@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class StandardAndFrameworkReport : IDigitalDataModel
+    public class ApprenticeshipVacancyReport : IDigitalDataModel
     {
         public JobProfileReport JobProfile { get; set; }
 

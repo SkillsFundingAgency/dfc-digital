@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System.Linq;
+using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 {
@@ -9,35 +10,42 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
         private readonly IDynamicModuleRepository<JobProfile> jobProfileRepository;
         private readonly IDynamicModuleConverter<JobProfileReport> jpReportConverter;
         private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
-        private readonly IDynamicModuleConverter<StandardAndFrameworkReport> standardAndFrameworkConverter;
+        private readonly IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeshipVacancyReportConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly ITaxonomyRepository taxonomyRepository;
 
         public JobProfileReportRepository(
             IDynamicModuleRepository<JobProfile> jobProfileRepository,
             IDynamicModuleConverter<JobProfileReport> jpReportConverter,
             IDynamicModuleRepository<SocCode> socCodeRepository,
-            IDynamicModuleConverter<StandardAndFrameworkReport> standardAndFrameworkConverter,
-            IDynamicContentExtensions dynamicContentExtensions)
+            IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeshipVacancyReportConverter,
+            IDynamicContentExtensions dynamicContentExtensions,
+            ITaxonomyRepository taxonomyRepository)
         {
             this.jobProfileRepository = jobProfileRepository;
             this.jpReportConverter = jpReportConverter;
             this.socCodeRepository = socCodeRepository;
-            this.standardAndFrameworkConverter = standardAndFrameworkConverter;
+            this.apprenticeshipVacancyReportConverter = apprenticeshipVacancyReportConverter;
             this.dynamicContentExtensions = dynamicContentExtensions;
+            this.taxonomyRepository = taxonomyRepository;
         }
 
-        public IQueryable<StandardAndFrameworkReport> GetStandardsAndFrameworksReport()
+        public IQueryable<ApprenticeshipVacancyReport> GetApprenticeshipVacancyReport()
         {
             var allJobProfiles = jobProfileRepository.GetAll();
-            var allJpReports = allJobProfiles.Select(j => jpReportConverter.ConvertFrom(j));
-            var allSocCodes = socCodeRepository.GetAll();
-            var stdAndFrameworks = allSocCodes.Select(s => standardAndFrameworkConverter.ConvertFrom(s));
-            foreach (var item in stdAndFrameworks)
-            {
-                item.JobProfile = allJpReports.SingleOrDefault(j => j.SocCodeId == item.SocCode.Id);
-            }
+            allJobProfiles.SetRelatedDataSourceContext();
 
-            return stdAndFrameworks;
+            //var allJpReports = allJobProfiles.Select(j => jpReportConverter.ConvertFrom(j));
+
+            //var allSocCodes = socCodeRepository.GetAll();
+            //allSocCodes.SetRelatedDataSourceContext();
+            //var allAVReports = allSocCodes.Select(s => apprenticeshipVacancyReportConverter.ConvertFrom(s));
+
+            //foreach (var item in allAVReports)
+            //{
+            //    item.JobProfile = allJpReports.Single(j => j.SocCode.SOCCode == item.SocCode.SOCCode);
+            //}
+            return allJobProfiles.Select(j => apprenticeshipVacancyReportConverter.ConvertFrom(j));
         }
     }
 }

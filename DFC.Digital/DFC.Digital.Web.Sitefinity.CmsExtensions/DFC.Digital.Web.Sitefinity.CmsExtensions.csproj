@@ -394,7 +394,9 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CmsExtensionsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MVC\Controllers\ApprenticeshipVacancyReportController.cs" />
     <Compile Include="MVC\Controllers\SkillsFrameworkDataImportController.cs" />
+    <Compile Include="MVC\Models\ApprenticeshipVacancyReportViewModel.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkImportViewModel.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -418,6 +420,7 @@
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </CodeAnalysisDictionary>
+    <Content Include="MVC\Views\ApprenticeshipVacancyReport\Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -440,6 +443,7 @@
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -13,6 +13,6 @@ namespace DFC.Digital.Data.Model
 
         public string Name { get; set; }
 
-        public Guid SocCodeId { get; set; }
+        //public SocCode SocCode { get; set; }
     }
 }

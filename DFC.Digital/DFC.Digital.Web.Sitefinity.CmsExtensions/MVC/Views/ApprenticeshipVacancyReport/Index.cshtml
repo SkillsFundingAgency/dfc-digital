@@ -1,0 +1,29 @@
+﻿@model ApprenticeshipVacancyReportViewModel
+<section>
+    <h2>Apprenticeship Vacancy Report</h2>
+    <p>Report date - @DateTime.Now</p>
+    <p>Took @Model.ExecutionTime to compile this report.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>SOC Code</th>
+                <th>SOC Title</th>
+                <th>JobProfile Title</th>
+                <th>Standards</th>
+                <th>Frameworks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ReportData)
+            {
+            <tr>
+                <td>@(item.SocCode?.SOCCode)</td>
+                <td>@(item.SocCode?.Description)</td>
+                <td>@item.JobProfile.Title</td>
+                <td>@string.Join(",", item.Standards?.ToList() ?? new List<string>())</td>
+                <td>@string.Join(",", item.Frameworks?.ToList() ?? new List<string>())</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+ </section>

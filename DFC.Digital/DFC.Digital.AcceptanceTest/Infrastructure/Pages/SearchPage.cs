@@ -37,7 +37,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         internal bool HasFoundInField => Find.Element(By.ClassName("results-categories")) != null;
 
-        internal string HasDidYouMeanText => Find.OptionalElement(By.ClassName("search-dym"))?.Text;
+        internal string HasDidYouMeanText => Find.OptionalElement(By.ClassName("search-dym"))?.Text.Trim();
 
         internal string SearchTitle => Find.Element(By.ClassName("search-title")).Text;
 
@@ -98,7 +98,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             }
         }
 
-        internal string SearchBoxValue => Find.Element(By.Id("search-main")).GetAttribute("value");
+        internal string SearchBoxValue => Find.Element(By.Id("search-main")).GetAttribute("value").Trim();
 
         internal string FirstJobProfileUrl => Find.OptionalElement(By.ClassName("dfc-code-search-jpTitle"))?.GetAttribute("href");
 

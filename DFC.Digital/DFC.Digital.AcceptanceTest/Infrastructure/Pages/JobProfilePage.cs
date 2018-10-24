@@ -43,7 +43,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public bool HasUsefulLinksSection => Find.OptionalElement(By.ClassName("govuk-related-items")) != null;
 
-        public string ProfilePageHeading => Find.OptionalElement(By.ClassName("heading-xlarge"))?.Text;
+        public string ProfilePageHeading => Find.OptionalElement(By.ClassName("heading-xlarge"))?.Text.Trim();
 
         public string HomeCareersText => Find.Element(By.Id("proposition-name")).Text;
 
@@ -94,7 +94,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public string GetCourseTitle(int coursenumber)
         {
             return Find.Elements(By.CssSelector(".dfc-code-jp-trainingCourse .heading-small")).ElementAt(coursenumber - 1)
-                .Text;
+                .Text.Trim();
         }
 
         public T ClickCourseTitle<T>(int coursenumber)

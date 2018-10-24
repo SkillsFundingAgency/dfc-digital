@@ -463,7 +463,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var searchPage = GetNavigatedPage<SearchPage>();
             ScenarioContext.TryGetValue("didyoumeansearchTerm", out string searchTerm);
-            searchPage.SearchBoxValue.Should().BeEquivalentTo(searchTerm);
+            searchPage.SearchBoxValue.Should().BeEquivalentTo(searchTerm.Trim());
         }
 
         [Then(@"search should not display the Did You Mean text")]

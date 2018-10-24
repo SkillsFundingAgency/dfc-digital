@@ -29,7 +29,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var visitedPage = NavigateToJobProfilePage<JobProfilePage, JobProfileDetailsViewModel>(jobProfileUrl);
 
-            ScenarioContext.Set(visitedPage.ProfilePageHeading, "visitedPageHeading");
+            ScenarioContext.Set(visitedPage.ProfilePageHeading.Trim(), "visitedPageHeading");
             ScenarioContext.Set(jobProfileUrl, "profileUrl");
         }
 
@@ -263,19 +263,16 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 
             ScenarioContext.TryGetValue("courseTitle", out coursetitle);
 
-            courseDirectoryPage.Heading.Should().Contain(coursetitle);
+            courseDirectoryPage.Heading.Should().Contain(coursetitle.Trim());
         }
 
         [Then(@"take me back to the job profile I had been viewing")]
         public void ThenTakeMeBackToTheJobProfileIHadBeenViewing()
         {
             var profilePage = GetNavigatedPage<JobProfilePage>();
-            var coursetitle = string.Empty;
-
             var visitedPageHeading = string.Empty;
             ScenarioContext.TryGetValue("visitedPageHeading", out visitedPageHeading);
-            ScenarioContext.TryGetValue("courseTitle", out coursetitle);
-            profilePage.ProfilePageHeading.Should().Contain(visitedPageHeading);
+            profilePage.ProfilePageHeading.Should().Contain(visitedPageHeading.Trim());
         }
 
         [Then(@"take me to the search page on Course Directory")]

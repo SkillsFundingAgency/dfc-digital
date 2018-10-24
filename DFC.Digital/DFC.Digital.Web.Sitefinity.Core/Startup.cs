@@ -1,17 +1,24 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
+using Telerik.Sitefinity.SitemapGenerator.Data;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public sealed class Startup
     {
         private Startup()
@@ -23,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
 
             Bootstrapper.Initialized += Bootstrapper_Initialized;
-            Bootstrapper.Bootstrapped += new EventHandler<EventArgs>(Bootstrapper_Bootstrapped);
+            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
             MvcHandler.DisableMvcResponseHeader = true;
         }
@@ -44,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainerFactory - Re-start sitefinity -{ex.ToString()}");
+                Logger.Writer.Write($"Fatal error - Failed to register AutofacContainerFactory - Re-start sitefinity -{ex}");
             }
         }
 
@@ -54,6 +61,43 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
+
+            if (e.CommandName == "Bootstrapped")
+            {
+                EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+            }
+        }
+
+        private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)
+        {
+            // gets the entries that are about to be written in the sitemap
+            var entries = evt.Entries.ToList();
+
+            // Update the priority
+            entries.ForEach(entry => entry.Priority = (float)0.5);
+
+            //Clean up
+            entries.RemoveAll(x => x.Location.ToUpperInvariant().Contains("/ALERTS/")
+                                || x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
+                                || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES"));
+
+            //Add categories
+            var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+            var repository = autofacContainer.Resolve<IJobProfileCategoryRepository>();
+            var cats = repository.GetJobProfileCategories();
+
+            foreach (var category in cats)
+            {
+                // adds the new sitemap entry to the collection of the entries
+                entries.Add(new SitemapEntry
+                {
+                    Location = $"https://beta.nationalcareersservice.direct.gov.uk/job-categories/{category.Url}",
+                    Priority = (float)0.5
+                });
+            }
+
+            // sets the collection of entries to modified collection
+            evt.Entries = entries.OrderBy(x => x.Location);
         }
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)
@@ -83,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainer - Re-start sitefinity -{ex.ToString()}");
+                Logger.Writer.Write($"Fatal error - Failed to register AutofacContainer - Re-start sitefinity -{ex}");
             }
         }
 

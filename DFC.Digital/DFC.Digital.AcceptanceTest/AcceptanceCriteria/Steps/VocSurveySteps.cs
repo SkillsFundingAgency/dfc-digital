@@ -22,20 +22,11 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 
         #region When's
 
-        [When(@"I enter the email '(.*)' and press send")]
-        public void WhenIEnterAValidEmailAndPressSend(string email)
-        {
-            var survey = GetNavigatedPage<Homepage>();
-            survey.ClickTakeSurvey();
-            survey.SubmitEmail<VocSurveyPage>(email);
-        }
-
         [When(@"I select to fill in the online survey")]
         public void WhenISelectToFillInTheOnlineSurvey()
         {
             var survey = GetNavigatedPage<Homepage>();
-            survey.ClickTakeSurvey();
-            survey.SelectOnlineSurvey<VocSurveyPage>()
+            survey.ClickTakeSurvey<VocSurveyPage>()
                 .SaveTo(ScenarioContext);
         }
 

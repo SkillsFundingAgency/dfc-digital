@@ -58,7 +58,7 @@ Scenario: Apprenticeships are displayed on Job Profile Page
 
 @EndToEnd
 Scenario: Apprenticeship are not displayed on Job Profile Page and correct message shown
-	Given that I am viewing the 'border-force-officer' job profile page
+	Given that I am viewing the 'gp' job profile page
 	Then the correct sections should be displayed
 	And the no apprenticeships message should be shown
 
@@ -69,7 +69,7 @@ Scenario: Valid Search on Job Profile Page
 	When I search using 'nurse' on the profile page
 	Then the first result is 'shown' on the page
 
-Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redirects to the corresponding BAU JP Page
+	Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redirects to the corresponding BAU JP Page
 	Given that I am viewing the 'GP' job profile page
 	Then the 'profile' page signpost banner is displayed
 	When I click on the 'profile' page banner link
@@ -78,5 +78,24 @@ Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redi
 	When I click the BAU JP signpost banner
 	Then I am redirected to corresponding 'Beta' profile page
 
+Scenario: JP Survey - Answering YES to the survey
+	Given that I am viewing the 'careers-adviser' job profile page
+	Then the job profile survey banner is displayed on the page
+	When I select 'yes' on the survey
+	Then the thank you message is displayed
+	And the job profile cookie is set
 
+	When I delete the job profile survey cookie
+	Then the job profile survey banner is displayed on the page
 
+Scenario: JP Survey - Answering NO to the survey
+	Given that I am viewing the 'assistant-immigration-officer' job profile page
+	When I select 'no' on the survey
+	Then the alternate message is displayed
+
+	When I click the jp click here feedback survey link
+	Then I am redirected to the JP survey page
+
+	When I click to go back
+	And I delete the job profile survey cookie
+	Then the job profile survey banner is displayed on the page

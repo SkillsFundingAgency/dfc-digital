@@ -33,7 +33,11 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute);
 
-        public void ClickTakeSurvey() => Find.Element(By.ClassName(OpenSurvey)).Click();
+        public TPage ClickTakeSurvey<TPage>()
+            where TPage : UiComponent, new()
+        {
+            return Navigate.To<TPage>(By.ClassName(OpenSurvey));
+        }
 
         public TPage SelectOnlineSurvey<TPage>()
             where TPage : UiComponent, new()

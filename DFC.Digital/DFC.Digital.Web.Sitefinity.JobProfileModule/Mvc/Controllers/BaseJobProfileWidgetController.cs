@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         protected abstract ActionResult GetEditorView();
 
-        private static string GetDefaultDynamicTitle(string title) => IsStartsWithVowel(title) ? $" an {title}" : $" a {title}";
+        private static string GetDefaultDynamicTitle(string title) => IsStartsWithVowel(title) ? $"an {title}" : $"a {title}";
 
         private static bool IsStartsWithVowel(string title) => new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(title.ToLower().First());
     }

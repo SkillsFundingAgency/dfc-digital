@@ -55,9 +55,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData("No Title", "test", " a test")]
-        [InlineData("No Title", "etest", " an etest")]
-        public void HtBSectionTitleForCoursesAndApprenticeshipsTest(string htbPrefix, string title, string expected)
+        [InlineData("No Title", "test", "a test")]
+        [InlineData("No Title", "etest", "an etest")]
+        public void DynamicSectionTitleForCoursesAndApprenticeshipsTest(string htbPrefix, string title, string expected)
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());

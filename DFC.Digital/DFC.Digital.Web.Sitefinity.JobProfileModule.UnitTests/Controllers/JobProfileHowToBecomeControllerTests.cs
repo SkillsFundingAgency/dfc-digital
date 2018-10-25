@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileHowToBecomeViewModel>(vm =>
                     {
-                        AssertViewModelProperties(vm, jobprofilehtbController);
+                        AssertViewModelProperties(vm, jobprofilehtbController, validJobProfile);
                     })
                     .AndNoModelErrors();
 
@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileHowToBecomeViewModel>(vm =>
                     {
-                        AssertViewModelProperties(vm, jobprofilehtbController);
+                        AssertViewModelProperties(vm, jobprofilehtbController, validJobProfile);
                     })
                     .AndNoModelErrors();
                     A.CallTo(() => jobProfileRepositoryFake.GetByUrlName(A<string>._)).MustHaveHappened();
@@ -91,10 +91,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
-        private static void AssertViewModelProperties(JobProfileHowToBecomeViewModel vm, JobProfileHowToBecomeController jobprofilehtbController)
+        private static void AssertViewModelProperties(JobProfileHowToBecomeViewModel vm, JobProfileHowToBecomeController jobprofilehtbController, bool validJobProfile)
         {
             vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
             vm.MainSectionTitle.Should().BeEquivalentTo(jobprofilehtbController.MainSectionTitle);
+            if (validJobProfile)
+            {
+                vm.DynamicTitle.Should().BeEquivalentTo($"{jobprofilehtbController.MainSectionTitle} {jobprofilehtbController.GetDynamicTitle(false)}");
+            }
+
             vm.SectionId.Should().BeEquivalentTo(jobprofilehtbController.SectionId);
             vm.SubsectionUniversity.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversity);
             vm.SubsectionUniversityMoreInformation.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversityMoreInformation);
@@ -151,7 +156,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     Skills = nameof(JobProfile.Skills),
                     WhatYouWillDo = nameof(JobProfile.WhatYouWillDo),
                     WorkingHoursPatternsAndEnvironment = nameof(JobProfile.WorkingHoursPatternsAndEnvironment),
-                    HowToBecomeData = new HowToBecome()
+                    HowToBecomeData = new HowToBecome(),
+                    DynamicTitlePrefix = nameof(JobProfile.DynamicTitlePrefix)
                 }
                 : null;
         }

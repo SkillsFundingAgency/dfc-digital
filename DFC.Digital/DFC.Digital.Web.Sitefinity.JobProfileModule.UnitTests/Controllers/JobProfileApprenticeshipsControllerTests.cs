@@ -86,6 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socRepositoryFake, loggerFake, sitefinityPage)
             {
                 ApprenticeshipText = nameof(JobProfileApprenticeshipsController.ApprenticeshipText),
+                NoVacancyText = nameof(JobProfileApprenticeshipsController.NoVacancyText),
                 ApprenticeshipLocationDetails =
                     nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
@@ -107,6 +108,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             .MainSectionTitle);
                         vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
+                        vm.NoVacancyText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
+                           .NoVacancyText);
                         vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
                         vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
@@ -211,6 +214,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socRepositoryFake, loggerFake, sitefinityPage)
             {
                 ApprenticeshipText = nameof(JobProfileApprenticeshipsController.ApprenticeshipText),
+                NoVacancyText = nameof(JobProfileApprenticeshipsController.NoVacancyText),
                 ApprenticeshipLocationDetails = nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
                 MainSectionTitle = nameof(JobProfileApprenticeshipsController.MainSectionTitle),

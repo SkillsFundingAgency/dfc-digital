@@ -21,6 +21,14 @@ namespace DFC.Digital.Data.Model
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the HtBTitlePrefix.
+        /// </summary>
+        /// <value>
+        /// HtBTitlePrefix.
+        /// </value>
+        public string DynamicTitlePrefix { get; set; }
+
+        /// <summary>
         /// Gets or sets the alternative title.
         /// </summary>
         /// <value>
@@ -228,13 +236,5 @@ namespace DFC.Digital.Data.Model
         public string ONetOccupationalCode { get; set; }
 
         public bool HasRelatedSocSkillMatrices { get; set; }
-
-        /// <summary>
-        /// Gets or sets the HtBTitlePrefix.
-        /// </summary>
-        /// <value>
-        /// HtBTitlePrefix.
-        /// </value>
-        public string HtBTitlePrefix { get; set; }
     }
 }

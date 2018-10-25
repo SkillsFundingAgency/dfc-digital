@@ -77,7 +77,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
                 OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
-                HtBTitlePrefix = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfile.HtBTitlePrefix)),
+                DynamicTitlePrefix = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfile.DynamicTitlePrefix)),
 
                 //What You will do section
                 WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),

@@ -47,35 +47,25 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
         }
 
-        public string GetHtBTitle()
+        public string GetDynamicTitle(bool skipNoTitle)
         {
-            switch (CurrentJobProfile.HtBTitlePrefix)
+            switch (CurrentJobProfile.DynamicTitlePrefix)
             {
-                case "No Title":
-                    return $"";
-
                 case "No Prefix":
-                    return $" {CurrentJobProfile.Title}";
+                    return $"{CurrentJobProfile.Title}";
 
                 case "Prefix with a":
-                    return $" a {CurrentJobProfile.Title}";
+                    return $"a {CurrentJobProfile.Title}";
 
                 case "Prefix with an":
-                    return $" an {CurrentJobProfile.Title}";
+                    return $"an {CurrentJobProfile.Title}";
+
+                case "No Title":
+                    return skipNoTitle ? GetDefaultDynamicTitle(CurrentJobProfile.Title) : string.Empty;
 
                 default:
-                    return IsVowel(CurrentJobProfile.Title[0]) ? $" an {CurrentJobProfile.Title}" : $" a {CurrentJobProfile.Title}";
+                    return GetDefaultDynamicTitle(CurrentJobProfile.Title);
             }
-        }
-
-        public string GetHtBTitleForCoursesAndApprenticeships()
-        {
-            return IsVowel(CurrentJobProfile.Title[0]) ? $" an {CurrentJobProfile.Title}" : $" a {CurrentJobProfile.Title}";
-        }
-
-        public bool IsVowel(char character)
-        {
-            return new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(char.ToLower(character));
         }
 
         /// <summary>
@@ -122,5 +112,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected abstract ActionResult GetDefaultView();
 
         protected abstract ActionResult GetEditorView();
+
+        private static string GetDefaultDynamicTitle(string title) => IsStartsWithVowel(title) ? $" an {title}" : $" a {title}";
+
+        private static bool IsStartsWithVowel(string title) => new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(title.ToLower().First());
     }
 }

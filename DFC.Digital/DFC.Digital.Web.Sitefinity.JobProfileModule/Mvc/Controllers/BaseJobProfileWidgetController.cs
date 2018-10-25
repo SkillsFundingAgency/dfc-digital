@@ -51,6 +51,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             switch (CurrentJobProfile.HtBTitlePrefix)
             {
+                case "No Title":
+                    return $"";
+
                 case "No Prefix":
                     return $" {CurrentJobProfile.Title}";
 
@@ -63,6 +66,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 default:
                     return IsVowel(CurrentJobProfile.Title[0]) ? $" an {CurrentJobProfile.Title}" : $" a {CurrentJobProfile.Title}";
             }
+        }
+
+        public string GetHtBTitleForCoursesAndApprenticeships()
+        {
+            return IsVowel(CurrentJobProfile.Title[0]) ? $" an {CurrentJobProfile.Title}" : $" a {CurrentJobProfile.Title}";
         }
 
         public bool IsVowel(char character)

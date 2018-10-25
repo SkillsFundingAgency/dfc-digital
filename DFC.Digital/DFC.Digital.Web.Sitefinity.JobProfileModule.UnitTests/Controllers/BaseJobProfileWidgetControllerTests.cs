@@ -7,7 +7,9 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -21,6 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData("Prefix with an", "test", " an test")]
         [InlineData("test", "test", " a test")]
         [InlineData("test", "etest", " an etest")]
+        [InlineData("No Title", "test", "")]
         public void HtBSectionTitleTest(string htbPrefix, string title, string expected)
         {
             //Setup the fakes and dummies
@@ -49,6 +52,94 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
                 //Assert
                 jobProfileHowToBecomeController.GetHtBTitle().Should().BeEquivalentTo(expected);
+            }
+        }
+
+        [Theory]
+        [InlineData("No Title", "test", " a test")]
+        [InlineData("No Title", "etest", " an etest")]
+        public void HtBSectionTitleForCoursesAndApprenticeshipsTest(string htbPrefix, string title, string expected)
+        {
+            //Setup the fakes and dummies
+            var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            var socCodeRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
+            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
+            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
+            var dummyJobProfile = GetDummyJobPRofile(true);
+            dummyJobProfile.HtBTitlePrefix = htbPrefix;
+            dummyJobProfile.Title = title;
+
+            var dummyCourses = new EnumerableQuery<Course>(new List<Course>
+            {
+                new Course
+                {
+                    Title = $"dummy {nameof(Course.Title)}",
+                    Location = $"dummy {nameof(Course.Location)}",
+                    CourseId = $"dummy {nameof(Course.CourseId)}",
+                    StartDate = default(DateTime),
+                    ProviderName = $"dummy {nameof(Course.ProviderName)}"
+                },
+                new Course
+                {
+                    Title = $"dummy {nameof(Course.Title)}",
+                    Location = $"dummy {nameof(Course.Location)}",
+                    CourseId = $"dummy {nameof(Course.CourseId)}",
+                    StartDate = default(DateTime),
+                    ProviderName = $"dummy {nameof(Course.ProviderName)}"
+                }
+            });
+
+            var dummyApprenticeships = new EnumerableQuery<ApprenticeVacancy>(new List<ApprenticeVacancy>
+            {
+                new ApprenticeVacancy
+                {
+                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
+                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
+                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
+                    WageAmount = "£3",
+                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
+                },
+                new ApprenticeVacancy
+                {
+                    Title = $"dummy {nameof(ApprenticeVacancy.Title)}",
+                    Location = $"dummy {nameof(ApprenticeVacancy.Location)}",
+                    URL = new Uri($"/dummy{nameof(ApprenticeVacancy.URL)}", UriKind.RelativeOrAbsolute),
+                    VacancyId = $"dummy {nameof(ApprenticeVacancy.VacancyId)}",
+                    WageAmount = "£3",
+                    WageUnitType = $"dummy {nameof(ApprenticeVacancy.WageUnitType)}"
+                }
+            });
+
+            // Set up calls
+            A.CallTo(() => repositoryFake.GetByUrlName(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => repositoryFake.GetByUrlNameForPreview(A<string>._)).Returns(dummyJobProfile);
+            A.CallTo(() => socCodeRepositoryFake.GetApprenticeVacanciesBySocCode(A<string>._)).Returns(dummyApprenticeships);
+            A.CallTo(() => coursesearchFake.GetCoursesAsync(A<string>._)).Returns(dummyCourses);
+            A.CallTo(() => sitefinityPage.GetDefaultJobProfileToUse(A<string>._)).ReturnsLazily((string defaultProfile) => defaultProfile);
+            A.CallTo(() => webAppContextFake.IsContentAuthoringSite).Returns(true);
+            A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(true);
+
+            //Instantiate & Act
+            using (var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socCodeRepositoryFake, loggerFake, sitefinityPage))
+            {
+                //Act
+                var indexMethodCall = jobProfileApprenticeshipsController.WithCallTo(c => c.Index());
+
+                //Assert
+                jobProfileApprenticeshipsController.GetHtBTitleForCoursesAndApprenticeships().Should().BeEquivalentTo(expected);
+            }
+
+            using (var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
+            {
+                //Act
+                var indexMethodCall = jobProfileCourseOpportunityController.WithCallTo(c => c.Index());
+
+                //Assert
+                jobProfileCourseOpportunityController.GetHtBTitleForCoursesAndApprenticeships().Should().BeEquivalentTo(expected);
             }
         }
 

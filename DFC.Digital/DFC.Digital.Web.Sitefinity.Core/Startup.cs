@@ -73,28 +73,31 @@ namespace DFC.Digital.Web.Sitefinity.Core
             // gets the entries that are about to be written in the sitemap
             var entries = evt.Entries.ToList();
 
-            // Update the priority
-            entries.ForEach(entry => entry.Priority = (float)0.5);
+            var jobCategoryPageEntry =
+                entries.FirstOrDefault(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES"));
+
+            if (jobCategoryPageEntry != null)
+            {
+                //Add categories
+                var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
+                var repository = autofacContainer.Resolve<IJobProfileCategoryRepository>();
+                var cats = repository.GetJobProfileCategories();
+
+                foreach (var category in cats)
+                {
+                    // adds the new sitemap entry to the collection of the entries
+                    entries.Add(new SitemapEntry
+                    {
+                        Location = $"{jobCategoryPageEntry.Location}/{category.Url}",
+                        Priority = (float)0.5
+                    });
+                }
+            }
 
             //Clean up
             entries.RemoveAll(x => x.Location.ToUpperInvariant().Contains("/ALERTS/")
                                 || x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
                                 || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES"));
-
-            //Add categories
-            var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-            var repository = autofacContainer.Resolve<IJobProfileCategoryRepository>();
-            var cats = repository.GetJobProfileCategories();
-
-            foreach (var category in cats)
-            {
-                // adds the new sitemap entry to the collection of the entries
-                entries.Add(new SitemapEntry
-                {
-                    Location = $"https://beta.nationalcareersservice.direct.gov.uk/job-categories/{category.Url}",
-                    Priority = (float)0.5
-                });
-            }
 
             // sets the collection of entries to modified collection
             evt.Entries = entries.OrderBy(x => x.Location);

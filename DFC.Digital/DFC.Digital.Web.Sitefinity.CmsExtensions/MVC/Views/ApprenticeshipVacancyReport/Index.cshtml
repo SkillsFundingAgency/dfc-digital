@@ -13,9 +13,13 @@
                 .Grid(Model.ReportData)
                 .Build(columns =>
                 {
-                columns.Add(model => model.JobProfile.Title).Titled("Title");
-                columns.Add(model => model.SocCode).Titled("SOC");
-            }).Empty("No data found")
+                    columns.Add(model => model.JobProfile.Title).Titled("Title");
+                    columns.Add(model => model.SocCode.SOCCode).Titled("SOC");
+                    columns.Add(model => model.SocCode.Description).Titled("SOC Description");
+                    columns.Add(model => string.Join(",", model.Standards == null ? new List<string>() : model.Standards.ToList())).Titled("Standards");
+                    columns.Add(model => string.Join(",", model.Frameworks == null ? new List<string>() : model.Frameworks.ToList())).Titled("Frameworks");
+
+                }).Empty("No data found")
                 .Filterable()
                 .Sortable()
                 .Pageable()
@@ -29,27 +33,4 @@
             });
         </script>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>SOC Code</th>
-                <th>SOC Title</th>
-                <th>JobProfile Title</th>
-                <th>Standards</th>
-                <th>Frameworks</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ReportData)
-            {
-                <tr>
-                    <td>@(item.SocCode?.SOCCode)</td>
-                    <td>@(item.SocCode?.Description)</td>
-                    <td>@item.JobProfile.Title</td>
-                    <td>@string.Join(",", item.Standards?.ToList() ?? new List<string>())</td>
-                    <td>@string.Join(",", item.Frameworks?.ToList() ?? new List<string>())</td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </section>

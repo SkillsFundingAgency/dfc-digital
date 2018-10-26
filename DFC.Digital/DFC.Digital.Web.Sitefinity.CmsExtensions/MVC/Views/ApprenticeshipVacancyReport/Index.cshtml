@@ -1,8 +1,34 @@
 ﻿@model ApprenticeshipVacancyReportViewModel
+@using NonFactors.Mvc.Grid
 <section>
-    <h2>Apprenticeship Vacancy Report</h2>
-    <p>Report date - @DateTime.Now</p>
-    <p>Took @Model.ExecutionTime to compile this report.</p>
+    
+    <div>
+
+        <div id="jobProfileReports" , style="margin:10px">
+            <h1>Apprenticeship Vacancy Report</h1>
+            <p>Report date - @DateTime.Now</p>
+            <p>Took @Model.ExecutionTime to compile this report.</p>
+           
+            @(Html
+                .Grid(Model.ReportData)
+                .Build(columns =>
+                {
+                columns.Add(model => model.JobProfile.Title).Titled("Title");
+                columns.Add(model => model.SocCode).Titled("SOC");
+            }).Empty("No data found")
+                .Filterable()
+                .Sortable()
+                .Pageable()
+            )
+        </div>
+        <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".sfFooter").hide();
+                $('.mvc-grid').mvcgrid();
+            });
+        </script>
+    </div>
     <table>
         <thead>
             <tr>
@@ -16,14 +42,14 @@
         <tbody>
             @foreach (var item in Model.ReportData)
             {
-            <tr>
-                <td>@(item.SocCode?.SOCCode)</td>
-                <td>@(item.SocCode?.Description)</td>
-                <td>@item.JobProfile.Title</td>
-                <td>@string.Join(",", item.Standards?.ToList() ?? new List<string>())</td>
-                <td>@string.Join(",", item.Frameworks?.ToList() ?? new List<string>())</td>
-            </tr>
+                <tr>
+                    <td>@(item.SocCode?.SOCCode)</td>
+                    <td>@(item.SocCode?.Description)</td>
+                    <td>@item.JobProfile.Title</td>
+                    <td>@string.Join(",", item.Standards?.ToList() ?? new List<string>())</td>
+                    <td>@string.Join(",", item.Frameworks?.ToList() ?? new List<string>())</td>
+                </tr>
             }
         </tbody>
     </table>
- </section>
+</section>

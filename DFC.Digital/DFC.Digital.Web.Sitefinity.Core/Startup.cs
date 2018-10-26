@@ -95,8 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             //Clean up
-            entries.RemoveAll(x => x.Location.ToUpperInvariant().Contains("/ALERTS/")
-                                || x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
+            entries.RemoveAll(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
                                 || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES"));
 
             // sets the collection of entries to modified collection

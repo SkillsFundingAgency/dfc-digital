@@ -23,5 +23,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             var close = Find.Element(By.ClassName("survey_close"));
             close.Click();
         }
+
+        public bool IsJPSurveyQuestionDisplayed() => Find.Element(By.Id("ss-question-title-7271726")) != null;
     }
 }

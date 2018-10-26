@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -14,8 +15,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         //private JobProfilePage jobProfilePage;
         private string jobProfileSelected;
 
-        private CookiesPage cookiesPage;
-
         public HomepageSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
         }
@@ -26,6 +25,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void GivenThatIAmViewingTheHomepage()
         {
             NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>();
+        }
+
+        [Given(@"that I am viewing the health status page")]
+        public void GivenThatIAmViewingTheHealthStatusPage()
+        {
+            NavigateToHealthStatusPage<HealthStatusPage>();
         }
 
         #endregion Givens
@@ -41,10 +46,25 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             });
         }
 
-        [When(@"I click on the Cookies link")]
-        public void WhenIClickOnTheCookiesLink()
+        [When(@"I click the Privacy link")]
+        public void WhenIClickThePrivacyLink()
         {
-            cookiesPage = GetNavigatedPage<Homepage>()?.ClickCookiesLink<CookiesPage>();
+            GetNavigatedPage<Homepage>()?.ClickPrivacyLink<PrivacyPage>()
+                .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click the T&C link")]
+        public void WhenIClickTheTCLink()
+        {
+            GetNavigatedPage<Homepage>()?.ClickTandCLink<TermsAndConditionPage>()
+                .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click the Information Sources link")]
+        public void WhenIClickTheInformationSourcesLink()
+        {
+            GetNavigatedPage<Homepage>()?.ClickInformationSourcesLink<InformationSourcesPage>()
+                .SaveTo(ScenarioContext);
         }
 
         #endregion Whens
@@ -93,16 +113,37 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<Homepage>()?.PageHeading.Should().Contain(jobProfileSelected);
         }
 
-        [Then(@"I am redirected to the cookies page")]
-        public void ThenIAmRedirectedToTheCookiesPage()
-        {
-            cookiesPage.CookiesHeadingText.Should().Be("Privacy and cookies");
-        }
-
         [Then(@"I am redirected to the homepage")]
         public void ThenIAmRedirectedToTheHomepage()
         {
             GetNavigatedPage<Homepage>()?.ServiceName.Should().BeTrue();
+        }
+
+        [Then(@"I am redirected to the Privacy page")]
+        public void ThenIAmRedirectedToThePrivacyPage()
+        {
+            var privacyPage = GetNavigatedPage<PrivacyPage>();
+            privacyPage.PageTitle.Should().Contain("Privacy and cookies");
+        }
+
+        [Then(@"I am redirected to the T&C page")]
+        public void ThenIAmRedirectedToTheTCPage()
+        {
+            var termsPage = GetNavigatedPage<TermsAndConditionPage>();
+            termsPage.PageTitle.Should().Contain("Terms and Conditions");
+        }
+
+        [Then(@"I am redirected to the Information Sources page")]
+        public void ThenIAmRedirectedToTheInformationSourcesPage()
+        {
+            var infoSourcesPage = GetNavigatedPage<InformationSourcesPage>();
+            infoSourcesPage.PageTitle.Should().Contain("Salary information");
+        }
+
+        [Then(@"I am redirected to the Health Status page")]
+        public void ThenIAmRedirectedToTheHealthStatusPage()
+        {
+            GetNavigatedPage<HealthStatusPage>().ListOfServices.Should().BeTrue();
         }
 
         #endregion Thens

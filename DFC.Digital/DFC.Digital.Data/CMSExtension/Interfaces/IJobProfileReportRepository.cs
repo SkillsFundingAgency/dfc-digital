@@ -9,6 +9,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileReportRepository
     {
-        IQueryable<ApprenticeshipVacancyReport> GetApprenticeshipVacancyReport();
+        IQueryable<ProfileAndApprenticeshipReport> GetApprenticeshipVacancyReport();
     }
 }

@@ -9,12 +9,10 @@ namespace DFC.Digital.Data.Model
 {
     public class ApprenticeshipVacancyReport : IDigitalDataModel
     {
-        public JobProfileReport JobProfile { get; set; }
+        public string Title { get; set; }
+
+        public string Name { get; set; }
 
         public SocCode SocCode { get; set; }
-
-        public IQueryable<string> Frameworks { get; set; }
-
-        public IQueryable<string> Standards { get; set; }
     }
 }

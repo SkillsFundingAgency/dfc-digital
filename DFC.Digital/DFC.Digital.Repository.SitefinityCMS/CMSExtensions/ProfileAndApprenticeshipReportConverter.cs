@@ -4,7 +4,7 @@ using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 {
-    public class ApprenticeshipVacancyReportConverter : IDynamicModuleConverter<ApprenticeshipVacancyReport>
+    public class ProfileAndApprenticeshipReportConverter : IDynamicModuleConverter<ProfileAndApprenticeshipReport>
     {
         private const string ApprenticeshipFrameworks = "apprenticeshipframeworks";
         private const string ApprenticeshipFrameworksTaxonomyName = "apprenticeship-frameworks";
@@ -16,7 +16,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public ApprenticeshipVacancyReportConverter(
+        public ProfileAndApprenticeshipReportConverter(
             IDynamicModuleConverter<SocCode> socCodeConverter,
             IDynamicModuleConverter<JobProfileReport> jobProfileReportConverter,
             IRelatedClassificationsRepository relatedClassificationsRepository,
@@ -28,9 +28,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
-        public ApprenticeshipVacancyReport ConvertFrom(DynamicContent content)
+        public ProfileAndApprenticeshipReport ConvertFrom(DynamicContent content)
         {
-            var avReportItem = new ApprenticeshipVacancyReport
+            var avReportItem = new ProfileAndApprenticeshipReport
             {
                 JobProfile = jobProfileReportConverter.ConvertFrom(content)
             };
@@ -39,8 +39,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             if (socItem != null)
             {
                 avReportItem.SocCode = socCodeConverter.ConvertFrom(socItem);
-
-                //avReportItem.SocCode = socCodeConverter.ConvertFrom(content);
                 avReportItem.Frameworks = relatedClassificationsRepository.GetRelatedClassifications(socItem, ApprenticeshipFrameworks, ApprenticeshipFrameworksTaxonomyName);
                 avReportItem.Standards = relatedClassificationsRepository.GetRelatedClassifications(socItem, ApprenticeshipStandardsRelatedField, ApprenticeshipStandardsTaxonomyName);
             }

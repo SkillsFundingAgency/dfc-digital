@@ -18,6 +18,8 @@
                     columns.Add(model => model.SocCode.Description).Titled("SOC Description");
                     columns.Add(model => string.Join(",", model.Standards == null ? new List<string>() : model.Standards.ToList())).Titled("Standards");
                     columns.Add(model => string.Join(",", model.Frameworks == null ? new List<string>() : model.Frameworks.ToList())).Titled("Frameworks");
+                    columns.Add(model => model.ApprenticeVacancies[0] == null ? "&nbsp;" : model.ApprenticeVacancies[0].Title).Titled("Apprenticeship 1");
+                    columns.Add(model => model.ApprenticeVacancies[1] == null ? "&nbsp;" : model.ApprenticeVacancies[1].Title).Titled("Apprenticeship 2");
 
                 }).Empty("No data found")
                 .Filterable()

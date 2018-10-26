@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="CMSExtension\Model\ApprenticeshipVacancyReport.cs" />
+    <Compile Include="CMSExtension\Model\ProfileAndApprenticeshipReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />

@@ -9,6 +9,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
     public class ApprenticeshipVacancyReportViewModel
     {
         public TimeSpan ExecutionTime { get; set; }
-        public IQueryable<ApprenticeshipVacancyReport> ReportData { get; set; }
+        public IQueryable<ProfileAndApprenticeshipReport> ReportData { get; set; }
     }
 }

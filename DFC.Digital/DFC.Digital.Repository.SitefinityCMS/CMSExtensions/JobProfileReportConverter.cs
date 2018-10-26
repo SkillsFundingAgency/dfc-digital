@@ -23,12 +23,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             var report = new JobProfileReport();
             report.Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title));
             report.Name = content.UrlName;
-
-            //var socItem = content.GetValue<DynamicContent>(Constants.SocField);
-            //if (socItem != null)
-            //{
-            //    report.SocCode = socCodeConverter.ConvertFrom(socItem);
-            //}
             return report;
         }
     }

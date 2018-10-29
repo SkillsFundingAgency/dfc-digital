@@ -123,22 +123,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => webAppContextFake.IsContentPreviewMode).Returns(true);
 
             //Instantiate & Act
-            using (var jobProfileApprenticeshipsController = new JobProfileApprenticeshipsController(repositoryFake, webAppContextFake, socCodeRepositoryFake, loggerFake, sitefinityPage))
+            using (var jobProfileApprenticeshipsAndCoursesController = new TestBaseJobProfileWidgetController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
-                var indexMethodCall = jobProfileApprenticeshipsController.WithCallTo(c => c.Index());
+                var result = jobProfileApprenticeshipsAndCoursesController.GetDynamicTitle(true);
 
                 //Assert
-                jobProfileApprenticeshipsController.GetDynamicTitle(true).Should().BeEquivalentTo(expected);
-            }
-
-            using (var jobProfileCourseOpportunityController = new JobProfileCourseOpportunityController(coursesearchFake, new AsyncHelper(), webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
-            {
-                //Act
-                var indexMethodCall = jobProfileCourseOpportunityController.WithCallTo(c => c.Index());
-
-                //Assert
-                jobProfileCourseOpportunityController.GetDynamicTitle(true).Should().BeEquivalentTo(expected);
+                result.Should().BeEquivalentTo(expected);
             }
         }
 

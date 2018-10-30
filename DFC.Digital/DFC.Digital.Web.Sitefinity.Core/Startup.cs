@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +13,6 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
-using Telerik.Sitefinity.SitemapGenerator.Data;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -48,6 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
 
                 FeatherActionInvokerCustom.Register();
+                EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
             }
             catch (Exception ex)
             {
@@ -61,45 +60,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
-
-            if (e.CommandName == "Bootstrapped")
-            {
-                EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
-            }
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)
         {
-            // gets the entries that are about to be written in the sitemap
-            var entries = evt.Entries.ToList();
-
-            var jobCategoryPageEntry =
-                entries.FirstOrDefault(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES"));
-
-            if (jobCategoryPageEntry != null)
-            {
-                //Add categories
-                var autofacContainer = ObjectFactory.Container.Resolve<ILifetimeScope>();
-                var repository = autofacContainer.Resolve<IJobProfileCategoryRepository>();
-                var cats = repository.GetJobProfileCategories();
-
-                foreach (var category in cats)
-                {
-                    // adds the new sitemap entry to the collection of the entries
-                    entries.Add(new SitemapEntry
-                    {
-                        Location = $"{jobCategoryPageEntry.Location}/{category.Url}",
-                        Priority = (float)0.5
-                    });
-                }
-            }
-
-            //Clean up
-            entries.RemoveAll(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
-                                || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES"));
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var sitemapHandler = autofacLifetimeScope.Resolve<SitemapHandler>();
 
             // sets the collection of entries to modified collection
-            evt.Entries = entries.OrderBy(x => x.Location);
+            evt.Entries = sitemapHandler.ManipulateSitemap(evt.Entries.ToList());
         }
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)

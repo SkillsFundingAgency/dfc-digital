@@ -404,6 +404,7 @@
     <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SitefinityExtensions\SitemapHandler.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="SitefinityExtensions\AlertPageCodeStatusSetter.cs">
       <SubType>ASPXCodeBehind</SubType>

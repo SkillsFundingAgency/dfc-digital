@@ -200,11 +200,35 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 NoTrainingCoursesText = nameof(JobProfileCourseOpportunityController.NoTrainingCoursesText),
                 MaxTrainingCoursesMaxCount = 2
             };
+            var dummyJobProfileCourseSearchViewModel = !useValidJobProfile
+             ? new JobProfileCourseSearchViewModel
+             {
+                 CoursesSectionTitle = $"dummy {nameof(JobProfileCourseSearchViewModel.CoursesSectionTitle)}",
+                 TrainingCoursesText = $"dummy {nameof(JobProfileCourseSearchViewModel.TrainingCoursesText)}",
+                 CoursesLocationDetails = $"dummy {nameof(JobProfileCourseSearchViewModel.CoursesLocationDetails)}",
+                 MainSectionTitle = $"dummy {nameof(JobProfileCourseSearchViewModel.MainSectionTitle)}",
+                 NoTrainingCoursesText = $"dummy {nameof(JobProfileCourseSearchViewModel.NoTrainingCoursesText)}"
+             }
+             : null;
 
             //Act
             var indexWithUrlNameMethodCall = jobProfileCourseOpportunityController.WithCallTo(c => c.Index(urlName));
 
-            if (useValidJobProfile)
+            if (inContentAuthoringSite && useValidJobProfile)
+            {
+                indexWithUrlNameMethodCall
+                 .ShouldRenderDefaultView()
+                 .WithModel<JobProfileCourseSearchViewModel>(vm =>
+                 {
+                     vm.CoursesSectionTitle.Should().BeEquivalentTo(dummyJobProfileCourseSearchViewModel.CoursesSectionTitle);
+                     vm.TrainingCoursesText.Should().BeEquivalentTo(dummyJobProfileCourseSearchViewModel.TrainingCoursesText);
+                     vm.CoursesLocationDetails.Should().BeEquivalentTo(dummyJobProfileCourseSearchViewModel.CoursesLocationDetails);
+                     vm.MainSectionTitle.Should().BeEquivalentTo(dummyJobProfileCourseSearchViewModel.MainSectionTitle);
+                     vm.NoTrainingCoursesText.Should().BeEquivalentTo(dummyJobProfileCourseSearchViewModel.NoTrainingCoursesText);
+                 })
+                 .AndNoModelErrors();
+            }
+            else if (useValidJobProfile)
             {
                 //Assert
                 indexWithUrlNameMethodCall

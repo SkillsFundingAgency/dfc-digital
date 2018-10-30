@@ -94,12 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         private static void AssertViewModelProperties(JobProfileHowToBecomeViewModel vm, JobProfileHowToBecomeController jobprofilehtbController, bool validJobProfile)
         {
             vm.SubsectionApprenticeship.Should().BeEquivalentTo(jobprofilehtbController.SubsectionApprenticeship);
-            vm.MainSectionTitle.Should().BeEquivalentTo(jobprofilehtbController.MainSectionTitle);
-            if (validJobProfile)
-            {
-                vm.DynamicTitle.Should().BeEquivalentTo($"{jobprofilehtbController.MainSectionTitle} {jobprofilehtbController.GetDynamicTitle(false)}");
-            }
-
+            vm.MainSectionTitle.Should().BeEquivalentTo(validJobProfile ? $"{jobprofilehtbController.MainSectionTitle} a Title" : jobprofilehtbController.MainSectionTitle);
             vm.SectionId.Should().BeEquivalentTo(jobprofilehtbController.SectionId);
             vm.SubsectionUniversity.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversity);
             vm.SubsectionUniversityMoreInformation.Should().BeEquivalentTo(jobprofilehtbController.SubsectionUniversityMoreInformation);

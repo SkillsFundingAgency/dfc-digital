@@ -166,6 +166,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
 
+            var dummyJobProfileApprenticeshipViewModel = !useValidJobProfile
+                ? new JobProfileApprenticeshipViewModel
+                {
+                    ApprenticeVacancies = new List<ApprenticeVacancy>(),
+                    ApprenticeshipSectionTitle = $"dummy {nameof(JobProfileApprenticeshipViewModel.ApprenticeshipSectionTitle)}",
+                    LocationDetails = $"dummy {nameof(JobProfileApprenticeshipViewModel.LocationDetails)}",
+                    ApprenticeshipText = $"dummy {nameof(JobProfileApprenticeshipViewModel.ApprenticeshipText)}",
+                    MainSectionTitle = $"dummy {nameof(JobProfileApprenticeshipViewModel.MainSectionTitle)}",
+                    NoVacancyText = $"dummy {nameof(JobProfileApprenticeshipViewModel.NoVacancyText)}"
+                }
+                : null;
+
             var dummyJobProfile = useValidJobProfile
                 ? new JobProfile
                 {
@@ -224,8 +236,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Act
             var indexWithUrlNameMethodCall = jobProfileApprenticeshipsController.WithCallTo(c => c.Index(urlName));
-
-            if (useValidJobProfile)
+            if (inContentAuthoringSite && useValidJobProfile)
+            {
+                indexWithUrlNameMethodCall
+                 .ShouldRenderDefaultView()
+                 .WithModel<JobProfileApprenticeshipViewModel>(vm =>
+                 {
+                     vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
+                     vm.ApprenticeshipSectionTitle.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.ApprenticeshipSectionTitle);
+                     vm.LocationDetails.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.LocationDetails);
+                     vm.MainSectionTitle.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.MainSectionTitle);
+                     vm.ApprenticeshipText.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.ApprenticeshipText);
+                     vm.NoVacancyText.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.NoVacancyText);
+                 })
+                 .AndNoModelErrors();
+            }
+            else if (useValidJobProfile)
             {
                 //Assert
                 indexWithUrlNameMethodCall

@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Diagnostics;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
@@ -43,6 +44,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 }
 
                 return jobProfile;
+            }
+        }
+
+        public string GetDynamicTitle(bool skipNoTitle)
+        {
+            switch (CurrentJobProfile.DynamicTitlePrefix)
+            {
+                case "No Prefix":
+                    return $"{CurrentJobProfile.Title}";
+
+                case "Prefix with a":
+                    return $"a {CurrentJobProfile.Title}";
+
+                case "Prefix with an":
+                    return $"an {CurrentJobProfile.Title}";
+
+                case "No Title":
+                    return skipNoTitle ? GetDefaultDynamicTitle(CurrentJobProfile.Title) : string.Empty;
+
+                default:
+                    return GetDefaultDynamicTitle(CurrentJobProfile.Title);
             }
         }
 
@@ -90,5 +112,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         protected abstract ActionResult GetDefaultView();
 
         protected abstract ActionResult GetEditorView();
+
+        private static string GetDefaultDynamicTitle(string title) => IsStartsWithVowel(title) ? $"an {title}" : $"a {title}";
+
+        private static bool IsStartsWithVowel(string title) => new[] { 'a', 'e', 'i', 'o', 'u' }.Contains(title.ToLower().First());
     }
 }

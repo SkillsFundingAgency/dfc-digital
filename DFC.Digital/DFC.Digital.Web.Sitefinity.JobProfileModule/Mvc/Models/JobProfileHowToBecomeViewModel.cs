@@ -25,8 +25,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public string DynamicTitlePrefix { get; set; }
 
-        public string DynamicTitle { get; set; }
-
         public string SubsectionUniversityRequirements { get; set; }
 
         public string SubsectionUniversityMoreInformation { get; set; }

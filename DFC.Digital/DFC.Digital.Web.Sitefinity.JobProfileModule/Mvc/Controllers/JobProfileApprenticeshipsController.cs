@@ -151,8 +151,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 ApprenticeshipSectionTitle = ApprenticeshipSectionTitle,
                 SectionId = SectionId,
                 LocationDetails = ApprenticeshipLocationDetails,
-                ApprenticeshipText = ApprenticeshipText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
-                NoVacancyText = NoVacancyText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
+                ApprenticeshipText = ApprenticeshipText.Replace("{jobtitle}", GetDynamicTitle(true)),
+                NoVacancyText = NoVacancyText.Replace("{jobtitle}", GetDynamicTitle(true)),
                 MainSectionTitle = MainSectionTitle,
             };
 

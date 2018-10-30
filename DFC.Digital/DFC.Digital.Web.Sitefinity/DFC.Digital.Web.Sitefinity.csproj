@@ -38,7 +38,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
     <VisualStudioVersion>11.0</VisualStudioVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -1019,6 +1019,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.35.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.36.1.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -174,12 +174,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileSearch.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceCriteria\Features\Sitefinity.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sitefinity.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Features\VocSurvey.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
+    <Compile Include="AcceptanceCriteria\Steps\SitefinitySteps.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\HomePageSteps.cs" />
@@ -203,6 +209,7 @@
     <Compile Include="Infrastructure\Pages\PrivacyPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
+    <Compile Include="Infrastructure\Pages\SitefinityBackendPage.cs" />
     <Compile Include="Infrastructure\Pages\SitefinityPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
@@ -226,6 +233,10 @@
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+    </None>
+    <None Include="AcceptanceCriteria\Features\Sitefinity.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Sitefinity.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

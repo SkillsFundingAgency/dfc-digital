@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.RelatedData;
 
@@ -41,19 +42,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             var allJobProfiles = jobProfileRepository.GetAll();
             allJobProfiles.SetRelatedDataSourceContext();
 
-            var allApprenticeVacancies = apprenticeVacancyRepository.GetAll();
-            allApprenticeVacancies.SetRelatedDataSourceContext();
+            //var allApprenticeVacancies = apprenticeVacancyRepository.GetAll();
+            //allApprenticeVacancies.SetRelatedDataSourceContext();
 
-            //var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
-            var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a));
-
+            ////var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
+            // var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a));
             var profiles = allJobProfiles.Select(j => profileAndApprenticeshipReportConverter.ConvertFrom(j));
 
-            foreach (ProfileAndApprenticeshipReport p in profiles)
+            foreach (var p in profiles)
             {
                 if (p.SocCode != null)
                 {
-                    p.ApprenticeVacancies = apprenticeships.Where(a => (a.SocCode != null || p.SocCode != null) && (a.SocCode.SOCCode == p.SocCode.SOCCode)).ToList();
+                    p.ApprenticeVacancies = new List<ApprenticeshipVacancyReport>();
                 }
             }
 

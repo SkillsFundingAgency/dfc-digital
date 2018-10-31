@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\SkillsFrameworkDataImportControllerTests.cs" />
+    <Compile Include="Controllers\ApprenticeshipVacancyReportControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\SkillsFrameworkImportViewTests.cs" />
   </ItemGroup>

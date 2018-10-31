@@ -36,10 +36,24 @@ namespace DFC.Digital.SitefinityTest.HelperExtenstions
             }
             else
             {
-                throw new Exception("Page verification failed");
+                throw new Exception("Page verification failed Expected Page: " + expected + ", Actual Page: " + actual);
             }
         }
 
+        public static bool VerifyPageHeader(string expected)
+        {
+            Thread.Sleep(500);
+
+            var actual = _driver.FindElement(By.ClassName("sfViewTitle")).Text;
+            if (actual.Contains(expected))
+            {
+                return true;
+            }
+            else
+            {
+                throw new Exception("Landed on the incorrect page. Expected Page: " + expected + ", Actual Page: " + actual);
+            }
+        }
         public static void EnterText(By by, string text)
         {
             _driver.FindElement(by).Clear();
@@ -54,8 +68,8 @@ namespace DFC.Digital.SitefinityTest.HelperExtenstions
         public static void ClickLink(By by, string TabName)
         {
             List<IWebElement> Tabs = _driver.FindElements(by).ToList();
-            var x = Tabs.Where(t => t.Text.Equals(TabName)).FirstOrDefault();
-            x.Click();
+            var Element = Tabs.Where(t => t.Text.Equals(TabName)).FirstOrDefault();
+            Element.Click();
 
         }
 

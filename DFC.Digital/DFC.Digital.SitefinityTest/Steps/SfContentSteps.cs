@@ -1,4 +1,5 @@
-﻿using DFC.Digital.SitefinityTest.Pages;
+﻿using DFC.Digital.SitefinityTest.HelperExtenstions;
+using DFC.Digital.SitefinityTest.Pages;
 using DFC.Digital.SitefinityTest.Utilities;
 using System;
 using System.Collections.Generic;
@@ -34,10 +35,10 @@ namespace DFC.Digital.SitefinityTest.Steps
         [When(@"I select the '(.*)' link")]
         public void WhenISelectTheLink(string link)
         {
-            SitefinityDashboadPage sfDashboard = new SitefinityDashboadPage(_driver);
             switch (link)
             {
                 case "Job Profiles":
+                    SitefinityDashboadPage sfDashboard = new SitefinityDashboadPage(_driver);
                     sfDashboard.SelectJobProfileLink();
                     break;
                 default:
@@ -53,6 +54,19 @@ namespace DFC.Digital.SitefinityTest.Steps
         {
             GenericPage page = new GenericPage(_driver);
             page.LogOut();
+        }
+
+        [Then(@"I am redirected to the '(.*)' content page")]
+        public void ThenIAmRedirectedToTheContentPage(string page)
+        {
+            switch (page)
+            {
+                case "Job Profiles":
+                    PageHelper.VerifyPageHeader("Job Profiles");
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

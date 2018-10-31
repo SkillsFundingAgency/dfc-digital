@@ -25,8 +25,8 @@ namespace DFC.Digital.SitefinityTest.Utilities
 
         internal SitefinityDashboadPage Login()
         {
-            PageHelper.EnterText(UsernameField, "lambat_15@hotmail.com");
-            PageHelper.EnterText(PasswordField, "Abcd1111!");
+            PageHelper.EnterText(UsernameField, "");
+            PageHelper.EnterText(PasswordField, "");
             PageHelper.ClickElement(LoginButton);
             return new SitefinityDashboadPage(_driver);
         }

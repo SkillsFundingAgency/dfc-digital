@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeReportRepository = A.Fake<IJobProfileReportRepository>(ops => ops.Strict());
             fakeMapper = A.Fake<IMapper>(ops => ops.Strict());
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeList = new EnumerableQuery<ProfileAndApprenticeshipReport>(new List<ProfileAndApprenticeshipReport>());
+            fakeList =  new List<ProfileAndApprenticeshipReport>().AsQueryable();
             SetupCalls();
         }
 

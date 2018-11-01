@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             if (validCategory)
             {
                 A.CallTo(() => fakeRepository.GetJobProfileCategories()).MustHaveHappenedOnceExactly();
-                result.Any(x => x.Location.Equals($"/job-categories/{nameof(JobProfileCategory.Url)}")).Should().BeFalse();
+                result.Any(x => x.Location.Equals($"/job-categories/{nameof(JobProfileCategory.Url)}")).Should().BeTrue();
             }
             else
             {

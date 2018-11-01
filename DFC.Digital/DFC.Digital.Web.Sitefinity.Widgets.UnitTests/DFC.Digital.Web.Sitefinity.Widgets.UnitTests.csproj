@@ -137,7 +137,6 @@
     <Compile Include="Views\VocSurveyViewTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>

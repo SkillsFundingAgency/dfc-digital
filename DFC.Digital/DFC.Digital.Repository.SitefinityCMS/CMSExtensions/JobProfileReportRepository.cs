@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
@@ -39,7 +40,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         public IQueryable<ProfileAndApprenticeshipReport> GetApprenticeshipVacancyReport()
         {
-            var allJobProfiles = jobProfileRepository.GetAll();
+            var allJobProfiles = jobProfileRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
             allJobProfiles.SetRelatedDataSourceContext();
 
             //var allApprenticeVacancies = apprenticeVacancyRepository.GetAll();

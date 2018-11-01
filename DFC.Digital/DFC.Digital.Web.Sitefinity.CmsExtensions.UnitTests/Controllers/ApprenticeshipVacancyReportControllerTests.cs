@@ -35,7 +35,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeMapper);
 
-
             // Act
             var indexMethodCall = reportController.WithCallTo(c => c.Index());
 

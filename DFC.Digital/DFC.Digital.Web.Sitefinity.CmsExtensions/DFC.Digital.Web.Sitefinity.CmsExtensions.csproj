@@ -428,6 +428,7 @@
     </CodeAnalysisDictionary>
     <Content Include="MVC\Views\ApprenticeshipVacancyReport\Index.cshtml" />
     <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
+    <Content Include="MVC\Views\ApprenticeshipVacancyReport\_IndexGrid.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -436,6 +437,7 @@
     </Content>
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
+    <Content Include="Views\Shared\_IndexGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

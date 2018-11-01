@@ -12,23 +12,7 @@
             <p>Report date - @DateTime.Now</p>
             <p>Took @Model.ExecutionTime to compile this report.</p>
 
-            @(Html
-                                .Grid(Model.ReportData)
-                                .Build(columns =>
-                                {
-                                    columns.Add(model => model.JobProfile.Title).Titled("Title");
-                                    columns.Add(model => model.SocCode.SOCCode).Titled("SOC");
-                                    columns.Add(model => model.SocCode.Description).Titled("SOC Description");
-                                    columns.Add(model => string.Join(",", model.Standards == null ? new List<string>() : model.Standards.ToList())).Titled("Standards");
-                                    columns.Add(model => string.Join(",", model.Frameworks == null ? new List<string>() : model.Frameworks.ToList())).Titled("Frameworks");
-                                    columns.Add(model => model.ApprenticeVacancies[0] == null ? "&nbsp;" : model.ApprenticeVacancies[0].Title).Titled("Apprenticeship 1");
-                                    columns.Add(model => model.ApprenticeVacancies[1] == null ? "&nbsp;" : model.ApprenticeVacancies[1].Title).Titled("Apprenticeship 2");
-
-                                }).Empty("No data found")
-                                .Filterable()
-                                .Sortable()
-                                .Pageable()
-            )
+          @Html.Partial("_IndexGrid")
         </div>
         <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.min.js"></script>
         <script>

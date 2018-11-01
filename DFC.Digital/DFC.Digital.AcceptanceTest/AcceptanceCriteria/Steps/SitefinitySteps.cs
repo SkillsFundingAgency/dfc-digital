@@ -1,9 +1,7 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
 using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using DFC.Digital.AcceptanceTest.Infrastructure.Pages.SitefinityBackend;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -19,7 +17,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void GivenIAmLoggedIntoSitefinity()
         {
             NavigateToSitefinityBackendPage<SitefinityBackendPage>();
-            SitefinityBackendPage
+            GetNavigatedPage<SitefinityBackendPage>().Login<SitefinityDashboardPage>()
+                .SaveTo(ScenarioContext);
+            var dashboardPage = GetNavigatedPage<SitefinityDashboardPage>();
+            dashboardPage.VerifyOnDashboardPage().Should().BeTrue();
         }
     }
 }

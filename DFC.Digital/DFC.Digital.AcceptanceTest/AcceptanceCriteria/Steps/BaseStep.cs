@@ -64,7 +64,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public TPage NavigateToSitefinityBackendPage<TPage>()
             where TPage : UiComponent, new()
         {
-            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/sitefinity);
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/sitefinity");
             ScenarioContext.Set(page);
 
             return page;

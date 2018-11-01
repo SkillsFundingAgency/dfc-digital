@@ -209,7 +209,9 @@
     <Compile Include="Infrastructure\Pages\PrivacyPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
-    <Compile Include="Infrastructure\Pages\SitefinityBackendPage.cs" />
+    <Compile Include="Infrastructure\Pages\SitefinityBackend\SitefinityBackendPage.cs" />
+    <Compile Include="Infrastructure\Pages\SitefinityBackend\SitefinityBasePage.cs" />
+    <Compile Include="Infrastructure\Pages\SitefinityBackend\SitefinityDashboardPage.cs" />
     <Compile Include="Infrastructure\Pages\SitefinityPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />

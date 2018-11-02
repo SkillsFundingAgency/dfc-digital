@@ -14,6 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             base.Load(builder);
 
+            builder.RegisterAssemblyTypes(ThisAssembly).InstancePerLifetimeScope();
             builder.RegisterType<WebAppContext>().As<IWebAppContext>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()

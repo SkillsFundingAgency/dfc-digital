@@ -37,9 +37,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 ExecutionTime = watch.Elapsed,
             };
 
-            if (HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
-                return PartialView("_IndexGrid", avvm);
-
             return View(avvm);
         }
     }

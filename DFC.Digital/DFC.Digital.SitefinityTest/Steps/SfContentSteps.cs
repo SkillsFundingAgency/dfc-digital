@@ -3,9 +3,12 @@ using DFC.Digital.SitefinityTest.Pages;
 using DFC.Digital.SitefinityTest.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
+using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace DFC.Digital.SitefinityTest.Steps
 {
@@ -21,6 +24,13 @@ namespace DFC.Digital.SitefinityTest.Steps
             SitefinityLoginPage sfLogin = new SitefinityLoginPage(_driver);
             sfLogin.Login();
         }
+
+        [Given(@"I navigate to the homepage")]
+        public void GivenINavigateToTheHomepage()
+        {
+            _driver.Url = "https://staging-beta.nationalcareersservice.direct.gov.uk/";
+        }
+
         #endregion
 
         #region Whens
@@ -44,6 +54,32 @@ namespace DFC.Digital.SitefinityTest.Steps
                 default:
                     break;
             }
+        }
+
+        [When(@"I search for the data items")]
+        public void WhenISearchFor()
+        {
+            PageHelper page = new PageHelper();
+
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook workbook = app.Workbooks.Open(@"C:\Users\Asus\Documents\SFA\SFA.xlsx");
+            Excel._Worksheet worksheet = workbook.Sheets[1];
+            Excel.Range range = worksheet.UsedRange;
+
+            int i = 2;
+            foreach (var row in range.Rows)
+            {
+                string search = worksheet.Cells[i, 1].Value.ToString();
+                page.Search(search);
+
+                worksheet.Cells[i, 2].Value = page.GetNumberOfResults();
+                worksheet.Cells[i, 3].Value = page.GetTopResults();
+                workbook.Save();
+                page.ClickHomeLink();
+
+                i++;
+            }
+            workbook.Close();
         }
 
         #endregion

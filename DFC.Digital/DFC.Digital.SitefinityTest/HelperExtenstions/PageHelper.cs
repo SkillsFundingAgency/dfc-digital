@@ -1,11 +1,9 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DFC.Digital.SitefinityTest.HelperExtenstions
 {
@@ -73,5 +71,37 @@ namespace DFC.Digital.SitefinityTest.HelperExtenstions
 
         }
 
+        public void Search(string search)
+        {
+            _driver.FindElement(By.ClassName("search-input")).Clear();
+            _driver.FindElement(By.ClassName("search-input")).SendKeys(search);
+            _driver.FindElement(By.ClassName("submit")).Click();
+        }
+
+        public string GetNumberOfResults()
+        {
+            Thread.Sleep(250);
+            return _driver.FindElement(By.ClassName("result-count")).Text;
+        }
+
+        public void ClickHomeLink()
+        {
+            _driver.FindElement(By.Id("nav-EC")).Click();
+        }
+
+        public string GetTopResults()
+        {
+
+            if (_driver.FindElement(By.ClassName("result-count")).Text.Equals("0 results found - try again using a different job title"))
+            {
+                return "0 Results Found";
+            }
+            else
+            {
+                var x = _driver.FindElements(By.ClassName("dfc-code-search-jpTitle")).ToList();
+                return string.Concat(x.Select(s => s.Text + ", "));
+            }
+
+        }
     }
 }

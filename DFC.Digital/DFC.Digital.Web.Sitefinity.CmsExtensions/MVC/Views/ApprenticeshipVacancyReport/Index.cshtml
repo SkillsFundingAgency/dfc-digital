@@ -25,7 +25,6 @@
                                                                 columns.Add(model => model.ApprenticeVacancies[1] == null ? "&nbsp;" : model.ApprenticeVacancies[1].Title).Titled("Apprenticeship 2");
 
                                                             })
-                                                            .WithSourceUrl(Url.Action("Index", "ApprenticeshipVacancyReport"))
                                                             .Empty("No data found")
                                                             .Filterable()
                                                             .Sortable()

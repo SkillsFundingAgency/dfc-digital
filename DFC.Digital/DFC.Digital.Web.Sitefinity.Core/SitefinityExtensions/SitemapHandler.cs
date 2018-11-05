@@ -34,8 +34,17 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             //Clean up
+            var homePageEntry = entries.Single(x => x.Location.EndsWith("/home", System.StringComparison.InvariantCultureIgnoreCase));
+            var homePage = homePageEntry.Location.Substring(0, homePageEntry.Location.IndexOf("/home"));
+            entries.Add(new SitemapEntry
+            {
+                Location = $"{homePage}",
+                Priority = homePageEntry.Priority
+            });
+
             entries.RemoveAll(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES")
-                                || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES"));
+                                || x.Location.ToUpperInvariant().EndsWith("/JOB-PROFILES")
+                                || x.Location.EndsWith("/home", System.StringComparison.InvariantCultureIgnoreCase));
 
             return entries.OrderBy(x => x.Location);
         }

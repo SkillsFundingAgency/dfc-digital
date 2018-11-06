@@ -19,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             //Setup the fakes and dummies
             var fakeRepository = A.Fake<IJobProfileCategoryRepository>();
             var siteMapList = GetEntries(validCategory, numberOfItems);
+
             A.CallTo(() => fakeRepository.GetJobProfileCategories()).Returns(new EnumerableQuery<JobProfileCategory>(new List<JobProfileCategory> { new JobProfileCategory { Url = nameof(JobProfileCategory.Url) } }));
 
             //Instantiate & Act
@@ -46,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
         {
             var list = new List<SitemapEntry>();
 
-            for (int i = 0; i < numberOfItems; i++)
+            for (int i = 0; i < numberOfItems - 1; i++)
             {
                 list.Add(new SitemapEntry { Location = nameof(SitemapEntry.Location) });
             }
@@ -57,6 +58,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             {
                 list.Add(new SitemapEntry { Location = "/job-categories" });
             }
+
+            list.Add(new SitemapEntry { Location = "/home" });
 
             return list;
         }

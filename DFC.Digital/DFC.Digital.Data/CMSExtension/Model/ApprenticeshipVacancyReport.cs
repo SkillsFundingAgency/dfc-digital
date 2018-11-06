@@ -13,6 +13,8 @@ namespace DFC.Digital.Data.Model
 
         public string Name { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         public SocCode SocCode { get; set; }
     }
 }

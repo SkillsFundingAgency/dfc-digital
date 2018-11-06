@@ -1,46 +1,49 @@
-﻿@model ApprenticeshipVacancyReportViewModel
+﻿@model JobProfileApprenticeshipVacancyReportViewModel
 @using DFC.Digital.Web.Core
 @using NonFactors.Mvc.Grid
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/mvc-grid.css")))
+@Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/MvcGrid/mvc-grid.css")))
 <section>
 
-    <div>
 
-        <div id="jobProfileReports" , style="margin:10px">
-            <h1>Apprenticeship Vacancy Report</h1>
-            <p>Report date - @DateTime.Now</p>
-            <p>Took @Model.ExecutionTime to compile this report.</p>
-
-            @(Html
-                                        .Grid(Model.ReportData)
-                                                            .Build(columns =>
-                                                            {
-                                                                columns.Add(model => model.JobProfile.Title).Titled("Title");
-                                                                columns.Add(model => model.SocCode.SOCCode).Titled("SOC");
-                                                                columns.Add(model => model.SocCode.Description).Titled("SOC Description");
-                                                                columns.Add(model => string.Join(",", model.Standards == null ? new List<string>() : model.Standards.ToList())).Titled("Standards");
-                                                                columns.Add(model => string.Join(",", model.Frameworks == null ? new List<string>() : model.Frameworks.ToList())).Titled("Frameworks");
-                                                                columns.Add(model => model.ApprenticeVacancies[0] == null ? "&nbsp;" : model.ApprenticeVacancies[0].Title).Titled("Apprenticeship 1");
-                                                                columns.Add(model => model.ApprenticeVacancies[1] == null ? "&nbsp;" : model.ApprenticeVacancies[1].Title).Titled("Apprenticeship 2");
-
-                                                            })
-                                                            .Empty("No data found")
-                                                            .Filterable()
-                                                            .Sortable()
-                                                            .Pageable(pager =>
-                                                            {
-                                                                pager.RowsPerPage = 800;
-                                                            })
-            )
-
+    <div id="jobProfileReport" , style="margin:10px">
+        <div>
+            <div style="float:left"><h3>Job Profiles and Apprenticeship Vacancy Report</h3></div>
+            <div style="float:right">Report date - @DateTime.Now</div>
         </div>
-        <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $(".sfFooter").hide();
-                $('.mvc-grid').mvcgrid();
-            });
-        </script>
+        <div style="clear:both">
+            <div style="float:right"><a href="@(Url.Action("ExportGridData") + ViewContext.HttpContext.Request.QueryString)">Export Data</a></div>
+            <div style="clear:both">
+                @(Html
+                                            .Grid(Model.ReportData)
+                                            .Build(columns =>
+                                            {
+                                                columns.Add(model => model.JobProfileTitle).Titled("Title");
+                                                columns.Add(model => model.SOC).Titled("SOC");
+                                                columns.Add(model => model.SOCDescription).Titled("SOC Description");
+                                                columns.Add(model => model.Standards).Titled("Standards");
+                                                columns.Add(model => model.Frameworks).Titled("Frameworks");
+                                                columns.Add(model => model.AV1Title).Titled("Title AV1");
+                                                columns.Add(model => model.AV1DateCreated).Titled("Date Created AV1");
+                                                columns.Add(model => model.AV2Title).Titled("Title AV2");
+                                                columns.Add(model => model.AV2DateCreated).Titled("Date Created AV2");
+                                            })
+                                              .Empty("No data found")
+                                              .Filterable()
+                                              .Sortable()
+                                             
+                )
+            </div>
+        </div>
+
     </div>
+    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".sfFooter").hide();
+            $('.mvc-grid').mvcgrid();
+        });
+    </script>
+    <p>Took @Model.ExecutionTime to compile this report.</p>
+
 </section>

@@ -7,6 +7,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
     public class JobProfileApprenticeshipVacancyReportViewModel
     {
         public TimeSpan ExecutionTime { get; set; }
+        public string ReportName { get; set; }
         public IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> ReportData { get; set; }
     }
 }

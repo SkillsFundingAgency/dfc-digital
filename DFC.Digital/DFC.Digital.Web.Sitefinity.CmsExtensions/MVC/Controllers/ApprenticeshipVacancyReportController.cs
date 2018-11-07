@@ -35,6 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             var avvm = new JobProfileApprenticeshipVacancyReportViewModel
             {
                 ReportData = CreateReportDataView(result),
+                ReportName = $"JobProfilesApprenticeships{DateTime.Now.ToString("ddMMyyyy")}", 
                 ExecutionTime = watch.Elapsed,
             };
 

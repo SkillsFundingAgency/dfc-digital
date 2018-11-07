@@ -39,11 +39,3 @@ Scenario: Job Profile Category End to End Test
 	When I click on the no '2' job profile on the categories page
 	Then display the correct job profile page
 
-Scenario: [DFC-1765 - Signpost banner on JC page is displayed and redirects to the BAU JP Landing Page
-	Given I am viewing the 'Managerial' category page
-	Then display a list of job profiles
-	And the 'category' page signpost banner is displayed
-
-	When I click on the 'category' page banner link
-	Then I am redirected to the BAU Job Profile landing page
-

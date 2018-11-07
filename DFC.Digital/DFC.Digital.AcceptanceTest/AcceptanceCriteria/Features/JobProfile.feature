@@ -69,15 +69,6 @@ Scenario: Valid Search on Job Profile Page
 	When I search using 'nurse' on the profile page
 	Then the first result is 'shown' on the page
 
-	Scenario: [DFC-1763 & DFC-1761] SignPost banner is displayed on JP page and redirects to the corresponding BAU JP Page
-	Given that I am viewing the 'GP' job profile page
-	Then the 'profile' page signpost banner is displayed
-	When I click on the 'profile' page banner link
-	Then I am redirected to corresponding 'BAU' profile page
-
-	When I click the BAU JP signpost banner
-	Then I am redirected to corresponding 'Beta' profile page
-
 Scenario: JP Survey - Answering YES to the survey
 	Given that I am viewing the 'careers-adviser' job profile page
 	Then the job profile survey banner is displayed on the page

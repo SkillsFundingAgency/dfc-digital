@@ -48,6 +48,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                     });
 
                     Seleno = selenoHost;
+                    Seleno.Application.Browser.Manage().Window.Maximize();
                     break;
 
                 case RunProfile.Owasp:
@@ -68,6 +69,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                 default:
                     Seleno = LocalBrowserHost.GetInstanceFor(BrowserName, RootUrl);
                     RootUrl = Seleno.Application.WebServer.BaseUrl;
+                    Seleno.Application.Browser.Manage().Window.Maximize();
                     break;
             }
         }

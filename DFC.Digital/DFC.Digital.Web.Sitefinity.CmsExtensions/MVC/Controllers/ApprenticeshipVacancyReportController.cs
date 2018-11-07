@@ -17,19 +17,17 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
     public class ApprenticeshipVacancyReportController : BaseDfcController
     {
         private readonly IJobProfileReportRepository reportRepository;
-        private readonly IMapper mapper;
 
-        public ApprenticeshipVacancyReportController(IApplicationLogger loggingService, IJobProfileReportRepository reportRepository, IMapper mapper) : base(loggingService)
+        public ApprenticeshipVacancyReportController(IApplicationLogger loggingService, IJobProfileReportRepository reportRepository) : base(loggingService)
         {
             this.reportRepository = reportRepository;
-            this.mapper = mapper;
         }
 
         // GET: AVReport
         public ActionResult Index()
         {
             var watch = Stopwatch.StartNew();
-            var result = reportRepository.GetApprenticeshipVacancyReport();
+            var result = reportRepository.JobProfileApprenticeshipVacancyReport();
             watch.Stop();
             var avvm = new ApprenticeshipVacancyReportViewModel
             {

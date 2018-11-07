@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
+using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions
@@ -16,6 +17,14 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.Register(ctx => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<CmsExtensionsAutoMapperProfile>();
+            })).InstancePerLifetimeScope();
+
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+
 
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.

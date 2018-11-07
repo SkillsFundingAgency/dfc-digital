@@ -146,6 +146,7 @@
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -244,13 +245,15 @@
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />
     <Compile Include="Base\TaxonomyRepository.cs" />
-    <Compile Include="Base\WorkflowStatus.cs" />
     <Compile Include="CMSExtensions\ApprenticeshipReportConverter.cs" />
+    <Compile Include="CMSExtensions\CmsReportItemConverter.cs" />
     <Compile Include="CMSExtensions\JobProfileReportConverter.cs" />
     <Compile Include="CMSExtensions\JobProfileReportRepository.cs" />
-    <Compile Include="CMSExtensions\ProfileAndApprenticeshipReportConverter.cs" />
+    <Compile Include="CMSExtensions\JobProfileApprenticeshipVacancyReportConverter.cs" />
+    <Compile Include="CMSExtensions\UserRepository.cs" />
     <Compile Include="Modules\JobProfileOverloadForWhatItTakesConverter.cs" />
     <Compile Include="Modules\JobProfileOverloadForSearchConverter.cs" />
+    <Compile Include="CMSExtensions\SocCodeReportConverter.cs" />
     <Compile Include="Modules\SocSkillMatrixRepository.cs" />
     <Compile Include="Modules\FrameworkSkillConverter.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverter.cs" />

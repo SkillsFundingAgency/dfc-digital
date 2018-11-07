@@ -19,10 +19,11 @@
                                                                 columns.Add(model => model.JobProfile.Title).Titled("Title");
                                                                 columns.Add(model => model.SocCode.SOCCode).Titled("SOC");
                                                                 columns.Add(model => model.SocCode.Description).Titled("SOC Description");
-                                                                columns.Add(model => string.Join(",", model.Standards == null ? new List<string>() : model.Standards.ToList())).Titled("Standards");
-                                                                columns.Add(model => string.Join(",", model.Frameworks == null ? new List<string>() : model.Frameworks.ToList())).Titled("Frameworks");
-                                                                columns.Add(model => model.ApprenticeVacancies[0] == null ? "&nbsp;" : model.ApprenticeVacancies[0].Title).Titled("Apprenticeship 1");
-                                                                columns.Add(model => model.ApprenticeVacancies[1] == null ? "&nbsp;" : model.ApprenticeVacancies[1].Title).Titled("Apprenticeship 2");
+                                                                columns.Add(model => string.Join(",", model.SocCode.Standards == null ? new List<string>() : model.SocCode.Standards.ToList())).Titled("Standards");
+                                                                columns.Add(model => string.Join(",", model.SocCode.Frameworks == null ? new List<string>() : model.SocCode.Frameworks.ToList())).Titled("Frameworks");
+                                                                columns.Add(model => model.ApprenticeshipVacancies.Take(1) == null ? "&nbsp;" : $"{model.ApprenticeshipVacancies.Take(1).FirstOrDefault().Title} - {model.ApprenticeshipVacancies.Take(1).FirstOrDefault().LastModifiedBy}").Titled("Apprenticeship 1");
+                                                                columns.Add(model => model.ApprenticeshipVacancies.Take(1) == null ? "&nbsp;" : $"{model.ApprenticeshipVacancies.Take(1).FirstOrDefault().Status} - {model.ApprenticeshipVacancies.Take(1).FirstOrDefault().LastModified}").Titled("Apprenticeship 1");
+                                                                columns.Add(model => model.ApprenticeshipVacancies.Skip(1).Take(1) == null ? "&nbsp;" : model.ApprenticeshipVacancies.Skip(1).Take(1).FirstOrDefault().Title).Titled("Apprenticeship 2");
 
                                                             })
                                                             .Empty("No data found")

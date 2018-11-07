@@ -1,8 +1,9 @@
-﻿namespace DFC.Digital.Repository.SitefinityCMS
+﻿namespace DFC.Digital.Data
 {
     public enum WorkflowStatus
     {
         Published,
-        Draft
+        Draft,
+        UnPublished
     }
 }

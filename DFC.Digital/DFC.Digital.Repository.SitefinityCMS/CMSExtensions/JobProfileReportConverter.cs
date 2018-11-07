@@ -1,29 +1,34 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
 using DFC.Digital.Data.Model;
 using Telerik.Sitefinity.DynamicModules.Model;
-using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 {
     public class JobProfileReportConverter : IDynamicModuleConverter<JobProfileReport>
     {
-        private readonly IDynamicModuleConverter<SocCode> socCodeConverter;
-        private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter;
+        private readonly IMapper mapper;
 
         public JobProfileReportConverter(
-            IDynamicModuleConverter<SocCode> socCodeConverter,
-            IDynamicContentExtensions dynamicContentExtensions)
+           IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter,
+            IMapper mapper)
         {
-            this.socCodeConverter = socCodeConverter;
-            this.dynamicContentExtensions = dynamicContentExtensions;
+            this.cmsReportItemConverter = cmsReportItemConverter;
+            this.mapper = mapper;
         }
 
         public JobProfileReport ConvertFrom(DynamicContent content)
         {
-            var report = new JobProfileReport();
-            report.Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title));
-            report.Name = content.UrlName;
-            return report;
+            var jpReport = new JobProfileReport();
+
+            var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
+            if (cmsReportItem != null)
+            {
+                jpReport = mapper.Map<JobProfileReport>(cmsReportItem);
+                jpReport.Name = jpReport.UrlName;
+            }
+
+            return jpReport;
         }
     }
 }

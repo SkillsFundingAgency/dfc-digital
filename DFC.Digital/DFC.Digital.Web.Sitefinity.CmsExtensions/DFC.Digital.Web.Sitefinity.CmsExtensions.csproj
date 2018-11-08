@@ -400,7 +400,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MVC\Controllers\ApprenticeshipVacancyReportController.cs" />
     <Compile Include="MVC\Controllers\SkillsFrameworkDataImportController.cs" />
-    <Compile Include="MVC\Models\ApprenticeshipVacancyReportViewModel.cs" />
+    <Compile Include="MVC\Models\JobProfileApprenticeshipVacancyReportViewModel.cs" />
+    <Compile Include="MVC\Models\JobProfileApprenticeshipVacancyItemViewModel.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkImportViewModel.cs" />
     <Compile Include="MVC\Models\SkillsFrameworkResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

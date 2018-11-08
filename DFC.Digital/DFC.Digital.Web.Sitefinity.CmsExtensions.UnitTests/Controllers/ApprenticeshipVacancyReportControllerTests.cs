@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             // Assert
             indexMethodCall
                 .ShouldRenderDefaultView()
-                .WithModel<ApprenticeshipVacancyReportViewModel>(vm =>
+                .WithModel<JobProfileApprenticeshipVacancyReportViewModel>(vm =>
                 {
                     vm.ReportData.Should().BeEquivalentTo(fakeList);
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);

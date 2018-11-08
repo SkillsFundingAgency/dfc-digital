@@ -6,8 +6,7 @@
     <div id="jobProfileReport" , style="margin:10px">
         <div>
             <div style="float:left"><h3>Job Profiles and Apprenticeship Vacancy Report</h3></div>
-            <div style="float:right">Report Date - @DateTime.Now</div>
-            @ViewContext.HttpContext.Request.QueryString
+            <div style="float:right"><p>Report Date - @DateTime.Now</p><p>Sort by clicking column title</p><p>Filter by clicking filter icon on each column</p></div>
         </div>
         <div style="clear:both">
             <div style="clear:both">
@@ -15,7 +14,7 @@
                     .Grid(Model.ReportData)
                     .Build(columns =>
                     {
-                        columns.Add(model => model.JobProfileTitle).Titled("Title");
+                        columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
                         columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
                         columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
                         columns.Add(model => model.SOC).Titled("SOC");

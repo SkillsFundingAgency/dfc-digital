@@ -430,7 +430,6 @@
     </CodeAnalysisDictionary>
     <Content Include="MVC\Views\ApprenticeshipVacancyReport\Index.cshtml" />
     <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
-    <Content Include="MVC\Views\ApprenticeshipVacancyReport\Error.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

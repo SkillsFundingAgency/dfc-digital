@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         public void IndexTest(int numberRecords, int numberOfApprenticeship)
         {
             // Setup
-            A.CallTo(() => fakeReportRepository.GetApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository);
@@ -69,22 +69,24 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).Returns(fakeList);
         }
 
-        private IQueryable<ProfileAndApprenticeshipReport> GetDummyReportData(int numberRecords, int numberOfApprenticeship)
+        private IQueryable<JobProfileApprenticeshipVacancyReport> GetDummyReportData(int numberRecords, int numberOfApprenticeship)
         {
-            var reportData = new List<ProfileAndApprenticeshipReport>();
+            var reportData = new List<JobProfileApprenticeshipVacancyReport>();
 
             for (int ii = 0; ii < numberRecords; ii++)
             {
-                var r = new ProfileAndApprenticeshipReport();
+                var r = new JobProfileApprenticeshipVacancyReport();
                 r.JobProfile = new JobProfileReport() { Title = $"Dummy Profile {ii}", Name = $"profile_name{ii}" };
-                r.SocCode = new SocCode() { SOCCode = $"DummySOC {ii}", Description = $"DummySOCDescription {ii}" };
-                var frameworks = new List<string>();
-                frameworks.Add($"DummyFramework{ii}");
-                r.Frameworks = frameworks.AsQueryable();
+                r.SocCode = new SocCodeReport() { SOCCode = $"DummySOC {ii}", Description = $"DummySOCDescription {ii}" };
+                var frameworks = new List<string>
+                {
+                    $"DummyFramework{ii}"
+                };
+                r.SocCode.Frameworks = frameworks.AsQueryable();
 
                 var standards = new List<string>();
                 standards.Add($"DummyStandards{ii}");
-                r.Standards = standards.AsQueryable();
+                r.SocCode.Standards = standards.AsQueryable();
 
                 var a = new List<ApprenticeshipVacancyReport>();
 
@@ -98,7 +100,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     a.Add(new ApprenticeshipVacancyReport() { Title = $"Apprenticeship Two Vacancy {ii}", DateCreated = DateTime.Now.AddDays(-ii) });
                 }
 
-                r.ApprenticeVacancies = a;
+                r.ApprenticeshipVacancies = a;
 
                 reportData.Add(r);
             }

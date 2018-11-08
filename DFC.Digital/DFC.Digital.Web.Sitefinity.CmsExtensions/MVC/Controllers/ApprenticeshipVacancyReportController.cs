@@ -46,7 +46,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             
             foreach (var rptItem in  reportData)
             {
-                var reportItem = new JobProfileApprenticeshipVacancyItemViewModel { JobProfileTitle = rptItem.JobProfile.Title, JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy, JobProfileStatus = rptItem.JobProfile.Status.ToString(), SOC = rptItem.SocCode.SOCCode, SOCDescription = rptItem.SocCode.Description };
+                var reportItem = new JobProfileApprenticeshipVacancyItemViewModel { JobProfileTitle = rptItem.JobProfile.Title, JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy, JobProfileStatus = rptItem.JobProfile.Status.ToString(),
+                    SOC = rptItem.SocCode.SOCCode, SOCDescription = rptItem.SocCode.Description, JobProfileLink = rptItem.JobProfile.UrlName};
 
                 reportItem.Standards = string.Join(",", rptItem.SocCode.Standards == null ? new List<string>() : rptItem.SocCode.Standards.ToList());
                 reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks == null ? new List<string>() : rptItem.SocCode.Frameworks.ToList());
@@ -54,13 +55,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 if (rptItem.ApprenticeshipVacancies.Any())
                 {
                     reportItem.AV1Title = rptItem.ApprenticeshipVacancies.First().Title;
-                    reportItem.AV1DateCreated = rptItem.ApprenticeshipVacancies.First().DateCreated.ToString("dd/MM/yyyy HH:mm:ss");
+                    reportItem.AV1LastModified = rptItem.ApprenticeshipVacancies.First().LastModified.ToString("dd/MM/yyyy HH:mm:ss");
                    
                 }
                 if (rptItem.ApprenticeshipVacancies.Count() > 1)
                 {
                     reportItem.AV2Title = rptItem.ApprenticeshipVacancies.Skip(1).First().Title;
-                    reportItem.AV2DateCreated = rptItem.ApprenticeshipVacancies.Skip(1).First().DateCreated.ToString("dd/MM/yyyy HH:mm:ss");
+                    reportItem.AV2LastModified = rptItem.ApprenticeshipVacancies.Skip(1).First().LastModified.ToString("dd/MM/yyyy HH:mm:ss");
                 }
                 reportDataView.Add(reportItem);
             }

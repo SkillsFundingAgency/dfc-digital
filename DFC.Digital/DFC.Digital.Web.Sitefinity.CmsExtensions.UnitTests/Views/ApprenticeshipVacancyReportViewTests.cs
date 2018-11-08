@@ -50,9 +50,9 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
                     Frameworks = nameof(JobProfileApprenticeshipVacancyItemViewModel.Frameworks),
                     Standards = nameof(JobProfileApprenticeshipVacancyItemViewModel.Standards),
                     AV1Title = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV1Title),
-                    AV1DateCreated = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV1DateCreated),
+                    AV1LastModified = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV1LastModified),
                     AV2Title = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV2Title),
-                    AV2DateCreated = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV2DateCreated),
+                    AV2LastModified = nameof(JobProfileApprenticeshipVacancyItemViewModel.AV2LastModified),
                 }
             };
 

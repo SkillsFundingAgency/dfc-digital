@@ -34,6 +34,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
         void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]
+        void SetRelatedDataSourceContext(IQueryable<DynamicContent> contentItems);
+
+        [IgnoreInputInInterception]
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]

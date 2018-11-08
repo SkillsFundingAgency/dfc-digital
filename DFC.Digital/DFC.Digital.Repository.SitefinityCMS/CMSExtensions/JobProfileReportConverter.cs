@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
+using System;
 using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions

@@ -11,30 +11,32 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
     public class JobProfileReportRepository : IJobProfileReportRepository
     {
         private readonly IDynamicModuleRepository<JobProfile> jobProfileRepository;
-
         private readonly IDynamicModuleConverter<JobProfileApprenticeshipVacancyReport> jobProfileApprenticeshipVacancyReportConverter;
         private readonly IDynamicModuleRepository<ApprenticeVacancy> apprenticeVacancyRepository;
         private readonly IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         public JobProfileReportRepository(
             IDynamicModuleRepository<JobProfile> jobProfileRepository,
-            IDynamicModuleConverter<JobProfileApprenticeshipVacancyReport> profileAndApprenticeshipReportConverter,
+            IDynamicModuleConverter<JobProfileApprenticeshipVacancyReport> jobProfileApprenticeshipVacancyReportConverter,
             IDynamicModuleRepository<ApprenticeVacancy> apprenticeVacancyRepository,
-            IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter)
+            IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter,
+            IDynamicContentExtensions dynamicContentExtensions)
         {
             this.jobProfileRepository = jobProfileRepository;
-            this.jobProfileApprenticeshipVacancyReportConverter = profileAndApprenticeshipReportConverter;
+            this.jobProfileApprenticeshipVacancyReportConverter = jobProfileApprenticeshipVacancyReportConverter;
             this.apprenticeVacancyRepository = apprenticeVacancyRepository;
             this.apprenticeVacancyConverter = apprenticeVacancyConverter;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
-        public IEnumerable<JobProfileApprenticeshipVacancyReport> JobProfileApprenticeshipVacancyReport()
+        public IEnumerable<JobProfileApprenticeshipVacancyReport> GetJobProfileApprenticeshipVacancyReport()
         {
             var allJobProfiles = jobProfileRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
-            allJobProfiles.SetRelatedDataSourceContext();
+            dynamicContentExtensions.SetRelatedDataSourceContext(allJobProfiles);
 
             var allApprenticeVacancies = apprenticeVacancyRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
-            allApprenticeVacancies.SetRelatedDataSourceContext();
+            dynamicContentExtensions.SetRelatedDataSourceContext(allApprenticeVacancies);
 
             var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
             var profiles = allJobProfiles.Select(j => jobProfileApprenticeshipVacancyReportConverter.ConvertFrom(j)).ToList();

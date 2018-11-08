@@ -55,6 +55,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             item.Ordinal = ordinal;
         }
 
+        public void SetRelatedDataSourceContext(IQueryable<DynamicContent> contentItems)
+        {
+            contentItems.SetRelatedDataSourceContext();
+        }
+
         public string GetFieldStringValue(DynamicContent contentItem, string fieldName)
         {
             if (contentItem != null && contentItem.DoesFieldExist(fieldName))

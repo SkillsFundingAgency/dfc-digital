@@ -248,6 +248,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMSExtensions\ApprenticeshipReportConverterTests.cs" />
+    <Compile Include="CMSExtensions\CmsReportItemConverterTests.cs" />
+    <Compile Include="CMSExtensions\JobProfileApprenticeshipVacancyReportConverterTests.cs" />
+    <Compile Include="CMSExtensions\JobProfileReportConverterTests.cs" />
+    <Compile Include="CMSExtensions\JobProfileReportRepositoryTests.cs" />
+    <Compile Include="CMSExtensions\SocCodeReportConverterTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
@@ -300,6 +306,10 @@
     <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
       <Project>{11e5ec8f-531d-47e4-9c22-e19044ddd678}</Project>
       <Name>DFC.Digital.Repository.SitefinityCMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.CmsExtensions\DFC.Digital.Web.Sitefinity.CmsExtensions.csproj">
+      <Project>{BCEF086E-575B-4BBB-9B84-291D50D66B71}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.CmsExtensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.JobProfileModule\DFC.Digital.Web.Sitefinity.JobProfileModule.csproj">
       <Project>{524DC675-AB6C-4E91-AA5A-AC4FCCB2BCC5}</Project>

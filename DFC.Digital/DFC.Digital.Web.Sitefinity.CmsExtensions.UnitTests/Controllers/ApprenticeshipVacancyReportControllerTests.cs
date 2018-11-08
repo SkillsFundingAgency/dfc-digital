@@ -45,13 +45,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);
                 })
                 .AndNoModelErrors();
-            A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).MustHaveHappened();
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).MustHaveHappened();
 
         }
 
         private void SetupCalls()
         {
-            A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).Returns(fakeList);
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(fakeList);
         }
     }
 }

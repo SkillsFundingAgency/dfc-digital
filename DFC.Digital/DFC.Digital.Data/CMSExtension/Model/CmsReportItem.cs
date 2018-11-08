@@ -15,6 +15,8 @@ namespace DFC.Digital.Data.Model
 
         public DateTime LastModified { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         public WorkflowStatus Status { get; set; }
     }
 }

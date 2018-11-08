@@ -14,6 +14,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
         private const string IdPropertyName = "Id";
         private const string LastModifiedByPropertyName = "LastModifiedBy";
         private const string LastModifiedPropertyName = "LastModified";
+        private const string DateCreatedPropertyName = "DateCreated";
         private const string ApprovalWorkflowStatePropertyName = "ApprovalWorkflowState";
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IUserRepository userRepository;
@@ -40,6 +41,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
                 Id = dynamicContentExtensions.GetFieldValue<Guid>(content, IdPropertyName),
                 LastModifiedBy = userRepository.GetUserNameById(dynamicContentExtensions.GetFieldValue<Guid>(content, LastModifiedByPropertyName)),
                 LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, LastModifiedPropertyName),
+                DateCreated = dynamicContentExtensions.GetFieldValue<DateTime>(content, DateCreatedPropertyName),
                 Status = GetContentStatus(dynamicContentExtensions.GetFieldValue<Lstring>(content, ApprovalWorkflowStatePropertyName))
             };
 

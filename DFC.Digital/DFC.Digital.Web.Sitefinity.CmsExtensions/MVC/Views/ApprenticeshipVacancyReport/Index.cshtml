@@ -21,6 +21,8 @@
                     .Build(columns =>
                     {
                         columns.Add(model => model.JobProfileTitle).Titled("Title");
+                        columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
+                        columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
                         columns.Add(model => model.SOC).Titled("SOC");
                         columns.Add(model => model.SOCDescription).Titled("SOC Description");
                         columns.Add(model => model.Standards).Titled("Standards");

@@ -5,6 +5,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IJobProfileReportRepository
     {
-        IEnumerable<JobProfileApprenticeshipVacancyReport> JobProfileApprenticeshipVacancyReport();
+        IEnumerable<JobProfileApprenticeshipVacancyReport> GetJobProfileApprenticeshipVacancyReport();
     }
 }

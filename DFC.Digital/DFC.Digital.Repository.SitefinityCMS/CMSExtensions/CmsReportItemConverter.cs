@@ -29,11 +29,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         public CmsReportItem ConvertFrom(DynamicContent content)
         {
-            if (content == null)
-            {
-                throw new ArgumentNullException(nameof(content));
-            }
-
             var reportItem = new CmsReportItem
             {
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, TitlePropertyName),
@@ -48,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             return reportItem;
         }
 
-        private WorkflowStatus GetContentStatus(string status)
+        private static WorkflowStatus GetContentStatus(string status)
         {
             switch (status.ToUpperInvariant())
             {

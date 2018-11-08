@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         public ActionResult Index()
         {
             var watch = Stopwatch.StartNew();
-            var result = reportRepository.JobProfileApprenticeshipVacancyReport();
+            var result = reportRepository.GetJobProfileApprenticeshipVacancyReport();
             watch.Stop();
             var avvm = new JobProfileApprenticeshipVacancyReportViewModel
             {

@@ -49,8 +49,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             {
                 case "PUBLISHED":
                     return WorkflowStatus.Published;
+
                 case "UNPUBLISHED":
                     return WorkflowStatus.UnPublished;
+
                 default:
                     return WorkflowStatus.Draft;
             }

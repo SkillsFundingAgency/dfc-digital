@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using Telerik.Sitefinity.DynamicModules.Model;
-using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 {
@@ -29,9 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
         public ApprenticeshipVacancyReport ConvertFrom(DynamicContent content)
         {
             var avReport = new ApprenticeshipVacancyReport();
-
             var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
-
             if (cmsReportItem != null)
             {
                 avReport = mapper.Map<ApprenticeshipVacancyReport>(cmsReportItem);

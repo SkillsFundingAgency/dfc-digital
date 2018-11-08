@@ -51,6 +51,9 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="DFC.Digital.Repository.SitefinityCMS">
+      <HintPath>..\DFC.Digital.Web.Sitefinity\Bin\DFC.Digital.Repository.SitefinityCMS.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Search, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Search.3.0.5\lib\net452\Microsoft.Azure.Search.dll</HintPath>
     </Reference>
@@ -80,8 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
+    <Compile Include="CMSExtension\Interfaces\IUserRepository.cs" />
     <Compile Include="CMSExtension\Model\ApprenticeshipVacancyReport.cs" />
-    <Compile Include="CMSExtension\Model\ProfileAndApprenticeshipReport.cs" />
+    <Compile Include="CMSExtension\Model\CmsReportItem.cs" />
+    <Compile Include="CMSExtension\Model\CmsUser.cs" />
+    <Compile Include="CMSExtension\Model\JobProfileApprenticeshipVacancyReport.cs" />
+    <Compile Include="CMSExtension\Model\SocCodeReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
@@ -196,6 +203,7 @@
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Model\WhatItTakesSkill.cs" />
+    <Compile Include="Model\WorkflowStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

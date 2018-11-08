@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,7 +10,6 @@ using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Security;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 using Telerik.Sitefinity.Versioning;

@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -10,53 +11,35 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
     public class JobProfileReportRepository : IJobProfileReportRepository
     {
         private readonly IDynamicModuleRepository<JobProfile> jobProfileRepository;
-        private readonly IDynamicModuleConverter<JobProfileReport> jpReportConverter;
-        private readonly IDynamicModuleRepository<SocCode> socCodeRepository;
-        private readonly IDynamicModuleConverter<ProfileAndApprenticeshipReport> profileAndApprenticeshipReportConverter;
-        private readonly IDynamicContentExtensions dynamicContentExtensions;
+
+        private readonly IDynamicModuleConverter<JobProfileApprenticeshipVacancyReport> jobProfileApprenticeshipVacancyReportConverter;
         private readonly IDynamicModuleRepository<ApprenticeVacancy> apprenticeVacancyRepository;
         private readonly IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter;
-        private readonly ITaxonomyRepository taxonomyRepository;
 
         public JobProfileReportRepository(
             IDynamicModuleRepository<JobProfile> jobProfileRepository,
-            IDynamicModuleConverter<JobProfileReport> jpReportConverter,
-            IDynamicModuleRepository<SocCode> socCodeRepository,
-            IDynamicModuleConverter<ProfileAndApprenticeshipReport> profileAndApprenticeshipReportConverter,
-            IDynamicContentExtensions dynamicContentExtensions,
+            IDynamicModuleConverter<JobProfileApprenticeshipVacancyReport> profileAndApprenticeshipReportConverter,
             IDynamicModuleRepository<ApprenticeVacancy> apprenticeVacancyRepository,
-            IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter,
-            ITaxonomyRepository taxonomyRepository)
+            IDynamicModuleConverter<ApprenticeshipVacancyReport> apprenticeVacancyConverter)
         {
             this.jobProfileRepository = jobProfileRepository;
-            this.jpReportConverter = jpReportConverter;
-            this.socCodeRepository = socCodeRepository;
-            this.profileAndApprenticeshipReportConverter = profileAndApprenticeshipReportConverter;
-            this.dynamicContentExtensions = dynamicContentExtensions;
+            this.jobProfileApprenticeshipVacancyReportConverter = profileAndApprenticeshipReportConverter;
             this.apprenticeVacancyRepository = apprenticeVacancyRepository;
             this.apprenticeVacancyConverter = apprenticeVacancyConverter;
-            this.taxonomyRepository = taxonomyRepository;
         }
 
-        public IQueryable<ProfileAndApprenticeshipReport> GetApprenticeshipVacancyReport()
+        public IEnumerable<JobProfileApprenticeshipVacancyReport> JobProfileApprenticeshipVacancyReport()
         {
             var allJobProfiles = jobProfileRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
             allJobProfiles.SetRelatedDataSourceContext();
 
-            //var allApprenticeVacancies = apprenticeVacancyRepository.GetAll();
-            //allApprenticeVacancies.SetRelatedDataSourceContext();
+            var allApprenticeVacancies = apprenticeVacancyRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
+            allApprenticeVacancies.SetRelatedDataSourceContext();
 
-            ////var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
-            // var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a));
-            var profiles = allJobProfiles.Select(j => profileAndApprenticeshipReportConverter.ConvertFrom(j));
+            var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
+            var profiles = allJobProfiles.Select(j => jobProfileApprenticeshipVacancyReportConverter.ConvertFrom(j)).ToList();
 
-            foreach (var p in profiles)
-            {
-                if (p.SocCode != null)
-                {
-                    p.ApprenticeVacancies = new List<ApprenticeshipVacancyReport>();
-                }
-            }
+            profiles.Where(p => p.SocCode != null).ToList().ForEach(p => p.ApprenticeshipVacancies = apprenticeships.Where(av => av.SocCode != null && av.SocCode.SOCCode == p.SocCode.SOCCode));
 
             return profiles;
         }

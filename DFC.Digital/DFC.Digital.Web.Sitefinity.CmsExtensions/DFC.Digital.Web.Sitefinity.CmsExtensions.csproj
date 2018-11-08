@@ -396,6 +396,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CmsExtensionsAutofacModule.cs" />
+    <Compile Include="Config\CmsExtensionsAutoMapperProfile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MVC\Controllers\ApprenticeshipVacancyReportController.cs" />
     <Compile Include="MVC\Controllers\SkillsFrameworkDataImportController.cs" />
@@ -429,6 +430,7 @@
     </CodeAnalysisDictionary>
     <Content Include="MVC\Views\ApprenticeshipVacancyReport\Index.cshtml" />
     <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
+    <Content Include="MVC\Views\ApprenticeshipVacancyReport\Error.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

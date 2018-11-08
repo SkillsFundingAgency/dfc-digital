@@ -16,14 +16,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
     public class ApprenticeshipVacancyReportControllerTests
     {
         private readonly IJobProfileReportRepository fakeReportRepository;
-        private readonly IMapper fakeMapper;
         private readonly IApplicationLogger fakeLoggingService;
-        private readonly IQueryable<ProfileAndApprenticeshipReport> fakeList;
+        private readonly IQueryable<JobProfileApprenticeshipVacancyReport> fakeList;
 
         public ApprenticeshipVacancyReportControllerTests()
         {
             fakeReportRepository = A.Fake<IJobProfileReportRepository>(ops => ops.Strict());
-            fakeMapper = A.Fake<IMapper>(ops => ops.Strict());
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
         }
 
@@ -37,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.GetApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             
             // Assign
-            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeMapper);
+            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository);
 
             // Act
             var indexMethodCall = reportController.WithCallTo(c => c.Index());
@@ -62,13 +60,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);
                 })
                 .AndNoModelErrors();
-            A.CallTo(() => fakeReportRepository.GetApprenticeshipVacancyReport()).MustHaveHappened();
+            A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).MustHaveHappened();
 
         }
 
         private void SetupCalls()
         {
-            A.CallTo(() => fakeReportRepository.GetApprenticeshipVacancyReport()).Returns(fakeList);
+            A.CallTo(() => fakeReportRepository.JobProfileApprenticeshipVacancyReport()).Returns(fakeList);
         }
 
         private IQueryable<ProfileAndApprenticeshipReport> GetDummyReportData(int numberRecords, int numberOfApprenticeship)

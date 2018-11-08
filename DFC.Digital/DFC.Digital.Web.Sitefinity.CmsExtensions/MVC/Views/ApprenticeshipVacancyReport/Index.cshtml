@@ -12,23 +12,25 @@
         <div style="clear:both">
             <div style="clear:both">
                 @(Html
-                            .Grid(Model.ReportData)
-                                .Build(columns =>
-                                {
-                                    columns.Add(model => model.JobProfileTitle).Titled("Title");
-                                    columns.Add(model => model.SOC).Titled("SOC");
-                                    columns.Add(model => model.SOCDescription).Titled("SOC Description");
-                                    columns.Add(model => model.Standards).Titled("Standards");
-                                    columns.Add(model => model.Frameworks).Titled("Frameworks");
-                                    columns.Add(model => model.AV1Title).Titled("AV1 Title");
-                                    columns.Add(model => model.AV1DateCreated).Titled("AV1 Date Created");
-                                    columns.Add(model => model.AV2Title).Titled("AV2 Title");
-                                    columns.Add(model => model.AV2DateCreated).Titled("AV2 Date Created");
-                                })
-                                .Empty("No data found")
-                                .Filterable()
-                                .Sortable()
-                                .Attributed(new { Id = Model.ReportName })
+                    .Grid(Model.ReportData)
+                    .Build(columns =>
+                    {
+                        columns.Add(model => model.JobProfileTitle).Titled("Title");
+                        columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
+                        columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
+                        columns.Add(model => model.SOC).Titled("SOC");
+                        columns.Add(model => model.SOCDescription).Titled("SOC Description");
+                        columns.Add(model => model.Standards).Titled("Standards");
+                        columns.Add(model => model.Frameworks).Titled("Frameworks");
+                        columns.Add(model => model.AV1Title).Titled("AV1 Title");
+                        columns.Add(model => model.AV1DateCreated).Titled("AV1 Date Created");
+                        columns.Add(model => model.AV2Title).Titled("AV2 Title");
+                        columns.Add(model => model.AV2DateCreated).Titled("AV2 Date Created");
+                    })
+                        .Empty("No data found")
+                        .Filterable()
+                        .Sortable()
+                        .Attributed(new { Id = Model.ReportName})
                 )
             </div>
         </div>

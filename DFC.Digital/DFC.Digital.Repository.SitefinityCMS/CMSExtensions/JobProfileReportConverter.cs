@@ -19,14 +19,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         public JobProfileReport ConvertFrom(DynamicContent content)
         {
-            var jpReport = new JobProfileReport();
             var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
-            if (cmsReportItem != null)
-            {
-                jpReport = mapper.Map<JobProfileReport>(cmsReportItem);
-                jpReport.Name = jpReport.UrlName;
-            }
-
+            var jpReport = cmsReportItem is null ? new JobProfileReport() : mapper.Map<JobProfileReport>(cmsReportItem);
             return jpReport;
         }
     }

@@ -26,14 +26,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         public ApprenticeshipVacancyReport ConvertFrom(DynamicContent content)
         {
-            var avReport = new ApprenticeshipVacancyReport();
             var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
-            if (cmsReportItem != null)
-            {
-                avReport = mapper.Map<ApprenticeshipVacancyReport>(cmsReportItem);
-                avReport.Name = cmsReportItem.UrlName;
-            }
-
+            var avReport = cmsReportItem is null ? new ApprenticeshipVacancyReport() : mapper.Map<ApprenticeshipVacancyReport>(cmsReportItem);
             var socItem = dynamicContentExtensions.GetFieldValue<DynamicContent>(content, SocCodePropertyName);
             if (socItem != null)
             {

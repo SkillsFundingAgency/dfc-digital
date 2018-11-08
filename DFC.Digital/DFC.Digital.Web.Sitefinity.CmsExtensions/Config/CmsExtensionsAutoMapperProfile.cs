@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions
@@ -8,8 +7,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
     {
         public CmsExtensionsAutoMapperProfile()
         {
-            CreateMap<CmsReportItem, JobProfileReport>();
-            CreateMap<CmsReportItem, ApprenticeshipVacancyReport>();
+            CreateMap<CmsReportItem, JobProfileReport>()
+                .ForMember(d => d.Name, c => c.MapFrom(s => s.UrlName));
+
+            CreateMap<CmsReportItem, ApprenticeshipVacancyReport>()
+                .ForMember(d => d.Name, c => c.MapFrom(s => s.UrlName));
+
             CreateMap<CmsReportItem, SocCodeReport>();
         }
 

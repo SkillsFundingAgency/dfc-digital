@@ -10,12 +10,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
     {
         public string GetUserNameById(Guid id)
         {
+            //CodeReview: Do we have to get the manager for every single item?
             var userManager = UserManager.GetManager();
-
             var user = userManager.GetUser(id);
-
             if (user != null)
             {
+                //CodeReview: Do we have to get the manager for every single item?
                 var profileManager = UserProfileManager.GetManager();
                 var profile = profileManager.GetUserProfile<SitefinityProfile>(user);
                 return profile.Nickname ?? $"{profile.FirstName} {profile.LastName}";

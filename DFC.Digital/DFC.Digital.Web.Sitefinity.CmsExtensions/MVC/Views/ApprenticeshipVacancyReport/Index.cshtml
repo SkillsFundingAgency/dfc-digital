@@ -2,17 +2,11 @@
 @using DFC.Digital.Web.Core
 @using NonFactors.Mvc.Grid
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/MvcGrid/mvc-grid.css")))
 <section>
-
-    <script>
-        var reportName = "ReportName1";
-    </script>
-
     <div id="jobProfileReport" , style="margin:10px">
         <div>
             <div style="float:left"><h3>Job Profiles and Apprenticeship Vacancy Report</h3></div>
-            <div style="float:right">Report Date - @DateTime.Now</div>
+            <div style="float:right"><p>Report Date - @DateTime.Now</p><p>Sort by clicking column title</p><p>Filter by clicking filter icon on each column</p></div>
         </div>
         <div style="clear:both">
             <div style="clear:both">
@@ -20,7 +14,7 @@
                     .Grid(Model.ReportData)
                     .Build(columns =>
                     {
-                        columns.Add(model => model.JobProfileTitle).Titled("Title");
+                        columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
                         columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
                         columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
                         columns.Add(model => model.SOC).Titled("SOC");
@@ -39,17 +33,17 @@
                 )
             </div>
         </div>
-
     </div>
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.js"></script>
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/filesaver.min.js"></script>
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/tableexport.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $(".sfFooter").hide();
-            $('.mvc-grid').mvcgrid();
-            $("table").tableExport();
-        });
-    </script>
+        <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/mvc-grid.js"></script>
+        <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/filesaver.min.js"></script>
+        <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/tableexport.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".sfFooter").hide();
+                $('.mvc-grid').mvcgrid();
+                $("table").tableExport();
+            });
+        </script>
+    
     <p>Took @Model.ExecutionTime to compile this report.</p>
 </section>

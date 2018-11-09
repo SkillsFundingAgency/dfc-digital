@@ -39,17 +39,15 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
             jobProfileReportRepository.GetJobProfileApprenticeshipVacancyReport();
 
             // Assert
-            A.CallTo(() => fakeJobProfileRepository.GetAll())
-                .MustHaveHappened();
-            A.CallTo(() => fakeApprenticeVacancyRepository.GetAll())
-                .MustHaveHappened();
+            A.CallTo(() => fakeJobProfileRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Status == ContentLifecycleStatus.Master)))).MustHaveHappened();
+            A.CallTo(() => fakeApprenticeVacancyRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.Status == ContentLifecycleStatus.Master)))).MustHaveHappened();
             A.CallTo(() => fakeDynamicContentExtensions.SetRelatedDataSourceContext(A<IQueryable<DynamicContent>>._)).MustHaveHappened();
         }
 
         private void SetupCalls()
         {
-            A.CallTo(() => fakeJobProfileRepository.GetAll()).Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { new DynamicContent() }).AsQueryable());
-            A.CallTo(() => fakeApprenticeVacancyRepository.GetAll()).Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { new DynamicContent() }).AsQueryable());
+            A.CallTo(() => fakeJobProfileRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>._)).Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { new DynamicContent() }).AsQueryable());
+            A.CallTo(() => fakeApprenticeVacancyRepository.GetMany(A<Expression<Func<DynamicContent, bool>>>._)).Returns(new EnumerableQuery<DynamicContent>(new List<DynamicContent> { new DynamicContent() }).AsQueryable());
             A.CallTo(() => fakeApprenticeVacancyConverter.ConvertFrom(A<DynamicContent>._)).Returns(new ApprenticeshipVacancyReport());
             A.CallTo(() => fakeJobProfileApprenticeshipVacancyReportConverter.ConvertFrom(A<DynamicContent>._)).Returns(new JobProfileApprenticeshipVacancyReport());
             A.CallTo(() => fakeDynamicContentExtensions.SetRelatedDataSourceContext(A<IQueryable<DynamicContent>>._)).DoesNothing();

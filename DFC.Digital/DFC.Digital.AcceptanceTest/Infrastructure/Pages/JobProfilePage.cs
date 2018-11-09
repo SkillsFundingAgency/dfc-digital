@@ -47,6 +47,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public string HomeCareersText => Find.Element(By.Id("proposition-name")).Text;
 
+        public bool IsJPSurveyDisplayed => Find.OptionalElement(By.ClassName("job-profile-feedback")) != null;
+
+        public string ThankYouText => Find.OptionalElement(By.ClassName("job-profile-feedback-end-yes")).Text;
+
+        public string JPSurveyNoText => Find.OptionalElement(By.ClassName("job-profile-feedback-end-no")).Text;
+
         public T ClickExploreCareersLink<T>()
             where T : UiComponent, new()
         {
@@ -69,6 +75,18 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.PartialLinkText("Back to homepage"));
+        }
+
+        public T ClickYesOnSurvey<T>()
+             where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.ClassName("yes"));
+        }
+
+        public T ClickNoOnSurvey<T>()
+             where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.ClassName("no"));
         }
 
         public T Search<T>(JobProfileDetailsViewModel model)
@@ -109,6 +127,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             var result = Find.Element(By.CssSelector(".dfc-code-jp-NoTrainingCoursesText a"));
             return Navigate.To<T>(result.GetAttribute("href"));
+        }
+
+        public T ClickToAnswerNoJPSurvey<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.Id("job-profile-feedback-survey"));
         }
 
         internal bool ContainsUrlName(string urlname) => UrlContains(urlname);

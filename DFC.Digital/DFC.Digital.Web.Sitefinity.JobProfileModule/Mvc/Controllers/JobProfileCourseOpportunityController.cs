@@ -143,8 +143,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var model = new JobProfileCourseSearchViewModel
             {
                 CoursesSectionTitle = CoursesSectionTitle,
-                NoTrainingCoursesText = NoTrainingCoursesText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
-                TrainingCoursesText = TrainingCoursesText.Replace("{jobtitle}", CurrentJobProfile.Title.ToLowerInvariant()),
+                NoTrainingCoursesText = NoTrainingCoursesText.Replace("{jobtitle}", GetDynamicTitle(true)),
+                TrainingCoursesText = TrainingCoursesText.Replace("{jobtitle}", GetDynamicTitle(true)),
                 CoursesLocationDetails = TrainingCoursesLocationDetails,
                 CourseLink = CourseLink,
                 Courses = trainingCourses,

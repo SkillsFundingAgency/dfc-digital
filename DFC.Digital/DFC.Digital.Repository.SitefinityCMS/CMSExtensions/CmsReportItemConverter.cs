@@ -1,5 +1,5 @@
 ﻿using DFC.Digital.Data;
-using DFC.Digital.Data.CMSExtension.Interfaces;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -32,7 +32,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             var reportItem = new CmsReportItem
             {
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, TitlePropertyName),
-                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, UrlNamePropertyName),
+                Name = dynamicContentExtensions.GetFieldValue<Lstring>(content, UrlNamePropertyName),
                 Id = dynamicContentExtensions.GetFieldValue<Guid>(content, IdPropertyName),
                 LastModifiedBy = userRepository.GetUserNameById(dynamicContentExtensions.GetFieldValue<Guid>(content, LastModifiedByPropertyName)),
                 LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, LastModifiedPropertyName),

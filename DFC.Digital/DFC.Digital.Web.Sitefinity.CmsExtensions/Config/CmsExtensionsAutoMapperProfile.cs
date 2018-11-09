@@ -7,15 +7,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
     {
         public CmsExtensionsAutoMapperProfile()
         {
-            CreateMap<CmsReportItem, JobProfileReport>()
-                .ForMember(d => d.Name, c => c.MapFrom(s => s.UrlName));
+            CreateMap<CmsReportItem, JobProfileReport>();
 
-            CreateMap<CmsReportItem, ApprenticeshipVacancyReport>()
-                .ForMember(d => d.Name, c => c.MapFrom(s => s.UrlName));
+            CreateMap<CmsReportItem, ApprenticeshipVacancyReport>();
 
             CreateMap<CmsReportItem, SocCodeReport>();
         }
 
-        public override string ProfileName => "DFC.Digital.Web.Sitefinity.JobProfileModule";
+        public override string ProfileName => "DFC.Digital.Web.Sitefinity.CmsExtensionsModule";
     }
 }

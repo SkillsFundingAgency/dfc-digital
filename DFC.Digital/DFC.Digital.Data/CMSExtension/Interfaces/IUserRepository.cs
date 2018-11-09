@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DFC.Digital.Data.CMSExtension.Interfaces
+namespace DFC.Digital.Data.Interfaces
 {
     public interface IUserRepository
     {

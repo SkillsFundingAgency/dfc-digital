@@ -58,7 +58,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
                 .Returns(new CmsReportItem
                 {
                     DateCreated = DateTime.Now,
-                    UrlName = nameof(CmsReportItem.UrlName),
+                    Name = nameof(CmsReportItem.Name),
                     LastModifiedBy = nameof(CmsReportItem.LastModifiedBy)
                 });
             A.CallTo(() => dummyDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))

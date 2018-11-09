@@ -43,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
         private void SetupCalls()
         {
             A.CallTo(() => dummyCmsReportItemModuleConverter.ConvertFrom(A<DynamicContent>._))
-                .Returns(new CmsReportItem { DateCreated = DateTime.Now, UrlName = nameof(CmsReportItem.UrlName), LastModifiedBy = nameof(CmsReportItem.LastModifiedBy) });
+                .Returns(new CmsReportItem { DateCreated = DateTime.Now, Name = nameof(CmsReportItem.Name), LastModifiedBy = nameof(CmsReportItem.LastModifiedBy) });
         }
     }
 }

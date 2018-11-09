@@ -54,7 +54,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
         private void SetupCalls()
         {
             A.CallTo(() => dummyCmsReportIteModuleConverter.ConvertFrom(A<DynamicContent>._))
-                .Returns(new CmsReportItem { DateCreated = DateTime.Now, UrlName = nameof(CmsReportItem.UrlName), LastModifiedBy = nameof(CmsReportItem.LastModifiedBy) });
+                .Returns(new CmsReportItem { DateCreated = DateTime.Now, Name = nameof(CmsReportItem.Name), LastModifiedBy = nameof(CmsReportItem.LastModifiedBy) });
             A.CallTo(() => dummyDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
                 .Returns("test");
             A.CallTo(() => dummyRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).Returns(new EnumerableQuery<string>(new List<string> { "test", "test2" }));

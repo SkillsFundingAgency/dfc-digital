@@ -11,6 +11,12 @@
     "assets/src/frontend/js/jquery-ui.min.js"
   ],
 
+  "cmsExtentionsBundle": [
+    "node_modules/filesaver.js-npm/fileSaver.min.js",
+    "node_modules/tableexport/dist/js/tableexport.min.js",
+    "assets/src/backend/js/mvcgrid/mvc-grid.js"
+  ],
+
   "ie8Bundle": [
     "node_modules/html5shiv/dist/html5shiv-printshiv.js",
     "assets/src/frontend/js/jquery-1.12.4.js"

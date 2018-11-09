@@ -15,6 +15,7 @@ module.exports = function (grunt) {
     var govukJsfiles = grunt.file.readJSON('jsfiles.json').concatGovUkJsFiles;
     var jqueryBundle = grunt.file.readJSON('jsfiles.json').jqueryBundle;
     var ie8Bundle = grunt.file.readJSON('jsfiles.json').ie8Bundle;
+    var cmsExtentionsBundle = grunt.file.readJSON('jsfiles.json').cmsExtentionsBundle;
     // Name of the folder that contains project specific assets (scss, js, images, etc.)
     var projectAssetsFolder = "frontend";
 
@@ -131,6 +132,8 @@ module.exports = function (grunt) {
                     { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
                     { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/stylesheets', src: '**/*.*', dest: 'assets/dist/css' },
                     { expand: true, cwd: 'assets/src/frontend/js/', src: 'selectivizr.min.js', dest: 'assets/dist/js' },
+                    { expand: true, cwd: 'assets/src/backend/css/MvcGrid/', src: '**/*.*', dest: 'assets/dist/css/MvcGrid/' }
+
                     //{ expand: true, cwd: 'node_modules/govuk_frontend_toolkit/javascripts/vendor/jquery', src: 'jquery.player.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery/dist', src: 'jquery.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery-migrate/dist', src: 'jquery-migrate.min.js', dest: 'assets/dist/js' },
@@ -158,6 +161,9 @@ module.exports = function (grunt) {
                     { '<%= dist.path %>/js/govuksel.min.js': govukJsfiles },
                     { '<%= dist.path %>/js/jquerybundle.min.js': jqueryBundle },
                     { '<%= dist.path %>/js/ie8bundle.min.js': ie8Bundle },
+                    { '<%= dist.path %>/js/cmsExtentionsBundle.min.js': cmsExtentionsBundle },
+
+
                     {
                         expand: true,
                         src: ['*.js', '!*.min.js'],

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
-using System;
 using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
@@ -11,7 +10,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
         private readonly IMapper mapper;
 
         public JobProfileReportConverter(
-           IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter,
+            IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter,
             IMapper mapper)
         {
             this.cmsReportItemConverter = cmsReportItemConverter;
@@ -20,15 +19,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         public JobProfileReport ConvertFrom(DynamicContent content)
         {
-            var jpReport = new JobProfileReport();
-
             var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
-            if (cmsReportItem != null)
-            {
-                jpReport = mapper.Map<JobProfileReport>(cmsReportItem);
-                jpReport.Name = jpReport.UrlName;
-            }
-
+            var jpReport = cmsReportItem is null ? new JobProfileReport() : mapper.Map<JobProfileReport>(cmsReportItem);
             return jpReport;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
-using System;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 
@@ -17,7 +16,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter;
         private readonly IMapper mapper;
 
-        public SocCodeReportConverter(IDynamicContentExtensions dynamicContentExtensions, IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter, IMapper mapper)
+        public SocCodeReportConverter(
+            IDynamicContentExtensions dynamicContentExtensions,
+            IRelatedClassificationsRepository relatedClassificationsRepository,
+            IDynamicModuleConverter<CmsReportItem> cmsReportItemConverter,
+            IMapper mapper)
         {
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.relatedClassificationsRepository = relatedClassificationsRepository;
@@ -28,16 +31,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public SocCodeReport ConvertFrom(DynamicContent content)
         {
             var socCodeReport = new SocCodeReport();
-
             var cmsReportItem = cmsReportItemConverter.ConvertFrom(content);
-
             if (cmsReportItem != null)
             {
                 socCodeReport = mapper.Map<SocCodeReport>(cmsReportItem);
             }
 
-            socCodeReport.Description =
-                dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description));
+            socCodeReport.Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description));
             socCodeReport.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode));
             socCodeReport.Frameworks = relatedClassificationsRepository.GetRelatedClassifications(content, ApprenticeshipFrameworks, ApprenticeshipFrameworksTaxonomyName);
             socCodeReport.Standards = relatedClassificationsRepository.GetRelatedClassifications(content, ApprenticeshipStandardsRelatedField, ApprenticeshipStandardsTaxonomyName);

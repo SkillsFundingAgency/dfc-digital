@@ -1,10 +1,8 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.GenericContent.Model;
-using Telerik.Sitefinity.RelatedData;
 
 namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 {
@@ -38,9 +36,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             var allApprenticeVacancies = apprenticeVacancyRepository.GetAll().Where(x => x.Status == ContentLifecycleStatus.Master);
             dynamicContentExtensions.SetRelatedDataSourceContext(allApprenticeVacancies);
 
+            //CodeReview: why tolist
             var apprenticeships = allApprenticeVacancies.Select(a => apprenticeVacancyConverter.ConvertFrom(a)).ToList();
             var profiles = allJobProfiles.Select(j => jobProfileApprenticeshipVacancyReportConverter.ConvertFrom(j)).ToList();
 
+            //CodeReview: Why string comparision of soccode? Cant we use id fields thay are Guid? av => av.SocCode != null && av.SocCode.Id == p.SocCode.Id
             profiles.Where(p => p.SocCode != null).ToList().ForEach(p => p.ApprenticeshipVacancies = apprenticeships.Where(av => av.SocCode != null && av.SocCode.SOCCode == p.SocCode.SOCCode));
 
             return profiles;

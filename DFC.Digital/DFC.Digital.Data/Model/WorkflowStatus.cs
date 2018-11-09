@@ -2,8 +2,8 @@
 {
     public enum WorkflowStatus
     {
-        Published,
         Draft,
-        UnPublished
+        Published,
+        Unpublished
     }
 }

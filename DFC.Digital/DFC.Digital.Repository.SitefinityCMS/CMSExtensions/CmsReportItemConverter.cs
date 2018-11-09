@@ -45,15 +45,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         private static WorkflowStatus GetContentStatus(string status)
         {
-            switch (status.ToUpperInvariant())
-            {
-                case "PUBLISHED":
-                    return WorkflowStatus.Published;
-                case "UNPUBLISHED":
-                    return WorkflowStatus.UnPublished;
-                default:
-                    return WorkflowStatus.Draft;
-            }
+            Enum.TryParse(status, out WorkflowStatus result);
+            return result;
         }
     }
 }

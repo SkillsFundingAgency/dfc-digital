@@ -9,6 +9,7 @@ namespace DFC.Digital.Data.Model
 
         public Guid Id { get; set; }
 
+        //CodeReview: Cant we call it Name instead? We could have a const representing the field name "UrlName"
         public string UrlName { get; set; }
 
         public string LastModifiedBy { get; set; }

@@ -48,7 +48,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
                 .MustHaveHappened();
             A.CallTo(() => dummyDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
-            A.CallTo(() => dummyRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
+            A.CallTo(() => dummyRelatedClassificationsRepository.GetRelatedCmsReportClassifications(A<DynamicContent>._, A<string>._, A<string>._)).MustHaveHappened();
         }
 
         private void SetupCalls()
@@ -57,7 +57,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions.Tests
                 .Returns(new CmsReportItem { DateCreated = DateTime.Now, Name = nameof(CmsReportItem.Name), LastModifiedBy = nameof(CmsReportItem.LastModifiedBy) });
             A.CallTo(() => dummyDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
                 .Returns("test");
-            A.CallTo(() => dummyRelatedClassificationsRepository.GetRelatedClassifications(A<DynamicContent>._, A<string>._, A<string>._)).Returns(new EnumerableQuery<string>(new List<string> { "test", "test2" }));
+            A.CallTo(() => dummyRelatedClassificationsRepository.GetRelatedCmsReportClassifications(A<DynamicContent>._, A<string>._, A<string>._)).Returns(new EnumerableQuery<TaxonReport>(new List<TaxonReport> { new TaxonReport() }));
         }
     }
 }

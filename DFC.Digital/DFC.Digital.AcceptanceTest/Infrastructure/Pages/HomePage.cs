@@ -63,6 +63,24 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return Navigate.To<T>(By.ClassName("filter-home-button"));
         }
 
+        public T ClickPrivacyLink<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.PartialLinkText("Privacy and cookies"));
+        }
+
+        public T ClickTandCLink<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.PartialLinkText("Terms and conditions"));
+        }
+
+        public T ClickInformationSourcesLink<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.PartialLinkText("Information sources"));
+        }
+
         public void SelectSuggestedSearch(int index)
         {
             var list = Find.Elements(By.ClassName("ui-menu-item-wrapper")).ToList();

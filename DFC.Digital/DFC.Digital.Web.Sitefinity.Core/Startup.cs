@@ -2,16 +2,21 @@
 using Autofac.Integration.Mvc;
 using DFC.Digital.Web.Core;
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Services;
+using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public sealed class Startup
     {
         private Startup()
@@ -23,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
 
             Bootstrapper.Initialized += Bootstrapper_Initialized;
-            Bootstrapper.Bootstrapped += new EventHandler<EventArgs>(Bootstrapper_Bootstrapped);
+            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
             MvcHandler.DisableMvcResponseHeader = true;
         }
@@ -41,10 +46,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
 
                 FeatherActionInvokerCustom.Register();
+                EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
             }
             catch (Exception ex)
             {
-                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainerFactory - Re-start sitefinity -{ex.ToString()}");
+                Logger.Writer.Write($"Fatal error - Failed to register AutofacContainerFactory - Re-start sitefinity -{ex}");
             }
         }
 
@@ -54,6 +60,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
+        }
+
+        private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var sitemapHandler = autofacLifetimeScope.Resolve<SitemapHandler>();
+
+            // sets the collection of entries to modified collection
+            evt.Entries = sitemapHandler.ManipulateSitemap(evt.Entries.ToList());
         }
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)
@@ -83,7 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                Telerik.Microsoft.Practices.EnterpriseLibrary.Logging.Logger.Writer.Write($"Fatal error - Failed to register AutofacContainer - Re-start sitefinity -{ex.ToString()}");
+                Logger.Writer.Write($"Fatal error - Failed to register AutofacContainer - Re-start sitefinity -{ex}");
             }
         }
 

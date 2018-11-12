@@ -42,6 +42,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         [IgnoreInputInInterception]
         string GetFieldChoiceValue(DynamicContent contentItem, string fieldName);
 
+        [IgnoreInputInInterception]
         string GetFieldChoiceLabel(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]

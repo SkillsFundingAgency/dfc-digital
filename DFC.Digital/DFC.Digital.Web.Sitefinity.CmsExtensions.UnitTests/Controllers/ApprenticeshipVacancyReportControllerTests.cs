@@ -78,14 +78,14 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 var r = new JobProfileApprenticeshipVacancyReport();
                 r.JobProfile = new JobProfileReport() { Title = $"Dummy Profile {ii}", Name = $"profile_name{ii}" };
                 r.SocCode = new SocCodeReport() { SOCCode = $"DummySOC {ii}", Description = $"DummySOCDescription {ii}" };
-                var frameworks = new List<string>
+                var frameworks = new List<TaxonReport>
                 {
-                    $"DummyFramework{ii}"
+                   new TaxonReport {Title = $"DummyFramework{ii}"}
                 };
                 r.SocCode.Frameworks = frameworks.AsQueryable();
 
-                var standards = new List<string>();
-                standards.Add($"DummyStandards{ii}");
+                var standards = new List<TaxonReport>();
+                standards.Add(new TaxonReport { Title = $"DummyFramework{ii}" });
                 r.SocCode.Standards = standards.AsQueryable();
 
                 var a = new List<ApprenticeshipVacancyReport>();

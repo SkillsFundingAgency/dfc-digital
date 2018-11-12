@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.CMSExtension.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using FakeItEasy;
 using System;
 using Telerik.Sitefinity.DynamicModules.Model;

@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             foreach (var rptItem in  reportData)
             {
                 var reportItem = new JobProfileApprenticeshipVacancyItemViewModel { JobProfileTitle = rptItem.JobProfile.Title, JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy, JobProfileStatus = rptItem.JobProfile.Status.ToString(),
-                    SOC = rptItem.SocCode.SOCCode, SOCDescription = rptItem.SocCode.Description, JobProfileLink = rptItem.JobProfile.UrlName};
+                    SOC = rptItem.SocCode.SOCCode, SOCDescription = rptItem.SocCode.Description, JobProfileLink = rptItem.JobProfile.Name};
 
                 reportItem.Standards = string.Join(",", rptItem.SocCode.Standards == null ? new List<string>() : rptItem.SocCode.Standards.ToList());
                 reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks == null ? new List<string>() : rptItem.SocCode.Frameworks.ToList());

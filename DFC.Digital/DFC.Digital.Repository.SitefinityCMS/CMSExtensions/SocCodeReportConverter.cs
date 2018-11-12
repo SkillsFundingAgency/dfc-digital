@@ -39,8 +39,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             socCodeReport.Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description));
             socCodeReport.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode));
-            socCodeReport.Frameworks = relatedClassificationsRepository.GetRelatedClassifications(content, ApprenticeshipFrameworks, ApprenticeshipFrameworksTaxonomyName);
-            socCodeReport.Standards = relatedClassificationsRepository.GetRelatedClassifications(content, ApprenticeshipStandardsRelatedField, ApprenticeshipStandardsTaxonomyName);
+            socCodeReport.Frameworks = relatedClassificationsRepository.GetRelatedCmsReportClassifications(content, ApprenticeshipFrameworks, ApprenticeshipFrameworksTaxonomyName);
+            socCodeReport.Standards = relatedClassificationsRepository.GetRelatedCmsReportClassifications(content, ApprenticeshipStandardsRelatedField, ApprenticeshipStandardsTaxonomyName);
             return socCodeReport;
         }
     }

@@ -5,6 +5,7 @@ using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -39,6 +40,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public T GetFieldValue<T>(DynamicContent contentItem, string fieldName)
         {
             return contentItem != null && contentItem.DoesFieldExist(fieldName) ? contentItem.GetValue<T>(fieldName) : default;
+        }
+
+        public T GetTaxonFieldValue<T>(Taxon taxonItem, string fieldName)
+        {
+            return taxonItem != null && taxonItem.DoesFieldExist(fieldName) ? taxonItem.GetValue<T>(fieldName) : default;
         }
 
         public void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value)

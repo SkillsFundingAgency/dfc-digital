@@ -10,9 +10,9 @@ namespace DFC.Digital.Data.Model
         public string Description { get; set; }
 
         [JsonIgnore]
-        public IQueryable<string> Frameworks { get; set; }
+        public IQueryable<TaxonReport> Frameworks { get; set; }
 
         [JsonIgnore]
-        public IQueryable<string> Standards { get; set; }
+        public IQueryable<TaxonReport> Standards { get; set; }
     }
 }

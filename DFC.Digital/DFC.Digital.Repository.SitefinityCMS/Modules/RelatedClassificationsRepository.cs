@@ -22,17 +22,17 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<string> GetRelatedClassifications(DynamicContent content, string relatedField, string taxonomyName)
         {
-            var clasifications = Clasifications(content, relatedField, taxonomyName);
+            var clasifications = GetClasifications(content, relatedField, taxonomyName);
             return clasifications.Select(c => $"{c.Title}");
         }
 
         public IQueryable<TaxonReport> GetRelatedCmsReportClassifications(DynamicContent content, string relatedField, string taxonomyName)
         {
-            var clasifications = Clasifications(content, relatedField, taxonomyName);
+            var clasifications = GetClasifications(content, relatedField, taxonomyName);
             return clasifications.Select(c => new TaxonReport { Title = c.Title, LarsCode = c.UrlName });
         }
 
-        private IQueryable<Taxon> Clasifications(DynamicContent content, string relatedField, string taxonomyName)
+        private IQueryable<Taxon> GetClasifications(DynamicContent content, string relatedField, string taxonomyName)
         {
             var relatedClasifications = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, relatedField);
             var clasifications = GetMany(c => relatedClasifications.Contains(c.Id) && c.Taxonomy.Name == taxonomyName);

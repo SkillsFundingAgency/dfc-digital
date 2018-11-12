@@ -49,8 +49,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 var reportItem = new JobProfileApprenticeshipVacancyItemViewModel { JobProfileTitle = rptItem.JobProfile.Title, JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy, JobProfileStatus = rptItem.JobProfile.Status.ToString(),
                     SOC = rptItem.SocCode.SOCCode, SOCDescription = rptItem.SocCode.Description, JobProfileLink = rptItem.JobProfile.Name};
 
-                reportItem.Standards = string.Join(",", rptItem.SocCode.Standards.Select(s => s.LarsCode).ToList());
-                reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks.Select(s => s.LarsCode).ToList());
+                reportItem.Standards = string.Join(",", rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})").ToList());
+                reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})").ToList());
 
                 if (rptItem.ApprenticeshipVacancies.Any())
                 {

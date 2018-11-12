@@ -10,39 +10,37 @@
 <div class="mvc-grid-pager @Model.CssClasses" data-show-page-sizes="@Model.ShowPageSizes">
     @if (totalPages > 0)
     {
-        <ul>
-            @if (currentPage > 1)
+        if (currentPage > 1)
+        {
+            <button data-page="1">&laquo;</button>
+            <button data-page="@(currentPage - 1)">&lsaquo;</button>
+        }
+        else
+        {
+            <button class="disabled" tabindex="-1">&laquo;</button>
+            <button class="disabled" tabindex="-1">&lsaquo;</button>
+        }
+        for (Int32 page = firstDisplayPage; page <= totalPages && page < firstDisplayPage + Model.PagesToDisplay; page++)
+        {
+            if (page == currentPage)
             {
-                <li><a href="#" data-page="1">&laquo;</a></li>
-                <li><a href="#" data-page="@(currentPage - 1)">&lsaquo;</a></li>
+                <button class="active" data-page="@(page)">@(page)</button>
             }
             else
             {
-                <li class="disabled"><a tabindex="-1">&laquo;</a></li>
-                <li class="disabled"><a tabindex="-1">&lsaquo;</a></li>
+                <button data-page="@(page)">@(page)</button>
             }
-            @for (Int32 page = firstDisplayPage; page <= totalPages && page < firstDisplayPage + Model.PagesToDisplay; page++)
-            {
-                if (page == currentPage)
-                {
-                    <li class="active"><a href="#" data-page="@(page)">@(page)</a></li>
-                }
-                else
-                {
-                    <li><a href="#" data-page="@(page)">@(page)</a></li>
-                }
-            }
-            @if (currentPage < totalPages)
-            {
-                <li><a href="#" data-page="@(currentPage + 1)">&rsaquo;</a></li>
-                <li><a href="#" data-page="@totalPages">&raquo;</a></li>
-            }
-            else
-            {
-                <li class="disabled"><a tabindex="-1">&rsaquo;</a></li>
-                <li class="disabled"><a tabindex="-1">&raquo;</a></li>
-            }
-        </ul>
+        }
+        if (currentPage < totalPages)
+        {
+            <button data-page="@(currentPage + 1)">&rsaquo;</button>
+            <button data-page="@totalPages">&raquo;</button>
+        }
+        else
+        {
+            <button class="disabled" tabindex="-1">&rsaquo;</button>
+            <button class="disabled" tabindex="-1">&raquo;</button>
+        }
         if (Model.ShowPageSizes)
         {
             <div class="mvc-grid-page-sizes">

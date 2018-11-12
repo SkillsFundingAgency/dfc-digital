@@ -347,6 +347,9 @@
       <HintPath>..\packages\Sitefinity.Windows.Azure.2.0.0.4\lib\net40\MonAgentListener.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mvc.Grid.Core, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.6.0.1\lib\net45\Mvc.Grid.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.6.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.6.6\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
@@ -973,7 +976,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\css\MvcGrid\mvc-grid.css" />
+    <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\MvcGrid\mvc-grid.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\MvcGrid\mvc-grid.min.js" />
     <Content Include="robots.prod.txt.template" />
@@ -1211,11 +1214,11 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.35.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.36.1.nupkg" />
+    <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_nav.scss" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\css\MvcGrid\Fonts\GridGlyphs.woff" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1234,6 +1237,7 @@
     <Content Include="Default.aspx" />
     <Content Include="robots.txt.template" />
     <Content Include="DetailFormViewCustom.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
     <Content Include="Silverlight.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Thunder\ThunderService.svc" />
@@ -1357,7 +1361,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
-    <Folder Include="ResourcePackages\gds_toolkit\assets\src\sitefinity\" />
+    <Folder Include="ResourcePackages\gds_toolkit\assets\src\backend\css\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -1480,6 +1484,7 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_webchat.scss" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <Content Include="Views\Web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

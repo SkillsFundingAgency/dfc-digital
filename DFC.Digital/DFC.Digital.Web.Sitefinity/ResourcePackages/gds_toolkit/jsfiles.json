@@ -14,7 +14,7 @@
   "cmsExtentionsBundle": [
     "node_modules/filesaver.js-npm/fileSaver.min.js",
     "node_modules/tableexport/dist/js/tableexport.min.js",
-    "assets/src/backend/js/mvcgrid/mvc-grid.js"
+    "../../Scripts/MvcGrid/mvc-grid.js"
   ],
 
   "ie8Bundle": [

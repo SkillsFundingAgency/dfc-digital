@@ -10,13 +10,14 @@
                 @foreach (IGridColumn column in Model.Columns)
                 {
                     String sortableClass = column.Sort.IsEnabled == true && Model.FilterMode != GridFilterMode.HeaderRow ? "sortable" : null;
-                    String filterableClass = column.Filter.IsEnabled == true ? "filterable" : null;
+                    String filterableClass = column.Filter.IsEnabled == true && Model.FilterMode != GridFilterMode.FilterRow ? "filterable" : null;
 
                     <th class="@filterableClass @sortableClass @column.CssClasses"
                         data-name="@column.Name"
                         data-filter="@column.Filter.IsEnabled"
                         data-filter-name="@column.Filter.Name"
                         data-filter-multi="@column.Filter.IsMulti"
+                        data-filter-default-method="@column.Filter.DefaultMethod"
                         data-filter-first-method="@(column.Filter.First != null ? column.Filter.First.Method : "")"
                         data-filter-first-value="@(column.Filter.First != null ? column.Filter.First.Value : "")"
                         data-filter-operator="@column.Filter.Operator"
@@ -31,9 +32,12 @@
 
                             if (Model.FilterMode == GridFilterMode.HeaderRow)
                             {
-                                <div class="first-filter">
+                                <div>
                                     @{
+                                        String title = (column.Title as String) ?? "";
+                                        Int32 size = title.Length > 0 ? title.Length : 20;
                                         String value = column.Filter.First != null ? column.Filter.First.Value : "";
+
                                         foreach (SelectListItem option in column.Filter.Options)
                                         {
                                             if (column.Filter.First != null && column.Filter.First.Value == option.Value)
@@ -45,15 +49,12 @@
                                         }
                                     }
 
-                                    <input class="mvc-grid-method" type="hidden" value="@(column.Filter.First != null ? column.Filter.First.Method : "")" />
-                                    <input class="mvc-grid-value" value="@value" placeholder="@column.Title" />
-                                    <a href="#" class="mvc-grid-filter @filterApplied"></a>
+                                    <input class="mvc-grid-value" value="@value" size="@size" placeholder="@column.Title" />
                                 </div>
                             }
                             else
                             {
                                 <span class="mvc-grid-header-title @column.Sort.Order.ToString().ToLower()">@column.Title</span>
-                                <a href="#" class="mvc-grid-filter @filterApplied"></a>
                             }
 
                             <select class="mvc-grid-options">
@@ -62,6 +63,8 @@
                                     <option value="@option.Value">@option.Text</option>
                                 }
                             </select>
+
+                            <button class="mvc-grid-filter @filterApplied"></button>
                         }
                         else
                         {
@@ -80,9 +83,7 @@
                             <th class="filterable @column.CssClasses">
                                 @{ String filterApplied = (column.Filter.First ?? column.Filter.Second) != null ? "applied" : ""; }
 
-                                <div class="first-filter">
-                                    <input class="mvc-grid-method" type="hidden" value="@(column.Filter.First != null ? column.Filter.First.Method : "")" />
-
+                                <div>
                                     @if (column.Filter.Options.Any())
                                     {
                                         <select class="mvc-grid-value">
@@ -104,7 +105,7 @@
                                         <input class="mvc-grid-value" value="@(column.Filter.First != null ? column.Filter.First.Value : "")" />
                                     }
 
-                                    <a href="#" class="mvc-grid-filter @filterApplied"></a>
+                                    <button class="mvc-grid-filter @filterApplied"></button>
                                 </div>
                             </th>
                         }

@@ -72,6 +72,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string ApprenticeshipSectionTitle { get; set; } = "Apprenticeships";
 
         /// <summary>
+        /// Gets or sets the Apprenticeship wage title.
+        /// </summary>
+        /// <value>
+        /// The apprenticeship wage title
+        /// </value>
+        public string ApprenticeshipWageTitle { get; set; } = "Wage";
+
+        /// <summary>
         /// Gets or sets the location details.
         /// </summary>
         /// <value>
@@ -151,6 +159,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 ApprenticeshipSectionTitle = ApprenticeshipSectionTitle,
                 SectionId = SectionId,
                 LocationDetails = ApprenticeshipLocationDetails,
+                WageTitle = ApprenticeshipWageTitle,
                 ApprenticeshipText = ApprenticeshipText.Replace("{jobtitle}", GetDynamicTitle(true)),
                 NoVacancyText = NoVacancyText.Replace("{jobtitle}", GetDynamicTitle(true)),
                 MainSectionTitle = MainSectionTitle,
@@ -168,6 +177,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     ApprenticeVacancies = new List<ApprenticeVacancy>(),
                     ApprenticeshipSectionTitle = ApprenticeshipSectionTitle,
                     SectionId = SectionId,
+                    WageTitle = ApprenticeshipWageTitle,
                     LocationDetails = ApprenticeshipLocationDetails,
                     ApprenticeshipText = ApprenticeshipText,
                     MainSectionTitle = MainSectionTitle,

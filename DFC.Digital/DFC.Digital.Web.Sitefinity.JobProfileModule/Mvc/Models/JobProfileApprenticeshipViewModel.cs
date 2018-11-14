@@ -34,6 +34,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string LocationDetails { get; set; }
 
         /// <summary>
+        /// Gets or sets the wage title.
+        /// </summary>
+        /// <value>
+        /// The wage title.
+        /// </value>
+        public string WageTitle { get; set; }
+
+        /// <summary>
         /// Gets or sets the apprenticeship text.
         /// </summary>
         /// <value>

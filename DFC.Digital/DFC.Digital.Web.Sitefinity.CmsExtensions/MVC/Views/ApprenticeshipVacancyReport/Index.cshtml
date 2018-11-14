@@ -35,14 +35,12 @@
             </div>
         </div>
     </div>
-    <!--
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/src/backend/js/mvcgrid/mvc-grid.js"></script>
-        -->
     <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/cmsExtentionsBundle.min.js"></script>
     <script>
             $(document).ready(function () {
                 $(".sfFooter").hide();
-                $('.mvc-grid').MvcGrid();
+                [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+                    new MvcGrid(element);                });
                 $("#@Model.ReportName").tableExport();
             });
     </script>

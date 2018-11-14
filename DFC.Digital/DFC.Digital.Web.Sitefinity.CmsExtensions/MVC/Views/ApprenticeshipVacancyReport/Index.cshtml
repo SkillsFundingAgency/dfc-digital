@@ -11,35 +11,38 @@
         <div style="clear:both">
             <div style="clear:both">
                 @(Html
-                .Grid(Model.ReportData)
-                .Build(columns =>
-                {
-                    columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
-                    columns.Add(model => model.JobProfileLink).Titled("Profile URL");
-                    columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
-                    columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
-                    columns.Add(model => model.SOC).Titled("SOC");
-                    columns.Add(model => model.SOCDescription).Titled("SOC Description");
-                    columns.Add(model => model.Standards).Titled("Standards");
-                    columns.Add(model => model.Frameworks).Titled("Frameworks");
-                    columns.Add(model => model.AV1Title).Titled("AV1 Title");
-                    columns.Add(model => model.AV1LastModified).Titled("AV1 Last Modified");
-                    columns.Add(model => model.AV2Title).Titled("AV2 Title");
-                    columns.Add(model => model.AV2LastModified).Titled("AV2 Last Modified");
-                })
-                    .Empty("No data found")
-                    .Filterable()
-                    .Sortable()
-                    .Attributed(new { Id = Model.ReportName })
+                        .Grid(Model.ReportData)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
+                            columns.Add(model => model.JobProfileLink).Titled("Profile URL");
+                            columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
+                            columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
+                            columns.Add(model => model.SOC).Titled("SOC");
+                            columns.Add(model => model.SOCDescription).Titled("SOC Description");
+                            columns.Add(model => model.Standards).Titled("Standards");
+                            columns.Add(model => model.Frameworks).Titled("Frameworks");
+                            columns.Add(model => model.AV1Title).Titled("AV1 Title");
+                            columns.Add(model => model.AV1LastModified).Titled("AV1 Last Modified");
+                            columns.Add(model => model.AV2Title).Titled("AV2 Title");
+                            columns.Add(model => model.AV2LastModified).Titled("AV2 Last Modified");
+                        })
+                            .Empty("No data found")
+                            .Filterable()
+                            .Sortable()
+                            .Attributed(new { Id = Model.ReportName })
                 )
             </div>
         </div>
     </div>
+    <!--
+    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/src/backend/js/mvcgrid/mvc-grid.js"></script>
+        -->
     <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/cmsExtentionsBundle.min.js"></script>
     <script>
             $(document).ready(function () {
                 $(".sfFooter").hide();
-                $('.mvc-grid').mvcgrid();
+                $('.mvc-grid').MvcGrid();
                 $("#@Model.ReportName").tableExport();
             });
     </script>

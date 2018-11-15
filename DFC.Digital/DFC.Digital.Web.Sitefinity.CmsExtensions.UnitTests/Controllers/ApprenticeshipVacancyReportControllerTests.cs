@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using AutoMapper;
 using DFC.Digital.Core;
@@ -20,6 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         private readonly IWebAppContext fakeWebAppContext;
         private readonly ICachingPolicy fakeCachingPolicy;
         private readonly IQueryable<JobProfileApprenticeshipVacancyReport> fakeList;
+        private NameValueCollection query = new NameValueCollection();
 
         public ApprenticeshipVacancyReportControllerTests()
         {
@@ -27,6 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeWebAppContext = A.Fake<IWebAppContext>();
             fakeCachingPolicy = A.Fake<ICachingPolicy>();
+            query.Add("ctx", "something");
         }
 
         [Theory]
@@ -34,9 +37,10 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         [InlineData (2 , 1)]
         [InlineData(2, 2)]
         public void IndexTest(int numberRecords, int numberOfApprenticeship)
-        {
+        {            
             // Setup
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
             
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
@@ -66,6 +70,24 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 .AndNoModelErrors();
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).MustHaveHappened();
 
+        }
+
+        public void IndexRedirectTest(int numberRecords, int numberOfApprenticeship)
+        {
+            // Setup
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
+            A.CallTo(() => fakeWebAppContext.GetCurrentUrl(A<Dictionary<string, object>>._)).Returns("url");
+
+            // Assign
+            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
+
+            // Act
+            var indexMethodCall = reportController.WithCallTo(c => c.Index());
+
+            // Assert
+            indexMethodCall.ShouldRedirectTo("url");
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).MustNotHaveHappened();
         }
 
         private void SetupCalls()

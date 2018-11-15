@@ -1481,7 +1481,6 @@
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_webchat.scss" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
-    <Content Include="Views\Web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

@@ -41,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             // Setup
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
-            
+            A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 
@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);
                 })
                 .AndNoModelErrors();
-            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).MustHaveHappened();
+            A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).MustHaveHappened();
 
         }
 

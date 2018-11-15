@@ -80,7 +80,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public TPage ClickExploreCareerBreadcrumb<TPage>()
             where TPage : UiComponent, new()
         {
-            return Navigate.To<TPage>(By.PartialLinkText("Explore careers home"));
+            return Navigate.To<TPage>(By.PartialLinkText("Home"));
         }
 
         private bool IsThisStatusPage()

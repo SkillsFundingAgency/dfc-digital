@@ -1,0 +1,3248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+    <loc>https://__baseUrl__</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/help/cookies</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/administration</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/animal-care</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/beauty-and-wellbeing</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/business-and-finance</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/computing-technology-and-digital</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/construction-and-trades</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/creative-and-media</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/delivery-and-storage</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/emergency-and-uniform-services</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/engineering-and-maintenance</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/environment-and-land</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/government-services</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/healthcare</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/home-services</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/hospitality-and-food</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/law-and-legal</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/managerial</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/manufacturing</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/retail-and-sales</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/science-and-research</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/social-care</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/sports-and-leisure</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/teaching-and-education</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/transport</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-categories/travel-and-tourism</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/help/terms-and-conditions</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/help/information-sources</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/accounting-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/admin-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/arts-administrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/assistant-immigration-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/auditor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bid-writer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bilingual-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bookkeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/border-force-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/car-rental-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/charity-fundraiser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/civil-service-administrative-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/civil-service-executive-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/credit-controller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/data-entry-clerk</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/diplomatic-service-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/estates-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/european-union-official</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/farm-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/finance-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/financial-services-customer-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gp-practice-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-and-safety-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-records-clerk</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-service-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hotel-receptionist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/human-resources-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/human-resources-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/human-resources-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/immigration-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/insurance-broker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/interpreter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/local-government-administrative-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/local-government-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/local-government-revenues-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/mp</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/medical-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/payroll-administrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/personal-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/post-office-customer-service-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/proofreader</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/purchasing-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/quality-control-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/receptionist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/recruitment-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/registrar-of-births-deaths-marriages-and-civil-partnerships</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/reprographic-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sales-administrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-business-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/security-service-personnel</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-development-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/supervisor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/telephonist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/town-planning-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/trade-union-official</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/trading-standards-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/typist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/agricultural-contractor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/agricultural-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/animal-care-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/animal-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/assistance-dog-trainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/beekeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/biologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/countryside-ranger</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dog-groomer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dog-handler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ecologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/farm-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/farmer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/farrier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fish-farmer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fishing-boat-deckhand</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gamekeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/horse-groom</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/horse-riding-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/jockey</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/kennel-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ornithologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pet-behaviour-counsellor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pet-shop-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/rspca-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/racehorse-trainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/vet</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/veterinary-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/veterinary-physiotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/zookeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/zoologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/acupuncturist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/alexander-technique-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/aromatherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/art-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/beauty-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/beauty-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/body-piercer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chiropractor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/colon-hydrotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/colour-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/counsellor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dance-movement-psychotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dramatherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hairdresser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-play-specialist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/homeopath</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/massage-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/medical-herbalist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/music-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nail-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/naturopath</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nutritional-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/osteopath</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pilates-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/reflexologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/reiki-healer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tattooist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/yoga-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/actuary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bank-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/banking-customer-service-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/business-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/business-development-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/business-project-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chief-executive</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/company-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/credit-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/digital-marketer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/economist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/financial-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/insurance-account-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/insurance-claims-handler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/insurance-loss-adjuster</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/insurance-underwriter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/investment-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/management-accountant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/marketing-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/money-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/mortgage-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/payroll-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pensions-administrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pensions-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/private-practice-accountant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/public-finance-accountant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/stockbroker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tax-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tax-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/archivist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/business-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cartographer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/computer-games-developer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/computer-games-tester</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cyber-intelligence-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/database-administrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/digital-delivery-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/digital-product-owner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/e-learning-developer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forensic-computer-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/head-of-it-(it-director)</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/it-project-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/it-security-co-ordinator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/it-service-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/it-support-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/it-trainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/indexer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/information-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/librarian</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/library-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/media-researcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/network-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/network-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/operational-researcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/social-media-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/software-developer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/solutions-architect</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/systems-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/technical-architect</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/technical-author</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ux-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/user-researcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/web-content-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/web-content-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/web-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/web-developer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/acoustics-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/architect</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/architectural-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/architectural-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/boat-builder</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bricklayer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/building-control-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/building-services-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/building-site-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/building-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/building-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/carpenter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/carpet-fitter-and-floor-layer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cavity-insulation-installer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ceiling-fixer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/civil-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/civil-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/commercial-energy-assessor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-contracts-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-labourer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-plant-mechanic</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-plant-operator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/construction-site-supervisor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/crane-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/demolition-operative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/domestic-energy-assessor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/drone-pilot</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dry-liner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electrician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electricity-distribution-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/engineering-construction-craftworker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/engineering-construction-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/estimator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/facilities-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gas-mains-layer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gas-service-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/general-practice-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/glazier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/heating-and-ventilation-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/kitchen-and-bathroom-fitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/land-and-property-valuer-and-auctioneer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/land-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/landscaper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/mechanical-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/paint-sprayer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/painter-and-decorator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/planning-and-development-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/plasterer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/plumber</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/quantity-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/quarry-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/quarry-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/refrigeration-and-air-conditioning-installer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/road-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/roofer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/rural-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/scaffolder</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/shopfitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/steel-erector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/steel-fixer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/steeplejack</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/stonemason</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/structural-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/technical-surveyor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/thatcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tiler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/town-planner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/water-network-operative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/welder</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/window-fitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/wood-machinist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/actor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/advertising-account-executive</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/advertising-art-director</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/advertising-copywriter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/advertising-media-planner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/animator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/antique-dealer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/art-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/art-gallery-curator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/art-valuer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/audio-visual-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/blacksmith</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bookbinder-or-print-finisher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bookseller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/broadcast-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/broadcast-journalist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cad-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ceramics-designer-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/choreographer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cinema-projectionist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/circus-performer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/classical-musician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/commissioning-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/community-arts-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/conservator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/copy-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/costume-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dj</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dance-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dancer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/design-and-development-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/director-of-photography</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dress-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/editorial-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/entertainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/entertainment-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ergonomist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/exhibition-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fashion-design-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fashion-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fashion-model</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fine-artist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/florist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/footwear-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/franchise-owner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/french-polisher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/furniture-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/furniture-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/furniture-restorer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/glassmaker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/graphic-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/illustrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/image-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/interior-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/jewellery-designer-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/knitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/landscape-architect</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/lighting-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/live-sound-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/magazine-journalist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/make-up-artist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/market-research-data-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/market-researcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/marketing-director</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/marketing-executive</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/medical-illustrator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/model-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/museum-curator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/music-promotions-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/music-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/musical-instrument-maker-repairer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/naval-architect</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/newspaper-journalist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/newspaper-or-magazine-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pattern-cutter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/photographer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/photographic-stylist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/photographic-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/picture-framer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pop-musician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/product-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/prop-maker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/public-relations-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/radio-broadcast-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/retail-merchandiser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/roadie</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/airport-baggage-handler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/courier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/delivery-van-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/food-packaging-operative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forklift-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/large-goods-vehicle-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/motor-vehicle-parts-person</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/order-picker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/packer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/postman-or-postwoman</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/removals-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/road-transport-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/shelf-filler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/supply-chain-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tanker-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/warehouse-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/warehouse-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/yard-person</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/army-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bodyguard</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bomb-disposal-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chief-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/civil-enforcement-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/coastguard</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/customs-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/diver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/door-supervisor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fingerprint-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/firefighter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/merchant-navy-deck-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/merchant-navy-engineering-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/merchant-navy-rating</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/neighbourhood-warden</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/paramedic</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/police-community-support-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/police-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/prison-governor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/prison-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/prison-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/private-investigator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/raf-airman-or-airwoman</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/raf-non-commissioned-aircrew</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/raf-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/road-traffic-accident-investigator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/royal-marines-commando</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/royal-marines-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/royal-navy-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/royal-navy-rating</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/scenes-of-crime-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/security-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/soldier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/store-detective</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/aerospace-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/aerospace-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/agricultural-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/agricultural-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/analytical-textile-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/auto-electrician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/automotive-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bottler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cnc-machinist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/caretaker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chemical-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chemical-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chimney-sweep</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/clinical-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/critical-care-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cycle-mechanic</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/domestic-appliance-service-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electrical-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electrical-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electronics-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/electronics-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/energy-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/engineering-maintenance-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/engineering-operative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/food-factory-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/handyperson</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/helicopter-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/lift-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/lock-keeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/locksmith</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/maintenance-fitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/manufacturing-systems-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/marine-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/marine-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/materials-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/mechanical-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/motor-mechanic</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/motor-vehicle-breakdown-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/motor-vehicle-fitter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/motorsport</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/non-destructive-testing-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nuclear-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/offshore-drilling-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/patent-attorney</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/physicist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/rail-engineering-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/rail-track-maintenance-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/railway-signaller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/recycling-operative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/roustabout</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/security-systems-installer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/shoe-repairer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/signalling-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/smart-meter-installer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sterile-services-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-sound-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/technical-brewer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/arboricultural-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/archaeologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bin-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/botanist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cemetery-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/countryside-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/environmental-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/environmental-health-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forest-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forestry-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/garden-nursery-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gardener</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/geoscientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/geotechnician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/groundsperson</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/horticultural-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/horticultural-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/meat-hygiene-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/meteorologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/oceanographer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/palaeontologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pest-control-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/recycling-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/research-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tractor-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tree-surgeon</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/water-treatment-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/careers-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/criminal-intelligence-analyst</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/museum-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/probation-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/probation-services-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-crossing-patrol</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ambulance-care-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/anaesthetist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/anatomical-pathology-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/audiologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/biomedical-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/care-home-advocate</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/care-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/clinical-psychologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/clinical-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cognitive-behavioural-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/community-matron</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dental-hygienist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dental-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dental-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dental-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dentist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dietitian</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dispensing-optician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/district-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/emergency-care-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/emergency-medical-dispatcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/gp</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/geneticist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-promotion-specialist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-trainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/health-visitor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/healthcare-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/healthcare-science-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hospital-doctor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hospital-porter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hypnotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/learning-disability-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/maternity-support-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/medical-physicist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/mental-health-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/microbiologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/midwife</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nutritionist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/occupational-health-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/occupational-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/occupational-therapy-support-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/operating-department-practitioner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/optometrist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/orthoptist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/palliative-care-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pathologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/patient-advice-and-liaison-service-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/patient-transport-service-controller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pharmacist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pharmacologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pharmacy-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pharmacy-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/phlebotomist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/physiotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/physiotherapy-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/podiatrist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/podiatry-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/practice-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/primary-care-graduate-mental-health-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/prosthetist-orthotist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/psychiatrist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/psychologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/psychotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/radiographer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/radiography-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sexual-health-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/speech-and-language-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/speech-and-language-therapy-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-physiotherapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/surgeon</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/accommodation-warden</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/british-sign-language-interpreter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/butler</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/car-valet</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/care-escort</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chauffeur</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cleaner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/community-transport-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/crematorium-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cruise-ship-steward</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/dry-cleaner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/embalmer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hairdressing-salon-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/highways-cleaner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/industrial-cleaner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/laundry-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/life-coach</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/personal-shopper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/religious-leader</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tailor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/wedding-planner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/window-cleaner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/baker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bar-person</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/barista</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/butcher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cake-decorator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/catering-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chef</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/consumer-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/counter-service-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fish-frier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/food-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/head-chef</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/housekeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/kitchen-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/kitchen-porter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/publican</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/restaurant-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-lunchtime-supervisor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/waiter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bailiff</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/barrister</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/coroner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/court-administrative-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/court-legal-adviser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/court-usher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/crown-prosecutor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/equalities-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/family-mediator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forensic-psychologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/forensic-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/immigration-adviser-(non-government)</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/legal-executive</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/legal-secretary</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/licensed-conveyancer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/paralegal</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/solicitor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/trade-mark-attorney</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/victim-care-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/welfare-rights-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/care-home-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/community-education-coordinator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/customer-services-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/economic-development-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/events-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/headteacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hotel-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/housing-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/leisure-centre-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/management-consultant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/manufacturing-supervisor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nursery-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/production-manager-manufacturing-</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/research-and-development-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/retail-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sales-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/social-services-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-producer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tour-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/training-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/travel-agency-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/visitor-attraction-general-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/brewery-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/car-manufacturing-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chemical-plant-process-operator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/garment-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/leather-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/packaging-technologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/production-worker-(manufacturing)</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sewing-machinist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/signmaker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/vehicle-body-repairer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/airline-customer-service-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/airport-information-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/betting-shop-cashier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bookmaker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cabin-crew</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/call-centre-operator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/checkout-operator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cinema-or-theatre-attendant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/customer-service-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/estate-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hotel-porter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/leisure-centre-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/letting-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/market-trader</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/medical-sales-representative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/petrol-station-sales-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/retail-buyer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/retail-jeweller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sales-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sales-representative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/shopkeeper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tourist-information-centre-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/train-station-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/travel-agent</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/visual-merchandiser</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/wine-merchant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/astronaut</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/astronomer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/biochemist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/biotechnologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/chemist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/data-analyst-statistician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/education-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/laboratory-technician</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nanotechnologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sport-and-exercise-psychologist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-scientist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/childminder</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/communication-support-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/community-development-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/drug-and-alcohol-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/education-welfare-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/family-support-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/foster-carer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/funeral-director</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/learning-mentor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nanny</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/nursery-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/play-therapist</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/playworker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/residential-support-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/school-matron</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/senior-care-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/social-work-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/social-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/substance-misuse-outreach-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/youth-offending-team-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/youth-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/croupier</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/cycling-coach</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fairground-worker</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fitness-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/football-coach</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/football-referee</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/footballer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/hotel-room-attendant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/lifeguard</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/martial-arts-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/outdoor-activities-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/pe-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/personal-trainer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/resort-representative</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-coach</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-commentator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sports-professional</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/stunt-performer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/swimming-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/yoga-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/ofsted-inspector</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/early-years-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/efl-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/further-education-lecturer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/higher-education-lecturer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/montessori-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/online-tutor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/portage-home-visitor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/primary-school-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/qcf-assessor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/secondary-school-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/singing-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/skills-for-life-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/special-educational-needs-(sen)-teacher</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/special-educational-needs-(sen)-teaching-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/teaching-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/training-officer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/air-traffic-controller</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/airline-pilot</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/bus-or-coach-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/driving-instructor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/fishing-vessel-skipper</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/helicopter-pilot</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/taxi-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/train-conductor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/train-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tram-driver</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tourist-guide</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/barrister's-clerk</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/builders'-merchant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/children's-nurse</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/screenwriter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/set-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/signwriter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/stagehand</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/stage-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/studio-sound-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/sub-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/telecoms-engineer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/textile-designer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/translator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-assistant-director</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-camera-operator</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-director</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-production-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-production-manager</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-or-film-production-runner</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/tv-presenter</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/upholsterer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/video-editor</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/wardrobe-assistant</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/watch-or-clock-repairer</loc>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>https://__baseUrl__/job-profiles/writer</loc>
+    <priority>0.5</priority>
+</url>
+</urlset>

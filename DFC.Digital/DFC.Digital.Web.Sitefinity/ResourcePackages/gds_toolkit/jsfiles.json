@@ -12,9 +12,10 @@
   ],
 
   "cmsExtentionsBundle": [
+    "../../Scripts/MvcGrid/mvc-grid.js",
+    "node_modules/xlsx/dist/xlsx.core.min.js",
     "node_modules/filesaver.js-npm/fileSaver.min.js",
-    "node_modules/tableexport/dist/js/tableexport.min.js",
-    "../../Scripts/MvcGrid/mvc-grid.js"
+    "node_modules/tableexport/dist/js/tableexport.min.js"
   ],
 
   "ie8Bundle": [

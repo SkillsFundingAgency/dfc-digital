@@ -11,26 +11,26 @@
         <div style="clear:both">
             <div style="clear:both">
                 @(Html
-                .Grid(Model.ReportData)
-                .Build(columns =>
-                {
-                    columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
-                    columns.Add(model => model.JobProfileLink).Titled("Profile URL");
-                    columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
-                    columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
-                    columns.Add(model => model.SOC).Titled("SOC");
-                    columns.Add(model => model.SOCDescription).Titled("SOC Description");
-                    columns.Add(model => model.Standards).Titled("Standards");
-                    columns.Add(model => model.Frameworks).Titled("Frameworks");
-                    columns.Add(model => model.AV1Title).Titled("AV1 Title");
-                    columns.Add(model => model.AV1LastModified).Titled("AV1 Last Modified");
-                    columns.Add(model => model.AV2Title).Titled("AV2 Title");
-                    columns.Add(model => model.AV2LastModified).Titled("AV2 Last Modified");
-                })
-                    .Empty("No data found")
-                    .Filterable()
-                    .Sortable()
-                    .Attributed(new { Id = Model.ReportName })
+                        .Grid(Model.ReportData)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.JobProfileTitle).Titled("Title").Sortable(true).InitialSort(GridSortOrder.Asc);
+                            columns.Add(model => model.JobProfileLink).Titled("Profile URL");
+                            columns.Add(model => model.JobProfileStatus).Titled("Profile Status");
+                            columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
+                            columns.Add(model => model.SOC).Titled("SOC");
+                            columns.Add(model => model.SOCDescription).Titled("SOC Description");
+                            columns.Add(model => model.Standards).Titled("Standards");
+                            columns.Add(model => model.Frameworks).Titled("Frameworks");
+                            columns.Add(model => model.AV1Title).Titled("AV1 Title");
+                            columns.Add(model => model.AV1LastModified).Titled("AV1 Last Modified");
+                            columns.Add(model => model.AV2Title).Titled("AV2 Title");
+                            columns.Add(model => model.AV2LastModified).Titled("AV2 Last Modified");
+                        })
+                            .Empty("No data found")
+                            .Filterable()
+                            .Sortable()
+                            .Attributed(new { Id = Model.ReportName })
                 )
             </div>
         </div>
@@ -39,8 +39,17 @@
     <script>
             $(document).ready(function () {
                 $(".sfFooter").hide();
-                $('.mvc-grid').mvcgrid();
-                $("#@Model.ReportName").tableExport();
+                [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+                    new MvcGrid(element);                });
+                TableExport(document.getElementById("@Model.ReportName"), {
+                    headers: true,                              // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+                    footers: true,                              // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+                    formats: ['csv', 'txt'],                    // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
+                    filename: 'id',                             // (id, String), filename for the downloaded file, (default: 'id')
+                    bootstrap: false,                           // (Boolean), style buttons using bootstrap, (default: true)
+                    exportButtons: true,                        // (Boolean), automatically generate the built-in export buttons for each of the specified formats (default: true)
+                    position: 'bottom'                          // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+                });
             });
     </script>
 

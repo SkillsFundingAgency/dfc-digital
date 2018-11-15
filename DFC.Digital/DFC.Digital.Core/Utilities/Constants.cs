@@ -35,5 +35,6 @@
         public const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
         public const string Technology = "Technology";
         public const string SocField = "SOC";
+        public const string BackendDateTimeFormat = "dd MMM yyyy HH:mm:ss";
     }
 }

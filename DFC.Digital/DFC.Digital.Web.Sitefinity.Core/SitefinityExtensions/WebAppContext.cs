@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -105,6 +106,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 page.MetaDescription = description;
             }
+        }
+
+        public string GetCurrentUrl(Dictionary<string, object> additionalQueryStrings)
+        {
+            var currentUrl = HttpContext.Current?.Request.RawUrl;
+            return RequestQueryString?.Count > 0
+                ? $"{currentUrl}&{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}"
+                : $"{currentUrl}?{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}";
         }
     }
 }

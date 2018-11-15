@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace DFC.Digital.Data.Interfaces
@@ -35,5 +36,7 @@ namespace DFC.Digital.Data.Interfaces
         void SetResponseStatusCode(int statusCode);
 
         void SetMetaDescription(string description);
+
+        string GetCurrentUrl(Dictionary<string, object> additionalQueryStrings);
     }
 }

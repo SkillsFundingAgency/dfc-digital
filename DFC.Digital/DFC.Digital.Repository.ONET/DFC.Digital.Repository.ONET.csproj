@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
@@ -263,6 +263,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OnetSkillsFramework.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="app.config" />
     <None Include="DataModel\OnetSkillsFramework.edmx.diagram">
       <DependentUpon>OnetSkillsFramework.edmx</DependentUpon>
     </None>

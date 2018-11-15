@@ -17,12 +17,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
     {
         private readonly IJobProfileReportRepository fakeReportRepository;
         private readonly IApplicationLogger fakeLoggingService;
+        private readonly IWebAppContext fakeWebAppContext;
+        private readonly ICachingPolicy fakeCachingPolicy;
         private readonly IQueryable<JobProfileApprenticeshipVacancyReport> fakeList;
 
         public ApprenticeshipVacancyReportControllerTests()
         {
             fakeReportRepository = A.Fake<IJobProfileReportRepository>(ops => ops.Strict());
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            fakeWebAppContext = A.Fake<IWebAppContext>();
+            fakeCachingPolicy = A.Fake<ICachingPolicy>();
         }
 
         [Theory]
@@ -35,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             
             // Assign
-            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository);
+            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 
             // Act
             var indexMethodCall = reportController.WithCallTo(c => c.Index());

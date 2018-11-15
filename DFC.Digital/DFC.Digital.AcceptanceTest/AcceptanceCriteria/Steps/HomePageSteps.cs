@@ -137,7 +137,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheInformationSourcesPage()
         {
             var infoSourcesPage = GetNavigatedPage<InformationSourcesPage>();
-            infoSourcesPage.PageTitle.Should().Contain("Salary information");
+            infoSourcesPage.PageTitle.Should().Contain("Information sources");
         }
 
         [Then(@"I am redirected to the Health Status page")]

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
@@ -37,6 +38,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void SetMetaDescription(string description);
 
-        string GetCurrentUrl(Dictionary<string, object> additionalQueryStrings);
+        Uri GetCurrentUrl(Dictionary<string, object> additionalQueryStrings);
     }
 }

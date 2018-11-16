@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             // Setup
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
-            A.CallTo(() => fakeWebAppContext.GetCurrentUrl(A<Dictionary<string, object>>._)).Returns("url");
+            A.CallTo(() => fakeWebAppContext.GetCurrentUrl(A<Dictionary<string, object>>._)).Returns(new Uri("http://url"));
 
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
@@ -87,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             var indexMethodCall = reportController.WithCallTo(c => c.Index());
 
             // Assert
-            indexMethodCall.ShouldRedirectTo("url");
+            indexMethodCall.ShouldRedirectTo("http://url");
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).MustNotHaveHappened();
         }
 

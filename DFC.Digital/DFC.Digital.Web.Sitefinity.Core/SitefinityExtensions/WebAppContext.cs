@@ -108,12 +108,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        public string GetCurrentUrl(Dictionary<string, object> additionalQueryStrings)
+        public Uri GetCurrentUrl(Dictionary<string, object> additionalQueryStrings)
         {
             var currentUrl = HttpContext.Current?.Request.RawUrl;
             return RequestQueryString?.Count > 0
-                ? $"{currentUrl}&{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}"
-                : $"{currentUrl}?{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}";
+                ? new Uri($"{currentUrl}&{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}")
+                : new Uri($"{currentUrl}?{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}");
         }
     }
 }

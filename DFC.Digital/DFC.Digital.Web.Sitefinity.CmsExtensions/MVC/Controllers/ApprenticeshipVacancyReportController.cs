@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             if (webAppContext.RequestQueryString?.AllKeys.Any(k => k.Equals(CacheContextQuery, StringComparison.OrdinalIgnoreCase)) == false)
             {
                 var redirectUrl = webAppContext.GetCurrentUrl(new Dictionary<string, object> { [CacheContextQuery] = Guid.NewGuid() });
-                return Redirect(redirectUrl);
+                return Redirect(redirectUrl.AbsoluteUri);
             }
 
             var watch = Stopwatch.StartNew();

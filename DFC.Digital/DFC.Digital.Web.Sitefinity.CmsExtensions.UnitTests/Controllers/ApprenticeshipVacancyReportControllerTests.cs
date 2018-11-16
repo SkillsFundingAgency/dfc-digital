@@ -32,6 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             query.Add("ctx", "something");
         }
 
+
         [Theory]
         [InlineData(1, 0)]
         [InlineData (2 , 1)]

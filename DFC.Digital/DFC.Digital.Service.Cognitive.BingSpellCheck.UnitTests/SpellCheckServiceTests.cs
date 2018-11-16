@@ -3,9 +3,11 @@ using DFC.Digital.Core.Configuration;
 using DFC.Digital.Data.Interfaces;
 using FakeItEasy;
 using FluentAssertions;
-using RichardSzalay.MockHttp;
 using System;
 using System.Net.Http;
+using System.Text;
+
+//using RichardSzalay.MockHttp;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,32 +16,33 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
     public class SpellCheckServiceTests
     {
         [Theory]
-        [InlineData("test", true)]
-        [InlineData("test", false)]
-        public async Task CheckSpellingAsyncTest(string term, bool suggestionsReturned)
+        [InlineData("test", true, true)]
+        [InlineData("test", false, true)]
+        [InlineData("test", true, false)]
+        [InlineData("test", false, false)]
+        public async Task CheckSpellingAsyncTest(string term, bool suggestionsReturned, bool isResponseSuccess)
         {
             //Arrange
             var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
             var fakeLogger = A.Fake<IApplicationLogger>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
-            var mockHttp = new MockHttpMessageHandler();
 
-            //Setup Dummies and Mocks
-            mockHttp.When("*")
-                .Respond(
-                "application/json",
-                suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
+            var json = suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}";
+            var fakeHttpResponseMessage = new HttpResponseMessage
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                StatusCode = isResponseSuccess ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.ServiceUnavailable
+            };
 
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(fakeHttpResponseMessage);
             A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
 
-            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
-
             //Act
+            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
             var result = await spellingService.CheckSpellingAsync(term);
 
             //Assert
-            if (suggestionsReturned)
+            if (isResponseSuccess && suggestionsReturned)
             {
                 result.HasCorrected.Should().BeTrue();
             }
@@ -50,28 +53,31 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
         }
 
         [Theory]
-        [InlineData(true, ServiceState.Green)]
-        [InlineData(false, ServiceState.Amber)]
-        public async Task GetServiceStatusAsync(bool suggestionsReturned, ServiceState expectedServiceStatus)
+        [InlineData(true, ServiceState.Green, true)]
+        [InlineData(false, ServiceState.Amber, true)]
+        [InlineData(true, ServiceState.Red, false)]
+        [InlineData(false, ServiceState.Red, false)]
+        public async Task GetServiceStatusAsync(bool suggestionsReturned, ServiceState expectedServiceStatus, bool isResponseSuccess)
         {
             //Arrange
             var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
-            var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            var mockHttp = new MockHttpMessageHandler();
+            var fakeLogger = A.Fake<IApplicationLogger>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
-            //Setup Dummies and Mocks
-            mockHttp.When("*")
-                .Respond(
-                "application/json",
-                suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}");
+            var json = suggestionsReturned ? "{\"_type\": \"SpellCheck\", \"flaggedTokens\": [{\"offset\": 0, \"token\": \"pluse\", \"type\": \"UnknownToken\", \"suggestions\": [{\"suggestion\": \"pulse\", \"score\": 1}]}]}\r\n" : "{\"_type\": \"SpellCheck\", \"flaggedTokens\": []}";
+            var fakeHttpResponseMessage = new HttpResponseMessage
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                StatusCode = isResponseSuccess ? System.Net.HttpStatusCode.OK : System.Net.HttpStatusCode.ServiceUnavailable,
+                ReasonPhrase = nameof(GetServiceStatusAsync)
+            };
 
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            //Setup Dummies and Mocks
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(fakeHttpResponseMessage);
             A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
 
-            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
-
             //Act
+            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
 
             //Asserts
@@ -84,23 +90,21 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
             //Arrange
             var fakeHttpClientService = A.Fake<IHttpClientService<ISpellcheckService>>(ops => ops.Strict());
             var fakeLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            var mockHttp = new MockHttpMessageHandler();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
+            var json = "{\"_type\": \"Cause Exception\"}";
+            var fakeHttpResponseMessage = new HttpResponseMessage
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json"),
+                StatusCode = System.Net.HttpStatusCode.ServiceUnavailable,
+                ReasonPhrase = nameof(GetServiceStatusAsync)
+            };
 
-            //Setup Dummies and Mocks
-            mockHttp.When("*")
-                .Respond(
-                "application/json",
-                "{\"_type\": \"Cause Exception\"}");
-
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(new HttpClient(mockHttp).GetAsync("http://mockurl"));
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(fakeHttpResponseMessage);
             A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
-
             A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
-            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
-
             //Act
+            var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
             var serviceStatus = await spellingService.GetCurrentStatusAsync();
 
             //Asserts

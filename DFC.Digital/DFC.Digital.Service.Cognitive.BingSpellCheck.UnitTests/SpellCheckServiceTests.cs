@@ -6,8 +6,6 @@ using FluentAssertions;
 using System;
 using System.Net.Http;
 using System.Text;
-
-//using RichardSzalay.MockHttp;
 using System.Threading.Tasks;
 using Xunit;
 

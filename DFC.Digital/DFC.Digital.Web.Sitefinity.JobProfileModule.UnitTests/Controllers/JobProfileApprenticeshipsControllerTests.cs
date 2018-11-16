@@ -110,6 +110,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             .ApprenticeshipText);
                         vm.NoVacancyText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                            .NoVacancyText);
+                        vm.WageTitle.Should().Be(jobProfileApprenticeshipsController
+                           .ApprenticeshipWageTitle);
                         vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
                         vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);
@@ -244,6 +246,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                  {
                      vm.ApprenticeVacancies.Should().BeEquivalentTo(dummyApprenticeships);
                      vm.ApprenticeshipSectionTitle.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.ApprenticeshipSectionTitle);
+                     vm.WageTitle.Should().Be(jobProfileApprenticeshipsController.ApprenticeshipWageTitle);
                      vm.LocationDetails.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.LocationDetails);
                      vm.MainSectionTitle.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.MainSectionTitle);
                      vm.ApprenticeshipText.Should().BeEquivalentTo(dummyJobProfileApprenticeshipViewModel.ApprenticeshipText);
@@ -262,6 +265,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             .MainSectionTitle);
                         vm.ApprenticeshipText.Should().BeEquivalentTo(jobProfileApprenticeshipsController
                             .ApprenticeshipText);
+                        vm.WageTitle.Should().Be(jobProfileApprenticeshipsController.ApprenticeshipWageTitle);
                         vm.LocationDetails.Should().Be(jobProfileApprenticeshipsController
                             .ApprenticeshipLocationDetails);
                         vm.NoVacancyText.Should().Be(jobProfileApprenticeshipsController.NoVacancyText);

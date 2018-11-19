@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             // Setup
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
-            A.CallTo(() => fakeWebAppContext.GetCurrentUrl(A<Dictionary<string, object>>._)).Returns(new Uri("http://url"));
+            A.CallTo(() => fakeWebAppContext.GetCurrentQueryString(A<Dictionary<string, object>>._)).Returns("http://url");
 
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);

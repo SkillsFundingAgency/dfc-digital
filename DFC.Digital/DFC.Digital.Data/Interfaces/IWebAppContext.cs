@@ -38,6 +38,6 @@ namespace DFC.Digital.Data.Interfaces
 
         void SetMetaDescription(string description);
 
-        Uri GetCurrentUrl(Dictionary<string, object> additionalQueryStrings);
+        string GetCurrentQueryString(Dictionary<string, object> additionalQueryStrings);
     }
 }

@@ -23,7 +23,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
             if (user != null)
             {
                 var profile = userProfileManager.GetUserProfile<SitefinityProfile>(user);
-                return profile.Nickname ?? $"{profile.FirstName} {profile.LastName}";
+                if (profile != null)
+                {
+                    return profile.Nickname ?? $"{profile?.FirstName} {profile?.LastName}";
+                }
             }
 
             return "User not found";

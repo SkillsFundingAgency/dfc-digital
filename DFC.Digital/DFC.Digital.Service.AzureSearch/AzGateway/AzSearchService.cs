@@ -81,6 +81,20 @@ namespace DFC.Digital.Service.AzureSearch
                         SearchMode = SuggesterSearchMode.AnalyzingInfixMatching,
                         SourceFields = suggesterBuilder.BuildForType<T>(),
                     }
+                },
+                ScoringProfiles = new List<ScoringProfile>
+                {
+                    new ScoringProfile
+                    {
+                        Name = Constants.SearchScoringProfileName,
+                        TextWeights = new TextWeights
+                        {
+                           Weights = new Dictionary<string, double>()
+                           {
+                               { "Title", 10.0 }
+                           }
+                        }
+                    }
                 }
             };
         }

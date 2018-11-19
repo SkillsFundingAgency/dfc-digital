@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.NLog;
 using Autofac.Integration.Mvc;
+using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Repository.CosmosDb;
@@ -80,6 +81,27 @@ namespace DFC.Digital.Web.Core
 
             // OPTIONAL: Enable property injection into action filters.
             builder.RegisterFilterProvider();
+
+            //Register automapper globally
+            RegisterAutomapper(builder, assemblies);
+        }
+
+        private static void RegisterAutomapper(ContainerBuilder builder, IEnumerable<Assembly> assemblies)
+        {
+            //Register automapper
+            builder.RegisterAssemblyTypes(assemblies.ToArray())
+            .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract && t.IsPublic)
+            .As<Profile>();
+
+            //Autofact config
+            builder.Register(ctx => new MapperConfiguration(cfg =>
+            {
+                foreach (var profile in ctx.Resolve<IEnumerable<Profile>>())
+                {
+                    cfg.AddProfile(profile);
+                }
+            })).AsSelf().InstancePerLifetimeScope();
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
         }
     }
 }

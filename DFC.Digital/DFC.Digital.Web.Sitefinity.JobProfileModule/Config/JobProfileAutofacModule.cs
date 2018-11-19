@@ -23,13 +23,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-            builder.Register(ctx => new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<JobProfilesAutoMapperProfile>();
-            })).InstancePerLifetimeScope();
-
-            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
-
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.
             // Also, if you register controllers manually and choose to specify

@@ -50,8 +50,8 @@
     <Reference Include="FluentAssertions, Version=5.2.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.2.0\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="Polly, Version=5.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Polly.5.8.0\lib\net45\Polly.dll</HintPath>
+    <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.6.1.1\lib\netstandard2.0\Polly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -84,6 +84,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Cache\CachePolicyTests.cs" />
     <Compile Include="FaultTolerance\TolerancePolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\HttpClientServiceTests.cs" />

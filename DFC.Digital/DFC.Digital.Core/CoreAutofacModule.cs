@@ -17,6 +17,7 @@ namespace DFC.Digital.Core
             builder.RegisterType<TolerancePolicy>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<AppConfigConfigurationProvider>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<TransientFaultHandlingStrategy>().SingleInstance();
+            builder.RegisterType<CachePolicy>().AsImplementedInterfaces().SingleInstance();
 
             //Register Interceptors
             builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.Name).InstancePerLifetimeScope();

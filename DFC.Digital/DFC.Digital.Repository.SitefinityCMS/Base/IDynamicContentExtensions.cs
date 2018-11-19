@@ -3,6 +3,7 @@ using DFC.Digital.Core.Interceptors;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
@@ -25,6 +26,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
         T GetFieldValue<T>(DynamicContent contentItem, string fieldName);
 
         [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        T GetTaxonFieldValue<T>(Taxon taxonItem, string fieldName);
+
+        [IgnoreInputInInterception]
         void SetFieldValue<T>(DynamicContent contentItem, string fieldName, T value);
 
         [IgnoreInputInInterception]
@@ -32,6 +37,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         void DeleteRelatedFieldValues(DynamicContent contentItem, string fieldName);
+
+        [IgnoreInputInInterception]
+        void SetRelatedDataSourceContext(IQueryable<DynamicContent> contentItems);
 
         [IgnoreInputInInterception]
         string GetFieldStringValue(DynamicContent contentItem, string fieldName);

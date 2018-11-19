@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
+using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions

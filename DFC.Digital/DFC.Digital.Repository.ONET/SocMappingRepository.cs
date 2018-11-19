@@ -76,7 +76,7 @@ namespace DFC.Digital.Repository.ONET
                                   Id = Guid.Empty,
                                   ONetOccupationalCode = soc.ONetCode,
                                   SOCCode = soc.SocCode,
-                                  Title = null
+                                  Description = null
                               });
                 return result;
         }
@@ -96,7 +96,7 @@ namespace DFC.Digital.Repository.ONET
                               Id = Guid.Empty,
                               ONetOccupationalCode = soc.ONetCode,
                               SOCCode = soc.SocCode,
-                              Title = null
+                              Description = null
                           });
             return result;
         }

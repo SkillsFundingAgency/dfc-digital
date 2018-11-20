@@ -171,7 +171,17 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         }
         #endregion
 
-        internal string SelectedProfileTitle(int index) => Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
+        internal string SelectedProfileTitle(int index)
+        {
+            if (Find.Element(By.ClassName("result-count")).Text.Contains("try again"))
+            {
+                return "No Results";
+            }
+            else
+            {
+                return Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
+            }
+        }
 
         internal string SelectedProfileUrl(int index)
         {

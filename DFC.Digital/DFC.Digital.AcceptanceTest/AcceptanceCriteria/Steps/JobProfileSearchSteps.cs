@@ -4,9 +4,12 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System;
+using System.IO;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Xunit.Abstractions;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 {
@@ -158,6 +161,53 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             ScenarioContext.Set(searchPage.GetCategoryInSearchTitle(result), "SelectedCategoryLink");
             searchPage.GoToFirstCategoryLink<JobProfileCategoryPage>(result)
                 .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I search for all the job profiles")]
+        public void WhenISearchForAllTheJobProfiles()
+        {
+            var homepage = GetNavigatedPage<Homepage>();
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Infrastructure\Data\ProfileData.xlsx");
+            Excel.Application excelSheet = new Excel.Application();
+            Excel.Workbook workbook = excelSheet.Workbooks.Open(path);
+            Excel.Worksheet worksheet = workbook.Sheets[1];
+            worksheet.Rows.ClearFormats();
+            Excel.Range range = worksheet.UsedRange;
+            string searchTerm;
+            string resultTerm;
+
+            for (int i = 2; i <= range.Rows.Count; i++)
+            {
+                searchTerm = worksheet.Cells[i, 1].Value.ToString();
+
+                homepage.Search<SearchPage>(new JobProfileSearchResultViewModel
+                {
+                    SearchTerm = searchTerm,
+                    SearchResults = null
+                })
+                .SaveTo(ScenarioContext);
+
+                worksheet.Cells[i, 2].Value = GetNavigatedPage<SearchPage>().SelectedProfileTitle(1);
+                resultTerm = worksheet.Cells[i, 2].Value.ToString();
+                if (resultTerm.Equals(searchTerm))
+                {
+                    worksheet.Cells[i, 3].Value = "Matched";
+                }
+                else if (resultTerm.Equals("No Results"))
+                {
+                    worksheet.Cells[i, 3].Value = "No Results";
+                }
+                else
+                {
+                    worksheet.Cells[i, 3].Value = "Not Matched";
+                }
+
+                workbook.Save();
+                GetNavigatedPage<SearchPage>().ClickExploreCareerBreadcrumb<Homepage>();
+            }
+
+            workbook.Close();
         }
 
         #endregion When
@@ -486,6 +536,36 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             string category;
             ScenarioContext.TryGetValue("SelectedCategoryLink", out category);
             categoryPage.CategoryTitle.Should().Contain(category);
+        }
+
+        [Then(@"the results should contain 0 Unmatched Results")]
+        public void ThenTheResultsShouldContainUnmatchedResults()
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Infrastructure\Data\ProfileData.xlsx");
+            Excel.Application excelSheet = new Excel.Application();
+            Excel.Workbook workbook = excelSheet.Workbooks.Open(path);
+            Excel.Worksheet worksheet = workbook.Sheets[1];
+            worksheet.Rows.ClearFormats();
+            Excel.Range range = worksheet.UsedRange;
+
+            int totalUnmatched = 0;
+            string result;
+            for (int i = 2; i <= range.Rows.Count; i++)
+            {
+                result = worksheet.Cells[i, 3].Value.ToString();
+                if (result.Equals("Not Matched") || result.Equals("No Results"))
+                {
+                    totalUnmatched += 1;
+                }
+            }
+
+            workbook.Save();
+            workbook.Close();
+
+            if (totalUnmatched > 0)
+            {
+                throw new Exception("There's " + totalUnmatched + " result(s) that are not listed in the 1st position on the search results");
+            }
         }
     }
 }

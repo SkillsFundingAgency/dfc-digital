@@ -73,4 +73,8 @@ Scenario: [DFC-1495 - A1] Performing a search displays Job categories and clicki
 	When I click the first category link on result no '1'
 	Then I am redirected to the correct job category page
 
-	
+
+Scenario: 01 - Search for all Job Profiles
+	Given that I am viewing the Home page
+	When I search for all the job profiles
+	Then the results should contain 0 Unmatched Results

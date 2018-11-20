@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -31,7 +32,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
             MvcHandler.DisableMvcResponseHeader = true;
+            SystemManager.ApplicationStart += ApplicationStartHandler;
         }
+
+        private static void ApplicationStartHandler(object sender, EventArgs e) => SystemManager.RegisterWebService(
+                typeof(RecycleBinService),
+                "CustomApi");
 
         private static void Bootstrapper_Bootstrapped(object sender, EventArgs e)
         {

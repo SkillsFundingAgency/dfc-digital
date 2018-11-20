@@ -260,6 +260,7 @@
     <Compile Include="Modules\SocCodeConverter.cs" />
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\FrameworkSkillRepository.cs" />
+    <Compile Include="Modules\RecycleBinRepository.cs" />
     <Compile Include="Modules\WhatYouWillDoConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillsRepository.cs" />

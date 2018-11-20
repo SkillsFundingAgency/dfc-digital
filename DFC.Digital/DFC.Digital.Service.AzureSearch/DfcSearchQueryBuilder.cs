@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -105,9 +106,51 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
+        public string TrimSuffixes(string searchTerm, SearchProperties properties)
+        {
+            if (properties.UseRawSearchTerm)
+            {
+                return searchTerm;
+            }
+
+            var result = searchTerm.Any(char.IsWhiteSpace)
+                ? searchTerm
+                   .Split(' ')
+                   .Aggregate(string.Empty, (current, term) => $"{current} {TrimSuffixFromSingleWord(term)}")
+                : TrimSuffixFromSingleWord(searchTerm);
+
+            return result.Trim();
+        }
+
         private static string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
             return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
+        }
+
+        private static string TrimSuffixFromSingleWord(string searchTerm)
+        {
+            var suffixes = new[]
+            {
+                "er",
+                "est",
+                "ing",
+                "less",
+                "ful",
+                "ible",
+                "able",
+                "ness",
+                "ment",
+                "al",
+                "ly",
+                "ation",
+                "ity",
+                "ive",
+                "or",
+            };
+
+            var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
+            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
         }
     }
 }

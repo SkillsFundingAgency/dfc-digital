@@ -13,5 +13,7 @@ namespace DFC.Digital.Data.Interfaces
         string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties);
 
         string EscapeSpecialCharactersInSearchTerm(string searchTerm, SearchProperties properties);
+
+        string TrimSuffixes(string searchTerm, SearchProperties properties);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Attributes;
 using DFC.Digital.Data.Interfaces;
 using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,10 +15,12 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]
+        [Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public string Title { get; set; }
 
-        [IsSearchable, IsFilterable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSuggestible]
+        [Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
         public string Overview { get; set; }

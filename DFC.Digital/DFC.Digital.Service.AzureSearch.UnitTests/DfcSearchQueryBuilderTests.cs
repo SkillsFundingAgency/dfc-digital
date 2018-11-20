@@ -109,5 +109,29 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var outputWithContainsWildCard = testObject.BuildContainPartialSearch(searchTermResult, new SearchProperties());
             outputWithContainsWildCard.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData("plumber", "plumb")] //er
+        [InlineData("fastest pest control technician", "fast pest control technician")] //est
+        [InlineData("plumbing engineer", "plumb engine")] //ing
+        [InlineData("headless cms", "head cms")] //"less",
+        [InlineData("wonderful job", "wonder job")] //"ful",
+        [InlineData("possible thing", "poss thing")] //"ible",
+        [InlineData("Renewable energy engineer or Stable hand", "Renew energy engine or Stable hand")] //"able",
+        [InlineData("fitness instructor", "fit instruct")] //"ness"
+        [InlineData("Business development manager", "Busi develop manag")] //"ment"
+        [InlineData("Social media manager", "Soci media manag")] //al
+        [InlineData("Family support worker", "Fami support work")] //ly
+        [InlineData("installation and plumbing engineer", "install and plumb engine")] //ation
+        [InlineData("Information security analyst", "Inform secur analyst")] //ity
+        [InlineData("leakage operative sales executive", "leakage operat sales execut")] //ive
+        [InlineData("director or clock repairer", "direct or clock repair")] //or
+        public void TrimSuffixesTest(string searchTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, new SearchProperties() { UseRawSearchTerm = false });
+            var trimmedOutput = testObject.TrimSuffixes(searchTermResult, new SearchProperties());
+            trimmedOutput.Should().Be(expected);
+        }
     }
 }

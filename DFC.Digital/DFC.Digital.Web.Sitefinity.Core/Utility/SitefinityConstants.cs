@@ -20,6 +20,8 @@
 
         public const string DefaultJobProfileUrlName = "DefaultJobProfileUrlName";
 
+        public const string CustomReportsWidgetSection = "DFC Reports";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SitefinityConstants"/> class.
         /// Prevent this class from being initialised

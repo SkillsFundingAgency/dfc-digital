@@ -47,6 +47,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
         }
 
+        [Theory]
+        [InlineData(true, "test", "test")]
+        [InlineData(false, "test", "test")]
+        public void GetRelatedCmsReportClassificationsTest(bool classificationsAvailable, string relatedField, string taxonomyName)
+        {
+            //Assign
+            SetupCalls(classificationsAvailable);
+            var classificationRepo =
+                new RelatedClassificationsRepository(fakeTaxonomyManager, fakeDynamicContentExtensions, fakeTaxonomyManagerExtensions);
+
+            //Act
+            classificationRepo.GetRelatedCmsReportClassifications(dummyContentItem, relatedField, taxonomyName);
+
+            //Assert
+            A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
+                .MustHaveHappened();
+
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<Taxon>>._, A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
+        }
+
         private void SetupCalls(bool classificationsAvailable)
         {
             var dummyIdList = A.CollectionOfDummy<Guid>(classificationsAvailable ? 1 : 0);

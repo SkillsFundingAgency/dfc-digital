@@ -28,6 +28,8 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 Count = res?.Count ?? 0,
                 Results = res?.Results ?? Enumerable.Empty<SearchResultItem<T>>(),
+                ComputedSearchTerm = res?.ComputedSearchTerm,
+                Coverage = res?.Coverage
             };
         }
 
@@ -42,6 +44,8 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 Count = res?.Count ?? 0,
                 Results = res?.Results ?? Enumerable.Empty<SearchResultItem<T>>(),
+                ComputedSearchTerm = res?.ComputedSearchTerm,
+                Coverage = res?.Coverage
             };
         }
     }

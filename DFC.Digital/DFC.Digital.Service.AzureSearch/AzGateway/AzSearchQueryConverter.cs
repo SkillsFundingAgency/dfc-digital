@@ -51,7 +51,8 @@ namespace DFC.Digital.Service.AzureSearch
             return new Data.Model.SearchResult<T>
             {
                 Count = result.Count,
-                Results = result.ToSearchResultItems(properties)
+                Results = result.ToSearchResultItems(properties),
+                Coverage = result.Coverage
             };
         }
 

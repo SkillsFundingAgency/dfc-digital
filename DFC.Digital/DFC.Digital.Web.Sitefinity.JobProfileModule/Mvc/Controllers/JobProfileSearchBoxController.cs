@@ -207,17 +207,19 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </summary>
         /// <param name="searchTerm">searchParam</param>
         /// <param name="page">page</param>
+        /// <param name="trace">shows the search term</param>
+        /// <param name="useraw">skip computation</param>
         /// <returns>result</returns>
         [HttpGet]
         [RelativeRoute("")]
-        public ActionResult Index(string searchTerm, int page = 1)
+        public ActionResult Index(string searchTerm, int page = 1, bool trace = false, bool useraw = false)
         {
             switch (CurrentPageMode)
             {
                 case SearchWidgetPageMode.SearchResults:
                     //Damn!!!! Sitefinity doesnt support Async await
                     //https://feedback.telerik.com/Project/153/Feedback/Details/165662-mvc-ability-to-use-async-actions-in-mvc-widgets
-                    return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(searchTerm, page));
+                    return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(searchTerm, page, trace, useraw));
 
                 case SearchWidgetPageMode.Landing:
                 default:
@@ -288,7 +290,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }
 
-        private async Task<ActionResult> DisplaySearchResultsAsync(string searchTerm, int page)
+        private async Task<ActionResult> DisplaySearchResultsAsync(string searchTerm, int page, bool trace, bool useraw)
         {
             var resultModel = new JobProfileSearchResultViewModel
             {
@@ -298,19 +300,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                 JobProfileCategoryPage = JobProfileCategoryPage,
-                SalaryBlankText = SalaryBlankText
+                SalaryBlankText = SalaryBlankText,
+                ShowSearchedTerm = trace
             };
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 var pageNumber = page > 0 ? page : 1;
-                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize });
+                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize, UseRawSearchTerm = useraw });
                 var spellCheckTask = spellcheckService.CheckSpellingAsync(searchTerm);
 
                 await Task.WhenAll(searchTask, spellCheckTask);
 
                 var results = searchTask.Result;
                 resultModel.Count = results.Count;
+                resultModel.Coverage = results.Coverage;
+                resultModel.ComputedSearchTerm = results.ComputedSearchTerm;
                 resultModel.PageNumber = pageNumber;
                 resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);
                 foreach (var resultItem in resultModel.SearchResults)

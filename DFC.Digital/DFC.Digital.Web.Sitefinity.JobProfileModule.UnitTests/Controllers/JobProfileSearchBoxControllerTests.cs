@@ -112,7 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             };
 
             //Act
-            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page));
+            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page, false, false));
 
             //Assert
             searchMethodCall
@@ -241,7 +241,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             };
 
             //Act
-            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page));
+            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page, false, false));
 
             if (mode == SearchWidgetPageMode.SearchResults)
             {
@@ -373,7 +373,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             };
 
             //Act
-            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page));
+            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, page, false, false));
 
             if (mode == SearchWidgetPageMode.SearchResults)
             {
@@ -604,7 +604,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             };
 
             //Act
-            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, 1));
+            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, 1, false, false));
 
             if (validSpellcheckResult)
             {

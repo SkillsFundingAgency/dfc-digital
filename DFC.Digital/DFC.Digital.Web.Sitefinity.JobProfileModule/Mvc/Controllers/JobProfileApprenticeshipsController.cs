@@ -146,7 +146,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 apprenticeshipVacancies = jobProfileSocCodeRepository.GetApprenticeVacanciesBySocCode(CurrentJobProfile.SOCCode)
                     ?.Where(x => !string.IsNullOrEmpty(x.Title)
                         && !string.IsNullOrEmpty(x.URL.OriginalString)
-                        && !string.IsNullOrEmpty(x.WageUnitType)
                         && !string.IsNullOrEmpty(x.WageAmount)
                         && !string.IsNullOrEmpty(x.Location)
                         && !string.IsNullOrEmpty(x.VacancyId))

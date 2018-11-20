@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
+    <Compile Include="Attributes\WeightingAttribute.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />

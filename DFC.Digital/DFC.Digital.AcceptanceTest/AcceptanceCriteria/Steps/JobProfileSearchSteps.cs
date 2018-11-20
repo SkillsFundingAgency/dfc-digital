@@ -5,7 +5,9 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Xunit.Abstractions;
@@ -16,6 +18,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     [Binding]
     public class JobProfileSearchSteps : BaseStep
     {
+        private List<string> resultsList = new List<string>();
+        private Dictionary<string, string> matchList = new Dictionary<string, string>();
         #region Ctor
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
@@ -48,6 +52,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void GivenThatIAmViewingTheSearchResultsPage()
         {
             NavigateToSearchResultsPage<SearchPage, JobProfileSearchResultViewModel>(null);
+        }
+
+        [Given(@"I search for \*")]
+        public void GivenISearchFor()
+        {
+            NavigateToSearchResultsPage<SearchPage, JobProfileSearchResultViewModel>("*");
         }
 
         #endregion Given
@@ -163,51 +173,48 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                 .SaveTo(ScenarioContext);
         }
 
-        [When(@"I search for all the job profiles")]
-        public void WhenISearchForAllTheJobProfiles()
+        [When(@"I add all the results to a list")]
+        public void WhenIAddAllTheResultsToAList()
         {
-            var homepage = GetNavigatedPage<Homepage>();
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Infrastructure\Data\ProfileData.xlsx");
-            Excel.Application excelSheet = new Excel.Application();
-            Excel.Workbook workbook = excelSheet.Workbooks.Open(path);
-            Excel.Worksheet worksheet = workbook.Sheets[1];
-            worksheet.Rows.ClearFormats();
-            Excel.Range range = worksheet.UsedRange;
-            string searchTerm;
-            string resultTerm;
-
-            for (int i = 2; i <= range.Rows.Count; i++)
+            var searchPage = GetNavigatedPage<SearchPage>();
+            while (searchPage.HasNextPage == true)
             {
-                searchTerm = worksheet.Cells[i, 1].Value.ToString();
+                var tempList = searchPage.DisplayedJobProfileTitles.ToList();
+                resultsList.AddRange(tempList);
+                searchPage.ClickNextPage<SearchPage>();
+            }
 
-                homepage.Search<SearchPage>(new JobProfileSearchResultViewModel
+            if (searchPage.DisplayedJobProfileTitles.Count() > 0)
+            {
+                var tempList = searchPage.DisplayedJobProfileTitles.ToList();
+                resultsList.AddRange(tempList);
+            }
+        }
+
+        [When(@"I search for each title in the list")]
+        public void WhenISearchForEachTitleInTheList()
+        {
+            var firstResult = string.Empty;
+            var searchPage = GetNavigatedPage<SearchPage>();
+            foreach (var title in resultsList)
+            {
+                searchPage.Search<SearchPage>(new JobProfileSearchResultViewModel
                 {
-                    SearchTerm = searchTerm,
+                    SearchTerm = title.ToString(),
                     SearchResults = null
                 })
                 .SaveTo(ScenarioContext);
 
-                worksheet.Cells[i, 2].Value = GetNavigatedPage<SearchPage>().SelectedProfileTitle(1);
-                resultTerm = worksheet.Cells[i, 2].Value.ToString();
-                if (resultTerm.Equals(searchTerm))
+                firstResult = searchPage.SelectedProfileTitle(1);
+                if (firstResult.Equals(title.ToString()))
                 {
-                    worksheet.Cells[i, 3].Value = "Matched";
-                }
-                else if (resultTerm.Equals("No Results"))
-                {
-                    worksheet.Cells[i, 3].Value = "No Results";
+                    matchList.Add("Searched: " + title.ToString() + ", Top Result: " + firstResult, "Matched");
                 }
                 else
                 {
-                    worksheet.Cells[i, 3].Value = "Not Matched";
+                    matchList.Add("Searched: " + title.ToString() + ", Top Result: " + firstResult, "Not Matched");
                 }
-
-                workbook.Save();
-                GetNavigatedPage<SearchPage>().ClickExploreCareerBreadcrumb<Homepage>();
             }
-
-            workbook.Close();
         }
 
         #endregion When
@@ -538,33 +545,23 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             categoryPage.CategoryTitle.Should().Contain(category);
         }
 
-        [Then(@"the results should contain 0 Unmatched Results")]
-        public void ThenTheResultsShouldContainUnmatchedResults()
+        [Then(@"there should be no Unmatched titles")]
+        public void ThenThereShouldBeNoUnmatchedTitles()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), @"Infrastructure\Data\ProfileData.xlsx");
-            Excel.Application excelSheet = new Excel.Application();
-            Excel.Workbook workbook = excelSheet.Workbooks.Open(path);
-            Excel.Worksheet worksheet = workbook.Sheets[1];
-            worksheet.Rows.ClearFormats();
-            Excel.Range range = worksheet.UsedRange;
-
-            int totalUnmatched = 0;
-            string result;
-            for (int i = 2; i <= range.Rows.Count; i++)
+            Dictionary<string, string> errorList = new Dictionary<string, string>();
+            foreach (var title in matchList)
             {
-                result = worksheet.Cells[i, 3].Value.ToString();
-                if (result.Equals("Not Matched") || result.Equals("No Results"))
+                if (title.Value.Equals("Not Matched"))
                 {
-                    totalUnmatched += 1;
+                    errorList.Add(title.Key, title.Value);
                 }
             }
 
-            workbook.Save();
-            workbook.Close();
-
-            if (totalUnmatched > 0)
+            if (errorList.Count > 0)
             {
-                throw new Exception("There's " + totalUnmatched + " result(s) that are not listed in the 1st position on the search results");
+                string errors = string.Join(" : ", errorList);
+
+                throw new Exception("The following profiles do not appear in the top result on search" + Environment.NewLine + errors);
             }
         }
     }

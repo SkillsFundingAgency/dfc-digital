@@ -169,8 +169,14 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             return Navigate.To<T>(By.ClassName("signpost"));
         }
-        #endregion
 
+        public T ClickNextPage<T>()
+             where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.Id("nextBtn"));
+        }
+
+        #endregion
         internal string SelectedProfileTitle(int index)
         {
             if (Find.Element(By.ClassName("result-count")).Text.Contains("try again"))

@@ -92,11 +92,6 @@ namespace DFC.Digital.Service.AzureSearch
                         TextWeights = new TextWeights
                         {
                             Weights = weightingBuilder.BuildForType<T>()
-
-                           //Weights = new Dictionary<string, double>()
-                           //{
-                           //    { "Title", 10.0 }
-                           //}
                         }
                     }
                 }

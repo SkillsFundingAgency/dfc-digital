@@ -561,7 +561,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             {
                 string errors = string.Join(" : ", errorList);
 
-                throw new Exception("The following profiles do not appear in the top result on search" + Environment.NewLine + errors);
+                throw new Exception("Total Failures: " + errorList.Count + " searches. The following profiles do not appear in the top result on search" + Environment.NewLine + errors);
             }
         }
     }

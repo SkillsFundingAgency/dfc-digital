@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace DFC.Digital.Data.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class WeightingAttribute : Attribute
+    public sealed class AddWeightingAttribute : Attribute
     {
-        public WeightingAttribute(double weighting)
+        public AddWeightingAttribute(double weighting)
         {
             this.Weighting = weighting;
         }

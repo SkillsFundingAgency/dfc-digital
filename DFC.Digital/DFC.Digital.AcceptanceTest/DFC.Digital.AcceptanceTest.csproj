@@ -198,6 +198,7 @@
     <Compile Include="Infrastructure\Pages\CourseDirectoryPage.cs" />
     <Compile Include="Infrastructure\Pages\DFCElementFinder.cs" />
     <Compile Include="Infrastructure\Pages\HealthStatusPage.cs" />
+    <Compile Include="Infrastructure\Pages\HelpPage.cs" />
     <Compile Include="Infrastructure\Pages\InformationSourcesPage.cs" />
     <Compile Include="Infrastructure\Pages\JobProfileCategoryPage.cs" />
     <Compile Include="Infrastructure\Pages\JobProfilePage.cs" />

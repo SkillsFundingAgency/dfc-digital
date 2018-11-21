@@ -81,6 +81,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return Navigate.To<T>(By.PartialLinkText("Information sources"));
         }
 
+        public T ClickHelpLink<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.LinkText("Help"));
+        }
+
         public void SelectSuggestedSearch(int index)
         {
             var list = Find.Elements(By.ClassName("ui-menu-item-wrapper")).ToList();

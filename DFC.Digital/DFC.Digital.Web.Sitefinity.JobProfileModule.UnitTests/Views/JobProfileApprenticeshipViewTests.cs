@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var wageUnitText = htmlDom.DocumentNode.SelectNodes("//span[contains(@class, 'font-xsmall')]").FirstOrDefault().InnerText;
             wageUnitText.Should().Contain(jobProfileApprenticeViewModel.ApprenticeVacancies.FirstOrDefault().WageUnitType);
             sectionText.Should().Contain("7. Current Opportunities");
-            noOfVacancies.Should().Be(2);
+            noOfVacancies.Should().Be(3);
             noApprenticeshipText.Should().BeNull();
         }
 
@@ -144,6 +144,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 URL = new Uri("http://test2.co.uk", UriKind.RelativeOrAbsolute),
                 WageUnitType = "Annually",
                 WageAmount = "17000.00",
+                Location = "test",
+                VacancyId = "1"
+            };
+            yield return new ApprenticeVacancy
+            {
+                Title = "Test Title 2",
+                URL = new Uri("http://test2.co.uk", UriKind.RelativeOrAbsolute),
+                WageUnitType = string.Empty,
+                WageAmount = "Competitive salary",
                 Location = "test",
                 VacancyId = "1"
             };

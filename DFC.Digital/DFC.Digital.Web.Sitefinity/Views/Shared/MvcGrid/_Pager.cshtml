@@ -1,0 +1,80 @@
+﻿@using NonFactors.Mvc.Grid;
+
+@model IGridPager
+@{
+    Int32 totalPages = Model.TotalPages;
+    Int32 currentPage = Model.CurrentPage;
+    Int32 firstDisplayPage = Model.FirstDisplayPage;
+}
+
+<div class="mvc-grid-pager @Model.CssClasses" data-show-page-sizes="@Model.ShowPageSizes">
+    @if (totalPages > 0)
+    {
+        <ul>
+            @if (currentPage > 1)
+            {
+                <li><a href="#" data-page="1">&laquo;</a></li>
+                <li><a href="#" data-page="@(currentPage - 1)">&lsaquo;</a></li>
+            }
+            else
+            {
+                <li class="disabled"><a tabindex="-1">&laquo;</a></li>
+                <li class="disabled"><a tabindex="-1">&lsaquo;</a></li>
+            }
+            @for (Int32 page = firstDisplayPage; page <= totalPages && page < firstDisplayPage + Model.PagesToDisplay; page++)
+            {
+                if (page == currentPage)
+                {
+                    <li class="active"><a href="#" data-page="@(page)">@(page)</a></li>
+                }
+                else
+                {
+                    <li><a href="#" data-page="@(page)">@(page)</a></li>
+                }
+            }
+            @if (currentPage < totalPages)
+            {
+                <li><a href="#" data-page="@(currentPage + 1)">&rsaquo;</a></li>
+                <li><a href="#" data-page="@totalPages">&raquo;</a></li>
+            }
+            else
+            {
+                <li class="disabled"><a tabindex="-1">&rsaquo;</a></li>
+                <li class="disabled"><a tabindex="-1">&raquo;</a></li>
+            }
+        </ul>
+        if (Model.ShowPageSizes)
+        {
+            <div class="mvc-grid-page-sizes">
+                @if (Model.PageSizes.Count > 0)
+                {
+                    <select class="mvc-grid-pager-rows">
+                        @foreach (KeyValuePair<Int32, String> size in Model.PageSizes)
+                        {
+                            if (Model.RowsPerPage == size.Key)
+                            {
+                                <option value="@size.Key" selected>@size.Value</option>
+                            }
+                            else
+                            {
+                                <option value="@size.Key">@size.Value</option>
+                            }
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input class="mvc-grid-pager-rows" value="@Model.RowsPerPage" />
+                }
+            </div>
+        }
+        else
+        {
+            <input class="mvc-grid-pager-rows" type="hidden" value="@Model.RowsPerPage" />
+        }
+    }
+    else
+    {
+        <input class="mvc-grid-pager-rows" type="hidden" value="@Model.RowsPerPage" />
+    }
+</div>

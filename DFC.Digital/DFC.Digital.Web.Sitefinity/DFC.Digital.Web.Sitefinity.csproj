@@ -38,7 +38,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
     <VisualStudioVersion>11.0</VisualStudioVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -346,6 +346,9 @@
     <Reference Include="MonAgentListener, Version=33.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitefinity.Windows.Azure.2.0.0.4\lib\net40\MonAgentListener.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Mvc.Grid.Core, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NonFactors.Grid.Core.Mvc5.5.0.0\lib\net45\Mvc.Grid.Core.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.6.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.6.6\lib\net40\MySql.Data.dll</HintPath>
@@ -973,6 +976,8 @@
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
+    <Content Include="Content\MvcGrid\mvc-grid.css" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="robots.prod.txt.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
@@ -981,7 +986,7 @@
     <Content Include="parameters.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ResourcePackages\gds_toolkit\assets\dist\**" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\dist\**\*" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\building.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\calendar-alt.svg" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\images\calendar.svg" />
@@ -1019,6 +1024,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.35.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.36.1.nupkg" />
+    <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1041,6 +1047,8 @@
     <Content Include="Default.aspx" />
     <Content Include="robots.txt.template" />
     <Content Include="DetailFormViewCustom.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Silverlight.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Thunder\ThunderService.svc" />
@@ -1164,7 +1172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
-    <Folder Include="ResourcePackages\gds_toolkit\assets\src\sitefinity\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -1285,6 +1292,8 @@
     </Content>
     <Content Include="dependencybin\**" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_webchat.scss" />
+    <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
+    <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1369,7 +1378,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://local-beta.nationalcareersservice.org.uk/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

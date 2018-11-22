@@ -24,7 +24,7 @@ namespace DFC.Digital.Data.Interfaces
 
         bool IsUserAdministrator { get; }
 
-        NameValueCollection RequestQueryString { get; set; }
+        NameValueCollection RequestQueryString { get; }
 
         bool IsValidAndFormattedUrl(string urlToBeValidated);
 

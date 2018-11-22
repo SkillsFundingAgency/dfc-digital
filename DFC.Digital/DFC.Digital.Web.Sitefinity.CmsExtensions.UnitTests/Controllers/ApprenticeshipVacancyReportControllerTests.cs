@@ -30,6 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeWebAppContext = A.Fake<IWebAppContext>();
             fakeCachingPolicy = A.Fake<ICachingPolicy>();
             fakeList = Enumerable.Empty<JobProfileApprenticeshipVacancyReport>().AsQueryable();
+            
         }
 
 
@@ -43,6 +44,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
             A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            query.Add("ctx", "something");
+
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 

@@ -170,24 +170,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return Navigate.To<T>(By.ClassName("signpost"));
         }
 
-        public T ClickNextPage<T>()
-             where T : UiComponent, new()
-        {
-            return Navigate.To<T>(By.Id("nextBtn"));
-        }
-
         #endregion
-        internal string SelectedProfileTitle(int index)
-        {
-            if (Find.Element(By.ClassName("result-count")).Text.Contains("try again"))
-            {
-                return "No Results";
-            }
-            else
-            {
-                return Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
-            }
-        }
 
         internal string SelectedProfileUrl(int index)
         {
@@ -196,7 +179,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return url;
         }
 
+        internal string SelectedProfileTitle(int index) => Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
+
         #endregion Internal Properties
+
         #region Private helpers
 
         private bool DoesElementExistWithValue(string className)

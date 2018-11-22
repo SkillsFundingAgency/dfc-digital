@@ -1,25 +1,23 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using Xunit.Abstractions;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 {
     [Binding]
     public class JobProfileSearchSteps : BaseStep
     {
-        private List<string> resultsList = new List<string>();
-        private Dictionary<string, string> matchList = new Dictionary<string, string>();
+        private const string JobprofileTitles = "JobprofileTitles";
+        private const string JobprofileTitleMisMatchList = "JobprofileTitleMisMatchList";
+
         #region Ctor
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
@@ -177,43 +175,38 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void WhenIAddAllTheResultsToAList()
         {
             var searchPage = GetNavigatedPage<SearchPage>();
-            while (searchPage.HasNextPage == true)
+            List<string> jobprofileTitles = new List<string>();
+            do
             {
-                var tempList = searchPage.DisplayedJobProfileTitles.ToList();
-                resultsList.AddRange(tempList);
-                searchPage.ClickNextPage<SearchPage>();
+                var jpTitlesOnThisPage = searchPage.DisplayedJobProfileTitles.ToList();
+                jobprofileTitles.AddRange(jpTitlesOnThisPage);
+                searchPage = searchPage.HasNextPage ? searchPage.NextPage<SearchPage>() : searchPage;
             }
+            while (searchPage.HasNextPage == true);
 
-            if (searchPage.DisplayedJobProfileTitles.Count() > 0)
-            {
-                var tempList = searchPage.DisplayedJobProfileTitles.ToList();
-                resultsList.AddRange(tempList);
-            }
+            jobprofileTitles.Distinct(StringComparer.OrdinalIgnoreCase).SaveTo(ScenarioContext, JobprofileTitles);
         }
 
         [When(@"I search for each title in the list")]
         public void WhenISearchForEachTitleInTheList()
         {
-            var firstResult = string.Empty;
+            var jobprofileTitles = ScenarioContext.Get<List<string>>(JobprofileTitles);
             var searchPage = GetNavigatedPage<SearchPage>();
-            foreach (var title in resultsList)
+            var errorList = new Dictionary<string, string>();
+            foreach (var title in jobprofileTitles)
             {
-                searchPage.Search<SearchPage>(new JobProfileSearchResultViewModel
+                searchPage = searchPage.Search<SearchPage>(new JobProfileSearchResultViewModel
                 {
-                    SearchTerm = title.ToString(),
+                    SearchTerm = title,
                     SearchResults = null
-                })
-                .SaveTo(ScenarioContext);
+                });
 
-                firstResult = searchPage.SelectedProfileTitle(1);
-                if (firstResult.Equals(title.ToString()))
+                if (!title.Equals(searchPage.DisplayedJobProfileTitles.FirstOrDefault()))
                 {
-                    matchList.Add("Searched: " + title.ToString() + ", Top Result: " + firstResult, "Matched");
+                    errorList.Add(title, searchPage.DisplayedJobProfileTitles.FirstOrDefault() ?? "No result found");
                 }
-                else
-                {
-                    matchList.Add("Searched: " + title.ToString() + ", Top Result: " + firstResult, "Not Matched");
-                }
+
+                errorList.SaveTo(ScenarioContext, JobprofileTitleMisMatchList);
             }
         }
 
@@ -548,20 +541,16 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"there should be no Unmatched titles")]
         public void ThenThereShouldBeNoUnmatchedTitles()
         {
-            Dictionary<string, string> errorList = new Dictionary<string, string>();
-            foreach (var title in matchList)
-            {
-                if (title.Value.Equals("Not Matched"))
-                {
-                    errorList.Add(title.Key, title.Value);
-                }
-            }
-
+            var errorList = ScenarioContext.Get<Dictionary<string, string>>(JobprofileTitleMisMatchList);
+            var errorBuilder = new StringBuilder($"Total Failures: {errorList.Count} searches. The following profiles do not appear in the top result on search");
             if (errorList.Count > 0)
             {
-                string errors = string.Join(" : ", errorList);
+                foreach (var item in errorList)
+                {
+                    errorBuilder.AppendLine($"Searched for: {item.Key}, first result is: {item.Value}");
+                }
 
-                throw new Exception("Total Failures: " + errorList.Count + " searches. The following profiles do not appear in the top result on search" + Environment.NewLine + errors);
+                throw new Exception(errorBuilder.ToString());
             }
         }
     }

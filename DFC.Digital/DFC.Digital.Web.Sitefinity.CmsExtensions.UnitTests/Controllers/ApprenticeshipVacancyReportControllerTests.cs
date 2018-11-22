@@ -29,7 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeWebAppContext = A.Fake<IWebAppContext>();
             fakeCachingPolicy = A.Fake<ICachingPolicy>();
-            query.Add("ctx", "something");
+            fakeList = Enumerable.Empty<JobProfileApprenticeshipVacancyReport>().AsQueryable();
+            
         }
 
 
@@ -43,6 +44,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
             A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            query.Add("ctx", "something");
+
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 
@@ -78,13 +81,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         }
 
-        public void IndexRedirectTest(int numberRecords, int numberOfApprenticeship)
+        [Fact]
+        public void IndexRedirectTest()
         {
             // Setup
-            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
-            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(1, 2));
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
             A.CallTo(() => fakeWebAppContext.GetCurrentQueryString(A<Dictionary<string, object>>._)).Returns("http://url");
-
+            query.Add("NOTctx", "something");
+           
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 

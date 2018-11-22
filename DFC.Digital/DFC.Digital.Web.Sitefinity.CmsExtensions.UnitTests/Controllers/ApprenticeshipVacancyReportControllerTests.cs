@@ -58,6 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 .WithModel<JobProfileApprenticeshipVacancyReportViewModel>(vm =>
                 {
                     vm.ReportData.Should().HaveCount(numberRecords);
+                    int ii = 0;
                     foreach (var r in vm.ReportData)
                     {
                         if (numberOfApprenticeship > 0)
@@ -68,6 +69,10 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                         {
                             r.AV2Title.Should().Contain("Two");
                         }
+
+                        r.Frameworks.Should().Be($"DummyFramework_1{ii}-(LARSF_1{ii})|DummyFramework_2{ii}-(LARSF_2{ii})");
+                        r.Standards.Should().Be($"DummyStandard_1{ii}-(LARS_1{ii})|DummyStandard_2{ii}-(LARS_2{ii})");
+                        ii++;
                     }
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);
                 })
@@ -112,12 +117,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 r.SocCode = new SocCodeReport() { SOCCode = $"DummySOC {ii}", Description = $"DummySOCDescription {ii}" };
                 var frameworks = new List<TaxonReport>
                 {
-                   new TaxonReport {Title = $"DummyFramework{ii}"}
+                   new TaxonReport {Title = $"DummyFramework_1{ii}", LarsCode = $"LARSF_1{ii}" },
+                   new TaxonReport {Title = $"DummyFramework_2{ii}", LarsCode = $"LARSF_2{ii}" }
                 };
                 r.SocCode.Frameworks = frameworks.AsQueryable();
 
-                var standards = new List<TaxonReport>();
-                standards.Add(new TaxonReport { Title = $"DummyFramework{ii}" });
+                var standards = new List<TaxonReport>
+                {
+                    new TaxonReport { Title = $"DummyStandard_1{ii}", LarsCode = $"LARS_1{ii}" },
+                    new TaxonReport { Title = $"DummyStandard_2{ii}", LarsCode = $"LARS_2{ii}" },
+                };
                 r.SocCode.Standards = standards.AsQueryable();
 
                 var a = new List<ApprenticeshipVacancyReport>();

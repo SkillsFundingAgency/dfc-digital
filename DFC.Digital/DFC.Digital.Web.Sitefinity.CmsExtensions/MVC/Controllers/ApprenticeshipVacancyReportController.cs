@@ -70,8 +70,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     JobProfileLink = rptItem.JobProfile.Name
                 };
 
-                reportItem.Standards = string.Join(",", rptItem.SocCode.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
-                reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Standards = string.Join("|", rptItem.SocCode.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Frameworks = string.Join("|", rptItem.SocCode.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
 
                 if (rptItem.ApprenticeshipVacancies?.Any() == true)
                 {

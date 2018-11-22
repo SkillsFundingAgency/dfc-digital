@@ -24,7 +24,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 recycleBinItemsManager = RecycleBinManagerFactory.GetManager();
             }
 
-            IList<IRecycleBinDataItem> recycleBinItems = recycleBinItemsManager.GetRecycleBinItems().ToList();
+           var recycleBinItems = recycleBinItemsManager.GetRecycleBinItems().ToList();
 
             foreach (var recycleBinItem in recycleBinItems.Where(di => di.DeletedItemTypeName.Equals(ApprenticeVacancyDeleteTypeName)))
             {

@@ -15,21 +15,12 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 
         public RecycleBinService()
         {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            recyleBin = autofacLifetimeScope.Resolve<IRecyleBinRepository>();
         }
 
-        public RecycleBinService(IRecyleBinRepository recyleBin)
+        public void RecycleBinClearAppVacancies()
         {
-            this.recyleBin = recyleBin;
-        }
-
-        public void ClearAppVacanciesRecycleBin()
-        {
-            if (recyleBin == null)
-            {
-                var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-                recyleBin = autofacLifetimeScope.Resolve<IRecyleBinRepository>();
-            }
-
             recyleBin.DeleteVacanciesPermanently();
         }
     }

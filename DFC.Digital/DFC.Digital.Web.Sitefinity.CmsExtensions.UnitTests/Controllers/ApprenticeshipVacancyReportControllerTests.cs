@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeWebAppContext = A.Fake<IWebAppContext>();
             fakeCachingPolicy = A.Fake<ICachingPolicy>();
-            query.Add("ctx", "something");
+            fakeList = Enumerable.Empty<JobProfileApprenticeshipVacancyReport>().AsQueryable();
         }
 
 
@@ -73,12 +73,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         }
 
-        public void IndexRedirectTest(int numberRecords, int numberOfApprenticeship)
+        [Fact]
+        public void IndexRedirectTest()
         {
             // Setup
-            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
-            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(1, 2));
+           // A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
             A.CallTo(() => fakeWebAppContext.GetCurrentQueryString(A<Dictionary<string, object>>._)).Returns("http://url");
+
+            query.Add("NOTctx", "something");
+            fakeWebAppContext.RequestQueryString = query;
 
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);

@@ -51,7 +51,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public bool IsJobProfilePage => HttpContext.Current.Request.Url.ToString().ToLower().Contains("/job-profiles");
 
-        public NameValueCollection RequestQueryString => HttpContext.Current.Request.QueryString;
+        public NameValueCollection RequestQueryString
+        {
+            get { return HttpContext.Current.Request.QueryString; }
+            set { throw new NotImplementedException(); }
+        }
 
         public bool IsValidAndFormattedUrl(string urlToBeValidated) => Uri.IsWellFormedUriString($"{urlToBeValidated}", UriKind.RelativeOrAbsolute);
 

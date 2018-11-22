@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -16,7 +17,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     public class JobProfileSearchSteps : BaseStep
     {
         private const string JobprofileTitles = "JobprofileTitles";
-        private const string JobprofileTitleMisMatchList = "JobprofileTitleMisMatchList";
+        private const string JobprofileTitleMatchList = "JobprofileTitleMatchList";
 
         #region Ctor
 
@@ -190,9 +191,9 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I search for each title in the list")]
         public void WhenISearchForEachTitleInTheList()
         {
-            var jobprofileTitles = ScenarioContext.Get<List<string>>(JobprofileTitles);
+            var jobprofileTitles = ScenarioContext.Get<IEnumerable<string>>(JobprofileTitles);
             var searchPage = GetNavigatedPage<SearchPage>();
-            var errorList = new Dictionary<string, string>();
+            var firstResultList = new Dictionary<string, string>();
             foreach (var title in jobprofileTitles)
             {
                 searchPage = searchPage.Search<SearchPage>(new JobProfileSearchResultViewModel
@@ -201,12 +202,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
                     SearchResults = null
                 });
 
-                if (!title.Equals(searchPage.DisplayedJobProfileTitles.FirstOrDefault()))
-                {
-                    errorList.Add(title, searchPage.DisplayedJobProfileTitles.FirstOrDefault() ?? "No result found");
-                }
-
-                errorList.SaveTo(ScenarioContext, JobprofileTitleMisMatchList);
+                firstResultList.Add(title.Trim(), searchPage.DisplayedJobProfileTitles.FirstOrDefault()?.Trim() ?? "No result found");
+                firstResultList.SaveTo(ScenarioContext, JobprofileTitleMatchList);
             }
         }
 
@@ -541,17 +538,18 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"there should be no Unmatched titles")]
         public void ThenThereShouldBeNoUnmatchedTitles()
         {
-            var errorList = ScenarioContext.Get<Dictionary<string, string>>(JobprofileTitleMisMatchList);
-            var errorBuilder = new StringBuilder($"Total Failures: {errorList.Count} searches. The following profiles do not appear in the top result on search");
-            if (errorList.Count > 0)
+            var matchList = ScenarioContext.Get<Dictionary<string, string>>(JobprofileTitleMatchList);
+            var errorList = matchList.Where(item => !item.Key.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
+            if (errorList.Count() > 0)
             {
+                OutputHelper.WriteLine($"Total Failures: {errorList.Count()} searches. The following profiles do not appear in the top result on search");
                 foreach (var item in errorList)
                 {
-                    errorBuilder.AppendLine($"Searched for: {item.Key}, first result is: {item.Value}");
+                    OutputHelper.WriteLine($"Searched for: {item.Key}, first result is: {item.Value}");
                 }
-
-                throw new Exception(errorBuilder.ToString());
             }
+
+            errorList.Count().Should().Be(0);
         }
     }
 }

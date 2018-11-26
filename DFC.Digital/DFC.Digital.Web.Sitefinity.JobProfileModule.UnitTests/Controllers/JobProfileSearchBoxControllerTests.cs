@@ -634,7 +634,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         // DFC-1494 Did you mean - spell checker service
         [Theory]
         [InlineData(false, "Plumbing", " plumbing /.*plumb.*/ plumb~")]
-        [InlineData(true, "Plumbing", " plumbing /.*plumb.*/ plumb~")]
+        [InlineData(true, "Plumbing", " Plumbing Plumbing")]
         public void UseRawSearchTermTest(bool useRawTerm, string searchTerm, string expectedComputedSearchTerm)
         {
             //Setup Fakes & dummies
@@ -688,7 +688,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                    .ShouldRenderView("SearchResult")
                    .WithModel<JobProfileSearchResultViewModel>(vm =>
                    {
-                       vm.ComputedSearchTerm.Should().Be(dummySearchResult.ComputedSearchTerm);
+                       vm.ComputedSearchTerm.Should().Be(expectedComputedSearchTerm);
                    });
         }
     }

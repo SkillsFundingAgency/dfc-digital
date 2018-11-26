@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class SitefinityBackendPage : SitefinityBasePage
+    public class SitefinityBackendPage : Page
     {
         public T Login<T>()
             where T : UiComponent, new()

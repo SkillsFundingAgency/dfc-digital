@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
+using TestStack.Seleno.PageObjects;
 using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages.SitefinityBackend
 {
-    public class SitefinityDashboardPage : SitefinityBasePage
+    public class SitefinityDashboardPage : Page
     {
         public bool VerifyOnDashboardPage()
         {
@@ -34,26 +36,17 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages.SitefinityBackend
             }
         }
 
-        public void OpenAdminTab()
+        public void OpenCMSReportsTab()
         {
-            ClickLink("Administration");
-            ClickLink("Export / Import");
+            var listOfTabs = Find.Elements(By.ClassName("rmText")).ToList();
+            var selectedTab = listOfTabs.Where(t => t.Text.Equals("CMS Reports")).FirstOrDefault();
+            selectedTab.Click();
         }
 
-        public void ClickContinueButton()
+        public T ClickCMSReportsOption<T>()
+            where T : UiComponent, new()
         {
-            Find.Element(By.ClassName("sfLinkBtnIn")).Click();
-        }
-
-        public void SelectPages()
-        {
-            ClickLink("sfTxtLbl", "Pages");
-        }
-
-        public void ClickExport()
-        {
-            Find.Element(By.ClassName("sfSave")).Click();
-            Thread.Sleep(5000);
+            return Navigate.To<T>(By.LinkText("Job Profile Apprenticeship Vacancies"));
         }
     }
 }

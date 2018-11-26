@@ -15,8 +15,7 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]
-        [Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public string Title { get; set; }
 
         [IsSearchable, IsFilterable, IsSuggestible]

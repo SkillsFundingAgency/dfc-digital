@@ -14,6 +14,7 @@ namespace DFC.Digital.Service.AzureSearch
         #region Fields
 
         private readonly ISuggesterBuilder suggesterBuilder;
+        private readonly IWeightingBuilder weightingBuilder;
         private readonly ITolerancePolicy policy;
         private readonly ISearchIndexClient indexClient;
         private readonly ISearchServiceClient searchClient;
@@ -22,12 +23,13 @@ namespace DFC.Digital.Service.AzureSearch
 
         #region Ctor
 
-        public AzSearchService(ISearchServiceClient searchClient, ISearchIndexClient indexClient, ISuggesterBuilder suggesterBuilder, ITolerancePolicy policy)
+        public AzSearchService(ISearchServiceClient searchClient, ISearchIndexClient indexClient, ISuggesterBuilder suggesterBuilder, ITolerancePolicy policy, IWeightingBuilder weightingBuilder)
         {
             this.searchClient = searchClient;
             this.indexClient = indexClient;
             this.suggesterBuilder = suggesterBuilder;
             this.policy = policy;
+            this.weightingBuilder = weightingBuilder;
         }
 
         #endregion Ctor
@@ -80,6 +82,17 @@ namespace DFC.Digital.Service.AzureSearch
                         Name = Constants.DefaultSuggesterName,
                         SearchMode = SuggesterSearchMode.AnalyzingInfixMatching,
                         SourceFields = suggesterBuilder.BuildForType<T>(),
+                    }
+                },
+                ScoringProfiles = new List<ScoringProfile>
+                {
+                    new ScoringProfile
+                    {
+                        Name = Constants.SearchScoringProfileName,
+                        TextWeights = new TextWeights
+                        {
+                            Weights = weightingBuilder.BuildForType<T>()
+                        }
                     }
                 }
             };

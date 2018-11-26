@@ -169,9 +169,8 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             return Navigate.To<T>(By.ClassName("signpost"));
         }
-        #endregion
 
-        internal string SelectedProfileTitle(int index) => Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
+        #endregion
 
         internal string SelectedProfileUrl(int index)
         {
@@ -180,7 +179,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return url;
         }
 
+        internal string SelectedProfileTitle(int index) => Find.Elements(By.ClassName(SearchJpTitle)).ElementAt(index - 1).Text;
+
         #endregion Internal Properties
+
         #region Private helpers
 
         private bool DoesElementExistWithValue(string className)

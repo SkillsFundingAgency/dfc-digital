@@ -1,0 +1,40 @@
+﻿@model JobProfileApprenticeshipVacancyReportViewModel
+@using DFC.Digital.Web.Core
+@using NonFactors.Mvc.Grid
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+<section>
+    <div id="jobProfileReport" , style="margin:10px">
+        <div>
+            <div style="float:left"><h3>Job Profiles and Apprenticeship Vacancy Report</h3></div>
+            <div style="float:right"><p>Report Date - @DateTime.Now</p><p>Sort by clicking column title</p><p>Filter by clicking filter icon on each column</p></div>
+        </div>
+        <div style="clear:both">
+            <div style="clear:both">
+                @(Html
+                        .Grid(Model.ReportData)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.JobProfileTitle).Titled("Job Profile Title").Sortable(true).InitialSort(GridSortOrder.Asc);
+                            columns.Add(model => model.JobProfileLink).Titled("Job Profile URL");
+                            columns.Add(model => model.JobProfileStatus).Titled("Job Profile Status");
+                            columns.Add(model => model.JoProfileLastModifiedBy).Titled("Profile Last Modified By");
+                            columns.Add(model => model.SOC).Titled("SOC Code");
+                            columns.Add(model => model.SOCDescription).Titled("SOC Description");
+                            columns.Add(model => model.Standards).Titled("Standards Description-(LARS code)");
+                            columns.Add(model => model.Frameworks).Titled("Frameworks Description-(Number)");
+                            columns.Add(model => model.AV1Title).Titled("AV1 Title");
+                            columns.Add(model => model.AV1LastModified).Titled("AV1 Last Modified");
+                            columns.Add(model => model.AV2Title).Titled("AV2 Title");
+                            columns.Add(model => model.AV2LastModified).Titled("AV2 Last Modified");
+                        })
+                            .Empty("No data found")
+                            .Filterable()
+                            .Sortable()
+                            .Attributed(new { Id = Model.ReportName })
+                )
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/cmsExtentionsBundle.min.js"></script>
+    <p>Took @Model.ExecutionTime to compile this report.</p>
+</section>

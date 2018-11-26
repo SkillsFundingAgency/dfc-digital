@@ -3,7 +3,6 @@ using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Sitefinity.Core;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {

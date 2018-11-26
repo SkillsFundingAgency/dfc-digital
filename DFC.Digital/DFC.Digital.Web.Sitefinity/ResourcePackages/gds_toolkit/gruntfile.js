@@ -15,8 +15,11 @@ module.exports = function (grunt) {
     var govukJsfiles = grunt.file.readJSON('jsfiles.json').concatGovUkJsFiles;
     var jqueryBundle = grunt.file.readJSON('jsfiles.json').jqueryBundle;
     var ie8Bundle = grunt.file.readJSON('jsfiles.json').ie8Bundle;
+    var cmsExtentionsBundle = grunt.file.readJSON('jsfiles.json').cmsExtentionsBundle;
+
     // Name of the folder that contains project specific assets (scss, js, images, etc.)
     var projectAssetsFolder = "frontend";
+    var backendAssetsFolder = "backend";
 
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -126,11 +129,14 @@ module.exports = function (grunt) {
         copy: {
             dist: {
                 files: [
-                    { expand: true, cwd: 'assets/src/frontend/fonts', src: '**', dest: 'assets/dist/fonts/' },
-                    { expand: true, cwd: 'node_modules/govuk_frontend_toolkit/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
-                    { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
-                    { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/stylesheets', src: '**/*.*', dest: 'assets/dist/css' },
-                    { expand: true, cwd: 'assets/src/frontend/js/', src: 'selectivizr.min.js', dest: 'assets/dist/js' },
+                    { expand: true, cwd: '<%= src.path %>/' + projectAssetsFolder + '/fonts', src: '**', dest: '<%= dist.path %>/fonts/' },
+                    { expand: true, cwd: 'node_modules/govuk_frontend_toolkit/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: '<%= dist.path %>/images' },
+                    { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: '<%= dist.path %>/images' },
+                    { expand: true, cwd: 'node_modules/govuk_template_mustache/assets/stylesheets', src: '**/*.*', dest: '<%= dist.path %>/css' },
+                    { expand: true, cwd: '<%= src.path %>/' + projectAssetsFolder + '/js/', src: 'selectivizr.min.js', dest: '<%= dist.path %>/js' },
+                    { expand: true, cwd: '<%= src.path %>/' + backendAssetsFolder + '/css/', src: '**/*.*', dest: '<%= dist.path %>/css/' },
+                    { expand: true, cwd: '../../Content/', src: '**/*.*', dest: '<%= dist.path %>/css/' }
+
                     //{ expand: true, cwd: 'node_modules/govuk_frontend_toolkit/javascripts/vendor/jquery', src: 'jquery.player.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery/dist', src: 'jquery.min.js', dest: 'assets/dist/js' },
                     //{ expand: true, cwd: 'node_modules/jquery-migrate/dist', src: 'jquery-migrate.min.js', dest: 'assets/dist/js' },
@@ -158,11 +164,12 @@ module.exports = function (grunt) {
                     { '<%= dist.path %>/js/govuksel.min.js': govukJsfiles },
                     { '<%= dist.path %>/js/jquerybundle.min.js': jqueryBundle },
                     { '<%= dist.path %>/js/ie8bundle.min.js': ie8Bundle },
+                    { '<%= dist.path %>/js/cmsExtentionsBundle.min.js': cmsExtentionsBundle },
                     {
                         expand: true,
                         src: ['*.js', '!*.min.js'],
-                        dest: 'assets/dist/js',
-                        cwd: 'assets/dist/js',
+                        dest: '<%= dist.path %>/js',
+                        cwd: '<%= dist.path %>/js',
                         rename: function (dst, src) {
                             // To keep the source js files and make new files as `*.min.js`:
                             return dst + '/' + src.replace('.js', '.min.js');
@@ -182,8 +189,8 @@ module.exports = function (grunt) {
                     progressive: true
                 },
                 files: [
-                    { expand: true, cwd: 'assets/src/sitefinity/images', src: ['**/*.{png,jpg,gif,jpeg,svg}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
-                    { expand: true, cwd: 'assets/src/' + projectAssetsFolder + '/images', src: ['**/*.{png,jpg,gif,jpeg,svg}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' }
+                    { expand: true, cwd: '<%= src.path %>/sitefinity/images', src: ['**/*.{png,jpg,gif,jpeg,svg}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' },
+                    { expand: true, cwd: '<%= src.path %>/' + projectAssetsFolder + '/images', src: ['**/*.{png,jpg,gif,jpeg,svg}', '!fonts/*', '!sprite/*.*'], dest: 'assets/dist/images' }
                 ]
             }
         },

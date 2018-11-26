@@ -685,11 +685,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Act
             var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, 1));
             searchMethodCall
-                    .ShouldRenderView("SearchResult")
-                    .WithModel<JobProfileSearchResultViewModel>(vm =>
-                    {
-                        vm.ComputedSearchTerm.Should().Be(expectedComputedSearchTerm);
-                    });
+                   .ShouldRenderView("SearchResult")
+                   .WithModel<JobProfileSearchResultViewModel>(vm =>
+                   {
+                       vm.ComputedSearchTerm.Should().Be(dummySearchResult.ComputedSearchTerm);
+                   });
         }
     }
 }

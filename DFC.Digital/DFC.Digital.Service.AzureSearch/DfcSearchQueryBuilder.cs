@@ -68,14 +68,15 @@ namespace DFC.Digital.Service.AzureSearch
             var newSearchTerm = string.Empty;
             var trimmedTerm = Regex.Replace(cleanedSearchTerm, @"\s+", " ").Trim();
 
-            return
-                trimmedTerm.Any(char.IsWhiteSpace)
+            var searchTerm = trimmedTerm.Any(char.IsWhiteSpace)
                 ? trimmedTerm
                     .Split(' ')
                     .Aggregate(
                         newSearchTerm,
                         (current, term) => current + (term.Contains("-") ? term.Trim() : CreateFuzzyAndContainTerm(term)))
                 : trimmedTerm.Contains("-") ? trimmedTerm : CreateFuzzyAndContainTerm(trimmedTerm);
+
+            return searchTerm;
         }
 
         public string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties)
@@ -103,6 +104,16 @@ namespace DFC.Digital.Service.AzureSearch
                 var regex = new Regex(AzureSearchSpecialChar);
                 return regex.Replace(searchTerm, (match) => $"\\{match.Value}");
             }
+        }
+
+        public string BuildExactMatchSearch(string searchTerm)
+        {
+            if (searchTerm.Split(' ').Count() > 1)
+            {
+                return "\"" + searchTerm + "\" ";
+            }
+
+            return string.Empty;
         }
 
         private static string CreateFuzzyAndContainTerm(string trimmedTerm)

@@ -24,6 +24,9 @@
     <add key="zapApiKey" value="__zapApiKey__" />
     <add key="zapHost" value="__zapHost__" />
     <add key="zapPort" value="__zapPort__" />
+	<!-- Sitefinity user settings -->
+    <add key="sfUser" value="__sfUser__" />
+    <add key="sfPassword" value="__sfPassword__" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

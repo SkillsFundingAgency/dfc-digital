@@ -364,6 +364,7 @@
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\AdminPanelController.cs" />
+    <Compile Include="Mvc\Controllers\SetCanonicalUrlController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
     <Compile Include="Mvc\Controllers\VocSurveyController.cs" />

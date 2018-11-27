@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.HtmlControls;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
@@ -15,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     /// <summary>
     /// Custom Widget for displaying job profile categories
     /// </summary>
-    /// <seealso cref="Web.Core.Base.BaseDfcController" />
+    /// <seealso cref="BaseDfcController" />
     [ControllerToolboxItem(Name = "JobProfileCategories", Title = "JobProfile Categories", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileCategoriesController : BaseDfcController
     {

@@ -65,13 +65,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     JobProfileTitle = rptItem.JobProfile.Title,
                     JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy,
                     JobProfileStatus = rptItem.JobProfile.Status.ToString(),
-                    SOC = rptItem.SocCode.SOCCode,
-                    SOCDescription = rptItem.SocCode.Description,
+                    SOC = rptItem.SocCode?.SOCCode,
+                    SOCDescription = rptItem.SocCode?.Description,
                     JobProfileLink = rptItem.JobProfile.Name
                 };
 
-                reportItem.Standards = string.Join("|", rptItem.SocCode.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
-                reportItem.Frameworks = string.Join("|", rptItem.SocCode.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Standards = string.Join("|", rptItem.SocCode?.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Frameworks = string.Join("|", rptItem.SocCode?.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
 
                 if (rptItem.ApprenticeshipVacancies?.Any() == true)
                 {

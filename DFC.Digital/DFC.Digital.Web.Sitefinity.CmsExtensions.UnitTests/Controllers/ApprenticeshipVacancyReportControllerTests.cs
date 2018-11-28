@@ -82,6 +82,31 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         }
 
         [Fact]
+        public void IndexNullDataItemsTest()
+        {
+            // Setup
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportDataWithNulls());
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
+            A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportDataWithNulls());
+            query.Add("ctx", "something");
+
+            // Assign
+            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
+
+            // Act
+            var indexMethodCall = reportController.WithCallTo(c => c.Index());
+
+            // Assert
+            indexMethodCall
+                .ShouldRenderDefaultView()
+                .WithModel<JobProfileApprenticeshipVacancyReportViewModel>(vm =>
+                {
+                    vm.ReportData.Should().HaveCount(1);
+                })
+                .AndNoModelErrors();
+        }
+
+        [Fact]
         public void IndexRedirectTest()
         {
             // Setup
@@ -145,6 +170,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
                 reportData.Add(r);
             }
+            return reportData.AsQueryable();
+        }
+
+        private IQueryable<JobProfileApprenticeshipVacancyReport> GetDummyReportDataWithNulls()
+        {
+            var reportData = new List<JobProfileApprenticeshipVacancyReport>();
+            var r = new JobProfileApprenticeshipVacancyReport();
+            r.JobProfile = new JobProfileReport() { Title = $"Dummy NO Data Profile " };
+            reportData.Add(r);
             return reportData.AsQueryable();
         }
     }

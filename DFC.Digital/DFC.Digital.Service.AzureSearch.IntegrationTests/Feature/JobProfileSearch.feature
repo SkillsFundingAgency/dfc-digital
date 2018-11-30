@@ -495,3 +495,8 @@ When I search using the search term 'engineerhat'
          | Title              | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle |
          | Technologist       |                  | engineerhat          |                        |
          | Another technician |                  |                      | engineerhat            |	
+
+Scenario: [DFC-5740] Search phrase that matches alternative title on job profile should be top of the results
+	Given I have a list of all alterantive title for each jop profile
+	When I seach by each alternative title for each of the  job profiles
+	Then all the results returned should have the job profile with the matching alterantive tag in the first position 

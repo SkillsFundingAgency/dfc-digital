@@ -34,6 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IMapper mapper;
         private readonly IAsyncHelper asyncHelper;
         private readonly ISpellcheckService spellcheckService;
+        private readonly IJobProfileSearchResultsManipulator jobProfileSearchResultsManipulator;
 
         #endregion Private Fields
 
@@ -49,13 +50,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="applicationLogger">applicationLogger</param>
         /// <param name="asyncHelper">asyncHelper</param>
         /// <param name="spellcheckService">spellCheckService</param>
-        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellcheckService) : base(applicationLogger)
+        /// <param name="jobProfileSearchResultsManipulator">jobProfileSearchResultsManipulator</param>
+        public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellcheckService, IJobProfileSearchResultsManipulator jobProfileSearchResultsManipulator) : base(applicationLogger)
         {
             this.searchQueryService = searchService;
             this.webAppContext = webAppContext;
             this.mapper = mapper;
             this.asyncHelper = asyncHelper;
             this.spellcheckService = spellcheckService;
+            this.jobProfileSearchResultsManipulator = jobProfileSearchResultsManipulator;
         }
 
         #endregion Constructors
@@ -309,7 +312,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                 await Task.WhenAll(searchTask, spellCheckTask);
 
-                var results = searchTask.Result;
+                var results = pageNumber == 1 ? jobProfileSearchResultsManipulator.ReorderForAlterantiveTitle(searchTask.Result, searchTerm) : searchTask.Result;
                 resultModel.Count = results.Count;
                 resultModel.PageNumber = pageNumber;
                 resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);

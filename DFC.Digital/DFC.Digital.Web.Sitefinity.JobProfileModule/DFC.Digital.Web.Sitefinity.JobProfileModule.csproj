@@ -414,6 +414,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\IFormatContentService.cs" />
     <Compile Include="Services\FormatContentService.cs" />
+    <Compile Include="Services\JobProfileSearchResultsManipuulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mvc\Views\Web.config" />

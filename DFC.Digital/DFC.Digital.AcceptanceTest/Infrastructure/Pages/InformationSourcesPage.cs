@@ -10,6 +10,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
     public class InformationSourcesPage : Page
     {
-        public string PageTitle => Find.OptionalElement(By.ClassName("heading")).Text;
+        public string PageTitle => Find.OptionalElement(By.ClassName("filter-results-heading")).Text;
     }
 }

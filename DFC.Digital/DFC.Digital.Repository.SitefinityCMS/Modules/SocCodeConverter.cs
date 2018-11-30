@@ -17,7 +17,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             return new SocCode
             {
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Title)),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)),
                 SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)),
                 ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.ONetOccupationalCode)),
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.UrlName))

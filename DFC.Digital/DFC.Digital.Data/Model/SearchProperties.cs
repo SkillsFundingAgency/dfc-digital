@@ -18,5 +18,7 @@ namespace DFC.Digital.Data.Model
         public string FilterBy { get; set; }
 
         public int ExactMatchCount { get; set; }
+
+        public string ScoringProfile { get; set; } = "jp";
     }
 }

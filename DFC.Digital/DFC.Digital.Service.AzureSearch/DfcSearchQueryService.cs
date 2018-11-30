@@ -20,7 +20,7 @@ namespace DFC.Digital.Service.AzureSearch
         public override SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildExactMatchSearch(searchTerm) + queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
             var res = base.Search(partialTermToSearch, properties ?? new SearchProperties());
 
             return new SearchResult<T>
@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.AzureSearch
         public override async Task<SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildExactMatchSearch(searchTerm) + queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
             var res = await base.SearchAsync(partialTermToSearch, properties ?? new SearchProperties());
 
             return new SearchResult<T>

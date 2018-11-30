@@ -28,9 +28,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var noOfVacancies = htmlDom.DocumentNode.SelectNodes("//h4[contains(@class, 'heading-small')]").Count();
             var noApprenticeshipText =
                 htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'dfc-code-jp-novacancyText')]");
-
+            var wageUnitText = htmlDom.DocumentNode.SelectNodes("//span[contains(@class, 'font-xsmall')]").FirstOrDefault().InnerText;
+            wageUnitText.Should().Contain(jobProfileApprenticeViewModel.ApprenticeVacancies.FirstOrDefault().WageUnitType);
             sectionText.Should().Contain("7. Current Opportunities");
-            noOfVacancies.Should().Be(2);
+            noOfVacancies.Should().Be(3);
             noApprenticeshipText.Should().BeNull();
         }
 
@@ -50,7 +51,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var noOfVacancies = htmlDom.DocumentNode.SelectNodes("//h4[contains(@class, 'heading-small')]");
             var noApprenticeshipText = htmlDom.DocumentNode
                 .SelectNodes("//div[contains(@class, 'dfc-code-jp-novacancyText')]").FirstOrDefault().InnerText;
-
             bigSectionTitleAndNo.Should().Contain("7. Current Opportunities");
             noOfVacancies.Should().BeNull();
             noApprenticeshipText.Should().Contain("No Apprenticeships available at this time");
@@ -72,6 +72,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var noApprenticeshipText =
                 htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'dfc-code-jp-novacancyText')]");
 
+            var wageUnitText = htmlDom.DocumentNode.SelectNodes("//span[contains(@class, 'font-xsmall')]").FirstOrDefault().InnerText;
+            wageUnitText.Should().Contain(jobProfileSingleApprenticeViewModel.ApprenticeVacancies.FirstOrDefault().WageUnitType);
             bigSectionTitleAndNo.Should().Contain(jobProfileSingleApprenticeViewModel.MainSectionTitle);
             noOfVacancies.Should().Be(1);
             noApprenticeshipText.Should().BeNull();
@@ -84,6 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 ApprenticeVacancies = DummyMultipleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Section Title",
                 LocationDetails = "London",
+                WageTitle = "Wage",
                 ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities",
             };
@@ -95,6 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 ApprenticeVacancies = DummyMultipleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Section Title",
+                WageTitle = "Wage",
                 LocationDetails = "London",
                 ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities"
@@ -116,6 +120,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 ApprenticeVacancies = DummySingleApprenticeVacancy(),
                 ApprenticeshipSectionTitle = "Single Apprenticeship",
+                WageTitle = "Wage",
                 LocationDetails = "London",
                 ApprenticeshipText = "Test Apprenticeship Text",
                 MainSectionTitle = "7. Current Opportunities",
@@ -128,8 +133,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 Title = "Test Title",
                 URL = new Uri("http://test.co.uk", UriKind.RelativeOrAbsolute),
-                WageUnitType = "£",
-                WageAmount = "10.00",
+                WageUnitType = "Monthly",
+                WageAmount = "210.00",
                 Location = "test",
                 VacancyId = "1"
             };
@@ -137,8 +142,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 Title = "Test Title 2",
                 URL = new Uri("http://test2.co.uk", UriKind.RelativeOrAbsolute),
-                WageUnitType = "£",
-                WageAmount = "10.00",
+                WageUnitType = "Annually",
+                WageAmount = "17000.00",
+                Location = "test",
+                VacancyId = "1"
+            };
+            yield return new ApprenticeVacancy
+            {
+                Title = "Test Title 2",
+                URL = new Uri("http://test2.co.uk", UriKind.RelativeOrAbsolute),
+                WageUnitType = string.Empty,
+                WageAmount = "Competitive salary",
                 Location = "test",
                 VacancyId = "1"
             };
@@ -150,8 +164,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             {
                 Title = "Test Title",
                 URL = new Uri("http://test.co.uk", UriKind.RelativeOrAbsolute),
-                WageUnitType = "£",
-                WageAmount = "10.00",
+                WageUnitType = "Monthly",
+                WageAmount = "150.00",
                 Location = "test",
                 VacancyId = "1"
             };

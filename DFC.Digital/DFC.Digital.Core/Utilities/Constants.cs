@@ -34,5 +34,8 @@
         public const int DefaultMaxRelatedItems = 100;
         public const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
         public const string Technology = "Technology";
+        public const string SearchScoringProfileName = "jp";
+        public const string SocField = "SOC";
+        public const string BackendDateTimeFormat = "dd MMM yyyy HH:mm:ss";
     }
 }

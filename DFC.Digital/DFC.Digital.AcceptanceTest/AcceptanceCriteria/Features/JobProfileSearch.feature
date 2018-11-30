@@ -72,23 +72,10 @@ Scenario: [DFC-1495 - A1] Performing a search displays Job categories and clicki
 	And the results display the Found In category text
 	When I click the first category link on result no '1'
 	Then I am redirected to the correct job category page
- 
-#This is only required whilst Beta and BAU are live in conjunction with one another.
-#Once BAU is decommissioned, this test and functionality is no longer required.
-
-Scenario Outline: [DFC-1764 - SignPost banner is displayed on Beta search and redirects you to BAU search with the search term included
-	Given that I am viewing the Home page
-	When I search using '<SearchTerm>'
-	Then the first result is 'shown' on the page
-	And the 'search' page signpost banner is displayed
-	When I click on the 'search' page banner link
-	Then I am redirected to the BAU Search results page
-	And the form contains the <BauSearchTerm> searched term
-	Examples: 
-	| SearchTerm | BauSearchTerm |
-	| nurse      | nurse         |
-	| <gp>       | gp            |
-	| Children's | Children's    |
 
 
-	
+Scenario: Search for all Job Profiles
+	Given I search for *
+	When I add all the results to a list
+	And I search for each title in the list
+	Then there should be no Unmatched titles

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core.Logging;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using System;
@@ -13,7 +14,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         #region Fields
 
-        private const string SocField = "SOC";
         private const string RelatedSkillsField = "RelatedSkills";
         private const string RelatedInterestsField = "RelatedInterests";
         private const string RelatedEnablersField = "RelatedEnablers";
@@ -85,7 +85,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfile.DigitalSkillsLevel))
             };
 
-            var socItem = dynamicContentExtensions.GetRelatedItems(content, SocField, 1).FirstOrDefault();
+            var socItem = dynamicContentExtensions.GetRelatedItems(content, Constants.SocField, 1).FirstOrDefault();
             if (socItem != null)
             {
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));

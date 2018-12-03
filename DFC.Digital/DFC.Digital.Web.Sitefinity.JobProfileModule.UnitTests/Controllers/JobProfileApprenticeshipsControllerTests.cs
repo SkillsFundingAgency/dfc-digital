@@ -90,6 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 ApprenticeshipLocationDetails =
                     nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
+                ApprenticeshipWageTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipWageTitle),
                 MainSectionTitle = nameof(JobProfileApprenticeshipsController.MainSectionTitle),
                 MaxApprenticeshipCount = maxApp
             };
@@ -173,6 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 {
                     ApprenticeVacancies = new List<ApprenticeVacancy>(),
                     ApprenticeshipSectionTitle = $"dummy {nameof(JobProfileApprenticeshipViewModel.ApprenticeshipSectionTitle)}",
+                    WageTitle = $"dummy {nameof(JobProfileApprenticeshipViewModel.WageTitle)}",
                     LocationDetails = $"dummy {nameof(JobProfileApprenticeshipViewModel.LocationDetails)}",
                     ApprenticeshipText = $"dummy {nameof(JobProfileApprenticeshipViewModel.ApprenticeshipText)}",
                     MainSectionTitle = $"dummy {nameof(JobProfileApprenticeshipViewModel.MainSectionTitle)}",
@@ -231,6 +233,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 NoVacancyText = nameof(JobProfileApprenticeshipsController.NoVacancyText),
                 ApprenticeshipLocationDetails = nameof(JobProfileApprenticeshipsController.ApprenticeshipLocationDetails),
                 ApprenticeshipSectionTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipSectionTitle),
+                ApprenticeshipWageTitle = nameof(JobProfileApprenticeshipsController.ApprenticeshipWageTitle),
                 MainSectionTitle = nameof(JobProfileApprenticeshipsController.MainSectionTitle),
                 DefaultJobProfileUrlName = nameof(JobProfileApprenticeshipsController.DefaultJobProfileUrlName),
                 MaxApprenticeshipCount = 2

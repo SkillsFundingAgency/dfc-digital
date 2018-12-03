@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AddWeightingAttribute.cs" />
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="CMSExtension\Interfaces\IUserRepository.cs" />
     <Compile Include="CMSExtension\Model\ApprenticeshipVacancyReport.cs" />

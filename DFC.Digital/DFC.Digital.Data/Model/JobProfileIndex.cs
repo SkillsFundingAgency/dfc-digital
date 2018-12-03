@@ -15,7 +15,7 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Title { get; set; }
 

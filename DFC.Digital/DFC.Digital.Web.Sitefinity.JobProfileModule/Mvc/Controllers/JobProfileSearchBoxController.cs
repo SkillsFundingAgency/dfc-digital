@@ -150,6 +150,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Text when Salary does not have values.  If you change this value, you will also need to change the reciprocal value in JobProfileDetails widget on 'Job profiles' page.")]
         public string SalaryBlankText { get; set; } = "Variable";
 
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the ShowComputedSearchTerm .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Show Computed Search Term")]
+        public bool ShowComputedSearchTerm { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the useraw .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Use Raw Search Term")]
+        public bool UseRawSearchTerm { get; set; } = false;
+
         #endregion Public Properties
 
         #region Actions
@@ -207,19 +225,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </summary>
         /// <param name="searchTerm">searchParam</param>
         /// <param name="page">page</param>
-        /// <param name="trace">shows the search term</param>
-        /// <param name="useraw">skip computation</param>
         /// <returns>result</returns>
         [HttpGet]
         [RelativeRoute("")]
-        public ActionResult Index(string searchTerm, int page = 1, bool trace = false, bool useraw = false)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             switch (CurrentPageMode)
             {
                 case SearchWidgetPageMode.SearchResults:
                     //Damn!!!! Sitefinity doesnt support Async await
                     //https://feedback.telerik.com/Project/153/Feedback/Details/165662-mvc-ability-to-use-async-actions-in-mvc-widgets
-                    return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(searchTerm, page, trace, useraw));
+                    return asyncHelper.Synchronise(() => DisplaySearchResultsAsync(searchTerm, page));
 
                 case SearchWidgetPageMode.Landing:
                 default:
@@ -290,7 +306,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }
 
-        private async Task<ActionResult> DisplaySearchResultsAsync(string searchTerm, int page, bool trace, bool useraw)
+        private async Task<ActionResult> DisplaySearchResultsAsync(string searchTerm, int page)
         {
             var resultModel = new JobProfileSearchResultViewModel
             {
@@ -301,13 +317,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                 JobProfileCategoryPage = JobProfileCategoryPage,
                 SalaryBlankText = SalaryBlankText,
-                ShowSearchedTerm = trace
+                ShowSearchedTerm = ShowComputedSearchTerm
             };
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 var pageNumber = page > 0 ? page : 1;
-                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize, UseRawSearchTerm = useraw });
+                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize, UseRawSearchTerm = UseRawSearchTerm });
                 var spellCheckTask = spellcheckService.CheckSpellingAsync(searchTerm);
 
                 await Task.WhenAll(searchTask, spellCheckTask);

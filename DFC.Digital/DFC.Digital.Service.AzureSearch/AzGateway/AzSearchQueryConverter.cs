@@ -23,6 +23,7 @@ namespace DFC.Digital.Service.AzureSearch
                 Top = properties.Count,
                 QueryType = QueryType.Full,
                 OrderBy = properties.OrderByFields,
+                ScoringProfile = properties.ScoringProfile
             };
         }
 

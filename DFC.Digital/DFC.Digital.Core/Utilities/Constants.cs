@@ -4,7 +4,6 @@
     public static class Constants
     {
         public const string KeysSearchServiceName = "DFC.Digital.SearchServiceName";
-        public const string KeysSearchServiceAdminApiKey = "DFC.Digital.SearchServiceAdminAPIKey";
         public const string AssetCacheExpiryTimeMins = "DFC.Digital.AssetCacheExpiryTimeMins";
         public const string GovUkNotifyApiKey = "DFC.Digital.GovUkNotifyAPIKey";
         public const string GovUkNotifyTemplateId = "DFC.Digital.GovUkNotifyTemplateId";

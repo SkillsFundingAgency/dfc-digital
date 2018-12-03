@@ -162,59 +162,5 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
         {
             results?.Results.Count().Should().Be(pageLimit);
         }
-
-        [Given(@"I have a list of all alterantive title for each jop profile")]
-        public void GivenIHaveAListOfAllAlterantiveTitleForEachJopProfile()
-        {
-            OutputHelper.WriteLine($"Search for * to get all profile");
-            try
-            {
-                SearchResult<JobProfileIndex> searchResults = searchQueryService.Search("*",  new SearchProperties { Count = 10000 });
-                OutputHelper.WriteLine($"Got {searchResults.Count} profiles to check for alternative title");
-                ScenarioContext.Current.Add(AllProfileResultList, searchResults);
-            }
-            catch (Exception ex)
-            {
-                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
-            }
-        }
-
-        [When(@"I seach by each alternative title for each of the  job profiles")]
-        public void WhenISeachByEachAlternativeTitleForEachOfTheJobProfiles()
-        {
-            var allProfiles = (SearchResult<JobProfileIndex>)ScenarioContext.Current[AllProfileResultList];
-            var searchProperties = new SearchProperties { Count = 10 };
-            var testFailuresList = new List<string>();
-
-            foreach (var profile in allProfiles.Results)
-            {
-                foreach (var alternativeTitle in profile.ResultItem.AlternativeTitle)
-                {
-                    SearchResult<JobProfileIndex> alternativeTitleResult = searchQueryService.Search(alternativeTitle, searchProperties);
-                    if (alternativeTitleResult is null || !alternativeTitleResult.Results.Where(p => p.ResultItem.Title == profile.ResultItem.Title).Any())
-                    {
-                        testFailuresList.Add($"Title:{profile.ResultItem.Title} - Alterantive Title:{alternativeTitle}");
-                    }
-                }
-            }
-
-            ScenarioContext.Current.Add(AlternativeTitleFailuresList, testFailuresList);
-        }
-
-        [Then(@"all the results returned should have the job profile with the matching alterantive tag in the first position")]
-        public void ThenAllTheResultsReturendShouldHaveTheJobProfileWithTheMatchingAlterantiveTagInTheFirstPosition()
-        {
-            var alternativeTitleFailures = (List<string>)ScenarioContext.Current[AlternativeTitleFailuresList];
-            if (alternativeTitleFailures.Count() > 0)
-            {
-                OutputHelper.WriteLine($"Total Failures: {alternativeTitleFailures.Count()} searches. The following profiles do not appear in the first position when searched by the indicated alterantive title");
-                foreach (var item in alternativeTitleFailures)
-                {
-                    OutputHelper.WriteLine(item);
-                }
-            }
-
-            alternativeTitleFailures.Count().Should().Be(0);
-        }
     }
 }

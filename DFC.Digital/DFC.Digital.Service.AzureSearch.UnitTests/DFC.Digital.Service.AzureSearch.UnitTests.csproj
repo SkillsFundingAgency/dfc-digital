@@ -110,6 +110,7 @@
     <Compile Include="DfcBuildExactMatchSearch.cs" />
     <Compile Include="DfcBuildFilterServiceTests.cs" />
     <Compile Include="AzGateway\TestSuggestBuilder.cs" />
+    <Compile Include="DfcJobProfileSearchResultsManipulatorTests.cs" />
     <Compile Include="DfcSearchQueryBuilderTests.cs" />
     <Compile Include="DfcSearchQueryServiceTests.cs" />
     <Compile Include="PreSearchFilterStateManagerTests.cs" />

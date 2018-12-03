@@ -7,11 +7,11 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
 {
-    public class JobProfileSearchResultsManipuulator : IJobProfileSearchResultsManipulator
+    public class JobProfileSearchResultsManipulator : IJobProfileSearchResultsManipulator
     {
         public SearchResult<JobProfileIndex> ReorderForAlterantiveTitle(SearchResult<JobProfileIndex> searchResult, string searchTerm)
         {
-            var jobprofileWithSearchTermInAlterantiveTitle = searchResult.Results.Where(p => p.ResultItem.AlternativeTitle.Any(t => t.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))).FirstOrDefault();
+            var jobprofileWithSearchTermInAlterantiveTitle = searchResult?.Results.Where(p => p.ResultItem.AlternativeTitle.Any(t => t.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))).FirstOrDefault();
 
             //The results contain a profile and its not at the top.
             if (jobprofileWithSearchTermInAlterantiveTitle != null && jobprofileWithSearchTermInAlterantiveTitle.Rank != 1)

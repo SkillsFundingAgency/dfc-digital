@@ -12,6 +12,8 @@ namespace DFC.Digital.Data.Model
     /// <seealso cref="DFC.Digital.Data.Interfaces.IDigitalDataModel" />
     public class JobProfile : IDigitalDataModel
     {
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Gets or sets the title.
         /// </summary>

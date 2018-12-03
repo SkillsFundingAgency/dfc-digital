@@ -20,6 +20,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private readonly IDynamicModuleConverter<JobProfile> converter;
         private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterForWITOnly;
         private readonly IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly;
+        private readonly IDynamicModuleConverter<JobProfileOverloadSearchExtended> converterForSearchExtended;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private Dictionary<string, JobProfile> cachedJobProfiles = new Dictionary<string, JobProfile>();
 
@@ -33,7 +34,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
             IDynamicContentExtensions dynamicContentExtensions,
             IDynamicModuleRepository<SocSkillMatrix> socSkillRepository,
             IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight,
-            IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly)
+            IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly,
+            IDynamicModuleConverter<JobProfileOverloadSearchExtended> converterForSearchExtended)
         {
             this.repository = repository;
             this.converter = converter;
@@ -41,6 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             this.socSkillRepository = socSkillRepository;
             this.converterForWITOnly = converterLight;
             this.converterForSearchableFieldsOnly = converterForSearchableFieldsOnly;
+            this.converterForSearchExtended = converterForSearchExtended;
         }
 
         #endregion Ctor
@@ -80,6 +83,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
         {
             var content = repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live));
+
             return converterForSearchableFieldsOnly.ConvertFrom(content);
         }
 
@@ -99,6 +103,24 @@ namespace DFC.Digital.Repository.SitefinityCMS
             }
 
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();
+        }
+
+        public IEnumerable<JobProfileOverloadSearchExtended> GetSearchJobProfiles()
+        {
+            var jobProfiles = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
+
+            if (jobProfiles.Any())
+            {
+                var jobProfilesList = new List<JobProfileOverloadSearchExtended>();
+                foreach (var jobProfile in jobProfiles)
+                {
+                    jobProfilesList.Add(converterForSearchExtended.ConvertFrom(jobProfile));
+                }
+
+                return jobProfilesList;
+            }
+
+            return Enumerable.Empty<JobProfileOverloadSearchExtended>();
         }
 
         public RepoActionResult UpdateSocSkillMatrices(JobProfileOverloadForWhatItTakes jobProfile, IEnumerable<SocSkillMatrix> socSkillMatrices)

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
@@ -10,5 +11,7 @@ namespace DFC.Digital.Data.Interfaces
         void PopulateRelatedFieldsWithUrl();
 
         Task<JobProfileSalary> PopulateSalary(string socCode, string jobProfileUrlName);
+
+        IEnumerable<JobProfileOverloadSearchExtended> GetAllSearchProfiles();
     }
 }

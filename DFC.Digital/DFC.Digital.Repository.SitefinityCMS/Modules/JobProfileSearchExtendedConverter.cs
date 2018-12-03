@@ -1,7 +1,5 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,7 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class JobProfileConverter : IDynamicModuleConverter<JobProfile>
+    public class JobProfileSearchExtendedConverter : IDynamicModuleConverter<JobProfileOverloadSearchExtended>
     {
         #region Fields
 
@@ -35,7 +33,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public JobProfileConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter)
+        public JobProfileSearchExtendedConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
             this.htbContentPropertyConverter = htbContentPropertyConverter;
@@ -45,9 +43,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #endregion Ctor
 
-        public JobProfile ConvertFrom(DynamicContent content)
+        public JobProfileOverloadSearchExtended ConvertFrom(DynamicContent content)
         {
-            var jobProfile = new JobProfile
+            var jobProfile = new JobProfileOverloadSearchExtended
             {
                 Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(JobProfile.Id)),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
@@ -97,6 +95,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingHoursDetails), nameof(JobProfile.WorkingHoursDetails)).FirstOrDefault();
             jobProfile.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPattern), nameof(JobProfile.WorkingPattern)).FirstOrDefault();
             jobProfile.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfile.WorkingPatternDetails), nameof(JobProfile.WorkingPatternDetails)).FirstOrDefault();
+
+            jobProfile.JobProfileSpecialism = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.JobProfileSpecialism), nameof(JobProfileOverloadSearchExtended.JobProfileSpecialism));
+            jobProfile.ApprenticeshipEntryRequirements = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.ApprenticeshipEntryRequirements), nameof(JobProfileOverloadSearchExtended.ApprenticeshipEntryRequirements));
+            jobProfile.UniversityEntryRequirements = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.UniversityEntryRequirements), nameof(JobProfileOverloadSearchExtended.UniversityEntryRequirements));
+            jobProfile.CollegeEntryRequirements = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.CollegeEntryRequirements), nameof(JobProfileOverloadSearchExtended.CollegeEntryRequirements));
+            jobProfile.JobProfileCategories = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.JobProfileCategories), nameof(JobProfileOverloadSearchExtended.JobProfileCategories));
+            jobProfile.HiddenAlternativeTitle = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.HiddenAlternativeTitle), nameof(JobProfileOverloadSearchExtended.HiddenAlternativeTitle));
 
             //PSF
             jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);

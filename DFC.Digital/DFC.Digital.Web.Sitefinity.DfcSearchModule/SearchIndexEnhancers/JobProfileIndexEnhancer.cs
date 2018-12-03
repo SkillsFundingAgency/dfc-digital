@@ -84,6 +84,11 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             return salary;
         }
 
+        public IEnumerable<JobProfileOverloadSearchExtended> GetAllSearchProfiles()
+        {
+            return jobProfileRepository.GetSearchJobProfiles();
+        }
+
         private IEnumerable<string> GetJobProfileCategoriesWithUrl()
         {
             var categories = jobProfileCategoryRepository.GetByIds(JobProfile.JobProfileCategoryIdCollection);

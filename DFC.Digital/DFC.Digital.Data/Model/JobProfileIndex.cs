@@ -60,5 +60,26 @@ namespace DFC.Digital.Data.Model
 
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> UniversityEntryRequirements { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> CollegeEntryRequirements { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> ApprenticeshipEntryRequirements { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeMoreInformationCareerTips { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherInformationProfessionalAndIndustryBodies { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherInformationFurtherInformation { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataIntroText { get; set; }
     }
 }

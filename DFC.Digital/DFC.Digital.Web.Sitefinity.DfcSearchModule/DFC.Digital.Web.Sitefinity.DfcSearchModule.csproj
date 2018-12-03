@@ -262,6 +262,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\DfcSearchModuleAutofacModule.cs" />
+    <Compile Include="Config\DfcSearchModuleAutomapperProfile.cs" />
     <Compile Include="Extensions\HelperExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SearchIndexEnhancers\JobProfileIndexEnhancer.cs" />

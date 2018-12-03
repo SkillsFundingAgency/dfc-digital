@@ -1,7 +1,7 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -69,6 +69,46 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
 
             applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got {results.Count()} salary info and {results.Count(r => r.StarterSalary == 0)} results that have salary missing. But {indexes.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {indexes.Values.Count()}");
+            return indexes.Values;
+        }
+
+        internal static IEnumerable<JobProfileIndex> ReindexConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, IMapper mapper)
+        {
+            var measure = Stopwatch.StartNew();
+            Dictionary<string, JobProfileIndex> indexes = new Dictionary<string, JobProfileIndex>();
+
+            List<Task<JobProfileSalary>> salaryPopulation = new List<Task<JobProfileSalary>>();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<DfcSearchModuleAutomapperProfile>();
+            });
+            mapper = config.CreateMapper();
+
+            var jobProfiles = jobProfileIndexEnhancer.GetAllSearchProfiles();
+            var jobProfileDocuments = mapper.Map<IEnumerable<JobProfileIndex>>(jobProfiles);
+
+            // var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
+            foreach (var item in jobProfileDocuments)
+            {
+                //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
+                indexes.Add(item.UrlName.ToLower(), item);
+            }
+
+            //var results = Task.Run(() => Task.WhenAll(salaryPopulation.ToArray())).GetAwaiter().GetResult();
+            //foreach (var idx in indexes)
+            //{
+            //    var item = results.SingleOrDefault(r => r.JobProfileName.Equals(idx.Key, StringComparison.InvariantCultureIgnoreCase));
+            //    if (item == null)
+            //    {
+            //        applicationLogger.Warn($"WARN: Failed to get salary for '{idx.Key}'.");
+            //        continue;
+            //    }
+
+            //    idx.Value.SalaryStarter = item.StarterSalary;
+            //    idx.Value.SalaryExperienced = item.SalaryExperienced;
+            //}
+            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got  salary info and results that have salary missing. But {indexes.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {indexes.Values.Count()}");
             return indexes.Values;
         }
     }

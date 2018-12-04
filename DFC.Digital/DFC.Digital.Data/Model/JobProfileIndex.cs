@@ -71,7 +71,7 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> ApprenticeshipEntryRequirements { get; set; }
 
         [IsSearchable, IsFilterable]
-        public string HowToBecomeMoreInformationCareerTips { get; set; }
+        public string HowToBecomeDataFurtherInformationCareerTips { get; set; }
 
         [IsSearchable, IsFilterable]
         public string HowToBecomeDataFurtherInformationProfessionalAndIndustryBodies { get; set; }
@@ -81,5 +81,37 @@ namespace DFC.Digital.Data.Model
 
         [IsSearchable, IsFilterable]
         public string HowToBecomeDataIntroText { get; set; }
+
+        //[IsSearchable, IsFilterable]
+        //public bool WhatYouWillDoDataIsCadReady { get; set; }
+        [IsSearchable, IsFilterable]
+        public string WhatYouWillDoDataDailyTasks { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public IEnumerable<string> WhatYouWillDoDataLocations { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public IEnumerable<string> WhatYouWillDoDataUniforms { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public IEnumerable<string> WhatYouWillDoDataEnvironments { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string WhatYouWillDoDataIntroduction { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherRoutesWork { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherRoutesVolunteering { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherRoutesDirectApplication { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public string HowToBecomeDataFurtherRoutesOtherRoutes { get; set; }
+
+        [IsSearchable, IsFilterable]
+        public IEnumerable<string> HowToBecomeDataRegistrations { get; set; }
     }
 }

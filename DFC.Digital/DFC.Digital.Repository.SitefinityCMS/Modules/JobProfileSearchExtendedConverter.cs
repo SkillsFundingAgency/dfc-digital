@@ -23,6 +23,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string OtherRequirementsField = "OtherRequirements";
         private const string RelatedRestrictionsField = "RelatedRestrictions";
         private const string RelatedSkillField = "RelatedSkill";
+        private const string RelatedRegistrationsField = "RelatedRegistrations";
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -102,6 +103,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.CollegeEntryRequirements = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.CollegeEntryRequirements), nameof(JobProfileOverloadSearchExtended.CollegeEntryRequirements));
             jobProfile.JobProfileCategories = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.JobProfileCategories), nameof(JobProfileOverloadSearchExtended.JobProfileCategories));
             jobProfile.HiddenAlternativeTitle = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileOverloadSearchExtended.HiddenAlternativeTitle), nameof(JobProfileOverloadSearchExtended.HiddenAlternativeTitle));
+            jobProfile.HowToBecomeDataRegistrations = GetInfoItems(content, RelatedRegistrationsField);
 
             //PSF
             jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
@@ -131,6 +133,22 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return restrictions;
+        }
+
+        private IEnumerable<string> GetInfoItems(DynamicContent content, string relatedField)
+        {
+            var infoItems = new List<string>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    infoItems.Add(
+                        $"{dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title))} , {dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))}");
+                }
+            }
+
+            return infoItems;
         }
     }
 }

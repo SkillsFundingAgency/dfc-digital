@@ -15,5 +15,7 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> ApprenticeshipEntryRequirements { get; set; }
 
         public IEnumerable<string> JobProfileCategories { get; set; }
+
+        public IEnumerable<string> HowToBecomeDataRegistrations { get; set; }
     }
 }

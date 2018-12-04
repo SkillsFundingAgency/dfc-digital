@@ -7,6 +7,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
     {
         public string Name => ConfigurationManager.AppSettings["DFC.Digital.JobProfileSearchIndex"]?.ToLower();
 
-        public string AccessKey => ConfigurationManager.AppSettings.Get("DFC.Digital.DFC.Digital.SearchServiceQueryAPIKey");
+        public string AccessKey => ConfigurationManager.AppSettings.Get("DFC.Digital.SearchServiceAdminAPIKey");
     }
 }

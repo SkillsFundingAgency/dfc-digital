@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App.config.template" />
     <None Include="Features\JobProfileSearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>

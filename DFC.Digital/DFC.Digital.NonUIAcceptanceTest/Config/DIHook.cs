@@ -27,12 +27,7 @@ namespace DFC.Digital.NonUIAcceptanceTest
 
         [BeforeScenario(Order = 10)]
         public void RegisterToDiReolvedFromAutofac()
-        {
-            if (!scenarioContainer.IsRegistered<ISearchService<JobProfileIndex>>())
-            {
-                scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchService<JobProfileIndex>>());
-            }
-
+        {          
             if (!scenarioContainer.IsRegistered<ISearchQueryService<JobProfileIndex>>())
             {
                 scenarioContainer.RegisterInstanceAs(autofac.Resolve<ISearchQueryService<JobProfileIndex>>());

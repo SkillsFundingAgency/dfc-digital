@@ -114,10 +114,19 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             var measure = Stopwatch.StartNew();
             try
             {
-                if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(indexName) && index.ToLower().Contains("lab-extended") && documents.Count() > 1)
                 {
                     activeIndex = index;
-                    var jpIndexDoc = documents.Count() > 1 ? documents.ReindexConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper, mapper) : documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper);
+                    var jpIndexDoc = documents.ReindexConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper, mapper);
+
+                    //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
+                    var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);
+                    asyncHelper.Synchronise(() => searchService?.PopulateIndexAsync(copy));
+                }
+                else if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
+                {
+                    activeIndex = index;
+                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper);
 
                     //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
                     var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);

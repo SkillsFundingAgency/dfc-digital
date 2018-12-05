@@ -75,15 +75,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         internal static IEnumerable<JobProfileIndex> ReindexConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, IMapper mapper)
         {
             var measure = Stopwatch.StartNew();
-            Dictionary<string, JobProfileIndex> indexes = new Dictionary<string, JobProfileIndex>();
-
-            List<Task<JobProfileSalary>> salaryPopulation = new List<Task<JobProfileSalary>>();
-
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<DfcSearchModuleAutomapperProfile>();
-            });
-            mapper = config.CreateMapper();
+            var documentsItems = new Dictionary<string, JobProfileIndex>();
 
             var jobProfiles = jobProfileIndexEnhancer.GetAllSearchProfiles();
             var jobProfileDocuments = mapper.Map<IEnumerable<JobProfileIndex>>(jobProfiles);
@@ -92,7 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             foreach (var item in jobProfileDocuments)
             {
                 //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
-                indexes.Add(item.UrlName.ToLower(), item);
+                documentsItems.Add(item.UrlName.ToLower(), item);
             }
 
             //var results = Task.Run(() => Task.WhenAll(salaryPopulation.ToArray())).GetAwaiter().GetResult();
@@ -108,8 +100,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             //    idx.Value.SalaryStarter = item.StarterSalary;
             //    idx.Value.SalaryExperienced = item.SalaryExperienced;
             //}
-            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got  salary info and results that have salary missing. But {indexes.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {indexes.Values.Count()}");
-            return indexes.Values;
+            applicationLogger.Info($"Took {measure.Elapsed} to complete converting to JP index. And got  salary info and results that have salary missing. But {documentsItems.Values.Count(i => i.SalaryStarter == 0)} indexes missing salary information! from a total of {documentsItems.Values.Count()}");
+            return documentsItems.Values;
         }
     }
 }

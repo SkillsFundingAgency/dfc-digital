@@ -116,6 +116,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfile;
         }
 
+        private static string StripHtml(string html)
+        {
+            return Telerik.Sitefinity.Utilities.Extensions.StripHtmlTags(html);
+        }
+
         private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
         {
             var restrictions = new List<Restriction>();
@@ -144,7 +149,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 foreach (var relatedItem in relatedItems)
                 {
                     infoItems.Add(
-                        $"{dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title))} , {dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))}");
+                        $"{dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title))} ,  {StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info)))}");
                 }
             }
 

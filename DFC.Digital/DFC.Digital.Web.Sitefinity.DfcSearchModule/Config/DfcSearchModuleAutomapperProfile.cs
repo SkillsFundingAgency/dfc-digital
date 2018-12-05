@@ -8,6 +8,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
     {
         public DfcSearchModuleAutomapperProfile()
         {
+            CreateMap<JobProfileIndex, JobProfileIndex>();
             CreateMap<JobProfileOverloadSearchExtended, JobProfileIndex>()
                 .ForMember(m => m.AlternativeTitle, ops => ops.MapFrom(src => string.IsNullOrWhiteSpace(src.AlternativeTitle) ? Enumerable.Empty<string>() : src.AlternativeTitle.Split(',')))
                 .ForMember(m => m.Interests, ops => ops.MapFrom(src => src.RelatedInterests))

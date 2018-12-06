@@ -15,11 +15,12 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Title { get; set; }
 
         [IsSearchable, IsFilterable, IsSuggestible]
-        [Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
         public string Overview { get; set; }
@@ -38,9 +39,11 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> JobProfileSpecialism { get; set; }
 
         [IsSearchable, IsFilterable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> HiddenAlternativeTitle { get; set; }
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }

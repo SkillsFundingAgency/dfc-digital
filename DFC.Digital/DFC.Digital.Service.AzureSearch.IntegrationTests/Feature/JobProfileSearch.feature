@@ -499,13 +499,13 @@ When I search using the search term 'engineerhat'
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobCategories' with equal search weight. 
 	Given the following job profiles exist:
          | Title           | AlternativeTitle | Overview     | JobProfileCategories     |
-         | search enhancer | Lift technician  | enhancements |                          |
+         | search master   | Lift technician  | enhancements |                          |
          | search analyst  |                  |              | enhancements,derivatives |
          | search engineer |                  |              | e                        |
 When I search using the search term 'enhancements'
 	Then the result list will contain '2' profile(s)
 	And the profiles are listed in no specific order:
-         | Title           | AlternativeTitle | Overview     | JobProfileCategories     |
-         | search enhancer | Lift technician  | enhancements |                          |
-         | search analyst  |                  |              | enhancements,derivatives |
+         | Title          | AlternativeTitle | Overview     | JobProfileCategories     |
+         | search master  | Lift technician  | enhancements |                          |
+         | search analyst |                  |              | enhancements,derivatives |
    

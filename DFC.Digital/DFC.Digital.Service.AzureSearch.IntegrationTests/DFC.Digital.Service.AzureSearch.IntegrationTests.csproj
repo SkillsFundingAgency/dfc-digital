@@ -233,10 +233,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileSearch.feature</DependentUpon>
     </Compile>
+    <Compile Include="Feature\SingleTermDerivativeSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingleTermDerivativeSearch.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\JobProfileAutosuggestSteps.cs" />
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
+    <Compile Include="Steps\SingleTermDerivativeSearchSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -266,6 +272,10 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <None Include="Feature\SingleTermDerivativeSearch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SingleTermDerivativeSearch.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

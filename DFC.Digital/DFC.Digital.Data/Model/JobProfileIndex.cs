@@ -61,5 +61,20 @@ namespace DFC.Digital.Data.Model
 
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
+
+        [IsSearchable]
+        public string CollegeRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string UniversityRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string ApprenticeshipRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string WydDayToDayTasks { get; set; }
+
+        [IsSearchable]
+        public string CareerPathAndProgression { get; set; }
     }
 }

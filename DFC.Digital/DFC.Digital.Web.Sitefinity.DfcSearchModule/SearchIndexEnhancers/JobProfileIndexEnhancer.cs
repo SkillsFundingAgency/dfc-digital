@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             this.applicationLogger = applicationLogger;
         }
 
-        public JobProfile JobProfile { get; private set; }
+        public JobProfileOverloadForSearch JobProfile { get; private set; }
 
         public void Initialise(JobProfileIndex initialiseJobProfileIndex, bool isPublishing)
         {
@@ -41,9 +41,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 throw new ArgumentNullException(nameof(initialiseJobProfileIndex));
             }
 
-            this.JobProfile = jobProfileRepository.GetByUrlNameForSearchIndex(initialiseJobProfileIndex.UrlName, isPublishing);
-            this.jobProfileIndex = initialiseJobProfileIndex;
-            this.jobProfileIndex.SocCode = JobProfile?.SOCCode;
+            JobProfile = jobProfileRepository.GetByUrlNameForSearchIndex(initialiseJobProfileIndex.UrlName, isPublishing);
+            jobProfileIndex = initialiseJobProfileIndex;
+            PopulateCustomFields();
         }
 
         public void PopulateRelatedFieldsWithUrl()
@@ -88,6 +88,19 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             var categories = jobProfileCategoryRepository.GetByIds(JobProfile.JobProfileCategoryIdCollection);
             return categories.Select(c => $"{c.Title}|{c.Url}");
+        }
+
+        private void PopulateCustomFields()
+        {
+            if (JobProfile != null)
+            {
+                jobProfileIndex.SocCode = JobProfile.SOCCode;
+                jobProfileIndex.CareerPathAndProgression = JobProfile.SOCCode;
+                jobProfileIndex.WydDayToDayTasks = JobProfile.WYDDayToDayTasks;
+                jobProfileIndex.CollegeRelevantSubjects = JobProfile.CollegeRelevantSubjects;
+                jobProfileIndex.UniversityRelevantSubjects = JobProfile.UniversityRelevantSubjects;
+                jobProfileIndex.ApprenticeshipRelevantSubjects = JobProfile.ApprenticeshipRelevantSubjects;
+            }
         }
     }
 }

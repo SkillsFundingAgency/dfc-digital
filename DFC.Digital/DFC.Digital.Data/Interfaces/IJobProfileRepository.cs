@@ -14,7 +14,7 @@ namespace DFC.Digital.Data.Interfaces
 
         Type GetContentType();
 
-        JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
+        JobProfileOverloadForSearch GetByUrlNameForSearchIndex(string urlName, bool isPublishing);
 
         IEnumerable<JobProfileOverloadForWhatItTakes> GetLiveJobProfiles();
 

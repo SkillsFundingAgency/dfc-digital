@@ -496,7 +496,7 @@ When I search using the search term 'engineerhat'
          | Technologist       |                  | engineerhat          |                        |
          | Another technician |                  |                      | engineerhat            |	
 
-Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobCategories' with equal search weight. 
+Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:
          | Title           | AlternativeTitle | Overview     | JobProfileCategories     |
          | search master   | Lift technician  | enhancements |                          |

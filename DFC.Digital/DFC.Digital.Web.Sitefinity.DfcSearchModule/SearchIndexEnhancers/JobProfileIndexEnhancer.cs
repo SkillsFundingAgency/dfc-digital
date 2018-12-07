@@ -95,7 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             if (JobProfile != null)
             {
                 jobProfileIndex.SocCode = JobProfile.SOCCode;
-                jobProfileIndex.CareerPathAndProgression = JobProfile.SOCCode;
+                jobProfileIndex.CareerPathAndProgression = JobProfile.CareerPathAndProgression;
                 jobProfileIndex.WydDayToDayTasks = JobProfile.WYDDayToDayTasks;
                 jobProfileIndex.CollegeRelevantSubjects = JobProfile.CollegeRelevantSubjects;
                 jobProfileIndex.UniversityRelevantSubjects = JobProfile.UniversityRelevantSubjects;

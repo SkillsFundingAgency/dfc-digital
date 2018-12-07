@@ -31,7 +31,12 @@ namespace DFC.Digital.AutomationTest.Utilities
                     EntryQualifications = item.GetConditionalData(nameof(JobProfileIndex.EntryQualifications), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     TrainingRoutes = item.GetConditionalData(nameof(JobProfileIndex.TrainingRoutes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     PreferredTaskTypes = item.GetConditionalData(nameof(JobProfileIndex.PreferredTaskTypes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    CareerPathAndProgression = item.GetConditionalData(nameof(JobProfileIndex.CareerPathAndProgression), string.Empty),
+                    CollegeRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.CollegeRelevantSubjects), string.Empty),
+                    UniversityRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.UniversityRelevantSubjects), string.Empty),
+                    ApprenticeshipRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.ApprenticeshipRelevantSubjects), string.Empty),
+                    WydDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WydDayToDayTasks), string.Empty)
                 };
             }
         }

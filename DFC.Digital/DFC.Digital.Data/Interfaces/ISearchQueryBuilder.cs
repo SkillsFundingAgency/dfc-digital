@@ -14,6 +14,6 @@ namespace DFC.Digital.Data.Interfaces
 
         string EscapeSpecialCharactersInSearchTerm(string searchTerm, SearchProperties properties);
 
-        string TrimSuffixes(string searchTerm, SearchProperties properties);
+        string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties);
     }
 }

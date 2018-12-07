@@ -20,7 +20,7 @@ namespace DFC.Digital.Service.AzureSearch
         public override SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var trimmedSearchTerm = queryBuilder.TrimSuffixes(cleanedSearchTerm, properties);
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
             var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
             var res = base.Search($"{cleanedSearchTerm} {partialTermToSearch}", properties ?? new SearchProperties());
 
@@ -36,7 +36,7 @@ namespace DFC.Digital.Service.AzureSearch
         public override async Task<SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var trimmedSearchTerm = queryBuilder.TrimSuffixes(cleanedSearchTerm, properties);
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
             var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
             var res = await base.SearchAsync($"{cleanedSearchTerm} {partialTermToSearch}", properties ?? new SearchProperties());
 

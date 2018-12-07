@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using DFC.Digital.AutomationTest.Utilities;
+﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -21,7 +19,11 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
         private ISearchQueryService<JobProfileIndex> searchQueryService;
         private IAsyncHelper asyncHelper;
 
-        public SingleTermDerivativeSearchSteps(ITestOutputHelper outputHelper, ISearchService<JobProfileIndex> searchService, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
+        public SingleTermDerivativeSearchSteps(
+            ITestOutputHelper outputHelper,
+            ISearchService<JobProfileIndex> searchService,
+            ISearchIndexConfig searchIndex,
+            ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
             this.searchService = searchService;
@@ -60,12 +62,13 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             }
         }
 
-        [Then(@"the result will contain (.*) profile greater than or equal to 1")]
-        public void ThenTheResultWillContainProfilesGreaterThanOrEqualTo(int profileCount)
+        [Then(@"the result will contain more than 1 result and '(.*)' should be in the first page")]
+        public void ThenTheResultWillContainMoreThanResultAndShouldBeInTheFirstPage(string jobProfile)
         {
             //Log results
-            OutputHelper.WriteLine($"Number of results expected {profileCount}  number returned {results.Results.Count()} actual result {results.ToJson()}");
-            results.Results.Count().Should().BeGreaterOrEqualTo(profileCount);
+            OutputHelper.WriteLine($"Expecte to see {jobProfile} in results, Number of results returned {results.Results.Count()} actual result {results.ToJson()}");
+            results.Results.Count().Should().BeGreaterOrEqualTo(1);
+            results.Results.Any(a => a.ResultItem.Title.Equals(jobProfile, StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
         }
     }
 }

@@ -112,25 +112,29 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
 
         [Theory]
         [InlineData("plumber", "plumb")] //er
+        [InlineData("offenders", "offend")] //ers
         [InlineData("fastest pest control technician", "fast pest control technician")] //est
         [InlineData("plumbing engineer", "plumb engine")] //ing
-        [InlineData("headless cms", "head cms")] //"less",
-        [InlineData("wonderful job", "wonder job")] //"ful",
-        [InlineData("possible thing", "poss thing")] //"ible",
-        [InlineData("Renewable energy engineer or Stable hand", "Renew energy engine or Stable hand")] //"able",
-        [InlineData("fitness instructor", "fit instruct")] //"ness"
-        [InlineData("Business development manager", "Busi develop manag")] //"ment"
+        [InlineData("Business development manager", "Business develop manag")] //"ment"
         [InlineData("Social media manager", "Soci media manag")] //al
-        [InlineData("Family support worker", "Fami support work")] //ly
-        [InlineData("installation and plumbing engineer", "install and plumb engine")] //ation
-        [InlineData("Information security analyst", "Inform secur analyst")] //ity
-        [InlineData("leakage operative sales executive", "leakage operat sales execut")] //ive
-        [InlineData("director or clock repairer", "direct or clock repair")] //or
+        [InlineData("installation and plumbing engineer", "install plumb engine")] //ation
+        [InlineData("director or clock repairer", "direct clock repair")] //or
+        [InlineData("pharmacology ecology", "pharmac ecolo")] //ology
+        [InlineData("optometry", "opto")] //metry
+        [InlineData("dietetics", "dietet")] //ics
+        [InlineData("laundrette", "laundr")] //ette
+        [InlineData("performance", "perform")] //ance
+        [InlineData("publicist", "public")] //ist
+        [InlineData("fisheries", "fisher")] //ies
+        [InlineData("diplomacy", "diplo")] //macy
+        [InlineData("director and clock repairer", "direct clock repair")] //and
+        [InlineData("the director", "direct")] //the
+        [InlineData("Hydrotherapy", "Hydrothera")] //therapy
         public void TrimSuffixesTest(string searchTerm, string expected)
         {
             var testObject = new DfcSearchQueryBuilder();
             var searchTermResult = testObject.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, new SearchProperties() { UseRawSearchTerm = false });
-            var trimmedOutput = testObject.TrimSuffixes(searchTermResult, new SearchProperties());
+            var trimmedOutput = testObject.TrimCommonWordsAndSuffixes(searchTermResult, new SearchProperties());
             trimmedOutput.Should().Be(expected);
         }
     }

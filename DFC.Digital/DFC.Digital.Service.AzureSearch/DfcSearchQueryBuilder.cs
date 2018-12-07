@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -106,7 +107,7 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        public string TrimSuffixes(string searchTerm, SearchProperties properties)
+        public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)
         {
             if (properties?.UseRawSearchTerm == true)
             {
@@ -116,10 +117,39 @@ namespace DFC.Digital.Service.AzureSearch
             var result = searchTerm.Any(char.IsWhiteSpace)
                 ? searchTerm
                    .Split(' ')
-                   .Aggregate(string.Empty, (current, term) => $"{current} {TrimSuffixFromSingleWord(term)}")
-                : TrimSuffixFromSingleWord(searchTerm);
+                   .Aggregate(string.Empty, (current, term) =>
+                   {
+                       if (IsCommonWord(term))
+                       {
+                           return $"{current}";
+                       }
+                       else
+                       {
+                           return $"{current} {TrimAndReplaceSuffixOnCurrentTerm(term)}";
+                       }
+                   })
+                : TrimAndReplaceSuffixOnCurrentTerm(searchTerm);
 
             return result.Trim();
+        }
+
+        private static string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        {
+            var trimmedWord = TrimSuffixFromSingleWord(term);
+            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
+            return replaceSuffix;
+        }
+
+        private static bool IsCommonWord(string term)
+        {
+            var commonWords = new[]
+            {
+                "and",
+                "or",
+                "the"
+            };
+
+            return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
         }
 
         private static string CreateFuzzyAndContainTerm(string trimmedTerm)
@@ -132,27 +162,41 @@ namespace DFC.Digital.Service.AzureSearch
             var suffixes = new[]
             {
                 "er",
+                "ers",
                 "est",
                 "ing",
-                "less",
-                "ful",
-                "ible",
-                "able",
-                "ness",
                 "ment",
                 "al",
-                "ly",
                 "ation",
-                "ity",
-                "ive",
                 "or",
                 "ology",
-                "py"
+                "metry",
+                "ics",
+                "ette",
+                "ance",
+                "ist",
+                "ies",
+                "macy",
             };
 
             var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
             var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
-            return trimmedResult.Length < 3 ? searchTerm.Substring(0, suffixToBeTrimmed.Length - 3) : trimmedResult;
+            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
+        }
+
+        private static string ReplaceSuffixFromSingleWord(string trimmedWord)
+        {
+            var replaceSuffixDictionary = new Dictionary<string, string>
+            {
+                ["therapy"] = "thera",
+                ["ology"] = "olo",
+            };
+
+            var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed.Key is null
+                ? trimmedWord
+                : $"{trimmedWord.Substring(0, trimmedWord.LastIndexOf(suffixToBeTrimmed.Key, StringComparison.OrdinalIgnoreCase))}{suffixToBeTrimmed.Value}";
+            return trimmedResult.Length < 3 ? trimmedWord : trimmedResult;
         }
     }
 }

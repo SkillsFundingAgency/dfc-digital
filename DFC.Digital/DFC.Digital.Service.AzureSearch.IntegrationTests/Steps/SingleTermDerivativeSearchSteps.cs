@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 
         private ITestOutputHelper OutputHelper { get; set; }
 
-        [Given(@"there was atleast '(.*)' job profile which have a title '(.*)' exist:")]
+        [Given(@"there was atleast (.*) job profile which have a title '(.*)' exist:")]
         public void GivenThereWasAtleastJobProfileWhichHaveATitleExistAsync(int profileCount, string title)
         {
             try
@@ -60,12 +60,12 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             }
         }
 
-        [Then(@"the result will contain '(.*)' profile(s) greater than or equal to 1")]
+        [Then(@"the result will contain (.*) profile greater than or equal to 1")]
         public void ThenTheResultWillContainProfilesGreaterThanOrEqualTo(int profileCount)
         {
             //Log results
-            OutputHelper.WriteLine($"Number of results expected {profileCount}  number returned {results?.Results.Count()} actual result {results?.ToJson()}");
-            results?.Results.Count().Should().BeGreaterOrEqualTo(profileCount);
+            OutputHelper.WriteLine($"Number of results expected {profileCount}  number returned {results.Results.Count()} actual result {results.ToJson()}");
+            results.Results.Count().Should().BeGreaterOrEqualTo(profileCount);
         }
     }
 }

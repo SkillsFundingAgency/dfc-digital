@@ -108,7 +108,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         public string TrimSuffixes(string searchTerm, SearchProperties properties)
         {
-            if (properties.UseRawSearchTerm)
+            if (properties?.UseRawSearchTerm == true)
             {
                 return searchTerm;
             }
@@ -146,11 +146,13 @@ namespace DFC.Digital.Service.AzureSearch
                 "ity",
                 "ive",
                 "or",
+                "ology",
+                "py"
             };
 
             var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
             var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
-            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
+            return trimmedResult.Length < 3 ? searchTerm.Substring(0, suffixToBeTrimmed.Length - 3) : trimmedResult;
         }
     }
 }

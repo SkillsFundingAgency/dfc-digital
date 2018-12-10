@@ -20,7 +20,7 @@ namespace DFC.Digital.Data.Model
         [IsSearchable, IsFilterable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
-        [IsSearchable]
+        [IsSearchable, AddWeighting(50)]
         public string Overview { get; set; }
 
         [IsFilterable, IsSortable, IsFacetable]
@@ -33,7 +33,7 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public string UrlName { get; set; }
 
-        [IsSearchable, IsFilterable]
+        [IsSearchable, IsFilterable, AddWeighting(50)]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]

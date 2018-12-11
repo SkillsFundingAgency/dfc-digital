@@ -190,6 +190,7 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 ["therapy"] = "thera",
                 ["ology"] = "olo",
+                ["techn"] = "technolo",
             };
 
             var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));

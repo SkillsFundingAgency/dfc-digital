@@ -498,16 +498,16 @@ When I search using the search term 'engineerhat'
 
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:
-         | Title           | AlternativeTitle | Overview     | JobProfileCategories     |
-         | search master   | Lift technician  | enhancements |                          |
-         | search analyst  |                  |              | enhancements,derivatives |
-         | search engineer |                  |              | e                        |
+         | Title | AlternativeTitle | Overview     | JobProfileCategories     |
+         | 5954A | x  | enhancements |                          |
+         | 5954B |                  |              | enhancements,derivatives |
+         | 5954C |                  |              | e                        |
 When I search using the search term 'enhancements'
 	Then the result list will contain '2' profile(s)
 	And the profiles are listed in no specific order:
-         | Title          | AlternativeTitle | Overview     | JobProfileCategories     |
-         | search master  | Lift technician  | enhancements |                          |
-         | search analyst |                  |              | enhancements,derivatives |
+         | Title | AlternativeTitle | Overview     | JobProfileCategories     |
+         | 5954A | x                | enhancements |                          |
+         | 5954B |                  |              | enhancements,derivatives |  
    
    Scenario: [DFC-5955 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:
@@ -515,10 +515,10 @@ When I search using the search term 'enhancements'
          | DFC-5955A | extrafields             |                            |                                |                  |                          |
          | DFC-5955B |                         | extrafields                | derivatives                    |                  |                          |
          | DFC-5955C |                         |                            | extrafields                    |                  |                          |
-         | DFC-5955D | Lift technician         |                            |                                | extrafields      |                          |
+         | DFC-5955D | cn                      |                            |                                | extrafields      |                          |
          | DFC-5955E |                         |                            | derivatives                    |                  | extrafields              |
          | DFC-5955F |                         |                            | e                              |                  |                          |
-         | DFC-5955G | Lift technician         |                            |                                |                  |                          |
+         | DFC-5955G | Lc                      |                            |                                |                  |                          |
          | DFC-5955H |                         |                            | derivatives                    |                  |                          |
          | DFC-5955I |                         | extrafields                | e                              |                  |                          |  
 When I search using the search term 'extrafields'
@@ -528,6 +528,6 @@ When I search using the search term 'extrafields'
        | DFC-5955A | extrafields             |                            |                                |                  |                          |
        | DFC-5955B |                         | extrafields                | derivatives                    |                  |                          |
        | DFC-5955C |                         |                            | extrafields                    |                  |                          |
-       | DFC-5955D | Lift technician         |                            |                                | extrafields      |                          |
+       | DFC-5955D | cn                      |                            |                                | extrafields      |                          |
        | DFC-5955E |                         |                            | derivatives                    |                  | extrafields              |
        | DFC-5955I |                         | extrafields                | e                              |                  |                          |

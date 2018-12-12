@@ -76,6 +76,6 @@ Feature: SingleTermDerivatives with suffix returns jobprofiles based upon releva
 			| Tattooer       | Tattooist                          |
 			| Technology     | Architectural technologist         |
 			| Technology     | Garment technologist               |
-			| Technology     | Food technologist                  |
+			| Technology     | Critical care technologist                  |
 			| Technology     | Leather technologist               |
 			| Technology     | Packaging technologist             |

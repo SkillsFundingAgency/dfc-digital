@@ -124,7 +124,6 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("dietetics", "dietet")] //ics
         [InlineData("laundrette", "laundr")] //ette
         [InlineData("performance", "perform")] //ance
-        [InlineData("publicist", "public")] //ist
         [InlineData("fisheries", "fisher")] //ies
         [InlineData("diplomacy", "diplo")] //macy
         [InlineData("director and clock repairer", "direct clock repair")] //and

@@ -174,7 +174,6 @@ namespace DFC.Digital.Service.AzureSearch
                 "ics",
                 "ette",
                 "ance",
-                "ist",
                 "ies",
                 "macy",
             };

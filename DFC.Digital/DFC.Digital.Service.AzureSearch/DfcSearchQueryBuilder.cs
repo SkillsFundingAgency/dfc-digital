@@ -106,6 +106,11 @@ namespace DFC.Digital.Service.AzureSearch
 
         public string BuildExactMatchSearch(string searchTerm)
         {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return string.Empty;
+            }
+
             if (searchTerm.Split(' ').Count() > 1)
             {
                 return "\"" + searchTerm + "\" ";

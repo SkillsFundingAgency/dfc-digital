@@ -13,12 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     internal static class HelperExtensions
     {
-        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper)
+        internal static IEnumerable<JobProfileIndex> ConvertToJobProfileIndex(this IEnumerable<IDocument> documents, IJobProfileIndexEnhancer jobProfileIndexEnhancer, IApplicationLogger applicationLogger)
         {
             var measure = Stopwatch.StartNew();
             Dictionary<string, JobProfileIndex> indexes = new Dictionary<string, JobProfileIndex>();
 
-            List<Task<JobProfileSalary>> salaryPopulation = new List<Task<JobProfileSalary>>();
+            var salaryPopulation = new List<Task<JobProfileSalary>>();
             var betaDocuments = documents.Where(d => Convert.ToBoolean(d.GetValue(nameof(JobProfile.IsImported)) ?? false) == false);
             foreach (var item in betaDocuments)
             {

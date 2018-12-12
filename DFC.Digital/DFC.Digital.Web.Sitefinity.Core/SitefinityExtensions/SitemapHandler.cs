@@ -5,17 +5,22 @@ using Telerik.Sitefinity.SitemapGenerator.Data;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public class SitemapHandler
+    public class SiteMapHandler
     {
         private readonly IJobProfileCategoryRepository categoryRepository;
 
-        public SitemapHandler(IJobProfileCategoryRepository categoryRepository)
+        public SiteMapHandler(IJobProfileCategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
 
-        public IEnumerable<SitemapEntry> ManipulateSitemap(List<SitemapEntry> entries)
+        public IEnumerable<SitemapEntry> ManipulateSiteMap(List<SitemapEntry> entries)
         {
+            if (entries == null)
+            {
+                return new List<SitemapEntry>();
+            }
+
             // Add categories
             var jobCategoryPageEntry = entries.FirstOrDefault(x => x.Location.ToUpperInvariant().EndsWith("/JOB-CATEGORIES"));
             if (jobCategoryPageEntry != null)

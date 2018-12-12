@@ -137,7 +137,18 @@ namespace DFC.Digital.Service.AzureSearch
         {
             var trimmedWord = TrimSuffixFromSingleWord(term);
             var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
-            return replaceSuffix;
+            var specialology = Specialologies(term, replaceSuffix);
+            return specialology;
+        }
+
+        private static string Specialologies(string term, string replacedSuffixTerm)
+        {
+            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            return indexOfOlogy > -1
+                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term.Substring(0, indexOfOlogy)}olo"
+                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
+                : replacedSuffixTerm;
         }
 
         private static bool IsCommonWord(string term)
@@ -163,10 +174,8 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 "er",
                 "ers",
-                "est",
                 "ing",
                 "ment",
-                "al",
                 "ation",
                 "or",
                 "ology",
@@ -188,8 +197,6 @@ namespace DFC.Digital.Service.AzureSearch
             var replaceSuffixDictionary = new Dictionary<string, string>
             {
                 ["therapy"] = "thera",
-                ["ology"] = "olo",
-                ["techn"] = "technolo",
             };
 
             var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));

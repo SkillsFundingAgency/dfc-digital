@@ -113,13 +113,11 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [Theory]
         [InlineData("plumber", "plumb")] //er
         [InlineData("offenders", "offend")] //ers
-        [InlineData("fastest pest control technician", "fast pest control technician")] //est
         [InlineData("plumbing engineer", "plumb engine")] //ing
         [InlineData("Business development manager", "Business develop manag")] //"ment"
-        [InlineData("Social media manager", "Soci media manag")] //al
         [InlineData("installation and plumbing engineer", "install plumb engine")] //ation
         [InlineData("director or clock repairer", "direct clock repair")] //or
-        [InlineData("pharmacology ecology", "pharmac ecolo")] //ology
+        [InlineData("pharmacology ecology", "pharmac pharmacolo ecolo")] //ology
         [InlineData("optometry", "opto")] //metry
         [InlineData("dietetics", "dietet")] //ics
         [InlineData("laundrette", "laundr")] //ette

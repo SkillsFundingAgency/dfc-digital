@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Interfaces;
 using System;
 using System.Web.Mvc;
+using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
@@ -24,9 +25,11 @@ namespace DFC.Digital.Web.Core
 
         protected IApplicationLogger Log { get; private set; }
 
+        protected Page CurrentPage => HttpContext?.CurrentHandler?.GetPageHandler();
+
         public void AddCanonicalTag()
         {
-            var page = HttpContext.CurrentHandler.GetPageHandler();
+            var page = CurrentPage;
             if (page != null)
             {
                 var link = new HtmlLink();
@@ -42,7 +45,7 @@ namespace DFC.Digital.Web.Core
 
         public void RemoveCanonicalTag()
         {
-            var page = HttpContext.CurrentHandler.GetPageHandler();
+            var page = CurrentPage;
             if (page != null)
             {
                 var headerControls = page.Header.Controls;
@@ -62,7 +65,7 @@ namespace DFC.Digital.Web.Core
 
         public void SetupPreRenderEventHandler()
         {
-            var page = HttpContext.CurrentHandler.GetPageHandler();
+            var page = CurrentPage;
 
             if (page != null)
             {

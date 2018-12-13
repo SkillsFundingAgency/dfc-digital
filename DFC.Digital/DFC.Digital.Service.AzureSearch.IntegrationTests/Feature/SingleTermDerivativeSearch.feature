@@ -69,9 +69,6 @@ Feature: SingleTermDerivatives with suffix returns jobprofiles based upon releva
 			| printing       | Print finisher                     |
 			| promoter       | Health promotion specialist        |
 			| promoter       | Music promotions manager           |
-			| publicist      | Public finance accountant          |
-			| publicist      | Public relations officer           |
-			| publicist      | Publican                           |
 			| screenwriting  | Screenwriter                       |
 			| Tattooer       | Tattooist                          |
 			| Technology     | Architectural technologist         |

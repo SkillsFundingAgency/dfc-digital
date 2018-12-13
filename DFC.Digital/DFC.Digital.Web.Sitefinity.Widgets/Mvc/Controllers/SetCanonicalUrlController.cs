@@ -1,11 +1,7 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
-using System;
 using System.Web.Mvc;
-using System.Web.UI.HtmlControls;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
@@ -17,12 +13,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     [ControllerToolboxItem(Name = "SetCanonicalUrl", Title = "Set Canonical Url", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class SetCanonicalUrlController : BaseDfcController
     {
-        #region Private Fields
-
-        private const string canonicalAttrKey = "rel";
-        private const string canonicalAttrValue = "canonical";
-        #endregion Private Fields
-
         #region Constructors
 
         public SetCanonicalUrlController(IApplicationLogger applicationLogger) : base(applicationLogger)
@@ -67,27 +57,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         private ActionResult PageHandlerResult()
         {
-            var page = HttpContext.CurrentHandler.GetPageHandler();
-
-            if (page != null)
-            {
-                page.PreRenderComplete += Page_PreRenderComplete;
-            }
+            SetupPreRenderEventHandler();
 
             return new EmptyResult();
-        }
-
-        private void Page_PreRenderComplete(object sender, EventArgs e)
-        {
-            var page = HttpContext.CurrentHandler.GetPageHandler();
-            var link = new HtmlLink();
-            link.Attributes.Add(canonicalAttrKey, canonicalAttrValue);
-            link.Href = Request?.Url?.AbsoluteUri;
-
-            if (!string.IsNullOrWhiteSpace(link.Href))
-            {
-                page.Header.Controls.Add(link);
-            }
         }
 
         #endregion

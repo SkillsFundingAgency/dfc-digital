@@ -126,6 +126,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Sitefinity.Frontend">
+      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.11.0.6729\lib\net471\Telerik.Sitefinity.Frontend.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseDfcController.cs" />
@@ -140,7 +143,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Readme.md" />
     <AdditionalFiles Include="..\stylecop.json">

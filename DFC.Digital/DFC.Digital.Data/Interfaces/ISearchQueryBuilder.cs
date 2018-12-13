@@ -10,6 +10,8 @@ namespace DFC.Digital.Data.Interfaces
 
         string BuildContainPartialSearch(string cleanedSearchTerm, SearchProperties properties);
 
+        string BuildExactMatchSearch(string searchTerm);
+
         string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties);
 
         string EscapeSpecialCharactersInSearchTerm(string searchTerm, SearchProperties properties);

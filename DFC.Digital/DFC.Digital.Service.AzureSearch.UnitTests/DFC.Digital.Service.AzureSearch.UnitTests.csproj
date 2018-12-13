@@ -107,6 +107,7 @@
     <Compile Include="AzGateway\AzSearchQueryServiceTests.cs" />
     <Compile Include="AzGateway\AzSearchServiceTests.cs" />
     <Compile Include="AzGateway\SuggesterBuilderTests.cs" />
+    <Compile Include="DfcBuildExactMatchSearch.cs" />
     <Compile Include="DfcBuildFilterServiceTests.cs" />
     <Compile Include="AzGateway\TestSuggestBuilder.cs" />
     <Compile Include="DfcSearchQueryBuilderTests.cs" />

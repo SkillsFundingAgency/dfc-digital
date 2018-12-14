@@ -91,11 +91,11 @@ namespace DFC.Digital.NonUIAcceptanceTest.Features
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
- testRunner.Given("I have a list of all job profile with titles and alterantive title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a list of all job profile with titles and alternative title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
  testRunner.When("I search by each alternative title for each of the  job profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
- testRunner.Then("all the results returned should have the job profile with the matching alterantiv" +
+ testRunner.Then("all the results returned should have the job profile with the matching alternativ" +
                     "e tag on the first page.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -114,101 +114,12 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 10
- testRunner.Given("I have a list of all job profile with titles and alterantive title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a list of all job profile with titles and alternative title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
  testRunner.When("I search by each title for each of the job profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
  testRunner.Then("all the results returned should have the job profile with the matching title in t" +
                     "he first position.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.TheoryAttribute(DisplayName="[DFC-5229] Searching for single term derivatives of a specific Job Title should b" +
-            "e in the on the first page")]
-        [Xunit.TraitAttribute("FeatureTitle", "List job profiles based upon relevance to the \"search term\" entered")]
-        [Xunit.TraitAttribute("Description", "[DFC-5229] Searching for single term derivatives of a specific Job Title should b" +
-            "e in the on the first page")]
-        [Xunit.InlineDataAttribute("driver", "forklift driver", new string[0])]
-        [Xunit.InlineDataAttribute("psychology", "Psychologist", new string[0])]
-        [Xunit.InlineDataAttribute("Counselling", "Counsellor", new string[0])]
-        [Xunit.InlineDataAttribute("criminology", "Criminal psychologist, Criminal intelligence analyst", new string[0])]
-        [Xunit.InlineDataAttribute("computing", "Computer games developer", new string[0])]
-        [Xunit.InlineDataAttribute("optometry", "Optomotrist", new string[0])]
-        [Xunit.InlineDataAttribute("plumbing", "Plumber", new string[0])]
-        [Xunit.InlineDataAttribute("bricklaying", "Bricklayer", new string[0])]
-        [Xunit.InlineDataAttribute("criminologist", "Criminal psychologist, Criminal intelligence analyst", new string[0])]
-        [Xunit.InlineDataAttribute("Criminology", "Criminal psychologist, Criminal intelligence analyst", new string[0])]
-        [Xunit.InlineDataAttribute("hospitality", "Hospital porter,Hospital doctor,Health service manager", new string[0])]
-        [Xunit.InlineDataAttribute("childminding", "Childminder", new string[0])]
-        [Xunit.InlineDataAttribute("counselling", "Counsellor", new string[0])]
-        [Xunit.InlineDataAttribute("Optometry", "Optomotrist", new string[0])]
-        [Xunit.InlineDataAttribute("policing", "Police constable, Police community support officer", new string[0])]
-        [Xunit.InlineDataAttribute("Advertiser", "Advertising copywriter, Advertising art director, Advertising media planner, Adve" +
-            "rtising account executive", new string[0])]
-        [Xunit.InlineDataAttribute("Archaeology", "Archaeologist", new string[0])]
-        [Xunit.InlineDataAttribute("counciller", "Counsellor", new string[0])]
-        [Xunit.InlineDataAttribute("criminalogist", "Criminal psychologist, Criminal intelligence analyst", new string[0])]
-        [Xunit.InlineDataAttribute("Criminologist", "Criminal psychologist, Criminal intelligence analyst", new string[0])]
-        [Xunit.InlineDataAttribute("pharmacology", "Pharmacologist", new string[0])]
-        [Xunit.InlineDataAttribute("sociologist", "Social worker, Social media marketing manager, Social services assistant, Social " +
-            "services manager, Adult social care support worker", new string[0])]
-        [Xunit.InlineDataAttribute("sociology", "Social worker, Social media marketing manager, Social services assistant, Social " +
-            "services manager, Adult social care support worker", new string[0])]
-        [Xunit.InlineDataAttribute("zoology", "Zoologist", new string[0])]
-        [Xunit.InlineDataAttribute("Accommodation warden", "Accommodation warden", new string[0])]
-        [Xunit.InlineDataAttribute("acupuncture", "Acupunturist", new string[0])]
-        [Xunit.InlineDataAttribute("administer", "Admin Assistant, Payroll administrator,Sales administrator, Pensions administrato" +
-            "r, Database administrator, Arts administrator", new string[0])]
-        [Xunit.InlineDataAttribute("biology", "Biologist, Plant biologist", new string[0])]
-        [Xunit.InlineDataAttribute("Biology", "Biologist, Plant biologist", new string[0])]
-        [Xunit.InlineDataAttribute("brickaying", "Bricklayer", new string[0])]
-        [Xunit.InlineDataAttribute("couselling", "Counsellor", new string[0])]
-        [Xunit.InlineDataAttribute("dietetics", "Dietitian", new string[0])]
-        [Xunit.InlineDataAttribute("diplomacy", "Diplomatic service officer", new string[0])]
-        [Xunit.InlineDataAttribute("ecology", "Ecologist", new string[0])]
-        [Xunit.InlineDataAttribute("Eletriction", "Installation electrician, Auto electrician", new string[0])]
-        [Xunit.InlineDataAttribute("engeginering", @"Civil engineer, Quarry engineer, Clinical engineer, Electronics engineering technician, Engineering operative, Maintenance fitter, Aerospace engineer, Studio sound engineer, Agricultural engineering technician, Engineering construction craftworker, IT service engineer,Rail engineering technician,Energy engineer, Engineering operative,Studio sound engineer, Design and development engineer, Merchant Navy engineering officer,Mechanical engineering technician, Helicopter engineer,Telecoms engineer, Network engineer, Acoustics consultant, Steeplejack, Chemical engineer, Materials engineer, Electrician, Estimator, Structural engineer, Nuclear engineer, Domestic appliance service engineer, Automotive engineer, Refrigeration and air-conditioning installer, Live sound engineer, Lift engineer, Motor vehicle breakdown engineer, Manufacturing systems engineer, Marine engineering technician, Heating and ventilation engineer", new string[0])]
-        [Xunit.InlineDataAttribute("farminf", "Farmer, Farm worker, Farm secretary, Fish farmer", new string[0])]
-        [Xunit.InlineDataAttribute("fisheries", "Fish farmer", new string[0])]
-        [Xunit.InlineDataAttribute("geology", "Geologist", new string[0])]
-        [Xunit.InlineDataAttribute("Hospitality", "Hospital porter, Hospital doctor, Health service manager, Health play specialist," +
-            " Pharmacist", new string[0])]
-        [Xunit.InlineDataAttribute("Hydrotherapy", "Colon hydrotherapist", new string[0])]
-        [Xunit.InlineDataAttribute("hypnotherapy", "Hypnotherapist", new string[0])]
-        [Xunit.InlineDataAttribute("invester", "Road traffic accident investigator, Private investigator,Investment analyst, Clin" +
-            "ical psychologist", new string[0])]
-        [Xunit.InlineDataAttribute("investor", "Road traffic accident investigator, Private investigator,Investment analyst, Clin" +
-            "ical psychologist", new string[0])]
-        [Xunit.InlineDataAttribute("Labortorian", "Laboratory technician", new string[0])]
-        [Xunit.InlineDataAttribute("landscaping", "Landscape architect, Landscaper, Landscape gardener", new string[0])]
-        [Xunit.InlineDataAttribute("laundrette", "Laundry worker", new string[0])]
-        [Xunit.InlineDataAttribute("laybour", "Construction labourer, Farm labourer", new string[0])]
-        [Xunit.InlineDataAttribute("Meteorology", "Meteorologist", new string[0])]
-        [Xunit.InlineDataAttribute("Micropigmentation", "Microbiologist", new string[0])]
-        [Xunit.InlineDataAttribute("Nanotechnology", "Nanotechnologist", new string[0])]
-        [Xunit.InlineDataAttribute("offenders", "Youth offending service officer", new string[0])]
-        [Xunit.InlineDataAttribute("performance", "Stunt performer, Circus performer", new string[0])]
-        [Xunit.InlineDataAttribute("printing", "Print finisher, Print room operator", new string[0])]
-        [Xunit.InlineDataAttribute("promoter", "Health promotion specialist, Music promotions manager", new string[0])]
-        [Xunit.InlineDataAttribute("publicist", "Public finance accountant, Public relations officer, Publican", new string[0])]
-        [Xunit.InlineDataAttribute("screenwriting", "Screenwriter", new string[0])]
-        [Xunit.InlineDataAttribute("singer/songwrighter", "Singing teacher", new string[0])]
-        [Xunit.InlineDataAttribute("singer/songwriter", "Singing teacher", new string[0])]
-        [Xunit.InlineDataAttribute("Tattooer", "Tattooist", new string[0])]
-        [Xunit.InlineDataAttribute("Technology", "Architectural technologist, Garment technologist, Food technologist, Leather tech" +
-            "nologist, Packaging technologist", new string[0])]
-        public virtual void DFC_5229SearchingForSingleTermDerivativesOfASpecificJobTitleShouldBeInTheOnTheFirstPage(string searchTerm, string expectedProfiles, string[] exampleTags)
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-5229] Searching for single term derivatives of a specific Job Title should b" +
-                    "e in the on the first page", null, exampleTags);
-#line 15
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 16
- testRunner.When(string.Format("I search by each \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
- testRunner.Then(string.Format("the results returned for \'{0}\' should have the \'{1}\' on the first page", searchTerm, expectedProfiles), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

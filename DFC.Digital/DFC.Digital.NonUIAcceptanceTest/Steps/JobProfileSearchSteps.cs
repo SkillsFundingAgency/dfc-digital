@@ -29,9 +29,10 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             asyncHelper = new AsyncHelper();
         }
 
-        [Given(@"I have a list of all job profile with titles and alterantive title")]
-        public void GivenIHaveAListOfAllJobProfileWithTitlesAndAlterantiveTitle()
+        [Given(@"I have a list of all job profile with titles and alternative title")]
+        public void GivenIHaveAListOfAllJobProfileWithTitlesAndAlternativeTitle()
         {
+
             OutputHelper.WriteLine($"Search for * to get all profile");
             try
             {
@@ -68,8 +69,8 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             ScenarioContext.Current.Add(SearchFailuresList, testFailuresList);
         }
 
-        [Then(@"all the results returned should have the job profile with the matching alterantive tag on the first page\.")]
-        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingAlterantiveTagOnTheFirstPage_()
+        [Then(@"all the results returned should have the job profile with the matching alternative tag on the first page\.")]
+        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingAlternativeTagOnTheFirstPage_()
         {
             var alternativeTitleFailures = (List<string>)ScenarioContext.Current[SearchFailuresList];
             if (alternativeTitleFailures.Count() > 0)
@@ -117,7 +118,6 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             }
 
             titleFailures.Count().Should().Be(0);
-        }
-
+        }       
     }
 }

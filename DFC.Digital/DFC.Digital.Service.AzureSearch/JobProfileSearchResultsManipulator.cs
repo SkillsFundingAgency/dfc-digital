@@ -1,23 +1,34 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
 {
-    public class JobProfileSearchResultsManipulator : IJobProfileSearchResultsManipulator
+    public class JobProfileSearchResultsManipulator : ISearchResultsManipulator<JobProfileIndex>
     {
-        public SearchResult<JobProfileIndex> ReorderForAlterantiveTitle(SearchResult<JobProfileIndex> searchResult, string searchTerm)
+        public SearchResult<JobProfileIndex> Reorder(SearchResult<JobProfileIndex> searchResult, string searchTerm, SearchProperties searchProperties)
         {
-            var jobprofileWithSearchTermInAlterantiveTitle = searchResult?.Results.Where(p => p.ResultItem.AlternativeTitle.Any(t => t.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))).FirstOrDefault();
-
-            //The results contain a profile and its not at the top.
-            if (jobprofileWithSearchTermInAlterantiveTitle != null && jobprofileWithSearchTermInAlterantiveTitle.Rank != 1)
+            if (searchProperties.Page == 1)
             {
-                jobprofileWithSearchTermInAlterantiveTitle.Rank = 0;
-                searchResult.Results = searchResult.Results.OrderBy(r => r.Rank);
+                var promo = searchResult
+                    ?.Results
+                    ?.FirstOrDefault(p =>
+                    p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))
+                    || p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+                //The results contain a profile and its not at the top.
+                if (promo != null && promo.Rank != 1)
+                {
+                    promo.Rank = 0;
+                    searchResult.Results = searchResult.Results.OrderBy(r => r.Rank);
+                }
+            }
+
+            searchResult = searchResult ?? new SearchResult<JobProfileIndex>();
+            if (searchResult.Results is null)
+            {
+                searchResult.Results = Enumerable.Empty<SearchResultItem<JobProfileIndex>>();
             }
 
             return searchResult;

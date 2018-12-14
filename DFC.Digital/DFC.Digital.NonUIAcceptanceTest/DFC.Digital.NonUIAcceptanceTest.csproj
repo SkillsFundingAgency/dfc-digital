@@ -105,7 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App.config.template" />
     <None Include="Features\JobProfileSearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
@@ -113,6 +112,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.AutomationTest.Utilities\DFC.Digital.AutomationTest.Utilities.csproj">
+      <Project>{79BA3500-3882-4862-B9EA-134A23C7EED6}</Project>
+      <Name>DFC.Digital.AutomationTest.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
       <Project>{2080fba6-ae04-49b0-b343-b60cf097c1a3}</Project>
       <Name>DFC.Digital.Core</Name>

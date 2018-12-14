@@ -36,5 +36,7 @@
         public const string SearchScoringProfileName = "jp";
         public const string SocField = "SOC";
         public const string BackendDateTimeFormat = "dd MMM yyyy HH:mm:ss";
+        public const string JobProfileSearchIndexConfigKey = "DFC.Digital.JobProfileSearchIndex";
+        public const string SearchServiceQueryAPIConfigKey = "DFC.Digital.SearchServiceQueryAPIKey";
     }
 }

@@ -26,11 +26,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     /// </summary>
     public class JobProfileSearchBoxControllerTests
     {
-        private IJobProfileSearchResultsManipulator fakeJobProfileSearchResultsManipulator;
+        private ISearchResultsManipulator fakeJobProfileSearchResultsManipulator;
 
         public JobProfileSearchBoxControllerTests()
         {
-            fakeJobProfileSearchResultsManipulator = A.Fake<IJobProfileSearchResultsManipulator>();
+            fakeJobProfileSearchResultsManipulator = A.Fake<ISearchResultsManipulator>();
         }
 
         [Theory]

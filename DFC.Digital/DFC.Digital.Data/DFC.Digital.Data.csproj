@@ -93,7 +93,7 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
-    <Compile Include="Interfaces\IJobProfileSearchResultsManipulator.cs" />
+    <Compile Include="Interfaces\ISearchResultsManipulator.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />

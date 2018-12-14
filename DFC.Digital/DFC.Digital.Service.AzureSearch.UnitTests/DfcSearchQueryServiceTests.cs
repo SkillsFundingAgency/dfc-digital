@@ -26,6 +26,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
             var fakeLogger = A.Fake<IApplicationLogger>();
+            var fakeManipulator = A.Fake<ISearchResultsManipulator<JobProfileIndex>>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure
@@ -38,7 +39,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
 
             //Act
-            var searchService = new DfcSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakeQueryBuilder, fakeLogger);
+            var searchService = new DfcSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, fakeQueryBuilder, fakeManipulator, fakeLogger);
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert

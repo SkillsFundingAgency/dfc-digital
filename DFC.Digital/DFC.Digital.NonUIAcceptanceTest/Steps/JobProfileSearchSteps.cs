@@ -1,10 +1,12 @@
-﻿using DFC.Digital.Core;
+﻿using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
@@ -15,34 +17,40 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
     {
         private const string AllProfileResultList = "AllProfileResultList";
         private const string SearchFailuresList = "SearchFailuresList";
-             
-        private ISearchIndexConfig searchIndex;
-        private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IAsyncHelper asyncHelper;
-        private ITestOutputHelper OutputHelper { get; set; }
+        private const string AllAlternativeSearchResults = "AllAlternativeSearchResults";
+        private const string AllTitleSearchResults = "AllTitleSearchResults";
 
-        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService)
+        private readonly ISearchIndexConfig searchIndex;
+        private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
+        private readonly ScenarioContext scenarioContext;
+        private readonly ITestOutputHelper outputHelper;
+
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, ScenarioContext scenarioContext)
         {
-            this.OutputHelper = outputHelper;
+            this.outputHelper = outputHelper;
             this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
-            asyncHelper = new AsyncHelper();
+            this.scenarioContext = scenarioContext;
         }
 
         [Given(@"I have a list of all job profile with titles and alternative title")]
-        public void GivenIHaveAListOfAllJobProfileWithTitlesAndAlternativeTitle()
+        public void GivenIHaveAListOfAllJobProfileWithTitlesAndAlterantiveTitleAsync()
         {
-
-            OutputHelper.WriteLine($"Search for * to get all profile");
+            outputHelper.WriteLine($"Search for * to get all profile");
             try
             {
-                SearchResult<JobProfileIndex> searchResults = searchQueryService.Search("*", new SearchProperties { Count = 10000 });
-                OutputHelper.WriteLine($"Got {searchResults.Count} profiles");
-                ScenarioContext.Current.Add(AllProfileResultList, searchResults);
+                var searchResults = searchQueryService.Search("*", new SearchProperties
+                {
+                    UseRawSearchTerm = true,
+                    Count = 10000
+                });
+
+                searchResults.SaveTo(scenarioContext, AllProfileResultList);
+                outputHelper.WriteLine($"Got {searchResults.Count} profiles");
             }
             catch (Exception ex)
             {
-                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
+                outputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
                 throw;
             }
         }
@@ -50,74 +58,73 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
         [When(@"I search by each alternative title for each of the  job profiles")]
         public void WhenISeachByEachAlternativeTitleForEachOfTheJobProfiles()
         {
-            var allProfiles = (SearchResult<JobProfileIndex>)ScenarioContext.Current[AllProfileResultList];
-            var searchProperties = new SearchProperties { Count = 10 };
-            var testFailuresList = new List<string>();
+            var searchResults = new Dictionary<string, SearchResult<JobProfileIndex>>();
+            var allProfiles = scenarioContext.Get<SearchResult<JobProfileIndex>>(AllProfileResultList);
 
             foreach (var profile in allProfiles.Results)
             {
                 foreach (var alternativeTitle in profile.ResultItem.AlternativeTitle)
                 {
-                    SearchResult<JobProfileIndex> alternativeTitleResult = searchQueryService.Search(alternativeTitle, searchProperties);
-                    if (alternativeTitleResult is null || !alternativeTitleResult.Results.Where(p => p.ResultItem.Title == profile.ResultItem.Title).Any())
+                    if (!searchResults.ContainsKey(alternativeTitle))
                     {
-                        testFailuresList.Add($"Title:{profile.ResultItem.Title} - Alterantive Title:{alternativeTitle}");
+                        searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle, new SearchProperties()));
                     }
                 }
             }
 
-            ScenarioContext.Current.Add(SearchFailuresList, testFailuresList);
+            searchResults.SaveTo(scenarioContext, AllAlternativeSearchResults);
         }
 
-        [Then(@"all the results returned should have the job profile with the matching alternative tag on the first page\.")]
-        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingAlternativeTagOnTheFirstPage_()
+        [Then(@"all the results returned should have the job profile with the matching alternative title in the first position\.")]
+        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingAlterantiveTagOnTheFirstPage()
         {
-            var alternativeTitleFailures = (List<string>)ScenarioContext.Current[SearchFailuresList];
-            if (alternativeTitleFailures.Count() > 0)
+            int failures = 0;
+            var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllAlternativeSearchResults);
+            foreach (var item in searchResults)
             {
-                OutputHelper.WriteLine($"Total Failures: {alternativeTitleFailures.Count()} searches. The following profiles do not appear in the first position when searched by the indicated alterantive title");
-                foreach (var item in alternativeTitleFailures)
+                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                if (resultItem is null || !resultItem.AlternativeTitle.Any(a => a.Equals(item.Key, StringComparison.OrdinalIgnoreCase)))
                 {
-                    OutputHelper.WriteLine(item);
+                    failures++;
+                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
                 }
             }
 
-            alternativeTitleFailures.Count().Should().Be(0);
+            outputHelper.WriteLine($"Total Failures: {failures}.");
+            failures.Should().Be(0);
         }
-               
+
         [When(@"I search by each title for each of the job profiles")]
         public void WhenISearchByEachTitleForEachOfTheJobProfiles()
         {
-            var allProfiles = (SearchResult<JobProfileIndex>)ScenarioContext.Current[AllProfileResultList];
-            var searchProperties = new SearchProperties { Count = 1 };
-            var testFailuresList = new List<string>();
+            var searchResults = new Dictionary<string, SearchResult<JobProfileIndex>>();
+            var allProfiles = scenarioContext.Get<SearchResult<JobProfileIndex>>(AllProfileResultList);
 
             foreach (var profile in allProfiles.Results)
             {
-                SearchResult<JobProfileIndex> titleResult = searchQueryService.Search(profile.ResultItem.Title, searchProperties);
-                if (titleResult is null)
-                {
-                    testFailuresList.Add($"Title:{profile.ResultItem.Title}");
-                }
+                searchResults.Add(profile.ResultItem.Title, searchQueryService.Search(profile.ResultItem.Title, new SearchProperties()));
             }
 
-            ScenarioContext.Current.Add(SearchFailuresList, testFailuresList);
+            searchResults.SaveTo(scenarioContext, AllTitleSearchResults);
         }
 
         [Then(@"all the results returned should have the job profile with the matching title in the first position\.")]
-        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingTitleInTheFirstPosition_()
+        public void ThenAllTheResultsReturnedShouldHaveTheJobProfileWithTheMatchingTitleInTheFirstPosition()
         {
-            var titleFailures = (List<string>)ScenarioContext.Current[SearchFailuresList];
-            if (titleFailures.Count() > 0)
+            int failures = 0;
+            var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllTitleSearchResults);
+            foreach (var item in searchResults)
             {
-                OutputHelper.WriteLine($"Total Failures: {titleFailures.Count()} searches. The following profiles do not appear in the first position when searched by the indicated title");
-                foreach (var item in titleFailures)
+                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                if (resultItem is null || !resultItem.Title.Equals(item.Key, StringComparison.OrdinalIgnoreCase))
                 {
-                    OutputHelper.WriteLine(item);
+                    failures++;
+                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
                 }
             }
 
-            titleFailures.Count().Should().Be(0);
-        }       
+            outputHelper.WriteLine($"Total Failures: {failures}.");
+            failures.Should().Be(0);
+        }
     }
 }

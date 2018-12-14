@@ -45,12 +45,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return page;
         }
 
-        internal static T SaveTo<T>(this T data, ScenarioContext scenarioContext, string key)
-        {
-            scenarioContext.Set(data, key);
-            return data;
-        }
-
         internal static string FormatTokens(this string value, ScenarioContext scenarioContext = null)
         {
             return Regex.Replace(value, @"{([^}]+)}", (m) =>

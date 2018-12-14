@@ -96,7 +96,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("I search by each alternative title for each of the  job profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
  testRunner.Then("all the results returned should have the job profile with the matching alternativ" +
-                    "e tag on the first page.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "e title in the first position.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

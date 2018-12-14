@@ -113,6 +113,7 @@
     <Compile Include="DfcJobProfileSearchResultsManipulatorTests.cs" />
     <Compile Include="DfcSearchQueryBuilderTests.cs" />
     <Compile Include="DfcSearchQueryServiceTests.cs" />
+    <Compile Include="JobProfileSearchResultsManipulatorTests.cs" />
     <Compile Include="PreSearchFilterStateManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

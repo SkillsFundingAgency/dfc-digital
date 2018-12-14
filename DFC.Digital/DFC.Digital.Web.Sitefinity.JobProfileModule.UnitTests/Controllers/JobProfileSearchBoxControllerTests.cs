@@ -7,15 +7,12 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -26,11 +23,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     /// </summary>
     public class JobProfileSearchBoxControllerTests
     {
-        private ISearchResultsManipulator fakeJobProfileSearchResultsManipulator;
-
         public JobProfileSearchBoxControllerTests()
         {
-            fakeJobProfileSearchResultsManipulator = A.Fake<ISearchResultsManipulator>();
         }
 
         [Theory]
@@ -108,11 +102,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Set-up calls
             A.CallTo(() => queryServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
-            A.CallTo(() => fakeJobProfileSearchResultsManipulator.ReorderForAlterantiveTitle(dummySearchResult, searchTerm)).Returns(dummySearchResult);
 
             //Instantiate
             //  var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake)
-            var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker)
             {
                 CurrentPageMode = mode,
                 JobProfileDetailsPage = defaultJobProfilePage
@@ -236,10 +229,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Set-up calls
             A.CallTo(() => queryServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
-            A.CallTo(() => fakeJobProfileSearchResultsManipulator.ReorderForAlterantiveTitle(dummySearchResult, searchTerm)).Returns(dummySearchResult);
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(queryServiceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, fakeSpellChecker)
             {
                 CurrentPageMode = mode,
                 JobProfileDetailsPage = defaultJobProfilePage,
@@ -285,7 +277,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             });
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 JobProfileDetailsPage = defaultJobProfilePage
             };
@@ -372,10 +364,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Set-up calls
             A.CallTo(() => serviceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
-            A.CallTo(() => fakeJobProfileSearchResultsManipulator.ReorderForAlterantiveTitle(dummySearchResult, searchTerm)).Returns(dummySearchResult);
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 CurrentPageMode = mode,
                 JobProfileDetailsPage = defaultJobProfilePage
@@ -448,7 +439,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => webAppContext.IsValidAndFormattedUrl(A<string>._)).Returns(true);
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 CurrentPageMode = mode
             };
@@ -516,7 +507,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).Returns(dummySuggestResult);
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator);
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake);
 
             var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -551,7 +542,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
             var fakeAsyncHelper = new AsyncHelper();
 
-            var controller = new JobProfileSearchBoxController(searchQuery, webAppContext, mapper, applicationLogger, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator)
+            var controller = new JobProfileSearchBoxController(searchQuery, webAppContext, mapper, applicationLogger, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 CurrentPageMode = mode
             };
@@ -603,10 +594,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Set-up calls
             A.CallTo(() => spellcheckerServiceFake.CheckSpellingAsync(A<string>._)).Returns(dummySpellCheckResult);
             A.CallTo(() => serviceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
-            A.CallTo(() => fakeJobProfileSearchResultsManipulator.ReorderForAlterantiveTitle(dummySearchResult, searchTerm)).Returns(dummySearchResult);
 
             //Instantiate
-            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake, fakeJobProfileSearchResultsManipulator)
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
             {
                 SearchResultsPage = searchResultsPage,
                 CurrentPageMode = SearchWidgetPageMode.SearchResults,

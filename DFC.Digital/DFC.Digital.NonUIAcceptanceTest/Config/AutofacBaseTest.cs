@@ -12,12 +12,8 @@ namespace DFC.Digital.NonUIAcceptanceTest
         public AutofacBaseTest()
         {
             var builder = new ContainerBuilder();
-
             builder.RegisterModule(new TModule());
             builder.RegisterModule<AutofacAcceptanceTestModule>();
-
-            //builder.RegisterModule<NLogModule>();
-            //builder.RegisterModule<CoreAutofacModule>();
             container = builder.Build();
         }
 

@@ -6,9 +6,9 @@ namespace DFC.Digital.NonUIAcceptanceTest
 {
     public class JobProfileIntegrationTestIndex : ISearchIndexConfig
     {
-        public string Name => ConfigurationManager.AppSettings.Get(Constants.JobProfileSearchIndexConfigKey)?.ToLower();
+        public string Name => ConfigurationManager.AppSettings.Get(Constants.JobProfileSearchIndex);
 
-        public string AccessKey => ConfigurationManager.AppSettings.Get(Constants.SearchServiceQueryAPIConfigKey);
+        public string AccessKey => ConfigurationManager.AppSettings.Get(Constants.SearchServiceQueryAPIKey);
 
     }
 }

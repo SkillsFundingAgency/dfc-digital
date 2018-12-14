@@ -9,14 +9,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
     public class JobProfileSearchResultsManipulatorTests
     {
         [Theory]
-        [InlineData("dummyTitleTest5", 1, "dummyTitleTest5")]
-        [InlineData("dummyTitleTest5", 2, "dummyTitleTest1")]
+        [InlineData("dummyTitletest5", 1, "dummyTitletest5")]
+        [InlineData("dummyTitletest5", 2, "dummyTitletest1")]
         public void ReorderTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
             var mannipulator = new JobProfileSearchResultsManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
-                Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollection("Test", 10, 1)
+                Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollection("test", 10, 1)
             };
 
             SearchProperties searchProperties = new SearchProperties
@@ -29,8 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
         }
 
         [Theory]
-        [InlineData("dummyAlternativeTitleTest5", 1, "dummyAlternativeTitleTest5")]
-        [InlineData("dummyAlternativeTitleTest5", 2, "dummyAlternativeTitleTest1")]
+        [InlineData("dummyAlternativeTitle5", 1, "dummyAlternativeTitle5")]
+        [InlineData("dummyAlternativeTitle5", 2, "dummyAlternativeTitle1")]
         public void ReorderAlternativeTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
             var mannipulator = new JobProfileSearchResultsManipulator();

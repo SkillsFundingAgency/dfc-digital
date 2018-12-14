@@ -91,7 +91,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Features
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
- testRunner.Given("I have a list of all job profile with titles and alterantive title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a list of all job profile with titles and alternative title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
  testRunner.When("I search by each alternative title for each of the  job profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
@@ -114,7 +114,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 10
- testRunner.Given("I have a list of all job profile with titles and alterantive title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a list of all job profile with titles and alternative title", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
  testRunner.When("I search by each title for each of the job profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12

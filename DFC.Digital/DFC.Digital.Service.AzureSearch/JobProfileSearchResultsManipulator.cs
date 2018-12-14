@@ -11,8 +11,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
         {
             if (searchProperties.Page == 1)
             {
-                var promo = searchResult
-                    ?.Results
+                var results = searchResult?.Results?.ToList();
+                var promo = results
                     ?.FirstOrDefault(p =>
                     p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))
                     || p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
@@ -21,7 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
                 if (promo != null && promo.Rank != 1)
                 {
                     promo.Rank = 0;
-                    searchResult.Results = searchResult.Results.OrderBy(r => r.Rank);
+                    searchResult.Results = results.OrderBy(r => r.Rank);
                 }
             }
 

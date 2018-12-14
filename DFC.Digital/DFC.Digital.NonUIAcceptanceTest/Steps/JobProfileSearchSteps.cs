@@ -33,7 +33,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             this.scenarioContext = scenarioContext;
         }
 
-        [Given(@"I have a list of all job profile with titles and alterantive title")]
+        [Given(@"I have a list of all job profile with titles and alternative title")]
         public void GivenIHaveAListOfAllJobProfileWithTitlesAndAlterantiveTitleAsync()
         {
             outputHelper.WriteLine($"Search for * to get all profile");

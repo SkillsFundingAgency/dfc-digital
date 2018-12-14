@@ -106,14 +106,20 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        public string BuildExactMatchSearch(string searchTerm)
+        public string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties)
         {
-            if (searchTerm.Split(' ').Count() > 1)
+            if (properties?.UseRawSearchTerm == true)
             {
-                return "\"" + searchTerm + "\"";
+                return searchTerm;
             }
-
-            return searchTerm;
+            else if (searchTerm.Split(' ').Count() > 1)
+            {
+                return $"\"{searchTerm}\" {partialSearchTerm}";
+            }
+            else
+            {
+                return $"{searchTerm} {partialSearchTerm}";
+            }
         }
 
         public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)

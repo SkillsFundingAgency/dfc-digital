@@ -375,11 +375,10 @@ Scenario: [DFC-1493 - A1] Partial Match - search and match with Title only
          | Money adviser             | Debt counsellor  |
          | General practitioner (GP) | Doc              |
 	When I search using the search term 'advis'
-	Then the result list will contain '2' profile(s)
+	Then the result list will contain '1' profile(s)
 	And the profiles are listed in no specific order:
-         | Title          | AlternativeTitle |
-         | Money adviser  | Debt counsellor  |
-         | Movie operator | Addition         | 
+         | Title         | AlternativeTitle |
+         | Money adviser | Debt counsellor  | 
 
 Scenario: [DFC-1493 - A2] Partial Match - search and match with Alternative Title only
 	Given the following job profiles exist:

@@ -28,8 +28,11 @@ namespace DFC.Digital.Service.AzureSearch
         public override SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
-            var res = base.Search(partialTermToSearch, properties ?? new SearchProperties());
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
+            var finalComputedSearchTerm = $"{queryBuilder.BuildExactMatchSearch(searchTerm)} {partialTermToSearch}";
+
+            var res = base.Search(finalComputedSearchTerm, properties ?? new SearchProperties());
             var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
 
             return orderedResult;
@@ -38,8 +41,11 @@ namespace DFC.Digital.Service.AzureSearch
         public override async Task<SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
-            var res = await base.SearchAsync(partialTermToSearch, properties ?? new SearchProperties());
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
+            var finalComputedSearchTerm = $"{queryBuilder.BuildExactMatchSearch(searchTerm)} {partialTermToSearch}";
+
+            var res = await base.SearchAsync(finalComputedSearchTerm, properties ?? new SearchProperties());
             var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
 
             return orderedResult;

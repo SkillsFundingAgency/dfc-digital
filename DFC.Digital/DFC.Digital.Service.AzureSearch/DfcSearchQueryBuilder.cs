@@ -106,6 +106,72 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
+        public string BuildExactMatchSearch(string searchTerm)
+        {
+            if (searchTerm.Split(' ').Count() > 1)
+            {
+                return "\"" + searchTerm + "\"";
+            }
+
+            return searchTerm;
+        }
+
+        public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)
+        {
+            if (properties?.UseRawSearchTerm == true)
+            {
+                return searchTerm;
+            }
+
+            var result = searchTerm.Any(char.IsWhiteSpace)
+                ? searchTerm
+                   .Split(' ')
+                   .Aggregate(string.Empty, (current, term) =>
+                   {
+                       if (IsCommonWord(term))
+                       {
+                           return $"{current}";
+                       }
+                       else
+                       {
+                           return $"{current} {TrimAndReplaceSuffixOnCurrentTerm(term)}";
+                       }
+                   })
+                : TrimAndReplaceSuffixOnCurrentTerm(searchTerm);
+
+            return result.Trim();
+        }
+
+        private static string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        {
+            var trimmedWord = TrimSuffixFromSingleWord(term);
+            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
+            var specialology = Specialologies(term, replaceSuffix);
+            return specialology;
+        }
+
+        private static string Specialologies(string term, string replacedSuffixTerm)
+        {
+            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            return indexOfOlogy > -1
+                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term.Substring(0, indexOfOlogy)}olo"
+                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
+                : replacedSuffixTerm;
+        }
+
+        private static bool IsCommonWord(string term)
+        {
+            var commonWords = new[]
+            {
+                "and",
+                "or",
+                "the"
+            };
+
+            return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
+        }
+
         private static string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
             return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";

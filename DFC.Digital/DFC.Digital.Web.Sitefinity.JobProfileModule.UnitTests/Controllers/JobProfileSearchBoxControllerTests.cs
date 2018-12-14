@@ -7,15 +7,12 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -26,6 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     /// </summary>
     public class JobProfileSearchBoxControllerTests
     {
+        public JobProfileSearchBoxControllerTests()
+        {
+        }
+
         [Theory]
         [InlineData("Test", SearchWidgetPageMode.SearchResults, 20)]
         [InlineData("Test", SearchWidgetPageMode.SearchResults, 1)]
@@ -40,7 +41,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var expectedTotalMessage = "0 results found - try again using a different job title";
             var fakeAsyncHelper = new AsyncHelper();
             var fakeSpellChecker = A.Fake<ISpellcheckService>();
-
             var mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();

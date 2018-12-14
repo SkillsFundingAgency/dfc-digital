@@ -17,7 +17,7 @@ namespace DFC.Digital.Data.Model
         [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public string Title { get; set; }
 
-        [IsSearchable, IsFilterable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSuggestible, AddWeighting(90)]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
         public string Overview { get; set; }

@@ -1,4 +1,7 @@
-﻿namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
+﻿using DFC.Digital.Data.Model;
+using System.Collections.Generic;
+
+namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
 {
     /// <summary>
     /// Breadcrumb Widget View Model
@@ -28,5 +31,7 @@
         /// The breadcrumbedpPage Title text
         /// </value>
         public string BreadcrumbPageTitleText { get; set; }
+
+        public IList<BreadCrumbLink> BreadcrumbLinks { get; set; }
     }
 }

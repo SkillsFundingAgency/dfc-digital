@@ -4,7 +4,10 @@
     <div class="breadcrumbs">
         <ol>
             <li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>
-            <li>@Model.BreadcrumbPageTitleText</li>
+            @foreach (var item in Model.BreadcrumbLinks)
+            {
+                <li><a href="@item.Link">@item.Text</a></li>
+            }
         </ol>
     </div>
 </div>

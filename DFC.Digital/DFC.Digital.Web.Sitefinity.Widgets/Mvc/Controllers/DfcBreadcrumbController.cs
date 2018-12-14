@@ -1,11 +1,16 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 {
@@ -91,10 +96,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <returns>ActionResult</returns>
         private ActionResult GetBreadcrumbView(string urlName)
         {
+            var breadCrumbLink = new BreadCrumbLink();
             var model = new DfcBreadcrumbViewModel
             {
                 HomepageText = HomepageText,
-                HomepageLink = HomepageLink
+                HomepageLink = HomepageLink,
+                BreadcrumbLinks = new List<BreadCrumbLink>
+                {
+                    breadCrumbLink
+                }
             };
 
             // We get the page node we are on
@@ -107,41 +117,44 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
                 {
                     var category = categoryRepo.GetByUrlName(urlName);
-
-                    if (category != null)
-                    {
-                        model.BreadcrumbPageTitleText = category.Title;
-                    }
-                    else
-                    {
-                        model.BreadcrumbPageTitleText = currentPageNode.Title;
-                    }
+                    breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
                 } // If we are on JobProfileDetalails page(s)
                 else if (nodeUrl.ToUpperInvariant().Contains("JOB-PROFILES") && !string.IsNullOrEmpty(urlName))
                 {
                     var jobProfile = jobProfileRepository.GetByUrlName(urlName);
-
-                    if (jobProfile != null)
-                    {
-                        model.BreadcrumbPageTitleText = jobProfile.Title;
-                    }
-                    else
-                    {
-                        model.BreadcrumbPageTitleText = currentPageNode.Title;
-                    }
+                    breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
                 } // If we are on Alerts page(s)
                 else if (nodeUrl.ToUpperInvariant().Contains("ALERTS"))
                 {
-                    model.BreadcrumbPageTitleText = "Error";
+                    breadCrumbLink.Text = "Error";
                 } // Or we are on any other page
                 else
                 {
-                    model.BreadcrumbPageTitleText = currentPageNode.Title;
+                    model.BreadcrumbLinks.Clear();
+                    var pageNode = SiteMapBase.GetActualCurrentNode();
+                    while (pageNode.ParentNode != null)
+                    {
+                        if (pageNode.NodeType == NodeType.Standard)
+                        {
+                            var pageBreadCrumbLink = new BreadCrumbLink
+                            {
+                                Text = pageNode.Title,
+                                Link = pageNode.Url
+                            };
+                            model.BreadcrumbLinks.Add(pageBreadCrumbLink);
+                        }
+
+                        pageNode = pageNode.ParentNode as PageSiteNode;
+                    }
+
+                    //the current page should not be linked
+                    model.BreadcrumbLinks.FirstOrDefault().Link = string.Empty;
+                    model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
                 }
             }
             else
             {
-                model.BreadcrumbPageTitleText = "Breadcrumb cannot establish the page node";
+                breadCrumbLink.Text = "Breadcrumb cannot establish the page node";
             }
 
             return View(model);

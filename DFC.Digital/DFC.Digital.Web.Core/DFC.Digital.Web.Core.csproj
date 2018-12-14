@@ -126,9 +126,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.Sitefinity.Frontend">
-      <HintPath>..\packages\Telerik.Sitefinity.Feather.Core.11.0.6729\lib\net471\Telerik.Sitefinity.Frontend.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseDfcController.cs" />

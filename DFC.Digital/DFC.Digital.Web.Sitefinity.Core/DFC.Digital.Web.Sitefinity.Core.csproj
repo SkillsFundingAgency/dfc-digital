@@ -393,6 +393,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\SfBaseDfcController.cs" />
     <Compile Include="Config\AutofacContainerFactory.cs" />
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />

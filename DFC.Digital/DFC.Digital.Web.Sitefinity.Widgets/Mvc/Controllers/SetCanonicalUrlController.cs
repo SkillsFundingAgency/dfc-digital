@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -11,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "SetCanonicalUrl", Title = "Set Canonical Url", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class SetCanonicalUrlController : BaseDfcController
+    public class SetCanonicalUrlController : SfBaseDfcController
     {
         #region Constructors
 
@@ -20,9 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         }
 
         #endregion Constructors
-
-        #region Public Properties
-        #endregion Public Properties
 
         #region Actions
 

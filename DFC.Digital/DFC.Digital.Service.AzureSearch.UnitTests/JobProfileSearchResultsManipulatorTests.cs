@@ -11,6 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
         [Theory]
         [InlineData("dummyTitletest5", 1, "dummyTitletest5")]
         [InlineData("dummyTitletest5", 2, "dummyTitletest1")]
+        [InlineData(null, 1, "dummyTitletest1")]
         public void ReorderTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
             var mannipulator = new JobProfileSearchResultsManipulator();
@@ -31,6 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
         [Theory]
         [InlineData("dummyAlternativeTitle5", 1, "dummyAlternativeTitle5")]
         [InlineData("dummyAlternativeTitle5", 2, "dummyAlternativeTitle1")]
+        [InlineData(null, 1, "dummyAlternativeTitle1")]
         public void ReorderAlternativeTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
             var mannipulator = new JobProfileSearchResultsManipulator();
@@ -76,6 +78,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
             };
 
             var result = mannipulator.Reorder(null, "test", searchProperties);
+            result.Results.Should().BeEquivalentTo(Enumerable.Empty<SearchResultItem<JobProfileIndex>>());
+        }
+
+        [Fact]
+        public void ReorderNullEverythingTest()
+        {
+            var mannipulator = new JobProfileSearchResultsManipulator();
+            var result = mannipulator.Reorder(null, "test", null);
             result.Results.Should().BeEquivalentTo(Enumerable.Empty<SearchResultItem<JobProfileIndex>>());
         }
     }

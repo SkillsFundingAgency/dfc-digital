@@ -9,7 +9,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
     {
         public SearchResult<JobProfileIndex> Reorder(SearchResult<JobProfileIndex> searchResult, string searchTerm, SearchProperties searchProperties)
         {
-            if (searchProperties.Page == 1)
+            if (searchProperties?.Page == 1)
             {
                 var results = searchResult?.Results?.ToList();
                 var promo = results

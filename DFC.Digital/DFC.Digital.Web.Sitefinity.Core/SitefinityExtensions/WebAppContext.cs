@@ -7,13 +7,20 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class WebAppContext : IWebAppContext
     {
+        private const string CanonicalAttrKey = "rel";
+        private const string CanonicalAttrValue = "canonical";
+
+        public Page CurrentPage => new HttpContextWrapper(HttpContext.Current).CurrentHandler?.GetPageHandler();
+
         public bool IsContentAuthoringSite => SitefinityContext.IsBackend;
 
         public bool IsPreviewMode => SitefinityContext.IsPreviewMode;
@@ -79,6 +86,24 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public void SetVocCookie(string cookieName, string cookieValue)
         {
+           var page = CurrentPage;
+
+            if (page != null)
+            {
+                var headerControls = page.Header.Controls;
+                foreach (var control in headerControls)
+                {
+                    if (control is HtmlLink link)
+                    {
+                        if (link.Attributes[CanonicalAttrKey] == CanonicalAttrValue)
+                        {
+                            headerControls.Remove(link);
+                            break;
+                        }
+                    }
+                }
+            }
+
             HttpContext.Current.Response.Cookies[cookieName].Value = cookieValue;
         }
 
@@ -114,6 +139,58 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return RequestQueryString?.Count > 0
                 ? $"{currentUrl}&{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}"
                 : $"{currentUrl}?{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}";
+        }
+
+        public void SetupCanonicalUrlEventHandler()
+        {
+            var page = CurrentPage;
+
+            if (page != null)
+            {
+                page.PreRenderComplete += Page_PreRenderComplete;
+            }
+        }
+
+        private void Page_PreRenderComplete(object sender, EventArgs e)
+        {
+            RemoveCanonicalTag();
+            AddCanonicalTag();
+        }
+
+        private void AddCanonicalTag()
+        {
+            var page = CurrentPage;
+            if (page != null)
+            {
+                var link = new HtmlLink();
+                link.Attributes.Add(CanonicalAttrKey, CanonicalAttrValue);
+                link.Href = HttpContext.Current.Request.Url.AbsoluteUri.Substring(0, HttpContext.Current.Request.Url.AbsoluteUri.IndexOf("?", StringComparison.InvariantCultureIgnoreCase) > 0 ? HttpContext.Current.Request.Url.AbsoluteUri.IndexOf("?", StringComparison.InvariantCultureIgnoreCase) : HttpContext.Current.Request.Url.AbsoluteUri.Length);
+
+                if (!string.IsNullOrWhiteSpace(link.Href))
+                {
+                    page.Header.Controls.Add(link);
+                }
+            }
+        }
+
+        private void RemoveCanonicalTag()
+        {
+            var page = CurrentPage;
+            if (page != null)
+            {
+                var headerControls = page.Header.Controls;
+                foreach (var control in headerControls)
+                {
+                    if (control is HtmlLink link)
+                    {
+                        if (link.Attributes[CanonicalAttrKey] == CanonicalAttrValue)
+                        {
+                            headerControls.Remove(link);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

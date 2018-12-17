@@ -393,7 +393,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\SfBaseDfcController.cs" />
     <Compile Include="Config\AutofacContainerFactory.cs" />
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
@@ -433,6 +432,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

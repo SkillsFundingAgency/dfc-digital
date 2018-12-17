@@ -1,4 +1,6 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -10,12 +12,14 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
     [ControllerToolboxItem(Name = "SetCanonicalUrl", Title = "Set Canonical Url", SectionName = SitefinityConstants.CustomWidgetSection)]
-    public class SetCanonicalUrlController : SfBaseDfcController
+    public class SetCanonicalUrlController : BaseDfcController
     {
+        private readonly IWebAppContext webAppContext;
         #region Constructors
 
-        public SetCanonicalUrlController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public SetCanonicalUrlController(IApplicationLogger applicationLogger, IWebAppContext webAppContext) : base(applicationLogger)
         {
+            this.webAppContext = webAppContext;
         }
 
         #endregion Constructors
@@ -53,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         private ActionResult PageHandlerResult()
         {
-            SetupPreRenderEventHandler();
+          webAppContext.SetupCanonicalUrlEventHandler();
 
             return new EmptyResult();
         }

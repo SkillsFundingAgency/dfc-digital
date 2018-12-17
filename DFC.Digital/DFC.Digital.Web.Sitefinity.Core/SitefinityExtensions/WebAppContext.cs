@@ -86,24 +86,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public void SetVocCookie(string cookieName, string cookieValue)
         {
-           var page = CurrentPage;
-
-            if (page != null)
-            {
-                var headerControls = page.Header.Controls;
-                foreach (var control in headerControls)
-                {
-                    if (control is HtmlLink link)
-                    {
-                        if (link.Attributes[CanonicalAttrKey] == CanonicalAttrValue)
-                        {
-                            headerControls.Remove(link);
-                            break;
-                        }
-                    }
-                }
-            }
-
             HttpContext.Current.Response.Cookies[cookieName].Value = cookieValue;
         }
 

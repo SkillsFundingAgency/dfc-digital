@@ -19,7 +19,7 @@ namespace DFC.Digital.Data.Model
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Title { get; set; }
 
-        [IsSearchable, IsFilterable, IsSuggestible]
+        [IsSearchable, IsFilterable, IsSuggestible, AddWeighting(90)]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 

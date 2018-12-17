@@ -106,57 +106,20 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        public string CreateFuzzyAndContainTerm(string trimmedTerm)
+        public string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties)
         {
-            return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
-        }
-
-        public string TrimSuffixFromSingleWord(string searchTerm)
-        {
-            var suffixes = new[]
+            if (properties?.UseRawSearchTerm == true)
             {
-                "er",
-                "ers",
-                "ing",
-                "ment",
-                "ation",
-                "or",
-                "ology",
-                "metry",
-                "ics",
-                "ette",
-                "ance",
-                "ies",
-                "macy",
-            };
-
-            var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
-            var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
-            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
-        }
-
-        public string ReplaceSuffixFromSingleWord(string trimmedWord)
-        {
-            var replaceSuffixDictionary = new Dictionary<string, string>
-            {
-                ["therapy"] = "thera",
-            };
-
-            var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));
-            var trimmedResult = suffixToBeTrimmed.Key is null
-                ? trimmedWord
-                : $"{trimmedWord.Substring(0, trimmedWord.LastIndexOf(suffixToBeTrimmed.Key, StringComparison.OrdinalIgnoreCase))}{suffixToBeTrimmed.Value}";
-            return trimmedResult.Length < 3 ? trimmedWord : trimmedResult;
-        }
-
-        public string BuildExactMatchSearch(string searchTerm)
-        {
-            if (searchTerm.Split(' ').Count() > 1)
-            {
-                return "\"" + searchTerm + "\" ";
+                return searchTerm;
             }
-
-            return string.Empty;
+            else if (searchTerm.Split(' ').Count() > 1)
+            {
+                return $"\"{searchTerm}\" {partialSearchTerm}";
+            }
+            else
+            {
+                return $"{searchTerm} {partialSearchTerm}";
+            }
         }
 
         public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)
@@ -185,7 +148,25 @@ namespace DFC.Digital.Service.AzureSearch
             return result.Trim();
         }
 
-        public bool IsCommonWord(string term)
+        private static string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        {
+            var trimmedWord = TrimSuffixFromSingleWord(term);
+            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
+            var specialology = Specialologies(term, replaceSuffix);
+            return specialology;
+        }
+
+        private static string Specialologies(string term, string replacedSuffixTerm)
+        {
+            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            return indexOfOlogy > -1
+                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term.Substring(0, indexOfOlogy)}olo"
+                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
+                : replacedSuffixTerm;
+        }
+
+        private static bool IsCommonWord(string term)
         {
             var commonWords = new[]
             {
@@ -197,22 +178,47 @@ namespace DFC.Digital.Service.AzureSearch
             return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
         }
 
-        public string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        private static string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
-            var trimmedWord = TrimSuffixFromSingleWord(term);
-            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
-            var specialology = Specialologies(term, replaceSuffix);
-            return specialology;
+            return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
         }
 
-        public string Specialologies(string term, string replacedSuffixTerm)
+        private static string TrimSuffixFromSingleWord(string searchTerm)
         {
-            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
-            return indexOfOlogy > -1
-                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
-                    ? $"{term.Substring(0, indexOfOlogy)}olo"
-                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
-                : replacedSuffixTerm;
+            var suffixes = new[]
+            {
+                "er",
+                "ers",
+                "ing",
+                "ment",
+                "ation",
+                "or",
+                "ology",
+                "metry",
+                "ics",
+                "ette",
+                "ance",
+                "ies",
+                "macy",
+            };
+
+            var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
+            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
+        }
+
+        private static string ReplaceSuffixFromSingleWord(string trimmedWord)
+        {
+            var replaceSuffixDictionary = new Dictionary<string, string>
+            {
+                ["therapy"] = "thera",
+            };
+
+            var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed.Key is null
+                ? trimmedWord
+                : $"{trimmedWord.Substring(0, trimmedWord.LastIndexOf(suffixToBeTrimmed.Key, StringComparison.OrdinalIgnoreCase))}{suffixToBeTrimmed.Value}";
+            return trimmedResult.Length < 3 ? trimmedWord : trimmedResult;
         }
     }
 }

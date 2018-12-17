@@ -74,6 +74,7 @@ namespace DFC.Digital.Service.AzureSearch
             var result = indexClient.Documents.Search<T>(searchTerm, searchParam);
             var output = queryConverter.ConvertToSearchResult(result, properties);
             output.ComputedSearchTerm = searchTerm;
+            output.SearchParametersQueryString = searchParam.ToString();
             return output;
         }
 
@@ -83,6 +84,7 @@ namespace DFC.Digital.Service.AzureSearch
             var result = await indexClient.Documents.SearchAsync<T>(searchTerm, searchParam);
             var output = queryConverter.ConvertToSearchResult(result, properties);
             output.ComputedSearchTerm = searchTerm;
+            output.SearchParametersQueryString = searchParam.ToString();
             return output;
         }
 

@@ -49,6 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="applicationLogger">applicationLogger</param>
         /// <param name="asyncHelper">asyncHelper</param>
         /// <param name="spellcheckService">spellCheckService</param>
+        /// <param name="jobProfileSearchResultsManipulator">jobProfileSearchResultsManipulator</param>
         public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellcheckService) : base(applicationLogger)
         {
             this.searchQueryService = searchService;

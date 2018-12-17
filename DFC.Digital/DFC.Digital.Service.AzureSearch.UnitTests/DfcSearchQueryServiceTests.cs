@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             //Configure
             A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>._, A<SearchProperties>._)).Returns("cleanedSearchTerm");
             A.CallTo(() => fakeQueryBuilder.BuildContainPartialSearch(A<string>._, A<SearchProperties>._)).Returns("partialTermToSearch");
-            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>._, A<string>._, A<SearchProperties>._)).Returns(string.Empty);
+            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>._, A<string>._, A<SearchProperties>._)).Returns("buildExactMatchSearch");
             A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>._, A<SearchProperties>._)).Returns("trimmed result");
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocumentsOperation);
@@ -49,7 +49,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>._, A<SearchProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
-            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo("cleanedSearchTerm partialTermToSearch"), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo("buildExactMatchSearch"), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).MustHaveHappened();
         }
     }

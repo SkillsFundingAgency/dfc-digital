@@ -11,7 +11,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("term1", "term1", false, "term1 term1")]
         [InlineData("term1", "term1", true, "term1")]
         [InlineData("term1 term2", "term3", false, "\"term1 term2\" term3")]
-        [InlineData("term1 term2", "term3", true, "\"term1 term2\"")]
+        [InlineData("term1 term2", "term3", true, "term1 term2")]
         public void BuildExactMatchTest(string searchTerm, string partialSearchTerm, bool useRawSearchTerm, string expected)
         {
             var queryBuilder = new DfcSearchQueryBuilder();

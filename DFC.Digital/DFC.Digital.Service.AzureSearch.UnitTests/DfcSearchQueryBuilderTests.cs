@@ -125,7 +125,6 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("fisheries", "fisher")] //ies
         [InlineData("diplomacy", "diplo")] //macy
         [InlineData("director and clock repairer", "direct clock repair")] //and
-        [InlineData("the director", "direct")] //the
         [InlineData("Hydrotherapy", "Hydrothera")] //therapy
         public void TrimSuffixesTest(string searchTerm, string expected)
         {

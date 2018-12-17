@@ -114,11 +114,11 @@ namespace DFC.Digital.Service.AzureSearch
             }
             else if (searchTerm.Split(' ').Count() > 1)
             {
-                return $"\"{searchTerm}\" {partialSearchTerm}";
+                return $"\"{searchTerm}\" {partialSearchTerm}".Trim();
             }
             else
             {
-                return $"{searchTerm} {partialSearchTerm}";
+                return $"{searchTerm} {partialSearchTerm}".Trim();
             }
         }
 

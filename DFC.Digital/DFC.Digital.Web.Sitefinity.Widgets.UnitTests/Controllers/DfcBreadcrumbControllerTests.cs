@@ -14,6 +14,26 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 {
     public class DfcBreadcrumbControllerTests
     {
+        private IJobProfileCategoryRepository repositoryCategoryFake;
+        private IJobProfileRepository repositoryJobProfileFake;
+        private ISitefinityCurrentContext sitefinityCurrentContext;
+        private IApplicationLogger loggerFake;
+
+        public DfcBreadcrumbControllerTests()
+        {
+            repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
+            repositoryJobProfileFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
+            sitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
+            loggerFake = A.Fake<IApplicationLogger>();
+        }
+
+        [Fact]
+        public void IndexNoURLTest()
+        {
+
+
+        }
+
         [Theory]
         [InlineData("~/help/cookies", "Cookies")]
         [InlineData("~/search-results", "Search results")]
@@ -49,7 +69,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 .ShouldRenderDefaultView()
                 .WithModel<DfcBreadcrumbViewModel>(vm =>
                 {
-                    vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
+                    vm.BreadcrumbLinks.Should().BeEquivalentTo(nodeTitle);
                 })
                 .AndNoModelErrors();
         }

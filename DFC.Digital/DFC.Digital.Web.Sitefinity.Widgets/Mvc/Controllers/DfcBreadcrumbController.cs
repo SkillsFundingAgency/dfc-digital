@@ -60,6 +60,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [DisplayName("Home page Text")]
         public string HomepageText { get; set; } = "Explore careers home";
 
+        [DisplayName("Job Categories URL Segment")]
+        public string JobCategoriesURLSegment { get; set; } = "JOB-CATEGORIES";
+
+        [DisplayName("Job Profiles URL Segment")]
+        public string JobProfilesURLSegment { get; set; } = "JOB-PROFILES";
+
+        [DisplayName("Alerts URL Segment")]
+        public string AlertsURLSegment { get; set; } = "ALERTS";
+
         #endregion Public Properties
 
         #region Actions
@@ -114,17 +123,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 string nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
-                if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
+                if (nodeUrl.ToUpperInvariant().Contains(JobCategoriesURLSegment) && !string.IsNullOrEmpty(urlName))
                 {
                     var category = categoryRepo.GetByUrlName(urlName);
                     breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
                 } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains("JOB-PROFILES") && !string.IsNullOrEmpty(urlName))
+                else if (nodeUrl.ToUpperInvariant().Contains(JobProfilesURLSegment) && !string.IsNullOrEmpty(urlName))
                 {
                     var jobProfile = jobProfileRepository.GetByUrlName(urlName);
                     breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
                 } // If we are on Alerts page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains("ALERTS"))
+                else if (nodeUrl.ToUpperInvariant().Contains(AlertsURLSegment))
                 {
                     breadCrumbLink.Text = "Error";
                 } // Or we are on any other page
@@ -152,11 +161,12 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
                 }
             }
-            else
-            {
-                breadCrumbLink.Text = "Breadcrumb cannot establish the page node";
-            }
 
+            //Test to see is it behaves as expected if we dont do this GSR
+            // else
+            // {
+            //     breadCrumbLink.Text = string.Empty;
+            // }
             return View(model);
         }
 

@@ -148,7 +148,7 @@ namespace DFC.Digital.Service.AzureSearch
             return result.Trim();
         }
 
-        private static string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        public string TrimAndReplaceSuffixOnCurrentTerm(string term)
         {
             var trimmedWord = TrimSuffixFromSingleWord(term);
             var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
@@ -156,7 +156,7 @@ namespace DFC.Digital.Service.AzureSearch
             return specialology;
         }
 
-        private static string Specialologies(string term, string replacedSuffixTerm)
+        public string Specialologies(string term, string replacedSuffixTerm)
         {
             var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
             return indexOfOlogy > -1
@@ -166,7 +166,7 @@ namespace DFC.Digital.Service.AzureSearch
                 : replacedSuffixTerm;
         }
 
-        private static bool IsCommonCojoinginWord(string term)
+        public bool IsCommonCojoinginWord(string term)
         {
             var commonWords = new[]
             {
@@ -182,12 +182,12 @@ namespace DFC.Digital.Service.AzureSearch
             return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
         }
 
-        private static string CreateFuzzyAndContainTerm(string trimmedTerm)
+        public string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
             return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
         }
 
-        private static string TrimSuffixFromSingleWord(string searchTerm)
+        public string TrimSuffixFromSingleWord(string searchTerm)
         {
             var suffixes = new[]
             {
@@ -211,7 +211,7 @@ namespace DFC.Digital.Service.AzureSearch
             return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
         }
 
-        private static string ReplaceSuffixFromSingleWord(string trimmedWord)
+        public string ReplaceSuffixFromSingleWord(string trimmedWord)
         {
             var replaceSuffixDictionary = new Dictionary<string, string>
             {

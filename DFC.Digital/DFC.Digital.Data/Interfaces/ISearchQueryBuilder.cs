@@ -22,7 +22,7 @@ namespace DFC.Digital.Data.Interfaces
 
         string TrimAndReplaceSuffixOnCurrentTerm(string term);
 
-        bool IsCommonWord(string term);
+        bool IsCommonCojoinginWord(string term);
 
         string TrimSuffixFromSingleWord(string searchTerm);
 

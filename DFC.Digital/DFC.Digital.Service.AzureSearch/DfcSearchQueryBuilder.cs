@@ -106,12 +106,12 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        private static string CreateFuzzyAndContainTerm(string trimmedTerm)
+        public string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
             return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
         }
 
-        private static string TrimSuffixFromSingleWord(string searchTerm)
+        public string TrimSuffixFromSingleWord(string searchTerm)
         {
             var suffixes = new[]
             {
@@ -135,7 +135,7 @@ namespace DFC.Digital.Service.AzureSearch
             return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
         }
 
-        private static string ReplaceSuffixFromSingleWord(string trimmedWord)
+        public string ReplaceSuffixFromSingleWord(string trimmedWord)
         {
             var replaceSuffixDictionary = new Dictionary<string, string>
             {
@@ -147,6 +147,72 @@ namespace DFC.Digital.Service.AzureSearch
                 ? trimmedWord
                 : $"{trimmedWord.Substring(0, trimmedWord.LastIndexOf(suffixToBeTrimmed.Key, StringComparison.OrdinalIgnoreCase))}{suffixToBeTrimmed.Value}";
             return trimmedResult.Length < 3 ? trimmedWord : trimmedResult;
+        }
+
+        public string BuildExactMatchSearch(string searchTerm)
+        {
+            if (searchTerm.Split(' ').Count() > 1)
+            {
+                return "\"" + searchTerm + "\" ";
+            }
+
+            return string.Empty;
+        }
+
+        public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)
+        {
+            if (properties?.UseRawSearchTerm == true)
+            {
+                return searchTerm;
+            }
+
+            var result = searchTerm.Any(char.IsWhiteSpace)
+                ? searchTerm
+                   .Split(' ')
+                   .Aggregate(string.Empty, (current, term) =>
+                   {
+                       if (IsCommonWord(term))
+                       {
+                           return $"{current}";
+                       }
+                       else
+                       {
+                           return $"{current} {TrimAndReplaceSuffixOnCurrentTerm(term)}";
+                       }
+                   })
+                : TrimAndReplaceSuffixOnCurrentTerm(searchTerm);
+
+            return result.Trim();
+        }
+
+        public bool IsCommonWord(string term)
+        {
+            var commonWords = new[]
+            {
+                "and",
+                "or",
+                "the"
+            };
+
+            return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        {
+            var trimmedWord = TrimSuffixFromSingleWord(term);
+            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
+            var specialology = Specialologies(term, replaceSuffix);
+            return specialology;
+        }
+
+        public string Specialologies(string term, string replacedSuffixTerm)
+        {
+            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            return indexOfOlogy > -1
+                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term.Substring(0, indexOfOlogy)}olo"
+                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
+                : replacedSuffixTerm;
         }
     }
 }

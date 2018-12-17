@@ -17,5 +17,17 @@ namespace DFC.Digital.Data.Interfaces
         string EscapeSpecialCharactersInSearchTerm(string searchTerm, SearchProperties properties);
 
         string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties);
+
+        string Specialologies(string term, string replacedSuffixTerm);
+
+        string TrimAndReplaceSuffixOnCurrentTerm(string term);
+
+        bool IsCommonWord(string term);
+
+        string TrimSuffixFromSingleWord(string searchTerm);
+
+        string ReplaceSuffixFromSingleWord(string trimmedWord);
+
+        string CreateFuzzyAndContainTerm(string trimmedTerm);
     }
 }

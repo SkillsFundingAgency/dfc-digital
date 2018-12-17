@@ -233,7 +233,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileSearch.feature</DependentUpon>
     </Compile>
-    <Compile Include="Feature\SingleTermDerivativeSearch.feature.cs">
+    <Compile Include="Feature\SingleTermDerivativeSearch1.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SingleTermDerivativeSearch.feature</DependentUpon>
@@ -274,7 +274,7 @@
     </AdditionalFiles>
     <None Include="Feature\SingleTermDerivativeSearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SingleTermDerivativeSearch.feature.cs</LastGenOutput>
+      <LastGenOutput>SingleTermDerivativeSearch1.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>

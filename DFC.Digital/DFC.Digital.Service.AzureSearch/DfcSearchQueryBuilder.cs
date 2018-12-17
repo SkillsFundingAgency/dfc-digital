@@ -134,7 +134,7 @@ namespace DFC.Digital.Service.AzureSearch
                    .Split(' ')
                    .Aggregate(string.Empty, (current, term) =>
                    {
-                       if (IsCommonWord(term))
+                       if (IsCommonCojoinginWord(term))
                        {
                            return $"{current}";
                        }
@@ -166,13 +166,17 @@ namespace DFC.Digital.Service.AzureSearch
                 : replacedSuffixTerm;
         }
 
-        private static bool IsCommonWord(string term)
+        private static bool IsCommonCojoinginWord(string term)
         {
             var commonWords = new[]
             {
                 "and",
                 "or",
-                "the"
+                "as",
+                "if",
+                "also",
+                "but",
+                "not",
             };
 
             return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));

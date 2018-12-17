@@ -34,20 +34,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
 
         private ITestOutputHelper OutputHelper { get; set; }
 
-        [Given(@"there was atleast (.*) job profile which have a title '(.*)' exist:")]
-        public void GivenThereWasAtleastJobProfileWhichHaveATitleExistAsync(int profileCount, string title)
-        {
-            try
-            {
-                asyncHelper.Synchronise(() => searchService.EnsureIndexAsync(searchIndex.Name));
-                asyncHelper.Synchronise(() => searchService.PopulateIndexAsync(profileCount.CreateWithTitle(title)));
-            }
-            catch (Exception ex)
-            {
-                OutputHelper.WriteLine($"Exception in When:- {ex.ToString()}");
-            }
-        }
-
         [When(@"I search for search term '(.*)'")]
         public void WhenISearchForSearchTerm(string searchTerm)
         {

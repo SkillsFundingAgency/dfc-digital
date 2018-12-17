@@ -134,7 +134,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                     var pageNode = SiteMapBase.GetActualCurrentNode();
                     while (pageNode.ParentNode != null)
                     {
-                        if (pageNode.NodeType == NodeType.Standard)
+                        if (pageNode.NodeType == NodeType.Standard && pageNode.Visible)
                         {
                             var pageBreadCrumbLink = new BreadCrumbLink
                             {

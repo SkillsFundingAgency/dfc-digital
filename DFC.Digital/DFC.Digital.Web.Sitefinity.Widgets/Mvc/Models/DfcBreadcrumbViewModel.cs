@@ -24,14 +24,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         /// </value>
         public string HomepageLink { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Title of the breadcrumbed page.
-        /// </summary>
-        /// <value>
-        /// The breadcrumbedpPage Title text
-        /// </value>
-        public string BreadcrumbPageTitleText { get; set; }
-
         public IList<BreadCrumbLink> BreadcrumbLinks { get; set; }
     }
 }

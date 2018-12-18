@@ -27,13 +27,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             loggerFake = A.Fake<IApplicationLogger>();
         }
 
-        [Fact]
-        public void IndexNoURLTest()
-        {
-
-
-        }
-
         [Theory]
         [InlineData("~/help/cookies", "Cookies")]
         [InlineData("~/search-results", "Search results")]

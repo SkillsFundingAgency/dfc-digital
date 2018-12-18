@@ -57,16 +57,19 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <value>
         /// The Text of the home page.
         /// </value>
-        [DisplayName("Home page Text")]
+        [DisplayName("Home page text")]
         public string HomepageText { get; set; } = "Explore careers home";
 
-        [DisplayName("Job Categories URL Segment")]
+        [DisplayName("Alerts page breadcrumb text")]
+        public string AlertsPageText { get; set; } = "Error";
+
+        [DisplayName("Job categories URL segment (Upper case)")]
         public string JobCategoriesURLSegment { get; set; } = "JOB-CATEGORIES";
 
-        [DisplayName("Job Profiles URL Segment")]
+        [DisplayName("Job profiles URL segment (Upper case)")]
         public string JobProfilesURLSegment { get; set; } = "JOB-PROFILES";
 
-        [DisplayName("Alerts URL Segment")]
+        [DisplayName("Alerts URL segment (Upper case)")]
         public string AlertsURLSegment { get; set; } = "ALERTS";
 
         #endregion Public Properties
@@ -135,7 +138,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 } // If we are on Alerts page(s)
                 else if (nodeUrl.ToUpperInvariant().Contains(AlertsURLSegment))
                 {
-                    breadCrumbLink.Text = "Error";
+                    breadCrumbLink.Text = AlertsPageText;
                 } // Or we are on any other page
                 else
                 {

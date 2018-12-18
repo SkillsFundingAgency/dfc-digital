@@ -112,7 +112,7 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 return searchTerm;
             }
-            else if (searchTerm.Split(' ').Count() > 1)
+            else if (searchTerm?.Split(' ').Count() > 1)
             {
                 return $"\"{searchTerm}\" {partialSearchTerm}".Trim();
             }
@@ -129,7 +129,7 @@ namespace DFC.Digital.Service.AzureSearch
                 return searchTerm;
             }
 
-            var result = searchTerm.Any(char.IsWhiteSpace)
+            var result = searchTerm?.Any(char.IsWhiteSpace) == true
                 ? searchTerm
                    .Split(' ')
                    .Aggregate(string.Empty, (current, term) =>
@@ -158,11 +158,11 @@ namespace DFC.Digital.Service.AzureSearch
 
         public string Specialologies(string term, string replacedSuffixTerm)
         {
-            var indexOfOlogy = term.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            var indexOfOlogy = term?.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
             return indexOfOlogy > -1
-                ? replacedSuffixTerm.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
-                    ? $"{term.Substring(0, indexOfOlogy)}olo"
-                    : $"{replacedSuffixTerm} {term.Substring(0, indexOfOlogy)}olo"
+                ? replacedSuffixTerm?.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term?.Substring(0, indexOfOlogy.Value)}olo"
+                    : $"{replacedSuffixTerm} {term?.Substring(0, indexOfOlogy.Value)}olo"
                 : replacedSuffixTerm;
         }
 

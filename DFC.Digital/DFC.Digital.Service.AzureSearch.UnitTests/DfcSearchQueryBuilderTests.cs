@@ -139,6 +139,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("ecology", "ecology", "ecolo")] //ology
         [InlineData("biology", "biology", "biolo")] //ology
         [InlineData("criminology", "crimin", "crimin criminolo")] //ology
+        [InlineData("", "crimin", "crimin")] //ology
+        [InlineData("criminology", "", "criminolo")] //ology
         public void SpecialologiesTest(string searchTerm, string replacedSuffixTerm, string expected)
         {
             var testObject = new DfcSearchQueryBuilder();

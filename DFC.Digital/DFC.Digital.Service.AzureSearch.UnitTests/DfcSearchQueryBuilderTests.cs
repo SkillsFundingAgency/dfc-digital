@@ -133,5 +133,43 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var trimmedOutput = testObject.TrimCommonWordsAndSuffixes(searchTermResult, new SearchProperties());
             trimmedOutput.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData("pharmacology", "pharmac", "pharmac pharmacolo")] //ology
+        [InlineData("ecology", "ecology", "ecolo")] //ology
+        public void SpecialologiesTest(string searchTerm, string replacedSuffixTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.Specialologies(searchTerm, replacedSuffixTerm);
+            searchTermResult.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData("and", true)]
+        [InlineData("the", false)]
+        [InlineData("or", true)]
+        [InlineData("is", false)]
+        [InlineData("as", true)]
+        [InlineData("are", false)]
+        [InlineData("if", true)]
+        [InlineData("to", false)]
+        [InlineData("also", true)]
+        [InlineData("but", true)]
+        [InlineData("not", true)]
+        public void IsCommonCojoinginWordTest(string searchTerm, bool expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm.ToLower());
+            searchTermResult.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData("plumber", "plumb")] //er
+        public void TrimSuffixFromSingleWordTest(string searchTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.TrimSuffixFromSingleWord(searchTerm);
+            searchTermResult.Should().Be(expected);
+        }
     }
 }

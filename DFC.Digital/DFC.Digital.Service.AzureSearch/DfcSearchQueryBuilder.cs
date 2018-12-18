@@ -161,8 +161,8 @@ namespace DFC.Digital.Service.AzureSearch
             var indexOfOlogy = term?.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
             return indexOfOlogy > -1
                 ? replacedSuffixTerm?.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
-                    ? $"{term?.Substring(0, indexOfOlogy.Value)}olo"
-                    : $"{replacedSuffixTerm} {term?.Substring(0, indexOfOlogy.Value)}olo"
+                    ? $"{term?.Substring(0, indexOfOlogy.Value)}olo".Trim()
+                    : $"{replacedSuffixTerm} {term?.Substring(0, indexOfOlogy.Value)}olo".Trim()
                 : replacedSuffixTerm;
         }
 

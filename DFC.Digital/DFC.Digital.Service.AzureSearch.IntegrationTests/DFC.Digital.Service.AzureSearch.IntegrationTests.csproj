@@ -237,6 +237,7 @@
     <Compile Include="Steps\JobProfileAutosuggestSteps.cs" />
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
+    <Compile Include="Steps\SingleTermDerivativeSearchSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -266,6 +267,10 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <None Include="Feature\SingleTermDerivativeSearch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SingleTermDerivativeSearch1.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -332,6 +337,12 @@
   </Target>
   -->
   <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
+  <Target Name="AfterUpdateFeatureFilesInProject">
+    <!-- include any files that specflow generated into the compilation of the project, if it was not included yet -->
+    <ItemGroup>
+      <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
+    </ItemGroup>
+  </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>

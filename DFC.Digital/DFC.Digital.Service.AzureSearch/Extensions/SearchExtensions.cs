@@ -23,7 +23,8 @@ namespace DFC.Digital.Service.AzureSearch
                         resultList.Add(new SearchResultItem<T>
                         {
                             ResultItem = result.Document,
-                            Rank = beginRank
+                            Rank = beginRank,
+                            Score = result.Score
                         });
                     }
                 }

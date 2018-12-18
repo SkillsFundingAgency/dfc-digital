@@ -13,9 +13,14 @@ namespace DFC.Digital.Service.AzureSearch
             {
                 var results = searchResult?.Results?.ToList();
                 var promo = results
+                    ?.FirstOrDefault(p => p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+                if (promo == null)
+                {
+                    promo = results
                     ?.FirstOrDefault(p =>
-                    p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))
-                    || p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+                    p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)));
+                }
 
                 //The results contain a profile and its not at the top.
                 if (promo != null && promo.Rank != 1)

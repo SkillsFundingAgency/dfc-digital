@@ -1,8 +1,10 @@
 ﻿using ASP;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -13,90 +15,81 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
     /// </summary>
     public class DfcBreadcrumbViewTests
     {
-        /// <summary>
-        /// DFC the 1342 A1 DfcBreadcrumb
-        /// </summary>
-        /// <param name="homepageText">Home Page Text</param>
-        /// <param name="homepageLink">Home Page Link</param>
-        /// <param name="breadcrumbPageTitleText">Breadcrumbed PageTitle Text</param>
-        [Theory]
-        [InlineData("Find a career home", "/", "Administration")]
-        [InlineData("Find a career home", "/", "Border force officer")]
-        [InlineData("Find a career home", "/", "Search results")]
-        [InlineData("Find a career home", "/", "Error")]
-        public void DFC1342A1DfcBreadcrumb(string homepageText, string homepageLink, string breadcrumbPageTitleText)
+        private const string HrefNotFound = "HrefNotFound";
+
+        [Fact]
+        public void DFC1342A1DfcBreadcrumb()
         {
             // Arrange
             var indexView = new _MVC_Views_DfcBreadcrumb_Index_cshtml();
-            var dfcBreadcrumbViewModel = GenerateDfcBreadcrumbViewModelDummy(homepageText, homepageLink, breadcrumbPageTitleText);
+            var dfcBreadcrumbViewModel = GenerateDfcBreadcrumbViewModelDummy();
 
             //// Act
             var htmlDom = indexView.RenderAsHtml(dfcBreadcrumbViewModel);
 
             //// Assert
-            GetHomepageTextOrLink(htmlDom, true).Should().BeEquivalentTo(homepageText);
-            GetHomepageTextOrLink(htmlDom, false).Should().BeEquivalentTo(homepageLink);
-            GetBreadcrumbPageTitleText(htmlDom).Should().BeEquivalentTo(breadcrumbPageTitleText);
+
+            //This should be the home page link
+            var homeLinkInDom = GetLinkAtPosition(htmlDom, 0);
+            homeLinkInDom.Link.Should().BeEquivalentTo(dfcBreadcrumbViewModel.HomepageLink);
+            homeLinkInDom.Text.Should().BeEquivalentTo(dfcBreadcrumbViewModel.HomepageText);
+
+            //This should be a standard link
+            var firstLinkInDom = GetLinkAtPosition(htmlDom, 1);
+            var firstLinkInModel = dfcBreadcrumbViewModel.BreadcrumbLinks.FirstOrDefault();
+            firstLinkInDom.Should().BeEquivalentTo(firstLinkInModel);
+
+            //This should be text and the href element missing
+            var secondLinkInDom = GetLinkAtPosition(htmlDom, 2);
+            var secondLinkInModel = dfcBreadcrumbViewModel.BreadcrumbLinks.Skip(1).FirstOrDefault();
+            secondLinkInModel.Link = HrefNotFound;
+            secondLinkInDom.Should().BeEquivalentTo(secondLinkInModel);
         }
 
         /// <summary>
         /// Gets the HomePage Text or Link.
         /// </summary>
         /// <param name="htmlDom">The HTML DOM.</param>
-        /// <param name="isHomepageText">if set to <c>true</c> [is HomePage Text] else <c>false</c> [is HomePage Link].</param>
+        /// <param name="position">the number of li elements to skip before getting link</param>
         /// <returns>Homepage Text or Link</returns>
-        private static string GetHomepageTextOrLink(HtmlDocument htmlDom, bool isHomepageText)
+        private static BreadCrumbLink GetLinkAtPosition(HtmlDocument htmlDom, int position)
         {
-            var homePageElement = htmlDom.DocumentNode.Descendants("li").FirstOrDefault();
-            if (homePageElement != null)
+            var breadCrumbLink = new BreadCrumbLink();
+            var crumbElement = htmlDom.DocumentNode.Descendants("li").Skip(position).FirstOrDefault();
+            if (crumbElement != null)
             {
-                var liContent = homePageElement.Descendants("a").FirstOrDefault();
-                if (liContent != null)
+                var anchorElement = crumbElement.Descendants("a").FirstOrDefault();
+                if (anchorElement != null)
                 {
-                    if (isHomepageText)
-                    {
-                        return liContent.InnerText;
-                    }
-                    else
-                    {
-                        return liContent.GetAttributeValue("href", string.Empty);
-                    }
+                    breadCrumbLink.Text = anchorElement.InnerText;
+                    breadCrumbLink.Link = anchorElement.GetAttributeValue("href", HrefNotFound);
+                }
+                else
+                {
+                    breadCrumbLink.Text = crumbElement.InnerText.Trim();
+                    breadCrumbLink.Link = HrefNotFound;
                 }
             }
 
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Gets the Breadcrumbed PageTitle Text.
-        /// </summary>
-        /// <param name="htmlDom">The HTML DOM.</param>
-        /// <returns>BreadcrumbPageTitle</returns>
-        private static string GetBreadcrumbPageTitleText(HtmlDocument htmlDom)
-        {
-            var breadcrumbPageTitleTextElement = htmlDom.DocumentNode.Descendants("li").LastOrDefault();
-            if (breadcrumbPageTitleTextElement != null)
-            {
-                return breadcrumbPageTitleTextElement.InnerText;
-            }
-
-            return string.Empty;
+            return breadCrumbLink;
         }
 
         /// <summary>
         /// Generates the DfcBreadcrumb view model dummy.
         /// </summary>
-        /// <param name="homepageText">Home Page Text</param>
-        /// <param name="homepageLink">Home Page Link</param>
-        /// <param name="breadcrumbedpageTitleText">Breadcrumb PageTitle Text</param>
         /// <returns>Dummy DfcBreadcrumbViewModel</returns>
-        private static DfcBreadcrumbViewModel GenerateDfcBreadcrumbViewModelDummy(string homepageText, string homepageLink, string breadcrumbedpageTitleText)
+        private static DfcBreadcrumbViewModel GenerateDfcBreadcrumbViewModelDummy()
         {
             return new DfcBreadcrumbViewModel
             {
-                HomepageText = homepageText,
-                HomepageLink = homepageLink,
-                BreadcrumbPageTitleText = breadcrumbedpageTitleText
+                HomepageText = "homepageText",
+                HomepageLink = "homepageLink",
+
+                BreadcrumbLinks = new List<BreadCrumbLink>()
+                {
+                  new BreadCrumbLink { Text = "Text1", Link = "Link1" },
+                  new BreadCrumbLink { Text = "Text2" }
+                }
             };
         }
     }

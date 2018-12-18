@@ -7,6 +7,7 @@ using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System;
+using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -33,12 +34,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         [InlineData("~/alerts", "Error")]
         public void IndexTest(string nodeUrl, string nodeTitle)
         {
-            //Setup the fakes and dummies
-            var repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
-            var repositoryJobProfileFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var sitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>();
-
             var dummyCategory = A.Dummy<JobProfileCategory>();
             var dummyJobProfile = A.Dummy<JobProfile>();
 
@@ -62,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 .ShouldRenderDefaultView()
                 .WithModel<DfcBreadcrumbViewModel>(vm =>
                 {
-                    vm.BreadcrumbLinks.Should().BeEquivalentTo(nodeTitle);
+                    vm.BreadcrumbLinks.FirstOrDefault().Text.Should().BeEquivalentTo(nodeTitle);
                 })
                 .AndNoModelErrors();
         }
@@ -77,12 +72,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
 
         public void IndexUrlNameTest(string urlName, string nodeUrl, string nodeTitle, bool hasDfcPageSiteNode)
         {
-            //Setup the fakes and dummies
-            var repositoryCategoryFake = A.Fake<IJobProfileCategoryRepository>(ops => ops.Strict());
-            var repositoryJobProfileFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var sitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
-            var loggerFake = A.Fake<IApplicationLogger>();
-
             var dummyCategory = A.Dummy<JobProfileCategory>();
             dummyCategory.Title = nodeTitle;
             var dummyJobProfile = A.Dummy<JobProfile>();
@@ -129,7 +118,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                        .ShouldRenderDefaultView()
                        .WithModel<DfcBreadcrumbViewModel>(vm =>
                        {
-                           vm.BreadcrumbPageTitleText.Should().BeEquivalentTo(nodeTitle);
+                           vm.BreadcrumbLinks.FirstOrDefault().Text.Should().BeEquivalentTo(nodeTitle);
                        })
                        .AndNoModelErrors();
             }
@@ -139,7 +128,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                   .ShouldRenderDefaultView()
                   .WithModel<DfcBreadcrumbViewModel>(vm =>
                   {
-                      vm.BreadcrumbPageTitleText.Should().BeEquivalentTo("Breadcrumb cannot establish the page node");
+                      vm.BreadcrumbLinks.FirstOrDefault().Text.Should().BeEquivalentTo("Breadcrumb cannot establish the page node");
                   })
                   .AndNoModelErrors();
             }

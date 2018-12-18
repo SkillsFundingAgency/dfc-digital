@@ -6,15 +6,10 @@
             <li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>
             @foreach (var item in Model.BreadcrumbLinks)
             {
-            <li>
-                @if (string.IsNullOrEmpty(item.Link))
-                {
-                    @item.Text
-                }
+            <li>@if (string.IsNullOrEmpty(item.Link))
+                    {@item.Text}
                 else
-                {
-                   <a href="@item.Link">@item.Text</a>
-                }
+                    {<a href="@item.Link">@item.Text</a>}
             </li>
             }
         </ol>

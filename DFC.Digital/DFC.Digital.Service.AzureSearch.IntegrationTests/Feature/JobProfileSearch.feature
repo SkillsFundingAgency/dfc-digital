@@ -79,7 +79,56 @@ Examples:
 #| Theater operators                     | Projectionist, film projector            |                        |                        |            |
 #| Another technician                    |                                          |                        | engineerhat            |            |
 #| Technologist                          |                                          | engineerhat            |                        |            |
- 
+#| Astronomer                            |                                          |                        |                        |            |
+#| Criminal psychologist                 |                                          |                        |                        |            |
+#| Childminder                           |                                          |                        |                        |            |
+#| Optomotrist                           |                                          |                        |                        |            |
+#| Police constable                      |                                          |                        |                        |            |
+#| Advertising copywriter                |                                          |                        |                        |            |
+#| Advertising art director              |                                          |                        |                        |            |
+#| Advertising media planner             |                                          |                        |                        |            |
+#| Advertising account executive         |                                          |                        |                        |            |
+#| Archaeologist                         |                                          |                        |                        |            |
+#| Pharmacologist                        |                                          |                        |                        |            |
+#| Zoologist                             |                                          |                        |                        |            |
+#| Payroll administrator                 |                                          |                        |                        |            |
+#| Sales administrator                   |                                          |                        |                        |            |
+#| Pensions administrator                |                                          |                        |                        |            |
+#| Database administrator                |                                          |                        |                        |            |
+#| Arts administrator                    |                                          |                        |                        |            |
+#| Biologist                             |                                          |                        |                        |            |
+#| Plant biologist                       |                                          |                        |                        |            |
+#| Diplomatic service officer            |                                          |                        |                        |            |
+#| Ecologist                             |                                          |                        |                        |            |
+#| Farmer                                |                                          |                        |                        |            |
+#| Farm worker                           |                                          |                        |                        |            |
+#| Farm secretary                        |                                          |                        |                        |            |
+#| Fish farmer                           |                                          |                        |                        |            |
+#| Colon hydrotherapist                  |                                          |                        |                        |            |
+#| Hypnotherapist                        |                                          |                        |                        |            |
+#| Road traffic accident investigator    |                                          |                        |                        |            |
+#| Private investigator                  |                                          |                        |                        |            |
+#| Investment analyst                    |                                          |                        |                        |            |
+#| Landscape architect                   |                                          |                        |                        |            |
+#| Landscaper                            |                                          |                        |                        |            |
+#| Landscape gardener                    |                                          |                        |                        |            |
+#| Laundry worker                        |                                          |                        |                        |            |
+#| Meteorologist                         |                                          |                        |                        |            |
+#| Nanotechnologist                      |                                          |                        |                        |            |
+#| Youth offending service officer       |                                          |                        |                        |            |
+#| Stunt performer                       |                                          |                        |                        |            |
+#| Circus performer                      |                                          |                        |                        |            |
+#| Print room operator                   |                                          |                        |                        |            |
+#| Print finisher                        |                                          |                        |                        |            |
+#| Health promotion specialist           |                                          |                        |                        |            |
+#| Screenwriter                          |                                          |                        |                        |            |
+#| Tattooist                             |                                          |                        |                        |            |
+#| Architectural technologist            |                                          |                        |                        |            |
+#| Garment technologist                  |                                          |                        |                        |            |
+#| Critical care technologist            |                                          |                        |                        |            |
+#| Leather technologist                  |                                          |                        |                        |            |
+#| Packaging technologist                |                                          |                        |                        |            |  
+#| Music promotions manager				 |                                          |                        |                        |            |  
 
 #[A1] Job profiles which possess a <Title> which exactly matches the "search term" should be listed in the list
 # Scenarios demonstrating the correct application of [A1] 
@@ -219,35 +268,6 @@ Examples:
 			| Counsellor    | Therapist, psychotherapist |
 			| Money adviser | Debt counsellor            |
 
-	Scenario: [DFC-31 - A1, A2 - 2] User uses a search term which exactly matches <AltTitle> AND is contained within the <Title> on DIFFERENT profiles
-	  # The "search term" is literal and no 'varients' will be considered as a partial match. Hence the use of 'contains' rather than 'partial match'
-      #    i.e. "engineer" will be considered a partial match against "Lift engineer" or "Marine engineering technician" but NOT "Engine driver"
-      #    NOTE: The presence of "Speech and language therapy assistant" is used to demonstrate this against the 'therapist' search - and will not be returned
-		Given the following job profiles exist:
-			| Title                                 | AlternativeTitle                         |
-			| First Job Profile                     | Extra Start                              |
-			| Veterinary physiotherapist            | Animal physiotherapist                   |
-			| Counsellor                            | Therapist, psychotherapist               |
-			| Middle Job Profile                    | Extra Middle                             |
-			| CBT practitioners                     | Talking therapist, behavioural therapist |
-			| Speech and language therapy assistant |                                          |
-			| Last Job Profile                      | Extra End                                |
-			| Therapist                             | UITest Exact Title                       |
-			| UITest Exact AltTitle                 | Therapist                                |
-			| Vocal Therapist                       | UITest Partial Title                     |
-			| UITest Partial AltTitle               | Physical therapist                       |
-		When I search using the search term 'therapist'
-		Then the result list will contain '7' profile(s)
-		And the profiles are listed in no specific order:
-			| Title                      | AlternativeTitle                         |
-			| Counsellor                 | Therapist, psychotherapist               |
-			| CBT practitioners          | Talking therapist, behavioural therapist |
-			| Veterinary physiotherapist | Animal physiotherapist                   |
-			| Therapist                  | UITest Exact Title                       |
-			| UITest Exact AltTitle      | Therapist                                |
-			| Vocal Therapist            | UITest Partial Title                     |
-			| UITest Partial AltTitle    | Physical therapist                       |
-
 	#Scenario: [DFC-31 - A1, A2, A3 - MK1] User uses a search term which is found to be an EXACT match, and a PARTIAL match, against both <Title> and <AlternativeTitle>, on mutliple different profiles
 	#	Given the following job profiles exist:
 	#		| Title                      | AlternativeTitle                         |
@@ -314,11 +334,11 @@ When I search using the search term '<SearchTerm>'
 			| Nurse !Veterinary    | 5          |
 			| Nurse - Veterinary   | 5          |
 			| Nurse + Veterinary   | 5          |
-			| Nurse OR Profile     | 10         |
+			| Nurse OR Profile     | 7          |
 			| Profile && Job       | 6          |
 			| Profile & Job        | 6          |
 			| Profile \|\| Job     | 6          |
-			| Veterinary AND nurse | 10          |
+			| Veterinary AND nurse | 5          |
 			| (GP)                 | 1          |
 			| Co-ordinator         | 2          |
 
@@ -369,65 +389,7 @@ Scenario: [DFC-1572] Bugfix - Search term contains "-" should return results
 	| SearchTerm | CountOfDummies |
 	| Everything | 1000           |
 
-Scenario: [DFC-1493 - A1] Partial Match - search and match with Title only
-	Given the following job profiles exist:
-         | Title                     | AlternativeTitle |
-         | Money adviser             | Debt counsellor  |
-         | General practitioner (GP) | Doc              |
-	When I search using the search term 'advis'
-	Then the result list will contain '1' profile(s)
-	And the profiles are listed in no specific order:
-         | Title         | AlternativeTitle |
-         | Money adviser | Debt counsellor  | 
-
-Scenario: [DFC-1493 - A2] Partial Match - search and match with Alternative Title only
-	Given the following job profiles exist:
-         | Title                         | AlternativeTitle          |
-         | Stage technician              | Stagehand, Stage manager  |
-         | Pharmacy technician           | Pharmaceutical technician |
-         | Marine engineering technician | Shipbuilding technician   |
-	When I search using the search term 'manag'
-    Then the result list will contain '1' profile(s)
-	And the profiles are listed in no specific order:
-         | Title            | AlternativeTitle         |
-         | Stage technician | Stagehand, Stage manager |
-
-Scenario: [DFC-1493 - A3] Partial Match - search and match with both Title Alternative Title only
-	Given the following job profiles exist:
-         | Title                            | AlternativeTitle           | JobProfileSpecialism   | HiddenAlternativeTitle |
-         | Nail technician                  |                            | nailingtk, technicaltk |                        |
-         | Lift engineer                    | Lift technician            | engineerkw             |                        |
-         | Stagehand                        | Stage technician           |                        |                        |
-         | Stage technician                 | Stagehand, Stage manager   |                        |                        |
-         | Last Job Profile                 | Extra End                  |                        |                        |
-         | Therapist                        | UITest Exact Title         |                        |                        |
-         | Aerospace engineering technician |                            |                        |                        |
-         | Pharmacy technician              | Pharmaceutical technician  |                        |                        |
-         | Counsellor                       | Therapist, psychotherapist |                        |                        |
-         | Middle Job Profile               | Extra Middle               |                        |                        |
-         | Marine engineering technician    | Shipbuilding technician    |                        |                        |
-         | Another technician               |                            |                        | engineerhat             |
-	When I search using the search term 'techni'
-	Then the result list will contain '8' profile(s)
-	And the profiles are listed in no specific order:
-         | Title                            | AlternativeTitle          | JobProfileSpecialism   | HiddenAlternativeTitle |
-         | Nail technician                  |                           | nailingtk, technicaltk |                        |
-         | Lift engineer                    | Lift technician           | engineerkw             |                        |
-         | Stagehand                        | Stage technician          |                        |                        |
-         | Stage technician                 | Stagehand, Stage manager  |                        |                        |
-         | Aerospace engineering technician |                           |                        |                        |
-         | Pharmacy technician              | Pharmaceutical technician |                        |                        |
-         | Marine engineering technician    | Shipbuilding technician   |                        |                        |
-         | Another technician               |                           |                        | engineerhat            |
-
-Scenario: [DFC-1493 - A4] Partial Match - search and dont match both Title Alternative Title only
-	Given the following job profiles exist:
-         | Title                    | AlternativeTitle            |
-         | Vocal Therapist | UITest Partial Title        |
-         | UITest Exact AltTitle    | Therapist          |
-         | UITest Partial AltTitle  | Physical therapist |
-	When I search using the search term 'Program'
-	Then the result count should match '0'
+# DFC-1493 - This scenario is not valid any more, following DFC-5229-SingleTermDerivatives story with language analysers.
 
 Scenario: [DFC-1635 - A1] Match with data that has single Keyword only
 	Given the following job profiles exist:
@@ -495,3 +457,34 @@ When I search using the search term 'engineerhat'
          | Title              | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle |
          | Technologist       |                  | engineerhat          |                        |
          | Another technician |                  |                      | engineerhat            |	
+
+
+	Scenario: [DFC-5229 - (DFC-31-A1, A2 - 2)] User uses a search term whose root exactly matches the searchable fields on different profiles
+      #    NOTE: The presence of "Speech and language therapy assistant" is used to demonstrate derivatives along with the literal partial matches
+		Given the following job profiles exist:
+			| Title                                 | AlternativeTitle                         |
+			| First Job Profile                     | Extra Start                              |
+			| Veterinary physiotherapist            | Animal physiotherapist                   |
+			| Counsellor                            | Therapist, psychotherapist               |
+			| Middle Job Profile                    | Extra Middle                             |
+			| CBT practitioners                     | Talking therapist, behavioural therapist |
+			| Speech and language therapy assistant |                                          |
+			| Last Job Profile                      | Extra End                                |
+			| Therapist                             | UITest Exact Title                       |
+			| UITest Exact AltTitle                 | Therapist                                |
+			| Vocal Therapist                       | UITest Partial Title                     |
+			| UITest Partial AltTitle               | Physical therapist                       |
+		When I search using the search term 'therapist'
+		Then the result list will contain '10' profile(s)
+		And the profiles are listed in no specific order:
+			| Title                                 | AlternativeTitle                         |
+			| Therapist                             | UITest Exact Title                       |
+			| Counsellor                            | Therapist, psychotherapist               |
+			| CBT practitioners                     | Talking therapist, behavioural therapist |
+			| Veterinary physiotherapist            | Animal physiotherapist                   |
+			| UITest Exact AltTitle                 | Therapist                                |
+			| Vocal Therapist                       | UITest Partial Title                     |
+			| UITest Partial AltTitle               | Physical therapist                       |
+			| Speech and language therapy assistant |                                          |
+			| Colon hydrotherapist                  |                                          |
+			| Hypnotherapist                        |                                          |

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="specFlow" type="TechTalk.SpecFlow.Configuration.ConfigurationSectionHandler, TechTalk.SpecFlow" />
+ </configSections>
+    <startup>
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.1" />
+    </startup>
+<specFlow>
+  <!-- For additional details on SpecFlow configuration options see http://go.specflow.org/doc-config --><unitTestProvider name="xUnit" /></specFlow>
+  <appSettings>
+    <add key="DFC.Digital.JobProfileSearchIndex" value="__jobProfileSearchIndex__" />
+    <add key="DFC.Digital.SearchServiceName" value="__searchServiceName__" />
+    <add key="DFC.Digital.SearchServiceQueryAPIKey" value="__searchServiceQueryApiKey__" />
+  </appSettings>
+</configuration>

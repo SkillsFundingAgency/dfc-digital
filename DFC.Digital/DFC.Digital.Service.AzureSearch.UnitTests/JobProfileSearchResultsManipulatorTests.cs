@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
+namespace DFC.Digital.Service.AzureSearch.Tests
 {
     public class JobProfileSearchResultsManipulatorTests
     {

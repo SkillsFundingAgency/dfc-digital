@@ -97,5 +97,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string DidYouMeanTerm { get; set; }
 
         public string SalaryBlankText { get; set; }
+
+        public bool ShowSearchedTerm { get; set; }
+
+        public double? Coverage { get; set; }
+
+        public string ComputedSearchTerm { get; set; }
     }
 }

@@ -6,14 +6,17 @@
 			| Title                     | AlternativeTitle           |
 			| Counsellor                | Therapist, psychotherapist |
 			| Money adviser             | Debt counsellor            |
-			| Co-ordinator              | Extra End                  |
+			| Advertising copywriter    |                            |
 			| Pilot                     | Co-Pilot                   |
 			| General practitioner (GP) | Doc                        |
+			| Colon hydrotherapist      |                            |
+			| Police constable          |                            |
 		When I type the term 'Cou'
-		Then the result list will contain '4' suggestion(s)
+		Then the result list will contain '5' suggestion(s)
 		And the suggestion are listed in no specific order:
-			| Title         | AlternativeTitle           |
-			| Counsellor    | Therapist, psychotherapist |
-			| Money adviser | Debt counsellor            |
-			| Co-ordinator  | Extra End                  |
-			| Pilot         | Co-Pilot                   |
+			| Title                  | AlternativeTitle           |
+			| Counsellor             | Therapist, psychotherapist |
+			| Money adviser          | Debt counsellor            |
+			| Advertising copywriter |                            |
+			| Colon hydrotherapist   |                            |
+			| Police constable       |                            |

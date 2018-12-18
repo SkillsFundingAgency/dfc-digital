@@ -9,5 +9,11 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<SearchResultItem<T>> Results { get; set; }
 
         public long? Count { get; set; }
+
+        public double? Coverage { get; set; }
+
+        public string ComputedSearchTerm { get; set; }
+
+        public string SearchParametersQueryString { get; set; }
     }
 }

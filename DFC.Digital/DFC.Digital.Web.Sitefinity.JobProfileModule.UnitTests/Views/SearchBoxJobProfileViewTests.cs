@@ -72,9 +72,49 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Theory]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        [InlineData(false, true)]
+        [InlineData(false, false)]
+        public void DFC5229ForSearchResultsShowingComputedSearchTerm(bool showComputedSearchTerm, bool useRawSearchTerm)
+        {
+            // Arrange
+            var searchView = new _MVC_Views_JobProfileSearchBox_SearchResult_cshtml();
+
+            var model = new JobProfileSearchResultViewModel
+            {
+                SearchResults = new List<JobProfileSearchResultItemViewModel>(),
+                ShowSearchedTerm = showComputedSearchTerm,
+                ComputedSearchTerm = useRawSearchTerm ? " plumbing" : " plumbing /.*plumb.*/ plumb~"
+            };
+
+            // Act
+            var htmlDom = searchView.RenderAsHtml(model);
+
+            // Asserts
+            if (showComputedSearchTerm)
+            {
+                var returnedVal = GetSearchComputedTermParagraph(htmlDom);
+
+                GetSearchComputedTermParagraph(htmlDom).Should().Be($"ComputedSearchTerm: {model.ComputedSearchTerm}");
+            }
+            else
+            {
+                GetSearchComputedTermParagraph(htmlDom).Should().BeNullOrEmpty();
+            }
+        }
+
         #endregion Tests
 
         #region Helpers
+
+        private static string GetSearchComputedTermParagraph(HtmlDocument htmlDom)
+        {
+            var computedSectionParagraph = htmlDom.DocumentNode.Descendants("p").ToList()
+                 .FirstOrDefault(pTag => pTag.Attributes["id"].Value.Contains("computed-term"));
+            return computedSectionParagraph?.InnerText.Trim();
+        }
 
         private static string GetHeaderText(HtmlDocument htmlDom)
         {

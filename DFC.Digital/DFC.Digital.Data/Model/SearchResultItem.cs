@@ -8,5 +8,7 @@ namespace DFC.Digital.Data.Model
         public double Rank { get; set; }
 
         public T ResultItem { get; set; }
+
+        public double Score { get; set; }
     }
 }

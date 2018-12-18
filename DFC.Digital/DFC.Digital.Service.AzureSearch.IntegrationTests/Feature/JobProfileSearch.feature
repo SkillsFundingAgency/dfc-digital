@@ -41,7 +41,7 @@ Examples:
 | DFC-167-A1-2-2 | 101             |
 
 # REFERENCE: Data Initialisation
-#  This is the data which will be added to the index once all of the scenarios have run.
+#  This is the data which will be added to the index once all of the scenarios have run .
 #  If this data is insufficient to support a new scenario, please add to this list
 #  prior to including within a scenario's GIVEN statement.
  #| Title                                 | AlternativeTitle                         | JobProfileSpecialism   | HiddenAlternativeTitle | JobProfileCategories | Overview |

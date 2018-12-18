@@ -67,7 +67,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 {
                     if (!searchResults.ContainsKey(alternativeTitle))
                     {
-                        searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle, new SearchProperties()));
+                        searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle));
                     }
                 }
             }
@@ -86,7 +86,11 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 if (resultItem is null || !resultItem.AlternativeTitle.Any(a => a.Equals(item.Key, StringComparison.OrdinalIgnoreCase)))
                 {
                     failures++;
-                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
+                    outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
+                }
+                else
+                {
+                    outputHelper.WriteLine($"PASS - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
                 }
             }
 
@@ -102,7 +106,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
 
             foreach (var profile in allProfiles.Results)
             {
-                searchResults.Add(profile.ResultItem.Title, searchQueryService.Search(profile.ResultItem.Title, new SearchProperties()));
+                searchResults.Add(profile.ResultItem.Title, searchQueryService.Search(profile.ResultItem.Title));
             }
 
             searchResults.SaveTo(scenarioContext, AllTitleSearchResults);
@@ -119,7 +123,11 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 if (resultItem is null || !resultItem.Title.Equals(item.Key, StringComparison.OrdinalIgnoreCase))
                 {
                     failures++;
-                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
+                    outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
+                }
+                else
+                {
+                    outputHelper.WriteLine($"PASS - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
                 }
             }
 

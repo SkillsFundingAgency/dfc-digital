@@ -65,7 +65,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             {
                 foreach (var alternativeTitle in profile.ResultItem.AlternativeTitle)
                 {
-                    if (!searchResults.ContainsKey(alternativeTitle))
+                    if (!searchResults.ContainsKey(alternativeTitle) && !string.IsNullOrEmpty(alternativeTitle))
                     {
                         searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle));
                     }
@@ -87,10 +87,6 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
-                }
-                else
-                {
-                    outputHelper.WriteLine($"PASS - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
                 }
             }
 
@@ -124,10 +120,6 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
-                }
-                else
-                {
-                    outputHelper.WriteLine($"PASS - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
                 }
             }
 

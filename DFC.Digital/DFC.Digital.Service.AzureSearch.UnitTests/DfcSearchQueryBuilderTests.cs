@@ -137,6 +137,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [Theory]
         [InlineData("pharmacology", "pharmac", "pharmac pharmacolo")] //ology
         [InlineData("ecology", "ecology", "ecolo")] //ology
+        [InlineData("biology", "biology", "biolo")] //ology
+        [InlineData("criminology", "crimin", "crimin criminolo")] //ology
         public void SpecialologiesTest(string searchTerm, string replacedSuffixTerm, string expected)
         {
             var testObject = new DfcSearchQueryBuilder();
@@ -165,6 +167,17 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
 
         [Theory]
         [InlineData("plumber", "plumb")] //er
+        [InlineData("offenders", "offend")] //ers
+        [InlineData("plumbing", "plumb")] //ing
+        [InlineData("management", "manage")] //"ment"
+        [InlineData("installation", "install")] //ation
+        [InlineData("pharmacology", "pharmac")] //ology
+        [InlineData("optometry", "opto")] //metry
+        [InlineData("dietetics", "dietet")] //ics
+        [InlineData("laundrette", "laundr")] //ette
+        [InlineData("performance", "perform")] //ance
+        [InlineData("fisheries", "fisher")] //ies
+        [InlineData("diplomacy", "diplo")] //macy
         public void TrimSuffixFromSingleWordTest(string searchTerm, string expected)
         {
             var testObject = new DfcSearchQueryBuilder();

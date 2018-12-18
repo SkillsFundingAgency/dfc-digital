@@ -39,5 +39,7 @@ namespace DFC.Digital.Data.Interfaces
         void SetMetaDescription(string description);
 
         string GetCurrentQueryString(Dictionary<string, object> additionalQueryStrings);
+
+        void SetupCanonicalUrlEventHandler();
     }
 }

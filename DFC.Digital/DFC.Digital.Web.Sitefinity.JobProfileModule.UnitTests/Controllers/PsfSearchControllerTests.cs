@@ -64,6 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyIndex.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                     Rank = (int)dummySearchResult.Results.First().Rank,
+                    Score = dummySearchResult.Results.FirstOrDefault().Score.ToString(),
                     JobProfileCategoriesWithUrl = dummyIndex.JobProfileCategoriesWithUrl
                 }
             }.AsEnumerable();
@@ -173,6 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
+                    Score = dummyResult.Score.ToString(),
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }
@@ -282,6 +284,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
+                    Score = dummyResult.Score.ToString(),
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }
@@ -387,6 +390,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
+                    Score = dummyResult.Score.ToString(),
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }

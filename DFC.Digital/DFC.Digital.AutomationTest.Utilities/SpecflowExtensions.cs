@@ -35,7 +35,7 @@ namespace DFC.Digital.AutomationTest.Utilities
                     CollegeRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.CollegeRelevantSubjects), string.Empty),
                     UniversityRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.UniversityRelevantSubjects), string.Empty),
                     ApprenticeshipRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.ApprenticeshipRelevantSubjects), string.Empty),
-                    WydDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WydDayToDayTasks), string.Empty)
+                    WYDDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WYDDayToDayTasks), string.Empty)
                 };
             }
         }

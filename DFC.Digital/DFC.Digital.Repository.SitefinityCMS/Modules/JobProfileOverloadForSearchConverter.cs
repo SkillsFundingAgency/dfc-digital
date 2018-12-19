@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
@@ -35,12 +34,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 //Need to use a string to get the content cannot use JobProfile.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
                 JobProfileCategoryIdCollection =
-                    dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField),
-                CareerPathAndProgression = StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.CareerPathAndProgression))),
-                UniversityRelevantSubjects = StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileOverloadForSearch.UniversityRelevantSubjects))),
-                CollegeRelevantSubjects = StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileOverloadForSearch.CollegeRelevantSubjects))),
-                ApprenticeshipRelevantSubjects = StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileOverloadForSearch.ApprenticeshipRelevantSubjects))),
-                WYDDayToDayTasks = StripHtml(dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileOverloadForSearch.WYDDayToDayTasks)))
+                    dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField)
             };
 
             var socItem = dynamicContentExtensions.GetRelatedSearchItems(content, SocField, 1).FirstOrDefault();
@@ -51,11 +45,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             return jobProfile;
-        }
-
-        private static string StripHtml(string html)
-        {
-            return Telerik.Sitefinity.Utilities.Extensions.StripHtmlTags(html);
         }
     }
 }

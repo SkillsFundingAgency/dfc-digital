@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +76,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp));
         }
 
-        public JobProfileOverloadForSearch GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
+        public JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
         {
             var content = repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live));
             return converterForSearchableFieldsOnly.ConvertFrom(content);
@@ -90,12 +89,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
             if (jobProfiles.Any())
             {
                 var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
-                    foreach (var jobProfile in jobProfiles)
-                    {
-                        jobProfileOverloadForWhatItTakesList.Add(converterForWITOnly.ConvertFrom(jobProfile));
-                    }
+                foreach (var jobProfile in jobProfiles)
+                {
+                    jobProfileOverloadForWhatItTakesList.Add(converterForWITOnly.ConvertFrom(jobProfile));
+                }
 
-                    return jobProfileOverloadForWhatItTakesList;
+                return jobProfileOverloadForWhatItTakesList;
             }
 
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();

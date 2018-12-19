@@ -32,7 +32,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                     Overview = item.GetValue(nameof(JobProfileIndex.Overview))?.ToString(),
                     JobProfileCategories = item.GetValue(nameof(JobProfileIndex.JobProfileCategories)) as IEnumerable<string>,
                     JobProfileSpecialism = item.GetValue(nameof(JobProfileIndex.JobProfileSpecialism)) as IEnumerable<string>,
-                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>
+                    HiddenAlternativeTitle = item.GetValue(nameof(JobProfileIndex.HiddenAlternativeTitle)) as IEnumerable<string>,
+                    WYDDayToDayTasks = item.GetValue(nameof(JobProfileIndex.WYDDayToDayTasks))?.ToString(),
+                    CollegeRelevantSubjects = item.GetValue(nameof(JobProfileIndex.CollegeRelevantSubjects))?.ToString(),
+                    UniversityRelevantSubjects = item.GetValue(nameof(JobProfileIndex.UniversityRelevantSubjects))?.ToString(),
+                    ApprenticeshipRelevantSubjects = item.GetValue(nameof(JobProfileIndex.ApprenticeshipRelevantSubjects))?.ToString(),
+                    CareerPathAndProgression = item.GetValue(nameof(JobProfileIndex.CareerPathAndProgression))?.ToString()
                 };
 
                 var isSalaryOverriden = Convert.ToBoolean(item.GetValue(nameof(JobProfile.IsLMISalaryFeedOverriden)));

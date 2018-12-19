@@ -77,7 +77,7 @@ namespace DFC.Digital.Data.Model
         public string ApprenticeshipRelevantSubjects { get; set; }
 
         [IsSearchable]
-        public string WydDayToDayTasks { get; set; }
+        public string WYDDayToDayTasks { get; set; }
 
         [IsSearchable]
         public string CareerPathAndProgression { get; set; }

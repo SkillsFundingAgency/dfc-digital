@@ -39,12 +39,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
             if (hasRelatedSocs)
             {
                 A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
-                    .MustHaveHappened(Repeated.Exactly.Times(7));
+                    .MustHaveHappened();
             }
             else
             {
                 A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
-                    .MustHaveHappened(Repeated.Exactly.Times(5));
+                    .MustNotHaveHappened();
             }
 
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))

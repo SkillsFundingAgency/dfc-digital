@@ -41,94 +41,95 @@ Examples:
 | DFC-167-A1-2-2 | 101             |
 
 # REFERENCE: Data Initialisation
-#  This is the data which will be added to the index once all of the scenarios have run.
+#  This is the data which will be added to the index once all of the scenarios have run .
 #  If this data is insufficient to support a new scenario, please add to this list
 #  prior to including within a scenario's GIVEN statement.
- 
-#| Title                                 | AlternativeTitle                         | JobProfileSpecialism   | HiddenAlternativeTitle | Category   |
-#| Aerospace engineering technician      |                                          |                        |                        |            |
-#| CBT practitioners                     | Talking therapist, behavioural therapist |                        |                        |            |
-#| Children nurse                        |                                          |                        |                        |            |
-#| Children's nurse                      |                                          |                        |                        |            |
-#| Counsellor                            | Therapist, psychotherapist               |                        |                        |            |
-#| First Job Profile                     | Extra Start                              |                        |                        |            |
-#| General practitioner (GP)             | Doc                                      |                        |                        |            |
-#| Hotel based job                       |                                          |                        |                        |            |
-#| Last Job Profile                      | Extra End                                |                        |                        |            |
-#| Last-Job Profile                      | Last-Job-Profile                         |                        |                        |            |
-#| Lift engineer                         | Lift technician                          | engineerkw             |                        |            |
-#| Marine engineering technician         | Shipbuilding technician                  |                        |                        |            |
-#| Middle Job Profile                    | Extra Middle                             |                        |                        |            |
-#| Money adviser                         | Debt counsellor                          |                        |                        |            |
-#| Motel based job                       |                                          |                        |                        |            |
-#| Nail technician                       |                                          | nailingtk, technicaltk |                        |            |
-#| Nurse                                 | Adult nurse                              |                        |                        | Healthcare |
-#| Pharmacy technician                   | Pharmaceutical technician                |                        |                        |            |
-#| Speech and language therapy assistant |                                          |                        |                        |            |
-#| Stage technician                      | Stagehand, Stage manager                 |                        |                        |            |
-#| Stagehand                             | Stage technician                         |                        |                        |            |
-#| Therapist                             | UITest Exact Title                       |                        |                        |            |
-#| UITest Exact AltTitle                 | Therapist                                |                        |                        |            |
-#| UITest Partial AltTitle               | Physical therapist                       |                        |                        |            |
-#| Veterinary nurse                      |                                          |                        |                        |            |
-#| Veterinary physiotherapist            | Animal physiotherapist                   |                        |                        |            |
-#| Vocal Therapist                       | UITest Partial Title                     |                        |                        |            |
-#| Zookeeper                             | Keeper, animal keeper                    |                        |                        |            |
-#| Movie operator                        | Addition                                 | Projectionist          |                        |            |
-#| Projectionist                         | Operators                                |                        |                        |            |
-#| Theater operators                     | Projectionist, film projector            |                        |                        |            |
-#| Another technician                    |                                          |                        | engineerhat            |            |
-#| Technologist                          |                                          | engineerhat            |                        |            |
-#| Astronomer                            |                                          |                        |                        |            |
-#| Criminal psychologist                 |                                          |                        |                        |            |
-#| Childminder                           |                                          |                        |                        |            |
-#| Optomotrist                           |                                          |                        |                        |            |
-#| Police constable                      |                                          |                        |                        |            |
-#| Advertising copywriter                |                                          |                        |                        |            |
-#| Advertising art director              |                                          |                        |                        |            |
-#| Advertising media planner             |                                          |                        |                        |            |
-#| Advertising account executive         |                                          |                        |                        |            |
-#| Archaeologist                         |                                          |                        |                        |            |
-#| Pharmacologist                        |                                          |                        |                        |            |
-#| Zoologist                             |                                          |                        |                        |            |
-#| Payroll administrator                 |                                          |                        |                        |            |
-#| Sales administrator                   |                                          |                        |                        |            |
-#| Pensions administrator                |                                          |                        |                        |            |
-#| Database administrator                |                                          |                        |                        |            |
-#| Arts administrator                    |                                          |                        |                        |            |
-#| Biologist                             |                                          |                        |                        |            |
-#| Plant biologist                       |                                          |                        |                        |            |
-#| Diplomatic service officer            |                                          |                        |                        |            |
-#| Ecologist                             |                                          |                        |                        |            |
-#| Farmer                                |                                          |                        |                        |            |
-#| Farm worker                           |                                          |                        |                        |            |
-#| Farm secretary                        |                                          |                        |                        |            |
-#| Fish farmer                           |                                          |                        |                        |            |
-#| Colon hydrotherapist                  |                                          |                        |                        |            |
-#| Hypnotherapist                        |                                          |                        |                        |            |
-#| Road traffic accident investigator    |                                          |                        |                        |            |
-#| Private investigator                  |                                          |                        |                        |            |
-#| Investment analyst                    |                                          |                        |                        |            |
-#| Landscape architect                   |                                          |                        |                        |            |
-#| Landscaper                            |                                          |                        |                        |            |
-#| Landscape gardener                    |                                          |                        |                        |            |
-#| Laundry worker                        |                                          |                        |                        |            |
-#| Meteorologist                         |                                          |                        |                        |            |
-#| Nanotechnologist                      |                                          |                        |                        |            |
-#| Youth offending service officer       |                                          |                        |                        |            |
-#| Stunt performer                       |                                          |                        |                        |            |
-#| Circus performer                      |                                          |                        |                        |            |
-#| Print room operator                   |                                          |                        |                        |            |
-#| Print finisher                        |                                          |                        |                        |            |
-#| Health promotion specialist           |                                          |                        |                        |            |
-#| Screenwriter                          |                                          |                        |                        |            |
-#| Tattooist                             |                                          |                        |                        |            |
-#| Architectural technologist            |                                          |                        |                        |            |
-#| Garment technologist                  |                                          |                        |                        |            |
-#| Critical care technologist            |                                          |                        |                        |            |
-#| Leather technologist                  |                                          |                        |                        |            |
-#| Packaging technologist                |                                          |                        |                        |            |  
-#| Music promotions manager				 |                                          |                        |                        |            |  
+ #| Title                                 | AlternativeTitle                         | JobProfileSpecialism   | HiddenAlternativeTitle | JobProfileCategories | Overview |
+ #| Aerospace engineering technician      |                                          |                        |                        |                      |          |
+ #| CBT practitioners                     | Talking therapist, behavioural therapist |                        |                        |                      |          |
+ #| Children nurse                        |                                          |                        |                        |                      |          |
+ #| Children's nurse                      |                                          |                        |                        |                      |          |
+ #| Counsellor                            | Therapist, psychotherapist               |                        |                        |                      |          |
+ #| First Job Profile                     | Extra Start                              |                        |                        |                      |          |
+ #| General practitioner (GP)             | Doc                                      |                        |                        |                      |          |
+ #| Hotel based job                       |                                          |                        |                        |                      |          |
+ #| Last Job Profile                      | Extra End                                |                        |                        |                      |          |
+ #| Last-Job Profile                      | Last-Job-Profile                         |                        |                        |                      |          |
+ #| Lift engineer                         | Lift technician                          | engineerkw             |                        |                      |          |
+ #| Marine engineering technician         | Shipbuilding technician                  |                        |                        |                      |          |
+ #| Middle Job Profile                    | Extra Middle                             |                        |                        |                      |          |
+ #| Money adviser                         | Debt counsellor                          |                        |                        |                      |          |
+ #| Motel based job                       |                                          |                        |                        |                      |          |
+ #| Nail technician                       |                                          | nailingtk, technicaltk |                        |                      |          |
+ #| Nurse                                 | Adult nurse                              |                        |                        | Healthcare           |          |
+ #| Pharmacy technician                   | Pharmaceutical technician                |                        |                        |                      |          |
+ #| Speech and language therapy assistant |                                          |                        |                        |                      |          |
+ #| Stage technician                      | Stagehand, Stage manager                 |                        |                        |                      |          |
+ #| Stagehand                             | Stage technician                         |                        |                        |                      |          |
+ #| Therapist                             | UITest Exact Title                       |                        |                        |                      |          |
+ #| UITest Exact AltTitle                 | Therapist                                |                        |                        |                      |          |
+ #| UITest Partial AltTitle               | Physical therapist                       |                        |                        |                      |          |
+ #| Veterinary nurse                      |                                          |                        |                        |                      |          |
+ #| Veterinary physiotherapist            | Animal physiotherapist                   |                        |                        |                      |          |
+ #| Vocal Therapist                       | UITest Partial Title                     |                        |                        |                      |          |
+ #| Zookeeper                             | Keeper, animal keeper                    |                        |                        |                      |          |
+ #| Movie operator                        | Addition                                 | Projectionist          |                        |                      |          |
+ #| Projectionist                         | Operators                                |                        |                        |                      |          |
+ #| Theater operators                     | Projectionist, film projector            |                        |                        |                      |          |
+ #| Another technician                    |                                          |                        | engineerhat            |                      |          |
+ #| Technologist                          |                                          | engineerhat            |                        |                      |          |
+ #| Astronomer                            |                                          |                        |                        |                      |          |
+ #| Criminal psychologist                 |                                          |                        |                        |                      |          |
+ #| Childminder                           |                                          |                        |                        |                      |          |
+ #| Optomotrist                           |                                          |                        |                        |                      |          |
+ #| Police constable                      |                                          |                        |                        |                      |          |
+ #| Advertising copywriter                |                                          |                        |                        |                      |          |
+ #| Advertising art director              |                                          |                        |                        |                      |          |
+ #| Advertising media planner             |                                          |                        |                        |                      |          |
+ #| Advertising account executive         |                                          |                        |                        |                      |          |
+ #| Archaeologist                         |                                          |                        |                        |                      |          |
+ #| Pharmacologist                        |                                          |                        |                        |                      |          |
+ #| Zoologist                             |                                          |                        |                        |                      |          |
+ #| Payroll administrator                 |                                          |                        |                        |                      |          |
+ #| Sales administrator                   |                                          |                        |                        |                      |          |
+ #| Pensions administrator                |                                          |                        |                        |                      |          |
+ #| Database administrator                |                                          |                        |                        |                      |          |
+ #| Arts administrator                    |                                          |                        |                        |                      |          |
+ #| Biologist                             |                                          |                        |                        |                      |          |
+ #| Plant biologist                       |                                          |                        |                        |                      |          |
+ #| Diplomatic service officer            |                                          |                        |                        |                      |          |
+ #| Ecologist                             |                                          |                        |                        |                      |          |
+ #| Farmer                                |                                          |                        |                        |                      |          |
+ #| Farm worker                           |                                          |                        |                        |                      |          |
+ #| Farm secretary                        |                                          |                        |                        |                      |          |
+ #| Fish farmer                           |                                          |                        |                        |                      |          |
+ #| Colon hydrotherapist                  |                                          |                        |                        |                      |          |
+ #| Hypnotherapist                        |                                          |                        |                        |                      |          |
+ #| Road traffic accident investigator    |                                          |                        |                        |                      |          |
+ #| Private investigator                  |                                          |                        |                        |                      |          |
+ #| Investment analyst                    |                                          |                        |                        |                      |          |
+ #| Landscape architect                   |                                          |                        |                        |                      |          |
+ #| Landscaper                            |                                          |                        |                        |                      |          |
+ #| Landscape gardener                    |                                          |                        |                        |                      |          |
+ #| Laundry worker                        |                                          |                        |                        |                      |          |
+ #| Meteorologist                         |                                          |                        |                        |                      |          |
+ #| Nanotechnologist                      |                                          |                        |                        |                      |          |
+ #| Youth offending service officer       |                                          |                        |                        |                      |          |
+ #| Stunt performer                       |                                          |                        |                        |                      |          |
+ #| Circus performer                      |                                          |                        |                        |                      |          |
+ #| Print room operator                   |                                          |                        |                        |                      |          |
+ #| Print finisher                        |                                          |                        |                        |                      |          |
+ #| Health promotion specialist           |                                          |                        |                        |                      |          |
+ #| Screenwriter                          |                                          |                        |                        |                      |          |
+ #| Tattooist                             |                                          |                        |                        |                      |          |
+ #| Architectural technologist            |                                          |                        |                        |                      |          |
+ #| Garment technologist                  |                                          |                        |                        |                      |          |
+ #| Critical care technologist            |                                          |                        |                        |                      |          |
+ #| Leather technologist                  |                                          |                        |                        |                      |          |
+ #| Packaging technologist                |                                          |                        |                        |                      |          |
+ #| Music promotions manager              |                                          |                        |                        |                      |          |
+ #| Analytical textile technologist       |                                          |                        |                        | dfc5954              |          |
+ #| Arboricultural officer                |                                          |                        |                        |                      | dfc5954  |
 
 #[A1] Job profiles which possess a <Title> which exactly matches the "search term" should be listed in the list
 # Scenarios demonstrating the correct application of [A1] 
@@ -474,6 +475,7 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
+			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
 		Then the result list will contain '10' profile(s)
 		And the profiles are listed in no specific order:
@@ -488,3 +490,19 @@ When I search using the search term 'engineerhat'
 			| Speech and language therapy assistant |                                          |
 			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
+			
+Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
+	Given the following job profiles exist:
+         | Title                           | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview |
+         | Analytical textile technologist |                  |                      |                        | dfc5954              |          |
+         | Arboricultural officer          |                  |                      |                        |                      | dfc5954  |
+         | Children nurse                  |                  |                      |                        |                      |          |
+
+When I search using the search term 'dfc5954'
+	Then the result list will contain '2' profile(s)
+	And the profiles are listed in no specific order:
+             | Title                           | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview |
+             | Analytical textile technologist |                  |                      |                        | dfc5954              |          |
+             | Arboricultural officer          |                  |                      |                        |                      | dfc5954  |
+
+   

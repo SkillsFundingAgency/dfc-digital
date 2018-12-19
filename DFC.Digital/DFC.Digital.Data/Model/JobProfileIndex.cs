@@ -23,6 +23,7 @@ namespace DFC.Digital.Data.Model
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
+        [IsSearchable]
         public string Overview { get; set; }
 
         [IsFilterable, IsSortable, IsFacetable]
@@ -35,7 +36,7 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public string UrlName { get; set; }
 
-        [IsFilterable]
+        [IsSearchable, IsFilterable]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]

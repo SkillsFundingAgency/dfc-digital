@@ -475,6 +475,7 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
+			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
 		Then the result list will contain '10' profile(s)
 		And the profiles are listed in no specific order:
@@ -489,7 +490,7 @@ When I search using the search term 'engineerhat'
 			| Speech and language therapy assistant |                                          |
 			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
-
+			
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:
          | Title                           | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview |

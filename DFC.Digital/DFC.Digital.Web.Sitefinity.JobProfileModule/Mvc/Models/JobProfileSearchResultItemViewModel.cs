@@ -17,5 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public string ResultItemUrlName { get; set; }
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }
+
+        public string Score { get; set; }
     }
 }

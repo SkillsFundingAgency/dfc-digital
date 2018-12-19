@@ -49,6 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="applicationLogger">applicationLogger</param>
         /// <param name="asyncHelper">asyncHelper</param>
         /// <param name="spellcheckService">spellCheckService</param>
+        /// <param name="jobProfileSearchResultsManipulator">jobProfileSearchResultsManipulator</param>
         public JobProfileSearchBoxController(ISearchQueryService<JobProfileIndex> searchService, IWebAppContext webAppContext, IMapper mapper, IApplicationLogger applicationLogger, IAsyncHelper asyncHelper, ISpellcheckService spellcheckService) : base(applicationLogger)
         {
             this.searchQueryService = searchService;
@@ -149,6 +150,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Text when Salary does not have values.  If you change this value, you will also need to change the reciprocal value in JobProfileDetails widget on 'Job profiles' page.")]
         public string SalaryBlankText { get; set; } = "Variable";
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the ShowComputedSearchTerm .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Show Computed Search Term")]
+        public bool ShowComputedSearchTerm { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the useraw .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Use Raw Search Term")]
+        public bool UseRawSearchTerm { get; set; } = false;
 
         #endregion Public Properties
 
@@ -298,19 +317,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                 JobProfileCategoryPage = JobProfileCategoryPage,
-                SalaryBlankText = SalaryBlankText
+                SalaryBlankText = SalaryBlankText,
+                ShowSearchedTerm = ShowComputedSearchTerm
             };
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 var pageNumber = page > 0 ? page : 1;
-                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize });
+                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize, UseRawSearchTerm = UseRawSearchTerm });
                 var spellCheckTask = spellcheckService.CheckSpellingAsync(searchTerm);
 
                 await Task.WhenAll(searchTask, spellCheckTask);
 
                 var results = searchTask.Result;
                 resultModel.Count = results.Count;
+                resultModel.Coverage = results.Coverage;
+                resultModel.ComputedSearchTerm = results.ComputedSearchTerm;
                 resultModel.PageNumber = pageNumber;
                 resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);
                 foreach (var resultItem in resultModel.SearchResults)

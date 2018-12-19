@@ -5,6 +5,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FluentAssertions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
@@ -15,6 +16,9 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
     [Binding]
     public class JobProfileSearchSteps
     {
+        private const string AllProfileResultList = "AllProfileResultList";
+        private const string AlternativeTitleFailuresList = "AlternativeTitleFailuresList";
+
         private SearchResult<JobProfileIndex> results;
         private ISearchService<JobProfileIndex> searchService;
         private ISearchIndexConfig searchIndex;

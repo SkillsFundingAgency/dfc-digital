@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using System;

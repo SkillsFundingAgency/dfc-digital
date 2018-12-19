@@ -43,7 +43,7 @@ Examples:
 # REFERENCE: Data Initialisation
 #  This is the data which will be added to the index once all of the scenarios have run .
 #  If this data is insufficient to support a new scenario, please add to this list
-  prior to including within a scenario's GIVEN statement.
+#  prior to including within a scenario's GIVEN statement.
  #| Title                                 | AlternativeTitle                         | JobProfileSpecialism   | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WydDayToDayTasks | CareerPathAndProgression |
  #| Aerospace engineering technician      |                                          |                        |                        |                      |          |                         |                            |                                |                  |                          |
  #| CBT practitioners                     | Talking therapist, behavioural therapist |                        |                        |                      |          |                         |                            |                                |                  |                          |

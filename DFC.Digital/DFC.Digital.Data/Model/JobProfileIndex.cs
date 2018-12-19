@@ -36,7 +36,7 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public string UrlName { get; set; }
 
-        [IsSearchable, IsFilterable, AddWeighting(50)]
+        [IsSearchable, IsFilterable, AddWeighting(40)]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]

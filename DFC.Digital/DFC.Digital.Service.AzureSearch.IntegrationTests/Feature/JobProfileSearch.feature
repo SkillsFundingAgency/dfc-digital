@@ -508,7 +508,7 @@ When I search using the search term 'dfc5954'
    
    Scenario: [DFC-5955 - A1] JP is tagged by ' CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WYDDayToDayTasks | CareerPathAndProgression ' with equal search weight. 
 	Given the following job profiles exist:
-         | Title                           | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WydDayToDayTasks | CareerPathAndProgression |
+         | Title                           | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WYDDayToDayTasks | CareerPathAndProgression |
          | Print finisher                  |                  |                      |                        |                      |          |                         |                            |                                |                  |                          |
          | Health promotion specialist     |                  |                      |                        |                      |          |                         |                            |                                |                  |                          |
          | Screenwriter                    |                  |                      |                        |                      |          |                         |                            |                                |                  |                          |
@@ -524,7 +524,7 @@ When I search using the search term 'dfc5954'
 When I search using the search term 'extrafields'
 	Then the result list will contain '5' profile(s)
 	And the profiles are listed in no specific order:
-                | Title                      | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WydDayToDayTasks | CareerPathAndProgression |
+                | Title                      | AlternativeTitle | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WYDDayToDayTasks | CareerPathAndProgression |
                 | Architectural technologist |                  |                      |                        |                      |          |                         |                            |                                |                  | extrafields              |
                 | Garment technologist       |                  |                      |                        |                      |          |                         |                            |                                | extrafields      |                          |
                 | Critical care technologist |                  |                      |                        |                      |          |                         |                            | extrafields                    |                  |                          |

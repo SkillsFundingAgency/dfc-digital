@@ -181,6 +181,7 @@
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\HomePageSteps.cs" />

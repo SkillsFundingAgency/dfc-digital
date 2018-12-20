@@ -41,9 +41,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 throw new ArgumentNullException(nameof(initialiseJobProfileIndex));
             }
 
-            this.JobProfile = jobProfileRepository.GetByUrlNameForSearchIndex(initialiseJobProfileIndex.UrlName, isPublishing);
-            this.jobProfileIndex = initialiseJobProfileIndex;
-            this.jobProfileIndex.SocCode = JobProfile?.SOCCode;
+            JobProfile = jobProfileRepository.GetByUrlNameForSearchIndex(initialiseJobProfileIndex.UrlName, isPublishing);
+            jobProfileIndex = initialiseJobProfileIndex;
+            jobProfileIndex.SocCode = JobProfile?.SOCCode;
         }
 
         public void PopulateRelatedFieldsWithUrl()

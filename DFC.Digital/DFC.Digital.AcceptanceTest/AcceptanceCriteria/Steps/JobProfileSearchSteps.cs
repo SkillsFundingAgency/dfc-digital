@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -51,12 +52,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void GivenThatIAmViewingTheSearchResultsPage()
         {
             NavigateToSearchResultsPage<SearchPage, JobProfileSearchResultViewModel>(null);
-        }
-
-        [Given(@"I search for \*")]
-        public void GivenISearchFor()
-        {
-            NavigateToSearchResultsPage<SearchPage, JobProfileSearchResultViewModel>("*");
         }
 
         #endregion Given
@@ -170,41 +165,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             ScenarioContext.Set(searchPage.GetCategoryInSearchTitle(result), "SelectedCategoryLink");
             searchPage.GoToFirstCategoryLink<JobProfileCategoryPage>(result)
                 .SaveTo(ScenarioContext);
-        }
-
-        [When(@"I add all the results to a list")]
-        public void WhenIAddAllTheResultsToAList()
-        {
-            var searchPage = GetNavigatedPage<SearchPage>();
-            List<string> jobprofileTitles = new List<string>();
-            do
-            {
-                var jpTitlesOnThisPage = searchPage.DisplayedJobProfileTitles.ToList();
-                jobprofileTitles.AddRange(jpTitlesOnThisPage);
-                searchPage = searchPage.HasNextPage ? searchPage.NextPage<SearchPage>() : searchPage;
-            }
-            while (searchPage.HasNextPage == true);
-
-            jobprofileTitles.Distinct(StringComparer.OrdinalIgnoreCase).SaveTo(ScenarioContext, JobprofileTitles);
-        }
-
-        [When(@"I search for each title in the list")]
-        public void WhenISearchForEachTitleInTheList()
-        {
-            var jobprofileTitles = ScenarioContext.Get<IEnumerable<string>>(JobprofileTitles);
-            var searchPage = GetNavigatedPage<SearchPage>();
-            var firstResultList = new Dictionary<string, string>();
-            foreach (var title in jobprofileTitles)
-            {
-                searchPage = searchPage.Search<SearchPage>(new JobProfileSearchResultViewModel
-                {
-                    SearchTerm = title,
-                    SearchResults = null
-                });
-
-                firstResultList.Add(title.Trim(), searchPage.DisplayedJobProfileTitles.FirstOrDefault()?.Trim() ?? "No result found");
-                firstResultList.SaveTo(ScenarioContext, JobprofileTitleMatchList);
-            }
         }
 
         #endregion When
@@ -533,23 +493,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             string category;
             ScenarioContext.TryGetValue("SelectedCategoryLink", out category);
             categoryPage.CategoryTitle.Should().Contain(category);
-        }
-
-        [Then(@"there should be no Unmatched titles")]
-        public void ThenThereShouldBeNoUnmatchedTitles()
-        {
-            var matchList = ScenarioContext.Get<Dictionary<string, string>>(JobprofileTitleMatchList);
-            var errorList = matchList.Where(item => !item.Key.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
-            if (errorList.Count() > 0)
-            {
-                OutputHelper.WriteLine($"Total Failures: {errorList.Count()} searches. The following profiles do not appear in the top result on search");
-                foreach (var item in errorList)
-                {
-                    OutputHelper.WriteLine($"Searched for: {item.Key}, first result is: {item.Value}");
-                }
-            }
-
-            errorList.Count().Should().Be(0);
         }
     }
 }

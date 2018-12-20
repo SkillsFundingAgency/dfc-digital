@@ -8,7 +8,7 @@ namespace DFC.Digital.Service.AzureSearch
 {
     public class WeightingBuilder : IWeightingBuilder
     {
-        IDictionary<string, double> IWeightingBuilder.BuildForType<T>()
+        public IDictionary<string, double> BuildForType<T>()
         {
             Type underlyingType = typeof(T);
             var fieldsWithWeightings = underlyingType.GetProperties().Where(p => p.GetCustomAttributes(typeof(AddWeightingAttribute), true)?.Count() > 0);

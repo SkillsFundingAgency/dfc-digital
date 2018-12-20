@@ -72,14 +72,20 @@ namespace DFC.Digital.Service.AzureSearch
         {
             var searchParam = queryConverter.BuildSearchParameters(properties);
             var result = indexClient.Documents.Search<T>(searchTerm, searchParam);
-            return queryConverter.ConvertToSearchResult(result, properties);
+            var output = queryConverter.ConvertToSearchResult(result, properties);
+            output.ComputedSearchTerm = searchTerm;
+            output.SearchParametersQueryString = searchParam.ToString();
+            return output;
         }
 
         public virtual async Task<Data.Model.SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var searchParam = queryConverter.BuildSearchParameters(properties);
             var result = await indexClient.Documents.SearchAsync<T>(searchTerm, searchParam);
-            return queryConverter.ConvertToSearchResult(result, properties);
+            var output = queryConverter.ConvertToSearchResult(result, properties);
+            output.ComputedSearchTerm = searchTerm;
+            output.SearchParametersQueryString = searchParam.ToString();
+            return output;
         }
 
         public virtual SuggestionResult<T> GetSuggestion(string partialTerm, SuggestProperties properties)

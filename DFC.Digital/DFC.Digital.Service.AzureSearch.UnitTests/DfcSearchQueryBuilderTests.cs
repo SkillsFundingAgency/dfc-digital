@@ -109,5 +109,82 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var outputWithContainsWildCard = testObject.BuildContainPartialSearch(searchTermResult, new SearchProperties());
             outputWithContainsWildCard.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData("plumber", "plumb")] //er
+        [InlineData("offenders", "offend")] //ers
+        [InlineData("plumbing engineer", "plumb engine")] //ing
+        [InlineData("Business development manager", "Business develop manag")] //"ment"
+        [InlineData("installation and plumbing engineer", "install plumb engine")] //ation
+        [InlineData("director or clock repairer", "direct clock repair")] //or
+        [InlineData("pharmacology ecology", "pharmac pharmacolo ecolo")] //ology
+        [InlineData("optometry", "opto")] //metry
+        [InlineData("dietetics", "dietet")] //ics
+        [InlineData("laundrette", "laundr")] //ette
+        [InlineData("performance", "perform")] //ance
+        [InlineData("fisheries", "fisher")] //ies
+        [InlineData("diplomacy", "diplo")] //macy
+        [InlineData("director and clock repairer", "direct clock repair")] //and
+        [InlineData("Hydrotherapy", "Hydrothera")] //therapy
+        public void TrimSuffixesTest(string searchTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, new SearchProperties() { UseRawSearchTerm = false });
+            var trimmedOutput = testObject.TrimCommonWordsAndSuffixes(searchTermResult, new SearchProperties());
+            trimmedOutput.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData("pharmacology", "pharmac", "pharmac pharmacolo")] //ology
+        [InlineData("ecology", "ecology", "ecolo")] //ology
+        [InlineData("biology", "biology", "biolo")] //ology
+        [InlineData("criminology", "crimin", "crimin criminolo")] //ology
+        [InlineData("", "crimin", "crimin")] //ology
+        [InlineData("criminology", "", "criminolo")] //ology
+        public void SpecialologiesTest(string searchTerm, string replacedSuffixTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.Specialologies(searchTerm, replacedSuffixTerm);
+            searchTermResult.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData("and", true)]
+        [InlineData("the", false)]
+        [InlineData("or", true)]
+        [InlineData("is", false)]
+        [InlineData("as", true)]
+        [InlineData("are", false)]
+        [InlineData("if", true)]
+        [InlineData("to", false)]
+        [InlineData("also", true)]
+        [InlineData("but", true)]
+        [InlineData("not", true)]
+        public void IsCommonCojoinginWordTest(string searchTerm, bool expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm.ToLower());
+            searchTermResult.Should().Be(expected);
+        }
+
+        [Theory]
+        [InlineData("plumber", "plumb")] //er
+        [InlineData("offenders", "offend")] //ers
+        [InlineData("plumbing", "plumb")] //ing
+        [InlineData("management", "manage")] //"ment"
+        [InlineData("installation", "install")] //ation
+        [InlineData("pharmacology", "pharmac")] //ology
+        [InlineData("optometry", "opto")] //metry
+        [InlineData("dietetics", "dietet")] //ics
+        [InlineData("laundrette", "laundr")] //ette
+        [InlineData("performance", "perform")] //ance
+        [InlineData("fisheries", "fisher")] //ies
+        [InlineData("diplomacy", "diplo")] //macy
+        public void TrimSuffixFromSingleWordTest(string searchTerm, string expected)
+        {
+            var testObject = new DfcSearchQueryBuilder();
+            var searchTermResult = testObject.TrimSuffixFromSingleWord(searchTerm);
+            searchTermResult.Should().Be(expected);
+        }
     }
 }

@@ -45,8 +45,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.CMSExtensions
 
         private static WorkflowStatus GetContentStatus(string status)
         {
-            Enum.TryParse(status, out WorkflowStatus result);
-            return result;
+            if (Enum.TryParse(status, out WorkflowStatus result))
+            {
+                return result;
+            }
+
+            return default;
         }
     }
 }

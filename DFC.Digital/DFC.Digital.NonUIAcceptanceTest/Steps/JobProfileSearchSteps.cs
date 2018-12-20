@@ -80,11 +80,17 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllAlternativeSearchResults);
             foreach (var item in searchResults)
             {
-                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                var result = item.Value.Results.FirstOrDefault();
+                var resultItem = result?.ResultItem;
                 if (resultItem is null || !resultItem.AlternativeTitle.Any(a => a.Equals(item.Key, StringComparison.OrdinalIgnoreCase)))
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
+                    outputHelper.WriteLine($"ComputedSearchTerm - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Count - : {item.Value.Count}");
+                    outputHelper.WriteLine($"Rank - : {result?.Rank}");
+                    outputHelper.WriteLine($"Score - : {result?.Score}");
+                    outputHelper.WriteLine($"SearchParametersQueryString - : {item.Value.SearchParametersQueryString}");
                 }
             }
 
@@ -113,11 +119,17 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllTitleSearchResults);
             foreach (var item in searchResults)
             {
-                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                var result = item.Value.Results.FirstOrDefault();
+                var resultItem = result?.ResultItem;
                 if (resultItem is null || !resultItem.Title.Equals(item.Key, StringComparison.OrdinalIgnoreCase))
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
+                    outputHelper.WriteLine($"ComputedSearchTerm - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Count - : {item.Value.Count}");
+                    outputHelper.WriteLine($"Rank - : {result?.Rank}");
+                    outputHelper.WriteLine($"Score - : {result?.Score}");
+                    outputHelper.WriteLine($"SearchParametersQueryString - : {item.Value.SearchParametersQueryString}");
                 }
             }
 

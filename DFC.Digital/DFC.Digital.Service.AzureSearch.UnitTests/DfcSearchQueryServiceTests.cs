@@ -52,5 +52,37 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo("buildExactMatchSearch"), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).MustHaveHappened();
         }
+
+        [Theory]
+        [InlineData("*", "")]
+        public async Task SearchActualBuilderAsyncTest(string searchTerm, string expectedComputedSearchTerm)
+        {
+            //Arrange
+            var fakeIndexClient = A.Fake<ISearchIndexClient>(o => o.Strict());
+            var actualQueryBuilder = new DfcSearchQueryBuilder();
+            var fakeQueryConverter = A.Fake<IAzSearchQueryConverter>(o => o.Strict());
+            var fakeDocumentsOperation = A.Fake<IDocumentsOperations>();
+            var dummySearchProperty = A.Dummy<SearchProperties>();
+            var dummySearchParameters = A.Dummy<SearchParameters>();
+            var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var fakeManipulator = A.Fake<ISearchResultsManipulator<JobProfileIndex>>();
+            var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
+
+            //Configure
+            A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
+            A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocumentsOperation);
+            A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
+
+            //Act
+            var searchService = new DfcSearchQueryService<JobProfileIndex>(fakeIndexClient, fakeQueryConverter, actualQueryBuilder, fakeManipulator, fakeLogger);
+            await searchService.SearchAsync(searchTerm, dummySearchProperty);
+
+            //Assert
+            A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
+            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo(expectedComputedSearchTerm), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).MustHaveHappened();
+        }
     }
 }

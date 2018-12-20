@@ -359,7 +359,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndex.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                         Rank = (int)dummySearchResult.Results.First().Rank,
-                        Score = dummyIndex.Score,
+                        Score = dummySearchResult.Results.First().Score,
                         JobProfileCategoriesWithUrl = dummyIndex.JobProfileCategoriesWithUrl
                     }
                 }.AsEnumerable();

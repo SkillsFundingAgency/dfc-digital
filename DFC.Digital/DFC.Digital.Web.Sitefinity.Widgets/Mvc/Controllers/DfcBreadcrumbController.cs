@@ -1,9 +1,12 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -52,8 +55,20 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <value>
         /// The Text of the home page.
         /// </value>
-        [DisplayName("Home page Text")]
+        [DisplayName("Home page text")]
         public string HomepageText { get; set; } = "Explore careers home";
+
+        [DisplayName("Alerts page breadcrumb text")]
+        public string AlertsPageText { get; set; } = "Error";
+
+        [DisplayName("Job categories URL segment (Upper case)")]
+        public string JobCategoriesPathSegment { get; set; } = "JOB-CATEGORIES";
+
+        [DisplayName("Job profiles URL segment (Upper case)")]
+        public string JobProfilesPathSegment { get; set; } = "JOB-PROFILES";
+
+        [DisplayName("Alerts URL segment (Upper case)")]
+        public string AlertsPathSegment { get; set; } = "ALERTS";
 
         #endregion Public Properties
 
@@ -91,57 +106,54 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <returns>ActionResult</returns>
         private ActionResult GetBreadcrumbView(string urlName)
         {
+            var breadCrumbLink = new BreadcrumbLink();
             var model = new DfcBreadcrumbViewModel
             {
                 HomepageText = HomepageText,
-                HomepageLink = HomepageLink
+                HomepageLink = HomepageLink,
+                BreadcrumbLinks = new List<BreadcrumbLink>
+                {
+                    breadCrumbLink
+                }
             };
 
             // We get the page node we are on
             var currentPageNode = sitefinityCurrentContext.GetCurrentDfcPageNode();
             if (currentPageNode != null)
             {
-                string nodeUrl = currentPageNode.Url.OriginalString;
+                var nodeUrl = currentPageNode.Url.OriginalString;
+                switch (nodeUrl.ToUpperInvariant())
+                {
+                    case var jobCategoriesPage when !string.IsNullOrEmpty(urlName) && jobCategoriesPage.Contains(JobCategoriesPathSegment):
+                        {
+                            var category = categoryRepo.GetByUrlName(urlName);
+                            breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
+                            break;
+                        }
 
-                // If we are on JobCategories page(s)
-                if (nodeUrl.ToUpperInvariant().Contains("JOB-CATEGORIES") && !string.IsNullOrEmpty(urlName))
-                {
-                    var category = categoryRepo.GetByUrlName(urlName);
+                    case var jobProfilePage when !string.IsNullOrEmpty(urlName) && jobProfilePage.Contains(JobProfilesPathSegment):
+                        {
+                            var jobProfile = jobProfileRepository.GetByUrlName(urlName);
+                            breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
+                            break;
+                        }
 
-                    if (category != null)
-                    {
-                        model.BreadcrumbPageTitleText = category.Title;
-                    }
-                    else
-                    {
-                        model.BreadcrumbPageTitleText = currentPageNode.Title;
-                    }
-                } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains("JOB-PROFILES") && !string.IsNullOrEmpty(urlName))
-                {
-                    var jobProfile = jobProfileRepository.GetByUrlName(urlName);
+                    case var alertsPage when alertsPage.Contains(AlertsPathSegment):
+                        {
+                            breadCrumbLink.Text = AlertsPageText;
+                            break;
+                        }
 
-                    if (jobProfile != null)
-                    {
-                        model.BreadcrumbPageTitleText = jobProfile.Title;
-                    }
-                    else
-                    {
-                        model.BreadcrumbPageTitleText = currentPageNode.Title;
-                    }
-                } // If we are on Alerts page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains("ALERTS"))
-                {
-                    model.BreadcrumbPageTitleText = "Error";
-                } // Or we are on any other page
-                else
-                {
-                    model.BreadcrumbPageTitleText = currentPageNode.Title;
+                    default:
+                        {
+                            model.BreadcrumbLinks = sitefinityCurrentContext.BreadcrumbToParent();
+
+                            //the current page should not be linked
+                            model.BreadcrumbLinks.FirstOrDefault().Link = null;
+                            model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
+                            break;
+                        }
                 }
-            }
-            else
-            {
-                model.BreadcrumbPageTitleText = "Breadcrumb cannot establish the page node";
             }
 
             return View(model);

@@ -20,15 +20,13 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
         private const string AllAlternativeSearchResults = "AllAlternativeSearchResults";
         private const string AllTitleSearchResults = "AllTitleSearchResults";
 
-        private readonly ISearchIndexConfig searchIndex;
         private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
         private readonly ScenarioContext scenarioContext;
         private readonly ITestOutputHelper outputHelper;
 
-        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, ScenarioContext scenarioContext)
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchQueryService<JobProfileIndex> searchQueryService, ScenarioContext scenarioContext)
         {
             this.outputHelper = outputHelper;
-            this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.scenarioContext = scenarioContext;
         }

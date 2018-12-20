@@ -45,7 +45,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         public void IndexCustomPagesTest(SegmentType segmentType, string repoTitle, string expectedLinkTitle)
         {
             //Setup
-            var dummyCategory = A.Dummy<JobProfileCategory>();
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             dummyDfcPageSiteNode.Title = expectedLinkTitle;
             A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(dummyDfcPageSiteNode);
@@ -56,15 +55,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             switch (segmentType)
             {
                 case SegmentType.Category:
-                        dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.JobCategoriesURLSegment}", UriKind.RelativeOrAbsolute);
+                        dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.JobCategoriesPathSegment}", UriKind.RelativeOrAbsolute);
                         A.CallTo(() => repositoryCategoryFake.GetByUrlName(A<string>._)).Returns(repoTitle == null ? null : new JobProfileCategory() { Title = repoTitle });
                 break;
                 case SegmentType.JobProfile:
-                    dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.JobProfilesURLSegment}", UriKind.RelativeOrAbsolute);
+                    dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.JobProfilesPathSegment}", UriKind.RelativeOrAbsolute);
                     A.CallTo(() => repositoryJobProfileFake.GetByUrlName(A<string>._)).Returns(repoTitle == null ? null : new JobProfile() { Title = repoTitle });
                 break;
                 case SegmentType.Alert:
-                    dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.AlertsURLSegment}", UriKind.RelativeOrAbsolute);
+                    dummyDfcPageSiteNode.Url = new Uri($"/abcd/{dfcBreadcrumbController.AlertsPathSegment}", UriKind.RelativeOrAbsolute);
                     dfcBreadcrumbController.AlertsPageText = expectedLinkTitle;
                 break;
             }
@@ -89,17 +88,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         public void IndexPageHierarchyTest()
         {
             //Setup
-            var dummyCategory = A.Dummy<JobProfileCategory>();
             var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
 
             dummyDfcPageSiteNode.Url = new Uri($"/a/b/c", UriKind.RelativeOrAbsolute);
 
             A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(dummyDfcPageSiteNode);
 
-            var breadcrumbToParent = new List<BreadCrumbLink>()
+            var breadcrumbToParent = new List<BreadcrumbLink>()
             {
-                  new BreadCrumbLink { Text = "Text2", Link = "Link2" },
-                  new BreadCrumbLink { Text = "Text1", Link = "Link1" }
+                  new BreadcrumbLink { Text = "Text2", Link = "Link2" },
+                  new BreadcrumbLink { Text = "Text1", Link = "Link1" }
             };
 
             A.CallTo(() => sitefinityCurrentContext.BreadcrumbToParent()).Returns(breadcrumbToParent);
@@ -133,8 +131,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         public void IndexPageNullTest()
         {
             //Setup
-            var dummyCategory = A.Dummy<JobProfileCategory>();
-            var dummyDfcPageSiteNode = A.Dummy<DfcPageSiteNode>();
             A.CallTo(() => sitefinityCurrentContext.GetCurrentDfcPageNode()).Returns(null);
 
             //Instantiate

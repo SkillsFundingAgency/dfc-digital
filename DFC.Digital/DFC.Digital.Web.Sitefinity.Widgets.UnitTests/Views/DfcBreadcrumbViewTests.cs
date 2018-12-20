@@ -52,9 +52,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
         /// <param name="htmlDom">The HTML DOM.</param>
         /// <param name="position">the number of li elements to skip before getting link</param>
         /// <returns>Homepage Text or Link</returns>
-        private static BreadCrumbLink GetLinkAtPosition(HtmlDocument htmlDom, int position)
+        private static BreadcrumbLink GetLinkAtPosition(HtmlDocument htmlDom, int position)
         {
-            var breadCrumbLink = new BreadCrumbLink();
+            var breadCrumbLink = new BreadcrumbLink();
             var crumbElement = htmlDom.DocumentNode.Descendants("li").Skip(position).FirstOrDefault();
             if (crumbElement != null)
             {
@@ -85,10 +85,10 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
                 HomepageText = "homepageText",
                 HomepageLink = "homepageLink",
 
-                BreadcrumbLinks = new List<BreadCrumbLink>()
+                BreadcrumbLinks = new List<BreadcrumbLink>()
                 {
-                  new BreadCrumbLink { Text = "Text1", Link = "Link1" },
-                  new BreadCrumbLink { Text = "Text2" }
+                  new BreadcrumbLink { Text = "Text1", Link = "Link1" },
+                  new BreadcrumbLink { Text = "Text2" }
                 }
             };
         }

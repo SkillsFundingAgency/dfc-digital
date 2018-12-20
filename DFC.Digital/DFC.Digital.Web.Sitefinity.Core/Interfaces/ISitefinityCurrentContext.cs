@@ -43,6 +43,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         DfcPageSiteNode GetCurrentDfcPageNode();
 
-        IList<BreadCrumbLink> BreadcrumbToParent();
+        IList<BreadcrumbLink> BreadcrumbToParent();
     }
 }

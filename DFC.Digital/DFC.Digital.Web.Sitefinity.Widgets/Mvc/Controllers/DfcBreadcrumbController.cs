@@ -64,13 +64,13 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         public string AlertsPageText { get; set; } = "Error";
 
         [DisplayName("Job categories URL segment (Upper case)")]
-        public string JobCategoriesURLSegment { get; set; } = "JOB-CATEGORIES";
+        public string JobCategoriesPathSegment { get; set; } = "JOB-CATEGORIES";
 
         [DisplayName("Job profiles URL segment (Upper case)")]
-        public string JobProfilesURLSegment { get; set; } = "JOB-PROFILES";
+        public string JobProfilesPathSegment { get; set; } = "JOB-PROFILES";
 
         [DisplayName("Alerts URL segment (Upper case)")]
-        public string AlertsURLSegment { get; set; } = "ALERTS";
+        public string AlertsPathSegment { get; set; } = "ALERTS";
 
         #endregion Public Properties
 
@@ -108,12 +108,12 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         /// <returns>ActionResult</returns>
         private ActionResult GetBreadcrumbView(string urlName)
         {
-            var breadCrumbLink = new BreadCrumbLink();
+            var breadCrumbLink = new BreadcrumbLink();
             var model = new DfcBreadcrumbViewModel
             {
                 HomepageText = HomepageText,
                 HomepageLink = HomepageLink,
-                BreadcrumbLinks = new List<BreadCrumbLink>
+                BreadcrumbLinks = new List<BreadcrumbLink>
                 {
                     breadCrumbLink
                 }
@@ -126,17 +126,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
-                if (nodeUrl.ToUpperInvariant().Contains(JobCategoriesURLSegment) && !string.IsNullOrEmpty(urlName))
+                if (nodeUrl.ToUpperInvariant().Contains(JobCategoriesPathSegment) && !string.IsNullOrEmpty(urlName))
                 {
                     var category = categoryRepo.GetByUrlName(urlName);
                     breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
                 } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains(JobProfilesURLSegment) && !string.IsNullOrEmpty(urlName))
+                else if (nodeUrl.ToUpperInvariant().Contains(JobProfilesPathSegment) && !string.IsNullOrEmpty(urlName))
                 {
                     var jobProfile = jobProfileRepository.GetByUrlName(urlName);
                     breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
                 } // If we are on Alerts page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains(AlertsURLSegment))
+                else if (nodeUrl.ToUpperInvariant().Contains(AlertsPathSegment))
                 {
                     breadCrumbLink.Text = AlertsPageText;
                 } // Or we are on any other page

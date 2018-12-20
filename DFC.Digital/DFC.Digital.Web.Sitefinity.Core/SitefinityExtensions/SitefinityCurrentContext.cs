@@ -37,15 +37,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return CurrentNode != null ? new DfcPageSiteNode { Title = CurrentNode.Title, Url = new Uri(CurrentNode.Url, UriKind.RelativeOrAbsolute) } : null;
         }
 
-        public IList<BreadCrumbLink> BreadcrumbToParent()
+        public IList<BreadcrumbLink> BreadcrumbToParent()
         {
-            var breadcrumbLinks = new List<BreadCrumbLink>();
+            var breadcrumbLinks = new List<BreadcrumbLink>();
             var pageNode = CurrentNode;
             while (pageNode.ParentNode != null)
             {
                 if (pageNode.NodeType == NodeType.Standard && pageNode.Visible)
                 {
-                    var pageBreadCrumbLink = new BreadCrumbLink
+                    var pageBreadCrumbLink = new BreadcrumbLink
                     {
                         Text = pageNode.Title,
                         Link = pageNode.Url.Replace("~/", "/")

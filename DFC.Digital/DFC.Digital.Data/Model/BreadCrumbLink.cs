@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class BreadCrumbLink
+    public class BreadcrumbLink
     {
         public string Link { get; set; }
 

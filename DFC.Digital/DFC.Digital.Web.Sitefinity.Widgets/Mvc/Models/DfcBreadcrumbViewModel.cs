@@ -24,6 +24,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         /// </value>
         public string HomepageLink { get; set; }
 
-        public IList<BreadCrumbLink> BreadcrumbLinks { get; set; }
+        public IList<BreadcrumbLink> BreadcrumbLinks { get; set; }
     }
 }

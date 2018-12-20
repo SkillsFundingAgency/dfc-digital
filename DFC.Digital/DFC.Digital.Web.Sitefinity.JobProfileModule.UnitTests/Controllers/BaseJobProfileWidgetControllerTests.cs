@@ -31,7 +31,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
-            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
             var dummyJobProfile = GetDummyJobPRofile(true);
             dummyJobProfile.DynamicTitlePrefix = dynamicTitlePrefix;
             dummyJobProfile.Title = title;
@@ -66,7 +65,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
-            var formatContentServiceFake = A.Fake<IFormatContentService>(ops => ops.Strict());
             var dummyJobProfile = GetDummyJobPRofile(true);
             dummyJobProfile.DynamicTitlePrefix = htbPrefix;
             dummyJobProfile.Title = title;

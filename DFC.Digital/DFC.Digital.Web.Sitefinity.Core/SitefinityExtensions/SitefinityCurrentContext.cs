@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     var pageBreadCrumbLink = new BreadCrumbLink
                     {
                         Text = pageNode.Title,
-                        Link = pageNode.Url.Replace("~/", string.Empty)
+                        Link = pageNode.Url.Replace("~/", "/")
                     };
                     breadcrumbLinks.Add(pageBreadCrumbLink);
                 }

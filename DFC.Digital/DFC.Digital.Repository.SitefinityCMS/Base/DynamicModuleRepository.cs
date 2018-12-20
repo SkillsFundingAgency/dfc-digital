@@ -231,6 +231,11 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         public bool IsCheckedOut(DynamicContent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var master = entity.Status == ContentLifecycleStatus.Master
                 ? entity
                 : dynamicModuleManager.Lifecycle.GetMaster(entity);

@@ -93,6 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
+                        Score = dummyIndexItem.Score,
                         JobProfileCategoriesWithUrl = Enumerable.Empty<string>()
                     });
                 }
@@ -219,6 +220,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
+                        Score = dummyIndexItem.Score,
                         JobProfileCategoriesWithUrl = dummyIndexItem.ResultItem.JobProfileCategoriesWithUrl
                     });
                 }
@@ -357,6 +359,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndex.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                         Rank = (int)dummySearchResult.Results.First().Rank,
+                        Score = dummySearchResult.Results.First().Score,
                         JobProfileCategoriesWithUrl = dummyIndex.JobProfileCategoriesWithUrl
                     }
                 }.AsEnumerable();

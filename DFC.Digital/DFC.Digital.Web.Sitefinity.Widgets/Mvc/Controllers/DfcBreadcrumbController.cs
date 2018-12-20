@@ -123,7 +123,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             var currentPageNode = sitefinityCurrentContext.GetCurrentDfcPageNode();
             if (currentPageNode != null)
             {
-                string nodeUrl = currentPageNode.Url.OriginalString;
+                var nodeUrl = currentPageNode.Url.OriginalString;
 
                 // If we are on JobCategories page(s)
                 if (nodeUrl.ToUpperInvariant().Contains(JobCategoriesURLSegment) && !string.IsNullOrEmpty(urlName))
@@ -142,34 +142,14 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 } // Or we are on any other page
                 else
                 {
-                    model.BreadcrumbLinks.Clear();
-                    var pageNode = SiteMapBase.GetActualCurrentNode();
-                    while (pageNode.ParentNode != null)
-                    {
-                        if (pageNode.NodeType == NodeType.Standard && pageNode.Visible)
-                        {
-                            var pageBreadCrumbLink = new BreadCrumbLink
-                            {
-                                Text = pageNode.Title,
-                                Link = pageNode.Url
-                            };
-                            model.BreadcrumbLinks.Add(pageBreadCrumbLink);
-                        }
-
-                        pageNode = pageNode.ParentNode as PageSiteNode;
-                    }
+                    model.BreadcrumbLinks = sitefinityCurrentContext.BreadcrumbToParent();
 
                     //the current page should not be linked
-                    model.BreadcrumbLinks.FirstOrDefault().Link = string.Empty;
+                    model.BreadcrumbLinks.FirstOrDefault().Link = null;
                     model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
                 }
             }
 
-            //Test to see is it behaves as expected if we dont do this GSR
-            // else
-            // {
-            //     breadCrumbLink.Text = string.Empty;
-            // }
             return View(model);
         }
 

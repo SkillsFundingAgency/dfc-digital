@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Web;
@@ -41,5 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         }
 
         DfcPageSiteNode GetCurrentDfcPageNode();
+
+        IList<BreadCrumbLink> BreadcrumbToParent();
     }
 }

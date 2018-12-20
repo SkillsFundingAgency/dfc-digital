@@ -81,5 +81,7 @@ namespace DFC.Digital.Data.Model
 
         [IsSearchable]
         public string CareerPathAndProgression { get; set; }
+
+        public double Score { get; set; }
     }
 }

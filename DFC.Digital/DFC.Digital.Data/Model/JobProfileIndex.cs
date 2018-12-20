@@ -66,5 +66,7 @@ namespace DFC.Digital.Data.Model
 
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
+
+        public double Score { get; set; }
     }
 }

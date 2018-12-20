@@ -18,6 +18,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }
 
-        public string Score { get; set; }
+        public double Score { get; set; }
     }
 }

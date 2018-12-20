@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyIndex.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                     Rank = (int)dummySearchResult.Results.First().Rank,
-                    Score = dummySearchResult.Results.FirstOrDefault().Score.ToString(),
+                    Score = dummyIndex.Score,
                     JobProfileCategoriesWithUrl = dummyIndex.JobProfileCategoriesWithUrl
                 }
             }.AsEnumerable();
@@ -174,7 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
-                    Score = dummyResult.Score.ToString(),
+                    Score = dummyResult.Score,
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }
@@ -284,7 +284,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
-                    Score = dummyResult.Score.ToString(),
+                    Score = dummyResult.Score,
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }
@@ -390,7 +390,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     ResultItemOverview = dummyResult.ResultItem.Overview,
                     ResultItemUrlName = $"{defaultJobProfilePage}{dummyResult.ResultItem.UrlName}",
                     Rank = (int)dummyResult.Rank,
-                    Score = dummyResult.Score.ToString(),
+                    Score = dummyResult.Score,
                     JobProfileCategoriesWithUrl = dummyResult.ResultItem.JobProfileCategoriesWithUrl
                 });
             }

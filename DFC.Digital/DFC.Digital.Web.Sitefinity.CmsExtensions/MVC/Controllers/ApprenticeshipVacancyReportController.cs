@@ -54,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             return View(avvm);
         }
 
-        private IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
+        private  static IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
         {
             var reportDataView = new List<JobProfileApprenticeshipVacancyItemViewModel>();
 
@@ -76,13 +76,13 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 if (rptItem.ApprenticeshipVacancies?.Any() == true)
                 {
                     reportItem.AV1Title = rptItem.ApprenticeshipVacancies?.First().Title;
-                    reportItem.AV1LastModified = rptItem.ApprenticeshipVacancies?.First().LastModified.ToString(Constants.BackendDateTimeFormat);
+                    reportItem.AV1LastModified = rptItem.ApprenticeshipVacancies?.First().LastModified.ToString(Constants.BackEndDateTimeFormat);
                 }
 
                 if (rptItem.ApprenticeshipVacancies?.Count() > 1)
                 {
                     reportItem.AV2Title = rptItem.ApprenticeshipVacancies?.Skip(1).First().Title;
-                    reportItem.AV2LastModified = rptItem.ApprenticeshipVacancies?.Skip(1).First().LastModified.ToString(Constants.BackendDateTimeFormat);
+                    reportItem.AV2LastModified = rptItem.ApprenticeshipVacancies?.Skip(1).First().LastModified.ToString(Constants.BackEndDateTimeFormat);
                 }
 
                 reportDataView.Add(reportItem);

@@ -9,8 +9,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 {
@@ -124,29 +122,37 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             if (currentPageNode != null)
             {
                 var nodeUrl = currentPageNode.Url.OriginalString;
+                switch (nodeUrl.ToUpperInvariant())
+                {
+                    case var jobCategoriesPage when !string.IsNullOrEmpty(urlName) && jobCategoriesPage.Contains(JobCategoriesPathSegment):
+                        {
+                            var category = categoryRepo.GetByUrlName(urlName);
+                            breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
+                            break;
+                        }
 
-                // If we are on JobCategories page(s)
-                if (nodeUrl.ToUpperInvariant().Contains(JobCategoriesPathSegment) && !string.IsNullOrEmpty(urlName))
-                {
-                    var category = categoryRepo.GetByUrlName(urlName);
-                    breadCrumbLink.Text = (category == null) ? currentPageNode.Title : category.Title;
-                } // If we are on JobProfileDetalails page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains(JobProfilesPathSegment) && !string.IsNullOrEmpty(urlName))
-                {
-                    var jobProfile = jobProfileRepository.GetByUrlName(urlName);
-                    breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
-                } // If we are on Alerts page(s)
-                else if (nodeUrl.ToUpperInvariant().Contains(AlertsPathSegment))
-                {
-                    breadCrumbLink.Text = AlertsPageText;
-                } // Or we are on any other page
-                else
-                {
-                    model.BreadcrumbLinks = sitefinityCurrentContext.BreadcrumbToParent();
+                    case var jobProfilePage when !string.IsNullOrEmpty(urlName) && jobProfilePage.Contains(JobProfilesPathSegment):
+                        {
+                            var jobProfile = jobProfileRepository.GetByUrlName(urlName);
+                            breadCrumbLink.Text = (jobProfile == null) ? currentPageNode.Title : jobProfile.Title;
+                            break;
+                        }
 
-                    //the current page should not be linked
-                    model.BreadcrumbLinks.FirstOrDefault().Link = null;
-                    model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
+                    case var alertsPage when alertsPage.Contains(AlertsPathSegment):
+                        {
+                            breadCrumbLink.Text = AlertsPageText;
+                            break;
+                        }
+
+                    default:
+                        {
+                            model.BreadcrumbLinks = sitefinityCurrentContext.BreadcrumbToParent();
+
+                            //the current page should not be linked
+                            model.BreadcrumbLinks.FirstOrDefault().Link = null;
+                            model.BreadcrumbLinks = model.BreadcrumbLinks.Reverse().ToList();
+                            break;
+                        }
                 }
             }
 

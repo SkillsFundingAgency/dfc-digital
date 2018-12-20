@@ -28,7 +28,8 @@
 
         <label for="prop-Title">WYD CAD Intro Active</label>
         <div>
-            <input class="form-control" ng-model="properties.IsWYDIntroActive.PropertyValue" type="text" />
+            <input id="IsWYDIntroActive" type="checkbox" ng-model="properties.IsWYDIntroActive.PropertyValue"
+                   ng-true-value="'True'" ng-false-value="'False'" ng-checked="properties.IsWYDIntroActive.PropertyValue === 'True'" />
         </div>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
@@ -66,7 +67,7 @@
 
         <label for="prop-Title">Environment leading Text</label>
         <div>
-            <input class="form-control" ng-model="properties.EnvironmentLeadingText.PropertyValue" type="text" />
+            <input class="form-control" ng-model="properties.EnvironmentsLeadingText.PropertyValue" type="text" />
         </div>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
@@ -86,7 +87,7 @@
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
 
-        <h4 for="prop-Title">conjunction settings</h4>
+        <h4 for="prop-Title">Conjunction settings</h4>
     </li>
     <li class="sfFormSeparator" style="padding-bottom: 15px;">
 

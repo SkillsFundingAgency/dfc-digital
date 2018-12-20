@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var salaryCalculator = A.Fake<ISalaryCalculator>();
             var fakeLogger = A.Fake<IApplicationLogger>();
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
-            var dummyJobProfile = new JobProfileOverloadForSearch
+            var dummyJobProfile = new JobProfile
             {
                 SOCCode = nameof(JobProfile.SOCCode)
             };
@@ -70,7 +70,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var salaryCalculator = A.Fake<ISalaryCalculator>();
             var fakeLogger = A.Fake<IApplicationLogger>();
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
-            var dummyJobProfile = A.Dummy<JobProfileOverloadForSearch>();
+            var dummyJobProfile = A.Dummy<JobProfile>();
             var dummyCategories = new List<JobProfileCategory>
             {
                 new JobProfileCategory

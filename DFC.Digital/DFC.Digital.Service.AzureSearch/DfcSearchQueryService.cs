@@ -31,9 +31,9 @@ namespace DFC.Digital.Service.AzureSearch
             var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
             var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
             var finalComputedSearchTerm = queryBuilder.BuildExactMatchSearch(searchTerm, partialTermToSearch, properties);
-
-            var res = base.Search(finalComputedSearchTerm, properties ?? new SearchProperties());
-            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
+            var searchProperties = properties ?? new SearchProperties();
+            var res = base.Search(finalComputedSearchTerm, searchProperties);
+            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, searchProperties);
 
             return orderedResult;
         }
@@ -44,9 +44,9 @@ namespace DFC.Digital.Service.AzureSearch
             var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
             var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
             var finalComputedSearchTerm = queryBuilder.BuildExactMatchSearch(searchTerm, partialTermToSearch, properties);
-
-            var res = await base.SearchAsync(finalComputedSearchTerm, properties ?? new SearchProperties());
-            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
+            var searchProperties = properties ?? new SearchProperties();
+            var res = await base.SearchAsync(finalComputedSearchTerm, searchProperties);
+            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, searchProperties);
 
             return orderedResult;
         }

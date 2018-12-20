@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             if (entries == null)
             {
-                return new List<SitemapEntry>();
+                return Enumerable.Empty<SitemapEntry>();
             }
 
             // Add categories

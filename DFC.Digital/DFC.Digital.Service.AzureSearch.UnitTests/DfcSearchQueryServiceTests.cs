@@ -14,7 +14,13 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class DfcSearchQueryServiceTests
     {
-        [Fact]
+        private const string CleanedSearchTerm = "cleanedSearchTerm";
+        private const string PartialTermToSearch = "partialTermToSearch";
+        private const string BuildExactMatchSearch = "buildExactMatchSearch";
+        private const string TrimmedResults = "trimmed result";
+        private const string SearchTerm = "searchTerm";
+
+       [Fact]
         public async Task SearchAsyncTest()
         {
             //Arrange
@@ -30,10 +36,10 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure
-            A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>._, A<SearchProperties>._)).Returns("cleanedSearchTerm");
-            A.CallTo(() => fakeQueryBuilder.BuildContainPartialSearch(A<string>._, A<SearchProperties>._)).Returns("partialTermToSearch");
-            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>._, A<string>._, A<SearchProperties>._)).Returns("buildExactMatchSearch");
-            A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>._, A<SearchProperties>._)).Returns("trimmed result");
+            A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>._, A<SearchProperties>._)).Returns(CleanedSearchTerm);
+            A.CallTo(() => fakeQueryBuilder.BuildContainPartialSearch(A<string>._, A<SearchProperties>._)).Returns(PartialTermToSearch);
+            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>._, A<string>._, A<SearchProperties>._)).Returns(BuildExactMatchSearch);
+            A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>._, A<SearchProperties>._)).Returns(TrimmedResults);
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).Returns(dummySearchParameters);
             A.CallTo(() => fakeIndexClient.Documents).Returns(fakeDocumentsOperation);
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).Returns(dummySearchResult);
@@ -43,13 +49,13 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             await searchService.SearchAsync("searchTerm", dummySearchProperty);
 
             //Assert
-            A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>._, A<SearchProperties>._)).MustHaveHappened();
-            A.CallTo(() => fakeQueryBuilder.BuildContainPartialSearch(A<string>._, A<SearchProperties>._)).MustHaveHappened();
-            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>._, A<string>._, A<SearchProperties>._)).MustHaveHappened();
-            A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>._, A<SearchProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryBuilder.RemoveSpecialCharactersFromTheSearchTerm(A<string>.That.IsEqualTo(SearchTerm), A<SearchProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryBuilder.TrimCommonWordsAndSuffixes(A<string>.That.IsEqualTo(CleanedSearchTerm), A<SearchProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryBuilder.BuildContainPartialSearch(A<string>.That.IsEqualTo(TrimmedResults), A<SearchProperties>._)).MustHaveHappened();
+            A.CallTo(() => fakeQueryBuilder.BuildExactMatchSearch(A<string>.That.IsEqualTo(CleanedSearchTerm), A<string>.That.IsEqualTo(PartialTermToSearch), A<SearchProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
-            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo("buildExactMatchSearch"), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo(BuildExactMatchSearch), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).MustHaveHappened();
         }
 

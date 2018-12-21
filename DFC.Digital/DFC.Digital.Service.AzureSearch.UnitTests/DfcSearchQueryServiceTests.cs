@@ -60,7 +60,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         }
 
         [Theory]
-        [InlineData("*", "")]
+        [InlineData("*", "/.*.*/ ~")]
+        [InlineData("term1", "term1 /.*term1.*/ term1~")]
+        [InlineData("term1 term2", "\"term1 term2\" /.*term1.*/ term1~/.*term2.*/ term2~")]
         public async Task SearchActualBuilderAsyncTest(string searchTerm, string expectedComputedSearchTerm)
         {
             //Arrange
@@ -87,7 +89,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             //Assert
             A.CallTo(() => fakeQueryConverter.BuildSearchParameters(A<SearchProperties>._)).MustHaveHappened();
             A.CallTo(() => fakeIndexClient.Documents).MustHaveHappened();
-            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.IsEqualTo(expectedComputedSearchTerm), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
+            A.CallTo(() => fakeDocumentsOperation.SearchWithHttpMessagesAsync<JobProfileIndex>(A<string>.That.Contains(expectedComputedSearchTerm), A<SearchParameters>._, A<SearchRequestOptions>._, A<Dictionary<string, List<string>>>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeQueryConverter.ConvertToSearchResult(A<DocumentSearchResult<JobProfileIndex>>._, A<SearchProperties>._)).MustHaveHappened();
         }
     }

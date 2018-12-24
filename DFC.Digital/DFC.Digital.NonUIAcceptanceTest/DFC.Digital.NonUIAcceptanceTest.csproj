@@ -108,6 +108,7 @@
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="Features\JobProfileSearch.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>

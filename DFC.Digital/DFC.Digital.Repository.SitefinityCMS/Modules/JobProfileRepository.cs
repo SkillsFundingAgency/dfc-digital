@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,12 +89,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
             if (jobProfiles.Any())
             {
                 var jobProfileOverloadForWhatItTakesList = new List<JobProfileOverloadForWhatItTakes>();
-                    foreach (var jobProfile in jobProfiles)
-                    {
-                        jobProfileOverloadForWhatItTakesList.Add(converterForWITOnly.ConvertFrom(jobProfile));
-                    }
+                foreach (var jobProfile in jobProfiles)
+                {
+                    jobProfileOverloadForWhatItTakesList.Add(converterForWITOnly.ConvertFrom(jobProfile));
+                }
 
-                    return jobProfileOverloadForWhatItTakesList;
+                return jobProfileOverloadForWhatItTakesList;
             }
 
             return Enumerable.Empty<JobProfileOverloadForWhatItTakes>();

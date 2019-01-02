@@ -56,7 +56,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click the T&C link")]
         public void WhenIClickTheTCLink()
         {
-            GetNavigatedPage<Homepage>()?.ClickTandCLink<TermsAndConditionPage>()
+            GetNavigatedPage<Homepage>()?.ClickTermAndCondLink<TermsAndConditionPage>()
                 .SaveTo(ScenarioContext);
         }
 

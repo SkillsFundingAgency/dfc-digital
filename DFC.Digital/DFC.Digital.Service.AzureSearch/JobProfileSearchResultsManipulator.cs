@@ -3,19 +3,24 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Linq;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services
+namespace DFC.Digital.Service.AzureSearch
 {
     public class JobProfileSearchResultsManipulator : ISearchResultsManipulator<JobProfileIndex>
     {
         public SearchResult<JobProfileIndex> Reorder(SearchResult<JobProfileIndex> searchResult, string searchTerm, SearchProperties searchProperties)
         {
-            if (searchProperties?.Page == 1)
+            if (searchProperties?.Page == 1 && searchResult != null)
             {
                 var results = searchResult?.Results?.ToList();
                 var promo = results
+                    ?.FirstOrDefault(p => p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+
+                if (promo == null)
+                {
+                    promo = results
                     ?.FirstOrDefault(p =>
-                    p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))
-                    || p.ResultItem.Title.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+                    p.ResultItem.AlternativeTitle.Any(a => a.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)));
+                }
 
                 //The results contain a profile and its not at the top.
                 if (promo != null && promo.Rank != 1)

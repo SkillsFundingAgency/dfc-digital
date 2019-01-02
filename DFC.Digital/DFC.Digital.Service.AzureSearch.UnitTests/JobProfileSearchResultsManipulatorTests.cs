@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
+namespace DFC.Digital.Service.AzureSearch.Tests
 {
     public class JobProfileSearchResultsManipulatorTests
     {
@@ -87,6 +87,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Services.Tests
             var mannipulator = new JobProfileSearchResultsManipulator();
             var result = mannipulator.Reorder(null, "test", null);
             result.Results.Should().BeEquivalentTo(Enumerable.Empty<SearchResultItem<JobProfileIndex>>());
+        }
+
+        [Theory]
+        [InlineData("Order Picker", "Order Picker")]
+        [InlineData("Packer", "Packer")]
+        public void TitleAsPriorityTest(string searchTerm, string expectedFirstResult)
+        {
+            var mannipulator = new JobProfileSearchResultsManipulator();
+            SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
+            {
+                Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollectionWithOrderPicker("Test", 8, 1)
+            };
+
+            SearchProperties searchProperties = new SearchProperties
+            {
+                Page = 1
+            };
+
+            var result = mannipulator.Reorder(data, searchTerm, searchProperties);
+            result.Results.First().ResultItem.Title.Should().Be(expectedFirstResult);
         }
     }
 }

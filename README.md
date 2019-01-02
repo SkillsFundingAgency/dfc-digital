@@ -34,6 +34,7 @@ Once you have cloned the public repo you need to remove the .template part from 
 |-------|-------|-------|
 | DFC.Digital/Service.Cognitive.BingSpellCheck.UnitTests | app.config.template | app.config |
 | DFC.Digital/DFC.Digital.AcceptanceTest | App.config.template | App.config |
+| DFC.Digital/DFC.Digital.NonUIAcceptanceTest | App.config.template | App.config |
 | DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | AuthenticationConfig.config.template | AuthenticationConfig.config |
 | DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | DataConfig.config.template | DataConfig.config |
 | DFC.Digital/DFC.Digital.Web.Sitefinity/App_Data/Sitefinity/Configuration | SearchConfig.config.template | SearchConfig.config |

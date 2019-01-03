@@ -132,7 +132,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 model.HowToBecomeText = CurrentJobProfile.HowToBecome;
                 model.HowToBecome = CurrentJobProfile.HowToBecomeData;
-                model.MainSectionTitle = $"{MainSectionTitle} {GetDynamicTitle(false)}".Trim();
+                model.MainSectionTitle = $"{MainSectionTitle} {GetDynamicTitle(false).ToLower()}".Trim();
             }
             else
             {

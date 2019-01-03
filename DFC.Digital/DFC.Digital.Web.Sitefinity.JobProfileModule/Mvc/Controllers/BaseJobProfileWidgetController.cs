@@ -49,30 +49,78 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string GetDynamicTitle(bool skipNoTitle)
         {
+            var validatedTitle = ValidateAcronym(CurrentJobProfile.Title);
             switch (CurrentJobProfile.DynamicTitlePrefix)
             {
                 case "No Prefix":
-                    return $"{CurrentJobProfile.Title}";
+                    return $"{validatedTitle}";
 
                 case "Prefix with a":
-                    return $"a {CurrentJobProfile.Title}";
+                    return $"a {validatedTitle}";
 
                 case "Prefix with an":
-                    return $"an {CurrentJobProfile.Title}";
+                    return $"an {validatedTitle}";
 
                 case "No Title":
-                    return skipNoTitle ? GetDefaultDynamicTitle(CurrentJobProfile.Title) : string.Empty;
+                    return skipNoTitle ? GetDefaultDynamicTitle(validatedTitle) : string.Empty;
 
                 default:
-                    return GetDefaultDynamicTitle(CurrentJobProfile.Title);
+                    return GetDefaultDynamicTitle(validatedTitle);
             }
         }
 
-        /// <summary>
-        /// Indexes this instance.
-        /// </summary>
-        /// <returns>Redirect</returns>
-        public ActionResult BaseIndex()
+        public string ValidateAcronym(string title)
+        {
+            var splitTitle = title.Split(' ');
+            var newTitle = string.Empty;
+            foreach (var word in splitTitle)
+            {
+                string newWord = ManipulatedWord(word);
+                newTitle = $"{newTitle} {word}";
+            }
+
+            return newTitle;
+        }
+
+        public string ManipulatedWord(string word)
+        {
+            var totalUpperCaseCharCount = 0;
+            if (word.Length > 2)
+            {
+                foreach (char character in word.Substring(0, 3).ToCharArray())
+                {
+                    if (char.IsUpper(character))
+                    {
+                        totalUpperCaseCharCount++;
+                    }
+                }
+            }
+            else if (word.Length == 2)
+            {
+                foreach (char character in word.Substring(0, 2).ToCharArray())
+                {
+                    if (char.IsUpper(character))
+                    {
+                        totalUpperCaseCharCount++;
+                    }
+                }
+            }
+
+            if (totalUpperCaseCharCount >= 2)
+            {
+                return word;
+            }
+            else
+            {
+                return word.ToLower();
+            }
+        }
+
+            /// <summary>
+            /// Indexes this instance.
+            /// </summary>
+            /// <returns>Redirect</returns>
+            public ActionResult BaseIndex()
         {
             if (WebAppContext.IsContentAuthoringSite)
             {

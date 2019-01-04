@@ -129,7 +129,7 @@ $('.js-autocomplete').each(function () {
             }
             //else : fetch your data, and call the 'response' callback
             $.ajax({
-                url: $('.js-autocomplete').data("autocomplete-source") + '?&maxNumberDisplayed=' + $('.js-autocomplete').data("autocomplete-maxnumberdisplyed") + '&fuzzySearch=' + $('.js-autocomplete').data('autocomplete-fuzzysearch'),
+                url: $('.js-autocomplete').data("autocomplete-source"),
                 dataType: 'json',
                 data: {'term' : searchTerm,  'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
                 success: function (data) {

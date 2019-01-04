@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
@@ -49,41 +50,65 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string GetDynamicTitle(bool skipNoTitle)
         {
-            var validatedTitle = ValidateAcronym(CurrentJobProfile.Title);
+            var changedTitle = CheckForAcronym(CurrentJobProfile.Title);
             switch (CurrentJobProfile.DynamicTitlePrefix)
             {
                 case "No Prefix":
-                    return $"{validatedTitle}";
+                    return $"{changedTitle}";
 
                 case "Prefix with a":
-                    return $"a {validatedTitle}";
+                    return $"a {changedTitle}";
 
                 case "Prefix with an":
-                    return $"an {validatedTitle}";
+                    return $"an {changedTitle}";
 
                 case "No Title":
-                    return skipNoTitle ? GetDefaultDynamicTitle(validatedTitle) : string.Empty;
+                    return skipNoTitle ? GetDefaultDynamicTitle(changedTitle) : string.Empty;
 
                 default:
-                    return GetDefaultDynamicTitle(validatedTitle);
+                    return GetDefaultDynamicTitle(changedTitle);
             }
         }
 
-        public string ValidateAcronym(string title)
+        public string CheckForAcronym(string title)
         {
             var splitTitle = title.Split(' ');
+
             var newTitle = string.Empty;
+
             foreach (var word in splitTitle)
             {
-                string newWord = ManipulatedWord(word);
-                newTitle = $"{newTitle} {word}";
+                string newWord = ChangeWordCase(word);
+                newTitle = $"{newTitle} {newWord}";
             }
 
-            return newTitle;
+            return newTitle.TrimStart();
         }
 
-        public string ManipulatedWord(string word)
+        public bool SpecialConditionWords(string word)
         {
+            var specialConditionWords = new[]
+            {
+                "European",
+                "Her",
+                "Majesty",
+                "Royal",
+                "Marines",
+                "Navy",
+            };
+            var specialConditionWord = specialConditionWords.FirstOrDefault(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));
+            var result = specialConditionWord is null ? false : true;
+
+            return result;
+        }
+
+        public string ChangeWordCase(string word)
+        {
+            if (SpecialConditionWords(word))
+            {
+                return word;
+            }
+
             var totalUpperCaseCharCount = 0;
             if (word.Length > 2)
             {

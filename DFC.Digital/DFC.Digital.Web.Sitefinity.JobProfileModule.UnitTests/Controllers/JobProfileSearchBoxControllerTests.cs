@@ -159,7 +159,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 MaximumNumberOfDisplayedSuggestions = 5,
                 UseFuzzyAutoCompleteMatching = true,
                 JobProfileCategoryPage = defaultJobProfileCateegoryPage,
-                SalaryBlankText = salaryBlankText
+                SalaryBlankText = salaryBlankText,
+                AutoCompleteMaximumCharacters = 7
             };
 
             if (string.IsNullOrWhiteSpace(searchTerm))

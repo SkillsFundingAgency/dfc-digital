@@ -98,35 +98,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             var totalUpperCaseCharCount = 0;
-            if (word.Length > 2)
+            foreach (char character in word.ToCharArray())
             {
-                foreach (char character in word.Substring(0, 3).ToCharArray())
+                if (char.IsUpper(character) && totalUpperCaseCharCount < 2)
                 {
-                    if (char.IsUpper(character))
-                    {
-                        totalUpperCaseCharCount++;
-                    }
-                }
-            }
-            else if (word.Length == 2)
-            {
-                foreach (char character in word.Substring(0, 2).ToCharArray())
-                {
-                    if (char.IsUpper(character))
-                    {
-                        totalUpperCaseCharCount++;
-                    }
+                    totalUpperCaseCharCount++;
                 }
             }
 
-            if (totalUpperCaseCharCount >= 2)
-            {
-                return word;
-            }
-            else
-            {
-                return word.ToLower();
-            }
+            return totalUpperCaseCharCount >= 2 ? word : word.ToLower();
         }
 
             /// <summary>

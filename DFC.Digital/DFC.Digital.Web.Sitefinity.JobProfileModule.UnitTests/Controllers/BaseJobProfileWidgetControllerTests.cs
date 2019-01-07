@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 var result = jobProfileChangeTitleCaseController.ChangeWordCase(title);
 
                 //Assert
-                result.Should().BeEquivalentTo(expected);
+                Assert.Equal(result, expected, ignoreCase: false);
             }
         }
 

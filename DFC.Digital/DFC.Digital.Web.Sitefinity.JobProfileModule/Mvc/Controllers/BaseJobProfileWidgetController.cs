@@ -75,6 +75,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {(IsSpecialConditionWords(next) ? next : ChangeWordCase(next))}").Trim();
         }
 
+        // Further investigation on implmenting Special Title Case for certain JobTitles will be done in the story - 6426
+        // https://skillsfundingagency.atlassian.net/browse/DFC-6426
         public bool IsSpecialConditionWords(string word)
         {
             var specialConditionWords = new[]

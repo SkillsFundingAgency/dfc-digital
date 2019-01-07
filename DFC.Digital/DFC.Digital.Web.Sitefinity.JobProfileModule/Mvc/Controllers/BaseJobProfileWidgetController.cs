@@ -114,6 +114,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 {
                     totalUpperCaseCharCount++;
                 }
+                else
+                {
+                    totalUpperCaseCharCount = totalUpperCaseCharCount >= 2 ? totalUpperCaseCharCount : 0;
+                }
             }
 
             return totalUpperCaseCharCount >= 2 ? word : word.ToLower();

@@ -52,6 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         [Theory]
         [InlineData("UX Designer", "UX designer")]
+        [InlineData("AandE Staff", "aande staff")]
         [InlineData("English as a foreign language (EFL) teacher", "english as a foreign language (EFL) teacher")]
         public void DynamicSectionTitleWithAcronym(string title, string expected)
         {
@@ -79,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 var result = jobProfileCheckForAcronymController.CheckForAcronym(title);
 
                 //Assert
-                result.Should().BeEquivalentTo(expected);
+                Assert.Equal(result, expected, ignoreCase: false);
             }
         }
 

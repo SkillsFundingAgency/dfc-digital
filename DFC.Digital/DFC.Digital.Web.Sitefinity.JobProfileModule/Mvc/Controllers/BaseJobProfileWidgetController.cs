@@ -6,12 +6,15 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     public abstract class BaseJobProfileWidgetController : BaseDfcController
     {
+        private const string AcronymPattern = ".*([A-Z]\\W*[A-Z]).*";
+
         private readonly IJobProfileRepository jobProfileRepository;
         private JobProfile jobProfile;
         private ISitefinityPage sitefinityPage;
@@ -94,27 +97,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string ChangeWordCase(string word)
         {
-            var totalUpperCaseCharCount = 0;
-            foreach (char character in word.ToCharArray())
-            {
-                if (char.IsUpper(character) && totalUpperCaseCharCount < 2)
-                {
-                    totalUpperCaseCharCount++;
-                }
-                else
-                {
-                    totalUpperCaseCharCount = totalUpperCaseCharCount >= 2 ? totalUpperCaseCharCount : 0;
-                }
-            }
-
-            return totalUpperCaseCharCount >= 2 ? word : word.ToLower();
+            return Regex.IsMatch(word, AcronymPattern) ? word : word.ToLower();
         }
 
-            /// <summary>
-            /// Indexes this instance.
-            /// </summary>
-            /// <returns>Redirect</returns>
-            public ActionResult BaseIndex()
+        /// <summary>
+        /// Indexes this instance.
+        /// </summary>
+        /// <returns>Redirect</returns>
+        public ActionResult BaseIndex()
         {
             if (WebAppContext.IsContentAuthoringSite)
             {

@@ -53,6 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData("UX Designer", "UX designer")]
         [InlineData("AandE Staff", "aande staff")]
+        [InlineData("A&E Staff", "A&E staff")]
+        [InlineData("Hospital (A&E) Staff", "hospital (A&E) staff")]
         [InlineData("English as a foreign language (EFL) teacher", "english as a foreign language (EFL) teacher")]
         public void DynamicSectionTitleWithAcronym(string title, string expected)
         {

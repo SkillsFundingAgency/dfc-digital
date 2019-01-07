@@ -72,20 +72,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string CheckForAcronym(string title)
         {
-            var splitTitle = title.Split(' ');
-
-            var newTitle = string.Empty;
-
-            foreach (var word in splitTitle)
-            {
-                string newWord = ChangeWordCase(word);
-                newTitle = $"{newTitle} {newWord}";
-            }
-
-            return newTitle.TrimStart();
+            return title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {(IsSpecialConditionWords(next) ? next : ChangeWordCase(next))}").Trim();
         }
 
-        public bool SpecialConditionWords(string word)
+        public bool IsSpecialConditionWords(string word)
         {
             var specialConditionWords = new[]
             {
@@ -102,11 +92,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string ChangeWordCase(string word)
         {
-            if (SpecialConditionWords(word))
-            {
-                return word;
-            }
-
             var totalUpperCaseCharCount = 0;
             foreach (char character in word.ToCharArray())
             {

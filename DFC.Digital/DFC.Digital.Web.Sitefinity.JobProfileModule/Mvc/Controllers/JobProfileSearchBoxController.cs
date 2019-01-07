@@ -131,6 +131,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public int AutoCompleteMinimumCharacters { get; set; } = 2;
 
         /// <summary>
+        /// Gets or sets the AutoComplete Maximum Characters
+        /// </summary>
+        /// <value>
+        /// The AutoComplete Minimum Characters.
+        /// </value>
+        [DisplayName("Character max limit on autocomplete")]
+        public int AutoCompleteMaximumCharacters { get; set; } = 7;
+
+        /// <summary>
         /// Gets or sets the Maximum Number ff displayed Suggestions.
         /// </summary>
         /// <value>
@@ -195,6 +204,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     {
                         PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                         SalaryBlankText = SalaryBlankText
@@ -212,6 +222,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     {
                         PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
                     };
@@ -245,6 +256,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         PlaceholderText = PlaceholderText,
                         TotalResultsMessage = NoResultsMessage,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
                     };
@@ -265,6 +277,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 TotalResultsMessage = NoResultsMessage,
                 JobProfileUrl = new Uri(urlName, UriKind.RelativeOrAbsolute),
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
             };
@@ -276,6 +289,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
+                if (term.Length > AutoCompleteMaximumCharacters)
+                {
+                    term = term.Substring(0, AutoCompleteMaximumCharacters);
+                }
+
                 var props = new SuggestProperties
                 {
                     UseFuzzyMatching = fuzzySearch,
@@ -314,6 +332,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 PlaceholderText = PlaceholderText,
                 SearchTerm = searchTerm,
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                 JobProfileCategoryPage = JobProfileCategoryPage,

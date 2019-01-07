@@ -72,17 +72,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string CheckForAcronym(string title)
         {
-            var splitTitle = title.Split(' ');
-
             var newTitle = string.Empty;
-
-            foreach (var word in splitTitle)
-            {
-                string newWord = ChangeWordCase(word);
-                newTitle = $"{newTitle} {newWord}";
-            }
-
-            return newTitle.TrimStart();
+            return title.Split(' ').Aggregate((current, next) => $"{current} {ChangeWordCase(next)}").Trim();
         }
 
         public bool SpecialConditionWords(string word)
@@ -96,10 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 "Marines",
                 "Navy",
             };
-            var specialConditionWord = specialConditionWords.FirstOrDefault(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));
-            var result = specialConditionWord is null ? false : true;
-
-            return result;
+            return specialConditionWords.Any(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));
         }
 
         public string ChangeWordCase(string word)

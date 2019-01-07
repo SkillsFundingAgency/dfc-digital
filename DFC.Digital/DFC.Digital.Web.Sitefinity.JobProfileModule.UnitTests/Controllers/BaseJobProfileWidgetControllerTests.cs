@@ -111,7 +111,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             using (var jobProfileCheckForAcronymController = new TestBaseJobProfileWidgetController(webAppContextFake, repositoryFake, loggerFake, sitefinityPage))
             {
                 //Act
-                var result = jobProfileCheckForAcronymController.SpecialConditionWords(title);
+                var result = jobProfileCheckForAcronymController.IsSpecialConditionWords(title);
 
                 //Assert
                 result.Should().Be(expected);

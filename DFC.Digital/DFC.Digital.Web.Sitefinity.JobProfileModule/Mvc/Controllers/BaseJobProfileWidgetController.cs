@@ -85,11 +85,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var specialConditionWords = new[]
             {
                 "European",
-                "Her",
-                "Majesty",
+                "Ofsted",
                 "Royal",
                 "Marines",
                 "Navy",
+                "Merchant",
+                "Montessori",
+                "Portage",
+                "Post",
+                "Office",
+                "Civil",
+                "Service",
+                "Border",
+                "Force",
+                "Union",
             };
 
             return specialConditionWords.Any(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));

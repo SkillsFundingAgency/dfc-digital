@@ -75,7 +75,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string CheckForAcronym(string title)
         {
-            return title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {(IsSpecialConditionWords(next) ? next : ChangeWordCase(next))}").Trim();
+            if (IsSpecialConditionWords(title))
+            {
+                return title;
+            }
+            else
+            {
+                return title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {ChangeWordCase(next)}").Trim();
+            }
         }
 
         // Further investigation on implmenting Special Title Case for certain JobTitles will be done in the story - 6426
@@ -84,21 +91,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var specialConditionWords = new[]
             {
-                "European",
-                "Ofsted",
-                "Royal",
-                "Marines",
-                "Navy",
-                "Merchant",
-                "Montessori",
-                "Portage",
-                "Post",
-                "Office",
-                "Civil",
-                "Service",
-                "Border",
-                "Force",
-                "Union",
+                "European Union official",
+                "Ofsted inspector",
+                "Royal Marines commando",
+                "Royal Navy officer",
+                "Royal Marines officer",
+                "Royal Navy rating",
+                "Merchant Navy deck officer",
+                "Merchant Navy engineering officer",
+                "Merchant Navy rating",
+                "Montessori teacher",
+                "Portage home visitor",
+                "Post Office customer service assistant",
+                "Civil service executive officer",
+                "Civil service administrative officer",
+                "Border Force officer",
             };
 
             return specialConditionWords.Any(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));

@@ -87,9 +87,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData("Her", true)]
-        [InlineData("Royal", true)]
-        [InlineData("Teacher", false)]
+        [InlineData("Ofsted inspector", true)]
+        [InlineData("Merchant Navy officer", false)]
+        [InlineData("Royal Navy officer", true)]
+        [InlineData("Interpreter", false)]
+        [InlineData("Post Office customer service assistant", true)]
 
         public void DynamicSectionTitleCheckForSpecialConditionTest(string title, bool expected)
         {

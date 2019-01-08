@@ -75,14 +75,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string CheckForAcronym(string title)
         {
-            if (IsSpecialConditionWords(title))
-            {
-                return title;
-            }
-            else
-            {
-                return title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {ChangeWordCase(next)}").Trim();
-            }
+            return IsSpecialConditionWords(title)
+                ? title
+                : title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {ChangeWordCase(next)}").Trim();
         }
 
         // Further investigation on implmenting Special Title Case for certain JobTitles will be done in the story - 6426

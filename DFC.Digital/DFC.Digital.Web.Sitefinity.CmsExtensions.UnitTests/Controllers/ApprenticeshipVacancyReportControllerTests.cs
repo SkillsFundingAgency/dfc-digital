@@ -29,7 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             fakeLoggingService = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeWebAppContext = A.Fake<IWebAppContext>();
             fakeCachingPolicy = A.Fake<ICachingPolicy>();
-            query.Add("ctx", "something");
+            fakeList = Enumerable.Empty<JobProfileApprenticeshipVacancyReport>().AsQueryable();
+            
         }
 
 
@@ -43,6 +44,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
             A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
             A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
             A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
+            query.Add("ctx", "something");
+
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 
@@ -55,6 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 .WithModel<JobProfileApprenticeshipVacancyReportViewModel>(vm =>
                 {
                     vm.ReportData.Should().HaveCount(numberRecords);
+                    int ii = 0;
                     foreach (var r in vm.ReportData)
                     {
                         if (numberOfApprenticeship > 0)
@@ -65,6 +69,10 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                         {
                             r.AV2Title.Should().Contain("Two");
                         }
+
+                        r.Frameworks.Should().Be($"DummyFramework_1{ii}-(LARSF_1{ii})|DummyFramework_2{ii}-(LARSF_2{ii})");
+                        r.Standards.Should().Be($"DummyStandard_1{ii}-(LARS_1{ii})|DummyStandard_2{ii}-(LARS_2{ii})");
+                        ii++;
                     }
                     vm.ExecutionTime.Should().BeGreaterThan(TimeSpan.MinValue);
                 })
@@ -73,13 +81,40 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
         }
 
-        public void IndexRedirectTest(int numberRecords, int numberOfApprenticeship)
+        [Fact]
+        public void IndexNullDataItemsTest()
         {
             // Setup
-            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(numberRecords, numberOfApprenticeship));
-            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(null);
-            A.CallTo(() => fakeWebAppContext.GetCurrentQueryString(A<Dictionary<string, object>>._)).Returns("http://url");
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportDataWithNulls());
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
+            A.CallTo(() => fakeCachingPolicy.Execute(fakeReportRepository.GetJobProfileApprenticeshipVacancyReport, A<CachePolicyType>._, A<string>._, A<string>._)).Returns(GetDummyReportDataWithNulls());
+            query.Add("ctx", "something");
 
+            // Assign
+            var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
+
+            // Act
+            var indexMethodCall = reportController.WithCallTo(c => c.Index());
+
+            // Assert
+            indexMethodCall
+                .ShouldRenderDefaultView()
+                .WithModel<JobProfileApprenticeshipVacancyReportViewModel>(vm =>
+                {
+                    vm.ReportData.Should().HaveCount(1);
+                })
+                .AndNoModelErrors();
+        }
+
+        [Fact]
+        public void IndexRedirectTest()
+        {
+            // Setup
+            A.CallTo(() => fakeReportRepository.GetJobProfileApprenticeshipVacancyReport()).Returns(GetDummyReportData(1, 2));
+            A.CallTo(() => fakeWebAppContext.RequestQueryString).Returns(query);
+            A.CallTo(() => fakeWebAppContext.GetCurrentQueryString(A<Dictionary<string, object>>._)).Returns("http://url");
+            query.Add("NOTctx", "something");
+           
             // Assign
             var reportController = new ApprenticeshipVacancyReportController(fakeLoggingService, fakeReportRepository, fakeWebAppContext, fakeCachingPolicy);
 
@@ -107,12 +142,16 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                 r.SocCode = new SocCodeReport() { SOCCode = $"DummySOC {ii}", Description = $"DummySOCDescription {ii}" };
                 var frameworks = new List<TaxonReport>
                 {
-                   new TaxonReport {Title = $"DummyFramework{ii}"}
+                   new TaxonReport {Title = $"DummyFramework_1{ii}", LarsCode = $"LARSF_1{ii}" },
+                   new TaxonReport {Title = $"DummyFramework_2{ii}", LarsCode = $"LARSF_2{ii}" }
                 };
                 r.SocCode.Frameworks = frameworks.AsQueryable();
 
-                var standards = new List<TaxonReport>();
-                standards.Add(new TaxonReport { Title = $"DummyFramework{ii}" });
+                var standards = new List<TaxonReport>
+                {
+                    new TaxonReport { Title = $"DummyStandard_1{ii}", LarsCode = $"LARS_1{ii}" },
+                    new TaxonReport { Title = $"DummyStandard_2{ii}", LarsCode = $"LARS_2{ii}" },
+                };
                 r.SocCode.Standards = standards.AsQueryable();
 
                 var a = new List<ApprenticeshipVacancyReport>();
@@ -131,6 +170,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
 
                 reportData.Add(r);
             }
+            return reportData.AsQueryable();
+        }
+
+        private IQueryable<JobProfileApprenticeshipVacancyReport> GetDummyReportDataWithNulls()
+        {
+            var reportData = new List<JobProfileApprenticeshipVacancyReport>();
+            var r = new JobProfileApprenticeshipVacancyReport();
+            r.JobProfile = new JobProfileReport() { Title = $"Dummy NO Data Profile " };
+            reportData.Add(r);
             return reportData.AsQueryable();
         }
     }

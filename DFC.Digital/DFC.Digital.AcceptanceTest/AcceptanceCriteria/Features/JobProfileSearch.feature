@@ -72,5 +72,3 @@ Scenario: [DFC-1495 - A1] Performing a search displays Job categories and clicki
 	And the results display the Found In category text
 	When I click the first category link on result no '1'
 	Then I am redirected to the correct job category page
-
-	

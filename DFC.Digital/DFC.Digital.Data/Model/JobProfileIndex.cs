@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Attributes;
 using DFC.Digital.Data.Interfaces;
 using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,12 +15,15 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Title { get; set; }
 
-        [IsSearchable, IsFilterable, IsSuggestible]// , Analyzer(AnalyzerName.AsString.EnMicrosoft)]
+        [IsSearchable, IsFilterable, IsSuggestible, AddWeighting(90)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
+        [IsSearchable, AddWeighting(50)]
         public string Overview { get; set; }
 
         [IsFilterable, IsSortable, IsFacetable]
@@ -32,13 +36,15 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public string UrlName { get; set; }
 
-        [IsFilterable]
+        [IsSearchable, IsFilterable, AddWeighting(40)]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> JobProfileSpecialism { get; set; }
 
         [IsSearchable, IsFilterable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> HiddenAlternativeTitle { get; set; }
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }
@@ -60,5 +66,20 @@ namespace DFC.Digital.Data.Model
 
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
+
+        [IsSearchable]
+        public string CollegeRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string UniversityRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string ApprenticeshipRelevantSubjects { get; set; }
+
+        [IsSearchable]
+        public string WYDDayToDayTasks { get; set; }
+
+        [IsSearchable]
+        public string CareerPathAndProgression { get; set; }
     }
 }

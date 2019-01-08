@@ -70,5 +70,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         ///   <c>true</c> if [use fuzzy automatic complete matching]; otherwise, <c>false</c>.
         /// </value>
         public bool UseFuzzyAutoCompleteMatching { get; set; }
+
+        /// <summary>
+        /// Gets or sets the automatic complete maximum characters.
+        /// </summary>
+        /// <value>
+        /// The automatic complete maximum characters.
+        /// </value>
+        public int AutoCompleteMaximumCharacters { get; set; }
     }
 }

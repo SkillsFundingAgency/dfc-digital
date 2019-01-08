@@ -69,7 +69,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return Navigate.To<T>(By.PartialLinkText("Privacy and cookies"));
         }
 
-        public T ClickTandCLink<T>()
+        public T ClickTermAndCondLink<T>()
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.PartialLinkText("Terms and conditions"));
@@ -79,6 +79,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             return Navigate.To<T>(By.PartialLinkText("Information sources"));
+        }
+
+        public T ClickHelpLink<T>()
+            where T : UiComponent, new()
+        {
+            return Navigate.To<T>(By.LinkText("Help"));
         }
 
         public void SelectSuggestedSearch(int index)

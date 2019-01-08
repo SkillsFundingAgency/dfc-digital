@@ -80,7 +80,9 @@
   <ItemGroup>
     <Compile Include="AzGateway\AzSearchQueryConverter.cs" />
     <Compile Include="AzGateway\IAzSearchQueryConverter.cs" />
+    <Compile Include="AzGateway\IWeightingBuilder.cs" />
     <Compile Include="AzGateway\ISuggesterBuilder.cs" />
+    <Compile Include="AzGateway\WeightingBuilder.cs" />
     <Compile Include="AzGateway\SuggesterBuilder.cs" />
     <Compile Include="Config\AzSearchAutofacModule.cs" />
     <Compile Include="AzGateway\AzSearchQueryService.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="DfcSearchQueryService.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="JobProfileSearchResultsManipulator.cs" />
     <Compile Include="PreSearchFilterStateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

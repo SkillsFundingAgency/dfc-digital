@@ -54,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             return View(avvm);
         }
 
-        private IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
+        private  static IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
         {
             var reportDataView = new List<JobProfileApprenticeshipVacancyItemViewModel>();
 
@@ -65,24 +65,24 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                     JobProfileTitle = rptItem.JobProfile.Title,
                     JoProfileLastModifiedBy = rptItem.JobProfile.LastModifiedBy,
                     JobProfileStatus = rptItem.JobProfile.Status.ToString(),
-                    SOC = rptItem.SocCode.SOCCode,
-                    SOCDescription = rptItem.SocCode.Description,
+                    SOC = rptItem.SocCode?.SOCCode,
+                    SOCDescription = rptItem.SocCode?.Description,
                     JobProfileLink = rptItem.JobProfile.Name
                 };
 
-                reportItem.Standards = string.Join(",", rptItem.SocCode.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
-                reportItem.Frameworks = string.Join(",", rptItem.SocCode.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Standards = string.Join("|", rptItem.SocCode?.Standards is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Standards.Select(s => $"{s.Title}-({s.LarsCode})"));
+                reportItem.Frameworks = string.Join("|", rptItem.SocCode?.Frameworks is null ? Enumerable.Empty<string>().AsQueryable() : rptItem.SocCode.Frameworks.Select(s => $"{s.Title}-({s.LarsCode})"));
 
                 if (rptItem.ApprenticeshipVacancies?.Any() == true)
                 {
                     reportItem.AV1Title = rptItem.ApprenticeshipVacancies?.First().Title;
-                    reportItem.AV1LastModified = rptItem.ApprenticeshipVacancies?.First().LastModified.ToString(Constants.BackendDateTimeFormat);
+                    reportItem.AV1LastModified = rptItem.ApprenticeshipVacancies?.First().LastModified.ToString(Constants.BackEndDateTimeFormat);
                 }
 
                 if (rptItem.ApprenticeshipVacancies?.Count() > 1)
                 {
                     reportItem.AV2Title = rptItem.ApprenticeshipVacancies?.Skip(1).First().Title;
-                    reportItem.AV2LastModified = rptItem.ApprenticeshipVacancies?.Skip(1).First().LastModified.ToString(Constants.BackendDateTimeFormat);
+                    reportItem.AV2LastModified = rptItem.ApprenticeshipVacancies?.Skip(1).First().LastModified.ToString(Constants.BackEndDateTimeFormat);
                 }
 
                 reportDataView.Add(reportItem);

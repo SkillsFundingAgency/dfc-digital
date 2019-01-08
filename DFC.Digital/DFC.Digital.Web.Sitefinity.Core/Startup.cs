@@ -71,10 +71,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            var sitemapHandler = autofacLifetimeScope.Resolve<SitemapHandler>();
+            var sitemapHandler = autofacLifetimeScope.Resolve<SiteMapHandler>();
 
             // sets the collection of entries to modified collection
-            evt.Entries = sitemapHandler.ManipulateSitemap(evt.Entries.ToList());
+            evt.Entries = sitemapHandler.ManipulateSiteMap(evt.Entries.ToList());
         }
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)

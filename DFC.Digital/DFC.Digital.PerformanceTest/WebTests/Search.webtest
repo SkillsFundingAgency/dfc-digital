@@ -1,16 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WebTest Name="Search" Id="e2e1b23e-43c5-4c52-b0d0-f2771088cc03" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest3.148b64d0-d83a-48d0-b9cf-3fc5d3872836.rec.webtestresult" ResultsLocale="">
   <Items>
-    <Request Method="GET" Guid="80a98dc4-72e9-4403-ad4a-8c32af9bb346" Version="1.1" Url="{{WebServer1}}/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/" ReportingName="" IgnoreHttpStatusCode="False">
-      <ExtractionRules>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="Required" Value="True" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-          </RuleParameters>
-        </ExtractionRule>
-      </ExtractionRules>
-    </Request>
+    <Request Method="GET" Guid="80a98dc4-72e9-4403-ad4a-8c32af9bb346" Version="1.1" Url="{{WebServer1}}/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/" ReportingName="" IgnoreHttpStatusCode="False" />
     <Request Method="GET" Guid="d4a5e318-af22-4ed2-90a0-c8ce30c65242" Version="1.1" Url="{{WebServer1}}/searchautocomplete" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
       <Headers>
         <Header Name="Accept" Value="application/json, text/javascript, */*; q=0.01" />
@@ -29,7 +20,6 @@
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="SearchTerm" Value="{{SearchData.SearchSource#csv.SearchTerm}}" RecordedValue="nurse" CorrelationBinding="" UrlEncode="True" />
-        <FormPostParameter Name="__ncforminfo" Value="{{$HIDDEN1.__ncforminfo}}" RecordedValue="78KBjxtGmOMj_Jrmi3bq38BTmat9AGeDGc1ldl9grR98BQPKp0tsU-9RoVRJ3vu0lAOfrPL4PXP9UiudD_NH2SRRXW_bzlOVg-yb29dEhQiYtNCVTbVA4yWj8RM8UYyo" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
     <Request Method="GET" Guid="2346de20-c553-44b6-a02c-1727c09836b7" Version="1.1" Url="{{WebServer1}}/job-profiles/{{SearchData.SearchSource#csv.Profile}}" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">

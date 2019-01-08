@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AddWeightingAttribute.cs" />
     <Compile Include="Attributes\IsSuggestibleAttribute.cs" />
     <Compile Include="CMSExtension\Interfaces\IUserRepository.cs" />
     <Compile Include="CMSExtension\Model\ApprenticeshipVacancyReport.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
+    <Compile Include="Interfaces\ISearchResultsManipulator.cs" />
     <Compile Include="Interfaces\IRecyleBinRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Model\FrameworkSkillSuppression.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />
     <Compile Include="Model\FrameworkSkillCombination.cs" />
+    <Compile Include="Model\BreadCrumbLink.cs" />
     <Compile Include="Model\JobProfileOverloadForSearch.cs" />
     <Compile Include="Model\JobProfileOverloadForWhatItTakes.cs" />
     <Compile Include="CMSExtension\Model\JobProfileReport.cs" />

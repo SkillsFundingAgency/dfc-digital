@@ -1,5 +1,4 @@
-﻿using DFC.Digital.AutomationTest.Utilities;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +30,12 @@ namespace DFC.Digital.AutomationTest.Utilities
                     EntryQualifications = item.GetConditionalData(nameof(JobProfileIndex.EntryQualifications), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     TrainingRoutes = item.GetConditionalData(nameof(JobProfileIndex.TrainingRoutes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     PreferredTaskTypes = item.GetConditionalData(nameof(JobProfileIndex.PreferredTaskTypes), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
-                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    JobAreas = item.GetConditionalData(nameof(JobProfileIndex.JobAreas), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    CareerPathAndProgression = item.GetConditionalData(nameof(JobProfileIndex.CareerPathAndProgression), string.Empty),
+                    CollegeRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.CollegeRelevantSubjects), string.Empty),
+                    UniversityRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.UniversityRelevantSubjects), string.Empty),
+                    ApprenticeshipRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.ApprenticeshipRelevantSubjects), string.Empty),
+                    WYDDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WYDDayToDayTasks), string.Empty)
                 };
             }
         }
@@ -105,7 +109,13 @@ namespace DFC.Digital.AutomationTest.Utilities
             return result;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification ="String is only used for Azure index test")]
+        public static T SaveTo<T>(this T data, ScenarioContext scenarioContext, string key)
+        {
+            scenarioContext.Set(data, key);
+            return data;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "String is only used for Azure index test")]
         internal static string ConvertToKey(this string rawKey)
         {
             Regex regex = new Regex(@"[ ()']");

@@ -56,7 +56,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click the T&C link")]
         public void WhenIClickTheTCLink()
         {
-            GetNavigatedPage<Homepage>()?.ClickTandCLink<TermsAndConditionPage>()
+            GetNavigatedPage<Homepage>()?.ClickTermAndCondLink<TermsAndConditionPage>()
                 .SaveTo(ScenarioContext);
         }
 
@@ -64,6 +64,13 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void WhenIClickTheInformationSourcesLink()
         {
             GetNavigatedPage<Homepage>()?.ClickInformationSourcesLink<InformationSourcesPage>()
+                .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click the Help link")]
+        public void WhenIClickTheHelpLink()
+        {
+            GetNavigatedPage<Homepage>()?.ClickHelpLink<HelpPage>()
                 .SaveTo(ScenarioContext);
         }
 
@@ -138,6 +145,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var infoSourcesPage = GetNavigatedPage<InformationSourcesPage>();
             infoSourcesPage.PageTitle.Should().Contain("Information sources");
+        }
+
+        [Then(@"I am redirected to the Help page")]
+        public void ThenIAmRedirectedToTheHelpPage()
+        {
+            GetNavigatedPage<HelpPage>()?.Url.Should().Contain("help");
         }
 
         [Then(@"I am redirected to the Health Status page")]

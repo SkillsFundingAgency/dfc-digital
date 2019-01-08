@@ -7,15 +7,12 @@ using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -40,7 +37,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var expectedTotalMessage = "0 results found - try again using a different job title";
             var fakeAsyncHelper = new AsyncHelper();
             var fakeSpellChecker = A.Fake<ISpellcheckService>();
-
             var mapperCfg = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
@@ -93,6 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
+                        Score = dummyIndexItem.Score,
                         JobProfileCategoriesWithUrl = Enumerable.Empty<string>()
                     });
                 }
@@ -162,7 +159,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 MaximumNumberOfDisplayedSuggestions = 5,
                 UseFuzzyAutoCompleteMatching = true,
                 JobProfileCategoryPage = defaultJobProfileCateegoryPage,
-                SalaryBlankText = salaryBlankText
+                SalaryBlankText = salaryBlankText,
+                AutoCompleteMaximumCharacters = 7
             };
 
             if (string.IsNullOrWhiteSpace(searchTerm))
@@ -219,6 +217,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndexItem.ResultItem.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndexItem.ResultItem.UrlName}",
                         Rank = (int)dummyIndexItem.Rank,
+                        Score = dummyIndexItem.Score,
                         JobProfileCategoriesWithUrl = dummyIndexItem.ResultItem.JobProfileCategoriesWithUrl
                     });
                 }
@@ -357,6 +356,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                         ResultItemOverview = dummyIndex.Overview,
                         ResultItemUrlName = $"{defaultJobProfilePage}{dummyIndex.UrlName}",
                         Rank = (int)dummySearchResult.Results.First().Rank,
+                        Score = dummySearchResult.Results.First().Score,
                         JobProfileCategoriesWithUrl = dummyIndex.JobProfileCategoriesWithUrl
                     }
                 }.AsEnumerable();
@@ -500,7 +500,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var dummySuggestResult = new SuggestionResult<JobProfileIndex>();
             dummySuggestResult.Results = new List<SuggestionResultItem<JobProfileIndex>>
             {
-                new SuggestionResultItem<JobProfileIndex>() { MatchedSuggestion = expectation.ToLower() }
+                new SuggestionResultItem<JobProfileIndex> { MatchedSuggestion = expectation.ToLower() }
             };
 
             //Set-up calls
@@ -524,6 +524,43 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 });
                 A.CallTo(() => serviceFake.GetSuggestion(A<string>.That.Matches(m => m == searchTerm), A<SuggestProperties>._))
                     .MustHaveHappened(Repeated.Exactly.Once);
+            }
+        }
+
+        [Theory]
+        [InlineData("", 7, "")]
+        [InlineData("Techer", 7, "Techer")]
+        [InlineData("Techerrrrrrrr", 8, "Techerrr")]
+        public void SuggestionsMaxCharacterTest(string searchTerm, int maxCharacterCount, string expectedSearchTerm)
+        {
+            //Setup Fakes & dummies
+            var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
+            var fakeAsyncHelper = new AsyncHelper();
+            var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+
+            //Set-up calls
+            A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).Returns(new SuggestionResult<JobProfileIndex> { Results = Enumerable.Empty<SuggestionResultItem<JobProfileIndex>>() });
+
+            //Instantiate
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake) { AutoCompleteMaximumCharacters = maxCharacterCount };
+
+            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                result.ShouldReturnJson();
+                A.CallTo(() => serviceFake.GetSuggestion(A<string>.That.Matches(m => m == expectedSearchTerm), A<SuggestProperties>._))
+                    .MustHaveHappened(Repeated.Exactly.Once);
+            }
+            else
+            {
+                result.ShouldReturnEmptyResult();
+                A.CallTo(() => serviceFake.GetSuggestion(A<string>._, A<SuggestProperties>._)).MustNotHaveHappened();
             }
         }
 
@@ -629,6 +666,67 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     });
                 A.CallTo(() => spellcheckerServiceFake.CheckSpellingAsync(A<string>._)).MustHaveHappened();
             }
+        }
+
+        // DFC-1494 Did you mean - spell checker service
+        [Theory]
+        [InlineData(false, "Plumbing", " plumbing /.*plumb.*/ plumb~")]
+        [InlineData(true, "Plumbing", " Plumbing Plumbing")]
+        public void UseRawSearchTermTest(bool useRawTerm, string searchTerm, string expectedComputedSearchTerm)
+        {
+            //Setup Fakes & dummies
+            var serviceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var spellcheckerServiceFake = A.Fake<ISpellcheckService>(ops => ops.Strict());
+            var fakeAsyncHelper = new AsyncHelper();
+            var mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+
+            var webAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());   // OUR SERVICE TYPE
+            var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
+            dummySearchResult.Results = Enumerable.Empty<SearchResultItem<JobProfileIndex>>();
+            dummySearchResult.Count = 0;
+            if (useRawTerm)
+            {
+                dummySearchResult.ComputedSearchTerm = $" {searchTerm} {searchTerm}";
+            }
+            else
+            {
+                dummySearchResult.ComputedSearchTerm = expectedComputedSearchTerm;
+            }
+
+            var defaultJobProfilePage = nameof(JobProfileSearchBoxController.JobProfileDetailsPage);
+
+            var searchResultsPage = nameof(JobProfileSearchBoxController.SearchResultsPage);
+            var dummySpellCheckResult = true ? new SpellcheckResult
+            {
+                CorrectedTerm = $"dummy {searchTerm}",
+                HasCorrected = true
+            }
+            : new SpellcheckResult();
+
+            //Set-up calls
+            A.CallTo(() => spellcheckerServiceFake.CheckSpellingAsync(A<string>._)).Returns(dummySpellCheckResult);
+            A.CallTo(() => serviceFake.SearchAsync(searchTerm, A<SearchProperties>._)).Returns(dummySearchResult);
+
+            //Instantiate
+            var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake)
+            {
+                SearchResultsPage = searchResultsPage,
+                CurrentPageMode = SearchWidgetPageMode.SearchResults,
+                JobProfileDetailsPage = defaultJobProfilePage
+            };
+
+            //Act
+            var searchMethodCall = searchController.WithCallTo(c => c.Index(searchTerm, 1));
+            searchMethodCall
+                   .ShouldRenderView("SearchResult")
+                   .WithModel<JobProfileSearchResultViewModel>(vm =>
+                   {
+                       vm.ComputedSearchTerm.Should().Be(expectedComputedSearchTerm);
+                   });
         }
     }
 }

@@ -3,14 +3,18 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 {
     public abstract class BaseJobProfileWidgetController : BaseDfcController
     {
+        private const string AcronymPattern = ".*([A-Z]\\W*[A-Z]).*";
+
         private readonly IJobProfileRepository jobProfileRepository;
         private JobProfile jobProfile;
         private ISitefinityPage sitefinityPage;
@@ -49,23 +53,62 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string GetDynamicTitle(bool skipNoTitle)
         {
+            var changedTitle = CheckForAcronym(CurrentJobProfile.Title);
             switch (CurrentJobProfile.DynamicTitlePrefix)
             {
                 case "No Prefix":
-                    return $"{CurrentJobProfile.Title}";
+                    return $"{changedTitle}";
 
                 case "Prefix with a":
-                    return $"a {CurrentJobProfile.Title}";
+                    return $"a {changedTitle}";
 
                 case "Prefix with an":
-                    return $"an {CurrentJobProfile.Title}";
+                    return $"an {changedTitle}";
 
                 case "No Title":
-                    return skipNoTitle ? GetDefaultDynamicTitle(CurrentJobProfile.Title) : string.Empty;
+                    return skipNoTitle ? GetDefaultDynamicTitle(changedTitle) : string.Empty;
 
                 default:
-                    return GetDefaultDynamicTitle(CurrentJobProfile.Title);
+                    return GetDefaultDynamicTitle(changedTitle);
             }
+        }
+
+        public string CheckForAcronym(string title)
+        {
+            return IsSpecialConditionWords(title)
+                ? title
+                : title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {ChangeWordCase(next)}").Trim();
+        }
+
+        // Further investigation on implmenting Special Title Case for certain JobTitles will be done in the story - 6426
+        // https://skillsfundingagency.atlassian.net/browse/DFC-6426
+        public bool IsSpecialConditionWords(string word)
+        {
+            var specialConditionWords = new[]
+            {
+                "European Union official",
+                "Ofsted inspector",
+                "Royal Marines commando",
+                "Royal Navy officer",
+                "Royal Marines officer",
+                "Royal Navy rating",
+                "Merchant Navy deck officer",
+                "Merchant Navy engineering officer",
+                "Merchant Navy rating",
+                "Montessori teacher",
+                "Portage home visitor",
+                "Post Office customer service assistant",
+                "Civil service executive officer",
+                "Civil service administrative officer",
+                "Border Force officer",
+            };
+
+            return specialConditionWords.Any(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public string ChangeWordCase(string word)
+        {
+            return Regex.IsMatch(word, AcronymPattern) ? word : word.ToLower();
         }
 
         /// <summary>

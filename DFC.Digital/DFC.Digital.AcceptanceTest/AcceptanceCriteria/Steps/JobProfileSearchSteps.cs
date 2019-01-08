@@ -1,11 +1,15 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
+using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
@@ -13,6 +17,9 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     [Binding]
     public class JobProfileSearchSteps : BaseStep
     {
+        private const string JobprofileTitles = "JobprofileTitles";
+        private const string JobprofileTitleMatchList = "JobprofileTitleMatchList";
+
         #region Ctor
 
         public JobProfileSearchSteps(ITestOutputHelper outputHelper, BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)

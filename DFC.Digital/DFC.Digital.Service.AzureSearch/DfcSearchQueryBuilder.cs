@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -68,8 +70,7 @@ namespace DFC.Digital.Service.AzureSearch
             var newSearchTerm = string.Empty;
             var trimmedTerm = Regex.Replace(cleanedSearchTerm, @"\s+", " ").Trim();
 
-            return
-                trimmedTerm.Any(char.IsWhiteSpace)
+            return trimmedTerm.Any(char.IsWhiteSpace)
                 ? trimmedTerm
                     .Split(' ')
                     .Aggregate(
@@ -105,9 +106,123 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        private static string CreateFuzzyAndContainTerm(string trimmedTerm)
+        public string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties)
+        {
+            if (properties?.UseRawSearchTerm == true)
+            {
+                return searchTerm;
+            }
+            else if (searchTerm?.Split(' ').Count() > 1)
+            {
+                return $"\"{searchTerm}\" {partialSearchTerm}".Trim();
+            }
+            else
+            {
+                return $"{searchTerm} {partialSearchTerm}".Trim();
+            }
+        }
+
+        public string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties)
+        {
+            if (properties?.UseRawSearchTerm == true)
+            {
+                return searchTerm;
+            }
+
+            var result = searchTerm?.Any(char.IsWhiteSpace) == true
+                ? searchTerm
+                   .Split(' ')
+                   .Aggregate(string.Empty, (current, term) =>
+                   {
+                       if (IsCommonCojoinginWord(term))
+                       {
+                           return $"{current}";
+                       }
+                       else
+                       {
+                           return $"{current} {TrimAndReplaceSuffixOnCurrentTerm(term)}";
+                       }
+                   })
+                : TrimAndReplaceSuffixOnCurrentTerm(searchTerm);
+
+            return result.Trim();
+        }
+
+        public string TrimAndReplaceSuffixOnCurrentTerm(string term)
+        {
+            var trimmedWord = TrimSuffixFromSingleWord(term);
+            var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
+            var specialology = Specialologies(term, replaceSuffix);
+            return specialology;
+        }
+
+        public string Specialologies(string term, string replacedSuffixTerm)
+        {
+            var indexOfOlogy = term?.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
+            return indexOfOlogy > -1
+                ? replacedSuffixTerm?.IndexOf("ology", StringComparison.OrdinalIgnoreCase) > -1
+                    ? $"{term?.Substring(0, indexOfOlogy.Value)}olo".Trim()
+                    : $"{replacedSuffixTerm} {term?.Substring(0, indexOfOlogy.Value)}olo".Trim()
+                : replacedSuffixTerm;
+        }
+
+        public bool IsCommonCojoinginWord(string term)
+        {
+            var commonWords = new[]
+            {
+                "and",
+                "or",
+                "as",
+                "if",
+                "also",
+                "but",
+                "not",
+            };
+
+            return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
             return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
+        }
+
+        public string TrimSuffixFromSingleWord(string searchTerm)
+        {
+            var suffixes = new[]
+            {
+                "er",
+                "ers",
+                "ing",
+                "ment",
+                "ation",
+                "or",
+                "ology",
+                "metry",
+                "ics",
+                "ette",
+                "ance",
+                "ies",
+                "macy",
+            };
+
+            var suffixToBeTrimmed = suffixes.FirstOrDefault(s => searchTerm.EndsWith(s, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed is null ? searchTerm : searchTerm.Substring(0, searchTerm.LastIndexOf(suffixToBeTrimmed, StringComparison.OrdinalIgnoreCase));
+            return trimmedResult.Length < 3 ? searchTerm : trimmedResult;
+        }
+
+        public string ReplaceSuffixFromSingleWord(string trimmedWord)
+        {
+            var replaceSuffixDictionary = new Dictionary<string, string>
+            {
+                ["therapy"] = "thera",
+            };
+
+            var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));
+            var trimmedResult = suffixToBeTrimmed.Key is null
+                ? trimmedWord
+                : $"{trimmedWord.Substring(0, trimmedWord.LastIndexOf(suffixToBeTrimmed.Key, StringComparison.OrdinalIgnoreCase))}{suffixToBeTrimmed.Value}";
+            return trimmedResult.Length < 3 ? trimmedWord : trimmedResult;
         }
     }
 }

@@ -51,6 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
+        [InlineData("Ofsted inspector", "Ofsted inspector")]
         [InlineData("UX Designer", "UX designer")]
         [InlineData("AandE Staff", "aande staff")]
         [InlineData("A&E Staff", "A&E staff")]

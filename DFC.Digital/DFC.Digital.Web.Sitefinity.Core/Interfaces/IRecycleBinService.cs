@@ -7,7 +7,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Interfaces
     public interface IRecycleBinService
     {
         [OperationContract]
-        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-       void RecycleBinClearAppVacancies();
+        [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+       void RecycleBinClearAppVacancies(int itemCount);
     }
 }

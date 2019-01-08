@@ -2,13 +2,12 @@
 using Autofac.Integration.Mvc;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Interfaces;
-using System.ServiceModel;
-using System.ServiceModel.Activation;
+using System;
+using Telerik.Sitefinity.Security.Claims;
+using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
-    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class RecycleBinService : IRecycleBinService
     {
         private IRecyleBinRepository recyleBin;
@@ -19,9 +18,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
             recyleBin = autofacLifetimeScope.Resolve<IRecyleBinRepository>();
         }
 
-        public void RecycleBinClearAppVacancies()
+        public void RecycleBinClearAppVacancies(int itemCount)
         {
-            recyleBin.DeleteVacanciesPermanently();
+            if (!SystemManager.CurrentHttpContext.Request.IsAuthenticated)
+            {
+                throw new UnauthorizedAccessException("The current user is not allowed access");
+            }
+
+            recyleBin.DeleteVacanciesPermanently(itemCount);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IRecyleBinRepository
     {
-        void DeleteVacanciesPermanently();
+        void DeleteVacanciesPermanently(int itemCount);
     }
 }

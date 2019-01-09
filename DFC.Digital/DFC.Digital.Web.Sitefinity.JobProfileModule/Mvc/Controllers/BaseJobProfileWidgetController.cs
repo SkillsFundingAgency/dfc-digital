@@ -98,8 +98,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 "Montessori teacher",
                 "Portage home visitor",
                 "Post Office customer service assistant",
-                "Civil service executive officer",
-                "Civil service administrative officer",
+                "Civil Service executive officer",
+                "Civil Service administrative officer",
                 "Border Force officer",
             };
 

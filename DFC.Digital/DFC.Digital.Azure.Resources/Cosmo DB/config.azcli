@@ -29,7 +29,7 @@ az cosmosdb collection create \
 	--db-name $avFeedDatabaseName \
 	--resource-group $resourceGroupName \
 	--indexing-policy $indexPolicy \	
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000
 
 # Update the collection
@@ -39,7 +39,7 @@ az cosmosdb collection update \
 	--db-name $avFeedDatabaseName \
 	--resource-group $resourceGroupName \
 	--indexing-policy $indexPolicy \	
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000
     
 # Create the 2nd collection
@@ -49,7 +49,7 @@ az cosmosdb collection create \
 	--db-name $avFeedDatabaseName \
 	--resource-group $resourceGroupName \
 	--indexing-policy $indexPolicy \	
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000
 
 # Update the 2nd collection
@@ -59,7 +59,7 @@ az cosmosdb collection update \
 	--db-name $avFeedDatabaseName \
 	--resource-group $resourceGroupName \
 	--indexing-policy $indexPolicy \	
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000
 
 #######################
@@ -79,7 +79,7 @@ az cosmosdb collection create \
 	--name $name \
 	--db-name $courseSearchDatabaseName \
 	--resource-group $resourceGroupName \
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000
 
 # Update the collection
@@ -88,5 +88,5 @@ az cosmosdb collection update \
 	--name $name \
 	--db-name $courseSearchDatabaseName \
 	--resource-group $resourceGroupName \
-	--default-ttl 2592000 \
+	--default-ttl 1296000 \
     --throughput 5000

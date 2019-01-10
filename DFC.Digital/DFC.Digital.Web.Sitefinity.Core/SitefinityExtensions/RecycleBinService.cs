@@ -8,6 +8,7 @@ using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class RecycleBinService : IRecycleBinService
     {
         private IRecyleBinRepository recyleBin;

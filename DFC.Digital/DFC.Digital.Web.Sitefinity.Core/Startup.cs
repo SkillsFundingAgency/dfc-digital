@@ -5,6 +5,7 @@ using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
@@ -53,6 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 FeatherActionInvokerCustom.Register();
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
             {
@@ -117,6 +119,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             routes.MapRoute("serviceStatus", "health/{controller}/{action}", new { controller = "ServiceStatus", action = "Index", id = string.Empty });
             routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
+
+            //routes.MapRoute("dfcapi", "dfcapi/{controller}/{id}", new { id = RouteParameter.Optional });
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,14 +10,16 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{524DC675-AB6C-4E91-AA5A-AC4FCCB2BCC5}</ProjectGuid>
+    <ProjectGuid>{6F6301D4-5CA5-4E6F-9425-B70CBD8EEE59}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Web.Sitefinity.JobProfileModule</RootNamespace>
-    <AssemblyName>DFC.Digital.Web.Sitefinity.JobProfileModule</AssemblyName>
+    <RootNamespace>DFC.Digital.Web.Sitefinity.WebApi</RootNamespace>
+    <AssemblyName>DFC.Digital.Web.Sitefinity.WebApi</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -23,11 +27,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
-    <Use64BitIISExpress />
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
-    <WarningsNotAsErrors>RECS0137</WarningsNotAsErrors>
     <EnhancerAssembly>$(SolutionDir)\packages\Telerik.DataAccess.Fluent.2016.2.822.1\tools\enhancer\enhancer.exe</EnhancerAssembly>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
@@ -39,8 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +48,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -82,6 +79,9 @@
     </Reference>
     <Reference Include="IdentityServer3.AccessTokenValidation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Progress.Sitefinity.IdentityServer3.AccessTokenValidation.1.3.0\lib\net45\IdentityServer3.AccessTokenValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -162,8 +162,13 @@
     <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorGenerator.Mvc.2.3.12\lib\net40\RazorGenerator.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -171,21 +176,30 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -199,6 +213,9 @@
     <Reference Include="System.Web.Http.Tracing, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Tracing.5.2.3\lib\net45\System.Web.Http.Tracing.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -208,7 +225,6 @@
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
@@ -218,11 +234,17 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
     <Reference Include="Telerik.OpenAccess, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.DataAccess.Core.2016.2.822.1\lib\net40\Telerik.OpenAccess.dll</HintPath>
     </Reference>
@@ -316,8 +338,7 @@
     <Reference Include="Telerik.Sitefinity.Personalization, Version=11.0.6729.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Sitefinity.Core.11.0.6729\lib\net471\Telerik.Sitefinity.Personalization.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Sitefinity.Resources, Version=11.0.6729.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.Sitefinity.Resources">
       <HintPath>..\packages\Telerik.Sitefinity.Core.11.0.6729\lib\net471\Telerik.Sitefinity.Resources.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Sitefinity.Search, Version=11.0.6729.0, Culture=neutral, PublicKeyToken=b28c218413bdf563, processorArchitecture=MSIL">
@@ -349,154 +370,67 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
-      <Link>CustomDictionary.xml</Link>
-    </CodeAnalysisDictionary>
-    <Content Include="Mvc\Controllers\readme.txt" />
-    <Content Include="Mvc\Models\readme.txt" />
-    <Content Include="Mvc\Views\PreSearchFilters\Index.cshtml" />
-    <Content Include="Mvc\Views\readme.txt" />
-    <Content Include="Mvc\Views\JobProfileSearchBox\Index.cshtml" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\WebApiAutofacModule.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="Mvc\Controllers\AVFeedRecycleBinController.cs" />
+    <Compile Include="Mvc\Controllers\ValuesController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
-    <Compile Include="Config\JobProfileAutofacModule.cs" />
-    <Compile Include="Config\JobProfilesAutoMapperProfile.cs" />
-    <Compile Include="Config\JobProfileSearchIndexConfig.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Mvc\Controllers\BaseJobProfileWidgetController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileCourseOpportunityController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileHowToBecomeController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileWhatYouWillDoController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileWhatItTakesController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileSettingsAndPreviewController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileAnchorLinksController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileCategoriesController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileRelatedCareersController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileSectionController.cs" />
-    <Compile Include="Mvc\Controllers\PreSearchFiltersController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileBAUSignpostingController.cs" />
-    <Compile Include="Mvc\Controllers\PsfSearchController.cs" />
-    <Compile Include="Mvc\Models\AnchorLink.cs" />
-    <Compile Include="Mvc\Models\BAUJobProfileSignpostViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileAnchorLinksViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileByCategoryViewModel.cs" />
-    <Compile Include="Mvc\Controllers\JobProfilesByCategoryController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileApprenticeshipsController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileDetailsController.cs" />
-    <Compile Include="Mvc\Controllers\JobProfileSearchBoxController.cs" />
-    <Compile Include="Mvc\Models\JobProfileCategoriesViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileApprenticeshipViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileCourseSearchViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileDetailsViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileHowToBecomeViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileRelatedCareersModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSearchResultViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSearchBoxViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSearchResultItemViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSearchWidgetPageMode.cs" />
-    <Compile Include="Mvc\Models\JobProfileWhatItTakesViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSectionViewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileSettingsAndPreviewModel.cs" />
-    <Compile Include="Mvc\Models\JobProfileWhatYouWillDoViewModel.cs" />
-    <Compile Include="Mvc\Models\PSFModel.cs" />
-    <Compile Include="Mvc\Models\PSFOption.cs" />
-    <Compile Include="Mvc\Models\PSFSection.cs" />
-    <Compile Include="Mvc\Models\PsfSearchResultsViewModel.cs" />
-    <Compile Include="Mvc\Models\PSFState.cs" />
-    <Compile Include="Mvc\Models\RelatedJobProfileCategoriesViewModel.cs" />
-    <Compile Include="Mvc\Models\RestrictionsOtherRequirements.cs" />
-    <Compile Include="Mvc\Models\Suggestion.cs" />
-    <Compile Include="Mvc\Models\JobProfileWhatItTakesSkillsViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Contracts\IFormatContentService.cs" />
-    <Compile Include="Services\FormatContentService.cs" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mvc\Views\Web.config" />
-    <Content Include="Mvc\Views\JobProfileSearchBox\SearchResult.cshtml" />
-    <Content Include="Mvc\Views\JobProfileDetails\Index.cshtml" />
-    <Content Include="Mvc\Views\CategoriesList\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileCategories\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfilesByCategory\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileApprenticeships\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileCategories\RelatedJobCategories.cshtml" />
-    <Content Include="Mvc\Views\JobProfileSection\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileAnchorLinks\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileSearchBox\JobProfile.cshtml" />
-    <Content Include="Mvc\Views\JobProfileRelatedCareers\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileSettingsAndPreview\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileCourseOpportunity\Index.cshtml" />
-    <Content Include="Mvc\Views\PsfSearch\SearchResult.cshtml" />
-    <Content Include="Mvc\Views\JobProfileBAUSignposting\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\RouteEntry.cshtml" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\FurtherRoutes.cshtml" />
-    <Content Include="Mvc\Views\JobProfileHowToBecome\MoreInformation.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\RestrictionsRequirements.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\Index.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\DesignerView.Simple.json" />
-    <Content Include="Mvc\Views\JobProfileWhatYouWillDo\WorkEnvironment.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\WhatItTakesSkills.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
-    <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
-    <None Include="packages.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <Content Include="OpenAccessNuGet.targets" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Designers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
-      <Project>{2080fba6-ae04-49b0-b343-b60cf097c1a3}</Project>
-      <Name>DFC.Digital.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
-      <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
-      <Name>DFC.Digital.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
-      <Project>{2161f904-4d97-4685-8c9f-05c6f4d0dd74}</Project>
-      <Name>DFC.Digital.Web.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
-      <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
-      <Name>DFC.Digital.Web.Sitefinity.Core</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
+      <Project>{2080FBA6-AE04-49B0-B343-B60CF097C1A3}</Project>
+      <Name>DFC.Digital.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
+      <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
+      <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="OpenAccessNuget.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2651</DevelopmentServerPort>
+          <DevelopmentServerPort>2514</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2651/</IISUrl>
+          <IISUrl>http://localhost:2514/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -510,6 +444,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets'))" />
@@ -517,11 +452,10 @@
   </Target>
   <Import Project="..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets" Condition="Exists('..\packages\RazorGenerator.MsBuild.2.4.1\build\RazorGenerator.MsBuild.targets')" />
   <Import Project="..\packages\Telerik.Sitefinity.Feather.11.0.6729\build\Telerik.Sitefinity.Feather.targets" Condition="Exists('..\packages\Telerik.Sitefinity.Feather.11.0.6729\build\Telerik.Sitefinity.Feather.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target>
-  -->
+  </Target> -->
 </Project>

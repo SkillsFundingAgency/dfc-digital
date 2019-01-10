@@ -7,14 +7,10 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Controllers
 {
     public class ValuesController : ApiController
     {
+        [Authorize]
         // GET api/values
         public IEnumerable<string> Get()
         {
-            if (!SystemManager.CurrentHttpContext.Request.IsAuthenticated)
-            {
-                throw new UnauthorizedAccessException();
-            }
-
             return new string[] { "value1", "value2" };
         }
 

@@ -19,7 +19,7 @@ Scenario: [DFC-340 - A1] Performing a search with text within escaped characters
 
 Scenario: Perform a search that will return 0 results
 	Given that I am viewing the Home page
-	When I search using '<zap%4$4%$55$%$5$%545%>'
+	When I search using 'return0results'
 	Then the no results message is displayed
 
 Scenario: [DFC-1342 - A1] Search Page displays the correct breadcrumb and links to the Homepage

@@ -41,5 +41,7 @@ namespace DFC.Digital.Data.Interfaces
         string GetCurrentQueryString(Dictionary<string, object> additionalQueryStrings);
 
         void SetupCanonicalUrlEventHandler();
+
+        void CheckAuthenticationByAuthCookie();
     }
 }

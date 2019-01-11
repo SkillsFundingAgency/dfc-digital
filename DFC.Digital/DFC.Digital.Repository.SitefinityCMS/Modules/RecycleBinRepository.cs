@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using System.Linq;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.RecycleBin;
@@ -9,9 +10,15 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class RecycleBinRepository : IRecyleBinRepository
+    public class RecycleBinRepository : IRecycleBinRepository
     {
         private const string ApprenticeVacancyDeleteTypeName = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.ApprenticeshipVacancy";
+        private readonly IApplicationLogger applicationLogger;
+
+        public RecycleBinRepository(IApplicationLogger applicationLogger)
+        {
+            this.applicationLogger = applicationLogger;
+        }
 
         public void DeleteVacanciesPermanently(int itemCount)
         {
@@ -26,24 +33,25 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     using (var dynamicModuleManager = DynamicModuleManager.GetManager(providerName))
                     {
                         var dynamicModuleContentType = TypeResolutionService.ResolveType(ApprenticeVacancyDeleteTypeName);
-                        foreach (var recycleBinDataItem in recycleBinItems)
+                        foreach (var recycleBinItem in recycleBinItems)
                         {
                             try
                             {
                                 var dataItem =
-                                    dynamicModuleManager.GetItem(dynamicModuleContentType, recycleBinDataItem.DeletedItemId) as
+                                    dynamicModuleManager.GetItem(dynamicModuleContentType, recycleBinItem.DeletedItemId) as
                                         IRecyclableDataItem;
                                 dynamicModuleManager.RecycleBin.PermanentlyDeleteFromRecycleBin(dataItem);
                                 dynamicModuleManager.SaveChanges();
                             }
-                            catch (ItemNotFoundException)
+                            catch (ItemNotFoundException exception)
                             {
-                                recycleBinItemsManager.Delete(recycleBinDataItem);
+                                recycleBinItemsManager.Delete(recycleBinItem);
+                                applicationLogger.Info($"Could not delete item :  {recycleBinItem.DeletedItemTitle}, failed with error {exception.Message}");
+                                recycleBinItemsManager.SaveChanges();
                             }
                         }
                     }
                 });
-                recycleBinItemsManager.SaveChanges();
             }
         }
     }

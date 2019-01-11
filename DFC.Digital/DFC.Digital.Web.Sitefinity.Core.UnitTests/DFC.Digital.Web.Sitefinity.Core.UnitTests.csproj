@@ -295,6 +295,7 @@
     <Compile Include="DummySettings.cs" />
     <Compile Include="JobProfilePageContentServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SitefinityExtensions\RecycleBinProcesserTests.cs" />
     <Compile Include="SitefinityExtensions\SiteMapHandlerTests.cs" />
     <Compile Include="Views\ServiceStatusViewTests.cs" />
     <Compile Include="WebAppContextSitefinityCoreTest.cs" />

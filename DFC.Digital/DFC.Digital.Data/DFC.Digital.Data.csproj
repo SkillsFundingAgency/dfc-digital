@@ -94,7 +94,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ISearchResultsManipulator.cs" />
-    <Compile Include="Interfaces\IRecyleBinRepository.cs" />
+    <Compile Include="Interfaces\IRecycleBinRepository.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />

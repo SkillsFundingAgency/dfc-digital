@@ -17,23 +17,44 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions.Tests
         }
 
         [Theory]
-        [InlineData(5)]
-        [InlineData(2000)]
-        public void RunProcessTest(int itemCount)
+        [InlineData(5, false)]
+        [InlineData(2000, true)]
+        public void RunProcessTest(int itemCount, bool validAuthCookie)
         {
             //Assin
             A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>._)).DoesNothing();
-            A.CallTo(() => fakeWebAppContext.CheckAuthenticationByAuthCookie()).DoesNothing();
+            if (validAuthCookie)
+            {
+                A.CallTo(() => fakeWebAppContext.CheckAuthenticationByAuthCookie()).DoesNothing();
+            }
+            else
+            {
+                A.CallTo(() => fakeWebAppContext.CheckAuthenticationByAuthCookie())
+                    .Throws(new UnauthorizedAccessException());
+            }
 
-            //Instantiate & Act
-            var recycleBinProcesser = new RecycleBinProcesser(fakeRecycleBinRepository, fakeWebAppContext);
+            try
+            {
+                //Instantiate & Act
+                var recycleBinProcesser = new RecycleBinProcesser(fakeRecycleBinRepository, fakeWebAppContext);
 
-            //Act
-           recycleBinProcesser.RunProcess(itemCount);
+                //Act
+                recycleBinProcesser.RunProcess(itemCount);
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
 
             //Assert
             A.CallTo(() => fakeWebAppContext.CheckAuthenticationByAuthCookie()).MustHaveHappened();
-            A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>.That.Matches(x => x.Equals(itemCount)))).MustHaveHappened();
+            if (validAuthCookie)
+            {
+                A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>.That.Matches(x => x.Equals(itemCount)))).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>._)).MustNotHaveHappened();
+            }
         }
     }
 }

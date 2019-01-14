@@ -1,15 +1,9 @@
-﻿using Xunit;
-using DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using FakeItEasy;
 using FluentAssertions;
-using System.Web.Http.Results;
 using System.Net;
+using System.Web.Http.Results;
+using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers.Tests
 {

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
 {
     public class AVFeedRecycleBinController : ApiController
     {
-        private readonly IRecyleBinRepository recyleBinRepository;
+        private readonly IRecycleBinRepository recyleBinRepository;
 
-        public AVFeedRecycleBinController(IRecyleBinRepository recyleBinRepository)
+        public AVFeedRecycleBinController(IRecycleBinRepository recyleBinRepository)
         {
             this.recyleBinRepository = recyleBinRepository;
         }

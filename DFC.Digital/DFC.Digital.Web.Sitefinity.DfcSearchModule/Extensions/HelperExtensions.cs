@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 //TODO: Check and confirm that the removed FilterableTitle and FilterableAlternativeTitle are no longer used.
                 var jobProfileIndex = new JobProfileIndex
                 {
-                    IdentityField = Regex.Replace(item.GetValue(nameof(JobProfileIndex.UrlName))?.ToString(), "\\W", string.Empty), //item.IdentityField.Value?.ToString(),
+                    IdentityField = item.IdentityField.Value?.ToString(),
                     UrlName = item.GetValue(nameof(JobProfileIndex.UrlName))?.ToString(),
                     Title = item.GetValue(nameof(JobProfileIndex.Title))?.ToString(),
                     AlternativeTitle = item.GetValue(nameof(JobProfileIndex.AlternativeTitle))?.ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),

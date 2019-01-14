@@ -20,8 +20,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.applicationLogger = applicationLogger;
         }
 
-        public void DeleteVacanciesPermanently(int itemCount)
+        public bool DeleteVacanciesPermanently(int itemCount)
         {
+            var lastDeleteCall = false;
             using (var recycleBinItemsManager = RecycleBinManagerFactory.GetManager())
             {
                 SystemManager.RunWithElevatedPrivilege(d =>
@@ -29,6 +30,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var recycleBinItems = recycleBinItemsManager.GetRecycleBinItems()
                         .Where(di => di.DeletedItemTypeName.Equals(ApprenticeVacancyDeleteTypeName)).Take(itemCount).ToList();
                     var providerName = DynamicModuleManager.GetDefaultProviderName(DynamicTypes.JobProfileModuleName);
+
+                    lastDeleteCall = itemCount > recycleBinItems.Count;
 
                     using (var dynamicModuleManager = DynamicModuleManager.GetManager(providerName))
                     {
@@ -41,7 +44,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                                     dynamicModuleManager.GetItem(dynamicModuleContentType, recycleBinItem.DeletedItemId) as
                                         IRecyclableDataItem;
                                 dynamicModuleManager.RecycleBin.PermanentlyDeleteFromRecycleBin(dataItem);
-                                dynamicModuleManager.SaveChanges();
                             }
                             catch (ItemNotFoundException exception)
                             {
@@ -50,9 +52,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                                 recycleBinItemsManager.SaveChanges();
                             }
                         }
+
+                        dynamicModuleManager.SaveChanges();
                     }
                 });
             }
+
+            return lastDeleteCall;
         }
     }
 }

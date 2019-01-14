@@ -1,27 +1,24 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
-using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core.Interfaces;
-using System;
-using Telerik.Sitefinity.Security.Claims;
-using Telerik.Sitefinity.Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [ExcludeFromCodeCoverage]
     public class RecycleBinService : IRecycleBinService
     {
-        private readonly RecycleBinProcesser recyleBin;
+        private readonly RecycleBinProcesser recyleBinProcessor;
 
         public RecycleBinService()
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            recyleBin = autofacLifetimeScope.Resolve<RecycleBinProcesser>();
+            recyleBinProcessor = autofacLifetimeScope.Resolve<RecycleBinProcesser>();
         }
 
-        public void RecycleBinClearAppVacancies(int itemCount)
+        public bool RecycleBinClearAppVacancies(int itemCount)
         {
-            recyleBin.RunProcess(itemCount);
+            return recyleBinProcessor.RunProcess(itemCount);
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IRecycleBinRepository
     {
-        void DeleteVacanciesPermanently(int itemCount);
+        bool DeleteVacanciesPermanently(int itemCount);
     }
 }

@@ -13,10 +13,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
             this.webAppContext = webAppContext;
         }
 
-        public void RunProcess(int itemCount)
+        public bool RunProcess(int itemCount)
         {
             webAppContext.CheckAuthenticationByAuthCookie();
-            recycleBinRepository.DeleteVacanciesPermanently(itemCount);
+             return recycleBinRepository.DeleteVacanciesPermanently(itemCount);
         }
     }
 }

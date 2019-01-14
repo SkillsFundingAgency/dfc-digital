@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Net.Http;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Core.Interfaces
@@ -8,6 +9,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.Interfaces
     {
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
-       void RecycleBinClearAppVacancies(int itemCount);
+        bool RecycleBinClearAppVacancies(int itemCount);
     }
 }

@@ -22,7 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions.Tests
         public void RunProcessTest(int itemCount, bool validAuthCookie)
         {
             //Assin
-            A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>._)).DoesNothing();
+            A.CallTo(() => fakeRecycleBinRepository.DeleteVacanciesPermanently(A<int>._)).Returns(true);
             if (validAuthCookie)
             {
                 A.CallTo(() => fakeWebAppContext.CheckAuthenticationByAuthCookie()).DoesNothing();

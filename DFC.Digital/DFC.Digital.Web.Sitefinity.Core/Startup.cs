@@ -115,8 +115,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             routes.MapRoute("serviceStatus", "health/{controller}/{action}", new { controller = "ServiceStatus", action = "Index", id = string.Empty });
             routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
-
-            //routes.MapRoute("dfcapi", "dfcapi/{controller}/{id}", new { id = RouteParameter.Optional });
         }
     }
 }

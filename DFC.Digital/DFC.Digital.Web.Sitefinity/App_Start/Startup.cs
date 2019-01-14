@@ -3,7 +3,7 @@ using System;
 using Telerik.Sitefinity.Owin;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
-namespace DFC.Digital.Web.Sitefinity.App_Start
+namespace DFC.Digital.Web.Sitefinity
 {
     public class Startup
     {

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
@@ -28,17 +29,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
-
             Bootstrapper.Initialized += Bootstrapper_Initialized;
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
             MvcHandler.DisableMvcResponseHeader = true;
-            SystemManager.ApplicationStart += ApplicationStartHandler;
         }
-
-        private static void ApplicationStartHandler(object sender, EventArgs e) => SystemManager.RegisterWebService(
-                typeof(RecycleBinService),
-                "CustomApi");
 
         private static void Bootstrapper_Bootstrapped(object sender, EventArgs e)
         {
@@ -100,6 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 ObjectFactory.Container.RegisterInstance(autofacContainer);
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+                GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(autofacContainer);
 
                 //Application lifetime scope
                 ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());

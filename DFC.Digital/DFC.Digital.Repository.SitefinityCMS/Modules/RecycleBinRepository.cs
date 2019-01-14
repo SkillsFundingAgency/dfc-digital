@@ -27,22 +27,22 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 SystemManager.RunWithElevatedPrivilege(d =>
                 {
-                    var recycleBinItems = recycleBinItemsManager.GetRecycleBinItems()
-                        .Where(di => di.DeletedItemTypeName.Equals(ApprenticeVacancyDeleteTypeName)).Take(itemCount).ToList();
-                    var providerName = DynamicModuleManager.GetDefaultProviderName(DynamicTypes.JobProfileModuleName);
+                    var recycleBinItems = recycleBinItemsManager
+                                            .GetRecycleBinItems()
+                                            .Where(di => di.DeletedItemTypeName.Equals(ApprenticeVacancyDeleteTypeName))
+                                            .Take(itemCount)
+                                            .ToList();
 
                     lastDeleteCall = itemCount > recycleBinItems.Count;
-
+                    var providerName = DynamicModuleManager.GetDefaultProviderName(DynamicTypes.JobProfileModuleName);
+                    var dynamicModuleContentType = TypeResolutionService.ResolveType(ApprenticeVacancyDeleteTypeName);
                     using (var dynamicModuleManager = DynamicModuleManager.GetManager(providerName))
                     {
-                        var dynamicModuleContentType = TypeResolutionService.ResolveType(ApprenticeVacancyDeleteTypeName);
                         foreach (var recycleBinItem in recycleBinItems)
                         {
                             try
                             {
-                                var dataItem =
-                                    dynamicModuleManager.GetItem(dynamicModuleContentType, recycleBinItem.DeletedItemId) as
-                                        IRecyclableDataItem;
+                                var dataItem = dynamicModuleManager.GetItem(dynamicModuleContentType, recycleBinItem.DeletedItemId) as IRecyclableDataItem;
                                 dynamicModuleManager.RecycleBin.PermanentlyDeleteFromRecycleBin(dataItem);
                             }
                             catch (ItemNotFoundException exception)

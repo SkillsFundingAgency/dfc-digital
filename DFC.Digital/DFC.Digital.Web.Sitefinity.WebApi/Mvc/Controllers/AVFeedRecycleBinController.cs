@@ -1,11 +1,8 @@
 ﻿using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Telerik.Sitefinity.Utilities.MS.ServiceModel.Web;
+using Telerik.Sitefinity.Web.Services;
 
 namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
 {
@@ -20,9 +17,10 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
 
         // DELETE dfcapi/avfeedrecyclebin
         [Authorize]
-        public void Delete([FromBody]int count)
+        public IHttpActionResult Delete([FromBody]int count)
         {
-            recyleBinRepository.DeleteVacanciesPermanently(count);
+            var isThisLastPage = recyleBinRepository.DeleteVacanciesPermanently(count);
+            return isThisLastPage ? StatusCode(HttpStatusCode.OK) : StatusCode(HttpStatusCode.PartialContent);
         }
     }
 }

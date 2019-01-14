@@ -8,24 +8,20 @@ using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class RecycleBinService : IRecycleBinService
     {
-        private IRecyleBinRepository recyleBin;
+        private readonly RecycleBinProcesser recyleBin;
 
         public RecycleBinService()
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            recyleBin = autofacLifetimeScope.Resolve<IRecyleBinRepository>();
+            recyleBin = autofacLifetimeScope.Resolve<RecycleBinProcesser>();
         }
 
         public void RecycleBinClearAppVacancies(int itemCount)
         {
-            if (!SystemManager.CurrentHttpContext.Request.IsAuthenticated)
-            {
-                throw new UnauthorizedAccessException("The current user is not allowed access");
-            }
-
-            recyleBin.DeleteVacanciesPermanently(itemCount);
+            recyleBin.RunProcess(itemCount);
         }
     }
 }

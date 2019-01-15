@@ -3,7 +3,10 @@ using Autofac.Integration.Mvc;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.SessionState;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
+using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -14,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             if (controllerType == null)
             {
-                 return base.GetControllerInstance(requestContext, controllerType);
+                return base.GetControllerInstance(requestContext, controllerType);
             }
 
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;

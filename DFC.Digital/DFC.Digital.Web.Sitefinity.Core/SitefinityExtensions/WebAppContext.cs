@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
+using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -130,6 +131,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             if (page != null)
             {
                 page.PreRenderComplete += Page_PreRenderComplete;
+            }
+        }
+
+        public void CheckAuthenticationByAuthCookie()
+        {
+            if (!SystemManager.CurrentHttpContext.Request.IsAuthenticated)
+            {
+                throw new UnauthorizedAccessException("The current user is not allowed access");
             }
         }
 

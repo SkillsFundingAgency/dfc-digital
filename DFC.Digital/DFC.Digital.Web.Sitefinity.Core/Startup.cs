@@ -1,9 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
@@ -26,7 +29,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
-
             Bootstrapper.Initialized += Bootstrapper_Initialized;
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
@@ -47,6 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 FeatherActionInvokerCustom.Register();
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
             {
@@ -92,6 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 ObjectFactory.Container.RegisterInstance(autofacContainer);
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+                GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(autofacContainer);
 
                 //Application lifetime scope
                 ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());

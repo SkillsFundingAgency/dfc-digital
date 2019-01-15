@@ -877,6 +877,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="AzureWebRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1337,6 +1338,10 @@
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.DfcSearchModule\DFC.Digital.Web.Sitefinity.DfcSearchModule.csproj">
       <Project>{43653733-4860-4f26-a3ec-5d199fef42d6}</Project>
       <Name>DFC.Digital.Web.Sitefinity.DfcSearchModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.WebApi\DFC.Digital.Web.Sitefinity.WebApi.csproj">
+      <Project>{6f6301d4-5ca5-4e6f-9425-b70cbd8eee59}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.WebApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Widgets\DFC.Digital.Web.Sitefinity.Widgets.csproj">
       <Project>{ec742c3b-c11c-4d85-99b3-8fdab3bb619b}</Project>

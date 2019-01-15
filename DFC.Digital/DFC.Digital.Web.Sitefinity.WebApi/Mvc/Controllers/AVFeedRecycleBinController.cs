@@ -4,7 +4,7 @@ using System.Web.Http;
 using Telerik.Sitefinity.Utilities.MS.ServiceModel.Web;
 using Telerik.Sitefinity.Web.Services;
 
-namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.WebApi
 {
     public class AVFeedRecycleBinController : ApiController
     {
@@ -16,9 +16,9 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
         }
 
         // DELETE dfcapi/avfeedrecyclebin
+        [ApiAuthorize]
         public IHttpActionResult Delete(int count)
         {
-            ServiceUtility.RequestBackendUserAuthentication();
             var isThisLastPage = recyleBinRepository.DeleteVacanciesPermanently(count);
             return isThisLastPage ? StatusCode(HttpStatusCode.OK) : StatusCode(HttpStatusCode.PartialContent);
         }

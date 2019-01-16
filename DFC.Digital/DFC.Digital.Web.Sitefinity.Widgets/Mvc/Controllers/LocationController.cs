@@ -73,9 +73,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [DisplayName("Alerts URL segment (Upper case)")]
         public string AlertsPathSegment { get; set; } = "ALERTS";
 
-        [DisplayName("LocationIP")]
-        public string LocationIP { get; set; }
-
         #endregion Public Properties
 
         #region Actions

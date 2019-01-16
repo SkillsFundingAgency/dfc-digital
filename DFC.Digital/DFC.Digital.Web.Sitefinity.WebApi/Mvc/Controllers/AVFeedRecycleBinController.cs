@@ -1,9 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System.Net;
 using System.Web.Http;
-using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes;
-using Telerik.Sitefinity.Utilities.MS.ServiceModel.Web;
-using Telerik.Sitefinity.Web.Services;
 
 namespace DFC.Digital.Web.Sitefinity.WebApi
 {

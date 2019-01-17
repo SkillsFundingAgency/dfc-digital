@@ -6,7 +6,7 @@ using Xunit;
 
 namespace DFC.Digital.Service.AzureSearch.Tests
 {
-    public class JobProfileSearchResultsManipulatorTests
+    public class JobProfileSearchManipulatorTests
     {
         [Theory]
         [InlineData("dummyTitletest5", 1, "dummyTitletest5")]
@@ -14,7 +14,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [InlineData(null, 1, "dummyTitletest1")]
         public void ReorderTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
                 Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollection("test", 10, 1)
@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [InlineData(null, 1, "dummyAlternativeTitle1")]
         public void ReorderAlternativeTitleTest(string searchTitle, int page, string expectedFirstResult)
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
                 Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollection("Test", 10, 1)
@@ -53,7 +53,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [Fact]
         public void ReorderNullResultTest()
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
                 Results = null
@@ -71,7 +71,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [Fact]
         public void ReorderNullDataTest()
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             SearchProperties searchProperties = new SearchProperties
             {
                 Page = 1
@@ -84,7 +84,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [Fact]
         public void ReorderNullEverythingTest()
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             var result = mannipulator.Reorder(null, "test", null);
             result.Results.Should().BeEquivalentTo(Enumerable.Empty<SearchResultItem<JobProfileIndex>>());
         }
@@ -94,7 +94,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         [InlineData("Packer", "Packer")]
         public void TitleAsPriorityTest(string searchTerm, string expectedFirstResult)
         {
-            var mannipulator = new JobProfileSearchResultsManipulator();
+            var mannipulator = new JobProfileSearchManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
                 Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollectionWithOrderPicker("Test", 8, 1)
@@ -107,6 +107,19 @@ namespace DFC.Digital.Service.AzureSearch.Tests
 
             var result = mannipulator.Reorder(data, searchTerm, searchProperties);
             result.Results.First().ResultItem.Title.Should().Be(expectedFirstResult);
+        }
+
+        [Theory]
+        [InlineData("test", "cleanSearch", "partialSearchTerm", null, "Title:(partialsearchterm) AlternativeTitle:(partialsearchterm) TitleAsKeyword:\"test\" AltTitleAsKeywords:\"test\" cleanSearch")]
+        [InlineData("test", "cleanSearch", "partialSearchTerm", false, "Title:(partialsearchterm) AlternativeTitle:(partialsearchterm) TitleAsKeyword:\"test\" AltTitleAsKeywords:\"test\" cleanSearch")]
+        [InlineData("test", "cleanSearch", "partialSearchTerm", true, "cleanSearch")]
+        public void BuildSearchExpressionForRawTest(string searchTerm, string cleanedSearchTerm, string partialTermToSearch, bool? isRaw, string expectation)
+        {
+            var prop = isRaw is null ? null : new SearchProperties { UseRawSearchTerm = isRaw.Value };
+            var mannipulator = new JobProfileSearchManipulator();
+            var result = mannipulator.BuildSearchExpression(searchTerm, cleanedSearchTerm, partialTermToSearch, prop);
+
+            result.Should().Be(expectation);
         }
     }
 }

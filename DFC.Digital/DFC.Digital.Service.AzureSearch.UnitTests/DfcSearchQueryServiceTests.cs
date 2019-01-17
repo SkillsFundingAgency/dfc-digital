@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var fakeManipulator = A.Fake<ISearchResultsManipulator<JobProfileIndex>>();
+            var fakeManipulator = A.Fake<ISearchManipulator<JobProfileIndex>>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure
@@ -74,7 +74,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             var dummySearchParameters = A.Dummy<SearchParameters>();
             var dummySearchResult = A.Dummy<Data.Model.SearchResult<JobProfileIndex>>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var fakeManipulator = A.Fake<ISearchResultsManipulator<JobProfileIndex>>();
+            var fakeManipulator = A.Fake<ISearchManipulator<JobProfileIndex>>();
             var policy = new TolerancePolicy(fakeLogger, new TransientFaultHandlingStrategy(new InMemoryConfigurationProvider()));
 
             //Configure

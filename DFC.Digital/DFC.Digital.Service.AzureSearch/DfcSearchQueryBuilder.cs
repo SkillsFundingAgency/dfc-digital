@@ -106,6 +106,7 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
+        [Obsolete]
         public string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties)
         {
             if (properties?.UseRawSearchTerm == true)
@@ -184,7 +185,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         public string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
-            return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
+            return $"/.*{trimmedTerm}.*/"; // {trimmedTerm}~";
         }
 
         public string TrimSuffixFromSingleWord(string searchTerm)

@@ -285,7 +285,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Suggestions(string term, int maxNumberDisplayed, bool fuzzySearch)
+        public ActionResult Suggestions(string term, int maxNumberDisplayed, bool fuzzySearch, bool accessibleSearch)
         {
             if (!string.IsNullOrEmpty(term))
             {
@@ -305,7 +305,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     label = s.MatchedSuggestion.First().ToString().ToUpper() + s.MatchedSuggestion.Substring(1)
                 });
                 var distinctSuggestions = suggestions.GroupBy(x => x.label).Select(x => x.First());
-                return Json(distinctSuggestions, JsonRequestBehavior.AllowGet);
+                if (accessibleSearch)
+                {
+                    return Json(distinctSuggestions.Select(x => x.label), JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(distinctSuggestions, JsonRequestBehavior.AllowGet);
+                }
             }
 
             return new EmptyResult();

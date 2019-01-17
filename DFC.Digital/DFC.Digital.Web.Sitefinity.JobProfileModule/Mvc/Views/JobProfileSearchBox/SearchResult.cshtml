@@ -9,21 +9,27 @@
                         Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
                     </h1>
                 </label>
-               @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
-               @type = "search",
-               @id = "search-main",
-               @PlaceHolder = Model.PlaceholderText,
-               data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
-               data_autocomplete_maxlength = Model.AutoCompleteMaximumCharacters,
-               data_autocomplete_source = "/searchautocomplete",
-               data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
-               data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
-               })
+                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
+                    @type = "search",
+                    @id = "search-main",
+                    @PlaceHolder = Model.PlaceholderText,
+                    data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
+                    data_autocomplete_maxlength = Model.AutoCompleteMaximumCharacters,
+                    data_autocomplete_source = "/searchautocomplete",
+                    data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
+                    data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
+                })
             </div>
             <div class="search-submit">
                 <button type="submit" class="button">Search</button>
             </div>
         </div>
+        
+        <div class="header-search-content">
+            <label for="my-autocomplete">GDS Accessibility Search</label>
+            <div id="my-autocomplete-container"></div>
+        </div>
+
         <div class="search-dym">
             @if (!string.IsNullOrEmpty(Model.DidYouMeanUrl?.OriginalString))
             {
@@ -51,41 +57,41 @@
                 <ol class="results-list">
                     @foreach (var jobProfile in Model.SearchResults)
                     {
-                    <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
-                        <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
-                        @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
-                        {
-                            <p class="meta dfc-code-search-jpAltTitle"><span class="sr-hidden">Alternative titles for this job include </span>@jobProfile.ResultItemAlternativeTitle</p>
-                        }
-                        <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
-                        <p class="results-salary">
-                            Salary: <span class="dfc-code-search-jpSalary">
-                                @if (string.IsNullOrEmpty(jobProfile.ResultItemSalaryRange))
-                                {
-                                    @Model.SalaryBlankText
-                                }
-                                else
-                                {
-                                    @jobProfile.ResultItemSalaryRange
-                                }
-                        </span>
-                    </p>
-                    @if (jobProfile.JobProfileCategoriesWithUrl != null)
-                    {<p class="results-categories">
-                            Found in:
-                            @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
+                        <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
+                            <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
+                            @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
                             {
-                                var title = category.Split('|').First();
-                                var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
-                                <a href="@url">@title</a>
+                                <p class="meta dfc-code-search-jpAltTitle"><span class="sr-hidden">Alternative titles for this job include </span>@jobProfile.ResultItemAlternativeTitle</p>
                             }
-                        </p>
-                    }
-                    @if (Model.ShowSearchedTerm)
-                    {
-                        <p>Score: @jobProfile.Score</p>
-                    }
-                    </li>
+                            <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
+                            <p class="results-salary">
+                                Salary: <span class="dfc-code-search-jpSalary">
+                                    @if (string.IsNullOrEmpty(jobProfile.ResultItemSalaryRange))
+                                    {
+                                        @Model.SalaryBlankText
+                                    }
+                                    else
+                                    {
+                                        @jobProfile.ResultItemSalaryRange
+                                    }
+                                </span>
+                            </p>
+                            @if (jobProfile.JobProfileCategoriesWithUrl != null)
+                            {<p class="results-categories">
+                                 Found in:
+                                 @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
+                                 {
+                                     var title = category.Split('|').First();
+                                     var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
+                                     <a href="@url">@title</a>
+                                 }
+                             </p>
+                            }
+                            @if (Model.ShowSearchedTerm)
+                            {
+                                <p>Score: @jobProfile.Score</p>
+                            }
+                        </li>
                     }
                 </ol>
                 <ul class="previous-next-navigation">

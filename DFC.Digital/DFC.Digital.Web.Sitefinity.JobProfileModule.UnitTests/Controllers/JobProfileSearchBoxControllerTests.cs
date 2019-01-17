@@ -509,7 +509,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Instantiate
             var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake);
 
-            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
+            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true, false));
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
                 result.ShouldReturnEmptyResult();
@@ -550,7 +550,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Instantiate
             var searchController = new JobProfileSearchBoxController(serviceFake, webAppContext, mapperCfg.CreateMapper(), loggerFake, fakeAsyncHelper, spellcheckerServiceFake) { AutoCompleteMaximumCharacters = maxCharacterCount };
 
-            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true));
+            var result = searchController.WithCallTo(c => c.Suggestions(searchTerm, 5, true, false));
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 result.ShouldReturnJson();

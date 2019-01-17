@@ -86,8 +86,8 @@ $(document).ready(function () {
             window.location = $(this).attr('href');
         }
     });
-
 });
+
 
 function sendEmail(e) {
     var emailAddress = $('input[name=EmailAddress]').val();
@@ -141,3 +141,22 @@ $('.js-autocomplete').each(function () {
     });
 });
 
+
+var element = document.querySelector('#my-autocomplete-container');
+var id = 'my-autocomplete';
+accessibleAutocomplete({
+    element: element,
+    id: id,
+    source: suggest
+});
+
+function suggest(term, populateResults) {
+    $.ajax({
+        url: $('.js-autocomplete').data("autocomplete-source"),
+        dataType: 'json',
+        data: { 'term': term, 'accessibleSearch': 'True', 'maxNumberDisplayed': $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch': $('.js-autocomplete').data('autocomplete-fuzzysearch') },
+        success: function (data) {
+            populateResults(data);
+        }
+    });
+}

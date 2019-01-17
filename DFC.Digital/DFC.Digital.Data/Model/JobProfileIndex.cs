@@ -43,7 +43,7 @@ namespace DFC.Digital.Data.Model
         {
             get
             {
-                return AlternativeTitle.Select(a => a.ToLower());
+                return AlternativeTitle?.Select(a => a.ToLower());
             }
         }
 

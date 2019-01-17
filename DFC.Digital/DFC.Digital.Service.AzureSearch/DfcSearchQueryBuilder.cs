@@ -70,13 +70,15 @@ namespace DFC.Digital.Service.AzureSearch
             var newSearchTerm = string.Empty;
             var trimmedTerm = Regex.Replace(cleanedSearchTerm, @"\s+", " ").Trim();
 
-            return trimmedTerm.Any(char.IsWhiteSpace)
+            var computedContains = trimmedTerm.Any(char.IsWhiteSpace)
                 ? trimmedTerm
                     .Split(' ')
                     .Aggregate(
                         newSearchTerm,
-                        (current, term) => current + (term.Contains("-") ? term.Trim() : CreateFuzzyAndContainTerm(term)))
+                        (current, term) => $"{current} " + (term.Contains("-") ? term.Trim() : CreateFuzzyAndContainTerm(term)))
                 : trimmedTerm.Contains("-") ? trimmedTerm : CreateFuzzyAndContainTerm(trimmedTerm);
+
+            return computedContains.Trim();
         }
 
         public string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties)
@@ -153,10 +155,10 @@ namespace DFC.Digital.Service.AzureSearch
         {
             var trimmedWord = TrimSuffixFromSingleWord(term);
             var replaceSuffix = ReplaceSuffixFromSingleWord(trimmedWord);
-            var specialology = Specialologies(term, replaceSuffix);
-            return specialology;
+            return replaceSuffix;
         }
 
+        [Obsolete]
         public string Specialologies(string term, string replacedSuffixTerm)
         {
             var indexOfOlogy = term?.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);
@@ -185,7 +187,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         public string CreateFuzzyAndContainTerm(string trimmedTerm)
         {
-            return $"/.*{trimmedTerm}.*/"; // {trimmedTerm}~";
+            return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
         }
 
         public string TrimSuffixFromSingleWord(string searchTerm)
@@ -198,7 +200,6 @@ namespace DFC.Digital.Service.AzureSearch
                 "ment",
                 "ation",
                 "or",
-                "ology",
                 "metry",
                 "ics",
                 "ette",
@@ -217,6 +218,7 @@ namespace DFC.Digital.Service.AzureSearch
             var replaceSuffixDictionary = new Dictionary<string, string>
             {
                 ["therapy"] = "thera",
+                ["ology"] = "olo",
             };
 
             var suffixToBeTrimmed = replaceSuffixDictionary.FirstOrDefault(s => trimmedWord.EndsWith(s.Key, StringComparison.OrdinalIgnoreCase));

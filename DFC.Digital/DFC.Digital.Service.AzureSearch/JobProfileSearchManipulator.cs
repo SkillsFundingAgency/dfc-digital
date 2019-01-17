@@ -9,7 +9,11 @@ namespace DFC.Digital.Service.AzureSearch
     {
         public string BuildSearchExpression(string searchTerm, string cleanedSearchTerm, string partialTermToSearch, SearchProperties properties)
         {
-            if (properties?.UseRawSearchTerm == true)
+            if (searchTerm == "*")
+            {
+                return searchTerm;
+            }
+            else if (properties?.UseRawSearchTerm == true)
             {
                 return cleanedSearchTerm;
             }

@@ -110,6 +110,9 @@ namespace DFC.Digital.Service.AzureSearch.Tests
         }
 
         [Theory]
+        [InlineData("*", "cleanSearch", "partialSearchTerm", null, "*")]
+        [InlineData("*", "cleanSearch", "partialSearchTerm", false, "*")]
+        [InlineData("*", "cleanSearch", "partialSearchTerm", true, "*")]
         [InlineData("test", "cleanSearch", "partialSearchTerm", null, "Title:(partialsearchterm) AlternativeTitle:(partialsearchterm) TitleAsKeyword:\"test\" AltTitleAsKeywords:\"test\" cleanSearch")]
         [InlineData("test", "cleanSearch", "partialSearchTerm", false, "Title:(partialsearchterm) AlternativeTitle:(partialsearchterm) TitleAsKeyword:\"test\" AltTitleAsKeywords:\"test\" cleanSearch")]
         [InlineData("test", "cleanSearch", "partialSearchTerm", true, "cleanSearch")]

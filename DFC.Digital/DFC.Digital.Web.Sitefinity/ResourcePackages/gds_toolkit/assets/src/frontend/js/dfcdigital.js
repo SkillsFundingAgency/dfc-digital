@@ -131,7 +131,7 @@ $('.js-autocomplete').each(function () {
             $.ajax({
                 url: $('.js-autocomplete').data("autocomplete-source"),
                 dataType: 'json',
-                data: {'term' : searchTerm,  'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
+                data: { 'term': searchTerm, 'accessibleSearch': 'False', 'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
                 success: function (data) {
                     response(data);
                 }

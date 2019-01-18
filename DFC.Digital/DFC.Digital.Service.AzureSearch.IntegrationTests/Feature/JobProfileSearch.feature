@@ -295,25 +295,26 @@ Examples:
 
 	Scenario Outline: [DFC-31 - B1] Bugfix - User uses invalid characters as search term should not see anything
 	Given the following job profiles exist:
-			| Title						| AlternativeTitle	|
-			| Extra Start				|					|
-			| Nurse                     | Adult nurse		|
-			| Middle Job Profile        | Extra Middle		|
-			| Veterinary nurse          |					|
-			| Last Job Profile          | Extra End			|
-			| General practitioner (GP) | Doc				|
-			| Hotel based job           |					|
-			| Motel based job           |					|
-		When I search using the search term '<SearchTerm>'
+			| Title                     | AlternativeTitle |
+			| Extra Start               |                  |
+			| Nurse                     | Adult nurse      |
+			| Middle Job Profile        | Extra Middle     |
+			| Veterinary nurse          |                  |
+			| Last Job Profile          | Extra End        |
+			| General practitioner (GP) | Doc              |
+			| Hotel based job           |                  |
+			| Motel based job           |                  |
+			| First Job Profile         | Extra Start      | 
+When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
 			| SearchTerm                | TotalCount |
 			| *                         | 10         |
 			| Nurs?                     | 4          |
-			| Nurse^3                   | 4          |
-			| +Profile +Job             | 6          |
+			| Nurse^3                   | 0          |
+			| +Profile +Job             | 5          |
 			| Nurs~                     | 4          |
-			| /[mh]otel/                | 2          |
+			| /[mh]otel/                | 0          |
 			
 	Scenario Outline: [DFC-31 - B1 - 2 ] Bugfix - User uses non-alphabetic characters within search term should no longer impact results
 	Given the following job profiles exist:
@@ -462,7 +463,7 @@ When I search using the search term 'engineerhat'
 			| UITest Partial AltTitle               | Physical therapist                       |
 			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
-		Then the result list will contain '10' profile(s)
+		Then the result list will contain '9' profile(s)
 		And the profiles are listed in no specific order:
 			| Title                                 | AlternativeTitle                         |
 			| Therapist                             | UITest Exact Title                       |
@@ -472,7 +473,6 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
-			| Speech and language therapy assistant |                                          |
 			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
 			

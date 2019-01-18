@@ -9,6 +9,21 @@ namespace DFC.Digital.Service.AzureSearch
     {
         public string BuildSearchExpression(string searchTerm, string cleanedSearchTerm, string partialTermToSearch, SearchProperties properties)
         {
+            if (searchTerm == null)
+            {
+                throw new ArgumentNullException(nameof(searchTerm));
+            }
+
+            if (cleanedSearchTerm == null)
+            {
+                throw new ArgumentNullException(nameof(cleanedSearchTerm));
+            }
+
+            if (partialTermToSearch == null)
+            {
+                throw new ArgumentNullException(nameof(partialTermToSearch));
+            }
+
             if (searchTerm == "*")
             {
                 return searchTerm;

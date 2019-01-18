@@ -2,7 +2,7 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
+using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;

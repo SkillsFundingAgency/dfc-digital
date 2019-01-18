@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 
-namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class RecycleBinProcesser
     {

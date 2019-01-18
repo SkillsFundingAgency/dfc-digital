@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Service.AzureSearch.Tests
+namespace DFC.Digital.Service.AzureSearch.UnitTests
 {
     public class JobProfileSearchManipulatorTests
     {
@@ -97,7 +97,7 @@ namespace DFC.Digital.Service.AzureSearch.Tests
             var mannipulator = new JobProfileSearchManipulator();
             SearchResult<Data.Model.JobProfileIndex> data = new SearchResult<JobProfileIndex>
             {
-                Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollectionWithOrderPicker("Test", 8, 1)
+                Results = DummyJobProfileIndex.GenerateJobProfileResultItemDummyCollectionWithOrderPicker("Test")
             };
 
             SearchProperties searchProperties = new SearchProperties

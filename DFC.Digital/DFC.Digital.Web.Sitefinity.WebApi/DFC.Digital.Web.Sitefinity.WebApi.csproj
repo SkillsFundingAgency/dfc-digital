@@ -374,6 +374,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiAutofacModule.cs" />
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\ApiAuthorizeAttribute.cs" />
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

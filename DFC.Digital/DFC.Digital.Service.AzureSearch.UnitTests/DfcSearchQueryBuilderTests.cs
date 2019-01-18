@@ -182,7 +182,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         public void IsCommonCojoinginWordTest(string searchTerm, bool expected)
         {
             var testObject = new DfcSearchQueryBuilder();
-            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm.ToLower());
+            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm?.ToLower());
             searchTermResult.Should().Be(expected);
         }
 

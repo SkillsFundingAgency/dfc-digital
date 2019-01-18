@@ -108,7 +108,7 @@ namespace DFC.Digital.Service.AzureSearch
             }
         }
 
-        [Obsolete]
+        [Obsolete("This is a legacy search expression builder, use ISearchManipulator.BuildSearchExpression")]
         public string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties)
         {
             if (properties?.UseRawSearchTerm == true)
@@ -158,7 +158,7 @@ namespace DFC.Digital.Service.AzureSearch
             return replaceSuffix;
         }
 
-        [Obsolete]
+        [Obsolete("This functionality has been removed, will be removed in next release, if proven unuseful")]
         public string Specialologies(string term, string replacedSuffixTerm)
         {
             var indexOfOlogy = term?.LastIndexOf("ology", StringComparison.OrdinalIgnoreCase);

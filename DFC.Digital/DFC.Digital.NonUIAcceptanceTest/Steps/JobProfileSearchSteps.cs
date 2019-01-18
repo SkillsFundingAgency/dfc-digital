@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.NonUIAcceptanceTest.Steps
+namespace DFC.Digital.NonUIAcceptanceTest
 {
     [Binding]
     public class JobProfileSearchSteps
@@ -86,11 +86,11 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
-                    outputHelper.WriteLine($"ComputedSearchTerm - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Computed search term - : {item.Value.ComputedSearchTerm}");
                     outputHelper.WriteLine($"Count - : {item.Value.Count}");
                     outputHelper.WriteLine($"Rank - : {result?.Rank}");
                     outputHelper.WriteLine($"Score - : {result?.Score}");
-                    outputHelper.WriteLine($"SearchParametersQueryString - : {item.Value.SearchParametersQueryString}");
+                    outputHelper.WriteLine($"Search parameters query string - : {item.Value.SearchParametersQueryString}");
                 }
             }
 
@@ -125,11 +125,11 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
                 {
                     failures++;
                     outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
-                    outputHelper.WriteLine($"ComputedSearchTerm - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Computed Search Term - : {item.Value.ComputedSearchTerm}");
                     outputHelper.WriteLine($"Count - : {item.Value.Count}");
                     outputHelper.WriteLine($"Rank - : {result?.Rank}");
                     outputHelper.WriteLine($"Score - : {result?.Score}");
-                    outputHelper.WriteLine($"SearchParametersQueryString - : {item.Value.SearchParametersQueryString}");
+                    outputHelper.WriteLine($"Search Parameters Query String - : {item.Value.SearchParametersQueryString}");
                 }
             }
 

@@ -7,6 +7,7 @@ using Telerik.Sitefinity.Web.Services;
 namespace DFC.Digital.Web.Sitefinity.WebApi
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class ApiAuthorizeAttribute : AuthorizeAttribute
     {
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)

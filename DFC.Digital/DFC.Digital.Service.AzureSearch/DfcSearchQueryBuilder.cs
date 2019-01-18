@@ -75,8 +75,8 @@ namespace DFC.Digital.Service.AzureSearch
                     .Split(' ')
                     .Aggregate(
                         newSearchTerm,
-                        (current, term) => $"{current} " + (term.Contains("-") ? term.Trim() : CreateFuzzyAndContainTerm(term)))
-                : trimmedTerm.Contains("-") ? trimmedTerm : CreateFuzzyAndContainTerm(trimmedTerm);
+                        (current, term) => $"{current} " + (term.Contains("-") ? term.Trim() : CreateContainTerm(term)))
+                : trimmedTerm.Contains("-") ? trimmedTerm : CreateContainTerm(trimmedTerm);
 
             return computedContains.Trim();
         }

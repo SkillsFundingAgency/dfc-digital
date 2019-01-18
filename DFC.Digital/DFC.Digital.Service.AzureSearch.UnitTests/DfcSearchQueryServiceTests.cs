@@ -60,8 +60,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
 
         [Theory]
         [InlineData("*", "*")]
-        [InlineData("term1", "Title:(/.*term1.*/ term1~) AlternativeTitle:(/.*term1.*/ term1~) TitleAsKeyword:\"term1\" AltTitleAsKeywords:\"term1\" term1")]
-        [InlineData("term1 term2", "Title:(/.*term1.*/ term1~ /.*term2.*/ term2~) AlternativeTitle:(/.*term1.*/ term1~ /.*term2.*/ term2~) TitleAsKeyword:\"term1 term2\" AltTitleAsKeywords:\"term1 term2\" term1 term2")]
+        [InlineData("term1", "Title:(/.*term1.*/) AlternativeTitle:(/.*term1.*/) TitleAsKeyword:\"term1\" AltTitleAsKeywords:\"term1\" term1")]
+        [InlineData("term1 term2", "Title:(/.*term1.*/ /.*term2.*/) AlternativeTitle:(/.*term1.*/ /.*term2.*/) TitleAsKeyword:\"term1 term2\" AltTitleAsKeywords:\"term1 term2\" term1 term2")]
         public async Task SearchActualBuilderAsyncTest(string searchTerm, string expectedComputedSearchTerm)
         {
             //Arrange

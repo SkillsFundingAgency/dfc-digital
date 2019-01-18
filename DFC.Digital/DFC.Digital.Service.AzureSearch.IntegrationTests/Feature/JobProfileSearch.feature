@@ -328,6 +328,7 @@ Examples:
 			| Motel based job           |                  |
 			| Co-ordinator              | Extra End        |
 			| Pilot                     | Co-Pilot         |
+			| First Job Profile         | Extra Start      | 
 When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
@@ -336,9 +337,9 @@ When I search using the search term '<SearchTerm>'
 			| Nurse - Veterinary   | 5          |
 			| Nurse + Veterinary   | 5          |
 			| Nurse OR Profile     | 7          |
-			| Profile && Job       | 6          |
-			| Profile & Job        | 6          |
-			| Profile \|\| Job     | 6          |
+			| Profile && Job       | 5          |
+			| Profile & Job        | 5          |
+			| Profile \|\| Job     | 5          |
 			| Veterinary AND nurse | 1          |
 			| (GP)                 | 1          |
 			| Co-ordinator         | 2          |
@@ -358,15 +359,15 @@ Scenario Outline: [DFC-1128] Bugfix - Performing a search with text which contai
 
 Scenario Outline: [DFC-340] Bugfix Performing a search with text within a "<" and ">" causes a "Server Error" (A potentially dangerous Request.Form value was detected) 
 	Given the following job profiles exist:
-			| Title						| AlternativeTitle	|
-			| Extra Start				|					|
-			| Children's nurse	    	|					|			
-			| Middle Job Profile        | Extra Middle		|
+			| Title							| AlternativeTitle	|
+			| Extra Start					|					|
+			| DFC340's DFC340				|					|			
+			| Middle Job Profile			| Extra Middle		|
 		When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
-			| SearchTerm                | TotalCount |	
-			| <Children's nurse>		| 1          |
+			| SearchTerm						| TotalCount |	
+			| <Dfc340's DFC340>	| 1          |
 		   
 Scenario: [DFC-1572] Bugfix - Search term contains "-" should return results
 		Given the following job profiles exist:
@@ -459,9 +460,10 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
+			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
-		Then the result list will contain '8' profile(s)
+		Then the result list will contain '9' profile(s)
 		And the profiles are listed in no specific order:
 			| Title                                 | AlternativeTitle                         |
 			| Therapist                             | UITest Exact Title                       |
@@ -472,6 +474,7 @@ When I search using the search term 'engineerhat'
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
 			| Hypnotherapist                        |                                          |
+			| Colon hydrotherapist                  |                                          |
 			
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:

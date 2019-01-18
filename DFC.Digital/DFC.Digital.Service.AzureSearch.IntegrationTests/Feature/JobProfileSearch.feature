@@ -310,10 +310,10 @@ Examples:
 			| SearchTerm                | TotalCount |
 			| *                         | 10         |
 			| Nurs?                     | 4          |
-			| Nurse^                    | 4          |
-			| +Profile +Job             | 5          |
+			| Nurse^3                   | 4          |
+			| +Profile +Job             | 6          |
 			| Nurs~                     | 4          |
-			| /[h]otel/                 | 1          |
+			| /[mh]otel/                | 2          |
 			
 	Scenario Outline: [DFC-31 - B1 - 2 ] Bugfix - User uses non-alphabetic characters within search term should no longer impact results
 	Given the following job profiles exist:
@@ -460,21 +460,21 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
-			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
-		Then the result list will contain '9' profile(s)
+		Then the result list will contain '10' profile(s)
 		And the profiles are listed in no specific order:
 			| Title                                 | AlternativeTitle                         |
 			| Therapist                             | UITest Exact Title                       |
-			| Veterinary physiotherapist            | Animal physiotherapist                   |
 			| Counsellor                            | Therapist, psychotherapist               |
 			| CBT practitioners                     | Talking therapist, behavioural therapist |
+			| Veterinary physiotherapist            | Animal physiotherapist                   |
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
-			| Hypnotherapist                        |                                          |
+			| Speech and language therapy assistant |                                          |
 			| Colon hydrotherapist                  |                                          |
+			| Hypnotherapist                        |                                          |
 			
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 
 	Given the following job profiles exist:

@@ -17,13 +17,14 @@ namespace DFC.Digital.Data.Model
         [IsFilterable, IsSortable, IsFacetable]
         public string SocCode { get; set; }
 
-        [IsSearchable, IsFilterable, IsSortable, IsSuggestible, AddWeighting(100)]
+        [IsSearchable, IsFilterable, IsSortable, IsSuggestible]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
+        [AddWeighting(7)]
         public string Title { get; set; }
 
         [IsSearchable]
         [Analyzer(AnalyzerName.AsString.Keyword)]
-        [AddWeighting(1000)]
+        [AddWeighting(100)]
         public string TitleAsKeyword
         {
             get
@@ -32,13 +33,14 @@ namespace DFC.Digital.Data.Model
             }
         }
 
-        [IsSearchable, IsFilterable, IsSuggestible, AddWeighting(90)]
+        [IsSearchable, IsFilterable, IsSuggestible]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
+        [AddWeighting(6)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
         [IsSearchable]
         [Analyzer(AnalyzerName.AsString.Keyword)]
-        [AddWeighting(1000)]
+        [AddWeighting(100)]
         public IEnumerable<string> AltTitleAsKeywords
         {
             get
@@ -47,7 +49,8 @@ namespace DFC.Digital.Data.Model
             }
         }
 
-        [IsSearchable, AddWeighting(50)]
+        [IsSearchable]
+        [AddWeighting(5)]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Overview { get; set; }
 
@@ -61,16 +64,19 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public string UrlName { get; set; }
 
-        [IsSearchable, IsFilterable, AddWeighting(40)]
+        [IsSearchable, IsFilterable]
+        [AddWeighting(4)]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
+        [AddWeighting(3)]
         public IEnumerable<string> JobProfileSpecialism { get; set; }
 
         [IsSearchable, IsFilterable]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
+        [AddWeighting(3)]
         public IEnumerable<string> HiddenAlternativeTitle { get; set; }
 
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }

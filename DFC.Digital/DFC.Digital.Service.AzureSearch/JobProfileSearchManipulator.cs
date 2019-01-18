@@ -5,8 +5,39 @@ using System.Linq;
 
 namespace DFC.Digital.Service.AzureSearch
 {
-    public class JobProfileSearchResultsManipulator : ISearchResultsManipulator<JobProfileIndex>
+    public class JobProfileSearchManipulator : ISearchManipulator<JobProfileIndex>
     {
+        public string BuildSearchExpression(string searchTerm, string cleanedSearchTerm, string partialTermToSearch, SearchProperties properties)
+        {
+            if (searchTerm == null)
+            {
+                throw new ArgumentNullException(nameof(searchTerm));
+            }
+
+            if (cleanedSearchTerm == null)
+            {
+                throw new ArgumentNullException(nameof(cleanedSearchTerm));
+            }
+
+            if (partialTermToSearch == null)
+            {
+                throw new ArgumentNullException(nameof(partialTermToSearch));
+            }
+
+            if (searchTerm == "*")
+            {
+                return searchTerm;
+            }
+            else if (properties?.UseRawSearchTerm == true)
+            {
+                return cleanedSearchTerm;
+            }
+            else
+            {
+                return $"{nameof(JobProfileIndex.Title)}:({partialTermToSearch.ToLower()}) {nameof(JobProfileIndex.AlternativeTitle)}:({partialTermToSearch.ToLower()}) {nameof(JobProfileIndex.TitleAsKeyword)}:\"{searchTerm.ToLower()}\" {nameof(JobProfileIndex.AltTitleAsKeywords)}:\"{searchTerm.ToLower()}\" {cleanedSearchTerm}";
+            }
+        }
+
         public SearchResult<JobProfileIndex> Reorder(SearchResult<JobProfileIndex> searchResult, string searchTerm, SearchProperties searchProperties)
         {
             if (searchProperties?.Page == 1 && searchResult != null)

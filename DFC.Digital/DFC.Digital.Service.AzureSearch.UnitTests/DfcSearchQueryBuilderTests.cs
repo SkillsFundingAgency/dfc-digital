@@ -7,6 +7,25 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
     public class DfcSearchQueryBuilderTests
     {
         [Theory]
+        [InlineData("test", null, "/.*test.*/ test~")]
+        [InlineData("test1 test2", null, "/.*test1.*/ test1~ /.*test2.*/ test2~")]
+        [InlineData("test1 test-2", null, "/.*test1.*/ test1~ test-2")]
+        [InlineData("test", false, "/.*test.*/ test~")]
+        [InlineData("test1 test2", false, "/.*test1.*/ test1~ /.*test2.*/ test2~")]
+        [InlineData("test1 test-2", false, "/.*test1.*/ test1~ test-2")]
+        [InlineData("test", true, "test")]
+        [InlineData("test1 test2", true, "test1 test2")]
+        [InlineData("test1 test-2", true, "test1 test-2")]
+        public void BuildContainPartialSearchTest(string cleanedSearchTerm, bool? isRaw, string expectation)
+        {
+            var properties = isRaw is null ? null : new SearchProperties { UseRawSearchTerm = isRaw.Value };
+            var testObject = new DfcSearchQueryBuilder();
+            var result = testObject.BuildContainPartialSearch(cleanedSearchTerm, properties);
+
+            result.Should().Be(expectation);
+        }
+
+        [Theory]
         [InlineData("term1", null, "(FilterableTitle eq 'term1' or FilterableAlternativeTitle eq 'term1')")]
         [InlineData("term1", "*", "*")]
         public void BuildExclusiveExactMatchTest(string searchTerm, string filter, string expected)
@@ -117,7 +136,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("Business development manager", "Business develop manag")] //"ment"
         [InlineData("installation and plumbing engineer", "install plumb engine")] //ation
         [InlineData("director or clock repairer", "direct clock repair")] //or
-        [InlineData("pharmacology ecology", "pharmac pharmacolo ecolo")] //ology
+        [InlineData("pharmacology ecology", "pharmacolo ecolo")] //ology
         [InlineData("optometry", "opto")] //metry
         [InlineData("dietetics", "dietet")] //ics
         [InlineData("laundrette", "laundr")] //ette
@@ -163,7 +182,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         public void IsCommonCojoinginWordTest(string searchTerm, bool expected)
         {
             var testObject = new DfcSearchQueryBuilder();
-            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm.ToLower());
+            var searchTermResult = testObject.IsCommonCojoinginWord(searchTerm?.ToLower());
             searchTermResult.Should().Be(expected);
         }
 
@@ -173,7 +192,6 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         [InlineData("plumbing", "plumb")] //ing
         [InlineData("management", "manage")] //"ment"
         [InlineData("installation", "install")] //ation
-        [InlineData("pharmacology", "pharmac")] //ology
         [InlineData("optometry", "opto")] //metry
         [InlineData("dietetics", "dietet")] //ics
         [InlineData("laundrette", "laundr")] //ette

@@ -332,8 +332,16 @@ When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
 			| SearchTerm           | TotalCount |
-			| Nurse !Veterinary    | 2          |
-			
+			| Nurse !Veterinary    | 5          |
+			| Nurse - Veterinary   | 5          |
+			| Nurse + Veterinary   | 5          |
+			| Nurse OR Profile     | 7          |
+			| Profile && Job       | 6          |
+			| Profile & Job        | 6          |
+			| Profile \|\| Job     | 6          |
+			| Veterinary AND nurse | 1          |
+			| (GP)                 | 1          |
+			| Co-ordinator         | 2          |
 
 Scenario Outline: [DFC-1128] Bugfix - Performing a search with text which contains an apostrophe (') is causing 'Server error' 
 	Given the following job profiles exist:

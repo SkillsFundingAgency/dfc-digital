@@ -111,7 +111,7 @@ namespace DFC.Digital.AutomationTest.Utilities
 
         public static T SaveTo<T>(this T data, ScenarioContext scenarioContext, string key)
         {
-            scenarioContext.Set(data, key);
+            scenarioContext?.Set(data, key);
             return data;
         }
 

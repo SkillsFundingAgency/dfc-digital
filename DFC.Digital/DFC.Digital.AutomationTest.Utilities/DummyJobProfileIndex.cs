@@ -62,7 +62,7 @@ namespace DFC.Digital.AutomationTest.Utilities
             }
         }
 
-        public static IEnumerable<SearchResultItem<JobProfileIndex>> GenerateJobProfileResultItemDummyCollectionWithOrderPicker(string title, int count, int page, bool useIndex = true)
+        public static IEnumerable<SearchResultItem<JobProfileIndex>> GenerateJobProfileResultItemDummyCollectionWithOrderPicker(string title, bool useIndex = true)
         {
             return new List<SearchResultItem<JobProfileIndex>>
             {

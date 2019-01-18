@@ -295,25 +295,26 @@ Examples:
 
 	Scenario Outline: [DFC-31 - B1] Bugfix - User uses invalid characters as search term should not see anything
 	Given the following job profiles exist:
-			| Title						| AlternativeTitle	|
-			| Extra Start				|					|
-			| Nurse                     | Adult nurse		|
-			| Middle Job Profile        | Extra Middle		|
-			| Veterinary nurse          |					|
-			| Last Job Profile          | Extra End			|
-			| General practitioner (GP) | Doc				|
-			| Hotel based job           |					|
-			| Motel based job           |					|
-		When I search using the search term '<SearchTerm>'
+			| Title                     | AlternativeTitle |
+			| Extra Start               |                  |
+			| Nurse                     | Adult nurse      |
+			| Middle Job Profile        | Extra Middle     |
+			| Veterinary nurse          |                  |
+			| Last Job Profile          | Extra End        |
+			| General practitioner (GP) | Doc              |
+			| Hotel based job           |                  |
+			| Motel based job           |                  |
+			| First Job Profile         | Extra Start      | 
+When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
 			| SearchTerm                | TotalCount |
 			| *                         | 10         |
 			| Nurs?                     | 4          |
-			| Nurse^3                   | 4          |
-			| +Profile +Job             | 6          |
+			| Nurse^3                   | 0          |
+			| +Profile +Job             | 5          |
 			| Nurs~                     | 4          |
-			| /[mh]otel/                | 2          |
+			| /[mh]otel/                | 0          |
 			
 	Scenario Outline: [DFC-31 - B1 - 2 ] Bugfix - User uses non-alphabetic characters within search term should no longer impact results
 	Given the following job profiles exist:
@@ -328,6 +329,7 @@ Examples:
 			| Motel based job           |                  |
 			| Co-ordinator              | Extra End        |
 			| Pilot                     | Co-Pilot         |
+			| First Job Profile         | Extra Start      | 
 When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
@@ -336,9 +338,9 @@ When I search using the search term '<SearchTerm>'
 			| Nurse - Veterinary   | 5          |
 			| Nurse + Veterinary   | 5          |
 			| Nurse OR Profile     | 7          |
-			| Profile && Job       | 6          |
-			| Profile & Job        | 6          |
-			| Profile \|\| Job     | 6          |
+			| Profile && Job       | 5          |
+			| Profile & Job        | 5          |
+			| Profile \|\| Job     | 5          |
 			| Veterinary AND nurse | 1          |
 			| (GP)                 | 1          |
 			| Co-ordinator         | 2          |
@@ -358,15 +360,15 @@ Scenario Outline: [DFC-1128] Bugfix - Performing a search with text which contai
 
 Scenario Outline: [DFC-340] Bugfix Performing a search with text within a "<" and ">" causes a "Server Error" (A potentially dangerous Request.Form value was detected) 
 	Given the following job profiles exist:
-			| Title						| AlternativeTitle	|
-			| Extra Start				|					|
-			| Children's nurse	    	|					|			
-			| Middle Job Profile        | Extra Middle		|
+			| Title							| AlternativeTitle	|
+			| Extra Start					|					|
+			| DFC340's DFC340				|					|			
+			| Middle Job Profile			| Extra Middle		|
 		When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
-			| SearchTerm                | TotalCount |	
-			| <Children's nurse>		| 4          |
+			| SearchTerm						| TotalCount |	
+			| <Dfc340's DFC340>	| 1          |
 		   
 Scenario: [DFC-1572] Bugfix - Search term contains "-" should return results
 		Given the following job profiles exist:
@@ -416,21 +418,6 @@ Scenario: [DFC-1635 - A2] Match with data that has multiple Keywords
          | Nail technician |                  | nailingtk, technicaltk |                        |
 
 
-Scenario: [DFC-1617 - A1] Fuzzy Search - Match incorrectly spelled term against Title, Alt Title and Keyword
-	Given the following job profiles exist:
-         | Title                         | AlternativeTitle              | JobProfileSpecialism | HiddenAlternativeTitle |
-         | Middle Job Profile            | Extra Middle                  |                      |                        |
-         | Marine engineering technician | Shipbuilding technician       |                      |                        |
-         | Movie operator                | Addition                      | Projectionist        |                        |
-         | Projectionist                 | Operators                     |                      |                        |
-         | Theater operators             | Projectionist, film projector |                      |                        |
-	When I search using the search term 'Projeionist'
-    Then the result list will contain '2' profile(s)
-	And the profiles are listed in no specific order:
-         | Title             | AlternativeTitle              | JobProfileSpecialism | HiddenAlternativeTitle |
-         | Projectionist     | Operators                     |                      |                        |
-         | Theater operators | Projectionist, film projector |                      |                        |
-
 Scenario: [DFC-1495] I want to see all the Job Categories the JP is found in, in search results
 Given the following job profiles exist:
 	| Title                  | JobProfileCategoriesWithUrl                                                                     |
@@ -460,7 +447,7 @@ When I search using the search term 'engineerhat'
 
 
 	Scenario: [DFC-5229 - (DFC-31-A1, A2 - 2)] User uses a search term whose root exactly matches the searchable fields on different profiles
-      #    NOTE: The presence of "Speech and language therapy assistant" is used to demonstrate derivatives along with the literal partial matches
+      #    NOTE: The absence of "Speech and language therapy assistant" is used to demonstrate derivatives rely upon fuzzy will not be returned along with the literal partial matches
 		Given the following job profiles exist:
 			| Title                                 | AlternativeTitle                         |
 			| First Job Profile                     | Extra Start                              |
@@ -476,7 +463,7 @@ When I search using the search term 'engineerhat'
 			| UITest Partial AltTitle               | Physical therapist                       |
 			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
-		Then the result list will contain '10' profile(s)
+		Then the result list will contain '9' profile(s)
 		And the profiles are listed in no specific order:
 			| Title                                 | AlternativeTitle                         |
 			| Therapist                             | UITest Exact Title                       |
@@ -486,7 +473,6 @@ When I search using the search term 'engineerhat'
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
-			| Speech and language therapy assistant |                                          |
 			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
 			

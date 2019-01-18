@@ -447,7 +447,7 @@ When I search using the search term 'engineerhat'
 
 
 	Scenario: [DFC-5229 - (DFC-31-A1, A2 - 2)] User uses a search term whose root exactly matches the searchable fields on different profiles
-      #    NOTE: The presence of "Speech and language therapy assistant" is used to demonstrate derivatives along with the literal partial matches
+      #    NOTE: The absence of "Speech and language therapy assistant" is used to demonstrate derivatives rely upon fuzzy will not be returned along with the literal partial matches
 		Given the following job profiles exist:
 			| Title                                 | AlternativeTitle                         |
 			| First Job Profile                     | Extra Start                              |

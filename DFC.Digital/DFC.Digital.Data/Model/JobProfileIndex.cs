@@ -4,11 +4,13 @@ using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DFC.Digital.Data.Model
 {
     public class JobProfileIndex : IDigitalDataModel
     {
+        //private string _ignored;
         [Key]
         public string IdentityField { get; set; }
 
@@ -19,11 +21,34 @@ namespace DFC.Digital.Data.Model
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Title { get; set; }
 
+        [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.Keyword)]
+        [AddWeighting(1000)]
+        public string TitleAsKeyword
+        {
+            get
+            {
+                return Title.ToLower();
+            }
+        }
+
         [IsSearchable, IsFilterable, IsSuggestible, AddWeighting(90)]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> AlternativeTitle { get; set; }
 
+        [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.Keyword)]
+        [AddWeighting(1000)]
+        public IEnumerable<string> AltTitleAsKeywords
+        {
+            get
+            {
+                return AlternativeTitle?.Select(a => a.ToLower());
+            }
+        }
+
         [IsSearchable, AddWeighting(50)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string Overview { get; set; }
 
         [IsFilterable, IsSortable, IsFacetable]
@@ -37,6 +62,7 @@ namespace DFC.Digital.Data.Model
         public string UrlName { get; set; }
 
         [IsSearchable, IsFilterable, AddWeighting(40)]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public IEnumerable<string> JobProfileCategories { get; set; }
 
         [IsSearchable, IsFilterable]
@@ -68,18 +94,23 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> JobAreas { get; set; }
 
         [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string CollegeRelevantSubjects { get; set; }
 
         [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string UniversityRelevantSubjects { get; set; }
 
         [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string ApprenticeshipRelevantSubjects { get; set; }
 
         [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string WYDDayToDayTasks { get; set; }
 
         [IsSearchable]
+        [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string CareerPathAndProgression { get; set; }
     }
 }

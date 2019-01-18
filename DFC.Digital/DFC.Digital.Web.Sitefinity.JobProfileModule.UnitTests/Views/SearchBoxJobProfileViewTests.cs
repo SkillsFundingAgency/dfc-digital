@@ -95,8 +95,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             // Asserts
             if (showComputedSearchTerm)
             {
-                var returnedVal = GetSearchComputedTermParagraph(htmlDom);
-
                 GetSearchComputedTermParagraph(htmlDom).Should().Be($"ComputedSearchTerm: {model.ComputedSearchTerm}");
             }
             else

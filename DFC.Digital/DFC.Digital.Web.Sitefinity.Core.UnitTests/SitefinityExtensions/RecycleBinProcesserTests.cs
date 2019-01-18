@@ -3,7 +3,7 @@ using FakeItEasy;
 using System;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class RecycleBinProcesserTests
     {

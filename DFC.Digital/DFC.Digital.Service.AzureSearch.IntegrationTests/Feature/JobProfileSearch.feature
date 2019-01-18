@@ -339,7 +339,7 @@ When I search using the search term '<SearchTerm>'
 			| Profile && Job       | 6          |
 			| Profile & Job        | 6          |
 			| Profile \|\| Job     | 6          |
-			| Veterinary AND nurse | 5          |
+			| Veterinary AND nurse | 1          |
 			| (GP)                 | 1          |
 			| Co-ordinator         | 2          |
 
@@ -425,10 +425,9 @@ Scenario: [DFC-1617 - A1] Fuzzy Search - Match incorrectly spelled term against 
          | Projectionist                 | Operators                     |                      |                        |
          | Theater operators             | Projectionist, film projector |                      |                        |
 	When I search using the search term 'Projeionist'
-    Then the result list will contain '3' profile(s)
+    Then the result list will contain '2' profile(s)
 	And the profiles are listed in no specific order:
          | Title             | AlternativeTitle              | JobProfileSpecialism | HiddenAlternativeTitle |
-         | Movie operator    | Addition                      | Projectionist        |                        |
          | Projectionist     | Operators                     |                      |                        |
          | Theater operators | Projectionist, film projector |                      |                        |
 

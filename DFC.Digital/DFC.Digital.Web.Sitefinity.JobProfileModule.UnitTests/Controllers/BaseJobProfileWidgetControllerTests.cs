@@ -20,12 +20,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [Theory]
         [InlineData("Plumber", "plumber")]
         [InlineData("Colon Hydrotherapist", "colon hydrotherapist")]
-        public void DynamicSectionTitleWithLowerCaseTest(string title, string expected)
+        public void DynamicSectionTitleWithLowercaseTest(string title, string expected)
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var socCodeRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -61,8 +59,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var socCodeRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
@@ -98,8 +94,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Setup the fakes and dummies
             var repositoryFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
-            var socCodeRepositoryFake = A.Fake<IJobProfileSocCodeRepository>(ops => ops.Strict());
-            var coursesearchFake = A.Fake<ICourseSearchService>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var sitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());

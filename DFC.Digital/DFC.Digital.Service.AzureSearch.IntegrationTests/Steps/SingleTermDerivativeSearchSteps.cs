@@ -14,22 +14,14 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
     public class SingleTermDerivativeSearchSteps
     {
         private SearchResult<JobProfileIndex> results;
-        private ISearchService<JobProfileIndex> searchService;
-        private ISearchIndexConfig searchIndex;
         private ISearchQueryService<JobProfileIndex> searchQueryService;
-        private IAsyncHelper asyncHelper;
 
         public SingleTermDerivativeSearchSteps(
             ITestOutputHelper outputHelper,
-            ISearchService<JobProfileIndex> searchService,
-            ISearchIndexConfig searchIndex,
             ISearchQueryService<JobProfileIndex> searchQueryService)
         {
             this.OutputHelper = outputHelper;
-            this.searchService = searchService;
-            this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
-            asyncHelper = new AsyncHelper();
         }
 
         private ITestOutputHelper OutputHelper { get; set; }
@@ -52,7 +44,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
         public void ThenTheResultWillContainMoreThanResultAndShouldBeInTheFirstPage(string jobProfile)
         {
             //Log results
-            OutputHelper.WriteLine($"Expecte to see {jobProfile} in results, Number of results returned {results.Results.Count()} actual result {results.ToJson()}");
+            OutputHelper.WriteLine($"Expect to see {jobProfile} in results, Number of results returned {results.Results.Count()} actual result {results.ToJson()}");
             results.Results.Count().Should().BeGreaterOrEqualTo(1);
             results.Results.Any(a => a.ResultItem.Title.Equals(jobProfile, StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
         }

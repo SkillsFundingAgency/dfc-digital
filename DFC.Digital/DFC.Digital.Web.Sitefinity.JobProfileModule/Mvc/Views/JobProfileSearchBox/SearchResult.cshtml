@@ -9,25 +9,24 @@
                         Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
                     </h1>
                 </label>
-                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
-                    @type = "search",
-                    @id = "search-main",
-                    @PlaceHolder = Model.PlaceholderText,
+                 
+                <noscript>
+                    @Html.TextBoxFor(model => model.SearchTerm)
+                </noscript>
+                <div class="header-search-content">
+                    <label for="my-autocomplete">GDS Accessibility Search</label>
+                    <div id="my-autocomplete-container"></div>
+                </div>
+                @Html.Hidden("searchConfig", null,   new{ @class = "search-input js-autocomplete",
                     data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
                     data_autocomplete_maxlength = Model.AutoCompleteMaximumCharacters,
                     data_autocomplete_source = "/searchautocomplete",
                     data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
-                    data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
-                })
+                    data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching})
             </div>
             <div class="search-submit">
                 <button type="submit" class="button">Search</button>
             </div>
-        </div>
-        
-        <div class="header-search-content">
-            <label for="my-autocomplete">GDS Accessibility Search</label>
-            <div id="my-autocomplete-container"></div>
         </div>
 
         <div class="search-dym">

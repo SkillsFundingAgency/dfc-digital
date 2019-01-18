@@ -147,6 +147,8 @@ var id = 'my-autocomplete';
 accessibleAutocomplete({
     element: element,
     id: id,
+    name: 'SearchTerm',
+    minLength : 3,
     source: suggest
 });
 

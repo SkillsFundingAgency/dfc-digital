@@ -75,8 +75,8 @@ namespace DFC.Digital.Service.AzureSearch
                     .Split(' ')
                     .Aggregate(
                         newSearchTerm,
-                        (current, term) => current + (term.Contains("-") ? term.Trim() : CreateFuzzyAndContainTerm(term)))
-                : trimmedTerm.Contains("-") ? trimmedTerm : CreateFuzzyAndContainTerm(trimmedTerm);
+                        (current, term) => current + (term.Contains("-") ? term.Trim() : CreateContainTerm(term)))
+                : trimmedTerm.Contains("-") ? trimmedTerm : CreateContainTerm(trimmedTerm);
         }
 
         public string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties)
@@ -182,9 +182,9 @@ namespace DFC.Digital.Service.AzureSearch
             return commonWords.Any(w => w.Equals(term, StringComparison.OrdinalIgnoreCase));
         }
 
-        public string CreateFuzzyAndContainTerm(string trimmedTerm)
+        public string CreateContainTerm(string trimmedTerm)
         {
-            return $"/.*{trimmedTerm}.*/ {trimmedTerm}~";
+            return $"/.*{trimmedTerm}.*/";
         }
 
         public string TrimSuffixFromSingleWord(string searchTerm)

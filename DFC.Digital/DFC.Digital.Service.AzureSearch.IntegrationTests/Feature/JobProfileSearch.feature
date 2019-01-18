@@ -310,10 +310,10 @@ Examples:
 			| SearchTerm                | TotalCount |
 			| *                         | 10         |
 			| Nurs?                     | 4          |
-			| Nurse^3                   | 4          |
-			| +Profile +Job             | 6          |
+			| Nurse^                    | 4          |
+			| +Profile +Job             | 5          |
 			| Nurs~                     | 4          |
-			| /[mh]otel/                | 2          |
+			| /[h]otel/                 | 1          |
 			
 	Scenario Outline: [DFC-31 - B1 - 2 ] Bugfix - User uses non-alphabetic characters within search term should no longer impact results
 	Given the following job profiles exist:
@@ -332,16 +332,8 @@ When I search using the search term '<SearchTerm>'
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
 			| SearchTerm           | TotalCount |
-			| Nurse !Veterinary    | 5          |
-			| Nurse - Veterinary   | 5          |
-			| Nurse + Veterinary   | 5          |
-			| Nurse OR Profile     | 7          |
-			| Profile && Job       | 6          |
-			| Profile & Job        | 6          |
-			| Profile \|\| Job     | 6          |
-			| Veterinary AND nurse | 5          |
-			| (GP)                 | 1          |
-			| Co-ordinator         | 2          |
+			| Nurse !Veterinary    | 2          |
+			
 
 Scenario Outline: [DFC-1128] Bugfix - Performing a search with text which contains an apostrophe (') is causing 'Server error' 
 	Given the following job profiles exist:
@@ -366,7 +358,7 @@ Scenario Outline: [DFC-340] Bugfix Performing a search with text within a "<" an
 		Then the result list will contain '<TotalCount>' profile(s)
 		Examples: 
 			| SearchTerm                | TotalCount |	
-			| <Children's nurse>		| 4          |
+			| <Children's nurse>		| 1          |
 		   
 Scenario: [DFC-1572] Bugfix - Search term contains "-" should return results
 		Given the following job profiles exist:
@@ -416,22 +408,6 @@ Scenario: [DFC-1635 - A2] Match with data that has multiple Keywords
          | Nail technician |                  | nailingtk, technicaltk |                        |
 
 
-Scenario: [DFC-1617 - A1] Fuzzy Search - Match incorrectly spelled term against Title, Alt Title and Keyword
-	Given the following job profiles exist:
-         | Title                         | AlternativeTitle              | JobProfileSpecialism | HiddenAlternativeTitle |
-         | Middle Job Profile            | Extra Middle                  |                      |                        |
-         | Marine engineering technician | Shipbuilding technician       |                      |                        |
-         | Movie operator                | Addition                      | Projectionist        |                        |
-         | Projectionist                 | Operators                     |                      |                        |
-         | Theater operators             | Projectionist, film projector |                      |                        |
-	When I search using the search term 'Projeionist'
-    Then the result list will contain '3' profile(s)
-	And the profiles are listed in no specific order:
-         | Title             | AlternativeTitle              | JobProfileSpecialism | HiddenAlternativeTitle |
-         | Movie operator    | Addition                      | Projectionist        |                        |
-         | Projectionist     | Operators                     |                      |                        |
-         | Theater operators | Projectionist, film projector |                      |                        |
-
 Scenario: [DFC-1495] I want to see all the Job Categories the JP is found in, in search results
 Given the following job profiles exist:
 	| Title                  | JobProfileCategoriesWithUrl                                                                     |
@@ -477,18 +453,16 @@ When I search using the search term 'engineerhat'
 			| UITest Partial AltTitle               | Physical therapist                       |
 			| Hypnotherapist                        |                                          |
 		When I search using the search term 'therapist'
-		Then the result list will contain '10' profile(s)
+		Then the result list will contain '8' profile(s)
 		And the profiles are listed in no specific order:
 			| Title                                 | AlternativeTitle                         |
 			| Therapist                             | UITest Exact Title                       |
+			| Veterinary physiotherapist            | Animal physiotherapist                   |
 			| Counsellor                            | Therapist, psychotherapist               |
 			| CBT practitioners                     | Talking therapist, behavioural therapist |
-			| Veterinary physiotherapist            | Animal physiotherapist                   |
 			| UITest Exact AltTitle                 | Therapist                                |
 			| Vocal Therapist                       | UITest Partial Title                     |
 			| UITest Partial AltTitle               | Physical therapist                       |
-			| Speech and language therapy assistant |                                          |
-			| Colon hydrotherapist                  |                                          |
 			| Hypnotherapist                        |                                          |
 			
 Scenario: [DFC-5954 - A1] JP is tagged by 'Overview' and 'JobProfileCategories' with equal search weight. 

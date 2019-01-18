@@ -60,9 +60,9 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         }
 
         [Theory]
-        [InlineData("*", "/.*.*/ ~")]
-        [InlineData("term1", "term1 /.*term1.*/ term1~")]
-        [InlineData("term1 term2", "\"term1 term2\" /.*term1.*/ term1~/.*term2.*/ term2~")]
+        [InlineData("*", "/.*.*/")]
+        [InlineData("term1", "term1 /.*term1.*/")]
+        [InlineData("term1 term2", "\"term1 term2\" /.*term1.*//.*term2.*/")]
         public async Task SearchActualBuilderAsyncTest(string searchTerm, string expectedComputedSearchTerm)
         {
             //Arrange

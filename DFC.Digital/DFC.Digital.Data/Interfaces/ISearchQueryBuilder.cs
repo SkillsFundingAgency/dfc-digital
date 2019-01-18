@@ -28,6 +28,6 @@ namespace DFC.Digital.Data.Interfaces
 
         string ReplaceSuffixFromSingleWord(string trimmedWord);
 
-        string CreateFuzzyAndContainTerm(string trimmedTerm);
+        string CreateContainTerm(string trimmedTerm);
     }
 }

@@ -23,6 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
     /// </summary>
     public class JobProfileSearchBoxControllerTests
     {
+        public JobProfileSearchBoxControllerTests()
+        {
+        }
+
         [Theory]
         [InlineData("Test", SearchWidgetPageMode.SearchResults, 20)]
         [InlineData("Test", SearchWidgetPageMode.SearchResults, 1)]

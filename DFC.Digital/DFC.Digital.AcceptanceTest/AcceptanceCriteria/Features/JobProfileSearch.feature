@@ -19,7 +19,7 @@ Scenario: [DFC-340 - A1] Performing a search with text within escaped characters
 
 Scenario: Perform a search that will return 0 results
 	Given that I am viewing the Home page
-	When I search using '<zap%4$4%$55$%$5$%545%>'
+	When I search using 'return0results'
 	Then the no results message is displayed
 
 Scenario: [DFC-1342 - A1] Search Page displays the correct breadcrumb and links to the Homepage
@@ -72,10 +72,3 @@ Scenario: [DFC-1495 - A1] Performing a search displays Job categories and clicki
 	And the results display the Found In category text
 	When I click the first category link on result no '1'
 	Then I am redirected to the correct job category page
-
-
-Scenario: Search for all Job Profiles
-	Given I search for *
-	When I add all the results to a list
-	And I search for each title in the list
-	Then there should be no Unmatched titles

@@ -1,9 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
@@ -26,7 +29,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
-
             Bootstrapper.Initialized += Bootstrapper_Initialized;
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
 
@@ -47,6 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 FeatherActionInvokerCustom.Register();
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
             {
@@ -65,10 +68,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            var sitemapHandler = autofacLifetimeScope.Resolve<SitemapHandler>();
+            var sitemapHandler = autofacLifetimeScope.Resolve<SiteMapHandler>();
 
             // sets the collection of entries to modified collection
-            evt.Entries = sitemapHandler.ManipulateSitemap(evt.Entries.ToList());
+            evt.Entries = sitemapHandler.ManipulateSiteMap(evt.Entries.ToList());
         }
 
         private static void ObjectFactory_RegisteredIoCTypes(object sender, EventArgs e)
@@ -92,6 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 ObjectFactory.Container.RegisterInstance(autofacContainer);
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));
+                GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(autofacContainer);
 
                 //Application lifetime scope
                 ObjectFactory.Container.RegisterInstance(autofacContainer.BeginLifetimeScope());

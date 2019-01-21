@@ -112,7 +112,7 @@
     <Compile Include="AzGateway\TestSuggestBuilder.cs" />
     <Compile Include="DfcSearchQueryBuilderTests.cs" />
     <Compile Include="DfcSearchQueryServiceTests.cs" />
-    <Compile Include="JobProfileSearchResultsManipulatorTests.cs" />
+    <Compile Include="JobProfileSearchManipulatorTests.cs" />
     <Compile Include="PreSearchFilterStateManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

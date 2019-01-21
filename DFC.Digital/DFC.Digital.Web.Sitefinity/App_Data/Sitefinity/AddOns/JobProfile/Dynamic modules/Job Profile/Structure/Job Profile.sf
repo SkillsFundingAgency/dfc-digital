@@ -273,7 +273,7 @@
       "CheckFieldPermissions": false,
       "PageId": "7e560616-3197-4475-8905-94f4a7b336a7",
       "Id": "65da21c7-712b-4d83-b568-04d04355324d",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Apprenticeship Link",
@@ -543,7 +543,7 @@
       "CheckFieldPermissions": false,
       "PageId": "64fc8ca6-d83e-486f-9301-0073e64d740a",
       "Id": "0fd7ab9b-6c20-4e7a-b757-0d0295bf257b",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Skill",
@@ -815,7 +815,7 @@
       "CheckFieldPermissions": false,
       "PageId": "f223390c-3e6b-4724-b98d-c813fa8604f4",
       "Id": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "College Link",
@@ -1085,7 +1085,7 @@
       "CheckFieldPermissions": false,
       "PageId": "1cc35603-3732-4004-a348-d09d9259a622",
       "Id": "b2c4f363-63e7-4ec4-b6f3-1d582fbd733e",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Apprenticeship Requirement",
@@ -1323,7 +1323,7 @@
       "CheckFieldPermissions": false,
       "PageId": "425859f4-6e6f-4dd0-bae2-90bbbe98687b",
       "Id": "3d683643-1394-4636-9c27-4d830d903c53",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Restriction",
@@ -1561,7 +1561,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9e64a344-3e50-4707-8aae-ce5648e096ac",
       "Id": "3fa194e3-187c-49c6-9e6f-51a4c579d8e7",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "College Requirement",
@@ -1799,7 +1799,7 @@
       "CheckFieldPermissions": false,
       "PageId": "5c423bbf-67ad-4a95-ae45-30d2fe2aef5e",
       "Id": "42b76ae2-cdc1-4dec-948e-5ebf5e910c10",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "University Link",
@@ -2070,7 +2070,7 @@
       "CheckFieldPermissions": false,
       "PageId": "a6f31a12-b372-4136-8f83-458890b211f3",
       "Id": "21300621-3389-43f0-82cd-780a87bc64ff",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Location",
@@ -2341,7 +2341,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ef37060-30ed-4441-b7bf-2d7487251405",
       "Id": "79c31c54-a32e-4ee8-a153-818447136e5a",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Apprenticeship Vacancy",
@@ -2756,7 +2756,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Environment",
@@ -3027,7 +3027,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ca36593-1ac3-460a-aacf-56a37bfd1a17",
       "Id": "9ebaf9c9-5fa5-4d1a-8d94-baaf14631afb",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "University Requirement",
@@ -3265,7 +3265,7 @@
       "CheckFieldPermissions": false,
       "PageId": "73f4bbb7-7be3-4abb-939c-ad70cbc18c1c",
       "Id": "132608ea-139c-4eba-a6d6-cbecc44b9672",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "SOC Skills Matrix",
@@ -3338,7 +3338,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "cd51a96c-a06e-43f7-a2da-abeb82c3b716",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3371,7 +3371,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "2fa7d3bb-0823-47ea-bbbb-19770ae7c828",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3405,7 +3405,7 @@
           "ParentSectionId": "bb098019-1091-40b4-aa8a-1a0d785a1b86",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "fef4b430-24ab-4db9-8362-b768678b5eb5",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3438,7 +3438,7 @@
           "ParentSectionId": "bb098019-1091-40b4-aa8a-1a0d785a1b86",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "373d76ce-c5c9-4a0c-b9dc-fbec74ea9234",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3479,7 +3479,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "85b3fb6b-22bc-4912-9375-52f34d8669f5",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3520,7 +3520,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "b2c1b77b-d3b7-46b3-aab0-5f8e280c1149",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3535,7 +3535,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "872c4946-3c89-4db2-b6d2-3eed93579cd6",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3551,7 +3551,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "02b4992d-0c85-46eb-96ae-f2d9e2b5b193",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3568,7 +3568,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "940771f4-cabc-4988-9d4b-7b0f787a07f7",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3615,7 +3615,7 @@
           "GridColumnOrdinal": 5,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "8b15ac9f-33d3-4ad4-aae3-bd68565b1286",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3631,7 +3631,7 @@
           "GridColumnOrdinal": 7,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "41f1defb-213b-4d10-b7e0-0a4c2b8f8388",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "a476038b-4188-474d-88af-ccc192794d48",
@@ -3647,7 +3647,7 @@
           "GridColumnOrdinal": 8,
           "ParentSectionId": "c3a45e90-5db6-4aa4-9df5-761f9955c4a2",
           "Id": "ba2a8480-d4d2-4139-870b-7bc6216f2be2",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         }
       ],
       "Sections": [
@@ -3693,7 +3693,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6054b1db-5387-4cf9-9de0-c84ea30069a5",
       "Id": "a476038b-4188-474d-88af-ccc192794d48",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Registration",
@@ -3931,7 +3931,7 @@
       "CheckFieldPermissions": false,
       "PageId": "47e71b55-46fd-4d58-b2d0-fcf9fac81677",
       "Id": "b074b87e-ede1-472c-996b-dcb22db4110e",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -4265,7 +4265,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2018-10-04T10:12:42.82Z"
+      "LastModified": "2018-12-12T12:42:54.887Z"
     },
     {
       "DisplayName": "Job Profile",
@@ -4832,7 +4832,7 @@
           "ParentSectionId": "fe725afb-3806-43c3-aa2e-bb75db38d82d",
           "TypeUIName": "\n                                Choices\n                            ",
           "Id": "14e0f91c-83e3-4d3b-a671-e15dc8c0c6d6",
-          "LastModified": "2018-10-25T15:35:50.323Z"
+          "LastModified": "2018-12-12T12:42:54.887Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -4865,7 +4865,7 @@
           "ParentSectionId": "fe725afb-3806-43c3-aa2e-bb75db38d82d",
           "TypeUIName": "\n                                Yes / No\n                            ",
           "Id": "ecaac7a0-5067-48b2-9089-20c46949de53",
-          "LastModified": "2018-10-25T15:35:50.323Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -4898,7 +4898,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "a148dc42-42bb-452d-a3a5-bbab46e10897",
-          "LastModified": "2018-10-25T15:35:50.323Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5866,12 +5866,12 @@
           "VideoExtensions": "",
           "FileExtensions": "",
           "DefaultValue": "",
-          "Choices": "<choices><choice value=\"0\" text=\"\"></choice><choice value=\"1\" text=\"This job requires a thorough understanding of computer systems and applications.\"></choice><choice value=\"2\" text=\"You will be expected to know how to use a computer and tools to benefit this job.\"></choice><choice value=\"3\" text=\"You will be expected to use a computer confidently as part of this job.\"></choice><choice value=\"4\" text=\"Being able to use a computer terminal or hand-held device may be beneficial for this job.\"></choice></choices>",
+          "Choices": "<choices><choice value=\"0\" text=\"\"></choice><choice value=\"1\" text=\"this job requires a thorough understanding of computer systems and applications.\"></choice><choice value=\"2\" text=\"you will be expected to know how to use a computer and tools to benefit this job.\"></choice><choice value=\"3\" text=\"you will be expected to use a computer confidently as part of this job.\"></choice><choice value=\"4\" text=\"being able to use a computer terminal or hand-held device may be beneficial for this job.\"></choice></choices>",
           "ChoiceRenderType": "DropDownList",
           "ParentSectionId": "7ba4fadb-1df2-47c4-8859-2260b313c35a",
           "TypeUIName": "\n                                Choices\n                            ",
           "Id": "b2345d4c-e6a8-49d1-9de2-50df141b1053",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2019-01-10T09:42:48.237Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5911,7 +5911,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "b1e2d23b-cef5-4148-981a-b0afd2341361",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5973,7 +5973,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "b19d9b2d-8a38-4a5f-9488-a2912e0027fa",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6005,7 +6005,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "16c91f9a-c727-4f2a-81f6-6f4448f8a378",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6190,7 +6190,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "e0580852-b70d-40ba-b090-2fb858feeacd",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6223,7 +6223,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "d633e2ef-316a-4cce-8e25-6acc1696a56a",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6256,7 +6256,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "a5b01f5f-94bc-449c-a849-169d2f38efc6",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6289,7 +6289,7 @@
           "ParentSectionId": "73b090ee-0c87-4e50-a9d5-adae39ab21a9",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "5fca4295-af88-4684-8337-9bf8fa0f6df0",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6330,7 +6330,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "83cf6a3a-82bd-4079-9ded-18c967394bb8",
-          "LastModified": "2018-09-25T15:50:49.627Z"
+          "LastModified": "2018-12-12T10:28:45.183Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -6968,7 +6968,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2018-10-25T15:35:50.323Z"
+      "LastModified": "2019-01-10T09:42:48.237Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

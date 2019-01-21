@@ -11,26 +11,30 @@ namespace DFC.Digital.Service.AzureSearch
         where T : class
     {
         private readonly ISearchQueryBuilder queryBuilder;
-        private readonly ISearchResultsManipulator<T> searchResultsManipulator;
+        private readonly ISearchManipulator<T> searchManipulator;
 
         public DfcSearchQueryService(
             ISearchIndexClient indexClient,
             IAzSearchQueryConverter queryConverter,
             ISearchQueryBuilder queryBuilder,
-            ISearchResultsManipulator<T> searchResultsManipulator,
+            ISearchManipulator<T> searchManipulator,
             IApplicationLogger applicationLogger)
             : base(indexClient, queryConverter, applicationLogger)
         {
             this.queryBuilder = queryBuilder;
-            this.searchResultsManipulator = searchResultsManipulator;
+            this.searchManipulator = searchManipulator;
         }
 
         public override SearchResult<T> Search(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildExactMatchSearch(searchTerm) + queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
-            var res = base.Search(partialTermToSearch, properties ?? new SearchProperties());
-            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
+            var finalComputedSearchTerm = searchManipulator.BuildSearchExpression(searchTerm, cleanedSearchTerm, partialTermToSearch, properties);
+
+            var searchProperties = properties ?? new SearchProperties();
+            var res = base.Search(finalComputedSearchTerm, searchProperties);
+            var orderedResult = searchManipulator.Reorder(res, searchTerm, searchProperties);
 
             return orderedResult;
         }
@@ -38,9 +42,13 @@ namespace DFC.Digital.Service.AzureSearch
         public override async Task<SearchResult<T>> SearchAsync(string searchTerm, SearchProperties properties)
         {
             var cleanedSearchTerm = queryBuilder.RemoveSpecialCharactersFromTheSearchTerm(searchTerm, properties);
-            var partialTermToSearch = queryBuilder.BuildExactMatchSearch(searchTerm) + queryBuilder.BuildContainPartialSearch(cleanedSearchTerm, properties);
-            var res = await base.SearchAsync(partialTermToSearch, properties ?? new SearchProperties());
-            var orderedResult = searchResultsManipulator.Reorder(res, searchTerm, properties);
+            var trimmedSearchTerm = queryBuilder.TrimCommonWordsAndSuffixes(cleanedSearchTerm, properties);
+            var partialTermToSearch = queryBuilder.BuildContainPartialSearch(trimmedSearchTerm, properties);
+            var finalComputedSearchTerm = searchManipulator.BuildSearchExpression(searchTerm, cleanedSearchTerm, partialTermToSearch, properties);
+
+            var searchProperties = properties ?? new SearchProperties();
+            var res = await base.SearchAsync(finalComputedSearchTerm, searchProperties);
+            var orderedResult = searchManipulator.Reorder(res, searchTerm, searchProperties);
 
             return orderedResult;
         }

@@ -117,7 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 if (!string.IsNullOrEmpty(indexName) && index.StartsWith(indexName, StringComparison.OrdinalIgnoreCase))
                 {
                     activeIndex = index;
-                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger, asyncHelper);
+                    var jpIndexDoc = documents.ConvertToJobProfileIndex(jobProfileIndexEnhancer, applicationLogger);
 
                     //Requires a deep copy to ensure the enumerable is not executed again on a non-ui thread which sitefinity relies upon!!!
                     var copy = mapper.Map<IEnumerable<JobProfileIndex>>(jpIndexDoc);

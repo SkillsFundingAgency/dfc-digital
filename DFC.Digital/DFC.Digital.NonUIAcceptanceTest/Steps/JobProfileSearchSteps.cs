@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit.Abstractions;
 
-namespace DFC.Digital.NonUIAcceptanceTest.Steps
+namespace DFC.Digital.NonUIAcceptanceTest
 {
     [Binding]
     public class JobProfileSearchSteps
@@ -20,15 +20,13 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
         private const string AllAlternativeSearchResults = "AllAlternativeSearchResults";
         private const string AllTitleSearchResults = "AllTitleSearchResults";
 
-        private readonly ISearchIndexConfig searchIndex;
         private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
         private readonly ScenarioContext scenarioContext;
         private readonly ITestOutputHelper outputHelper;
 
-        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchIndexConfig searchIndex, ISearchQueryService<JobProfileIndex> searchQueryService, ScenarioContext scenarioContext)
+        public JobProfileSearchSteps(ITestOutputHelper outputHelper, ISearchQueryService<JobProfileIndex> searchQueryService, ScenarioContext scenarioContext)
         {
             this.outputHelper = outputHelper;
-            this.searchIndex = searchIndex;
             this.searchQueryService = searchQueryService;
             this.scenarioContext = scenarioContext;
         }
@@ -65,9 +63,9 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             {
                 foreach (var alternativeTitle in profile.ResultItem.AlternativeTitle)
                 {
-                    if (!searchResults.ContainsKey(alternativeTitle))
+                    if (!searchResults.ContainsKey(alternativeTitle) && !string.IsNullOrEmpty(alternativeTitle))
                     {
-                        searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle, new SearchProperties()));
+                        searchResults.Add(alternativeTitle, searchQueryService.Search(alternativeTitle));
                     }
                 }
             }
@@ -82,11 +80,17 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllAlternativeSearchResults);
             foreach (var item in searchResults)
             {
-                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                var result = item.Value.Results.FirstOrDefault();
+                var resultItem = result?.ResultItem;
                 if (resultItem is null || !resultItem.AlternativeTitle.Any(a => a.Equals(item.Key, StringComparison.OrdinalIgnoreCase)))
                 {
                     failures++;
-                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
+                    outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"} and alternative titles: {string.Join(",", resultItem?.AlternativeTitle)}");
+                    outputHelper.WriteLine($"Computed search term - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Count - : {item.Value.Count}");
+                    outputHelper.WriteLine($"Rank - : {result?.Rank}");
+                    outputHelper.WriteLine($"Score - : {result?.Score}");
+                    outputHelper.WriteLine($"Search parameters query string - : {item.Value.SearchParametersQueryString}");
                 }
             }
 
@@ -102,7 +106,7 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
 
             foreach (var profile in allProfiles.Results)
             {
-                searchResults.Add(profile.ResultItem.Title, searchQueryService.Search(profile.ResultItem.Title, new SearchProperties()));
+                searchResults.Add(profile.ResultItem.Title, searchQueryService.Search(profile.ResultItem.Title));
             }
 
             searchResults.SaveTo(scenarioContext, AllTitleSearchResults);
@@ -115,11 +119,17 @@ namespace DFC.Digital.NonUIAcceptanceTest.Steps
             var searchResults = scenarioContext.Get<Dictionary<string, SearchResult<JobProfileIndex>>>(AllTitleSearchResults);
             foreach (var item in searchResults)
             {
-                var resultItem = item.Value.Results.FirstOrDefault()?.ResultItem;
+                var result = item.Value.Results.FirstOrDefault();
+                var resultItem = result?.ResultItem;
                 if (resultItem is null || !resultItem.Title.Equals(item.Key, StringComparison.OrdinalIgnoreCase))
                 {
                     failures++;
-                    outputHelper.WriteLine($"Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
+                    outputHelper.WriteLine($"FAIL - Searched for {item.Key}, And the first result is Title: {resultItem?.Title ?? "NULL"}");
+                    outputHelper.WriteLine($"Computed Search Term - : {item.Value.ComputedSearchTerm}");
+                    outputHelper.WriteLine($"Count - : {item.Value.Count}");
+                    outputHelper.WriteLine($"Rank - : {result?.Rank}");
+                    outputHelper.WriteLine($"Score - : {result?.Score}");
+                    outputHelper.WriteLine($"Search Parameters Query String - : {item.Value.SearchParametersQueryString}");
                 }
             }
 

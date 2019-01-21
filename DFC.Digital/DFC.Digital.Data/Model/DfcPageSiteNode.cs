@@ -20,5 +20,11 @@ namespace DFC.Digital.Data.Model
         /// A string that represents the Title of the DFC Page Node.
         /// </value>
         public string Title { get; set; }
+
+        public bool Visible { get; set; }
+
+        public bool IsStandardPage { get; set; }
+
+        public string Parent { get; set; }
     }
 }

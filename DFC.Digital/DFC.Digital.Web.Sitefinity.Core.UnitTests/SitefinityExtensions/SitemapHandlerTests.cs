@@ -7,14 +7,14 @@ using System.Linq;
 using Telerik.Sitefinity.SitemapGenerator.Data;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.Core.Tests
+namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
-    public class SitemapHandlerTests
+    public class SiteMapHandlerTests
     {
         [Theory]
         [InlineData(true, 9, 10)]
         [InlineData(false, 5,  5)]
-        public void ManipulateSitemapTest(bool validCategory, int numberOfItems,  int expectedCount)
+        public void ManipulateSiteMapTest(bool validCategory, int numberOfItems,  int expectedCount)
         {
             //Setup the fakes and dummies
             var fakeRepository = A.Fake<IJobProfileCategoryRepository>();
@@ -23,10 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.Tests
             A.CallTo(() => fakeRepository.GetJobProfileCategories()).Returns(new EnumerableQuery<JobProfileCategory>(new List<JobProfileCategory> { new JobProfileCategory { Url = nameof(JobProfileCategory.Url) } }));
 
             //Instantiate & Act
-            var sitemapHandler = new SitemapHandler(fakeRepository);
+            var sitemapHandler = new SiteMapHandler(fakeRepository);
 
             //Act
-            var result = sitemapHandler.ManipulateSitemap(siteMapList);
+            var result = sitemapHandler.ManipulateSiteMap(siteMapList);
 
             //Assert
             result.Count().Should().Be(expectedCount);

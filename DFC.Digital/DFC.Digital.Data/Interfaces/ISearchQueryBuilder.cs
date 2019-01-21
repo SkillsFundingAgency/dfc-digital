@@ -10,10 +10,24 @@ namespace DFC.Digital.Data.Interfaces
 
         string BuildContainPartialSearch(string cleanedSearchTerm, SearchProperties properties);
 
-        string BuildExactMatchSearch(string searchTerm);
+        string BuildExactMatchSearch(string searchTerm, string partialSearchTerm, SearchProperties properties);
 
         string RemoveSpecialCharactersFromTheSearchTerm(string searchTerm, SearchProperties properties);
 
         string EscapeSpecialCharactersInSearchTerm(string searchTerm, SearchProperties properties);
+
+        string TrimCommonWordsAndSuffixes(string searchTerm, SearchProperties properties);
+
+        string Specialologies(string term, string replacedSuffixTerm);
+
+        string TrimAndReplaceSuffixOnCurrentTerm(string term);
+
+        bool IsCommonCojoinginWord(string term);
+
+        string TrimSuffixFromSingleWord(string searchTerm);
+
+        string ReplaceSuffixFromSingleWord(string trimmedWord);
+
+        string CreateContainTerm(string trimmedTerm);
     }
 }

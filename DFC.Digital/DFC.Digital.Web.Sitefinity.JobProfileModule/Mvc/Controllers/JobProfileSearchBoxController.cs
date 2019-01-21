@@ -131,6 +131,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public int AutoCompleteMinimumCharacters { get; set; } = 2;
 
         /// <summary>
+        /// Gets or sets the AutoComplete Maximum Characters
+        /// </summary>
+        /// <value>
+        /// The AutoComplete Minimum Characters.
+        /// </value>
+        [DisplayName("Character max limit on autocomplete")]
+        public int AutoCompleteMaximumCharacters { get; set; } = 7;
+
+        /// <summary>
         /// Gets or sets the Maximum Number ff displayed Suggestions.
         /// </summary>
         /// <value>
@@ -150,6 +159,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Text when Salary does not have values.  If you change this value, you will also need to change the reciprocal value in JobProfileDetails widget on 'Job profiles' page.")]
         public string SalaryBlankText { get; set; } = "Variable";
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the ShowComputedSearchTerm .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Show Computed Search Term")]
+        public bool ShowComputedSearchTerm { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether gets or sets the useraw .
+        /// </summary>
+        /// <value>
+        /// True or False.
+        /// </value>
+        [DisplayName("Use Raw Search Term")]
+        public bool UseRawSearchTerm { get; set; } = false;
 
         #endregion Public Properties
 
@@ -177,6 +204,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     {
                         PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                         SalaryBlankText = SalaryBlankText
@@ -194,6 +222,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     {
                         PlaceholderText = PlaceholderText,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
                     };
@@ -227,6 +256,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         PlaceholderText = PlaceholderText,
                         TotalResultsMessage = NoResultsMessage,
                         AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                        AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                         MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                         UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
                     };
@@ -247,6 +277,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 TotalResultsMessage = NoResultsMessage,
                 JobProfileUrl = new Uri(urlName, UriKind.RelativeOrAbsolute),
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching
             };
@@ -258,6 +289,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             if (!string.IsNullOrEmpty(term))
             {
+                if (term.Length > AutoCompleteMaximumCharacters)
+                {
+                    term = term.Substring(0, AutoCompleteMaximumCharacters);
+                }
+
                 var props = new SuggestProperties
                 {
                     UseFuzzyMatching = fuzzySearch,
@@ -296,22 +332,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 PlaceholderText = PlaceholderText,
                 SearchTerm = searchTerm,
                 AutoCompleteMinimumCharacters = AutoCompleteMinimumCharacters,
+                AutoCompleteMaximumCharacters = AutoCompleteMaximumCharacters,
                 MaximumNumberOfDisplayedSuggestions = MaximumNumberOfDisplayedSuggestions,
                 UseFuzzyAutoCompleteMatching = UseFuzzyAutoCompleteMatching,
                 JobProfileCategoryPage = JobProfileCategoryPage,
-                SalaryBlankText = SalaryBlankText
+                SalaryBlankText = SalaryBlankText,
+                ShowSearchedTerm = ShowComputedSearchTerm
             };
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 var pageNumber = page > 0 ? page : 1;
-                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize });
+                var searchTask = searchQueryService.SearchAsync(searchTerm, new SearchProperties { Page = pageNumber, Count = this.PageSize, UseRawSearchTerm = UseRawSearchTerm });
                 var spellCheckTask = spellcheckService.CheckSpellingAsync(searchTerm);
 
                 await Task.WhenAll(searchTask, spellCheckTask);
 
                 var results = searchTask.Result;
                 resultModel.Count = results.Count;
+                resultModel.Coverage = results.Coverage;
+                resultModel.ComputedSearchTerm = results.ComputedSearchTerm;
                 resultModel.PageNumber = pageNumber;
                 resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);
                 foreach (var resultItem in resultModel.SearchResults)

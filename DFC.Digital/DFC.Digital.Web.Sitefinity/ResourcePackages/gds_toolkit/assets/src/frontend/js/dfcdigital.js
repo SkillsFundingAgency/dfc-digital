@@ -120,7 +120,23 @@ $.extend($.ui.autocomplete.prototype, {
 //get all input boxes with class "autocomplete"
 $('.js-autocomplete').each(function () {
     $(this).autocomplete({
-        source: $(this).data("autocomplete-source") + '?maxNumberDisplayed=' + $(this).data("autocomplete-maxnumberdisplyed") + '&fuzzySearch=' + $(this).data('autocomplete-fuzzysearch'),
+        source: function (term, response) {
+            var searchTerm = term.term;
+            var maxnumberCharacters = $('.js-autocomplete').data("autocomplete-maxlength");
+
+            if (searchTerm.length > maxnumberCharacters) {
+                return;
+            }
+            //else : fetch your data, and call the 'response' callback
+            $.ajax({
+                url: $('.js-autocomplete').data("autocomplete-source"),
+                dataType: 'json',
+                data: {'term' : searchTerm,  'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
+                success: function (data) {
+                    response(data);
+                }
+            });
+        }, 
         minLength: $(this).data('autocomplete-minlength')
     });
 });

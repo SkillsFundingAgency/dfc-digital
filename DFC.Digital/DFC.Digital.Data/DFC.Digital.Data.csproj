@@ -93,7 +93,8 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
-    <Compile Include="Interfaces\ISearchResultsManipulator.cs" />
+    <Compile Include="Interfaces\IRecycleBinRepository.cs" />
+    <Compile Include="Interfaces\ISearchManipulator.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Model\FrameworkSkillSuppression.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />
     <Compile Include="Model\FrameworkSkillCombination.cs" />
+    <Compile Include="Model\BreadCrumbLink.cs" />
     <Compile Include="Model\JobProfileOverloadForSearch.cs" />
     <Compile Include="Model\JobProfileOverloadForWhatItTakes.cs" />
     <Compile Include="CMSExtension\Model\JobProfileReport.cs" />

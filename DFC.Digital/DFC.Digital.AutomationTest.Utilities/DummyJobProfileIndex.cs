@@ -61,5 +61,40 @@ namespace DFC.Digital.AutomationTest.Utilities
                 };
             }
         }
+
+        public static IEnumerable<SearchResultItem<JobProfileIndex>> GenerateJobProfileResultItemDummyCollectionWithOrderPicker(string title, bool useIndex = true)
+        {
+            return new List<SearchResultItem<JobProfileIndex>>
+            {
+                new SearchResultItem<JobProfileIndex>
+                {
+                    Rank = 1,
+                    ResultItem = new JobProfileIndex
+                    {
+                        IdentityField = $"dummy{title.ConvertToKey()}{(useIndex ? "1" : string.Empty)}",
+                        Title = $"Packer",
+                        UrlName = $"dummy{title.ConvertToKey()}{(useIndex ? "1" : string.Empty)}",
+                        AlternativeTitle = new[] { "Order packer", "order picker" },
+                        Overview = $"dummy{nameof(JobProfileIndex.Overview)}{(useIndex ? "1" : string.Empty)}",
+                        SalaryStarter = 10,
+                        SalaryExperienced = 10
+                    }
+                },
+                new SearchResultItem<JobProfileIndex>
+                {
+                    Rank = 2,
+                    ResultItem = new JobProfileIndex
+                    {
+                        IdentityField = $"dummy{title.ConvertToKey()}{(useIndex ? "2" : string.Empty)}",
+                        Title = $"Order Picker",
+                        UrlName = $"dummy{title.ConvertToKey()}{(useIndex ? "2" : string.Empty)}",
+                        AlternativeTitle = new[] { "Online personal shopper, warehouse assistant" },
+                        Overview = $"dummy{nameof(JobProfileIndex.Overview)}{(useIndex ? "2" : string.Empty)}",
+                        SalaryStarter = 10,
+                        SalaryExperienced = 10
+                    }
+                }
+            };
+        }
     }
 }

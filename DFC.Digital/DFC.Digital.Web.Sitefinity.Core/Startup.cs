@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             try
             {
-                if (!Bootstrapper.IsAppRestarting)
+                if (!Bootstrapper.IsReady)
                 {
                     ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, AutofacContainerFactory>(new ContainerControlledLifetimeManager());
 

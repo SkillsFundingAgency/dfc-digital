@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             try
             {
-                if (Bootstrapper.IsDataInitialized)
+                if (Bootstrapper.IsReady)
                 {
                     if (SystemManager.ApplicationModules.Any(p => p.Key == SearchModule.ModuleName))
                     {

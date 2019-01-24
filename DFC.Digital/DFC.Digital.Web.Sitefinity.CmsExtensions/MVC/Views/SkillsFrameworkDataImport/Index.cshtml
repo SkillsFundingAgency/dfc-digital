@@ -19,12 +19,11 @@
                 <input class="submit sfLinkBtn sfSave" type="submit" value="Run Selected Option">
             }
 
-
             <div style="margin-top:20px; border-top:solid; border-top-color:black">
                 @using (Html.BeginForm("ImportJobProfile", "SkillsFrameworkDataImport", FormMethod.Post))
                 {
                     <h2>Current Import status of SOCs in Onet</h2>
-                    <table style="width:900px;" >
+                    <table style="width:900px;">
                         <tr style="background-color:aliceblue;">
                             <td id="awaiting-update">SOCs awaiting import : @Model.SocMappingStatus.AwaitingUpdate</td>
                             <td id="update-completed">SOCs completed : @Model.SocMappingStatus.UpdateCompleted</td>

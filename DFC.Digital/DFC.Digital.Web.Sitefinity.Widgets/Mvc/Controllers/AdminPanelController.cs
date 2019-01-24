@@ -91,6 +91,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                             resultText = "Success - Sitefinity was restarted in FULL Restart Mode.";
                             systemRestartFlag = SystemRestartFlags.AttemptFullRestart;
                             break;
+
                         case "RESETMODEL":
                             resultText = "Success - Sitefinity was restarted in DATABASE Model Reset Mode.";
                             systemRestartFlag = SystemRestartFlags.ResetModel;
@@ -119,6 +120,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #endregion Actions
 
         #region Non Action Methods
+
         private static bool IsUserAdministrator()
         {
             var userAdminRole = ClaimsManager.GetCurrentIdentity().Roles.Where(x => x.Name == "Administrators").FirstOrDefault();

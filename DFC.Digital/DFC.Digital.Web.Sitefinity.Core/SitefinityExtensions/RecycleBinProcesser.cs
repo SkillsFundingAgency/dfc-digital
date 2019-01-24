@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public bool RunProcess(int itemCount)
         {
             webAppContext.CheckAuthenticationByAuthCookie();
-             return recycleBinRepository.DeleteVacanciesPermanently(itemCount);
+            return recycleBinRepository.DeleteVacanciesPermanently(itemCount);
         }
     }
 }

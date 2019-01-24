@@ -21,8 +21,8 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         private const string CacheContextQuery = "ctx";
 
         public ApprenticeshipVacancyReportController(
-            IApplicationLogger loggingService, 
-            IJobProfileReportRepository reportRepository, 
+            IApplicationLogger loggingService,
+            IJobProfileReportRepository reportRepository,
             IWebAppContext webAppContext,
             ICachingPolicy cachingPolicy) : base(loggingService)
         {
@@ -54,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
             return View(avvm);
         }
 
-        private  static IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
+        private static IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> CreateReportDataView(IEnumerable<JobProfileApprenticeshipVacancyReport> reportData)
         {
             var reportDataView = new List<JobProfileApprenticeshipVacancyItemViewModel>();
 

@@ -1,10 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Web.Mvc;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using System;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
@@ -64,7 +64,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
         [DisplayName("Not Allowed Message")]
         public string NotAllowedMessage { get; set; } = "You are not allowed to use this functionality. Only Administrators are.";
 
-
         /// <summary>
         /// Gets or sets the First Paragraph.
         /// </summary>
@@ -119,10 +118,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             importSkillsFrameworkDataService.ImportFrameworkSkills();
                             importResult.ActionCompleted = "Imported Onet Skills";
                             break;
+
                         case "UPDATESOCOCCUPATIONALCODES":
                             importSkillsFrameworkDataService.UpdateSocCodesOccupationalCode();
                             importResult.ActionCompleted = "Updated SOC with Onet Occupational Codes";
                             break;
+
                         case "RESETSOCIMPORTALLSTATUS":
                             importSkillsFrameworkDataService.ResetAllSocStatus();
                             importResult.ActionCompleted = "Import status for all SOCs has been reset  ";
@@ -132,10 +133,10 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             importSkillsFrameworkDataService.ResetStartedSocStatus();
                             importResult.ActionCompleted = "Import status for Started SOCs has been reset  ";
                             break;
-                            default:
+
+                        default:
                             importResult.ActionCompleted = "Action unknown - no process was run.";
                             break;
-
                     }
                 }
                 catch (Exception ex)
@@ -153,7 +154,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
 
             return View("ImportResults", importResult);
         }
-
 
         [HttpPost]
         public ActionResult ImportJobProfile(string jobProfileSoc)
@@ -178,7 +178,6 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                 {
                     otherMessage = $"{ex.Message} <br /> {ex.InnerException} <br /> {ex.StackTrace}";
                 }
-               
             }
             else
             {

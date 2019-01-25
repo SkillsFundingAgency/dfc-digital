@@ -77,20 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             try
             {
-                IContainer existingAutofacContainer = null;
-                try
-                {
-                    if (ObjectFactory.Container.IsRegistered<IContainer>())
-                    {
-                        existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
-                    }
-                }
-                catch (ResolutionFailedException)
-                {
-                    //Sitefinity has not got an existing autofac container registered to its bootstrapper unity container.
-                }
-
-                var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
+                var autofacContainer = WebCoreAutofacConfig.BuildContainer();
 
                 ObjectFactory.Container.RegisterInstance(autofacContainer);
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));

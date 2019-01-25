@@ -471,6 +471,10 @@ that is bundled with the nuget package under the tools folder.
         <bindingRedirect oldVersion="0.0.0.0-3.5.0.0" newVersion="3.5.0.0" />
       </dependentAssembly>
       <dependentAssembly>
+        <assemblyIdentity name="Autofac.Integration.WebApi" culture="neutral" publicKeyToken="17863af14b0044da" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
         <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
       </dependentAssembly>

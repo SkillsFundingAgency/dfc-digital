@@ -26,21 +26,12 @@ namespace DFC.Digital.Web.Core
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class WebCoreAutofacConfig
     {
-        public static IContainer BuildContainer(IContainer existingContainer)
+        public static IContainer BuildContainer()
         {
             var builder = new ContainerBuilder();
-
             RegisterCoreComponents(builder);
 
-            if (existingContainer != null)
-            {
-                builder.Update(existingContainer);
-                return existingContainer;
-            }
-            else
-            {
-                return builder.Build();
-            }
+            return builder.Build();
         }
 
         private static void RegisterCoreComponents(ContainerBuilder builder)

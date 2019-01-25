@@ -466,6 +466,11 @@ that is bundled with the nuget package under the tools folder.
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <probing privatePath="dependencybin;bin" />
       <dependentAssembly>
+        <assemblyIdentity name="Autofac" publicKeyToken="17863af14b0044da" culture="neutral" />
+        <codeBase version="4.8.1.0" href="dependencybin\\Autofac.dll" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.0" newVersion="3.5.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
         <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
       </dependentAssembly>

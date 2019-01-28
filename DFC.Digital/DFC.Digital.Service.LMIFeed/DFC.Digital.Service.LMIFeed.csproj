@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DFC.Digital.Service.LMIFeed</RootNamespace>
     <AssemblyName>DFC.Digital.Service.LMIFeed</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -85,7 +85,6 @@
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </CodeAnalysisDictionary>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

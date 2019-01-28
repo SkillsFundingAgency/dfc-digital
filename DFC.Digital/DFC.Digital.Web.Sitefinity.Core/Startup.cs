@@ -16,15 +16,13 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
 
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.Core.Startup), "Install")]
+
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [ExcludeFromCodeCoverage]
-    public sealed class Startup
+    public static class Startup
     {
-        private Startup()
-        {
-        }
-
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
@@ -38,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             try
             {
-                if (!Bootstrapper.IsReady)
+                //if (!Bootstrapper.IsReady)
                 {
                     ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, AutofacContainerFactory>(new ContainerControlledLifetimeManager());
 

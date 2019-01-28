@@ -19,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     public static class SearchModuleInstaller
     {
-        public static void PreApplicationStart()
+        public static void Install()
         {
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
         }

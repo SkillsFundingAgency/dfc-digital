@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DFC.Digital.Service.CourseSearchProvider</RootNamespace>
     <AssemblyName>DFC.Digital.Service.CourseSearchProvider</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -92,7 +92,6 @@
     <None Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </None>
-    <None Include="app.config" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.wsdl" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.xsd">
       <SubType>Designer</SubType>

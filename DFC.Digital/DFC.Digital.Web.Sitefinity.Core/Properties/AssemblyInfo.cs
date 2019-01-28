@@ -1,7 +1,5 @@
-using DFC.Digital.Web.Sitefinity.Core;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Web;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -34,6 +32,7 @@ using System.Web;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: PreApplicationStartMethod(typeof(Startup), "Install")]
+
+// [assembly: PreApplicationStartMethod(typeof(Startup), "Install")]
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ControllerContainer]
 [assembly: Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers.Attributes.ResourcePackage]

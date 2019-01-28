@@ -3,8 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.Core.RazorGeneratorMvcStart), "Start")]
-
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]

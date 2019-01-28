@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string GetDynamicTitle(bool skipNoTitle)
         {
-            var changedTitle = CurrentJobProfile.WidgetContentTitle != string.Empty ? CurrentJobProfile.WidgetContentTitle : CurrentJobProfile.Title.ToLower();
+            var changedTitle = CurrentJobProfile.WidgetContentTitle.IsNullOrEmpty() ? CurrentJobProfile.Title.ToLower() : CurrentJobProfile.WidgetContentTitle;
             switch (CurrentJobProfile.DynamicTitlePrefix)
             {
                 case "No Prefix":

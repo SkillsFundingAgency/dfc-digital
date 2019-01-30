@@ -1,25 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JobProfile</id>
-    <version>2.0.6.2</version>
+    <version>2.0.6.3</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
-    <language>en-GB</language>
-    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>
-      Job Profile Dynamic Widget Content Title can be managed from Sitefinity back-end.
-    </description>
-    <references></references>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Job Profile Dynamic Widget Content Title can be managed from Sitefinity back-end</description>
+    <language>en-GB</language>
     <dependencies>
       <dependency id="PreSearchFilters" version="1.0.0.3" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="..\JobProfile\**\*.*" exclude="..\JobProfile\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\JobProfile" />
-    <file src="..\JobProfile\**\*.ps1" target="tools" />
-    <file src="..\JobProfile\**\*.psm1" target="tools" />
-  </files>
 </package>

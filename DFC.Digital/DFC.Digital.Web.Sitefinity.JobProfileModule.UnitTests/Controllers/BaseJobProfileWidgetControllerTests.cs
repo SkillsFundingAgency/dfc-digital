@@ -230,6 +230,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         [Theory]
         [InlineData("Test", "", "a test")]
+        [InlineData("Test", null, "a test")]
         [InlineData("Test", "WidgetContentTitleTest", "a WidgetContentTitleTest")]
         public void DynamicSectionTitleCheckForSpecialConditionTest(string title, string widgetContentTitle, string expected)
         {
@@ -256,7 +257,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 var result = jobProfileHowToBecomeController.GetDynamicTitle(false);
 
                 //Assert
-                result.Should().BeEquivalentTo(expected);
+                Assert.Equal(result, expected, ignoreCase: false);
             }
         }
 

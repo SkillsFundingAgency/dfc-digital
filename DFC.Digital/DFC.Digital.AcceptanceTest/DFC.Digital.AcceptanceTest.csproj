@@ -204,6 +204,7 @@
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
     <Compile Include="AcceptanceCriteria\Steps\JobProfileSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="**/*.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">

@@ -294,6 +294,7 @@
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
     <Compile Include="Steps\SingleTermDerivativeSearchSteps.cs" />
+    <Compile Include="**/*.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

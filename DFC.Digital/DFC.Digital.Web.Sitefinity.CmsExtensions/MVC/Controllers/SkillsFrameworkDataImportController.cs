@@ -132,6 +132,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.MVC.Controllers
                             importSkillsFrameworkDataService.ResetStartedSocStatus();
                             importResult.ActionCompleted = "Import status for Started SOCs has been reset  ";
                             break;
+
+                        case "EXPORTNEWONETMAPPINGS":
+                            importSkillsFrameworkDataService.ExportNewONetMappings();
+                            importResult.ActionCompleted = "New SOC to ONet mappings exported";
+                            break;
+
                             default:
                             importResult.ActionCompleted = "Action unknown - no process was run.";
                             break;

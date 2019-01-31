@@ -22,5 +22,7 @@ namespace DFC.Digital.Data.Interfaces
         string GetNextBatchOfSOCsToImport(int batchsize);
 
         IList<SocSkillMatrix> CreateSocSkillsMatrixRecords(SocCode soc);
+
+        UpdateSocOccupationalCodeResponse ExportNewONetMappings();
     }
 }

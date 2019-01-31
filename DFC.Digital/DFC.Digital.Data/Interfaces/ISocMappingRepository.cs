@@ -16,5 +16,7 @@ namespace DFC.Digital.Data.Interfaces
         SocMappingStatus GetSocMappingStatus();
 
         IQueryable<SocCode> GetSocsInStartedState();
+
+        void AddNewSOCMappings(IEnumerable<SocCode> newSocCodes);
     }
 }

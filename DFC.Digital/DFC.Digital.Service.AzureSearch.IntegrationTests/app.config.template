@@ -10,6 +10,9 @@
     <add key="DFC.Digital.SearchServiceName" value="__searchServiceName__" />
     <add key="DFC.Digital.SearchServiceAdminAPIKey" value="__searchServiceAdminApiKey__" />
   </appSettings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+  </startup>
   <specFlow>
     <!-- For additional details on SpecFlow configuration options see http://go.specflow.org/doc-config -->
     <unitTestProvider name="xUnit" />

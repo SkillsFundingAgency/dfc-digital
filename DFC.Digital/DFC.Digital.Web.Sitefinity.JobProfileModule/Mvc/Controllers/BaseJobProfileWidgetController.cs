@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         public string GetDynamicTitle(bool skipNoTitle)
         {
-            var changedTitle = CheckForAcronym(CurrentJobProfile.Title);
+            var changedTitle = CurrentJobProfile.WidgetContentTitle.IsNullOrEmpty() ? CurrentJobProfile.Title.ToLower() : CurrentJobProfile.WidgetContentTitle;
             switch (CurrentJobProfile.DynamicTitlePrefix)
             {
                 case "No Prefix":
@@ -71,44 +71,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 default:
                     return GetDefaultDynamicTitle(changedTitle);
             }
-        }
-
-        public string CheckForAcronym(string title)
-        {
-            return IsSpecialConditionWords(title)
-                ? title
-                : title.Split(' ').Aggregate(string.Empty, (current, next) => $"{current} {ChangeWordCase(next)}").Trim();
-        }
-
-        // Further investigation on implmenting Special Title Case for certain JobTitles will be done in the story - 6426
-        // https://skillsfundingagency.atlassian.net/browse/DFC-6426
-        public bool IsSpecialConditionWords(string word)
-        {
-            var specialConditionWords = new[]
-            {
-                "European Union official",
-                "Ofsted inspector",
-                "Royal Marines commando",
-                "Royal Navy officer",
-                "Royal Marines officer",
-                "Royal Navy rating",
-                "Merchant Navy deck officer",
-                "Merchant Navy engineering officer",
-                "Merchant Navy rating",
-                "Montessori teacher",
-                "Portage home visitor",
-                "Post Office customer service assistant",
-                "Civil Service executive officer",
-                "Civil Service administrative officer",
-                "Border Force officer",
-            };
-
-            return specialConditionWords.Any(s => word.StartsWith(s, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public string ChangeWordCase(string word)
-        {
-            return Regex.IsMatch(word, AcronymPattern) ? word : word.ToLower();
         }
 
         /// <summary>

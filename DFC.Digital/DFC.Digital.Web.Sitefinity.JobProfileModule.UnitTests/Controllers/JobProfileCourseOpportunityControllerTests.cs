@@ -41,7 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 new JobProfile
                 {
                     AlternativeTitle = $"dummy {nameof(JobProfile.AlternativeTitle)}",
-
+                    WidgetContentTitle = $"dummy {nameof(JobProfile.Title)}",
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",
@@ -152,6 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 ? new JobProfile
                 {
                     AlternativeTitle = $"dummy {nameof(JobProfile.AlternativeTitle)}",
+                    WidgetContentTitle = $"dummy {nameof(JobProfile.Title)}",
                     SalaryRange = $"dummy {nameof(JobProfile.SalaryRange)}",
                     Overview = $"dummy {nameof(JobProfile.Overview)}",
                     Title = $"dummy {nameof(JobProfile.Title)}",

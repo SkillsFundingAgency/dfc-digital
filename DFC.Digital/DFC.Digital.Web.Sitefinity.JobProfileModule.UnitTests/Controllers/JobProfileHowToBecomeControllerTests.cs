@@ -141,6 +141,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 new JobProfile
                 {
                     AlternativeTitle = nameof(JobProfile.AlternativeTitle),
+                    WidgetContentTitle = nameof(JobProfile.Title),
                     SalaryRange = nameof(JobProfile.SalaryRange),
                     Overview = nameof(JobProfile.Overview),
                     Title = nameof(JobProfile.Title),

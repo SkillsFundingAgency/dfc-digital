@@ -1020,6 +1020,10 @@
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.35.1.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.1.0.36.1.nupkg" />
     <Content Include="Content\MvcGrid\Fonts\GridGlyphs.woff" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.6.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.6.2.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.6.3.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.6.5.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -1027,7 +1031,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.6.1.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

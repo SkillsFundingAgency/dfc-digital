@@ -337,8 +337,8 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
         }
 
         [Theory]
-        [InlineData ("NewSOC", "NewONet", true, 4 )]
-        [InlineData("MatchingSOC", "MatchingONet", false, 3)]
+        [InlineData ("NewSOC", "ValidONetCode", true, 4 )]
+        [InlineData("ExistingSOC", "ValidONetCode", false, 3)]
         [InlineData("NewSOC", "", false, 3)]
         public void ExportNewONetMappingsTest(string cMSSOCCode, string cMSOnetCode, bool expectToInsertNewSOCs, int numberAuditMatches)
         {
@@ -348,13 +348,13 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
 
             var SocCodesFromOnet = new List<SocCode>
             {
-                new SocCode { SOCCode = "MatchingSOC", ONetOccupationalCode = "MatchingONet" }
+                new SocCode { SOCCode = "ExistingSOC", ONetOccupationalCode = "TestONetCode"}
             };
             A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).Returns(SocCodesFromOnet);
 
             var SocCodesFromCMS = new List<SocCode>
             {
-                new SocCode { SOCCode = cMSSOCCode, ONetOccupationalCode = cMSOnetCode }   //Null gets translated to ""
+                new SocCode { SOCCode = cMSSOCCode, ONetOccupationalCode = cMSOnetCode }  
             };
             A.CallTo(() => fakeJobProfileSocCodeRepository.GetSocCodes()).Returns(SocCodesFromCMS.AsQueryable());
        

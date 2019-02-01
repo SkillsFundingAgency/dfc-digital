@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
@@ -110,6 +111,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
         [InlineData(true, "UPDATEJPSKILLS  ", 10)]
         [InlineData(true, "RESETSOCIMPORTALLSTATUS", 10)]
         [InlineData(true, "resetsocimportstartedstatus", 10)]
+        [InlineData(true, "EXPORTNEWONETMAPPINGS", 10)]
         [InlineData(true, "", 10)]
         public void IndexModeTest(bool isAdmin, string mode, int batchSizeForImport)
         {
@@ -152,8 +154,12 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Controllers
                     case "RESETSOCIMPORTSTARTEDSTATUS":
                         A.CallTo(() => fakeImportSkillsFrameworkDataService.ResetStartedSocStatus()).MustHaveHappened();
                         break;
-                    default:
+                  
+                    case "EXPORTNEWONETMAPPINGS":
+                        A.CallTo(() => fakeImportSkillsFrameworkDataService.ExportNewONetMappings()).MustHaveHappened();
+                        break;
 
+                    default:
                         A.CallTo(() => fakeImportSkillsFrameworkDataService.UpdateSocCodesOccupationalCode()).MustNotHaveHappened();
                         A.CallTo(() => fakeImportSkillsFrameworkDataService.ImportFrameworkSkills()).MustNotHaveHappened();
                         break;

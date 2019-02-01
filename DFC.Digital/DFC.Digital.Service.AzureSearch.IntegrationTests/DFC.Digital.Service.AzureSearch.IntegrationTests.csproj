@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.props')" />
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
+  <Import Project="..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.tasks" Condition="Exists('..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.tasks')" />
+  <Import Project="..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.targets')" />
+  <Import Project="..\packages\SpecFlow.2.4.1\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.1\build\SpecFlow.targets')" />
   <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
+  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
+  <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -301,7 +307,10 @@
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
     <Compile Include="Steps\JobProfileSearchSteps.cs" />
     <Compile Include="Steps\SingleTermDerivativeSearchSteps.cs" />
-    <Compile Include="**/*.feature.cs" />
+    <Compile Include="Feature\JobProfileAutosuggest.feature.cs" />
+    <Compile Include="Feature\JobProfileByCategorySearch.feature.cs" />
+    <Compile Include="Feature\JobProfileSearch.feature.cs" />
+    <Compile Include="Feature\SingleTermDerivativeSearch.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -317,22 +326,18 @@
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="Feature\JobProfileAutosuggest.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileAutosuggest.feature.cs</LastGenOutput>
     </None>
     <None Include="Feature\JobProfileByCategorySearch.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfileByCategorySearch.feature.cs</LastGenOutput>
     </None>
     <None Include="Feature\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
-      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="Feature\SingleTermDerivativeSearch.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SingleTermDerivativeSearch1.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
@@ -424,10 +429,4 @@
   <PropertyGroup>
     <SpecFlowTasksPath>..\packages\SpecFlow.2.4.1\tools\specflow.exe</SpecFlowTasksPath>
   </PropertyGroup>
-  <Import Project="..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.tasks" Condition="Exists('..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.tasks')" />
-  <Import Project="..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.1\tools\TechTalk.SpecFlow.targets')" />
-  <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
-  <Import Project="..\packages\SpecFlow.2.4.1\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.1\build\SpecFlow.targets')" />
-  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
-  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.2.4.1\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
 </Project>

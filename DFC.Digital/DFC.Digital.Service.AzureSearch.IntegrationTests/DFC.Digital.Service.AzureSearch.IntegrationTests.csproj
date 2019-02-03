@@ -301,6 +301,26 @@
     <Compile Include="Config\DIHook.cs" />
     <Compile Include="Config\AutofacIntegrationTestModule.cs" />
     <Compile Include="Config\JobProfileIntegrationTestIndex.cs" />
+    <Compile Include="Feature\JobProfileAutosuggest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileAutosuggest.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\JobProfileByCategorySearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileByCategorySearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\JobProfileSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileSearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Feature\SingleTermDerivativeSearch1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingleTermDerivativeSearch.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\JobProfileAutosuggestSteps.cs" />
     <Compile Include="Steps\JobProfilesByCategorySteps.cs" />
@@ -322,18 +342,22 @@
     </None>
     <None Include="Feature\JobProfileAutosuggest.feature">
       <LastGenOutput>JobProfileAutosuggest.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <None Include="Feature\JobProfileByCategorySearch.feature">
       <LastGenOutput>JobProfileByCategorySearch.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <None Include="Feature\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="Feature\SingleTermDerivativeSearch.feature">
       <LastGenOutput>SingleTermDerivativeSearch1.feature.cs</LastGenOutput>
+      <Generator>SpecFlowSingleFileGenerator</Generator>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>

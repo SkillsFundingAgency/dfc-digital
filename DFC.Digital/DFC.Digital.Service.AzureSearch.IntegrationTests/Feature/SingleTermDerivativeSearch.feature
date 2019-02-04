@@ -1,58 +1,58 @@
 ﻿Feature: SingleTermDerivatives with suffix returns jobprofiles based upon relevance to serch term entered
 	Scenario Outline: [DFC-5229] All JobProfiles which have search term derivative against the Title on DIFFERENT profiles
 		Given the following job profiles exist:
-			| Title                              | AlternativeTitle           |
-			| Astronomer                         |                            |
-			| Criminal psychologist              |                            |
-			| Childminder                        |                            |
-			| Counsellor                         | Therapist, psychotherapist |
-			| Optomotrist                        |                            |
-			| Police constable                   |                            |
-			| Advertising copywriter             |                            |
-			| Advertising art director           |                            |
-			| Advertising media planner          |                            |
-			| Advertising account executive      |                            |
-			| Archaeologist                      |                            |
-			| Pharmacologist                     |                            |
-			| Zoologist                          |                            |
-			| Payroll administrator              |                            |
-			| Sales administrator                |                            |
-			| Pensions administrator             |                            |
-			| Database administrator             |                            |
-			| Arts administrator                 |                            |
-			| Biologist                          |                            |
-			| Plant biologist                    |                            |
-			| Diplomatic service officer         |                            |
-			| Ecologist                          |                            |
-			| Farmer                             |                            |
-			| Farm worker                        |                            |
-			| Farm secretary                     |                            |
-			| Fish farmer                        |                            |
-			| Colon hydrotherapist               |                            |
-			| Hypnotherapist                     |                            |
-			| Road traffic accident investigator |                            |
-			| Private investigator               |                            |
-			| Investment analyst                 |                            |
-			| Landscape architect                |                            |
-			| Landscaper                         |                            |
-			| Landscape gardener                 |                            |
-			| Laundry worker                     |                            |
-			| Meteorologist                      |                            |
-			| Nanotechnologist                   |                            |
-			| Youth offending service officer    |                            |
-			| Stunt performer                    |                            |
-			| Circus performer                   |                            |
-			| Print room operator                |                            |
-			| Print finisher                     |                            |
-			| Health promotion specialist        |                            |
-			| Screenwriter                       |                            |
-			| Tattooist                          |                            |
-			| Architectural technologist         |                            |
-			| Garment technologist               |                            |
-			| Critical care technologist         |                            |
-			| Leather technologist               |                            |
-			| Packaging technologist             |                            |
-			| Music promotions manager           |                            |
+        | Title                              | AlternativeTitle           | JobProfileSpecialism | HiddenAlternativeTitle | JobProfileCategories | Overview | CollegeRelevantSubjects | UniversityRelevantSubjects | ApprenticeshipRelevantSubjects | WYDDayToDayTasks | CareerPathAndProgression |
+        | Astronomer                         |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Criminal psychologist              |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Childminder                        |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Counsellor                         | Therapist, psychotherapist |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Optomotrist                        |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Police constable                   |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Advertising copywriter             |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Advertising art director           |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Advertising media planner          |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Advertising account executive      |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Archaeologist                      |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Pharmacologist                     |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Zoologist                          |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Payroll administrator              |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Sales administrator                |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Pensions administrator             |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Database administrator             |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Arts administrator                 |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Biologist                          |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Plant biologist                    |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Diplomatic service officer         |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Ecologist                          |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Farmer                             |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Farm worker                        |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Farm secretary                     |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Fish farmer                        |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Colon hydrotherapist               |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Hypnotherapist                     |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Road traffic accident investigator |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Private investigator               |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Investment analyst                 |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Landscape architect                |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Landscaper                         |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Landscape gardener                 |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Laundry worker                     |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Meteorologist                      |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Nanotechnologist                   |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Youth offending service officer    |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Stunt performer                    |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Circus performer                   |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Print room operator                |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Print finisher                     |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Health promotion specialist        |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Screenwriter                       |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Tattooist                          |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
+        | Architectural technologist         |                            |                      |                        |                      |          |                         |                            |                                |                  | extrafields              |
+        | Garment technologist               |                            |                      |                        |                      |          |                         |                            |                                | extrafields      |                          |
+        | Critical care technologist         |                            |                      |                        |                      |          |                         |                            | extrafields                    |                  |                          |
+        | Leather technologist               |                            |                      |                        |                      |          |                         | extrafields                |                                |                  |                          |
+        | Packaging technologist             |                            |                      |                        |                      |          | extrafields             |                            |                                |                  |                          |
+        | Music promotions manager           |                            |                      |                        |                      |          |                         |                            |                                |                  |                          |
 		When I search for search term '<SearchTerm>'
 		Then the result will contain more than 1 result and '<Title>' should be in the first page
 		Examples: 

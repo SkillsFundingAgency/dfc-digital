@@ -86,9 +86,14 @@ namespace DFC.Digital.Repository.ONET
              return GetAll().Where(where);
         }
 
-        public void AddNewSOCMappings(IEnumerable<SocCode> NewSocCodes)
+        public void AddNewSOCMappings(IEnumerable<SocCode> newSocCodes)
         {
-            foreach (var socCode in NewSocCodes)
+            if (newSocCodes == null)
+            {
+                throw new ArgumentNullException(nameof(newSocCodes));
+            }
+
+            foreach (var socCode in newSocCodes)
             {
                 onetDbContext.DFC_SocMappings.Add(new DFC_SocMappings { SocCode = socCode.SOCCode, ONetCode = socCode.ONetOccupationalCode, JobProfile = socCode.Description });
             }

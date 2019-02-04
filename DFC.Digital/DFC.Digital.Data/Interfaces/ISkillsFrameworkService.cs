@@ -24,5 +24,7 @@ namespace DFC.Digital.Data.Interfaces
         void SetSocStatusSelectedForUpdate(SocCode socCode);
 
         SocMappingStatus GetSocMappingStatus();
+
+        void AddNewSOCMappings(IEnumerable<SocCode> newSocCodes);
     }
 }

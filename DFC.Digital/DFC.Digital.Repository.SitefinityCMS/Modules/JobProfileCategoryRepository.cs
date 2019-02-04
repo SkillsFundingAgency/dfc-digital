@@ -36,7 +36,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     new SearchProperties
                     {
                         UseRawSearchTerm = true,
-                        Count = 100,
+                        Count = 1000,
                         FilterBy = $"{nameof(JobProfileIndex.JobProfileCategories)}/any(c: c eq '{category}')",
                         OrderByFields = new string[] { nameof(JobProfileIndex.Title) },
                     });

@@ -227,5 +227,32 @@ namespace DFC.Digital.Repository.ONET.UnitTests
                 result.Should().BeEquivalentTo(responseData);
             }
         }
+
+        [Fact]
+        public void AddNewSOCMappingsTest()
+        {
+            //Setup
+            var fakeDbContext = A.Fake<OnetSkillsFramework>();
+            var fakeDbSet = A.Fake<DbSet<DFC_SocMappings>>(c => c
+                    .Implements(typeof(IQueryable<DFC_SocMappings>))
+                    .Implements(typeof(IDbAsyncEnumerable<DFC_SocMappings>)));
+            var fakeMapper = A.Fake<IMapper>();
+            A.CallTo(() => fakeDbContext.DFC_SocMappings).Returns(fakeDbSet);
+            A.CallTo(() => fakeDbContext.SaveChanges()).Returns(1);
+
+            var repo = new SocMappingRepository(fakeDbContext, fakeMapper);
+            var testSOC = new SocCode() { SOCCode = "TestSOC1", ONetOccupationalCode = "TestONetCode1", Description = "TestDescription" };
+            var testSOCList = new List<SocCode>
+            {
+                testSOC
+            };
+ 
+            //Call
+            repo.AddNewSOCMappings(testSOCList);
+
+            //Asserts
+            A.CallTo(() => fakeDbContext.SaveChanges()).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
     }
 }

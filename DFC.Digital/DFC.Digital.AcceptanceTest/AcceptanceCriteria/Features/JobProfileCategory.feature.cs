@@ -60,8 +60,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Features
         
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
-var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
-testRunner.OnScenarioStart(clonedScenarioInfo);
+var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
+testRunner.OnScenarioInitialize(clonedScenarioInfo);
 testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
@@ -85,7 +85,7 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
             "e Homepage")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1342 - A3] Job Category Page displays the correct breadcrumb and links to th" +
             "e Homepage")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1342_A3JobCategoryPageDisplaysTheCorrectBreadcrumbAndLinksToTheHomepage(string browser)
         {
             this._browser = browser;
@@ -109,7 +109,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfileCategory")]
         [Xunit.TraitAttribute("Description", "Navigate between different categories")]
         [Xunit.TheoryAttribute(DisplayName="Navigate between different categories")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void NavigateBetweenDifferentCategories(string browser)
         {
@@ -152,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfileCategory")]
         [Xunit.TraitAttribute("Description", "Job Profile Category End to End Test")]
         [Xunit.TheoryAttribute(DisplayName="Job Profile Category End to End Test")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void JobProfileCategoryEndToEndTest(string browser)
         {

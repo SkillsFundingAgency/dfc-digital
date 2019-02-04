@@ -60,8 +60,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Features
         
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
-var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
-testRunner.OnScenarioStart(clonedScenarioInfo);
+var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
+testRunner.OnScenarioInitialize(clonedScenarioInfo);
 testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
@@ -85,9 +85,9 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TraitAttribute("FeatureTitle", "JobProfileSearch")]
         [Xunit.TraitAttribute("Description", "[DFC-165 - A1] When the search result item title is clicked then the user is dire" +
             "cted to the specific job profile page")]
-        [Xunit.InlineDataAttribute("Dental Nurse", "#{browsers}#", new string[] {
+        [Xunit.InlineDataAttribute("Dental Nurse", "chrome", new string[] {
                 "args:Dental Nurse"})]
-        [Xunit.InlineDataAttribute("Adult nurse", "#{browsers}#", new string[] {
+        [Xunit.InlineDataAttribute("Adult nurse", "chrome", new string[] {
                 "args:Adult nurse"})]
         public virtual void DFC_165_A1WhenTheSearchResultItemTitleIsClickedThenTheUserIsDirectedToTheSpecificJobProfilePage(string searchTerm, string browser, string[] exampleTags)
         {
@@ -114,7 +114,7 @@ this.ScenarioInitialize(scenarioInfo);
             "return a result")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-340 - A1] Performing a search with text within escaped characters that will " +
             "return a result")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_340_A1PerformingASearchWithTextWithinEscapedCharactersThatWillReturnAResult(string browser)
         {
             this._browser = browser;
@@ -136,7 +136,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfileSearch")]
         [Xunit.TraitAttribute("Description", "Perform a search that will return 0 results")]
         [Xunit.TheoryAttribute(DisplayName="Perform a search that will return 0 results")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void PerformASearchThatWillReturn0Results(string browser)
         {
             this._browser = browser;
@@ -159,7 +159,7 @@ this.ScenarioInitialize(scenarioInfo);
             "page")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1342 - A1] Search Page displays the correct breadcrumb and links to the Home" +
             "page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1342_A1SearchPageDisplaysTheCorrectBreadcrumbAndLinksToTheHomepage(string browser)
         {
             this._browser = browser;
@@ -187,7 +187,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfileSearch")]
         [Xunit.TraitAttribute("Description", "Search End To End Test")]
         [Xunit.TheoryAttribute(DisplayName="Search End To End Test")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void SearchEndToEndTest(string browser)
         {
@@ -230,7 +230,7 @@ this.ScenarioInitialize(scenarioInfo);
             "ates the searchbox")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1496 - A1] Starting a search displays Auto Suggest, and when selected, popul" +
             "ates the searchbox")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1496_A1StartingASearchDisplaysAutoSuggestAndWhenSelectedPopulatesTheSearchbox(string browser)
         {
             this._browser = browser;
@@ -260,7 +260,7 @@ this.ScenarioInitialize(scenarioInfo);
             "ion")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1494 - A1] Performing incorrectly spelled search suggests a Did You Mean opt" +
             "ion")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1494_A1PerformingIncorrectlySpelledSearchSuggestsADidYouMeanOption(string browser)
         {
             this._browser = browser;
@@ -290,7 +290,7 @@ this.ScenarioInitialize(scenarioInfo);
             "s you to the categories page")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1495 - A1] Performing a search displays Job categories and clicking one take" +
             "s you to the categories page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1495_A1PerformingASearchDisplaysJobCategoriesAndClickingOneTakesYouToTheCategoriesPage(string browser)
         {
             this._browser = browser;

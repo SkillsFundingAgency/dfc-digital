@@ -60,8 +60,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Features
         
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
-var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
-testRunner.OnScenarioStart(clonedScenarioInfo);
+var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
+testRunner.OnScenarioInitialize(clonedScenarioInfo);
 testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
@@ -83,7 +83,7 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "[DFC-274 - A2] Job profile category page")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-274 - A2] Job profile category page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_274_A2JobProfileCategoryPage(string browser)
         {
             this._browser = browser;
@@ -104,7 +104,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "404 Page is displayed when navigating to a profile that doesn\'t exist")]
         [Xunit.TheoryAttribute(DisplayName="404 Page is displayed when navigating to a profile that doesn\'t exist")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void _404PageIsDisplayedWhenNavigatingToAProfileThatDoesntExist(string browser)
         {
@@ -133,7 +133,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "Footer - Check Privacy & Cookies link")]
         [Xunit.TheoryAttribute(DisplayName="Footer - Check Privacy & Cookies link")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void Footer_CheckPrivacyCookiesLink(string browser)
         {
             this._browser = browser;
@@ -154,7 +154,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "Footer - Check T&C link")]
         [Xunit.TheoryAttribute(DisplayName="Footer - Check T&C link")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void Footer_CheckTCLink(string browser)
         {
             this._browser = browser;
@@ -175,7 +175,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "Footer - Check Information Sources link")]
         [Xunit.TheoryAttribute(DisplayName="Footer - Check Information Sources link")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void Footer_CheckInformationSourcesLink(string browser)
         {
             this._browser = browser;
@@ -196,7 +196,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "Footer - Check Help link")]
         [Xunit.TheoryAttribute(DisplayName="Footer - Check Help link")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void Footer_CheckHelpLink(string browser)
         {
             this._browser = browser;
@@ -217,7 +217,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "Check Health Status page")]
         [Xunit.TheoryAttribute(DisplayName="Check Health Status page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void CheckHealthStatusPage(string browser)
         {
             this._browser = browser;

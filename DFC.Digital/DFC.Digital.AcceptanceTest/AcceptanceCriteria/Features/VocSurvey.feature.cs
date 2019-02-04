@@ -60,8 +60,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Features
         
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
-var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
-testRunner.OnScenarioStart(clonedScenarioInfo);
+var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
+testRunner.OnScenarioInitialize(clonedScenarioInfo);
 testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
@@ -83,7 +83,7 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TraitAttribute("FeatureTitle", "VocSurvey")]
         [Xunit.TraitAttribute("Description", "[DFC-610-A1] View Survey - Check Cookie")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-610-A1] View Survey - Check Cookie")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_610_A1ViewSurvey_CheckCookie(string browser)
         {
             this._browser = browser;
@@ -114,7 +114,7 @@ this.ScenarioInitialize(scenarioInfo);
             " is loaded")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-685-A2] Select fill in short survey, Select Online survey and confirm survey" +
             " is loaded")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_685_A2SelectFillInShortSurveySelectOnlineSurveyAndConfirmSurveyIsLoaded(string browser)
         {
             this._browser = browser;

@@ -60,8 +60,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Features
         
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
-var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
-testRunner.OnScenarioStart(clonedScenarioInfo);
+var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $"browser:{_browser}" })));
+testRunner.OnScenarioInitialize(clonedScenarioInfo);
 testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
@@ -85,7 +85,7 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
             "epage")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1342 - A2] Profile Page displays the correct breadcrumb and links to the Hom" +
             "epage")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1342_A2ProfilePageDisplaysTheCorrectBreadcrumbAndLinksToTheHomepage(string browser)
         {
             this._browser = browser;
@@ -111,7 +111,7 @@ this.ScenarioInitialize(scenarioInfo);
             "nd takes you to the correct carers page")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1335 - A1] Profile Page displays Related careers with no more than 5 shown a" +
             "nd takes you to the correct carers page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1335_A1ProfilePageDisplaysRelatedCareersWithNoMoreThan5ShownAndTakesYouToTheCorrectCarersPage(string browser)
         {
             this._browser = browser;
@@ -139,7 +139,7 @@ this.ScenarioInitialize(scenarioInfo);
             "d ensure you are redirected to the Course Directory")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1508 - A1] Profile Page displays related courses. Select the course title an" +
             "d ensure you are redirected to the Course Directory")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1508_A1ProfilePageDisplaysRelatedCourses_SelectTheCourseTitleAndEnsureYouAreRedirectedToTheCourseDirectory(string browser)
         {
             this._browser = browser;
@@ -167,7 +167,7 @@ this.ScenarioInitialize(scenarioInfo);
             "for courses should take me to the search page on Course Directory")]
         [Xunit.TheoryAttribute(DisplayName="[DFC-1508 - A2] Selecting the Find courses near you link on the job profile page " +
             "for courses should take me to the search page on Course Directory")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void DFC_1508_A2SelectingTheFindCoursesNearYouLinkOnTheJobProfilePageForCoursesShouldTakeMeToTheSearchPageOnCourseDirectory(string browser)
         {
             this._browser = browser;
@@ -193,7 +193,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfile")]
         [Xunit.TraitAttribute("Description", "Apprenticeships are displayed on Job Profile Page")]
         [Xunit.TheoryAttribute(DisplayName="Apprenticeships are displayed on Job Profile Page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void ApprenticeshipsAreDisplayedOnJobProfilePage(string browser)
         {
@@ -216,7 +216,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfile")]
         [Xunit.TraitAttribute("Description", "Apprenticeship are not displayed on Job Profile Page and correct message shown")]
         [Xunit.TheoryAttribute(DisplayName="Apprenticeship are not displayed on Job Profile Page and correct message shown")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void ApprenticeshipAreNotDisplayedOnJobProfilePageAndCorrectMessageShown(string browser)
         {
@@ -239,7 +239,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfile")]
         [Xunit.TraitAttribute("Description", "Valid Search on Job Profile Page")]
         [Xunit.TheoryAttribute(DisplayName="Valid Search on Job Profile Page")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         [Xunit.TraitAttribute("Category", "EndToEnd")]
         public virtual void ValidSearchOnJobProfilePage(string browser)
         {
@@ -264,7 +264,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfile")]
         [Xunit.TraitAttribute("Description", "JP Survey - Answering YES to the survey")]
         [Xunit.TheoryAttribute(DisplayName="JP Survey - Answering YES to the survey")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void JPSurvey_AnsweringYESToTheSurvey(string browser)
         {
             this._browser = browser;
@@ -293,7 +293,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "JobProfile")]
         [Xunit.TraitAttribute("Description", "JP Survey - Answering NO to the survey")]
         [Xunit.TheoryAttribute(DisplayName="JP Survey - Answering NO to the survey")]
-        [Xunit.InlineDataAttribute("#{browsers}#")]
+        [Xunit.InlineDataAttribute("chrome")]
         public virtual void JPSurvey_AnsweringNOToTheSurvey(string browser)
         {
             this._browser = browser;

@@ -57,7 +57,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             var actual = results?.Results.Select(r => r.Index);
 
             //Log results
-            OutputHelper.WriteLine($"Expected order {expected.ToJson()}");
+            OutputHelper.WriteLine($"Expected in no specific order {expected.ToJson()}");
             actual.Should().BeEquivalentTo(expected, option => option.WithoutStrictOrdering());
         }
     }

@@ -17,6 +17,7 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class SearchModuleInstaller
     {
         public static void Install()

@@ -1,0 +1,16 @@
+﻿.filters {
+
+    .filter-button {
+        width: 100%;
+        text-align: left;
+        border: none;
+        color: govuk-colour("black");
+        @include govuk-font($size: 19, $weight: bold);
+        box-shadow: none;
+        background: govuk-colour("grey-3") govuk-image-url("filter-arrow-sprite.png") no-repeat right bottom 10px;
+
+        &:hover {
+            background-color: govuk-colour("grey-2");
+        }
+    }
+}

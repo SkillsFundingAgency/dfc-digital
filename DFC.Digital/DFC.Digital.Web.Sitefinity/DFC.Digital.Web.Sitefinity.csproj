@@ -979,6 +979,18 @@
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\css\Readme.txt" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\images\Readme.txt" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\js\Readme.txt" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\backend\js\cmsextensions.js" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-footer.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\gruntfile.js" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="robots.prod.txt.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
@@ -1032,6 +1044,18 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_nav.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\govuk.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\main.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Web.config" />
+    <Content Include="ResourcePackages\gds_service_toolkit\csslint.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\jsfiles.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\package.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\hero-banner.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_search.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1176,6 +1200,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
+    <Folder Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\images\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

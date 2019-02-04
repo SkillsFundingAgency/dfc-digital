@@ -83,8 +83,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Feature
             "ch term entered")]
         [Xunit.TraitAttribute("Description", "[DFC-5229] All JobProfiles which have search term derivative against the Title on" +
             " DIFFERENT profiles")]
-        [Xunit.InlineDataAttribute("Astronomy", "Astronomer", new string[0])]
-        [Xunit.InlineDataAttribute("Criminology", "Criminal psychologist", new string[0])]
         [Xunit.InlineDataAttribute("childminding", "Childminder", new string[0])]
         [Xunit.InlineDataAttribute("counselling", "Counsellor", new string[0])]
         [Xunit.InlineDataAttribute("Optometry", "Optomotrist", new string[0])]
@@ -109,7 +107,6 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Feature
         [Xunit.InlineDataAttribute("farming", "Farm worker", new string[0])]
         [Xunit.InlineDataAttribute("farming", "Farm secretary", new string[0])]
         [Xunit.InlineDataAttribute("farming", "Fish farmer", new string[0])]
-        [Xunit.InlineDataAttribute("fisheries", "Fish farmer", new string[0])]
         [Xunit.InlineDataAttribute("Hydrotherapy", "Colon hydrotherapist", new string[0])]
         [Xunit.InlineDataAttribute("hypnotherapy", "Hypnotherapist", new string[0])]
         [Xunit.InlineDataAttribute("investor", "Road traffic accident investigator", new string[0])]

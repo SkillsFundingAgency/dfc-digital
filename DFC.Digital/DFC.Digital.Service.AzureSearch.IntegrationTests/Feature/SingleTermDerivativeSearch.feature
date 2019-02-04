@@ -57,8 +57,6 @@
 		Then the result will contain more than 1 result and '<Title>' should be in the first page
 		Examples: 
 			| SearchTerm     | Title                              |
-			| Astronomy      | Astronomer                         |
-			| Criminology    | Criminal psychologist              |
 			| childminding   | Childminder                        |
 			| counselling    | Counsellor                         |
 			| Optometry      | Optomotrist                        |
@@ -83,7 +81,6 @@
 			| farming        | Farm worker                        |
 			| farming        | Farm secretary                     |
 			| farming        | Fish farmer                        |
-			| fisheries      | Fish farmer                        |
 			| Hydrotherapy   | Colon hydrotherapist               |
 			| hypnotherapy   | Hypnotherapist                     |
 			| investor       | Road traffic accident investigator |

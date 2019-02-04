@@ -293,5 +293,4 @@ __pycache__/
 #Ignore the libs
 DFC.Digital/lib
 DFC.Digital/DFC.Digital.Web.Sitefinity/dependencybin
-**/*feature.cs
 *.config

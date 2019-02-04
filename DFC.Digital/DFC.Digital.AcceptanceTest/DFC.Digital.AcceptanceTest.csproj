@@ -179,6 +179,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\JobProfile.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfile.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\JobProfileCategory.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileCategory.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\JobProfileSearch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JobProfileSearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\VocSurvey.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VocSurvey.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
@@ -211,7 +231,11 @@
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
     <Compile Include="AcceptanceCriteria\Steps\JobProfileSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="**/*.feature.cs" />
+    <Compile Include="AcceptanceCriteria\Features\HomePage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomePage.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">

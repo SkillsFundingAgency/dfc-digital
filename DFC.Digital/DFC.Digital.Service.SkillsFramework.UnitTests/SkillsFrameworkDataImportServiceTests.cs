@@ -93,7 +93,7 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             SocCodesFromOnet.Add(new SocCode { SOCCode = "3", ONetOccupationalCode = "" });
 
             var SocCodesFromSitefinity = new List<SocCode>();
-            SocCodesFromSitefinity.Add(new SocCode { SOCCode = "1", ONetOccupationalCode = "" });   //Null gets translated to ""
+            SocCodesFromSitefinity.Add(new SocCode { SOCCode = "1", ONetOccupationalCode = "" });   
             SocCodesFromSitefinity.Add(new SocCode { SOCCode = "3", ONetOccupationalCode = "" });
 
             //Dummies and Fakes
@@ -335,6 +335,48 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
             Assert.Throws<ArgumentNullException>(() => skillsImportService.ImportForSocs(null));
         }
+
+        [Theory]
+        [InlineData ("NewSOC", "ValidONetCode", true, 4 )]
+        [InlineData("ExistingSOC", "ValidONetCode", false, 3)]
+        [InlineData("NewSOC", "", false, 3)]
+        public void ExportNewONetMappingsTest(string cMSSOCCode, string cMSOnetCode, bool expectToInsertNewSOCs, int numberAuditMatches)
+        {
+            // Arrange
+            var skillsImportService = new SkillsFrameworkDataImportService(fakeSkillsFrameworkService, fakeFrameworkSkillRepository, fakeJobProfileSocCodeRepository, fakeJobProfileRepository, fakeSocSkillMatrixRepository, fakeReportAuditRepository);
+            A.CallTo(() => fakeSkillsFrameworkService.AddNewSOCMappings(A<List<SocCode>>._)).DoesNothing();
+
+            var SocCodesFromOnet = new List<SocCode>
+            {
+                new SocCode { SOCCode = "ExistingSOC", ONetOccupationalCode = "TestONetCode"}
+            };
+            A.CallTo(() => fakeSkillsFrameworkService.GetAllSocMappings()).Returns(SocCodesFromOnet);
+
+            var SocCodesFromCMS = new List<SocCode>
+            {
+                new SocCode { SOCCode = cMSSOCCode, ONetOccupationalCode = cMSOnetCode }  
+            };
+            A.CallTo(() => fakeJobProfileSocCodeRepository.GetSocCodes()).Returns(SocCodesFromCMS.AsQueryable());
+       
+            A.CallTo(() => fakeSkillsFrameworkService.AddNewSOCMappings(A<IEnumerable<SocCode>>._)).DoesNothing();
+
+            // Act
+            skillsImportService.ExportNewONetMappings();
+
+            //Asserts
+            if (expectToInsertNewSOCs)
+            {
+                A.CallTo(() => fakeSkillsFrameworkService.AddNewSOCMappings(A<IEnumerable<SocCode>>._)).MustHaveHappenedOnceExactly();
+            }
+            else
+            {
+                A.CallTo(() => fakeSkillsFrameworkService.AddNewSOCMappings(A<IEnumerable<SocCode>>._)).MustNotHaveHappened();
+            }
+
+            A.CallTo(() => fakeReportAuditRepository.CreateAudit("SummaryDetails", A<string>._)).MustHaveHappened(numberAuditMatches, Times.Exactly);
+      
+        }
+
 
 
         private static IEnumerable<FrameworkSkill> GetFrameworkSkills(int count)

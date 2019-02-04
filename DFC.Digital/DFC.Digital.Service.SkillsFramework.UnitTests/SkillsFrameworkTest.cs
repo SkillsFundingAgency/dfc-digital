@@ -243,5 +243,28 @@ namespace DFC.Digital.Service.SkillsFramework.UnitTests
             var result = skillsFrameworkService.GetSocMappingStatus();
             result.Should().BeEquivalentTo(dummySocMappingStatus);
         }
+
+        [Fact]
+        public void AddNewSOCMappingsTest()
+        {
+            var skillsFrameworkService = new SkillsFrameworkService(fakeApplicationLogger,
+                      fakeDigitalSkill,
+                      fakeSkillsRepository,
+                      fakeSkillsBusinessRuleEngine,
+                      fakeSocMappingRepository
+                     );
+
+            A.CallTo(() => fakeSocMappingRepository.AddNewSOCMappings(A<List<SocCode>>._)).DoesNothing();
+
+            var testSOC = new SocCode() { SOCCode = "TestSOC1", ONetOccupationalCode = "TestONetCode1", Description = "TestDescription" };
+            var testSOCList = new List<SocCode>
+            {
+                testSOC
+            };
+
+            skillsFrameworkService.AddNewSOCMappings(testSOCList);
+
+            A.CallTo(() => fakeSocMappingRepository.AddNewSOCMappings(A<List<SocCode>>._)).MustHaveHappenedOnceExactly();
+        }
     }
 }

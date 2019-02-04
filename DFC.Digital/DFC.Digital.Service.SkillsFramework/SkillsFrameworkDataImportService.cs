@@ -237,5 +237,26 @@ namespace DFC.Digital.Service.SkillsFramework
 
             return socSkillMatrixData;
         }
+
+        public UpdateSocOccupationalCodeResponse ExportNewONetMappings()
+        {
+            var allSocCodes = jobProfileSocCodeRepository.GetSocCodes().ToList();
+            var occupationalCodeMappings = skillsFrameworkService.GetAllSocMappings();
+
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} SOCs in the Sitefinity ");
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
+
+            var newSOCS = allSocCodes.Where(s => !occupationalCodeMappings.Any(o=> o.SOCCode == s.SOCCode)).Where(n => n.ONetOccupationalCode != string.Empty);
+
+            reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {newSOCS.Count()} SOCs with ONet mappings that are not already in the ONet Framework Service");
+
+            if (newSOCS.Count() > 0)
+            {
+                skillsFrameworkService.AddNewSOCMappings(newSOCS);
+                reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Added new SOCs to the ONet Framework Service");
+            }
+
+            return new UpdateSocOccupationalCodeResponse { Success = true };
+        }
     }
 }

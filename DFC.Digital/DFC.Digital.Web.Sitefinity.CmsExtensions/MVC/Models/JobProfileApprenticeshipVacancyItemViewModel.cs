@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace DFC.Digital.Web.Sitefinity.CmsExtensions
+﻿namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {
     public class JobProfileApprenticeshipVacancyItemViewModel
     {
@@ -23,6 +20,5 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 
         public string AV2Title { get; set; }
         public string AV2LastModified { get; set; }
-    
     }
 }

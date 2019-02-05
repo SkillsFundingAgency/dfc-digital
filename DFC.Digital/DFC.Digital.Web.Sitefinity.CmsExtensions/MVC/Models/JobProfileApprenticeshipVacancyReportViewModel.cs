@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {
     public class JobProfileApprenticeshipVacancyReportViewModel

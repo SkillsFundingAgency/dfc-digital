@@ -107,6 +107,11 @@ namespace DFC.Digital.Service.SkillsFramework
             return socMappingRepository.GetSocMappingStatus();
         }
 
+        public void AddNewSOCMappings(IEnumerable<SocCode> newSocCodes)
+        {
+            socMappingRepository.AddNewSOCMappings(newSocCodes);
+        }
+
         #endregion Implementation of ISkillsFrameworkService
     }
 }

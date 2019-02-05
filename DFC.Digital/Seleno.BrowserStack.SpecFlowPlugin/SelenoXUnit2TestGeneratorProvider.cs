@@ -72,9 +72,9 @@ namespace Seleno.BrowserStack
 
             generationContext?.ScenarioInitializeMethod.Statements.Clear();
             generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
-                "var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $\"browser:{_browser}\" })));"));
+                "var clonedScenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(scenarioInfo.Title, scenarioInfo.Description, System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Union(scenarioInfo.Tags, new string[] { $\"browser:{_browser}\" })));"));
             generationContext?.ScenarioInitializeMethod.Statements.Add(
-                new CodeSnippetStatement("testRunner.OnScenarioStart(clonedScenarioInfo);"));
+                new CodeSnippetStatement("testRunner.OnScenarioInitialize(clonedScenarioInfo);"));
             generationContext?.ScenarioInitializeMethod.Statements.Add(new CodeSnippetStatement(
                 "testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);"));
         }

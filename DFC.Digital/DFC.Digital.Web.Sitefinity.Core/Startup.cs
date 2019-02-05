@@ -2,7 +2,6 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -17,15 +16,13 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
 
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.Core.Startup), "Install")]
+
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [ExcludeFromCodeCoverage]
-    public sealed class Startup
+    public static class Startup
     {
-        private Startup()
-        {
-        }
-
         public static void Install()
         {
             ObjectFactory.RegisteredIoCTypes += ObjectFactory_RegisteredIoCTypes;
@@ -39,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             try
             {
-                if (!Bootstrapper.IsAppRestarting)
+                //if (!Bootstrapper.IsReady)
                 {
                     ObjectFactory.Container.RegisterType<ISitefinityControllerFactory, AutofacContainerFactory>(new ContainerControlledLifetimeManager());
 
@@ -78,20 +75,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             try
             {
-                IContainer existingAutofacContainer = null;
-                try
-                {
-                    if (ObjectFactory.Container.IsRegistered<IContainer>())
-                    {
-                        existingAutofacContainer = ObjectFactory.Container.Resolve<IContainer>();
-                    }
-                }
-                catch (ResolutionFailedException)
-                {
-                    //Sitefinity has not got an existing autofac container registered to its bootstrapper unity container.
-                }
-
-                var autofacContainer = WebCoreAutofacConfig.BuildContainer(existingAutofacContainer);
+                var autofacContainer = WebCoreAutofacConfig.BuildContainer();
 
                 ObjectFactory.Container.RegisterInstance(autofacContainer);
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(autofacContainer));

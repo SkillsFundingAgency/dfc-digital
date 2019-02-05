@@ -101,7 +101,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //Assert
             //The results from search do not include the SOCCode so ignore this
             returnedJobProfiles.Should().BeEquivalentTo(expectedResults, options => options.Excluding(j => j.SOCCode));
-            A.CallTo(() => fakeSearchService.Search("*", null)).WithAnyArguments().MustHaveHappened();
+            A.CallTo(() => fakeSearchService.Search("*", A<SearchProperties>.That.Matches(x => x.Count.Equals(1000)))).WithAnyArguments().MustHaveHappened();
             A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
             A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
         }

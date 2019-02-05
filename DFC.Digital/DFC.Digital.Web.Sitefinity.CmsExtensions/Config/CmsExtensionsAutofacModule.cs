@@ -1,9 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Autofac;
-using Autofac.Extras.DynamicProxy2;
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Autofac.Integration.Mvc;
-using AutoMapper;
 using DFC.Digital.Core.Interceptors;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.Digital.Web.Sitefinity.CmsExtensions
 {

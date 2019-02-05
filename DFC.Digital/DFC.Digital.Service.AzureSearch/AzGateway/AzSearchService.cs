@@ -80,7 +80,6 @@ namespace DFC.Digital.Service.AzureSearch
                     new Suggester
                     {
                         Name = Constants.DefaultSuggesterName,
-                        SearchMode = SuggesterSearchMode.AnalyzingInfixMatching,
                         SourceFields = suggesterBuilder.BuildForType<T>(),
                     }
                 },

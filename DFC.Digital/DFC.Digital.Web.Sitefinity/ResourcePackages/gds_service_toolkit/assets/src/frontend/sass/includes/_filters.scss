@@ -25,14 +25,14 @@
     .filter-box {
         border: 5px solid govuk-colour("grey-3");
         position: relative;
-        padding: 7.5px;
+        padding: 12.5px;
         background-color: #fff;
         overflow-y: auto;
         overflow-x: hidden;
         max-height: 200px;
         top: -35px;
 
-        .govuk-checkboxes__input {
+        .govuk-checkboxes__input, .govuk-radios__input {
             width: 26px;
             height: 26px;
         }
@@ -53,9 +53,36 @@
             }
         }
 
-        .govuk-checkboxes__item {
+        .govuk-radios__label {
+            padding: 5px;
+
+            &:before {
+                width: 26px;
+                height: 26px;
+            }
+
+            &:after {
+                top: 5px;
+                left: 5px;
+                width: 0;
+                height: 0px;
+                border: 8px solid currentColor
+            }
+        }
+
+        .govuk-checkboxes__item, .govuk-radios__item {
             padding: 0 0 0 35px;
             min-height: 30px;
         }
+
+        .govuk-radios__item {
+            margin-bottom: 10px;
+        }
     }
 }
+
+
+
+
+
+;

@@ -28,6 +28,12 @@ nav {
     color: $govuk-secondary-text-colour;
 }
 
+.govuk-related-items {
+    margin-top: 30px;
+    border-top: 10px solid #005ea5;
+    padding-top: 5px;
+}
+
 /*Search Results page SCSS - For Search Results*/
 @import 'includes/_search.scss';
 

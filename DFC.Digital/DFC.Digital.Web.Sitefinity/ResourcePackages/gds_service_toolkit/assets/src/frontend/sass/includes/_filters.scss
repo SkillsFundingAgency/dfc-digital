@@ -12,5 +12,50 @@
         &:hover {
             background-color: govuk-colour("grey-2");
         }
+
+        &.active {
+            background: govuk-colour("grey-3") govuk-image-url("filter-arrow-sprite.png") no-repeat right top 7px;
+
+            &:hover {
+                background-color: govuk-colour("grey-2");
+            }
+        }
+    }
+
+    .filter-box {
+        border: 5px solid govuk-colour("grey-3");
+        position: relative;
+        padding: 7.5px;
+        background-color: #fff;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 200px;
+        top: -35px;
+
+        .govuk-checkboxes__input {
+            width: 26px;
+            height: 26px;
+        }
+
+        .govuk-checkboxes__label {
+            padding: 5px;
+
+            &:before {
+                width: 26px;
+                height: 26px;
+            }
+
+            &:after {
+                top: 7px;
+                left: 5px;
+                width: 10px;
+                height: 5px;
+            }
+        }
+
+        .govuk-checkboxes__item {
+            padding: 0 0 0 35px;
+            min-height: 30px;
+        }
     }
 }

@@ -4085,6 +4085,11 @@ nav .govuk-tag {
 .govuk-secondary-colour {
   color: #6f777b; }
 
+.govuk-related-items {
+  margin-top: 30px;
+  border-top: 10px solid #005ea5;
+  padding-top: 5px; }
+
 /*Search Results page SCSS - For Search Results*/
 .search-title {
   font-family: "nta", Arial, sans-serif;
@@ -4375,3 +4380,33 @@ nav .govuk-tag {
       line-height: 1.15; } }
   .filters .filter-button:hover {
     background-color: #bfc1c3; }
+  .filters .filter-button.active {
+    background: #dee0e2 url("/ResourcePackages/gds_service_toolkit/assets/dist/images/filter-arrow-sprite.png") no-repeat right top 7px; }
+    .filters .filter-button.active:hover {
+      background-color: #bfc1c3; }
+
+.filters .filter-box {
+  border: 5px solid #dee0e2;
+  position: relative;
+  padding: 7.5px;
+  background-color: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 200px;
+  top: -35px; }
+  .filters .filter-box .govuk-checkboxes__input {
+    width: 26px;
+    height: 26px; }
+  .filters .filter-box .govuk-checkboxes__label {
+    padding: 5px; }
+    .filters .filter-box .govuk-checkboxes__label:before {
+      width: 26px;
+      height: 26px; }
+    .filters .filter-box .govuk-checkboxes__label:after {
+      top: 7px;
+      left: 5px;
+      width: 10px;
+      height: 5px; }
+  .filters .filter-box .govuk-checkboxes__item {
+    padding: 0 0 0 35px;
+    min-height: 30px; }

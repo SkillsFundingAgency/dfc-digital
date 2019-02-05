@@ -985,6 +985,7 @@
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
@@ -1056,6 +1057,9 @@
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_search.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\home.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\results.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\details.cshtml" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />

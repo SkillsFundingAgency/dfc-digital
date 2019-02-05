@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>JobProfile</id>
-    <version>2.0.6.5</version>
+    <version>2.0.6.1</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
@@ -11,7 +11,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Job Profile Dynamic Module, defining the content type(s) and classifications associated with Job Profile Data.
-      Included Widget Content Title property for SMEs to manage the content from back-end.
+      Includes complete set for MVS Pre Search Filters.
+      Now Updated HTB now uses classifications for entry requirements intro.
       Reorder edit form in backend and helper messages
     </description>
     <references></references>

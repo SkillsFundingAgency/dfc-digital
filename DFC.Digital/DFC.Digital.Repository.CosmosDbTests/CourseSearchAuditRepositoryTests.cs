@@ -3,6 +3,7 @@ using FakeItEasy;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
             await Task.Delay(10);
 
             //Assert
-            A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>.That.Matches(a => a.Data.ToString() == auditRecord), A<RequestOptions>._, A<bool>._)).MustHaveHappened();
+            A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>.That.Matches(a => a.Data.ToString() == auditRecord), A<RequestOptions>._, A<bool>._, A<CancellationToken>._)).MustHaveHappened();
         }
     }
 }

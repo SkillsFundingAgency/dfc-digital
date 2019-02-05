@@ -30,7 +30,7 @@
             <div class="job-profile-salary job-profile-heroblock-content">
                 @if (Model.SalaryStarter > 0 && Model.SalaryExperienced > 0)
                 {
-                    <p class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></p> 
+                    <p class="dfc-code-jpsstarter">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryStarter) <span>@Model.SalaryStarterText</span></p>
                      <i class="sr-hidden">@Model.SalaryRangeDivider</i>
                     <p class="dfc-code-jpsexperienced">@string.Format(new CultureInfo("en-GB", false), "{0:C0}", Model.SalaryExperienced) <span>@Model.SalaryExperiencedText</span></p>
                 }

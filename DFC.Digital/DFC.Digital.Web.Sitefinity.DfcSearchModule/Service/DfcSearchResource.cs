@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Localization.Data;
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
     [ObjectInfo("DfcSearchServiceResources", ResourceClassId = "DfcSearchServiceResources")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class DfcSearchResource : Resource
     {
         public DfcSearchResource()

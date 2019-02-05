@@ -7,7 +7,6 @@ using System.Web.WebPages;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class RazorGeneratorMvcStart
     {
         public static void Start()

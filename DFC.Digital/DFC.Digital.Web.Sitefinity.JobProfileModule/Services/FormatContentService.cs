@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule
 {
@@ -15,11 +13,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                 {
                     case 1:
                         return $"{openingText} {dataItems.FirstOrDefault()}.";
+
                     case 2:
                         return $"{openingText} {string.Join($" {separator} ", dataItems)}.";
-                        default:
-                            return
-                                $"{openingText} {string.Join(", ", dataItems.Take(dataItems.Count() - 1))} {separator} {dataItems.Last()}.";
+
+                    default:
+                        return
+                            $"{openingText} {string.Join(", ", dataItems.Take(dataItems.Count() - 1))} {separator} {dataItems.Last()}.";
                 }
             }
 

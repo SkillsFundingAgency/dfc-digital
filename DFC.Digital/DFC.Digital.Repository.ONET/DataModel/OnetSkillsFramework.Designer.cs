@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\PublicBeta\DFC.Digital\DFC.Digital.Repository.ONET\DataModel\OnetSkillsFramework.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Work\GitHub\dfc-digital\DFC.Digital\DFC.Digital.Repository.ONET\DataModel\OnetSkillsFramework.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

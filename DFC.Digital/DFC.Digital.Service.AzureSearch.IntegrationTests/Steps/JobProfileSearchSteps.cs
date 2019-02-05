@@ -109,7 +109,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.Should().BeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected, option => option.WithoutStrictOrdering());
         }
 
         [Then(@"the profiles are listed first in no specific order:")]
@@ -122,7 +122,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.Should().BeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected, option => option.WithoutStrictOrdering());
         }
 
         [Then(@"the following profiles are listed in no specific order skip '(.*)' results:")]
@@ -135,7 +135,7 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests
             OutputHelper.WriteLine($"Expected {expected.ToJson()}");
             OutputHelper.WriteLine($"Actual {actual?.ToJson()}");
 
-            actual.Should().BeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected, option => option.WithoutStrictOrdering());
         }
 
         [Then(@"the result count should match '(.*)'")]

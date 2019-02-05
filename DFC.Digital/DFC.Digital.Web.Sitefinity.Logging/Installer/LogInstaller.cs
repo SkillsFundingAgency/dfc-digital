@@ -6,14 +6,14 @@ namespace DFC.Digital.Web.Sitefinity.Logging
 {
     public static class LogInstaller
     {
-        public static void PreApplicationStart()
+        public static void Install()
         {
             Log.Configuring += Log_Configuring;
         }
 
         private static void Log_Configuring(object sender, LogConfiguringEventArgs e)
         {
-            ObjectFactory.Container.RegisterInstance<ISitefinityLogCategoryConfigurator>(new DfcConfigurator());
+            //ObjectFactory.Container.RegisterInstance<ISitefinityLogCategoryConfigurator>(new DfcConfigurator());
         }
     }
 }

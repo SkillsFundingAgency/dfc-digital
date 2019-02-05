@@ -29,6 +29,11 @@ namespace DFC.Digital.Web.Sitefinity
             // Register default Sitefinity middlewares in the pipeline
             app.UseSitefinityMiddleware();
 
+            // Call sitefinity installers
+            //Core.Startup.Install();
+            Logging.LogInstaller.Install();
+            DfcSearchModule.SearchModuleInstaller.Install();
+
             app.Map("/dfcapi", (IAppBuilder innerApp) =>
             {
                 Type type = SitefinityOpenIdConnectMiddlewareType;

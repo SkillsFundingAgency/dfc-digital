@@ -1,35 +1,36 @@
-﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 {
     public class ServiceStatusController : Controller
     {
         #region private
+
         private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
         private readonly IWebAppContext webAppContext;
-        #endregion
+
+        #endregion private
 
         #region Constructors
+
         public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext)
         {
             this.dependencyHealth = dependencyHealth;
             this.webAppContext = webAppContext;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Actions
+
         public async Task<ActionResult> Index()
         {
             var serviceStatusModel = new ServiceStatusModel()
@@ -51,6 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
             return View(serviceStatusModel);
         }
-        #endregion
+
+        #endregion Actions
     }
 }

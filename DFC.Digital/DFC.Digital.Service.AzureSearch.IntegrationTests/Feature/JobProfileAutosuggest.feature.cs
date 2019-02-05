@@ -93,13 +93,13 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Feature
                         "Title",
                         "AlternativeTitle"});
             table1.AddRow(new string[] {
-                        "Counsellor",
-                        "Therapist, psychotherapist"});
+                        "4ut0c0mpl3t3",
+                        ""});
             table1.AddRow(new string[] {
-                        "Money adviser",
-                        "Debt counsellor"});
+                        "DFC1496",
+                        "DFC1496 4ut0c0mpl3t3"});
             table1.AddRow(new string[] {
-                        "Advertising copywriter",
+                        "DFC1496 4ut1c1mpl3t3",
                         ""});
             table1.AddRow(new string[] {
                         "Pilot",
@@ -108,15 +108,15 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Feature
                         "General practitioner (GP)",
                         "Doc"});
             table1.AddRow(new string[] {
-                        "Colon hydrotherapist",
+                        "4u2c2mpl3t3 DFC1496",
                         ""});
             table1.AddRow(new string[] {
-                        "Police constable",
+                        "DFC1496 4u3c3mpl3t3",
                         ""});
 #line 5
   testRunner.Given("the following job profiles exist:", ((string)(null)), table1, "Given ");
 #line 14
-  testRunner.When("I type the term \'Cou\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.When("I type the term \'4ut\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
   testRunner.Then("the result list will contain \'5\' suggestion(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -124,19 +124,19 @@ namespace DFC.Digital.Service.AzureSearch.IntegrationTests.Feature
                         "Title",
                         "AlternativeTitle"});
             table2.AddRow(new string[] {
-                        "Counsellor",
-                        "Therapist, psychotherapist"});
-            table2.AddRow(new string[] {
-                        "Money adviser",
-                        "Debt counsellor"});
-            table2.AddRow(new string[] {
-                        "Advertising copywriter",
+                        "4ut0c0mpl3t3",
                         ""});
             table2.AddRow(new string[] {
-                        "Colon hydrotherapist",
+                        "DFC1496",
+                        "DFC1496 4ut0c0mpl3t3"});
+            table2.AddRow(new string[] {
+                        "DFC1496 4ut1c1mpl3t3",
                         ""});
             table2.AddRow(new string[] {
-                        "Police constable",
+                        "4u2c2mpl3t3 DFC1496",
+                        ""});
+            table2.AddRow(new string[] {
+                        "DFC1496 4u3c3mpl3t3",
                         ""});
 #line 16
   testRunner.And("the suggestion are listed in no specific order:", ((string)(null)), table2, "And ");

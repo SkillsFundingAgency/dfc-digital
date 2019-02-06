@@ -362,7 +362,6 @@ that is bundled with the nuget package under the tools folder.
       <remove name="Telerik.RadUploadProgressHandler" />
       <remove name="Telerik.Sitefinity.FilesDownloadHandler" />
       <remove name="Telerik.Sitefinity.ExportSubscribersHttpHandler" />
-      <remove name="Telerik.Sitefinity.LibrariesRadUploadHandler" />
       <remove name="Telerik.Sitefinity.Html5UploadHandler" />
       <remove name="Telerik.Sitefinity.AsyncImageUploadHandler" />
       <remove name="Telerik.Sitefinity.AsyncFileUploadHandler" />
@@ -379,7 +378,6 @@ that is bundled with the nuget package under the tools folder.
       <add name="Telerik.RadUploadProgressHandler" path="Telerik.RadUploadProgressHandler.ashx" verb="*" type="Telerik.Web.UI.Upload.RadUploadProgressHandler, Telerik.Web.UI" />
       <add name="Telerik.Sitefinity.FilesDownloadHandler" path="Telerik.Sitefinity.FilesDownloadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Files.FilesDownloadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.ExportSubscribersHttpHandler" path="Telerik.Sitefinity.ExportSubscribersHttpHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Newsletters.Web.ExportSubscribersHttpHandler, Telerik.Sitefinity" />
-      <add name="Telerik.Sitefinity.LibrariesRadUploadHandler" path="Telerik.Sitefinity.LibrariesRadUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.LibrariesRadUploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.Html5UploadHandler" path="Telerik.Sitefinity.Html5UploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.Html5UploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.ThumbnailUploadHandler" path="Telerik.Sitefinity.ThumbnailUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.ThumbnailUploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.AsyncImageUploadHandler" path="Telerik.Sitefinity.AsyncImageUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.AsyncImageUploadHandler, Telerik.Sitefinity" />
@@ -709,12 +707,6 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
     </assemblyBinding>
   </runtime>
-  <system.codedom>
-    <compilers>
-      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
-      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
-    </compilers>
-  </system.codedom>
   <entityFramework>
     <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
       <parameters>
@@ -725,4 +717,10 @@ that is bundled with the nuget package under the tools folder.
       <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
     </providers>
   </entityFramework>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
 </configuration>

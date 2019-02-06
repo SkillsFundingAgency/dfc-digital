@@ -157,12 +157,12 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/system.serviceModel/client/endpoint[@name='CourseSearch']/@address" />
   </parameter>
-  <parameter name="AppInit_Hostname"
+  <!--<parameter name="AppInit_Hostname"
              description="Tokenize the application initialisation to be replaced by VSTS task"
              defaultValue="__targetUrl__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/system.webServer/applicationInitialization/add/@hostName" />
-  </parameter>
+  </parameter>-->
   <parameter name="CitizenFacing_Hostname"
             description="Tokenize the host name to be replaced by VSTS task"
             defaultValue="__baseUrl__">

@@ -431,9 +431,9 @@ that is bundled with the nuget package under the tools folder.
         <add name="X-Frame-Options" value="SAMEORIGIN" />
       </customHeaders>
     </httpProtocol>
-    <applicationInitialization doAppInitAfterRestart="true">
+    <!--<applicationInitialization doAppInitAfterRestart="true">
       <add hostName="local-beta.nationalcareersservice.org.uk" initializationPage="/home" />
-    </applicationInitialization>
+    </applicationInitialization>-->
   </system.webServer>
   <system.identityModel>
     <identityConfiguration>

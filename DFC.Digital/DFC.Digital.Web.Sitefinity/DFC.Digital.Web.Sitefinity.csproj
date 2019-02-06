@@ -1371,7 +1371,6 @@
     <Content Include="SampleTemplate.cshtml">
       <Generator>RazorGenerator</Generator>
     </Content>
-    <Content Include="dependencybin\**" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_webchat.scss" />
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
@@ -1454,9 +1453,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="BeforeBuild">
+  <!--<Target Name="BeforeBuild">
     <ItemGroup>
       <Content Include="dependencybin\*.dll" />
+    </ItemGroup>
+  </Target>-->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <Content Include="dependencybin\**" />
     </ItemGroup>
   </Target>
   <ProjectExtensions>

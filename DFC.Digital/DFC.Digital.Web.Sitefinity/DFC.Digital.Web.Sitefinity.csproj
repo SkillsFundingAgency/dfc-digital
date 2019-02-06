@@ -1388,6 +1388,9 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dependencybin\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
       <Name>DFC.Digital.Data</Name>
@@ -1458,11 +1461,6 @@
       <Content Include="dependencybin\*.dll" />
     </ItemGroup>
   </Target>-->
-  <Target Name="AfterBuild">
-    <ItemGroup>
-      <Content Include="dependencybin\**" />
-    </ItemGroup>
-  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

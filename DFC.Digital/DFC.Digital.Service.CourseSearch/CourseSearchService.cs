@@ -50,7 +50,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 serviceStatus.Notes = "Success Response";
 
                 //We have actual data
-                if (apiResult.CourseListResponse.CourseDetails.Count() > 0)
+                if (apiResult.CourseListResponse.CourseDetails.Any())
                 {
                     serviceStatus.Status = ServiceState.Green;
                     serviceStatus.Notes = string.Empty;
@@ -87,6 +87,32 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 auditRepository.CreateAudit(ex);
                 applicationLogger.ErrorJustLogIt("Getting courses Failed - ", ex);
+                return Enumerable.Empty<Course>();
+            }
+        }
+
+        public async Task<IEnumerable<Course>> SearchCoursesAsync(CourseSearchRequest courseSearchRequest)
+        {
+            if (string.IsNullOrWhiteSpace(courseSearchRequest.SearchTerm))
+            {
+                return null;
+            }
+
+            var request = MessageConverter.GetCourseListInput(courseSearchRequest.SearchTerm);
+            auditRepository.CreateAudit(request);
+
+            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
+            try
+            {
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+                auditRepository.CreateAudit(apiResult);
+                var result = apiResult?.ConvertToSearchCourse();
+               return result;
+            }
+            catch (Exception ex)
+            {
+                auditRepository.CreateAudit(ex);
+                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
                 return Enumerable.Empty<Course>();
             }
         }

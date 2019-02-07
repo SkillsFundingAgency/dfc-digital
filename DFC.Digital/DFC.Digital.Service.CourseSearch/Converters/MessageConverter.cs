@@ -47,5 +47,24 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             return result ?? Enumerable.Empty<Course>();
         }
+
+        internal static IEnumerable<Course> ConvertToSearchCourse(this CourseListOutput apiResult)
+        {
+            var result = apiResult?.CourseListResponse?.CourseDetails?.Select(c =>
+                new Course
+                {
+                    Title = c.Course.CourseTitle,
+                    Location = (c.Opportunity.Item as VenueInfo)?.VenueAddress.Town,
+                    ProviderName = c.Provider.ProviderName,
+                    StartDate = Convert.ToDateTime(c.Opportunity.StartDate.Item),
+                    CourseId = c.Course.CourseID,
+                    AttendanceMode = c.Opportunity.AttendanceMode,
+                    AttendancePattern = c.Opportunity.AttendancePattern,
+                    QualificationLevel = c.Course.QualificationLevel,
+                    Duration = $"{c.Opportunity.Duration?.DurationValue} {c.Opportunity.Duration?.DurationUnit}"
+                });
+
+            return result ?? Enumerable.Empty<Course>();
+        }
     }
 }

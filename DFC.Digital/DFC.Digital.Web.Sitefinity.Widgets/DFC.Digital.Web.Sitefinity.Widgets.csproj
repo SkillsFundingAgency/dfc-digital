@@ -364,6 +364,7 @@
     <Compile Include="Config\WidgetsAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\AdminPanelController.cs" />
+    <Compile Include="Mvc\Controllers\TrainingCoursesController.cs" />
     <Compile Include="Mvc\Controllers\SetCanonicalUrlController.cs" />
     <Compile Include="Mvc\Controllers\SetContentRelatedPageTitleController.cs" />
     <Compile Include="Mvc\Controllers\BauSearchResultsSignPostController.cs" />
@@ -375,6 +376,7 @@
     <Compile Include="Mvc\Models\DfcBreadcrumbViewModel.cs" />
     <Compile Include="Mvc\Models\EmailSubmissionViewModel.cs" />
     <Compile Include="Mvc\Models\SetContentRelatedPageTitleModel.cs" />
+    <Compile Include="Mvc\Models\TrainingCourseResultsViewModel.cs" />
     <Compile Include="Mvc\Models\VocSurveyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -425,6 +427,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenAccessNuGet.targets" />
+    <Content Include="Mvc\Views\TrainingCourses\SearchResults.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

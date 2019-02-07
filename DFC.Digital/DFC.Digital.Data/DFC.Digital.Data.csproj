@@ -135,6 +135,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\CategoryType.cs" />
+    <Compile Include="Model\CourseSearchRequest.cs" />
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
     <Compile Include="Model\FrameworkContent.cs" />

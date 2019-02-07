@@ -1,0 +1,48 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.TrainingCourseResultsViewModel
+
+<h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing 1 - 10 of 148 results</h3>
+<hr class="govuk-section-break govuk-section-break--visible" />
+
+@foreach (var course in Model.Courses)
+{
+    <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+        <h2 class="govuk-heading-m"><a class="govuk-link" href="#">@course.Title</a></h2>
+        <ul class="govuk-list">
+            <li>
+                @course.QualificationLevel
+            </li>
+            <li>
+               @course.AttendanceMode | @course.AttendancePattern
+            </li>
+            <li class="govuk-!-margin-top-3">
+                <span class="govuk-secondary-colour">Provider:</span> @course.ProviderName
+            </li>
+            <li>
+                <span class="govuk-secondary-colour">Location:</span> @course.Location
+            </li>
+            <li>
+                <span class="govuk-secondary-colour">Start date:</span> @course.StartDate.ToShortDateString()
+            </li>
+            <li>
+                <span class="govuk-secondary-colour">Duration:</span> @course.Duration
+            </li>
+        </ul>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--visible" />
+}
+    <ul class="previous-next-navigation govuk-!-margin-top-3">
+        <li class="next">
+            <a href="#">
+                <span class="pagination-label">Next</span>
+                <span class="govuk-visually-hidden">page</span>
+                <span class="page-numbers">3 of 12</span>
+            </a>
+        </li>
+        <li class="previous">
+            <a href="#">
+                <span class="pagination-label">Previous</span>
+                <span class="govuk-visually-hidden">page</span>
+                <span class="page-numbers">1 of 12</span>
+            </a>
+        </li>
+    </ul>

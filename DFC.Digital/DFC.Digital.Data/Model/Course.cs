@@ -54,5 +54,7 @@ namespace DFC.Digital.Data.Model
         public string AttendanceMode { get; set; }
 
         public string AttendancePattern { get; set; }
+
+        public string StudyMode { get; set; }
     }
 }

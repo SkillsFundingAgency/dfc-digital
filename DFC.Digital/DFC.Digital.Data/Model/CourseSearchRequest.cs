@@ -6,7 +6,7 @@
 
         public int PageNumber { get; set; }
 
-        public int PageCount { get; set; }
+        public int RecordsPerPage { get; set; }
 
         public bool Dfe1619Funded { get; set; }
     }

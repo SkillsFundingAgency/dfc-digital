@@ -91,14 +91,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
         }
 
-        public async Task<IEnumerable<Course>> SearchCoursesAsync(CourseSearchRequest courseSearchRequest)
+        public async Task<CourseSearchResponse> SearchCoursesAsync(CourseSearchRequest courseSearchRequest)
         {
             if (string.IsNullOrWhiteSpace(courseSearchRequest.SearchTerm))
             {
                 return null;
             }
 
-            var request = MessageConverter.GetCourseListInput(courseSearchRequest.SearchTerm);
+            var response = new CourseSearchResponse();
+            var request = MessageConverter.GetCourseSearchInput(courseSearchRequest);
             auditRepository.CreateAudit(request);
 
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
@@ -106,15 +107,19 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
-                var result = apiResult?.ConvertToSearchCourse();
-               return result;
+                response.TotalPages = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfPages);
+                response.TotalResultCount = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfRecords);
+                response.CurrentPage = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.PageNo);
+                response.Courses = apiResult?.ConvertToSearchCourse();
             }
             catch (Exception ex)
             {
                 auditRepository.CreateAudit(ex);
                 applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
-                return Enumerable.Empty<Course>();
+                response.Courses = Enumerable.Empty<Course>();
             }
+
+            return response;
         }
     }
 }

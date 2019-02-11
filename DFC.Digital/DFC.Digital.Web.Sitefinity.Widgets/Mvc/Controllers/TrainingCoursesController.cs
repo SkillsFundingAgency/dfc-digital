@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         #region Public Properties
 
-        public int PageCount { get; set; } = 20;
+        public int RecordsPerPage { get; set; } = 20;
         #endregion
 
         #region Actions
@@ -48,10 +48,16 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 var request = new CourseSearchRequest
                 {
                     SearchTerm = searchTerm,
-                    PageCount = PageCount,
+                    RecordsPerPage = RecordsPerPage,
                     PageNumber = page
                 };
-                viewModel.Courses = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
+
+                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
+                viewModel.Courses = response.Courses;
+                viewModel.RecordsPerPage = RecordsPerPage;
+                viewModel.CurrentPageNumber = response.CurrentPage;
+                viewModel.TotalPagesCount = response.TotalPages;
+                viewModel.ResultsCount = response.TotalResultCount;
             }
 
             return View("SearchResults", viewModel);

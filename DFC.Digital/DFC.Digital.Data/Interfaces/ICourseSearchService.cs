@@ -8,6 +8,6 @@ namespace DFC.Digital.Data.Interfaces
     {
         Task<IEnumerable<Course>> GetCoursesAsync(string jobProfileKeywords);
 
-        Task<IEnumerable<Course>> SearchCoursesAsync(CourseSearchRequest courseSearchRequest);
+        Task<CourseSearchResponse> SearchCoursesAsync(CourseSearchRequest courseSearchRequest);
     }
 }

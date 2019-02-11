@@ -1,6 +1,6 @@
 ﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.TrainingCourseResultsViewModel
 
-<h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing 1 - 10 of 148 results</h3>
+<h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
 <hr class="govuk-section-break govuk-section-break--visible" />
 
 @foreach (var course in Model.Courses)
@@ -12,7 +12,7 @@
                 @course.QualificationLevel
             </li>
             <li>
-               @course.AttendanceMode | @course.AttendancePattern
+                @course.StudyMode |  @course.AttendanceMode | @course.AttendancePattern
             </li>
             <li class="govuk-!-margin-top-3">
                 <span class="govuk-secondary-colour">Provider:</span> @course.ProviderName
@@ -31,6 +31,9 @@
     <hr class="govuk-section-break govuk-section-break--visible" />
 }
     <ul class="previous-next-navigation govuk-!-margin-top-3">
+         
+    @if (Model.HasNextPage)
+    {
         <li class="next">
             <a href="#">
                 <span class="pagination-label">Next</span>
@@ -38,11 +41,17 @@
                 <span class="page-numbers">3 of 12</span>
             </a>
         </li>
-        <li class="previous">
-            <a href="#">
-                <span class="pagination-label">Previous</span>
-                <span class="govuk-visually-hidden">page</span>
-                <span class="page-numbers">1 of 12</span>
-            </a>
-        </li>
+    }
+        
+        @if (Model.HasPreviousPage)
+        {
+            <li class="previous">
+                <a href="#">
+                    <span class="pagination-label">Previous</span>
+                    <span class="govuk-visually-hidden">page</span>
+                    <span class="page-numbers">1 of 12</span>
+                </a>
+            </li>
+        }
+       
     </ul>

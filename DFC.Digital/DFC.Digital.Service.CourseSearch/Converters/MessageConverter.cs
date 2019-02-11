@@ -33,6 +33,29 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return apiRequest;
         }
 
+        internal static CourseListInput GetCourseSearchInput(CourseSearchRequest request)
+        {
+            var apiRequest = new CourseListInput
+            {
+                CourseListRequest = new CourseListRequestStructure
+                {
+                    CourseSearchCriteria = new SearchCriteriaStructure
+                    {
+                        APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
+                        SubjectKeyword = request.SearchTerm,
+                        EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                        AttendanceModes = Convert.ToString(ConfigurationManager.AppSettings[Constants.CourseSearchAttendanceModes])?.Split(',')
+                    },
+                    RecordsPerPage = request.RecordsPerPage.ToString(),
+                    PageNo = request.PageNumber.ToString(),
+                    SortBy = SortType.A,
+                    SortBySpecified = true
+                }
+            };
+
+            return apiRequest;
+        }
+
         internal static IEnumerable<Course> ConvertToCourse(this CourseListOutput apiResult)
         {
             var result = apiResult?.CourseListResponse?.CourseDetails?.Select(c =>
@@ -61,6 +84,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     AttendanceMode = c.Opportunity.AttendanceMode,
                     AttendancePattern = c.Opportunity.AttendancePattern,
                     QualificationLevel = c.Course.QualificationLevel,
+                    StudyMode = c.Opportunity.StudyMode,
                     Duration = $"{c.Opportunity.Duration?.DurationValue} {c.Opportunity.Duration?.DurationUnit}"
                 });
 

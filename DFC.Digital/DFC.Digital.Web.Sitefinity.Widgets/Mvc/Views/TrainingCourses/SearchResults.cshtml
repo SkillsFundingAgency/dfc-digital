@@ -1,5 +1,74 @@
 ﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.TrainingCourseResultsViewModel
 
+
+@* Top Full Width Content Block *@
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    @using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
+    {
+        <div class="govuk-form-group">
+            <div class="search-header">
+                <div class="searchfield">
+                    <div class="search-input">
+                        <label for="search-main">
+                            <h1 class="search-title">
+                                Showing 148 results for <span class="govuk-visually-hidden">plumbing</span>
+                            </h1>
+                        </label>
+                        @Html.TextBoxFor(x => x.SearchTerm, new { placeholder = "Search for courses", @class="search-input",  id="search-main", type="search"})
+                    </div>
+                    <div class="search-submit"><button type="submit" class="button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+</div>
+
+@* Filter Section - Within 1/3 Content Block *@
+
+<div class="filters">
+    <button type="submit" class="govuk-button filter-button">Filter 1</button><button type="submit" class="govuk-button filter-button  active">Filter 2</button>
+    <div class="filter-box">
+        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+            <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-1" name="option 1" type="checkbox" value="Option1" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
+                        Option 1
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-2" name="option 2" type="checkbox" value="Option2" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
+                        Option 2
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-3" name="option 3" type="checkbox" value="Option3" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                        Option 3
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-4" name="option 4" type="checkbox" value="Option4" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                        Option 4
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-5" name="option 5" type="checkbox" value="Option5" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-5">
+                        Option 5
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="option-6" name="option 6" type="checkbox" value="Option6" /><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-6">
+                        Option 6
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+    </div><button type="submit" class="govuk-button filter-button">Filter 3</button>
+</div>
+
 <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
 <hr class="govuk-section-break govuk-section-break--visible" />
 
@@ -30,28 +99,28 @@
     </div>
     <hr class="govuk-section-break govuk-section-break--visible" />
 }
-    <ul class="previous-next-navigation govuk-!-margin-top-3">
-         
+<ul class="previous-next-navigation govuk-!-margin-top-3">
+
     @if (Model.HasNextPage)
     {
         <li class="next">
-            <a href="#">
+            <a href="@Model.NextPageUrl">
                 <span class="pagination-label">Next</span>
                 <span class="govuk-visually-hidden">page</span>
-                <span class="page-numbers">3 of 12</span>
+                <span class="page-numbers">@Model.NextPageUrlText</span>
             </a>
         </li>
     }
-        
-        @if (Model.HasPreviousPage)
-        {
-            <li class="previous">
-                <a href="#">
-                    <span class="pagination-label">Previous</span>
-                    <span class="govuk-visually-hidden">page</span>
-                    <span class="page-numbers">1 of 12</span>
-                </a>
-            </li>
-        }
-       
-    </ul>
+
+    @if (Model.HasPreviousPage)
+    {
+        <li class="previous">
+            <a href="@Model.PreviousPageUrl">
+                <span class="pagination-label">Previous</span>
+                <span class="govuk-visually-hidden">page</span>
+                <span class="page-numbers">@Model.PreviousPageUrlText</span>
+            </a>
+        </li>
+    }
+
+</ul>

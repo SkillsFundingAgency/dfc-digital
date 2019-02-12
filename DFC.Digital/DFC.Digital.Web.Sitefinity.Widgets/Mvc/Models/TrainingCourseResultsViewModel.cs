@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,5 +26,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         public bool HasNextPage => CurrentPageNumber < TotalPagesCount;
 
         public string RecordsOnPageLabel => $"{((CurrentPageNumber - 1) * RecordsPerPage) + 1} - {((CurrentPageNumber - 1) * RecordsPerPage) + Courses.Count()}";
+
+        public Uri NextPageUrl { get; set; }
+
+        public Uri PreviousPageUrl { get; set; }
+
+        public string NextPageUrlText { get; set; }
+
+        public string PreviousPageUrlText { get; set; }
+
+        public string SearchTerm { get; set; }
     }
 }

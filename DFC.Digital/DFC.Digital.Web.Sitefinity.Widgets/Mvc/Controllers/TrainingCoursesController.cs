@@ -4,6 +4,8 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
+using System;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -34,6 +36,8 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         #region Public Properties
 
         public int RecordsPerPage { get; set; } = 20;
+
+        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
         #endregion
 
         #region Actions
@@ -41,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(string searchTerm, int page = 1)
         {
-            var viewModel = new TrainingCourseResultsViewModel();
+            var viewModel = new TrainingCourseResultsViewModel { SearchTerm = searchTerm };
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
@@ -54,13 +58,21 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
                 viewModel.Courses = response.Courses;
-                viewModel.RecordsPerPage = RecordsPerPage;
-                viewModel.CurrentPageNumber = response.CurrentPage;
-                viewModel.TotalPagesCount = response.TotalPages;
-                viewModel.ResultsCount = response.TotalResultCount;
+                SetupPaging(viewModel, response, searchTerm);
             }
 
             return View("SearchResults", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(TrainingCourseResultsViewModel viewModel)
+        {
+            if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
+            {
+                return Redirect($"{CourseSearchResultsPage}?searchTerm={GetUrlEncodedString(viewModel.SearchTerm)}");
+            }
+
+            return View("SearchResults",  new TrainingCourseResultsViewModel { SearchTerm = viewModel.SearchTerm });
         }
 
         /// <inheritdoc />
@@ -71,6 +83,31 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
         protected override void HandleUnknownAction(string actionName)
         {
             Index(string.Empty).ExecuteResult(ControllerContext);
+        }
+
+        private static string GetUrlEncodedString(string input)
+        {
+            return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
+        }
+
+        private void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string searchTerm)
+        {
+            viewModel.RecordsPerPage = RecordsPerPage;
+            viewModel.CurrentPageNumber = response.CurrentPage;
+            viewModel.TotalPagesCount = response.TotalPages;
+            viewModel.ResultsCount = response.TotalResultCount;
+
+            if (viewModel.TotalPagesCount > 1 && viewModel.TotalPagesCount >= viewModel.CurrentPageNumber)
+            {
+                viewModel.NextPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
+                viewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
+
+                if (viewModel.CurrentPageNumber > 1)
+                {
+                    viewModel.PreviousPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
+                    viewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
+                }
+            }
         }
 
         #endregion Actions

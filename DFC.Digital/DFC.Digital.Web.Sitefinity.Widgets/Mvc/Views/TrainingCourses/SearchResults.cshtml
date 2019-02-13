@@ -13,7 +13,7 @@
                     <div class="search-input">
                         <label for="search-main">
                             <h1 class="search-title">
-                                Showing 148 results for <span class="govuk-visually-hidden">plumbing</span>
+                                Showing @Model.Courses.Count() results for <span class="govuk-visually-hidden">@Model.SearchTerm</span>
                             </h1>
                         </label>
                         @Html.TextBoxFor(x => x.SearchTerm, new { placeholder = "Search for courses", @class="search-input",  id="search-main", type="search"})

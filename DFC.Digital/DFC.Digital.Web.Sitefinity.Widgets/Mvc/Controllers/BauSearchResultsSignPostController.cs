@@ -18,6 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     public class BauSearchResultsSignpostController : BaseDfcController
     {
         #region Constructors
+
         public BauSearchResultsSignpostController(IApplicationLogger applicationLogger) : base(applicationLogger)
         {
         }

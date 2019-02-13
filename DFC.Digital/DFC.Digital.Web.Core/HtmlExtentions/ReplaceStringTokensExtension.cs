@@ -1,11 +1,6 @@
-﻿using Microsoft.ApplicationInsights;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core

@@ -3,10 +3,7 @@ using Autofac.Integration.Mvc;
 using System;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.SessionState;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure.Controllers;
-using Telerik.Sitefinity.Mvc.Proxy;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {

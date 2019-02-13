@@ -15,6 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     public class SetCanonicalUrlController : BaseDfcController
     {
         private readonly IWebAppContext webAppContext;
+
         #region Constructors
 
         public SetCanonicalUrlController(IApplicationLogger applicationLogger, IWebAppContext webAppContext) : base(applicationLogger)
@@ -57,12 +58,11 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
         private ActionResult PageHandlerResult()
         {
-          webAppContext.SetupCanonicalUrlEventHandler();
+            webAppContext.SetupCanonicalUrlEventHandler();
 
             return new EmptyResult();
         }
 
-        #endregion
-
+        #endregion Private Methods
     }
 }

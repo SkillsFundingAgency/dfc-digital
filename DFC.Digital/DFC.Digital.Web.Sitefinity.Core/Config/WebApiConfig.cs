@@ -1,8 +1,8 @@
-﻿using Microsoft.Owin.Security.OAuth;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)

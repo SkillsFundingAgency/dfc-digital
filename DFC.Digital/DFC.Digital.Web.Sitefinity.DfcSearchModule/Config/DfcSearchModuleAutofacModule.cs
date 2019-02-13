@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Autofac.Extras.DynamicProxy2;
+using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 

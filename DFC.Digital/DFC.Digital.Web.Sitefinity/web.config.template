@@ -82,6 +82,31 @@ that is bundled with the nuget package under the tools folder.
       </namespaces>
     </pages>
   </system.web.webPages.razor>
+  <location path="sf/system">
+    <system.web>
+      <httpRuntime maxRequestLength="6048000" executionTimeout="7200" maxUrlLength="102400" maxQueryStringLength="102400" />
+    </system.web>
+    <system.webServer>
+      <security>
+        <requestFiltering>
+          <requestLimits maxAllowedContentLength="2147483648" />
+        </requestFiltering>
+      </security>
+    </system.webServer>
+  </location>
+  <location path="RestApi/Sitefinity/packaging/archive/upload">
+    <system.web>
+      <httpRuntime maxRequestLength="2097151" executionTimeout="7200" maxUrlLength="102400" maxQueryStringLength="102400" requestValidationType="Telerik.Sitefinity.Security.Claims.CustomRequestValidator, Telerik.Sitefinity" />
+    </system.web>
+    <system.webServer>
+      <security>
+        <requestFiltering>
+          <requestLimits maxAllowedContentLength="2147483648" />
+          <!--2GB-->
+        </requestFiltering>
+      </security>
+    </system.webServer>
+  </location>
   <location path="health/status">
     <system.webServer>
       <httpErrors errorMode="Custom" existingResponse="PassThrough">
@@ -139,19 +164,6 @@ that is bundled with the nuget package under the tools folder.
       </security>
     </system.webServer>
   </location>
-  <location path="RestApi/Sitefinity/packaging/archive/upload">
-    <system.web>
-      <httpRuntime maxRequestLength="2097151" executionTimeout="7200" maxUrlLength="102400" maxQueryStringLength="102400" requestValidationType="Telerik.Sitefinity.Security.Claims.CustomRequestValidator, Telerik.Sitefinity" />
-    </system.web>
-    <system.webServer>
-      <security>
-        <requestFiltering>
-          <requestLimits maxAllowedContentLength="2147483648" />
-          <!--2GB-->
-        </requestFiltering>
-      </security>
-    </system.webServer>
-  </location>
   <!--
     For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
 
@@ -181,7 +193,7 @@ that is bundled with the nuget package under the tools folder.
             affects performance, set this value to true only
             during development.
         -->
-    <compilation debug="true" targetFramework="4.7.1" numRecompilesBeforeAppRestart="2000">
+    <compilation debug="true" targetFramework="4.7.2" numRecompilesBeforeAppRestart="2000">
       <assemblies>
         <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
         <add assembly="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -236,7 +248,6 @@ that is bundled with the nuget package under the tools folder.
       <add verb="*" path="Telerik.RadUploadProgressHandler.ashx" type="Telerik.Web.UI.Upload.RadUploadProgressHandler, Telerik.Web.UI" />
       <add verb="*" path="Telerik.Sitefinity.FilesDownloadHandler.ashx" type="Telerik.Sitefinity.Modules.Files.FilesDownloadHandler, Telerik.Sitefinity" />
       <add verb="*" path="Telerik.Sitefinity.ExportSubscribersHttpHandler.ashx" type="Telerik.Sitefinity.Modules.Newsletters.Web.ExportSubscribersHttpHandler, Telerik.Sitefinity" />
-      <add verb="*" path="Telerik.Sitefinity.LibrariesRadUploadHandler.ashx" type="Telerik.Sitefinity.Modules.Libraries.Web.LibrariesRadUploadHandler, Telerik.Sitefinity" />
       <add verb="*" path="Telerik.Sitefinity.Html5UploadHandler.ashx" type="Telerik.Sitefinity.Modules.Libraries.Web.Html5UploadHandler, Telerik.Sitefinity" />
       <add verb="*" path="Telerik.Sitefinity.ThumbnailUploadHandler.ashx" type="Telerik.Sitefinity.Modules.Libraries.Web.ThumbnailUploadHandler, Telerik.Sitefinity" />
       <add verb="*" path="*.asmx" validate="false" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
@@ -253,11 +264,14 @@ that is bundled with the nuget package under the tools folder.
     <httpModules>
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
+      <remove name="OutputCache" />
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
       <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
       <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
+      <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" />
     </httpModules>
   </system.web>
   <system.serviceModel>
@@ -324,7 +338,9 @@ that is bundled with the nuget package under the tools folder.
       <remove name="SitefinityAnalyticsModule" />
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
+      <remove name="OutputCache" />
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
+      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
       <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -346,7 +362,6 @@ that is bundled with the nuget package under the tools folder.
       <remove name="Telerik.RadUploadProgressHandler" />
       <remove name="Telerik.Sitefinity.FilesDownloadHandler" />
       <remove name="Telerik.Sitefinity.ExportSubscribersHttpHandler" />
-      <remove name="Telerik.Sitefinity.LibrariesRadUploadHandler" />
       <remove name="Telerik.Sitefinity.Html5UploadHandler" />
       <remove name="Telerik.Sitefinity.AsyncImageUploadHandler" />
       <remove name="Telerik.Sitefinity.AsyncFileUploadHandler" />
@@ -363,7 +378,6 @@ that is bundled with the nuget package under the tools folder.
       <add name="Telerik.RadUploadProgressHandler" path="Telerik.RadUploadProgressHandler.ashx" verb="*" type="Telerik.Web.UI.Upload.RadUploadProgressHandler, Telerik.Web.UI" />
       <add name="Telerik.Sitefinity.FilesDownloadHandler" path="Telerik.Sitefinity.FilesDownloadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Files.FilesDownloadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.ExportSubscribersHttpHandler" path="Telerik.Sitefinity.ExportSubscribersHttpHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Newsletters.Web.ExportSubscribersHttpHandler, Telerik.Sitefinity" />
-      <add name="Telerik.Sitefinity.LibrariesRadUploadHandler" path="Telerik.Sitefinity.LibrariesRadUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.LibrariesRadUploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.Html5UploadHandler" path="Telerik.Sitefinity.Html5UploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.Html5UploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.ThumbnailUploadHandler" path="Telerik.Sitefinity.ThumbnailUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.ThumbnailUploadHandler, Telerik.Sitefinity" />
       <add name="Telerik.Sitefinity.AsyncImageUploadHandler" path="Telerik.Sitefinity.AsyncImageUploadHandler.ashx" verb="*" type="Telerik.Sitefinity.Modules.Libraries.Web.AsyncImageUploadHandler, Telerik.Sitefinity" />
@@ -466,6 +480,16 @@ that is bundled with the nuget package under the tools folder.
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <probing privatePath="dependencybin;bin" />
       <dependentAssembly>
+        <assemblyIdentity name="Autofac" publicKeyToken="17863af14b0044da" culture="neutral" />
+        <codeBase version="4.8.1.0" href="dependencybin\\Autofac.dll" />
+        <bindingRedirect oldVersion="0.0.0.0-4.8.1.0" newVersion="4.8.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Autofac.Integration.WebApi" culture="neutral" publicKeyToken="17863af14b0044da" />
+        <codeBase version="4.2.0.0" href="dependencybin\\Autofac.Integration.WebApi.dll" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.0.0" newVersion="4.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
         <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
       </dependentAssembly>
@@ -514,16 +538,8 @@ that is bundled with the nuget package under the tools folder.
         <bindingRedirect oldVersion="0.0.0.0-5.0.2.0" newVersion="5.0.2.0" />
       </dependentAssembly>
       <dependentAssembly>
-        <assemblyIdentity name="Autofac.Integration.Owin" publicKeyToken="17863af14b0044da" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
         <assemblyIdentity name="NLog" publicKeyToken="5120e14c03d0593c" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Autofac" publicKeyToken="17863af14b0044da" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-3.5.0.0" newVersion="3.5.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
@@ -562,11 +578,6 @@ that is bundled with the nuget package under the tools folder.
         <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
-        <assemblyIdentity name="Microsoft.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <codeBase version="7.2.0.0" href="dependencybin\\Microsoft.Spatial.dll" />
-        <bindingRedirect oldVersion="0.0.0.0-6.11.0.0" newVersion="6.11.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
         <assemblyIdentity name="Microsoft.OData.Core" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-6.11.0.0" newVersion="6.11.0.0" />
       </dependentAssembly>
@@ -576,7 +587,7 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.ApplicationInsights" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.5.1.0" newVersion="2.5.1.0" />
+        <bindingRedirect oldVersion="0.0.0.0-2.8.1.0" newVersion="2.8.1.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="HtmlAgilityPack" publicKeyToken="bd319b19eaf3b43a" culture="neutral" />
@@ -624,36 +635,78 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="AutoMapper" publicKeyToken="be96cd2c38ef1005" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-6.2.2.0" newVersion="6.2.2.0" />
+        <bindingRedirect oldVersion="0.0.0.0-8.0.0.0" newVersion="8.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.0.6729.0" newVersion="11.0.6729.0" />
+        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.8.4.0" newVersion="5.8.4.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.OData" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.8.4.0" newVersion="5.8.4.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.6.4.0" newVersion="5.6.4.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Antlr3.Runtime" publicKeyToken="eb42632606e9261f" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.5.0.2" newVersion="3.5.0.2" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Azure.Search" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.Services.Client" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.8.4.0" newVersion="5.8.4.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.OpenAccess" publicKeyToken="7ce17eeaf1d59342" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2018.0.1127.1" newVersion="2018.0.1127.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection.Abstractions" publicKeyToken="adb9793829ddae60" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.0.0.0" newVersion="1.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.4.1" newVersion="4.0.4.1" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Buffers" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.3.0" newVersion="4.0.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Numerics.Vectors" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.4.0" newVersion="4.1.4.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.AspNet.TelemetryCorrelation" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.0.5.0" newVersion="1.0.5.0" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>
-  <system.codedom>
-    <compilers>
-      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
-      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
-    </compilers>
-  </system.codedom>
   <entityFramework>
     <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
       <parameters>
@@ -664,4 +717,10 @@ that is bundled with the nuget package under the tools folder.
       <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
     </providers>
   </entityFramework>
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>
 </configuration>

@@ -17,9 +17,10 @@ using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class SearchModuleInstaller
     {
-        public static void PreApplicationStart()
+        public static void Install()
         {
             Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
         }
@@ -50,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             try
             {
-                if (Bootstrapper.IsDataInitialized)
+                if (Bootstrapper.IsReady)
                 {
                     if (SystemManager.ApplicationModules.Any(p => p.Key == SearchModule.ModuleName))
                     {

@@ -1,21 +1,20 @@
-﻿using DFC.Digital.Core;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
-using System;
-using System.Web;
-using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for customising page titles
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "TrainingCourses", Title = "Training Courses", SectionName = SitefinityConstants.CustomWidgetSection)]
+    [ControllerToolboxItem(Name = "TrainingCourses", Title = "Training Courses Results", SectionName = SitefinityConstants.CustomCoursesSection)]
     public class TrainingCoursesController : BaseDfcController
     {
         #region private fields
@@ -99,13 +98,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
 
             if (viewModel.TotalPagesCount > 1 && viewModel.TotalPagesCount >= viewModel.CurrentPageNumber)
             {
-                viewModel.NextPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
-                viewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
+                viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber > 1;
+                viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
+                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
+                viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
 
                 if (viewModel.CurrentPageNumber > 1)
                 {
-                    viewModel.PreviousPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
-                    viewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
+                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
+                    viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
                 }
             }
         }

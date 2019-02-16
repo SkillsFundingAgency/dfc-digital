@@ -1439,6 +1439,10 @@
       <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.CourseModule\DFC.Digital.Web.Sitefinity.CourseModule.csproj">
+      <Project>{8c132082-c8a8-40fa-a3ef-b8be1aef9550}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.CourseModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.JobProfileModule\DFC.Digital.Web.Sitefinity.JobProfileModule.csproj">
       <Project>{524dc675-ab6c-4e91-aa5a-ac4fccb2bcc5}</Project>
       <Name>DFC.Digital.Web.Sitefinity.JobProfileModule</Name>

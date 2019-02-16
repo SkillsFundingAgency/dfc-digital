@@ -8,6 +8,8 @@
         /// </summary>
         public const string CustomWidgetSection = "DFC Widgets";
 
+        public const string CustomCoursesSection = "DFC Courses Widgets";
+
         /// <summary>
         /// The custom admin widget section
         /// </summary>

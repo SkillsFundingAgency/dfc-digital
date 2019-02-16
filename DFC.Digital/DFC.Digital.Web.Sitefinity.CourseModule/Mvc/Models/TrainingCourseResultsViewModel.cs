@@ -1,9 +1,8 @@
-﻿using DFC.Digital.Data.Model;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
+namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class TrainingCourseResultsViewModel
     {
@@ -21,20 +20,10 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
 
         public string PreviousPageLabel { get; set; }
 
-        public bool HasPreviousPage => CurrentPageNumber > 1;
-
-        public bool HasNextPage => CurrentPageNumber < TotalPagesCount;
-
         public string RecordsOnPageLabel => $"{((CurrentPageNumber - 1) * RecordsPerPage) + 1} - {((CurrentPageNumber - 1) * RecordsPerPage) + Courses.Count()}";
 
-        public Uri NextPageUrl { get; set; }
-
-        public Uri PreviousPageUrl { get; set; }
-
-        public string NextPageUrlText { get; set; }
-
-        public string PreviousPageUrlText { get; set; }
-
         public string SearchTerm { get; set; }
+
+        public PaginationViewModel PaginationViewModel { get; set; }
     }
 }

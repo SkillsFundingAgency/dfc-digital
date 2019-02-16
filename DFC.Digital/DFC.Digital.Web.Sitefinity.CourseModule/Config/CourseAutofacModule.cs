@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Autofac;
-using Autofac.Extras.DynamicProxy2;
+using Autofac.Extras.DynamicProxy;
 using Autofac.Integration.Mvc;
-using AutoMapper;
 using DFC.Digital.Core.Interceptors;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     [ExcludeFromCodeCoverage]
-    public class CmsExtensionsAutofacModule : Module
+    public class CourseAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -1,0 +1,49 @@
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.TrainingCourseResultsViewModel
+
+
+@* Top Full Width Content Block *@
+
+<div class="govuk-grid-row">
+    
+    @using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
+    {
+
+    @* Filter Section - Within 1/3 Content Block *@
+        <div class="govuk-grid-column-one-third">
+            @Html.Partial("Filters")
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <div class="search-header">
+                    <div class="searchfield">
+                        <div class="search-input">
+                            <label for="search-main">
+                                <h1 class="search-title">
+                                    Showing @Model.Courses.Count() results for <span class="govuk-visually-hidden">@Model.SearchTerm</span>
+                                </h1>
+                            </label>
+                            @Html.TextBoxFor(x => x.SearchTerm, new {placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search"})
+                        </div>
+                        <div class="search-submit">
+                            <button type="submit" class="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
+            <hr class="govuk-section-break govuk-section-break--visible"/>
+
+            @foreach (var course in Model.Courses)
+            {
+                @Html.Partial("CourseDetail", course)
+            }
+
+        @Html.Partial("Pagination", Model.PaginationViewModel)
+
+        </div>
+    }
+</div>
+
+
+

@@ -98,8 +98,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             if (viewModel.TotalPagesCount > 1 && viewModel.TotalPagesCount >= viewModel.CurrentPageNumber)
             {
-                viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber > 1;
-                viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
+                viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber > 1;
+                viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
                 viewModel.PaginationViewModel.NextPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
                 viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
 

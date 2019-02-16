@@ -24,6 +24,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string SearchTerm { get; set; }
 
-        public PaginationViewModel PaginationViewModel { get; set; }
+        public PaginationViewModel PaginationViewModel { get; set; } = new PaginationViewModel();
     }
 }

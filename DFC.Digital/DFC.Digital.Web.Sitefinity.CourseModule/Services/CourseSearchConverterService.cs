@@ -13,8 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex)
         {
             var queryParameters = new StringBuilder();
-            if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) &&
-                !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
+            if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
             {
                 //K=maths&location=HG1%205EZ&prv=Keith%20St%20Peters%20Limited&Attendance=Class&StartDate=2016-08-14
                 // &Distance=5&Sort=distance&map=0&SearchId=3434
@@ -34,8 +33,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                         trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword);
                 }
 
-                queryParameters.AppendFormat("&attendance={0}",
-                    string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode));
+                if (trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode.Any())
+                {
+                    queryParameters.AppendFormat("&attendance={0}",
+                        string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode));
+                }
+
+                if (trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel.Any())
+                {
+                    queryParameters.AppendFormat("&qualificationlevel={0}",
+                        string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel));
+                }
 
                 queryParameters.AppendFormat("&dfe1619Funded={0}",
                     trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability);

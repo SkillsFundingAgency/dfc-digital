@@ -39,6 +39,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public int RecordsPerPage { get; set; } = 20;
 
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+
+        public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
         #endregion
 
         #region Actions
@@ -65,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect(courseSearchConverter.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel));
+                return Redirect(courseSearchConverter.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel, LocationRegex));
             }
 
             return View("SearchResults",  new TrainingCourseResultsViewModel { SearchTerm = viewModel.SearchTerm });

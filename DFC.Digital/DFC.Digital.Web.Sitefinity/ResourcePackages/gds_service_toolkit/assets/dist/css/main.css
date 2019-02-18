@@ -4352,7 +4352,7 @@ nav .govuk-tag {
       margin-bottom: .5em; }
 
 /*Filters SCSS - For Search Pages*/
-.js-enabled .filters .filter-button {
+.js-enabled .filters .filter-label {
   width: 100%;
   text-align: left;
   border: none;
@@ -4364,23 +4364,59 @@ nav .govuk-tag {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.25;
-  box-shadow: none; }
+  box-shadow: none;
+  background: #dee0e2; }
   @media print {
-    .js-enabled .filters .filter-button {
+    .js-enabled .filters .filter-label {
       font-family: sans-serif; } }
   @media (min-width: 40.0625em) {
-    .js-enabled .filters .filter-button {
+    .js-enabled .filters .filter-label {
       font-size: 19px;
       font-size: 1.1875rem;
       line-height: 1.3157894737; } }
   @media print {
-    .js-enabled .filters .filter-button {
+    .js-enabled .filters .filter-label {
       font-size: 14pt;
       line-height: 1.15; } }
-  .js-enabled .filters .filter-button:hover {
+  .js-enabled .filters .filter-label:hover {
     background-color: #bfc1c3; }
-  .js-enabled .filters .filter-button.active:hover {
+  .js-enabled .filters .filter-label.active {
+    background: #dee0e2; }
+    .js-enabled .filters .filter-label.active:hover {
+      background-color: #bfc1c3; }
+
+.filters .filter-label {
+  width: 100%;
+  text-align: left;
+  border: none;
+  color: #0b0c0c;
+  font-family: "nta", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.25;
+  box-shadow: none;
+  background: #dee0e2; }
+  @media print {
+    .filters .filter-label {
+      font-family: sans-serif; } }
+  @media (min-width: 40.0625em) {
+    .filters .filter-label {
+      font-size: 19px;
+      font-size: 1.1875rem;
+      line-height: 1.3157894737; } }
+  @media print {
+    .filters .filter-label {
+      font-size: 14pt;
+      line-height: 1.15; } }
+  .filters .filter-label:hover {
     background-color: #bfc1c3; }
+  .filters .filter-label.active {
+    background: #dee0e2; }
+    .filters .filter-label.active:hover {
+      background-color: #bfc1c3; }
 
 .filters .filter-box {
   border: 5px solid #dee0e2;

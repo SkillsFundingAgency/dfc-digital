@@ -25,5 +25,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string SearchTerm { get; set; }
 
         public PaginationViewModel PaginationViewModel { get; set; } = new PaginationViewModel();
+
+        public CourseFiltersModel CourseFiltersModel { get; set; } = new CourseFiltersModel();
+      
     }
 }

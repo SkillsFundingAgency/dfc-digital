@@ -10,7 +10,7 @@
 
     @* Filter Section - Within 1/3 Content Block *@
         <div class="govuk-grid-column-one-third">
-            @Html.Partial("Filters")
+            @Html.Partial("Filters", Model.CourseFiltersModel)
         </div>
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">

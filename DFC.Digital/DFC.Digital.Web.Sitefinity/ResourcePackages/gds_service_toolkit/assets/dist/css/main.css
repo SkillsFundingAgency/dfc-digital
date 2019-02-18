@@ -4352,7 +4352,7 @@ nav .govuk-tag {
       margin-bottom: .5em; }
 
 /*Filters SCSS - For Search Pages*/
-.filters .filter-button {
+.js-enabled .filters .filter-button {
   width: 100%;
   text-align: left;
   border: none;
@@ -4364,37 +4364,34 @@ nav .govuk-tag {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.25;
-  box-shadow: none;
-  background: #dee0e2 url("/ResourcePackages/gds_service_toolkit/assets/dist/images/filter-arrow-sprite.png") no-repeat right bottom 10px; }
+  box-shadow: none; }
   @media print {
-    .filters .filter-button {
+    .js-enabled .filters .filter-button {
       font-family: sans-serif; } }
   @media (min-width: 40.0625em) {
-    .filters .filter-button {
+    .js-enabled .filters .filter-button {
       font-size: 19px;
       font-size: 1.1875rem;
       line-height: 1.3157894737; } }
   @media print {
-    .filters .filter-button {
+    .js-enabled .filters .filter-button {
       font-size: 14pt;
       line-height: 1.15; } }
-  .filters .filter-button:hover {
+  .js-enabled .filters .filter-button:hover {
     background-color: #bfc1c3; }
-  .filters .filter-button.active {
-    background: #dee0e2 url("/ResourcePackages/gds_service_toolkit/assets/dist/images/filter-arrow-sprite.png") no-repeat right top 7px; }
-    .filters .filter-button.active:hover {
-      background-color: #bfc1c3; }
+  .js-enabled .filters .filter-button.active:hover {
+    background-color: #bfc1c3; }
 
 .filters .filter-box {
   border: 5px solid #dee0e2;
   position: relative;
-  padding: 7.5px;
+  padding: 12.5px;
   background-color: #fff;
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 200px;
   top: -35px; }
-  .filters .filter-box .govuk-checkboxes__input {
+  .filters .filter-box .govuk-checkboxes__input, .filters .filter-box .govuk-radios__input {
     width: 26px;
     height: 26px; }
   .filters .filter-box .govuk-checkboxes__label {
@@ -4407,6 +4404,19 @@ nav .govuk-tag {
       left: 5px;
       width: 10px;
       height: 5px; }
-  .filters .filter-box .govuk-checkboxes__item {
+  .filters .filter-box .govuk-radios__label {
+    padding: 5px; }
+    .filters .filter-box .govuk-radios__label:before {
+      width: 26px;
+      height: 26px; }
+    .filters .filter-box .govuk-radios__label:after {
+      top: 5px;
+      left: 5px;
+      width: 0;
+      height: 0px;
+      border: 8px solid currentColor; }
+  .filters .filter-box .govuk-checkboxes__item, .filters .filter-box .govuk-radios__item {
     padding: 0 0 0 35px;
     min-height: 30px; }
+  .filters .filter-box .govuk-radios__item {
+    margin-bottom: 10px; }

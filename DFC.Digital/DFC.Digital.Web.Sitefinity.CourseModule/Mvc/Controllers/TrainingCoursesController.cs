@@ -20,14 +20,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
+        private readonly ICourseSearchConverter courseSearchConverter;
         #endregion
 
         #region Constructors
 
-        public TrainingCoursesController(IApplicationLogger applicationLogger, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper) : base(applicationLogger)
+        public TrainingCoursesController(IApplicationLogger applicationLogger, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, ICourseSearchConverter courseSearchConverter) : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
+            this.courseSearchConverter = courseSearchConverter;
         }
 
         #endregion Constructors
@@ -42,22 +44,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, int page = 1)
         {
-            var viewModel = new TrainingCourseResultsViewModel { SearchTerm = searchTerm };
+            var viewModel = new TrainingCourseResultsViewModel {SearchTerm = searchTerm};
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                var request = new CourseSearchRequest
-                {
-                    SearchTerm = searchTerm,
-                    RecordsPerPage = RecordsPerPage,
-                    PageNumber = page
-                };
+                var request = courseSearchConverter.GetCourseSearchRequest(searchTerm, RecordsPerPage, attendance, studymode, qualificationLevel, distance, dfe1619Funded, page);
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
                 viewModel.Courses = response.Courses;
-                SetupPaging(viewModel, response, searchTerm);
+                courseSearchConverter.SetupPaging(viewModel, response, searchTerm, RecordsPerPage, CourseSearchResultsPage);
             }
 
             return View("SearchResults", viewModel);
@@ -68,7 +65,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect($"{CourseSearchResultsPage}?searchTerm={GetUrlEncodedString(viewModel.SearchTerm)}");
+                return Redirect(courseSearchConverter.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel));
             }
 
             return View("SearchResults",  new TrainingCourseResultsViewModel { SearchTerm = viewModel.SearchTerm });
@@ -81,34 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty).ExecuteResult(ControllerContext);
-        }
-
-        private static string GetUrlEncodedString(string input)
-        {
-            return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
-        }
-
-        private void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string searchTerm)
-        {
-            viewModel.RecordsPerPage = RecordsPerPage;
-            viewModel.CurrentPageNumber = response.CurrentPage;
-            viewModel.TotalPagesCount = response.TotalPages;
-            viewModel.ResultsCount = response.TotalResultCount;
-
-            if (viewModel.TotalPagesCount > 1 && viewModel.TotalPagesCount >= viewModel.CurrentPageNumber)
-            {
-                viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber > 1;
-                viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
-                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
-                viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
-
-                if (viewModel.CurrentPageNumber > 1)
-                {
-                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{CourseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
-                    viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
-                }
-            }
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
         #endregion Actions

@@ -1,61 +1,89 @@
-﻿.filters {
-
-    .filter-button {
-        width: 100%;
-        text-align: left;
-        border: none;
-        color: govuk-colour("black");
-        @include govuk-font($size: 19, $weight: bold);
-        box-shadow: none;
-        background: govuk-colour("grey-3") govuk-image-url("filter-arrow-sprite.png") no-repeat right bottom 10px;
-
-        &:hover {
-            background-color: govuk-colour("grey-2");
-        }
-
-        &.active {
-            background: govuk-colour("grey-3") govuk-image-url("filter-arrow-sprite.png") no-repeat right top 7px;
+﻿ 
+.js-enabled {
+.filters {
+        .filter-label {
+            width: 100%;
+            text-align: left;
+            border: none;
+            color: govuk-colour("black");
+            @include govuk-font($size: 19, $weight: bold);
+            box-shadow: none;
+            background: govuk-colour("grey-3");
 
             &:hover {
                 background-color: govuk-colour("grey-2");
             }
+
+            &.active {
+                background: govuk-colour("grey-3");
+
+                &:hover {
+                    background-color: govuk-colour("grey-2");
+                }
+            }
         }
+
     }
+}
 
-    .filter-box {
-        border: 5px solid govuk-colour("grey-3");
-        position: relative;
-        padding: 7.5px;
-        background-color: #fff;
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: 200px;
-        top: -35px;
+.filters {
 
-        .govuk-checkboxes__input {
-            width: 26px;
-            height: 26px;
-        }
+            .filter-box {
+            border: 5px solid govuk-colour("grey-3");
+            position: relative;
+            padding: 12.5px;
+            background-color: #fff;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 200px;
+            top: -35px;
 
-        .govuk-checkboxes__label {
-            padding: 5px;
-
-            &:before {
+            .govuk-checkboxes__input, .govuk-radios__input {
                 width: 26px;
                 height: 26px;
             }
 
-            &:after {
-                top: 7px;
-                left: 5px;
-                width: 10px;
-                height: 5px;
+            .govuk-checkboxes__label {
+                padding: 5px;
+
+                &:before {
+                    width: 26px;
+                    height: 26px;
+                }
+
+                &:after {
+                    top: 7px;
+                    left: 5px;
+                    width: 10px;
+                    height: 5px;
+                }
+            }
+
+            .govuk-radios__label {
+                padding: 5px;
+
+                &:before {
+                    width: 26px;
+                    height: 26px;
+                }
+
+                &:after {
+                    top: 5px;
+                    left: 5px;
+                    width: 0;
+                    height: 0px;
+                    border: 8px solid currentColor
+                }
+            }
+
+            .govuk-checkboxes__item, .govuk-radios__item {
+                padding: 0 0 0 35px;
+                min-height: 30px;
+            }
+
+            .govuk-radios__item {
+                margin-bottom: 10px;
             }
         }
 
-        .govuk-checkboxes__item {
-            padding: 0 0 0 35px;
-            min-height: 30px;
-        }
-    }
 }

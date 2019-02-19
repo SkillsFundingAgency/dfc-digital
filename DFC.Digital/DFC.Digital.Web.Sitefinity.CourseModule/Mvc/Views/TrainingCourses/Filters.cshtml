@@ -117,33 +117,33 @@
             </fieldset>
         </div>
     </div>
-<div class="filter-container">
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-radios">
-            <div class="govuk-form-group">
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios">
+                    <div class="govuk-form-group">
                 
-                @foreach (var item in Model.AgeSuitabilitySelectedList)
-                {
-                    <div class="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
-                        </div>
-                    </div>
-                }
+                        @foreach (var item in Model.AgeSuitabilitySelectedList)
+                        {
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                                </div>
+                            </div>
+                        }
               
-            </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-    </fieldset>
+    </div>
+    <div class="submit js-live-search-fallback">
+
+        <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
+
+
+    </div>
 </div>
-    </div>
-        <div class="submit js-live-search-fallback">
-
-            <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
-
-
-        </div>
-    </div>

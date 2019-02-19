@@ -136,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     selectList.Add(new SelectItem
                     {
-                        Checked = itemList != null && itemList.Contains(dataValues[1]) ? "checked" : string.Empty,
+                        Checked = itemList != null && itemList.Contains(dataValues[1].Trim()) ? "checked" : string.Empty,
                         Label = dataValues[0].Trim(),
                         Name = propertyName,
                         Id = $"{propertyName}{dataValues[1].Trim()}",

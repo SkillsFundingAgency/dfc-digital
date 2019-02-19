@@ -288,7 +288,7 @@
       "type": "string",
       "value": "[variables('appServiceName')]"
     },
-    "cosmosDbSQLName": {
+    "cosmosDbName": {
       "type": "string",
       "value": "[variables('cosmosDbSQLName')]"
     },

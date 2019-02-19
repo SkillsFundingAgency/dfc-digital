@@ -46,13 +46,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, int page = 1)
         {
             var viewModel = new TrainingCourseResultsViewModel {SearchTerm = searchTerm};
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                var request = courseSearchConverter.GetCourseSearchRequest(searchTerm, RecordsPerPage, attendance, studymode, qualificationLevel, distance, dfe1619Funded, page);
+                var request = courseSearchConverter.GetCourseSearchRequest(searchTerm, RecordsPerPage, attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, page);
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
                 viewModel.Courses = response.Courses;
@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
         #endregion Actions  

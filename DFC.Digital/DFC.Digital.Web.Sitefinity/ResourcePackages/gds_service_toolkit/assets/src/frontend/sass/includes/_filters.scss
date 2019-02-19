@@ -1,14 +1,7 @@
 ﻿ 
-.js-enabled {
+/*.js-enabled {
 .filters {
         .filter-label {
-            width: 100%;
-            text-align: left;
-            border: none;
-            color: govuk-colour("black");
-            @include govuk-font($size: 19, $weight: bold);
-            box-shadow: none;
-            background: govuk-colour("grey-3");
 
             &:hover {
                 background-color: govuk-colour("grey-2");
@@ -24,30 +17,18 @@
         }
 
     }
-}
+}*/
 
 .filters {
 
     .filter-label {
-        width: 100%;
         text-align: left;
         border: none;
         color: govuk-colour("black");
         @include govuk-font($size: 19, $weight: bold);
         box-shadow: none;
+        padding: 5px 10px;
         background: govuk-colour("grey-3");
-
-        &:hover {
-            background-color: govuk-colour("grey-2");
-        }
-
-        &.active {
-            background: govuk-colour("grey-3");
-
-            &:hover {
-                background-color: govuk-colour("grey-2");
-            }
-        }
     }
 
     .filter-box {
@@ -58,7 +39,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         max-height: 200px;
-        top: -35px;
+        top: -5px;
 
         .govuk-checkboxes__input, .govuk-radios__input {
             width: 26px;

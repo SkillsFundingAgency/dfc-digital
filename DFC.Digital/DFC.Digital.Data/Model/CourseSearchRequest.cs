@@ -16,6 +16,12 @@
 
         public string StudyMode { get; set; }
 
-        public string Distance { get; set; }
+        public float Distance { get; set; }
+
+        public bool DistanceSpecified { get; set; }
+
+        public string AttendancePattern { get; set; }
+
+        public string ProviderKeyword { get; set; }
     }
 }

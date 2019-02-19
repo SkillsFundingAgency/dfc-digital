@@ -28,7 +28,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
                         AttendanceModes = convertTribalEnums.GetTribalAttendanceModes(request.Attendance),
                         StudyModes = convertTribalEnums.GetTribalStudyModes(request.StudyMode),
-                        DFE1619Funded = request.Dfe1619Funded.Equals("1619") ? "Y" : null
+                        DFE1619Funded = request.Dfe1619Funded.Equals("1619") ? "Y" : null,
+                        AttendancePatterns = convertTribalEnums.GetTribalAttendancePatterns(request.AttendancePattern),
+                        QualificationLevels = convertTribalEnums.GetTribalQualificationLevels(request.QualificationLevel),
+                        ProviderKeyword = request.ProviderKeyword,
+                        Distance = request.Distance,
+                        DistanceSpecified = request.DistanceSpecified
                     },
                     RecordsPerPage = request.RecordsPerPage.ToString(),
                     PageNo = request.PageNumber.ToString(),
@@ -38,11 +43,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
 
             return apiRequest;
-        }
-
-        public string GetTribalAttendanceModes(string attendanceMode)
-        {
-            throw new NotImplementedException();
         }
     }
 }

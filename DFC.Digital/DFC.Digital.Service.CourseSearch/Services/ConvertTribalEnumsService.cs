@@ -81,5 +81,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             return studyModeList.ToArray();
         }
+
+        public string[] GetTribalQualificationLevels(string qualificationLevels)
+        {
+            return null;
+        }
+
+        public string[] GetTribalAttendancePatterns(string attendancePattern)
+        {
+            return null;
+        }
     }
 }

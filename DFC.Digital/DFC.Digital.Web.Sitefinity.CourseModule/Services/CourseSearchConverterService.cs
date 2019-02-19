@@ -48,6 +48,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&location={trainingCourseResultsViewModel.CourseFiltersModel.Location}";
                 }
 
+                if (trainingCourseResultsViewModel.CourseFiltersModel.AttendancePattern.Any())
+                {
+                    queryParameters = $"{queryParameters}&pattern={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendancePattern)}";
+                }
+
                 queryParameters = $"{queryParameters}&StartDate=Anytime";
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location) &&
@@ -71,8 +76,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return queryParameters;
         }
 
-        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, int page)
+        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, int page)
         {
+            float.TryParse(distance, out var localDistance);
             var request = new CourseSearchRequest
             {
                 SearchTerm = searchTerm,
@@ -82,7 +88,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 StudyMode = studymode,
                 QualificationLevel = qualificationLevel,
                 Dfe1619Funded = dfe1619Funded,
-                Distance = distance
+                Distance = localDistance,
+                AttendancePattern = pattern
             };
 
             return request;

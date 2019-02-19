@@ -1,6 +1,6 @@
 ﻿@model CourseFiltersModel
 
-<div class="filters">
+<div class="filters filters govuk-!-margin-top-4">
     <div class="filter-container">
         <div class="filter-label">
             <h3 class="govuk-heading-s govuk-!-margin-0">Distance</h3>
@@ -35,84 +35,89 @@
         </div>
 
     </div>
-
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-            
-            @foreach (var studyMode in Model.StudyModeSelectedList)
-            {
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@studyMode.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @studyMode.Checked value="@studyMode.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@studyMode.Id">
-                        @studyMode.Label
-                    </label>
-                </div>
-            }
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
         </div>
-    </fieldset>
-</div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
 
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
-</div>
-
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-
-            @foreach (var item in Model.AttendanceSelectedList)
-            {
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
-                        @item.Label
-                    </label>
+                    @foreach (var studyMode in Model.StudyModeSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@studyMode.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @studyMode.Checked value="@studyMode.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@studyMode.Id">
+                                @studyMode.Label
+                            </label>
+                        </div>
+                    }
                 </div>
-            }
+            </fieldset>
         </div>
-    </fieldset>
-</div>
+    </div>
+ 
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
+        </div>
 
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
 
-            @foreach (var item in Model.PatternSelectedList)
-            {
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
-                        @item.Label
-                    </label>
+                    @foreach (var item in Model.AttendanceSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
                 </div>
-            }
+            </fieldset>
         </div>
-    </fieldset>
-</div>
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
-</div>
 
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
 
-            @foreach (var item in Model.QualificationSelectedList)
-            {
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
-                        @item.Label
-                    </label>
+                    @foreach (var item in Model.PatternSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
                 </div>
-            }
+            </fieldset>
         </div>
-    </fieldset>
-</div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
+        </div>
 
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+
+                    @foreach (var item in Model.QualificationSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+<div class="filter-container">
 <div class="filter-label">
     <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
 </div>
@@ -134,12 +139,11 @@
         </div>
     </fieldset>
 </div>
+    </div>
+        <div class="submit js-live-search-fallback">
+
+            <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
 
 
-<div class="submit js-live-search-fallback">
-
-    <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
-
-
-</div>
-</div>
+        </div>
+    </div>

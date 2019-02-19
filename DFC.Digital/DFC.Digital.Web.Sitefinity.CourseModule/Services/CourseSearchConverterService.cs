@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -76,7 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return queryParameters;
         }
 
-        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, int page)
+        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, int page)
         {
             float.TryParse(distance, out var localDistance);
             var request = new CourseSearchRequest
@@ -89,7 +90,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 QualificationLevel = qualificationLevel,
                 Dfe1619Funded = dfe1619Funded,
                 Distance = localDistance,
-                AttendancePattern = pattern
+                AttendancePattern = pattern,
+                Location = location
             };
 
             return request;
@@ -120,6 +122,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
                 }
             }
+        }
+
+        public IEnumerable<SelectItem> GetFilterSelectItems(string propertyName, IEnumerable<string> sourceList,
+            string value)
+        {
+            var selectList = new List<SelectItem>();
+            var itemList = value?.Split(',');
+            foreach (var sourceItem in sourceList)
+            {
+                var dataValues = sourceItem.Split(':');
+                if (dataValues.Length == 2)
+                {
+                    selectList.Add(new SelectItem
+                    {
+                        Checked = itemList != null && itemList.Contains(dataValues[1]) ? "checked" : string.Empty,
+                        Label = dataValues[0].Trim(),
+                        Name = propertyName,
+                        Id = $"{propertyName}{dataValues[1].Trim()}",
+                        Value = dataValues[1].Trim()
+                    });
+                }
+            }
+            return selectList;
         }
     }
 }

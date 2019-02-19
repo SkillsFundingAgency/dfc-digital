@@ -246,6 +246,7 @@
     <Compile Include="Mvc\Controllers\TrainingCoursesController.cs" />
     <Compile Include="Mvc\Models\CourseFiltersModel.cs" />
     <Compile Include="Mvc\Models\PaginationViewModel.cs" />
+    <Compile Include="Mvc\Models\SelectItem.cs" />
     <Compile Include="Mvc\Models\TrainingCourseResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\ICourseSearchConverter.cs" />

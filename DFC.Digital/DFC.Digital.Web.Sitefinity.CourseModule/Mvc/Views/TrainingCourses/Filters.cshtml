@@ -20,33 +20,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="distance1" name="CourseFiltersModel.Distance" type="radio" value="1" selected="True"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">1 mile</label>
-                        </div>
-                        <div class="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="distance3" name="CourseFiltersModel.Distance" type="radio" value="3"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">3 miles</label>
+                        
+                        @foreach (var item in Model.DistanceSelectedList)
+                        {
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" @item.Checked type="radio" value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="distance5" name="CourseFiltersModel.Distance" type="radio" value="5"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">5 miles</label>
-                        </div>
-                        <div class="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="distance10" name="CourseFiltersModel.Distance" type="radio" value="10"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">10 miles</label>
-                            </div>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="distance15" name="CourseFiltersModel.Distance" type="radio" value="15"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">15 miles</label>
-                        </div>
-                        <div class="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="distance20" name="CourseFiltersModel.Distance" type="radio" value="20"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">20 miles</label>
-                            </div>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="national" name="CourseFiltersModel.Distance" type="radio" checked="" value="national"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="distance">National</label>
-                        </div>
+                        }
                     </div>
                 </div>
             </fieldset>
@@ -60,26 +42,15 @@
 <div class="filter-box">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="showall" name="CourseFiltersModel.StudyMode" type="checkbox" checked="checked" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="fulltime" name="CourseFiltersModel.StudyMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Full Time
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="parttime" name="CourseFiltersModel.StudyMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Part Time
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="flexible" name="CourseFiltersModel.StudyMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Flexible
-                </label>
-            </div>
+            
+            @foreach (var studyMode in Model.StudyModeSelectedList)
+            {
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@studyMode.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @studyMode.Checked value="@studyMode.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@studyMode.Id">
+                        @studyMode.Label
+                    </label>
+                </div>
+            }
         </div>
     </fieldset>
 </div>
@@ -91,26 +62,15 @@
 <div class="filter-box">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="saw" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="c" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Classroom
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="wb" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Work-based
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="odl" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Online/Distance learning
-                </label>
-            </div>
+
+            @foreach (var item in Model.AttendanceSelectedList)
+            {
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        @item.Label
+                    </label>
+                </div>
+            }
         </div>
     </fieldset>
 </div>
@@ -121,26 +81,15 @@
 <div class="filter-box">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="SA" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="NWH" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Normal working hours
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="DRBR" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Day release/Block release
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="EW" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Evening/Weekend
-                </label>
-            </div>
+
+            @foreach (var item in Model.PatternSelectedList)
+            {
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@item.Id" name="CourseFiltersModel.StudyMode" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        @item.Label
+                    </label>
+                </div>
+            }
         </div>
     </fieldset>
 </div>
@@ -151,56 +100,15 @@
 <div class="filter-box">
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="AllLevels" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="EntryLevel" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Entry Level
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level1" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 1
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level2" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 2
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level3" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="4"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 3
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level4" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="5"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 4
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level5" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="6"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 5
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level6" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="7"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 6
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level7" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="8"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 7
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level8" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="9"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 8
-                </label>
-            </div>
+
+            @foreach (var item in Model.QualificationSelectedList)
+            {
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        @item.Label
+                    </label>
+                </div>
+            }
         </div>
     </fieldset>
 </div>
@@ -212,19 +120,16 @@
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <div class="govuk-radios">
             <div class="govuk-form-group">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="allages"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">All Ages</label>
-                </div>
-                <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="1619"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">16 to 19 year-olds</label>
+                
+                @foreach (var item in Model.AgeSuitabilitySelectedList)
+                {
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                        </div>
                     </div>
-                </div>
-                <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="19plus"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">19+ year-olds</label>
-                    </div>
-                </div>
+                }
+              
             </div>
         </div>
     </fieldset>

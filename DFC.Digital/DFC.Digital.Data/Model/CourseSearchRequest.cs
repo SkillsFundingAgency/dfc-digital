@@ -23,5 +23,7 @@
         public string AttendancePattern { get; set; }
 
         public string ProviderKeyword { get; set; }
+
+        public string Location { get; set; }
     }
 }

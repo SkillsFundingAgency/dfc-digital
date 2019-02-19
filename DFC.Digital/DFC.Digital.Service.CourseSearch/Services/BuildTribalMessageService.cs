@@ -33,7 +33,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         QualificationLevels = convertTribalEnums.GetTribalQualificationLevels(request.QualificationLevel),
                         ProviderKeyword = request.ProviderKeyword,
                         Distance = request.Distance,
-                        DistanceSpecified = request.DistanceSpecified
+                        DistanceSpecified = request.DistanceSpecified,
+                        Location = request.Location
                     },
                     RecordsPerPage = request.RecordsPerPage.ToString(),
                     PageNo = request.PageNumber.ToString(),

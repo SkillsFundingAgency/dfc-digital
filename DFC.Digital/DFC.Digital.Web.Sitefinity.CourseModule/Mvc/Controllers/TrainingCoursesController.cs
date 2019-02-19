@@ -83,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
-        #endregion Actions
+        #endregion Actions  
 
     }
 }

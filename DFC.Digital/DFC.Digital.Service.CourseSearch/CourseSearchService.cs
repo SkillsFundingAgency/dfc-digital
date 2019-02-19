@@ -16,19 +16,22 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
+        private readonly IBuildTribalMessage buildTribalMessage;
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
             IServiceHelper serviceHelper,
             IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
-            ITolerancePolicy tolerancePolicy)
+            ITolerancePolicy tolerancePolicy,
+            IBuildTribalMessage buildTribalMessage)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
             this.tolerancePolicy = tolerancePolicy;
+            this.buildTribalMessage = buildTribalMessage;
         }
 
         private static string ServiceName => "Course Search";
@@ -99,7 +102,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
 
             var response = new CourseSearchResponse();
-            var request = MessageConverter.GetCourseSearchInput(courseSearchRequest);
+            var request = buildTribalMessage.GetCourseSearchInput(courseSearchRequest);
             auditRepository.CreateAudit(request);
 
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.

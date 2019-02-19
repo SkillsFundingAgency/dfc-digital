@@ -1,4 +1,7 @@
-﻿namespace DFC.Digital.Web.Sitefinity.CourseModule
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseFiltersModel
     {
@@ -6,13 +9,13 @@
 
         public string AgeSuitability { get; set; }
 
-        public string[] StudyMode { get; set; }
+        public IEnumerable<string> StudyMode { get; set; } = Enumerable.Empty<string>();
 
-        public string[] AttendancePattern { get; set; }
+        public IEnumerable<string> AttendancePattern { get; set; } = Enumerable.Empty<string>();
 
-        public string[] AttendanceMode { get; set; }
+        public IEnumerable<string> AttendanceMode { get; set; } = Enumerable.Empty<string>();
 
-        public string[] QualificationLevel { get; set; }
+        public IEnumerable<string> QualificationLevel { get; set; } = Enumerable.Empty<string>();
 
         public string Location { get; set; }
 

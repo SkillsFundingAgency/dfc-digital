@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string BuildRedirectPathAndQueryString(string courseSearchResultsPage,
             TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex)
         {
-            var queryParameters = new StringBuilder();
+            var queryParameters = $"{courseSearchResultsPage}?";
             if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
             {
                 //K=maths&location=HG1%205EZ&prv=Keith%20St%20Peters%20Limited&Attendance=Class&StartDate=2016-08-14
@@ -20,39 +20,35 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) &&
                     !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
                 {
-                    queryParameters.AppendFormat("searchTerm={0}&prv={1}", trainingCourseResultsViewModel.SearchTerm,
-                        trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword);
+                    queryParameters = $"{queryParameters}searchTerm={trainingCourseResultsViewModel.SearchTerm}&prv={trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword}";
                 }
                 else if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm))
                 {
-                    queryParameters.AppendFormat("searchTerm={0}", trainingCourseResultsViewModel.SearchTerm);
+                    queryParameters = $"{queryParameters}searchTerm={trainingCourseResultsViewModel.SearchTerm}";
                 }
                 else
                 {
-                    queryParameters.AppendFormat("prv={0}",
-                        trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword);
+                    queryParameters = $"{queryParameters}prv={trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword}";
                 }
 
                 if (trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode.Any())
                 {
-                    queryParameters.AppendFormat("&attendance={0}",
-                        string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode));
+                    queryParameters = $"{queryParameters}&attendance={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendanceMode)}";
                 }
 
                 if (trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel.Any())
                 {
-                    queryParameters.AppendFormat("&qualificationlevel={0}",
-                        string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel));
+                    queryParameters = $"{queryParameters}&qualificationlevel={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel)}";                 
                 }
 
-                queryParameters.AppendFormat("&dfe1619Funded={0}",
-                    trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability);
+                queryParameters = $"{queryParameters}&dfe1619Funded={trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability}";
 
-                queryParameters.AppendFormat("&location={0}",
-                    trainingCourseResultsViewModel.CourseFiltersModel.Location);
+                if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location))
+                {
+                    queryParameters = $"{queryParameters}&location={trainingCourseResultsViewModel.CourseFiltersModel.Location}";
+                }
 
-                queryParameters.AppendFormat("&StartDate={0}", "Anytime");
-
+                queryParameters = $"{queryParameters}&StartDate=Anytime";
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location) &&
                     !string.IsNullOrWhiteSpace(locationDistanceRegex))
@@ -60,20 +56,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     if (Regex.Matches(trainingCourseResultsViewModel.CourseFiltersModel.Location, locationDistanceRegex)
                             .Count > 0)
                     {
-                        queryParameters.AppendFormat("&distance={0}",
-                            trainingCourseResultsViewModel.CourseFiltersModel.Distance);
+                        queryParameters = $"{queryParameters}&distance={trainingCourseResultsViewModel.CourseFiltersModel.Distance}";
                     }
                 }
+
                 if (trainingCourseResultsViewModel.CourseFiltersModel.StudyMode.Any())
                 {
-                    queryParameters.AppendFormat("&studymode={0}",
-                        string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.StudyMode));
+                    queryParameters = $"{queryParameters}&studymode={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.StudyMode)}";
                 }
 
-                queryParameters.AppendFormat("&pageNo={0}", "1");
+                queryParameters = $"{queryParameters}&page=1";
             }
 
-            return queryParameters.ToString();
+            return queryParameters;
         }
 
         public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, int page)
@@ -82,7 +77,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             {
                 SearchTerm = searchTerm,
                 RecordsPerPage = recordsPerPage,
-                PageNumber = page
+                PageNumber = page,
+                Attendance = attendance,
+                StudyMode = studymode,
+                QualificationLevel = qualificationLevel,
+                Dfe1619Funded = dfe1619Funded,
+                Distance = distance
             };
 
             return request;

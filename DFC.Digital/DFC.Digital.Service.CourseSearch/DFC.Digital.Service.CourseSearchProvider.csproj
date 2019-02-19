@@ -74,6 +74,11 @@
     <Compile Include="CourseSearchService.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BuildTribalMessageService.cs" />
+    <Compile Include="Services\Contracts\IBuildTribalMessage.cs" />
+    <Compile Include="Services\Contracts\IConvertTribalEnums.cs" />
+    <Compile Include="Services\ConvertTribalEnumsService.cs" />
+    <Compile Include="Utility\CourseSearchConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
@@ -184,5 +189,6 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

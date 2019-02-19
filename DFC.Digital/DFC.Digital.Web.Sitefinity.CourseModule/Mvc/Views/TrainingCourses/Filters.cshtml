@@ -1,6 +1,6 @@
 ﻿@model CourseFiltersModel
 
-<div class="filters">
+<div class="filters filters govuk-!-margin-top-4">
     <div class="filter-container">
         <div class="filter-label">
             <h3 class="govuk-heading-s govuk-!-margin-0">Distance</h3>
@@ -53,188 +53,192 @@
         </div>
 
     </div>
-
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="showall" name="CourseFiltersModel.StudyMode" type="checkbox" checked="checked" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="fulltime" name="CourseFiltersModel.StudyMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Full Time
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="parttime" name="CourseFiltersModel.StudyMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Part Time
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="flexible" name="CourseFiltersModel.StudyMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Flexible
-                </label>
-            </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
         </div>
-    </fieldset>
-</div>
-
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
-</div>
-
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="saw" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="c" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Classroom
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="wb" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Work-based
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="odl" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Online/Distance learning
-                </label>
-            </div>
-        </div>
-    </fieldset>
-</div>
-
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="SA" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    Show All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="NWH" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Normal working hours
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="DRBR" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Day release/Block release
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="EW" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Evening/Weekend
-                </label>
-            </div>
-        </div>
-    </fieldset>
-</div>
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
-</div>
-
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="AllLevels" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
-                    All
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="EntryLevel" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
-                    Entry Level
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level1" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 1
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level2" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 2
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level3" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="4"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 3
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level4" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="5"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 4
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level5" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="6"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 5
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level6" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="7"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 6
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level7" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="8"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
-                    Level 7
-                </label>
-            </div>
-            <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="Level8" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="9"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
-                    Level 8
-                </label>
-            </div>
-        </div>
-    </fieldset>
-</div>
-
-<div class="filter-label">
-    <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
-</div>
-<div class="filter-box">
-    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-        <div class="govuk-radios">
-            <div class="govuk-form-group">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="allages"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">All Ages</label>
-                </div>
-                <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="1619"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">16 to 19 year-olds</label>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="showall" name="CourseFiltersModel.StudyMode" type="checkbox" checked="checked" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
+                            Show All
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="fulltime" name="CourseFiltersModel.StudyMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
+                            Full Time
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="parttime" name="CourseFiltersModel.StudyMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Part Time
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="flexible" name="CourseFiltersModel.StudyMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Flexible
+                        </label>
                     </div>
                 </div>
-                <div class="govuk-radios">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="19plus"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">19+ year-olds</label>
+            </fieldset>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
+        </div>
+
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="saw" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
+                            Show All
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="c" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
+                            Classroom
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="wb" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Work-based
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="odl" name="CourseFiltersModel.AttendanceMode" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Online/Distance learning
+                        </label>
                     </div>
                 </div>
-            </div>
+            </fieldset>
         </div>
-    </fieldset>
-</div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="SA" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
+                            Show All
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="NWH" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
+                            Normal working hours
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="DRBR" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Day release/Block release
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="EW" name="CourseFiltersModel.AttendancePattern" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Evening/Weekend
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="AllLevels" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="0"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-1">
+                            All
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="EntryLevel" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="1"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-2">
+                            Entry Level
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level1" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="2"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Level 1
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level2" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="3"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Level 2
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level3" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="4"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Level 3
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level4" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="5"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Level 4
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level5" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="6"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Level 5
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level6" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="7"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Level 6
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level7" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="8"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-3">
+                            Level 7
+                        </label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="Level8" name="CourseFiltersModel.QualificationLevel" type="checkbox" value="9"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="Option-4">
+                            Level 8
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios">
+                    <div class="govuk-form-group">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="allages"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">All Ages</label>
+                        </div>
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="1619"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">16 to 19 year-olds</label>
+                            </div>
+                        </div>
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="agesuitability" name="CourseFiltersModel.AgeSuitability" type="radio" value="19plus"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="agesuitability">19+ year-olds</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+        <div class="submit js-live-search-fallback">
+
+            <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
 
 
-<div class="submit js-live-search-fallback">
-
-    <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
-
-
-</div>
-</div>
+        </div>
+    </div>

@@ -14,9 +14,13 @@
         <li class="govuk-!-margin-top-3">
             <span class="govuk-secondary-colour">Provider:</span> @Model.ProviderName
         </li>
-        <li>
-            <span class="govuk-secondary-colour">Location:</span> @Model.Location
-        </li>
+        @if (!string.IsNullOrWhiteSpace(Model.Location))
+        {
+            <li>
+                <span class="govuk-secondary-colour">Location:</span> @Model.Location
+            </li>
+        }
+        
         <li>
             <span class="govuk-secondary-colour">Start date:</span> @Model.StartDateLabel
         </li>

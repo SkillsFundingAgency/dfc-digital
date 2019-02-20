@@ -4371,6 +4371,9 @@ nav .govuk-tag {
 
     }
 }*/
+.filters .filters-container {
+  margin-bottom: 10px; }
+
 .filters .filter-label {
   text-align: left;
   border: none;
@@ -4406,8 +4409,7 @@ nav .govuk-tag {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 200px;
-  top: -5px;
-  margin-bottom: 10px; }
+  top: -5px; }
   .filters .filter-box .govuk-checkboxes__input, .filters .filter-box .govuk-radios__input {
     width: 26px;
     height: 26px; }

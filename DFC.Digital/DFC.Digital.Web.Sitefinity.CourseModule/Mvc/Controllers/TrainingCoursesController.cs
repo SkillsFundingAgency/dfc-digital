@@ -42,7 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
 
-        public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-bases: 2, Online/Distance learning : 3";
+        public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";
 
         public string StudyModesSource { get; set; } = "Show All: 0, Full Time: 1, Part Time: 2, Flexible : 3";
 

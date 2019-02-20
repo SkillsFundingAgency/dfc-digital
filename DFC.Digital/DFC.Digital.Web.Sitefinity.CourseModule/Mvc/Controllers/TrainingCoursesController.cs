@@ -69,7 +69,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
                 viewModel.Courses = response.Courses;
-                courseSearchConverter.SetupPaging(viewModel, response, searchTerm, RecordsPerPage, CourseSearchResultsPage);
+
+                var pathQuery = Request?.Url?.PathAndQuery;
+                if (pathQuery != null && pathQuery.ToLowerInvariant().IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
+                {
+                    pathQuery = pathQuery.Substring(0,
+                        pathQuery.ToLowerInvariant().IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
+                }
+                courseSearchConverter.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
 
                 SetupFilterLists(attendance, studymode, qualificationLevel, pattern, distance, dfe1619Funded, location, viewModel);
             }

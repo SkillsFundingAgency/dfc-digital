@@ -18,11 +18,15 @@
             <span class="govuk-secondary-colour">Location:</span> @Model.Location
         </li>
         <li>
-            <span class="govuk-secondary-colour">Start date:</span> @Model.StartDate.ToShortDateString()
+            <span class="govuk-secondary-colour">Start date:</span> @Model.StartDateLabel
         </li>
-        <li>
-            <span class="govuk-secondary-colour">Duration:</span> @Model.Duration
-        </li>
+        @if (!string.IsNullOrWhiteSpace(Model.Duration))
+        {
+            <li>
+                <span class="govuk-secondary-colour">Duration:</span> @Model.Duration
+            </li>
+        }
+        
     </ul>
 </div>
 

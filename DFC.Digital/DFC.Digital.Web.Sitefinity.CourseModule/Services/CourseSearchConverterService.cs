@@ -42,7 +42,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&qualificationlevel={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel)}";                 
                 }
 
-                queryParameters = $"{queryParameters}&dfe1619Funded={trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability}";
+                if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability))
+                {
+                    queryParameters =
+                        $"{queryParameters}&dfe1619Funded={trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability}";
+                }
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location))
                 {
@@ -102,7 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }
 
-        public void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string searchTerm, int  recordsPerPage, string courseSearchResultsPage)
+        public void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string pathQuery, int  recordsPerPage, string courseSearchResultsPage)
         {
             viewModel.RecordsPerPage = recordsPerPage;
             viewModel.CurrentPageNumber = response.CurrentPage;
@@ -113,12 +117,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             {
                 viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber > 1;
                 viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
-                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{courseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
+                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{pathQuery}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
                 viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
 
                 if (viewModel.CurrentPageNumber > 1)
                 {
-                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{courseSearchResultsPage}?searchTerm={HttpUtility.UrlEncode(searchTerm)}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
+                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{pathQuery}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
                     viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
                 }
             }

@@ -30,9 +30,16 @@
                     </div>
                 </div>
             </div>
-
-            <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
-            <hr class="govuk-section-break govuk-section-break--visible"/>
+            
+            @if (Model.Courses.Any())
+            {
+                <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
+                <hr class="govuk-section-break govuk-section-break--visible"/>
+            }
+            else
+            {
+                <h3 class="govuk-body-s govuk-!-margin-bottom-1">No training courses found</h3>
+            }
 
             @foreach (var course in Model.Courses)
             {

@@ -79,7 +79,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     Title = c.Course.CourseTitle,
                     Location = (c.Opportunity.Item as VenueInfo)?.VenueAddress.Town,
                     ProviderName = c.Provider.ProviderName,
-                    StartDate = Convert.ToDateTime(c.Opportunity.StartDate.Item),
+                    StartDateLabel = c.Opportunity.StartDate.Item,
                     CourseId = c.Course.CourseID,
                     AttendanceMode = c.Opportunity.AttendanceMode,
                     AttendancePattern = c.Opportunity.AttendancePattern,

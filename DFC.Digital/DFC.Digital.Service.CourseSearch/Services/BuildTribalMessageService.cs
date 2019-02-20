@@ -8,11 +8,11 @@ namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class BuildTribalMessageService : IBuildTribalMessage
     {
-        private readonly IConvertTribalEnums convertTribalEnums;
+        private readonly IConvertTribalCodes convertTribalCodesService;
 
-        public BuildTribalMessageService(IConvertTribalEnums convertTribalEnums)
+        public BuildTribalMessageService(IConvertTribalCodes convertTribalCodesService)
         {
-            this.convertTribalEnums = convertTribalEnums;
+            this.convertTribalCodesService = convertTribalCodesService;
         }
 
         public CourseListInput GetCourseSearchInput(CourseSearchRequest request)
@@ -25,12 +25,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     {
                         APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
                         SubjectKeyword = request.SearchTerm,
-                        EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                        AttendanceModes = convertTribalEnums.GetTribalAttendanceModes(request.Attendance),
-                        StudyModes = convertTribalEnums.GetTribalStudyModes(request.StudyMode),
+                        EarliestStartDate = null,
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(request.Attendance),
+                        StudyModes = convertTribalCodesService.GetTribalStudyModes(request.StudyMode),
                         DFE1619Funded = !string.IsNullOrWhiteSpace(request.Dfe1619Funded) && request.Dfe1619Funded.Equals("1619") ? "Y" : null,
-                        AttendancePatterns = convertTribalEnums.GetTribalAttendancePatterns(request.AttendancePattern),
-                        QualificationLevels = convertTribalEnums.GetTribalQualificationLevels(request.QualificationLevel),
+                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(request.AttendancePattern),
+                        QualificationLevels = convertTribalCodesService.GetTribalQualificationLevels(request.QualificationLevel),
                         ProviderKeyword = request.ProviderKeyword,
                         Distance = request.Distance,
                         DistanceSpecified = request.DistanceSpecified,

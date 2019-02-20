@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public interface IConvertTribalEnums
+    public interface IConvertTribalCodes
     {
         string[] GetTribalAttendanceModes(string attendanceMode);
 

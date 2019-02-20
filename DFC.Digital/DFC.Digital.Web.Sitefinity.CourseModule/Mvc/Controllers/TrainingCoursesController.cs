@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using DFC.Digital.Core;
@@ -36,22 +37,31 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Public Properties
 
+        [DisplayName("Records Per Page")]
         public int RecordsPerPage { get; set; } = 20;
 
+        [DisplayName("Training Courses Results Page")]
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
+        [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
 
+        [DisplayName("Attendance Modes Source")]
         public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";
 
+        [DisplayName("Study Modes Source")]
         public string StudyModesSource { get; set; } = "Show All: 0, Full Time: 1, Part Time: 2, Flexible : 3";
 
+        [DisplayName("Attendance Pattern Modes Source")]
         public string AttendancePatternModesSource { get; set; } = "Show All: 0,  Normal working hours: 1, Day release/Block release: 2, Evening/Weekend : 3";
 
+        [DisplayName("Qualification Levels Source")]
         public string QualificationLevelSource { get; set; } = "All: 0, Entry Level: 1, Level 1: 2, Level 2 : 3, Level 3 : 4, Level 4 : 5, Level 5 : 6, Level 6 : 7, Level 7 : 8, Level 8 : 9";
 
+        [DisplayName("Age Suitabilty Source")]
         public string AgeSuitabiltySource { get; set; } = "All Ages: 0,  16 to 19 year-olds: 1619, 19+ year-olds: 19plus";
 
+        [DisplayName("Distance Source")]
         public string DistanceSource { get; set; } = "1 mile: 1,3 miles: 3, 5 miles: 5, 10 miles : 10, 15 miles : 15, 20 miles: 20, National : national";
 
         #endregion

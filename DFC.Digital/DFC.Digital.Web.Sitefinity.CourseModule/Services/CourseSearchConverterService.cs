@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -16,8 +17,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             var queryParameters = $"{courseSearchResultsPage}?";
             if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
             {
-                //K=maths&location=HG1%205EZ&prv=Keith%20St%20Peters%20Limited&Attendance=Class&StartDate=2016-08-14
-                // &Distance=5&Sort=distance&map=0&SearchId=3434
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) &&
                     !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
                 {
@@ -76,6 +75,53 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 }
 
                 queryParameters = $"{queryParameters}&page=1";
+            }
+
+            return queryParameters;
+        }
+
+        public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage,
+            CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
+        {
+
+            var queryParameters = $"{courseSearchResultsPage}?";
+            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
+            { 
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) &&
+                    !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
+                {
+                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.SearchTerm}&prv={courseLandingViewModel.ProviderKeyword}";
+                }
+                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm))
+                {
+                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.SearchTerm}";
+                }
+                else
+                {
+                    queryParameters = $"{queryParameters}prv={courseLandingViewModel.ProviderKeyword}";
+                }
+
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.QualificationLevel))
+                {
+                    queryParameters = $"{queryParameters}&qualificationlevel={courseLandingViewModel.QualificationLevel}";
+                }
+
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location))
+                {
+                    queryParameters = $"{queryParameters}&location={courseLandingViewModel.Location}";
+                }
+
+                queryParameters = $"{queryParameters}&StartDate=Anytime";
+
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location) &&
+                    !string.IsNullOrWhiteSpace(locationDistanceRegex))
+                {
+                    if (Regex.Matches(courseLandingViewModel.Location, locationDistanceRegex)
+                            .Count > 0)
+                    {
+                        queryParameters = $"{queryParameters}&distance={courseLandingViewModel.Distance}";
+                    }
+                }
             }
 
             return queryParameters;

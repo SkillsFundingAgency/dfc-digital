@@ -9,7 +9,7 @@
 
         public string Distance { get; set; }
 
-        public string ProviderKey { get; set; }
+        public string ProviderKeyword { get; set; }
 
         public string CourseNameHintText { get; set; }
         public string CourseNameLabel { get; set; }

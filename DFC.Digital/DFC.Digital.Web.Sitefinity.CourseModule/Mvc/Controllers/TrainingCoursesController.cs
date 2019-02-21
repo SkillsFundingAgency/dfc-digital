@@ -18,6 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "TrainingCourses", Title = "Training Courses Results", SectionName = SitefinityConstants.CustomCoursesSection)]
     public class TrainingCoursesController : BaseDfcController
     {
+
         #region private fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;

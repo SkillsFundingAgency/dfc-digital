@@ -1,0 +1,74 @@
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseLandingViewModel
+
+@*Inside HERO banner container*@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">
+                    Find a course
+                </h1>
+            </legend>
+            <p class="govuk-body">
+                Search for training and learning opportunities at all levels. We'll show you courses from colleges, training providers and local education authorities. <a target="_blank" href="https://nationalcareersservice.direct.gov.uk/contact-us/home"
+                                                                                                                                                                           class="white">Contact a careers adviser</a> if you need any help finding the right course.
+            </p>
+        </fieldset>
+    </div>
+</div>
+
+@* Inside main section *@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    @using (Html.BeginForm("", "CourseLanding", FormMethod.Post))
+    {
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="course-name">@Model.CourseNameLabel </label>
+            <span id="course-name-hint" class="govuk-hint">
+                @Model.CourseNameHintText
+            </span>
+            @Html.TextBoxFor(x => x.SearchTerm, new {@class = "govuk-input"})
+        </div>
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="course-name">@Model.ProviderLabel </label>
+            @Html.TextBoxFor(x => x.ProviderKey, new {@class = "govuk-input"})
+        </div>
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-body  govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="qualification-level">@Model.QualificationLevelLabel</label>
+            <span id="qualification-level-hint" class="govuk-hint">
+                <a href="#">@Model.QualificationLevelHint</a>
+            </span>
+            <select class="govuk-select govuk-!-width-full" id="qualification-level" name="QualificationLevel">
+                <option value="">Select level</option>
+                <option value="0">Entry level - Skills for Life</option>
+                <option value="1">Level 1 - First certificate</option>
+                <option value="2">Level 2 - GCSE/O level</option>
+                <option value="3">Level 3 - A level/Access to higher education diploma</option>
+                <option value="4">Level 4 - Certificate of higher education/HNC</option>
+                <option value="5">Level 5 - Foundation degree/HND</option>
+                <option value="6">Level 6 - Degree/Graduate diploma</option>
+                <option value="7">Level 7 - Masters Degree/Postgraduate diploma</option>
+                <option value="8">Level 8 - Doctorate/PhD</option>
+            </select>
+        </div>
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="location">@Model.LocationLabel</label>
+            <span id="qualification-level-hint" class="govuk-hint">
+                @Model.LocationHintText
+            </span>
+            @Html.TextBoxFor(x => x.Location, new {@class = "govuk-input govuk-!-width-one-third"})
+            <span class="govuk-body govuk-!-font-size-16 govuk-!-margin-2">within</span>
+            <select class="govuk-select govuk-!-width-one-third" id="range" name="Distance">
+                <option value="10">10 miles</option>
+                <option value="20">20 miles</option>
+                <option value="30">30 miles</option>
+                <option value="40">40 miles</option>
+                <option value="50">50 miles</option>
+                <option value="60">60 miles</option>
+            </select>
+        </div>
+        <div class="govuk-form-group"><button type="submit" class="govuk-button">Submit</button>
+        </div>
+    }
+    </div>
+</div>

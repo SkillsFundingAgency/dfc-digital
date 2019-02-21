@@ -1131,7 +1131,6 @@
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\govuk.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\main.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
-    <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Web.config" />
     <Content Include="ResourcePackages\gds_service_toolkit\csslint.json" />
     <Content Include="ResourcePackages\gds_service_toolkit\jsfiles.json" />
     <Content Include="ResourcePackages\gds_service_toolkit\package.json" />

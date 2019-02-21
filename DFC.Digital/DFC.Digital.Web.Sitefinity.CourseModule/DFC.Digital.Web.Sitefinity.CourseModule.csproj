@@ -243,8 +243,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CourseAutofacModule.cs" />
+    <Compile Include="Mvc\Controllers\CourseLandingController.cs" />
     <Compile Include="Mvc\Controllers\TrainingCoursesController.cs" />
     <Compile Include="Mvc\Models\CourseFiltersModel.cs" />
+    <Compile Include="Mvc\Models\CourseLandingViewModel.cs" />
     <Compile Include="Mvc\Models\PaginationViewModel.cs" />
     <Compile Include="Mvc\Models\SelectItem.cs" />
     <Compile Include="Mvc\Models\TrainingCourseResultsViewModel.cs" />
@@ -263,6 +265,7 @@
     <Content Include="Mvc\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Mvc\Views\CourseLanding\Index.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

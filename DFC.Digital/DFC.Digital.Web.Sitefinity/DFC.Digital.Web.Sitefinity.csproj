@@ -1111,6 +1111,7 @@
     <Content Include="App_Data\GeoLocation\GeoLite2-City.mmdb" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.8.1.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

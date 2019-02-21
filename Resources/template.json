@@ -82,6 +82,7 @@
     "appServiceName": "[concat(parameters('projectPrefix'),'-as')]",
     "appServicePlanName": "[concat(parameters('projectPrefix'),'-asp')]",
     "cosmosDbSQLName": "[concat(parameters('projectPrefix'),'-cdb')]",
+    "redisCacheName": "[concat(parameters('projectPrefix'),'-rds')]",
     "azureSearchName": "[concat(parameters('projectPrefix'),'-sch')]"
   },
   "resources": [
@@ -252,7 +253,7 @@
     },
     {
       "apiVersion": "2017-05-10",
-      "name": "providerPortalSearch",
+      "name": "exploreCareersSearch",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -266,6 +267,23 @@
           },
           "azureSearchSku": {
             "value": "standard"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "exploreCareersRedisCache",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'redis.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "redisName": {
+            "value": "[variables('redisCacheName')]"
           }
         }
       }
@@ -295,6 +313,14 @@
     "cosmosDbPrimaryKey": {
       "type": "securestring",
       "value": "[reference('exploreCareersCosmosDB').outputs.PrimaryMasterKey.value]"
+    },
+    "redisCacheName": {
+      "type": "string",
+      "value": "[variables('redisCacheName')]"
+    },
+    "redisCacheConnectionString": {
+      "type": "securestring",
+      "value": "[reference('exploreCareersRedisCache').outputs.redisConnectionString.value]"
     },
     "azureSearchName": {
       "type": "string",

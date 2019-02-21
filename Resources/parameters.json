@@ -3,76 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "projectPrefix": {
-      "value": "dfc-foo-cd"
+      "value": "dfc-foo-dig"
     },
     "storageAccountName": {
-      "value": "dfcfoocdstr"
-    },
-    "postcodeApiUrl": {
-      "value": "https://my.api.net/api/postcode?"
-    },
-    "postcodeApiKey": {
-      "value": "not-a-real-key"
-    },
-    "venueApiUrl": {
-      "value": "https://my.api.net/api/venue/"
-    },
-    "venueApiKey": {
-      "value": "not-a-real-key"
-    },
-    "larsApiUrl": {
-      "value": "https://dfc-foo-prov-sch.search.windows.net/indexes/lars/docs/search"
-    },
-    "larsApiKey": {
-      "value": "not-a-real-key"
-    },
-    "providerApiUrl": {
-      "value": "https://my.api.net/api/provider/"
-    },
-    "providerApiKey": {
-      "value": "not-a-real-key"
-    },
-    "courseApiUrl": {
-      "value": "https://my.api.net/api/course/"
-    },
-    "courseApiKey": {
-      "value": "not-a-real-key"
-    },
-    "searchDomain": {
-      "value": "search.example.net"
-    },
-    "searchAdminKey": {
-      "value": "not-a-real-key"
-    },
-    "searchQueryKey": {
-      "value": "not-a-real-key"
-    },
-    "dfeClientID": {
-      "value": "letmein"
-    },
-    "dfeClientSecret": {
-      "value": "not-a-real-secret"
-    },
-    "dfeEndpointUrl": {
-      "value": "https://test.dfe.net/token"
-    },
-    "dfeMetadataUrl": {
-      "value": "https://test.dfe.net/.well-known/openid-configuration"
-    },
-    "dfeCallBackPath": {
-      "value": "/auth"
-    },
-    "dfeSignedOutPath": {
-      "value": "/signout"
-    },
-    "sqlCourseDirectoryConnectionString": {
-      "value": "Server=tcp:dfc-foo-shared-sql-01.database.windows.net,1433;Initial Catalog=database;Persist Security Info=False;User ID=username;Password=password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-    },
-    "courseTextApiUrl": {
-      "value": "https://my.api.net/api/coursetext/"
-    },
-    "courseTextApiKey": {
-      "value": "not-a-real-key"
+      "value": "dfcfoodigstr"
     }
   }
 }

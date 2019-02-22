@@ -245,6 +245,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CourseAutofacModule.cs" />
+    <Compile Include="Mvc\Controllers\CourseDetailsController.cs" />
     <Compile Include="Mvc\Controllers\CourseLandingController.cs" />
     <Compile Include="Mvc\Controllers\TrainingCoursesController.cs" />
     <Compile Include="Mvc\Models\CourseFiltersModel.cs" />
@@ -296,7 +297,9 @@
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Mvc\Views\CourseDetails\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

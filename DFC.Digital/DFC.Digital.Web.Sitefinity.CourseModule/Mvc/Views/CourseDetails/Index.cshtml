@@ -1,0 +1,15 @@
+﻿@model CourseDetailsViewModel
+
+<div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="#">Find a course</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="#">Plumber</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item" aria-current="page">Plumbing Level 2</li>
+    </ol>
+</div>
+
+@Html.Partial("CourseDetails", Model.CourseDetails)

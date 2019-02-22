@@ -311,7 +311,7 @@
       "value": "[variables('cosmosDbSQLName')]"
     },
     "cosmosDbPrimaryKey": {
-      "type": "securestring",
+      "type": "string",
       "value": "[reference('exploreCareersCosmosDB').outputs.PrimaryMasterKey.value]"
     },
     "redisCacheName": {
@@ -319,12 +319,16 @@
       "value": "[variables('redisCacheName')]"
     },
     "redisCacheConnectionString": {
-      "type": "securestring",
+      "type": "string",
       "value": "[reference('exploreCareersRedisCache').outputs.redisConnectionString.value]"
     },
     "azureSearchName": {
       "type": "string",
       "value": "[variables('azureSearchName')]"
+    },
+    "azureSearchPrimaryKey": {
+      "type": "string",
+      "value": "[reference('exploreCareersSearch').outputs.azureSearchPrimaryKey.value]"
     }
   }
 }

@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
         [DisplayName("Course Details Page")]
-        public string CourseDetailsPage { get; set; } = "/courses-details";
+        public string CourseDetailsPage { get; set; } = "/course-details";
 
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
@@ -83,11 +83,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 var request = courseSearchConverter.GetCourseSearchRequest(searchTerm, RecordsPerPage, attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, page);
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
-                viewModel.Courses = response.Courses;
-
-                foreach (var course in viewModel.Courses)
+            
+                foreach (var course in response.Courses)
                 {
                     course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}";
+                   viewModel.Courses.Add(course);
                 }
 
                 var pathQuery = Request?.Url?.PathAndQuery;

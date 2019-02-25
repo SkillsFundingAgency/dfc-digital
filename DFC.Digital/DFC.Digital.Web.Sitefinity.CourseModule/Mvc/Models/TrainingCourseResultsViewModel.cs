@@ -6,7 +6,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class TrainingCourseResultsViewModel
     {
-        public IEnumerable<Course> Courses { get; set; } = Enumerable.Empty<Course>();
+        public IList<Course> Courses { get; set; } = new List<Course>();
 
         public int ResultsCount { get; set; }
 

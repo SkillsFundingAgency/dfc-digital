@@ -7,6 +7,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using Telerik.Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
@@ -44,6 +45,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Training Courses Results Page")]
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
+        [DisplayName("Course Details Page")]
+        public string CourseDetailsPage { get; set; } = "/courses-details";
+
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
 
@@ -80,6 +84,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
                 viewModel.Courses = response.Courses;
+
+                foreach (var course in viewModel.Courses)
+                {
+                    course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}";
+                }
 
                 var pathQuery = Request?.Url?.PathAndQuery;
                 if (pathQuery != null && pathQuery.ToLowerInvariant().IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)

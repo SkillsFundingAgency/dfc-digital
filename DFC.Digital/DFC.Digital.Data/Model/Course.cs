@@ -58,5 +58,7 @@ namespace DFC.Digital.Data.Model
         public string StudyMode { get; set; }
 
         public string StartDateLabel { get; set; }
+
+        public string CourseUrl { get; set; }
     }
 }

@@ -320,7 +320,7 @@
     },
     "redisCacheConnectionString": {
       "type": "string",
-      "value": "[reference('exploreCareersRedisCache').outputs.redisConnectionString.value]"
+      "value": "[reference('exploreCareersRedisCache').outputs.redisAltConnectionString.value]"
     },
     "azureSearchName": {
       "type": "string",

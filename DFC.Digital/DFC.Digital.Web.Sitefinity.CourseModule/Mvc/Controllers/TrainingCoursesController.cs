@@ -104,6 +104,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             return View("SearchResults", viewModel);
         }
 
+        /// <summary>
+        /// Send View model to initiate search
+        /// </summary>
+        /// <param name="viewModel">The view model.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(TrainingCourseResultsViewModel viewModel)
         {

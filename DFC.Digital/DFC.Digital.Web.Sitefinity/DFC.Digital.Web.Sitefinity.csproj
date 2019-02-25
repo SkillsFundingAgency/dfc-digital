@@ -1057,9 +1057,7 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="extensions.bundle.js" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\css\Readme.txt" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\images\Readme.txt" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\js\Readme.txt" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\dist\**\*" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />

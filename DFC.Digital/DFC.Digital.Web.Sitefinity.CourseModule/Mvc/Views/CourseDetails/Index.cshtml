@@ -8,5 +8,6 @@
         <li class="govuk-breadcrumbs__list-item" aria-current="page">@Model.CourseDetails.Title</li>
     </ol>
 </div>
-
-@Html.Partial("CourseDetails", Model.CourseDetails)
+<div class="govuk-grid-row">
+    @Html.Partial("CourseDetails", Model.CourseDetails)
+</div>

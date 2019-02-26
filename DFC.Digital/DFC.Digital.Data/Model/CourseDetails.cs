@@ -13,5 +13,7 @@
         public string QualificationName { get; set; }
 
         public string AssessmentMethod { get; set; }
+
+        public string Cost { get; set; }
     }
 }

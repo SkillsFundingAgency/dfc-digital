@@ -107,6 +107,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 EntryRequirements = apiCourseDetail.Course.EntryRequirements,
                 AssessmentMethod = apiCourseDetail.Course.AssessmentMethod,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
+                Cost = apiCourseDetail.Opportunity.FirstOrDefault()?.Price,
                 VenueDetails = new VenueDetails
                 {
                     EmailAddress = apiCourseDetail.Venue.FirstOrDefault()?.Email,

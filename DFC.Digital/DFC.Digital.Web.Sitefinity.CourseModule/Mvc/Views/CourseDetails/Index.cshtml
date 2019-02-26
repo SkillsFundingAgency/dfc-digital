@@ -3,12 +3,9 @@
 <div class="govuk-breadcrumbs">
     <ol class="govuk-breadcrumbs__list">
         <li class="govuk-breadcrumbs__list-item">
-            <a class="govuk-breadcrumbs__link" href="#">Find a course</a>
+            <a class="govuk-breadcrumbs__link" href="@Model.FindACoursePage">Find a course</a>
         </li>
-        <li class="govuk-breadcrumbs__list-item">
-            <a class="govuk-breadcrumbs__link" href="#">Plumber</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item" aria-current="page">Plumbing Level 2</li>
+        <li class="govuk-breadcrumbs__list-item" aria-current="page">@Model.CourseDetails.Title</li>
     </ol>
 </div>
 

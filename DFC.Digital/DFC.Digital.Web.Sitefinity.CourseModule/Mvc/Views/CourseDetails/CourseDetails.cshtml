@@ -1,10 +1,12 @@
 ﻿@model DFC.Digital.Data.Model.CourseDetails
 
-@*Detail Section*@
-<h2 class="govuk-heading-l">@Model.Title</h2>
-<table class="govuk-table k-table">
-    <caption class="govuk-table__caption">Dates and amounts</caption>
-    <tbody class="govuk-table__body">
+
+<div class="govuk-grid-column-two-thirds">
+    @*Detail Section*@
+    <h2 class="govuk-heading-l">@Model.Title</h2>
+    <table class="govuk-table k-table">
+        <caption class="govuk-table__caption">Dates and amounts</caption>
+        <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
             <th class="govuk-table__header" scope="row">Qualification name</th>
             <td class="govuk-table__cell">@Model.QualificationName</td>
@@ -16,44 +18,48 @@
         <tr class="govuk-table__row">
             <th class="govuk-table__header" scope="row">Entry requirements</th>
             <td class="govuk-table__cell">@Model.EntryRequirements</td>
-    </tr>
-    <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Start date</th>
-        <td class="govuk-table__cell">@Model.StartDateLabel</td>
-    </tr>
-    <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Duration</th>
-        <td class="govuk-table__cell">@Model.Duration</td>
-    </tr>
-    <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Classroom or online</th>
-        <td class="govuk-table__cell">@Model.AttendanceMode</td>
-    </tr>
-    <tr class="govuk-table__row">
-        <th class="govuk-table__header" scope="row">Day, night or weekend</th>
-        <td class="govuk-table__cell">@Model.AttendancePattern</td>
-    </tr>
-    </tbody>
-</table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--start">
-    Enrol now
-</a>
-<p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
-<hr class="govuk-section-break govuk-section-break--l" />
-<section>
-    <h2 class="govuk-heading-m">Course description</h2>
-    <p class="govuk-body ">
-        @Model.Description
-    </p>
-    <p class="govuk-body ">
-        Practical assessment, Multiple choice tests
-    </p>
-</section>
+        </tr>
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="row">Start date</th>
+            <td class="govuk-table__cell">@Model.StartDateLabel</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="row">Duration</th>
+            <td class="govuk-table__cell">@Model.Duration</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="row">Classroom or online</th>
+            <td class="govuk-table__cell">@Model.AttendanceMode</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header" scope="row">Day, night or weekend</th>
+            <td class="govuk-table__cell">@Model.AttendancePattern</td>
+        </tr>
+        </tbody>
+    </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--start">
+        Enrol now
+    </a>
+    <p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
+    <hr class="govuk-section-break govuk-section-break--l" />
+    <section>
+        <h2 class="govuk-heading-m">Course description</h2>
+        <p class="govuk-body ">
+            @Model.Description
+        </p>
+        <p class="govuk-body ">
+            @Model.AssessmentMethod
+        </p>
+    </section>
+</div>
 
-@* RHC *@
 
-<aside class="govuk-related-items" role="complementary">
+<div class="govuk-grid-column-one-third">
+    @* RHC *@
 
-    @Html.Partial("Provider", Model.ProviderDetails)
+    <aside class="govuk-related-items" role="complementary">
 
-    @Html.Partial("Venue", Model.VenueDetails)
-</aside>
+        @Html.Partial("Provider", Model.ProviderDetails)
+
+        @Html.Partial("Venue", Model.VenueDetails)
+    </aside>
+</div>

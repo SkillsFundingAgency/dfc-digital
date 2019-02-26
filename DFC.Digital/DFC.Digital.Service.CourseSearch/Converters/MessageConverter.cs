@@ -105,6 +105,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 Title = apiCourseDetail.Course.CourseTitle,
                 Description = apiCourseDetail.Course.CourseSummary,
                 EntryRequirements = apiCourseDetail.Course.EntryRequirements,
+                AssessmentMethod = apiCourseDetail.Course.AssessmentMethod,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
                 VenueDetails = new VenueDetails
                 {

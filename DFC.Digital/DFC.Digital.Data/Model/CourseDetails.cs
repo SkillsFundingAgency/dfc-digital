@@ -11,5 +11,7 @@
         public string EntryRequirements { get; set; }
 
         public string QualificationName { get; set; }
+
+        public string AssessmentMethod { get; set; }
     }
 }

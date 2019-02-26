@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel;
+using System.Web.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
@@ -21,9 +22,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             this.asyncHelper = asyncHelper;
         }
 
+        [DisplayName("Find a course Page")]
+        public string FindAcoursePage { get; set; } = "/find-a-course";
+
         public ActionResult Index(string courseId)
         {
-            var viewModel = new CourseDetailsViewModel();
+            var viewModel = new CourseDetailsViewModel{ FindACoursePage = FindAcoursePage };
             if (!string.IsNullOrWhiteSpace(courseId))
             {
                 viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetails(courseId));

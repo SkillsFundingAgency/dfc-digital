@@ -90,5 +90,50 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             return result ?? Enumerable.Empty<Course>();
         }
+
+        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
+        {
+            var apiCourseDetail = apiResult.CourseDetails.FirstOrDefault();
+
+            if (apiCourseDetail == null)
+            {
+                return null;
+            }
+
+            return new CourseDetails
+            {
+                Title = apiCourseDetail.Course.CourseTitle,
+                Description = apiCourseDetail.Course.CourseSummary,
+                EntryRequirements = apiCourseDetail.Course.EntryRequirements,
+                QualificationName = apiCourseDetail.Course.QualificationTitle,
+                VenueDetails = new VenueDetails
+                {
+                    EmailAddress = apiCourseDetail.Venue.FirstOrDefault()?.Email,
+                    Location = apiCourseDetail.Venue.FirstOrDefault()?.VenueName,
+                    PhoneNumber = apiCourseDetail.Venue.FirstOrDefault()?.Phone,
+                    Website = apiCourseDetail.Venue.FirstOrDefault()?.Website
+                },
+                ProviderDetails = new ProviderDetails
+                {
+                    EmailAddress = apiCourseDetail.Provider.Email,
+                    AddressLine = apiCourseDetail.Provider.ProviderAddress.Address_line_1,
+                    AddressLine2 = apiCourseDetail.Provider.ProviderAddress.Address_line_2,
+                    Town = apiCourseDetail.Provider.ProviderAddress.Town,
+                    County = apiCourseDetail.Provider.ProviderAddress.County,
+                    PostCode = apiCourseDetail.Provider.ProviderAddress.PostCode,
+                    Longitude = apiCourseDetail.Provider.ProviderAddress.Longitude,
+                    Latitude = apiCourseDetail.Provider.ProviderAddress.Latitude,
+                    PhoneNumber = apiCourseDetail.Provider.Phone,
+                    Name = apiCourseDetail.Provider.ProviderName
+                },
+                StartDateLabel = apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
+                CourseId = apiCourseDetail.Course.CourseID,
+                AttendanceMode = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendanceMode,
+                AttendancePattern = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendancePattern,
+                QualificationLevel = apiCourseDetail.Course.QualificationLevel,
+                StudyMode = apiCourseDetail.Opportunity.FirstOrDefault()?.StudyMode,
+                Duration = $"{apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationValue} {apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationUnit}"
+            };
+        }
     }
 }

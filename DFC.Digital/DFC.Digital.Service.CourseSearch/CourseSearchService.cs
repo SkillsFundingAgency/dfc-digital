@@ -124,5 +124,32 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             return response;
         }
+
+        public async Task<CourseDetails> GetCourseDetails(string courseId)
+        {
+            if (string.IsNullOrWhiteSpace(courseId))
+            {
+                return null;
+            }
+
+            var response = new CourseDetails();
+            var request = buildTribalMessage.GetCourseDetailInput(courseId);
+            auditRepository.CreateAudit(request);
+
+            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
+            try
+            {
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+                auditRepository.CreateAudit(apiResult);
+                response = apiResult?.ConvertToCourseDetails();
+            }
+            catch (Exception ex)
+            {
+                auditRepository.CreateAudit(ex);
+                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
+            }
+
+            return response;
+        }
     }
 }

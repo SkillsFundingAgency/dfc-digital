@@ -160,6 +160,8 @@
     <Compile Include="Model\OnetSkill.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
+    <Compile Include="Model\OpportunityDetails.cs" />
+    <Compile Include="Model\ProviderDetails.cs" />
     <Compile Include="Model\RepoActionResult.cs" />
     <Compile Include="Model\BuildSocMatrixRequest.cs" />
     <Compile Include="Model\BuildSocMatrixResponse.cs" />
@@ -217,6 +219,7 @@
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
+    <Compile Include="Model\VenueDetails.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Model\WhatItTakesSkill.cs" />

@@ -1,38 +1,38 @@
 ﻿@model DFC.Digital.Data.Model.CourseDetails
 
 @*Detail Section*@
-<h2 class="govuk-heading-l">Plumbing Level 2</h2>
+<h2 class="govuk-heading-l">@Model.Title</h2>
 <table class="govuk-table k-table">
     <caption class="govuk-table__caption">Dates and amounts</caption>
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
             <th class="govuk-table__header" scope="row">Qualification name</th>
-            <td class="govuk-table__cell">Diploma in Plumbing and Heating (QCF)</td>
+            <td class="govuk-table__cell">@Model.QualificationName</td>
         </tr>
         <tr class="govuk-table__row">
             <th class="govuk-table__header" scope="row">Qualification level</th>
-            <td class="govuk-table__cell">Level 2</td>
+            <td class="govuk-table__cell">@Model.QualificationLevel</td>
         </tr>
         <tr class="govuk-table__row">
             <th class="govuk-table__header" scope="row">Entry requirements</th>
-            <td class="govuk-table__cell">Completion of Level 1</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="row">Start date</th>
-            <td class="govuk-table__cell">4 September 2019</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="row">Duration</th>
-            <td class="govuk-table__cell">1 Year</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="row">Classroom or online</th>
-            <td class="govuk-table__cell">Classroom-based</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="row">Day, night or weekend</th>
-            <td class="govuk-table__cell">Normal working hours</td>
-        </tr>
+            <td class="govuk-table__cell">@Model.EntryRequirements</td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th class="govuk-table__header" scope="row">Start date</th>
+        <td class="govuk-table__cell">@Model.StartDateLabel</td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th class="govuk-table__header" scope="row">Duration</th>
+        <td class="govuk-table__cell">@Model.Duration</td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th class="govuk-table__header" scope="row">Classroom or online</th>
+        <td class="govuk-table__cell">@Model.AttendanceMode</td>
+    </tr>
+    <tr class="govuk-table__row">
+        <th class="govuk-table__header" scope="row">Day, night or weekend</th>
+        <td class="govuk-table__cell">@Model.AttendancePattern</td>
+    </tr>
     </tbody>
 </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--start">
     Enrol now
@@ -42,7 +42,7 @@
 <section>
     <h2 class="govuk-heading-m">Course description</h2>
     <p class="govuk-body ">
-        For candidates who want to work as plumbers in the building services engineering sector. This qualification does not make candidates fully qualified plumbers
+        @Model.Description
     </p>
     <p class="govuk-body ">
         Practical assessment, Multiple choice tests
@@ -52,42 +52,8 @@
 @* RHC *@
 
 <aside class="govuk-related-items" role="complementary">
-    <h2 class="govuk-heading-s" style="margin-top:10px;">Provider</h2>
-    <p class="govuk-body-s">Marine Academy Plymouth</p>
-    <hr />
-    <h2 class="govuk-heading-s" style="margin-top:10px;padding-top:10px;">Venue</h2>
-    <table class="govuk-table k-table" role="presentation">
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell govuk-body-s">Name</td>
-                <td class="govuk-table__cell govuk-body-s">Construction Training South West</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">Address</td>
-                <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">
-                    Burrington Business Park <br />PLYMOUTH <br />Devon <br />PL5 3LX <br /><a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=50.403877,-4.165845">Find on Google maps</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <hr class="govuk-section-break govuk-section-break--visible" />
 
-    <table class="govuk-table k-table" role="presentation">
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell govuk-body-s">Website</td>
-                <td class="govuk-table__cell">
-                    <a class="govuk-link govuk-body-s" target="_blank" href="http://www.constructiontrainingsouthwestltd.co.uk/contact" style="word-break:break-all;">http://www.constructiontrainingsouthwestltd.co.uk/contact</a>
-                </td>
-            </tr>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell govuk-body-s">Email</td>
-                <td class="govuk-table__cell govuk-body-s"><a href="mailto: contact@marineacademy.org.uk" style="word-break:break-all;">contact@marineacademy.org.uk</a> </td>
-            </tr>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell govuk-body-s">Phone</td>
-                <td class="govuk-table__cell govuk-body-s">01752 213939</td>
-            </tr>
-        </tbody>
-    </table>
+    @Html.Partial("Provider", Model.ProviderDetails)
+
+    @Html.Partial("Venue", Model.VenueDetails)
 </aside>

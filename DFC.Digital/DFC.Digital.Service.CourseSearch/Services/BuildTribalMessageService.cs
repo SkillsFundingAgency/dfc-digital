@@ -45,5 +45,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             return apiRequest;
         }
+
+        public CourseDetailInput GetCourseDetailInput(string courseId)
+        {
+            return new CourseDetailInput
+            {
+                APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
+                CourseID = new string[] { courseId }
+            };
+        }
     }
 }

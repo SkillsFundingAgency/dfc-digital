@@ -1,0 +1,25 @@
+﻿@model DFC.Digital.Data.Model.ProviderDetails
+
+<h2 class="govuk-heading-s" style="margin-top:10px;">Provider</h2>
+<p class="govuk-body-s">Marine Academy Plymouth</p>
+<hr />
+<h2 class="govuk-heading-s" style="margin-top:10px;padding-top:10px;">Venue</h2>
+<table class="govuk-table k-table" role="presentation">
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell govuk-body-s">Name</td>
+            <td class="govuk-table__cell govuk-body-s">@Model.Name</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">Address</td>
+            <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">
+                @Model.AddressLine <br />
+                @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
+                {
+                    @Model.AddressLine2
+                } <br />@Model.County <br />@Model.Town <br /> @Model.PostCode <br />)<a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Longitude,@Model.Latitude">Find on Google maps</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr class="govuk-section-break govuk-section-break--visible" />

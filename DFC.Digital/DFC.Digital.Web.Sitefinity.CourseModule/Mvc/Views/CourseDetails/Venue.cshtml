@@ -1,0 +1,20 @@
+﻿@model DFC.Digital.Data.Model.VenueDetails
+
+<table class="govuk-table k-table" role="presentation">
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell govuk-body-s">Website</td>
+            <td class="govuk-table__cell">
+                <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Website" style="word-break:break-all;">@Model.Website</a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell govuk-body-s">Email</td>
+            <td class="govuk-table__cell govuk-body-s"><a href="mailto:@Model.EmailAddress" style="word-break:break-all;">@Model.EmailAddress</a> </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell govuk-body-s">Phone</td>
+            <td class="govuk-table__cell govuk-body-s">@Model.PhoneNumber</td>
+        </tr>
+    </tbody>
+</table>

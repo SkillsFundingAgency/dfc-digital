@@ -60,13 +60,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 queryParameters = $"{queryParameters}&StartDate=Anytime";
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location) &&
-                    !string.IsNullOrWhiteSpace(locationDistanceRegex))
+                    Regex.IsMatch(trainingCourseResultsViewModel.CourseFiltersModel.Location, locationDistanceRegex))
                 {
-                    if (Regex.Matches(trainingCourseResultsViewModel.CourseFiltersModel.Location, locationDistanceRegex)
-                            .Count > 0)
-                    {
-                        queryParameters = $"{queryParameters}&distance={trainingCourseResultsViewModel.CourseFiltersModel.Distance}";
-                    }
+                    queryParameters = $"{queryParameters}&distance={trainingCourseResultsViewModel.CourseFiltersModel.Distance}";
                 }
 
                 if (trainingCourseResultsViewModel.CourseFiltersModel.StudyMode.Any())
@@ -101,7 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}prv={courseLandingViewModel.ProviderKeyword}";
                 }
 
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.QualificationLevel))
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.QualificationLevel) && !courseLandingViewModel.QualificationLevel.Equals("0"))
                 {
                     queryParameters = $"{queryParameters}&qualificationlevel={courseLandingViewModel.QualificationLevel}";
                 }
@@ -114,13 +110,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 queryParameters = $"{queryParameters}&StartDate=Anytime";
 
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location) &&
-                    !string.IsNullOrWhiteSpace(locationDistanceRegex))
+                    Regex.IsMatch(courseLandingViewModel.Location, locationDistanceRegex))
                 {
-                    if (Regex.Matches(courseLandingViewModel.Location, locationDistanceRegex)
-                            .Count > 0)
-                    {
-                        queryParameters = $"{queryParameters}&distance={courseLandingViewModel.Distance}";
-                    }
+                    queryParameters = $"{queryParameters}&distance={courseLandingViewModel.Distance}";
                 }
             }
 

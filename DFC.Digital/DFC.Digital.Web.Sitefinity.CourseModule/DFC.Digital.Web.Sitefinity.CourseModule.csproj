@@ -272,6 +272,8 @@
     <Content Include="Mvc\Views\CourseLanding\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\CourseDetails.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
+    <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
+    <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

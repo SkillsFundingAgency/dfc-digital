@@ -239,7 +239,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     activeFilters = $"{activeFilters},";
                 }
                 activeFilters =
-                    $"{activeFilters} {string.Join(",", courseFiltersModel.AttendanceSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
+                    $"{activeFilters} {string.Join(", ", courseFiltersModel.AttendanceSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
 
             if (courseFiltersModel.PatternSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
@@ -249,7 +249,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     activeFilters = $"{activeFilters},";
                 }
                 activeFilters =
-                    $"{activeFilters} {string.Join(",", courseFiltersModel.PatternSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
+                    $"{activeFilters} {string.Join(", ", courseFiltersModel.PatternSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
       
 
@@ -260,7 +260,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     activeFilters = $"{activeFilters},";
                 }
                 activeFilters =
-                    $"{activeFilters} {string.Join(",", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
+                    $"{activeFilters} {string.Join(", ", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
 
             if (courseFiltersModel.AgeSuitabilitySelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
@@ -270,7 +270,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     activeFilters = $"{activeFilters},";
                 }
                 activeFilters =
-                    $"{activeFilters} {string.Join(",", courseFiltersModel.AgeSuitabilitySelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
+                    $"{activeFilters} {string.Join(", ", courseFiltersModel.AgeSuitabilitySelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
 
             if (courseFiltersModel.StudyModeSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
@@ -280,7 +280,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     activeFilters = $"{activeFilters},";
                 }
                 activeFilters =
-                    $"{activeFilters} {string.Join(",", courseFiltersModel.StudyModeSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
+                    $"{activeFilters} {string.Join(", ", courseFiltersModel.StudyModeSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
 
 

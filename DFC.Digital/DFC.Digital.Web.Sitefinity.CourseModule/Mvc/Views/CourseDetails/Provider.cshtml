@@ -1,25 +1,52 @@
 ﻿@model DFC.Digital.Data.Model.ProviderDetails
 
-<h2 class="govuk-heading-s" style="margin-top:10px;">Provider</h2>
+
+
+<h2 class="govuk-heading-m govuk-!-margin-top-2">Provider</h2>
 <p class="govuk-body-s">Marine Academy Plymouth</p>
-<hr />
-<h2 class="govuk-heading-s" style="margin-top:10px;padding-top:10px;">Venue</h2>
-<table class="govuk-table k-table" role="presentation">
-    <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s">Name</td>
-            <td class="govuk-table__cell govuk-body-s">@Model.Name</td>
-        </tr>
-        <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">Address</td>
-            <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">
-                @Model.AddressLine <br />
-                @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
-                {
-                    @Model.AddressLine2
-                } <br />@Model.County <br />@Model.Town <br /> @Model.PostCode <br /><a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Longitude,@Model.Latitude">Find on Google maps</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+<ul class="govuk-list govuk-!-font-size-16">
+    <li>
+        Website:
+        <a class="govuk-link" href="#">http://www.bdc.ac.uk</a>
+    </li>
+    <li>
+        Email:
+        <a class="govuk-link" href="#">admissions@bdc.ac.uk</a>
+    </li>
+    <li>
+        Phone: 020 8090 3020
+    </li>
+</ul>
+<h2 class="govuk-heading-s">Provider performance information</h2>
+<p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">7.3</p>
+<p class="govuk-body-s">out of 10 for learner satisfaction</p>
+
+<p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">6.9</p>
+<p class="govuk-body-s">out of 10 for employer satisfaction</p>
+
+
+
+
+
+
+@*<h2 class="govuk-heading-s" style="margin-top:10px;padding-top:10px;">Venue</h2>
+    <table class="govuk-table k-table" role="presentation">
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell govuk-body-s">Name</td>
+                <td class="govuk-table__cell govuk-body-s">@Model.Name</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">Address</td>
+                <td class="govuk-table__cell govuk-body-s" style="border-bottom:none;">
+                    @Model.AddressLine <br />
+                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
+                    {
+                        @Model.AddressLine2
+                    } <br />@Model.County <br />@Model.Town <br /> @Model.PostCode <br /><a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Longitude,@Model.Latitude">Find on Google maps</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>*@
 <hr class="govuk-section-break govuk-section-break--visible" />

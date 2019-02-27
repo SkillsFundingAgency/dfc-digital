@@ -38,7 +38,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     },
                     RecordsPerPage = request.RecordsPerPage.ToString(),
                     PageNo = request.PageNumber.ToString(),
-                    SortBy = SortType.A,
+                    SortBy = GetSortType(request.CourseSearchSortBy),
                     SortBySpecified = true
                 }
             };
@@ -53,6 +53,21 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
                 CourseID = new string[] { courseId }
             };
+        }
+
+        private SortType GetSortType(CourseSearchSortBy courseSearchSortBy)
+        {
+            switch (courseSearchSortBy)
+            {
+                case CourseSearchSortBy.Relevance:
+                    return SortType.A;
+                case CourseSearchSortBy.Distance:
+                    return SortType.D;
+                case CourseSearchSortBy.StartDate:
+                    return SortType.S;
+                default:
+                    return SortType.A;
+            }
         }
     }
 }

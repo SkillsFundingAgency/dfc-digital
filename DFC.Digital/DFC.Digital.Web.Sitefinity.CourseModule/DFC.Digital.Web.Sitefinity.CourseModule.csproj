@@ -251,6 +251,7 @@
     <Compile Include="Mvc\Models\CourseDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\CourseFiltersModel.cs" />
     <Compile Include="Mvc\Models\CourseLandingViewModel.cs" />
+    <Compile Include="Mvc\Models\OrderByLinks.cs" />
     <Compile Include="Mvc\Models\PaginationViewModel.cs" />
     <Compile Include="Mvc\Models\SelectItem.cs" />
     <Compile Include="Mvc\Models\TrainingCourseResultsViewModel.cs" />
@@ -274,6 +275,7 @@
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
+    <Content Include="Mvc\Views\TrainingCourses\OrderByLinks.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

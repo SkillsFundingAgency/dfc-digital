@@ -11,5 +11,7 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<Course> Courses { get; set; }
 
         public int CurrentPage { get; set; }
+
+        public CourseSearchSortBy CourseSearchSortBy { get; set; }
     }
 }

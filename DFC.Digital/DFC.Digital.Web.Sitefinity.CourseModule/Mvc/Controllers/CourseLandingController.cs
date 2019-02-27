@@ -40,6 +40,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
 
+        [DisplayName("Dfe 1619 Funded Text")]
+        public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
+
 
 
         // GET: CourseLanding

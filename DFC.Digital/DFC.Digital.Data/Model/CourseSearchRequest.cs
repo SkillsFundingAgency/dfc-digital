@@ -25,5 +25,7 @@
         public string ProviderKeyword { get; set; }
 
         public string Location { get; set; }
+
+        public CourseSearchSortBy CourseSearchSortBy { get; set; }
     }
 }

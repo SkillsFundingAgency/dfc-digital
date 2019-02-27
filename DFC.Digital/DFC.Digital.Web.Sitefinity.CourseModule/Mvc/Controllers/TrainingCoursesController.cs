@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseDetailsPage { get; set; } = "/course-details";
 
         [DisplayName("Location Post Code Regex")]
-        public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
+        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
         [DisplayName("Attendance Modes Source")]
         public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";

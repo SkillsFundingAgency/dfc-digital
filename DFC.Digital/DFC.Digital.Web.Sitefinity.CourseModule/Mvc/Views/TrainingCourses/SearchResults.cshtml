@@ -2,17 +2,11 @@
 
 
 @* Top Full Width Content Block *@
+@using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
+{
 
-<div class="govuk-grid-row">
-    
-    @using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
-    {
-
-    @* Filter Section - Within 1/3 Content Block *@
-        <div class="govuk-grid-column-one-third">
-            @Html.Partial("Filters", Model.CourseFiltersModel)
-        </div>
-        <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
             <div class="govuk-form-group">
                 <div class="search-header">
                     <div class="searchfield">
@@ -22,19 +16,45 @@
                                     Showing @Model.Courses.Count() results for <span class="govuk-visually-hidden">@Model.SearchTerm</span>
                                 </h1>
                             </label>
-                            @Html.TextBoxFor(x => x.SearchTerm, new {placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search"})
+                            @Html.TextBoxFor(x => x.SearchTerm, new { placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search" })
                         </div>
                         <div class="search-submit">
                             <button type="submit" class="button">Search</button>
                         </div>
                     </div>
                 </div>
+                <div id="filter-summary" class="govuk-!-margin-top-2">
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Filtered by</h3>
+                    <p class="govuk-body govuk-!-margin-bottom-0">Within 3 miles of B90 2BB, Part time, Day release/Block release, Level 2, </p>
+                    <p class="govuk-body"><a class="govuk-link" href="#">Reset filters</a></p>
+                </div>
             </div>
-            
+        </div>
+    </div>
+
+
+    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+    <div class="govuk-grid-row">
+        @* Filter Section - Within 1/3 Content Block *@
+        <div class="govuk-grid-column-one-third">
+            @Html.Partial("Filters", Model.CourseFiltersModel)
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+
+
+
+
             @if (Model.Courses.Any())
             {
+            <div id="results-summary">
+                <h3 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Ordered by</h3>
+                <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">Relevance</span>, <a class="govuk-link" href="#">Start date</a>, <a class="govuk-link" href="#">distance</a></p>
+
                 <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
-                <hr class="govuk-section-break govuk-section-break--visible"/>
+                <hr class="govuk-section-break govuk-section-break--visible" />
+
+            </div>
+
             }
             else
             {
@@ -46,11 +66,12 @@
                 @Html.Partial("CourseDetail", course)
             }
 
-        @Html.Partial("Pagination", Model.PaginationViewModel)
+            @Html.Partial("Pagination", Model.PaginationViewModel)
 
         </div>
-    }
-</div>
+    </div>
+}
+
 
 
 

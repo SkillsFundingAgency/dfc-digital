@@ -31,7 +31,11 @@
         </div>
         <div class="govuk-form-group">
             <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="course-name">@Model.ProviderLabel </label>
-            @Html.TextBoxFor(x => x.ProviderKeyword, new {@class = "govuk-input"})
+            <span id="course-name-hint" class="govuk-hint">
+                @Model.ProviderNameHintText
+            </span>
+
+            @Html.TextBoxFor(x => x.ProviderKeyword, new { @class = "govuk-input" })
         </div>
         <div class="govuk-form-group">
             <label class="govuk-label govuk-body  govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="qualification-level">@Model.QualificationLevelLabel</label>
@@ -67,6 +71,20 @@
                 <option value="60">60 miles</option>
             </select>
         </div>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <div class="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="16-19" name="16-19" type="checkbox" value="16-19">
+                <label class="govuk-label govuk-checkboxes__label" for="16-19">
+                    @Model.CheckboxText 
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+
         <div class="govuk-form-group"><button type="submit" class="govuk-button">Submit</button>
         </div>
     }

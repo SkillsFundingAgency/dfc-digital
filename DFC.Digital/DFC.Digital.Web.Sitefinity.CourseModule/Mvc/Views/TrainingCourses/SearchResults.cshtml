@@ -23,11 +23,14 @@
                         </div>
                     </div>
                 </div>
-                <div id="filter-summary" class="govuk-!-margin-top-2">
-                    <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Filtered by</h3>
-                    <p class="govuk-body govuk-!-margin-bottom-0">@Model.ActiveFilterOptions </p>
-                    <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset filters</a></p>
-                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions))
+                {
+                    <div id="filter-summary" class="govuk-!-margin-top-2">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Filtered by</h3>
+                        <p class="govuk-body govuk-!-margin-bottom-0">@Model.ActiveFilterOptions </p>
+                        <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset filters</a></p>
+                    </div>
+                }
             </div>
         </div>
     </div>

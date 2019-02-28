@@ -105,9 +105,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     queryParameters = $"{queryParameters}&location={courseLandingViewModel.Location}";
                 }
-                if (courseLandingViewModel.Dfe1619Funded)
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Dfe1619Funded))
                 {
-                    queryParameters = $"{queryParameters}&dfe1619Funded=1619";
+                    queryParameters = $"{queryParameters}&dfe1619Funded={courseLandingViewModel.Dfe1619Funded}";
                 }
 
                 queryParameters = $"{queryParameters}&StartDate=Anytime";

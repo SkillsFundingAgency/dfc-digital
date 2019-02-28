@@ -20,6 +20,6 @@
         public string QualificationLevelHint { get; set; }
         public string QualificationLevelLabel { get; set; }
         public string Dfe1619FundedText { get; set; }
-        public bool Dfe1619Funded { get; set; }
+        public string Dfe1619Funded { get; set; }
     }
 }

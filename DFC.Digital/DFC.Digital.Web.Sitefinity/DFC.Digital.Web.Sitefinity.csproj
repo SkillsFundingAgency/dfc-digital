@@ -1121,11 +1121,21 @@
     <Content Include="App_Data\Sitefinity\Export\EmailTemplate\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\EmailTemplate\uninstall.ps1" />
     <Content Include="App_Data\Sitefinity\Export\EmailTemplate.1.0.9.1.nupkg" />
-    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\widgetTemplates.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\version.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\Email Templates.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\configs.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\ContentConfig.nuspec" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\Dynamic modules\Email Templates\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\Dynamic modules\Email Templates\Structure\Email Templates.sf" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\Dynamic modules\Email Templates\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\Dynamic modules\Email Templates\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\install.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig\uninstall.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\ContentConfig.1.0.9.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\Dynamic modules\Email Templates\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\Dynamic modules\Email Templates\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\Dynamic modules\Email Templates\Structure\Email Templates.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\Dynamic modules\Email Templates\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\AddOns\ContentConfig\ContentConfig.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

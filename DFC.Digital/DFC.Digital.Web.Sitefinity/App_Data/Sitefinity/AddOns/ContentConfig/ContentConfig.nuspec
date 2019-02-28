@@ -1,17 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>EmailTemplate</id>
+    <id>ContentConfig</id>
     <version>1.0.9.1</version>
-    <title>EmailTemplate</title>
+    <title>ContentConfig</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <description>Email Template -- Managing email templates for Non-Citizen emails</description>
+    <description>Content Configuration -- Managing content configuration templates</description>
     <language>en-GB</language>
-    <dependencies>
-      <dependency id="PreSearchFilters" version="1.0.0.3" />
-    </dependencies>
   </metadata>
 </package>

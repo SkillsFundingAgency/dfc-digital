@@ -1,7 +1,7 @@
 {
   "Name": "Email Templates",
-  "Title": "Email Templates",
-  "Description": "Non citizen email templates for 3 contact forms Contact an adviser, Technical feedback form and General feedback form",
+  "Title": "Content Config",
+  "Description": "Content configuration module for managing content from CMS",
   "Status": 1,
   "Types": [
     {
@@ -336,7 +336,7 @@
       "CheckFieldPermissions": false,
       "PageId": "46b0d7ad-09bb-4285-9cc5-2b4c177b49b8",
       "Id": "ed8e794f-4bae-434c-b6ec-d285bed0c1aa",
-      "LastModified": "2019-02-28T11:46:32.46Z"
+      "LastModified": "2019-02-28T14:19:40.5Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

@@ -31,12 +31,18 @@
                         <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset filters</a></p>
                     </div>
                 }
+            @if (Model.Courses.Any())
+            {
+                @Html.Partial("OrderByLinks", Model.OrderByLinks)
+            }
             </div>
         </div>
     </div>
 
-
-    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+    if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions) || Model.Courses.Any())
+    {
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+    }
     <div class="govuk-grid-row">
         @* Filter Section - Within 1/3 Content Block *@
         <div class="govuk-grid-column-one-third">
@@ -47,8 +53,6 @@
             @if (Model.Courses.Any())
             {
                 <div id="results-summary">
-                    
-                    @Html.Partial("OrderByLinks", Model.OrderByLinks)
                  
                     <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
                     <hr class="govuk-section-break govuk-section-break--visible"/>

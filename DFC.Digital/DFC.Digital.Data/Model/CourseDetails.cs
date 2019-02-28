@@ -15,5 +15,7 @@
         public string AssessmentMethod { get; set; }
 
         public string Cost { get; set; }
+
+        public string EquipmentRequired { get; set; }
     }
 }

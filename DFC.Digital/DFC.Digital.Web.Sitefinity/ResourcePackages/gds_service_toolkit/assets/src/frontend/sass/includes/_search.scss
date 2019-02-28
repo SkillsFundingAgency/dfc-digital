@@ -12,7 +12,7 @@
 
     @include govuk-media-query($until: tablet) {
         padding: 20px 0 30px;
-        width: 66.666%;
+        width: 100%;
     }
 
     .searchfield {

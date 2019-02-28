@@ -67,12 +67,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Distance Source")]
         public string DistanceSource { get; set; } = "1 mile: 1,3 miles: 3, 5 miles: 5, 10 miles : 10, 15 miles : 15, 20 miles: 20, National : national";
 
+        [DisplayName("Start Date Source")]
+        public string StartDateSource { get; set; } = "Anytime: 1,  From today: 2, Select date from: 3";
+
         #endregion
 
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string startDate, int page = 1)
         {
             var viewModel = new TrainingCourseResultsViewModel {SearchTerm = searchTerm};
 
@@ -96,7 +99,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
                 courseSearchConverter.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
 
-                SetupFilterLists(attendance, studymode, qualificationLevel, pattern, distance, dfe1619Funded, location, viewModel);
+                SetupFilterLists(attendance, studymode, qualificationLevel, pattern, distance, dfe1619Funded, location, startDate, viewModel);
                 SetupSearchLinks(searchTerm, viewModel, pathQuery, response.CourseSearchSortBy);
             }
 
@@ -126,10 +129,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
-        private void SetupFilterLists(string attendance, string studymode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location,
+        private void SetupFilterLists(string attendance, string studymode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate,
             TrainingCourseResultsViewModel viewModel)
         {
             viewModel.CourseFiltersModel.Location = location;
@@ -162,6 +165,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 courseSearchConverter.GetFilterSelectItems(
                     $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabiltySource.Split(','),
                     dfe1619Funded);
+
+            viewModel.CourseFiltersModel.StartDateSelectedList =
+                courseSearchConverter.GetFilterSelectItems(
+                    $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','),
+                    startDate);
         }
 
         private void SetupSearchLinks(string searchTerm, TrainingCourseResultsViewModel viewModel, string pathQuery, CourseSearchSortBy sortBy)

@@ -88,9 +88,13 @@
             @Html.SfPlaceHolder("MainContent")
         </main>
     </div>
-        @Html.SfPlaceHolder("ServiceFooter")
+    @Html.SfPlaceHolder("ServiceFooter")
 
-        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/all.js")))
+    @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/all.js")))
+
+    <script>
+        window.GOVUKFrontend.initAll();
+</script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         @foreach (var item in Model.DistanceSelectedList)
                         {
                             <div class="govuk-radios">
@@ -55,7 +55,7 @@
             </fieldset>
         </div>
     </div>
- 
+
     <div class="filter-container">
         <div class="filter-label">
             <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
@@ -125,7 +125,7 @@
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
                 <div class="govuk-radios">
                     <div class="govuk-form-group">
-                
+
                         @foreach (var item in Model.AgeSuitabilitySelectedList)
                         {
                             <div class="govuk-radios">
@@ -134,7 +134,61 @@
                                 </div>
                             </div>
                         }
-              
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Start date</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios govuk-radios--conditional" data-module="radios"">
+                    <div class="govuk-form-group">
+
+                        @foreach (var item in Model.StartDateSelectedList)
+                        {
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value" data-aria-controls="conditional-start-date-conditional-1"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                            </div>
+                        }
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-start-date-conditional-1">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-size-16" for="startDate-Date">
+                                    Start date
+                                </label>
+                                <div class="govuk-date-input" id="startDate-Date">
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-day">
+                                                Day
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-day" name="startDate-Date-day" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-month">
+                                                Month
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-month" name="startDate-Date-month" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-year">
+                                                Year
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-year" name="startDate-Date-year" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>

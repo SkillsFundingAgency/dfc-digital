@@ -4121,7 +4121,7 @@ nav .govuk-tag {
   @media (max-width: 40.0525em) {
     .search-header {
       padding: 20px 0 30px;
-      width: 66.666%; } }
+      width: 100%; } }
   .search-header .searchfield {
     position: relative; }
   .search-header .search-input {
@@ -4439,3 +4439,5 @@ nav .govuk-tag {
     min-height: 30px; }
   .filters .filter-box .govuk-radios__item {
     margin-bottom: 10px; }
+  .filters .filter-box .govuk-radios__conditional .govuk-date-input__item {
+    margin-right: 10px; }

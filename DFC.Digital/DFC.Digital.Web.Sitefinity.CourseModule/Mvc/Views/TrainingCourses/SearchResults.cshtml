@@ -39,10 +39,10 @@
         </div>
     </div>
 
-    @if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions))
-     {
-         <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
-     }
+    if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions) || Model.Courses.Any())
+    {
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+    }
     <div class="govuk-grid-row">
         @* Filter Section - Within 1/3 Content Block *@
         <div class="govuk-grid-column-one-third">

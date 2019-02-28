@@ -38,7 +38,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
         [DisplayName("Location Post Code Regex")]
-        public string LocationRegex { get; set; } = @"^[A-Za-z0-9-.\(\)\/\\\s]*$";
+        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
+
+        [DisplayName("Dfe 1619 Funded Text")]
+        public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
 
 
 
@@ -59,7 +62,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 ProviderLabel = ProviderLabel,
                 QualificationLevelHint = QualificationLevelHint,
                 QualificationLevelLabel = QualificationLevelLabel,
-                LocationHintText = LocationHintText
+                LocationHintText = LocationHintText,
+                Dfe1619FundedText = Dfe1619FundedText
             });
         }
 

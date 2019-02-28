@@ -19,6 +19,7 @@
         public string LocationHintText { get; set; }
         public string QualificationLevelHint { get; set; }
         public string QualificationLevelLabel { get; set; }
-        public string CheckboxText { get; set; }
+        public string Dfe1619FundedText { get; set; }
+        public bool Dfe1619Funded { get; set; }
     }
 }

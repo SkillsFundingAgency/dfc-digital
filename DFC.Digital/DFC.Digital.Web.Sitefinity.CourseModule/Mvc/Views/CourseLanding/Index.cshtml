@@ -74,12 +74,12 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <div class="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="16-19" name="16-19" type="checkbox" value="16-19">
-                <label class="govuk-label govuk-checkboxes__label" for="16-19">
-                    @Model.CheckboxText 
-                </label>
-              </div>
+                <div class="govuk-checkboxes__item">
+                    @Html.CheckBoxFor(x => x.Dfe1619Funded, new { @class = "govuk-checkboxes__input" })
+                    <label class="govuk-label govuk-checkboxes__label" for="16-19">
+                        @Model.Dfe1619FundedText
+                    </label>
+                </div>
             </div>
           </fieldset>
         </div>

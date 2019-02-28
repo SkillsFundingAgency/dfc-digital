@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>EmailTemplate</id>
+    <version>1.0.9.1</version>
+    <title>EmailTemplate</title>
+    <authors>DFC development team</authors>
+    <owners>DFC</owners>
+    <language>en-GB</language>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Email Template -- Managing email templates for Non-Citizen emails 
+    </description>
+    <references></references>
+    <dependencies>
+      <dependency id="PreSearchFilters" version="1.0.0.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\EmailTemplate\**\*.*" exclude="..\EmailTemplate\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\EmailTemplate" />
+    <file src="..\EmailTemplate\**\*.ps1" target="tools" />
+    <file src="..\EmailTemplate\**\*.psm1" target="tools" />
+  </files>
+</package>

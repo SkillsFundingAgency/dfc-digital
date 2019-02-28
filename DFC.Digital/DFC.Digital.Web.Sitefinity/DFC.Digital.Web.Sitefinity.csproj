@@ -1112,6 +1112,20 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.8.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\Dynamic modules\Email Templates\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\Dynamic modules\Email Templates\Structure\Email Templates.sf" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\Dynamic modules\Email Templates\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\Dynamic modules\Email Templates\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\EmailTemplate.nuspec" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\install.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate\uninstall.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\EmailTemplate.1.0.9.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\Email Templates.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\Dynamic modules\Email Templates\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\EmailTemplate\addons-registry.psm1" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

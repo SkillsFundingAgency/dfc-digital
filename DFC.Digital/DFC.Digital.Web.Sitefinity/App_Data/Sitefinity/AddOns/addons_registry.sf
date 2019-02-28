@@ -18,5 +18,10 @@
         "AddonName":  "PreSearchFilters",
         "Key":  "0d35e02b-1f89-4210-a3fb-9afd0a71c7bf",
         "IsDeleted":  false
+    },
+    {
+        "AddonName":  "EmailTemplate",
+        "Key":  "a44fbe47-24c8-4547-8859-44ba856be5e4",
+        "IsDeleted":  false
     }
 ]

@@ -23,5 +23,13 @@
         public string Latitude { get; set; }
 
         public string Longitude { get; set; }
+
+        public double EmployerSatisfaction { get; set; }
+
+        public bool EmployerSatisfactionSpecified { get; set; }
+
+        public double LearnerSatisfaction { get; set; }
+
+        public bool LearnerSatisfactionSpecified { get; set; }
     }
 }

@@ -106,6 +106,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 Description = apiCourseDetail.Course.CourseSummary,
                 EntryRequirements = apiCourseDetail.Course.EntryRequirements,
                 AssessmentMethod = apiCourseDetail.Course.AssessmentMethod,
+                EquipmentRequired = apiCourseDetail.Course.EquipmentRequired,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
                 Cost = apiCourseDetail.Opportunity.FirstOrDefault()?.Price,
                 VenueDetails = new VenueDetails
@@ -126,7 +127,11 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     Longitude = apiCourseDetail.Provider.ProviderAddress.Longitude,
                     Latitude = apiCourseDetail.Provider.ProviderAddress.Latitude,
                     PhoneNumber = apiCourseDetail.Provider.Phone,
-                    Name = apiCourseDetail.Provider.ProviderName
+                    Name = apiCourseDetail.Provider.ProviderName,
+                    LearnerSatisfactionSpecified = apiCourseDetail.Provider.FEChoices_LearnerSatisfactionSpecified,
+                    EmployerSatisfactionSpecified = apiCourseDetail.Provider.FEChoices_EmployerSatisfactionSpecified,
+                    LearnerSatisfaction = apiCourseDetail.Provider.FEChoices_LearnerSatisfaction,
+                    EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
                 StartDateLabel = apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
                 CourseId = apiCourseDetail.Course.CourseID,

@@ -18,5 +18,10 @@
         "AddonName":  "PreSearchFilters",
         "Key":  "0d35e02b-1f89-4210-a3fb-9afd0a71c7bf",
         "IsDeleted":  false
+    },
+    {
+        "AddonName":  "Configuration",
+        "Key":  "599ad4f9-a29f-4eb6-8fc4-9b6ec6808e73",
+        "IsDeleted":  false
     }
 ]

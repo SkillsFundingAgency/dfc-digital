@@ -24,13 +24,13 @@
         <h2 class="govuk-heading-s">Provider performance information</h2>
         if (Model.LearnerSatisfactionSpecified)
          {
-        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Model.LearnerSatisfaction</p>
+        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.LearnerSatisfaction</p>
          <p class="govuk-body-s">out of 10 for learner satisfaction</p>
          }
         
         if (Model.EmployerSatisfactionSpecified)
          {
-         <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Model.EmployerSatisfaction</p>
+         <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.EmployerSatisfaction</p>
              <p class="govuk-body-s">out of 10 for employer satisfaction</p>
          }
     }

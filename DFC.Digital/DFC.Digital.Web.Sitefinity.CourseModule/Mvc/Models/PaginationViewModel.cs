@@ -15,6 +15,5 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public bool HasPreviousPage { get; set; }
 
         public bool HasNextPage { get; set; }
-
     }
 }

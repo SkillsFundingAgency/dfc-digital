@@ -1,13 +1,14 @@
-﻿using System;
+﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class TrainingCourseResultsViewModel
     {
         public IList<Course> Courses { get; set; } = new List<Course>();
+
         public CourseSearchSortBy CourseSearchSortBy { get; set; }
 
         public int ResultsCount { get; set; }
@@ -33,6 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public CourseFiltersModel CourseFiltersModel { get; set; } = new CourseFiltersModel();
 
         public OrderByLinks OrderByLinks { get; set; } = new OrderByLinks();
+
         public string ActiveFilterOptions { get; set; }
     }
 }

@@ -36,6 +36,5 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string Location { get; set; }
 
         public string ProviderKeyword { get; set; }
-
     }
 }

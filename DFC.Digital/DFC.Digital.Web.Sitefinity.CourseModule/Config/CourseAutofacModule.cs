@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Autofac;
+﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {

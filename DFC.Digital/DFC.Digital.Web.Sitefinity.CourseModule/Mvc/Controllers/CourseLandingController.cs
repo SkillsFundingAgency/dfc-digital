@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
@@ -11,8 +11,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "CourseLanding", Title = "Courses Landing", SectionName = SitefinityConstants.CustomCoursesSection)]
     public class CourseLandingController : BaseDfcController
     {
+        #region private Fields
         private readonly ICourseSearchConverter courseSearchConverter;
+        #endregion
 
+        #region Ctor
+        public CourseLandingController(IApplicationLogger loggingService, ICourseSearchConverter courseSearchConverter) : base(loggingService)
+        {
+            this.courseSearchConverter = courseSearchConverter;
+        }
+        #endregion
+
+        #region Public Properties
         [DisplayName("Course Name Hint Text")]
         public string CourseNameHintText { get; set; } = "For example, Maths or Sports Studies";
 
@@ -42,15 +52,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Dfe 1619 Funded Text")]
         public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
+        #endregion
 
-
-
-        // GET: CourseLanding
-        public CourseLandingController(IApplicationLogger loggingService, ICourseSearchConverter courseSearchConverter) : base(loggingService)
-        {
-            this.courseSearchConverter = courseSearchConverter;
-        }
-
+        #region Action
         [HttpGet]
         public ActionResult Index()
         {
@@ -86,5 +90,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 LocationHintText = LocationHintText
             });
         }
+        #endregion
     }
 }

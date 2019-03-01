@@ -1,17 +1,16 @@
-﻿using System;
+﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchConverterService : ICourseSearchConverter
     {
-        public string BuildRedirectPathAndQueryString(string courseSearchResultsPage,
-            TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex)
+        public string BuildRedirectPathAndQueryString(string courseSearchResultsPage, TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex)
         {
             var queryParameters = $"{courseSearchResultsPage}?";
             if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.ProviderKeyword))
@@ -37,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
                 if (trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel.Any())
                 {
-                    queryParameters = $"{queryParameters}&qualificationlevel={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel)}";                 
+                    queryParameters = $"{queryParameters}&qualificationlevel={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.QualificationLevel)}";
                 }
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.AgeSuitability))
@@ -75,13 +74,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return queryParameters;
         }
 
-        public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage,
-            CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
+        public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
         {
-
             var queryParameters = $"{courseSearchResultsPage}?";
             if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
-            { 
+            {
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) &&
                     !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
                 {
@@ -105,6 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     queryParameters = $"{queryParameters}&location={courseLandingViewModel.Location}";
                 }
+
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Dfe1619Funded))
                 {
                     queryParameters = $"{queryParameters}&dfe1619Funded={courseLandingViewModel.Dfe1619Funded}";
@@ -143,26 +141,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return request;
         }
 
-        private CourseSearchSortBy GetSortBy(string sortBy)
-        {
-            switch (sortBy)
-            { 
-                case "2":
-                    return CourseSearchSortBy.Distance;
-                case "3":
-                    return CourseSearchSortBy.StartDate;
-               default:
-                    return CourseSearchSortBy.Relevance;
-            }
-           
-        }
-
         public string GetUrlEncodedString(string input)
         {
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }
 
-        public void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string pathQuery, int  recordsPerPage, string courseSearchResultsPage)
+        public void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string pathQuery, int recordsPerPage, string courseSearchResultsPage)
         {
             viewModel.RecordsPerPage = recordsPerPage;
             viewModel.CurrentPageNumber = response.CurrentPage;
@@ -184,8 +168,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             }
         }
 
-        public IEnumerable<SelectItem> GetFilterSelectItems(string propertyName, IEnumerable<string> sourceList,
-            string value)
+        public IEnumerable<SelectItem> GetFilterSelectItems(string propertyName, IEnumerable<string> sourceList, string value)
         {
             var selectList = new List<SelectItem>();
             var itemList = value?.Split(',');
@@ -204,6 +187,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     });
                 }
             }
+
             return selectList;
         }
 
@@ -238,6 +222,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     activeFilters = $"{activeFilters},";
                 }
+
                 activeFilters =
                     $"{activeFilters} {string.Join(", ", courseFiltersModel.AttendanceSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
@@ -248,10 +233,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     activeFilters = $"{activeFilters},";
                 }
+
                 activeFilters =
                     $"{activeFilters} {string.Join(", ", courseFiltersModel.PatternSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
-      
 
             if (courseFiltersModel.QualificationSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
             {
@@ -259,6 +244,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     activeFilters = $"{activeFilters},";
                 }
+
                 activeFilters =
                     $"{activeFilters} {string.Join(", ", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
@@ -269,6 +255,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     activeFilters = $"{activeFilters},";
                 }
+
                 activeFilters =
                     $"{activeFilters} {string.Join(", ", courseFiltersModel.AgeSuitabilitySelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
@@ -279,12 +266,25 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     activeFilters = $"{activeFilters},";
                 }
+
                 activeFilters =
                     $"{activeFilters} {string.Join(", ", courseFiltersModel.StudyModeSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label))}";
             }
 
-
             return activeFilters;
+        }
+
+        private CourseSearchSortBy GetSortBy(string sortBy)
+        {
+            switch (sortBy)
+            {
+                case "2":
+                    return CourseSearchSortBy.Distance;
+                case "3":
+                    return CourseSearchSortBy.StartDate;
+                default:
+                    return CourseSearchSortBy.Relevance;
+            }
         }
     }
 }

@@ -1121,12 +1121,13 @@
     <Content Include="App_Data\Sitefinity\Export\Configuration\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\Configuration\uninstall.ps1" />
     <Content Include="App_Data\Sitefinity\Export\Configuration.1.0.9.1.nupkg" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Configuration.nuspec" />
+    <Content Include="App_Data\Sitefinity\Export\Configuration.1.0.9.2.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Configuration.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

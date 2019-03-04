@@ -6,7 +6,7 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class Homepage : SitefinityPage<JobProfileSearchBoxViewModel>
+    public class Homepage : DFCPageWithViewModel<JobProfileSearchBoxViewModel>
     {
         public bool ServiceName => Find.OptionalElement(By.Id("site-header")) != null;
 

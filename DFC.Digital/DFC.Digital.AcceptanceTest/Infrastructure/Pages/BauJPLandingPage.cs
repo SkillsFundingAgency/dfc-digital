@@ -3,7 +3,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class BauJpLandingPage : Page
+    public class BauJpLandingPage : DFCPage
     {
         public bool HasAtoZIndex => Find.Element(By.Id("az-index-wrapper")) != null;
     }

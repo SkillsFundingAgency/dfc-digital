@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
@@ -8,8 +9,8 @@ using TestStack.Seleno.PageObjects.Actions;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class SitefinityPage<T> : Page<T>
-        where T : class, new()
+    public class DFCPageWithViewModel<TViewModel> : Page<TViewModel>
+        where TViewModel : class, new()
     {
         #region Page Elements
 
@@ -21,7 +22,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         #endregion private const for survey
 
-        public bool IsSurveyBannerDisplayed => Find.OptionalElement(By.ClassName("heading-small")).Displayed;
+        public bool IsSurveyBannerDisplayed => Find.OptionalElementNoWait(By.ClassName("heading-small")).Displayed;
 
         public string PageHeading => Find.Element(By.TagName("h1")).Text;
 
@@ -33,7 +34,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         internal string BreadcrumbText => Find.Elements(By.ClassName("breadcrumbs")).Last().Text;
 
-        protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute);
+        protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute, WaitFor, Browser);
 
         public TPage ClickTakeSurvey<TPage>()
             where TPage : UiComponent, new()
@@ -63,7 +64,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public void AwaitInitialisation()
         {
             WaitFor.AjaxCallsToComplete(new TimeSpan(0, 0, 2));
-            while (IsThisStatusPage())
+            while (Browser.IsThisStatusPage())
             {
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
@@ -89,35 +90,13 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         protected virtual TPage NavigateTo<TPage>(By by, int waitTimeout = 10)
             where TPage : UiComponent, new()
         {
-            var element = Find.Element(by);
-            var resultPage = Navigate.To<TPage>(by);
-            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(waitTimeout));
-            wait.Until(ExpectedConditions.StalenessOf(element));
-
-            return resultPage;
+            return Find.NavigateAndWaitForStalenessTo<TPage>(Navigate, Browser, by, waitTimeout);
         }
 
         protected virtual TPage NavigateTo<TPage>(string url, By checkUsing, int waitTimeout = 10)
     where TPage : UiComponent, new()
         {
-            var element = Find.Element(checkUsing);
-            var resultPage = Navigate.To<TPage>(url);
-            var wait = new WebDriverWait(Browser, TimeSpan.FromSeconds(waitTimeout));
-            wait.Until(ExpectedConditions.StalenessOf(element));
-
-            return resultPage;
-        }
-
-        private bool IsThisStatusPage()
-        {
-            try
-            {
-                return Browser.Url.Contains("/health/status");
-            }
-            catch (ArgumentNullException)
-            {
-                return false;
-            }
+            return Find.NavigateAndWaitForStalenessTo<TPage>(Navigate, Browser, url, checkUsing, waitTimeout);
         }
     }
 }

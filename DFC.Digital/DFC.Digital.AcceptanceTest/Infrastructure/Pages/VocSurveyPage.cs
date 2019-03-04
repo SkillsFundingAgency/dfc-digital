@@ -3,7 +3,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class VocSurveyPage : Page
+    public class VocSurveyPage : DFCPage
     {
         public bool IsSurveyDisplayed()
         {

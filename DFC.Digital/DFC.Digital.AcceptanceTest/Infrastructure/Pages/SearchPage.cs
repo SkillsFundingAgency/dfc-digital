@@ -7,7 +7,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class SearchPage : SitefinityPage<JobProfileSearchResultViewModel>
+    public class SearchPage : DFCPageWithViewModel<JobProfileSearchResultViewModel>
     {
         #region const IDs and Classnames
 

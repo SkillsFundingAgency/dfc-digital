@@ -8,10 +8,10 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class HealthStatusPage : Page
+    public class HealthStatusPage : DFCPage
     {
-        public string ServiceTitle => Find.OptionalElement(By.ClassName("heading-medium")).Text;
+        public string ServiceTitle => Find.OptionalElementNoWait(By.ClassName("heading-medium")).Text;
 
-        public bool ListOfServices => Find.OptionalElement(By.ClassName("list-service")) != null;
+        public bool ListOfServices => Find.OptionalElementNoWait(By.ClassName("list-service")) != null;
     }
 }

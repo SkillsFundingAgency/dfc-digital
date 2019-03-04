@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class JobProfileCategoryPage : SitefinityPage<JobProfileByCategoryViewModel>
+    public class JobProfileCategoryPage : DFCPageWithViewModel<JobProfileByCategoryViewModel>
     {
         public string CategoryTitle => Find.OptionalElement(By.ClassName("heading-xlarge")).Text;
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using TechTalk.SpecFlow;
@@ -64,6 +66,45 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
                         return m.Value;
                 }
             });
+        }
+
+        internal static TPage NavigateAndWaitForStalenessTo<TPage>(this IElementFinder finder, IPageNavigator navigator, IWebDriver browser, string url, By checkUsing, int waitTimeout = 10)
+            where TPage : UiComponent, new()
+        {
+            var element = finder.Element(checkUsing);
+            var resultPage = navigator.To<TPage>(url);
+            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(waitTimeout));
+            wait.Until(ExpectedConditions.StalenessOf(element));
+
+            return resultPage;
+        }
+
+        internal static TPage NavigateAndWaitForStalenessTo<TPage>(this IElementFinder finder, IPageNavigator navigator, IWebDriver browser, By by, int waitTimeout = 10)
+           where TPage : UiComponent, new()
+        {
+            var element = finder.Element(by);
+            var resultPage = navigator.To<TPage>(by);
+            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(waitTimeout));
+            wait.Until(ExpectedConditions.StalenessOf(element));
+
+            return resultPage;
+        }
+
+        internal static bool IsThisStatusPage(this IWebDriver browser)
+        {
+            try
+            {
+                return browser.Url.Contains("/health/status");
+            }
+            catch (ArgumentNullException)
+            {
+                return false;
+            }
+        }
+
+        internal static IWebElement OptionalElementNoWait(this IElementFinder finder, By by)
+        {
+            return finder is DfcElementFinder dfcElementFinder ? dfcElementFinder.OptionalElementNoExplicitWait(by) : finder.OptionalElement(by);
         }
     }
 }

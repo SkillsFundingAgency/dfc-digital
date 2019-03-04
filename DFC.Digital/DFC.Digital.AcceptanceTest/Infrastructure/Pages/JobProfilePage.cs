@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class JobProfilePage : SitefinityPage<JobProfileDetailsViewModel>
+    public class JobProfilePage : DFCPageWithViewModel<JobProfileDetailsViewModel>
     {
         public bool HasCurrentOpportunitiesSection => Find.OptionalElement(By.Id("current-opportunities")) != null;
 
@@ -80,13 +80,13 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickYesOnSurvey<T>()
              where T : UiComponent, new()
         {
-            return NavigateTo<T>(By.ClassName("yes"));
+            return Navigate.To<T>(By.ClassName("yes"));
         }
 
         public T ClickNoOnSurvey<T>()
              where T : UiComponent, new()
         {
-            return NavigateTo<T>(By.ClassName("no"));
+            return Navigate.To<T>(By.ClassName("no"));
         }
 
         public T Search<T>(JobProfileDetailsViewModel model)

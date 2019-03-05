@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Configuration</id>
+    <version>1.0.9.1</version>
+    <title>Configuration</title>
+    <authors>DFC development team</authors>
+    <owners>DFC</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Configuration -- Add-on for managing content configurations</description>
+    <language>en-GB</language>
+  </metadata>
+</package>

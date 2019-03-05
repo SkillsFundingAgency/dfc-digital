@@ -48,7 +48,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return NavigateTo<TPage>(By.ClassName("survey_link"));
         }
 
-        public void EnterEmail(string email) => Find.Element(By.Id(EmailField)).SendKeys(email);
+        public void EnterEmail(string email) => Find.Element(By.Id(EmailField)).SendKeys(email); //had to use send keys to simulate typing.
 
         public TPage SubmitEmail<TPage>(string email)
             where TPage : UiComponent, new()

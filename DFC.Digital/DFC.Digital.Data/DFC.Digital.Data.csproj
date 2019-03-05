@@ -102,7 +102,7 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
-    <Compile Include="Interfaces\IConfigurationRepository.cs" />
+    <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IRecycleBinRepository.cs" />
     <Compile Include="Interfaces\ISearchManipulator.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\CategoryType.cs" />
-    <Compile Include="Model\Configuration.cs" />
+    <Compile Include="Model\EmailTemplate.cs" />
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
     <Compile Include="Model\FrameworkContent.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class Configuration
+    public class EmailTemplate
     {
         public string TemplateName { get; set; }
 

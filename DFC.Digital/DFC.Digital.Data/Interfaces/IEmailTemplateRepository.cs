@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public interface IConfigurationRepository
+    public interface IEmailTemplateRepository
     {
-        Configuration GetByTemplateName(string urlName);
+        EmailTemplate GetByTemplateName(string urlName);
 
         string GetProviderName();
 

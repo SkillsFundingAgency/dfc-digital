@@ -11,6 +11,7 @@
         public const string ProviderKey = "ProviderName";
         public const string DefaultSuggesterName = "sg";
         public const string CourseSearchApiKey = "DFC.Digital.CourseSearchApiKey";
+        public const string SendGridApiKey = "DFC.Digital.SendGridApiKey";
         public const string CourseSearchPageSize = "DFC.Digital.CourseSearchPageSize";
         public const string CourseSearchAttendanceModes = "DFC.Digital.CourseSearchAttendanceModes";
         public const string CourseSearchEndpointConfigName = "CourseSearch";

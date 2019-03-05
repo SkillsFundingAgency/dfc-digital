@@ -78,14 +78,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         private void ExplicitCheckForPageReady(By by, TimeSpan maxWait = default(TimeSpan), int explicitWaitSeconds = 20)
         {
-            //var predicateTimeout = maxWait == default(TimeSpan) ? new TimeSpan(0, 0, 10) : maxWait;
-            //execute.PredicateScriptAndWaitToComplete("document.readyState === 'complete'", predicateTimeout);
-            //waitFor.AjaxCallsToComplete(maxWait);
-            var waitForJquery = new WebDriverWait(browser, TimeSpan.FromSeconds(explicitWaitSeconds));
-            waitForJquery
-                .Until(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString()
-                .Equals("complete", StringComparison.InvariantCultureIgnoreCase));
-
             waitFor.AjaxCallsToComplete(new TimeSpan(0, 0, explicitWaitSeconds));
 
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(explicitWaitSeconds));

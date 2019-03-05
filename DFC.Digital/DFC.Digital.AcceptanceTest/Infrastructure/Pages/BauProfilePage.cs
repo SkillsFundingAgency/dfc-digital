@@ -1,9 +1,11 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
 using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class BauProfilePage : Page
+    public class BauProfilePage : DFCPage
     {
         public bool UrlContains(string urlFragment)
         {
@@ -13,7 +15,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickBetaBanner<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("betaBanner"));
+            return NavigateTo<T>(By.ClassName("betaBanner"));
         }
     }
 }

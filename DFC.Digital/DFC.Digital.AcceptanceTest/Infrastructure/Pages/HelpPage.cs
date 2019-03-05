@@ -7,7 +7,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class HelpPage : Page
+    public class HelpPage : DFCPage
     {
     }
 }

@@ -25,11 +25,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         {
             get
             {
-#if DEBUG
-                return $"http://localhost:60876/";
-#else
                 return ConfigurationManager.AppSettings["rooturl"];
-#endif
             }
         }
 

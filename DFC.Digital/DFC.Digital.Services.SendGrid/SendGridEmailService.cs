@@ -3,7 +3,6 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace DFC.Digital.Services.SendGrid
         private readonly IMergeEmailContent mergeEmailContentService;
         private readonly ISendGridClientActions sendGridClientActions;
 
-        internal SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions)
+        public SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.mergeEmailContentService = mergeEmailContentService;

@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IEmailTemplateRepository
     {
-        EmailTemplate GetByTemplateName(string urlName);
+        EmailTemplate GetByTemplateName(string templateName);
 
         string GetProviderName();
 

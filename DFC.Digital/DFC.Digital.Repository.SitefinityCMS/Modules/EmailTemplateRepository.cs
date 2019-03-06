@@ -10,28 +10,24 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
     {
         #region Fields
         private readonly IDynamicModuleRepository<EmailTemplate> emailTemplateRepository;
-        private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicModuleConverter<EmailTemplate> converter;
         #endregion Fields
 
         #region Ctor
         public EmailTemplateRepository(
           IDynamicModuleRepository<EmailTemplate> emailTemplateRepository,
-          IDynamicContentExtensions dynamicContentExtensions,
           IDynamicModuleConverter<EmailTemplate> converter)
         {
             this.emailTemplateRepository = emailTemplateRepository;
-            this.dynamicContentExtensions = dynamicContentExtensions;
             this.converter = converter;
         }
         #endregion Ctor
 
-        #region IConfigurationRepository Implementations
+        #region IEmailTemplateRepository Implementations
         public EmailTemplate GetByTemplateName(string templateName)
         {
-            var template = ConvertDynamicContent(emailTemplateRepository.Get(item =>
-                    item.UrlName == templateName && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
-            return template != null ? template : new EmailTemplate();
+            return ConvertDynamicContent(emailTemplateRepository.Get(item =>
+                  item.UrlName == templateName && item.Status == ContentLifecycleStatus.Live && item.Visible));
         }
 
         public Type GetContentType()

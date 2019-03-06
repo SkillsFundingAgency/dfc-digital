@@ -5,6 +5,7 @@ using System;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Model;
 using Xunit;
 
 namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
@@ -13,27 +14,45 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
     {
         private readonly IDynamicModuleConverter<EmailTemplate> fakeEmailTemplateConverter;
         private readonly IDynamicModuleRepository<EmailTemplate> fakeRepository;
-        private readonly IDynamicContentExtensions fakeDynamicContentExtensions;
 
         public EmailTemplateRepositoryTests()
         {
             fakeEmailTemplateConverter = A.Fake<IDynamicModuleConverter<EmailTemplate>>();
             fakeRepository = A.Fake<IDynamicModuleRepository<EmailTemplate>>();
-            fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
         }
 
         [Theory]
         [InlineData("Contact Adviser Email Template", true)]
-        public void GetByTemplateNameTest(string templateName, bool publishing)
+        [InlineData("Contact Adviser Email Template", false)]
+        public void GetTemplateNameTest(string templateName, bool validTemplate)
         {
-            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
-            dummyEmailTemplate.TemplateName = templateName;
-            A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyEmailTemplate);
+            //Assign
+            var fakeEmailTemplateRepository = GetTestEmailTemplateRepository(validTemplate);
 
-            var emailTemplateRepository = new EmailTemplateRepository(fakeRepository, fakeDynamicContentExtensions, fakeEmailTemplateConverter);
-            emailTemplateRepository.GetByTemplateName(templateName);
+            //Act
+            fakeEmailTemplateRepository.GetByTemplateName(templateName);
 
-            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, item => item.UrlName == templateName && item.Status == (publishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live))))).MustHaveHappened();
+            //Assert
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).MustHaveHappened();
+
+            if (validTemplate)
+            {
+                A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
+            }
+        }
+
+        private EmailTemplateRepository GetTestEmailTemplateRepository(bool validTemplate)
+        {
+            //Setup the fakes and dummies
+            var dummyDynamicContent = A.Dummy<DynamicContent>();
+            A.CallTo(() => fakeRepository.Get(A<Expression<Func<DynamicContent, bool>>>._)).Returns(validTemplate ? dummyDynamicContent : null);
+            A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).Returns(new EmailTemplate());
+
+            return new EmailTemplateRepository(fakeRepository, fakeEmailTemplateConverter);
         }
     }
 }

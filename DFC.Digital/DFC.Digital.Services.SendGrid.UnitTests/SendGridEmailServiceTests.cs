@@ -47,7 +47,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             };
 
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._))
-                .Returns(validEmailTemplate ? goodEmailTemplate : new EmailTemplate());
+                .Returns(validEmailTemplate ? goodEmailTemplate :null);
             A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<string>._, A<string>._))
                 .Returns(nameof(IMergeEmailContent.MergeTemplateBodyWithContent));
             A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<string>._, A<string>._))
@@ -59,9 +59,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             //Assert
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._)).MustHaveHappened();
             if (validEmailTemplate)
-            {
-                A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._))
-                    .MustHaveHappened();
+            { 
                 A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<string>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() =>
@@ -71,8 +69,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
             }
             else
             {
-                A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._))
-                    .MustNotHaveHappened();
                 A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<string>._, A<string>._))
                     .MustNotHaveHappened();
                 A.CallTo(() =>

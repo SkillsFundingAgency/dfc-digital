@@ -44,7 +44,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             var sendRequest = new SendEmailRequest
             {
                 TemplateName = nameof(SendEmailRequest.TemplateName),
-                Content = nameof(SendEmailRequest.Content)
+                Message = nameof(SendEmailRequest.Message)
             };
 
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._))

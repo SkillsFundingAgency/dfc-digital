@@ -37,8 +37,8 @@ namespace DFC.Digital.Services.SendGrid
                 var subject = template.Subject;
                 var to = new EmailAddress(template.To);
                 var plainTextContent =
-                    mergeEmailContentService.MergeTemplateBodyWithContent(template.Body, sendEmailRequest.Content);
-                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(template.Body, sendEmailRequest.Content);
+                    mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
+                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                 var sendResponse = await sendGridClientActions.SendEmailAsync(client, msg);
 

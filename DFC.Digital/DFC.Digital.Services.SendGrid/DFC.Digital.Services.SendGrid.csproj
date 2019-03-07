@@ -88,7 +88,7 @@
     <Compile Include="SendGridEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\ISendGridClientActions.cs" />
-    <Compile Include="Services\MergeEmaiContentService.cs" />
+    <Compile Include="Services\MergeEmailContentService.cs" />
     <Compile Include="Services\SendGridClientActions.cs" />
   </ItemGroup>
   <ItemGroup>

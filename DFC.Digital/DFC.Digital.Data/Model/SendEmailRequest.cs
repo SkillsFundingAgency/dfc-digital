@@ -18,7 +18,7 @@ namespace DFC.Digital.Data.Model
 
         public string PostCode { get; set; }
 
-        public string ContactAdvisorQuestionType { get; set; }
+        public string ContactAdviserQuestionType { get; set; }
 
         public string FeedbackQuestionType { get; set; }
 

@@ -1,0 +1,63 @@
+﻿@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+
+        <h1 class="heading-xlarge">Report a technical issue</h1>
+        <p>Use this form if you are in England and need technical support to use any tools on the website.You can also call 0800 100 900 (8am to 10pm, 7 days a week).</p>
+        <form class="form form-adviser-additional-info">
+            <div class="form-group">
+                <h2 class="heading-large">Issue details</h2>
+                <p>Give details of the issue you've experienced. Tell us about the browser you were using, any error messages you were shown and the rough date and time.</p>
+
+                <label class="form-label" for="textarea">
+                    Tell us about your technical issue.
+                </label>
+                <span class="form-hint">Do not include any personal or sign in information.</span>
+                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
+            </div>
+
+            <div class="form-group">
+                <fieldset class="inline">
+
+                    <legend>
+                        <h1 class="heading-medium">
+                            Do you want us to contact you?
+                        </h1>
+                    </legend>
+
+                    <div class="multiple-choice">
+                        <input id="radio-inline-1" type="radio" name="radio-inline-group" value="Yes">
+                        <label for="radio-inline-1">Yes</label>
+                    </div>
+                    <div class="multiple-choice">
+                        <input id="radio-inline-2" type="radio" name="radio-inline-group" value="No">
+                        <label for="radio-inline-2">No</label>
+                    </div>
+
+                </fieldset>
+            </div>
+
+
+
+            <div class="form-group">
+                <h2 class="heading-large">Terms and conditions</h2>
+                <div class="multiple-choice">
+                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
+                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
+                </div>
+            </div>
+
+            <a href="select-option" class="button" type="button">Send</a>
+
+        </form>
+
+    </div>
+    <div class="column-one-third">
+        <aside class="govuk-related-items govuk-related-items-bau" role="complementary">
+            <h2 class="heading-medium">Want to speak to an adviser?</h2>
+            <p class="font-small" style="margin-bottom: 0px;"><span class="bold-small">Call </span>0800 100 900 or <a style="white-space: nowrap;" href="https://cxdirect.serco.com/visitor/EntryPage.htm" rel="external" target="'_blank'">use webchat</a></p>
+            <p class="grey font-xsmall">8am to 10pm, 7 days a week</p>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+
+        <h1 class="heading-xlarge">Contact us</h1>
+
+        <form class="form form-intro">
+            <div class="form-group ">
+                <label class="form-label" for="Why">Why would you like to contact us? </label>
+                <span class="field-validation-valid error-message" data-valmsg-for="Why" data-valmsg-replace="true"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="multiple-choice">
+                    <input type="radio" name="Why" value="adviser"><label for="adviser">Contact an adviser</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="multiple-choice">
+                    <input type="radio" name="Why" value="technical"><label for="technical">Technical support</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="multiple-choice">
+                    <input type="radio" name="Why" value="feedback"><label for="feedback">Give feedback</label>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <a id="show-basic-details" class="button disable-button-onclick" href="page2">Next</a>
+            </div>
+        </form>
+    </div>
+    <div class="column-one-third">
+        <aside class="govuk-related-items govuk-related-items-bau" role="complementary">
+            <h2 class="heading-medium">Want to speak to an adviser?</h2>
+            <p class="font-small" style="margin-bottom: 0px;"><span class="bold-small">Call </span>0800 100 900 or <a style="white-space: nowrap;" href="https://cxdirect.serco.com/visitor/EntryPage.htm" rel="external" target="'_blank'">use webchat</a></p>
+            <p class="grey font-xsmall">8am to 10pm, 7 days a week</p>
+        </aside>
+    </div>
+</div>

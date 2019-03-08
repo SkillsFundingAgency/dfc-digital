@@ -120,7 +120,6 @@
     <Compile Include="Services\MergeEmailContentServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>

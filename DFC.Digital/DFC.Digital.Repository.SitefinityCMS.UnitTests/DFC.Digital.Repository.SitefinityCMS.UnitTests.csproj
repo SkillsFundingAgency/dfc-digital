@@ -263,6 +263,7 @@
     <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
+    <Compile Include="Modules\EmailTemplateConverterTests.cs" />
     <Compile Include="Modules\EmailTemplateRepositoryTests.cs" />
     <Compile Include="Modules\FrameworkSkillConverterTests.cs" />
     <Compile Include="Modules\FrameworkSkillRepositoryTests.cs" />

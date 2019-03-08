@@ -26,10 +26,10 @@ namespace DFC.Digital.Services.SendGrid.Tests
             goodEmailTemplate = new EmailTemplate
             {
                 Body = nameof(EmailTemplate.Body),
-                To = "trevk15@yahoo.co.uk",
+                To = nameof(EmailTemplate.To),
                 TemplateName = nameof(EmailTemplate.TemplateName),
                 Subject = nameof(EmailTemplate.Subject),
-                From = "trevk155@gmail.com"
+                From = nameof(EmailTemplate.From)
             };
         }
 
@@ -53,7 +53,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
                 .Returns(nameof(IMergeEmailContent.MergeTemplateBodyWithContent));
             A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
                 .Returns(nameof(IMergeEmailContent.MergeTemplateBodyWithContentWithHtml));
-            A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).Returns(new Response(HttpStatusCode.Accepted, new StringContent(string.Empty), null));
+            A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).Returns(true);
 
             //Act
             var result = await sendEmailService.SendEmailAsync(sendRequest);

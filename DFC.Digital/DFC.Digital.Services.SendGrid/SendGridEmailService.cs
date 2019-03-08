@@ -40,9 +40,7 @@ namespace DFC.Digital.Services.SendGrid
                     mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
                 var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                var sendResponse = await sendGridClientActions.SendEmailAsync(client, msg);
-
-                response.Success = sendResponse.StatusCode.Equals(HttpStatusCode.Accepted);
+                response.Success = await sendGridClientActions.SendEmailAsync(client, msg);
             }
 
             return response;

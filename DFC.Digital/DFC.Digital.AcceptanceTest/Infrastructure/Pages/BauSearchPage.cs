@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class BauSearchPage : Page
+    public class BauSearchPage : DFCPage
     {
         public bool ResultsSectionDisplated => Find.Element(OpenQA.Selenium.By.ClassName("results-block")) != null;
 

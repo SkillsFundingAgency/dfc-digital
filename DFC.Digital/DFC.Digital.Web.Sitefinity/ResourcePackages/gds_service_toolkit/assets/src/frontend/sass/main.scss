@@ -1,4 +1,7 @@
 ﻿$govuk-assets-path: "/ResourcePackages/gds_service_toolkit/assets/dist/" !default;
+$govuk-compatibility-govukfrontendtoolkit: true;
+$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govukelements: true;
 
 @import "../../../../node_modules/govuk-frontend/all";
 

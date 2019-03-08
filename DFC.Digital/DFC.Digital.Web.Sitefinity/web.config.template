@@ -265,9 +265,11 @@ that is bundled with the nuget package under the tools folder.
     <httpModules>
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <remove name="OutputCache" />
+      <!--Since 11.1 distrubuted cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<remove name="OutputCache" />-->
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
-      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
+      <!--Since 11.1 distrubuted cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
       <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -339,9 +341,11 @@ that is bundled with the nuget package under the tools folder.
       <remove name="SitefinityAnalyticsModule" />
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <remove name="OutputCache" />
+      <!--Since 11.1 distributed cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<remove name="OutputCache" />-->
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
-      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
+      <!--Since 11.1 distributed cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
       <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />

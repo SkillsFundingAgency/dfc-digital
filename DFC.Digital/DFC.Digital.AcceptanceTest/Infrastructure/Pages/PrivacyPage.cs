@@ -8,7 +8,7 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class PrivacyPage : Page
+    public class PrivacyPage : DFCPage
     {
         public string PageTitle => Find.OptionalElement(By.ClassName("heading-xlarge")).Text;
     }

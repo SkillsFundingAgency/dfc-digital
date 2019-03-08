@@ -46,7 +46,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on the Back To Homepage link")]
         public void WhenIClickOnTheBackToHomepageLink()
         {
-            GetNavigatedPage<JobProfilePage>().ClickBackToHomepageLink<Homepage>().SaveTo(ScenarioContext);
+            GetNavigatedPage<JobProfilePage>().ClickExploreCareerBreadcrumb<Homepage>().SaveTo(ScenarioContext);
         }
 
         [When(@"I click the Explore careers link")]
@@ -239,7 +239,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToThePage()
         {
             var jobProfilePage = GetNavigatedPage<JobProfilePage>();
-            jobProfilePage.ProfilePageHeading.Should().Contain("This page is not available");
+            jobProfilePage.ProfilePageHeading.Should().Contain("Page not found");
         }
 
         [Then(@"the search section should be displayed")]

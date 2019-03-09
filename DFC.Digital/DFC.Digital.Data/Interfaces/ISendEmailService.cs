@@ -5,6 +5,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISendEmailService
     {
-        Task<SendEmailResponse> SendEmailAsync(SendEmailRequest sendEmailRequest);
+        Task<bool> SendEmailAsync(SendEmailRequest sendEmailRequest);
     }
 }

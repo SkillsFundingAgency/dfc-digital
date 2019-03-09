@@ -4,8 +4,6 @@ using FakeItEasy;
 using FluentAssertions;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -68,7 +66,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
                         fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).MustHaveHappened();
-                result.Success.Should().BeTrue();
+                result.Should().BeTrue();
             }
             else
             {
@@ -78,7 +76,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
                 A.CallTo(() =>
                         fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
                     .MustNotHaveHappened();
-                result.Success.Should().BeFalse();
+                result.Should().BeFalse();
             }
         }
     }

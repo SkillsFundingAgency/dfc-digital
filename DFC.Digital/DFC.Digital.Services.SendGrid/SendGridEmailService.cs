@@ -26,9 +26,9 @@ namespace DFC.Digital.Services.SendGrid
 
         public string SendGridApiKey => configuration.GetConfig<string>(Constants.SendGridApiKey);
 
-        public async Task<SendEmailResponse> SendEmailAsync(SendEmailRequest sendEmailRequest)
+        public async Task<bool> SendEmailAsync(SendEmailRequest sendEmailRequest)
         {
-            var response = new SendEmailResponse();
+            var response = false;
 
             var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
 
@@ -42,7 +42,7 @@ namespace DFC.Digital.Services.SendGrid
                     mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
                 var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                response.Success = await sendGridClientActions.SendEmailAsync(client, msg);
+                response = await sendGridClientActions.SendEmailAsync(client, msg);
             }
 
             return response;

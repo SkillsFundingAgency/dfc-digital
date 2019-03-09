@@ -14,15 +14,17 @@ namespace DFC.Digital.Services.SendGrid
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IMergeEmailContent mergeEmailContentService;
         private readonly ISendGridClientActions sendGridClientActions;
+        private readonly IConfigurationProvider configuration;
 
-        public SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions)
+        public SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions, IConfigurationProvider configuration)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.mergeEmailContentService = mergeEmailContentService;
             this.sendGridClientActions = sendGridClientActions;
+            this.configuration = configuration;
         }
 
-        public string SendGridApiKey => ConfigurationManager.AppSettings[Constants.SendGridApiKey];
+        public string SendGridApiKey => configuration.GetConfig<string>(Constants.SendGridApiKey);
 
         public async Task<SendEmailResponse> SendEmailAsync(SendEmailRequest sendEmailRequest)
         {
@@ -33,8 +35,8 @@ namespace DFC.Digital.Services.SendGrid
             if (template != null)
             {
                 var client = new SendGridClient(SendGridApiKey);
-                var from = new EmailAddress(template.From);
-                var subject = template.Subject;
+                var from = new EmailAddress(sendEmailRequest.Email);
+                var subject = sendEmailRequest.Subject;
                 var to = new EmailAddress(template.To);
                 var plainTextContent =
                     mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);

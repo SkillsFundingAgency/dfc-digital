@@ -31,11 +31,15 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //Assert
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened(5, Times.Exactly);
+            A.CallTo(() => fakeDynamicContentExtensions.GetContentWithoutHtmlTags(A<DynamicContent>._, A<string>._))
+                .MustHaveHappened(1, Times.Exactly);
         }
 
         private void SetupCalls()
         {
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<Lstring>(A<DynamicContent>._, A<string>._))
+                .Returns("test");
+            A.CallTo(() => fakeDynamicContentExtensions.GetContentWithoutHtmlTags(A<DynamicContent>._, A<string>._))
                 .Returns("test");
         }
     }

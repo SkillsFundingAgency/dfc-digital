@@ -27,6 +27,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             goodEmailTemplate = new EmailTemplate
             {
                 Body = nameof(EmailTemplate.Body),
+                BodyNoHtml = nameof(EmailTemplate.BodyNoHtml),
                 To = nameof(EmailTemplate.To),
                 TemplateName = nameof(EmailTemplate.TemplateName),
                 Subject = nameof(EmailTemplate.Subject),

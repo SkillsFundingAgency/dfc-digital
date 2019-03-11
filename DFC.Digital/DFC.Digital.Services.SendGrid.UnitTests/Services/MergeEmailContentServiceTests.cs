@@ -7,23 +7,23 @@ namespace DFC.Digital.Services.SendGrid.Tests
 {
     public class MergeEmailContentServiceTests
     {
-        private readonly SendEmailRequest sendEmailRequest;
+        private readonly ContactAdvisorRequest sendEmailRequest;
 
         public MergeEmailContentServiceTests()
         {
-            sendEmailRequest = new SendEmailRequest
+            sendEmailRequest = new ContactAdvisorRequest
             {
-                TemplateName = nameof(SendEmailRequest.TemplateName),
-                FirstName = nameof(SendEmailRequest.FirstName),
-                LastName = nameof(SendEmailRequest.LastName),
-                Email = nameof(SendEmailRequest.Email),
-                ContactOption = nameof(SendEmailRequest.ContactOption),
+                TemplateName = nameof(ContactAdvisorRequest.TemplateName),
+                FirstName = nameof(ContactAdvisorRequest.FirstName),
+                LastName = nameof(ContactAdvisorRequest.LastName),
+                Email = nameof(ContactAdvisorRequest.Email),
+                ContactOption = nameof(ContactAdvisorRequest.ContactOption),
                 DateOfBirth = new DateTime(2000, 3, 12),
-                PostCode = nameof(SendEmailRequest.PostCode),
-                ContactAdviserQuestionType = nameof(SendEmailRequest.ContactAdviserQuestionType),
-                Message = nameof(SendEmailRequest.Message),
+                PostCode = nameof(ContactAdvisorRequest.PostCode),
+                ContactAdviserQuestionType = nameof(ContactAdvisorRequest.ContactAdviserQuestionType),
+                Message = nameof(ContactAdvisorRequest.Message),
                 IsContactable = true,
-                FeedbackQuestionType = nameof(SendEmailRequest.FeedbackQuestionType),
+                FeedbackQuestionType = nameof(ContactAdvisorRequest.FeedbackQuestionType),
                 TermsAndConditions = true
             };
         }

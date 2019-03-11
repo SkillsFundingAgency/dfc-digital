@@ -7,7 +7,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class SearchPage : SitefinityPage<JobProfileSearchResultViewModel>
+    public class SearchPage : DFCPageWithViewModel<JobProfileSearchResultViewModel>
     {
         #region const IDs and Classnames
 
@@ -128,46 +128,48 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             Input.Model(model);
-            return Navigate.To<T>(By.ClassName("button"));
+            return NavigateTo<T>(By.ClassName("button"));
         }
 
         public T GoToResult<T>(int index)
             where T : UiComponent, new()
         {
-            var results = Find.Elements(By.ClassName("dfc-code-search-jpTitle")).ToList();
-            return Navigate.To<T>(results[index - 1].GetAttribute("href"));
+            var findBy = By.ClassName("dfc-code-search-jpTitle");
+            var results = Find.Elements(findBy).ToList();
+            return NavigateTo<T>(results[index - 1].GetAttribute("href"), findBy);
         }
 
         public T NextPage<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("dfc-code-search-nextlink"));
+            return NavigateTo<T>(By.ClassName("dfc-code-search-nextlink"));
         }
 
         public T PreviousPage<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("dfc-code-search-previouslink"));
+            return NavigateTo<T>(By.ClassName("dfc-code-search-previouslink"));
         }
 
         public T DidYouMeanPage<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.CssSelector(".search-dym a"));
+            return NavigateTo<T>(By.CssSelector(".search-dym a"));
         }
 
         public T GoToFirstCategoryLink<T>(int resultNo)
             where T : UiComponent, new()
         {
-            var results = Find.Elements(By.ClassName("dfc-code-search-resultitem")).ElementAt(resultNo - 1);
+            var findBy = By.ClassName("dfc-code-search-resultitem");
+            var results = Find.Elements(findBy).ElementAt(resultNo - 1);
             var categoryLink = results.FindElement(By.CssSelector(".results-categories a"));
-            return Navigate.To<T>(categoryLink.GetAttribute("href"));
+            return NavigateTo<T>(categoryLink.GetAttribute("href"), findBy);
         }
 
         public T ClickSearchSignpostBanner<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("signpost"));
+            return NavigateTo<T>(By.ClassName("signpost"));
         }
 
         #endregion

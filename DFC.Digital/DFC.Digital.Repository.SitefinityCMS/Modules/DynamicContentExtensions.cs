@@ -6,6 +6,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Utilities;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -114,6 +115,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
                 var relatedContent = GetRelatedItems(content, relatedField, 100);
                 return relatedContent?.Select(x => $"{x.UrlName}");
+        }
+
+        public string GetContentWithoutHtmlTags(DynamicContent contentItem, string fieldName)
+        {
+            if (contentItem != null && contentItem.DoesFieldExist(fieldName))
+            {
+                var value = contentItem.GetValue<string>(fieldName).StripHtmlTags();
+                return value;
+            }
+            else
+            {
+                return default;
+            }
         }
     }
 }

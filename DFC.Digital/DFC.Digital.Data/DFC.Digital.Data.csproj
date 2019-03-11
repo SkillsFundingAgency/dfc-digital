@@ -167,8 +167,7 @@
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
     <Compile Include="Model\RelatedSkillMapping.cs" />
-    <Compile Include="Model\SendEmailRequest.cs" />
-    <Compile Include="Model\SendEmailResponse.cs" />
+    <Compile Include="Model\ContactAdvisorRequest.cs" />
     <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />

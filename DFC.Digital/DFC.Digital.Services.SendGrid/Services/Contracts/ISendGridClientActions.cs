@@ -6,6 +6,6 @@ namespace DFC.Digital.Services.SendGrid
 {
     public interface ISendGridClientActions
     {
-        Task<Response> SendEmailAsync(SendGridClient sendGridClient, SendGridMessage sendGridMessage);
+        Task<bool> SendEmailAsync(SendGridClient sendGridClient, SendGridMessage sendGridMessage);
     }
 }

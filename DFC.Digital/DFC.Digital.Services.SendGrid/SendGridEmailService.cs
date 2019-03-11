@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridEmailService : ISendEmailService
+    public class SendGridEmailService : ISendEmailService<ContactAdvisorRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IMergeEmailContent mergeEmailContentService;
@@ -26,7 +26,7 @@ namespace DFC.Digital.Services.SendGrid
 
         public string SendGridApiKey => configuration.GetConfig<string>(Constants.SendGridApiKey);
 
-        public async Task<bool> SendEmailAsync(SendEmailRequest sendEmailRequest)
+        public async Task<bool> SendEmailAsync(ContactAdvisorRequest sendEmailRequest)
         {
             var response = false;
 

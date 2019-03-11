@@ -17,17 +17,17 @@ namespace DFC.Digital.Services.SendGrid
         private const string FeedbackQuestionTypeToken = "{feedbackquestiontype}";
         private const string TermsAndConditionsToken = "{tandc}";
 
-        public string MergeTemplateBodyWithContent(SendEmailRequest sendEmailRequest, string content)
+        public string MergeTemplateBodyWithContent(ContactAdvisorRequest sendEmailRequest, string content)
         {
             return TokenReplacement(sendEmailRequest, content);
         }
 
-        public string MergeTemplateBodyWithContentWithHtml(SendEmailRequest sendEmailRequest, string content)
+        public string MergeTemplateBodyWithContentWithHtml(ContactAdvisorRequest sendEmailRequest, string content)
         {
             return TokenReplacement(sendEmailRequest, content);
         }
 
-        private static string TokenReplacement(SendEmailRequest sendEmailRequest, string content)
+        private static string TokenReplacement(ContactAdvisorRequest sendEmailRequest, string content)
         {
             var mergedContent = content;
 

@@ -4,8 +4,8 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IMergeEmailContent
     {
-        string MergeTemplateBodyWithContent(SendEmailRequest sendEmailRequest, string content);
+        string MergeTemplateBodyWithContent(ContactAdvisorRequest sendEmailRequest, string content);
 
-        string MergeTemplateBodyWithContentWithHtml(SendEmailRequest sendEmailRequest, string content);
+        string MergeTemplateBodyWithContentWithHtml(ContactAdvisorRequest sendEmailRequest, string content);
     }
 }

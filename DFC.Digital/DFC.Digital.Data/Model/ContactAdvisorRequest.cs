@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Data.Model
 {
-    public class SendEmailRequest
+    public class ContactAdvisorRequest
     {
         public string TemplateName { get; set; }
 

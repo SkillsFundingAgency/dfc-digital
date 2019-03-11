@@ -44,7 +44,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             {
                 Body = templateBody
             };
-            var mergeEmailContentService = new MergeEmailContentService();
+            var mergeEmailContentService = new SendGridMergeEmailContentService();
 
             var mergedData = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
 
@@ -67,7 +67,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             {
                 Body = templateBody
             };
-            var mergeEmailContentService = new MergeEmailContentService();
+            var mergeEmailContentService = new SendGridMergeEmailContentService();
 
             var mergedData =
                 mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);

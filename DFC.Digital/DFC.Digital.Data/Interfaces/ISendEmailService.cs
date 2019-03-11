@@ -6,6 +6,6 @@ namespace DFC.Digital.Data.Interfaces
     public interface ISendEmailService<in T>
         where T : class
     {
-        Task<bool> SendEmailAsync(T sendEmailRequest);
+        Task<SendEmailResponse> SendEmailAsync(T sendEmailRequest);
     }
 }

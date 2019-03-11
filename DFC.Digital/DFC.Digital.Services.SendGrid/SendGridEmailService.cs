@@ -1,9 +1,7 @@
-﻿using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -12,37 +10,55 @@ namespace DFC.Digital.Services.SendGrid
     public class SendGridEmailService : ISendEmailService<ContactAdvisorRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
-        private readonly IMergeEmailContent mergeEmailContentService;
-        private readonly ISendGridClientActions sendGridClientActions;
-        private readonly IConfigurationProvider configuration;
+        private readonly IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService;
+        private readonly IAuditEmailRepository auditRepository;
+        private readonly ISimulateEmailResponses simulateEmailResponsesService;
+        private readonly ISendGridClient sendGridClient;
 
-        public SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions, IConfigurationProvider configuration)
+        public SendGridEmailService(
+            IEmailTemplateRepository emailTemplateRepository,
+            IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService,
+            IAuditEmailRepository auditRepository,
+            ISimulateEmailResponses simulateEmailResponsesService,
+            ISendGridClient sendGridClient)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.mergeEmailContentService = mergeEmailContentService;
-            this.sendGridClientActions = sendGridClientActions;
-            this.configuration = configuration;
+            this.auditRepository = auditRepository;
+            this.simulateEmailResponsesService = simulateEmailResponsesService;
+            this.sendGridClient = sendGridClient;
         }
 
-        public string SendGridApiKey => configuration.GetConfig<string>(Constants.SendGridApiKey);
-
-        public async Task<bool> SendEmailAsync(ContactAdvisorRequest sendEmailRequest)
+        public async Task<SendEmailResponse> SendEmailAsync(ContactAdvisorRequest sendEmailRequest)
         {
-            var response = false;
+            var response = new SendEmailResponse();
+
+            var simulateResponse = simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
+
+            if (simulateResponse.ValidSimulationEmail)
+            {
+                response.EmailSimulationResponse = true;
+                response.Success = simulateResponse.SuccessResponse;
+                return response;
+            }
 
             var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
 
             if (template != null)
             {
-                var client = new SendGridClient(SendGridApiKey);
                 var from = new EmailAddress(sendEmailRequest.Email);
                 var subject = sendEmailRequest.Subject;
                 var to = new EmailAddress(template.To);
                 var plainTextContent =
                     mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
-                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
+                var htmlContent =
+                    mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                response = await sendGridClientActions.SendEmailAsync(client, msg);
+                var clientResponse = await sendGridClient.SendEmailAsync(msg);
+
+                response.Success = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
+
+                auditRepository.AuditContactAdvisorEmailData(sendEmailRequest, template, response);
             }
 
             return response;

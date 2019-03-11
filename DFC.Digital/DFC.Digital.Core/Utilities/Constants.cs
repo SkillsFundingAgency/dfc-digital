@@ -39,5 +39,6 @@
         public const string SearchServiceQueryAPIKey = "DFC.Digital.SearchServiceQueryAPIKey";
         public const string SearchServiceAdminAPIKey = "DFC.Digital.SearchServiceAdminAPIKey";
         public const string BackEndDateTimeFormat = "dd MMM yyyy HH:mm:ss";
+        public const string CDNLocation = "DFC.Digital.CDNLocation";
     }
 }

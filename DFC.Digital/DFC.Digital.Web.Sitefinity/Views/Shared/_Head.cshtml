@@ -34,25 +34,25 @@
 
 
 
-@Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/govuk-template.min.css")))
-@Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/fonts.min.css")))
-@Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/govuk.min.css")))
-@Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/main.min.css")))
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_toolkit/css/govuk-template.min.css")))
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_toolkit/css/fonts.min.css")))
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_toolkit/css/govuk.min.css")))
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_toolkit/css/main.min.css")))
 
-<link rel="shortcut icon" href="~/ResourcePackages/gds_toolkit/assets/dist/images/favicon.ico" type="image/x-icon" />
-<link rel="mask-icon" href="~/ResourcePackages/gds_toolkit/assets/dist/images/gov.uk_logotype_crown.svg" color="#0b0c0c">
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="~/ResourcePackages/gds_toolkit/assets/dist/images/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="~/ResourcePackages/gds_toolkit/assets/dist/images/apple-touch-icon-167x167.png">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="~/ResourcePackages/gds_toolkit/assets/dist/images/apple-touch-icon-180x180.png">
+<link rel="shortcut icon" href="@Html.GetLocationAssetFile("gds_toolkit/images/favicon.ico")" type="image/x-icon" />
+<link rel="mask-icon" href="@Html.GetLocationAssetFile("gds_toolkit/images/gov.uk_logotype_crown.svg")" color="#0b0c0c">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="@Html.GetLocationAssetFile("gds_toolkit/images/apple-touch-icon-152x152.png")">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="@Html.GetLocationAssetFile("gds_toolkit/images/apple-touch-icon-167x167.png")">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="@Html.GetLocationAssetFile("gds_toolkit/images/apple-touch-icon-180x180.png")">
 
 <!--[if (gte IE 6)&(lte IE 8)]>
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/selectivizr.min.js"></script>
+    <script type="text/javascript" src="@Html.GetLocationAssetFile("gds_toolkit/js/selectivizr.min.js")"></script>
 <![endif]-->
 <!--[if lt IE 9]>
-    <script type="text/javascript" src="/ResourcePackages/gds_toolkit/assets/dist/js/ie8bundle.min.js"></script>
-    @Html.StyleSheet(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/css/ie.min.css")))
+    <script type="text/javascript" src="@Html.GetLocationAssetFile("gds_toolkit/js/ie8bundle.min.js")"></script>
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_toolkit/css/ie.min.css")))
 <![endif]-->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:image" content="~/ResourcePackages/gds_toolkit/assets/dist/images/opengraph-image.png">
+<meta property="og:image" content="@Html.GetLocationAssetFile("gds_toolkit/images/opengraph-image.png")">
 <meta name="msapplication-config" content="none" />

@@ -103,6 +103,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\ICDNService.cs" />
+    <Compile Include="Interfaces\IHTMLHelper.cs" />
     <Compile Include="Interfaces\IRecycleBinRepository.cs" />
     <Compile Include="Interfaces\ISearchManipulator.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />

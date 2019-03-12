@@ -415,6 +415,7 @@
     <Compile Include="SitefinityExtensions\JobProfilePageContentService.cs" />
     <Compile Include="SitefinityExtensions\SitefinityCurrentContext.cs" />
     <Compile Include="SitefinityExtensions\SitefinityPage.cs" />
+    <Compile Include="SitefinityExtensions\AssetVersioningExtention.cs" />
     <Compile Include="Utility\SitefinityConstants.cs" />
     <Compile Include="SitefinityExtensions\WebAppContext.cs" />
   </ItemGroup>

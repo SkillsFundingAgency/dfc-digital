@@ -10,13 +10,13 @@ namespace DFC.Digital.Repository.CosmosDb
     public class EmailAuditRepository : CosmosDbRepository, IAuditEmailRepository
     {
         private readonly Guid correlationId;
-        private readonly IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService;
+        private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
         private readonly IConfigurationProvider configuration;
 
         public EmailAuditRepository(
             IConfigurationProvider configuration,
             IDocumentClient documentClient,
-            IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService) : base(documentClient)
+            IMergeEmailContent<ContactUsRequest> mergeEmailContentService) : base(documentClient)
         {
             this.correlationId = Guid.NewGuid();
             this.mergeEmailContentService = mergeEmailContentService;
@@ -33,13 +33,13 @@ namespace DFC.Digital.Repository.CosmosDb
             });
         }
 
-        public void AuditContactAdvisorEmailData(ContactAdvisorRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
+        public void AuditContactUsResponses(ContactUsRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
         {
             try
             {
                 var safeRequestSerialized = JsonConvert.SerializeObject(emailRequest);
 
-                var safeRequest = JsonConvert.DeserializeObject<ContactAdvisorRequest>(safeRequestSerialized);
+                var safeRequest = JsonConvert.DeserializeObject<ContactUsRequest>(safeRequestSerialized);
 
                 var emailContent =
                     mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(safeRequest, emailTemplate.Body);

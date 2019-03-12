@@ -15,7 +15,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
     public class SendGridEmailServiceTests
     {
         private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
-        private readonly IMergeEmailContent<ContactAdvisorRequest> fakeMergeEmailContentService;
+        private readonly IMergeEmailContent<ContactUsRequest> fakeMergeEmailContentService;
         private readonly ISendGridClient fakeSendGridClient;
         private readonly IConfigurationProvider fakeConfiguration;
         private readonly IAuditEmailRepository fakeAuditRepository;
@@ -26,7 +26,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
         public SendGridEmailServiceTests()
         {
             fakeEmailTemplateRepository = A.Fake<IEmailTemplateRepository>(ops => ops.Strict());
-            fakeMergeEmailContentService = A.Fake<IMergeEmailContent<ContactAdvisorRequest>>(ops => ops.Strict());
+            fakeMergeEmailContentService = A.Fake<IMergeEmailContent<ContactUsRequest>>(ops => ops.Strict());
             fakeSendGridClient = A.Fake<ISendGridClient>(ops => ops.Strict());
             fakeConfiguration = A.Fake<IConfigurationProvider>(ops => ops.Strict());
             fakeSimulateEmailResponsesService = A.Fake<ISimulateEmailResponses>(ops => ops.Strict());
@@ -50,22 +50,22 @@ namespace DFC.Digital.Services.SendGrid.Tests
             //Assign
             var sendEmailService = new SendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient);
 
-            var sendRequest = new ContactAdvisorRequest
+            var sendRequest = new ContactUsRequest
             {
-                TemplateName = nameof(ContactAdvisorRequest.TemplateName),
-                Message = nameof(ContactAdvisorRequest.Message)
+                TemplateName = nameof(ContactUsRequest.TemplateName),
+                Message = nameof(ContactUsRequest.Message)
             };
 
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._))
                 .Returns(validEmailTemplate ? goodEmailTemplate : null);
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactAdvisorRequest>._, A<string>._))
-                .Returns(nameof(IMergeEmailContent<ContactAdvisorRequest>.MergeTemplateBodyWithContent));
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactAdvisorRequest>._, A<string>._))
-                .Returns(nameof(IMergeEmailContent<ContactAdvisorRequest>.MergeTemplateBodyWithContentWithHtml));
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
+                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContent));
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
+                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContentWithHtml));
             A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).Returns(new Response(HttpStatusCode.Accepted, null, null));
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns(string.Empty);
             A.CallTo(() => fakeSimulateEmailResponsesService.SimulateEmailResponse(A<string>._)).Returns(new SimulateEmailResponse());
-            A.CallTo(() => fakeAuditRepository.AuditContactAdvisorEmailData(A<ContactAdvisorRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).DoesNothing();
+            A.CallTo(() => fakeAuditRepository.AuditContactUsResponses(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).DoesNothing();
 
             //Act
             var result = await sendEmailService.SendEmailAsync(sendRequest);
@@ -74,22 +74,22 @@ namespace DFC.Digital.Services.SendGrid.Tests
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._)).MustHaveHappened();
             if (validEmailTemplate)
             {
-                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactAdvisorRequest>._, A<string>._))
+                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() =>
-                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactAdvisorRequest>._, A<string>._))
+                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).MustHaveHappened();
                 result.Success.Should().BeTrue();
-                A.CallTo(() => fakeAuditRepository.AuditContactAdvisorEmailData(A<ContactAdvisorRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).MustHaveHappened();
+                A.CallTo(() => fakeAuditRepository.AuditContactUsResponses(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).MustHaveHappened();
             }
             else
             {
                 A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactAdvisorRequest>._, A<string>._))
+                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                     .MustNotHaveHappened();
                 A.CallTo(() =>
-                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactAdvisorRequest>._, A<string>._))
+                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
                     .MustNotHaveHappened();
                 result.Success.Should().BeFalse();
             }

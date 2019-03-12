@@ -5,6 +5,6 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface IAuditEmailRepository : IAuditRepository
     {
-        void AuditContactAdvisorEmailData(ContactAdvisorRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response);
+        void AuditContactUsResponses(ContactUsRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response);
     }
 }

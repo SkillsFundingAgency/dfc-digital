@@ -3,7 +3,7 @@ using System;
 
 namespace DFC.Digital.Data.Model
 {
-    public class ContactAdvisorRequest
+    public class ContactUsRequest
     {
         public string TemplateName { get; set; }
 

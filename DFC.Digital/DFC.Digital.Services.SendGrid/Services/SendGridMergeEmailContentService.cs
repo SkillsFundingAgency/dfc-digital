@@ -3,7 +3,7 @@ using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridMergeEmailContentService : IMergeEmailContent<ContactAdvisorRequest>
+    public class SendGridMergeEmailContentService : IMergeEmailContent<ContactUsRequest>
     {
         private const string FirstNameToken = "{firstname}";
         private const string LastNameToken = "{lastname}";
@@ -17,7 +17,7 @@ namespace DFC.Digital.Services.SendGrid
         private const string FeedbackQuestionTypeToken = "{feedbackquestiontype}";
         private const string TermsAndConditionsToken = "{tandc}";
 
-        public string MergeTemplateBodyWithContent(ContactAdvisorRequest sendEmailRequest, string content)
+        public string MergeTemplateBodyWithContent(ContactUsRequest sendEmailRequest, string content)
         {
             if (sendEmailRequest == null)
             {
@@ -27,7 +27,7 @@ namespace DFC.Digital.Services.SendGrid
             return TokenReplacement(sendEmailRequest, content);
         }
 
-        public string MergeTemplateBodyWithContentWithHtml(ContactAdvisorRequest sendEmailRequest, string content)
+        public string MergeTemplateBodyWithContentWithHtml(ContactUsRequest sendEmailRequest, string content)
         {
             if (sendEmailRequest == null)
             {
@@ -37,7 +37,7 @@ namespace DFC.Digital.Services.SendGrid
             return TokenReplacement(sendEmailRequest, content);
         }
 
-        private static string TokenReplacement(ContactAdvisorRequest sendEmailRequest, string content)
+        private static string TokenReplacement(ContactUsRequest sendEmailRequest, string content)
         {
             var mergedContent = content;
 

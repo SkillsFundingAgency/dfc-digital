@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridEmailService : ISendEmailService<ContactAdvisorRequest>
+    public class SendGridEmailService : ISendEmailService<ContactUsRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
-        private readonly IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService;
+        private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
         private readonly IAuditEmailRepository auditRepository;
         private readonly ISimulateEmailResponses simulateEmailResponsesService;
         private readonly ISendGridClient sendGridClient;
 
         public SendGridEmailService(
             IEmailTemplateRepository emailTemplateRepository,
-            IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService,
+            IMergeEmailContent<ContactUsRequest> mergeEmailContentService,
             IAuditEmailRepository auditRepository,
             ISimulateEmailResponses simulateEmailResponsesService,
             ISendGridClient sendGridClient)
@@ -29,7 +29,7 @@ namespace DFC.Digital.Services.SendGrid
             this.sendGridClient = sendGridClient;
         }
 
-        public async Task<SendEmailResponse> SendEmailAsync(ContactAdvisorRequest sendEmailRequest)
+        public async Task<SendEmailResponse> SendEmailAsync(ContactUsRequest sendEmailRequest)
         {
             var response = new SendEmailResponse();
 
@@ -58,7 +58,7 @@ namespace DFC.Digital.Services.SendGrid
 
                 response.Success = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
 
-                auditRepository.AuditContactAdvisorEmailData(sendEmailRequest, template, response);
+                auditRepository.AuditContactUsResponses(sendEmailRequest, template, response);
             }
 
             return response;

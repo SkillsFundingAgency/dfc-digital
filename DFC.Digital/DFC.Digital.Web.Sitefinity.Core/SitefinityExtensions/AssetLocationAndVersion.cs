@@ -4,10 +4,8 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Caching;
 
-namespace DFC.Digital.Web.Core.HtmlExtentions
+namespace DFC.Digital.Web.Sitefinity.Core
 {
     public class AssetLocationAndVersion : IAssetLocationAndVersion
     {
@@ -25,16 +23,15 @@ namespace DFC.Digital.Web.Core.HtmlExtentions
         public string GetLocationAssetFileAndVersion(string fileName)
         {
             string version = null;
+            string assetLocation = $"{CDNLocation}/{fileName}";
             AsyncHelper asyncHelper = new AsyncHelper();
-            version = asyncHelper.Synchronise(() => GetFileHashAsync(fileName));
-            return $"{CDNLocation}{fileName}?{version}";
+            version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
+            return $"{assetLocation}?{version}";
         }
 
-        private async Task<string> GetFileHashAsync(string fileName)
+        private async Task<string> GetFileHashAsync(string assetLocation)
         {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(CDNLocation);
-            HttpResponseMessage response = await httpClient.GetAsync(fileName);
+            HttpResponseMessage response = await httpClientService.GetAsync(assetLocation);
             if (response.IsSuccessStatusCode)
             {
                 var hashCode = response.Content.Headers.GetValues("content-md5").FirstOrDefault();

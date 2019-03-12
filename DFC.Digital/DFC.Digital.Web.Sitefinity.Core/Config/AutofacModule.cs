@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Web.Core.HtmlExtentions;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {

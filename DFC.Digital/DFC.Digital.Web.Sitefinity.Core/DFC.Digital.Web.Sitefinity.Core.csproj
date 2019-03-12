@@ -399,6 +399,7 @@
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="SitefinityExtensions\AssetLocationAndVersion.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
     <Compile Include="Interfaces\ISitefinityPage.cs" />
@@ -415,7 +416,6 @@
     <Compile Include="SitefinityExtensions\JobProfilePageContentService.cs" />
     <Compile Include="SitefinityExtensions\SitefinityCurrentContext.cs" />
     <Compile Include="SitefinityExtensions\SitefinityPage.cs" />
-    <Compile Include="SitefinityExtensions\AssetVersioningExtention.cs" />
     <Compile Include="Utility\SitefinityConstants.cs" />
     <Compile Include="SitefinityExtensions\WebAppContext.cs" />
   </ItemGroup>

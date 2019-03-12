@@ -46,7 +46,7 @@ namespace DFC.Digital.Repository.CosmosDb
 
                 var record = new EmailAuditRecord
                 {
-                    ContactAdvisorRequest = safeRequest,
+                    ContactUsRequest = safeRequest,
                     EmailContent = emailContent,
                     SendEmailResponse = response,
                     EmailTemplate = emailTemplate
@@ -68,7 +68,7 @@ namespace DFC.Digital.Repository.CosmosDb
                     CorrelationId = correlationId,
                     Data = new EmailAuditRecord
                     {
-                        ContactAdvisorRequest = emailRequest,
+                        ContactUsRequest = emailRequest,
                         Exception = exception,
                         SendEmailResponse = response
                     },

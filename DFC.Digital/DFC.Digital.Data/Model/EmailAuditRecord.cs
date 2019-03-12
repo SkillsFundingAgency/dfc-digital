@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Model
     {
         public Exception Exception { get; set; }
 
-        public ContactUsRequest ContactAdvisorRequest { get; set; }
+        public ContactUsRequest ContactUsRequest { get; set; }
 
         public SendEmailResponse SendEmailResponse { get; set; }
 

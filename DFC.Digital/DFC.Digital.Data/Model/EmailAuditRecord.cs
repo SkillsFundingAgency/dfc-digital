@@ -10,6 +10,8 @@ namespace DFC.Digital.Data.Model
 
         public SendEmailResponse SendEmailResponse { get; set; }
 
+        public EmailTemplate EmailTemplate { get; set; }
+
         public string EmailContent { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
-    public class EmailAuditRepository : CosmosDbRepository,  IAuditEmailRepository
+    public class EmailAuditRepository : CosmosDbRepository, IAuditEmailRepository
     {
         private readonly Guid correlationId;
         private readonly IMergeEmailContent<ContactAdvisorRequest> mergeEmailContentService;
@@ -44,15 +44,20 @@ namespace DFC.Digital.Repository.CosmosDb
                 var emailContent =
                     mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(safeRequest, emailTemplate.Body);
 
+                var record = new EmailAuditRecord
+                {
+                    ContactAdvisorRequest = safeRequest,
+                    EmailContent = emailContent,
+                    SendEmailResponse = response,
+                    EmailTemplate = emailTemplate
+                };
+
+                var json = JsonConvert.SerializeObject(record);
+
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
-                    Data = new EmailAuditRecord
-                    {
-                        ContactAdvisorRequest = safeRequest,
-                        EmailContent = emailContent,
-                        SendEmailResponse = response
-                    },
+                    Data = record,
                     Timestamp = DateTime.Now
                 });
             }
@@ -64,7 +69,7 @@ namespace DFC.Digital.Repository.CosmosDb
                     Data = new EmailAuditRecord
                     {
                         ContactAdvisorRequest = emailRequest,
-                       Exception = exception,
+                        Exception = exception,
                         SendEmailResponse = response
                     },
                     Timestamp = DateTime.Now

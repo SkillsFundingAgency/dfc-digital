@@ -10,8 +10,6 @@ namespace DFC.Digital.Services.SendGrid
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SendGridAutofacModule : Module
     {
-        public string SendGridApiKey => ConfigurationManager.AppSettings.Get(Constants.SendGridApiKey);
-
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
@@ -20,7 +18,7 @@ namespace DFC.Digital.Services.SendGrid
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-            builder.Register(c => new SendGridClient(SendGridApiKey)).As<ISendGridClient>()
+            builder.Register(c => new SendGridClient(c.Resolve<IConfigurationProvider>().GetConfig<string>(Constants.SendGridApiKey))).As<ISendGridClient>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)

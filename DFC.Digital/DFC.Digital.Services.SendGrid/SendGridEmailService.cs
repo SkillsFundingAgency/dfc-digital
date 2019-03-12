@@ -46,9 +46,9 @@ namespace DFC.Digital.Services.SendGrid
 
             if (template != null)
             {
-                var from = new EmailAddress(sendEmailRequest.Email);
+                var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
                 var subject = sendEmailRequest.Subject;
-                var to = new EmailAddress(template.To);
+                var to = new EmailAddress(template.To, template.To);
                 var plainTextContent =
                     mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
                 var htmlContent =

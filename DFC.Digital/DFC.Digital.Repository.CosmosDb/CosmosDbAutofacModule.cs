@@ -31,6 +31,14 @@ namespace DFC.Digital.Repository.CosmosDb
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+
+            builder.RegisterType<EmailAuditRepository>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .OnActivating(cosmos => cosmos.Instance.Initialise())
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
     }
 }

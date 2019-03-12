@@ -23,16 +23,6 @@ namespace DFC.Digital.Repository.CosmosDb
             this.configuration = configuration;
         }
 
-        public void CreateAudit(object record)
-        {
-            Add(new Audit
-            {
-                CorrelationId = correlationId,
-                Data = record,
-                Timestamp = DateTime.Now
-            });
-        }
-
         public void AuditContactUsResponses(ContactUsRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
         {
             try
@@ -44,20 +34,16 @@ namespace DFC.Digital.Repository.CosmosDb
                 var emailContent =
                     mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(safeRequest, emailTemplate.Body);
 
-                var record = new EmailAuditRecord
-                {
-                    ContactUsRequest = safeRequest,
-                    EmailContent = emailContent,
-                    SendEmailResponse = response,
-                    EmailTemplate = emailTemplate
-                };
-
-                var json = JsonConvert.SerializeObject(record);
-
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
-                    Data = record,
+                    Data = new EmailAuditRecord
+                    {
+                        ContactUsRequest = safeRequest,
+                        EmailContent = emailContent,
+                        SendEmailResponse = response,
+                        EmailTemplate = emailTemplate
+                    },
                     Timestamp = DateTime.Now
                 });
             }
@@ -70,7 +56,8 @@ namespace DFC.Digital.Repository.CosmosDb
                     {
                         ContactUsRequest = emailRequest,
                         Exception = exception,
-                        SendEmailResponse = response
+                        SendEmailResponse = response,
+                        EmailTemplate = emailTemplate
                     },
                     Timestamp = DateTime.Now
                 });

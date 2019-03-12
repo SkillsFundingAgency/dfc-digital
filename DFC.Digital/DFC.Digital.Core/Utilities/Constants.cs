@@ -42,7 +42,10 @@
         public const string BackEndDateTimeFormat = "dd MMM yyyy HH:mm:ss";
         public const string SimulationSuccessEmailAddress = "DFC.Digital.SimulationSuccessEmailAddress";
         public const string SimulationFailureEmailAddress = "DFC.Digital.SimulationFailureEmailAddress";
-        public const string CosmosDbName = "DFC.Digital.CourseSearchAudit.Db";
+        public const string CosmosDbName = "DFC.Digital.CosmosDb.Name";
         public const string EmailDocumentCollection = "DFC.Digital.EmailAudit.Collection";
+        public const string CourseSearchDocumentCollection = "DFC.Digital.CourseSearchAudit.Collection";
+        public const string CosmosDbEndPointPrimaryKey = "DFC.Digital.CosmosAudit.PrimaryKey";
+        public const string CosmosDbEndPoint = "DFC.Digital.CosmosAudit.EndpointUrl";
     }
 }

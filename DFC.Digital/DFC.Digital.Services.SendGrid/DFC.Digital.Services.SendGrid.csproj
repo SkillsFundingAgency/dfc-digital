@@ -101,7 +101,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Contracts\ISendGridClientActions.cs" />
     <Compile Include="Services\SendGridMergeEmailContentService.cs" />
-    <Compile Include="Services\SendGridClientActions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

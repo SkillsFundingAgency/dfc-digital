@@ -1,4 +1,4 @@
-﻿@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 
 <div class="grid-row">
@@ -7,18 +7,18 @@
         <div class="form-group">
             <div class="multiple-choice">
 
-                @Html.RadioButtonFor(model => model.ContactOption, "adviser")<label for="adviser">Contact an adviser</label>
+                @Html.RadioButtonFor(model => model.ContactOption, "ContactAdviser")<label for="adviser">Contact an adviser</label>
             </div>
         </div>
         <div class="form-group">
             <div class="multiple-choice">
-                @Html.RadioButtonFor(model => model.ContactOption, "technical")<label for="technical">Technical support</label>
+                @Html.RadioButtonFor(model => model.ContactOption, "Technical")<label for="technical">Technical support</label>
 
             </div>
         </div>
         <div class="form-group">
             <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactOption, "feedback")<label for="feedback">Give feedback</label>
+                @Html.RadioButtonFor(@model => model.ContactOption, "Feedback")<label for="feedback">Give feedback</label>
             </div>
 
         </div>

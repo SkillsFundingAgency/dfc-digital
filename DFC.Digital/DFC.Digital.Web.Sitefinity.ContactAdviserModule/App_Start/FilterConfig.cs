@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
     public class FilterConfig
     {

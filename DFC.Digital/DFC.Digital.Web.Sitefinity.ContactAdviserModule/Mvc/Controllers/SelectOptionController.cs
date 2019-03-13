@@ -2,17 +2,18 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Select Option form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactUsSection)]
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
@@ -51,9 +52,22 @@ namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(EmailTemplate model)
+        public ActionResult Index(ContactUsViewModel model)
         {
-            return View("Index", model);
+            switch (model.ContactOption)
+            {
+                case ContactOption.Technical:
+                    Response.Redirect("/technical");
+                    break;
+                case ContactOption.Feedback:
+                    Response.Redirect("/feedback");
+                    break;
+                default:
+                    Response.Redirect("/contact-adviser");
+                    break;
+            }
+
+            return View("Index");
         }
 
         #endregion Actions

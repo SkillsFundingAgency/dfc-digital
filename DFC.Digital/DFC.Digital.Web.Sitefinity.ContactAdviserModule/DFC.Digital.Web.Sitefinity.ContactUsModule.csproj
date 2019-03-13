@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Web.Sitefinity.ContactAdviserModule</RootNamespace>
-    <AssemblyName>DFC.Digital.Web.Sitefinity.ContactAdviserModule</AssemblyName>
+    <RootNamespace>DFC.Digital.Web.Sitefinity.ContactUsModule</RootNamespace>
+    <AssemblyName>DFC.Digital.Web.Sitefinity.ContactUsModule</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -283,7 +283,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Config\ContactAdviserAutofacModule.cs" />
+    <Compile Include="Config\ContactUsAutofacModule.cs" />
     <Compile Include="Mvc\Controllers\ContactAdviserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -292,7 +292,7 @@
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
-    <Compile Include="Mvc\Models\ContactAdviserViewModel.cs" />
+    <Compile Include="Mvc\Models\ContactUsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

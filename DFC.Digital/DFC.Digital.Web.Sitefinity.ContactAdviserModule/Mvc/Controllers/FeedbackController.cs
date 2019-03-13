@@ -6,13 +6,13 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Feedback form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "Feedback", Title = "Feedback", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "Feedback", Title = "Feedback", SectionName = SitefinityConstants.ContactUsSection)]
     public class FeedbackController : BaseDfcController
     {
         #region Private Fields

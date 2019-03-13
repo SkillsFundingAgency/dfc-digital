@@ -1,78 +1,102 @@
 ﻿
-@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 <div class="grid-row">
-   
-        <h1 class="heading-xlarge">Contact an adviser</h1>
-        <p>Take some time to think about your answers on this form. They'll give us an understanding of how we can help you with your career.</p>
-        <form class="form form-adviser-additional-info">
-            <div class="form-group ">
-                <fieldset>
-                    <legend>
-                        <span class="form-label">
-                            Date of birth
-                        </span>
-                        <p>We need to know your age so that we give you information on things that you're eligible for. For example, funding schemes for certain age groups.</p>
-                        <span class="form-hint">For example, 31 3 1980</span>
 
-                    </legend>
-                    <div class="form-date">
-                        <div class="form-group form-group-day">
-                            <label class="form-label" for="dob-day">Day</label>
-                            <input class="form-control" id="dob-day" name="dob-day" type="number" pattern="[0-9]*">
-                        </div>
-                        <div class="form-group form-group-month">
-                            <label class="form-label" for="dob-month">Month</label>
-                            <input class="form-control" id="dob-month" name="dob-month" type="number" pattern="[0-9]*">
-                        </div>
-                        <div class="form-group form-group-year">
-                            <label class="form-label" for="dob-year">Year</label>
-                            <input class="form-control" id="dob-year" name="dob-year" type="number" pattern="[0-9]*">
-                        </div>
+    @using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "form-contact-adviser", @class = "form form-adviser-additional-info" }))
+    {
+
+        <div class="form-group ">
+            <fieldset>
+                <legend>
+                    <span class="form-label">
+                        Date of birth
+                    </span>
+                    <p>We need to know your age so that we give you information on things that you're eligible for. For example, funding schemes for certain age groups.</p>
+                    <span class="form-hint">For example, 31 3 1980</span>
+
+                </legend>
+                <div class="form-date">
+                    <div class="form-group form-group-day">
+                        @Html.LabelFor(model => model.DOBDay, "Day", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.DOBDay, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-day", id = "dob-day", pattern = "[0-9]*" })
+
                     </div>
-                </fieldset>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="postcode">Postcode</label>
-                <p>We need to know which area you live in so that we give you local information and advice.</p>
-                <input class="form-control" id="postcode" type="text" name="postcode">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="select-box">What will your question be about</label>
-                <select class="form-control" id="select-box" name="select-box">
-                    <option value="">Select</option>
-                    <option value="1">Careers</option>
-                    <option value="2">Qualifications</option>
-                    <option value="3">Finding a course</option>
-                    <option value="4">General feedback</option>
-                    <option value="5">Funding</option>
-                </select>
-            </div>
-
-            <h2 class="heading-large">Your question</h2>
-            <p>Give us as much detail as possible about your query. It'll help us get back to you quickly and accurately.</p>
-            <div class="form-group">
-                <label class="form-label" for="textarea">
-                    Enter your questions for the advisers in the box below.
-                </label>
-                <span class="form-hint">Do not include any personal or sign in information.</span>
-                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
-            </div>
+                    <div class="form-group form-group-month">
+                        @Html.LabelFor(model => model.DOBMonth, "Month", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.DOBMonth, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-month", id = "dob-month", pattern = "[0-9]*" })
 
 
-            <h2 class="heading-large">Terms and conditions</h2>
-            <div class="form-group">
-                <div class="multiple-choice">
-                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
-                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
+
+                    </div>
+                    <div class="form-group form-group-year">
+                        @Html.LabelFor(model => model.DOBYear, "Year", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.DOBYear, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-year", id = "dob-year", pattern = "[0-9]*" })
+                    </div>
+
                 </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, "Postcode", new { @class = "form-label" })
+
+            <p>We need to know which area you live in so that we give you local information and advice.</p>
+
+            @Html.TextBoxFor(model => model.PostCode, new { @class = "form-control", maxlength = 255, required = "required", type = "text", name = "postcode", id = "postcode" })
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+
+                @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers")<label for="ContactAdivserQuestionType">Contact an adviser</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications")<label for="ContactAdivserQuestionType">Technical support</label>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "Finding a course")<label for="ContactAdivserQuestionType">Qualifications</label>
             </div>
 
-            <a href="select-option" class="button" type="button">Send</a>
+        </div>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "General feedback")<label for="ContactAdivserQuestionType">General feedback</label>
+            </div>
 
-        </form>
-   
-    
+        </div>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "Funding")<label for="ContactAdivserQuestionType">Funding</label>
+            </div>
+
+        </div>
+
+        <h2 class="heading-large">Your question</h2>
+        <p>Give us as much detail as possible about your query. It'll help us get back to you quickly and accurately.</p>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, "Enter your questions for the advisers in the box below.", new { @class = "form-label" })
+            <span class="form-hint">Do not include any personal or sign in information.</span>
+            @Html.TextAreaFor(model => model.Message, new { @class = "form-control form-control-3-4", maxlength = 255, rows = "5", required = "required", type = "text", name = "textarea", id = "textarea" })
+
+        </div>
+
+        <h2 class="heading-large">Terms and conditions</h2>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.CheckBoxFor(@model => model.TandCChecked, new { @class = "form-control", name = "contact-by-text-phone", id = "checkbox-telephone-number", type="checkbox", value
+           ="true"})
+                @Html.LabelFor(model => model.TandCChecked, "I accept the <a href='#'>terms and conditions</a> and I am 13 or over", new { @class = "form-label" })
+            </div>
+        </div>
+
+    }
+
+
+
 </div>

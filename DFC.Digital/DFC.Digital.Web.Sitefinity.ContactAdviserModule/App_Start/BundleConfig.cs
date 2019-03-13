@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
     public class BundleConfig
     {

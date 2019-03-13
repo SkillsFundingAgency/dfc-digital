@@ -7,13 +7,13 @@ using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for YourDetails form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "YourDetails", Title = "Your Details", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "YourDetails", Title = "Your Details", SectionName = SitefinityConstants.ContactUsSection)]
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields

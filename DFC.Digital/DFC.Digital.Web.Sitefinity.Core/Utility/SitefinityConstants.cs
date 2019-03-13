@@ -25,7 +25,7 @@
         /// <summary>
         /// Contact Adviser Widget section
         /// </summary>
-        public const string ContactAdviserSection = "Contact Adviser Widgets";
+        public const string ContactUsSection = "Contact Us Widgets";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SitefinityConstants"/> class.

@@ -6,13 +6,13 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Technical form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "Technical", Title = "Technical", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "Technical", Title = "Technical", SectionName = SitefinityConstants.ContactUsSection)]
     public class TechnicalController : BaseDfcController
     {
         #region Private Fields

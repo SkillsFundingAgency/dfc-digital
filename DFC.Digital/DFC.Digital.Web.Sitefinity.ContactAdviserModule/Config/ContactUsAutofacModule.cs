@@ -4,10 +4,10 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class ContactAdviserAutofacModule : Module
+    public class ContactUsAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

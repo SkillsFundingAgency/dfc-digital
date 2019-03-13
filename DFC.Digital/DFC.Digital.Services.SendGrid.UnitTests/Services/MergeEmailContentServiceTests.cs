@@ -7,23 +7,23 @@ namespace DFC.Digital.Services.SendGrid.Tests
 {
     public class MergeEmailContentServiceTests
     {
-        private readonly ContactAdvisorRequest sendEmailRequest;
+        private readonly ContactUsRequest sendEmailRequest;
 
         public MergeEmailContentServiceTests()
         {
-            sendEmailRequest = new ContactAdvisorRequest
+            sendEmailRequest = new ContactUsRequest
             {
-                TemplateName = nameof(ContactAdvisorRequest.TemplateName),
-                FirstName = nameof(ContactAdvisorRequest.FirstName),
-                LastName = nameof(ContactAdvisorRequest.LastName),
-                Email = nameof(ContactAdvisorRequest.Email),
-                ContactOption = nameof(ContactAdvisorRequest.ContactOption),
+                TemplateName = nameof(ContactUsRequest.TemplateName),
+                FirstName = nameof(ContactUsRequest.FirstName),
+                LastName = nameof(ContactUsRequest.LastName),
+                Email = nameof(ContactUsRequest.Email),
+                ContactOption = nameof(ContactUsRequest.ContactOption),
                 DateOfBirth = new DateTime(2000, 3, 12),
-                PostCode = nameof(ContactAdvisorRequest.PostCode),
-                ContactAdviserQuestionType = nameof(ContactAdvisorRequest.ContactAdviserQuestionType),
-                Message = nameof(ContactAdvisorRequest.Message),
+                PostCode = nameof(ContactUsRequest.PostCode),
+                ContactAdviserQuestionType = nameof(ContactUsRequest.ContactAdviserQuestionType),
+                Message = nameof(ContactUsRequest.Message),
                 IsContactable = true,
-                FeedbackQuestionType = nameof(ContactAdvisorRequest.FeedbackQuestionType),
+                FeedbackQuestionType = nameof(ContactUsRequest.FeedbackQuestionType),
                 TermsAndConditions = true
             };
         }
@@ -44,7 +44,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             {
                 Body = templateBody
             };
-            var mergeEmailContentService = new MergeEmailContentService();
+            var mergeEmailContentService = new SendGridMergeEmailContentService();
 
             var mergedData = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
 
@@ -67,7 +67,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             {
                 Body = templateBody
             };
-            var mergeEmailContentService = new MergeEmailContentService();
+            var mergeEmailContentService = new SendGridMergeEmailContentService();
 
             var mergedData =
                 mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);

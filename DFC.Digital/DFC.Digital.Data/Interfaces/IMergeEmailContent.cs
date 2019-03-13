@@ -2,10 +2,11 @@
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public interface IMergeEmailContent
+    public interface IMergeEmailContent<in T>
+        where T : class
     {
-        string MergeTemplateBodyWithContent(ContactAdvisorRequest sendEmailRequest, string content);
+        string MergeTemplateBodyWithContent(T sendEmailRequest, string content);
 
-        string MergeTemplateBodyWithContentWithHtml(ContactAdvisorRequest sendEmailRequest, string content);
+        string MergeTemplateBodyWithContentWithHtml(T sendEmailRequest, string content);
     }
 }

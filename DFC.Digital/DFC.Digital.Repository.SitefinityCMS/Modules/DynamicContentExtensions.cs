@@ -121,7 +121,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             if (contentItem != null && contentItem.DoesFieldExist(fieldName))
             {
-                var value = contentItem.GetValue<string>(fieldName).StripHtmlTags();
+                var value = contentItem.GetValue<Lstring>(fieldName)?.ToString().StripHtmlTags();
                 return value;
             }
             else

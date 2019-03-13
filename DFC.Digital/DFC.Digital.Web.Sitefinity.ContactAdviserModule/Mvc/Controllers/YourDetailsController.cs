@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult YourDetails(ContactUsViewModel model)
         {
-            return View(model);
+            return View("Index", model);
         }
 
         [HttpPost]

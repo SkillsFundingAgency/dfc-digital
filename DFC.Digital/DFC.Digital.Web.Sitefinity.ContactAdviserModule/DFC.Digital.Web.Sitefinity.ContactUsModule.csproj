@@ -315,7 +315,7 @@
     <Content Include="Mvc\Views\Feedback\Index.cshtml" />
     <Content Include="Mvc\Views\ContactAdviser\Index.cshtml" />
     <Content Include="Mvc\Views\Technical\Index.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\YourDetails.cshtml" />
+    <Content Include="Mvc\Views\YourDetails\Index.cshtml" />
     <Content Include="Mvc\Views\SelectOption\Index.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>

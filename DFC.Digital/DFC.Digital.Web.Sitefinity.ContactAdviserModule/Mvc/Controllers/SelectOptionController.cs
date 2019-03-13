@@ -2,17 +2,18 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Select Option form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactUsSection)]
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
@@ -40,82 +41,33 @@ namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
-        [RelativeRoute("")]
         public ActionResult Index()
         {
             return View("Index");
         }
 
         /// <summary>
-        /// contact adviser on Index of the specified urlname.
+        /// Updates the form and sends the data to next form.
         /// </summary>
-        /// <param name="urlName">The urlname.</param>
+        /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
-        [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlName)
+        [HttpPost]
+        public ActionResult Index(ContactUsViewModel model)
         {
+            switch (model.ContactOption)
+            {
+                case ContactOption.Technical:
+                    Response.Redirect("/technical");
+                    break;
+                case ContactOption.Feedback:
+                    Response.Redirect("/feedback");
+                    break;
+                default:
+                    Response.Redirect("/contact-adviser");
+                    break;
+            }
+
             return View("Index");
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(EmailTemplate model)
-        {
-            return View("Index", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Adviser(EmailTemplate model)
-        {
-            return View("Adviser", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Feedback(EmailTemplate model)
-        {
-            return View("Feedback", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Technical(EmailTemplate model)
-        {
-            return View("Technical", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult YourDetails(EmailTemplate model)
-        {
-            return View("YourDetails", model);
         }
 
         #endregion Actions

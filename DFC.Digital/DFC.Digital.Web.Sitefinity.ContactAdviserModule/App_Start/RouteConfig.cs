@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
     public class RouteConfig
     {

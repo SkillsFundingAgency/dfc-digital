@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DFC.Digital.Web.Sitefinity.ContactAdviserModule.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DFC.Digital.Web.Sitefinity.ContactUsModule.MvcApplication" Language="C#" %>

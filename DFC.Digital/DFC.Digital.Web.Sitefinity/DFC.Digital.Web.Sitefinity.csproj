@@ -1057,6 +1057,13 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="extensions.bundle.js" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-footer.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
     <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="robots.prod.txt.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />

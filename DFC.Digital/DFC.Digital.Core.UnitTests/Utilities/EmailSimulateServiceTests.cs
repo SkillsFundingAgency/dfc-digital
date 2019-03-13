@@ -17,6 +17,7 @@ namespace DFC.Digital.Core.Utilities.Tests
         [InlineData(Constants.SimulationFailureEmailAddress, true, false)]
         [InlineData(Constants.SimulationSuccessEmailAddress, true, true)]
         [InlineData(Constants.SendGridApiKey, false, false)]
+        [InlineData("", false, false)]
         public void SimulateEmailResponseTest(string emailAddress, bool isSimulationEmail, bool isSuccessResponse)
         {
             // Assign

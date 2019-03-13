@@ -99,7 +99,6 @@
     <Compile Include="Config\SendGridAutofacModule.cs" />
     <Compile Include="SendGridEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Contracts\ISendGridClientActions.cs" />
     <Compile Include="Services\SendGridMergeEmailContentService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +115,6 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

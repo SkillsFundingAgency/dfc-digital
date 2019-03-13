@@ -16,16 +16,17 @@ namespace DFC.Digital.Web.Core
     {
         public static string GetLocationAssetFileAndVersion(this HtmlHelper helper, string fileName)
         {
-            if (HttpContext.Current.Cache[fileName] is null)
+            var context = helper?.ViewContext.RequestContext.HttpContext;
+            if (context.Cache[fileName] is null)
             {
                 var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
                 var hTMLHelper = autofacLifetimeScope.Resolve<IAssetLocationAndVersion>();
                 var assetUrl = hTMLHelper.GetLocationAssetFileAndVersion(fileName);
                 int cacheExpiryMins = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.AssetCacheExpiryTimeMins]);
-                HttpContext.Current.Cache.Add(fileName, assetUrl, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                context.Cache.Add(fileName, assetUrl, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
             }
 
-            return HttpContext.Current.Cache[fileName].ToString();
+            return context.Cache[fileName].ToString();
         }
     }
 }

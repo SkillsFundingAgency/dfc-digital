@@ -2,11 +2,10 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
-using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using Telerik.Sitefinity.Mvc;
-
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
@@ -18,20 +17,23 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly ISendEmailService<ContactUsRequest> sendEmailService;
+        private readonly IAsyncHelper asyncHelper;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public YourDetailsController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public YourDetailsController(IApplicationLogger applicationLogger, ISendEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
+            this.sendEmailService = sendEmailService;
+            this.asyncHelper = asyncHelper;
         }
-
         #endregion Constructors
+
+        #region Properties
+
+        #endregion Properties
 
         #region Actions
 
@@ -43,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index", model);
+            return YourDetails(new ContactUsViewModel());
         }
 
         /// <summary>
@@ -54,9 +56,23 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult YourDetails(ContactUsViewModel model)
         {
-            return View("YourDetails", model);
+            return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Sumbit(ContactUsViewModel viewModel)
+        {
+            var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+            {
+                FirstName = viewModel.FirstName,
+                Email = viewModel.Email,
+                TemplateName = viewModel.ContactOption.ToString(),
+                LastName = viewModel.LastName,
+                Message = viewModel.Message
+            }));
+
+            return View("SendResult", viewModel);
+        }
         #endregion Actions
     }
 }

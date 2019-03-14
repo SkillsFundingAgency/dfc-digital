@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -32,6 +33,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
+        #region Public Properties
+
+        [DisplayName("Page Title")]
+        public string Title { get; set; } = "Why would you like to contact us?";
+
+        #endregion Public Properties
+
         #region Actions
 
         // GET: ContactAdviser
@@ -43,7 +51,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel
+            {
+                Title = Title
+            };
+            return View("Index", model);
         }
 
         /// <summary>
@@ -54,20 +66,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsViewModel model)
         {
-            switch (model.ContactOption)
+            if (!ModelState.IsValid)
             {
-                case ContactOption.Technical:
-                    Response.Redirect("/technical");
-                    break;
-                case ContactOption.Feedback:
-                    Response.Redirect("/feedback");
-                    break;
-                default:
-                    Response.Redirect("/contact-adviser");
-                    break;
+                switch (model.ContactOption)
+                {
+                    case ContactOption.Technical:
+                        return Redirect("/contact-us/technical/");
+                    case ContactOption.Feedback:
+                        return Redirect("/contact-us/feedback/");
+                    default:
+                        return Redirect("/contact-us/contact-adviser/");
+                }
             }
 
-            return View("Index");
+            return View("Index", model);
         }
 
         #endregion Actions

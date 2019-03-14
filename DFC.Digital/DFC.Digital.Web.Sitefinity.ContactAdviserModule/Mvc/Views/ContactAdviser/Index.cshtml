@@ -3,100 +3,60 @@
 
 <div class="grid-row">
 
-    @using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "form-contact-adviser", @class = "form form-adviser-additional-info" }))
-    {
+        <form action="@Model.NextPageUrl" method="post" id="continueForm">
+            @*  Hidden field to manage the type of form we are sending to next page*@
+            @Html.HiddenFor(model => model.ContactOption, "ContactAdviser")
 
-        <div class="form-group ">
-            <fieldset>
-                <legend>
-                    <span class="form-label">
-                        Date of birth
-                    </span>
-                    <p>We need to know your age so that we give you information on things that you're eligible for. For example, funding schemes for certain age groups.</p>
-                    <span class="form-hint">For example, 31 3 1980</span>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h2 class="govuk-fieldset__heading">
+                            What is your query about?
+                        </h2>
+                    </legend>
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-radios__input", id = "careers", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
 
-                </legend>
-                <div class="form-date">
-                    <div class="form-group form-group-day">
-                        @Html.LabelFor(model => model.DOBDay, "Day", new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model.DOBDay, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-day", id = "dob-day", pattern = "[0-9]*" })
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-radios__input", id = "qualifications", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
 
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-radios__input", id = "findingacourse", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-radios__input", id = "generalfeedback", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-radios__input", id = "funding", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
                     </div>
-                    <div class="form-group form-group-month">
-                        @Html.LabelFor(model => model.DOBMonth, "Month", new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model.DOBMonth, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-month", id = "dob-month", pattern = "[0-9]*" })
 
-
-
-                    </div>
-                    <div class="form-group form-group-year">
-                        @Html.LabelFor(model => model.DOBYear, "Year", new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model.DOBYear, new { @class = "form-control", maxlength = 255, required = "required", type = "number", name = "dob-year", id = "dob-year", pattern = "[0-9]*" })
-                    </div>
-
-                </div>
-            </fieldset>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PostCode, "Postcode", new { @class = "form-label" })
-
-            <p>We need to know which area you live in so that we give you local information and advice.</p>
-
-            @Html.TextBoxFor(model => model.PostCode, new { @class = "form-control", maxlength = 255, required = "required", type = "text", name = "postcode", id = "postcode" })
-        </div>
-
-        <div class="form-group">
-            <div class="multiple-choice">
-
-                @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers")<label for="ContactAdivserQuestionType">Contact an adviser</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications")<label for="ContactAdivserQuestionType">Technical support</label>
-
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "Finding a course")<label for="ContactAdivserQuestionType">Qualifications</label>
+                </fieldset>
             </div>
 
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "General feedback")<label for="ContactAdivserQuestionType">General feedback</label>
+            <div class="govuk-form-group">
+                @Html.LabelFor(model => model.Message, "Enter your query for the adviser.", new { @class = "govuk-label" })
+                <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
+                @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", maxlength = 255, rows = "5", required = "required", type = "text", name = "more-detail", id = "more-detail" })
             </div>
 
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactAdivserQuestionType, "Funding")<label for="ContactAdivserQuestionType">Funding</label>
+            <p class="govuk-!-font-size-16">Character limit is 1000.</p>
+
+            <div class="govuk-form-group">
+                <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
             </div>
-
-        </div>
-
-        <h2 class="heading-large">Your question</h2>
-        <p>Give us as much detail as possible about your query. It'll help us get back to you quickly and accurately.</p>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message, "Enter your questions for the advisers in the box below.", new { @class = "form-label" })
-            <span class="form-hint">Do not include any personal or sign in information.</span>
-            @Html.TextAreaFor(model => model.Message, new { @class = "form-control form-control-3-4", maxlength = 255, rows = "5", required = "required", type = "text", name = "textarea", id = "textarea" })
-
-        </div>
-
-        <h2 class="heading-large">Terms and conditions</h2>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.CheckBoxFor(@model => model.TandCChecked, new { @class = "form-control", name = "contact-by-text-phone", id = "checkbox-telephone-number", type="checkbox", value
-           ="true"})
-                @Html.LabelFor(model => model.TandCChecked, "I accept the <a href='#'>terms and conditions</a> and I am 13 or over", new { @class = "form-label" })
-            </div>
-        </div>
-
-    }
+            </form>
 
 
 
-</div>
+    </div>

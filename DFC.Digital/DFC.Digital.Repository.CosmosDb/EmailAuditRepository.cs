@@ -26,12 +26,12 @@ namespace DFC.Digital.Repository.CosmosDb
 
         public void CreateAudit(T emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
         {
+            var safeRequestSerialized = JsonConvert.SerializeObject(emailRequest);
+            var safeRequest = JsonConvert.DeserializeObject<T>(safeRequestSerialized);
+
             try
             {
-                var safeRequestSerialized = JsonConvert.SerializeObject(emailRequest);
-                var safeRequest = JsonConvert.DeserializeObject<T>(safeRequestSerialized);
                 var emailContent = mergeEmailContentService.MergeTemplateBodyWithContent(safeRequest, emailTemplate.Body);
-
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
@@ -52,7 +52,7 @@ namespace DFC.Digital.Repository.CosmosDb
                     CorrelationId = correlationId,
                     Data = new EmailAuditRecord<T>
                     {
-                        Request = emailRequest,
+                        Request = safeRequest,
                         Exception = exception,
                         SendEmailResponse = response,
                         EmailTemplate = emailTemplate

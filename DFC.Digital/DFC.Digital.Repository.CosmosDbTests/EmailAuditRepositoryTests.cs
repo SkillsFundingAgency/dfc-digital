@@ -29,9 +29,9 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
         public async Task CreateAuditTest()
         {
             //Arrange
-            var fakeContactUsRequest = new ContactUsRequest();
-            var fakeEmailTemplate = new EmailTemplate();
-            var fakeResponse = new SendEmailResponse();
+            var dummyContactUsRequest = A.Dummy<ContactUsRequest>();
+            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
+            var dummyResponse = A.Dummy<SendEmailResponse>();
 
             var repo = new EmailAuditRepository<ContactUsRequest>(fakeConfiguration, fakeDocumentClient, fakeMergeEmailContentService)
             {
@@ -40,13 +40,57 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
             };
 
             //Act
-            repo.CreateAudit(fakeContactUsRequest, fakeEmailTemplate, fakeResponse);
+            repo.CreateAudit(dummyContactUsRequest, dummyEmailTemplate, dummyResponse);
             await Task.Delay(10);
 
             //Assert
             A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>._, A<RequestOptions>._, A<bool>._, A<CancellationToken>._)).MustHaveHappened();
             A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                 .MustHaveHappened();
+        }
+
+        [Fact]
+        public async Task CreateAuditExceptionTest()
+        {
+            //Arrange
+            var dummyContactUsRequest = A.Dummy<ContactUsRequest>();
+            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
+            var dummyResponse = A.Dummy<SendEmailResponse>();
+            var fakeErrorMergeEmailContentService = A.Fake<IMergeEmailContent<ContactUsRequest>>();
+            var repo = new EmailAuditRepository<ContactUsRequest>(fakeConfiguration, fakeDocumentClient, fakeErrorMergeEmailContentService)
+            {
+                Database = "db",
+                DocumentCollection = "docCollection"
+            };
+
+            A.CallTo(() => fakeErrorMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._)).Throws<NullReferenceException>();
+
+            //Act
+            repo.CreateAudit(dummyContactUsRequest, dummyEmailTemplate, dummyResponse);
+            await Task.Delay(10);
+
+            //Assert
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._)).MustNotHaveHappened();
+            A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>.That.Matches(m => ((EmailAuditRecord<ContactUsRequest>)m.Data).Exception is NullReferenceException), A<RequestOptions>._, A<bool>._, A<CancellationToken>._)).MustHaveHappened();
+        }
+
+        [Fact]
+        public void InitialiseTest()
+        {
+            //Arrange
+            var dummyContactUsRequest = A.Dummy<ContactUsRequest>();
+            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
+            var dummyResponse = A.Dummy<SendEmailResponse>();
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(Constants.CosmosDbName)).Returns(Constants.CosmosDbName);
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(Constants.EmailDocumentCollection)).Returns(Constants.EmailDocumentCollection);
+
+            //Act
+            var repo = new EmailAuditRepository<ContactUsRequest>(fakeConfiguration, fakeDocumentClient, fakeMergeEmailContentService);
+            repo.Initialise();
+
+            //Assert
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(Constants.CosmosDbName)).MustHaveHappened();
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(Constants.EmailDocumentCollection)).MustHaveHappened();
         }
 
         private void SetupCalls()

@@ -110,7 +110,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
         //    //   }
         //    //};
         //}
-
         [Theory]
         [MemberData(nameof(SendEmailAsyncTestInput))]
         public async Task SendEmailAsyncTest(ContactUsRequest contactUsRequest, bool isThisSimulation, bool expectation)
@@ -174,8 +173,8 @@ namespace DFC.Digital.Services.SendGrid.Tests
             //};
 
             //Assert
-            mapperConfig.AssertConfigurationIsValid();
             //result.Should().BeEquivalentTo(expectation);
+            mapperConfig.AssertConfigurationIsValid();
         }
     }
 }

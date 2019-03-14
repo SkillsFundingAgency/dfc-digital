@@ -1,4 +1,7 @@
-﻿using DFC.Digital.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -32,7 +35,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #endregion Constructors
 
         #region Properties
+        public string FailureMessage { get; set; } = "Unfortunately we encountered a problem. We'll get back to you as soon as possible.";
 
+        public string SuccessMessage { get; set; } = "We'll get back to you as soon as possible.";
         #endregion Properties
 
         #region Actions
@@ -60,19 +65,33 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Sumbit(ContactUsViewModel viewModel)
+        public ActionResult Index(ContactUsViewModel viewModel)
         {
-            var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+            if (ModelState.IsValid)
             {
-                FirstName = viewModel.FirstName,
-                Email = viewModel.Email,
-                TemplateName = viewModel.ContactOption.ToString(),
-                LastName = viewModel.LastName,
-                Message = viewModel.Message
-            }));
+                var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                {
+                    FirstName = viewModel.FirstName,
+                    Email = viewModel.Email,
+                    TemplateName = viewModel.ContactOption.ToString(),
+                    LastName = viewModel.LastName,
+                    Message = viewModel.Message,
+                    TermsAndConditions = viewModel.TandCChecked,
+                    PostCode = viewModel.PostCode,
+                    Subject = viewModel.ContactOption.ToString(),
+                    ContactOption = viewModel.ContactOption.ToString(),
+                    ContactAdviserQuestionType = viewModel.ContactAdivserQuestionType.ToString(),
+                    DateOfBirth = new DateTime(viewModel.DOBYear, viewModel.DOBMonth, viewModel.DOBDay),
+                    IsContactable = viewModel.IsContactable,
+                    FeedbackQuestionType = viewModel.FeedbackQuestionType.ToString()
+                }));
 
-            return View("SendResult", viewModel);
+                return View("ThankYouPage", new ContactUsResultViewModel { Success = result.Success, Message = result.Success ? SuccessMessage : FailureMessage});
+            }
+
+            return View("Index", viewModel);
         }
+
         #endregion Actions
     }
 }

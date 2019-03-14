@@ -1,67 +1,117 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 <div class="grid-row">
-        <form class="form form-adviser-additional-info">
+    @using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "form-feedback", @class = "form form-adviser-additional-info" }))
+    {
+        @*  Hidden field to manage the type of form we are sending to next page*@
+        @Html.HiddenFor(model => model.ContactOption, "Feedback")
 
-            <div class="form-group">
-                <label class="form-label" for="select-box">What do you want to tell us about?</label>
-                <select class="form-control" id="select-box" name="select-box">
-                    <option selected="selected" value="0">General</option>
-                    <option value="1">Funding</option>
-                    <option value="2">Careers</option>
-                    <option value="3">Qualifications</option>
-                    <option value="4">Course Search</option>
-                    <option value="5">Technical Support</option>
-                    <option value="6">Website</option>
-                    <option value="7">Customer Service</option>
-                </select>
+        <div class="form-group">
+            <label class="form-label" for="select-box">What do you want to tell us about?</label>
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "General")
+
+                @Html.LabelFor(model => model.FeedbackQuestionType, "General")
             </div>
+        </div>
 
-            <div class="form-group">
-                <h2 class="heading-large">Feedback</h2>
-                <p>Give as much information as you can. Tell us about the parts of the service you visited and what you thought of them.</p>
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Funding")
 
-                <label class="form-label" for="textarea">
-                    Enter your feedback in the box below. If you're commenting on particular pages, list them.
-                </label>
-                <span class="form-hint">Do not include any personal or sign in information.</span>
-                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Funding")
             </div>
+        </div>
 
-            <div class="form-group">
-                <fieldset class="inline">
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Qualifications")
 
-                    <legend>
-                        <h1 class="heading-medium">
-                            Do you want us to contact you?
-                        </h1>
-                    </legend>
-
-                    <div class="multiple-choice">
-                        <input id="radio-inline-1" type="radio" name="radio-inline-group" value="Yes">
-                        <label for="radio-inline-1">Yes</label>
-                    </div>
-                    <div class="multiple-choice">
-                        <input id="radio-inline-2" type="radio" name="radio-inline-group" value="No">
-                        <label for="radio-inline-2">No</label>
-                    </div>
-
-                </fieldset>
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Qualifications")
             </div>
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Course Search")
+
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Course Search")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Technical Support")
+
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Technical Support")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Website")
+
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Website")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="multiple-choice">
+                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Customer Service")
+
+                @Html.LabelFor(model => model.FeedbackQuestionType, "Customer Service")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h2 class="heading-large">Feedback</h2>
+            <p>Give as much information as you can. Tell us about the parts of the service you visited and what you thought of them.</p>
 
 
+            @Html.LabelFor(model => model.Message, "Enter your feedback in the box below. If you're commenting on particular pages, list them.", new { @class = "form-label" })
+            <span class="form-hint">Do not include any personal or sign in information.</span>
+            @Html.TextAreaFor(model => model.Message, new { @class = "form-control form-control-3-4", maxlength = 255, rows = "5", required = "required", type = "text", name = "textarea", id = "textarea" })
 
-            <div class="form-group">
-                <h2 class="heading-large">Terms and conditions</h2>
+        </div>
+
+        <div class="form-group">
+            <fieldset class="inline">
+
+                <legend>
+                    <h1 class="heading-medium">
+                        Do you want us to contact you?
+                    </h1>
+                </legend>
+
+
                 <div class="multiple-choice">
-                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
-                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
+                    @Html.RadioButtonFor(model => model.IsContactable, "Yes", new { name = "radio-inline-group", id = "radio-inline-1" })
+                    @Html.LabelFor(model => model.IsContactable, "Yes");
                 </div>
+                <div class="multiple-choice">
+                    @Html.RadioButtonFor(model => model.IsContactable, "No", new { name = "radio-inline-group", id = "radio-inline-2" })
+                    @Html.LabelFor(model => model.IsContactable, "No");
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <h2 class="heading-large">Terms and conditions</h2>
+            <div class="multiple-choice">
+                @Html.CheckBoxFor(@model => model.TandCChecked, new { @class = "form-control", name = "contact-by-text-phone", id = "checkbox-telephone-number", type="checkbox", value
+           ="true"})
+                <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
             </div>
+        </div>
+        <div class="form-group">
 
-            <a href="select-option" class="button" type="button">Send</a>
+            <button type="submit" id="send-feedback-details" class="button">Send</button>
 
-        </form>
-    
-    
+        </div>
+    }
+
 </div>

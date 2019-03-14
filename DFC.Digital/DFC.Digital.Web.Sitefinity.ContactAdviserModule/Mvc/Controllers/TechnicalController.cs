@@ -2,7 +2,6 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -24,9 +23,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Constructors
 
-        public TechnicalController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public TechnicalController(ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
         }
 
@@ -34,41 +32,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        // GET: ContactAdviser
-
         /// <summary>
-        /// entry point to the widget to show contact adviser form.
+        /// entry point to the widget to show technical feedback form.
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
+        [RelativeRoute("")]
         public ActionResult Index()
         {
             return View("Index");
         }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
-        {
-            return View("Index", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Adviser(EmailTemplate model)
-        {
-            return View("Adviser", model);
-        }
-        
         #endregion Actions
     }
 }

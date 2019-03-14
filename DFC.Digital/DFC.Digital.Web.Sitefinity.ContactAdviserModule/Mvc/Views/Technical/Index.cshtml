@@ -1,56 +1,14 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
-
-<div class="grid-row">
-    @using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "form-feedback", @class = "form form-adviser-additional-info" }))
-    {
-        @*  Hidden field to manage the type of form we are sending to next page*@
-        @Html.HiddenFor(model=>model.ContactOption,"Technical")
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message, "Tell us about your technical issue.", new { @class = "form-label" })
-
-            <span class="form-hint">Do not include any personal or sign in information.</span>
-            @Html.TextAreaFor(model => model.Message, new { @class = "form-control form-control-3-4", maxlength = 255, rows = "5", required = "required", type = "text", name = "textarea", id = "textarea" })
-        </div>
-
-
-        <div class="form-group">
-            <fieldset class="inline">
-
-                <legend>
-                    <h1 class="heading-medium">
-                        Do you want us to contact you?
-                    </h1>
-                </legend>
-
-
-                <div class="multiple-choice">
-                    @Html.RadioButtonFor(model => model.IsContactable, "Yes", new { name = "radio-inline-group", id = "radio-inline-1" })
-                    @Html.LabelFor(model => model.IsContactable, "Yes");
-                </div>
-                <div class="multiple-choice">
-                    @Html.RadioButtonFor(model => model.IsContactable, "No", new { name = "radio-inline-group", id = "radio-inline-2" })
-                    @Html.LabelFor(model => model.IsContactable, "No");
-                </div>
-
-            </fieldset>
-        </div>
-
-        <div class="form-group">
-            <h2 class="heading-large">Terms and conditions</h2>
-            <div class="multiple-choice">
-                @Html.CheckBoxFor(@model => model.TandCChecked, new { @class = "form-control", name = "contact-by-text-phone", id = "checkbox-telephone-number", type="checkbox", value
-           ="true"})
-                <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
-            </div>
-        </div>
-        <div class="form-group">
-
-            <button type="submit" id="send-technical-details" class="button">Send</button>
-
-        </div>
-    }
-
-
-
-
-</div>
+<form id="userform" action="@Model.NextPageUrl" method="post">
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="more-detail">Include links to the problem page and any page headings. This will help us to fix the issue more quickly.</label>
+        <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
+        @Html.TextAreaFor(m => Model.Message, htmlAttributes: new {@rows=5,  @id = "control-label col-md-2", @name= "more-detail", @aria_describedby="more-detail-hint" })
+    </div>
+    <p class="govuk-body-s">Character limit is 1000.</p>
+    <div class="govuk-form-group">
+        <button type="submit" class="govuk-button">
+            Continue
+        </button>
+    </div>
+</form>

@@ -23,9 +23,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Constructors
 
-        public TechnicalController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public TechnicalController(ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
         }
 
@@ -33,10 +32,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        // GET: ContactAdviser
-
         /// <summary>
-        /// entry point to the widget to show contact adviser form.
+        /// entry point to the widget to show technical feedback form.
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
@@ -45,79 +42,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             return View("Index");
         }
-
-        /// <summary>
-        /// contact adviser on Index of the specified urlname.
-        /// </summary>
-        /// <param name="urlName">The urlname.</param>
-        /// <returns>ActionResult</returns>
-        [HttpGet]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(string urlName)
-        {
-            return View("Index");
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Index(EmailTemplate model)
-        {
-            return View("Index", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Adviser(EmailTemplate model)
-        {
-            return View("Adviser", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Feedback(EmailTemplate model)
-        {
-            return View("Feedback", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult Technical(EmailTemplate model)
-        {
-            return View("Technical", model);
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        [RelativeRoute("{urlname}")]
-        public ActionResult YourDetails(EmailTemplate model)
-        {
-            return View("YourDetails", model);
-        }
-
         #endregion Actions
     }
 }

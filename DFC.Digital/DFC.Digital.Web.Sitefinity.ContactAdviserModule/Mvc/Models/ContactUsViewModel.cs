@@ -60,6 +60,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public bool TandCChecked { get; set; }
 
-        public string NextPageURL { get; set; }
+        public string NextPageUrl { get; set; }
     }
 }

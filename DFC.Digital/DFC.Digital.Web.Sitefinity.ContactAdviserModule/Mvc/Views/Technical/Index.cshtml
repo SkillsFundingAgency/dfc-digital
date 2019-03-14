@@ -1,54 +1,14 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
-
-<div class="grid-row">
-   
-
-       
-        <form class="form form-adviser-additional-info">
-            <div class="form-group">
-                <h2 class="heading-large">Issue details</h2>
-                <p>Give details of the issue you've experienced. Tell us about the browser you were using, any error messages you were shown and the rough date and time.</p>
-
-                <label class="form-label" for="textarea">
-                    Tell us about your technical issue.
-                </label>
-                <span class="form-hint">Do not include any personal or sign in information.</span>
-                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
-            </div>
-
-            <div class="form-group">
-                <fieldset class="inline">
-
-                    <legend>
-                        <h1 class="heading-medium">
-                            Do you want us to contact you?
-                        </h1>
-                    </legend>
-
-                    <div class="multiple-choice">
-                        <input id="radio-inline-1" type="radio" name="radio-inline-group" value="Yes">
-                        <label for="radio-inline-1">Yes</label>
-                    </div>
-                    <div class="multiple-choice">
-                        <input id="radio-inline-2" type="radio" name="radio-inline-group" value="No">
-                        <label for="radio-inline-2">No</label>
-                    </div>
-
-                </fieldset>
-            </div>
-
-
-
-            <div class="form-group">
-                <h2 class="heading-large">Terms and conditions</h2>
-                <div class="multiple-choice">
-                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
-                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
-                </div>
-            </div>
-
-            <a href="select-option" class="button" type="button">Send</a>
-
-        </form>
-
-</div>
+<form id="userform" action="@Model.NextPageUrl" method="post">
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="more-detail">Include links to the problem page and any page headings. This will help us to fix the issue more quickly.</label>
+        <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
+        @Html.TextAreaFor(m => Model.Message, htmlAttributes: new {@rows=5,  @id = "control-label col-md-2", @name= "more-detail", @aria_describedby="more-detail-hint" })
+    </div>
+    <p class="govuk-body-s">Character limit is 1000.</p>
+    <div class="govuk-form-group">
+        <button type="submit" class="govuk-button">
+            Continue
+        </button>
+    </div>
+</form>

@@ -209,6 +209,10 @@
       <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
       <Name>DFC.Digital.Service.SkillsFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Services.SendGrid\DFC.Digital.Services.SendGrid.csproj">
+      <Project>{2E4039C0-348D-4278-A9BD-7D4B1919C844}</Project>
+      <Name>DFC.Digital.Services.SendGrid</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

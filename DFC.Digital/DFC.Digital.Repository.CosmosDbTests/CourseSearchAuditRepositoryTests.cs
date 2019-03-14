@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using FakeItEasy;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -17,9 +18,12 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
             //Arrange
             var auditRecord = "audit";
             var fakeDocumentClient = A.Fake<IDocumentClient>();
-            var repo = new CourseSearchAuditRepository(fakeDocumentClient);
-            repo.Database = "db";
-            repo.DocumentCollection = "docCollection";
+            var fakeConfigurationProvider = A.Fake<IConfigurationProvider>();
+            var repo = new CourseSearchAuditRepository(fakeDocumentClient, fakeConfigurationProvider)
+            {
+                Database = "db",
+                DocumentCollection = "docCollection"
+            };
 
             //Act
             repo.CreateAudit(auditRecord);

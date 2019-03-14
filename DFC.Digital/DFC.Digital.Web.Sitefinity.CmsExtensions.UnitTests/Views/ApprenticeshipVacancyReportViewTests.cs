@@ -26,17 +26,15 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
             };
 
             var request = A.Fake<HttpContextBase>();
-      
             A.CallTo(() => request.Request.QueryString).Returns(new NameValueCollection());
 
             // Act
-            var htmlDom = indexView.RenderAsHtml(request,jobProfileApprenticeshipVacancyReportViewModel);
+            var htmlDom = indexView.RenderAsHtml(request, jobProfileApprenticeshipVacancyReportViewModel);
 
             //Assert
             var reportTitle = htmlDom.DocumentNode.SelectNodes("//h3").FirstOrDefault();
             reportTitle.InnerText.Should().Be("Job Profiles and Apprenticeship Vacancy Report");
-        }
-        
+        }        
 
         private IEnumerable<JobProfileApprenticeshipVacancyItemViewModel> GetReportData()
         {
@@ -58,6 +56,5 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
 
             return dummyReportData.AsEnumerable();
         }
-    }
-    
+    }   
 }

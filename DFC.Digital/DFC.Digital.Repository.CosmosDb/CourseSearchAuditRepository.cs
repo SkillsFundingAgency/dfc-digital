@@ -1,18 +1,20 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using Microsoft.Azure.Documents;
 using System;
-using System.Configuration;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
     public class CourseSearchAuditRepository : CosmosDbRepository, IAuditRepository
     {
         private readonly Guid correlationId;
+        private readonly IConfigurationProvider configuration;
 
-        public CourseSearchAuditRepository(IDocumentClient documentClient) : base(documentClient)
+        public CourseSearchAuditRepository(IDocumentClient documentClient, IConfigurationProvider configuration) : base(documentClient)
         {
             this.correlationId = Guid.NewGuid();
+            this.configuration = configuration;
         }
 
         public void CreateAudit(object record)
@@ -28,8 +30,8 @@ namespace DFC.Digital.Repository.CosmosDb
         [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal override void Initialise()
         {
-            Database = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Db");
-            DocumentCollection = ConfigurationManager.AppSettings.Get("DFC.Digital.CourseSearchAudit.Collection");
+            Database = configuration.GetConfig<string>(Constants.CosmosDbName);
+            DocumentCollection = configuration.GetConfig<string>(Constants.CourseSearchDocumentCollection);
         }
     }
 }

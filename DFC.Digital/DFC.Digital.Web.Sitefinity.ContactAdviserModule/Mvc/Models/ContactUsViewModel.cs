@@ -59,5 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public bool IsContactable { get; set; }
 
         public bool TandCChecked { get; set; }
+
+        public string NextPageURL { get; set; }
     }
 }

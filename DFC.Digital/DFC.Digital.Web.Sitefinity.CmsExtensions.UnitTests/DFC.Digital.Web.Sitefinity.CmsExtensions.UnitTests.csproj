@@ -162,7 +162,7 @@
       <Name>DFC.Digital.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
-      <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
+      <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">

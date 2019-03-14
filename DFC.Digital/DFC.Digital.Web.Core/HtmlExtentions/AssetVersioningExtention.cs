@@ -20,10 +20,17 @@ namespace DFC.Digital.Web.Core
             if (context.Cache[fileName] is null)
             {
                 var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-                var hTMLHelper = autofacLifetimeScope.Resolve<IAssetLocationAndVersion>();
-                var assetUrl = hTMLHelper.GetLocationAssetFileAndVersion(fileName);
+                var htmlHelper = autofacLifetimeScope.ResolveOptional<IAssetLocationAndVersion>();
+                var assetUrl = htmlHelper?.GetLocationAssetFileAndVersion(fileName);
                 int cacheExpiryMins = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.AssetCacheExpiryTimeMins]);
-                context.Cache.Add(fileName, assetUrl, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                if (assetUrl is null)
+                {
+                    return fileName;
+                }
+                else
+                {
+                    context.Cache.Add(fileName, assetUrl, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                }
             }
 
             return context.Cache[fileName].ToString();

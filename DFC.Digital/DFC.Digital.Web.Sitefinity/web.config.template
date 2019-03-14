@@ -45,6 +45,7 @@ that is bundled with the nuget package under the tools folder.
 -->
 
     <!-- DFC.Digital settings -->
+    <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
     <add key="DFC.Digital.JobProfileSearchIndex" value="__jobProfileSearchIndex__-debug" />
     <add key="DFC.Digital.SearchServiceName" value="__searchServiceName__" />
     <add key="DFC.Digital.SearchServiceAdminAPIKey" value="__searchServiceAdminApiKey__" />
@@ -60,8 +61,10 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Digital.CourseSearchAttendanceModes" value="AM1,AM2,AM3,AM4,AM5,AM6,AM7,AM8,AM9" />
     <add key="DFC.Digital.CourseSearchAudit.EndpointUrl" value="__cosmosDbEndpointUrl__" />
     <add key="DFC.Digital.CourseSearchAudit.PrimaryKey" value="__cosmosDbPrimaryKey__" />
-    <add key="DFC.Digital.CourseSearchAudit.Db" value="CourseSearch" />
-    <add key="DFC.Digital.CourseSearchAudit.Collection" value="AuditRecords" />
+    <add key="DFC.Digital.CosmosDb.Name" value="dfc-digital-audit" />
+    <add key="DFC.Digital.CourseSearchAudit.Collection" value="CourseSearchAudit" />
+    <add key="DFC.Digital.EmailAudit.Collection" value="ContactUsResponses" />
+    
 
     <!-- Bing  Cognitive API-->
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />

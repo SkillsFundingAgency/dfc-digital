@@ -78,6 +78,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
                         case var _ when t.Instance is DynamicModuleRepository<SocSkillMatrix> instance:
                             instance.Initialise(DynamicTypes.SocSkillMatrixTypeContentType, DynamicTypes.JobProfileModuleName);
                             break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<EmailTemplate> instance:
+                            instance.Initialise(DynamicTypes.EmailTemplateContentType, DynamicTypes.ConfigurationsModuleName);
+                            break;
                     }
                 })
                 .EnableInterfaceInterceptors()

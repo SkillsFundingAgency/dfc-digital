@@ -30,18 +30,20 @@ namespace DFC.Digital.Services.SendGrid
         private static string TokenReplacement(ContactUsRequest sendEmailRequest, string content)
         {
             var mergedContent = content;
-
-            mergedContent = mergedContent.Replace(FirstNameToken, sendEmailRequest.FirstName);
-            mergedContent = mergedContent.Replace(LastNameToken, sendEmailRequest.LastName);
-            mergedContent = mergedContent.Replace(EmailToken, sendEmailRequest.Email);
-            mergedContent = mergedContent.Replace(ContactOptionToken, sendEmailRequest.ContactOption);
-            mergedContent = mergedContent.Replace(DobToken, sendEmailRequest.DateOfBirth.ToString("dd/MM/yyyy"));
-            mergedContent = mergedContent.Replace(PostCodeToken, sendEmailRequest.PostCode);
-            mergedContent = mergedContent.Replace(ContactAdvisorQuestionTypeToken, sendEmailRequest.ContactAdviserQuestionType);
-            mergedContent = mergedContent.Replace(MessageToken, sendEmailRequest.Message);
-            mergedContent = mergedContent.Replace(IsContactableToken, sendEmailRequest.IsContactable.ToString());
-            mergedContent = mergedContent.Replace(FeedbackQuestionTypeToken, sendEmailRequest.FeedbackQuestionType);
-            mergedContent = mergedContent.Replace(TermsAndConditionsToken, sendEmailRequest.TermsAndConditions.ToString());
+            if (!string.IsNullOrEmpty(mergedContent))
+            {
+                mergedContent = mergedContent.Replace(FirstNameToken, sendEmailRequest.FirstName);
+                mergedContent = mergedContent.Replace(LastNameToken, sendEmailRequest.LastName);
+                mergedContent = mergedContent.Replace(EmailToken, sendEmailRequest.Email);
+                mergedContent = mergedContent.Replace(ContactOptionToken, sendEmailRequest.ContactOption);
+                mergedContent = mergedContent.Replace(DobToken, sendEmailRequest.DateOfBirth.ToString("dd/MM/yyyy"));
+                mergedContent = mergedContent.Replace(PostCodeToken, sendEmailRequest.Postcode);
+                mergedContent = mergedContent.Replace(ContactAdvisorQuestionTypeToken, sendEmailRequest.ContactAdviserQuestionType);
+                mergedContent = mergedContent.Replace(MessageToken, sendEmailRequest.Message);
+                mergedContent = mergedContent.Replace(IsContactableToken, sendEmailRequest.IsContactable.ToString());
+                mergedContent = mergedContent.Replace(FeedbackQuestionTypeToken, sendEmailRequest.FeedbackQuestionType);
+                mergedContent = mergedContent.Replace(TermsAndConditionsToken, sendEmailRequest.TermsAndConditions.ToString());
+            }
 
             return mergedContent;
         }

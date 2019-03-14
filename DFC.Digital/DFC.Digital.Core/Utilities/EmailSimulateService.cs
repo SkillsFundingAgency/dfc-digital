@@ -2,7 +2,7 @@
 using DFC.Digital.Data.Model;
 using System;
 
-namespace DFC.Digital.Core.Utilities
+namespace DFC.Digital.Core
 {
     public class EmailSimulateService : ISimulateEmailResponses
     {

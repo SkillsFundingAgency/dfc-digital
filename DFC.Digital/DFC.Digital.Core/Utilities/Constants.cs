@@ -1,5 +1,6 @@
 ﻿namespace DFC.Digital.Core
 {
+    //Reason to exlude is because these are constants not code with logic
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class Constants
     {

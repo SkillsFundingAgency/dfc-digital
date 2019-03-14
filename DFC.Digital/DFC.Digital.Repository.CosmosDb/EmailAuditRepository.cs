@@ -7,20 +7,23 @@ using System;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
-    public class EmailAuditRepository<T> : CosmosDbRepository, IAuditNonCitizenEmailRepository<T>
+    public class EmailAuditRepository<T> : CosmosDbRepository, IAuditNoncitizenEmailRepository<T>
         where T : class
     {
         private readonly Guid correlationId;
         private readonly IMergeEmailContent<T> mergeEmailContentService;
+        private readonly IApplicationLogger logger;
         private readonly IConfigurationProvider configuration;
 
         public EmailAuditRepository(
             IConfigurationProvider configuration,
             IDocumentClient documentClient,
-            IMergeEmailContent<T> mergeEmailContentService) : base(documentClient)
+            IMergeEmailContent<T> mergeEmailContentService,
+            IApplicationLogger logger) : base(documentClient)
         {
             this.correlationId = Guid.NewGuid();
             this.mergeEmailContentService = mergeEmailContentService;
+            this.logger = logger;
             this.configuration = configuration;
         }
 
@@ -31,7 +34,7 @@ namespace DFC.Digital.Repository.CosmosDb
 
             try
             {
-                var emailContent = mergeEmailContentService.MergeTemplateBodyWithContent(safeRequest, emailTemplate.Body);
+                var emailContent = mergeEmailContentService.MergeTemplateBodyWithContent(safeRequest, emailTemplate?.Body);
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
@@ -47,6 +50,7 @@ namespace DFC.Digital.Repository.CosmosDb
             }
             catch (Exception exception)
             {
+                logger.ErrorJustLogIt($"Failed to audit non-citizen email", exception);
                 Add(new Audit
                 {
                     CorrelationId = correlationId,

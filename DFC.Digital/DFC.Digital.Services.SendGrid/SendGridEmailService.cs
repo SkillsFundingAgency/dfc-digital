@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridEmailService : INonCitizenEmailService<ContactUsRequest>
+    public class SendGridEmailService : INoncitizenEmailService<ContactUsRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
-        private readonly IAuditNonCitizenEmailRepository<ContactUsRequest> auditRepository;
+        private readonly IAuditNoncitizenEmailRepository<ContactUsRequest> auditRepository;
         private readonly ISimulateEmailResponses simulateEmailResponsesService;
         private readonly ISendGridClient sendGridClient;
         private readonly IMapper mapper;
@@ -20,7 +20,7 @@ namespace DFC.Digital.Services.SendGrid
         public SendGridEmailService(
             IEmailTemplateRepository emailTemplateRepository,
             IMergeEmailContent<ContactUsRequest> mergeEmailContentService,
-            IAuditNonCitizenEmailRepository<ContactUsRequest> auditRepository,
+            IAuditNoncitizenEmailRepository<ContactUsRequest> auditRepository,
             ISimulateEmailResponses simulateEmailResponsesService,
             ISendGridClient sendGridClient,
             IMapper mapper)

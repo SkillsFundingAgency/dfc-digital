@@ -22,7 +22,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
         private readonly IMergeEmailContent<ContactUsRequest> fakeMergeEmailContentService;
         private readonly ISendGridClient fakeSendGridClient;
         private readonly Core.IConfigurationProvider fakeConfiguration;
-        private readonly IAuditNonCitizenEmailRepository<ContactUsRequest> fakeAuditRepository;
+        private readonly IAuditNoncitizenEmailRepository<ContactUsRequest> fakeAuditRepository;
         private readonly ISimulateEmailResponses fakeSimulateEmailResponsesService;
 
         private readonly EmailTemplate goodEmailTemplate;
@@ -35,7 +35,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
             fakeSendGridClient = A.Fake<ISendGridClient>(ops => ops.Strict());
             fakeConfiguration = A.Fake<Core.IConfigurationProvider>(ops => ops.Strict());
             fakeSimulateEmailResponsesService = A.Fake<ISimulateEmailResponses>(ops => ops.Strict());
-            fakeAuditRepository = A.Fake<IAuditNonCitizenEmailRepository<ContactUsRequest>>(ops => ops.Strict());
+            fakeAuditRepository = A.Fake<IAuditNoncitizenEmailRepository<ContactUsRequest>>(ops => ops.Strict());
             fakeMapper = A.Fake<IMapper>(ops => ops.Strict());
             goodEmailTemplate = new EmailTemplate
             {
@@ -88,28 +88,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
             };
         }
 
-        //public static IEnumerable<object[]> SendGridAutoMapperProfileTestInput()
-        //{
-        //    yield return new object[]
-        //    {
-        //       new Response(HttpStatusCode.Accepted, new StringContent("dummy"), A.Dummy<HttpResponseHeaders>()),
-        //       new SendEmailResponse
-        //       {
-        //           Headers = A.Dummy<HttpResponseHeaders>(),
-        //           StatusCode = HttpStatusCode.Accepted
-        //       }
-        //    };
-
-        //    //yield return new object[]
-        //    //{
-        //    //   new Response(HttpStatusCode.BadGateway, A.Dummy<HttpContent>(), A.Dummy<HttpResponseHeaders>()),
-        //    //   new SendEmailResponse
-        //    //   {
-        //    //       Headers = A.Dummy<HttpResponseHeaders>(),
-        //    //       StatusCode = HttpStatusCode.BadGateway
-        //    //   }
-        //    //};
-        //}
         [Theory]
         [MemberData(nameof(SendEmailAsyncTestInput))]
         public async Task SendEmailAsyncTest(ContactUsRequest contactUsRequest, bool isThisSimulation, bool expectation)
@@ -157,23 +135,11 @@ namespace DFC.Digital.Services.SendGrid.Tests
         }
 
         [Fact]
-
-        //[MemberData(typeof(SendGridAutoMapperProfileTestInput))]
         public void SendGridAutoMapperProfileTest()
         {
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<SendGridAutoMapperProfile>());
-            var mapper = mapperConfig.CreateMapper();
-
-            //var response = new Response(HttpStatusCode.Accepted, new StringContent("dummy"), A.Dummy<HttpResponseHeaders>());
-            //var result = mapper.Map<SendEmailResponse>(response);
-            //var expectation = new SendEmailResponse
-            //{
-            //    Headers = A.Dummy<HttpResponseHeaders>(),
-            //    StatusCode = HttpStatusCode.BadGateway
-            //};
 
             //Assert
-            //result.Should().BeEquivalentTo(expectation);
             mapperConfig.AssertConfigurationIsValid();
         }
     }

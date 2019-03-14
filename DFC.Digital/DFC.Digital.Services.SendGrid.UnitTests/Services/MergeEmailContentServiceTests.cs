@@ -19,7 +19,7 @@ namespace DFC.Digital.Services.SendGrid.Tests
                 Email = nameof(ContactUsRequest.Email),
                 ContactOption = nameof(ContactUsRequest.ContactOption),
                 DateOfBirth = new DateTime(2000, 3, 12),
-                PostCode = nameof(ContactUsRequest.PostCode),
+                Postcode = nameof(ContactUsRequest.Postcode),
                 ContactAdviserQuestionType = nameof(ContactUsRequest.ContactAdviserQuestionType),
                 Message = nameof(ContactUsRequest.Message),
                 IsContactable = true,

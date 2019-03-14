@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using AutoMapper;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -7,61 +8,56 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridEmailService : ISendEmailService<ContactUsRequest>
+    public class SendGridEmailService : INonCitizenEmailService<ContactUsRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
-        private readonly IAuditEmailRepository auditRepository;
+        private readonly IAuditNonCitizenEmailRepository<ContactUsRequest> auditRepository;
         private readonly ISimulateEmailResponses simulateEmailResponsesService;
         private readonly ISendGridClient sendGridClient;
+        private readonly IMapper mapper;
 
         public SendGridEmailService(
             IEmailTemplateRepository emailTemplateRepository,
             IMergeEmailContent<ContactUsRequest> mergeEmailContentService,
-            IAuditEmailRepository auditRepository,
+            IAuditNonCitizenEmailRepository<ContactUsRequest> auditRepository,
             ISimulateEmailResponses simulateEmailResponsesService,
-            ISendGridClient sendGridClient)
+            ISendGridClient sendGridClient,
+            IMapper mapper)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.mergeEmailContentService = mergeEmailContentService;
             this.auditRepository = auditRepository;
             this.simulateEmailResponsesService = simulateEmailResponsesService;
             this.sendGridClient = sendGridClient;
+            this.mapper = mapper;
         }
 
-        public async Task<SendEmailResponse> SendEmailAsync(ContactUsRequest sendEmailRequest)
+        public async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
         {
-            var response = new SendEmailResponse();
-
-            var simulateResponse = simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
-
-            if (simulateResponse.ValidSimulationEmail)
+            if (simulateEmailResponsesService.IsThisSimulationRequest(sendEmailRequest.Email))
             {
-                response.EmailSimulationResponse = true;
-                response.Success = simulateResponse.SuccessResponse;
-                return response;
+                return simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
             }
 
             var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
-
             if (template != null)
             {
                 var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
                 var subject = sendEmailRequest.Subject;
                 var to = new EmailAddress(template.To, template.To);
-                var plainTextContent =
-                    mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
-                var htmlContent =
-                    mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
+                var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
+                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
                 var clientResponse = await sendGridClient.SendEmailAsync(msg);
+                var auditResponse = mapper.Map<SendEmailResponse>(clientResponse);
+                var result = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
 
-                response.Success = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
-
-                auditRepository.AuditContactUsResponses(sendEmailRequest, template, response);
+                auditRepository.CreateAudit(sendEmailRequest, template, auditResponse);
+                return result;
             }
 
-            return response;
+            return false;
         }
     }
 }

@@ -33,10 +33,10 @@ namespace DFC.Digital.Repository.CosmosDb
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterType<EmailAuditRepository>()
+            builder.RegisterGeneric(typeof(EmailAuditRepository<>))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
-                .OnActivating(cosmos => cosmos.Instance.Initialise())
+                .OnActivating(cosmos => ((CosmosDbRepository)cosmos.Instance).Initialise())
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

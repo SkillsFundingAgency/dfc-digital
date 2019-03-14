@@ -13,10 +13,10 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     [ControllerToolboxItem(Name = "SendGrid", Title = "Send Grid Test Harness", SectionName = SitefinityConstants.CustomAdminWidgetSection)]
     public class SendGridController : BaseDfcController
     {
-        private readonly ISendEmailService<ContactUsRequest> sendEmailService;
+        private readonly INonCitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
 
-        public SendGridController(IApplicationLogger applicationLogger, ISendEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
+        public SendGridController(IApplicationLogger applicationLogger, INonCitizenEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;

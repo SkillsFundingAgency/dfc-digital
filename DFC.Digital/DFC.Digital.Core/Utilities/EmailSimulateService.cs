@@ -13,21 +13,18 @@ namespace DFC.Digital.Core.Utilities
             this.configuration = configuration;
         }
 
-        public string SimulationSuccessEmailAddress => configuration.GetConfig<string>(Constants.SimulationSuccessEmailAddress);
+        private string SimulationSuccessEmailAddress => configuration.GetConfig<string>(Constants.SimulationSuccessEmailAddress);
 
-        public string SimulationFailureEmailAddress => configuration.GetConfig<string>(Constants.SimulationFailureEmailAddress);
+        private string SimulationFailureEmailAddress => configuration.GetConfig<string>(Constants.SimulationFailureEmailAddress);
 
-        public SimulateEmailResponse SimulateEmailResponse(string emailAddress)
+        public bool IsThisSimulationRequest(string email)
         {
-            var simulationResponse = new SimulateEmailResponse();
-            if (string.IsNullOrWhiteSpace(emailAddress))
-            {
-                return simulationResponse;
-            }
+            return !string.IsNullOrEmpty(email) && (email.Equals(SimulationFailureEmailAddress, StringComparison.InvariantCultureIgnoreCase) || email.Equals(SimulationSuccessEmailAddress, StringComparison.InvariantCultureIgnoreCase));
+        }
 
-            simulationResponse.SuccessResponse = emailAddress.Equals(SimulationSuccessEmailAddress, StringComparison.InvariantCultureIgnoreCase);
-            simulationResponse.ValidSimulationEmail = emailAddress.Equals(SimulationFailureEmailAddress, StringComparison.InvariantCultureIgnoreCase) || emailAddress.Equals(SimulationSuccessEmailAddress, StringComparison.InvariantCultureIgnoreCase);
-            return simulationResponse;
+        public bool SimulateEmailResponse(string email)
+        {
+            return !string.IsNullOrEmpty(email) && email.Equals(SimulationSuccessEmailAddress, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

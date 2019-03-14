@@ -14,11 +14,11 @@ namespace DFC.Digital.Core.Utilities.Tests
         }
 
         [Theory]
-        [InlineData(Constants.SimulationFailureEmailAddress, true, false)]
-        [InlineData(Constants.SimulationSuccessEmailAddress, true, true)]
-        [InlineData(Constants.SendGridApiKey, false, false)]
-        [InlineData("", false, false)]
-        public void SimulateEmailResponseTest(string emailAddress, bool isSimulationEmail, bool isSuccessResponse)
+        [InlineData(Constants.SimulationFailureEmailAddress, false)]
+        [InlineData(Constants.SimulationSuccessEmailAddress, true)]
+        [InlineData(Constants.SendGridApiKey, false)]
+        [InlineData("", false)]
+        public void SimulateEmailResponseTest(string emailAddress, bool isSuccessResponse)
         {
             // Assign
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>.That.Matches(x => x.Equals(Constants.SimulationSuccessEmailAddress)))).Returns(Constants.SimulationSuccessEmailAddress);
@@ -29,8 +29,26 @@ namespace DFC.Digital.Core.Utilities.Tests
             var response = simulationServices.SimulateEmailResponse(emailAddress);
 
             // Assert
-            response.SuccessResponse.Should().Be(isSuccessResponse);
-            response.ValidSimulationEmail.Should().Be(isSimulationEmail);
+            response.Should().Be(isSuccessResponse);
+        }
+
+        [Theory]
+        [InlineData(Constants.SimulationFailureEmailAddress, true)]
+        [InlineData(Constants.SimulationSuccessEmailAddress, true)]
+        [InlineData(Constants.SendGridApiKey, false)]
+        [InlineData("", false)]
+        public void IsThisSimulationRequestTest(string emailAddress, bool isSimulationEmail)
+        {
+            // Assign
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>.That.Matches(x => x.Equals(Constants.SimulationSuccessEmailAddress)))).Returns(Constants.SimulationSuccessEmailAddress);
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>.That.Matches(x => x.Equals(Constants.SimulationFailureEmailAddress)))).Returns(Constants.SimulationFailureEmailAddress);
+
+            // Act
+            var simulationServices = new EmailSimulateService(fakeConfiguration);
+            var validSimulationEmail = simulationServices.IsThisSimulationRequest(emailAddress);
+
+            // Assert
+            validSimulationEmail.Should().Be(isSimulationEmail);
         }
     }
 }

@@ -7,39 +7,37 @@ using System;
 
 namespace DFC.Digital.Repository.CosmosDb
 {
-    public class EmailAuditRepository : CosmosDbRepository, IAuditEmailRepository
+    public class EmailAuditRepository<T> : CosmosDbRepository, IAuditNonCitizenEmailRepository<T>
+        where T : class
     {
         private readonly Guid correlationId;
-        private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
+        private readonly IMergeEmailContent<T> mergeEmailContentService;
         private readonly IConfigurationProvider configuration;
 
         public EmailAuditRepository(
             IConfigurationProvider configuration,
             IDocumentClient documentClient,
-            IMergeEmailContent<ContactUsRequest> mergeEmailContentService) : base(documentClient)
+            IMergeEmailContent<T> mergeEmailContentService) : base(documentClient)
         {
             this.correlationId = Guid.NewGuid();
             this.mergeEmailContentService = mergeEmailContentService;
             this.configuration = configuration;
         }
 
-        public void AuditContactUsResponses(ContactUsRequest emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
+        public void CreateAudit(T emailRequest, EmailTemplate emailTemplate, SendEmailResponse response)
         {
             try
             {
                 var safeRequestSerialized = JsonConvert.SerializeObject(emailRequest);
-
-                var safeRequest = JsonConvert.DeserializeObject<ContactUsRequest>(safeRequestSerialized);
-
-                var emailContent =
-                    mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(safeRequest, emailTemplate.Body);
+                var safeRequest = JsonConvert.DeserializeObject<T>(safeRequestSerialized);
+                var emailContent = mergeEmailContentService.MergeTemplateBodyWithContent(safeRequest, emailTemplate.Body);
 
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
-                    Data = new EmailAuditRecord
+                    Data = new EmailAuditRecord<T>
                     {
-                        ContactUsRequest = safeRequest,
+                        Request = safeRequest,
                         EmailContent = emailContent,
                         SendEmailResponse = response,
                         EmailTemplate = emailTemplate
@@ -52,9 +50,9 @@ namespace DFC.Digital.Repository.CosmosDb
                 Add(new Audit
                 {
                     CorrelationId = correlationId,
-                    Data = new EmailAuditRecord
+                    Data = new EmailAuditRecord<T>
                     {
-                        ContactUsRequest = emailRequest,
+                        Request = emailRequest,
                         Exception = exception,
                         SendEmailResponse = response,
                         EmailTemplate = emailTemplate
@@ -64,7 +62,6 @@ namespace DFC.Digital.Repository.CosmosDb
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
         internal override void Initialise()
         {
             Database = configuration.GetConfig<string>(Constants.CosmosDbName);

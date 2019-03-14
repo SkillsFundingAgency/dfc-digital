@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public interface ISendEmailService<in T>
+    public interface INonCitizenEmailService<in T>
         where T : class
     {
-        Task<SendEmailResponse> SendEmailAsync(T sendEmailRequest);
+        Task<bool> SendEmailAsync(T sendEmailRequest);
     }
 }

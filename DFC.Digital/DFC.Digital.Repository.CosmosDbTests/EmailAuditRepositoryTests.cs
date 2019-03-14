@@ -33,27 +33,27 @@ namespace DFC.Digital.Repository.CosmosDb.Tests
             var fakeEmailTemplate = new EmailTemplate();
             var fakeResponse = new SendEmailResponse();
 
-            var repo = new EmailAuditRepository(fakeConfiguration, fakeDocumentClient, fakeMergeEmailContentService)
+            var repo = new EmailAuditRepository<ContactUsRequest>(fakeConfiguration, fakeDocumentClient, fakeMergeEmailContentService)
             {
                 Database = "db",
                 DocumentCollection = "docCollection"
             };
 
             //Act
-            repo.AuditContactUsResponses(fakeContactUsRequest, fakeEmailTemplate, fakeResponse);
+            repo.CreateAudit(fakeContactUsRequest, fakeEmailTemplate, fakeResponse);
             await Task.Delay(10);
 
             //Assert
             A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>._, A<RequestOptions>._, A<bool>._, A<CancellationToken>._)).MustHaveHappened();
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                 .MustHaveHappened();
         }
 
         private void SetupCalls()
         {
             A.CallTo(() => fakeDocumentClient.CreateDocumentAsync(A<Uri>._, A<Audit>._, A<RequestOptions>._, A<bool>._, A<CancellationToken>._)).Returns(new ResourceResponse<Document>());
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
-                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContentWithHtml));
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
+                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContent));
         }
     }
 }

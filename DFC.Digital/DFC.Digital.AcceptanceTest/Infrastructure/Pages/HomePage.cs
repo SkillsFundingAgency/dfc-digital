@@ -6,7 +6,7 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class Homepage : SitefinityPage<JobProfileSearchBoxViewModel>
+    public class Homepage : DFCPageWithViewModel<JobProfileSearchBoxViewModel>
     {
         public bool ServiceName => Find.OptionalElement(By.Id("site-header")) != null;
 
@@ -29,62 +29,63 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             Input.Model(model);
-            return Navigate.To<T>(By.ClassName("submit"));
+            return NavigateTo<T>(By.ClassName("submit"));
         }
 
         public T Search<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("submit"));
+            return NavigateTo<T>(By.ClassName("submit"));
         }
 
         public T GoToResult<T>(int index)
             where T : UiComponent, new()
         {
-            var results = Find.Elements(By.CssSelector(".homepage-jobcategories a")).ToList();
-            return Navigate.To<T>(results[index - 1].GetAttribute("href"));
+            var findBy = By.CssSelector(".homepage-jobcategories a");
+            var results = Find.Elements(findBy).ToList();
+            return NavigateTo<T>(results[index - 1].GetAttribute("href"), findBy);
         }
 
         public T ClickCookiesLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.CssSelector(".footer-meta-inner a"));
+            return NavigateTo<T>(By.CssSelector(".footer-meta-inner a"));
         }
 
         public T GoToSurvey<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("survey_action"));
+            return NavigateTo<T>(By.ClassName("survey_action"));
         }
 
         public T ClickPSFContinueButton<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("filter-home-button"));
+            return NavigateTo<T>(By.ClassName("filter-home-button"));
         }
 
         public T ClickPrivacyLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.PartialLinkText("Privacy and cookies"));
+            return NavigateTo<T>(By.PartialLinkText("Privacy and cookies"));
         }
 
         public T ClickTermAndCondLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.PartialLinkText("Terms and conditions"));
+            return NavigateTo<T>(By.PartialLinkText("Terms and conditions"));
         }
 
         public T ClickInformationSourcesLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.PartialLinkText("Information sources"));
+            return NavigateTo<T>(By.PartialLinkText("Information sources"));
         }
 
         public T ClickHelpLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.LinkText("Help"));
+            return NavigateTo<T>(By.LinkText("Help"));
         }
 
         public void SelectSuggestedSearch(int index)

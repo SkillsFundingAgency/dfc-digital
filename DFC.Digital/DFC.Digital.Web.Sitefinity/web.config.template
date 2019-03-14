@@ -61,8 +61,10 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Digital.CourseSearchAttendanceModes" value="AM1,AM2,AM3,AM4,AM5,AM6,AM7,AM8,AM9" />
     <add key="DFC.Digital.CourseSearchAudit.EndpointUrl" value="__cosmosDbEndpointUrl__" />
     <add key="DFC.Digital.CourseSearchAudit.PrimaryKey" value="__cosmosDbPrimaryKey__" />
-    <add key="DFC.Digital.CourseSearchAudit.Db" value="CourseSearch" />
-    <add key="DFC.Digital.CourseSearchAudit.Collection" value="AuditRecords" />
+    <add key="DFC.Digital.CosmosDb.Name" value="dfc-digital-audit" />
+    <add key="DFC.Digital.CourseSearchAudit.Collection" value="CourseSearchAudit" />
+    <add key="DFC.Digital.EmailAudit.Collection" value="ContactUsResponses" />
+    
 
     <!-- Bing  Cognitive API-->
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />
@@ -265,9 +267,11 @@ that is bundled with the nuget package under the tools folder.
     <httpModules>
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <remove name="OutputCache" />
+      <!--Since 11.1 distrubuted cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<remove name="OutputCache" />-->
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
-      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
+      <!--Since 11.1 distrubuted cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
       <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
@@ -339,9 +343,11 @@ that is bundled with the nuget package under the tools folder.
       <remove name="SitefinityAnalyticsModule" />
       <remove name="FormsAuthentication" />
       <remove name="RoleManager" />
-      <remove name="OutputCache" />
+      <!--Since 11.1 distributed cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<remove name="OutputCache" />-->
       <add name="Sitefinity" type="DFC.Digital.Web.Sitefinity.Core.AppStatusSitefinityHttpModule, DFC.Digital.Web.Sitefinity.Core" />
-      <add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />
+      <!--Since 11.1 distributed cache has been introduced. Reverting back to ASP.NET cache to fix intermittent cache issue. Various distributed cache provider should be evaluated on a new story.-->
+      <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
       <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
       <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
       <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />

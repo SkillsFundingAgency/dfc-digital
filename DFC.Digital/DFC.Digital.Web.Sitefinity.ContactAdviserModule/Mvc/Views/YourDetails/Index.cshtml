@@ -1,36 +1,56 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
-<div class="grid-row">
-    
-       
-        <form class="form form-intro">
+<h1 class="heading-xlarge">Enter your details</h1>
 
+<p>We need your details to process your request.</p>
+<p>You can tell us if you do not want to be contacted.</p>
+<form class="form form-intro" method="post">
 
+    <div class="form-group">
+        <label class="form-label" for="first-name">First name</label>
+        <input class="form-control" id="first-name" type="text" name="first-name">
+    </div>
 
-            <div class="form-group">
-                <label class="form-label" for="first-name">First Name</label>
-                <input class="form-control" id="first-name" type="text" name="first-name">
+    <div class="form-group">
+        <label class="form-label" for="surname">Last name</label>
+        <input class="form-control" id="surname" type="text" name="surname">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="email">Email address</label>
+        <input class="form-control" id="email" type="text" name="email">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" for="confirm-email">Confirm email address</label>
+        <input class="form-control" id="confirm-email" type="text" name="confirm-email">
+    </div>
+    <div class="form-group">
+        <fieldset class="inline">
+            <p class="bold-medium">
+                Do you want us to contact you?
+            </p>
+
+            <div class="multiple-choice">
+                <input id="radio-inline-1" type="radio" name="radio-inline-group" value="Yes">
+                <label for="radio-inline-1">Yes</label>
+            </div>
+            <div class="multiple-choice">
+                <input id="radio-inline-2" type="radio" name="radio-inline-group" value="No">
+                <label for="radio-inline-2">No</label>
             </div>
 
-            <div class="form-group">
-                <label class="form-label" for="surname">Surname</label>
-                <input class="form-control" id="surname" type="text" name="surname">
-            </div>
+        </fieldset>
+    </div>
+    <h2 class="heading-medium">Terms and conditions</h2>
+    <div class="form-group">
+        <div class="multiple-choice">
+            <input id="terms" name="terms" type="checkbox" value="true">
+            <label for="terms">I accept the <a href="about-us/terms-and-conditions">terms and conditions</a> and I am 13 or over</label>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label class="form-label" for="email">Email address</label>
-                <input class="form-control" id="email" type="text" name="email">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="confirm-email">Confirm email</label>
-                <input class="form-control" id="confirm-email" type="text" name="confirm-email">
-            </div>
-
-            <a href="select-option" class="button" type="button">Next</a>
-
-
-
-
-        </form>
-</div>
+    <div class="form-group">
+        <button type="submit" class="button" role="button">Send</button>
+    </div>
+</form>

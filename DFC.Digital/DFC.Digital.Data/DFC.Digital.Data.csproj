@@ -102,11 +102,13 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
+    <Compile Include="Interfaces\IAuditEmailRepository.cs" />
     <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IMergeEmailContent.cs" />
     <Compile Include="Interfaces\IRecycleBinRepository.cs" />
     <Compile Include="Interfaces\ISearchManipulator.cs" />
     <Compile Include="Interfaces\ISendEmailService.cs" />
+    <Compile Include="Interfaces\ISimulateEmailResponses.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
     <Compile Include="Interfaces\IReportAuditRepository.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\CategoryType.cs" />
+    <Compile Include="Model\EmailAuditRecord.cs" />
     <Compile Include="Model\EmailTemplate.cs" />
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
@@ -167,8 +170,9 @@
     <Compile Include="Model\EntryRequirement.cs" />
     <Compile Include="Model\FurtherRoutes.cs" />
     <Compile Include="Model\RelatedSkillMapping.cs" />
-    <Compile Include="Model\SendEmailRequest.cs" />
+    <Compile Include="Model\ContactUsRequest.cs" />
     <Compile Include="Model\SendEmailResponse.cs" />
+    <Compile Include="Model\SimulateEmailResponse.cs" />
     <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />

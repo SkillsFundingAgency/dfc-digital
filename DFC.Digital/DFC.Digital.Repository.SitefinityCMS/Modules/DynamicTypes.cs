@@ -19,5 +19,7 @@
         internal const string JobAreaContentType = "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.JobArea";
         internal const string CareerFocusContentType = "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.CareerFocus";
         internal const string PreferredTaskTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.PreferredTaskType";
+        internal const string ConfigurationsModuleName = "Configurations";
+        internal const string EmailTemplateContentType = "Telerik.Sitefinity.DynamicTypes.Model.Configurations.Noncitizenemailtemplates";
     }
 }

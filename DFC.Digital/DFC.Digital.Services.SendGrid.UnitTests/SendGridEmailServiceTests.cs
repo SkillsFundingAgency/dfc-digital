@@ -1,11 +1,12 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Net;
-using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,22 +15,30 @@ namespace DFC.Digital.Services.SendGrid.Tests
     public class SendGridEmailServiceTests
     {
         private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
-        private readonly IMergeEmailContent fakeMergeEmailContentService;
-        private readonly ISendGridClientActions fakeSendGridClientActions;
+        private readonly IMergeEmailContent<ContactUsRequest> fakeMergeEmailContentService;
+        private readonly ISendGridClient fakeSendGridClient;
+        private readonly IConfigurationProvider fakeConfiguration;
+        private readonly IAuditEmailRepository fakeAuditRepository;
+        private readonly ISimulateEmailResponses fakeSimulateEmailResponsesService;
+
         private readonly EmailTemplate goodEmailTemplate;
 
         public SendGridEmailServiceTests()
         {
             fakeEmailTemplateRepository = A.Fake<IEmailTemplateRepository>(ops => ops.Strict());
-            fakeMergeEmailContentService = A.Fake<IMergeEmailContent>(ops => ops.Strict());
-            fakeSendGridClientActions = A.Fake<ISendGridClientActions>(ops => ops.Strict());
+            fakeMergeEmailContentService = A.Fake<IMergeEmailContent<ContactUsRequest>>(ops => ops.Strict());
+            fakeSendGridClient = A.Fake<ISendGridClient>(ops => ops.Strict());
+            fakeConfiguration = A.Fake<IConfigurationProvider>(ops => ops.Strict());
+            fakeSimulateEmailResponsesService = A.Fake<ISimulateEmailResponses>(ops => ops.Strict());
+            fakeAuditRepository = A.Fake<IAuditEmailRepository>(ops => ops.Strict());
             goodEmailTemplate = new EmailTemplate
             {
                 Body = nameof(EmailTemplate.Body),
-                To = "trevk15@yahoo.co.uk",
+                BodyNoHtml = nameof(EmailTemplate.BodyNoHtml),
+                To = nameof(EmailTemplate.To),
                 TemplateName = nameof(EmailTemplate.TemplateName),
                 Subject = nameof(EmailTemplate.Subject),
-                From = "trevk155@gmail.com"
+                From = nameof(EmailTemplate.From)
             };
         }
 
@@ -39,21 +48,24 @@ namespace DFC.Digital.Services.SendGrid.Tests
         public async Task SendEmailAsyncTest(bool validEmailTemplate)
         {
             //Assign
-            var sendEmailService = new SendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeSendGridClientActions);
+            var sendEmailService = new SendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient);
 
-            var sendRequest = new SendEmailRequest
+            var sendRequest = new ContactUsRequest
             {
-                TemplateName = nameof(SendEmailRequest.TemplateName),
-                Message = nameof(SendEmailRequest.Message)
+                TemplateName = nameof(ContactUsRequest.TemplateName),
+                Message = nameof(ContactUsRequest.Message)
             };
 
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._))
                 .Returns(validEmailTemplate ? goodEmailTemplate : null);
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<SendEmailRequest>._, A<string>._))
-                .Returns(nameof(IMergeEmailContent.MergeTemplateBodyWithContent));
-            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
-                .Returns(nameof(IMergeEmailContent.MergeTemplateBodyWithContentWithHtml));
-            A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).Returns(new Response(HttpStatusCode.Accepted, new StringContent(string.Empty), null));
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
+                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContent));
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
+                .Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContentWithHtml));
+            A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).Returns(new Response(HttpStatusCode.Accepted, null, null));
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns(string.Empty);
+            A.CallTo(() => fakeSimulateEmailResponsesService.SimulateEmailResponse(A<string>._)).Returns(new SimulateEmailResponse());
+            A.CallTo(() => fakeAuditRepository.AuditContactUsResponses(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).DoesNothing();
 
             //Act
             var result = await sendEmailService.SendEmailAsync(sendRequest);
@@ -62,21 +74,22 @@ namespace DFC.Digital.Services.SendGrid.Tests
             A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._)).MustHaveHappened();
             if (validEmailTemplate)
             {
-                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<SendEmailRequest>._, A<string>._))
+                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                     .MustHaveHappened();
                 A.CallTo(() =>
-                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
+                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
                     .MustHaveHappened();
-                A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).MustHaveHappened();
+                A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).MustHaveHappened();
                 result.Success.Should().BeTrue();
+                A.CallTo(() => fakeAuditRepository.AuditContactUsResponses(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).MustHaveHappened();
             }
             else
             {
-                A.CallTo(() => fakeSendGridClientActions.SendEmailAsync(A<SendGridClient>._, A<SendGridMessage>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<SendEmailRequest>._, A<string>._))
+                A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._))
                     .MustNotHaveHappened();
                 A.CallTo(() =>
-                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<SendEmailRequest>._, A<string>._))
+                        fakeMergeEmailContentService.MergeTemplateBodyWithContentWithHtml(A<ContactUsRequest>._, A<string>._))
                     .MustNotHaveHappened();
                 result.Success.Should().BeFalse();
             }

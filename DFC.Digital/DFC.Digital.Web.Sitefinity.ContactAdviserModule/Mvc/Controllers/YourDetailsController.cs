@@ -7,7 +7,6 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
@@ -18,46 +17,62 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly ISendEmailService<ContactUsRequest> sendEmailService;
+        private readonly IAsyncHelper asyncHelper;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public YourDetailsController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public YourDetailsController(IApplicationLogger applicationLogger, ISendEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
+            this.sendEmailService = sendEmailService;
+            this.asyncHelper = asyncHelper;
         }
-
         #endregion Constructors
+
+        #region Properties
+
+        #endregion Properties
 
         #region Actions
 
-        // GET: ContactAdviser
-
         /// <summary>
-        /// entry point to the widget to show contact adviser form.
+        /// Updates the form and sends the data to next form.
         /// </summary>
+        /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index");
+            return YourDetails(new ContactUsViewModel());
         }
 
         /// <summary>
         /// Updates the form and sends the data to next form.
         /// </summary>
-        /// <param name="model">The ContactUsViewModel.</param>
+        /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
+        public ActionResult YourDetails(ContactUsViewModel model)
         {
-            return View("Adviser", model);
+            return View("Index", model);
         }
 
+        [HttpPost]
+        public ActionResult Sumbit(ContactUsViewModel viewModel)
+        {
+            var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+            {
+                FirstName = viewModel.FirstName,
+                Email = viewModel.Email,
+                TemplateName = viewModel.ContactOption.ToString(),
+                LastName = viewModel.LastName,
+                Message = viewModel.Message
+            }));
+
+            return View("SendResult", viewModel);
+        }
         #endregion Actions
     }
 }

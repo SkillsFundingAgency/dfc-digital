@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using FakeItEasy;
+using FluentAssertions;
 using System;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -8,7 +9,7 @@ using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Xunit;
 
-namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class EmailTemplateRepositoryTests
     {
@@ -43,6 +44,36 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests.Modules
             {
                 A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).MustNotHaveHappened();
             }
+        }
+
+        [Fact]
+        public void GetContentTypeTest()
+        {
+            //Assign
+            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
+            A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyEmailTemplate);
+            var emailTemplateRepository = new EmailTemplateRepository(fakeRepository, fakeEmailTemplateConverter);
+
+            //Act
+            var result = emailTemplateRepository.GetContentType();
+
+            //Assert
+            result.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void GetProviderNameTest()
+        {
+            //Assign
+            var dummyEmailTemplate = A.Dummy<EmailTemplate>();
+            A.CallTo(() => fakeEmailTemplateConverter.ConvertFrom(A<DynamicContent>._)).Returns(dummyEmailTemplate);
+            var emailTemplateRepository = new EmailTemplateRepository(fakeRepository, fakeEmailTemplateConverter);
+
+            //Act
+            var result = emailTemplateRepository.GetProviderName();
+
+            //Assert
+            result.Should().NotBeNull();
         }
 
         private EmailTemplateRepository GetTestEmailTemplateRepository(bool validTemplate)

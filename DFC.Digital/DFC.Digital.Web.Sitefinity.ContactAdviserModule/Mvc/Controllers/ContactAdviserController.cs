@@ -72,7 +72,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", model);
         }
 
-
         #endregion Actions
     }
 }

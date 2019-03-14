@@ -66,16 +66,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsViewModel model)
         {
-
-            switch (model.ContactOption)
+            if (!ModelState.IsValid)
             {
-                case ContactOption.Technical:
-                    return Redirect("/contact-us/technical/");
-                case ContactOption.Feedback:
-                    return Redirect("/contact-us/feedback/");
-                default:
-                    return Redirect("/contact-us/contact-adviser/");
+                switch (model.ContactOption)
+                {
+                    case ContactOption.Technical:
+                        return Redirect("/contact-us/technical/");
+                    case ContactOption.Feedback:
+                        return Redirect("/contact-us/feedback/");
+                    default:
+                        return Redirect("/contact-us/contact-adviser/");
+                }
             }
+
+            return View("Index", model);
         }
 
         #endregion Actions

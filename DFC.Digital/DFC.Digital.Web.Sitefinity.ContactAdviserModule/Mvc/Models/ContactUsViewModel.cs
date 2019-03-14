@@ -40,6 +40,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public FeedbackQuestionType FeedbackQuestionType { get; set; }
 
+        public string Title { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -59,5 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public bool IsContactable { get; set; }
 
         public bool TandCChecked { get; set; }
+
+        public string NextPageUrl { get; set; }
     }
 }

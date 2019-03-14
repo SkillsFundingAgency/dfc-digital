@@ -1,30 +1,40 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 
-<div class="grid-row">
+<div class="govuk-grid-row">
     @using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))
     {
-        <div class="form-group">
-            <div class="multiple-choice">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+                </legend>
 
-                @Html.RadioButtonFor(model => model.ContactOption, "ContactAdviser")<label for="adviser">Contact an adviser</label>
-            </div>
+
+                <div class="govuk-radios">
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactOption, "ContactAdviser", new { @class = "govuk-radios__input", name = "whyContactUs", id = "adviser" })
+                        @Html.LabelFor(model => model.ContactOption, "Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
+                </div>
+                <div class="govuk-radios">
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactOption, "Technical", new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
+                        @Html.LabelFor(model => model.ContactOption, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
+                </div>
+
+                <div class="govuk-radios">
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactOption, "Feedback", new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
+                        @Html.LabelFor(model => model.ContactOption, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
+                </div>
+            </fieldset>
         </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(model => model.ContactOption, "Technical")<label for="technical">Technical support</label>
+        <div class="govuk-form-group">
 
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactOption, "Feedback")<label for="feedback">Give feedback</label>
-            </div>
-
-        </div>
-        <div class="form-group">
-
-            <button type="submit" id="show-basic-details" class="button disable-button-onclick">Next</button>
+            <button type="submit" id="show-basic-details" class="govuk-button">Continue</button>
 
         </div>
     }

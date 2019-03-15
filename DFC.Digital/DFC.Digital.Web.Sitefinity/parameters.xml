@@ -143,13 +143,13 @@
              description="Tokenize the cosmos endpoint url to be replaced by VSTS task"
              defaultValue="__cosmosDbEndpointUrl__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.CourseSearchAudit.EndpointUrl']/@value" />
+                    match="/configuration/appSettings/add[@key='DFC.Digital.CosmosAudit.EndpointUrl']/@value" />
   </parameter>
   <parameter name="CosmosDb_PrimaryKey"
              description="Tokenize the cosmos primary key to be replaced by VSTS task"
              defaultValue="__cosmosDbPrimaryKey__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.CourseSearchAudit.PrimaryKey']/@value" />
+                    match="/configuration/appSettings/add[@key='DFC.Digital.CosmosAudit.PrimaryKey']/@value" />
   </parameter>
   <parameter name="CouseSearch_WcfEnpoint"
              description="Tokenize the course search wcf endpoint to be replaced by VSTS task"

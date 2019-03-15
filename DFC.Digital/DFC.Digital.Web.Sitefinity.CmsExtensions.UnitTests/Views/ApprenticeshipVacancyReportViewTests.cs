@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using ASP;
+using Autofac;
+using Autofac.Integration.Mvc;
+using DFC.Digital.Data.Interfaces;
 using FakeItEasy;
 using FluentAssertions;
 using HtmlAgilityPack;
@@ -19,6 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
         public void ApprenticeshipVacancyReportViewIndex()
         {
             // Arrange
+            var autofacContainer = A.Fake<ILifetimeScope>();
+            var fakeAutofacDependencyResolver = A.Fake<AutofacDependencyResolver>();
+            DependencyResolver.SetResolver(fakeAutofacDependencyResolver);
+
             var indexView = new _MVC_Views_ApprenticeshipVacancyReport_Index_cshtml();
             var jobProfileApprenticeshipVacancyReportViewModel = new JobProfileApprenticeshipVacancyReportViewModel
             {
@@ -27,7 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.CmsExtensions.UnitTests.Views
 
             var request = A.Fake<HttpContextBase>();
             A.CallTo(() => request.Request.QueryString).Returns(new NameValueCollection());
-
+            
             // Act
             var htmlDom = indexView.RenderAsHtml(request, jobProfileApprenticeshipVacancyReportViewModel);
 

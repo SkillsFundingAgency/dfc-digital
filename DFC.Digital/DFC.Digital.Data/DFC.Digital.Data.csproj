@@ -103,6 +103,7 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
+    <Compile Include="Interfaces\IAssetLocationAndVersion.cs" />
     <Compile Include="Interfaces\IAuditNonCitizenEmailRepository.cs" />
     <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IMergeEmailContent.cs" />

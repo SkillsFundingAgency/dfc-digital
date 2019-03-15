@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Autofac.Integration.Mvc;
+using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 
@@ -30,6 +31,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<JobProfilePageContentService>().As<IJobProfilePage>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<HttpClientService<IAssetLocationAndVersion>>().AsImplementedInterfaces()
+            .SingleInstance()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<AssetLocationAndVersion>().As<IAssetLocationAndVersion>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);

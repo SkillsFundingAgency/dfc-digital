@@ -45,7 +45,6 @@ that is bundled with the nuget package under the tools folder.
 -->
 
     <!-- DFC.Digital settings -->
-    <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
     <add key="DFC.Digital.JobProfileSearchIndex" value="__jobProfileSearchIndex__-debug" />
     <add key="DFC.Digital.SearchServiceName" value="__searchServiceName__" />
     <add key="DFC.Digital.SearchServiceAdminAPIKey" value="__searchServiceAdminApiKey__" />
@@ -54,18 +53,18 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Digital.GovUkNotifyTemplateId" value="__govUkNotifyEmailTemplateId__" />
     <add key="DFC.Digital.AsheFeedAccessKey" value="__lmiForAllApiAccessKey__" />
     <add key="DFC.Digital.AsheEstimateMdApiGateway" value="http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}" />
-
+    <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
+    <add key="DFC.Digital.CDNLocation" value="__cdnUrl__" />
     <!-- Course Search -->
     <add key="DFC.Digital.CourseSearchApiKey" value="__courseSearchApiKey__" />
     <add key="DFC.Digital.CourseSearchPageSize" value="20" />
     <add key="DFC.Digital.CourseSearchAttendanceModes" value="AM1,AM2,AM3,AM4,AM5,AM6,AM7,AM8,AM9" />
     <add key="DFC.Digital.CourseSearchAudit.EndpointUrl" value="__cosmosDbEndpointUrl__" />
     <add key="DFC.Digital.CourseSearchAudit.PrimaryKey" value="__cosmosDbPrimaryKey__" />
+    <!-- Consmos settings -->
     <add key="DFC.Digital.CosmosDb.Name" value="dfc-digital-audit" />
     <add key="DFC.Digital.CourseSearchAudit.Collection" value="CourseSearchAudit" />
     <add key="DFC.Digital.EmailAudit.Collection" value="ContactUsResponses" />
-    
-
     <!-- Bing  Cognitive API-->
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />
     <add key="DFC.Cognitive.BingSpellCheck.RequestEndPoint" value="https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?text={0}&amp;mode=spell&amp;mkt=en-gb" />

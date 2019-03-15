@@ -2,7 +2,7 @@
 using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
@@ -34,10 +34,10 @@ namespace DFC.Digital.Repository.CosmosDb
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
 
-            builder.RegisterGeneric(typeof(EmailAuditRepository<>))
-                .As(typeof(IAuditNoncitizenEmailRepository<>))
+            builder.RegisterType<EmailAuditRepository<ContactUsRequest>>()
+                .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
-                .OnActivating(cosmos => ((CosmosDbRepository)cosmos.Instance).Initialise())
+                .OnActivating(cosmos => cosmos.Instance.Initialise())
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;

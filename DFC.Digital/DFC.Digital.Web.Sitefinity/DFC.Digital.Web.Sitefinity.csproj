@@ -1427,6 +1427,10 @@
       <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.DfcSearchModule\DFC.Digital.Web.Sitefinity.DfcSearchModule.csproj">
+      <Project>{43653733-4860-4f26-a3ec-5d199fef42d6}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.DfcSearchModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.JobProfileModule\DFC.Digital.Web.Sitefinity.JobProfileModule.csproj">
       <Project>{524dc675-ab6c-4e91-aa5a-ac4fccb2bcc5}</Project>
       <Name>DFC.Digital.Web.Sitefinity.JobProfileModule</Name>
@@ -1434,10 +1438,6 @@
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Logging\DFC.Digital.Web.Sitefinity.Logging.csproj">
       <Project>{62cfe232-a980-4235-ba95-be494cfda9d7}</Project>
       <Name>DFC.Digital.Web.Sitefinity.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.DfcSearchModule\DFC.Digital.Web.Sitefinity.DfcSearchModule.csproj">
-      <Project>{43653733-4860-4f26-a3ec-5d199fef42d6}</Project>
-      <Name>DFC.Digital.Web.Sitefinity.DfcSearchModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.WebApi\DFC.Digital.Web.Sitefinity.WebApi.csproj">
       <Project>{6f6301d4-5ca5-4e6f-9425-b70cbd8eee59}</Project>

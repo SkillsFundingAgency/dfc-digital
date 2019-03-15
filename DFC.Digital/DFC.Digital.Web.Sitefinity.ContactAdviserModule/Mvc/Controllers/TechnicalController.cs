@@ -2,7 +2,9 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -15,20 +17,29 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "Technical", Title = "Technical", SectionName = SitefinityConstants.ContactUsSection)]
     public class TechnicalController : BaseDfcController
     {
-        #region Private Fields
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
-
-        #endregion Private Fields
-
         #region Constructors
 
-        public TechnicalController(ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public TechnicalController(IApplicationLogger applicationLogger) : base(applicationLogger)
         {
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
         }
 
         #endregion Constructors
+
+        #region Public Properties
+
+        [DisplayName("Next Page URL")]
+        public string NextPageUrl { get; set; } = "technical-feedback";
+
+        [DisplayName("Page Title")]
+        public string Title { get; set; } = "Report a technical issue";
+
+        [DisplayName("Page Introduction Text")]
+        public string PageIntroduction { get; set; } = "Give us as much detail as possible. For example, the web browser you were using when you had a problem, what you were trying to do, what happened and any error messages that were on the screen.";
+
+        [DisplayName("Personal Information Text")]
+        public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
+
+        #endregion Public Properties
 
         #region Actions
 
@@ -37,11 +48,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
-        [RelativeRoute("")]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel() { ContactOption = ContactOption.Technical, NextPageUrl = this.NextPageUrl };
+
+            return View("Index", model);
         }
+
+        [HttpPost]
+        public ActionResult Index(ContactUsViewModel model)
+        {
+            model.Message += " After post back";
+            return View("Index", model);
+        }
+
         #endregion Actions
     }
 }

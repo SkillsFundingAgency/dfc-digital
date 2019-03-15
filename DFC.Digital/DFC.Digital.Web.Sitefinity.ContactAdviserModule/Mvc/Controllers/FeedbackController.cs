@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -32,6 +33,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
+        #region Public Properties
+
+        [DisplayName("Next Page URL")]
+        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+
+        [DisplayName("Page Title")]
+        public string Title { get; set; } = " What is your feedback about?";
+
+
+        #endregion Public Properties
+
         #region Actions
 
         // GET: ContactAdviser
@@ -41,10 +53,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
-        [RelativeRoute("")]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel
+            {
+                NextPageUrl = NextPageUrl,
+                Title = Title
+            };
+            return View("Index", model);
         }
 
         /// <summary>

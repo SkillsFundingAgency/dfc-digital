@@ -1,62 +1,79 @@
 ﻿
 @model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
-<div class="grid-row">
 
-        <form action="@Model.NextPageUrl" method="post" id="continueForm">
-            @*  Hidden field to manage the type of form we are sending to next page*@
-            @Html.HiddenFor(model => model.ContactOption, "ContactAdviser")
 
-            <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-                        <h2 class="govuk-fieldset__heading">
-                            What is your query about?
-                        </h2>
-                    </legend>
-                    <div class="govuk-radios">
-                        <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-radios__input", id = "careers", name = "queryCategory" })
-                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
-                        </div>
+    <form action="@Model.NextPageUrl" method="post" id="continueForm">
+        @if (ViewData.ModelState.Values.Any(x => x.Errors.Count > 0))
+        {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    <li>
+                        <a href="#category-error">Choose what your query is about</a>
+                    </li>
+                    <li>
+                        <a href="#more-detail-error">Enter a message with your query</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        }
 
-                        <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-radios__input", id = "qualifications", name = "queryCategory" })
-                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
-                        </div>
+        @*  Hidden field to manage the type of form we are sending to next page*@
+        @Html.HiddenFor(model => model.ContactOption, "ContactAdviser")
 
-                        <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-radios__input", id = "findingacourse", name = "queryCategory" })
-                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-label govuk-radios__label" })
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-radios__input", id = "generalfeedback", name = "queryCategory" })
-                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-label govuk-radios__label" })
-                        </div>
-
-                        <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-radios__input", id = "funding", name = "queryCategory" })
-                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
-                        </div>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <h2 class="govuk-fieldset__heading">
+                        What is your query about?
+                    </h2>
+                </legend>
+                <div class="govuk-radios">
+                    @Html.ValidationMessageFor(model => model.ContactAdivserQuestionType, null, new { @class = "govuk-error-message" })
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-radios__input", id = "careers", name = "queryCategory" })
+                        @Html.LabelFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
                     </div>
 
-                </fieldset>
-            </div>
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-radios__input", id = "qualifications", name = "queryCategory" })
+                        @Html.LabelFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
 
-            <div class="govuk-form-group">
-                @Html.LabelFor(model => model.Message, "Enter your query for the adviser.", new { @class = "govuk-label" })
-                <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
-                @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", maxlength = 255, rows = "5", required = "required", type = "text", name = "more-detail", id = "more-detail" })
-            </div>
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-radios__input", id = "findingacourse", name = "queryCategory" })
+                        @Html.LabelFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
 
-            <p class="govuk-!-font-size-16">Character limit is 1000.</p>
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-radios__input", id = "generalfeedback", name = "queryCategory" })
+                        @Html.LabelFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
 
-            <div class="govuk-form-group">
-                <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
-            </div>
-            </form>
+                    <div class="govuk-radios__item">
+                        @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-radios__input", id = "funding", name = "queryCategory" })
+                        @Html.LabelFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
+                    </div>
+                </div>
 
+            </fieldset>
+        </div>
 
+        <div class="govuk-form-group">
+            @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
+            @Html.LabelFor(model => model.Message, "Enter your query for the adviser.", new { @class = "govuk-label" })
+            <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
+            @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", maxlength = 255, rows = "5", required = "required", type = "text", name = "more-detail", id = "more-detail" })
+        </div>
 
-    </div>
+        <p class="govuk-!-font-size-16">Character limit is 1000.</p>
+
+        <div class="govuk-form-group">
+            <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
+        </div>
+    </form>

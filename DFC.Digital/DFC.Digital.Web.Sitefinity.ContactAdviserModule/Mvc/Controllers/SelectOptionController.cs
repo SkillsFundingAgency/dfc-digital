@@ -25,7 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Constructors
 
-        public SelectOptionController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public SelectOptionController(IWebAppContext webAppContextFake, IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
@@ -53,7 +53,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             var model = new ContactUsViewModel
             {
-                Title = Title
+                Title = Title,
+                FormStateValue = FormState.SelectOptionForm.ToString()
+
             };
             return View("Index", model);
         }
@@ -66,7 +68,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsViewModel model)
         {
-            if (!ModelState.IsValid)
+            ModelState.Clear();
+            if (model.ContactOption == null)
+            {
+                ModelState.AddModelError("ContactOption", "Choose a reason for contacting us");
+            }
+
+            if (ModelState.IsValid)
             {
                 switch (model.ContactOption)
                 {

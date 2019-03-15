@@ -87,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     FeedbackQuestionType = viewModel.FeedbackQuestionType.ToString()
                 }));
 
-                return View("ThankYouPage", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
+                return View("ThankYou", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
             }
 
             return View("Index", viewModel);

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -17,10 +18,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "Technical", Title = "Technical", SectionName = SitefinityConstants.ContactUsSection)]
     public class TechnicalController : BaseDfcController
     {
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
         #region Constructors
 
-        public TechnicalController(IApplicationLogger applicationLogger) : base(applicationLogger)
+        public TechnicalController(
+            IApplicationLogger applicationLogger,
+            IMapper mapper,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+
         {
+            this.mapper = mapper;
+            this.sessionStorage = sessionStorage;
         }
 
         #endregion Constructors
@@ -73,6 +82,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsTechnicalViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var mappedModel = mapper.Map(model, sessionStorage.Get());
+                sessionStorage.Save(mappedModel);
+
+                return Redirect(NextPageUrl);
+            }
+
             model.Message += " After post back";
             return View("Index", model);
         }

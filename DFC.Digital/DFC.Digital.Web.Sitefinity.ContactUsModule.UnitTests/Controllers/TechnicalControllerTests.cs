@@ -11,9 +11,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
         [Fact]
         public void IndexTest()
         {
+            //var jobProfileAnchorListsController = new TechnicalController(fakeApplicationLogger);
+            // var indexMethodCall = jobProfileAnchorListsController.WithCallTo(c => c.Index());
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
-            var jobProfileAnchorListsController = new TechnicalController(fakeApplicationLogger);
-           // var indexMethodCall = jobProfileAnchorListsController.WithCallTo(c => c.Index());
         }
     }
 }

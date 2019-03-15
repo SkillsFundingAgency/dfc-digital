@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -21,15 +22,24 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Private Fields
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public YourDetailsController(IApplicationLogger applicationLogger, INoncitizenEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
+        public YourDetailsController(
+            IApplicationLogger applicationLogger,
+            INoncitizenEmailService<ContactUsRequest> sendEmailService,
+            IAsyncHelper asyncHelper,
+            IMapper mapper,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
+            this.mapper = mapper;
+            this.sessionStorage = sessionStorage;
         }
         #endregion Constructors
 
@@ -43,7 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(ContactOption contactOption = ContactOption.Feedback)
         {
-            return YourDetails(new ContactUsViewModel { ContactOption = contactOption });
+            var data = sessionStorage.Get();
+            return YourDetails(data ?? new ContactUsViewModel { ContactOption = contactOption } );
         }
 
         [HttpPost]

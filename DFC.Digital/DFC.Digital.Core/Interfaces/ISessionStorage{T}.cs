@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Core.Interfaces
+namespace DFC.Digital.Core
 {
     public interface ISessionStorage<T>
     {

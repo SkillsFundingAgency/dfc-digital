@@ -62,7 +62,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [RegularExpression(@"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})", ErrorMessage ="Please enter a valid UK Post code")]
         public string PostCode { get; set; }
 
-        [Required(ErrorMessage = "Enter a message describing the issue")]
         public string Message { get; set; }
 
         public bool IsContactable { get; set; }

@@ -39,6 +39,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Personal Information Text")]
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
+        [DisplayName("Character Limit")]
+        public string CharacterLimit { get; set; } = "Character limit is 1000.";
+
+        [DisplayName("Message Label")]
+        public string MessageLabel { get; set; } = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.";
+
+
         #endregion Public Properties
 
         #region Actions
@@ -50,13 +57,21 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactUsViewModel() { ContactOption = ContactOption.Technical, NextPageUrl = this.NextPageUrl };
-
+            var model = new ContactUsTechnicalViewModel()
+            {
+              ContactOption = ContactOption.Technical,
+              NextPageUrl = this.NextPageUrl,
+              Title = this.Title,
+              MessageLabel = this.MessageLabel,
+              PageIntroduction = this.PageIntroduction,
+              PersonalInformation = this.PersonalInformation,
+              CharacterLimit = this.CharacterLimit
+            };
             return View("Index", model);
         }
 
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
+        public ActionResult Index(ContactUsTechnicalViewModel model)
         {
             model.Message += " After post back";
             return View("Index", model);

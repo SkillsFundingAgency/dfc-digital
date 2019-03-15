@@ -4,6 +4,8 @@ namespace DFC.Digital.Data.Interfaces
 {
     public interface ISimulateEmailResponses
     {
-        SimulateEmailResponse SimulateEmailResponse(string emailAddress);
+        bool SimulateEmailResponse(string email);
+
+        bool IsThisSimulationRequest(string email);
     }
 }

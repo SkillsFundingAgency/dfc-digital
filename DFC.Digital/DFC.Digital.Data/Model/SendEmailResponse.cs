@@ -1,9 +1,12 @@
-﻿namespace DFC.Digital.Data.Model
+﻿using System.Net;
+using System.Net.Http.Headers;
+
+namespace DFC.Digital.Data.Model
 {
     public class SendEmailResponse
     {
-        public bool Success { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
 
-        public bool EmailSimulationResponse { get; set; }
+        public HttpResponseHeaders Headers { get; set; }
     }
 }

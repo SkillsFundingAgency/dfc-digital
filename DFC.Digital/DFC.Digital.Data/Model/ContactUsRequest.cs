@@ -22,7 +22,7 @@ namespace DFC.Digital.Data.Model
         public DateTime DateOfBirth { get; set; }
 
         [JsonIgnore]
-        public string PostCode { get; set; }
+        public string Postcode { get; set; }
 
         public string ContactAdviserQuestionType { get; set; }
 

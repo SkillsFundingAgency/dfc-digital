@@ -38,6 +38,7 @@ namespace DFC.Digital.Web.Core
             return context.Cache[fileName].ToString();
         }
 
+        /*
         public static string VersionAssetFile(this HtmlHelper helper, string fileName)
         {
             var context = helper?.ViewContext.RequestContext.HttpContext;
@@ -57,6 +58,7 @@ namespace DFC.Digital.Web.Core
 
             return $"{fileName}?{version}";
         }
+        */
 
         private static string GetFileHash(string file)
         {

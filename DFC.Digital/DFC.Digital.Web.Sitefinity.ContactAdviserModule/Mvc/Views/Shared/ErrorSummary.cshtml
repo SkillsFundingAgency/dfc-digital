@@ -1,0 +1,23 @@
+﻿
+@if (ViewData.ModelState.Values.Any(x => x.Errors.Count > 0))
+{
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                @foreach (var modelStateKey in ViewData.ModelState.Keys)
+                {
+                    var modelStateVal = ViewData.ModelState[modelStateKey];
+                    if (modelStateVal.Errors.Count > 0)
+                    {
+                        <li>
+                            <a href="#@modelStateKey.Replace(".", "_")">@Html.Raw(modelStateVal.Errors[0].ErrorMessage)</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}

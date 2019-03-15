@@ -35,5 +35,7 @@ namespace DFC.Digital.Data.Model
         public bool TermsAndConditions { get; set; }
 
         public string Subject { get; set; }
+
+        public string PostCode { get; set; }
     }
 }

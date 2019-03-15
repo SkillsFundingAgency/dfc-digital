@@ -62,6 +62,12 @@
                     </div>
                 </div>
             </div>
+            <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.PostCode), ViewData.ModelState)">
+                @Html.LabelFor(x => x.PostCode, "Post code", new {@class = "govuk-label"})
+                <span id="postcode-hint" class="govuk-hint">For example, SW1A 1AA</span>
+                @Html.ValidationMessageFor(x => x.PostCode, null, new {@class = "govuk-error-message"})
+                @Html.TextBoxFor(x => x.PostCode, new {@class = "govuk-input govuk-input--width-10"})
+            </div>
         }
         else
         {             
@@ -73,7 +79,7 @@
                     </legend>
                     <div class="govuk-radios govuk-radios--inline">
                         <div class="govuk-radios__item">
-                            @Html.RadioButtonFor(model => model.IsContactable, "True", new { @class="govuk-radios__input", name="radio-inline-group", id="radio-inline-1" })
+                            @Html.RadioButtonFor(model => model.IsContactable, "True", new { @class="govuk-radios__input", name="radio-inline-group", id="radio-inline-1", @checked="checked" })
                             @Html.LabelFor(model => model.IsContactable, "Yes", new { @class="govuk-label govuk-radios__label"})
                         </div>
                         <div class="govuk-radios__item">
@@ -85,12 +91,7 @@
             </div>
         }
         
-        <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.PostCode), ViewData.ModelState)">
-            @Html.LabelFor(x => x.PostCode, "Post code", new {@class = "govuk-label"})
-            <span id="postcode-hint" class="govuk-hint">For example, SW1A 1AA</span>
-            @Html.ValidationMessageFor(x => x.PostCode, null, new {@class = "govuk-error-message"})
-            @Html.TextBoxFor(x => x.PostCode, new {@class = "govuk-input govuk-input--width-10"})
-        </div>
+
         <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.TermsAndConditions), ViewData.ModelState)">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -116,4 +117,8 @@
             Send
         </button>
     </div>
+
+    @Html.HiddenFor(x => x.ContactOption)
+    @Html.HiddenFor(x => x.ContactAdivserQuestionType)
+    @Html.HiddenFor(x => x.Message)
 }

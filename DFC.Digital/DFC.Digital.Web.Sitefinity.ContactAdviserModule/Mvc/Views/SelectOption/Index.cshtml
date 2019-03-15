@@ -1,26 +1,56 @@
-﻿@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 
-<div class="grid-row">
+<div class="govuk-grid-row">
     @using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))
     {
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(model => model.ContactOption, "adviser")<label for="adviser">Contact an adviser</label>
+        <div class="govuk-grid-column-two-thirds">
+            @Html.AntiForgeryToken()
+
+            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+                @Html.ValidationSummary(true, "", new { @class = "govuk-error-summary__title" })
+            </div>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+                    </legend>
+                    <!-- Error elements-->
+
+                    <span id="changed-name-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span>
+                        @Html.ValidationMessageFor(model => model.ContactOption, "", new { @class = "govuk-error-message" })
+                    </span>
+
+
+                   
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactOption, "Technical", new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
+                            @Html.LabelFor(model => model.ContactOption, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+                    </div>
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactOption, "Feedback", new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
+                            @Html.LabelFor(model => model.ContactOption, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <button type="submit" id="show-basic-details" class="govuk-button">Continue</button>
             </div>
         </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(model => model.ContactOption, "technical")<label for="technical">Technical support</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="multiple-choice">
-                @Html.RadioButtonFor(@model => model.ContactOption, "feedback")<label for="feedback">Give feedback</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" id="show-basic-details" class="button disable-button-onclick">Next</button>
+        <div class="govuk-grid-column-one-third">
+            <aside class="app-related-items" role="complementary">
+                <h3 class="govuk-heading-m">Want to speak to an adviser?</h3>
+                <p style="margin-bottom: 0px;"><span class="govuk-body govuk-!-font-weight-bold">Call</span> 0800 100 900 or <a href="https://nationalcareers.service.gov.uk/webchat/chat/" rel="external" target="'_blank'">use webchat</a></p>
+                <p class="govuk-caption-m">8am to 10pm, 7 days a week</p>
+            </aside>
+
         </div>
     }
 

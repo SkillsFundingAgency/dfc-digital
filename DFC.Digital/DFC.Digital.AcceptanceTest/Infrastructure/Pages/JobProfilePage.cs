@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class JobProfilePage : SitefinityPage<JobProfileDetailsViewModel>
+    public class JobProfilePage : DFCPageWithViewModel<JobProfileDetailsViewModel>
     {
         public bool HasCurrentOpportunitiesSection => Find.OptionalElement(By.Id("current-opportunities")) != null;
 
@@ -56,7 +56,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickExploreCareersLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.Id("nav-EC"));
+            return NavigateTo<T>(By.Id("nav-EC"));
         }
 
         public string RelatedCareersTitle(int index)
@@ -74,7 +74,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickBackToHomepageLink<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.PartialLinkText("Back to homepage"));
+            return NavigateTo<T>(By.PartialLinkText("Back to homepage"));
         }
 
         public T ClickYesOnSurvey<T>()
@@ -93,20 +93,21 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             Input.Model(model);
-            return Navigate.To<T>(By.ClassName("submit"));
+            return NavigateTo<T>(By.ClassName("submit"));
         }
 
         public T ClickRelatedCareer<T>(int index)
             where T : UiComponent, new()
         {
-            var results = Find.Elements(By.CssSelector(".list-big li a")).ToList();
-            return Navigate.To<T>(results[index - 1].GetAttribute("href"));
+            var findBy = By.CssSelector(".list-big li a");
+            var results = Find.Elements(findBy).ToList();
+            return NavigateTo<T>(results[index - 1].GetAttribute("href"), findBy);
         }
 
         public T ClickProfilePageBanner<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("signpost_jp"));
+            return NavigateTo<T>(By.ClassName("signpost_jp"));
         }
 
         public string GetCourseTitle(int coursenumber)
@@ -118,21 +119,23 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickCourseTitle<T>(int coursenumber)
             where T : UiComponent, new()
         {
-            var result = Find.Elements(By.CssSelector(".dfc-code-jp-trainingCourse .heading-small a")).ToList();
-            return Navigate.To<T>(result[coursenumber - 1].GetAttribute("href"));
+            var findBy = By.CssSelector(".dfc-code-jp-trainingCourse .heading-small a");
+            var result = Find.Elements(findBy).ToList();
+            return NavigateTo<T>(result[coursenumber - 1].GetAttribute("href"), findBy);
         }
 
         public T ClickFindCourseLink<T>()
             where T : UiComponent, new()
         {
-            var result = Find.Element(By.CssSelector(".dfc-code-jp-NoTrainingCoursesText a"));
-            return Navigate.To<T>(result.GetAttribute("href"));
+            var findBy = By.CssSelector(".dfc-code-jp-NoTrainingCoursesText a");
+            var result = Find.Element(findBy);
+            return NavigateTo<T>(result.GetAttribute("href"), findBy);
         }
 
         public T ClickToAnswerNoJPSurvey<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.Id("job-profile-feedback-survey"));
+            return NavigateTo<T>(By.Id("job-profile-feedback-survey"));
         }
 
         internal bool ContainsUrlName(string urlname) => UrlContains(urlname);

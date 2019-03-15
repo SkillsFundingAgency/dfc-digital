@@ -2,17 +2,19 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 {
     /// <summary>
     /// Custom Widget for Select Option form
     /// </summary>
     /// <seealso cref="DFC.Digital.Web.Core.BaseDfcController" />
-    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactAdviserSection)]
+    [ControllerToolboxItem(Name = "SelectOption", Title = "Select an Option", SectionName = SitefinityConstants.ContactUsSection)]
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
@@ -31,6 +33,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
 
         #endregion Constructors
 
+        #region Public Properties
+
+        [DisplayName("Page Title")]
+        public string Title { get; set; } = "Why would you like to contact us?";
+
+        #endregion Public Properties
+
         #region Actions
 
         // GET: ContactAdviser
@@ -42,7 +51,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel
+            {
+                Title = Title
+            };
+            return View("Index", model);
         }
 
         /// <summary>
@@ -51,8 +64,21 @@ namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(EmailTemplate model)
+        public ActionResult Index(ContactUsViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                switch (model.ContactOption)
+                {
+                    case ContactOption.Technical:
+                        return Redirect("/contact-us/technical/");
+                    case ContactOption.Feedback:
+                        return Redirect("/contact-us/feedback/");
+                    default:
+                        return Redirect("/contact-us/contact-adviser/");
+                }
+            }
+
             return View("Index", model);
         }
 

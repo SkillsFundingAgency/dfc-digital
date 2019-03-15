@@ -1,78 +1,62 @@
 ﻿
-@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
 
 <div class="grid-row">
-   
-        <h1 class="heading-xlarge">Contact an adviser</h1>
-        <p>Take some time to think about your answers on this form. They'll give us an understanding of how we can help you with your career.</p>
-        <form class="form form-adviser-additional-info">
-            <div class="form-group ">
-                <fieldset>
-                    <legend>
-                        <span class="form-label">
-                            Date of birth
-                        </span>
-                        <p>We need to know your age so that we give you information on things that you're eligible for. For example, funding schemes for certain age groups.</p>
-                        <span class="form-hint">For example, 31 3 1980</span>
 
+        <form action="@Model.NextPageUrl" method="post" id="continueForm">
+            @*  Hidden field to manage the type of form we are sending to next page*@
+            @Html.HiddenFor(model => model.ContactOption, "ContactAdviser")
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h2 class="govuk-fieldset__heading">
+                            What is your query about?
+                        </h2>
                     </legend>
-                    <div class="form-date">
-                        <div class="form-group form-group-day">
-                            <label class="form-label" for="dob-day">Day</label>
-                            <input class="form-control" id="dob-day" name="dob-day" type="number" pattern="[0-9]*">
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-radios__input", id = "careers", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
                         </div>
-                        <div class="form-group form-group-month">
-                            <label class="form-label" for="dob-month">Month</label>
-                            <input class="form-control" id="dob-month" name="dob-month" type="number" pattern="[0-9]*">
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-radios__input", id = "qualifications", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
                         </div>
-                        <div class="form-group form-group-year">
-                            <label class="form-label" for="dob-year">Year</label>
-                            <input class="form-control" id="dob-year" name="dob-year" type="number" pattern="[0-9]*">
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-radios__input", id = "findingacourse", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Finding a course", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-radios__input", id = "generalfeedback", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "General feedback", new { @class = "govuk-label govuk-radios__label" })
+                        </div>
+
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-radios__input", id = "funding", name = "queryCategory" })
+                            @Html.LabelFor(model => model.ContactAdivserQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
                         </div>
                     </div>
+
                 </fieldset>
             </div>
 
-            <div class="form-group">
-                <label class="form-label" for="postcode">Postcode</label>
-                <p>We need to know which area you live in so that we give you local information and advice.</p>
-                <input class="form-control" id="postcode" type="text" name="postcode">
+            <div class="govuk-form-group">
+                @Html.LabelFor(model => model.Message, "Enter your query for the adviser.", new { @class = "govuk-label" })
+                <span id="more-detail-hint" class="govuk-hint">Do not include any personal or sign in information.</span>
+                @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", maxlength = 255, rows = "5", required = "required", type = "text", name = "more-detail", id = "more-detail" })
             </div>
 
-            <div class="form-group">
-                <label class="form-label" for="select-box">What will your question be about</label>
-                <select class="form-control" id="select-box" name="select-box">
-                    <option value="">Select</option>
-                    <option value="1">Careers</option>
-                    <option value="2">Qualifications</option>
-                    <option value="3">Finding a course</option>
-                    <option value="4">General feedback</option>
-                    <option value="5">Funding</option>
-                </select>
+            <p class="govuk-!-font-size-16">Character limit is 1000.</p>
+
+            <div class="govuk-form-group">
+                <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
             </div>
-
-            <h2 class="heading-large">Your question</h2>
-            <p>Give us as much detail as possible about your query. It'll help us get back to you quickly and accurately.</p>
-            <div class="form-group">
-                <label class="form-label" for="textarea">
-                    Enter your questions for the advisers in the box below.
-                </label>
-                <span class="form-hint">Do not include any personal or sign in information.</span>
-                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
-            </div>
+            </form>
 
 
-            <h2 class="heading-large">Terms and conditions</h2>
-            <div class="form-group">
-                <div class="multiple-choice">
-                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
-                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
-                </div>
-            </div>
 
-            <a href="select-option" class="button" type="button">Send</a>
-
-        </form>
-   
-    
-</div>
+    </div>

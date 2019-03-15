@@ -44,8 +44,11 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\\Seleno\.BrowserStack\.SpecFlowPlugin\.dll$</ModulePath>
                 <ModulePath>.*\\Teststack\.Seleno\.dll$</ModulePath>
                 <ModulePath>.*\\Polly\.dll$</ModulePath>
+                <ModulePath>.*\\Polly\..*\.dll$</ModulePath>
+                <ModulePath>.*\\sendgrid\.dll$</ModulePath>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                 <ModulePath>.*fakeiteasy.dll</ModulePath>
+                <ModulePath>.*autofac\..*\.dll</ModulePath>
                 <ModulePath>.*system\..*\.dll$</ModulePath>
                 <ModulePath>.*microsoft\..*\.dll$</ModulePath>
                 <ModulePath>.*htmlagilitypack.dll</ModulePath>

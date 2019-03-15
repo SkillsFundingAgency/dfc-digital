@@ -62,7 +62,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         internal TPage NavigateToHomePage<TPage, TModel>()
-            where TPage : SitefinityPage<TModel>, new()
+            where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("HomePage");
@@ -70,7 +70,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         internal TPage NavigateToSearchResultsPage<TPage, TModel>(string searchTerm)
-            where TPage : SitefinityPage<TModel>, new()
+            where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("SearchResultsPage");
@@ -78,7 +78,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         internal TPage NavigateToJobProfilePage<TPage, TModel>(string jobProfile)
-            where TPage : SitefinityPage<TModel>, new()
+            where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()
         {
             //this.Instance = LocalBrowserHost.GetInstanceFor("JobProfilePage");
@@ -86,7 +86,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         internal TPage NavigateToCategoryPage<TPage, TModel>(string category)
-            where TPage : SitefinityPage<TModel>, new()
+            where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()
         {
             return NavigateToPage<TPage, TModel>($"{RootUrl.OriginalString}/job-categories/{category}");
@@ -105,7 +105,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         private TPage NavigateToPage<TPage, TModel>(string url)
-            where TPage : SitefinityPage<TModel>, new()
+            where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()
         {
             var page = Instance.NavigateToInitialPage<TPage>(url);

@@ -5,7 +5,7 @@ using TestStack.Seleno.PageObjects;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class JobProfileCategoryPage : SitefinityPage<JobProfileByCategoryViewModel>
+    public class JobProfileCategoryPage : DFCPageWithViewModel<JobProfileByCategoryViewModel>
     {
         public string CategoryTitle => Find.OptionalElement(By.ClassName("heading-xlarge")).Text;
 
@@ -29,19 +29,19 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where T : UiComponent, new()
         {
             var results = Find.Elements(By.ClassName("dfc-code-search-jpTitle")).ToList();
-            return Navigate.To<T>(results[index - 1].GetAttribute("href"));
+            return NavigateTo<T>(results[index - 1].GetAttribute("href"), By.ClassName("dfc-code-search-jpTitle"));
         }
 
         public T GoToCategory<T>(string category)
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.PartialLinkText(category));
+            return NavigateTo<T>(By.PartialLinkText(category));
         }
 
         public T ClickCategorySignpostBanner<T>()
             where T : UiComponent, new()
         {
-            return Navigate.To<T>(By.ClassName("signpost"));
+            return NavigateTo<T>(By.ClassName("signpost"));
         }
 
         internal bool ContainsUrlName(string urlname) => UrlContains(urlname);

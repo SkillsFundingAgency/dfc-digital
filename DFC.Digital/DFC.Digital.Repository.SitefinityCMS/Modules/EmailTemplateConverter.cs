@@ -33,7 +33,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 From = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(EmailTemplate.From)),
                 To = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(EmailTemplate.To)),
                 Subject = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(EmailTemplate.Subject)),
-                Body = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(EmailTemplate.Body))
+                Body = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(EmailTemplate.Body)),
+                BodyNoHtml = dynamicContentExtensions.GetContentWithoutHtmlTags(content, nameof(EmailTemplate.Body))
             };
 
             return emailTemplate;

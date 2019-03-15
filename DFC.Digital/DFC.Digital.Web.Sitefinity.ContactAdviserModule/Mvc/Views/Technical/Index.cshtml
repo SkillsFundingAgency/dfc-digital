@@ -1,55 +1,18 @@
-﻿@model DFC.Digital.Web.Sitefinity.ContactAdviserModule.Mvc.Models.ContactAdviserViewModel
-
-<div class="grid-row">
-   
-
-        <h1 class="heading-xlarge">Report a technical issue</h1>
-        <p>Use this form if you are in England and need technical support to use any tools on the website.You can also call 0800 100 900 (8am to 10pm, 7 days a week).</p>
-        <form class="form form-adviser-additional-info">
-            <div class="form-group">
-                <h2 class="heading-large">Issue details</h2>
-                <p>Give details of the issue you've experienced. Tell us about the browser you were using, any error messages you were shown and the rough date and time.</p>
-
-                <label class="form-label" for="textarea">
-                    Tell us about your technical issue.
-                </label>
-                <span class="form-hint">Do not include any personal or sign in information.</span>
-                <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
-            </div>
-
-            <div class="form-group">
-                <fieldset class="inline">
-
-                    <legend>
-                        <h1 class="heading-medium">
-                            Do you want us to contact you?
-                        </h1>
-                    </legend>
-
-                    <div class="multiple-choice">
-                        <input id="radio-inline-1" type="radio" name="radio-inline-group" value="Yes">
-                        <label for="radio-inline-1">Yes</label>
-                    </div>
-                    <div class="multiple-choice">
-                        <input id="radio-inline-2" type="radio" name="radio-inline-group" value="No">
-                        <label for="radio-inline-2">No</label>
-                    </div>
-
-                </fieldset>
-            </div>
-
-
-
-            <div class="form-group">
-                <h2 class="heading-large">Terms and conditions</h2>
-                <div class="multiple-choice">
-                    <input id="checkbox-telephone-number" name="contact-by-text-phone" type="checkbox" value="true">
-                    <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
-                </div>
-            </div>
-
-            <a href="select-option" class="button" type="button">Send</a>
-
-        </form>
-
-</div>
+﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsTechnicalViewModel
+@Html.Partial("ErrorSummary")
+<h1 class="govuk-heading-xl">@Model.Title</h1>
+<p class="govuk-body-m">@Html.Label(@Model.PageIntroduction)</p>
+@using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "userform" }))
+{
+    <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Message), ViewData.ModelState)">
+        @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label", @for = "more-detail" })
+        <span class="govuk-hint" id="more-detail-hint">@Model.PersonalInformation</span>
+        @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(m => Model.Message, htmlAttributes: new { @rows = 5, @id = "control-label col-md-2", @name = "more-detail", @aria_describedby = "more-detail-hint" })
+    </div>
+    <p class="govuk-body-s">@Model.CharacterLimit</p>
+    <div class="govuk-form-group">
+        <button type="submit" class="govuk-button">Continue</button>
+    </div>
+}

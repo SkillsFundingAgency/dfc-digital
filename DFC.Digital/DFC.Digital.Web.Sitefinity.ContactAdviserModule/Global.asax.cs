@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace DFC.Digital.Web.Sitefinity.ContactAdviserModule
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

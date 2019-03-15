@@ -1,51 +1,63 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Services.SendGrid
 {
-    public class SendGridEmailService : ISendEmailService
+    public class SendGridEmailService : INoncitizenEmailService<ContactUsRequest>
     {
         private readonly IEmailTemplateRepository emailTemplateRepository;
-        private readonly IMergeEmailContent mergeEmailContentService;
-        private readonly ISendGridClientActions sendGridClientActions;
+        private readonly IMergeEmailContent<ContactUsRequest> mergeEmailContentService;
+        private readonly IAuditNoncitizenEmailRepository<ContactUsRequest> auditRepository;
+        private readonly ISimulateEmailResponses simulateEmailResponsesService;
+        private readonly ISendGridClient sendGridClient;
+        private readonly IMapper mapper;
 
-        public SendGridEmailService(IEmailTemplateRepository emailTemplateRepository, IMergeEmailContent mergeEmailContentService, ISendGridClientActions sendGridClientActions)
+        public SendGridEmailService(
+            IEmailTemplateRepository emailTemplateRepository,
+            IMergeEmailContent<ContactUsRequest> mergeEmailContentService,
+            IAuditNoncitizenEmailRepository<ContactUsRequest> auditRepository,
+            ISimulateEmailResponses simulateEmailResponsesService,
+            ISendGridClient sendGridClient,
+            IMapper mapper)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.mergeEmailContentService = mergeEmailContentService;
-            this.sendGridClientActions = sendGridClientActions;
+            this.auditRepository = auditRepository;
+            this.simulateEmailResponsesService = simulateEmailResponsesService;
+            this.sendGridClient = sendGridClient;
+            this.mapper = mapper;
         }
 
-        public string SendGridApiKey => ConfigurationManager.AppSettings[Constants.SendGridApiKey];
-
-        public async Task<SendEmailResponse> SendEmailAsync(SendEmailRequest sendEmailRequest)
+        public async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
         {
-            var response = new SendEmailResponse();
-
-            var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
-
-            if (template != null)
+            if (simulateEmailResponsesService.IsThisSimulationRequest(sendEmailRequest.Email))
             {
-                var client = new SendGridClient(SendGridApiKey);
-                var from = new EmailAddress(template.From);
-                var subject = template.Subject;
-                var to = new EmailAddress(template.To);
-                var plainTextContent =
-                    mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
-                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContentWithHtml(sendEmailRequest, template.Body);
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-                var sendResponse = await sendGridClientActions.SendEmailAsync(client, msg);
-
-                response.Success = sendResponse.StatusCode.Equals(HttpStatusCode.Accepted);
+                return simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
             }
 
-            return response;
+            var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
+            if (template != null)
+            {
+                var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
+                var subject = sendEmailRequest.Subject;
+                var to = new EmailAddress(template.To, template.To);
+                var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
+                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var clientResponse = await sendGridClient.SendEmailAsync(msg);
+                var auditResponse = mapper.Map<SendEmailResponse>(clientResponse);
+                var result = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
+
+                auditRepository.CreateAudit(sendEmailRequest, template, auditResponse);
+                return result;
+            }
+
+            return false;
         }
     }
 }

@@ -50,17 +50,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #endregion Properties
 
         #region Actions
+
         [HttpGet]
         public ActionResult Index(ContactOption contactOption = ContactOption.Feedback)
         {
             var data = sessionStorage.Get();
-            return YourDetails(data ?? new ContactUsViewModel { ContactOption = contactOption } );
-        }
-
-        [HttpPost]
-        public ActionResult YourDetails(ContactUsViewModel model)
-        {
-            return View("Index", model);
+            var model = data ?? new ContactUsViewModel
+            {
+                ContactOption = contactOption
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -90,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return View("ThankYou", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
             }
 
-            return View("Index", viewModel);
+            return View(viewModel);
         }
 
         private DateTime DoCustomValidation(ContactUsViewModel viewModel)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ASP;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FluentAssertions;
@@ -43,6 +44,74 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             {
                 AssertIsContactableExistsInView(htmlDocument);
             }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc7630ErrorSummaryViewTests(bool modelStateInvalid)
+        {
+            // Arrange
+            var errorSummaryView = new _MVC_Views_Shared_ErrorSummary_cshtml();
+
+            if (modelStateInvalid)
+            {
+                errorSummaryView.ViewData.ModelState.AddModelError(nameof(ContactUsViewModel.FirstName), nameof(Exception.Message));
+            }
+
+            // Act
+            var htmlDocument = errorSummaryView.RenderAsHtml();
+
+            // Assert
+            if (modelStateInvalid)
+            {
+                AssertErrorDetailInSummary(htmlDocument, nameof(Exception.Message));
+            }
+            else
+            {
+                AssertViewIsEmpty(htmlDocument);
+            }
+        }
+
+        [Theory]
+        [InlineData("Success Message")]
+        [InlineData("Failure Message")]
+        public void Dfc7630ThankYouViewTests(string resultMessage)
+        {
+            // Arrange
+            var thankYouView = new _MVC_Views_YourDetails_ThankYou_cshtml();
+
+            var viewModel = new ContactUsResultViewModel
+            {
+                Message = resultMessage
+            };
+
+            // Act
+            var htmlDocument = thankYouView.RenderAsHtml(viewModel);
+
+            // Assert
+            AssertMessageIsRenderedOnView(htmlDocument, resultMessage);
+
+        }
+
+        private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
+        }
+
+        private void AssertMessageIsRenderedOnView(HtmlDocument htmlDocument, string resultMessage)
+        {
+            htmlDocument.DocumentNode.Descendants("p")
+                .Count(h2 => h2.InnerText.Contains(resultMessage)).Should().BeGreaterThan(0);
+        }
+
+        private void AssertErrorDetailInSummary(HtmlDocument htmlDocument, string errorMessage)
+        {
+            htmlDocument.DocumentNode.Descendants("h2")
+                .Count(h2 => h2.InnerText.Contains("There is a problem")).Should().BeGreaterThan(0);
+            htmlDocument.DocumentNode.Descendants("a")
+                .Count(a => a.InnerText.Contains(errorMessage)).Should().BeGreaterThan(0);
+
         }
 
         private void AssertIsContactableExistsInView(HtmlDocument htmlDocument)

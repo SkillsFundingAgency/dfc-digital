@@ -81,10 +81,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect(NextPageUrl);
             }
 
-            model.Message += " After post back";
-            return View("Index", model);
-        }
-
             //Put the non bound data fields back
             return View("Index", AddWidgetPropertyFields(model));
 

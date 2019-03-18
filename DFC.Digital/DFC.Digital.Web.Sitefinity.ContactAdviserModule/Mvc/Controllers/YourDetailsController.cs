@@ -97,7 +97,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View("ThankYouPage", new ContactUsResultViewModel { Success = true });
+                return View("ThankYou", new ContactUsResultViewModel { Message = SuccessMessage });
+
+              //return View("ThankYouPage", new ContactUsResultViewModel { Success = true });
             }
 
             return View("Index", viewModel);

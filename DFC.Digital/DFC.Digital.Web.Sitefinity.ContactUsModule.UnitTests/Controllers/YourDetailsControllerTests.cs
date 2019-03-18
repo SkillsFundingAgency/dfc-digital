@@ -47,7 +47,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 .Returns(validSessionVm
                 ? new ContactUsViewModel { ContactOption = contactOption }
                 : null);
-            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage);
+            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage)
+            {
+                PageTitle = nameof(YourDetailsController.PageTitle),
+                PageIntroductionTwo = nameof(YourDetailsController.PageIntroductionTwo),
+                PageIntroduction = nameof(YourDetailsController.PageIntroduction)
+            };
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(contactOption));

@@ -80,12 +80,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
+        public ActionResult Index(ContactUsSelectOptionViewModel model)
         {
             if (ModelState.IsValid)
             {
                 sessionStorage.Save(model);
-                switch (model.SelectOption.ContactOptionType)
+                switch (model.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

@@ -1,14 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ContactUsTechnicalViewModel
     {
-        public ContactOption ContactOption { get; set; }
-
-        [Required(ErrorMessage = "Enter a message describing the issue")]
-        public string Message { get; set; }
+        public TechnicalFeedback TechnicalFeedback { get; set; }
 
         public string MessageLabel { get; set; }
 
@@ -21,6 +17,5 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string PersonalInformation { get; set; }
 
         public string CharacterLimit { get; set; }
-
     }
 }

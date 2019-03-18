@@ -66,7 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactUsViewModel
+            var model = new ContactUsSelectOptionViewModel
             {
                 Title = Title
             };
@@ -84,8 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                sessionStorage.Save(model);
-                switch (model.ContactOptionType)
+                switch (model.ContactUsOption.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

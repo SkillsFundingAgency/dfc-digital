@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ContactUsSelectOptionViewModel
     {
-        [EnumDataType(typeof(ContactOption), ErrorMessage = "Choose a reason for contacting us")]
-        public ContactOption? ContactOptionType { get; set; }
+        public ContactUsOption ContactUsOption { get; set; }
+
+        public string Title { get; set; }
     }
 }

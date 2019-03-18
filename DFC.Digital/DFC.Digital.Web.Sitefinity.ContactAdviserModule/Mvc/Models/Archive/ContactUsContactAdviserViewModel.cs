@@ -6,15 +6,9 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
-    public class ContactUsFeedbackViewModel
+    public class ContactUsContactAdviserViewModel
     {
         public ContactOption ContactOption { get; set; }
-
-        [EnumDataType(typeof(FeedbackQuestionType), ErrorMessage = "Choose a reason for your feedback")]
-        public FeedbackQuestionType FeedbackQuestionType { get; set; }
-
-        [Required(ErrorMessage = "Enter a message describing the issue")]
-        public string Message { get; set; }
 
         public string MessageLabel { get; set; }
 

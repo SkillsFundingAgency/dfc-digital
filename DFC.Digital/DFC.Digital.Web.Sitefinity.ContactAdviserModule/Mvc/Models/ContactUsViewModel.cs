@@ -80,6 +80,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public DateTime DateOfBirth { get; set; }
 
+        public string PageTitle { get; set; }
+
+        public string PageIntroduction { get; set; }
+
+        public string PageIntroductionTwo { get; set; }
+
         public FormState FormState { get; set; }
 
         public string FormStateValue { get; set; }

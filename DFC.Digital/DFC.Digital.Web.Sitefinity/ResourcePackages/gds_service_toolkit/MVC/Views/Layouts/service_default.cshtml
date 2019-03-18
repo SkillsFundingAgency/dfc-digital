@@ -32,7 +32,7 @@
     <!-- End Google Tag Manager -->
 
 
-    @Html.StyleSheet(Html.GetLocationAssetFileAndVersion(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/main.min.css")))
+    @Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/main.min.css")))
 
 
 
@@ -51,7 +51,7 @@
     <link rel="apple-touch-icon" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-apple-touch-icon.png">
 
     <!--[if !IE 8]><!-->
-    @Html.StyleSheet(Html.GetLocationAssetFileAndVersion(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/govuk.min.css")))
+    @Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/govuk.min.css")))
 
     <!--<![endif]-->
     <!--[if IE 8]>
@@ -88,7 +88,7 @@
     </div>
     @Html.SfPlaceHolder("ServiceFooter")
 
-    @Html.Script(Html.GetLocationAssetFileAndVersion(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/all.js")))
+    @Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/all.js")))
 
     <script type="text/javascript">
         window.GOVUKFrontend.initAll();

@@ -76,7 +76,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactUsSelectOptionViewModel model)
+        public ActionResult Index(ContactOptionsViewModel model)
         {
             if (ModelState.IsValid)
             {

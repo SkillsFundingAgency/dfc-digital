@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace DFC.Digital.Data.Model
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class PersonalContactDetails
     {

@@ -49,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             //Assign
             A.CallTo(() => fakeSessionStorage.Get())
                 .Returns(validSessionVm
-                ? new ContactUsSelectOptionViewModel { ContactOptionType = contactOption }
+                ? new ContactOptionsViewModel { ContactOptionType = contactOption }
                 : null);
             var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeSessionStorage);
 
@@ -73,9 +73,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         {
             //Assign
             var postModel = modelStateValid
-                ? new ContactUsSelectOptionViewModel
+                ? new ContactOptionsViewModel
                 {
-                    ContactOptionType = nameof(ContactUsSelectOptionViewModel.ContactOptionType)
+                    ContactOptionType = nameof(ContactOptionsViewModel.ContactOptionType)
                 }
                 : new ContactUsViewModel();
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             if (modelStateValid && contactOptionSelected == "ContactAdviser")
             {
                 controllerResult.ShouldRenderView("ContactAdviser")
-                    .WithModel<ContactUsContactAdviserViewModel>(vm =>
+                    .WithModel<ContactAdviserViewModel>(vm =>
                     {
                         vm.SelectOption.Should().Be(validSubmission);
                     });
@@ -105,7 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             else if (modelStateValid && contactOptionSelected == "Feedback")
             {
                 controllerResult.ShouldRenderView("Feedback")
-                    .WithModel<ContactUsFeedbackViewModel>(vm =>
+                    .WithModel<GeneralFeedbackViewModel>(vm =>
                     {
                         vm.SelectOption.Should().Be(validSubmission);
                     });

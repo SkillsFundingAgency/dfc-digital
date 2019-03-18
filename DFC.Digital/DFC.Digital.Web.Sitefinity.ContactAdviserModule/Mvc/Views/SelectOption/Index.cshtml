@@ -1,28 +1,28 @@
 ﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 @using DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
-@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsSelectOptionViewModel
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactOptionsViewModel
 
+@Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))
 {
-    @Html.Partial("ErrorSummary")
-    <div class="govuk-form-group" @Html.GetErrorClass(nameof(Model.ContactOptionType), ViewData.ModelState)>
+    <div class="govuk-form-group" @Html.GetErrorClass(nameof(Model.ContactUsOption.ContactOptionType), ViewData.ModelState)>
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                 <h1 class="govuk-fieldset__heading">@Model.Title</h1>
             </legend>
             <div class="govuk-radios">
-                @Html.ValidationMessageFor(model => model.ContactOptionType, null, new { @class = "govuk-error-message" })
+                @Html.ValidationMessageFor(model => model.ContactUsOption.ContactOptionType, null, new { @class = "govuk-error-message" })
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOptionType, "ContactAdviser", new { @class = "govuk-radios__input", name = "whyContactUs", id = "contactAdviser" })
-                    @Html.LabelFor(model => model.ContactOptionType, " Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.ContactAdviser, new { @class = "govuk-radios__input", name = "whyContactUs", id = "contactAdviser" })
+                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, " Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
                 </div>
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOptionType, "Technical", new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
-                    @Html.LabelFor(model => model.ContactOptionType, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.Technical, new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
+                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
                 </div>
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOptionType, "Feedback", new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
-                    @Html.LabelFor(model => model.ContactOptionType, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.Feedback, new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
+                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
                 </div>
             </div>
         </fieldset>

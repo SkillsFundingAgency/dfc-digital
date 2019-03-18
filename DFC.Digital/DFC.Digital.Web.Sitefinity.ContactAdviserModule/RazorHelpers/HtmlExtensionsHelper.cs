@@ -13,6 +13,5 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
 
             return string.Empty;
         }
-
     }
 }

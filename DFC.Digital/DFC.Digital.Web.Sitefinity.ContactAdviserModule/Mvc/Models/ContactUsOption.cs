@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DFC.Digital.Data.Model
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ContactUsOption
     {

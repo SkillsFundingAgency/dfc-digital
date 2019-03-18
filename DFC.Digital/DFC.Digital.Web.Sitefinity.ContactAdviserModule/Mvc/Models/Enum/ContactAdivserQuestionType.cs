@@ -1,4 +1,4 @@
-﻿namespace DFC.Digital.Data.Model
+﻿namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public enum ContactAdivserQuestionType
     {

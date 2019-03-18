@@ -7,7 +7,7 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
-    public class ContactUsSelectOptionViewModel
+    public class ContactOptionsViewModel
     {
         public ContactUsOption ContactUsOption { get; set; }
 

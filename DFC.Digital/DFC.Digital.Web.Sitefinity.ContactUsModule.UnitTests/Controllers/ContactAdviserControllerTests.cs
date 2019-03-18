@@ -49,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             //Assign
             A.CallTo(() => fakeSessionStorage.Get())
                 .Returns(validSessionVm
-                ? new ContactUsContactAdviserViewModel { ContactOptionType = contactOption }
+                ? new ContactAdviserViewModel { ContactOptionType = contactOption }
                 : null);
             var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeSessionStorage);
 
@@ -73,9 +73,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
         {
             //Assign
             var postModel = modelStateValid
-                ? new ContactUsContactAdviserViewModel
+                ? new ContactAdviserViewModel
                 {
-                    ContactOptionType = nameof(ContactUsContactAdviserViewModel.ContactOptionType)
+                    ContactOptionType = nameof(ContactAdviserViewModel.ContactOptionType)
                 }
                 : new ContactUsViewModel();
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             if (modelStateValid && contactOptionSelected == "ContactAdviser")
             {
                 controllerResult.ShouldRenderView("ContactAdviser")
-                    .WithModel<ContactUsContactAdviserViewModel>(vm =>
+                    .WithModel<ContactAdviserViewModel>(vm =>
                     {
                         vm.ContactAdviser.Should().Be(validSubmission);
                     });
@@ -105,7 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             else if (modelStateValid && contactOptionSelected == "Feedback")
             {
                 controllerResult.ShouldRenderView("Feedback")
-                    .WithModel<ContactUsFeedbackViewModel>(vm =>
+                    .WithModel<GeneralFeedbackViewModel>(vm =>
                     {
                         vm.ContactAdviser.Should().Be(validSubmission);
                     });

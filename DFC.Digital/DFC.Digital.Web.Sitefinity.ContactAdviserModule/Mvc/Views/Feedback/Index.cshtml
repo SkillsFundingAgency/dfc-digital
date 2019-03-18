@@ -1,115 +1,56 @@
-﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsViewModel
+﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
+@using DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.GeneralFeedbackViewModel
 
-
-    <form action="@Model.NextPageUrl" method="post" id="continueForm">
-        @if (ViewData.ModelState.Values.Any(x => x.Errors.Count > 0))
-        {
-            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
-                <h2 class="govuk-error-summary__title" id="error-summary-title">
-                    There is a problem
-                </h2>
-                <div class="govuk-error-summary__body">
-                    <ul class="govuk-list govuk-error-summary__list">
-                        <li>
-                            <a href="#category-error">Choose what your query is about</a>
-                        </li>
-                        <li>
-                            <a href="#more-detail-error">Enter a message with your query</a>
-                        </li>
-                    </ul>
+@Html.Partial("ErrorSummary")
+@using (Html.BeginForm("index", "Feedback", FormMethod.Post, new { id = "form-contact-adviser" }))
+{
+    <div class="govuk-form-group" @Html.GetErrorClass(nameof(Model.GeneralFeedback.FeedbackQuestionType), ViewData.ModelState)>
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+            </legend>
+            <div class="govuk-radios">
+                @Html.ValidationMessageFor(model => model.GeneralFeedback.FeedbackQuestionType, null, new { @class = "govuk-error-message" })
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.Careers, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.Qualifications, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.CourseSearch, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Courses", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.Funding, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.Website, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Website", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.CustomerService, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Customer service", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.GeneralFeedback.FeedbackQuestionType, FeedbackQuestionType.General, new { @class = "govuk-radios__input", name = "feedbackQueryCategory" })
+                    @Html.LabelFor(model => model.GeneralFeedback.FeedbackQuestionType, "Something else", new { @class = "govuk-label govuk-radios__label" })
                 </div>
             </div>
-        }
-
-        @*  Hidden field to manage the type of form we are sending to next page*@
-        @Html.HiddenFor(model => model.SelectOption.ContactOptionType, "Feedback")
-
-        <div class="govuk-radios">
-            <label class="form-label" for="select-box">What do you want to tell us about?</label>
-        </div>
-        @Html.ValidationMessageFor(model => model.FeedbackQuestionType, null, new { @class = "govuk-error-message" })
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "General")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "General", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Funding")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Qualifications")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Course Search")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Course Search", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Technical Support")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Technical Support", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Website")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Website", new { @class= "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-radios">
-            <div class="govuk-radios__item">
-                @Html.RadioButtonFor(model => model.FeedbackQuestionType, "Customer Service")
-
-                @Html.LabelFor(model => model.FeedbackQuestionType, "Customer Service", new { @class = "govuk-label govuk-radios__label" })
-            </div>
-        </div>
-
-        <div class="govuk-form-group">
-            <h2 class="heading-large">Feedback</h2>
-            <p>Give as much information as you can. Tell us about the parts of the service you visited and what you thought of them.</p>
-
-            @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
-            @Html.LabelFor(model => model.Message, "Enter your feedback in the box below. If you're commenting on particular pages, list them.", new { @class = "form-label" })
-            <span class="form-hint">Do not include any personal or sign in information.</span>
-            @Html.TextAreaFor(model => model.Message, new { @class = "form-control form-control-3-4", maxlength = 255, rows = "5", required = "required", type = "text", name = "textarea", id = "textarea" })
-            <p class="govuk-!-font-size-16">Character limit is 1000.</p>
-        </div>
-
-
-
-        <div class="govuk-form-group">
-            <h2 class="heading-large">Terms and conditions</h2>
-            <div class="govuk-radios__item">
-                @Html.CheckBoxFor(@model => model.TermsAndConditions, new { @class = "form-control", name = "contact-by-text-phone", id = "checkbox-telephone-number", type="checkbox", value
-           ="true"})
-                <label for="checkbox-telephone-number">I accept the <a href="#">terms and conditions</a> and I am 13 or over</label>
-            </div>
-        </div>
-
-        <div class="govuk-form-group">
-
-            <button type="submit" id="send-feedback-details" class="button">Send</button>
-
-        </div>
-    </form>
-
+        </fieldset>
+    </div>
+    <div class="govuk-form-group">
+        @Html.LabelFor(model => model.GeneralFeedback.Feedback, new { @class = "form-label" })
+        <span class="form-hint">@Model.Hint</span>
+        @Html.ValidationMessageFor(model => model.GeneralFeedback.Feedback, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(model => model.GeneralFeedback.Feedback, new { @class = "form-control form-control-3-4", rows = "5", type = "text" })
+        <p class="govuk-!-font-size-16">@Model.CharacterLimit</p>
+    </div>
+    <div class="govuk-form-group">
+        <button type="submit" id="send-feedback-details" class="button">Send</button>
+    </div>
+}

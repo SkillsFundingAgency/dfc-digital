@@ -66,17 +66,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactUsTechnicalViewModel()
-            {
-              ContactOption = ContactOption.Technical,
-              NextPageUrl = this.NextPageUrl,
-              Title = this.Title,
-              MessageLabel = this.MessageLabel,
-              PageIntroduction = this.PageIntroduction,
-              PersonalInformation = this.PersonalInformation,
-              CharacterLimit = this.CharacterLimit
-            };
-            return View("Index", model);
+            var model = new ContactUsTechnicalViewModel();
+            return View("Index", AddWidgetPropertyFields(model));
         }
 
         [HttpPost]
@@ -90,10 +81,22 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect(NextPageUrl);
             }
 
-            model.Message += " After post back";
-            return View("Index", model);
+            //Put the non bound data fields back
+            return View("Index", AddWidgetPropertyFields(model));
+
+            #endregion Actions
         }
 
-        #endregion Actions
+        private ContactUsTechnicalViewModel AddWidgetPropertyFields(ContactUsTechnicalViewModel model)
+        {
+            model.ContactOption = ContactOption.Technical;
+            model.NextPageUrl = this.NextPageUrl;
+            model.Title = this.Title;
+            model.MessageLabel = this.MessageLabel;
+            model.PageIntroduction = this.PageIntroduction;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
+            return model;
+        }
     }
 }

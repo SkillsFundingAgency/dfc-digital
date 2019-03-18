@@ -58,7 +58,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel
+            {
+                NextPageUrl = NextPageUrl,
+                Title = Title
+            };
+            return View("Index", model);
         }
 
         /// <summary>

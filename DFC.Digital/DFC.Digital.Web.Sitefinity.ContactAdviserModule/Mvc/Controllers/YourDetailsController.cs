@@ -93,6 +93,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", viewModel);
         }
 
+        [HttpPost]
+        public ActionResult Index(ContactUsTechnicalViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("ThankYouPage", new ContactUsResultViewModel { Success = true });
+            }
+
+            return View("Index", viewModel);
+        }
+
         private DateTime DoCustomValidation(ContactUsViewModel viewModel)
         {
             var dateOfBirthDay = viewModel.DobDay;

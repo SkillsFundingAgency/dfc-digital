@@ -16,7 +16,7 @@
             var technicalIndex = new _MVC_Views_Technical_Index_cshtml();
             var contactUsTechnicalViewModel = new ContactUsTechnicalViewModel()
             {
-                Message = "Dummy message",
+                TechnicalFeedback = new Data.Model.TechnicalFeedback() { Message = "Dummy message" },
                 Title = "Dummy Title",
                 PageIntroduction = "Dummy Intro",
                 PersonalInformation = "Dummy Personal",
@@ -44,7 +44,7 @@
             personalInformation.InnerText.Should().Be(contactUsTechnicalViewModel.PersonalInformation);
 
             var message = htmlDocument.DocumentNode.SelectNodes("//textarea").Where(d => d.GetAttributeValue("name", string.Empty).Equals("Message")).FirstOrDefault();
-            message.InnerText.Should().Contain(contactUsTechnicalViewModel.Message);
+            message.InnerText.Should().Contain(contactUsTechnicalViewModel.TechnicalFeedback.Message);
         }
     }
 }

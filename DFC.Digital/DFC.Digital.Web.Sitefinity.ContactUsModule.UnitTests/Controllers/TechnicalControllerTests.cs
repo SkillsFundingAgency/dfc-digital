@@ -57,7 +57,7 @@
         {
             //Set up
             var technicalController = new TechnicalController(fakeApplicationLogger, fakeMapper, fakeSessionStorage);
-            var contactUsTechnicalViewModel = new ContactUsTechnicalViewModel() { Message = "Dummy message" };
+            var contactUsTechnicalViewModel = new ContactUsTechnicalViewModel() { TechnicalFeedback = new Data.Model.TechnicalFeedback() { Message = "Dummy message" } };
             var dummyErrorKey = "dummyErrorKey";
 
             //if its not valid fake an error
@@ -79,7 +79,6 @@
                 indexMethodCallResult.ShouldRenderDefaultView()
                     .WithModel<ContactUsTechnicalViewModel>(vm =>
                     {
-                        vm.ContactOption.Should().Be(ContactOption.Technical);
                         vm.CharacterLimit.Should().Be(technicalController.CharacterLimit);
                         vm.MessageLabel.Should().Be(technicalController.MessageLabel);
                         vm.PageIntroduction.Should().Be(technicalController.PageIntroduction);

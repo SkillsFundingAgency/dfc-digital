@@ -48,17 +48,17 @@
     @Html.Section("bottom")
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
-        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/jquerybundle.min.js")), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/jquerybundle.min.js"), "bottom")
     }
-    @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/govuksel.min.js")), "bottom")
+    @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/govuksel.min.js"), "bottom")
 
     @if (Html.IsDebugSymbol())
     {
-        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/src/frontend/js/dfcdigital.js")), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/assets/src/frontend/js/dfcdigital.js"), "bottom")
     }
     else
     {
-        @Html.Script(@Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_toolkit/assets/dist/js/dfcdigital.min.js")), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/dfcdigital.min.js"), "bottom")
     }
     <script type="text/javascript">
         var appInsights = window.appInsights || function (a) {

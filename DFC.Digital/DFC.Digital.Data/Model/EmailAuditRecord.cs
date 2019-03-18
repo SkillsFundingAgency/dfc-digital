@@ -2,11 +2,11 @@
 
 namespace DFC.Digital.Data.Model
 {
-    public class EmailAuditRecord
+    public class EmailAuditRecord<T>
     {
         public Exception Exception { get; set; }
 
-        public ContactUsRequest ContactUsRequest { get; set; }
+        public T Request { get; set; }
 
         public SendEmailResponse SendEmailResponse { get; set; }
 

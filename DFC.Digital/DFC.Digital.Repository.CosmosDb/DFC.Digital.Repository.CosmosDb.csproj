@@ -119,6 +119,7 @@
     <Compile Include="CourseSearchAuditRepository.cs" />
     <Compile Include="CosmosDbAutofacModule.cs" />
     <Compile Include="EmailAuditRepository.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

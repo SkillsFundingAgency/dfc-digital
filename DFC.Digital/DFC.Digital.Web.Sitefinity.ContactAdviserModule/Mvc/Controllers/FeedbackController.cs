@@ -1,6 +1,6 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -18,17 +18,34 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class FeedbackController : BaseDfcController
     {
         #region Private Fields
+
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
 
         #endregion Private Fields
 
+        #region Properties
+
+        [DisplayName("Next page")]
+        public string NextPage { get; set; } = "/contact-us/your-details/";
+
+        #endregion Properties
+
         #region Constructors
 
-        public FeedbackController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public FeedbackController(
+            IEmailTemplateRepository emailTemplateRepository,
+            ISitefinityCurrentContext sitefinityCurrentContext,
+            IApplicationLogger applicationLogger,
+            IMapper mapper,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
+            this.mapper = mapper;
+            this.sessionStorage = sessionStorage;
         }
 
         #endregion Constructors
@@ -71,9 +88,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var mappedModel = mapper.Map(model, sessionStorage.Get());
+                sessionStorage.Save(mappedModel);
+
+                return Redirect($"{NextPage}?contactOption={model.ContactOption}");
+            }
+
             return View("Index", model);
         }
-
 
         #endregion Actions
     }

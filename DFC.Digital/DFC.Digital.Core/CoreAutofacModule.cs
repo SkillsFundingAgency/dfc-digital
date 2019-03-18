@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using DFC.Digital.Core.Configuration;
 using DFC.Digital.Core.Interceptors;
@@ -22,6 +23,12 @@ namespace DFC.Digital.Core
             //Register Interceptors
             builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.Name).InstancePerLifetimeScope();
             builder.RegisterType<ExceptionInterceptor>().AsSelf().Named<IInterceptor>(ExceptionInterceptor.Name).InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(HttpSessionStorage<>))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

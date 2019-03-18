@@ -1,5 +1,6 @@
 ﻿namespace DFC.Digital.Core
 {
+    //Reason to exlude is because these are constants not code with logic
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class Constants
     {
@@ -40,6 +41,7 @@
         public const string SearchServiceQueryAPIKey = "DFC.Digital.SearchServiceQueryAPIKey";
         public const string SearchServiceAdminAPIKey = "DFC.Digital.SearchServiceAdminAPIKey";
         public const string BackEndDateTimeFormat = "dd MMM yyyy HH:mm:ss";
+        public const string CDNLocation = "DFC.Digital.CDNLocation";
         public const string SimulationSuccessEmailAddress = "DFC.Digital.SimulationSuccessEmailAddress";
         public const string SimulationFailureEmailAddress = "DFC.Digital.SimulationFailureEmailAddress";
         public const string CosmosDbName = "DFC.Digital.CosmosDb.Name";

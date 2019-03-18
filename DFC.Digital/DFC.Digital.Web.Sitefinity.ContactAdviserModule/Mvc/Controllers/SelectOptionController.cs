@@ -20,15 +20,21 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Private Fields
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public SelectOptionController(IWebAppContext webAppContextFake, IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public SelectOptionController(
+            IEmailTemplateRepository emailTemplateRepository,
+            ISitefinityCurrentContext sitefinityCurrentContext,
+            IApplicationLogger applicationLogger,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
+            this.sessionStorage = sessionStorage;
         }
 
         #endregion Constructors
@@ -37,6 +43,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Why would you like to contact us?";
+
+        [DisplayName("Relative page url to general feedback")]
+        public string GeneralFeedbackPage { get; set; } = "/contact-us/feedback/";
+
+        [DisplayName("Relative page url to technical feedback")]
+        public string TechnicalFeedbackPage { get; set; } = "/contact-us/technical/";
+
+        [DisplayName("Relative page url to contact an adviser")]
+        public string ContactAdviserPage { get; set; } = "/contact-us/contact-adviser/";
 
         #endregion Public Properties
 
@@ -53,10 +68,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             var model = new ContactUsViewModel
             {
-                Title = Title,
-                FormStateValue = FormState.SelectOptionForm.ToString()
-
+                Title = Title
             };
+
             return View("Index", model);
         }
 
@@ -68,27 +82,25 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactUsViewModel model)
         {
-            ModelState.Clear();
-            if (model.ContactOption == null)
-            {
-                ModelState.AddModelError("ContactOption", "Choose a reason for contacting us");
-            }
-
             if (ModelState.IsValid)
             {
+                sessionStorage.Save(model);
                 switch (model.ContactOption)
                 {
                     case ContactOption.Technical:
-                        return Redirect("/contact-us/technical/");
+                        return Redirect(TechnicalFeedbackPage);
+                    case ContactOption.ContactAdviser:
+                        return Redirect(ContactAdviserPage);
                     case ContactOption.Feedback:
-                        return Redirect("/contact-us/feedback/");
+                        return Redirect(GeneralFeedbackPage);
                     default:
-                        return Redirect("/contact-us/contact-adviser/");
+                        return View("Index", model);
                 }
             }
 
             return View("Index", model);
         }
+
 
         #endregion Actions
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DFC.Digital.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,15 +7,9 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
-    public class ContactUsContactAdviserViewModel
+    public class ContactUsFeedbackViewModel
     {
-        public ContactOption ContactOption { get; set; }
-
-        [EnumDataType(typeof(ContactAdivserQuestionType), ErrorMessage = "Choose what your query is about")]
-        public ContactAdivserQuestionType ContactAdviserQuestionType { get; set; }
-
-        [Required(ErrorMessage = "Enter a message describing the issue")]
-        public string Message { get; set; }
+        public GeneralFeedback GeneralFeedback { get; set; }
 
         public string MessageLabel { get; set; }
 

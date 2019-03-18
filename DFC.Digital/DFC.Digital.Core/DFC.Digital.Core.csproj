@@ -136,6 +136,7 @@
     <Compile Include="Interfaces\IAsyncHelper.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
     <Compile Include="Utilities\HttpSessionStorage{T}.cs" />
+    <Compile Include="Utilities\RegexPatterns.cs" />
     <Compile Include="Utilities\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>

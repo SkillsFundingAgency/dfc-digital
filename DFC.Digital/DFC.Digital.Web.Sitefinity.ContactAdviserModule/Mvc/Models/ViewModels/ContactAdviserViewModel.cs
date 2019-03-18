@@ -6,10 +6,10 @@
 
         public string Hint { get; set; }
 
-        public string NextPageUrl { get; set; }
-
-        public string CharacterLimitMessage { get; set; }
-
         public ContactAnAdviserFeedback ContactAnAdviserFeedback { get; set; }
+
+        public string CharacterLimit { get; set; }
+
+        public string NextPageUrl { get; set; }
     }
 }

@@ -97,7 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             else if (modelStateValid && contactOptionSelected == "Technical")
             {
                 controllerResult.ShouldRenderView("Technical")
-                    .WithModel<ContactUsTechnicalViewModel>(vm =>
+                    .WithModel<TechnicalFeedbackViewModel>(vm =>
                     {
                         vm.SelectOption.Should().Be(validSubmission);
                     });

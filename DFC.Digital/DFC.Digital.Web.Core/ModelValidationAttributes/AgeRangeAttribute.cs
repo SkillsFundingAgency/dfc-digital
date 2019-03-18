@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Core
         {
             var rule = new ModelClientValidationRule()
             {
-                ErrorMessage = String.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
+                ErrorMessage = string.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
                 ValidationType = "agerange",
             };
             var dates = new List<string>
@@ -44,8 +44,8 @@ namespace DFC.Digital.Web.Core
                                         InvalidErrorMessage
                                     };
 
-            rule.ValidationParameters.Add("dates", dates.ToConcatenatedString(" "));
-            rule.ValidationParameters.Add("errormessages", errorMessages.ToConcatenatedString());
+            rule.ValidationParameters.Add("dates", string.Join(" ", dates));
+            rule.ValidationParameters.Add("errormessages", string.Join(",", errorMessages));
             yield return rule;
         }
 

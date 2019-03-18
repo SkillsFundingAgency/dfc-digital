@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
-    public enum FeedbackQuestionType
+    public enum ContactAdivserQuestionType
     {
         [Display(Name = "Careers", Order = 1)]
         Careers,

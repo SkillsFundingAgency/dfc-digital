@@ -6,7 +6,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
     {
         [Required(ErrorMessage = "Enter a message describing the issue")]
         [StringLength(1000, ErrorMessage = "Feedback too long (max. 1000)")]
-        [Display(Name = "Enter your feedback in the box below. If you're commenting on particular pages, list them.")]
+        [Display(Name = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.")]
         public string Message { get; set; }
     }
 }

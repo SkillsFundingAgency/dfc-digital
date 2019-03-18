@@ -109,7 +109,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(ContactUsTechnicalViewModel viewModel)
+        public ActionResult Index(TechnicalFeedbackViewModel viewModel)
         {
             if (ModelState.IsValid)
             {

@@ -38,7 +38,7 @@
 
             //Assert
             indexMethodCallResult.ShouldRenderDefaultView()
-               .WithModel<ContactUsTechnicalViewModel>(vm =>
+               .WithModel<TechnicalFeedbackViewModel>(vm =>
                {
                    vm.ContactOption.Should().Be(ContactOption.Technical);
                    vm.CharacterLimit.Should().Be(technicalController.CharacterLimit);
@@ -57,7 +57,7 @@
         {
             //Set up
             var technicalController = new TechnicalController(fakeApplicationLogger, fakeMapper, fakeSessionStorage);
-            var contactUsTechnicalViewModel = new ContactUsTechnicalViewModel() { TechnicalFeedback = new Data.Model.TechnicalFeedback() { Message = "Dummy message" } };
+            var contactUsTechnicalViewModel = new TechnicalFeedbackViewModel() { TechnicalFeedback = new Data.Model.TechnicalFeedback() { Message = "Dummy message" } };
             var dummyErrorKey = "dummyErrorKey";
 
             //if its not valid fake an error
@@ -67,7 +67,7 @@
             }
 
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUsViewModel());
-            A.CallTo(() => fakeMapper.Map(A<ContactUsTechnicalViewModel>._, A<ContactUsViewModel>._)).Returns(new ContactUsViewModel());
+            A.CallTo(() => fakeMapper.Map(A<TechnicalFeedbackViewModel>._, A<ContactUsViewModel>._)).Returns(new ContactUsViewModel());
             A.CallTo(() => fakeSessionStorage.Save(A<ContactUsViewModel>._)).DoesNothing();
 
             //Act
@@ -77,7 +77,7 @@
             if (!validSubmission)
             {
                 indexMethodCallResult.ShouldRenderDefaultView()
-                    .WithModel<ContactUsTechnicalViewModel>(vm =>
+                    .WithModel<TechnicalFeedbackViewModel>(vm =>
                     {
                         vm.CharacterLimit.Should().Be(technicalController.CharacterLimit);
                         vm.MessageLabel.Should().Be(technicalController.MessageLabel);

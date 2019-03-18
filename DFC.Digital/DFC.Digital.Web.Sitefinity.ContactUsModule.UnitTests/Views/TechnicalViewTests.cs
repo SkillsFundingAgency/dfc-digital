@@ -14,7 +14,7 @@
         {
             // Arrange
             var technicalIndex = new _MVC_Views_Technical_Index_cshtml();
-            var contactUsTechnicalViewModel = new ContactUsTechnicalViewModel()
+            var contactUsTechnicalViewModel = new TechnicalFeedbackViewModel()
             {
                 TechnicalFeedback = new Data.Model.TechnicalFeedback() { Message = "Dummy message" },
                 Title = "Dummy Title",

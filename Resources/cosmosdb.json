@@ -1,9 +1,11 @@
 ﻿{
-	"DatabaseName": "CourseSearch",
+	"DatabaseName": "dfc-digital-audit",
 	"Collections": [
     {
-      "CollectionName": "AuditRecords ",
-      "OfferThroughput": 500,
+      "CollectionName": "CourseSearchAudit",
+      "OfferThroughput": __CourseSearchAuditRecordsRu__,
+			"PartitionKey": "/Data.CourseListRequest.CourseSearchCriteria.SubjectKeyword",
+      "DefaultTtl": 1296000,
       "IndexingPolicy": {
         "indexingMode": "consistent",
         "automatic": true,
@@ -20,6 +22,42 @@
                 "kind": "Range",
                 "dataType": "String",
                 "precision": -1
+              },
+              {
+                "kind": "Spatial",
+                "dataType": "Point"
+              }
+            ]
+          }
+        ],
+        "excludedPaths": []
+      }
+    },
+    {
+      "CollectionName": "ContactUsResponses",
+      "OfferThroughput": __ContactUsResponsesRecordsRu__,
+			"PartitionKey": "/Data.EmailTemplate.TemplateName",
+      "DefaultTtl": 1296000,
+      "IndexingPolicy": {
+        "indexingMode": "consistent",
+        "automatic": true,
+        "includedPaths": [
+          {
+            "path": "/*",
+            "indexes": [
+              {
+                "kind": "Range",
+                "dataType": "Number",
+                "precision": -1
+              },
+              {
+                "kind": "Range",
+                "dataType": "String",
+                "precision": -1
+              },
+              {
+                "kind": "Spatial",
+                "dataType": "Point"
               }
             ]
           }

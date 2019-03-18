@@ -83,6 +83,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -102,12 +103,13 @@
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
-    <Compile Include="Interfaces\IAuditEmailRepository.cs" />
+    <Compile Include="Interfaces\IAssetLocationAndVersion.cs" />
+    <Compile Include="Interfaces\IAuditNonCitizenEmailRepository.cs" />
     <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IMergeEmailContent.cs" />
+    <Compile Include="Interfaces\INonCitizenEmailService{T}.cs" />
     <Compile Include="Interfaces\IRecycleBinRepository.cs" />
     <Compile Include="Interfaces\ISearchManipulator.cs" />
-    <Compile Include="Interfaces\ISendEmailService.cs" />
     <Compile Include="Interfaces\ISimulateEmailResponses.cs" />
     <Compile Include="Interfaces\ISocMappingRepository.cs" />
     <Compile Include="Interfaces\ISocSkillMatrixRepository.cs" />
@@ -172,7 +174,6 @@
     <Compile Include="Model\RelatedSkillMapping.cs" />
     <Compile Include="Model\ContactUsRequest.cs" />
     <Compile Include="Model\SendEmailResponse.cs" />
-    <Compile Include="Model\SimulateEmailResponse.cs" />
     <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />

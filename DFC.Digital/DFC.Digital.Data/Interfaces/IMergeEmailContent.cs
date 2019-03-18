@@ -6,7 +6,5 @@ namespace DFC.Digital.Data.Interfaces
         where T : class
     {
         string MergeTemplateBodyWithContent(T sendEmailRequest, string content);
-
-        string MergeTemplateBodyWithContentWithHtml(T sendEmailRequest, string content);
     }
 }

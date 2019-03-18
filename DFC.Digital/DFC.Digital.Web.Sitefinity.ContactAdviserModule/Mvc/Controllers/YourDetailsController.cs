@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -19,17 +20,26 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields
-        private readonly ISendEmailService<ContactUsRequest> sendEmailService;
+        private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public YourDetailsController(IApplicationLogger applicationLogger, ISendEmailService<ContactUsRequest> sendEmailService, IAsyncHelper asyncHelper) : base(applicationLogger)
+        public YourDetailsController(
+            IApplicationLogger applicationLogger,
+            INoncitizenEmailService<ContactUsRequest> sendEmailService,
+            IAsyncHelper asyncHelper,
+            IMapper mapper,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
+            this.mapper = mapper;
+            this.sessionStorage = sessionStorage;
         }
         #endregion Constructors
 
@@ -41,26 +51,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(ContactOption contactOption = ContactOption.Feedback)
         {
-            return YourDetails(new ContactUsViewModel());
-        }
-
-        /// <summary>
-        /// Updates the form and sends the data to next form.
-        /// </summary>
-        /// <param name="model">The Email Template model.</param>
-        /// <returns>ActionResult</returns>
-        [HttpPost]
-        public ActionResult YourDetails(ContactUsViewModel model)
-        {
-            return View("Index", model);
+            var data = sessionStorage.Get();
+            var model = data ?? new ContactUsViewModel
+            {
+                ContactOption = contactOption
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -87,10 +86,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     FeedbackQuestionType = viewModel.FeedbackQuestionType.ToString()
                 }));
 
-                return View("ThankYouPage", new ContactUsResultViewModel { Success = result.Success, Message = result.Success ? SuccessMessage : FailureMessage });
+                return View("ThankYou", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
             }
 
-            return View("Index", viewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -106,37 +105,41 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private DateTime DoCustomValidation(ContactUsViewModel viewModel)
         {
-            var dateOfBirthDay = viewModel.DobDay;
-            var dateOfBirthMonth = viewModel.DobMonth;
-            var dateOfBirthYear = viewModel.DobYear;
-
-            var enGb = new CultureInfo("en-GB");
-            var dob = string.Empty;
-            if (!string.IsNullOrEmpty(dateOfBirthDay) && !string.IsNullOrEmpty(dateOfBirthMonth) &&
-                !string.IsNullOrEmpty(dateOfBirthYear))
+            if (viewModel.ContactOption == ContactOption.ContactAdviser)
             {
-                dob =
-                    $"{dateOfBirthDay.PadLeft(2, '0')}/{dateOfBirthMonth.PadLeft(2, '0')}/{dateOfBirthYear.PadLeft(4, '0')}";
-            }
+                var dateOfBirthDay = viewModel.DobDay;
+                var dateOfBirthMonth = viewModel.DobMonth;
+                var dateOfBirthYear = viewModel.DobYear;
 
-            if (DateTime.TryParseExact(dob, "dd/MM/yyyy", enGb, DateTimeStyles.AdjustToUniversal, out var dateOfBirth))
-            {
-                if (DateTime.Now.Year - dateOfBirth.Year < 13)
+                var enGb = new CultureInfo("en-GB");
+                var dob = string.Empty;
+                if (!string.IsNullOrEmpty(dateOfBirthDay) && !string.IsNullOrEmpty(dateOfBirthMonth) &&
+                    !string.IsNullOrEmpty(dateOfBirthYear))
                 {
-                    ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "You must 13 years or over");
+                    dob =
+                        $"{dateOfBirthDay.PadLeft(2, '0')}/{dateOfBirthMonth.PadLeft(2, '0')}/{dateOfBirthYear.PadLeft(4, '0')}";
                 }
+
+                if (DateTime.TryParseExact(dob, "dd/MM/yyyy", enGb, DateTimeStyles.AdjustToUniversal, out var dateOfBirth))
+                {
+                    if (DateTime.Now.Year - dateOfBirth.Year < 13)
+                    {
+                        ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "You must 13 years or over");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "Please enter a valid date");
+                }
+
+                return dateOfBirth;
             }
             else
             {
-                ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "Please enter a valid date");
-            }
+                ModelState.Remove(nameof(ContactUsViewModel.PostCode));
 
-            if (!viewModel.TermsAndConditions)
-            {
-                ModelState.AddModelError(nameof(ContactUsViewModel.TermsAndConditions), "You must accept the terms and conditions");
+                return default(DateTime);
             }
-
-            return dateOfBirth;
         }
 
         #endregion Actions

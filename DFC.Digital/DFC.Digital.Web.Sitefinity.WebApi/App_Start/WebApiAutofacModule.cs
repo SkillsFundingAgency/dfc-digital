@@ -4,7 +4,7 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using DFC.Digital.Core.Interceptors;
 
-namespace DFC.Digital.Web.Sitefinity.JobProfileModule
+namespace DFC.Digital.Web.Sitefinity.WebApi
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class WebApiAutofacModule : Module
@@ -33,9 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             builder.RegisterModelBinders(ThisAssembly);
             builder.RegisterModelBinderProvider();
 
-            //builder.RegisterWebApiFilterProvider();
             builder.RegisterWebApiModelBinderProvider();
-            builder.RegisterWebApiModelBinders();
         }
     }
 }

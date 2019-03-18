@@ -246,7 +246,7 @@ namespace DFC.Digital.Service.SkillsFramework
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {allSocCodes.Count} SOCs in the Sitefinity ");
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {occupationalCodeMappings.Count()} socOccupation Code Mappings from Framework Service");
 
-            var newSOCS = allSocCodes.Where(s => !occupationalCodeMappings.Any(o=> o.SOCCode == s.SOCCode)).Where(n => n.ONetOccupationalCode != string.Empty);
+            var newSOCS = allSocCodes.Where(s => !occupationalCodeMappings.Any(o=> o.SOCCode == s.SOCCode)).Where(n => !string.IsNullOrEmpty(n.ONetOccupationalCode));
 
             reportAuditRepository.CreateAudit(SummaryDetailsKey, $"Found {newSOCS.Count()} SOCs with ONet mappings that are not already in the ONet Framework Service");
 

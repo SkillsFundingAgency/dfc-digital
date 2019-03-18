@@ -10,6 +10,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         Feedback
     }
 
+    public enum FormState
+    {
+        SelectOptionForm,
+        MessageForm,
+        YourDetailsForm
+    }
+
     public enum ContactAdivserQuestionType
     {
         Careers,
@@ -32,14 +39,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
     public class ContactUsViewModel
     {
-        [Required(ErrorMessage = "Choose a reason for contacting us")] 
-        [EnumDataType(typeof(ContactOption))]
-        public ContactOption ContactOption { get; set; }
-
-        public ContactAdivserQuestionType ContactAdivserQuestionType { get; set; }
-
-        public FeedbackQuestionType FeedbackQuestionType { get; set; }
-
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Enter your first name")]
@@ -62,10 +61,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [RegularExpression(@"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})", ErrorMessage ="Please enter a valid UK Post code")]
         public string PostCode { get; set; }
 
+        [Required(ErrorMessage = "Enter your message")]
         public string Message { get; set; }
 
         public bool IsContactable { get; set; }
-
 
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
         public bool TermsAndConditions { get; set; }
@@ -80,5 +79,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string NextPageUrl { get; set; }
 
         public DateTime DateOfBirth { get; set; }
+
+        public string PageTitle { get; set; }
+
+        public string PageIntroduction { get; set; }
+
+        public string PageIntroductionTwo { get; set; }
+
+        public FormState FormState { get; set; }
+
+        public string FormStateValue { get; set; }
     }
 }

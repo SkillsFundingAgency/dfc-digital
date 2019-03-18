@@ -294,7 +294,10 @@
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
+    <Compile Include="Mvc\Models\ContactUsContactAdviserViewModel.cs" />
+    <Compile Include="Mvc\Models\ContactUsFeedbackViewModel.cs" />
     <Compile Include="Mvc\Models\ContactUsResultViewModel.cs" />
+    <Compile Include="Mvc\Models\ContactUsSelectOptionViewModel.cs" />
     <Compile Include="Mvc\Models\ContactUsTechnicalViewModel.cs" />
     <Compile Include="Mvc\Models\ContactUsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -50,6 +50,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
+        #region Public Properties
+
+        [DisplayName("Next Page URL")]
+        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+
+        [DisplayName("Page Title")]
+        public string Title { get; set; } = " What is your feedback about?";
+
+
+        #endregion Public Properties
+
         #region Actions
 
         // GET: ContactAdviser
@@ -59,10 +70,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]
-        [RelativeRoute("")]
         public ActionResult Index()
         {
-            return View("Index");
+            var model = new ContactUsViewModel
+            {
+                NextPageUrl = NextPageUrl,
+                Title = Title
+            };
+            return View("Index", model);
         }
 
         /// <summary>
@@ -78,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPage}?contactOption={model.ContactOption}");
+                return Redirect($"{NextPage}?contactOption={model.SelectOption.ContactOptionType}");
             }
 
             return View("Index", model);

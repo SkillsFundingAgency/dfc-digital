@@ -1,6 +1,4 @@
-﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
-@using DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
-@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactOptionsViewModel
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactOptionsViewModel
 
 @Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))
@@ -12,18 +10,7 @@
             </legend>
             <div class="govuk-radios">
                 @Html.ValidationMessageFor(model => model.ContactUsOption.ContactOptionType, null, new { @class = "govuk-error-message" })
-                <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.ContactAdviser, new { @class = "govuk-radios__input", name = "whyContactUs", id = "contactAdviser" })
-                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, " Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
-                </div>
-                <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.Technical, new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
-                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
-                </div>
-                <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactUsOption.ContactOptionType, ContactOption.Feedback, new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
-                    @Html.LabelFor(model => model.ContactUsOption.ContactOptionType, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
-                </div>
+                @Html.GovUkEnumRadioButtonFor(model => model.ContactUsOption.ContactOptionType)
             </div>
         </fieldset>
     </div>

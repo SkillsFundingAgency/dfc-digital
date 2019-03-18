@@ -6,6 +6,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -44,9 +45,21 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #endregion Constructors
 
         #region Properties
+        [DisplayName("Page Title")]
+        public string PageTitle { get; set; } = "Enter your details";
+
+        [DisplayName("Page Introduction Text")]
+        public string PageIntroduction { get; set; } = "We need your details so that one of our advisers can contact you.";
+
+        [DisplayName("Page Introduction Second Text")]
+        public string PageIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
+
+        [DisplayName("Failure to Send Message")]
         public string FailureMessage { get; set; } = "Unfortunately we encountered a problem. We'll get back to you as soon as possible.";
 
+        [DisplayName("Success Message on details submission")]
         public string SuccessMessage { get; set; } = "We'll get back to you as soon as possible.";
+
         #endregion Properties
 
         #region Actions
@@ -57,7 +70,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             var data = sessionStorage.Get();
             var model = data ?? new ContactUsViewModel
             {
-                ContactOption = contactOption
+                ContactOption = contactOption,
+                PageIntroduction = PageIntroduction,
+                PageTitle = PageTitle,
+                PageIntroductionTwo = PageIntroductionTwo
             };
             return View(model);
         }

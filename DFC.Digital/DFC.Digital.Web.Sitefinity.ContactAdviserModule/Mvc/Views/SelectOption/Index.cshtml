@@ -30,10 +30,10 @@
             <!-- Error elements-->
 
             <div class="govuk-radios">
-                @Html.ValidationMessageFor(model => model.ContactOption, null, new { @class = "govuk-error-message" })
+                @Html.ValidationMessageFor(model => model.SelectOption.ContactOptionType, null, new { @class = "govuk-error-message" })
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOption, "ContactAdviser", new { @class = "govuk-radios__input", name = "whyContactUs", id = "c" })
-                    @Html.LabelFor(model => model.ContactOption, " Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.SelectOption.ContactOptionType, "ContactAdviser", new { @class = "govuk-radios__input", name = "whyContactUs", id = "c" })
+                    @Html.LabelFor(model => model.SelectOption.ContactOptionType, " Contact an adviser", new { @class = "govuk-label govuk-radios__label" })
 
                 </div>
 
@@ -41,15 +41,15 @@
 
             <div class="govuk-radios">
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOption, "Technical", new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
-                    @Html.LabelFor(model => model.ContactOption, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.SelectOption.ContactOptionType, "Technical", new { @class = "govuk-radios__input", name = "whyContactUs", id = "technical" })
+                    @Html.LabelFor(model => model.SelectOption.ContactOptionType, " Report a technical issue", new { @class = "govuk-label govuk-radios__label" })
                 </div>
             </div>
 
             <div class="govuk-radios">
                 <div class="govuk-radios__item">
-                    @Html.RadioButtonFor(model => model.ContactOption, "Feedback", new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
-                    @Html.LabelFor(model => model.ContactOption, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
+                    @Html.RadioButtonFor(model => model.SelectOption.ContactOptionType, "Feedback", new { @class = "govuk-radios__input", name = "whyContactUs", id = "feedback" })
+                    @Html.LabelFor(model => model.SelectOption.ContactOptionType, "Give feedback", new { @class = "govuk-label govuk-radios__label" })
                 </div>
             </div>
         </fieldset>

@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 sessionStorage.Save(model);
-                switch (model.ContactOption)
+                switch (model.SelectOption.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

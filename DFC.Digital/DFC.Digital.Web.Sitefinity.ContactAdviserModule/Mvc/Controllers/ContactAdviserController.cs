@@ -1,13 +1,10 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -23,16 +20,23 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Private Fields
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository, 
+            ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger,
+            IMapper mapper,
+            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
-        }
+                 this.emailTemplateRepository = emailTemplateRepository;
+                this.sitefinityCurrentContext = sitefinityCurrentContext;
+                this.mapper = mapper;
+                this.sessionStorage = sessionStorage;
+            }
 
         #endregion Constructors
 
@@ -72,8 +76,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
+        public ActionResult Index(ContactUsSelectOptionViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var mappedModel = AutoMapper.Map(model, sessionStorage.Get());
+                sessionStorage.Save(mappedModel);
+
+                return Redirect($"{NextPageUrl}?contactOption={model.ContactOptionType}");
+            }
+
             return View("Index", model);
         }
 

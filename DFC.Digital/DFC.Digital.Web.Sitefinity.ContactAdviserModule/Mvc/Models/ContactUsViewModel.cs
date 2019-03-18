@@ -39,15 +39,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
     public class ContactUsViewModel
     {
-        [EnumDataType(typeof(ContactOption), ErrorMessage = "Choose a reason for contacting us")]
-        public ContactOption? ContactOption { get; set; }
-
-        [EnumDataType(typeof(ContactAdivserQuestionType), ErrorMessage = "Choose what your query is about")]
-        public ContactAdivserQuestionType ContactAdivserQuestionType { get; set; }
-
-        [EnumDataType(typeof(FeedbackQuestionType), ErrorMessage = "Choose a reason for your feedback")]
-        public FeedbackQuestionType FeedbackQuestionType { get; set; }
-
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Enter your first name")]
@@ -75,7 +66,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public bool IsContactable { get; set; }
 
-
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
         public bool TermsAndConditions { get; set; }
 
@@ -93,7 +83,5 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public FormState FormState { get; set; }
 
         public string FormStateValue { get; set; }
-
-
     }
 }

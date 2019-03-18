@@ -22,7 +22,7 @@
         }
 
         @*  Hidden field to manage the type of form we are sending to next page*@
-        @Html.HiddenFor(model => model.ContactOption, "Feedback")
+        @Html.HiddenFor(model => model.SelectOption.ContactOptionType, "Feedback")
 
         <div class="govuk-radios">
             <label class="form-label" for="select-box">What do you want to tell us about?</label>

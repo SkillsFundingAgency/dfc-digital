@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+        public string NextPageUrl { get; set; } = "/contact-us/your-details-adviser/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Why would you like to contact us?";
@@ -76,14 +76,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactOptionsViewModel model)
+        public ActionResult Index(ContactAdviserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPageUrl}?contactOption={model.ContactUsOption}");
+                return Redirect($"{NextPageUrl}");
             }
 
             return View("Index", model);

@@ -1,0 +1,52 @@
+﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
+@using DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactAdviserViewModel
+
+@Html.Partial("ErrorSummary")
+@using (Html.BeginForm("index", "ContactAdviser", FormMethod.Post, new { id = "form-contact-adviser" }))
+{
+    <div class="govuk-form-group" @Html.GetErrorClass(nameof(Model.ContactAnAdviserFeedback.ContactAdviserQuestionType), ViewData.ModelState)>
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+            </legend>
+            <div class="govuk-radios">
+                @Html.ValidationMessageFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, null, new { @class = "govuk-error-message" })
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, ContactAdivserQuestionType.Careers, new { @class = "govuk-radios__input", name = "queryCategory" })
+                    @Html.LabelFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, "Careers", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, ContactAdivserQuestionType.Qualifications, new { @class = "govuk-radios__input", name = "queryCategory" })
+                    @Html.LabelFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, "Qualifications", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, ContactAdivserQuestionType.Findingacourse, new { @class = "govuk-radios__input", name = "queryCategory" })
+                    @Html.LabelFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, "Finding a course", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, ContactAdivserQuestionType.Generalfeedback, new { @class = "govuk-radios__input", name = "queryCategory" })
+                    @Html.LabelFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, "General feedback", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+
+                <div class="govuk-radios__item">
+                    @Html.RadioButtonFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, ContactAdivserQuestionType.Funding, new { @class = "govuk-radios__input", name = "queryCategory" })
+                    @Html.LabelFor(model => model.ContactAnAdviserFeedback.ContactAdviserQuestionType, "Funding", new { @class = "govuk-label govuk-radios__label" })
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="govuk-form-group">
+        @Html.LabelFor(model => model.ContactAnAdviserFeedback.Message, new { @class = "govuk-label" })
+        <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
+        @Html.ValidationMessageFor(model => model.ContactAnAdviserFeedback.Message, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(model => model.ContactAnAdviserFeedback.Message, new { @class = "govuk-textarea", rows = "5" })
+    </div>
+    <p class="govuk-!-font-size-16">@Model.CharacterLimitMessage</p>
+    <div class="govuk-form-group">
+        <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
+    </div>
+}

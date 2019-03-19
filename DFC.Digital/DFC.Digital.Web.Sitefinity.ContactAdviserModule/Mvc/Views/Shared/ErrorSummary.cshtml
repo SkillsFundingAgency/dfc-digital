@@ -1,4 +1,6 @@
-﻿    <div id="error-validation-summary" style="display: @(ViewData.ModelState.Values.Any(x => x.Errors.Count > 0) ? "block" :  "none")" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+﻿@if (ViewData.ModelState.Values.Any(x => x.Errors.Count > 0))
+{
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
         <h2 class="govuk-error-summary__title" id="error-summary-title">
             There is a problem
         </h2>
@@ -17,3 +19,4 @@
             </ul>
         </div>
     </div>
+}

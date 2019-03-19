@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.RazorHelpers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule
 {
     public static class HtmlExtensionsHelper
     {
-        public static string GetErrorClass(this System.Web.Mvc.HtmlHelper htmlHelper, string propertyName, ModelStateDictionary modelState)
+        public static string GetErrorClass(this HtmlHelper htmlHelper, string propertyName, ModelStateDictionary modelState)
         {
             if (modelState.IsValid == false)
             {

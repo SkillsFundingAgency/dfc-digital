@@ -7,8 +7,10 @@
     "node_modules/jquery/dist/jquery.min.js",
     "node_modules/jquery-migrate/dist/jquery-migrate.min.js",
     "node_modules/jquery-validation/dist/jquery.validate.min.js",
-    "node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-    "assets/src/frontend/js/jquery-ui.min.js"
+    "node_modules/jquery-validation/dist/additional-methods.min.js",
+    "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js",
+    "assets/src/frontend/js/jquery-ui.min.js",
+    "assets/src/frontend/js/custom-validation.js"
   ],
 
   "cmsExtentionsBundle": [

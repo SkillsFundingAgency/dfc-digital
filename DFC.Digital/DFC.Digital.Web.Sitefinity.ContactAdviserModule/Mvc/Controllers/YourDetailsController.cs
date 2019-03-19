@@ -108,19 +108,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public ActionResult Index(ContactUsTechnicalViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                return View("ThankYou", new ContactUsResultViewModel { Message = SuccessMessage });
-
-              //return View("ThankYouPage", new ContactUsResultViewModel { Success = true });
-            }
-
-            return View("Index", viewModel);
-        }
-
         private DateTime DoCustomValidation(ContactUsViewModel viewModel)
         {
             if (viewModel.ContactOption == ContactOption.ContactAdviser)

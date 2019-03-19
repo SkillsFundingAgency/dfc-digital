@@ -294,15 +294,10 @@
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
-    <Compile Include="Mvc\Models\ConsentDetails.cs" />
+    <Compile Include="Mvc\Models\ContactUs.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactAdviserViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsResultViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel - Copy.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsWithConsentViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsWithDobPostcodeViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\GeneralFeedbackViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactOptionsViewModel.cs" />
-    <Compile Include="Mvc\Models\DateOfBirthPostcodeDetails.cs" />
     <Compile Include="Mvc\Models\ViewModels\TechnicalFeedbackViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel.cs" />
     <Compile Include="Mvc\Models\Enum\ContactAdivserQuestionType.cs" />
@@ -329,20 +324,14 @@
     <Content Include="Mvc\Views\Web.config" />
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Mvc\Views\Feedback\Index.cshtml" />
     <Content Include="Mvc\Views\ContactAdviser\Index.cshtml" />
     <Content Include="Mvc\Views\Technical\Index.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\ContactAdvisor.cshtml" />
+    <Content Include="Mvc\Views\YourDetails\Index.cshtml" />
     <Content Include="Mvc\Views\SelectOption\Index.cshtml" />
     <Content Include="Mvc\Views\Shared\ErrorSummary.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\Feedback.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\DateOfBirthPostcodeDetails.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\ConsentDetails.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\PersonalContactDetails.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

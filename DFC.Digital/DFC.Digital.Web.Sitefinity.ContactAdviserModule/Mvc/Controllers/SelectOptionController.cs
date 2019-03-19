@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -20,7 +21,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Private Fields
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly IMapper mapper;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
 
@@ -30,11 +32,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IEmailTemplateRepository emailTemplateRepository,
             ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            IMapper mapper,
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.sessionStorage = sessionStorage;
+            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -84,6 +88,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                sessionStorage.Save(new ContactUs { ContactUsOption = model.ContactUsOption });
+
                 switch (model.ContactUsOption.ContactOptionType)
                 {
                     case ContactOption.Technical:

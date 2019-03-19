@@ -21,7 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
 
@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository, 
             ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger,
             IMapper mapper,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
                  this.emailTemplateRepository = emailTemplateRepository;
                 this.sitefinityCurrentContext = sitefinityCurrentContext;
@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactUsViewModel
+            var model = new ContactAdviserViewModel
             {
                 NextPageUrl = NextPageUrl,
                 Title = Title
@@ -80,10 +80,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mappedModel = AutoMapper.Map(model, sessionStorage.Get());
+                var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPageUrl}?contactOption={model.ContactOptionType}");
+                return Redirect($"{NextPageUrl}?contactOption={model.ContactUsOption}");
             }
 
             return View("Index", model);

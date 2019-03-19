@@ -1,4 +1,7 @@
-﻿namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
+﻿using DFC.Digital.Web.Core;
+using System.ComponentModel.DataAnnotations;
+
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ConsentDetails
     {

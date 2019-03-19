@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sfa.Careers.Common.Services;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DFC.Digital.Web.Core
 {
@@ -21,7 +15,9 @@ namespace DFC.Digital.Web.Core
 
         // The three regexes needed for execution of the logic
         public string UKPostCodeRegex { get; set; }
+
         public string EnglishOrBFPOPostCodeRegex { get; set; }
+
         public string BfpoPostCodeRegex { get; set; }
 
         public override ValidationResult IsConditionalValid(string property, object value, ValidationContext validationContext)
@@ -46,7 +42,7 @@ namespace DFC.Digital.Web.Core
 
                 // It applies to AlternativePostCode
                 // Here we are evaluating the value of the HomePostCode (postcode), not AlternativePostCode
-                if (IsNonEnglishBfpo && !ServiceFunctions.IsValidDoubleRegexValue(postcode, UKPostCodeRegex, EnglishOrBFPOPostCodeRegex, true) && string.IsNullOrEmpty(value?.ToString()))
+                if (IsNonEnglishBfpo && !HelperMethods.IsValidDoubleRegexValue(postcode, UKPostCodeRegex, EnglishOrBFPOPostCodeRegex, true) && string.IsNullOrEmpty(value?.ToString()))
                 {
                     return new ValidationResult(ErrorMessage);
                 }

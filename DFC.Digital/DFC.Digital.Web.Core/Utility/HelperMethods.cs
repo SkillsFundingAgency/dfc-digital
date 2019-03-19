@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Core
 {
@@ -20,6 +22,16 @@ namespace DFC.Digital.Web.Core
             {
                 return string.IsNullOrWhiteSpace(value) == false && (HelperMethods.IsValidRegexValue(value, regexPatternOne) || HelperMethods.IsValidRegexValue(value, regexPatternTwo));
             }
+        }
+
+        public static string ToConcatenatedString(this IEnumerable<string> source, string seperator = null)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            return string.Join(seperator ?? ",", source);
         }
     }
 }

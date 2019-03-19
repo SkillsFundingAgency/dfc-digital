@@ -1,10 +1,4 @@
-﻿using Sfa.Careers.Common.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Web.Mvc;
-using Sfa.Careers.Common.Extensions;
+﻿using System;
 
 namespace DFC.Digital.Web.Core
 {
@@ -15,7 +9,9 @@ namespace DFC.Digital.Web.Core
         public string EnglishOrBFPOPostCodeRegex { get; set; }
         public string BfpoPostCodeRegex { get; set; }
 
-        public HomePostCodeAttribute() { }
+        public HomePostCodeAttribute()
+        {
+        }
 
         public HomePostCodeAttribute(string ukPostCodeRegex, string englishOrBFPOPostCodeRegex, string bfpoPostCodeRegex)
         {

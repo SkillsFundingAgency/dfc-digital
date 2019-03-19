@@ -1,13 +1,8 @@
-﻿using Sfa.Careers.Common.Enums;
-using Sfa.Careers.Common.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using System.Web.Mvc;
-using Sfa.Careers.Common.Extensions;
-using Sfa.Careers.Common.Models.AccountDetails;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core
 {

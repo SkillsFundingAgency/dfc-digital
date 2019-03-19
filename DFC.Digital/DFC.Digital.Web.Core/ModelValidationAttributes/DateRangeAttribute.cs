@@ -4,22 +4,68 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Reflection;
 using System.Web.Mvc;
-using Sfa.Careers.Common.Extensions;
 
 namespace DFC.Digital.Web.Core
 {
     public class DateRangeAttribute : ValidationAttribute, IClientValidatable
     {
-        public int StartDateDay { get; set; }
-        public int EndDateDay { get; set; }
-        public string DateRangeErrorMessage { get; set; }
-        public string FormattedDateRangeErrorMessage { get; set; }
-        public string InvalidErrorMessage { get; set; }
-
         public DateRangeAttribute(int startDateDay, int endDateDay)
         {
             StartDateDay = startDateDay;
             EndDateDay = endDateDay;
+        }
+
+        public int StartDateDay { get; set; }
+
+        public int EndDateDay { get; set; }
+
+        public string DateRangeErrorMessage { get; set; }
+
+        public string FormattedDateRangeErrorMessage { get; set; }
+
+        public string InvalidErrorMessage { get; set; }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            FormattedDateRangeErrorMessage = FormatDateRangeErrorMessage();
+
+            var rule = new ModelClientValidationRule()
+            {
+                ErrorMessage = string.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
+                ValidationType = "daterange",
+            };
+            var dates = new List<string>
+                               {
+                                   StartDateDay.ToString(),
+                                   EndDateDay.ToString()
+                               };
+            var errorMessages = new List<string>
+                                    {
+                                        FormattedDateRangeErrorMessage,
+                                        InvalidErrorMessage
+                                    };
+
+            rule.ValidationParameters.Add("dates", string.Join(" ", dates));
+            rule.ValidationParameters.Add("errormessages", string.Join(",", errorMessages));
+            yield return rule;
+        }
+
+        public string FormatDateRangeErrorMessage()
+        {
+            var validStartDate = DateTime.Now.AddDays(-StartDateDay);
+            var validEndDate = DateTime.Now.AddDays(EndDateDay);
+
+            string invalidDateError = string.Empty;
+            if (string.IsNullOrEmpty(DateRangeErrorMessage))
+            {
+                FormattedDateRangeErrorMessage = $"Enter a date between {validStartDate.ToString("dd-MM-yyyy")} and {validEndDate.ToString("dd-MM-yyyy")}.​";
+            }
+            else
+            {
+                FormattedDateRangeErrorMessage = string.Format(DateRangeErrorMessage, validStartDate.ToString("dd-MM-yyyy"), validEndDate.ToString("dd-MM-yyyy"));
+            }
+
+            return FormattedDateRangeErrorMessage;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -90,49 +136,6 @@ namespace DFC.Digital.Web.Core
                     }
                 }
             }
-        }
-
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            FormattedDateRangeErrorMessage = FormatDateRangeErrorMessage();
-
-            var rule = new ModelClientValidationRule()
-            {
-                ErrorMessage = String.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
-                ValidationType = "daterange",
-            };
-            var dates = new List<string>
-                               {
-                                   StartDateDay.ToString(),
-                                   EndDateDay.ToString()
-                               };
-            var errorMessages = new List<string>
-                                    {
-                                        FormattedDateRangeErrorMessage,
-                                        InvalidErrorMessage
-                                    };
-
-            rule.ValidationParameters.Add("dates", string.Join(" ", dates));
-            rule.ValidationParameters.Add("errormessages", string.Join(",", errorMessages));
-            yield return rule;
-        }
-
-        public string FormatDateRangeErrorMessage()
-        {
-            var validStartDate = DateTime.Now.AddDays(-StartDateDay);
-            var validEndDate = DateTime.Now.AddDays(EndDateDay);
-
-            string invalidDateError = string.Empty;
-            if (string.IsNullOrEmpty(DateRangeErrorMessage))
-            {
-                FormattedDateRangeErrorMessage = $"Enter a date between {validStartDate.ToString("dd-MM-yyyy")} and {validEndDate.ToString("dd-MM-yyyy")}.​";
-            }
-            else
-            {
-                FormattedDateRangeErrorMessage = string.Format(DateRangeErrorMessage, validStartDate.ToString("dd-MM-yyyy"), validEndDate.ToString("dd-MM-yyyy"));
-            }
-
-            return FormattedDateRangeErrorMessage;
         }
     }
 }

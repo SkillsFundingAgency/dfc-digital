@@ -1,6 +1,4 @@
-﻿using DFC.Digital.Core;
-using DFC.Digital.Core.Utilities;
-using DFC.Digital.Web.Core;
+﻿using DFC.Digital.Web.Core;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;

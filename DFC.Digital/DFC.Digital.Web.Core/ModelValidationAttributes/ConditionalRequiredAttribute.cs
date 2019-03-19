@@ -12,21 +12,6 @@ namespace DFC.Digital.Web.Core
 
         public string DependsOn { get; set; }
 
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            // One property could depend on more then one other property
-            foreach (var prop in DependsOn.Split(','))
-            {
-                var result = IsConditionalValid(prop, value, validationContext);
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
         public virtual ValidationResult IsConditionalValid(string property, object value, ValidationContext validationContext)
         {
             // We obatain the other property ...
@@ -47,6 +32,21 @@ namespace DFC.Digital.Web.Core
         {
             //throw new NotImplementedException();
             return Enumerable.Empty<ModelClientValidationRule>();
+        }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            // One property could depend on more then one other property
+            foreach (var prop in DependsOn.Split(','))
+            {
+                var result = IsConditionalValid(prop, value, validationContext);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
         }
     }
 }

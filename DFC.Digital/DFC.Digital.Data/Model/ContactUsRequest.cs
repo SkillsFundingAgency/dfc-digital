@@ -19,7 +19,7 @@ namespace DFC.Digital.Data.Model
         public string Email { get; set; }
 
         [JsonIgnore]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [JsonIgnore]
         public string Postcode { get; set; }

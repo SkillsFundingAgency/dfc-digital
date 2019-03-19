@@ -295,7 +295,6 @@
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactAdviserViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel - Copy.cs" />
     <Compile Include="Mvc\Models\ViewModels\GeneralFeedbackViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactOptionsViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\TechnicalFeedbackViewModel.cs" />
@@ -324,16 +323,13 @@
     <Content Include="Mvc\Views\Web.config" />
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Mvc\Views\Feedback\Index.cshtml" />
     <Content Include="Mvc\Views\ContactAdviser\Index.cshtml" />
     <Content Include="Mvc\Views\Technical\Index.cshtml" />
     <Content Include="Mvc\Views\YourDetails\Index.cshtml" />
     <Content Include="Mvc\Views\SelectOption\Index.cshtml" />
-    <Content Include="Mvc\Views\YourDetails\ThankYou.cshtml" />
     <Content Include="Mvc\Views\Shared\ErrorSummary.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>

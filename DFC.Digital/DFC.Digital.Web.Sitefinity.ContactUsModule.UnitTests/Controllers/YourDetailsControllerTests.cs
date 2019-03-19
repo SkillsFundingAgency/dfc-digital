@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -14,11 +14,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     public class YourDetailsControllerTests
     {
         #region Private Fields
+
         private readonly INoncitizenEmailService<ContactUsRequest> fakeSendEmailService;
         private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IMapper fakeMapper;
         private readonly ISessionStorage<ContactUsViewModel> fakeSessionStorage;
+
         #endregion Private Fields
 
         #region Constructors
@@ -32,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         }
 
         #endregion Constructors
-        
+
         #region Action Tests
 
         [Theory]
@@ -41,7 +43,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(ContactOption.Technical, true)]
         public void IndexGetTest(ContactOption contactOption, bool validSessionVm)
         {
-            
             //Assign
             A.CallTo(() => fakeSessionStorage.Get())
                 .Returns(validSessionVm
@@ -115,9 +116,5 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         }
 
         #endregion Action Tests
-
-        #region Private Methods
-
-        #endregion Private Methods
     }
-}
+}*/

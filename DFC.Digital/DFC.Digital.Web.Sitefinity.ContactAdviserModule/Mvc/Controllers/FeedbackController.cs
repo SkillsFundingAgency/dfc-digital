@@ -72,7 +72,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactUsViewModel
+            var model = new GeneralFeedbackViewModel
             {
                 NextPageUrl = NextPageUrl,
                 Title = Title

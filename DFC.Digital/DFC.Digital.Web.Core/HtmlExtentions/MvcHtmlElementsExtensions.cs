@@ -142,7 +142,7 @@ namespace DFC.Digital.Web.Core
             return new MvcHtmlString(HttpUtility.HtmlDecode(tag.ToString(TagRenderMode.Normal)));
         }
 
-        public static string GetErrorClass(this System.Web.Mvc.HtmlHelper htmlHelper, string propertyName, ModelStateDictionary modelState)
+        public static string GetErrorClass(this HtmlHelper htmlHelper, string propertyName, ModelStateDictionary modelState)
         {
             if (modelState.IsValid == false)
             {

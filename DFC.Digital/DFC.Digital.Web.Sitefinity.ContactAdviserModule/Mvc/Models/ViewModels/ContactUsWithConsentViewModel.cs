@@ -2,6 +2,6 @@
 {
     public class ContactUsWithConsentViewModel : ContactUsViewModel
     {
-        public ConsentDetails ConsentDetails { get; set; }
+        public ConsentDetails ConsentDetails { get; set; } = new ConsentDetails();
     }
 }

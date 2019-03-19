@@ -8,7 +8,7 @@
 
         public string PageIntroductionTwo { get; set; }
 
-        public PersonalContactDetails PersonalContactDetails { get; set; }
+        public PersonalContactDetails PersonalContactDetails { get; set; } = new PersonalContactDetails();
 
         public string NextPageUrl { get; set; }
     }

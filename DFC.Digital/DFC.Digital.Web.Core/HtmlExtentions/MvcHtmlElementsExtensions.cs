@@ -17,6 +17,11 @@ namespace DFC.Digital.Web.Core.HtmlExtentions
             where TModel : class
         {
             var enumType = typeof(TProperty);
+            if (enumType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                enumType = enumType.GetGenericArguments().First();
+            }
+
             var enumEntryNames = Enum.GetNames(enumType);
             var entries = enumEntryNames
                 .Select(n => new
@@ -42,7 +47,7 @@ namespace DFC.Digital.Web.Core.HtmlExtentions
             foreach (var item in entries)
             {
                 var elementId = $"{metaData.PropertyName}_{item.Value}";
-                stringBuilder.AppendLine("<div class=\"govuk - radios__item\">");
+                stringBuilder.AppendLine("<div class=\"govuk-radios__item\">");
                 stringBuilder.AppendLine(htmlHelper.RadioButtonFor(expression, item.Value, new { @class = "govuk-radios__input", id = elementId }).ToHtmlString());
                 stringBuilder.AppendLine(htmlHelper.LabelFor(expression, item.DisplayName, new { @class = "govuk-label govuk-radios__label", @for = elementId }).ToHtmlString());
                 stringBuilder.AppendLine("</div>");

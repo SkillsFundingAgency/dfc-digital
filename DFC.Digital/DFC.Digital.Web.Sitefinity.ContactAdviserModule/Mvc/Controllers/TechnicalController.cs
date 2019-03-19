@@ -83,9 +83,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
             //Put the non bound data fields back
             return View("Index", AddWidgetPropertyFields(model));
-
-            #endregion Actions
         }
+        #endregion Actions
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {

@@ -5,18 +5,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
     public enum FeedbackQuestionType
     {
         [Display(Name = "Careers", Order = 1)]
-        Careers,
+        Careers = 1,
 
         [Display(Name = "Qualifications", Order = 2)]
-        Qualifications,
+        Qualifications = 2,
 
         [Display(Name = "Courses", Order = 3)]
-        Findingacourse,
+        Findingacourse = 3,
 
         [Display(Name = "Funding", Order = 4)]
-        Funding,
+        Funding = 4,
 
         [Display(Name = "Something else", Order = 5)]
-        Generalfeedback
+        Generalfeedback = 5
     }
 }

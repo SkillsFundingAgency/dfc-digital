@@ -17,11 +17,11 @@ namespace DFC.Digital.Web.Core
             where TModel : class
         {
             var enumType = typeof(TProperty);
-            if (enumType.GetGenericTypeDefinition() == typeof(Nullable<>))
-            {
-                enumType = enumType.GetGenericArguments().First();
-            }
 
+            //if (enumType.IsGenericType && enumType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            //{
+            //    enumType = enumType.GetGenericArguments().First();
+            //}
             var enumEntryNames = Enum.GetNames(enumType);
             var entries = enumEntryNames
                 .Select(n => new

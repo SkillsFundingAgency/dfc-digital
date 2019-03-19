@@ -1057,7 +1057,6 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="extensions.bundle.js" />
-    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-footer.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />

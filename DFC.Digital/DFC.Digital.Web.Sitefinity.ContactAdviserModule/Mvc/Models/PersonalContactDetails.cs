@@ -21,10 +21,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [Required(ErrorMessage = "Enter your last name")]
         public string Lastname { get; set; }
 
-        [StringLength(1000, ErrorMessage = "Feedback too long (max. 1000)")]
-        [Display(Name = "Enter your questions for the advisers in the box below.")]
-        [Required(ErrorMessage = "Enter your feedback")]
- 
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "Enter your email address")]
         [EmailAddress(ErrorMessage = "Enter a valid email address")]
@@ -33,8 +29,5 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [Compare("EmailAddress", ErrorMessage = "Email addresses don't match")]
         [Display(Name = "Confirm email address")]
         public string ConfirmEmailAddress { get; set; }
-
-       
-      
     }
 }

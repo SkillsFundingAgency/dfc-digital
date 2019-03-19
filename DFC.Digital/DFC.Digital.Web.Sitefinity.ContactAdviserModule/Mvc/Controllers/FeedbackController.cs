@@ -22,16 +22,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
-
-        #region Properties
-
-        [DisplayName("Next page")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
-
-        #endregion Properties
 
         #region Constructors
 
@@ -40,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
@@ -49,6 +42,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         }
 
         #endregion Constructors
+
+
+        #region Properties
+
+        [DisplayName("Next page")]
+        public string NextPage { get; set; } = "/contact-us/your-details/";
+
+        #endregion Properties
+
 
         #region Public Properties
 
@@ -86,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel model)
+        public ActionResult Index(GeneralFeedbackViewModel model)
         {
             if (ModelState.IsValid)
             {

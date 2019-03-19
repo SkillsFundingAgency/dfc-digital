@@ -21,7 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
 
@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository, 
             ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger,
             IMapper mapper,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
                  this.emailTemplateRepository = emailTemplateRepository;
                 this.sitefinityCurrentContext = sitefinityCurrentContext;

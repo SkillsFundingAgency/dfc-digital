@@ -294,6 +294,7 @@
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
+    <Compile Include="Mvc\Models\ContactUs.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactAdviserViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\GeneralFeedbackViewModel.cs" />
     <Compile Include="Mvc\Models\ViewModels\ContactOptionsViewModel.cs" />

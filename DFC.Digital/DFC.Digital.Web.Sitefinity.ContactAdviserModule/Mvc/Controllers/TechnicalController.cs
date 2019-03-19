@@ -19,13 +19,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class TechnicalController : BaseDfcController
     {
         private readonly IMapper mapper;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
         #region Constructors
 
         public TechnicalController(
             IApplicationLogger applicationLogger,
             IMapper mapper,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
 
         {
             this.mapper = mapper;
@@ -88,7 +88,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {
-            model.ContactOption = ContactOption.Technical;
             model.NextPageUrl = this.NextPageUrl;
             model.Title = this.Title;
             model.MessageLabel = this.MessageLabel;

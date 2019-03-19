@@ -16,9 +16,11 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.SitefinityExtensions
         private readonly IConfigurationProvider fakeConfigurationProvider;
         private readonly IHttpClientService<IAssetLocationAndVersion> fakeHTTPClientService;
         private readonly IAsyncHelper fakeAsyncHelper;
+        private readonly IWebAppContext fakeWebAppContext;
 
         public AssetLocationAndVersionTests()
         {
+            fakeWebAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
             fakeConfigurationProvider = A.Fake<IConfigurationProvider>(ops => ops.Strict());
             fakeHTTPClientService = A.Fake<IHttpClientService<IAssetLocationAndVersion>>(ops => ops.Strict());
 
@@ -40,7 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.SitefinityExtensions
 
             A.CallTo(() => fakeHTTPClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(dummyHttpResponseMessage);
 
-            var assetLocationAndVersion = new AssetLocationAndVersion(fakeConfigurationProvider, fakeHTTPClientService, fakeAsyncHelper);
+            var assetLocationAndVersion = new AssetLocationAndVersion(fakeConfigurationProvider, fakeHTTPClientService, fakeAsyncHelper, fakeWebAppContext);
             A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns(CDNLocation);
             var result = assetLocationAndVersion.GetLocationAssetFileAndVersion(DummyAssetFile);
 

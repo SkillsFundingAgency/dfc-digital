@@ -53,13 +53,6 @@
         </legend>
         @Html.ValidationMessageFor(x => x.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
         <div class="govuk-checkboxes">
-            @*<div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="TermsAndConditions" name="TermsAndConditions" type="checkbox" value="true" @Model.TandCChecked>
-                    <label class="govuk-label govuk-checkboxes__label" for="TermsAndConditions">
-                        I accept the <a href="https://nationalcareersservice.direct.gov.uk/about-us/terms-and-conditions">terms and conditions</a> and I am 13 or over
-                    </label>
-                </div>*@
-
             <div class="govuk-checkboxes__item">
                 @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions)
                 @Html.CheckBoxFor(model => model.AcceptTermsAndConditions)

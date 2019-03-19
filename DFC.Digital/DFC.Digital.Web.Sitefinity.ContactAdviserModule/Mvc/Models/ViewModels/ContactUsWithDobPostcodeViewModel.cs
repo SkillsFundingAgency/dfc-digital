@@ -7,6 +7,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ContactUsWithDobPostcodeViewModel : ContactUsViewModel
     {
-        public DateOfBirthPostcodeDetails DateOfBirthPostcodeDetails { get; set; }
+        public DateOfBirthPostcodeDetails DateOfBirthPostcodeDetails { get; set; } = new DateOfBirthPostcodeDetails();
     }
 }

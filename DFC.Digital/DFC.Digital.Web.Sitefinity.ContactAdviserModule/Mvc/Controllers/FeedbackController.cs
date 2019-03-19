@@ -93,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPage}");
+                return Redirect($"{NextPage}?contactOption={model.ContactOption}");
             }
 
             return View("Index", model);

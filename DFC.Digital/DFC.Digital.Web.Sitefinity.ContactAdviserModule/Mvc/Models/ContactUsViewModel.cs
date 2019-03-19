@@ -3,8 +3,51 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
-    public class ContactUsViewModel_old
+    public enum ContactOption
     {
+        ContactAdviser,
+        Technical,
+        Feedback
+    }
+
+    public enum FormState
+    {
+        SelectOptionForm,
+        MessageForm,
+        YourDetailsForm
+    }
+
+    public enum ContactAdivserQuestionType
+    {
+        Careers,
+        Qualifications,
+        Findingacourse,
+        Generalfeedback,
+        Funding
+    }
+
+    public enum FeedbackQuestionType
+    {
+        General,
+        Funding,
+        Careers,
+        Qualifications,
+        CourseSearch,
+        Website,
+        CustomerService
+    }
+
+    public class ContactUsViewModel
+    {
+        [EnumDataType(typeof(ContactOption), ErrorMessage = "Choose a reason for contacting us")]
+        public ContactOption? ContactOption { get; set; }
+
+        [EnumDataType(typeof(ContactAdivserQuestionType), ErrorMessage = "Choose what your query is about")]
+        public ContactAdivserQuestionType ContactAdivserQuestionType { get; set; }
+
+        [EnumDataType(typeof(FeedbackQuestionType), ErrorMessage = "Choose a reason for your feedback")]
+        public FeedbackQuestionType FeedbackQuestionType { get; set; }
+
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Enter your first name")]
@@ -24,13 +67,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string DobYear { get; set; }
 
         [Required(ErrorMessage = "Enter a valid postcode")]
-        [RegularExpression(@"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})", ErrorMessage = "Please enter a valid UK Post code")]
+        [RegularExpression(@"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})", ErrorMessage ="Please enter a valid UK Post code")]
         public string PostCode { get; set; }
 
         [Required(ErrorMessage = "Enter your message")]
         public string Message { get; set; }
 
         public bool IsContactable { get; set; }
+
 
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
         public bool TermsAndConditions { get; set; }
@@ -56,10 +100,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public string FormStateValue { get; set; }
 
-        //public ContactOption ContactOption { get; set; }
 
-        public object ContactAdivserQuestionType { get; set; }
-
-        public object FeedbackQuestionType { get; set; }
     }
 }

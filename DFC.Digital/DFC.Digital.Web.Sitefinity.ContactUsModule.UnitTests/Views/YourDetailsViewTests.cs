@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 DobMonth = "10",
                 DobYear = "1970",
                 TermsAndConditions = true,
-                SelectOption.ContactOptionType = contactOption
+                ContactOption = contactOption
             };
 
             // Act

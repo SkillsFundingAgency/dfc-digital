@@ -66,12 +66,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new TechnicalFeedbackViewModel();
+            var model = new ContactUsTechnicalViewModel();
             return View("Index", AddWidgetPropertyFields(model));
         }
 
         [HttpPost]
-        public ActionResult Index(TechnicalFeedbackViewModel model)
+        public ActionResult Index(ContactUsTechnicalViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         }
         #endregion Actions
 
-        private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
+        private ContactUsTechnicalViewModel AddWidgetPropertyFields(ContactUsTechnicalViewModel model)
         {
             model.ContactOption = ContactOption.Technical;
             model.NextPageUrl = this.NextPageUrl;

@@ -66,7 +66,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new ContactOptionsViewModel
+            var model = new ContactUsViewModel
             {
                 Title = Title
             };
@@ -80,11 +80,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         /// <param name="model">The Email Template model.</param>
         /// <returns>ActionResult</returns>
         [HttpPost]
-        public ActionResult Index(ContactOptionsViewModel model)
+        public ActionResult Index(ContactUsViewModel model)
         {
             if (ModelState.IsValid)
             {
-                switch (model.ContactUsOption.ContactOptionType)
+                sessionStorage.Save(model);
+                switch (model.ContactOption)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

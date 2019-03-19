@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         }
 
         #endregion Constructors
-
+        
         #region Action Tests
 
         [Theory]
@@ -41,10 +41,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(ContactOption.Technical, true)]
         public void IndexGetTest(ContactOption contactOption, bool validSessionVm)
         {
+            
             //Assign
             A.CallTo(() => fakeSessionStorage.Get())
                 .Returns(validSessionVm
-                ? new ContactUsViewModel { SelectOption.ContactOptionType = contactOption }
+                ? new ContactUsViewModel { ContactOption = contactOption }
                 : null);
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage)
             {
@@ -60,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             controllerResult.ShouldRenderDefaultView()
                 .WithModel<ContactUsViewModel>(vm =>
                 {
-                    vm.SelectOption.ContactOptionType.Should().Be(contactOption);
+                    vm.ContactOption.Should().Be(contactOption);
                 });
             A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
         }

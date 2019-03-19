@@ -294,22 +294,11 @@
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
     <Compile Include="Mvc\Controllers\TechnicalController.cs" />
     <Compile Include="Mvc\Controllers\YourDetailsController.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactAdviserViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel - Copy.cs" />
-    <Compile Include="Mvc\Models\ViewModels\GeneralFeedbackViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactOptionsViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\TechnicalFeedbackViewModel.cs" />
-    <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel.cs" />
-    <Compile Include="Mvc\Models\Enum\ContactAdivserQuestionType.cs" />
-    <Compile Include="Mvc\Models\ContactAnAdviserFeedback.cs" />
-    <Compile Include="Mvc\Models\Enum\ContactOption.cs" />
-    <Compile Include="Mvc\Models\ContactUsOption.cs" />
-    <Compile Include="Mvc\Models\Enum\FeedbackQuestionType.cs" />
-    <Compile Include="Mvc\Models\Enum\FormState.cs" />
-    <Compile Include="Mvc\Models\GeneralFeedback.cs" />
-    <Compile Include="Mvc\Models\PersonalContactDetails.cs" />
-    <Compile Include="Mvc\Models\TechnicalFeedback.cs" />
+    <Compile Include="Mvc\Models\ContactUsResultViewModel.cs" />
+    <Compile Include="Mvc\Models\ContactUsTechnicalViewModel.cs" />
+    <Compile Include="Mvc\Models\ContactUsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RazorHelpers\HtmlExtensionsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

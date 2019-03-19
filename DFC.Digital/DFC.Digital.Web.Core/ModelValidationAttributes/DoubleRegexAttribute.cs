@@ -41,7 +41,7 @@ namespace DFC.Digital.Web.Core
             else
             {
                 // The validation is applied only if it is Required with option to use AND or OR operator
-                return IsValidDoubleRegexValue(objectValue, FirstRegex, SecondRegex, IsAndOperator);
+                return HelperMethods.IsValidDoubleRegexValue(objectValue, FirstRegex, SecondRegex, IsAndOperator);
             }
         }
 
@@ -59,24 +59,6 @@ namespace DFC.Digital.Web.Core
             rule.ValidationParameters.Add("isandoperator", IsAndOperator.ToString());
             rule.ValidationParameters.Add("isdrrequired", IsRequired.ToString());
             yield return rule;
-        }
-
-        private static bool IsValidDoubleRegexValue(string value, string regexPatternOne, string regexPatternTwo, bool isAndOperator)
-        {
-            if (isAndOperator)
-            {
-                return string.IsNullOrWhiteSpace(value) == false && (IsValidRegexValue(value, regexPatternOne) && IsValidRegexValue(value, regexPatternTwo));
-            }
-            else
-            {
-                return string.IsNullOrWhiteSpace(value) == false && (IsValidRegexValue(value, regexPatternOne) || IsValidRegexValue(value, regexPatternTwo));
-            }
-        }
-
-        private static bool IsValidRegexValue(string value, string regexPattern)
-        {
-            var commonRegexOptions = RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline;
-            return string.IsNullOrWhiteSpace(value) == false && Regex.IsMatch(value, regexPattern, commonRegexOptions);
         }
     }
 }

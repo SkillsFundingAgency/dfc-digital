@@ -76,9 +76,9 @@
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                    <h3 class="govuk-fieldset__heading">
+                    <h class="govuk-fieldset__heading">
                         Do you want us to contact you?
-                    </h3>
+                    </h>
                 </legend>
                 <div class="govuk-radios govuk-radios--inline">
                     <div class="govuk-radios__item">
@@ -105,11 +105,16 @@
             </legend>
             @Html.ValidationMessageFor(x => x.PersonalContactDetails.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
             <div class="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
+                @*<div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="TermsAndConditions" name="TermsAndConditions" type="checkbox" value="true" @Model.TandCChecked>
                     <label class="govuk-label govuk-checkboxes__label" for="TermsAndConditions">
                         I accept the <a href="https://nationalcareersservice.direct.gov.uk/about-us/terms-and-conditions">terms and conditions</a> and I am 13 or over
                     </label>
+                </div>*@
+
+                <div class="govuk-checkboxes__item">
+                    @Html.LabelWithHintFor(m => m.PersonalContactDetails.AcceptTermsAndConditions)
+                    @Html.CheckBoxFor(model => model.PersonalContactDetails.AcceptTermsAndConditions)
                 </div>
             </div>
         </fieldset>
@@ -117,12 +122,6 @@
 
 </fieldset>
     <div class="govuk-form-group">
-        <button type="submit" class="govuk-button">
-            Send
-        </button>
+        <button type="submit" class="govuk-button">Send</button>
     </div>
-
-    @Html.HiddenFor(x => x.ContactOption)
-    @Html.HiddenFor(x => x.ContactAdivserQuestionType)
-    @Html.HiddenFor(x => x.Message)
 }

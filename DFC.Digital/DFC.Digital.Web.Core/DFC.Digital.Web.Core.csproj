@@ -169,6 +169,7 @@
     <Compile Include="HtmlExtentions\IsDebugExtension.cs" />
     <Compile Include="HttpModules\CustomHeaderModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\HelperMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

@@ -31,10 +31,7 @@
     </script>
     <!-- End Google Tag Manager -->
 
-
-    @Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/main.min.css")))
-
-
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("/gds_service_toolkit/css/main.min.css")))
 
     <meta charset="utf-8" />
     <title>GOV.UK - Customised page template</title>
@@ -43,19 +40,19 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/favicon.ico" type="image/x-icon" />
-    <link rel="mask-icon" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-mask-icon.svg" color="blue">
-    <link rel="apple-touch-icon" sizes="180x180" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-apple-touch-icon-167x167.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" href="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-apple-touch-icon.png">
+    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/favicon.ico")" type="image/x-icon" />
+    <link rel="mask-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-mask-icon.svg")" color="blue">
+    <link rel="apple-touch-icon" sizes="180x180" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-180x180.png")">
+    <link rel="apple-touch-icon" sizes="167x167" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-167x167.png")">
+    <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-152x152.png")">
+    <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
 
     <!--[if !IE 8]><!-->
-    @Html.StyleSheet(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/css/govuk.min.css")))
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
 
     <!--<![endif]-->
     <!--[if IE 8]>
-      <link href="~/ResourcePackages/gds_service_toolkit/assets/dist/css/all-ie8.css" rel="stylesheet" />
+      <link href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/css/all-ie8.css")" rel="stylesheet" />
     <![endif]-->
     <!--[if lt IE 9]>
       <script src="/html5-shiv/html5shiv.js"></script>
@@ -88,7 +85,7 @@
     </div>
     @Html.SfPlaceHolder("ServiceFooter")
 
-    @Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/all.js")))
+    @Html.Script(@Html.GetLocationAssetFileAndVersion((Url.Content("gds_service_toolkit/assets/dist/js/all.js"))))
 
     <script type="text/javascript">
         window.GOVUKFrontend.initAll();

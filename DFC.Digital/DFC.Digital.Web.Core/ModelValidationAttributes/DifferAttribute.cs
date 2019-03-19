@@ -8,16 +8,38 @@ namespace DFC.Digital.Web.Core
 {
     public class DifferAttribute : System.ComponentModel.DataAnnotations.CompareAttribute, IClientValidatable
     {
-        // The Name of the other property, which we are comparing against
-        public string DifferOtherProperty { get; set; }
-
         public DifferAttribute(string otherProperty) : base(otherProperty)
         {
             if (otherProperty == null)
             {
                 throw new ArgumentNullException("otherProperty");
             }
+
             DifferOtherProperty = otherProperty;
+        }
+
+        // The Name of the other property, which we are comparing against
+        public string DifferOtherProperty { get; set; }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            var rule = new ModelClientValidationRule()
+            {
+                ErrorMessage = string.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
+                ValidationType = "differ",
+            };
+            var otherproperties = new List<string>
+                               {
+                                   DifferOtherProperty
+                               };
+            var errorMessages = new List<string>
+                                    {
+                                        ErrorMessage
+                                    };
+
+            rule.ValidationParameters.Add("otherproperties", otherproperties.ToConcatenatedString(" "));
+            rule.ValidationParameters.Add("errormessages", errorMessages.ToConcatenatedString());
+            yield return rule;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -38,27 +60,6 @@ namespace DFC.Digital.Web.Core
             {
                 return null;
             }
-        }
-
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            var rule = new ModelClientValidationRule()
-            {
-                ErrorMessage = String.IsNullOrEmpty(ErrorMessage) ? FormatErrorMessage(metadata.DisplayName) : ErrorMessage,
-                ValidationType = "differ",
-            };
-            var otherproperties = new List<string>
-                               {
-                                   DifferOtherProperty
-                               };
-            var errorMessages = new List<string>
-                                    {
-                                        ErrorMessage
-                                    };
-
-            rule.ValidationParameters.Add("otherproperties", otherproperties.ToConcatenatedString(" "));
-            rule.ValidationParameters.Add("errormessages", errorMessages.ToConcatenatedString());
-            yield return rule;
         }
     }
 }

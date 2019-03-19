@@ -161,8 +161,6 @@
     <Compile Include="ModelValidationAttributes\DifferAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DoubleRegexAttribute.cs" />
     <Compile Include="ModelValidationAttributes\HomePostCodeAttribute.cs" />
-    <Compile Include="ModelValidationAttributes\MobilePhoneAttribute.cs" />
-    <Compile Include="ModelValidationAttributes\TelephoneNumberAttribute.cs" />
     <Compile Include="Utility\DependencyHealthCheckService.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="HtmlExtentions\AssetVersioningExtention.cs" />
@@ -170,6 +168,7 @@
     <Compile Include="HttpModules\CustomHeaderModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\HelperMethods.cs" />
+    <Compile Include="Utility\RegexPatterns.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

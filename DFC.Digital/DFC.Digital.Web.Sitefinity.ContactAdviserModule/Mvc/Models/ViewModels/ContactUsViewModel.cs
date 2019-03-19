@@ -8,8 +8,6 @@
 
         public string PageIntroductionTwo { get; set; }
 
-        public bool ShouldAskAgeAndPostcode { get; set; }
-
         public PersonalContactDetails PersonalContactDetails { get; set; }
 
         public string NextPageUrl { get; set; }

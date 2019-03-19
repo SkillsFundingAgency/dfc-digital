@@ -1,0 +1,24 @@
+﻿@using DFC.Digital.Web.Core
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers
+@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactUsWithConsentViewModel
+
+@Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/jquerybundle.min.js")))
+
+@Html.Partial("ErrorSummary")
+<h1 class="govuk-heading-xl">@Model.PageTitle</h1>
+<p class="govuk-body-m">@Html.Raw(Model.PageIntroduction)</p>
+<p class="govuk-body-m">@Html.Raw(Model.PageIntroductionTwo)</p>
+@using (Html.BeginForm("Submit", "YourDetails", FormMethod.Post, new { id = "userform" }))
+{
+    <fieldset class="govuk-fieldset">
+
+        @Html.Partial("PersonalContactDetails", Model.PersonalContactDetails)
+
+        @Html.Partial("ConsentDetails", Model.ConsentDetails)
+
+
+    </fieldset>
+    <div id="formSubmit" class="govuk-form-group">
+        <button type="submit" class="govuk-button">Send</button>
+    </div>
+}

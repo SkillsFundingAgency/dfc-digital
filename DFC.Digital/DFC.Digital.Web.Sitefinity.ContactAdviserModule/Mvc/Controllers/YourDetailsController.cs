@@ -5,9 +5,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
-using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -21,10 +19,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields
+
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IMapper mapper;
-        private readonly ISessionStorage<ContactUsViewModel> sessionStorage;
+        private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
 
@@ -35,16 +34,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             INoncitizenEmailService<ContactUsRequest> sendEmailService,
             IAsyncHelper asyncHelper,
             IMapper mapper,
-            ISessionStorage<ContactUsViewModel> sessionStorage) : base(applicationLogger)
+            ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
             this.mapper = mapper;
             this.sessionStorage = sessionStorage;
         }
+
         #endregion Constructors
 
         #region Properties
+
         [DisplayName("Page Title")]
         public string PageTitle { get; set; } = "Enter your details";
 
@@ -54,110 +55,110 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Page Introduction Second Text")]
         public string PageIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
 
-        [DisplayName("Failure to Send Message")]
-        public string FailureMessage { get; set; } = "Unfortunately we encountered a problem. We'll get back to you as soon as possible.";
+        [DisplayName("Failure Page URL")]
+        public string FailurePageUrl { get; set; } = "/error/500";
 
-        [DisplayName("Success Message on details submission")]
-        public string SuccessMessage { get; set; } = "We'll get back to you as soon as possible.";
+        [DisplayName("Success Page Url")]
+        public string SuccessPageUrl { get; set; } = "/contactus/thank-you";
+
+        [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
+        public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
+
+        [DisplayName("Template for sending email to Serco")]
+        public string TemplateName { get; set; } = "ContactAdviser";
 
         #endregion Properties
 
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(ContactOption contactOption = ContactOption.Feedback)
+        public ActionResult Index()
         {
-            var data = sessionStorage.Get();
-            var model = data ?? new ContactUsViewModel
+            if (ContactOption == ContactOption.ContactAdviser)
             {
-                ContactOption = contactOption,
-                PageIntroduction = PageIntroduction,
-                PageTitle = PageTitle,
-                PageIntroductionTwo = PageIntroductionTwo
-            };
-            return View(model);
+                var viewModel = new ContactUsWithDobPostcodeViewModel
+                {
+                    PageTitle = PageTitle,
+                    PageIntroduction = PageIntroduction,
+                    PageIntroductionTwo = PageIntroductionTwo
+                };
+                return View("ContactAdvisor", viewModel);
+            }
+            else
+            {
+                var viewModel = new ContactUsWithConsentViewModel
+                {
+                    PageTitle = PageTitle,
+                    PageIntroduction = PageIntroduction
+                };
+                return View("Feedback", viewModel);
+            }
         }
 
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel viewModel)
+        public ActionResult SubmitDetails(ContactUsWithDobPostcodeViewModel viewModel)
         {
-            var dateOfBirth = DoCustomValidation(viewModel);
-
             if (ModelState.IsValid)
             {
+                var data = sessionStorage.Get();
                 var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
                 {
-                    FirstName = viewModel.FirstName,
-                    Email = viewModel.Email,
-                    TemplateName = viewModel.ContactOption.ToString(),
-                    LastName = viewModel.LastName,
-                    Message = viewModel.Message,
-                    TermsAndConditions = viewModel.TermsAndConditions,
-                    PostCode = viewModel.PostCode,
-                    Subject = viewModel.ContactOption.ToString(),
-                    ContactOption = viewModel.ContactOption.ToString(),
-                    ContactAdviserQuestionType = viewModel.ContactAdivserQuestionType.ToString(),
-                    DateOfBirth = dateOfBirth,
-                    IsContactable = viewModel.IsContactable,
-                    FeedbackQuestionType = viewModel.FeedbackQuestionType.ToString()
+                    FirstName = viewModel.PersonalContactDetails.Firstname,
+                    Email = viewModel.PersonalContactDetails.EmailAddress,
+                    TemplateName = TemplateName,
+                    LastName = viewModel.PersonalContactDetails.Lastname,
+                    Message = data.GeneralFeedback.Feedback,
+                    TermsAndConditions = viewModel.DateOfBirthPostcodeDetails.AcceptTermsAndConditions,
+                    PostCode = viewModel.DateOfBirthPostcodeDetails.Postcode,
+                    ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                    DateOfBirth = viewModel.DateOfBirthPostcodeDetails.DateOfBirth,
+                    FeedbackQuestionType = data.TechnicalFeedback.ToString()
                 }));
 
-                return View("ThankYou", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
+                if (result)
+                {
+                    return Redirect(SuccessPageUrl);
+                }
+                else
+                {
+                    return Redirect(FailurePageUrl);
+                }
             }
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(TechnicalFeedbackViewModel viewModel)
+        public ActionResult Submit(ContactUsWithConsentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                return View("ThankYou", new ContactUsResultViewModel { Message = SuccessMessage });
-
-              //return View("ThankYouPage", new ContactUsResultViewModel { Success = true });
-            }
-
-            return View("Index", viewModel);
-        }
-
-        private DateTime DoCustomValidation(ContactUsViewModel viewModel)
-        {
-            if (viewModel.ContactOption == ContactOption.ContactAdviser)
-            {
-                var dateOfBirthDay = viewModel.DobDay;
-                var dateOfBirthMonth = viewModel.DobMonth;
-                var dateOfBirthYear = viewModel.DobYear;
-
-                var enGb = new CultureInfo("en-GB");
-                var dob = string.Empty;
-                if (!string.IsNullOrEmpty(dateOfBirthDay) && !string.IsNullOrEmpty(dateOfBirthMonth) &&
-                    !string.IsNullOrEmpty(dateOfBirthYear))
+                var data = sessionStorage.Get();
+                var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
                 {
-                    dob =
-                        $"{dateOfBirthDay.PadLeft(2, '0')}/{dateOfBirthMonth.PadLeft(2, '0')}/{dateOfBirthYear.PadLeft(4, '0')}";
-                }
+                    FirstName = viewModel.PersonalContactDetails.Firstname,
+                    Email = viewModel.PersonalContactDetails.EmailAddress,
+                    TemplateName = TemplateName,
+                    LastName = viewModel.PersonalContactDetails.Lastname,
+                    Message = data.GeneralFeedback.Feedback,
+                    IsContactable = viewModel.ConsentDetails.IsContactable,
+                    ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                    FeedbackQuestionType = data.TechnicalFeedback.ToString()
+                }));
 
-                if (DateTime.TryParseExact(dob, "dd/MM/yyyy", enGb, DateTimeStyles.AdjustToUniversal, out var dateOfBirth))
+                if (result)
                 {
-                    if (DateTime.Now.Year - dateOfBirth.Year < 13)
-                    {
-                        ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "You must 13 years or over");
-                    }
+                    return Redirect(SuccessPageUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError(nameof(ContactUsViewModel.DateOfBirth), "Please enter a valid date");
+                    return Redirect(FailurePageUrl);
                 }
-
-                return dateOfBirth;
             }
-            else
-            {
-                ModelState.Remove(nameof(ContactUsViewModel.PostCode));
 
-                return default(DateTime);
-            }
+            return View(viewModel);
         }
 
         #endregion Actions

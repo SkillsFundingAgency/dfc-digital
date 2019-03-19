@@ -18,19 +18,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public void Dfc7630YourDetailsViewTests(ContactOption contactOption)
         {
             // Arrange
-            var yourDetailsIndex = new _MVC_Views_YourDetails_Index_cshtml();
-            var contactUsViewModel = new ContactUsViewModel
-            {
-                FirstName = nameof(ContactUsViewModel.FirstName),
-                LastName = nameof(ContactUsViewModel.LastName),
-                Email = "test@mail.com",
-                EmailConfirm = "test@mail.com",
-                DobDay = "10",
-                DobMonth = "10",
-                DobYear = "1970",
-                TermsAndConditions = true,
-                ContactOption = contactOption
-            };
+            var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();
+            var contactUsViewModel = new ContactUsWithDobPostcodeViewModel();
 
             // Act
             var htmlDocument = yourDetailsIndex.RenderAsHtml(contactUsViewModel);
@@ -56,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             if (modelStateInvalid)
             {
-                errorSummaryView.ViewData.ModelState.AddModelError(nameof(ContactUsViewModel.FirstName), nameof(Exception.Message));
+                errorSummaryView.ViewData.ModelState.AddModelError(nameof(ContactUsViewModel.PersonalContactDetails.Firstname), nameof(Exception.Message));
             }
 
             // Act
@@ -76,15 +65,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [Theory]
         [InlineData("Success Message")]
         [InlineData("Failure Message")]
-        public void Dfc7630ThankYouViewTests(string resultMessage)
+        public void Dfc7630PersonalDetailsViewTests(string resultMessage)
         {
             // Arrange
-            var thankYouView = new _MVC_Views_YourDetails_ThankYou_cshtml();
+            var thankYouView = new _MVC_Views_YourDetails_PersonalContactDetails_cshtml();
 
-            var viewModel = new ContactUsResultViewModel
-            {
-                Message = resultMessage
-            };
+            var viewModel = new PersonalContactDetails();
 
             // Act
             var htmlDocument = thankYouView.RenderAsHtml(viewModel);

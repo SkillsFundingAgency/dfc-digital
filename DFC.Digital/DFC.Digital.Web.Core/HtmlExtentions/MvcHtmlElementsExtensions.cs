@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace DFC.Digital.Web.Core.HtmlExtentions
+namespace DFC.Digital.Web.Core
 {
     public static class MvcHtmlElementsExtensions
     {

@@ -19,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class YourDetailsController : BaseDfcController
     {
         #region Private Fields
+
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IMapper mapper;
@@ -40,9 +41,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             this.mapper = mapper;
             this.sessionStorage = sessionStorage;
         }
+
         #endregion Constructors
 
         #region Properties
+
         [DisplayName("Page Title")]
         public string PageTitle { get; set; } = "Enter your details";
 
@@ -157,6 +160,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
             return View(viewModel);
         }
+
         #endregion Actions
     }
 }

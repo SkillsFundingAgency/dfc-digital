@@ -1,8 +1,10 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -13,21 +15,46 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IConfigurationProvider configuration;
         private readonly IHttpClientService<IAssetLocationAndVersion> httpClientService;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IWebAppContext context;
 
-        public AssetLocationAndVersion(IConfigurationProvider configuration, IHttpClientService<IAssetLocationAndVersion> httpClientService, IAsyncHelper asyncHelper)
+        public AssetLocationAndVersion(
+            IConfigurationProvider configuration,
+            IHttpClientService<IAssetLocationAndVersion> httpClientService,
+            IAsyncHelper asyncHelper,
+            IWebAppContext context)
         {
             this.configuration = configuration;
             this.httpClientService = httpClientService;
             this.asyncHelper = asyncHelper;
+            this.context = context;
         }
 
         private string CDNLocation => configuration.GetConfig<string>(Constants.CDNLocation);
 
         public string GetLocationAssetFileAndVersion(string fileName)
         {
-            string assetLocation = $"{CDNLocation}/{fileName}";
-            string version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
-            return $"{assetLocation}?{version}";
+            if (!string.IsNullOrEmpty(CDNLocation))
+            {
+                string assetLocation = $"{CDNLocation}/{fileName}";
+                string version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
+                return $"{assetLocation}?{version}";
+            }
+            else
+            {
+                string assetLocation = $"~/ResourcePackages/{fileName.Substring(0, fileName.IndexOf("/"))}/assets/dist/{fileName.Substring(fileName.IndexOf(" / "))}";
+                var physicalPath = context.ServerMapPath(fileName);
+                var version = GetFileHash(physicalPath);
+                return $"{assetLocation}?{version}";
+            }
+        }
+
+        private static string GetFileHash(string file)
+        {
+            MD5 md5 = MD5.Create();
+            using (FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+            {
+                return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
+            }
         }
 
         private async Task<string> GetFileHashAsync(string assetLocation)
@@ -42,5 +69,5 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //If we dont get a valid response use the current time to the nearest hour.
             return DateTime.Now.ToString("yyyyMMddHH");
         }
-     }
+    }
 }

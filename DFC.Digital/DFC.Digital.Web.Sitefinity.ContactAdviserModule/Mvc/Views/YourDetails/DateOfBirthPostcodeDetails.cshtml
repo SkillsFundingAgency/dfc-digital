@@ -1,0 +1,59 @@
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.DateOfBirthPostcodeDetails
+
+
+<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.DateOfBirth), ViewData.ModelState)">
+    @Html.LabelFor(x => x.DateOfBirth, new { @class = "govuk-label" })
+    <span id="dob-hint" class="govuk-hint">For example, 31 3 1980</span>
+    @Html.ValidationMessageFor(x => x.DateOfBirth, null, new { @class = "govuk-error-message" })
+    <div class="govuk-date-input" id="dob">
+        <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.DateOfBirthDay, new { @class = "govuk-label govuk-date-input__label" })
+                @Html.TextBoxFor(x => x.DateOfBirthDay, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", autocomplete = "bday-day" })
+            </div>
+        </div>
+        <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.DateOfBirthMonth, new { @class = "govuk-label govuk-date-input__label" })
+                @Html.TextBoxFor(x => x.DateOfBirthMonth, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", autocomplete = "bday-month" })
+            </div>
+        </div>
+        <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.DateOfBirthYear, new { @class = "govuk-label govuk-date-input__label" })
+                @Html.TextBoxFor(x => x.DateOfBirthYear, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", autocomplete = "bday-year" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Postcode), ViewData.ModelState)">
+    @Html.LabelFor(x => x.Postcode, "Post code", new { @class = "govuk-label" })
+    <span id="postcode-hint" class="govuk-hint">For example, SW1A 1AA</span>
+    @Html.ValidationMessageFor(x => x.Postcode, null, new { @class = "govuk-error-message" })
+    @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10" })
+</div>
+
+
+<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.AcceptTermsAndConditions), ViewData.ModelState)">
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h3 class="govuk-fieldset__heading">
+                Terms and conditions
+            </h3>
+        </legend>
+        @Html.ValidationMessageFor(x => x.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
+        <div class="govuk-checkboxes">
+            @*<div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="TermsAndConditions" name="TermsAndConditions" type="checkbox" value="true" @Model.TandCChecked>
+                            <label class="govuk-label govuk-checkboxes__label" for="TermsAndConditions">
+                                I accept the <a href="https://nationalcareersservice.direct.gov.uk/about-us/terms-and-conditions">terms and conditions</a> and I am 13 or over
+                            </label>
+                        </div>*@
+
+            <div class="govuk-checkboxes__item">
+                @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions)
+                @Html.CheckBoxFor(model => model.AcceptTermsAndConditions)
+            </div>
+        </div>
+    </fieldset>
+</div>

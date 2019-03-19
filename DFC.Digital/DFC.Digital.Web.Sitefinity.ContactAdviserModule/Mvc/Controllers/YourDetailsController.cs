@@ -9,6 +9,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Web.Mvc;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ViewModels;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -60,26 +61,69 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Success Message on details submission")]
         public string SuccessMessage { get; set; } = "We'll get back to you as soon as possible.";
 
+        [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
+        public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
+
         #endregion Properties
 
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(ContactOption contactOption = ContactOption.Feedback)
+        public ActionResult Index()
         {
-            var data = sessionStorage.Get();
-            var model = data ?? new ContactUsViewModel
+            if (ContactOption == ContactOption.ContactAdviser)
             {
-                ContactOption = contactOption,
-                PageIntroduction = PageIntroduction,
-                PageTitle = PageTitle,
-                PageIntroductionTwo = PageIntroductionTwo
-            };
-            return View(model);
+                var viewModel = new ContactUsWithDobPostcodeViewModel
+                {
+                    PageTitle = PageTitle,
+                    PageIntroduction = PageIntroduction,
+                    PageIntroductionTwo = PageIntroductionTwo
+                };
+                return View("ContactAdvisor", viewModel);
+            }
+            else
+            {
+                var viewModel = new ContactUsWithConsentViewModel
+                {
+                    PageTitle = PageTitle,
+                    PageIntroduction = PageIntroduction
+                };
+                return View("Feedback", viewModel);
+            }
         }
 
         [HttpPost]
-        public ActionResult Index(ContactUsViewModel viewModel)
+        public ActionResult SubmitDetails(ContactUsWithDobPostcodeViewModel viewModel)
+        {
+            var dateOfBirth = DoCustomValidation(viewModel);
+
+            if (ModelState.IsValid)
+            {
+                var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                {
+                    FirstName = viewModel.FirstName,
+                    Email = viewModel.Email,
+                    TemplateName = viewModel.ContactOption.ToString(),
+                    LastName = viewModel.LastName,
+                    Message = viewModel.Message,
+                    TermsAndConditions = viewModel.TermsAndConditions,
+                    PostCode = viewModel.PostCode,
+                    Subject = viewModel.ContactOption.ToString(),
+                    ContactOption = viewModel.ContactOption.ToString(),
+                    ContactAdviserQuestionType = viewModel.ContactAdivserQuestionType.ToString(),
+                    DateOfBirth = dateOfBirth,
+                    IsContactable = viewModel.IsContactable,
+                    FeedbackQuestionType = viewModel.FeedbackQuestionType.ToString()
+                }));
+
+                return View("ThankYou", new ContactUsResultViewModel { Message = result ? SuccessMessage : FailureMessage });
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Submit(ContactUsWithConsentViewModel viewModel)
         {
             var dateOfBirth = DoCustomValidation(viewModel);
 

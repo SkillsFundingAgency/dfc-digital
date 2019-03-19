@@ -1139,6 +1139,7 @@
     </None>
     <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_nav.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />

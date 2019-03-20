@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
@@ -20,6 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
+        private readonly IMapper mapper;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
@@ -30,11 +32,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IEmailTemplateRepository emailTemplateRepository,
             ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
+            IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.sessionStorage = sessionStorage;
+            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -82,11 +86,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactOptionsViewModel model)
         {
-            if (TryValidateModel(model) && ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                //sessionStorage.Save(new ContactUs { ContactUsOption = new ContactUsOption { ContactOptionType = model.ContactOptionType } });
-                sessionStorage.Save(new ContactUs { ContactUsOption = model.ContactUsOption });
-                switch (model.ContactUsOption.ContactOptionType)
+                sessionStorage.Save(mapper.Map<ContactUs>(model));
+                switch (model.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

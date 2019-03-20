@@ -111,7 +111,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     TermsAndConditions = viewModel.DateOfBirthPostcodeDetails.AcceptTermsAndConditions,
                     PostCode = viewModel.DateOfBirthPostcodeDetails.Postcode,
                     ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback != null ? data.ContactAnAdviserFeedback.ToString() : null,
                     DateOfBirth = viewModel.DateOfBirthPostcodeDetails.DateOfBirth,
                     FeedbackQuestionType = data.TechnicalFeedback.ToString()
                 }));
@@ -144,7 +144,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     Message = data.GeneralFeedback.Feedback,
                     IsContactable = viewModel.ConsentDetails.IsContactable,
                     ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback != null ? data.ContactAnAdviserFeedback.ToString() : null,
                     FeedbackQuestionType = data.TechnicalFeedback.ToString()
                 }));
 

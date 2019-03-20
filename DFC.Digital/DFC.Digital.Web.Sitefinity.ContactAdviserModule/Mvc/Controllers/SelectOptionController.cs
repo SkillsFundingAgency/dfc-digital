@@ -89,8 +89,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 sessionStorage.Save(new ContactUs { ContactUsOption = model.ContactUsOption });
-
-                switch (model.ContactUsOption.ContactOptionType)
+                model.Title = Title;
+                switch (model.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);

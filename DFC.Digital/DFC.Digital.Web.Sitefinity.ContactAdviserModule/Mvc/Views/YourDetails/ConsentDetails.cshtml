@@ -55,7 +55,7 @@
         <div class="govuk-checkboxes">
             <div class="govuk-checkboxes__item">
                 @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions)
-                @Html.CheckBoxFor(model => model.AcceptTermsAndConditions)
+                @Html.CheckBoxFor(model => model.AcceptTermsAndConditions, new { @class= "govuk-checkboxes__input" })
             </div>
         </div>
     </fieldset>

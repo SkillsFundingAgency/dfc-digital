@@ -48,12 +48,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
             }
         }
 
+        [Display(Name = "Day")]
         [RegularExpression(RegexPatterns.Day, ErrorMessage = "Day must be a number between 1 and 31")]
         public string DateOfBirthDay { get; set; }
 
+        [Display(Name = "Month")]
         [RegularExpression(RegexPatterns.Month, ErrorMessage = "Month must be a number between 1 and 12")]
         public string DateOfBirthMonth { get; set; }
 
+        [Display(Name = "Year")]
         [RegularExpression(RegexPatterns.Numeric, ErrorMessage = "Year must be a number")]
         public string DateOfBirthYear { get; set; }
 

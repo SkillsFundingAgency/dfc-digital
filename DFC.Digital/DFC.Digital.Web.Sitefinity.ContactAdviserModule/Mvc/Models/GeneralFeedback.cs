@@ -8,5 +8,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [Display(Name = "Enter your feedback in the box below. If you're commenting on particular pages, list them.")]
         [Required(ErrorMessage = "Enter your feedback")]
         public string Feedback { get; set; }
+
+        [EnumDataType(typeof(FeedbackQuestionType), ErrorMessage = "Choose a reason for your feedback")]
+        public FeedbackQuestionType FeedbackQuestionType { get; set; }
     }
 }

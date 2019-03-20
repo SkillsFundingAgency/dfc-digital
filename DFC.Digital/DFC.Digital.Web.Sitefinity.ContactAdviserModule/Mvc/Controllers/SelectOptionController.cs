@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -19,6 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
+
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
@@ -88,30 +88,26 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var contactUsOptionSelected = new ContactUs();
-
-                contactUsOptionSelected.ContactUsOption = new ContactUsOption();
-
-                contactUsOptionSelected.ContactUsOption.ContactOptionType = model.ContactOptionType;
-
-                sessionStorage.Save(contactUsOptionSelected);
-                model.Title = Title;
+                sessionStorage.Save(mapper.Map<ContactUs>(model));
                 switch (model.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);
+
                     case ContactOption.ContactAdviser:
                         return Redirect(ContactAdviserPage);
+
                     case ContactOption.Feedback:
                         return Redirect(GeneralFeedbackPage);
+
                     default:
                         return View("Index", model);
                 }
             }
 
+            model.Title = Title;
             return View("Index", model);
         }
-
 
         #endregion Actions
     }

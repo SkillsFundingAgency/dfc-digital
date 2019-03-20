@@ -43,14 +43,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
-
         #region Properties
 
         [DisplayName("Next page")]
         public string NextPage { get; set; } = "/contact-us/your-details/";
 
         #endregion Properties
-
 
         #region Public Properties
 
@@ -59,7 +57,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
-
 
         #endregion Public Properties
 
@@ -76,7 +73,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             var model = new GeneralFeedbackViewModel
             {
-                NextPageUrl = NextPageUrl,
                 Title = Title
             };
             return View("Index", model);
@@ -98,6 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect($"{NextPage}");
             }
 
+            model.Title = Title;
             return View("Index", model);
         }
 

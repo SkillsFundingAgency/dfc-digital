@@ -19,10 +19,10 @@
     </div>
 
     <div class="govuk-form-group">
-        @Html.LabelFor(model => model.GeneralFeedback.Feedback, new { @class = "form-label" })
+        @Html.LabelFor(model => model.Feedback, new { @class = "form-label" })
         <span class="form-hint">@Model.Hint</span>
-        @Html.ValidationMessageFor(model => model.GeneralFeedback.Feedback, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(model => model.GeneralFeedback.Feedback, new { @class = "form-control form-control-3-4", rows = "5", type = "text" })
+        @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(model => model.Feedback, new { @class = "form-control form-control-3-4", rows = "5", type = "text" })
         <p class="govuk-!-font-size-16">@Model.CharacterLimit</p>
     </div>
     <div class="govuk-form-group">

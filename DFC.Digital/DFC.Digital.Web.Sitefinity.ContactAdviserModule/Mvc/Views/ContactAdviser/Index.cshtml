@@ -17,10 +17,10 @@
         </fieldset>
     </div>
     <div class="govuk-form-group">
-        @Html.LabelFor(model => model.ContactAnAdviserFeedback.Message, new { @class = "govuk-label" })
+        @Html.LabelFor(model => model.Message, new { @class = "govuk-label" })
         <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
-        @Html.ValidationMessageFor(model => model.ContactAnAdviserFeedback.Message, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(model => model.ContactAnAdviserFeedback.Message, new { @class = "govuk-textarea", rows = "5" })
+        @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5" })
     </div>
     <p class="govuk-!-font-size-16">@Model.CharacterLimit</p>
     <div class="govuk-form-group">

@@ -18,6 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class ContactAdviserController : BaseDfcController
     {
         #region Private Fields
+
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
@@ -27,16 +28,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Constructors
 
-        public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository, 
+        public ContactAdviserController(IEmailTemplateRepository emailTemplateRepository,
             ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger,
             IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-                 this.emailTemplateRepository = emailTemplateRepository;
-                this.sitefinityCurrentContext = sitefinityCurrentContext;
-                this.mapper = mapper;
-                this.sessionStorage = sessionStorage;
-            }
+            this.emailTemplateRepository = emailTemplateRepository;
+            this.sitefinityCurrentContext = sitefinityCurrentContext;
+            this.mapper = mapper;
+            this.sessionStorage = sessionStorage;
+        }
 
         #endregion Constructors
 
@@ -47,7 +48,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Why would you like to contact us?";
-
 
         #endregion Public Properties
 
@@ -64,9 +64,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             var model = new ContactAdviserViewModel
             {
-                NextPageUrl = NextPageUrl,
                 Title = Title
             };
+
             return View("Index", model);
         }
 
@@ -86,6 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect($"{NextPageUrl}");
             }
 
+            model.Title = Title;
             return View("Index", model);
         }
 

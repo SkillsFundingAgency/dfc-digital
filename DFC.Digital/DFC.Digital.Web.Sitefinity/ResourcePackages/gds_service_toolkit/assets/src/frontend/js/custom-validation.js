@@ -1,13 +1,13 @@
 ﻿
 $(document).ready(function () {
     
-    $("#formSubmit").click(function () {
+    $("button[type='submit']").click(function () {
       
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
 
-        var validator = $('#userform').validate();
-        if ($('#userform').valid()) {
-            $("#userform").submit(e);
+        var validator = $('form').validate();
+        if ($('form').valid()) {
+            $("form").submit(e);
         } else {
             $('#error-validation-summary').show();
 

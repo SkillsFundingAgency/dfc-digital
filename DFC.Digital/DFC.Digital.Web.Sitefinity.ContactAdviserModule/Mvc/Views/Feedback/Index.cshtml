@@ -1,5 +1,7 @@
-﻿@using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
+﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
 @model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.GeneralFeedbackViewModel
+
+@Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/jquerybundle.min.js")))
 
 @Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "Feedback", FormMethod.Post, new { id = "form-contact-adviser" }))

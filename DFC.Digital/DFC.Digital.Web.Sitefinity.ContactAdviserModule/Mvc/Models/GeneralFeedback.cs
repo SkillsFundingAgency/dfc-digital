@@ -10,6 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string Feedback { get; set; }
 
         [EnumDataType(typeof(FeedbackQuestionType), ErrorMessage = "Choose a reason for your feedback")]
+        [Required(ErrorMessage = "Choose a reason for your feedback")]
         public FeedbackQuestionType FeedbackQuestionType { get; set; }
     }
 }

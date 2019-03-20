@@ -6,7 +6,7 @@
 @Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "Feedback", FormMethod.Post, new { id = "form-contact-adviser" }))
 {
-    <div class="govuk-form-group" @Html.GetErrorClass(nameof(Model.FeedbackQuestionType), ViewData.ModelState)>
+    <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.FeedbackQuestionType), ViewData.ModelState)">
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                 <h1 class="govuk-fieldset__heading">@Model.Title</h1>

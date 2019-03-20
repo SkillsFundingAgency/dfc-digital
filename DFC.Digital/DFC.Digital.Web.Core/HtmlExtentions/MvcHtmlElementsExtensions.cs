@@ -17,11 +17,11 @@ namespace DFC.Digital.Web.Core
             where TModel : class
         {
             var enumType = typeof(TProperty);
+            if (enumType.IsNullableEnum())
+            {
+                enumType = Nullable.GetUnderlyingType(enumType);
+            }
 
-            //if (enumType.IsGenericType && enumType.GetGenericTypeDefinition() == typeof(Nullable<>))
-            //{
-            //    enumType = enumType.GetGenericArguments().First();
-            //}
             var enumEntryNames = Enum.GetNames(enumType);
             var entries = enumEntryNames
                 .Select(n => new
@@ -150,6 +150,12 @@ namespace DFC.Digital.Web.Core
             }
 
             return string.Empty;
+        }
+
+        public static bool IsNullableEnum(this Type t)
+        {
+            Type u = Nullable.GetUnderlyingType(t);
+            return (u != null) && u.IsEnum;
         }
     }
 }

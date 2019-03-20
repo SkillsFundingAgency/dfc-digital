@@ -41,8 +41,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else
             {
-                string assetLocation = $"~/ResourcePackages/{fileName.Substring(0, fileName.IndexOf("/"))}/assets/dist/{fileName.Substring(fileName.IndexOf("/") + 1)}";
-                var physicalPath = context.ServerMapPath(assetLocation);
+                string assetLocation = $"/ResourcePackages/{fileName.Substring(0, fileName.IndexOf("/"))}/assets/dist/{fileName.Substring(fileName.IndexOf("/") + 1)}";
+                var physicalPath = context.ServerMapPath($"~{assetLocation}");
                 var version = GetFileHash(physicalPath);
                 return $"{assetLocation}?{version}";
             }

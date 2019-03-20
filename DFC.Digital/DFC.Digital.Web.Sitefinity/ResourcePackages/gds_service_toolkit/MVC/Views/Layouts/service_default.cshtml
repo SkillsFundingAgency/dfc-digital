@@ -90,11 +90,7 @@
         window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
     </script>
 
-    @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
-    {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/jquerybundle.min.js"), "bottom")
-    }
-
+  
     @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
     @if (Html.IsDebugSymbol())
     {
@@ -104,5 +100,6 @@
     {
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
     }
+
 </body>
 </html>

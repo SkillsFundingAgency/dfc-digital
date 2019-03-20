@@ -1,8 +1,5 @@
-﻿
-$(document).ready(function () {
-    
+﻿$(document).ready(function () {
     $("button[type='submit']").click(function () {
-      
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
 
         var validator = $('form').validate();
@@ -11,20 +8,15 @@ $(document).ready(function () {
         } else {
             $('#error-validation-summary').show();
 
-
             for (var i = 0; i < validator.errorList.length; i++) {
                 var linkElement = validator.errorList[i].element.name.split('.').join('_');
-                $('#error-validation-summary .govuk-error-summary__body ul').append('<li><a href="#' +
-                    linkElement +
-                    '">' +
-                    validator.errorList[i].message +
-                    '</a></li>');
+                $('#error-validation-summary .govuk-error-summary__body ul')
+                    .append('<li><a href="#' + linkElement + '">' + validator.errorList[i].message + '</a></li>');
             }
 
             $('html,body').animate({
-                    scrollTop: $("#error-validation-summary").offset().top
-                },
-                2000);
+                scrollTop: $("#error-validation-summary").offset().top
+            }, 2000);
 
             return false;
         }
@@ -42,23 +34,19 @@ $(document).ready(function () {
         PopulateDateOfBirth();
     });
 
-
     var validator = $("form").validate();
     validator.settings.ignore = [];
 });
-
 
 $.validator.setDefaults({
     highlight: function (element) {
         if ($(element).attr('id') === "DateOfBirthDay" ||
             $(element).attr('id') === "DateOfBirthMonth" ||
             $(element).attr('id') === "DateOfBirth" ||
-            $(element).attr('id') === "DateOfBirthYear")
-        {
+            $(element).attr('id') === "DateOfBirthYear") {
             $('#dobDiv').addClass('govuk-form-group--error');
         }
-        else
-        {
+        else {
             $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
         }
     },
@@ -67,7 +55,6 @@ $.validator.setDefaults({
             $(element).attr('id') === "DateOfBirthMonth" ||
             $(element).attr('id') === "DateOfBirth" ||
             $(element).attr('id') === "DateOfBirthYear") {
-
             var otherValidationErrors = $("#dobDiv").find(".field-validation-error");
 
             if (otherValidationErrors.length === 0) {
@@ -80,7 +67,6 @@ $.validator.setDefaults({
 });
 
 //// *** Date of Birth Validation ***
-
 
 function PopulateDateOfBirth() {
     var dobDay = $('#DateOfBirthDay').val();
@@ -98,8 +84,6 @@ function PopulateDateOfBirth() {
         validator.element("#DateOfBirth");
     }
 }
-
-
 
 //// *** Custom Attributes area ***
 jQuery.validator.addMethod("enforcetrue", function (value, element, param) {
@@ -131,7 +115,6 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
 
     if (entryDate.getFullYear() == entryYear && entryDate.getMonth() == entryMonth && entryDate.getDate() == entryDay) {
-
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -170,7 +153,6 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
         failedDatesErrorMessages[0] = invalidAgeErrorMessage;
     }
     if (failedDatesErrorMessages.length > 0) {
-
         $.validator.messages.agerange = failedDatesErrorMessages.toString();
         return false;
     }
@@ -205,7 +187,6 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
 
     if (entryDate.getFullYear() == entryYear && entryDate.getMonth() == entryMonth && entryDate.getDate() == entryDay) {
-
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -238,7 +219,6 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     }
 
     if (failedDatesErrorMessages.length > 0) {
-
         $.validator.messages.daterange = failedDatesErrorMessages.toString();
         return false;
     }
@@ -250,4 +230,3 @@ $.validator.unobtrusive.adapters.add('daterange', ['dates', 'errormessages'], fu
         errormessages: options.params['errormessages'].split(',')
     };
 });
-

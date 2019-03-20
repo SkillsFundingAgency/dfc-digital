@@ -10,7 +10,7 @@
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                 <h1 class="govuk-fieldset__heading">@Model.Title</h1>
             </legend>
-            <div class="govuk-radios">
+            <div class="govuk-radios" id="@nameof(Model.ContactAdviserQuestionType)">
                 @Html.ValidationMessageFor(model => model.ContactAdviserQuestionType, null, new { @class = "govuk-error-message" })
                 @Html.GovUkEnumRadioButtonFor(model => model.ContactAdviserQuestionType)
             </div>

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -19,9 +17,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
+
         private IEmailTemplateRepository emailTemplateRepository;
         private ISitefinityCurrentContext sitefinityCurrentContext;
-        private readonly IMapper mapper;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
@@ -32,13 +30,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IEmailTemplateRepository emailTemplateRepository,
             ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
-            IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.sessionStorage = sessionStorage;
-            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -86,26 +82,29 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(ContactOptionsViewModel model)
         {
-            if (ModelState.IsValid)
+            if (TryValidateModel(model) && ModelState.IsValid)
             {
+                //sessionStorage.Save(new ContactUs { ContactUsOption = new ContactUsOption { ContactOptionType = model.ContactOptionType } });
                 sessionStorage.Save(new ContactUs { ContactUsOption = model.ContactUsOption });
-                model.Title = Title;
-                switch (model.ContactOptionType)
+                switch (model.ContactUsOption.ContactOptionType)
                 {
                     case ContactOption.Technical:
                         return Redirect(TechnicalFeedbackPage);
+
                     case ContactOption.ContactAdviser:
                         return Redirect(ContactAdviserPage);
+
                     case ContactOption.Feedback:
                         return Redirect(GeneralFeedbackPage);
+
                     default:
                         return View("Index", model);
                 }
             }
 
+            model.Title = Title;
             return View("Index", model);
         }
-
 
         #endregion Actions
     }

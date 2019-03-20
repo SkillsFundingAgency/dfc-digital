@@ -43,7 +43,7 @@
     <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-152x152.png")">
     <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
 
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("/gds_service_toolkit/css/main.min.css")))
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
     <!--Review: Why do we need the following?, why cant this be bundled with the main.css, all ie-8 related css needs to be reviewed as they dont exist!-->
     <!--[if !IE 8]><!-->
     @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
@@ -98,7 +98,7 @@
     @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
     @if (Html.IsDebugSymbol())
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
     }
     else
     {

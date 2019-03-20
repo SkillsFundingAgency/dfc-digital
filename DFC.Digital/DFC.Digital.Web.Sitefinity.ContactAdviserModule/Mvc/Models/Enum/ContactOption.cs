@@ -4,6 +4,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public enum ContactOption
     {
+
         [Display(Name = "Contact an adviser", Order = 1)]
         ContactAdviser = 1,
 

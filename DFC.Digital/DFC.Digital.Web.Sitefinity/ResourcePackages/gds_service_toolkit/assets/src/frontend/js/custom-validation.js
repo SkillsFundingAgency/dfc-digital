@@ -1,8 +1,6 @@
-﻿$('#DateOfBirth').removeAttr("data-val-date");
-
+﻿
 $(document).ready(function () {
-    $('#userform').validate().settings.ignore = [];
-    PopulateDateOfBirthDetails();
+    
     $("#formSubmit").click(function () {
       
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
@@ -31,48 +29,77 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    $("#DateOfBirthDay").change(function () {
+        PopulateDateOfBirth();
+    });
+
+    $("#DateOfBirthMonth").change(function () {
+        PopulateDateOfBirth();
+    });
+
+    $("#DateOfBirthYear").change(function () {
+        PopulateDateOfBirth();
+    });
+
+
+    var validator = $("form").validate();
+    validator.settings.ignore = [];
 });
 
 
 $.validator.setDefaults({
     highlight: function (element) {
-        $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
+        if ($(element).attr('id') === "DateOfBirthDay" ||
+            $(element).attr('id') === "DateOfBirthMonth" ||
+            $(element).attr('id') === "DateOfBirth" ||
+            $(element).attr('id') === "DateOfBirthYear")
+        {
+            $('#dobDiv').addClass('govuk-form-group--error');
+        }
+        else
+        {
+            $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
+        }
     },
     unhighlight: function (element) {
-        $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
-    }
-});
+        if ($(element).attr('id') === "DateOfBirthDay" ||
+            $(element).attr('id') === "DateOfBirthMonth" ||
+            $(element).attr('id') === "DateOfBirth" ||
+            $(element).attr('id') === "DateOfBirthYear") {
 
-$("#DateOfBirthDay").change(function () {
-    PopulateDateOfBirthDetails();
-});
+            var otherValidationErrors = $("#dobDiv").find(".field-validation-error");
 
-$("#DateOfBirthMonth").change(function () {
-    PopulateDateOfBirthDetails();
-});
-
-$("#DateOfBirthYear").change(function () {
-    PopulateDateOfBirthDetails();
-});
-
-
-function PopulateDateOfBirthDetails() {
-    if ($('#DateOfBirthDay')) {
-        var dobDay = $('#DateOfBirthDay').val();
-        var dobMonth = $('#DateOfBirthMonth').val();
-        var dobDayYear = $('#DateOfBirthYear').val();
-
-        if (dobDay !== "" && dobMonth !== "" && dobDayYear !== "") {
-            var dateOfBirth = "";
-            if (dobDay || dobMonth || dobDayYear) {
-                dateOfBirth = dobDay + '/' + dobMonth + '/' + dobDayYear;
+            if (otherValidationErrors.length === 0) {
+                $('#dobDiv').removeClass('govuk-form-group--error');
             }
-
-            $('#DateOfBirth').val(dateOfBirth);
-            $("#userForm").validate().element('#DateOfBirth');
+        } else {
+            $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
         }
     }
+});
+
+//// *** Date of Birth Validation ***
+
+
+function PopulateDateOfBirth() {
+    var dobDay = $('#DateOfBirthDay').val();
+    var dobMonth = $('#DateOfBirthMonth').val();
+    var dobDayYear = $('#DateOfBirthYear').val();
+
+    if (dobDay !== "" && dobMonth !== "" && dobDayYear !== "") {
+        var dateOfBirth = "";
+        if (dobDay || dobMonth || dobDayYear) {
+            dateOfBirth = dobDay + '/' + dobMonth + '/' + dobDayYear;
+        }
+
+        $('#DateOfBirth').val(dateOfBirth);
+        var validator = $("form").validate();
+        validator.element("#DateOfBirth");
+    }
 }
+
+
 
 //// *** Custom Attributes area ***
 jQuery.validator.addMethod("enforcetrue", function (value, element, param) {
@@ -223,3 +250,4 @@ $.validator.unobtrusive.adapters.add('daterange', ['dates', 'errormessages'], fu
         errormessages: options.params['errormessages'].split(',')
     };
 });
+

@@ -7,7 +7,7 @@
 <h1 class="govuk-heading-xl">@Model.PageTitle</h1>
 <p class="govuk-body-m">@Html.Raw(Model.PageIntroduction)</p>
 <p class="govuk-body-m">@Html.Raw(Model.PageIntroductionTwo)</p>
-@using (Html.BeginForm("SubmitDetails", "YourDetails", FormMethod.Post, new { id = "userform" }))
+@using (Html.BeginForm("SubmitDetails", "YourDetails", FormMethod.Post, new { id = "userform", role="form" }))
 {
     <fieldset class="govuk-fieldset">
 

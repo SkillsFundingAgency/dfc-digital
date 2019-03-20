@@ -54,8 +54,8 @@
         @Html.ValidationMessageFor(x => x.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
         <div class="govuk-checkboxes">
             <div class="govuk-checkboxes__item">
-                @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions)
-                @Html.CheckBoxFor(model => model.AcceptTermsAndConditions, new { @class= "govuk-checkboxes__input" })
+                @Html.CheckBoxForSimple(model => model.AcceptTermsAndConditions, new { @class= "govuk-checkboxes__input" })
+                @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions, new {@class= "govuk-label govuk-checkboxes__label" })
             </div>
         </div>
     </fieldset>

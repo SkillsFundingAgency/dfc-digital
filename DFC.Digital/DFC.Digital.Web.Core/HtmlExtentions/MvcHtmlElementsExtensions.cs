@@ -151,5 +151,12 @@ namespace DFC.Digital.Web.Core
 
             return string.Empty;
         }
+
+        public static MvcHtmlString CheckBoxForSimple<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
+        {
+            var checkBoxWithHidden = htmlHelper.CheckBoxFor(expression, htmlAttributes).ToHtmlString();
+            var pureCheckBox = checkBoxWithHidden.Substring(0, checkBoxWithHidden.IndexOf("<input", 1, StringComparison.InvariantCultureIgnoreCase));
+            return new MvcHtmlString(pureCheckBox);
+        }
     }
 }

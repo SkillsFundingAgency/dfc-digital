@@ -88,7 +88,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                sessionStorage.Save(new ContactUs { ContactUsOption = model.ContactUsOption });
+                var contactUsOptionSelected = new ContactUs();
+
+                contactUsOptionSelected.ContactUsOption = new ContactUsOption();
+
+                contactUsOptionSelected.ContactUsOption.ContactOptionType = model.ContactOptionType;
+
+                sessionStorage.Save(contactUsOptionSelected);
                 model.Title = Title;
                 switch (model.ContactOptionType)
                 {

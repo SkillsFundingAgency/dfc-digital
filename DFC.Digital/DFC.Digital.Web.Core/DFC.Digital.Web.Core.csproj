@@ -156,11 +156,13 @@
     <Compile Include="ModelValidationAttributes\AcceptAttribute.cs" />
     <Compile Include="ModelValidationAttributes\AgeRangeAttribute.cs" />
     <Compile Include="ModelValidationAttributes\BFPOAddressAttribute.cs" />
+    <Compile Include="ModelValidationAttributes\CompositeValidationResult.cs" />
     <Compile Include="ModelValidationAttributes\ConditionalRequiredAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DateRangeAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DifferAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DoubleRegexAttribute.cs" />
     <Compile Include="ModelValidationAttributes\HomePostCodeAttribute.cs" />
+    <Compile Include="ModelValidationAttributes\ValidateUnderlyingType.cs" />
     <Compile Include="Utility\DependencyHealthCheckService.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="HtmlExtentions\AssetVersioningExtention.cs" />

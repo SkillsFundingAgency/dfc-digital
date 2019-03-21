@@ -67,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
         public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
 
-        [DisplayName("Template for sending email to Serco")]
+        [DisplayName("Template Url Name  in Configurations e.g contact-an-advisor")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
         [DisplayName("Date Of Birth hint")]
@@ -131,9 +131,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     TermsAndConditions = viewModel.AcceptTermsAndConditions,
                     PostCode = viewModel.Postcode,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ToString(),
-                    DateOfBirth = viewModel.DateOfBirth,
-                    FeedbackQuestionType = data.TechnicalFeedback?.ToString()
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                    DateOfBirth = viewModel.DateOfBirth
                 }));
 
                 if (result)
@@ -145,6 +144,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     return Redirect(FailurePageUrl);
                 }
             }
+
+            viewModel.PageTitle = PageTitle;
+            viewModel.PageIntroduction = AdviserIntroduction;
+            viewModel.PageIntroductionTwo = AdviserIntroductionTwo;
+            viewModel.DateOfBirthHint = DateOfBirthHint;
+            viewModel.PostcodeHint = PostcodeHint;
+            viewModel.TermsAndConditionsText = TermsAndConditionsText;
 
             return View("ContactAdvisor", viewModel);
         }
@@ -161,11 +167,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     Email = viewModel.EmailAddress,
                     TemplateName = TemplateName,
                     LastName = viewModel.Lastname,
-                    Message = data.GeneralFeedback?.Feedback,
+                    Message = ContactOption == ContactOption.Feedback ? data.GeneralFeedback?.Feedback : data.TechnicalFeedback?.Message,
                     IsContactable = viewModel.IsContactable,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ToString(),
-                    FeedbackQuestionType = data.TechnicalFeedback?.ToString()
+                    FeedbackQuestionType = data.GeneralFeedback?.FeedbackQuestionType.ToString()
                 }));
 
                 if (result)
@@ -178,6 +183,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
+            viewModel.PageTitle = PageTitle;
+            viewModel.PageIntroduction = NonAdviserIntroduction;
+            viewModel.DoYouWantUsToContactUsText = DoYouWantUsToContactUsText;
+            viewModel.TermsAndConditionsText = TermsAndConditionsText;
             return View(viewModel);
         }
 

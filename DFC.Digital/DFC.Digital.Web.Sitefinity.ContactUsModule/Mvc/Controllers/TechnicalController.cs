@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "technical-feedback";
+        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Report a technical issue";
@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 return Redirect(NextPageUrl);
             }
-
+            model.Title = Title;
             //Put the non bound data fields back
             return View("Index", AddWidgetPropertyFields(model));
         }

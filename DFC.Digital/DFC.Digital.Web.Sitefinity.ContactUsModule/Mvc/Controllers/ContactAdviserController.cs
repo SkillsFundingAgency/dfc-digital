@@ -49,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string NextPageUrl { get; set; } = "/contact-us/your-details-adviser/";
 
         [DisplayName("Page Title")]
-        public string Title { get; set; } = "Why would you like to contact us?";
+        public string Title { get; set; } = "What is your query about?";
 
         #endregion Public Properties
 

@@ -19,5 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string DateOfBirthHint { get; set; }
 
         public string PostcodeHint { get; set; }
+
+        public string SendButtonText { get; set; }
     }
 }

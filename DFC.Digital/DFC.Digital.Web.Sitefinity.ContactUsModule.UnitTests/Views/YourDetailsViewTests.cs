@@ -1,89 +1,119 @@
-﻿namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
+﻿using ASP;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
+using FluentAssertions;
+using HtmlAgilityPack;
+using RazorGenerator.Testing;
+using System;
+using System.Linq;
+using Xunit;
+
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
-    //public class YourDetailsViewTests
-    //{
-    //    [Theory]
-    //    [InlineData(false)]
-    //    [InlineData(true)]
-    //    public void Dfc7630YourDetailsViewTests(bool contactAdviser)
-    //    {
-    //        // Arrange
-    //        var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();
-    //        var contactUsViewModel = new ContactUsWithDobPostcodeViewModel();
+    public class YourDetailsViewTests
+    {
+        [Fact]
+        public void Dfc7630YourDetailsContactAdvisorViewTests()
+        {
+            // Arrange
+            var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();
+            var contactUsViewModel = new ContactUsWithDobPostcodeViewModel
+            {
+                PageIntroduction = nameof(ContactUsWithDobPostcodeViewModel.PageIntroduction),
+                PageIntroductionTwo = nameof(ContactUsWithDobPostcodeViewModel.PageIntroduction),
+                TermsAndConditionsText = nameof(ContactUsWithDobPostcodeViewModel.TermsAndConditionsText),
+                PostcodeHint = nameof(ContactUsWithDobPostcodeViewModel.PostcodeHint),
+                DateOfBirthHint = nameof(ContactUsWithDobPostcodeViewModel.DateOfBirthHint),
+                PageTitle = nameof(ContactUsWithDobPostcodeViewModel.PageTitle)
+            };
 
-    //        // Act
-    //        var htmlDocument = yourDetailsIndex.RenderAsHtml(contactUsViewModel);
+            // Act
+            var htmlDocument = yourDetailsIndex.RenderAsHtml(contactUsViewModel);
 
-    //        // Assert
-    //        if (contactAdviser)
-    //        {
-    //            AssertDobAndPostCodeExistsInView(htmlDocument);
-    //        }
-    //        else
-    //        {
-    //            AssertIsContactableExistsInView(htmlDocument);
-    //        }
-    //    }
+            // Assert
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PageTitle, "h1");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PageIntroduction, "p");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PageIntroductionTwo, "p");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.DateOfBirthHint, "span");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PostcodeHint, "span");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.TermsAndConditionsText, "h3");
+            AssertFormGroupsCounts(htmlDocument, 11);
+        }
 
-    //    [Theory]
-    //    [InlineData(true)]
-    //    [InlineData(false)]
-    //    public void Dfc7630ErrorSummaryViewTests(bool modelStateInvalid)
-    //    {
-    //        // Arrange
-    //        var errorSummaryView = new _MVC_Views_Shared_ErrorSummary_cshtml();
+        [Fact]
+        public void Dfc7630YourDetailsFeedBackViewTests()
+        {
+            // Arrange
+            var yourDetailsIndex = new _MVC_Views_YourDetails_Feedback_cshtml();
+            var contactUsViewModel = new ContactUsWithConsentViewModel
+            {
+                PageIntroduction = nameof(ContactUsWithConsentViewModel.PageIntroduction),
+                DoYouWantUsToContactUsText = nameof(ContactUsWithConsentViewModel.DoYouWantUsToContactUsText),
+                TermsAndConditionsText = nameof(ContactUsWithConsentViewModel.TermsAndConditionsText),
+                PageTitle = nameof(ContactUsWithConsentViewModel.PageTitle)
+            };
 
-    //        if (modelStateInvalid)
-    //        {
-    //            errorSummaryView.ViewData.ModelState.AddModelError(nameof(DateOfBirthPostcodeDetails.Firstname), nameof(Exception.Message));
-    //        }
+            // Act
+            var htmlDocument = yourDetailsIndex.RenderAsHtml(contactUsViewModel);
 
-    //        // Act
-    //        var htmlDocument = errorSummaryView.RenderAsHtml();
+            // Assert
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PageTitle, "h1");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.PageIntroduction, "p");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.DoYouWantUsToContactUsText, "h2");
+            AssertTagInnerTextValue(htmlDocument, contactUsViewModel.TermsAndConditionsText, "h3");
+            AssertFormGroupsCounts(htmlDocument, 7);
+        }
 
-    //        // Assert
-    //        if (modelStateInvalid)
-    //        {
-    //            AssertErrorDetailInSummary(htmlDocument, nameof(Exception.Message));
-    //        }
-    //        else
-    //        {
-    //            AssertViewIsEmpty(htmlDocument);
-    //        }
-    //    }
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc7630ErrorSummaryViewTests(bool modelStateInvalid)
+        {
+            // Arrange
+            var errorSummaryView = new _MVC_Views_Shared_ErrorSummary_cshtml();
 
-    //    private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
-    //    {
-    //        htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
-    //    }
+            if (modelStateInvalid)
+            {
+                errorSummaryView.ViewData.ModelState.AddModelError(nameof(DateOfBirthPostcodeDetails.Firstname), nameof(Exception.Message));
+            }
 
-    //    private void AssertErrorDetailInSummary(HtmlDocument htmlDocument, string errorMessage)
-    //    {
-    //        htmlDocument.DocumentNode.Descendants("h2")
-    //            .Count(h2 => h2.InnerText.Contains("There is a problem")).Should().BeGreaterThan(0);
-    //        htmlDocument.DocumentNode.Descendants("a")
-    //            .Count(a => a.InnerText.Contains(errorMessage)).Should().BeGreaterThan(0);
+            // Act
+            var htmlDocument = errorSummaryView.RenderAsHtml();
 
-    //    }
+            // Assert
+            if (modelStateInvalid)
+            {
+                AssertErrorDetailInSummary(htmlDocument, nameof(Exception.Message));
+            }
+            else
+            {
+                AssertSummaryListViewIsEmpty(htmlDocument);
+            }
+        }
 
-    //    private void AssertIsContactableExistsInView(HtmlDocument htmlDocument)
-    //    {
-    //        htmlDocument.DocumentNode.Descendants("h2")
-    //            .Count(h2 => h2.InnerText.Contains("Do you want us to contact you?")).Should().BeGreaterThan(0);
-    //        htmlDocument.DocumentNode.Descendants("span")
-    //            .Count(h2 => h2.Id.Equals("dob-hint")).Should().Be(0);
-    //        htmlDocument.DocumentNode.Descendants("span")
-    //            .Count(h2 => h2.Id.Equals("postcode-hint")).Should().Be(0);
-    //    }
+        private static void AssertSummaryListViewIsEmpty(HtmlDocument htmlDocument)
+        {
+            htmlDocument.DocumentNode.Descendants("li").Count().Should().Be(0);
+        }
 
-    //    private void AssertDobAndPostCodeExistsInView(HtmlDocument htmlDocument)
-    //    {
-    //        htmlDocument.DocumentNode.Descendants("span")
-    //            .Count(h2 => h2.Id.Equals("dob-hint")).Should().BeGreaterThan(0);
-    //        htmlDocument.DocumentNode.Descendants("span")
-    //            .Count(h2 => h2.Id.Equals("postcode-hint")).Should().BeGreaterThan(0);
-    //        htmlDocument.DocumentNode.Descendants("h2")
-    //            .Count(h2 => h2.InnerText.Contains("Do you want us to contact you?")).Should().Be(0);
-    //    }
-    //}
+        private void AssertErrorDetailInSummary(HtmlDocument htmlDocument, string errorMessage)
+        {
+            htmlDocument.DocumentNode.Descendants("h2")
+                .Count(h2 => h2.InnerText.Contains("There is a problem")).Should().BeGreaterThan(0);
+            htmlDocument.DocumentNode.Descendants("a")
+                .Count(a => a.InnerText.Contains(errorMessage)).Should().BeGreaterThan(0);
+
+        }
+
+        private void AssertTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(h2 => h2.InnerText.Contains(innerText)).Should().BeTrue();
+        }
+
+        private void AssertFormGroupsCounts(HtmlDocument htmlDocument, int count)
+        {
+            htmlDocument.DocumentNode.Descendants("div")
+                .Count(div => div.Attributes["class"].Value.Contains("govuk-form-group")).Should().Be(count);
+        }
+    }
 }

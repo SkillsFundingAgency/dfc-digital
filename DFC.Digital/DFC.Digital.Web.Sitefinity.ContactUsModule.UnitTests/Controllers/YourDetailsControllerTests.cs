@@ -81,6 +81,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                     .WithModel<ContactUsWithConsentViewModel>(vm =>
                     {
                         vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
+                        vm.DoYouWantUsToContactUsText.Should().BeEquivalentTo(controller.DoYouWantUsToContactUsText);
                         vm.PageIntroduction.Should().BeEquivalentTo(controller.NonAdviserIntroduction);
                         vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
                     });

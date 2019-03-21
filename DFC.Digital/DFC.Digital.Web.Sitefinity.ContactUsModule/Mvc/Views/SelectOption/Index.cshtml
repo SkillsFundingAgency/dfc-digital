@@ -1,7 +1,5 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactOptionsViewModel
-
-@Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/jquerybundle.min.js")))
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactOptionsViewModel
+ 
 
 @Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))

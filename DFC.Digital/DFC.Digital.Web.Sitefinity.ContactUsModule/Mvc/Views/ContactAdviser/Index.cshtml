@@ -1,7 +1,5 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers
-@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactAdviserViewModel
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactAdviserViewModel
 
-@Html.Script(Html.VersionAssetFile(Url.Content("~/ResourcePackages/gds_service_toolkit/assets/dist/js/jquerybundle.min.js")))
 @Html.Partial("ErrorSummary")
 @using (Html.BeginForm("index", "ContactAdviser", FormMethod.Post, new { id = "form-contact-adviser" }))
 {

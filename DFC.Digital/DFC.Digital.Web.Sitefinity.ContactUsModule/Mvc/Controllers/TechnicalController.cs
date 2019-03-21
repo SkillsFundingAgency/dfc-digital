@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 return Redirect(NextPageUrl);
             }
-
+            model.Title = Title;
             //Put the non bound data fields back
             return View("Index", AddWidgetPropertyFields(model));
         }

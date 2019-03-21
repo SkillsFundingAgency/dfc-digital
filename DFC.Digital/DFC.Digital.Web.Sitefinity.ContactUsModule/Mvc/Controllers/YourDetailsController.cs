@@ -188,7 +188,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             viewModel.PageIntroduction = NonAdviserIntroduction;
             viewModel.DoYouWantUsToContactUsText = DoYouWantUsToContactUsText;
             viewModel.TermsAndConditionsText = TermsAndConditionsText;
-            return View(viewModel);
+            return View("Feedback", viewModel);
         }
 
         #endregion Actions

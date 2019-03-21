@@ -3728,4 +3728,36 @@
     <loc>https://nationalcareersservice.direct.gov.uk/job-profiles</loc>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/advertised-job-vacancies</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/networking</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/cv-sections</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/cv-tips</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/covering-letter</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/interview-advice</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/top-10-interview-questions</loc>
+    <priority>0.5</priority>
+  </url>
 </urlset>

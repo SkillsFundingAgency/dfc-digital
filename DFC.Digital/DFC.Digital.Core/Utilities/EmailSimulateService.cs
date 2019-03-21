@@ -13,9 +13,9 @@ namespace DFC.Digital.Core
             this.configuration = configuration;
         }
 
-        private string SimulationSuccessEmailAddress => configuration.GetConfig<string>(Constants.SimulationSuccessEmailAddress);
+        private string SimulationSuccessEmailAddress => configuration.GetConfig<string>(Constants.SimulationSuccessEmailAddress) ?? "simulate-delivered@nationalcareers.service.gov.uk";
 
-        private string SimulationFailureEmailAddress => configuration.GetConfig<string>(Constants.SimulationFailureEmailAddress);
+        private string SimulationFailureEmailAddress => configuration.GetConfig<string>(Constants.SimulationFailureEmailAddress) ?? "simulate-failed@nationalcareers.service.gov.uk";
 
         public bool IsThisSimulationRequest(string email)
         {

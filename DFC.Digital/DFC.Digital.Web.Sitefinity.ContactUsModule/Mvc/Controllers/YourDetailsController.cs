@@ -131,7 +131,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     TermsAndConditions = viewModel.AcceptTermsAndConditions,
                     PostCode = viewModel.Postcode,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback.ContactAdviserQuestionType?.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
                     DateOfBirth = viewModel.DateOfBirth
                 }));
 

@@ -82,6 +82,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Do you want us to contact you text")]
         public string DoYouWantUsToContactUsText { get; set; } = "Do you want us to contact you?";
 
+        [DisplayName("Send Button text")]
+        public string SendButtonText { get; set; } = "Send";
+
         #endregion Properties
 
         #region Actions
@@ -91,26 +94,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ContactOption == ContactOption.ContactAdviser)
             {
-                var viewModel = new ContactUsWithDobPostcodeViewModel
-                {
-                    PageTitle = PageTitle,
-                    PageIntroduction = AdviserIntroduction,
-                    PageIntroductionTwo = AdviserIntroductionTwo,
-                    PostcodeHint = PostcodeHint,
-                    DateOfBirthHint = DateOfBirthHint,
-                    TermsAndConditionsText = TermsAndConditionsText
-                };
+                var viewModel = new ContactUsWithDobPostcodeViewModel();
+                SetupDobViewModelDefaults(viewModel);
                 return View("ContactAdvisor", viewModel);
             }
             else
             {
-                var viewModel = new ContactUsWithConsentViewModel
-                {
-                    PageTitle = PageTitle,
-                    PageIntroduction = NonAdviserIntroduction,
-                    DoYouWantUsToContactUsText = DoYouWantUsToContactUsText,
-                    TermsAndConditionsText = TermsAndConditionsText
-                };
+                var viewModel = new ContactUsWithConsentViewModel();
+                SetupConsentViewModelDefaults(viewModel);
                 return View("Feedback", viewModel);
             }
         }
@@ -127,9 +118,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     Email = viewModel.EmailAddress,
                     TemplateName = TemplateName,
                     LastName = viewModel.Lastname,
-                    Message = data.GeneralFeedback?.Feedback,
+                    Message = data.ContactAnAdviserFeedback?.Message,
                     TermsAndConditions = viewModel.AcceptTermsAndConditions,
-                    PostCode = viewModel.Postcode,
+                    Postcode = viewModel.Postcode,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
                     ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
                     DateOfBirth = viewModel.DateOfBirth
@@ -145,12 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
-            viewModel.PageTitle = PageTitle;
-            viewModel.PageIntroduction = AdviserIntroduction;
-            viewModel.PageIntroductionTwo = AdviserIntroductionTwo;
-            viewModel.DateOfBirthHint = DateOfBirthHint;
-            viewModel.PostcodeHint = PostcodeHint;
-            viewModel.TermsAndConditionsText = TermsAndConditionsText;
+            SetupDobViewModelDefaults(viewModel);
 
             return View("ContactAdvisor", viewModel);
         }
@@ -169,6 +155,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     LastName = viewModel.Lastname,
                     Message = ContactOption == ContactOption.Feedback ? data.GeneralFeedback?.Feedback : data.TechnicalFeedback?.Message,
                     IsContactable = viewModel.IsContactable,
+                    TermsAndConditions = viewModel.AcceptTermsAndConditions,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
                     FeedbackQuestionType = data.GeneralFeedback?.FeedbackQuestionType.ToString()
                 }));
@@ -183,11 +170,28 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
+            SetupConsentViewModelDefaults(viewModel);
+            return View("Feedback", viewModel);
+        }
+
+        private void SetupConsentViewModelDefaults(ContactUsWithConsentViewModel viewModel)
+        {
             viewModel.PageTitle = PageTitle;
             viewModel.PageIntroduction = NonAdviserIntroduction;
             viewModel.DoYouWantUsToContactUsText = DoYouWantUsToContactUsText;
             viewModel.TermsAndConditionsText = TermsAndConditionsText;
-            return View(viewModel);
+            viewModel.SendButtonText = SendButtonText;
+        }
+
+        private void SetupDobViewModelDefaults(ContactUsWithDobPostcodeViewModel viewModel)
+        {
+            viewModel.PageTitle = PageTitle;
+            viewModel.PageIntroduction = AdviserIntroduction;
+            viewModel.PageIntroductionTwo = AdviserIntroductionTwo;
+            viewModel.DateOfBirthHint = DateOfBirthHint;
+            viewModel.PostcodeHint = PostcodeHint;
+            viewModel.TermsAndConditionsText = TermsAndConditionsText;
+            viewModel.SendButtonText = SendButtonText;
         }
 
         #endregion Actions

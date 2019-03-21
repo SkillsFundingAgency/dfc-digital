@@ -9,5 +9,7 @@
         public string TermsAndConditionsText { get; set; }
 
         public string DoYouWantUsToContactUsText { get; set; }
+
+        public string SendButtonText { get; set; }
     }
 }

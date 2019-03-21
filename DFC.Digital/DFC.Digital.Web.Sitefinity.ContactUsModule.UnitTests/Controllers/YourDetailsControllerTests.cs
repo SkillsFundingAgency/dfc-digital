@@ -1,4 +1,4 @@
-﻿/*using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
@@ -19,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IMapper fakeMapper;
-        private readonly ISessionStorage<ContactUsViewModel> fakeSessionStorage;
+        private readonly ISessionStorage<ContactUs> fakeSessionStorage;
 
         #endregion Private Fields
 
@@ -27,7 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
         public YourDetailsControllerTests()
         {
-            fakeSessionStorage = A.Fake<ISessionStorage<ContactUsViewModel>>(ops => ops.Strict());
+            fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeSendEmailService = A.Fake<INoncitizenEmailService<ContactUsRequest>>(ops => ops.Strict());
@@ -43,28 +43,49 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(ContactOption.Technical, true)]
         public void IndexGetTest(ContactOption contactOption, bool validSessionVm)
         {
-            //Assign
-            A.CallTo(() => fakeSessionStorage.Get())
-                .Returns(validSessionVm
-                ? new ContactUsViewModel { ContactOption = contactOption }
-                : null);
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage)
             {
+                ContactOption = contactOption,
                 PageTitle = nameof(YourDetailsController.PageTitle),
-                PageIntroductionTwo = nameof(YourDetailsController.PageIntroductionTwo),
-                PageIntroduction = nameof(YourDetailsController.PageIntroduction)
+                AdviserIntroductionTwo = nameof(YourDetailsController.AdviserIntroductionTwo),
+                AdviserIntroduction = nameof(YourDetailsController.AdviserIntroduction),
+                NonAdviserIntroduction = nameof(YourDetailsController.NonAdviserIntroduction),
+                DateOfBirthHint = nameof(YourDetailsController.DateOfBirthHint),
+                PostcodeHint = nameof(YourDetailsController.PostcodeHint),
+                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
+                DoYouWantUsToContactUsText = nameof(YourDetailsController.DoYouWantUsToContactUsText),
+                TermsAndConditionsText = nameof(YourDetailsController.TermsAndConditionsText),
+                TemplateName = nameof(YourDetailsController.TemplateName)
             };
 
             //Act
-            var controllerResult = controller.WithCallTo(contrl => contrl.Index(contactOption));
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
-            controllerResult.ShouldRenderDefaultView()
-                .WithModel<ContactUsViewModel>(vm =>
-                {
-                    vm.ContactOption.Should().Be(contactOption);
-                });
-            A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
+            if (contactOption == ContactOption.ContactAdviser)
+            {
+                controllerResult.ShouldRenderView("ContactAdvisor")
+                    .WithModel<ContactUsWithDobPostcodeViewModel>(vm =>
+                    {
+                        vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
+                        vm.PageIntroduction.Should().BeEquivalentTo(controller.AdviserIntroduction);
+                        vm.PageIntroductionTwo.Should().BeEquivalentTo(controller.AdviserIntroductionTwo);
+                        vm.PostcodeHint.Should().BeEquivalentTo(controller.PostcodeHint);
+                        vm.DateOfBirthHint.Should().BeEquivalentTo(controller.DateOfBirthHint);
+                        vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
+                    });
+            }
+            else
+            {
+                controllerResult.ShouldRenderView("Feedback")
+                    .WithModel<ContactUsWithConsentViewModel>(vm =>
+                    {
+                        vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
+                        vm.DoYouWantUsToContactUsText.Should().BeEquivalentTo(controller.DoYouWantUsToContactUsText);
+                        vm.PageIntroduction.Should().BeEquivalentTo(controller.NonAdviserIntroduction);
+                        vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
+                    });
+            }
         }
 
         [Theory]
@@ -74,47 +95,90 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public void SubmitTests(bool modelStateValid, bool validSubmission)
         {
             //Assign
-            var postModel = modelStateValid
-                ? new ContactUsViewModel
-                {
-                    FirstName = nameof(ContactUsViewModel.FirstName),
-                    LastName = nameof(ContactUsViewModel.LastName),
-                    Email = "test@mail.com",
-                    EmailConfirm = "test@mail.com",
-                    DobDay = "10",
-                    DobMonth = "10",
-                    DobYear = "1970",
-                    TermsAndConditions = true
-                }
-                : new ContactUsViewModel();
-            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
+            var postModel = new ContactUsWithConsentViewModel();
 
+            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
+            A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage)
             {
-                SuccessMessage = nameof(YourDetailsController.SuccessMessage),
-                FailureMessage = nameof(YourDetailsController.FailureMessage)
+                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
+                FailurePageUrl = nameof(YourDetailsController.FailurePageUrl)
             };
 
+            if (!modelStateValid)
+            {
+                controller.ModelState.AddModelError(nameof(ContactUsWithConsentViewModel.Firstname), nameof(ContactUsWithDobPostcodeViewModel.Firstname));
+            }
+
             //Act
-            var controllerResult = controller.WithCallTo(contrl => contrl.Index(postModel));
+            var controllerResult = controller.WithCallTo(contrl => contrl.Submit(postModel));
 
             //Assert
             if (modelStateValid)
             {
-                controllerResult.ShouldRenderView("ThankYou")
-                    .WithModel<ContactUsResultViewModel>(vm =>
-                    {
-                        vm.Message.Should().Be(validSubmission ? controller.SuccessMessage : controller.FailureMessage);
-                    });
+                A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
+                if (validSubmission)
+                {
+                    controllerResult.ShouldRedirectTo(controller.SuccessPageUrl);
+                }
+                else
+                {
+                    controllerResult.ShouldRedirectTo(controller.FailurePageUrl);
+                }
             }
             else
             {
-                controllerResult.ShouldRenderDefaultView()
-                    .WithModel<ContactUsViewModel>()
-                    .AndModelError(nameof(ContactUsViewModel.DateOfBirth));
+                controllerResult.ShouldRenderView("Feedback")
+                    .WithModel<ContactUsWithConsentViewModel>()
+                    .AndModelErrorFor(model => model.Firstname);
+            }
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(true, false)]
+        [InlineData(false, false)]
+        public void SubmitDetailsTests(bool modelStateValid, bool validSubmission)
+        {
+            //Assign
+            var postModel = new ContactUsWithDobPostcodeViewModel();
+            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
+            A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeSessionStorage)
+            {
+                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
+                FailurePageUrl = nameof(YourDetailsController.FailurePageUrl)
+            };
+
+            if (!modelStateValid)
+            {
+                controller.ModelState.AddModelError(nameof(ContactUsWithDobPostcodeViewModel.Firstname), nameof(ContactUsWithDobPostcodeViewModel.Firstname));
+            }
+
+            //Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.SubmitDetails(postModel));
+
+            //Assert
+            if (modelStateValid)
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
+                if (validSubmission)
+                {
+                    controllerResult.ShouldRedirectTo(controller.SuccessPageUrl);
+                }
+                else
+                {
+                    controllerResult.ShouldRedirectTo(controller.FailurePageUrl);
+                }
+            }
+            else
+            {
+                controllerResult.ShouldRenderView("ContactAdvisor")
+                    .WithModel<ContactUsWithDobPostcodeViewModel>()
+                    .AndModelErrorFor(model => model.Firstname);
             }
         }
 
         #endregion Action Tests
     }
-}*/
+}

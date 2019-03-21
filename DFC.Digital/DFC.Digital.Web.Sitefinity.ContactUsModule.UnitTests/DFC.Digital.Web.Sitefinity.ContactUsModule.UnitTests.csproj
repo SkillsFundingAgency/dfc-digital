@@ -69,7 +69,7 @@
       <Project>{2161F904-4D97-4685-8C9F-05C6F4D0DD74}</Project>
       <Name>DFC.Digital.Web.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.ContactAdviserModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj">
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.ContactUsModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj">
       <Project>{d5b28738-adcd-4712-9219-45c4a061dff1}</Project>
       <Name>DFC.Digital.Web.Sitefinity.ContactUsModule</Name>
     </ProjectReference>

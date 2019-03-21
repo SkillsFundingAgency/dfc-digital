@@ -44,7 +44,6 @@
     <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
 
     @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
-    <!--Review: Why do we need the following?, why cant this be bundled with the main.css, all ie-8 related css needs to be reviewed as they dont exist!-->
     <!--[if !IE 8]><!-->
     @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
     <!--<![endif]-->
@@ -70,7 +69,7 @@
     @Html.Section("top")
     @Html.SfPlaceHolder("ServiceHeader")
 
-    @Html.SfPlaceHolder("ServiceBanner")<!--Review: Is this the correct place for this? or should this be a-->
+    @Html.SfPlaceHolder("ServiceBanner")
 
     <div class="govuk-width-container">
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">

@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $("button[type='submit']").click(function () {
+        $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
 
         var validator = $('form').validate();

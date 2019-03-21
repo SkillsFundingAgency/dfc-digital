@@ -2,24 +2,24 @@
 @using Telerik.Sitefinity.Services;
 @using DFC.Digital.Web.Core;
 <!DOCTYPE html>
-<html lang="en" class="govuk-template app-html-class">
+<html @Html.RenderLangAttribute() class="govuk-template app-html-class">
 <head>
-    <!-- Page-hiding snippet (recommended)  -->
-    <style>
+    <!-- Page-hiding snippet (recommended) google optimise anti flicker -->
+    <style type="text/css">
         .async-hide {
             opacity: 0 !important
         }
     </style>
-    <script>
+    <script type="text/javascript">
         (function (a, s, y, n, c, h, i, d, e) {
             s.className += ' ' + y; h.start = 1 * new Date;
             h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
             (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
         })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
             { 'GTM-554PPX9': true });</script>
-
+    <!-- End Page-hiding snippet (recommended) google optimise anti flicker -->
     <!-- Google Tag Manager -->
-    <script>
+    <script type="text/javascript">
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
@@ -30,15 +30,11 @@
         })(window, document, 'script', 'dataLayer', 'GTM-554PPX9');
     </script>
     <!-- End Google Tag Manager -->
-
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("/gds_service_toolkit/css/main.min.css")))
-
     <meta charset="utf-8" />
-    <title>GOV.UK - Customised page template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="blue" />
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta property="og:image" content="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-opengraph-image.png")">
 
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/favicon.ico")" type="image/x-icon" />
     <link rel="mask-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-mask-icon.svg")" color="blue">
@@ -47,9 +43,9 @@
     <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-152x152.png")">
     <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
 
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
     <!--[if !IE 8]><!-->
     @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
-
     <!--<![endif]-->
     <!--[if IE 8]>
       <link href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/css/all-ie8.css")" rel="stylesheet" />
@@ -57,23 +53,20 @@
     <!--[if lt IE 9]>
       <script src="/html5-shiv/html5shiv.js"></script>
     <![endif]-->
-
-    <meta property="og:image" content="~/ResourcePackages/gds_service_toolkit/assets/dist/images/govuk-opengraph-image.png">
+    @Html.Section("head")
 </head>
-
 <body class="govuk-template__body app-body-class">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-554PPX9" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-
-    <script>
+    <script type="text/javascript">
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-
     </script>
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+    @Html.Section("top")
     @Html.SfPlaceHolder("ServiceHeader")
 
     @Html.SfPlaceHolder("ServiceBanner")
@@ -84,12 +77,34 @@
         </main>
     </div>
     @Html.SfPlaceHolder("ServiceFooter")
-
-    @Html.Script(@Html.GetLocationAssetFileAndVersion((Url.Content("gds_service_toolkit/js/all.js"))))
-
+    @Html.Section("bottom")
     <script type="text/javascript">
-        window.GOVUKFrontend.initAll();
-    </script>
-</body>
+    var appInsights = window.appInsights || function (a) {
+        function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
+    }({
+        instrumentationKey: "@Html.ReplaceTokens("{config.APPINSIGHTS_INSTRUMENTATIONKEY}")"
+    });
 
+    window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
+    </script>
+
+    @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
+    {
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
+        <script type="text/javascript">
+            window.GOVUKFrontend.initAll();
+        </script>
+    }
+
+    @if (Html.IsDebugSymbol())
+    {
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
+    }
+    else
+    {
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
+    }
+
+</body>
 </html>

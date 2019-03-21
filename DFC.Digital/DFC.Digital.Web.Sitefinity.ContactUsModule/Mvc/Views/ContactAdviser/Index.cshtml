@@ -1,0 +1,29 @@
+﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactAdviserViewModel
+
+@Html.Partial("ErrorSummary")
+@using (Html.BeginForm("index", "ContactAdviser", FormMethod.Post, new { id = "form-contact-adviser" }))
+{
+    <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.ContactAdviserQuestionType), ViewData.ModelState)">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <h1 class="govuk-fieldset__heading">@Model.Title</h1>
+            </legend>
+            <div class="govuk-radios" id="@nameof(Model.ContactAdviserQuestionType)">
+                @Html.ValidationMessageFor(model => model.ContactAdviserQuestionType, null, new { @class = "govuk-error-message" })
+                @Html.GovUkEnumRadioButtonFor(model => model.ContactAdviserQuestionType)
+            </div>
+        </fieldset>
+    </div>
+    <div class="govuk-form-group">
+        @Html.LabelFor(model => model.Message, new { @class = "govuk-label" })
+        <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
+        @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
+        @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5" })
+    </div>
+    <p class="govuk-body-s">Character limit is 1000.</p>
+    <div class="govuk-form-group">
+        <button id="send-feedback-details" type="submit" class="govuk-button">
+            Continue
+        </button>
+    </div>
+}

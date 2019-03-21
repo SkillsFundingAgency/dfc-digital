@@ -54,7 +54,7 @@
 
     @if (Html.IsDebugSymbol())
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/assets/src/frontend/js/dfcdigital.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
     }
     else
     {

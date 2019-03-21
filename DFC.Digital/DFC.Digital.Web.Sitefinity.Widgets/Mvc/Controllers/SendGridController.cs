@@ -36,8 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 FirstName = viewModel.FirstName,
                 Email = viewModel.EmailAddress,
                 TemplateName = viewModel.TemplateName,
-                LastName = viewModel.LastName,
-                Subject = nameof(SendGridViewModel)
+                LastName = viewModel.LastName
             }));
 
             viewModel.SendResult = JsonConvert.SerializeObject(result);

@@ -61,33 +61,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
         }
 
-        [Theory]
-        [InlineData("Success Message")]
-        [InlineData("Failure Message")]
-        public void Dfc7630PersonalDetailsViewTests(string resultMessage)
-        {
-            // Arrange
-            var thankYouView = new _MVC_Views_YourDetails_PersonalContactDetails_cshtml();
-
-            var viewModel = new PersonalContactDetails();
-
-            // Act
-            var htmlDocument = thankYouView.RenderAsHtml(viewModel);
-
-            // Assert
-            AssertMessageIsRenderedOnView(htmlDocument, resultMessage);
-
-        }
-
         private static void AssertViewIsEmpty(HtmlDocument htmlDocument)
         {
             htmlDocument.DocumentNode.Descendants().Count().Should().Be(0);
-        }
-
-        private void AssertMessageIsRenderedOnView(HtmlDocument htmlDocument, string resultMessage)
-        {
-            htmlDocument.DocumentNode.Descendants("p")
-                .Count(h2 => h2.InnerText.Contains(resultMessage)).Should().BeGreaterThan(0);
         }
 
         private void AssertErrorDetailInSummary(HtmlDocument htmlDocument, string errorMessage)

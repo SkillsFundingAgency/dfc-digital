@@ -20,8 +20,10 @@
         @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
         @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5" })
     </div>
-    <p class="govuk-!-font-size-16">@Model.CharacterLimit</p>
+    <p class="govuk-body-s">Character limit is 1000.</p>
     <div class="govuk-form-group">
-        <button type="submit" id="send-contact-adviser-details" class="govuk-button">Continue</button>
+        <button id="send-feedback-details" type="submit" class="govuk-button">
+            Continue
+        </button>
     </div>
 }

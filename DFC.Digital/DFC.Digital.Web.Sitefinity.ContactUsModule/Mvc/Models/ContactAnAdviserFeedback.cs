@@ -10,6 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         public string Message { get; set; }
 
         [EnumDataType(typeof(ContactAdivserQuestionType), ErrorMessage = "Choose a category")]
+        [Required(ErrorMessage = "Choose a category")]
         public ContactAdivserQuestionType ContactAdviserQuestionType { get; set; }
     }
 }

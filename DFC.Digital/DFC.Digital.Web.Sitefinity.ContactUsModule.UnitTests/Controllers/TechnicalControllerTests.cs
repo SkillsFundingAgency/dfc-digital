@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using FakeItEasy;
 using Xunit;
 

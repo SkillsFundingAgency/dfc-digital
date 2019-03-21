@@ -142,7 +142,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Services.SendGr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Services.SendGrid.UnitTests", "DFC.Digital.Services.SendGrid.UnitTests\DFC.Digital.Services.SendGrid.UnitTests.csproj", "{877F2C46-ED08-479D-ABD1-ADB283404415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.ContactUsModule", "DFC.Digital.Web.Sitefinity.ContactAdviserModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj", "{D5B28738-ADCD-4712-9219-45C4A061DFF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.ContactUsModule", "DFC.Digital.Web.Sitefinity.ContactUsModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj", "{D5B28738-ADCD-4712-9219-45C4A061DFF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests", "DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests\DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.csproj", "{F9621A32-93F2-4AD3-B6C5-42A763F0D836}"
 EndProject

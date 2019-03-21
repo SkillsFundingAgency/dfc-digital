@@ -80,22 +80,24 @@
     @Html.SfPlaceHolder("ServiceFooter")
     @Html.Section("bottom")
     <script type="text/javascript">
-        window.GOVUKFrontend.initAll();
-        var appInsights = window.appInsights || function (a) {
-            function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
-        }({
-            instrumentationKey: "@Html.ReplaceTokens("{config.APPINSIGHTS_INSTRUMENTATIONKEY}")"
-        });
+    var appInsights = window.appInsights || function (a) {
+        function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c
+    }({
+        instrumentationKey: "@Html.ReplaceTokens("{config.APPINSIGHTS_INSTRUMENTATIONKEY}")"
+    });
 
-        window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
+    window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
     </script>
 
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
+        <script type="text/javascript">
+            window.GOVUKFrontend.initAll();
+        </script>
     }
 
-    @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
     @if (Html.IsDebugSymbol())
     {
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
@@ -104,5 +106,6 @@
     {
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
     }
+
 </body>
 </html>

@@ -1,76 +1,87 @@
-﻿$('#DateOfBirth').removeAttr("data-val-date");
-
-$(document).ready(function () {
-    $('#userform').validate().settings.ignore = [];
-    PopulateDateOfBirthDetails();
-    $("#formSubmit").click(function () {
-      
+﻿$(document).ready(function () {
+    $("button[type='submit']").click(function () {
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
 
-        var validator = $('#userform').validate();
-        if ($('#userform').valid()) {
-            $("#userform").submit(e);
+        var validator = $('form').validate();
+        if ($('form').valid()) {
+            $("form").submit(e);
         } else {
             $('#error-validation-summary').show();
 
-
             for (var i = 0; i < validator.errorList.length; i++) {
                 var linkElement = validator.errorList[i].element.name.split('.').join('_');
-                $('#error-validation-summary .govuk-error-summary__body ul').append('<li><a href="#' +
-                    linkElement +
-                    '">' +
-                    validator.errorList[i].message +
-                    '</a></li>');
+                $('#error-validation-summary .govuk-error-summary__body ul')
+                    .append('<li><a href="#' + linkElement + '">' + validator.errorList[i].message + '</a></li>');
             }
 
             $('html,body').animate({
-                    scrollTop: $("#error-validation-summary").offset().top
-                },
-                2000);
+                scrollTop: $("#error-validation-summary").offset().top
+            }, 2000);
 
             return false;
         }
     });
-});
 
+    $("#DateOfBirthDay").change(function () {
+        PopulateDateOfBirth();
+    });
+
+    $("#DateOfBirthMonth").change(function () {
+        PopulateDateOfBirth();
+    });
+
+    $("#DateOfBirthYear").change(function () {
+        PopulateDateOfBirth();
+    });
+
+    var validator = $("form").validate();
+    validator.settings.ignore = [];
+});
 
 $.validator.setDefaults({
     highlight: function (element) {
-        $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
+        if ($(element).attr('id') === "DateOfBirthDay" ||
+            $(element).attr('id') === "DateOfBirthMonth" ||
+            $(element).attr('id') === "DateOfBirth" ||
+            $(element).attr('id') === "DateOfBirthYear") {
+            $('#dobDiv').addClass('govuk-form-group--error');
+        }
+        else {
+            $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
+        }
     },
     unhighlight: function (element) {
-        $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
+        if ($(element).attr('id') === "DateOfBirthDay" ||
+            $(element).attr('id') === "DateOfBirthMonth" ||
+            $(element).attr('id') === "DateOfBirth" ||
+            $(element).attr('id') === "DateOfBirthYear") {
+            var otherValidationErrors = $("#dobDiv").find(".field-validation-error");
+
+            if (otherValidationErrors.length === 0) {
+                $('#dobDiv').removeClass('govuk-form-group--error');
+            }
+        } else {
+            $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
+        }
     }
 });
 
-$("#DateOfBirthDay").change(function () {
-    PopulateDateOfBirthDetails();
-});
+//// *** Date of Birth Validation ***
 
-$("#DateOfBirthMonth").change(function () {
-    PopulateDateOfBirthDetails();
-});
+function PopulateDateOfBirth() {
+    var dobDay = $('#DateOfBirthDay').val();
+    var dobMonth = $('#DateOfBirthMonth').val();
+    var dobDayYear = $('#DateOfBirthYear').val();
 
-$("#DateOfBirthYear").change(function () {
-    PopulateDateOfBirthDetails();
-});
-
-
-function PopulateDateOfBirthDetails() {
-    if ($('#DateOfBirthDay')) {
-        var dobDay = $('#DateOfBirthDay').val();
-        var dobMonth = $('#DateOfBirthMonth').val();
-        var dobDayYear = $('#DateOfBirthYear').val();
-
-        if (dobDay !== "" && dobMonth !== "" && dobDayYear !== "") {
-            var dateOfBirth = "";
-            if (dobDay || dobMonth || dobDayYear) {
-                dateOfBirth = dobDay + '/' + dobMonth + '/' + dobDayYear;
-            }
-
-            $('#DateOfBirth').val(dateOfBirth);
-            $("#userForm").validate().element('#DateOfBirth');
+    if (dobDay !== "" && dobMonth !== "" && dobDayYear !== "") {
+        var dateOfBirth = "";
+        if (dobDay || dobMonth || dobDayYear) {
+            dateOfBirth = dobDay + '/' + dobMonth + '/' + dobDayYear;
         }
+
+        $('#DateOfBirth').val(dateOfBirth);
+        var validator = $("form").validate();
+        validator.element("#DateOfBirth");
     }
 }
 
@@ -104,7 +115,6 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
 
     if (entryDate.getFullYear() == entryYear && entryDate.getMonth() == entryMonth && entryDate.getDate() == entryDay) {
-
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -143,7 +153,6 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
         failedDatesErrorMessages[0] = invalidAgeErrorMessage;
     }
     if (failedDatesErrorMessages.length > 0) {
-
         $.validator.messages.agerange = failedDatesErrorMessages.toString();
         return false;
     }
@@ -178,7 +187,6 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
 
     if (entryDate.getFullYear() == entryYear && entryDate.getMonth() == entryMonth && entryDate.getDate() == entryDay) {
-
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -211,7 +219,6 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     }
 
     if (failedDatesErrorMessages.length > 0) {
-
         $.validator.messages.daterange = failedDatesErrorMessages.toString();
         return false;
     }

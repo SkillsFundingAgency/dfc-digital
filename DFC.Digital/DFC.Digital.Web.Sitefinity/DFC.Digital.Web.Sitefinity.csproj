@@ -1449,7 +1449,7 @@
       <Project>{bcef086e-575b-4bbb-9b84-291d50d66b71}</Project>
       <Name>DFC.Digital.Web.Sitefinity.CmsExtensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.ContactAdviserModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj">
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.ContactUsModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj">
       <Project>{d5b28738-adcd-4712-9219-45c4a061dff1}</Project>
       <Name>DFC.Digital.Web.Sitefinity.ContactUsModule</Name>
     </ProjectReference>

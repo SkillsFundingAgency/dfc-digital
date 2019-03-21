@@ -12,10 +12,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     public class YourDetailsViewTests
     {
         [Theory]
-        [InlineData(ContactOption.ContactAdviser)]
-        [InlineData(ContactOption.Feedback)]
-        [InlineData(ContactOption.Technical)]
-        public void Dfc7630YourDetailsViewTests(ContactOption contactOption)
+        [InlineData(false)]
+        [InlineData(true)]
+        public void Dfc7630YourDetailsViewTests(bool contactAdviser)
         {
             // Arrange
             var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();
@@ -25,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var htmlDocument = yourDetailsIndex.RenderAsHtml(contactUsViewModel);
 
             // Assert
-            if (contactOption == ContactOption.ContactAdviser)
+            if (contactAdviser)
             {
                 AssertDobAndPostCodeExistsInView(htmlDocument);
             }
@@ -45,7 +44,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             if (modelStateInvalid)
             {
-                errorSummaryView.ViewData.ModelState.AddModelError(nameof(ContactUsViewModel.PersonalContactDetails.Firstname), nameof(Exception.Message));
+                errorSummaryView.ViewData.ModelState.AddModelError(nameof(DateOfBirthPostcodeDetails.Firstname), nameof(Exception.Message));
             }
 
             // Act

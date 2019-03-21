@@ -1,7 +1,7 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.DateOfBirthPostcodeDetails
 
 
-<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.DateOfBirth), ViewData.ModelState)">
+<div id="dobDiv" class="govuk-form-group @Html.GetErrorClass(nameof(Model.DateOfBirth), ViewData.ModelState)">
     @Html.LabelFor(x => x.DateOfBirth, new { @class = "govuk-label" })
     <span id="dob-hint" class="govuk-hint">For example, 31 3 1980</span>
     @Html.HiddenFor(m => m.DateOfBirth)
@@ -38,19 +38,4 @@
 </div>
 
 
-<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.AcceptTermsAndConditions), ViewData.ModelState)">
-    <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h3 class="govuk-fieldset__heading">
-                Terms and conditions
-            </h3>
-        </legend>
-        @Html.ValidationMessageFor(x => x.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions)
-                @Html.CheckBoxFor(model => model.AcceptTermsAndConditions, new { @class= "govuk-checkboxes__input" })
-            </div>
-        </div>
-    </fieldset>
-</div>
+ 

@@ -19,13 +19,17 @@
     </div>
 
     <div class="govuk-form-group">
-        @Html.LabelFor(model => model.Feedback, new { @class = "form-label" })
-        <span class="form-hint">@Model.Hint</span>
+        @Html.LabelFor(model => model.Feedback, new { @class = "govuk-label" })
+        <span class="govuk-hint">@Model.Hint</span>
         @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(model => model.Feedback, new { @class = "form-control form-control-3-4", rows = "5", type = "text" })
-        <p class="govuk-!-font-size-16">@Model.CharacterLimit</p>
+        @Html.TextAreaFor(model => model.Feedback, new { @class = "govuk-textarea", rows = "5", type = "text" })
+
     </div>
+    <p class="govuk-body-s">Character limit is 1000.</p>
     <div class="govuk-form-group">
-        <button type="submit" id="send-feedback-details" class="button">Send</button>
+        <button id="send-feedback-details" type="submit" class="govuk-button">
+            Continue
+        </button>
     </div>
+    
 }

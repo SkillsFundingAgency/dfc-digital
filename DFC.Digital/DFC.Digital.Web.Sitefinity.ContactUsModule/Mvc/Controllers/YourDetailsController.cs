@@ -67,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
         public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
 
-        [DisplayName("Template for sending email to Serco")]
+        [DisplayName("Template Url Name  in Configurations e.g contact-an-advisor")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
         [DisplayName("Date Of Birth hint")]
@@ -146,6 +146,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
+            viewModel.PageTitle = PageTitle;
+            viewModel.PageIntroduction = AdviserIntroduction;
+            viewModel.PageIntroductionTwo = AdviserIntroductionTwo;
+            viewModel.DateOfBirthHint = DateOfBirthHint;
+            viewModel.PostcodeHint = PostcodeHint;
+            viewModel.TermsAndConditionsText = TermsAndConditionsText;
+
             return View("ContactAdvisor", viewModel);
         }
 
@@ -178,6 +185,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
+            viewModel.PageTitle = PageTitle;
+            viewModel.PageIntroduction = NonAdviserIntroduction;
+            viewModel.DoYouWantUsToContactUsText = DoYouWantUsToContactUsText;
+            viewModel.TermsAndConditionsText = TermsAndConditionsText;
             return View(viewModel);
         }
 

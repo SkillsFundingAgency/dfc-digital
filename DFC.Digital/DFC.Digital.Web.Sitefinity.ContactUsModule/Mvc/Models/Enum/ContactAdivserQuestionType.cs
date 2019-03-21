@@ -11,12 +11,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         Qualifications = 2,
 
         [Display(Name = "Courses", Order = 3)]
-        Findingacourse = 3,
+        CourseSearch = 3,
 
         [Display(Name = "Funding", Order = 4)]
         Funding = 4,
 
-        [Display(Name = "Something else", Order = 5)]
-        Generalfeedback = 5
+        [Display(Name = "Website", Order = 5)]
+        Website = 5,
+
+        [Display(Name = "Customer service", Order = 6)]
+        CustomerService = 6,
+
+        [Display(Name = "Something else", Order = 7)]
+        General = 7
     }
 }

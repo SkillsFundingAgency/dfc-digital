@@ -127,9 +127,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     Email = viewModel.EmailAddress,
                     TemplateName = TemplateName,
                     LastName = viewModel.Lastname,
-                    Message = data.GeneralFeedback?.Feedback,
+                    Message = data.ContactAnAdviserFeedback?.Message,
                     TermsAndConditions = viewModel.AcceptTermsAndConditions,
-                    PostCode = viewModel.Postcode,
+                    Postcode = viewModel.Postcode,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
                     ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
                     DateOfBirth = viewModel.DateOfBirth
@@ -169,6 +169,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     LastName = viewModel.Lastname,
                     Message = ContactOption == ContactOption.Feedback ? data.GeneralFeedback?.Feedback : data.TechnicalFeedback?.Message,
                     IsContactable = viewModel.IsContactable,
+                    TermsAndConditions = viewModel.AcceptTermsAndConditions,
                     ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
                     FeedbackQuestionType = data.GeneralFeedback?.FeedbackQuestionType.ToString()
                 }));

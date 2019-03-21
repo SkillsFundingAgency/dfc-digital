@@ -49,11 +49,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Page Title")]
         public string PageTitle { get; set; } = "Enter your details";
 
-        [DisplayName("Page Introduction Text")]
-        public string PageIntroduction { get; set; } = "We need your details so that one of our advisers can contact you.";
+        [DisplayName("Non Adviser Introduction Text")]
+        public string NonAdviserIntroduction { get; set; } = "We need your details so that one of our advisers can contact you.";
 
-        [DisplayName("Page Introduction Second Text")]
-        public string PageIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
+        [DisplayName("Adviser Introduction Text")]
+        public string AdviserIntroduction { get; set; } = "We need your details so that one of our advisers can contact you.";
+
+        [DisplayName("Adviser Introduction Second Text")]
+        public string AdviserIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
 
         [DisplayName("Failure Page URL")]
         public string FailurePageUrl { get; set; } = "/error/500";
@@ -67,6 +70,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Template for sending email to Serco")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
+        [DisplayName("Date Of Birth hint")]
+        public string DateOfBirthHint { get; set; } = "For example, 31 3 1980";
+
+        [DisplayName("Post coode hint")]
+        public string PostcodeHint { get; set; } = "For example, SW1A 1AA";
+
+        [DisplayName("Terms and Conditions Header Text")]
+        public string TermsAndConditionsText { get; set; } = "Terms and Conditions";
+
+        [DisplayName("Do you want us to contact you text")]
+        public string DoYouWantUsToContactUsText { get; set; } = "Do you want us to contact you?";
+
         #endregion Properties
 
         #region Actions
@@ -79,8 +94,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var viewModel = new ContactUsWithDobPostcodeViewModel
                 {
                     PageTitle = PageTitle,
-                    PageIntroduction = PageIntroduction,
-                    PageIntroductionTwo = PageIntroductionTwo
+                    PageIntroduction = AdviserIntroduction,
+                    PageIntroductionTwo = AdviserIntroductionTwo,
+                    PostcodeHint = PostcodeHint,
+                    DateOfBirthHint = DateOfBirthHint,
+                    TermsAndConditionsText = TermsAndConditionsText
                 };
                 return View("ContactAdvisor", viewModel);
             }
@@ -89,7 +107,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var viewModel = new ContactUsWithConsentViewModel
                 {
                     PageTitle = PageTitle,
-                    PageIntroduction = PageIntroduction
+                    PageIntroduction = NonAdviserIntroduction,
+                    DoYouWantUsToContactUsText = DoYouWantUsToContactUsText,
+                    TermsAndConditionsText = TermsAndConditionsText
                 };
                 return View("Feedback", viewModel);
             }
@@ -100,20 +120,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = sessionStorage.Get();
+                var data = sessionStorage.Get() ?? new ContactUs();
                 var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
                 {
-                    FirstName = viewModel.PersonalContactDetails.Firstname,
-                    Email = viewModel.PersonalContactDetails.EmailAddress,
+                    FirstName = viewModel.Firstname,
+                    Email = viewModel.EmailAddress,
                     TemplateName = TemplateName,
-                    LastName = viewModel.PersonalContactDetails.Lastname,
-                    Message = data.GeneralFeedback.Feedback,
-                    TermsAndConditions = viewModel.DateOfBirthPostcodeDetails.AcceptTermsAndConditions,
-                    PostCode = viewModel.DateOfBirthPostcodeDetails.Postcode,
-                    ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback != null ? data.ContactAnAdviserFeedback.ToString() : null,
-                    DateOfBirth = viewModel.DateOfBirthPostcodeDetails.DateOfBirth,
-                    FeedbackQuestionType = data.TechnicalFeedback.ToString()
+                    LastName = viewModel.Lastname,
+                    Message = data.GeneralFeedback?.Feedback,
+                    TermsAndConditions = viewModel.AcceptTermsAndConditions,
+                    PostCode = viewModel.Postcode,
+                    ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ToString(),
+                    DateOfBirth = viewModel.DateOfBirth,
+                    FeedbackQuestionType = data.TechnicalFeedback?.ToString()
                 }));
 
                 if (result)
@@ -126,7 +146,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
-            return View(viewModel);
+            return View("ContactAdvisor", viewModel);
         }
 
         [HttpPost]
@@ -134,18 +154,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = sessionStorage.Get();
+                var data = sessionStorage.Get() ?? new ContactUs();
                 var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
                 {
-                    FirstName = viewModel.PersonalContactDetails.Firstname,
-                    Email = viewModel.PersonalContactDetails.EmailAddress,
+                    FirstName = viewModel.Firstname,
+                    Email = viewModel.EmailAddress,
                     TemplateName = TemplateName,
-                    LastName = viewModel.PersonalContactDetails.Lastname,
-                    Message = data.GeneralFeedback.Feedback,
-                    IsContactable = viewModel.ConsentDetails.IsContactable,
-                    ContactOption = data.ContactUsOption.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback != null ? data.ContactAnAdviserFeedback.ToString() : null,
-                    FeedbackQuestionType = data.TechnicalFeedback.ToString()
+                    LastName = viewModel.Lastname,
+                    Message = data.GeneralFeedback?.Feedback,
+                    IsContactable = viewModel.IsContactable,
+                    ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
+                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ToString(),
+                    FeedbackQuestionType = data.TechnicalFeedback?.ToString()
                 }));
 
                 if (result)

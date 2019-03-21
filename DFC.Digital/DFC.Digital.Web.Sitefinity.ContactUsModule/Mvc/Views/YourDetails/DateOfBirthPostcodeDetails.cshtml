@@ -38,19 +38,4 @@
 </div>
 
 
-<div class="govuk-form-group @Html.GetErrorClass(nameof(Model.AcceptTermsAndConditions), ViewData.ModelState)">
-    <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h3 class="govuk-fieldset__heading">
-                Terms and conditions
-            </h3>
-        </legend>
-        @Html.ValidationMessageFor(x => x.AcceptTermsAndConditions, null, new { @class = "govuk-error-message" })
-        <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-                @Html.CheckBoxForSimple(model => model.AcceptTermsAndConditions, new { @class = "govuk-checkboxes__input" })
-                @Html.LabelWithHintFor(m => m.AcceptTermsAndConditions, new { @class = "govuk-label govuk-checkboxes__label" })
-            </div>
-        </div>
-    </fieldset>
-</div>
+ 

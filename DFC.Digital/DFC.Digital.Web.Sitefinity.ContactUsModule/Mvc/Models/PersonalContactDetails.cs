@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DFC.Digital.Web.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class PersonalContactDetails
     {
-        [Display(Name = "Title")]
-        [Required(ErrorMessage = "Select your title")]
-        public string Title { get; set; }
-
         [StringLength(50, ErrorMessage = "First name too long (max. 50)")]
         [Display(Name = "First name")]
         [Required(ErrorMessage = "Enter your first name")]
@@ -26,5 +23,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         [Compare("EmailAddress", ErrorMessage = "Email addresses don't match")]
         [Display(Name = "Confirm email address")]
         public string ConfirmEmailAddress { get; set; }
+
+        [Accept(ErrorMessage = "You must accept our Terms and Conditions")]
+        [Display(Name = "I accept the <a href=\"/about-us/terms-and-conditions\">terms and conditions</a> and I am 13 or over")]
+        public bool AcceptTermsAndConditions { get; set; }
     }
 }

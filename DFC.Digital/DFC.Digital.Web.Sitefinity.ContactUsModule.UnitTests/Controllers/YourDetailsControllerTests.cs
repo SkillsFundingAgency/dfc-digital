@@ -6,6 +6,7 @@ using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -13,6 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
     public class YourDetailsControllerTests
     {
+        private const string Route = "/contact-us/select-option/";
         #region Private Fields
 
         private readonly INoncitizenEmailService<ContactUsRequest> fakeSendEmailService;
@@ -57,34 +59,42 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 TermsAndConditionsText = nameof(YourDetailsController.TermsAndConditionsText),
                 TemplateName = nameof(YourDetailsController.TemplateName)
             };
+            A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
-            if (contactOption == ContactOption.ContactAdviser)
+            if (validSessionVm)
             {
-                controllerResult.ShouldRenderView("ContactAdvisor")
-                    .WithModel<ContactUsWithDobPostcodeViewModel>(vm =>
-                    {
-                        vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
-                        vm.PageIntroduction.Should().BeEquivalentTo(controller.AdviserIntroduction);
-                        vm.PageIntroductionTwo.Should().BeEquivalentTo(controller.AdviserIntroductionTwo);
-                        vm.PostcodeHint.Should().BeEquivalentTo(controller.PostcodeHint);
-                        vm.DateOfBirthHint.Should().BeEquivalentTo(controller.DateOfBirthHint);
-                        vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
-                    });
+                if (contactOption == ContactOption.ContactAdviser)
+                {
+                    controllerResult.ShouldRenderView("ContactAdvisor")
+                        .WithModel<ContactUsWithDobPostcodeViewModel>(vm =>
+                        {
+                            vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
+                            vm.PageIntroduction.Should().BeEquivalentTo(controller.AdviserIntroduction);
+                            vm.PageIntroductionTwo.Should().BeEquivalentTo(controller.AdviserIntroductionTwo);
+                            vm.PostcodeHint.Should().BeEquivalentTo(controller.PostcodeHint);
+                            vm.DateOfBirthHint.Should().BeEquivalentTo(controller.DateOfBirthHint);
+                            vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
+                        });
+                }
+                else
+                {
+                    controllerResult.ShouldRenderView("Feedback")
+                        .WithModel<ContactUsWithConsentViewModel>(vm =>
+                        {
+                            vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
+                            vm.DoYouWantUsToContactUsText.Should().BeEquivalentTo(controller.DoYouWantUsToContactUsText);
+                            vm.PageIntroduction.Should().BeEquivalentTo(controller.NonAdviserIntroduction);
+                            vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
+                        });
+                }
             }
             else
             {
-                controllerResult.ShouldRenderView("Feedback")
-                    .WithModel<ContactUsWithConsentViewModel>(vm =>
-                    {
-                        vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
-                        vm.DoYouWantUsToContactUsText.Should().BeEquivalentTo(controller.DoYouWantUsToContactUsText);
-                        vm.PageIntroduction.Should().BeEquivalentTo(controller.NonAdviserIntroduction);
-                        vm.TermsAndConditionsText.Should().BeEquivalentTo(controller.TermsAndConditionsText);
-                    });
+                controllerResult.ShouldRedirectTo(Route);
             }
         }
 

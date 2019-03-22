@@ -95,9 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = sessionStorage.Get() ?? new ContactUs();
-
-            if (model.ContactUsOption == null)
+            if (sessionStorage.Get() == null)
             {
                 return Redirect(ContactOptionPageUrl);
             }

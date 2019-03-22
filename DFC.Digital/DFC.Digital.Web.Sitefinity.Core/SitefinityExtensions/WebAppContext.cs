@@ -142,6 +142,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
+        public string ServerMapPath(string fileName)
+        {
+            var result = HttpContext.Current?.Server.MapPath(fileName);
+            return result ?? fileName;
+        }
+
         private void Page_PreRenderComplete(object sender, EventArgs e)
         {
             RemoveCanonicalTag();

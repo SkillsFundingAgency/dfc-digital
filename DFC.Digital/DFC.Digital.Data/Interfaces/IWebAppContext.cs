@@ -43,5 +43,7 @@ namespace DFC.Digital.Data.Interfaces
         void SetupCanonicalUrlEventHandler();
 
         void CheckAuthenticationByAuthCookie();
+
+        string ServerMapPath(string fileName);
     }
 }

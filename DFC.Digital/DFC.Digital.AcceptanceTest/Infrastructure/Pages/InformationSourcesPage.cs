@@ -8,7 +8,7 @@ using TestStack.Seleno.PageObjects.Locators;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
-    public class InformationSourcesPage : Page
+    public class InformationSourcesPage : DFCPage
     {
         public string PageTitle => Find.OptionalElement(By.ClassName("filter-results-heading")).Text;
     }

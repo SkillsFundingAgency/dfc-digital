@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Configuration</id>
+    <version>1.0.9.2</version>
+    <title>Configuration</title>
+    <authors>DFC development team</authors>
+    <owners>DFC</owners>
+    <language>en-GB</language>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Configuration -- Add-on for managing content configurations
+    </description>
+    <references></references>
+  </metadata>
+  <files>
+    <file src="..\Configuration\**\*.*" exclude="..\Configuration\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\Configuration" />
+    <file src="..\Configuration\**\*.ps1" target="tools" />
+    <file src="..\Configuration\**\*.psm1" target="tools" />
+  </files>
+</package>

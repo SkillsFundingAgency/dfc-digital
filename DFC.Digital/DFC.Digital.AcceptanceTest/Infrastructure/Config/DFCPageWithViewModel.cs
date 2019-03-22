@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using System.Threading;
@@ -7,10 +9,11 @@ using TestStack.Seleno.PageObjects.Actions;
 
 namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
-    public class SitefinityPage<T> : Page<T>
-        where T : class, new()
+    public class DFCPageWithViewModel<TViewModel> : Page<TViewModel>
+        where TViewModel : class, new()
     {
         #region Page Elements
+
         #region private const for survey
 
         private const string OpenSurvey = "survey_open";
@@ -19,7 +22,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         #endregion private const for survey
 
-        public bool IsSurveyBannerDisplayed => Find.OptionalElement(By.ClassName("heading-small")).Displayed;
+        public bool IsSurveyBannerDisplayed => Find.OptionalElementNoWait(By.ClassName("heading-small")).Displayed;
 
         public string PageHeading => Find.Element(By.TagName("h1")).Text;
 
@@ -31,36 +34,37 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         internal string BreadcrumbText => Find.Elements(By.ClassName("breadcrumbs")).Last().Text;
 
-        protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute);
+        protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute, WaitFor, Browser);
 
         public TPage ClickTakeSurvey<TPage>()
             where TPage : UiComponent, new()
         {
-            return Navigate.To<TPage>(By.ClassName(OpenSurvey));
+            return NavigateTo<TPage>(By.ClassName(OpenSurvey));
         }
 
         public TPage SelectOnlineSurvey<TPage>()
             where TPage : UiComponent, new()
         {
-            return Navigate.To<TPage>(By.ClassName("survey_link"));
+            return NavigateTo<TPage>(By.ClassName("survey_link"));
         }
 
-        public void EnterEmail(string email) => Find.Element(By.Id(EmailField)).SendKeys(email);
+        public void EnterEmail(string email) => Find.Element(By.Id(EmailField)).SendKeys(email); //had to use send keys to simulate typing.
 
         public TPage SubmitEmail<TPage>(string email)
             where TPage : UiComponent, new()
         {
             EnterEmail(email);
-            var navPage = Navigate.To<TPage>(By.ClassName(SendButton));
+            var navPage = NavigateTo<TPage>(By.ClassName(SendButton));
             WaitFor.AjaxCallsToComplete(new TimeSpan(0, 0, 2));
             return navPage;
         }
 
         #endregion Survey Properties / Methods
+
         public void AwaitInitialisation()
         {
             WaitFor.AjaxCallsToComplete(new TimeSpan(0, 0, 2));
-            while (IsThisStatusPage())
+            while (Browser.IsThisStatusPage())
             {
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
@@ -80,19 +84,19 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public TPage ClickExploreCareerBreadcrumb<TPage>()
             where TPage : UiComponent, new()
         {
-            return Navigate.To<TPage>(By.PartialLinkText("Home"));
+            return NavigateTo<TPage>(By.PartialLinkText("Home"));
         }
 
-        private bool IsThisStatusPage()
+        protected virtual TPage NavigateTo<TPage>(By by, int waitTimeout = 10)
+            where TPage : UiComponent, new()
         {
-            try
-            {
-                return Browser.Url.Contains("/health/status");
-            }
-            catch (ArgumentNullException)
-            {
-                return false;
-            }
+            return Find.NavigateAndWaitForStalenessTo<TPage>(Navigate, Browser, by, waitTimeout);
+        }
+
+        protected virtual TPage NavigateTo<TPage>(string url, By checkUsing, int waitTimeout = 10)
+    where TPage : UiComponent, new()
+        {
+            return Find.NavigateAndWaitForStalenessTo<TPage>(Navigate, Browser, url, checkUsing, waitTimeout);
         }
     }
 }

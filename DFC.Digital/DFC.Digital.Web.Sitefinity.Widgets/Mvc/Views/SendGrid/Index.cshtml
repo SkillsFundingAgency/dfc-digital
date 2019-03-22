@@ -1,0 +1,39 @@
+﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.SendGridViewModel
+<div>
+    
+    <h1 class="heading-xlarge">Send Grid Test</h1>
+
+    <div id="workArea" class="sfWorkArea">
+
+
+        <p>We need your details to process your request.</p>
+
+
+        @using (Html.BeginForm("", "SendGrid", FormMethod.Post, new {id = "header-search", @class = "site-search ui-front"}))
+        {
+            <div class="form-group">
+                <label class="form-label" for="first-name">First name</label>
+                @Html.TextBoxFor(x => x.FirstName, new {@class = "form-control"})
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="surname">Last name</label>
+                @Html.TextBoxFor(x => x.LastName, new {@class = "form-control"})
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email address</label>
+                @Html.TextBoxFor(x => x.EmailAddress, new {@class = "form-control"})
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Template Url Name</label>
+                @Html.TextBoxFor(x => x.TemplateName, new {@class = "form-control"})
+            </div>
+
+            <button class="submit" type="submit" value="Search">Submit Form</button>
+
+        }
+
+    </div>
+</div>

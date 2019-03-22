@@ -58,6 +58,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
 
+        [DisplayName("Personal Information Text")]
+        public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
+
+        [DisplayName("Character Limit")]
+        public string CharacterLimit { get; set; } = "Character limit is 1000.";
+
+        [DisplayName("Relative page url to select option page")]
+        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+
         #endregion Public Properties
 
         #region Actions
@@ -71,11 +80,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new GeneralFeedbackViewModel
+            var sessionModel = sessionStorage.Get() ?? new ContactUs();
+
+            if (sessionModel.ContactUsOption == null)
             {
-                Title = Title
-            };
-            return View("Index", model);
+                return Redirect(ContactOptionPageUrl);
+            }
+
+            var model = new GeneralFeedbackViewModel();
+            return View("Index", AddWidgetPropertyFields(model));
         }
 
         /// <summary>
@@ -89,13 +102,22 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
+
                 sessionStorage.Save(mappedModel);
 
                 return Redirect($"{NextPage}");
             }
 
-            model.Title = Title;
-            return View("Index", model);
+            return View("Index", AddWidgetPropertyFields(model));
+        }
+
+        private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
+        {
+            model.NextPageUrl = this.NextPageUrl;
+            model.Title = this.Title;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
+            return model;
         }
 
         #endregion Actions

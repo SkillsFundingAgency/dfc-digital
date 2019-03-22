@@ -14,7 +14,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
     public class YourDetailsControllerTests
     {
-        private const string Route = "/contact-us/select-option/";
         #region Private Fields
 
         private readonly INoncitizenEmailService<ContactUsRequest> fakeSendEmailService;
@@ -59,7 +58,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 TermsAndConditionsText = nameof(YourDetailsController.TermsAndConditionsText),
                 TemplateName = nameof(YourDetailsController.TemplateName)
             };
-            A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
+            if (!validSessionVm)
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
+            }
+            else
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+            }
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index());
@@ -94,7 +100,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                controllerResult.ShouldRedirectTo(Route);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
             }
         }
 

@@ -4,14 +4,14 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using System;
 using System.Configuration;
-using System.Web;
+using System.IO;
+using System.Security.Cryptography;
 using System.Web.Caching;
 using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-
     public static class AssetVersioningExtention
     {
         public static string GetLocationAssetFileAndVersion(this HtmlHelper helper, string fileName)

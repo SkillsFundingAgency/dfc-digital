@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Interfaces
 {
-    public interface IAuditNoncitizenEmailRepository<T>
+    public interface IAuditNoncitizenEmailRepository<in T>
     {
         void CreateAudit(T emailRequest, EmailTemplate emailTemplate, SendEmailResponse response);
     }

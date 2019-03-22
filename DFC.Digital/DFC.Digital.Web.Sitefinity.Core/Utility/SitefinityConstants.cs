@@ -23,6 +23,11 @@
         public const string CustomReportsWidgetSection = "DFC Reports";
 
         /// <summary>
+        /// Contact Adviser Widget section
+        /// </summary>
+        public const string ContactUsSection = "DFC Contact Us Widgets";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SitefinityConstants"/> class.
         /// Prevent this class from being initialised
         /// </summary>

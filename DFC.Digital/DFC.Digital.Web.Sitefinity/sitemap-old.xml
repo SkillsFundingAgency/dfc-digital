@@ -3760,4 +3760,20 @@
     <loc>https://nationalcareersservice.direct.gov.uk/get-a-job/top-10-interview-questions</loc>
     <priority>0.5</priority>
   </url>
-</urlset>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/contact-us/home</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/contact-us/feedback</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/contact-us/report-a-technical-issue</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/contact-us/contact-an-adviser</loc>
+    <priority>0.5</priority>
+  </url>
+ </urlset>

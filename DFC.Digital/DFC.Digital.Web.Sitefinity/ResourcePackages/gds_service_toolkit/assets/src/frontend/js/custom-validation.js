@@ -1,11 +1,12 @@
-﻿$(document).ready(function () {
+﻿$('#DateOfBirth').removeAttr("data-val-date");
+$(document).ready(function () {
     $("button[type='submit']").click(function () {
         $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
 
         var validator = $('form').validate();
         if ($('form').valid()) {
-            $("form").submit(e);
+            $("form").submit();
         } else {
             $('#error-validation-summary').show();
 
@@ -16,8 +17,8 @@
             }
 
             $('html,body').animate({
-                scrollTop: $("#error-validation-summary").offset().top
-            }, 2000);
+                scrollTop: $("#main-content").offset().top
+            }, 0);
 
             return false;
         }
@@ -97,7 +98,7 @@ jQuery.validator.addMethod("enforcetrue", function (value, element, param) {
 jQuery.validator.unobtrusive.adapters.addBool("enforcetrue");
 
 jQuery.validator.addMethod("agerange", function (value, element, param) {
-    if (value == "" || value == null || value == undefined) {
+    if (value === "" || value === null || value === undefined) {
         return true;
     }
 
@@ -170,7 +171,7 @@ $.validator.unobtrusive.adapters.add('agerange', ['dates', 'errormessages'], fun
 });
 
 jQuery.validator.addMethod("daterange", function (value, element, param) {
-    if (value == "" || value == null || value == undefined) {
+    if (value === "" || value === null || value === undefined) {
         return true;
     }
 
@@ -233,4 +234,78 @@ $.validator.unobtrusive.adapters.add('daterange', ['dates', 'errormessages'], fu
         dates: options.params['dates'].split(' '),
         errormessages: options.params['errormessages'].split(',')
     };
+});
+
+jQuery.validator.addMethod("doubleregex", function (value, element, param) {
+    var firstRegex = param["firstregex"];
+    var secondRegex = param["secondregex"];
+    var drErrorMessage = param["drerrormessage"];
+    var isAndOperator = param["isandoperator"];
+    var isDrRequired = param["isdrrequired"];
+
+    var failedPatternErrorMessages = new Array();
+
+    if (isDrRequired === "False" && (value == "" || value == null || value == undefined)) {
+        return true;
+    }
+    else {
+        try {
+            var firstMatch = new RegExp(firstRegex).exec(value);
+            var secondMatch = new RegExp(secondRegex).exec(value);
+
+            if (isAndOperator === "True") {
+
+                if (firstMatch && secondMatch) {
+                    return true;
+                }
+                else {
+                    failedPatternErrorMessages[0] = drErrorMessage;
+                }
+            }
+            else {
+
+                if (firstMatch || secondMatch) {
+                    return true;
+                }
+                else {
+                    failedPatternErrorMessages[0] = drErrorMessage;
+                }
+            }
+        }
+        catch (err) {
+            //console.log(err);
+            return true;
+        }
+    }
+
+    if (failedPatternErrorMessages.length > 0) {
+        $.validator.messages.doubleregex = failedPatternErrorMessages.toString();
+        return false;
+    }
+});
+
+$.validator.unobtrusive.adapters.add('doubleregex', ['firstregex', 'secondregex', 'drerrormessage', 'isandoperator', 'isdrrequired'], function (options) {
+    options.rules['doubleregex'] = {
+        firstregex: options.params.firstregex,
+        secondregex: options.params.secondregex,
+        drerrormessage: options.params.drerrormessage,
+        isandoperator: options.params.isandoperator,
+        isdrrequired: options.params.isdrrequired
+    };
+});
+
+$(function () {
+    // Replace the builtin US date validation with UK date validation
+    $.validator.addMethod(
+        "date",
+        function (value, element) {
+            
+            var bits = value.match(/([0-9]+)/gi), str;
+            if (!bits)
+                return this.optional(element) || false;
+            str = bits[1] + '/' + bits[0] + '/' + bits[2];
+            return this.optional(element) || !/Invalid|NaN/.test(new Date(str));
+        },
+        ""
+    );
 });

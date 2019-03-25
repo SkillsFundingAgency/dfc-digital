@@ -19,12 +19,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
         {
             get
             {
-                DateTime dateOfBirth = default(DateTime);
-                CultureInfo enGb = new CultureInfo("en-GB");
-                string dob = string.Empty;
+                var enGb = new CultureInfo("en-GB");
+                var dob = string.Empty;
                 if (!string.IsNullOrEmpty(DateOfBirthDay) && !string.IsNullOrEmpty(DateOfBirthMonth) && !string.IsNullOrEmpty(DateOfBirthYear))
                 {
-                    dob = string.Format("{0}/{1}/{2}", DateOfBirthDay.PadLeft(2, '0'), DateOfBirthMonth.PadLeft(2, '0'), DateOfBirthYear.PadLeft(4, '0'));
+                    dob =
+                        $"{DateOfBirthDay.PadLeft(2, '0')}/{DateOfBirthMonth.PadLeft(2, '0')}/{DateOfBirthYear.PadLeft(4, '0')}";
                 }
 
                 if (string.IsNullOrEmpty(dob) && string.IsNullOrEmpty(DateOfBirthDay) && string.IsNullOrEmpty(DateOfBirthMonth) && string.IsNullOrEmpty(DateOfBirthYear))
@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
                 }
                 else
                 {
-                    if (DateTime.TryParseExact(dob, "dd/MM/yyyy", enGb, DateTimeStyles.AdjustToUniversal, out dateOfBirth))
+                    if (DateTime.TryParseExact(dob, "dd/MM/yyyy", enGb, DateTimeStyles.AdjustToUniversal, out var dateOfBirth))
                     {
                         return dateOfBirth;
                     }

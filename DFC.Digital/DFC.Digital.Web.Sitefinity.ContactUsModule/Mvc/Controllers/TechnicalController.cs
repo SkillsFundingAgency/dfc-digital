@@ -54,6 +54,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.";
 
+        [DisplayName("Relative page url to select option page")]
+        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
 
         #endregion Public Properties
 
@@ -66,6 +68,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var sessionModel = sessionStorage.Get() ?? new ContactUs();
+
+            if (sessionModel.ContactUsOption == null)
+            {
+                return Redirect(ContactOptionPageUrl);
+            }
+
             var model = new TechnicalFeedbackViewModel();
             return View("Index", AddWidgetPropertyFields(model));
         }
@@ -80,7 +89,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 return Redirect(NextPageUrl);
             }
+
             model.Title = Title;
+
             //Put the non bound data fields back
             return View("Index", AddWidgetPropertyFields(model));
         }

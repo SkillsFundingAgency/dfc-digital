@@ -85,6 +85,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Send Button text")]
         public string SendButtonText { get; set; } = "Send";
 
+        [DisplayName("Relative page url to select option page")]
+        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+
         #endregion Properties
 
         #region Actions
@@ -92,6 +95,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (sessionStorage.Get() == null)
+            {
+                return Redirect(ContactOptionPageUrl);
+            }
+
             if (ContactOption == ContactOption.ContactAdviser)
             {
                 var viewModel = new ContactUsWithDobPostcodeViewModel();

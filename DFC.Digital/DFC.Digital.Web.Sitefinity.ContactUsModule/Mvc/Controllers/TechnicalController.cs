@@ -19,16 +19,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class TechnicalController : BaseDfcController
     {
         private readonly IMapper mapper;
+        private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
+
         #region Constructors
 
         public TechnicalController(
             IApplicationLogger applicationLogger,
             IMapper mapper,
+            IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
 
         {
             this.mapper = mapper;
+            this.context = context;
             this.sessionStorage = sessionStorage;
         }
 
@@ -68,11 +72,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var sessionModel = sessionStorage.Get() ?? new ContactUs();
-
-            if (sessionModel.ContactUsOption == null)
+            if (!context.IsContentAuthoringSite)
             {
-                return Redirect(ContactOptionPageUrl);
+                var sessionModel = sessionStorage.Get() ?? new ContactUs();
+                if (sessionModel.ContactUsOption == null)
+                {
+                    return Redirect(ContactOptionPageUrl);
+                }
             }
 
             var model = new TechnicalFeedbackViewModel();

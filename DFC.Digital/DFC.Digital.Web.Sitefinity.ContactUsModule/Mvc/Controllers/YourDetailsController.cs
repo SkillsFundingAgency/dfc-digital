@@ -23,6 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IMapper mapper;
+        private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
@@ -34,11 +35,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             INoncitizenEmailService<ContactUsRequest> sendEmailService,
             IAsyncHelper asyncHelper,
             IMapper mapper,
+            IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
             this.mapper = mapper;
+            this.context = context;
             this.sessionStorage = sessionStorage;
         }
 
@@ -95,7 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (sessionStorage.Get() == null)
+            if (sessionStorage.Get() == null && !context.IsContentAuthoringSite)
             {
                 return Redirect(ContactOptionPageUrl);
             }

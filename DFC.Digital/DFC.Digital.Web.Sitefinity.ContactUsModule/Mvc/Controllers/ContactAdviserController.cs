@@ -77,11 +77,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect(ContactOptionPageUrl);
             }
 
-            var model = new ContactAdviserViewModel
-            {
-                Title = Title,
-                Hint = PersonalInformation
-            };
+            var model = new ContactAdviserViewModel();
+            AddWidgetProperties(model);
 
             return View("Index", model);
         }
@@ -103,8 +100,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect($"{NextPageUrl}");
             }
 
-            model.Title = Title;
+            AddWidgetProperties(model);
             return View("Index", model);
+        }
+
+        private void AddWidgetProperties(ContactAdviserViewModel model)
+        {
+            model.Title = Title;
+            model.Hint = PersonalInformation;
         }
 
         #endregion Actions

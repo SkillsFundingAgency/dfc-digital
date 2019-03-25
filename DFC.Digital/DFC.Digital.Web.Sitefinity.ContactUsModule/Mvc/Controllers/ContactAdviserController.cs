@@ -22,6 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
+        private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
         #endregion Private Fields
@@ -33,11 +34,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
+            IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
+            this.context = context;
             this.sessionStorage = sessionStorage;
         }
 
@@ -70,11 +73,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var sessionModel = sessionStorage.Get() ?? new ContactUs();
-
-            if (sessionModel.ContactUsOption == null)
+            if (!context.IsContentAuthoringSite)
             {
-                return Redirect(ContactOptionPageUrl);
+                var sessionModel = sessionStorage.Get() ?? new ContactUs();
+                if (sessionModel.ContactUsOption == null)
+                {
+                    return Redirect(ContactOptionPageUrl);
+                }
             }
 
             var model = new ContactAdviserViewModel();

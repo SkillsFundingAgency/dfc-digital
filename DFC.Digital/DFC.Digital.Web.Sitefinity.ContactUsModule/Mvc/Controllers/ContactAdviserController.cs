@@ -48,6 +48,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Public Properties
 
+        [DisplayName("Personal Information Hint Text")]
+        public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
+
         [DisplayName("Next Page URL")]
         public string NextPageUrl { get; set; } = "/contact-us/your-details-adviser/";
 
@@ -79,10 +82,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 }
             }
 
-            var model = new ContactAdviserViewModel
-            {
-                Title = Title
-            };
+            var model = new ContactAdviserViewModel();
+            AddWidgetProperties(model);
 
             return View("Index", model);
         }
@@ -104,8 +105,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 return Redirect($"{NextPageUrl}");
             }
 
-            model.Title = Title;
+            AddWidgetProperties(model);
             return View("Index", model);
+        }
+
+        private void AddWidgetProperties(ContactAdviserViewModel model)
+        {
+            model.Title = Title;
+            model.Hint = PersonalInformation;
         }
 
         #endregion Actions

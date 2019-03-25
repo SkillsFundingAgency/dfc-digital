@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string AdviserIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
 
         [DisplayName("Failure Page URL")]
-        public string FailurePageUrl { get; set; } = "/error/500";
+        public string FailurePageUrl { get; set; } = "/alerts/500";
 
         [DisplayName("Success Page Url")]
         public string SuccessPageUrl { get; set; } = "/contactus/thank-you";

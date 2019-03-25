@@ -98,6 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
+
                 sessionStorage.Save(mappedModel);
 
                 return Redirect($"{NextPageUrl}");

@@ -1,4 +1,4 @@
-﻿$govuk-assets-path: "/ResourcePackages/gds_service_toolkit/assets/dist/" !default;
+﻿$govuk-assets-path: "/gds_service_toolkit/" !default;
 $govuk-compatibility-govukfrontendtoolkit: true;
 $govuk-compatibility-govuktemplate: true;
 $govuk-compatibility-govukelements: true;
@@ -19,10 +19,10 @@ $govuk-compatibility-govukelements: true;
 nav {
     .govuk-tag {
         margin: 0 0 0 4px;
-        top: -7px;
+        top: -6px;
         font-size: 10px;
         position: relative;
-        padding: 3px 5px;
+        padding: 2px 5px;
     }
 }
 
@@ -35,6 +35,37 @@ nav {
     margin-top: 30px;
     border-top: 10px solid #005ea5;
     padding-top: 5px;
+}
+
+// Change to header to change colour of blue border underneath header to green.
+.govuk-header__container {
+    border-bottom: 10px solid #207e77;
+    @include govuk-media-query(desktop) {
+        padding-top: 7px;
+    }
+}
+
+// Change to desktop header to fix margin/padding
+.govuk-header__link--service-name {
+    @include govuk-media-query(desktop) {
+        margin-bottom: -1px;
+    }
+}
+
+.govuk-header__navigation {
+    @include govuk-media-query(desktop) {
+        margin: 0px 0px 4px;
+    }
+}
+
+.app-related-items {
+    //border-top: 10px solid govuk-colour("blue");
+    border-top: 10px solid #207e77;
+    padding-top: govuk-spacing(2);
+}
+
+.app-related-items .govuk-list > li {
+    margin-bottom: govuk-spacing(2);
 }
 
 /*Search Results page SCSS - For Search Results*/

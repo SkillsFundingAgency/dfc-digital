@@ -1,15 +1,15 @@
 {
   "concatCustomJsFiles": [
-    "assets/src/frontend/js/dfcdigital.js"
+    "assets/src/frontend/js/dfcdigital.js",
+    "assets/src/frontend/js/custom-validation.js"
   ],
 
   "jqueryBundle": [
     "node_modules/jquery/dist/jquery.min.js",
     "node_modules/jquery-migrate/dist/jquery-migrate.min.js",
     "node_modules/jquery-validation/dist/jquery.validate.min.js",
-    "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js",
-    "assets/src/frontend/js/jquery-ui.min.js",
-    "assets/src/frontend/js/custom-validation.js"
+    "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
+    "assets/src/frontend/js/jquery-ui.min.js"
   ],
 
   "cmsExtentionsBundle": [
@@ -26,6 +26,10 @@
   ],
 
   "concatGovUkJsFiles": [
+    "node_modules/govuk-frontend/all.js"
+  ],
+
+  "oldConcatGovUkJsFiles": [
     "node_modules/govuk_frontend_toolkit/javascripts/vendor/jquery/jquery.player.min.js",
     "node_modules/govuk_template_mustache/assets/javascripts/govuk-template.js",
     "node_modules/govuk_frontend_toolkit/javascripts/govuk/show-hide-content.js",

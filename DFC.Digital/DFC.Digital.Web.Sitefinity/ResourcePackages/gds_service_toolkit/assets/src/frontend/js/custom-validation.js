@@ -36,7 +36,10 @@
     });
 
     var validator = $("form").validate();
-    validator.settings.ignore = [];
+    if(validator)
+    {
+       validator.settings.ignore = [];
+    }
 });
 
 $.validator.setDefaults({

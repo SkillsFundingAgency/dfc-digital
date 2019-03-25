@@ -51,6 +51,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Page Title")]
         public string Title { get; set; } = "What is your query about?";
 
+        [DisplayName("Relative page url to select option page")]
+        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+
         #endregion Public Properties
 
         #region Actions
@@ -64,6 +67,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var sessionModel = sessionStorage.Get() ?? new ContactUs();
+
+            if (sessionModel.ContactUsOption == null)
+            {
+                return Redirect(ContactOptionPageUrl);
+            }
+
             var model = new ContactAdviserViewModel
             {
                 Title = Title
@@ -83,6 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
+
                 sessionStorage.Save(mappedModel);
 
                 return Redirect($"{NextPageUrl}");

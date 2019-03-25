@@ -141,7 +141,6 @@ module.exports = function (grunt) {
                         expand: true, cwd: 'node_modules/govuk-frontend/assets/fonts', src: '**', dest: '<%= dist.path %>/fonts/' },
                     { expand: true, cwd: 'node_modules/govuk-frontend/assets/images', src: ['**/*.{png,jpg,gif,jpeg,svg,ico}', '!fonts/*', '!sprite/*.*'], dest: '<%= dist.path %>/images' },
                     { expand: true, cwd: 'node_modules/jquery/dist', src: 'jquery.min.js', dest: '<%= dist.path %>/js' },
-                    { expand: true, cwd: 'node_modules/govuk-frontend', src: 'all.js', dest: '<%= dist.path %>/js' },
                     { expand: true, cwd: '<%= src.path %>/' + backendAssetsFolder + '/css/', src: '**/*.*', dest: '<%= dist.path %>/css/' },
                     { expand: true, cwd: '../../Content/', src: '**/*.*', dest: '<%= dist.path %>/css/' }
                 ]
@@ -165,8 +164,10 @@ module.exports = function (grunt) {
                     // Project assets
                     // Concatenates project files listed in jsfiles.json
                     { '<%= dist.path %>/js/dfcdigital.min.js': projectJsfiles },
-                    { '<%= dist.path %>/js/cmsExtentionsBundle.min.js': cmsExtentionsBundle },
                     { '<%= dist.path %>/js/jquerybundle.min.js': jqueryBundle },
+                    { '<%= dist.path %>/js/all.min.js': govukJsfiles },
+                    { '<%= dist.path %>/js/ie8bundle.min.js': ie8Bundle },
+                    { '<%= dist.path %>/js/cmsExtentionsBundle.min.js': cmsExtentionsBundle },
                     {
                         expand: true,
                         src: ['*.js', '!*.min.js'],

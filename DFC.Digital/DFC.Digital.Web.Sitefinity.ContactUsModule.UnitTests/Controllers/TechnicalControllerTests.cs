@@ -2,7 +2,7 @@
 using FakeItEasy;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
 
     public class TechnicalControllerTests

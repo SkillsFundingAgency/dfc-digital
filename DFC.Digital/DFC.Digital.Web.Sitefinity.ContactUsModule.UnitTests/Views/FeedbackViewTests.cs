@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             // Assert
             AssertTagInnerTextValue(htmlDocument, feedbackViewModel.Title, "h1");
-            AssertFormGroupsCounts(htmlDocument, 2);
+            AssertFormGroupsCounts(htmlDocument, 3);
             AssertRadioGroupsCounts(htmlDocument, 7);
         }
 

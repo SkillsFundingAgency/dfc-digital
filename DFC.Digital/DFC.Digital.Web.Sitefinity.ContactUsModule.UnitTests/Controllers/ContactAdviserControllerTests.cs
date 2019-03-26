@@ -10,7 +10,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
     public class ContactAdviserControllerTests
     {
@@ -43,6 +43,50 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
         #region Action Tests
 
         [Theory]
+        [InlineData(true, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
+        [InlineData(false, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
+        public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl)
+        {
+            //Assign
+            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            {
+                Title = title,
+                PersonalInformation = personalInformation,
+                NextPageUrl = nextPageUrl,
+                ContactOptionPageUrl = contactOptionPageUrl
+            };
+
+            if (!validSessionVm)
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
+            }
+            else
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
+            }
+
+            //Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
+
+            //Assert
+            if (validSessionVm)
+            {
+                controllerResult.ShouldRenderDefaultView().WithModel<ContactAdviserViewModel>(
+                    vm =>
+                    {
+                        vm.Title.Should().BeEquivalentTo(controller.Title);
+                        vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
+                        vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
+                    });
+            }
+            else
+            {
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+            }
+        }
+
+
+        [Theory]
         [InlineData(ContactOption.ContactAdviser, true)]
         [InlineData(ContactOption.Feedback, false)]
         [InlineData(ContactOption.Technical, true)]
@@ -55,26 +99,33 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
                 NextPageUrl = nameof(ContactAdviserController.NextPageUrl)
             };
 
-            //Act
-            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
-
+            //Setup fakes
             if (!validSessionVm)
             {
                 A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
             }
             else
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
             }
 
+            //Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
+
             //Assert
-            controllerResult.ShouldRenderDefaultView()
-                .WithModel<ContactAdviserViewModel>(vm =>
-                {
-                    vm.Title.Should().BeEquivalentTo(controller.Title);
-                    vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
-                    vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
-                });
+            if (validSessionVm)
+            {
+                controllerResult.ShouldRenderDefaultView()
+                    .WithModel<ContactAdviserViewModel>(vm =>
+                    {
+                        vm.Title.Should().BeEquivalentTo(controller.Title);
+                        vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
+                    });
+            }
+            else
+            {
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+            }
 
             A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
         }
@@ -88,12 +139,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             var postModel = new ContactAdviserViewModel();
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
 
-            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage);
-
+            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            {
+                Title = nameof(ContactAdviserController.Title)
+            };
 
             if (!modelStateValid)
             {
                 controller.ModelState.AddModelError(nameof(ContactAdviserViewModel.ContactAdviserQuestionType), nameof(ContactAdviserViewModel.Message));
+            }
+            else
+            {
+                A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
             }
 
             //Act
@@ -102,13 +159,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             //Assert
             if (modelStateValid)
             {
+
                 controllerResult.ShouldRedirectTo(controller.NextPageUrl);
             }
             else
             {
                 controllerResult.ShouldRenderDefaultView()
                     .WithModel<ContactAdviserViewModel>()
-                    .AndModelError(nameof(ContactAdviserViewModel.Title));
+                    .AndModelError(nameof(ContactAdviserViewModel.ContactAdviserQuestionType));
             }
         }
 

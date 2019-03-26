@@ -2,6 +2,7 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Config;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -39,41 +40,62 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         #region Action Tests
 
         [Theory]
-        [InlineData(ContactOption.ContactAdviser)]
-        [InlineData(ContactOption.Feedback)]
-        [InlineData(ContactOption.Technical)]
-        public void IndexGetTest(ContactOption contactOption)
+        [InlineData("Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
+        public void IndexGetTest(string title, string generalFeedbackPage, string technicalFeedbackPage, string contactAdviserPage)
         {
             //Assign
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeSessionStorage);
+            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeSessionStorage)
+            {
+               Title = title,
+               ContactAdviserPage = contactAdviserPage,
+               TechnicalFeedbackPage =technicalFeedbackPage,
+               GeneralFeedbackPage = generalFeedbackPage
+            };
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
-            controllerResult.ShouldRenderDefaultView()
-                .WithModel<ContactOptionsViewModel>(vm =>
+            controllerResult.ShouldRenderDefaultView().WithModel<ContactOptionsViewModel>(
+                vm =>
                 {
-                    vm.ContactOptionType.Should().Be(contactOption);
+                    vm.Title.Should().BeEquivalentTo(controller.Title);
                 });
-            A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
         }
 
         [Theory]
-        [InlineData(true, true, ContactOption.ContactAdviser)]
-        [InlineData(true, true, ContactOption.Technical)]
-        [InlineData(true, true, ContactOption.Feedback)]
-        public void SubmitTests(bool modelStateValid, bool validSubmission, ContactOption contactOption)
+        [InlineData(true, ContactOption.ContactAdviser)]
+        [InlineData(false, ContactOption.ContactAdviser)]
+        [InlineData(true, ContactOption.Technical)]
+        [InlineData(false, ContactOption.Technical)]
+        [InlineData(true, ContactOption.Feedback)]
+        [InlineData(false, ContactOption.Feedback)]
+        [InlineData(false, null)]
+        [InlineData(true, null)]
+        public void SubmitTests(bool modelStateValid, ContactOption? contactOption)
         {
             //Assign
             var postModel = modelStateValid
                 ? new ContactOptionsViewModel
                 {
-                    ContactOptionType = contactOption
+                    ContactOptionType = contactOption.GetValueOrDefault()
                 }
                 : new ContactOptionsViewModel();
 
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeSessionStorage);
+            //Setup and configure fake mapper
+            var mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<ContactUsAutomapperProfile>();
+            });
+
+            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage);
+
+            A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+
+            if (!modelStateValid)
+            {
+                controller.ModelState.AddModelError(nameof(ContactOptionsViewModel.ContactOptionType), nameof(ContactOptionsViewModel.ContactOptionType));
+            }
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(postModel));
@@ -90,6 +112,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             else if (modelStateValid && contactOption == ContactOption.Feedback)
             {
                 controllerResult.ShouldRedirectTo(controller.GeneralFeedbackPage);
+            }
+            else if (modelStateValid && contactOption == null)
+            {
+                controllerResult.ShouldRenderDefaultView().WithModel<ContactOptionsViewModel>();
             }
             else
             {

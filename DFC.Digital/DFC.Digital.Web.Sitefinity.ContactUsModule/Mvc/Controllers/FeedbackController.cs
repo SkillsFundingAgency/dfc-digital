@@ -46,13 +46,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
-        #region Properties
-
-        [DisplayName("Next page")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
-
-        #endregion Properties
-
         #region Public Properties
 
         [DisplayName("Next Page URL")]
@@ -110,7 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPage}");
+                return Redirect($"{NextPageUrl}");
             }
 
             return View("Index", AddWidgetPropertyFields(model));

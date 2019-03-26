@@ -10,7 +10,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
 
     public class FeedbackControllerTests
@@ -44,19 +44,19 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
         #region Action Tests
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void IndexGetTest(bool validSessionVm)
+        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/")]
+        [InlineData(false, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/")]
+
+        public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl)
         {
             var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
                 Title = nameof(FeedbackController.Title),
                 PersonalInformation = nameof(FeedbackController.PersonalInformation),
-                NextPageUrl = nameof(FeedbackController.NextPageUrl)
+                NextPageUrl = nextPageUrl,
+                CharacterLimit = characterLimit,
+                ContactOptionPageUrl = contactOptionPageUrl
             };
-
-            //Act
-            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             if (!validSessionVm)
             {
@@ -64,8 +64,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             }
             else
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+                A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
             }
+
+            //Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
             if (validSessionVm)
@@ -74,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
                 .WithModel<GeneralFeedbackViewModel>(vm =>
                 {
                     vm.Title.Should().BeEquivalentTo(controller.Title);
-                    vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
+                    vm.PersonalInformation.Should().BeEquivalentTo(controller.PersonalInformation);
                     vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
                 });
 
@@ -93,7 +97,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
         {
             //Assign
             var postModel = new GeneralFeedbackViewModel();
-            A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+
+            A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+
+            A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
 
             var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage);
 
@@ -115,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             {
                 controllerResult.ShouldRenderDefaultView()
                     .WithModel<GeneralFeedbackViewModel>()
-                    .AndModelError(nameof(GeneralFeedbackViewModel.Title));
+                    .AndModelError(nameof(GeneralFeedbackViewModel.FeedbackQuestionType));
             }
         }
 

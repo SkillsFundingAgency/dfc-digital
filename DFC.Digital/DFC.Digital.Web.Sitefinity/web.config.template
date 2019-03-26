@@ -54,7 +54,7 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Digital.AsheFeedAccessKey" value="__lmiForAllApiAccessKey__" />
     <add key="DFC.Digital.AsheEstimateMdApiGateway" value="http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}" />
     <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
-    <!--<add key="DFC.Digital.CDNLocation" value="__cdnUrl__" />-->
+    <add key="DFC.Digital.CDNLocation" value="__cdnUrl__" />
     <!-- Course Search -->
     <add key="DFC.Digital.CourseSearchApiKey" value="__courseSearchApiKey__" />
     <add key="DFC.Digital.CourseSearchPageSize" value="20" />

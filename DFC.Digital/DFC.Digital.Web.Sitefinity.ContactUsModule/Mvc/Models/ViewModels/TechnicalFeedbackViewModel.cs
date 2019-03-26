@@ -13,5 +13,7 @@
         public string CharacterLimit { get; set; }
 
         public string NextPageUrl { get; set; }
+
+        public string ContinueText { get; set; }
     }
 }

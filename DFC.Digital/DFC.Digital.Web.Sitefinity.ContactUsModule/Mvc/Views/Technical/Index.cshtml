@@ -3,16 +3,16 @@
 @Html.Partial("ErrorSummary")
 <h1 class="govuk-heading-xl">@Model.Title</h1>
 <p class="govuk-body-m">@Model.PageIntroduction</p>
-@using (Html.BeginForm("Index", "YourDetails", FormMethod.Post, new { id = "userform" }))
+@using (Html.BeginForm("Index", "Technical", FormMethod.Post, new { id = "userform" }))
 {
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Message), ViewData.ModelState)">
-        @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label", @for = "more-detail" })
+        @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label" })
         <span class="govuk-hint" id="more-detail-hint">@Model.PersonalInformation</span>
         @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(m => Model.Message, htmlAttributes: new { @rows = 5, @id = "control-label col-md-2", @name = "more-detail", @class = "govuk-textarea", @aria_describedby = "more-detail-hint" })
+        @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea", aria_describedby = "more-detail-hint" })
     </div>
     <p class="govuk-body-s">@Model.CharacterLimit</p>
     <div class="govuk-form-group">
-        <button type="submit" class="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button">@Model.ContinueText</button>
     </div>
 }

@@ -22,6 +22,8 @@ namespace DFC.Digital.Data.Interfaces
 
         bool IsSearchResultsPage { get; }
 
+        bool IsContactUsPage { get; }
+
         bool IsUserAdministrator { get; }
 
         NameValueCollection RequestQueryString { get; }

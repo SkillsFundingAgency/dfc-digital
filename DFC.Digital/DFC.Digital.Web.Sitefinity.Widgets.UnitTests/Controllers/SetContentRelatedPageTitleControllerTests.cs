@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers;
 using FakeItEasy;
 using FluentAssertions;
@@ -37,6 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var jobProfileRepoFake = A.Fake<IJobProfileRepository>(ops => ops.Strict());
             var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
+            var fakeSitefinityContext = A.Fake<ISitefinityCurrentContext>(ops => ops.Strict());
 
             // Set up calls
             A.CallTo(() => webAppContextFake.IsCategoryPage).Returns(pageType == PageType.Category);
@@ -55,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             }
 
             //Instantiate & Act
-            var setContentRelatedPageTitleController = new SetContentRelatedPageTitleController(categoryRepoFake, jobProfileRepoFake, webAppContextFake, loggerFake);
+            var setContentRelatedPageTitleController = new SetContentRelatedPageTitleController(categoryRepoFake, jobProfileRepoFake, webAppContextFake, fakeSitefinityContext, loggerFake);
 
             ViewResult indexResult;
 

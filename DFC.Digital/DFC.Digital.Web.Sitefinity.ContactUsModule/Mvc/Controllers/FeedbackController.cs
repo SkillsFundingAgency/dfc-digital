@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -46,10 +46,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #endregion Constructors
 
-        #region Public Properties
+        #region Properties
 
         [DisplayName("Next page")]
         public string NextPage { get; set; } = "/contact-us/your-details/";
+
+        #endregion Properties
+
+        #region Public Properties
+
+        [DisplayName("Next Page URL")]
+        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
@@ -111,9 +118,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.Title = Title;
-            model.PersonalInformation = PersonalInformation;
-            model.CharacterLimit = CharacterLimit;
+            model.NextPageUrl = this.NextPageUrl;
+            model.Title = this.Title;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
             return model;
         }
 

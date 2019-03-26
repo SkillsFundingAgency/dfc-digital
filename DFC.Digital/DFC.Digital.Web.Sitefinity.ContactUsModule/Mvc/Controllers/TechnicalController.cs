@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -60,9 +61,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Relative page url to select option page")]
         public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
 
-        [DisplayName("Continue Button Text")]
-        public string ContinueText { get; set; } = "Continue";
-
         #endregion Public Properties
 
         #region Actions
@@ -107,13 +105,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {
-            model.NextPageUrl = NextPageUrl;
-            model.Title = Title;
-            model.MessageLabel = MessageLabel;
-            model.PageIntroduction = PageIntroduction;
-            model.PersonalInformation = PersonalInformation;
-            model.CharacterLimit = CharacterLimit;
-            model.ContinueText = ContinueText;
+            model.NextPageUrl = this.NextPageUrl;
+            model.Title = this.Title;
+            model.MessageLabel = this.MessageLabel;
+            model.PageIntroduction = this.PageIntroduction;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
             return model;
         }
     }

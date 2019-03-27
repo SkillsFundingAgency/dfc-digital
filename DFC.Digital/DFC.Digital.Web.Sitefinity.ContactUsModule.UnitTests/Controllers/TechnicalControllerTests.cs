@@ -8,7 +8,7 @@ using FluentAssertions;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
     public class TechnicalControllerTests
     {
@@ -92,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
             }
 
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
-            A.CallTo(() => fakeMapper.Map(A<TechnicalFeedbackViewModel>._, A<ContactUsViewModel>._)).Returns(new ContactUsViewModel());
+            A.CallTo(() => fakeMapper.Map(A<TechnicalFeedbackViewModel>._, A<ContactUs>._)).Returns(new ContactUs());
             A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
 
             //Act

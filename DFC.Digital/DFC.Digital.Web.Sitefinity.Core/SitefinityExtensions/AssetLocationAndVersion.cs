@@ -35,13 +35,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             if (!string.IsNullOrEmpty(CDNLocation))
             {
-                string assetLocation = $"{CDNLocation}/{fileName}";
-                string version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
+                var assetLocation = $"{CDNLocation}/{fileName}";
+                var version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
                 return $"{assetLocation}?{version}";
             }
             else
             {
-                string assetLocation = $"/ResourcePackages/{fileName.Substring(0, fileName.IndexOf("/"))}/assets/dist/{fileName.Substring(fileName.IndexOf("/") + 1)}";
+                var assetLocation = $"/ResourcePackages/{fileName.Substring(0, fileName.IndexOf("/"))}/assets/dist/{fileName.Substring(fileName.IndexOf("/") + 1)}";
                 var physicalPath = context.ServerMapPath($"~{assetLocation}");
                 var version = GetFileHash(physicalPath);
                 return $"{assetLocation}?{version}";
@@ -52,8 +52,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             if (File.Exists(file))
             {
-                MD5 md5 = MD5.Create();
-                using (FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+                var md5 = MD5.Create();
+                using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
                 }
@@ -66,11 +66,18 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private async Task<string> GetFileHashAsync(string assetLocation)
         {
-            HttpResponseMessage response = await httpClientService.GetAsync(assetLocation);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var hashCode = response.Content.Headers.GetValues(ContentMDS).FirstOrDefault();
-                return hashCode.Replace("-", string.Empty);
+                var response = await httpClientService.GetAsync(assetLocation);
+                if (response.IsSuccessStatusCode)
+                {
+                    var hashCode = response.Content.Headers.GetValues(ContentMDS).FirstOrDefault();
+                    return !string.IsNullOrWhiteSpace(hashCode) ? hashCode.Replace("-", string.Empty) : DateTime.Now.ToString("yyyyMMddHH");
+                }
+            }
+            catch (Exception)
+            {
+                // ignored, it has been logged by exception interception
             }
 
             //If we dont get a valid response use the current time to the nearest hour.

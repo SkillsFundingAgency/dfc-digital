@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+        public string NextPage { get; set; } = "/contact-us/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Report a technical issue";
@@ -57,8 +57,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.";
 
-        [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        [DisplayName("Relative page URL to select option page")]
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         [DisplayName("Continue Button Text")]
         public string ContinueText { get; set; } = "Continue";
@@ -79,7 +79,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var sessionModel = sessionStorage.Get() ?? new ContactUs();
                 if (sessionModel.ContactUsOption == null)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -95,7 +95,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect(NextPageUrl);
+                return Redirect(NextPage);
             }
 
             model.Title = Title;
@@ -107,7 +107,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {
-            model.NextPageUrl = NextPageUrl;
+            model.NextPage = NextPage;
             model.Title = Title;
             model.MessageLabel = MessageLabel;
             model.PageIntroduction = PageIntroduction;

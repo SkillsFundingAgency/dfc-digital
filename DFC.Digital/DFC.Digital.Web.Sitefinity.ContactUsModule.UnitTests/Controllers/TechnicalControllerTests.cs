@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             //Assert
             if (!isContentAuthoringSite && !hasValidSession)
             {
-                indexMethodCallResult.ShouldRedirectTo(technicalController.ContactOptionPageUrl);
+                indexMethodCallResult.ShouldRedirectTo(technicalController.ContactOptionPage);
             }
             else
             {
@@ -70,7 +70,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                        vm.PageIntroduction.Should().Be(technicalController.PageIntroduction);
                        vm.PersonalInformation.Should().Be(technicalController.PersonalInformation);
                        vm.Title.Should().Be(technicalController.Title);
-                       vm.NextPageUrl.Should().Be(technicalController.NextPageUrl);
+                       vm.NextPage.Should().Be(technicalController.NextPage);
                    });
             }
         }
@@ -109,12 +109,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                         vm.PageIntroduction.Should().Be(technicalController.PageIntroduction);
                         vm.PersonalInformation.Should().Be(technicalController.PersonalInformation);
                         vm.Title.Should().Be(technicalController.Title);
-                        vm.NextPageUrl.Should().Be(technicalController.NextPageUrl);
+                        vm.NextPage.Should().Be(technicalController.NextPage);
                     }).AndModelError(dummyErrorKey);
             }
             else
             {
-                indexMethodCallResult.ShouldRedirectTo(technicalController.NextPageUrl);
+                indexMethodCallResult.ShouldRedirectTo(technicalController.NextPage);
             }
         }
     }

@@ -57,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.SitefinityExtensions
                 StatusCode = System.Net.HttpStatusCode.InternalServerError
             };
 
-            var expectedAssetFileLocation = $"/ResourcePackages/folder/assets/dist/DummyAssetFile?";
+            var expectedAssetFileLocation = "/ResourcePackages/folder/assets/dist/DummyAssetFile?";
 
             A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns(null);
             A.CallTo(() => fakeWbAppContext.ServerMapPath(A<string>._)).ReturnsLazily((string file) => file);

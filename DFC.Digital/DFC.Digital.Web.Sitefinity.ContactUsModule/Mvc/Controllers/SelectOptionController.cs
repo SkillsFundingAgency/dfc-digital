@@ -18,9 +18,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
-
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
@@ -35,8 +32,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.sessionStorage = sessionStorage;
             this.mapper = mapper;
         }

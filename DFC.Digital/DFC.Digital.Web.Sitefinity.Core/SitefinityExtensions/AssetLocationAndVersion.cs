@@ -16,17 +16,20 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IHttpClientService<IAssetLocationAndVersion> httpClientService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IWebAppContext context;
+        private readonly IApplicationLogger applicationLogger;
 
         public AssetLocationAndVersion(
             IConfigurationProvider configuration,
             IHttpClientService<IAssetLocationAndVersion> httpClientService,
             IAsyncHelper asyncHelper,
-            IWebAppContext context)
+            IWebAppContext context,
+            IApplicationLogger applicationLogger)
         {
             this.configuration = configuration;
             this.httpClientService = httpClientService;
             this.asyncHelper = asyncHelper;
             this.context = context;
+            this.applicationLogger = applicationLogger;
         }
 
         private string CDNLocation => configuration.GetConfig<string>(Constants.CDNLocation);
@@ -75,9 +78,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     return !string.IsNullOrWhiteSpace(hashCode) ? hashCode.Replace("-", string.Empty) : DateTime.Now.ToString("yyyyMMddHH");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignored, it has been logged by exception interception
+                applicationLogger.ErrorJustLogIt("Failed to get file hash", ex);
             }
 
             //If we dont get a valid response use the current time to the nearest hour.

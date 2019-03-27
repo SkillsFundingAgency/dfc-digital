@@ -4,7 +4,6 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
 {
-
     public class TechnicalControllerTests
     {
         [Fact]

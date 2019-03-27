@@ -6,7 +6,6 @@ using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -19,7 +18,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         private readonly INoncitizenEmailService<ContactUsRequest> fakeSendEmailService;
         private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IMapper fakeMapper;
         private readonly ISessionStorage<ContactUs> fakeSessionStorage;
         private readonly IWebAppContext fakeContext;
 
@@ -33,7 +31,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeSendEmailService = A.Fake<INoncitizenEmailService<ContactUsRequest>>(ops => ops.Strict());
-            fakeContext = A.Fake<IWebAppContext>();
+            fakeContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+            A.CallTo(() => fakeContext.IsContentAuthoringSite).Returns(false);
         }
 
         #endregion Constructors
@@ -46,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(ContactOption.Technical, true)]
         public void IndexGetTest(ContactOption contactOption, bool validSessionVm)
         {
-            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeContext, fakeSessionStorage)
+            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
                 ContactOption = contactOption,
                 PageTitle = nameof(YourDetailsController.PageTitle),
@@ -117,7 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
-            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeContext, fakeSessionStorage)
+            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
                 SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
                 FailurePageUrl = nameof(YourDetailsController.FailurePageUrl)
@@ -162,7 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var postModel = new ContactUsWithDobPostcodeViewModel();
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
-            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeMapper, fakeContext, fakeSessionStorage)
+            var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
                 SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
                 FailurePageUrl = nameof(YourDetailsController.FailurePageUrl)

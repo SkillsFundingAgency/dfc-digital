@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -29,7 +28,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
-
         {
             this.mapper = mapper;
             this.context = context;
@@ -60,6 +58,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         [DisplayName("Relative page url to select option page")]
         public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+
+        [DisplayName("Continue Button Text")]
+        public string ContinueText { get; set; } = "Continue";
 
         #endregion Public Properties
 
@@ -105,12 +106,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {
-            model.NextPageUrl = this.NextPageUrl;
-            model.Title = this.Title;
-            model.MessageLabel = this.MessageLabel;
-            model.PageIntroduction = this.PageIntroduction;
-            model.PersonalInformation = this.PersonalInformation;
-            model.CharacterLimit = this.CharacterLimit;
+            model.NextPageUrl = NextPageUrl;
+            model.Title = Title;
+            model.MessageLabel = MessageLabel;
+            model.PageIntroduction = PageIntroduction;
+            model.PersonalInformation = PersonalInformation;
+            model.CharacterLimit = CharacterLimit;
+            model.ContinueText = ContinueText;
             return model;
         }
     }

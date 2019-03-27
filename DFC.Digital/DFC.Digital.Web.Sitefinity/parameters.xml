@@ -186,6 +186,7 @@
   <parameter name="cdn_url"
              description="Tokenize the send grid Api key to be replaced by VSTS task"
              defaultValue="__cdnUrl__">
+    <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.CDNLocation']/@value" />
   </parameter>

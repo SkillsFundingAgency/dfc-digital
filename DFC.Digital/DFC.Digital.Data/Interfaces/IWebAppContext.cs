@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
@@ -21,8 +20,6 @@ namespace DFC.Digital.Data.Interfaces
         bool IsCategoryPage { get; }
 
         bool IsSearchResultsPage { get; }
-
-        bool IsContactUsPage { get; }
 
         bool IsUserAdministrator { get; }
 

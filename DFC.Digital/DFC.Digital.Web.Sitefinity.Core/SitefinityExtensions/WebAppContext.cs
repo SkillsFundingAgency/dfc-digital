@@ -47,8 +47,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public bool IsSearchResultsPage => HttpContext.Current.Request.Url.ToString().ToLower().Contains("/search-results");
 
-        public bool IsContactUsPage => HttpContext.Current.Request.Url.ToString().ToLower().Contains("/contact-us");
-
         public bool IsUserAdministrator
         {
             get

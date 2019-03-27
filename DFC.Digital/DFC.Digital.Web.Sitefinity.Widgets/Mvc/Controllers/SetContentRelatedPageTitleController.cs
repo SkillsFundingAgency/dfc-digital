@@ -19,21 +19,19 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
     {
         #region Private Fields
 
-        private readonly IJobProfileCategoryRepository categoryRepo;
-        private readonly IJobProfileRepository jobProfileRepository;
-        private readonly IWebAppContext webAppContext;
-        private readonly ISitefinityCurrentContext sitefinityCurrentContext;
+        private IJobProfileCategoryRepository categoryRepo;
+        private IJobProfileRepository jobProfileRepository;
+        private IWebAppContext webAppContext;
 
         #endregion Private Fields
 
         #region Constructors
 
-        public SetContentRelatedPageTitleController(IJobProfileCategoryRepository categoryRepo, IJobProfileRepository jobProfileRepo, IWebAppContext webAppContext, ISitefinityCurrentContext sitefinityCurrentContext, IApplicationLogger applicationLogger) : base(applicationLogger)
+        public SetContentRelatedPageTitleController(IJobProfileCategoryRepository categoryRepo, IJobProfileRepository jobProfileRepo, IWebAppContext webAppContext, IApplicationLogger applicationLogger) : base(applicationLogger)
         {
             this.categoryRepo = categoryRepo;
             this.jobProfileRepository = jobProfileRepo;
             this.webAppContext = webAppContext;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
         }
 
         #endregion Constructors
@@ -70,11 +68,6 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
             {
                 var searchTerm = HttpUtility.HtmlEncode(webAppContext.RequestQueryString["searchTerm"]);
                 this.ViewBag.Title = $"{searchTerm} {PageTitleSeparator} Search {PageTitleSeparator} {PageTitleSuffix}";
-            }
-            else if (!webAppContext.IsContentAuthoringSite && webAppContext.IsContactUsPage)
-            {
-                var page = sitefinityCurrentContext.CurrentPage;
-                this.ViewBag.Title = $"{page.NavigationNode.Title} {PageTitleSeparator} {PageTitleSuffix}";
             }
 
             //Need to return a blank view so that we can check the view bag in tests.

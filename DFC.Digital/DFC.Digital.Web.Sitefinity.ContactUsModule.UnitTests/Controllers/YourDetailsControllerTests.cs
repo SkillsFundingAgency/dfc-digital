@@ -32,6 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeSendEmailService = A.Fake<INoncitizenEmailService<ContactUsRequest>>(ops => ops.Strict());
             fakeContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+            A.CallTo(() => fakeContext.IsContentAuthoringSite).Returns(false);
         }
 
         #endregion Constructors

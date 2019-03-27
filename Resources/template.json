@@ -18,7 +18,7 @@
       "type": "string",
       "defaultValue": "1",
       "metadata": {
-          "description": "Size of the instances in the app service plan"
+          "description": "Size of each instance in the app service plan"
       },
       "allowedValues": [
         "1",

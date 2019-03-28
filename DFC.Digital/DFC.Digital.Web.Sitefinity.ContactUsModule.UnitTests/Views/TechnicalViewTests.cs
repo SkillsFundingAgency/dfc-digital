@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using ASP;
+﻿using ASP;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FluentAssertions;
 using RazorGenerator.Testing;
+using System.Linq;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests

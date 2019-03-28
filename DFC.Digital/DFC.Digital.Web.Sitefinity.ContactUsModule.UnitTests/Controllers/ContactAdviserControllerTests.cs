@@ -85,12 +85,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
         }
 
-
         [Theory]
-        [InlineData(ContactOption.ContactAdviser, true)]
-        [InlineData(ContactOption.Feedback, false)]
-        [InlineData(ContactOption.Technical, true)]
-        public void IndexGetTest(ContactOption contactOption, bool validSessionVm)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void IndexGetTest(bool validSessionVm)
         {
             var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
@@ -159,7 +157,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             //Assert
             if (modelStateValid)
             {
-
                 controllerResult.ShouldRedirectTo(controller.NextPageUrl);
             }
             else

@@ -20,7 +20,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
         private readonly ISitefinityCurrentContext fakeSitefinityCurrentContext;
-        private readonly IMapper fakeMapper;
         private readonly ISessionStorage<ContactUs> fakeSessionStorage;
         #endregion Private Fields
 
@@ -43,12 +42,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData("Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
         public void IndexGetTest(string title, string generalFeedbackPage, string technicalFeedbackPage, string contactAdviserPage)
         {
+            var mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<ContactUsAutomapperProfile>();
+            });
+
             //Assign
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeSessionStorage)
+            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage)
             {
                Title = title,
                ContactAdviserPage = contactAdviserPage,
-               TechnicalFeedbackPage =technicalFeedbackPage,
+               TechnicalFeedbackPage = technicalFeedbackPage,
                GeneralFeedbackPage = generalFeedbackPage
             };
 

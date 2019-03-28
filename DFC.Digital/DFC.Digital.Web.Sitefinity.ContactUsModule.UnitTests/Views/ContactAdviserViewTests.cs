@@ -68,7 +68,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 .Count(h2 => h2.InnerText.Contains("There is a problem")).Should().BeGreaterThan(0);
             htmlDocument.DocumentNode.Descendants("a")
                 .Count(a => a.InnerText.Contains(errorMessage)).Should().BeGreaterThan(0);
-
         }
 
         private void AssertTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)

@@ -19,11 +19,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     {
         #region Private Fields
 
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
+        private IEmailTemplateRepository emailTemplateRepository;
+        private ISitefinityCurrentContext sitefinityCurrentContext;
 
         #endregion Private Fields
 

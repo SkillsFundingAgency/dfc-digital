@@ -12,7 +12,6 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
-
     public class FeedbackControllerTests
     {
         #region Private Fields
@@ -103,7 +102,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
 
             var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage);
-
 
             if (!modelStateValid)
             {

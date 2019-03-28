@@ -1,16 +1,20 @@
 ﻿@model DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models.DfcBreadcrumbViewModel
 
 <div class="content-container">
-    <div class="breadcrumbs">
-        <ol>
-            <li><a href="@Model.HomepageLink">@Model.HomepageText</a></li>
+    <div class="breadcrumbs govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="@Model.HomepageLink">@Model.HomepageText</a></li>
             @foreach (var item in Model.BreadcrumbLinks)
             {
-            <li>@if (string.IsNullOrEmpty(item.Link))
-                    {@item.Text}
-                else
-                    {<a href="@item.Link">@item.Text</a>}
-            </li>
+                <li class="govuk-breadcrumbs__list-item">@if (string.IsNullOrEmpty(item.Link))
+                    {
+                        @item.Text
+                    }
+                    else
+                    {
+                        <a class="govuk-breadcrumbs__link" href="@item.Link">@item.Text</a>
+                    }
+                </li>
             }
         </ol>
     </div>

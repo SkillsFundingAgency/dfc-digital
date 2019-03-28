@@ -1,7 +1,7 @@
+using RazorGenerator.Mvc;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using RazorGenerator.Mvc;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(DFC.Digital.Web.Sitefinity.ContactUsModule.RazorGeneratorMvcStart), "Start")]
 

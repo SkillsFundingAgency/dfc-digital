@@ -22,7 +22,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
@@ -34,13 +33,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IApplicationLogger applicationLogger,
             INoncitizenEmailService<ContactUsRequest> sendEmailService,
             IAsyncHelper asyncHelper,
-            IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
-            this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
         }

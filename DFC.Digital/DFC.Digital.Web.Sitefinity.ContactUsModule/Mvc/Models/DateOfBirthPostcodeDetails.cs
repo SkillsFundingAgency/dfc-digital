@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DFC.Digital.Web.Core;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using DFC.Digital.Web.Core;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {

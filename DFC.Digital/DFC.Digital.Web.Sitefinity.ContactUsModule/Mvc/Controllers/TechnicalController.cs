@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -28,7 +29,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
-
         {
             this.mapper = mapper;
             this.context = context;
@@ -90,6 +90,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(TechnicalFeedbackViewModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());

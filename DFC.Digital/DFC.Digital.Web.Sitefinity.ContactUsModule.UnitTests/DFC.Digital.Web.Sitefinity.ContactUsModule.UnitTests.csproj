@@ -45,10 +45,16 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ContactAdviserControllerTests.cs" />
+    <Compile Include="Controllers\FeedbackControllerTests.cs" />
+    <Compile Include="Controllers\SelectOptionControllerTests.cs" />
     <Compile Include="Controllers\TechnicalControllerTests.cs" />
     <Compile Include="Controllers\YourDetailsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\TechnicalViewTests.cs" />
+    <Compile Include="Views\ContactAdviserViewTests.cs" />
+    <Compile Include="Views\FeedbackViewTests.cs" />
+    <Compile Include="Views\SelectOptionViewTests.cs" />
     <Compile Include="Views\YourDetailsViewTests.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -74,6 +80,10 @@
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.ContactUsModule\DFC.Digital.Web.Sitefinity.ContactUsModule.csproj">
       <Project>{d5b28738-adcd-4712-9219-45c4a061dff1}</Project>
       <Name>DFC.Digital.Web.Sitefinity.ContactUsModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
+      <Project>{22CFB09D-D5C9-4376-85A2-BA564FBABBC2}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

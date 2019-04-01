@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     public class YourDetailsViewTests
     {
         [Fact]
-        public void Dfc7630YourDetailsContactAdvisorViewTests()
+        public void Dfc7630YourDetailsContactAdviserViewTests()
         {
             // Arrange
             var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();

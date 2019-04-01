@@ -219,17 +219,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             }
 
             var sessionData = sessionStorage.Get();
-            if (ContactOption == ContactOption.ContactAdviser && (sessionData?.ContactUsOption.ContactOptionType != ContactOption.ContactAdviser || sessionData.ContactAnAdviserFeedback == null))
+            if (ContactOption == ContactOption.ContactAdviser && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.ContactAdviser || sessionData.ContactAnAdviserFeedback == null))
             {
                 return false;
             }
 
-            if (ContactOption == ContactOption.Feedback && (sessionData?.ContactUsOption.ContactOptionType != ContactOption.Feedback || sessionData.GeneralFeedback == null))
+            if (ContactOption == ContactOption.Feedback && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.Feedback || sessionData.GeneralFeedback == null))
             {
                 return false;
             }
 
-            if (ContactOption == ContactOption.Technical && (sessionData?.ContactUsOption.ContactOptionType != ContactOption.Technical || sessionData.TechnicalFeedback == null))
+            if (ContactOption == ContactOption.Technical && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.Technical || sessionData.TechnicalFeedback == null))
             {
                 return false;
             }

@@ -11,5 +11,7 @@ namespace DFC.Digital.Core
         T Get();
 
         void Save(T data);
+
+        void Remove();
     }
 }

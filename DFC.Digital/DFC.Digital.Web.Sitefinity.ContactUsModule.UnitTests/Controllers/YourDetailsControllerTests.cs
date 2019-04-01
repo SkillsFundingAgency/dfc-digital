@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
@@ -137,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var postModel = new ContactUsWithConsentViewModel();
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(validSession ? GetSessionObject(contactOption) : null);
-            A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+            A.CallTo(() => fakeSessionStorage.Remove()).DoesNothing();
 
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
@@ -160,6 +159,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 if (validSession)
                 {
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(2, Times.Exactly);
+
+                    A.CallTo(() => fakeSessionStorage.Remove()).MustHaveHappened();
+                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).MustHaveHappened();
 
                     if (validSubmission)
                     {
@@ -197,7 +199,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var postModel = new ContactUsWithDobPostcodeViewModel();
             A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(validSession ? GetSessionObject(ContactOption.ContactAdviser) : null);
-            A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+            A.CallTo(() => fakeSessionStorage.Remove()).DoesNothing();
 
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
@@ -219,6 +221,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 if (validSession)
                 {
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(2, Times.Exactly);
+                    A.CallTo(() => fakeSessionStorage.Remove()).MustHaveHappened();
+                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).MustHaveHappened();
 
                     if (validSubmission)
                     {

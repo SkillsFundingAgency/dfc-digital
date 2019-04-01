@@ -135,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                         DateOfBirth = viewModel.DateOfBirth
                     }));
 
-                    sessionStorage.Save(null);
+                    sessionStorage.Remove();
                     if (result)
                     {
                         return Redirect(SuccessPageUrl);
@@ -175,7 +175,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                         FeedbackQuestionType = sessionData.GeneralFeedback?.FeedbackQuestionType.ToString()
                     }));
 
-                    sessionStorage.Save(null);
+                    sessionStorage.Remove();
                     if (result)
                     {
                         return Redirect(SuccessPageUrl);

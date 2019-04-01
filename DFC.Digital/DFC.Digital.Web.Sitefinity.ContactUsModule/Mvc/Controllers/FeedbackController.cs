@@ -18,20 +18,27 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class FeedbackController : BaseDfcController
     {
         #region Private Fields
+
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
+        private IEmailTemplateRepository emailTemplateRepository;
+        private ISitefinityCurrentContext sitefinityCurrentContext;
 
         #endregion Private Fields
 
         #region Constructors
 
         public FeedbackController(
+            IEmailTemplateRepository emailTemplateRepository,
+            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
+            this.emailTemplateRepository = emailTemplateRepository;
+            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
@@ -41,8 +48,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Public Properties
 
-        [DisplayName("Next page")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
+        [DisplayName("Next Page URL")]
+        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
@@ -96,7 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPage}");
+                return Redirect($"{NextPageUrl}");
             }
 
             return View("Index", AddWidgetPropertyFields(model));
@@ -104,9 +111,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.Title = Title;
-            model.PersonalInformation = PersonalInformation;
-            model.CharacterLimit = CharacterLimit;
+            model.NextPageUrl = this.NextPageUrl;
+            model.Title = this.Title;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
             return model;
         }
 

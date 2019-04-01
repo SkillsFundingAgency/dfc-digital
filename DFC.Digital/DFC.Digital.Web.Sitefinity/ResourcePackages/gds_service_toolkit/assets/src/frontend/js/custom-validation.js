@@ -3,7 +3,10 @@ $(document).ready(function () {
     $("button[type='submit']").click(function () {
         $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
-        PopulateDateOfBirth();
+        if ($('#DateOfBirth'))
+        {
+	        PopulateDateOfBirth();
+        }
 
         var validator = $('form').validate();
         if ($('form').valid()) {

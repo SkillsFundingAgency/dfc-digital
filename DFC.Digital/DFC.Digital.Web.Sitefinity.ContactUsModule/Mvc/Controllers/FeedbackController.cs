@@ -63,6 +63,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Relative page url to select option page")]
         public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
 
+        [DisplayName("Continue Button Text")]
+        public string ContinueText { get; set; } = "Continue";
+
         #endregion Public Properties
 
         #region Actions
@@ -109,15 +112,16 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", AddWidgetPropertyFields(model));
         }
 
+        #endregion Actions
+
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
             model.NextPageUrl = this.NextPageUrl;
             model.Title = this.Title;
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;
+            model.ContinueText = ContinueText;
             return model;
         }
-
-        #endregion Actions
     }
 }

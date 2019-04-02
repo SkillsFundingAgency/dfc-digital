@@ -43,10 +43,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         #region Action Tests
 
         [Theory]
-        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/")]
-        [InlineData(false, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/")]
+        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue")]
+        [InlineData(false, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue")]
 
-        public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl)
+        public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl, string continueText)
         {
             var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
@@ -54,7 +54,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 PersonalInformation = nameof(FeedbackController.PersonalInformation),
                 NextPageUrl = nextPageUrl,
                 CharacterLimit = characterLimit,
-                ContactOptionPageUrl = contactOptionPageUrl
+                ContactOptionPageUrl = contactOptionPageUrl,
+                ContinueText = continueText
             };
 
             if (!validSessionVm)

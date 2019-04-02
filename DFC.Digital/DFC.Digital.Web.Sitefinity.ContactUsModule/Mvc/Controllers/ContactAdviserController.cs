@@ -103,13 +103,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", model);
         }
 
+        #endregion Actions
         private void AddWidgetProperties(ContactAdviserViewModel model)
         {
             model.Title = Title;
             model.Hint = PersonalInformation;
             model.NextPage = NextPage;
         }
-
-        #endregion Actions
     }
 }

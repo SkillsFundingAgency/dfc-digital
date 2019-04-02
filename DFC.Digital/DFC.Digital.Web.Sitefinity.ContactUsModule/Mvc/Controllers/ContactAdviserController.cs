@@ -19,8 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     {
         #region Private Fields
 
-        private readonly IEmailTemplateRepository emailTemplateRepository;
-        private readonly ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
@@ -30,15 +28,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Constructors
 
         public ContactAdviserController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
@@ -109,13 +103,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", model);
         }
 
+        #endregion Actions
         private void AddWidgetProperties(ContactAdviserViewModel model)
         {
             model.Title = Title;
             model.Hint = PersonalInformation;
             model.NextPage = NextPage;
         }
-
-        #endregion Actions
     }
 }

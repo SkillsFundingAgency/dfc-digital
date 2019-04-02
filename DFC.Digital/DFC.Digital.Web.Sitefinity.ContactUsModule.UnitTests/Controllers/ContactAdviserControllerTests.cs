@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl)
         {
             //Assign
-            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
                 Title = title,
                 PersonalInformation = personalInformation,
@@ -90,7 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(false)]
         public void IndexGetTest(bool validSessionVm)
         {
-            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
                 Title = nameof(ContactAdviserController.Title),
                 PersonalInformation = nameof(ContactAdviserController.PersonalInformation),
@@ -137,7 +137,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var postModel = new ContactAdviserViewModel();
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
 
-            var controller = new ContactAdviserController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
                 Title = nameof(ContactAdviserController.Title)
             };

@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string CharacterLimit { get; set; } = "Character limit is 1000.";
 
         [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         #endregion Public Properties
 
@@ -81,7 +81,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var sessionModel = sessionStorage.Get() ?? new ContactUs();
                 if (sessionModel.ContactUsOption == null)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -111,7 +111,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.NextPageUrl = this.NextPageUrl;
+            model.NextPage = this.NextPageUrl;
             model.Title = this.Title;
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;

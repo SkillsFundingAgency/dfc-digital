@@ -138,13 +138,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     sessionStorage.Remove();
                     if (result)
                     {
-                        return Redirect(SuccessPageUrl);
+                        return Redirect(SuccessPage);
                     }
 
-                    return Redirect(FailurePageUrl);
+                    return Redirect(FailurePage);
                 }
 
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             SetupDobViewModelDefaults(viewModel);
@@ -178,13 +178,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     sessionStorage.Remove();
                     if (result)
                     {
-                        return Redirect(SuccessPageUrl);
+                        return Redirect(SuccessPage);
                     }
 
-                    return Redirect(FailurePageUrl);
+                    return Redirect(FailurePage);
                 }
 
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             SetupConsentViewModelDefaults(viewModel);

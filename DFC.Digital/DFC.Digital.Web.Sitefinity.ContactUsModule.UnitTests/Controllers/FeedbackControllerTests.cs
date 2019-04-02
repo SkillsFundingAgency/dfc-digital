@@ -54,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 PersonalInformation = nameof(FeedbackController.PersonalInformation),
                 NextPageUrl = nextPageUrl,
                 CharacterLimit = characterLimit,
-                ContactOptionPageUrl = contactOptionPageUrl
+                ContactOptionPage = contactOptionPageUrl
             };
 
             if (!validSessionVm)
@@ -78,14 +78,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 {
                     vm.Title.Should().BeEquivalentTo(controller.Title);
                     vm.PersonalInformation.Should().BeEquivalentTo(controller.PersonalInformation);
-                    vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
+                    vm.NextPage.Should().BeEquivalentTo(controller.NextPageUrl);
                 });
 
                 A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
             }
             else
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
         }
 

@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             model.Title = Title;
             model.Hint = PersonalInformation;
-            model.NextPageUrl = NextPageUrl;
+            model.NextPage = NextPage;
         }
 
         #endregion Actions

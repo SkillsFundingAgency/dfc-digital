@@ -52,13 +52,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details-adviser/";
+        public string NextPage { get; set; } = "/contact-us/your-details-adviser/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "What is your query about?";
 
-        [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        [DisplayName("Relative page URL to select option page")]
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         #endregion Public Properties
 
@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var sessionModel = sessionStorage.Get() ?? new ContactUs();
                 if (sessionModel.ContactUsOption == null)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -102,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPageUrl}");
+                return Redirect($"{NextPage}");
             }
 
             AddWidgetProperties(model);
@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             model.Title = Title;
             model.Hint = PersonalInformation;
-            model.NextPageUrl = NextPageUrl;
+            model.NextPage = NextPage;
         }
 
         #endregion Actions

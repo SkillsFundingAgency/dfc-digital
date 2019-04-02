@@ -54,6 +54,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Character Limit")]
         public string CharacterLimit { get; set; } = "Character limit is 1000.";
 
+        [DisplayName("Message Label")]
+        public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
+
         [DisplayName("Relative page url to select option page")]
         public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
@@ -115,6 +118,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;
             model.ContinueText = ContinueText;
+            model.MessageLabel = MessageLabel;
             return model;
         }
     }

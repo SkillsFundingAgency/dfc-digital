@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
 {
@@ -16,5 +13,17 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         public string LastName { get; set; }
 
         public string SendResult { get; set; }
+
+        public bool IsContactable { get; set; }
+
+        public string ContactOption { get; set; }
+
+        public string ContactAdviserQuestionType { get; set; }
+
+        public DateTime? DateOfBirth { get; set; }
+
+        public string FeedbackQuestionType { get; set; }
+
+        public string Message { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [Fact]
         public void TechnicalViewTest()
         {
-            // Arrange
+            // Arrange objects
             var technicalIndex = new _MVC_Views_Technical_Index_cshtml();
             var technicalFeedbackViewModel = new TechnicalFeedbackViewModel()
             {

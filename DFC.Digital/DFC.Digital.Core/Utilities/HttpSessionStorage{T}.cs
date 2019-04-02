@@ -13,6 +13,11 @@ namespace DFC.Digital.Core
             return (T)Convert.ChangeType(data, typeof(T));
         }
 
+        public void Remove()
+        {
+            HttpContext.Current.Session.Remove(SessionKey);
+        }
+
         public void Save(T data)
         {
             HttpContext.Current.Session.Add(SessionKey, data);

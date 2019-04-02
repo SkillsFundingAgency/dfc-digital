@@ -58,15 +58,15 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string AdviserIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
 
         [DisplayName("Failure Page URL")]
-        public string FailurePageUrl { get; set; } = "/alerts/500";
+        public string FailurePage { get; set; } = "/alerts/500";
 
-        [DisplayName("Success Page Url")]
-        public string SuccessPageUrl { get; set; } = "/contactus/thank-you";
+        [DisplayName("Success Page URL")]
+        public string SuccessPage { get; set; } = "/contactus/thank-you";
 
         [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
         public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
 
-        [DisplayName("Template Url Name  in Configurations e.g contact-an-advisor")]
+        [DisplayName("Template URL Name  in Configurations e.g contact-an-advisor")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
         [DisplayName("Date Of Birth hint")]
@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string SendButtonText { get; set; } = "Send";
 
         [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         #endregion Properties
 
@@ -96,7 +96,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (!SessionDataValid())
             {
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             if (ContactOption == ContactOption.ContactAdviser)
@@ -138,13 +138,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     sessionStorage.Remove();
                     if (result)
                     {
-                        return Redirect(SuccessPageUrl);
+                        return Redirect(SuccessPage);
                     }
 
-                    return Redirect(FailurePageUrl);
+                    return Redirect(FailurePage);
                 }
 
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             SetupDobViewModelDefaults(viewModel);
@@ -178,13 +178,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                     sessionStorage.Remove();
                     if (result)
                     {
-                        return Redirect(SuccessPageUrl);
+                        return Redirect(SuccessPage);
                     }
 
-                    return Redirect(FailurePageUrl);
+                    return Redirect(FailurePage);
                 }
 
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             SetupConsentViewModelDefaults(viewModel);

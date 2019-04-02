@@ -52,8 +52,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             {
                 Title = title,
                 PersonalInformation = personalInformation,
-                NextPageUrl = nextPageUrl,
-                ContactOptionPageUrl = contactOptionPageUrl
+                NextPage = nextPageUrl,
+                ContactOptionPage = contactOptionPageUrl
             };
 
             if (!validSessionVm)
@@ -75,13 +75,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                     vm =>
                     {
                         vm.Title.Should().BeEquivalentTo(controller.Title);
-                        vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
+                        vm.NextPage.Should().BeEquivalentTo(controller.NextPage);
                         vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
                     });
             }
             else
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
         }
 
@@ -94,7 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             {
                 Title = nameof(ContactAdviserController.Title),
                 PersonalInformation = nameof(ContactAdviserController.PersonalInformation),
-                NextPageUrl = nameof(ContactAdviserController.NextPageUrl)
+                NextPage = nameof(ContactAdviserController.NextPage)
             };
 
             //Setup fakes
@@ -122,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
 
             A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
@@ -157,7 +157,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             //Assert
             if (modelStateValid)
             {
-                controllerResult.ShouldRedirectTo(controller.NextPageUrl);
+                controllerResult.ShouldRedirectTo(controller.NextPage);
             }
             else
             {

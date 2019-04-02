@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             });
 
             //Assign
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage)
+            var controller = new SelectOptionController(fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage)
             {
                Title = title,
                ContactAdviserPage = contactAdviserPage,
@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 cfg.AddProfile<ContactUsAutomapperProfile>();
             });
 
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage);
+            var controller = new SelectOptionController(fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage);
 
             A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
 

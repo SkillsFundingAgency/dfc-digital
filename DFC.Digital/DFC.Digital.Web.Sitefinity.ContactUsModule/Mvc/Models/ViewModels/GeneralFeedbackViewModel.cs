@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public string PersonalInformation { get; set; }
 
-        public string NextPageUrl { get; set; }
+        public string NextPage { get; set; }
 
         public string ContinueText { get; set; }
     }

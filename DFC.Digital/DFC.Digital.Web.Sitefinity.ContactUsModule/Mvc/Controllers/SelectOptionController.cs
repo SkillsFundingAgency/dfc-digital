@@ -26,8 +26,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Constructors
 
         public SelectOptionController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)

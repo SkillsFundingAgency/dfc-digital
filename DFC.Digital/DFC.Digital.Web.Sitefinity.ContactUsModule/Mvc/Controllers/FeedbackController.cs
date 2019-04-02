@@ -22,23 +22,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
 
         #endregion Private Fields
 
         #region Constructors
 
         public FeedbackController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;

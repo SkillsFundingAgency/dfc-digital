@@ -18,8 +18,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
         private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
-        private readonly ISitefinityCurrentContext fakeSitefinityCurrentContext;
         private readonly IMapper fakeMapper;
         private readonly IWebAppContext fakeWebAppcontext;
         private readonly ISessionStorage<ContactUs> fakeSessionStorage;
@@ -32,8 +30,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeEmailTemplateRepository = A.Fake<IEmailTemplateRepository>();
-            fakeSitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>();
             fakeWebAppcontext = A.Fake<IWebAppContext>();
             fakeMapper = A.Fake<IMapper>();
         }
@@ -48,13 +44,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
         public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl, string continueText)
         {
-            var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
+            var controller = new FeedbackController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
                 Title = nameof(FeedbackController.Title),
                 PersonalInformation = nameof(FeedbackController.PersonalInformation),
                 NextPageUrl = nextPageUrl,
                 CharacterLimit = characterLimit,
-                ContactOptionPageUrl = contactOptionPageUrl,
+                ContactOptionPage = contactOptionPageUrl,
                 ContinueText = continueText
             };
 
@@ -79,14 +75,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 {
                     vm.Title.Should().BeEquivalentTo(controller.Title);
                     vm.PersonalInformation.Should().BeEquivalentTo(controller.PersonalInformation);
-                    vm.NextPageUrl.Should().BeEquivalentTo(controller.NextPageUrl);
+                    vm.NextPage.Should().BeEquivalentTo(controller.NextPageUrl);
                 });
 
                 A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
             }
             else
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
         }
 
@@ -102,7 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
 
-            var controller = new FeedbackController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage);
+            var controller = new FeedbackController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage);
 
             if (!modelStateValid)
             {

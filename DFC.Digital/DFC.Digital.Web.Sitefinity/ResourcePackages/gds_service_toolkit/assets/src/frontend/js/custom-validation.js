@@ -21,7 +21,7 @@ $(document).ready(function () {
             }
 
             $('html,body').animate({
-                scrollTop: $("#main-content").offset().top
+                scrollTop: $("#error-validation-summary").offset().top
             }, 0);
 
             return false;

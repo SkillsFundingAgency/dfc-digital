@@ -5,7 +5,6 @@
 <p class="govuk-body-m">@Html.Raw(Model.PageIntroduction)</p>
 @using (Html.BeginForm("Submit", "YourDetails", FormMethod.Post, new { id = "userform", role = "form" }))
 {
-<fieldset class="govuk-fieldset">
 
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Firstname), ViewData.ModelState)">
         @Html.LabelFor(x => x.Firstname, new { @class = "govuk-label" })
@@ -69,8 +68,7 @@
         </fieldset>
     </div>
 
-
-</fieldset>
+    
     <div class="govuk-form-group">
         <button type="submit" class="govuk-button">@Model.SendButtonText</button>
     </div>

@@ -39,10 +39,12 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         #region Action Tests
 
         [Theory]
-        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label")]
-        [InlineData(false, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label")]
+        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label", ContactOption.Feedback, false)]
+        [InlineData(false, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label", ContactOption.Feedback, true)]
+        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label", ContactOption.Technical, true)]
+        [InlineData(true, "Character limit is 1000.", "/contact-us/select-option/", "/contact-us/your-details/", "continue", "feedback message label", null, true)]
 
-        public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl, string continueText, string messageLabel)
+        public void IndexGetTest(bool validSessionVm, string characterLimit, string contactOptionPageUrl, string nextPageUrl, string continueText, string messageLabel, ContactOption? contactOption, bool expectToBeRedirected)
         {
             var controller = new FeedbackController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
@@ -62,14 +64,26 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             else
             {
                 A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
+
+                if (contactOption is null)
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                }
+                else
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = (ContactOption)contactOption } });
+                }
             }
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
-            if (validSessionVm)
+            if (expectToBeRedirected)
+            {
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
+            }
+            else
             {
                 controllerResult.ShouldRenderDefaultView()
                 .WithModel<GeneralFeedbackViewModel>(vm =>
@@ -80,10 +94,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 });
 
                 A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
-            }
-            else
-            {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
         }
 

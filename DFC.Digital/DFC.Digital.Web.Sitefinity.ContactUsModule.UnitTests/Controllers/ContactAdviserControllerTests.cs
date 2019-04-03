@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() { ContactOptionType = ContactOption.ContactAdviser } });
             }
 
             //Act
@@ -86,9 +86,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void IndexGetTest(bool validSessionVm)
+        [InlineData(true, ContactOption.ContactAdviser, false)]
+        [InlineData(false, ContactOption.ContactAdviser, true)]
+        [InlineData(true, ContactOption.Technical, true)]
+        [InlineData(true, null, true)]
+        public void IndexGetTest(bool validSessionVm, ContactOption? contactOption, bool expectToBeRedirected)
         {
             var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
@@ -104,14 +106,25 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() });
+                if (contactOption is null)
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                }
+                else
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = (ContactOption)contactOption } });
+                }
             }
 
             //Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index());
 
             //Assert
-            if (validSessionVm)
+            if (expectToBeRedirected)
+            {
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
+            }
+            else
             {
                 controllerResult.ShouldRenderDefaultView()
                     .WithModel<ContactAdviserViewModel>(vm =>
@@ -119,10 +132,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                         vm.Title.Should().BeEquivalentTo(controller.Title);
                         vm.Hint.Should().BeEquivalentTo(controller.PersonalInformation);
                     });
-            }
-            else
-            {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
 
             A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);

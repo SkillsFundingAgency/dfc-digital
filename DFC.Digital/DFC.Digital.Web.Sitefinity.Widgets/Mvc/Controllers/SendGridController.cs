@@ -42,7 +42,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 DateOfBirth = viewModel.DateOfBirth,
                 FeedbackQuestionType = viewModel.FeedbackQuestionType,
                 Message = viewModel.Message,
-                IsContactable = viewModel.IsContactable
+                IsContactable = viewModel.IsContactable,
+                Postcode = viewModel.Postcode,
+                TermsAndConditions = viewModel.AcceptTermsAndConditions
             }));
 
             viewModel.SendResult = JsonConvert.SerializeObject(result);

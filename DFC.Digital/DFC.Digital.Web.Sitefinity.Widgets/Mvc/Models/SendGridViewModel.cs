@@ -25,5 +25,9 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models
         public string FeedbackQuestionType { get; set; }
 
         public string Message { get; set; }
+
+        public string Postcode { get; set; }
+
+        public bool AcceptTermsAndConditions { get; set; }
     }
 }

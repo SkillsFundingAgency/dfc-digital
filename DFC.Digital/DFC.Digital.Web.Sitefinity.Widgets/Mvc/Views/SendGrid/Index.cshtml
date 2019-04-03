@@ -12,42 +12,53 @@
         @using (Html.BeginForm("", "SendGrid", FormMethod.Post, new { id = "header-search", @class = "site-search ui-front" }))
         {
             <ul>
-                <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.FirstName, "First Name", new { @class = "form-label" })
-                    @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control sfTxt" })
-                </li>
-
-                <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.LastName, "Last name", new { @class = "form-label" })
-                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control sfTxt" })
-                </li>
-
-                <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.EmailAddress, "Email Address", new { @class = "form-label" })
-                    @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control sfTxt" })
-                </li>
-
+                
                 <li class="sfFormSeparator">
                     @Html.LabelFor(x => x.TemplateName, "Template Url Name", new { @class = "form-label" })
                     @Html.TextBoxFor(x => x.TemplateName, new { @class = "form-control sfTxt" })
                 </li>
+
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.Message, "Message", new { @class = "form-label" })
-                    @Html.TextAreaFor(x => x.Message, new { @class = "form-control sfreContentArea" })
+                    @Html.LabelFor(x => x.FirstName, "{firstname}", new {@class = "form-label"})
+                    @Html.TextBoxFor(x => x.FirstName, new {@class = "form-control sfTxt"})
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.DateOfBirth, "Date Of Birth (e.g.12/12/2001)", new { @class = "form-label" })
-                    @Html.EditorFor(x => x.DateOfBirth, new { @class = "form-control sfTxt" })
+                    @Html.LabelFor(x => x.LastName, "{lastname}", new {@class = "form-label"})
+                    @Html.TextBoxFor(x => x.LastName, new {@class = "form-control sfTxt"})
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.IsContactable, "Is Contactable", new { @class = "form-label" })
+                    @Html.LabelFor(x => x.EmailAddress, "{email}", new {@class = "form-label"})
+                    @Html.TextBoxFor(x => x.EmailAddress, new {@class = "form-control sfTxt"})
+                </li>
+
+                <li class="sfFormSeparator">
+                    @Html.LabelFor(x => x.Postcode, "{postcode}", new {@class = "form-label"})
+                    @Html.TextBoxFor(x => x.Postcode, new {@class = "form-control sfTxt"})
+                </li>
+                <li class="sfFormSeparator">
+                    @Html.LabelFor(x => x.Message, "{message}", new {@class = "form-label"})
+                    @Html.TextAreaFor(x => x.Message, new {@class = "form-control sfreContentArea"})
+                </li>
+
+                <li class="sfFormSeparator">
+                    @Html.LabelFor(x => x.DateOfBirth, "{dob} (e.g.12/12/2001)", new {@class = "form-label"})
+                    @Html.EditorFor(x => x.DateOfBirth, new {@class = "form-control sfTxt"})
+                </li>
+
+                <li class="sfFormSeparator">
+                    @Html.LabelFor(x => x.IsContactable, "{iscontactable}", new {@class = "form-label"})
                     @Html.CheckBoxFor(x => x.IsContactable)
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.ContactOption, "Contact option", new { @class = "form-label" })
+                    @Html.LabelFor(x => x.AcceptTermsAndConditions, "{iscontactable}", new {@class = "form-label"})
+                    @Html.CheckBoxFor(x => x.AcceptTermsAndConditions)
+                </li>
+
+                <li class="sfFormSeparator">
+                    @Html.LabelFor(x => x.ContactOption, "{contactoption}", new {@class = "form-label"})
                     <select id="ContactOption" name="ContactOption">
                         <option value="ContactAdviser">Contact Adviser</option>
                         <option value="Feedback">Feedback</option>
@@ -56,7 +67,7 @@
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.ContactAdviserQuestionType, "Contact Adviser Question type", new { @class = "form-label" })
+                    @Html.LabelFor(x => x.ContactAdviserQuestionType, "{contactadviserquestiontype}", new {@class = "form-label"})
                     <select id="ContactAdviserQuestionType" name="ContactAdviserQuestionType">
                         <option value="Careers">Careers</option>
                         <option value="Qualifications">Qualifications</option>
@@ -68,7 +79,7 @@
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.FeedbackQuestionType, "Feedback Question type", new { @class = "form-label" })
+                    @Html.LabelFor(x => x.FeedbackQuestionType, "{feedbackquestiontype}", new {@class = "form-label"})
                     <select id="FeedbackQuestionType" name="FeedbackQuestionType">
                         <option value="Careers">Careers</option>
                         <option value="Qualifications">Qualifications</option>

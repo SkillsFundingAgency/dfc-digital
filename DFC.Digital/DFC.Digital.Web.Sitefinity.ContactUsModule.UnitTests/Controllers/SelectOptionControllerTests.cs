@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.ContactUsModule.Config;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -48,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             });
 
             //Assign
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage)
+            var controller = new SelectOptionController(fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage)
             {
                Title = title,
                ContactAdviserPage = contactAdviserPage,
@@ -79,12 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public void SubmitTests(bool modelStateValid, ContactOption? contactOption)
         {
             //Assign
-            var postModel = modelStateValid
-                ? new ContactOptionsViewModel
-                {
-                    ContactOptionType = contactOption.GetValueOrDefault()
-                }
-                : new ContactOptionsViewModel();
+            var postModel = new ContactOptionsViewModel();
 
             //Setup and configure fake mapper
             var mapperCfg = new MapperConfiguration(cfg =>
@@ -92,13 +85,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 cfg.AddProfile<ContactUsAutomapperProfile>();
             });
 
-            var controller = new SelectOptionController(fakeEmailTemplateRepository, fakeSitefinityCurrentContext, fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage);
+            var controller = new SelectOptionController(fakeApplicationLogger, mapperCfg.CreateMapper(), fakeSessionStorage);
 
             A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
 
             if (!modelStateValid)
             {
                 controller.ModelState.AddModelError(nameof(ContactOptionsViewModel.ContactOptionType), nameof(ContactOptionsViewModel.ContactOptionType));
+            }
+
+            if (contactOption != null)
+            {
+                postModel.ContactOptionType = contactOption.GetValueOrDefault();
             }
 
             //Act

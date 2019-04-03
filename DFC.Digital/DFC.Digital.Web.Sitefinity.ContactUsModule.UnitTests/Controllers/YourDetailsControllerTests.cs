@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 NonAdviserIntroduction = nameof(YourDetailsController.NonAdviserIntroduction),
                 DateOfBirthHint = nameof(YourDetailsController.DateOfBirthHint),
                 PostcodeHint = nameof(YourDetailsController.PostcodeHint),
-                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
+                SuccessPage = nameof(YourDetailsController.SuccessPage),
                 DoYouWantUsToContactUsText = nameof(YourDetailsController.DoYouWantUsToContactUsText),
                 TermsAndConditionsText = nameof(YourDetailsController.TermsAndConditionsText),
                 TemplateName = nameof(YourDetailsController.TemplateName)
@@ -77,7 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
         }
 
@@ -101,7 +101,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 NonAdviserIntroduction = nameof(YourDetailsController.NonAdviserIntroduction),
                 DateOfBirthHint = nameof(YourDetailsController.DateOfBirthHint),
                 PostcodeHint = nameof(YourDetailsController.PostcodeHint),
-                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
+                SuccessPage = nameof(YourDetailsController.SuccessPage),
                 DoYouWantUsToContactUsText = nameof(YourDetailsController.DoYouWantUsToContactUsText),
                 TermsAndConditionsText = nameof(YourDetailsController.TermsAndConditionsText),
                 TemplateName = nameof(YourDetailsController.TemplateName)
@@ -117,7 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             // Assert
             if (redirectExpected)
             {
-                controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
             }
             else
             {
@@ -140,8 +140,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
-                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
-                FailurePageUrl = nameof(YourDetailsController.FailurePageUrl),
+                SuccessPage = nameof(YourDetailsController.SuccessPage),
+                FailurePage = nameof(YourDetailsController.FailurePage),
                 ContactOption = contactOption
             };
 
@@ -165,18 +165,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
                     if (validSubmission)
                     {
-                        controllerResult.ShouldRedirectTo(controller.SuccessPageUrl);
+                        controllerResult.ShouldRedirectTo(controller.SuccessPage);
                     }
                     else
                     {
-                        controllerResult.ShouldRedirectTo(controller.FailurePageUrl);
+                        controllerResult.ShouldRedirectTo(controller.FailurePage);
                     }
                 }
                 else
                 {
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
 
-                    controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                    controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
                 }
             }
             else
@@ -203,8 +203,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
             var controller = new YourDetailsController(fakeApplicationLogger, fakeSendEmailService, fakeAsyncHelper, fakeContext, fakeSessionStorage)
             {
-                SuccessPageUrl = nameof(YourDetailsController.SuccessPageUrl),
-                FailurePageUrl = nameof(YourDetailsController.FailurePageUrl)
+                SuccessPage = nameof(YourDetailsController.SuccessPage),
+                FailurePage = nameof(YourDetailsController.FailurePage)
             };
 
             if (!modelStateValid)
@@ -226,18 +226,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
                     if (validSubmission)
                     {
-                        controllerResult.ShouldRedirectTo(controller.SuccessPageUrl);
+                        controllerResult.ShouldRedirectTo(controller.SuccessPage);
                     }
                     else
                     {
-                        controllerResult.ShouldRedirectTo(controller.FailurePageUrl);
+                        controllerResult.ShouldRedirectTo(controller.FailurePage);
                     }
                 }
                 else
                 {
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
 
-                    controllerResult.ShouldRedirectTo(controller.ContactOptionPageUrl);
+                    controllerResult.ShouldRedirectTo(controller.ContactOptionPage);
                 }
             }
             else

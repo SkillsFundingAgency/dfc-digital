@@ -22,23 +22,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
 
         #endregion Private Fields
 
         #region Constructors
 
         public FeedbackController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
@@ -60,8 +54,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Character Limit")]
         public string CharacterLimit { get; set; } = "Character limit is 1000.";
 
+        [DisplayName("Message Label")]
+        public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
+
         [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
+
+        [DisplayName("Continue Button Text")]
+        public string ContinueText { get; set; } = "Continue";
 
         #endregion Public Properties
 
@@ -81,7 +81,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
                 var sessionModel = sessionStorage.Get() ?? new ContactUs();
                 if (sessionModel.ContactUsOption == null)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -109,15 +109,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", AddWidgetPropertyFields(model));
         }
 
+        #endregion Actions
+
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.NextPageUrl = this.NextPageUrl;
+            model.NextPage = this.NextPageUrl;
             model.Title = this.Title;
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;
+            model.ContinueText = ContinueText;
+            model.MessageLabel = MessageLabel;
             return model;
         }
-
-        #endregion Actions
     }
 }

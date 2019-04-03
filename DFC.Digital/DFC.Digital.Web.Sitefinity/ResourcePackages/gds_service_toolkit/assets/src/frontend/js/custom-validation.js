@@ -45,6 +45,28 @@ $(document).ready(function () {
     {
        validator.settings.ignore = [];
     }
+
+    $(".ga-additional-data").click(function () {
+        var key = $(this).data("datalayer-key");
+        var defaultVal = $(this).data("datalayer-value");
+        var inputId = $(this).date("datalayer-input");
+        var val = $('#' + inputId).val();
+
+        //add datalayer stuff
+        dataLayer = [{
+            'datalayer-key': key,
+            'datalayer-value': defaultVal,
+            'datalayer-input':val
+        }];
+
+        dataLayer.push({
+            'datalayer-key': key,
+            'datalayer-value': defaultVal,
+            'datalayer-input': val
+        });
+    });
+
+
 });
 
 $.validator.setDefaults({

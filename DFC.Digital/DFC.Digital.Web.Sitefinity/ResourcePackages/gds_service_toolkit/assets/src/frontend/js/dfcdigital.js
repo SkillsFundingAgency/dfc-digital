@@ -37,18 +37,13 @@ $(document).ready(function () {
         if (validator.valid()) {
 
             var key = $(this).data("datalayer-key");
-            var defaultVal = $(this).data("datalayer-value");
+
             var inputId = $(this).data("datalayer-input");
 
-            var val = $("input[name=" + inputId + "]:checked").val();
-
-            var dataValue = val || defaultVal;
+            var dataValue = $("input[name=" + inputId + "]:checked").val();
 
             dataLayer.push({ key: dataValue });
 
-            //if (console) {
-            //    console.log("Pushed {" + key + "} : {" + dataValue + "} to dataLayer");
-            //}
         }
     });
 

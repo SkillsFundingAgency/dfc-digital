@@ -32,24 +32,26 @@ $(document).ready(function () {
     });
 
     $(".ga-additional-data").click(function () {
-        var key = $(this).data("datalayer-key");
-        var defaultVal = $(this).data("datalayer-value");
-        var inputId = $(this).date("datalayer-input");
-        var val = $('#' + inputId).val();
+        var validator = $(this).closest('form').validate();
 
-        //add datalayer stuff
-        dataLayer = [{
-            'datalayer-key': key,
-            'datalayer-value': defaultVal,
-            'datalayer-input': val
-        }];
+        if (validator.valid()) {
 
-        dataLayer.push({
-            'datalayer-key': key,
-            'datalayer-value': defaultVal,
-            'datalayer-input': val
-        });
+            var key = $(this).data("datalayer-key");
+            var defaultVal = $(this).data("datalayer-value");
+            var inputId = $(this).data("datalayer-input");
+
+            var val = $("input[name=" + inputId + "]:checked").val();
+
+            var dataValue = val || defaultVal;
+
+            dataLayer.push({ key: dataValue });
+
+            //if (console) {
+            //    console.log("Pushed {" + key + "} : {" + dataValue + "} to dataLayer");
+            //}
+        }
     });
+
     /* Not implemented yet
     //JP Thumbs Up / Down
     */

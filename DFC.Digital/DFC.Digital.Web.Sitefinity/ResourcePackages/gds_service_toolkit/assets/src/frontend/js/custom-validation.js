@@ -122,6 +122,7 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryYear = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
     if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
@@ -194,6 +195,7 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryDay = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
     if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {

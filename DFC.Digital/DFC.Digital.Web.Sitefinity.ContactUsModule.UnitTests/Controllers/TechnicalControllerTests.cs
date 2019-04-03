@@ -36,14 +36,22 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(false, true, ContactOption.Technical, false)]
         [InlineData(false, false, ContactOption.Technical, true)]
         [InlineData(false, true, ContactOption.ContactAdviser, true)]
-        public void IndexGetTest(bool isContentAuthoringSite, bool hasValidSession, ContactOption contactOption, bool expectToBeRedirected)
+        [InlineData(false, true, null, true)]
+        public void IndexGetTest(bool isContentAuthoringSite, bool hasValidSession, ContactOption? contactOption, bool expectToBeRedirected)
         {
             //Set up
             A.CallTo(() => fakeWebAppContext.IsContentAuthoringSite).Returns(isContentAuthoringSite);
 
             if (hasValidSession)
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = contactOption } });
+                if (contactOption is null)
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                }
+                else
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = (ContactOption)contactOption } });
+                }
             }
             else
             {

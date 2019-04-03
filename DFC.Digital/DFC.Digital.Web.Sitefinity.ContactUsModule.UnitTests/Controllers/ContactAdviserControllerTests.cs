@@ -89,7 +89,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [InlineData(true, ContactOption.ContactAdviser, false)]
         [InlineData(false, ContactOption.ContactAdviser, true)]
         [InlineData(true, ContactOption.Technical, true)]
-        public void IndexGetTest(bool validSessionVm, ContactOption contactOption, bool expectToBeRedirected)
+        [InlineData(true, null, true)]
+        public void IndexGetTest(bool validSessionVm, ContactOption? contactOption, bool expectToBeRedirected)
         {
             var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
             {
@@ -105,7 +106,14 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             }
             else
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs { ContactUsOption = new ContactUsOption() { ContactOptionType = contactOption } });
+                if (contactOption is null)
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                }
+                else
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = (ContactOption)contactOption } });
+                }
             }
 
             //Act

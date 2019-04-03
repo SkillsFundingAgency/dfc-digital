@@ -31,19 +31,19 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 
         #endregion Constructors
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(true, false)]
-        [InlineData(false, true)]
-        [InlineData(false, false)]
-
-        public void IndexGetTest(bool isContentAuthoringSite, bool hasValidSession)
+        [InlineData(true, true, ContactOption.Technical, false)]
+        [InlineData(true, false, ContactOption.Technical, false)]
+        [InlineData(false, true, ContactOption.Technical, false)]
+        [InlineData(false, false, ContactOption.Technical, true)]
+        [InlineData(false, true, ContactOption.ContactAdviser, true)]
+        public void IndexGetTest(bool isContentAuthoringSite, bool hasValidSession, ContactOption contactOption, bool expectToBeRedirected)
         {
             //Set up
             A.CallTo(() => fakeWebAppContext.IsContentAuthoringSite).Returns(isContentAuthoringSite);
 
             if (hasValidSession)
             {
-                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = contactOption } });
             }
             else
             {
@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var indexMethodCallResult = technicalController.WithCallTo(c => c.Index());
 
             //Assert
-            if (!isContentAuthoringSite && !hasValidSession)
+            if (expectToBeRedirected)
             {
                 indexMethodCallResult.ShouldRedirectTo(technicalController.ContactOptionPage);
             }

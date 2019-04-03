@@ -6,7 +6,7 @@
 <p class="govuk-body-m">@Html.Raw(Model.PageIntroductionTwo)</p>
 @using (Html.BeginForm("SubmitDetails", "YourDetails", FormMethod.Post, new { id = "userform", role="form" }))
 {
-<fieldset class="govuk-fieldset">
+
 
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Firstname), ViewData.ModelState)">
         @Html.LabelFor(x => x.Firstname, new { @class = "govuk-label" })
@@ -61,6 +61,7 @@
             </div>
         </div>
     </div>
+
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Postcode), ViewData.ModelState)">
         @Html.LabelFor(x => x.Postcode, "Post code", new { @class = "govuk-label" })
         <span id="postcode-hint" class="govuk-hint">@Model.PostcodeHint</span>
@@ -85,8 +86,7 @@
             </div>
         </fieldset>
     </div>
-
-</fieldset>
+    
     <div class="govuk-form-group">
         <button type="submit" class="govuk-button">@Model.SendButtonText</button>
     </div>

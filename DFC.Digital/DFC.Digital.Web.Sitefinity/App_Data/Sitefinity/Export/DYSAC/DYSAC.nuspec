@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>DYSAC</id>
+    <version>1.0.0.0</version>
+    <title>DYSAC</title>
+    <authors>system</authors>
+    <owners>system</owners>
+    <language>en-US</language>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DYSAC</description>
+    <references></references>
+  </metadata>
+  <files>
+    <file src="**\*.*" exclude="**\*.ps1" target="content\App_Data\Sitefinity\AddOns\DYSAC" />
+    <file src="**\*.ps1" target="tools" />
+    <file src="**\*.psm1" target="tools" />
+  </files>
+</package>

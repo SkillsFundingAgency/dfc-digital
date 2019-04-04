@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/select-option/feedback/your-details/";
+        public string NextPage { get; set; } = "/contact-us/select-option/feedback/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
@@ -103,7 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPageUrl}");
+                return Redirect($"{NextPage}");
             }
 
             return View("Index", AddWidgetPropertyFields(model));
@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.NextPage = this.NextPageUrl;
+            model.NextPage = this.NextPage;
             model.Title = this.Title;
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;

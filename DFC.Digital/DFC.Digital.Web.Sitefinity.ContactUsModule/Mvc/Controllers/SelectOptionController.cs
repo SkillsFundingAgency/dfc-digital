@@ -42,13 +42,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string Title { get; set; } = "Why would you like to contact us?";
 
         [DisplayName("Relative page url to general feedback")]
-        public string GeneralFeedbackPage { get; set; } = "/contact-us/feedback/";
+        public string GeneralFeedbackPage { get; set; } = "/contact-us/select-option/feedback/";
 
         [DisplayName("Relative page url to technical feedback")]
-        public string TechnicalFeedbackPage { get; set; } = "/contact-us/technical/";
+        public string TechnicalFeedbackPage { get; set; } = "/contact-us/select-option/technical/";
 
         [DisplayName("Relative page url to contact an adviser")]
-        public string ContactAdviserPage { get; set; } = "/contact-us/contact-adviser/";
+        public string ContactAdviserPage { get; set; } = "/contact-us/select-option/contact-adviser/";
 
         #endregion Public Properties
 

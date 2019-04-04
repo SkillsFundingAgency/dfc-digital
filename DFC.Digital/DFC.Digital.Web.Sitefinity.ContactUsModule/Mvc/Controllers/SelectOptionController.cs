@@ -54,10 +54,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        // GET: ContactAdviser
+        // GET: SelectOption
 
         /// <summary>
-        /// entry point to the widget to show contact adviser form.
+        /// entry point to the widget to show select option form.
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]

@@ -67,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        // GET: ContactAdviser
+        // GET: Feedback
 
         /// <summary>
         /// entry point to the widget to show contact adviser form.

@@ -1128,6 +1128,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

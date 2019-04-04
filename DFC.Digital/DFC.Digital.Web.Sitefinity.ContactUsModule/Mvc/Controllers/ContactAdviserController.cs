@@ -69,8 +69,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (!context.IsContentAuthoringSite)
             {
-                var sessionModel = sessionStorage.Get() ?? new ContactUs();
-                if (sessionModel.ContactUsOption == null)
+                var sessionModel = sessionStorage.Get();
+                if (sessionModel is null || sessionModel.ContactUsOption?.ContactOptionType != ContactOption.ContactAdviser)
                 {
                     return Redirect(ContactOptionPage);
                 }

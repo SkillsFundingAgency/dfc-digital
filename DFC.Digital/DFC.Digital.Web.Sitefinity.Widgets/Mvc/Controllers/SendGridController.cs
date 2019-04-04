@@ -36,7 +36,15 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.Mvc.Controllers
                 FirstName = viewModel.FirstName,
                 Email = viewModel.EmailAddress,
                 TemplateName = viewModel.TemplateName,
-                LastName = viewModel.LastName
+                LastName = viewModel.LastName,
+                ContactOption = viewModel.ContactOption,
+                ContactAdviserQuestionType = viewModel.ContactAdviserQuestionType,
+                DateOfBirth = viewModel.DateOfBirth,
+                FeedbackQuestionType = viewModel.FeedbackQuestionType,
+                Message = viewModel.Message,
+                IsContactable = viewModel.IsContactable,
+                Postcode = viewModel.Postcode,
+                TermsAndConditions = viewModel.AcceptTermsAndConditions
             }));
 
             viewModel.SendResult = JsonConvert.SerializeObject(result);

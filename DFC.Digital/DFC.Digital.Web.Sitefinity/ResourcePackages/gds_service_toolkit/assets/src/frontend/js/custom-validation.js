@@ -75,6 +75,21 @@ $.validator.setDefaults({
     }
 });
 
+$("textarea[data-val-length-max]").keyup(function () {
+    //SQL considers newline as 2 characters, so client validation is accommodated properly
+    var lineBreaks = $(this).val().split('\n').length - 1;
+    var charLength = $(this).val().length + lineBreaks;
+
+    var charLimit = $(this).attr("data-val-length-max");
+    var charRemaining = charLimit - charLength;
+    if (charRemaining < 0) {
+        $(this).parent().next("p").html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + charRemaining + " characters too many</span>");
+        //$(this).parent().next("p").html("Message too long");
+    } else {
+        $(this).parent().next("p").html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
+        //$(this).parent().next("p").html("Message too long");
+    }
+});
 //// *** Date of Birth Validation ***
 
 function PopulateDateOfBirth() {

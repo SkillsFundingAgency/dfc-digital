@@ -61,18 +61,18 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string FailurePage { get; set; } = "/alerts/500";
 
         [DisplayName("Success Page URL")]
-        public string SuccessPage { get; set; } = "/contactus/thank-you";
+        public string SuccessPage { get; set; } = "/contact-us/thank-you";
 
-        [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
+        [DisplayName("Contact Option (ContactAdviser, Technical, Feedback)")]
         public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
 
-        [DisplayName("Template URL Name  in Configurations e.g contact-an-advisor")]
+        [DisplayName("Template URL Name  in Configurations e.g contact-an-adviser")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
         [DisplayName("Date Of Birth hint")]
         public string DateOfBirthHint { get; set; } = "For example, 31 3 1980";
 
-        [DisplayName("Post coode hint")]
+        [DisplayName("Post code hint")]
         public string PostcodeHint { get; set; } = "For example, SW1A 1AA";
 
         [DisplayName("Terms and Conditions Header Text")]

@@ -18,7 +18,7 @@ $(document).ready(function () {
             }
 
             $('html,body').animate({
-                scrollTop: $("#main-content").offset().top
+                scrollTop: $("#error-validation-summary").offset().top
             }, 0);
 
             return false;
@@ -119,8 +119,9 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryYear = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -191,8 +192,9 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryDay = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work

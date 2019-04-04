@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
+        public string NextPage { get; set; } = "/contact-us/select-option/technical/your-details-technical/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Report a technical issue";

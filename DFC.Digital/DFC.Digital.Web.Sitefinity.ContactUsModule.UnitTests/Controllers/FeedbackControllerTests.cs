@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             {
                 Title = nameof(FeedbackController.Title),
                 PersonalInformation = nameof(FeedbackController.PersonalInformation),
-                NextPageUrl = nextPageUrl,
+                NextPage = nextPageUrl,
                 CharacterLimit = characterLimit,
                 ContactOptionPage = contactOptionPageUrl,
                 ContinueText = continueText,
@@ -90,7 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 {
                     vm.Title.Should().BeEquivalentTo(controller.Title);
                     vm.PersonalInformation.Should().BeEquivalentTo(controller.PersonalInformation);
-                    vm.NextPage.Should().BeEquivalentTo(controller.NextPageUrl);
+                    vm.NextPage.Should().BeEquivalentTo(controller.NextPage);
                 });
 
                 A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(1, Times.Exactly);
@@ -122,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             //Assert
             if (modelStateValid)
             {
-                controllerResult.ShouldRedirectTo(controller.NextPageUrl);
+                controllerResult.ShouldRedirectTo(controller.NextPage);
             }
             else
             {

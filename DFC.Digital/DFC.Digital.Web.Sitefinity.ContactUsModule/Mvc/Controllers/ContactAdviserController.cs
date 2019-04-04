@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
         [DisplayName("Next Page URL")]
-        public string NextPage { get; set; } = "/contact-us/your-details-adviser/";
+        public string NextPage { get; set; } = "/contact-us/select-option/contact-adviser/your-details-adviser/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "What is your query about?";

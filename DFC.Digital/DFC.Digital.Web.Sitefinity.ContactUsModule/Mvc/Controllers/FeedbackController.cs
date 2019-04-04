@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+        public string NextPageUrl { get; set; } = "/contact-us/select-option/feedback/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";

@@ -1,4 +1,7 @@
-﻿using DFC.Digital.Core;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using System;
 using System.Configuration;
 using System.IO;
@@ -11,33 +14,26 @@ namespace DFC.Digital.Web.Core
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static class AssetVersioningExtention
     {
-        public static string VersionAssetFile(this HtmlHelper helper, string fileName)
+        public static string GetLocationAssetFileAndVersion(this HtmlHelper helper, string fileName)
         {
             var context = helper?.ViewContext.RequestContext.HttpContext;
-            string version = null;
-
-            if (context.Cache[fileName] == null)
+            if (context.Cache[fileName] is null)
             {
-                var physicalPath = context.Server.MapPath(fileName);
-                version = GetFileHash(physicalPath);
+                var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+                var htmlHelper = autofacLifetimeScope.ResolveOptional<IAssetLocationAndVersion>();
+                var assetUrl = htmlHelper?.GetLocationAssetFileAndVersion(fileName);
                 int cacheExpiryMins = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.AssetCacheExpiryTimeMins]);
-                context.Cache.Add(fileName, version, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
-            }
-            else
-            {
-                version = context.Cache[fileName] as string;
+                if (assetUrl is null)
+                {
+                    return fileName;
+                }
+                else
+                {
+                    context.Cache.Add(fileName, assetUrl, null, DateTime.Now.AddMinutes(cacheExpiryMins), TimeSpan.Zero, CacheItemPriority.Normal, null);
+                }
             }
 
-            return $"{fileName}?{version}";
-        }
-
-        private static string GetFileHash(string file)
-        {
-            MD5 md5 = MD5.Create();
-            using (FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read))
-            {
-                return BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", string.Empty);
-            }
+            return context.Cache[fileName].ToString();
         }
     }
 }

@@ -98,6 +98,7 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -115,6 +116,7 @@
     <Compile Include="Cache\CachePolicyType.cs" />
     <Compile Include="FaultTolerance\FaultToleranceType.cs" />
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
+    <Compile Include="Interfaces\ISessionStorage{T}.cs" />
     <Compile Include="Interfaces\ITolerancePolicy.cs" />
     <Compile Include="FaultTolerance\TolerancePolicy.cs" />
     <Compile Include="FaultTolerance\TransientFaultHandlingStrategy.cs" />
@@ -129,9 +131,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\AsyncHelper.cs" />
     <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\EmailSimulateService.cs" />
     <Compile Include="Utilities\HttpClientService.cs" />
     <Compile Include="Interfaces\IAsyncHelper.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
+    <Compile Include="Utilities\HttpSessionStorage{T}.cs" />
     <Compile Include="Utilities\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>

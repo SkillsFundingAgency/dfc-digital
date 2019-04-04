@@ -4,6 +4,7 @@ using DFC.Digital.Web.Sitefinity.Widgets.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -44,6 +45,30 @@ namespace DFC.Digital.Web.Sitefinity.Widgets.UnitTests
             var secondLinkInModel = dfcBreadcrumbViewModel.BreadcrumbLinks.Skip(1).FirstOrDefault();
             secondLinkInModel.Link = HrefNotFound;
             secondLinkInDom.Should().BeEquivalentTo(secondLinkInModel);
+        }
+
+        [Fact]
+        public void Dfc8194ContactUsDfcBreadcrumb()
+        {
+            // Arrange
+            var indexView = new _MVC_Views_DfcBreadcrumb_Index_cshtml();
+            var dfcBreadcrumbViewModel = GenerateDfcBreadcrumbViewModelDummy();
+
+            //// Act
+            var htmlDom = indexView.RenderAsHtml(dfcBreadcrumbViewModel);
+
+            //// Assert
+            // new GDS system tag classes
+            AssertTagClassExists(htmlDom, "div", "govuk-breadcrumbs");
+            AssertTagClassExists(htmlDom, "ol", "govuk-breadcrumbs__list");
+            AssertTagClassExists(htmlDom, "li", "govuk-breadcrumbs__list-item");
+            AssertTagClassExists(htmlDom, "a", "govuk-breadcrumbs__link");
+        }
+
+        private static void AssertTagClassExists(HtmlDocument htmlDocument, string tag, string tagClass)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(div => div.Attributes["class"].Value.Contains(tagClass)).Should().BeTrue();
         }
 
         /// <summary>

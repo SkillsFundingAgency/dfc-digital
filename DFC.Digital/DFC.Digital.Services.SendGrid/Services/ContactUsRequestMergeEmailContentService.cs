@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Services.SendGrid
 {
@@ -40,7 +41,7 @@ namespace DFC.Digital.Services.SendGrid
                 mergedContent = mergedContent.Replace(DobToken, sendEmailRequest.DateOfBirth?.ToString("dd/MM/yyyy"));
                 mergedContent = mergedContent.Replace(PostCodeToken, sendEmailRequest.Postcode);
                 mergedContent = mergedContent.Replace(ContactAdvisorQuestionTypeToken, sendEmailRequest.ContactAdviserQuestionType);
-                mergedContent = mergedContent.Replace(MessageToken, sendEmailRequest.Message.Replace("\n", "<br/>").Replace("\r", string.Empty));
+                mergedContent = mergedContent.Replace(MessageToken, Regex.Replace(sendEmailRequest.Message, @"\r\n?|\n", "<br />"));
                 mergedContent = mergedContent.Replace(IsContactableToken, sendEmailRequest.IsContactable.ToString());
                 mergedContent = mergedContent.Replace(FeedbackQuestionTypeToken, sendEmailRequest.FeedbackQuestionType);
                 mergedContent = mergedContent.Replace(TermsAndConditionsToken, sendEmailRequest.TermsAndConditions.ToString());

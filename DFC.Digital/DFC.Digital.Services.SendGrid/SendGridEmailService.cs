@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -45,10 +46,10 @@ namespace DFC.Digital.Services.SendGrid
             {
                 var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
                 var subject = template.Subject;
-                var to = new EmailAddress(template.To, template.To);
+                var to = template.To.Split(',').Select(s => new EmailAddress(s.Trim(), s.Trim())).ToList();
                 var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
                 var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
-                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, to, subject, plainTextContent, htmlContent);
                 var clientResponse = await sendGridClient.SendEmailAsync(msg);
                 var auditResponse = mapper.Map<SendEmailResponse>(clientResponse);
                 var result = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);

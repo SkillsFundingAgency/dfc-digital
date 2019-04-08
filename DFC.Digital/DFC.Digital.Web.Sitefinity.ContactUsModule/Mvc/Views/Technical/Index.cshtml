@@ -5,13 +5,18 @@
 <p class="govuk-body-m">@Model.PageIntroduction</p>
 @using (Html.BeginForm("Index", "Technical", FormMethod.Post, new { id = "userform" }))
 {
-    <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Message), ViewData.ModelState)">
-        @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label" })
-        <span class="govuk-hint" id="more-detail-hint">@Model.PersonalInformation</span>
-        @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea", aria_describedby = "more-detail-hint" })
+    <div class="govuk-character-count" data-module="character-count" data-maxlength="1000">
+        <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Message), ViewData.ModelState)">
+            @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label" })
+            <span class="govuk-hint" id="more-detail-hint">@Model.PersonalInformation</span>
+            @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
+            @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea", aria_describedby = "more-detail-hint" })
+
+            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                You can enter up to 1000 characters
+            </span>
+        </div>
     </div>
-    <p class="govuk-body-s">@Model.CharacterLimit</p>
     <div class="govuk-form-group">
         <button type="submit" class="govuk-button">@Model.ContinueText</button>
     </div>

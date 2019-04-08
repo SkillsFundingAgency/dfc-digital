@@ -72,19 +72,23 @@ $.validator.setDefaults({
     }
 });
 
-$("textarea[data-val-length-max]").keyup(function () {
-    //SQL considers newline as 2 characters, so client validation is accommodated properly
-    var lineBreaks = $(this).val().split('\n').length - 1;
-    var charLength = $(this).val().length + lineBreaks;
+function nl2br(str, is_xhtml) {
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
 
+$("#more-detail-info").html("You have 1000 characters remaining");
+
+$("textarea[data-val-length-max]").keyup(function () {
+    var charLength = $(this).val().trim().replace(/\s+/g, '').length;
     var charLimit = $(this).attr("data-val-length-max");
     var charRemaining = charLimit - charLength;
     if (charRemaining < 0) {
-        $(this).parent().next("p").html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + charRemaining + " characters too many</span>");
-        //$(this).parent().next("p").html("Message too long");
+        $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + Math.abs(charRemaining) + " characters too many</span>");
+        
     } else {
-        $(this).parent().next("p").html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
-        //$(this).parent().next("p").html("Message too long");
+        $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
+        
     }
 });
 //// *** Date of Birth Validation ***

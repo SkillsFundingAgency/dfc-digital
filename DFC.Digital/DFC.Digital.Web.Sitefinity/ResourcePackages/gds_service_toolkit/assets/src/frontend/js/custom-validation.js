@@ -121,7 +121,7 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
     entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length < 5 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -194,7 +194,7 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
     entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length < 5 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work

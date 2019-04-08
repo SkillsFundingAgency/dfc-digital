@@ -4,8 +4,8 @@
     {
       "CollectionName": "CourseSearchAudit",
       "OfferThroughput": __CourseSearchAuditRecordsRu__,
-			"PartitionKey": "/Data.CourseListRequest.CourseSearchCriteria.SubjectKeyword",
-      "DefaultTtl": 1296000,
+			"PartitionKey": "/Data/CourseListRequest/CourseSearchCriteria/SubjectKeyword",
+      "DefaultTtl": 2592000,
       "IndexingPolicy": {
         "indexingMode": "consistent",
         "automatic": true,
@@ -36,8 +36,8 @@
     {
       "CollectionName": "ContactUsResponses",
       "OfferThroughput": __ContactUsResponsesRecordsRu__,
-			"PartitionKey": "/Data.EmailTemplate.TemplateName",
-      "DefaultTtl": 1296000,
+			"PartitionKey": "/Data/EmailTemplate/TemplateName",
+      "DefaultTtl": 2592000,
       "IndexingPolicy": {
         "indexingMode": "consistent",
         "automatic": true,

@@ -17,17 +17,16 @@
     </div>
 
     <div class="govuk-form-group">
-        @Html.LabelFor(model => model.Feedback, new { @class = "govuk-label" })
-        <span class="govuk-hint">@Model.Hint</span>
+        @Html.LabelFor(model => model.Feedback, Model.MessageLabel, new { @class = "govuk-label" })
+        <span class="govuk-hint">@Model.PersonalInformation</span>
         @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
         @Html.TextAreaFor(model => model.Feedback, new { @class = "govuk-textarea", rows = "5", type = "text" })
 
     </div>
-    <p class="govuk-body-s">Character limit is 1000.</p>
+    <p class="govuk-body-s">@Model.CharacterLimit</p>
     <div class="govuk-form-group">
-        <button id="send-feedback-details" type="submit" class="govuk-button">
-            Continue
+        <button id="send-feedback-details" type="submit" class="govuk-button ga-additional-data" data-datalayer-key="FeedbackQueryOptionSelected" data-datalayer-input="FeedbackQuestionType">
+            @Model.ContinueText
         </button>
     </div>
-    
 }

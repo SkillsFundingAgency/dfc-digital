@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -19,8 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     {
         #region Private Fields
 
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
@@ -30,15 +28,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Constructors
 
         public FeedbackController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
@@ -48,8 +42,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Public Properties
 
-        [DisplayName("Next page")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
+        [DisplayName("Next Page URL")]
+        public string NextPage { get; set; } = "/contact-us/select-option/feedback/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
@@ -60,14 +54,20 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Character Limit")]
         public string CharacterLimit { get; set; } = "Character limit is 1000.";
 
+        [DisplayName("Message Label")]
+        public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
+
         [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
+
+        [DisplayName("Continue Button Text")]
+        public string ContinueText { get; set; } = "Continue";
 
         #endregion Public Properties
 
         #region Actions
 
-        // GET: ContactAdviser
+        // GET: Feedback
 
         /// <summary>
         /// entry point to the widget to show contact adviser form.
@@ -78,10 +78,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (!context.IsContentAuthoringSite)
             {
-                var sessionModel = sessionStorage.Get() ?? new ContactUs();
-                if (sessionModel.ContactUsOption == null)
+                var sessionModel = sessionStorage.Get();
+                if (sessionModel is null || sessionModel.ContactUsOption?.ContactOptionType != ContactOption.Feedback)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -109,14 +109,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             return View("Index", AddWidgetPropertyFields(model));
         }
 
+        #endregion Actions
+
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.Title = Title;
-            model.PersonalInformation = PersonalInformation;
-            model.CharacterLimit = CharacterLimit;
+            model.NextPage = this.NextPage;
+            model.Title = this.Title;
+            model.PersonalInformation = this.PersonalInformation;
+            model.CharacterLimit = this.CharacterLimit;
+            model.ContinueText = ContinueText;
+            model.MessageLabel = MessageLabel;
             return model;
         }
-
-        #endregion Actions
     }
 }

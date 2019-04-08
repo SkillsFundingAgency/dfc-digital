@@ -10,6 +10,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 
         public string CharacterLimit { get; set; }
 
-        public string NextPageUrl { get; set; }
+        public string NextPage { get; set; }
     }
 }

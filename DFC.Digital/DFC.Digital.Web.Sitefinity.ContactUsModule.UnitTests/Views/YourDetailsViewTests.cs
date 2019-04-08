@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     public class YourDetailsViewTests
     {
         [Fact]
-        public void Dfc7630YourDetailsContactAdvisorViewTests()
+        public void Dfc7630YourDetailsContactAdviserViewTests()
         {
             // Arrange
             var yourDetailsIndex = new _MVC_Views_YourDetails_ContactAdvisor_cshtml();
@@ -101,7 +101,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 .Count(h2 => h2.InnerText.Contains("There is a problem")).Should().BeGreaterThan(0);
             htmlDocument.DocumentNode.Descendants("a")
                 .Count(a => a.InnerText.Contains(errorMessage)).Should().BeGreaterThan(0);
-
         }
 
         private void AssertTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)

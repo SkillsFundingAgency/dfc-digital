@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Digital.Core;
+﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -22,7 +21,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private readonly INoncitizenEmailService<ContactUsRequest> sendEmailService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly IMapper mapper;
         private readonly IWebAppContext context;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
@@ -34,13 +32,11 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IApplicationLogger applicationLogger,
             INoncitizenEmailService<ContactUsRequest> sendEmailService,
             IAsyncHelper asyncHelper,
-            IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
             this.sendEmailService = sendEmailService;
             this.asyncHelper = asyncHelper;
-            this.mapper = mapper;
             this.context = context;
             this.sessionStorage = sessionStorage;
         }
@@ -62,21 +58,21 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string AdviserIntroductionTwo { get; set; } = "Our advisers will use your date of birth and postcode to give you information that's relevant to you, for example on courses and funding.";
 
         [DisplayName("Failure Page URL")]
-        public string FailurePageUrl { get; set; } = "/alerts/500";
+        public string FailurePage { get; set; } = "/alerts/500";
 
-        [DisplayName("Success Page Url")]
-        public string SuccessPageUrl { get; set; } = "/contactus/thank-you";
+        [DisplayName("Success Page URL")]
+        public string SuccessPage { get; set; } = "/contact-us/thank-you";
 
-        [DisplayName("Contact Option (ContactAdvisor, Technical, Feedback)")]
+        [DisplayName("Contact Option (ContactAdviser, Technical, Feedback)")]
         public ContactOption ContactOption { get; set; } = ContactOption.ContactAdviser;
 
-        [DisplayName("Template Url Name  in Configurations e.g contact-an-advisor")]
+        [DisplayName("Template URL Name  in Configurations e.g contact-an-adviser")]
         public string TemplateName { get; set; } = "ContactAdviser";
 
         [DisplayName("Date Of Birth hint")]
         public string DateOfBirthHint { get; set; } = "For example, 31 3 1980";
 
-        [DisplayName("Post coode hint")]
+        [DisplayName("Post code hint")]
         public string PostcodeHint { get; set; } = "For example, SW1A 1AA";
 
         [DisplayName("Terms and Conditions Header Text")]
@@ -89,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string SendButtonText { get; set; } = "Send";
 
         [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         #endregion Properties
 
@@ -98,9 +94,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (sessionStorage.Get() == null && !context.IsContentAuthoringSite)
+            if (!SessionDataValid())
             {
-                return Redirect(ContactOptionPageUrl);
+                return Redirect(ContactOptionPage);
             }
 
             if (ContactOption == ContactOption.ContactAdviser)
@@ -122,29 +118,33 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = sessionStorage.Get() ?? new ContactUs();
-                var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                if (SessionDataValid())
                 {
-                    FirstName = viewModel.Firstname,
-                    Email = viewModel.EmailAddress,
-                    TemplateName = TemplateName,
-                    LastName = viewModel.Lastname,
-                    Message = data.ContactAnAdviserFeedback?.Message,
-                    TermsAndConditions = viewModel.AcceptTermsAndConditions,
-                    Postcode = viewModel.Postcode,
-                    ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
-                    ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
-                    DateOfBirth = viewModel.DateOfBirth
-                }));
+                    var data = sessionStorage.Get();
+                    var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                    {
+                        FirstName = viewModel.Firstname,
+                        Email = viewModel.EmailAddress,
+                        TemplateName = TemplateName,
+                        LastName = viewModel.Lastname,
+                        Message = data.ContactAnAdviserFeedback?.Message,
+                        TermsAndConditions = viewModel.AcceptTermsAndConditions,
+                        Postcode = viewModel.Postcode,
+                        ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
+                        ContactAdviserQuestionType = data.ContactAnAdviserFeedback?.ContactAdviserQuestionType.ToString(),
+                        DateOfBirth = viewModel.DateOfBirth
+                    }));
 
-                if (result)
-                {
-                    return Redirect(SuccessPageUrl);
+                    sessionStorage.Remove();
+                    if (result)
+                    {
+                        return Redirect(SuccessPage);
+                    }
+
+                    return Redirect(FailurePage);
                 }
-                else
-                {
-                    return Redirect(FailurePageUrl);
-                }
+
+                return Redirect(ContactOptionPage);
             }
 
             SetupDobViewModelDefaults(viewModel);
@@ -157,28 +157,34 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var data = sessionStorage.Get() ?? new ContactUs();
-                var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                if (SessionDataValid())
                 {
-                    FirstName = viewModel.Firstname,
-                    Email = viewModel.EmailAddress,
-                    TemplateName = TemplateName,
-                    LastName = viewModel.Lastname,
-                    Message = ContactOption == ContactOption.Feedback ? data.GeneralFeedback?.Feedback : data.TechnicalFeedback?.Message,
-                    IsContactable = viewModel.IsContactable,
-                    TermsAndConditions = viewModel.AcceptTermsAndConditions,
-                    ContactOption = data.ContactUsOption?.ContactOptionType.ToString(),
-                    FeedbackQuestionType = data.GeneralFeedback?.FeedbackQuestionType.ToString()
-                }));
+                    var sessionData = sessionStorage.Get();
+                    var result = asyncHelper.Synchronise(() => sendEmailService.SendEmailAsync(new ContactUsRequest
+                    {
+                        FirstName = viewModel.Firstname,
+                        Email = viewModel.EmailAddress,
+                        TemplateName = TemplateName,
+                        LastName = viewModel.Lastname,
+                        Message = ContactOption == ContactOption.Feedback
+                            ? sessionData.GeneralFeedback?.Feedback
+                            : sessionData.TechnicalFeedback?.Message,
+                        IsContactable = viewModel.IsContactable,
+                        TermsAndConditions = viewModel.AcceptTermsAndConditions,
+                        ContactOption = sessionData.ContactUsOption?.ContactOptionType.ToString(),
+                        FeedbackQuestionType = sessionData.GeneralFeedback?.FeedbackQuestionType.ToString()
+                    }));
 
-                if (result)
-                {
-                    return Redirect(SuccessPageUrl);
+                    sessionStorage.Remove();
+                    if (result)
+                    {
+                        return Redirect(SuccessPage);
+                    }
+
+                    return Redirect(FailurePage);
                 }
-                else
-                {
-                    return Redirect(FailurePageUrl);
-                }
+
+                return Redirect(ContactOptionPage);
             }
 
             SetupConsentViewModelDefaults(viewModel);
@@ -205,6 +211,31 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             viewModel.SendButtonText = SendButtonText;
         }
 
+        private bool SessionDataValid()
+        {
+            if (context.IsContentAuthoringSite)
+            {
+                return true;
+            }
+
+            var sessionData = sessionStorage.Get();
+            if (ContactOption == ContactOption.ContactAdviser && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.ContactAdviser || sessionData.ContactAnAdviserFeedback == null))
+            {
+                return false;
+            }
+
+            if (ContactOption == ContactOption.Feedback && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.Feedback || sessionData.GeneralFeedback == null))
+            {
+                return false;
+            }
+
+            if (ContactOption == ContactOption.Technical && (sessionData?.ContactUsOption?.ContactOptionType != ContactOption.Technical || sessionData.TechnicalFeedback == null))
+            {
+                return false;
+            }
+
+            return true;
+        }
         #endregion Actions
     }
 }

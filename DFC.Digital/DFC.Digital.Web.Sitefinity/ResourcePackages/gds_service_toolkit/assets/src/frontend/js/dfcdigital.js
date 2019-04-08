@@ -31,6 +31,22 @@ $(document).ready(function () {
         }
     });
 
+    $(".ga-additional-data").click(function () {
+        var validator = $(this).closest('form').validate();
+
+        if (validator.valid()) {
+
+            var key = $(this).data("datalayer-key");
+
+            var inputId = $(this).data("datalayer-input");
+
+            var dataValue = $("input[name=" + inputId + "]:checked").val();
+
+            dataLayer.push({ key: dataValue });
+
+        }
+    });
+
     /* Not implemented yet
     //JP Thumbs Up / Down
     */

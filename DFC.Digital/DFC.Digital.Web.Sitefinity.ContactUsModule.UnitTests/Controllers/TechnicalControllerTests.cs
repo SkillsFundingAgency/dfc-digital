@@ -1,18 +1,129 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
+using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FakeItEasy;
+using FluentAssertions;
+using TestStack.FluentMVCTesting;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.Controllers
+namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
 {
-
     public class TechnicalControllerTests
     {
-        [Fact]
-        public void IndexTest()
+        #region Private Fields
+        private readonly IApplicationLogger fakeApplicationLogger;
+        private readonly IMapper fakeMapper;
+        private readonly ISessionStorage<ContactUs> fakeSessionStorage;
+        private readonly IWebAppContext fakeWebAppContext;
+        #endregion Private Fields
+
+        #region Constructors
+
+        public TechnicalControllerTests()
         {
-            //var jobProfileAnchorListsController = new TechnicalController(fakeApplicationLogger);
-            // var indexMethodCall = jobProfileAnchorListsController.WithCallTo(c => c.Index());
-            var fakeApplicationLogger = A.Fake<IApplicationLogger>();
+            fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
+            fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
+            fakeMapper = A.Fake<IMapper>(ops => ops.Strict());
+            fakeWebAppContext = A.Fake<IWebAppContext>(ops => ops.Strict());
+        }
+
+        #endregion Constructors
+        [Theory]
+        [InlineData(true, true, ContactOption.Technical, false)]
+        [InlineData(true, false, ContactOption.Technical, false)]
+        [InlineData(false, true, ContactOption.Technical, false)]
+        [InlineData(false, false, ContactOption.Technical, true)]
+        [InlineData(false, true, ContactOption.ContactAdviser, true)]
+        [InlineData(false, true, null, true)]
+        public void IndexGetTest(bool isContentAuthoringSite, bool hasValidSession, ContactOption? contactOption, bool expectToBeRedirected)
+        {
+            //Set up
+            A.CallTo(() => fakeWebAppContext.IsContentAuthoringSite).Returns(isContentAuthoringSite);
+
+            if (hasValidSession)
+            {
+                if (contactOption is null)
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() });
+                }
+                else
+                {
+                    A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs() { ContactUsOption = new ContactUsOption() { ContactOptionType = (ContactOption)contactOption } });
+                }
+            }
+            else
+            {
+                A.CallTo(() => fakeSessionStorage.Get()).Returns(null);
+            }
+
+            var technicalController = new TechnicalController(fakeApplicationLogger, fakeMapper, fakeWebAppContext, fakeSessionStorage);
+
+            //Act
+            var indexMethodCallResult = technicalController.WithCallTo(c => c.Index());
+
+            //Assert
+            if (expectToBeRedirected)
+            {
+                indexMethodCallResult.ShouldRedirectTo(technicalController.ContactOptionPage);
+            }
+            else
+            {
+                indexMethodCallResult.ShouldRenderDefaultView()
+                   .WithModel<TechnicalFeedbackViewModel>(vm =>
+                   {
+                       vm.CharacterLimit.Should().Be(technicalController.CharacterLimit);
+                       vm.MessageLabel.Should().Be(technicalController.MessageLabel);
+                       vm.PageIntroduction.Should().Be(technicalController.PageIntroduction);
+                       vm.PersonalInformation.Should().Be(technicalController.PersonalInformation);
+                       vm.Title.Should().Be(technicalController.Title);
+                       vm.NextPage.Should().Be(technicalController.NextPage);
+                   });
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SubmitTests(bool validSubmission)
+        {
+            //Set up
+            var technicalController = new TechnicalController(fakeApplicationLogger, fakeMapper, fakeWebAppContext,  fakeSessionStorage);
+            var technicalFeedbackViewModel = new TechnicalFeedbackViewModel() { Message = "Dummy message" };
+            var dummyErrorKey = "dummyErrorKey";
+
+            //if its not valid fake an error
+            if (!validSubmission)
+            {
+                technicalController.ModelState.AddModelError(dummyErrorKey, "dummyErrorMessage");
+            }
+
+            A.CallTo(() => fakeSessionStorage.Get()).Returns(new ContactUs());
+            A.CallTo(() => fakeMapper.Map(A<TechnicalFeedbackViewModel>._, A<ContactUs>._)).Returns(new ContactUs());
+            A.CallTo(() => fakeSessionStorage.Save(A<ContactUs>._)).DoesNothing();
+
+            //Act
+            var indexMethodCallResult = technicalController.WithCallTo(c => c.Index(technicalFeedbackViewModel));
+
+            //Assert
+            if (!validSubmission)
+            {
+                indexMethodCallResult.ShouldRenderDefaultView()
+                    .WithModel<TechnicalFeedbackViewModel>(vm =>
+                    {
+                        vm.CharacterLimit.Should().Be(technicalController.CharacterLimit);
+                        vm.MessageLabel.Should().Be(technicalController.MessageLabel);
+                        vm.PageIntroduction.Should().Be(technicalController.PageIntroduction);
+                        vm.PersonalInformation.Should().Be(technicalController.PersonalInformation);
+                        vm.Title.Should().Be(technicalController.Title);
+                        vm.NextPage.Should().Be(technicalController.NextPage);
+                    }).AndModelError(dummyErrorKey);
+            }
+            else
+            {
+                indexMethodCallResult.ShouldRedirectTo(technicalController.NextPage);
+            }
         }
     }
 }

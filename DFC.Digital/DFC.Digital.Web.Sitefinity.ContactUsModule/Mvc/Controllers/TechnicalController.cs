@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.Core;
+using System;
+using System.ComponentModel;
+using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
@@ -28,7 +29,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             IMapper mapper,
             IWebAppContext context,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
-
         {
             this.mapper = mapper;
             this.context = context;
@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+        public string NextPage { get; set; } = "/contact-us/select-option/technical/your-details-technical/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Report a technical issue";
@@ -57,8 +57,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.";
 
-        [DisplayName("Relative page url to select option page")]
-        public string ContactOptionPageUrl { get; set; } = "/contact-us/select-option/";
+        [DisplayName("Relative page URL to select option page")]
+        public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 
         [DisplayName("Continue Button Text")]
         public string ContinueText { get; set; } = "Continue";
@@ -76,10 +76,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         {
             if (!context.IsContentAuthoringSite)
             {
-                var sessionModel = sessionStorage.Get() ?? new ContactUs();
-                if (sessionModel.ContactUsOption == null)
+                var sessionModel = sessionStorage.Get();
+                if (sessionModel is null || sessionModel.ContactUsOption?.ContactOptionType != ContactOption.Technical)
                 {
-                    return Redirect(ContactOptionPageUrl);
+                    return Redirect(ContactOptionPage);
                 }
             }
 
@@ -90,12 +90,17 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(TechnicalFeedbackViewModel model)
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
             if (ModelState.IsValid)
             {
                 var mappedModel = mapper.Map(model, sessionStorage.Get());
                 sessionStorage.Save(mappedModel);
 
-                return Redirect(NextPageUrl);
+                return Redirect(NextPage);
             }
 
             model.Title = Title;
@@ -107,7 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private TechnicalFeedbackViewModel AddWidgetPropertyFields(TechnicalFeedbackViewModel model)
         {
-            model.NextPageUrl = NextPageUrl;
+            model.NextPage = NextPage;
             model.Title = Title;
             model.MessageLabel = MessageLabel;
             model.PageIntroduction = PageIntroduction;

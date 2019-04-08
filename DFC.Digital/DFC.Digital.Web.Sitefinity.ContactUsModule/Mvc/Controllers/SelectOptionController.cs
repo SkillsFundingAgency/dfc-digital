@@ -18,9 +18,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
     public class SelectOptionController : BaseDfcController
     {
         #region Private Fields
-
-        private IEmailTemplateRepository emailTemplateRepository;
-        private ISitefinityCurrentContext sitefinityCurrentContext;
         private readonly IMapper mapper;
         private readonly ISessionStorage<ContactUs> sessionStorage;
 
@@ -29,14 +26,10 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Constructors
 
         public SelectOptionController(
-            IEmailTemplateRepository emailTemplateRepository,
-            ISitefinityCurrentContext sitefinityCurrentContext,
             IApplicationLogger applicationLogger,
             IMapper mapper,
             ISessionStorage<ContactUs> sessionStorage) : base(applicationLogger)
         {
-            this.emailTemplateRepository = emailTemplateRepository;
-            this.sitefinityCurrentContext = sitefinityCurrentContext;
             this.sessionStorage = sessionStorage;
             this.mapper = mapper;
         }
@@ -49,22 +42,22 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string Title { get; set; } = "Why would you like to contact us?";
 
         [DisplayName("Relative page url to general feedback")]
-        public string GeneralFeedbackPage { get; set; } = "/contact-us/feedback/";
+        public string GeneralFeedbackPage { get; set; } = "/contact-us/select-option/feedback/";
 
         [DisplayName("Relative page url to technical feedback")]
-        public string TechnicalFeedbackPage { get; set; } = "/contact-us/technical/";
+        public string TechnicalFeedbackPage { get; set; } = "/contact-us/select-option/technical/";
 
         [DisplayName("Relative page url to contact an adviser")]
-        public string ContactAdviserPage { get; set; } = "/contact-us/contact-adviser/";
+        public string ContactAdviserPage { get; set; } = "/contact-us/select-option/contact-adviser/";
 
         #endregion Public Properties
 
         #region Actions
 
-        // GET: ContactAdviser
+        // GET: SelectOption
 
         /// <summary>
-        /// entry point to the widget to show contact adviser form.
+        /// entry point to the widget to show select option form.
         /// </summary>
         /// <returns>ActionResult</returns>
         [HttpGet]

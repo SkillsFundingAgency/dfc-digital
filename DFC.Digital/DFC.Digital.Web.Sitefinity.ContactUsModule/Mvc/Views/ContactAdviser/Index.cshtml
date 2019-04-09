@@ -22,7 +22,7 @@
             @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5", })
 
             <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-                You can enter up to 1000 characters
+                @Model.CharacterLimit
             </span>
         </div>
         </div>

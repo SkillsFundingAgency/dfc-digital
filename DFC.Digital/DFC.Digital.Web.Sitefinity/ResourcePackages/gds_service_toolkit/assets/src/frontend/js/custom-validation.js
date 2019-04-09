@@ -42,6 +42,22 @@ $(document).ready(function () {
     {
        validator.settings.ignore = [];
     }
+
+    //By default whent he page loads we want to show this message if JS was enabled
+    $("#more-detail-info").html("You have 1000 characters remaining");
+
+    $("textarea[data-val-length-max]").keyup(function () {
+        var charLength = $(this).val().trim().replace(/\s+/g, '').length;
+        var charLimit = $(this).attr("data-val-length-max");
+        var charRemaining = charLimit - charLength;
+        if (charRemaining < 0) {
+            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + Math.abs(charRemaining) + " characters too many</span>");
+
+        } else {
+            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
+
+        }
+    });
 });
 
 $.validator.setDefaults({
@@ -72,26 +88,6 @@ $.validator.setDefaults({
     }
 });
 
-function nl2br(str, is_xhtml) {
-    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
-    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-}
-
-//By default whent he page loads we want to show this message if JS was enabled
-$("#more-detail-info").html("You have 1000 characters remaining");
-
-$("textarea[data-val-length-max]").keyup(function () {
-    var charLength = $(this).val().trim().replace(/\s+/g, '').length;
-    var charLimit = $(this).attr("data-val-length-max");
-    var charRemaining = charLimit - charLength;
-    if (charRemaining < 0) {
-        $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + Math.abs(charRemaining) + " characters too many</span>");
-        
-    } else {
-        $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
-        
-    }
-});
 //// *** Date of Birth Validation ***
 
 function PopulateDateOfBirth() {

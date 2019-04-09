@@ -35,7 +35,12 @@ namespace DFC.Digital.AutomationTest.Utilities
                     CollegeRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.CollegeRelevantSubjects), string.Empty),
                     UniversityRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.UniversityRelevantSubjects), string.Empty),
                     ApprenticeshipRelevantSubjects = item.GetConditionalData(nameof(JobProfileIndex.ApprenticeshipRelevantSubjects), string.Empty),
-                    WYDDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WYDDayToDayTasks), string.Empty)
+                    WYDDayToDayTasks = item.GetConditionalData(nameof(JobProfileIndex.WYDDayToDayTasks), string.Empty),
+                    WorkingPattern = item.GetConditionalData(nameof(JobProfileIndex.WorkingPattern), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    WorkingHoursDetails = item.GetConditionalData(nameof(JobProfileIndex.WorkingHoursDetails), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    WorkingPatternDetails = item.GetConditionalData(nameof(JobProfileIndex.WorkingPatternDetails), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    MinimumHours = item.GetConditionalData<double>(nameof(JobProfileIndex.MinimumHours), 0),
+                    MaximumHours = item.GetConditionalData<double>(nameof(JobProfileIndex.MaximumHours), 0)
                 };
             }
         }

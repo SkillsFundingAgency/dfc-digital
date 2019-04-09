@@ -118,5 +118,20 @@ namespace DFC.Digital.Data.Model
         [IsSearchable]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string CareerPathAndProgression { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> WorkingPattern { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> WorkingPatternDetails { get; set; }
+
+        [IsFilterable]
+        public IEnumerable<string> WorkingHoursDetails { get; set; }
+
+        [IsFilterable, IsSortable, IsFacetable]
+        public double MinimumHours { get; set; }
+
+        [IsFilterable, IsSortable, IsFacetable]
+        public double MaximumHours { get; set; }
     }
 }

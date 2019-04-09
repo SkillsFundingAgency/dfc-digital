@@ -14,16 +14,21 @@
             </div>
         </fieldset>
     </div>
-    <div class="govuk-form-group">
-        @Html.LabelFor(model => model.Message, new { @class = "govuk-label" })
-        <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
-        @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5" })
-    </div>
-    <p class="govuk-body-s">Character limit is 1000.</p>
-    <div class="govuk-form-group">
-        <button id="send-feedback-details" type="submit" class="govuk-button ga-additional-data" data-datalayer-key="ContactAdviserQueryOptionSelected" data-datalayer-input="ContactAdviserQuestionType">
-            Continue
-        </button>
-    </div>
-}
+    <div class="govuk-character-count" data-module="character-count" data-maxlength="1000">
+        <div class="govuk-form-group">
+            @Html.LabelFor(model => model.Message, new { @class = "govuk-label" })
+            <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
+            @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
+            @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5", })
+
+            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                @Model.CharacterLimit
+            </span>
+        </div>
+        </div>
+        <div class="govuk-form-group">
+            <button id="send-feedback-details" type="submit" class="govuk-button ga-additional-data" data-datalayer-key="ContactAdviserQueryOptionSelected" data-datalayer-input="ContactAdviserQuestionType">
+                Continue
+            </button>
+        </div>
+        }

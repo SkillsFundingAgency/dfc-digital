@@ -144,8 +144,8 @@ namespace DFC.Digital.Services.SendGrid.Tests
         }
 
         [Theory]
-        [InlineData("trev@m.com, trev@m.com, work@mail.com", 3)]
-        [InlineData("trev@m.com, work@mail.com", 2)]
+        [InlineData("trev@m.com; trev@m.com; work@mail.com", 3)]
+        [InlineData("trev@m.com; work@mail.com", 2)]
         [InlineData("trev@m.com", 1)]
         public async Task SendEmailMultipleRecipients(string emailList, int numberOfEmails)
         {

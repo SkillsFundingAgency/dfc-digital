@@ -12,9 +12,7 @@
             @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
             @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea", aria_describedby = "more-detail-hint" })
 
-            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-                You can enter up to 1000 characters
-            </span>
+            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">@Model.CharacterLimit</span>
         </div>
     </div>
     <div class="govuk-form-group">

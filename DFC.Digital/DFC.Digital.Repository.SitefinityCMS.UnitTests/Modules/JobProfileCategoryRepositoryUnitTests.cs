@@ -130,7 +130,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                         Title = p.Title,
                         UrlName = p.UrlName,
                         AlternativeTitle = p.AlternativeTitle?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(a => a.Trim()),
-                        Overview = p.Overview
+                        Overview = p.Overview,
+                        MaximumHours = 0,
+                        MinimumHours = 0
                     }
                 };
             }

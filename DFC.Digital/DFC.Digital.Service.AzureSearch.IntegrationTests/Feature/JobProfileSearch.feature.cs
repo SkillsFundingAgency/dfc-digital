@@ -165,7 +165,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void A1UserUsesASearchTermWhichContainsTitleOnProfileS()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[A1] User uses a search term which contains <Title> on profile(s)", null, ((string[])(null)));
-#line 136
+#line 140
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -193,11 +193,11 @@ this.ScenarioInitialize(scenarioInfo);
             table1.AddRow(new string[] {
                         "Children\'s nurse",
                         ""});
-#line 137
+#line 141
   testRunner.Given("the following job profiles exist:", ((string)(null)), table1, "Given ");
-#line 146
+#line 150
   testRunner.When("I search using the search term \'Nurse\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 147
+#line 151
   testRunner.Then("the result list will contain \'4\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -215,7 +215,7 @@ this.ScenarioInitialize(scenarioInfo);
             table2.AddRow(new string[] {
                         "Children\'s nurse",
                         ""});
-#line 148
+#line 152
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -230,7 +230,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A1, A3 - 1] User uses a search term which exactly matches <Title> or <A" +
                     "ltTitle> on mutliple profiles", null, ((string[])(null)));
-#line 157
+#line 161
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -252,11 +252,11 @@ this.ScenarioInitialize(scenarioInfo);
             table3.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 159
+#line 163
   testRunner.Given("the following job profiles exist:", ((string)(null)), table3, "Given ");
-#line 166
+#line 170
   testRunner.When("I search using the search term \'Stagehand\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 167
+#line 171
   testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -268,7 +268,7 @@ this.ScenarioInitialize(scenarioInfo);
             table4.AddRow(new string[] {
                         "Stage technician",
                         "Stagehand, Stage manager"});
-#line 168
+#line 172
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -283,7 +283,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A2 - 1] User uses a search term which is contained within the <Title> o" +
                     "n a single profile", null, ((string[])(null)));
-#line 175
+#line 179
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -299,11 +299,11 @@ this.ScenarioInitialize(scenarioInfo);
             table5.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 176
+#line 180
   testRunner.Given("the following job profiles exist:", ((string)(null)), table5, "Given ");
-#line 181
+#line 185
   testRunner.When("I search using the search term \'Aerospace\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 182
+#line 186
   testRunner.Then("the result list will contain \'1\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -312,7 +312,7 @@ this.ScenarioInitialize(scenarioInfo);
             table6.AddRow(new string[] {
                         "Aerospace engineering technician",
                         ""});
-#line 183
+#line 187
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table6, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -327,7 +327,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A2 - 2] User uses a search term which is contained within the <AltTitle" +
                     "> on a single profile", null, ((string[])(null)));
-#line 187
+#line 191
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -343,11 +343,11 @@ this.ScenarioInitialize(scenarioInfo);
             table7.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 188
+#line 192
   testRunner.Given("the following job profiles exist:", ((string)(null)), table7, "Given ");
-#line 193
+#line 197
   testRunner.When("I search using the search term \'Shipbuilding\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 194
+#line 198
   testRunner.Then("the result list will contain \'1\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -356,7 +356,7 @@ this.ScenarioInitialize(scenarioInfo);
             table8.AddRow(new string[] {
                         "Marine engineering technician",
                         "Shipbuilding technician"});
-#line 195
+#line 199
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table8, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -371,7 +371,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A2, A3 - 1] User uses a search term which is contained within the <Titl" +
                     "e> on multiple profiles", null, ((string[])(null)));
-#line 200
+#line 204
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -393,11 +393,11 @@ this.ScenarioInitialize(scenarioInfo);
             table9.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 201
+#line 205
   testRunner.Given("the following job profiles exist:", ((string)(null)), table9, "Given ");
-#line 208
+#line 212
   testRunner.When("I search using the search term \'Veterinary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 209
+#line 213
   testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -409,7 +409,7 @@ this.ScenarioInitialize(scenarioInfo);
             table10.AddRow(new string[] {
                         "Veterinary physiotherapist",
                         "Animal physiotherapist"});
-#line 210
+#line 214
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table10, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -424,7 +424,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A2, A3 - 2] User uses a search term which is contained within the <AltT" +
                     "itle> on multiple profiles", null, ((string[])(null)));
-#line 215
+#line 219
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -446,11 +446,11 @@ this.ScenarioInitialize(scenarioInfo);
             table11.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 216
+#line 220
   testRunner.Given("the following job profiles exist:", ((string)(null)), table11, "Given ");
-#line 223
+#line 227
   testRunner.When("I search using the search term \'animal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 224
+#line 228
   testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -462,7 +462,7 @@ this.ScenarioInitialize(scenarioInfo);
             table12.AddRow(new string[] {
                         "Zookeeper",
                         "Keeper, animal keeper"});
-#line 225
+#line 229
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table12, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -477,7 +477,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A2, A3 - 3] User uses a search term which is contained within the <Titl" +
                     "e> OR <AltTitle> on DIFFERENT profiles", null, ((string[])(null)));
-#line 230
+#line 234
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -541,11 +541,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "",
                         "",
                         "engineerhat"});
-#line 231
+#line 235
   testRunner.Given("the following job profiles exist:", ((string)(null)), table13, "Given ");
-#line 244
+#line 248
   testRunner.When("I search using the search term \'technician\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 245
+#line 249
   testRunner.Then("the result list will contain \'8\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -593,7 +593,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "",
                         "",
                         "engineerhat"});
-#line 246
+#line 250
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table14, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -608,7 +608,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - A1, A2 - 1] User uses a search term which exactly matches <Title> AND i" +
                     "s contained within the <AltTitle> on DIFFERENT profiles", null, ((string[])(null)));
-#line 257
+#line 261
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -630,11 +630,11 @@ this.ScenarioInitialize(scenarioInfo);
             table15.AddRow(new string[] {
                         "Last Job Profile",
                         "Extra End"});
-#line 258
+#line 262
   testRunner.Given("the following job profiles exist:", ((string)(null)), table15, "Given ");
-#line 265
+#line 269
   testRunner.When("I search using the search term \'counsellor\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 266
+#line 270
   testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
@@ -646,7 +646,7 @@ this.ScenarioInitialize(scenarioInfo);
             table16.AddRow(new string[] {
                         "Money adviser",
                         "Debt counsellor"});
-#line 267
+#line 271
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table16, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -667,7 +667,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - B1] Bugfix - User uses invalid characters as search term should not see" +
                     " anything", null, exampleTags);
-#line 296
+#line 300
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -701,11 +701,11 @@ this.ScenarioInitialize(scenarioInfo);
             table17.AddRow(new string[] {
                         "First Job Profile",
                         "Extra Start"});
-#line 297
+#line 301
  testRunner.Given("the following job profiles exist:", ((string)(null)), table17, "Given ");
-#line 308
+#line 312
 testRunner.When(string.Format("I search using the search term \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 309
+#line 313
   testRunner.Then(string.Format("the result list will contain \'{0}\' profile(s)", totalCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -730,7 +730,7 @@ testRunner.When(string.Format("I search using the search term \'{0}\'", searchTe
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-31 - B1 - 2 ] Bugfix - User uses non-alphabetic characters within search ter" +
                     "m should no longer impact results", null, exampleTags);
-#line 319
+#line 323
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -770,11 +770,11 @@ testRunner.When(string.Format("I search using the search term \'{0}\'", searchTe
             table18.AddRow(new string[] {
                         "First Job Profile",
                         "Extra Start"});
-#line 320
+#line 324
  testRunner.Given("the following job profiles exist:", ((string)(null)), table18, "Given ");
-#line 333
+#line 337
 testRunner.When(string.Format("I search using the search term \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 334
+#line 338
   testRunner.Then(string.Format("the result list will contain \'{0}\' profile(s)", totalCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -790,7 +790,7 @@ testRunner.When(string.Format("I search using the search term \'{0}\'", searchTe
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1128] Bugfix - Performing a search with text which contains an apostrophe (\'" +
                     ") is causing \'Server error\'", null, exampleTags);
-#line 348
+#line 352
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -809,11 +809,11 @@ this.ScenarioInitialize(scenarioInfo);
             table19.AddRow(new string[] {
                         "Children nurse",
                         ""});
-#line 349
+#line 353
  testRunner.Given("the following job profiles exist:", ((string)(null)), table19, "Given ");
-#line 355
+#line 359
   testRunner.When(string.Format("I search using the search term \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 356
+#line 360
   testRunner.Then(string.Format("the result list will contain \'{0}\' profile(s)", totalCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -829,7 +829,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-340] Bugfix Performing a search with text within a \"<\" and \">\" causes a \"Ser" +
                     "ver Error\" (A potentially dangerous Request.Form value was detected)", null, exampleTags);
-#line 361
+#line 365
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -845,11 +845,11 @@ this.ScenarioInitialize(scenarioInfo);
             table20.AddRow(new string[] {
                         "Middle Job Profile",
                         "Extra Middle"});
-#line 362
+#line 366
  testRunner.Given("the following job profiles exist:", ((string)(null)), table20, "Given ");
-#line 367
+#line 371
   testRunner.When(string.Format("I search using the search term \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 368
+#line 372
   testRunner.Then(string.Format("the result list will contain \'{0}\' profile(s)", totalCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -861,7 +861,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void DFC_1572Bugfix_SearchTermContains_ShouldReturnResults()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1572] Bugfix - Search term contains \"-\" should return results", null, ((string[])(null)));
-#line 373
+#line 377
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -877,11 +877,11 @@ this.ScenarioInitialize(scenarioInfo);
             table21.AddRow(new string[] {
                         "Last-Job Profile",
                         "Last-Job-Profile"});
-#line 374
+#line 378
   testRunner.Given("the following job profiles exist:", ((string)(null)), table21, "Given ");
-#line 379
+#line 383
   testRunner.When("I search using the search term \'co-o\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 380
+#line 384
   testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
@@ -893,7 +893,7 @@ this.ScenarioInitialize(scenarioInfo);
             table22.AddRow(new string[] {
                         "Co-ordinator",
                         "Extra End"});
-#line 381
+#line 385
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table22, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -906,14 +906,14 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void DFC_349Bugfix_UserSearchByATermThatContainsMoreThan50Results(string searchTerm, string countOfDummies, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-349] Bugfix - User search by a term that contains more than 50 results", null, exampleTags);
-#line 387
+#line 391
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 388
+#line 392
   testRunner.Given(string.Format("that \'{0}\' job profiles exist with \'{1}\':", countOfDummies, searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 389
+#line 393
   testRunner.When(string.Format("I search using the search term \'{0}\'", searchTerm), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 390
+#line 394
   testRunner.Then(string.Format("the result count should match \'{0}\'", countOfDummies), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -925,7 +925,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void DFC_1635_A1MatchWithDataThatHasSingleKeywordOnly()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1635 - A1] Match with data that has single Keyword only", null, ((string[])(null)));
-#line 397
+#line 401
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -944,11 +944,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "Lift technician",
                         "engineerkw",
                         ""});
-#line 398
- testRunner.Given("the following job profiles exist:", ((string)(null)), table23, "Given ");
 #line 402
+ testRunner.Given("the following job profiles exist:", ((string)(null)), table23, "Given ");
+#line 406
  testRunner.When("I search using the search term \'engineerkw\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 403
+#line 407
  testRunner.Then("the result list will contain \'1\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
@@ -961,7 +961,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "Lift technician",
                         "engineerkw",
                         ""});
-#line 404
+#line 408
  testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table24, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -973,7 +973,7 @@ this.ScenarioInitialize(scenarioInfo);
         public virtual void DFC_1635_A2MatchWithDataThatHasMultipleKeywords()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1635 - A2] Match with data that has multiple Keywords", null, ((string[])(null)));
-#line 409
+#line 413
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -992,11 +992,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "Lift technician",
                         "engineerkw",
                         ""});
-#line 410
- testRunner.Given("the following job profiles exist:", ((string)(null)), table25, "Given ");
 #line 414
+ testRunner.Given("the following job profiles exist:", ((string)(null)), table25, "Given ");
+#line 418
  testRunner.When("I search using the search term \'nailingtk, technicaltk\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 415
+#line 419
  testRunner.Then("the result list will contain \'1\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1009,7 +1009,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "",
                         "nailingtk, technicaltk",
                         ""});
-#line 416
+#line 420
  testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table26, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -1024,7 +1024,7 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1495] I want to see all the Job Categories the JP is found in, in search res" +
                     "ults", null, ((string[])(null)));
-#line 421
+#line 425
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -1042,9 +1042,9 @@ this.ScenarioInitialize(scenarioInfo);
             table27.AddRow(new string[] {
                         "C_DFC_1495_Title_Three",
                         "DFC_1495_CategoryTwoURL|DFC_1495_CategoryTwo"});
-#line 422
+#line 426
 testRunner.Given("the following job profiles exist:", ((string)(null)), table27, "Given ");
-#line 427
+#line 431
 testRunner.When("I search using the search term \'DFC_1495\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1061,7 +1061,7 @@ testRunner.When("I search using the search term \'DFC_1495\'", ((string)(null)),
             table28.AddRow(new string[] {
                         "C_DFC_1495_Title_Three",
                         "DFC_1495_CategoryTwoURL|DFC_1495_CategoryTwo"});
-#line 428
+#line 432
 testRunner.Then("the profiles are listed in no specific order:", ((string)(null)), table28, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -1076,7 +1076,7 @@ testRunner.Then("the profiles are listed in no specific order:", ((string)(null)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-1987 - A1] JP is tagged by \'JobProfileSpecialism\' and \'HiddenAlternativeTitl" +
                     "e\' with equal search weight.", null, ((string[])(null)));
-#line 435
+#line 439
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -1100,11 +1100,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "",
                         "engineerhat",
                         ""});
-#line 436
+#line 440
  testRunner.Given("the following job profiles exist:", ((string)(null)), table29, "Given ");
-#line 441
+#line 445
 testRunner.When("I search using the search term \'engineerhat\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 442
+#line 446
  testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1122,7 +1122,7 @@ testRunner.When("I search using the search term \'engineerhat\'", ((string)(null
                         "",
                         "",
                         "engineerhat"});
-#line 443
+#line 447
  testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table30, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -1137,7 +1137,7 @@ testRunner.When("I search using the search term \'engineerhat\'", ((string)(null
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-5229 - (DFC-31-A1, A2 - 2)] User uses a search term whose root exactly match" +
                     "es the searchable fields on different profiles", null, ((string[])(null)));
-#line 449
+#line 453
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -1180,11 +1180,11 @@ testRunner.When("I search using the search term \'engineerhat\'", ((string)(null
             table31.AddRow(new string[] {
                         "Hypnotherapist",
                         ""});
-#line 451
+#line 455
   testRunner.Given("the following job profiles exist:", ((string)(null)), table31, "Given ");
-#line 465
+#line 469
   testRunner.When("I search using the search term \'therapist\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 466
+#line 470
   testRunner.Then("the result list will contain \'9\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1217,7 +1217,7 @@ testRunner.When("I search using the search term \'engineerhat\'", ((string)(null
             table32.AddRow(new string[] {
                         "Hypnotherapist",
                         ""});
-#line 467
+#line 471
   testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table32, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -1232,7 +1232,7 @@ testRunner.When("I search using the search term \'engineerhat\'", ((string)(null
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-5954 - A1] JP is tagged by \'Overview\' and \'JobProfileCategories\' with equal " +
                     "search weight.", null, ((string[])(null)));
-#line 479
+#line 483
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -1264,11 +1264,11 @@ this.ScenarioInitialize(scenarioInfo);
                         "",
                         "",
                         ""});
-#line 480
+#line 484
  testRunner.Given("the following job profiles exist:", ((string)(null)), table33, "Given ");
-#line 486
+#line 490
 testRunner.When("I search using the search term \'dfc5954\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 487
+#line 491
  testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1292,7 +1292,7 @@ testRunner.When("I search using the search term \'dfc5954\'", ((string)(null)), 
                         "",
                         "",
                         "dfc5954"});
-#line 488
+#line 492
  testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table34, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -1310,7 +1310,7 @@ testRunner.When("I search using the search term \'dfc5954\'", ((string)(null)), 
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-5955 - A1] JP is tagged by \'CollegeRelevantSubjects | UniversityRelevantSubj" +
                     "ects | ApprenticeshipRelevantSubjects | WYDDayToDayTasks | CareerPathAndProgress" +
                     "ion\' with equal search weight.", null, ((string[])(null)));
-#line 494
+#line 498
    this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line hidden
@@ -1470,11 +1470,11 @@ testRunner.When("I search using the search term \'dfc5954\'", ((string)(null)), 
                         "",
                         "",
                         ""});
-#line 495
+#line 499
  testRunner.Given("the following job profiles exist:", ((string)(null)), table35, "Given ");
-#line 509
+#line 513
 testRunner.When("I search using the search term \'extrafields\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 510
+#line 514
  testRunner.Then("the result list will contain \'5\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
@@ -1549,8 +1549,170 @@ testRunner.When("I search using the search term \'extrafields\'", ((string)(null
                         "",
                         "",
                         ""});
-#line 511
+#line 515
  testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table36, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="[DFC-8364 - A1] JP is tagged by \'WorkingPattern | WorkingPatternDetails | Minimum" +
+            "Hours | MaximumHours | WorkingHoursDetails\' with equal search weight.")]
+        [Xunit.TraitAttribute("FeatureTitle", "List job profiles based upon relevance to the \"search term\" entered")]
+        [Xunit.TraitAttribute("Description", "[DFC-8364 - A1] JP is tagged by \'WorkingPattern | WorkingPatternDetails | Minimum" +
+            "Hours | MaximumHours | WorkingHoursDetails\' with equal search weight.")]
+        public virtual void DFC_8364_A1JPIsTaggedByWorkingPatternWorkingPatternDetailsMinimumHoursMaximumHoursWorkingHoursDetailsWithEqualSearchWeight_()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-8364 - A1] JP is tagged by \'WorkingPattern | WorkingPatternDetails | Minimum" +
+                    "Hours | MaximumHours | WorkingHoursDetails\' with equal search weight.", null, ((string[])(null)));
+#line 523
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line hidden
+            TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "AlternativeTitle",
+                        "JobProfileSpecialism",
+                        "HiddenAlternativeTitle",
+                        "JobProfileCategories",
+                        "Overview",
+                        "CollegeRelevantSubjects",
+                        "UniversityRelevantSubjects",
+                        "ApprenticeshipRelevantSubjects",
+                        "WydDayToDayTasks",
+                        "CareerPathAndProgression",
+                        "WorkingPattern",
+                        "WorkingPatternDetails",
+                        "MinimumHours",
+                        "MaximumHours",
+                        "WorkingHoursDetails"});
+            table37.AddRow(new string[] {
+                        "Actor",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "managing your own hours",
+                        "30",
+                        "40",
+                        "a week"});
+            table37.AddRow(new string[] {
+                        "Barrister",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "managing your own hours",
+                        "20",
+                        "30",
+                        "a week"});
+            table37.AddRow(new string[] {
+                        "Bailiff",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "managing your own hours",
+                        "30",
+                        "40",
+                        "a week"});
+            table37.AddRow(new string[] {
+                        "Coroner",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "",
+                        "0",
+                        "0",
+                        "a month"});
+#line 524
+ testRunner.Given("the following job profiles exist:", ((string)(null)), table37, "Given ");
+#line 530
+testRunner.When("I search using the search term \'actor, bailiff\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 531
+ testRunner.Then("the result list will contain \'2\' profile(s)", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "AlternativeTitle",
+                        "JobProfileSpecialism",
+                        "HiddenAlternativeTitle",
+                        "JobProfileCategories",
+                        "Overview",
+                        "CollegeRelevantSubjects",
+                        "UniversityRelevantSubjects",
+                        "ApprenticeshipRelevantSubjects",
+                        "WydDayToDayTasks",
+                        "CareerPathAndProgression",
+                        "WorkingPattern",
+                        "WorkingPatternDetails",
+                        "MinimumHours",
+                        "MaximumHours",
+                        "WorkingHoursDetails"});
+            table38.AddRow(new string[] {
+                        "Actor",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "managing your own hours",
+                        "30",
+                        "40",
+                        "a week"});
+            table38.AddRow(new string[] {
+                        "Bailiff",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "freelance / self-employed",
+                        "managing your own hours",
+                        "30",
+                        "40",
+                        "a week"});
+#line 532
+ testRunner.And("the profiles are listed in no specific order:", ((string)(null)), table38, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

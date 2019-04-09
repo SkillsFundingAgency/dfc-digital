@@ -77,6 +77,7 @@ function nl2br(str, is_xhtml) {
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
+//By default whent he page loads we want to show this message if JS was enabled
 $("#more-detail-info").html("You have 1000 characters remaining");
 
 $("textarea[data-val-length-max]").keyup(function () {

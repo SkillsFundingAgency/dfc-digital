@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPageUrl { get; set; } = "/contact-us/your-details/";
+        public string NextPage { get; set; } = "/contact-us/select-option/feedback/your-details/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = " What is your feedback about?";
@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
         [DisplayName("Character Limit")]
-        public string CharacterLimit { get; set; } = "Character limit is 1000.";
+        public string CharacterLimit { get; set; } = "You can enter up to 1000 characters";
 
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
@@ -67,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         #region Actions
 
-        // GET: ContactAdviser
+        // GET: Feedback
 
         /// <summary>
         /// entry point to the widget to show contact adviser form.
@@ -103,7 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
                 sessionStorage.Save(mappedModel);
 
-                return Redirect($"{NextPageUrl}");
+                return Redirect($"{NextPage}");
             }
 
             return View("Index", AddWidgetPropertyFields(model));
@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
 
         private GeneralFeedbackViewModel AddWidgetPropertyFields(GeneralFeedbackViewModel model)
         {
-            model.NextPage = this.NextPageUrl;
+            model.NextPage = this.NextPage;
             model.Title = this.Title;
             model.PersonalInformation = this.PersonalInformation;
             model.CharacterLimit = this.CharacterLimit;

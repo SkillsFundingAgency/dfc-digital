@@ -46,10 +46,13 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
         [DisplayName("Next Page URL")]
-        public string NextPage { get; set; } = "/contact-us/your-details-adviser/";
+        public string NextPage { get; set; } = "/contact-us/select-option/contact-adviser/your-details-adviser/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "What is your query about?";
+
+        [DisplayName("Character Limit")]
+        public string CharacterLimit { get; set; } = "You can enter up to 1000 characters";
 
         [DisplayName("Relative page URL to select option page")]
         public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
@@ -109,6 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
             model.Title = Title;
             model.Hint = PersonalInformation;
             model.NextPage = NextPage;
+            model.CharacterLimit = CharacterLimit;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Next Page URL")]
-        public string NextPage { get; set; } = "/contact-us/your-details/";
+        public string NextPage { get; set; } = "/contact-us/select-option/technical/your-details-technical/";
 
         [DisplayName("Page Title")]
         public string Title { get; set; } = "Report a technical issue";
@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         public string PersonalInformation { get; set; } = "Do not include any personal or sign in information.";
 
         [DisplayName("Character Limit")]
-        public string CharacterLimit { get; set; } = "Character limit is 1000.";
+        public string CharacterLimit { get; set; } = "You can enter up to 1000 characters";
 
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Include links to the problem page and any page headings. This will help us to fix the issue more quickly.";

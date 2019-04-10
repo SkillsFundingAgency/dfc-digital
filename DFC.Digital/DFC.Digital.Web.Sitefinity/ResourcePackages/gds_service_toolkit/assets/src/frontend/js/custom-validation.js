@@ -3,10 +3,7 @@ $(document).ready(function () {
     $("button[type='submit']").click(function () {
         $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
-        if ($('#DateOfBirth').val() !== undefined)
-        {
-	        PopulateDateOfBirth();
-        }
+        if ($('#DateOfBirth').val() !== undefined) { PopulateDateOfBirth(); }
 
         var validator = $('form').validate();
         if ($('form').valid()) {
@@ -21,7 +18,7 @@ $(document).ready(function () {
             }
 
             $('html,body').animate({
-                scrollTop: $("#main-content").offset().top
+                scrollTop: $("#error-validation-summary").offset().top
             }, 0);
 
             return false;
@@ -45,6 +42,22 @@ $(document).ready(function () {
     {
        validator.settings.ignore = [];
     }
+
+    //By default whent he page loads we want to show this message if JS was enabled
+    $("#more-detail-info").html("You have 1000 characters remaining");
+
+    $("textarea[data-val-length-max]").keyup(function () {
+        var charLength = $(this).val().trim().replace(/\s+/g, '').length;
+        var charLimit = $(this).attr("data-val-length-max");
+        var charRemaining = charLimit - charLength;
+        if (charRemaining < 0) {
+            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + Math.abs(charRemaining) + " characters too many</span>");
+
+        } else {
+            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
+
+        }
+    });
 });
 
 $.validator.setDefaults({
@@ -122,8 +135,9 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryYear = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -194,8 +208,9 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryMonth = parseInt(dateParts[1]) - 1;
     var entryDay = parseInt(dateParts[2]);
     var entryDate = new Date(entryYear, entryMonth, entryDay);
+    entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work

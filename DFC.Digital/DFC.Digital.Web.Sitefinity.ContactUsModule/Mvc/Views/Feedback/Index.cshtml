@@ -15,17 +15,21 @@
             </div>
         </fieldset>
     </div>
+    <div class="govuk-character-count" data-module="character-count" data-maxlength="1000">
+        <div class="govuk-form-group">
+            @Html.LabelFor(model => model.Feedback, Model.MessageLabel, new { @class = "govuk-label" })
+            <span class="govuk-hint">@Model.PersonalInformation</span>
+            @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
+            @Html.TextAreaFor(model => model.Feedback, new { @class = "govuk-textarea", rows = "5", type = "text" })
 
-    <div class="govuk-form-group">
-        @Html.LabelFor(model => model.Feedback, Model.MessageLabel, new { @class = "govuk-label" })
-        <span class="govuk-hint">@Model.PersonalInformation</span>
-        @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
-        @Html.TextAreaFor(model => model.Feedback, new { @class = "govuk-textarea", rows = "5", type = "text" })
+            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+                @Model.CharacterLimit
+            </span>
 
+        </div>
     </div>
-    <p class="govuk-body-s">@Model.CharacterLimit</p>
     <div class="govuk-form-group">
-        <button id="send-feedback-details" type="submit" class="govuk-button">
+        <button id="send-feedback-details" type="submit" class="govuk-button ga-additional-data" data-datalayer-key="FeedbackQueryOptionSelected" data-datalayer-input="FeedbackQuestionType">
             @Model.ContinueText
         </button>
     </div>

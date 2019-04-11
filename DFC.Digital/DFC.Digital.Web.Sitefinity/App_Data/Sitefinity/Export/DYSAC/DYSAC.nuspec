@@ -13,8 +13,8 @@
     <references></references>
   </metadata>
   <files>
-    <file src="**\*.*" exclude="**\*.ps1" target="content\App_Data\Sitefinity\AddOns\DYSAC" />
-    <file src="**\*.ps1" target="tools" />
-    <file src="**\*.psm1" target="tools" />
+    <file src="..\DYSAC\**\*.*" exclude="**\*.ps1" target="content\App_Data\Sitefinity\AddOns\DYSAC" />
+    <file src="..\DYSAC\**\*.ps1" target="tools" />
+    <file src="..\DYSAC\**\*.psm1" target="tools" />
   </files>
 </package>

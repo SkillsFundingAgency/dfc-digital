@@ -46,7 +46,7 @@ namespace DFC.Digital.Services.SendGrid
             {
                 var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
                 var subject = template.Subject;
-                var to = template.To.Split(';').Select(s => new EmailAddress(s.Trim(), s.Trim())).ToList();
+                var to = template.To?.Split(';').Select(toEmail => new EmailAddress(toEmail.Trim(), toEmail.Trim())).ToList();
                 var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
                 var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
                 var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, to, subject, plainTextContent, htmlContent);

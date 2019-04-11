@@ -81,58 +81,22 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         }
         
         [Xunit.TraitAttribute("FeatureTitle", "VocSurvey")]
-        [Xunit.TraitAttribute("Description", "[DFC-610-A1] View Survey - Check Cookie")]
-        [Xunit.TheoryAttribute(DisplayName="[DFC-610-A1] View Survey - Check Cookie")]
+        [Xunit.TraitAttribute("Description", "Complete Feedback Survey")]
+        [Xunit.TheoryAttribute(DisplayName="Complete Feedback Survey")]
         [Xunit.InlineDataAttribute("chrome")]
-        public virtual void DFC_610_A1ViewSurvey_CheckCookie(string browser)
+        public virtual void CompleteFeedbackSurvey(string browser)
         {
             this._browser = browser;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-610-A1] View Survey - Check Cookie", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Complete Feedback Survey", null, ((string[])(null)));
 #line 4
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
  testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.Then("the survey banner should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 8
- testRunner.When("I click the close survey link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.Then("the survey banner should not be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 10
- testRunner.And("a cookie should appear saying dismissed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.When("I delete the cookie and refresh the page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 13
- testRunner.Then("the survey banner should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.TraitAttribute("FeatureTitle", "VocSurvey")]
-        [Xunit.TraitAttribute("Description", "[DFC-685-A2] Select fill in short survey, Select Online survey and confirm survey" +
-            " is loaded")]
-        [Xunit.TheoryAttribute(DisplayName="[DFC-685-A2] Select fill in short survey, Select Online survey and confirm survey" +
-            " is loaded")]
-        [Xunit.InlineDataAttribute("chrome")]
-        public virtual void DFC_685_A2SelectFillInShortSurveySelectOnlineSurveyAndConfirmSurveyIsLoaded(string browser)
-        {
-            this._browser = browser;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-685-A2] Select fill in short survey, Select Online survey and confirm survey" +
-                    " is loaded", null, ((string[])(null)));
-#line 15
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 16
- testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 17
- testRunner.When("I select to fill in the online survey", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 18
+ testRunner.When("I click the feedback link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 7
  testRunner.Then("I am redirected to the survey page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 20
- testRunner.When("I delete the cookie and refresh the page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
- testRunner.Then("the survey banner should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -156,3 +120,4 @@ this.ScenarioInitialize(scenarioInfo);
 }
 #pragma warning restore
 #endregion
+

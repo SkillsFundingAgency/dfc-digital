@@ -4,12 +4,12 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Services.SendGrid.Config;
 using FakeItEasy;
 using FluentAssertions;
+using FluentAssertions.Common;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -141,6 +141,41 @@ namespace DFC.Digital.Services.SendGrid.Tests
 
             //Assert
             mapperConfig.AssertConfigurationIsValid();
+        }
+
+        [Theory]
+        [InlineData("trev@m.com; trev@m.com; work@mail.com", 3)]
+        [InlineData("trev@m.com; work@mail.com", 2)]
+        [InlineData("trev@m.com", 1)]
+        public async Task SendEmailMultipleRecipients(string emailList, int numberOfEmails)
+        {
+            var fakEmailTemplate = new EmailTemplate
+            {
+                Body = nameof(EmailTemplate.Body),
+                BodyNoHtml = nameof(EmailTemplate.BodyNoHtml),
+                To = emailList,
+                TemplateName = nameof(EmailTemplate.TemplateName),
+                Subject = nameof(EmailTemplate.Subject),
+                From = nameof(EmailTemplate.From)
+            };
+            A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._)).Returns(fakEmailTemplate);
+            A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._)).Returns(nameof(IMergeEmailContent<ContactUsRequest>.MergeTemplateBodyWithContent));
+            A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).Returns(new Response(HttpStatusCode.Accepted, null, null));
+            A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns(string.Empty);
+            A.CallTo(() => fakeSimulateEmailResponsesService.IsThisSimulationRequest(A<string>._)).Returns(false);
+            A.CallTo(() => fakeAuditRepository.CreateAudit(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).DoesNothing();
+            A.CallTo(() => fakeMapper.Map<SendEmailResponse>(A<object>._)).Returns(A.Dummy<SendEmailResponse>());
+
+            var sendEmailService = new SendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper);
+
+            //Act
+            var result = await sendEmailService.SendEmailAsync(new ContactUsRequest());
+
+            // Assert
+            A.CallTo(() => fakeSendGridClient.SendEmailAsync(
+                    A<SendGridMessage>.That.Matches(
+                        msg => msg.Personalizations.Count().IsSameOrEqualTo(numberOfEmails)), A<CancellationToken>._))
+                .MustHaveHappened();
         }
     }
 }

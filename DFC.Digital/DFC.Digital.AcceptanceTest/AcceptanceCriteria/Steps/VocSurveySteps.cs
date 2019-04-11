@@ -22,15 +22,15 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
 
         #region When's
 
-        [When(@"I select to fill in the online survey")]
-        public void WhenISelectToFillInTheOnlineSurvey()
+        [When(@"I click the feedback link")]
+        public void WhenIClickTheFeedbackLink()
         {
             var survey = GetNavigatedPage<Homepage>();
-            survey.ClickTakeSurvey<VocSurveyPage>()
+            survey.ClickFeedbackLink<VocSurveyPage>()
                 .SaveTo(ScenarioContext);
         }
 
-       #endregion When's
+        #endregion When's
 
         #region Then's
 

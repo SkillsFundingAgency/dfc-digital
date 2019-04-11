@@ -127,7 +127,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public T ClickFindCourseLink<T>()
             where T : UiComponent, new()
         {
-            var findBy = By.CssSelector(".dfc-code-jp-NoTrainingCoursesText a");
+            var findBy = By.XPath("//a[contains(text(),'training courses near you')]");
             var result = Find.Element(findBy);
             return NavigateTo<T>(result.GetAttribute("href"), findBy);
         }

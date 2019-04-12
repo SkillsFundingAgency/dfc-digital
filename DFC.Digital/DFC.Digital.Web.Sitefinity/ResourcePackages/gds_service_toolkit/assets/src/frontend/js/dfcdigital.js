@@ -2,11 +2,7 @@
 dfc.digital = {
     addFocus: function (identifier) {
         var elm = $(identifier);
-        if (elm && elm.val() && elm.val().length > 0) {
-            elm.addClass("focus");
-        } else {
-            elm.removeClass("focus");
-        }
+        if (elm && elm.val() && elm.val().length > 0) { elm.addClass("focus"); } else { elm.removeClass("focus"); }
     }
 };
 
@@ -78,12 +74,12 @@ $('.js-autocomplete').each(function () {
             $.ajax({
                 url: $('.js-autocomplete').data("autocomplete-source"),
                 dataType: 'json',
-                data: {'term' : searchTerm,  'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
+                data: { 'term': searchTerm, 'maxNumberDisplayed': $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch': $('.js-autocomplete').data('autocomplete-fuzzysearch') },
                 success: function (data) {
                     response(data);
                 }
             });
-        }, 
+        },
         minLength: $(this).data('autocomplete-minlength')
     });
 });

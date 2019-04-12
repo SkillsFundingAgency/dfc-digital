@@ -1,16 +1,19 @@
-﻿var dfc = (dfc || {});
+﻿
+var dfc = (dfc || {});
 dfc.digital = {
     addFocus: function (identifier) {
         var elm = $(identifier);
-        if (elm && elm.val() && elm.val().length > 0) { elm.addClass("focus"); } else { elm.removeClass("focus"); }
+        if (elm && elm.val() && elm.val().length > 0) {
+            elm.addClass("focus");
+        } else {
+            elm.removeClass("focus");
+        }
     }
 };
 
 $(document).ready(function () {
-
-    // Add a cookie message if the user loads the page for the first time.
+    // Add a cookie message when the user loads the page for the first time.
     CookieBanner.addCookieMessage();
-    CookieBanner.init('seen_cookie_message', 'yes', { days: 28 });
 
     $(".js-search-focus").ready(function () { dfc.digital.addFocus(".js-search-focus"); }).focus(function () { dfc.digital.addFocus(this) }).blur(function () { dfc.digital.addFocus(this) });
 
@@ -74,12 +77,12 @@ $('.js-autocomplete').each(function () {
             $.ajax({
                 url: $('.js-autocomplete').data("autocomplete-source"),
                 dataType: 'json',
-                data: { 'term': searchTerm, 'maxNumberDisplayed': $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch': $('.js-autocomplete').data('autocomplete-fuzzysearch') },
+                data: {'term' : searchTerm,  'maxNumberDisplayed' : $('.js-autocomplete').data("autocomplete-maxnumberdisplyed"), 'fuzzySearch' : $('.js-autocomplete').data('autocomplete-fuzzysearch') },
                 success: function (data) {
                     response(data);
                 }
             });
-        },
+        }, 
         minLength: $(this).data('autocomplete-minlength')
     });
 });

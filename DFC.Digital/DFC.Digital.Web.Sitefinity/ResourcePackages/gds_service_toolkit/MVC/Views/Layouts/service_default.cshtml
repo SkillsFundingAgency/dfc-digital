@@ -103,7 +103,6 @@
 
     @if (Html.IsDebugSymbol())
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/cookie-banner.js").Replace("assets/dist/", string.Empty), "bottom")
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/custom-validation.js").Replace("assets/dist/", string.Empty), "bottom")
 

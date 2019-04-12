@@ -22,8 +22,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         #endregion private const for survey
 
-        public bool IsSurveyBannerDisplayed => Find.OptionalElementNoWait(By.ClassName("heading-small")).Displayed;
-
         public string PageHeading => Find.Element(By.TagName("h1")).Text;
 
         #endregion Page Elements
@@ -36,10 +34,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         protected new IElementFinder Find => new DfcElementFinder(base.Find, Execute, WaitFor, Browser);
 
-        public TPage ClickTakeSurvey<TPage>()
+        public TPage ClickFeedbackLink<TPage>()
             where TPage : UiComponent, new()
         {
-            return NavigateTo<TPage>(By.ClassName(OpenSurvey));
+            return NavigateTo<TPage>(By.CssSelector(".phase-banner p span a"));
         }
 
         public TPage SelectOnlineSurvey<TPage>()
@@ -68,12 +66,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             {
                 Thread.Sleep(TimeSpan.FromSeconds(5));
             }
-        }
-
-        public void CloseSurvey()
-        {
-            var close = Find.Element(By.ClassName("survey_close"));
-            close.Click();
         }
 
         public bool UrlContains(string urlFragment)

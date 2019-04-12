@@ -52,9 +52,14 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Digital.GovUkNotifyAPIKey" value="__govUkNotifyKey__" />
     <add key="DFC.Digital.GovUkNotifyTemplateId" value="__govUkNotifyEmailTemplateId__" />
     <add key="DFC.Digital.AsheFeedAccessKey" value="__lmiForAllApiAccessKey__" />
-    <add key="DFC.Digital.AsheEstimateMdApiGateway" value="http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}" />
-    <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
+    <add key="DFC.Digital.AsheEstimateMdApiGateway" value="http://api.lmiforall.org.uk/api/v1/ashe/estimatePayMD?soc={0}&amp;accessKey={1}" />   
     <add key="DFC.Digital.CDNLocation" value="__cdnUrl__" />
+    <!--Send Grid Settings-->
+    <add key="DFC.Digital.SendGridApiKey" value="__sendGridApiKey__" />
+    <add key="DFC.Digital.SendGridDefaultNumberOfRetries" value="2" />
+    <add key="DFC.Digital.SendGridDefaultMinimumBackOff" value="2" />
+    <add key="DFC.Digital.SendGridDeltaBackOff" value="3" />
+    <add key="DFC.Digital.SendGridDefaultMaximumBackOff" value="3" />
     <!-- Course Search -->
     <add key="DFC.Digital.CourseSearchApiKey" value="__courseSearchApiKey__" />
     <add key="DFC.Digital.CourseSearchPageSize" value="20" />

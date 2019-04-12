@@ -1,4 +1,10 @@
-﻿var dfc = (dfc || {});
+﻿
+// Add cookie message
+CookieBanner.addCookieMessage();
+CookieBanner.init('seen_cookie_message', 'yes', { days: 28 });
+
+
+var dfc = (dfc || {});
 dfc.digital = {
     addFocus: function (identifier) {
         var elm = $(identifier);

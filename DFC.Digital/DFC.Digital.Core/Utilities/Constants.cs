@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Core
+﻿using System;
+
+namespace DFC.Digital.Core
 {
     //Reason to exlude is because these are constants not code with logic
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -31,7 +33,10 @@
         public const decimal Multiplier = 52;
         public const string Ashe = "LMI-ASHE";
         public const string ServiceStatusFailedLogMessage = "Service status check failed for activity id";
-        public const string ServiceStatusFailedCheckLogsMessage = "Service status check failed, check logs with activity id";
+
+        public const string ServiceStatusFailedCheckLogsMessage =
+            "Service status check failed, check logs with activity id";
+
         public const int DefaultMaxRelatedItems = 100;
         public const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
         public const string Technology = "Technology";
@@ -49,5 +54,9 @@
         public const string CourseSearchDocumentCollection = "DFC.Digital.CourseSearchAudit.Collection";
         public const string CosmosDbEndPointPrimaryKey = "DFC.Digital.CosmosAudit.PrimaryKey";
         public const string CosmosDbEndPoint = "DFC.Digital.CosmosAudit.EndpointUrl";
+        public const string SendGridDefaultNumberOfRetries = "DFC.Digital.SendGridDefaultNumberOfRetries";
+        public const string SendGridDefaultMinimumBackOff = "DFC.Digital.SendGridDefaultMinimumBackOff";
+        public const string SendGridDeltaBackOff = "DFC.Digital.SendGridDeltaBackOff";
+        public const string SendGridDefaultMaximumBackOff = "DFC.Digital.SendGridDefaultMaximumBackOff";
     }
 }

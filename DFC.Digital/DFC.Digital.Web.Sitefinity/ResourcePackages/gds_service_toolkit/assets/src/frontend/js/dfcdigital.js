@@ -12,7 +12,7 @@ dfc.digital = {
 
 $(document).ready(function () {
 
-    // Add cookie message
+    // Add a cookie message if the user loads the page for the first time.
     CookieBanner.addCookieMessage();
     CookieBanner.init('seen_cookie_message', 'yes', { days: 28 });
 

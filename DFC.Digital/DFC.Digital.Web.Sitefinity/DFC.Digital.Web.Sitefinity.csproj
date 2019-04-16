@@ -1150,6 +1150,7 @@
     <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.2.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.3.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />

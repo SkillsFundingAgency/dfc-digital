@@ -1,4 +1,5 @@
-﻿var dfc = (dfc || {});
+﻿
+var dfc = (dfc || {});
 dfc.digital = {
     addFocus: function (identifier) {
         var elm = $(identifier);
@@ -11,6 +12,9 @@ dfc.digital = {
 };
 
 $(document).ready(function () {
+    // Add a cookie message when the user loads the page for the first time.
+    CookieBanner.addCookieMessage();
+
     $(".js-search-focus").ready(function () { dfc.digital.addFocus(".js-search-focus"); }).focus(function () { dfc.digital.addFocus(this) }).blur(function () { dfc.digital.addFocus(this) });
 
     /* Not yet developed

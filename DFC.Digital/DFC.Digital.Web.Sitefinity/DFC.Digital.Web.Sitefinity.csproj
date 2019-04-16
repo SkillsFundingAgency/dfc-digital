@@ -1058,6 +1058,7 @@
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="extensions.bundle.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\**\*" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\cookie-banner.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\custom-validation.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
@@ -1171,6 +1172,7 @@
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_search.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_cookie-banner.scss" />
     <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />

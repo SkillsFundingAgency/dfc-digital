@@ -8,7 +8,7 @@
     <owners>system</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <description>Add-on for discover your skills and careers service</description>
+    <description>Add-on for discover your skills and careers service</description> 
     <language>en-US</language>
   </metadata>
   <files>

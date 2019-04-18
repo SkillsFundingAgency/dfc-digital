@@ -19,7 +19,7 @@
             @Html.LabelFor(model => model.Message, new { @class = "govuk-label" })
             <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
             @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
-            @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea", rows = "5", })
+            @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea js-character-count", rows = "5", })
 
             <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
                 @Model.CharacterLimit

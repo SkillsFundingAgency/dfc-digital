@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("button[type='submit']").click(function () {
         $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
-        if ($('#DateOfBirth').val() !== undefined){PopulateDateOfBirth();}
+        if ($('#DateOfBirth').val() !== undefined) { PopulateDateOfBirth(); }
 
         var validator = $('form').validate();
         if ($('form').valid()) {
@@ -38,26 +38,9 @@ $(document).ready(function () {
     });
 
     var validator = $("form").validate();
-    if(validator)
-    {
-       validator.settings.ignore = [];
+    if (validator) {
+        validator.settings.ignore = [];
     }
-
-    //By default whent he page loads we want to show this message if JS was enabled
-    $("#more-detail-info").html("You have 1000 characters remaining");
-
-    $("textarea[data-val-length-max]").keyup(function () {
-        var charLength = $(this).val().trim().replace(/\s+/g, '').length;
-        var charLimit = $(this).attr("data-val-length-max");
-        var charRemaining = charLimit - charLength;
-        if (charRemaining < 0) {
-            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-error-message'>You have " + Math.abs(charRemaining) + " characters too many</span>");
-
-        } else {
-            $(this).next().html("<span id='with-hint-info' class='govuk-character-count__message govuk-hint'>You have " + Math.abs(charRemaining) + " characters remaining (limit is " + charLimit + " characters)</span>");
-
-        }
-    });
 });
 
 $.validator.setDefaults({
@@ -318,7 +301,7 @@ $(function () {
     $.validator.addMethod(
         "date",
         function (value, element) {
-            
+
             var bits = value.match(/([0-9]+)/gi), str;
             if (!bits)
                 return this.optional(element) || false;

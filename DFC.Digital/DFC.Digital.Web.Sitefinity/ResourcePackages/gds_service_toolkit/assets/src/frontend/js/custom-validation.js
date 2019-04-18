@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("button[type='submit']").click(function () {
         $('#error-validation-summary').hide();
         $('#error-validation-summary .govuk-error-summary__body ul').empty();
-        if ($('#DateOfBirth').val() !== undefined){PopulateDateOfBirth();}
+        if ($('#DateOfBirth').val() !== undefined) { PopulateDateOfBirth(); }
 
         var validator = $('form').validate();
         if ($('form').valid()) {
@@ -38,9 +38,8 @@ $(document).ready(function () {
     });
 
     var validator = $("form").validate();
-    if(validator)
-    {
-       validator.settings.ignore = [];
+    if (validator) {
+        validator.settings.ignore = [];
     }
 });
 
@@ -302,7 +301,7 @@ $(function () {
     $.validator.addMethod(
         "date",
         function (value, element) {
-            
+
             var bits = value.match(/([0-9]+)/gi), str;
             if (!bits)
                 return this.optional(element) || false;

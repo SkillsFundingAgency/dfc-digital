@@ -10,10 +10,12 @@
             @Html.LabelFor(x => x.Message, Model.MessageLabel, new { @class = "govuk-label" })
             <span class="govuk-hint" id="more-detail-hint">@Model.PersonalInformation</span>
             @Html.ValidationMessageFor(x => x.Message, null, new { @class = "govuk-error-message" })
-            @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea", aria_describedby = "more-detail-hint" })
+            @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea js-character-count", aria_describedby = "more-detail-hint" })
 
-            <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">@Model.CharacterLimit</span>
         </div>
+        <span id="Message-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            @Model.CharacterLimit
+        </span>
     </div>
     <div class="govuk-form-group">
         <button type="submit" class="govuk-button">@Model.ContinueText</button>

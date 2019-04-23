@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DFC.Digital.Web.Sitefinity.ContactUsModule.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models
 {
     public class ContactAnAdviserFeedback
     {
         [Required(ErrorMessage = "Enter a message describing the issue")]
-        [StringLength(1000, ErrorMessage = "Message must be 1000 characters or less")]
+        [CustomStringLength(1000, ErrorMessage = "Message must be 1000 characters or less")]
         [Display(Name = "Enter your query for the adviser.")]
         public string Message { get; set; }
 

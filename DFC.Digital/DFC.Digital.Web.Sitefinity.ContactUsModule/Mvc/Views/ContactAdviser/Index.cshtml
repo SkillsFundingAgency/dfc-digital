@@ -22,9 +22,7 @@
             @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea js-character-count", rows = "5", })
 
         </div>
-        <span id="Message-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-            @Model.CharacterLimit
-        </span>
+        <span id="Message-info" class="govuk-hint govuk-character-count__message" aria-live="polite">@Model.CharacterLimit</span>
     </div>
     <div class="govuk-form-group">
         <button id="send-feedback-details" type="submit" class="govuk-button ga-additional-data" data-datalayer-key="ContactAdviserQueryOptionSelected" data-datalayer-input="ContactAdviserQuestionType">

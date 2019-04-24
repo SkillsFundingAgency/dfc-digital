@@ -20,7 +20,6 @@
             <span id="more-detail-hint" class="govuk-hint">@Model.Hint</span>
             @Html.ValidationMessageFor(model => model.Message, null, new { @class = "govuk-error-message" })
             @Html.TextAreaFor(model => model.Message, new { @class = "govuk-textarea js-character-count", rows = "5", })
-
         </div>
         <span id="Message-info" class="govuk-hint govuk-character-count__message" aria-live="polite">@Model.CharacterLimit</span>
     </div>

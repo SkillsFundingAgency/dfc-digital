@@ -284,7 +284,6 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\ContactUsAutofacModule.cs" />
     <Compile Include="Config\ContactUsAutomapperProfile.cs" />
-    <Compile Include="Extensions\CustomStringLength.cs" />
     <Compile Include="Mvc\Controllers\ContactAdviserController.cs" />
     <Compile Include="Mvc\Controllers\FeedbackController.cs" />
     <Compile Include="Mvc\Controllers\SelectOptionController.cs" />
@@ -322,7 +321,9 @@
     </Content>
     <Content Include="Mvc\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Mvc\Views\Feedback\Index.cshtml" />
     <Content Include="Mvc\Views\ContactAdviser\Index.cshtml" />

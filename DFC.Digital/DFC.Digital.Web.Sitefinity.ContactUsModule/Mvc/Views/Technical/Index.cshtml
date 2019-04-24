@@ -13,9 +13,7 @@
             @Html.TextAreaFor(m => Model.Message, new { rows = 5, @class = "govuk-textarea js-character-count", aria_describedby = "more-detail-hint" })
 
         </div>
-        <span id="Message-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-            @Model.CharacterLimit
-        </span>
+        <span id="more-detail-info" class="govuk-hint govuk-character-count__message" aria-live="polite">@Model.CharacterLimit</span>
     </div>
     <div class="govuk-form-group">
         <button type="submit" class="govuk-button">@Model.ContinueText</button>

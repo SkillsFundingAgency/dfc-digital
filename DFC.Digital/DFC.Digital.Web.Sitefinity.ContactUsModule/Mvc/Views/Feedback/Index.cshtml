@@ -21,9 +21,6 @@
             <span class="govuk-hint">@Model.PersonalInformation</span>
             @Html.ValidationMessageFor(model => model.Feedback, null, new { @class = "govuk-error-message" })
             @Html.TextAreaFor(model => model.Feedback, new { @class = "govuk-textarea js-character-count", rows = "5", type = "text" })
-
-           
-
         </div>
     </div>
     <div class="govuk-form-group">

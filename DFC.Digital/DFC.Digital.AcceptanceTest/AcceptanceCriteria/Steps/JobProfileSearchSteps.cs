@@ -103,12 +103,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<SearchPage>().NextPage<SearchPage>().SaveTo(ScenarioContext);
         }
 
-        [When(@"I click the close survey link")]
-        public void WhenIClickTheCloseSurveyLink()
-        {
-            GetNavigatedPage<Homepage>().CloseSurvey();
-        }
-
         [When(@"I delete the cookie and refresh the page")]
         public void WhenIDeleteTheCookieAndRefreshThePage()
         {
@@ -215,20 +209,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             searchPage.HasJobProfileTitle.Should().Be(titleVisible);
             searchPage.HasAlternativeTitle.Should().Be(alternativeTitleVisible);
             searchPage.HasRankId.Should().Be(rankIdVisible);
-        }
-
-        [Then(@"the survey banner should be displayed")]
-        public void ThenTheSurveyBannerShouldBeDisplayed()
-        {
-            var homePage = GetNavigatedPage<Homepage>();
-            homePage.IsSurveyBannerDisplayed.Should().BeTrue();
-        }
-
-        [Then(@"the survey banner should not be displayed")]
-        public void ThenTheSurveyBannerShouldNotBeDisplayed()
-        {
-            var homePage = GetNavigatedPage<Homepage>();
-            homePage.IsSurveyBannerDisplayed.Should().BeFalse();
         }
 
         [Then(@"retain the search term '(.*)' in the search box")]
@@ -389,13 +369,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             string profileChosen;
             ScenarioContext.TryGetValue("profileSelected", out profileChosen);
             jobProfilePage.ProfilePageHeading.Should().Be(profileChosen);
-        }
-
-        [Then(@"a cookie should appear saying dismissed")]
-        public void ThenTheCookieShouldAppearSayingDismissed()
-        {
-            var value = GetCookieValue("survey");
-            value.Should().Be("dismissed");
         }
 
         [Then(@"the no results message is displayed")]

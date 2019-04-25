@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
             var pageIntroduction = htmlDocument.DocumentNode.SelectNodes("p").Where(d => d.GetAttributeValue("class", string.Empty).Contains("govuk-body-m")).FirstOrDefault();
             pageIntroduction.InnerText.Should().Be(technicalFeedbackViewModel.PageIntroduction);
 
-            var characterLimit = htmlDocument.DocumentNode.SelectNodes("//p").Where(d => d.GetAttributeValue("class", string.Empty).Contains("govuk-body-s")).FirstOrDefault();
+            var characterLimit = htmlDocument.DocumentNode.SelectNodes("//span").Where(d => d.GetAttributeValue("class", string.Empty).Contains("govuk-character-count__message")).FirstOrDefault();
             characterLimit.InnerText.Should().Be(technicalFeedbackViewModel.CharacterLimit);
 
             var label = htmlDocument.DocumentNode.SelectNodes("//label").Where(d => d.GetAttributeValue("class", string.Empty).Contains("govuk-label")).FirstOrDefault();

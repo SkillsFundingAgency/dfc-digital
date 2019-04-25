@@ -43,9 +43,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         #region Action Tests
 
         [Theory]
-        [InlineData(true, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
-        [InlineData(false, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/")]
-        public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl)
+        [InlineData(true, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/", "You can enter up to 1000 characters")]
+        [InlineData(false, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/", "You can enter up to 1000 characters")]
+        public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl, string characterLimitString)
         {
             //Assign
             var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
@@ -53,7 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 Title = title,
                 PersonalInformation = personalInformation,
                 NextPage = nextPageUrl,
-                ContactOptionPage = contactOptionPageUrl
+                ContactOptionPage = contactOptionPageUrl,
+                CharacterLimit = characterLimitString
             };
 
             if (!validSessionVm)

@@ -38,9 +38,8 @@ $(document).ready(function () {
     });
 
     var validator = $("form").validate();
-    if(validator)
-    {
-       validator.settings.ignore = [];
+    if (validator) {
+        validator.settings.ignore = [];
     }
 });
 
@@ -121,7 +120,7 @@ jQuery.validator.addMethod("agerange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
     entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length < 5 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -194,7 +193,7 @@ jQuery.validator.addMethod("daterange", function (value, element, param) {
     var entryDate = new Date(entryYear, entryMonth, entryDay);
     entryDate.setFullYear(entryYear);
 
-    if (entryDate.getFullYear() === entryYear && entryYear.toString().length === 4 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
+    if (entryDate.getFullYear() === entryYear && entryYear.toString().length < 5 && entryDate.getMonth() === entryMonth && entryDate.getDate() === entryDay) {
         if (Object.prototype.toString.call(entryDate) === "[object Date]") {
             // it is a date type
             if (isNaN(entryDate.getTime())) {  // entryDate.valueOf() could also work
@@ -302,7 +301,7 @@ $(function () {
     $.validator.addMethod(
         "date",
         function (value, element) {
-            
+
             var bits = value.match(/([0-9]+)/gi), str;
             if (!bits)
                 return this.optional(element) || false;

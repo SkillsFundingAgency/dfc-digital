@@ -26,7 +26,8 @@
   ],
 
   "concatGovUkJsFiles": [
-    "node_modules/govuk-frontend/all.js"
+    "node_modules/govuk-frontend/all.js",
+    "assets/src/frontend/js/cookie-banner.js"
   ],
 
   "oldConcatGovUkJsFiles": [

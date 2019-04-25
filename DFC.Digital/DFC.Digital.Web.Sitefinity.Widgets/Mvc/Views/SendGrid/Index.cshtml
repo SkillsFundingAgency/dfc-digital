@@ -14,7 +14,7 @@
             <ul>
                 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.TemplateName, "Template Url Name", new { @class = "form-label" })
+                    @Html.LabelFor(x => x.TemplateName, "Template Url", new { @class = "form-label" })
                     @Html.TextBoxFor(x => x.TemplateName, new { @class = "form-control sfTxt" })
                 </li>
 
@@ -53,7 +53,7 @@
                 </li>
 
                 <li class="sfFormSeparator">
-                    @Html.LabelFor(x => x.AcceptTermsAndConditions, "{iscontactable}", new {@class = "form-label"})
+                    @Html.LabelFor(x => x.AcceptTermsAndConditions, "{tandc}", new {@class = "form-label"})
                     @Html.CheckBoxFor(x => x.AcceptTermsAndConditions)
                 </li>
 

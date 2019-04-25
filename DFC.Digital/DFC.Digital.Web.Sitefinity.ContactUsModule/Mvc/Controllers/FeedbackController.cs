@@ -57,6 +57,9 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers
         [DisplayName("Message Label")]
         public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
 
+        [DisplayName("Message Label")]
+        public string MessageLabel { get; set; } = "Give us your feedback. If you're commenting on particular pages, it will help us if you include links to them.";
+
         [DisplayName("Relative page url to select option page")]
         public string ContactOptionPage { get; set; } = "/contact-us/select-option/";
 

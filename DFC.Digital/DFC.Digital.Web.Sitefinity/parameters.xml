@@ -28,7 +28,7 @@
   </parameter>
   <parameter name="DYSAC_Sitefinity_Auth_CorsOrigin"
          description="Tokenize the job profile search name to be replaced by VSTS task"
-         defaultValue="*">
+         defaultValue="__dysac_corsOrigin__">
     <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
                     match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dsac']/allowedCorsOrigins/add/@allowedCorsOrigin" />
   </parameter>

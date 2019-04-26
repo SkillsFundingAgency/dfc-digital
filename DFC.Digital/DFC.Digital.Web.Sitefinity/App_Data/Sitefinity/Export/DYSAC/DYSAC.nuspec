@@ -2,14 +2,13 @@
 <package>
   <metadata>
     <id>DYSAC</id>
-    <version>1.0.0.4</version>
+    <version>1.0.0.5</version>
     <title>Discover your skills and careers</title>
     <authors>system</authors>
     <owners>system</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <description>Add-on for discover your skills and careers service</description> 
-    <language>en-US</language>
+    <description>Add-on for discover your skills and careers service</description>
   </metadata>
   <files>
     <file src="..\DYSAC\**\*.*" exclude="..\DYSAC\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\DYSAC" />

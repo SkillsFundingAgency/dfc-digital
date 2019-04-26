@@ -157,6 +157,7 @@
     <Compile Include="ModelValidationAttributes\AgeRangeAttribute.cs" />
     <Compile Include="ModelValidationAttributes\BFPOAddressAttribute.cs" />
     <Compile Include="ModelValidationAttributes\ConditionalRequiredAttribute.cs" />
+    <Compile Include="ModelValidationAttributes\TrimCarriageReturnStringLengthAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DateRangeAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DifferAttribute.cs" />
     <Compile Include="ModelValidationAttributes\DoubleRegexAttribute.cs" />

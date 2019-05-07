@@ -1,0 +1,27 @@
+﻿@model PaginationViewModel  
+
+    <ul class="previous-next-navigation govuk-!-margin-top-3">
+
+    @if (Model.HasNextPage)
+    {
+        <li class="next">
+            <a href="@Model.NextPageUrl">
+                <span class="pagination-label">Next</span>
+                <span class="govuk-visually-hidden">page</span>
+                <span class="page-numbers">@Model.NextPageUrlText</span>
+            </a>
+        </li>
+    }
+
+        @if (Model.HasPreviousPage)
+        {
+            <li class="previous">
+                <a href="@Model.PreviousPageUrl">
+                    <span class="pagination-label">Previous</span>
+                    <span class="govuk-visually-hidden">page</span>
+                    <span class="page-numbers">@Model.PreviousPageUrlText</span>
+                </a>
+            </li>
+        }
+
+    </ul>

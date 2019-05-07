@@ -1,0 +1,203 @@
+﻿@model CourseFiltersModel
+
+<div class="filters filters">
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Distance</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios">
+                    <div class="govuk-form-group">
+                        <div class="search-header">
+                            <div class="searchfield">
+                                <div class="search-input">
+                                    <label for="search-main" class="govuk-heading-s govuk-!-margin-0">Postcode</label>
+                                    <input placeholder="Your postcode" class="search-input" id="search-main" type="search" value="@Model.Location" name="CourseFiltersModel.Location">
+                                </div>
+                                <div class="search-submit">
+                                    <button class="button">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        @foreach (var item in Model.DistanceSelectedList)
+                        {
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" @item.Checked type="radio" value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+
+                    @foreach (var item in Model.StudyModeSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
+        </div>
+
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+
+                    @foreach (var item in Model.AttendanceSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+
+                    @foreach (var item in Model.PatternSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
+        </div>
+
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-checkboxes">
+
+                    @foreach (var item in Model.QualificationSelectedList)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                                @item.Label
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios">
+                    <div class="govuk-form-group">
+
+                        @foreach (var item in Model.AgeSuitabilitySelectedList)
+                        {
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="filter-container">
+        <div class="filter-label">
+            <h3 class="govuk-heading-s govuk-!-margin-0">Start date</h3>
+        </div>
+        <div class="filter-box">
+            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                <div class="govuk-radios govuk-radios--conditional" data-module="radios"">
+                    <div class="govuk-form-group">
+
+                        @foreach (var item in Model.StartDateSelectedList)
+                        {
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value" data-aria-controls="conditional-start-date-conditional-1"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                            </div>
+                        }
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-start-date-conditional-1">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-!-font-size-16" for="startDate-Date">
+                                    Start date
+                                </label>
+                                <div class="govuk-date-input" id="startDate-Date">
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-day">
+                                                Day
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-day" name="startDate-Date-day" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-month">
+                                                Month
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-month" name="startDate-Date-month" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                    <div class="govuk-date-input__item">
+                                        <div class="govuk-form-group">
+                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-year">
+                                                Year
+                                            </label>
+                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-year" name="startDate-Date-year" type="number" pattern="[0-9]*">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </fieldset>
+        </div>
+    </div>
+    <div class="submit js-live-search-fallback">
+
+        <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
+
+
+    </div>
+</div>

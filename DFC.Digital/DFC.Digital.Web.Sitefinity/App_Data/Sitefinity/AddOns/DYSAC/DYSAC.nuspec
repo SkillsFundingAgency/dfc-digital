@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>DYSAC</id>
-    <version>1.0.0.8</version>
+    <version>1.0.0.9</version>
     <title>Discover your skills and careers</title>
     <authors>DFC Development Team</authors>
     <owners>DFC Development Team</owners>

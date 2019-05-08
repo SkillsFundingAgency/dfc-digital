@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity", "DFC.Digital.Web.Sitefinity\DFC.Digital.Web.Sitefinity.csproj", "{3E598CFC-83B2-494A-A97F-32EB24D797C6}"
 EndProject
@@ -146,7 +146,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests", "DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests\DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests.csproj", "{F9621A32-93F2-4AD3-B6C5-42A763F0D836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.CourseModule", "DFC.Digital.Web.Sitefinity.CourseModule\DFC.Digital.Web.Sitefinity.CourseModule.csproj", "{93D5A6D2-43FE-47D5-803D-9241B32877E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.CourseModule", "DFC.Digital.Web.Sitefinity.CourseModule\DFC.Digital.Web.Sitefinity.CourseModule.csproj", "{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -657,6 +657,16 @@ Global
 		{F9621A32-93F2-4AD3-B6C5-42A763F0D836}.Release Pro|Any CPU.Build.0 = Release|Any CPU
 		{F9621A32-93F2-4AD3-B6C5-42A763F0D836}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9621A32-93F2-4AD3-B6C5-42A763F0D836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.DevRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.DevRelease|Any CPU.Build.0 = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.OWASP|Any CPU.ActiveCfg = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.OWASP|Any CPU.Build.0 = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Release Pro|Any CPU.ActiveCfg = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Release Pro|Any CPU.Build.0 = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -717,11 +727,11 @@ Global
 		{72D2C0C1-0BEF-4497-8437-32B524DB98F4} = {6AAD341C-94B6-40FB-B42A-79C3769285A5}
 		{6F6301D4-5CA5-4E6F-9425-B70CBD8EEE59} = {FE965C58-131A-4EE9-A52B-0FEDF579E1ED}
 		{CE184351-3FB5-4848-B91D-87FF48D974C6} = {BA107F26-09FE-4508-9B39-EED653398C8F}
-		{93D5A6D2-43FE-47D5-803D-9241B32877E4} = {FE965C58-131A-4EE9-A52B-0FEDF579E1ED}
 		{2E4039C0-348D-4278-A9BD-7D4B1919C844} = {28378015-EB0B-4BBA-B20B-043F4FDDA8DC}
 		{877F2C46-ED08-479D-ABD1-ADB283404415} = {434DFB48-A12C-40BE-B17C-003F4DD22092}
 		{D5B28738-ADCD-4712-9219-45C4A061DFF1} = {FE965C58-131A-4EE9-A52B-0FEDF579E1ED}
 		{F9621A32-93F2-4AD3-B6C5-42A763F0D836} = {BA107F26-09FE-4508-9B39-EED653398C8F}
+		{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550} = {FE965C58-131A-4EE9-A52B-0FEDF579E1ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7CD78F-1AE9-4E79-952C-61C6991414A8}

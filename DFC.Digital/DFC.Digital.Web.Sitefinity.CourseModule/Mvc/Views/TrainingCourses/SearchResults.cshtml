@@ -1,0 +1,81 @@
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.TrainingCourseResultsViewModel
+
+
+@* Top Full Width Content Block *@
+@using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
+{
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-form-group">
+                <div class="search-header">
+                    <div class="searchfield">
+                        <div class="search-input">
+                            <label for="search-main">
+                                <h1 class="search-title">
+                                    Showing @Model.Courses.Count() results for <span class="govuk-visually-hidden">@Model.SearchTerm</span>
+                                </h1>
+                            </label>
+                            @Html.TextBoxFor(x => x.SearchTerm, new { placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search" })
+                        </div>
+                        <div class="search-submit">
+                            <button type="submit" class="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions))
+                {
+                    <div id="filter-summary" class="govuk-!-margin-top-2">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">Filtered by</h3>
+                        <p class="govuk-body govuk-!-margin-bottom-0">@Model.ActiveFilterOptions </p>
+                        <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset filters</a></p>
+                    </div>
+                }
+            @if (Model.Courses.Any())
+            {
+                @Html.Partial("OrderByLinks", Model.OrderByLinks)
+            }
+            </div>
+        </div>
+    </div>
+
+    if (!string.IsNullOrWhiteSpace(Model.ActiveFilterOptions) || Model.Courses.Any())
+    {
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+    }
+    <div class="govuk-grid-row">
+        @* Filter Section - Within 1/3 Content Block *@
+        <div class="govuk-grid-column-one-third">
+            @Html.Partial("Filters", Model.CourseFiltersModel)
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+
+            @if (Model.Courses.Any())
+            {
+                <div id="results-summary">
+                 
+                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
+                    <hr class="govuk-section-break govuk-section-break--visible"/>
+
+                </div>
+
+            }
+            else
+            {
+                <h3 class="govuk-body-s govuk-!-margin-bottom-1">No training courses found</h3>
+            }
+
+            @foreach (var course in Model.Courses)
+            {
+                @Html.Partial("CourseDetail", course)
+            }
+
+            @Html.Partial("Pagination", Model.PaginationViewModel)
+
+        </div>
+    </div>
+}
+
+
+
+

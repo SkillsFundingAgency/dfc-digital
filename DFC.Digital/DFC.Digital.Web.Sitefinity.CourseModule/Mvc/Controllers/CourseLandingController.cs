@@ -58,17 +58,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new CourseLandingViewModel
-            {
-                CourseNameHintText = CourseNameHintText,
-                CourseNameLabel = CourseNameLabel,
-                LocationLabel = LocationLabel,
-                ProviderLabel = ProviderLabel,
-                QualificationLevelHint = QualificationLevelHint,
-                QualificationLevelLabel = QualificationLevelLabel,
-                LocationHintText = LocationHintText,
-                Dfe1619FundedText = Dfe1619FundedText
-            });
+            var model = new CourseLandingViewModel();
+            AddWidgetProperties(model);
+            return View("Index", model);
         }
 
         [HttpPost]
@@ -79,17 +71,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 return Redirect(courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex));
             }
 
-            return View(new CourseLandingViewModel
-            {
-                CourseNameHintText = CourseNameHintText,
-                CourseNameLabel = CourseNameLabel,
-                LocationLabel = LocationLabel,
-                ProviderLabel = ProviderLabel,
-                QualificationLevelHint = QualificationLevelHint,
-                QualificationLevelLabel = QualificationLevelLabel,
-                LocationHintText = LocationHintText
-            });
+            AddWidgetProperties(model);
+            return View("Index", model);
         }
         #endregion
+
+        private void AddWidgetProperties(CourseLandingViewModel model)
+        {
+            model.CourseNameHintText = CourseNameHintText;
+            model.CourseNameLabel = CourseNameLabel;
+            model.LocationLabel = LocationLabel;
+            model.ProviderLabel = ProviderLabel;
+            model.QualificationLevelHint = QualificationLevelHint;
+            model.QualificationLevelLabel = QualificationLevelLabel;
+            model.LocationHintText = LocationHintText;
+            model.Dfe1619FundedText = Dfe1619FundedText;
+        }
     }
 }

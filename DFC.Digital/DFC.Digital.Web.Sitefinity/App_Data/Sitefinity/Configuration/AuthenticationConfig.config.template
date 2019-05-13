@@ -8,6 +8,14 @@
             <add clientSecret="__clientSecret__" />
           </clientSecrets>
         </add>
+        <add clientId="__dysac_clientId__" enabled="True" flow="ResourceOwner" allowAccessToAllScopes="True" clientName="dsac">
+          <clientSecrets>
+            <add clientSecret="__dysac_clientSecret__" />
+          </clientSecrets>
+          <allowedCorsOrigins>
+            <add allowedCorsOrigin="__dysac_corsOrigin__" />
+          </allowedCorsOrigins>
+        </add>
       </identityServerClients>
       <scopes>
         <add scopeType="Resource" name="offline_access" />

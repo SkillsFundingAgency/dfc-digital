@@ -23,5 +23,10 @@
         "AddonName":  "Configuration",
         "Key":  "5944ccc7-e2c1-474b-b269-21fb582d456b",
         "IsDeleted":  false
+    },
+    {
+        "AddonName":  "DYSAC",
+        "Key":  "7bc53d21-c513-4530-aefe-e2b3c30b087e",
+        "IsDeleted":  false
     }
 ]

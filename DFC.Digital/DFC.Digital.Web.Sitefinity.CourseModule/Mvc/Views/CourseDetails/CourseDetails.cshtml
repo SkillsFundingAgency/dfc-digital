@@ -35,50 +35,61 @@
                     <td class="govuk-table__cell">@Model.QualificationLevel</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Entry requirements</th>
-                    <td class="govuk-table__cell">@Model.EntryRequirements</td>
+                    <th class="govuk-table__header" scope="row">Awarding organisation</th>
+                    <td class="govuk-table__cell">***</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Start date</th>
-                    <td class="govuk-table__cell">@Model.StartDateLabel</td>
+                    <th class="govuk-table__header" scope="row">Subject category</th>
+                    <td class="govuk-table__cell">***</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Cost</th>
-                    <td class="govuk-table__cell">@Model.Cost</td>
+                    <th class="govuk-table__header" scope="row">Course webpage</th>
+                    <td class="govuk-table__cell"><a href="url" target="_blank">url</a></td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Duration</th>
-                    <td class="govuk-table__cell">@Model.Duration</td>
+                    <th class="govuk-table__header" scope="row">Course type</th>
+                    <td class="govuk-table__cell">***</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Classroom or online</th>
-                    <td class="govuk-table__cell">@Model.AttendanceMode</td>
+                    <th class="govuk-table__header" scope="row">Course start date</th>
+                    <td class="govuk-table__cell">September 2016</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Day, night or weekend</th>
-                    <td class="govuk-table__cell">@Model.AttendancePattern</td>
+                    <th class="govuk-table__header" scope="row">Price</th>
+                    <td class="govuk-table__cell">&#163;0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Additional price description</th>
+                    <td class="govuk-table__cell">&#163;0.00</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Funding information</th>
+                    <td class="govuk-table__cell"><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans available</a></td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Attendance pattern</th>
+                    <td class="govuk-table__cell">***</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Support facilities</th>
+                    <td class="govuk-table__cell">***</td>
                 </tr>
             </tbody>
         </table>
 
-        <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-bottom-2">
-            Enrol now
-        </a>
-        <p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
-
-        <h2 class="govuk-heading-m">Course description</h2>
+        <h2 class="govuk-heading-m" id="course-description">2. Course description</h2>
         <p class="govuk-body">@Model.Description</p>
 
-        <h2 class="govuk-heading-m">Entry requirements</h2>
+        <h2 class="govuk-heading-m" id="entry-requirements">3. Entry requirements</h2>
         <p class="govuk-body">@Model.EntryRequirements</p>
 
-        <h2 class="govuk-heading-m">Equipment needed</h2>
+        <h2 class="govuk-heading-m" id="equipment-required">4. Equipment required</h2>
         <p class="govuk-body">@Model.EquipmentRequired</p>
 
-        <h2 class="govuk-heading-m">Assessment method</h2>
+        <h2 class="govuk-heading-m" id="assessment-method">5. Assessment method</h2>
         <p class="govuk-body">@Model.AssessmentMethod</p>
 
-        <h2 class="govuk-heading-m">Venue</h2>
+        <h2 class="govuk-heading-m" id="venue">6. Venue</h2>
         <table class="govuk-table k-table">
             <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
@@ -99,7 +110,7 @@
         </table>
 
 
-        <h2 class="govuk-heading-m">Other dates and venues</h2>
+        <h2 class="govuk-heading-m" id="other-dates-and-venues">7. Other dates and venues</h2>
         <table class="govuk-table k-table">
             <tbody class="govuk-table__body">
                 <tr class="govuk-table__row">
@@ -116,6 +127,7 @@
                 </tr>
             </tbody>
         </table>
+        <a href="#" class="govuk-back-link">Back to results</a>
     </div>
 
 

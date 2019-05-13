@@ -1,108 +1,128 @@
 ﻿@model DFC.Digital.Data.Model.CourseDetails
 
 
-<div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l govuk-!-margin-top-6">@Model.Title</h1>
-    <table class="govuk-table k-table">
-        <caption class="govuk-table__caption">Qualification details</caption>
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Qualification name</th>
-                <td class="govuk-table__cell">@Model.QualificationName</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Qualification level</th>
-                <td class="govuk-table__cell">@Model.QualificationLevel</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Entry requirements</th>
-                <td class="govuk-table__cell">@Model.EntryRequirements</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Start date</th>
-                <td class="govuk-table__cell">@Model.StartDateLabel</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Cost</th>
-                <td class="govuk-table__cell">@Model.Cost</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Duration</th>
-                <td class="govuk-table__cell">@Model.Duration</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Classroom or online</th>
-                <td class="govuk-table__cell">@Model.AttendanceMode</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Day, night or weekend</th>
-                <td class="govuk-table__cell">@Model.AttendancePattern</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l govuk-!-margin-top-6">@Model.Title</h1>
+        <nav role="navigation">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <ol class="govuk-list govuk-list--number">
+                        <li><a class="govuk-link" href="#qualification-details">Qualification details</a></li>
+                        <li><a class="govuk-link" href="#course-description">Course description</a></li>
+                        <li><a class="govuk-link" href="#entry-requirements">Entry requirements</a></li>
+                        <li><a class="govuk-link" href="#equipment-required">Equipment required</a></li>
+                    </ol>
+                </div>
+                <div class="govuk-grid-column-one-half">
+                    <ol class="govuk-list govuk-list--number" start="5">
+                        <li><a class="govuk-link" href="#assessment-method">Assessment method</a></li>
+                        <li><a class="govuk-link" href="#venue">Venue</a></li>
+                        <li><a class="govuk-link" href="#other-dates-and-venues">Other dates or venues</a></li>
+                    </ol>
+                </div>
+            </div>
+        </nav>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        <h2 class="govuk-heading-m" id="qualification-details">1. Qualification details</h2>
+        <table class="govuk-table k-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Qualification name</th>
+                    <td class="govuk-table__cell">@Model.QualificationName</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Qualification level</th>
+                    <td class="govuk-table__cell">@Model.QualificationLevel</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Entry requirements</th>
+                    <td class="govuk-table__cell">@Model.EntryRequirements</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Start date</th>
+                    <td class="govuk-table__cell">@Model.StartDateLabel</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Cost</th>
+                    <td class="govuk-table__cell">@Model.Cost</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Duration</th>
+                    <td class="govuk-table__cell">@Model.Duration</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Classroom or online</th>
+                    <td class="govuk-table__cell">@Model.AttendanceMode</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Day, night or weekend</th>
+                    <td class="govuk-table__cell">@Model.AttendancePattern</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-bottom-2">
-        Enrol now
-    </a>
-    <p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
+        <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-bottom-2">
+            Enrol now
+        </a>
+        <p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
 
-    <h2 class="govuk-heading-m">Course description</h2>
-    <p class="govuk-body">@Model.Description</p>
+        <h2 class="govuk-heading-m">Course description</h2>
+        <p class="govuk-body">@Model.Description</p>
 
-    <h2 class="govuk-heading-m">Entry requirements</h2>
-    <p class="govuk-body">@Model.EntryRequirements</p>
+        <h2 class="govuk-heading-m">Entry requirements</h2>
+        <p class="govuk-body">@Model.EntryRequirements</p>
 
-    <h2 class="govuk-heading-m">Equipment needed</h2>
-    <p class="govuk-body">@Model.EquipmentRequired</p>
+        <h2 class="govuk-heading-m">Equipment needed</h2>
+        <p class="govuk-body">@Model.EquipmentRequired</p>
 
-    <h2 class="govuk-heading-m">Assessment method</h2>
-    <p class="govuk-body">@Model.AssessmentMethod</p>
+        <h2 class="govuk-heading-m">Assessment method</h2>
+        <p class="govuk-body">@Model.AssessmentMethod</p>
 
-    <h2 class="govuk-heading-m">Venue</h2>
-    <table class="govuk-table k-table">
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Name</th>
-                <td class="govuk-table__cell">Rush Green Campus</td>
-            </tr>
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">Address</th>
-                <td class="govuk-table__cell">
-                    Dagenham Road<br />
-                    Romford<br />
-                    Essex<br />
-                    RM7 0XU<br />
-                    <a class="govuk-link" href="#">Find on Google maps</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <h2 class="govuk-heading-m">Venue</h2>
+        <table class="govuk-table k-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Name</th>
+                    <td class="govuk-table__cell">Rush Green Campus</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header" scope="row">Address</th>
+                    <td class="govuk-table__cell">
+                        Dagenham Road<br />
+                        Romford<br />
+                        Essex<br />
+                        RM7 0XU<br />
+                        <a class="govuk-link" href="#">Find on Google maps</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
 
-    <h2 class="govuk-heading-m">Other dates and venues</h2>
-    <table class="govuk-table k-table">
-        <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header">Venue</th>
-                <th class="govuk-table__header">Start date</th>
-                <th class="govuk-table__header">Options</th>
-            </tr>
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">Rush Green Campus</td>
-                <td class="govuk-table__cell">26 February 2019</td>
-                <td class="govuk-table__cell">
-                    <a class="govuk-link" href="#">View course</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <h2 class="govuk-heading-m">Other dates and venues</h2>
+        <table class="govuk-table k-table">
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header">Venue</th>
+                    <th class="govuk-table__header">Start date</th>
+                    <th class="govuk-table__header">Options</th>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Rush Green Campus</td>
+                    <td class="govuk-table__cell">26 February 2019</td>
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link" href="#">View course</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 <div class="govuk-grid-column-one-third">
     @* RHC *@
 
-    <aside class="govuk-related-items" role="complementary">
+    <aside class="app-related-items" role="complementary">
 
         @Html.Partial("Provider", Model.ProviderDetails)
 

@@ -30,13 +30,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseNameLabel { get; set; } = "Course name";
 
         [DisplayName("Provider Label")]
-        public string ProviderLabel { get; set; } = "Provider Name";
+        public string ProviderLabel { get; set; } = "Provider name (optional)";
 
         [DisplayName("Location Label")]
         public string LocationLabel { get; set; } = "Location (optional)";
 
         [DisplayName("Location Hint Text")]
-        public string LocationHintText { get; set; } = "Enter a full postcode. For example, S1 1WB";
+        public string LocationHintText { get; set; } = "Enter a town or postcode. For example, Birmingham.";
 
         [DisplayName("Qualification Level Hint")]
         public string QualificationLevelHint { get; set; } = "What qualification levels mean";

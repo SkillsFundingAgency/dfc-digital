@@ -3,33 +3,12 @@
 <div class="filters filters">
     <div class="filter-container">
         <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Distance</h3>
+            <h3 class="govuk-heading-s govuk-!-margin-0">Location</h3>
         </div>
         <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-                    <div class="govuk-form-group">
-                        <div class="search-header">
-                            <div class="searchfield">
-                                <div class="search-input">
-                                    <label for="search-main" class="govuk-heading-s govuk-!-margin-0">Postcode</label>
-                                    <input placeholder="Your postcode" class="search-input" id="search-main" type="search" value="@Model.Location" name="CourseFiltersModel.Location">
-                                </div>
-                                <div class="search-submit">
-                                    <button class="button">Search</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        @foreach (var item in Model.DistanceSelectedList)
-                        {
-                            <div class="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" @item.Checked type="radio" value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
-                                </div>
-                            </div>
-                        }
-                    </div>
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group">
+                    <input class="govuk-input govuk-!-width-one-third" id="location" name="location" type="text">
                 </div>
             </fieldset>
         </div>

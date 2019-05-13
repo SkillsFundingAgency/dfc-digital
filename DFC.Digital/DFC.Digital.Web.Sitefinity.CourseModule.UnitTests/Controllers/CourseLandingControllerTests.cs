@@ -81,7 +81,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                controller.ShouldRedirectTo(
+                controllerResult.ShouldRedirectTo(
                     this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex));
             }
             else

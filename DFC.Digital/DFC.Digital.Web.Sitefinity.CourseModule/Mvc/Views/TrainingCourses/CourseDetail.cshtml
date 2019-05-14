@@ -8,9 +8,7 @@
         <li>
             @Model.QualificationLevel
         </li>
-        <li>
-            @Model.StudyMode | @Model.AttendanceMode | @Model.AttendancePattern
-        </li>
+
         <li class="govuk-!-margin-top-3">
             <span class="govuk-secondary-colour">Provider:</span> @Model.ProviderName
         </li>
@@ -27,7 +25,7 @@
         @if (!string.IsNullOrWhiteSpace(Model.Duration))
         {
             <li>
-                <span class="govuk-secondary-colour">Duration:</span> @Model.Duration
+                <span class="govuk-secondary-colour">Advanced Learner Loans offered by this Provider:</span> @Model.Duration
             </li>
         }
         

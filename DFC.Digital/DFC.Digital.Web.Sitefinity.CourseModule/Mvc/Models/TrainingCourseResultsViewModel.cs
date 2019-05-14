@@ -35,6 +35,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public OrderByLinks OrderByLinks { get; set; } = new OrderByLinks();
 
-        public string ActiveFilterOptions { get; set; }
+        public IDictionary<string, string> ActiveFilterOptions { get; set; }
+
+        public string PageTitle { get; set; }
+
+        public string FilterCourseByText { get; set; }
     }
 }

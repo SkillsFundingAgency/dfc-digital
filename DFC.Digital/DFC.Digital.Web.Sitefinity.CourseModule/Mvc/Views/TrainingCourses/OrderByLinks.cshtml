@@ -5,19 +5,19 @@
 @switch (Model.CourseSearchSortBy)
 {
     case CourseSearchSortBy.Relevance:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">Relevance</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">Start date</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">relevance</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">start date</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
         </p>
         break;
     case CourseSearchSortBy.StartDate:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">Start Date</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">Relevance date</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">start Date</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">relevance</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
         </p>
         break;
     case CourseSearchSortBy.Distance:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">Distance</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">Relevance</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">distance</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">relevance</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">start date</a>
         </p>
         break;
     default:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">Relevance</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">Start date</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">relevance</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">start date</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">distance</a>
         </p>
         break;
 }

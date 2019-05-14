@@ -10,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex);
 
-        CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, int page);
+        CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string provider, int page);
 
         string GetUrlEncodedString(string input);
 
@@ -20,6 +20,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         OrderByLinks GetOrderByLinks(string searchUrl, CourseSearchSortBy courseSearchSortBy);
 
-        string GetActiveFilterOptions(CourseFiltersModel courseFiltersModel, string locationDistanceRegex);
+        Dictionary<string, string> GetActiveFilterOptions(CourseFiltersModel courseFiltersModel, string locationDistanceRegex);
     }
 }

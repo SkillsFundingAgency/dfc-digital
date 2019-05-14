@@ -85,7 +85,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     AttendancePattern = c.Opportunity.AttendancePattern,
                     QualificationLevel = c.Course.QualificationLevel,
                     StudyMode = c.Opportunity.StudyMode,
-                    Duration = $"{c.Opportunity.Duration?.DurationValue} {c.Opportunity.Duration?.DurationUnit}"
+                    AdvancedLearnerLoansOffered = c.Provider.TFPlusLoans
                 });
 
             return result ?? Enumerable.Empty<Course>();

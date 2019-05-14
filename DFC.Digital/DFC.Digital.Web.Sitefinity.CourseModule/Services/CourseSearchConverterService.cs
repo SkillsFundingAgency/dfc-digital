@@ -239,7 +239,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
             if (courseFiltersModel.QualificationSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
             {
-                activeFilters.Add("Qualifications:", string.Join(", ", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
+                activeFilters.Add("Qualification Level(s):", string.Join(", ", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
             }
 
             if (courseFiltersModel.AgeSuitabilitySelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))

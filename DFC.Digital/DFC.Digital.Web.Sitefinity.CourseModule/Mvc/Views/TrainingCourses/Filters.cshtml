@@ -21,13 +21,13 @@
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.StudyModeSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -44,13 +44,13 @@
 
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.AttendanceSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -64,13 +64,13 @@
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.PatternSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -86,13 +86,13 @@
 
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.QualificationSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>

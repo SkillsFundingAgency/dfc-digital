@@ -66,8 +66,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Qualification Levels Source")]
         public string QualificationLevelSource { get; set; } = "All: 0, Entry Level: 1, Level 1: 2, Level 2 : 3, Level 3 : 4, Level 4 : 5, Level 5 : 6, Level 6 : 7, Level 7 : 8, Level 8 : 9";
 
-        [DisplayName("Age Suitabilty Source")]
-        public string AgeSuitabiltySource { get; set; } = "All Ages: 0,  16 to 19 year-olds: 1619, 19+ year-olds: 19plus";
+        [DisplayName("Age Suitability Source")]
+        public string AgeSuitabilitySource { get; set; } = "All Ages: 0,  16 to 19 year-olds: 1619, 19+ year-olds: 19plus";
 
         [DisplayName("Distance Source")]
         public string DistanceSource { get; set; } = "1 mile: 1,3 miles: 3, 5 miles: 5, 10 miles : 10, 15 miles : 15, 20 miles: 20, National : national";
@@ -135,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
-        private void SetupFilterLists(string attendance, string studymode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
+        private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
         {
             viewModel.CourseFiltersModel.Location = location;
             viewModel.CourseFiltersModel.ProviderKeyword = providerKeyword;
@@ -153,7 +153,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             viewModel.CourseFiltersModel.StudyModeSelectedList =
                 courseSearchConverter.GetFilterSelectItems(
-                    $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studymode);
+                    $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studyMode);
 
             viewModel.CourseFiltersModel.DistanceSelectedList =
                 courseSearchConverter.GetFilterSelectItems(
@@ -161,7 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             viewModel.CourseFiltersModel.AgeSuitabilitySelectedList =
                 courseSearchConverter.GetFilterSelectItems(
-                    $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabiltySource.Split(','), dfe1619Funded);
+                    $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabilitySource.Split(','), dfe1619Funded);
 
             viewModel.CourseFiltersModel.StartDateSelectedList =
                 courseSearchConverter.GetFilterSelectItems(

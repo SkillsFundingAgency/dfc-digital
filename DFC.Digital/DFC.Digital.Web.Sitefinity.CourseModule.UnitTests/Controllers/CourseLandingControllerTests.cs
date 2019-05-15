@@ -60,10 +60,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     });
         }
 
-        /// <summary>
-        /// Tests Submit functionality with SubmitTests <see cref="CourseLandingController"/> controller class.
-        /// </summary>
-        /// 
         [Theory]
         [InlineData("")]
         [InlineData(null)]

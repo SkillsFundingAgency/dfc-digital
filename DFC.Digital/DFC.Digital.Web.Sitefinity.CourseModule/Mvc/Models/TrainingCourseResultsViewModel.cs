@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string PreviousPageLabel { get; set; }
 
-        public string RecordsOnPageLabel => $"{((CurrentPageNumber - 1) * RecordsPerPage) + 1} - {((CurrentPageNumber - 1) * RecordsPerPage) + Courses.Count()}";
+        public string RecordsOnPageLabel => $"{((CurrentPageNumber - 1) * RecordsPerPage) + 1} - {((CurrentPageNumber - 1) * RecordsPerPage) + Courses.Count}";
 
         public string SearchTerm { get; set; }
 
@@ -35,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public OrderByLinks OrderByLinks { get; set; } = new OrderByLinks();
 
-        public IDictionary<string, string> ActiveFilterOptions { get; set; }
+        public IDictionary<string, string> ActiveFilterOptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         public string PageTitle { get; set; }
 

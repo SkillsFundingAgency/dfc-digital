@@ -30,7 +30,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseNameLabel { get; set; } = "Course name";
 
         [DisplayName("Provider Label")]
-        public string ProviderLabel { get; set; } = "Provider Name";
+        public string ProviderLabel { get; set; } = "Provider name (optional)";
+
+        [DisplayName("Provider Hint Text")]
+        public string ProviderHintText { get; set; } = "For example, Sheffield College.";
 
         [DisplayName("Location Label")]
         public string LocationLabel { get; set; } = "Location (optional)";
@@ -66,9 +69,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseLandingViewModel model)
         {
-            if (!string.IsNullOrWhiteSpace(model.SearchTerm))
+            if (ModelState.IsValid)
             {
-                return Redirect(courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex));
+                var redirectUrl = courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex);
+                return Redirect(redirectUrl);
             }
 
             AddWidgetProperties(model);
@@ -84,6 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             model.ProviderLabel = ProviderLabel;
             model.QualificationLevelHint = QualificationLevelHint;
             model.QualificationLevelLabel = QualificationLevelLabel;
+            model.ProviderNameHintText = ProviderHintText;
             model.LocationHintText = LocationHintText;
             model.Dfe1619FundedText = Dfe1619FundedText;
         }

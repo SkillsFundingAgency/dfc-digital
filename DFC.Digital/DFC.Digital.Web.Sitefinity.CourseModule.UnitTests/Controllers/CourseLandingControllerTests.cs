@@ -3,6 +3,7 @@ using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -22,15 +23,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public CourseLandingControllerTests()
         {
             this.fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            this.fakeCourseSearchConverter = A.Fake<ICourseSearchConverter>();
+            this.fakeCourseSearchConverter = A.Fake<ICourseSearchConverter>(ops => ops.Strict());
         }
 
         /// <summary>
         /// Tests Index Controller with IndexSetDefaultsTest <see cref="CourseLandingController"/> controller class.
         /// </summary>
         [Theory]
-        [InlineData("CourseNameHintText", "CourseNameLabel", "ProviderLabel", "LocationLabel", "LocationHintText", "CourseSearchResultsPage", "Dfe1619FundedText")]
-        public void IndexSetDefaultsTest(string courseNameHintText, string courseNameLabel, string providerLabel, string locationLabel, string locationHintText, string courseSearchResultsPage, string dfe1619FundedText)
+        [InlineData("CourseNameHintText", "CourseNameLabel", "ProviderLabel", "ProviderHintText", "LocationLabel", "LocationHintText", "CourseSearchResultsPage", "Dfe1619FundedText")]
+        public void IndexSetDefaultsTest(string courseNameHintText, string courseNameLabel, string providerLabel, string providerHintText, string locationLabel, string locationHintText, string courseSearchResultsPage, string dfe1619FundedText)
         {
             // Assign
             var controller = new CourseLandingController(fakeApplicationLogger, fakeCourseSearchConverter)
@@ -39,6 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 CourseNameLabel = courseNameLabel,
                 LocationLabel = locationLabel,
                 ProviderLabel = providerLabel,
+                ProviderHintText = providerHintText,
                 LocationHintText = locationHintText,
                 CourseSearchResultsPage = courseSearchResultsPage,
                 Dfe1619FundedText = dfe1619FundedText,
@@ -55,6 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         vm.CourseNameLabel.Should().BeEquivalentTo(controller.CourseNameLabel);
                         vm.LocationLabel.Should().BeEquivalentTo(controller.LocationLabel);
                         vm.ProviderLabel.Should().BeEquivalentTo(controller.ProviderLabel);
+                        vm.ProviderNameHintText.Should().BeEquivalentTo(controller.ProviderHintText);
                         vm.LocationHintText.Should().BeEquivalentTo(controller.LocationHintText);
                         vm.Dfe1619FundedText.Should().BeEquivalentTo(controller.Dfe1619FundedText);
                     });
@@ -65,21 +68,33 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         /// </summary>
         /// 
         [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        [InlineData("Maths")]
-        public void SubmitTests(string searchTerm)
+        [InlineData(true, "Maths")]
+        [InlineData(false, null)]
+        [InlineData(false, "")]
+        public void SubmitTests(bool modelStateValid, string searchTerm)
         {
             // Assign
-            var postModel = new CourseLandingViewModel();
+            var postModel = new CourseLandingViewModel()
+            {
+                SearchTerm = searchTerm,
+            };
 
             var controller = new CourseLandingController(this.fakeApplicationLogger, this.fakeCourseSearchConverter);
+
+            if (!modelStateValid)
+            {
+                controller.ModelState.AddModelError(nameof(CourseLandingViewModel.SearchTerm), nameof(Exception.Message));
+            }
+            else
+            {
+                A.CallTo(() => this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex)).Returns(controller.CourseSearchResultsPage);
+            }
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(postModel));
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (modelStateValid)
             {
                 controllerResult.ShouldRedirectTo(
                     this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex));
@@ -96,6 +111,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                        vm.LocationHintText.Should().BeEquivalentTo(controller.LocationHintText);
                        vm.Dfe1619FundedText.Should().BeEquivalentTo(controller.Dfe1619FundedText);
                    });
+
+                controllerResult.ShouldRenderDefaultView()
+                  .WithModel<CourseLandingViewModel>()
+                  .AndModelError(nameof(CourseLandingViewModel.SearchTerm));
             }
         }
     }

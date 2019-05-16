@@ -10,11 +10,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex);
 
-        CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string provider, int page);
+        CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string provider, int page);
 
         string GetUrlEncodedString(string input);
 
-        void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string searchTerm, int recordsPerPage, string courseSearchResultsPage);
+        void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResponse response, string pathQuery, int recordsPerPage, string courseSearchResultsPage);
 
         IEnumerable<SelectItem> GetFilterSelectItems(string propertyName, IEnumerable<string> sourceList, string value);
 

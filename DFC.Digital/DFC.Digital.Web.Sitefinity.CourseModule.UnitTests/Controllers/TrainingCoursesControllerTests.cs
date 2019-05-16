@@ -41,7 +41,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 FilterCourseByText = filterCourseByText,
                 PageTitle = pageTitle,
                 CourseSearchResultsPage = courseSearchResultsPage,
-                CourseDetailsPage = courseDetailsPage
+                CourseDetailsPage = courseDetailsPage,
+                LocationRegex = nameof(TrainingCoursesController.LocationRegex),
+                AttendanceModesSource = nameof(TrainingCoursesController.AttendanceModesSource),
+                AttendancePatternModesSource = nameof(TrainingCoursesController.AttendanceModesSource),
+                AgeSuitabilitySource = nameof(TrainingCoursesController.AgeSuitabilitySource),
+                DistanceSource = nameof(TrainingCoursesController.DistanceSource),
+                StartDateSource = nameof(TrainingCoursesController.StartDateSource),
+                QualificationLevelSource = nameof(TrainingCoursesController.QualificationLevelSource),
+                StudyModesSource = nameof(TrainingCoursesController.StudyModesSource),
+                RecordsPerPage = 40
             };
 
             // Act

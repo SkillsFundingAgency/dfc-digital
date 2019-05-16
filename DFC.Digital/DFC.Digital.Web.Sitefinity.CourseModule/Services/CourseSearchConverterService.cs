@@ -55,9 +55,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&pattern={string.Join(",", trainingCourseResultsViewModel.CourseFiltersModel.AttendancePattern)}";
                 }
 
-                queryParameters = $"{queryParameters}&StartDate=Anytime";
+                queryParameters = $"{queryParameters}&startDate=anytime";
 
                 if (!string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Location) &&
+                    !string.IsNullOrWhiteSpace(trainingCourseResultsViewModel.CourseFiltersModel.Distance) &&
                     Regex.IsMatch(trainingCourseResultsViewModel.CourseFiltersModel.Location, locationDistanceRegex))
                 {
                     queryParameters = $"{queryParameters}&distance={trainingCourseResultsViewModel.CourseFiltersModel.Distance}";
@@ -108,9 +109,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&dfe1619Funded={courseLandingViewModel.Dfe1619Funded}";
                 }
 
-                queryParameters = $"{queryParameters}&StartDate=Anytime";
+                queryParameters = $"{queryParameters}&startDate=anytime";
 
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location) &&
+                    !string.IsNullOrWhiteSpace(courseLandingViewModel.Distance) &&
                     Regex.IsMatch(courseLandingViewModel.Location, locationDistanceRegex))
                 {
                     queryParameters = $"{queryParameters}&distance={courseLandingViewModel.Distance}";
@@ -120,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return queryParameters;
         }
 
-        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string provider, int page)
+        public CourseSearchRequest GetCourseSearchRequest(string searchTerm, int recordsPerPage, string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string provider, int page)
         {
             float.TryParse(distance, out var localDistance);
             var request = new CourseSearchRequest
@@ -129,7 +131,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 RecordsPerPage = recordsPerPage,
                 PageNumber = page,
                 Attendance = attendance,
-                StudyMode = studymode,
+                StudyMode = studyMode,
                 QualificationLevel = qualificationLevel,
                 Dfe1619Funded = dfe1619Funded,
                 Distance = localDistance,
@@ -257,7 +259,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         private CourseSearchSortBy GetSortBy(string sortBy)
         {
-            switch (sortBy)
+            switch (sortBy.ToLower())
             {
                 case "distance":
                     return CourseSearchSortBy.Distance;

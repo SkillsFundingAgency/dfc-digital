@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
+using System;
 using System.Collections.Generic;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
@@ -8,6 +9,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
     public class HelperSearchResultsData
     {
         private const string SearchTerm = "maths";
+        private const string SearchPageUrl = "/courses-search-results";
+        private const string PathQuery = "/pathQuery";
         private const int PageNumber = 1;
         private const int RecordsPerPage = 20;
         private const string Attendance = "attendance";
@@ -23,6 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string DistanceSortBy = "distance";
         private const string StartDateSortBy = "startDate";
         private const string RelevanceSortBy = "relevance";
+
         private const string LocationRegex =
             @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
@@ -32,25 +36,149 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const float ValidDistance = 10F;
         private const float InvalidDistance = default(float);
 
-        private static readonly TrainingCourseResultsViewModel ValidCourseResultsViewModel = new TrainingCourseResultsViewModel
-        {
-            SearchTerm = nameof(TrainingCourseResultsViewModel.SearchTerm)
-        };
+        private static readonly TrainingCourseResultsViewModel ValidCourseResultsViewModel =
+            new TrainingCourseResultsViewModel
+            {
+                SearchTerm = nameof(TrainingCourseResultsViewModel.SearchTerm)
+            };
 
-        private static readonly TrainingCourseResultsViewModel InvalidCourseResultsViewModel = new TrainingCourseResultsViewModel
-        {
-            SearchTerm = string.Empty
-        };
+        private static readonly TrainingCourseResultsViewModel InvalidCourseResultsViewModel =
+            new TrainingCourseResultsViewModel
+            {
+                SearchTerm = string.Empty
+            };
 
         private static readonly CourseSearchResponse ValidCourseSearchResponse = new CourseSearchResponse
         {
-            Courses = new List<Course> { new Course { Title = nameof(Course.Title) } }
+            Courses = GetCourses(2),
+            CurrentPage = 1,
+            TotalResultCount = 2,
+            TotalPages = 1
         };
 
         private static readonly CourseSearchResponse ZeroResultsCourseSearchResponse = new CourseSearchResponse
         {
             Courses = new List<Course>()
         };
+
+        private static readonly CourseSearchResponse MultiPageResultsCourseSearchResponse = new CourseSearchResponse
+        {
+            Courses = GetCourses(20),
+            CurrentPage = 2,
+            TotalPages = 3,
+            TotalResultCount = 60
+        };
+
+        private static readonly CourseSearchResponse TwoPageResultsCourseSearchResponse = new CourseSearchResponse
+        {
+            Courses = GetCourses(20),
+            CurrentPage = 1,
+            TotalPages = 2,
+            TotalResultCount = 40
+        };
+
+        public static IEnumerable<object[]> GetFilterSelectItemsTestsInput()
+        {
+            yield return new object[]
+            {
+                "property1",
+                new List<string> { "Show All: 0", "Full Time: 1" },
+                "1",
+                new List<SelectItem>
+                {
+                    new SelectItem
+                    {
+                        Label = "Show All",
+                        Value = "0",
+                        Checked = string.Empty,
+                        Name = "property1",
+                        Id = "property10"
+                    },
+                    new SelectItem
+                    {
+                        Label = "Full Time",
+                        Value = "1",
+                        Checked = "checked",
+                        Name = "property1",
+                        Id = "property11"
+                    }
+                }
+            };
+
+            yield return new object[]
+            {
+                "property2",
+                new List<string> { "All: 0", "Entry Level: 1", "Level 1: 2" },
+                "2",
+                new List<SelectItem>
+                {
+                    new SelectItem
+                    {
+                        Label = "All",
+                        Value = "0",
+                        Checked = string.Empty,
+                        Name = "property2",
+                        Id = "property20"
+                    },
+                    new SelectItem
+                    {
+                        Label = "Entry Level",
+                        Value = "1",
+                        Checked = string.Empty,
+                        Name = "property2",
+                        Id = "property21"
+                    },
+                    new SelectItem
+                    {
+                    Label = "Level 1",
+                    Value = "2",
+                    Checked = "checked",
+                    Name = "property2",
+                    Id = "property22"
+                }
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> GetOrderByLinksTestsInput()
+        {
+            yield return new object[]
+            {
+                SearchPageUrl,
+                CourseSearchSortBy.Distance,
+                new OrderByLinks
+                {
+                    CourseSearchSortBy = CourseSearchSortBy.Distance,
+                    OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
+                    OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
+                    OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
+                }
+            };
+            yield return new object[]
+            {
+                SearchPageUrl,
+                CourseSearchSortBy.Relevance,
+                new OrderByLinks
+                {
+                    CourseSearchSortBy = CourseSearchSortBy.Relevance,
+                    OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
+                    OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
+                    OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
+                }
+            };
+            yield return new object[]
+            {
+                SearchPageUrl,
+                CourseSearchSortBy.StartDate,
+                new OrderByLinks
+                {
+                    CourseSearchSortBy = CourseSearchSortBy.StartDate,
+                    OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
+                    OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
+                    OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
+                }
+            };
+        }
 
         public static IEnumerable<object[]> IndexPostTestsInput()
         {
@@ -143,6 +271,104 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 null,
                 string.Empty
+            };
+        }
+
+        public static IEnumerable<object[]> SetupPagingTestsInput()
+        {
+            yield return new object[]
+            {
+                new TrainingCourseResultsViewModel(),
+                ZeroResultsCourseSearchResponse,
+                PathQuery,
+                20,
+                SearchPageUrl,
+                new TrainingCourseResultsViewModel()
+            };
+
+            yield return new object[]
+            {
+                new TrainingCourseResultsViewModel(),
+                ValidCourseSearchResponse,
+                PathQuery,
+                20,
+                SearchPageUrl,
+                new TrainingCourseResultsViewModel
+                {
+                    CurrentPageNumber = 1,
+                    ResultsCount = 2,
+                    TotalPagesCount = 1
+                }
+            };
+
+            yield return new object[]
+            {
+                new TrainingCourseResultsViewModel(),
+                MultiPageResultsCourseSearchResponse,
+                PathQuery,
+                20,
+                SearchPageUrl,
+                new TrainingCourseResultsViewModel
+                {
+                    CurrentPageNumber = 2,
+                    ResultsCount = 60,
+                    TotalPagesCount = 3,
+                    PaginationViewModel = new PaginationViewModel
+                    {
+                        HasPreviousPage = true,
+                        HasNextPage = true,
+                        NextPageUrl = new Uri($"{PathQuery}&page=3", UriKind.RelativeOrAbsolute),
+                        NextPageUrlText = "3 of 3",
+                        PreviousPageUrl = new Uri($"{PathQuery}", UriKind.RelativeOrAbsolute),
+                        PreviousPageUrlText = "1 of 3"
+                    }
+                }
+            };
+
+            yield return new object[]
+            {
+                new TrainingCourseResultsViewModel(),
+                TwoPageResultsCourseSearchResponse,
+                PathQuery,
+                20,
+                SearchPageUrl,
+                new TrainingCourseResultsViewModel
+                {
+                    CurrentPageNumber = 1,
+                    ResultsCount = 40,
+                    TotalPagesCount = 2,
+                    PaginationViewModel = new PaginationViewModel
+                    {
+                        HasPreviousPage = false,
+                        HasNextPage = true,
+                        NextPageUrl = new Uri($"{PathQuery}&page=2", UriKind.RelativeOrAbsolute),
+                        NextPageUrlText = "2 of 2",
+                    }
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> GetFilterSelectItemsTestInput()
+        {
+            yield return new object[]
+            {
+                new CourseFiltersModel(),
+                new Dictionary<string, string>()
+            };
+
+            yield return new object[]
+            {
+                new CourseFiltersModel
+                {
+                    Location = Location,
+                    ProviderKeyword = Provider,
+                    AgeSuitabilitySelectedList = GetSelectedItems(),
+                    AttendanceSelectedList = GetSelectedItems(),
+                    PatternSelectedList = GetSelectedItems(),
+                    QualificationSelectedList = GetSelectedItems(),
+                    StudyModeSelectedList = GetSelectedItems()
+                },
+                FilterDictionary()
             };
         }
 
@@ -438,6 +664,52 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseSearchSortBy = StartDateSort,
                     ProviderKeyword = Provider
                 }
+            };
+        }
+
+        private static IEnumerable<Course> GetCourses(int count, bool withUrl = false)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                yield return new Course
+                {
+                    Title = nameof(Course.Title),
+                    CourseId = nameof(Course.CourseId),
+                    CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                };
+            }
+        }
+
+        private static IDictionary<string, string> FilterDictionary()
+        {
+            var dictionary = new Dictionary<string, string>
+            {
+                { "Location:", Location },
+                { "Provider:", Provider },
+                { "Attendance:", nameof(SelectItem.Label) },
+                { "Course type:", nameof(SelectItem.Label) },
+                { "Qualification Level(s):", nameof(SelectItem.Label) },
+                { "Age Suitability:", nameof(SelectItem.Label) },
+                { "Study mode:", nameof(SelectItem.Label) }
+            };
+
+            return dictionary;
+        }
+
+        private static IEnumerable<SelectItem> GetSelectedItems()
+        {
+            yield return new SelectItem
+            {
+                Label = nameof(SelectItem.Label),
+                Name = nameof(SelectItem.Name),
+                Value = nameof(SelectItem.Value),
+                Checked = "checked"
+            };
+            yield return new SelectItem
+            {
+                Label = nameof(SelectItem.Label),
+                Name = nameof(SelectItem.Name),
+                Value = nameof(SelectItem.Value)
             };
         }
     }

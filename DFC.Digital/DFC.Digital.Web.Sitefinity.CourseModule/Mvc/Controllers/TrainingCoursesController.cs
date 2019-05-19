@@ -185,7 +185,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             SetupFilterLists(attendance, studyMode, qualificationLevel, pattern, distance, dfe1619Funded, location, startDate, provider, viewModel);
 
             viewModel.ActiveFilterOptions =
-                courseSearchConverter.GetActiveFilterOptions(viewModel.CourseFiltersModel, LocationRegex);
+                courseSearchConverter.GetActiveFilterOptions(viewModel.CourseFiltersModel);
         }
 
         #endregion Actions

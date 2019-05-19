@@ -210,16 +210,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             };
         }
 
-        public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersModel courseFiltersModel, string locationDistanceRegex)
+        public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersModel courseFiltersModel)
         {
             var activeFilters = new Dictionary<string, string>();
 
-            if (!string.IsNullOrWhiteSpace(courseFiltersModel.Location) &&
-                Regex.IsMatch(courseFiltersModel.Location, locationDistanceRegex))
-            {
-                activeFilters.Add("Location:", $"Within {courseFiltersModel.DistanceSelectedList.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.Checked))?.Label} of {courseFiltersModel.Location}");
-            }
-            else if (!string.IsNullOrWhiteSpace(courseFiltersModel.Location))
+            if (!string.IsNullOrWhiteSpace(courseFiltersModel.Location))
             {
                 activeFilters.Add("Location:", courseFiltersModel.Location);
             }
@@ -259,6 +254,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         private CourseSearchSortBy GetSortBy(string sortBy)
         {
+            if (string.IsNullOrWhiteSpace(sortBy))
+            {
+                return CourseSearchSortBy.Relevance;
+            }
+
             switch (sortBy.ToLower())
             {
                 case "distance":

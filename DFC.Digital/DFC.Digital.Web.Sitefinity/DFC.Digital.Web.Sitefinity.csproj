@@ -1131,6 +1131,24 @@
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\DYSAC.nuspec" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\install.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC\uninstall.ps1" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.12.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.13.nupkg" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\widgetTemplates.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1351,7 +1369,9 @@
     <Content Include="Mvc\Views\Shared\custom-html-field-template.sf-cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileSection\DesignerView.Simple.json" />
-    <Content Include="App_Data\Sitefinity\Configuration\WebServicesConfig.config" />
+    <Content Include="App_Data\Sitefinity\Configuration\WebServicesConfig.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE.1.0.0.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\WorkingHPE\Dynamic modules\Working HPE\Structure\version.sf" />

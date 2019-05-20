@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 {
-    public class MemberDataHelper
+    public class MemberDataHelper : AssertionHelper
     {
         private const string SearchTerm = "maths";
         private const string SearchPageUrl = "/courses-search-results";
@@ -76,6 +76,30 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             TotalPages = 2,
             TotalResultCount = 40
         };
+
+        public static IEnumerable<object[]> Dfc7055SearchResultsViewTestsInput()
+        {
+            yield return new object[]
+            {
+                5,
+                "page title 1",
+                "no courses here"
+            };
+
+            yield return new object[]
+            {
+                5,
+                "page title 6",
+                "no courses found"
+            };
+
+            yield return new object[]
+            {
+                5,
+                "page title 3",
+                "no courses at all"
+            };
+        }
 
         public static IEnumerable<object[]> GetFilterSelectItemsTestsInput()
         {
@@ -668,7 +692,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
         }
 
-        private static IEnumerable<Course> GetCourses(int count, bool withUrl = false)
+        public static IEnumerable<Course> GetCourses(int count, bool withUrl = false)
         {
             for (var i = 0; i < count; i++)
             {

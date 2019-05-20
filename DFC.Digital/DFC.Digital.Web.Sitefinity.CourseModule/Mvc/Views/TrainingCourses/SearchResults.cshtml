@@ -3,10 +3,10 @@
 
 @* Top Full Width Content Block *@
 
-@*<div class="govuk-grid-row">
+<div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">@Model.PageTitle</h1>
-        @if (Model.ActiveFilterOptions.Any())
+        @*  @if (Model.ActiveFilterOptions.Any())
         {
             <p class="govuk-body">@Model.FilterCourseByText</p>
             <p class="govuk-body">
@@ -17,9 +17,9 @@
                 }
             </p>
             <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset</a></p>
-        }
+        }*@
     </div>
-</div>*@
+    </div>
 
 @using (Html.BeginForm("", "TrainingCourses", FormMethod.Post))
 {
@@ -66,7 +66,7 @@
             }
             else
             {
-                <h3 class="govuk-body-s govuk-!-margin-bottom-1">No training courses found</h3>
+                <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
             }
 
             @foreach (var course in Model.Courses)

@@ -48,6 +48,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details Page")]
         public string CourseDetailsPage { get; set; } = "/course-details";
 
+        [DisplayName("No Training Courses Text")]
+        public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
+
+        [DisplayName("Order by Text")]
+        public string OrderByText { get; set; } = "Ordered by";
+
+        [DisplayName("Relevance Order By Text")]
+        public string RelevanceOrderByText { get; set; } = "relevance";
+
+        [DisplayName("StartDate Order By Text")]
+        public string DistanceOrderByText { get; set; } = "distance";
+
+        [DisplayName("StartDate Order By Text")]
+        public string StartDateOrderByText { get; set; } = "start date";
+
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
@@ -178,6 +193,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             viewModel.PageTitle = PageTitle;
             viewModel.FilterCourseByText = FilterCourseByText;
+            viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;
+            viewModel.OrderByLinks.OrderByText = OrderByText;
+            viewModel.OrderByLinks.DistanceOrderByText = DistanceOrderByText;
+            viewModel.OrderByLinks.StartDateOrderByText = StartDateOrderByText;
+            viewModel.OrderByLinks.RelevanceOrderByText = RelevanceOrderByText;
         }
 
         private void SetupFilterDisplayData(string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string startDate, string provider, TrainingCourseResultsViewModel viewModel)

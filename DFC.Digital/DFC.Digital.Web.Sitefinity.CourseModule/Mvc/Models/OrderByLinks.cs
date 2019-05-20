@@ -12,5 +12,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public Uri OrderByRelevanceUrl { get; set; }
 
         public Uri OrderByDistanceUrl { get; set; }
+
+        public string OrderByText { get; set; }
+
+        public string RelevanceOrderByText { get; set; }
+
+        public string DistanceOrderByText { get; set; }
+
+        public string StartDateOrderByText { get; set; }
     }
 }

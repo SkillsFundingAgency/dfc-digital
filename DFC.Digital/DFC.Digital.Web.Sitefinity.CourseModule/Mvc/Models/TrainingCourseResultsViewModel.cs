@@ -41,5 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string PageTitle { get; set; }
 
         public string FilterCourseByText { get; set; }
+
+        public string NoTrainingCoursesFoundText { get; set; }
     }
 }

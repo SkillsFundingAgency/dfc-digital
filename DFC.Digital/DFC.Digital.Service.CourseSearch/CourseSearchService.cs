@@ -110,9 +110,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
-                response.TotalPages = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfPages);
-                response.TotalResultCount = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfRecords);
-                response.CurrentPage = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.PageNo);
+                response.TotalPages = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
+                response.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
+                response.CurrentPage = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
                 response.Courses = apiResult?.ConvertToSearchCourse();
                 response.CourseSearchSortBy = courseSearchRequest.CourseSearchSortBy;
             }
@@ -126,7 +126,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return response;
         }
 
-        public async Task<CourseDetails> GetCourseDetails(string courseId)
+        public async Task<CourseDetails> GetCourseDetailsAsync(string courseId)
         {
             if (string.IsNullOrWhiteSpace(courseId))
             {

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
-    public class CourseSearchConverterServiceTests : HelperSearchResultsData
+    public class CourseSearchConverterServiceTests : MemberDataHelper
     {
         [Theory]
         [MemberData(nameof(BuildRedirectPathAndQueryStringTestsInput))]

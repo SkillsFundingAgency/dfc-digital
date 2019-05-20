@@ -12,7 +12,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
-    public class TrainingCoursesControllerTests : HelperSearchResultsData
+    public class TrainingCoursesControllerTests : MemberDataHelper
     {
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper asyncHelper;

@@ -120,7 +120,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CourseLandingControllerTests.cs" />
     <Compile Include="Controllers\TrainingCoursesControllerTests.cs" />
-    <Compile Include="Helpers\HelperSearchResultsData.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CourseSearchConverterServiceTests.cs" />
   </ItemGroup>

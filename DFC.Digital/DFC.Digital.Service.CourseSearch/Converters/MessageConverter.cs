@@ -93,7 +93,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
         {
-            var apiCourseDetail = apiResult.CourseDetails.FirstOrDefault();
+            var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
 
             if (apiCourseDetail == null)
             {

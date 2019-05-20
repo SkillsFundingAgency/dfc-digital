@@ -9,10 +9,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
     public class BuildTribalMessageService : IBuildTribalMessage
     {
         private readonly IConvertTribalCodes convertTribalCodesService;
+        private readonly IConfigurationProvider configuration;
 
-        public BuildTribalMessageService(IConvertTribalCodes convertTribalCodesService)
+        public BuildTribalMessageService(IConvertTribalCodes convertTribalCodesService, IConfigurationProvider configuration)
         {
             this.convertTribalCodesService = convertTribalCodesService;
+            this.configuration = configuration;
         }
 
         public CourseListInput GetCourseSearchInput(CourseSearchRequest request)
@@ -23,7 +25,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 {
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
-                        APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
+                        APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = request.SearchTerm,
                         EarliestStartDate = null,
                         AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(request.Attendance),
@@ -50,7 +52,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             return new CourseDetailInput
             {
-                APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
+                APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                 CourseID = new string[] { courseId }
             };
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 {
-    public class HelperSearchResultsData
+    public class MemberDataHelper
     {
         private const string SearchTerm = "maths";
         private const string SearchPageUrl = "/courses-search-results";
@@ -142,9 +142,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static IEnumerable<object[]> GetOrderByLinksTestsInput()
         {
+            var sortbyUrl = $"{SearchPageUrl}&sortby=distance";
             yield return new object[]
             {
-                SearchPageUrl,
+                sortbyUrl,
                 CourseSearchSortBy.Distance,
                 new OrderByLinks
                 {

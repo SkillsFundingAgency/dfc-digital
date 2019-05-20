@@ -43,14 +43,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 CourseSearchResultsPage = courseSearchResultsPage,
                 CourseDetailsPage = courseDetailsPage,
                 LocationRegex = nameof(TrainingCoursesController.LocationRegex),
-                AttendanceModesSource = nameof(TrainingCoursesController.AttendanceModesSource),
-                AttendancePatternModesSource = nameof(TrainingCoursesController.AttendanceModesSource),
-                AgeSuitabilitySource = nameof(TrainingCoursesController.AgeSuitabilitySource),
-                DistanceSource = nameof(TrainingCoursesController.DistanceSource),
-                StartDateSource = nameof(TrainingCoursesController.StartDateSource),
-                QualificationLevelSource = nameof(TrainingCoursesController.QualificationLevelSource),
-                StudyModesSource = nameof(TrainingCoursesController.StudyModesSource),
-                RecordsPerPage = 40
+                RecordsPerPage = 40,
+                AdvancedLoanProviderLabel = nameof(TrainingCoursesController.AdvancedLoanProviderLabel),
+                LocationLabel = nameof(TrainingCoursesController.LocationLabel),
+                ProviderLabel = nameof(TrainingCoursesController.ProviderLabel),
+                StartDateLabel = nameof(TrainingCoursesController.StartDateLabel),
+                OrderByText = nameof(TrainingCoursesController.OrderByText),
+                StartDateOrderByText = nameof(TrainingCoursesController.StartDateOrderByText),
+                DistanceOrderByText = nameof(TrainingCoursesController.DistanceOrderByText),
+                RelevanceOrderByText = nameof(TrainingCoursesController.RelevanceOrderByText),
+                NoTrainingCoursesFoundText = nameof(TrainingCoursesController.NoTrainingCoursesFoundText)
             };
 
             // Act
@@ -85,14 +87,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     A.CallTo(() => fakeCourseSearchConverter.GetOrderByLinks(A<string>._, A<CourseSearchSortBy>._)).MustHaveHappened();
                     A.CallTo(() => fakeCourseSearchConverter.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResponse>._, A<string>._, A<int>._, A<string>._)).MustHaveHappened();
                 }
-
-                A.CallTo(() => fakeCourseSearchConverter.GetActiveFilterOptions(A<CourseFiltersModel>._)).MustHaveHappened();
-            }
+               }
             else
             {
                 A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchRequest>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeCourseSearchConverter.GetOrderByLinks(A<string>._, A<CourseSearchSortBy>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeCourseSearchConverter.GetActiveFilterOptions(A<CourseFiltersModel>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeCourseSearchConverter.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResponse>._, A<string>._, A<int>._, A<string>._)).MustNotHaveHappened();
             }
         }

@@ -101,6 +101,98 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
         }
 
+        public static IEnumerable<object[]> Dfc7055CourseDetailsViewTestsInput()
+        {
+            yield return new object[]
+            {
+                new Course
+                {
+                    Title = nameof(Course.Title),
+                    CourseId = nameof(Course.CourseId),
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    Location = nameof(Course.Location),
+                    StartDateLabel = nameof(Course.StartDateLabel),
+                    QualificationLevel = QualificationLevel
+                },
+                "provider name",
+                "advanced loan provider:",
+                "location:",
+                "start date -"
+            };
+
+            yield return new object[]
+            {
+                new Course
+                {
+                    Title = nameof(Course.Title),
+                    CourseId = nameof(Course.CourseId),
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    StartDateLabel = nameof(Course.StartDateLabel),
+                    QualificationLevel = "unknown"
+                },
+                "provider name",
+                "advanced loan provider:",
+                "location:",
+                "start date -"
+            };
+
+            yield return new object[]
+            {
+                new Course
+                {
+                    Title = nameof(Course.Title),
+                    CourseId = nameof(Course.CourseId),
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    Location = nameof(Course.Location),
+                    QualificationLevel = nameof(Course.QualificationLevel)
+                },
+                "provider name",
+                "advanced loan provider:",
+                "location:",
+                "start date -"
+            };
+        }
+
+        public static IEnumerable<object[]> Dfc7055PaginationViewTestsInput()
+        {
+            //bool hasNextPage, bool hasPreviousPage, string nextPageText, string previousPageText, string pathQuery
+            yield return new object[]
+            {
+                true,
+                true,
+                "3 of 3",
+                "1 of 3",
+                SearchPageUrl
+            };
+
+            yield return new object[]
+            {
+                false,
+                false,
+                string.Empty,
+                string.Empty,
+                SearchPageUrl
+            };
+
+            yield return new object[]
+            {
+                true,
+                false,
+                "2 of 2",
+                string.Empty,
+                SearchPageUrl
+            };
+
+            yield return new object[]
+            {
+                false,
+                true,
+                string.Empty,
+                "1 of 2",
+                SearchPageUrl
+            };
+        }
+
         public static IEnumerable<object[]> GetFilterSelectItemsTestsInput()
         {
             yield return new object[]
@@ -701,6 +793,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
                     CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                };
+            }
+        }
+
+        public static IEnumerable<CourseListingViewModel> GetCourseListings(int count, bool withUrl = false)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                yield return new CourseListingViewModel
+                {
+                    Course = new Course
+                    {
+                        Title = nameof(Course.Title),
+                        CourseId = nameof(Course.CourseId),
+                        CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                    }
                 };
             }
         }

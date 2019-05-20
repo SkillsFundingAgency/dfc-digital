@@ -1,14 +1,14 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class TrainingCourseResultsViewModel
     {
-        public IList<Course> Courses { get; set; } = new List<Course>();
+        public IList<CourseListingViewModel> Courses { get; set; } = new List<CourseListingViewModel>();
 
         public CourseSearchSortBy CourseSearchSortBy { get; set; }
 

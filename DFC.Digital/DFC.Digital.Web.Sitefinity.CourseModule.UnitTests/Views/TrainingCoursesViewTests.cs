@@ -1,7 +1,9 @@
 ﻿using ASP;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using RazorGenerator.Testing;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -18,7 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var viewModel = new TrainingCourseResultsViewModel
             {
                 PageTitle = pageTitle,
-                Courses = GetCourses(coursesCount, true).ToList(),
+                Courses = GetCourseListings(coursesCount, true).ToList(),
                 NoTrainingCoursesFoundText = noCoursesFoundText
             };
 
@@ -40,32 +42,36 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [MemberData(nameof(Dfc7055SearchResultsViewTestsInput))]
-        public void Dfc7055PaginationViewTests(int coursesCount, string pageTitle, string noCoursesFoundText)
+        [MemberData(nameof(Dfc7055PaginationViewTestsInput))]
+        public void Dfc7055PaginationViewTests(bool hasNextPage, bool hasPreviousPage, string nextPageText, string previousPageText, string pathQuery)
         {
             // Assign
-            var searchResultsView = new _MVC_Views_TrainingCourses_SearchResults_cshtml();
-            var viewModel = new TrainingCourseResultsViewModel
+            var paginationView = new _MVC_Views_TrainingCourses_Pagination_cshtml();
+            var viewModel = new PaginationViewModel
             {
-                PageTitle = pageTitle,
-                Courses = GetCourses(coursesCount, true).ToList(),
-                NoTrainingCoursesFoundText = noCoursesFoundText
+                HasPreviousPage = hasPreviousPage,
+                HasNextPage = hasNextPage,
+                NextPageUrl = new Uri(pathQuery, UriKind.RelativeOrAbsolute),
+                NextPageUrlText = nextPageText,
+                PreviousPageUrl = new Uri(pathQuery, UriKind.RelativeOrAbsolute),
+                PreviousPageUrlText = previousPageText
             };
 
             // Act
-            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
+            var htmlDom = paginationView.RenderAsHtml(viewModel);
 
             // Assert
-            AssertTagInnerTextValue(htmlDom, pageTitle, "h1");
-            if (coursesCount > 0)
+            AssertElementExistsByTagAndClassName(htmlDom, "ul", "previous-next-navigation");
+            if (hasNextPage)
             {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, noCoursesFoundText, "h3");
-                AssertExistsElementIdWithInnerHtml(htmlDom, "results-summary");
+                AssertTagInnerTextValue(htmlDom, nextPageText, "span");
+                AssertElementExistsByAttributeAndValue(htmlDom, "a", "href", viewModel.NextPageUrl.OriginalString);
             }
-            else
+
+            if (hasPreviousPage)
             {
-                AssertTagInnerTextValue(htmlDom, noCoursesFoundText, "h3");
-                AssertElementDoesNotExistsById(htmlDom, "results-summary");
+                AssertTagInnerTextValue(htmlDom, previousPageText, "span");
+                AssertElementExistsByAttributeAndValue(htmlDom, "a", "href", viewModel.PreviousPageUrl.OriginalString);
             }
         }
 
@@ -105,32 +111,47 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [MemberData(nameof(Dfc7055SearchResultsViewTestsInput))]
-        public void Dfc7055CourseDetailsViewTests(int coursesCount, string pageTitle, string noCoursesFoundText)
+        [MemberData(nameof(Dfc7055CourseDetailsViewTestsInput))]
+        public void Dfc7055CourseDetailsViewTests(
+            Course course,
+            string providerLabel,
+            string advancedLoanProviderLabel,
+            string locationLabel,
+            string startDateLabel)
         {
             // Assign
-            var searchResultsView = new _MVC_Views_TrainingCourses_SearchResults_cshtml();
-            var viewModel = new TrainingCourseResultsViewModel
+            var courseDetailsView = new _MVC_Views_TrainingCourses_CourseDetail_cshtml();
+            var viewModel = new CourseListingViewModel
             {
-                PageTitle = pageTitle,
-                Courses = GetCourses(coursesCount, true).ToList(),
-                NoTrainingCoursesFoundText = noCoursesFoundText
+                Course = course,
+                ProviderLabel = providerLabel,
+                AdvancedLoanProviderLabel = advancedLoanProviderLabel,
+                LocationLabel = locationLabel,
+                StartDateLabel = startDateLabel
             };
 
             // Act
-            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
+            var htmlDom = courseDetailsView.RenderAsHtml(viewModel);
 
             // Assert
-            AssertTagInnerTextValue(htmlDom, pageTitle, "h1");
-            if (coursesCount > 0)
+            AssertTagInnerTextValue(htmlDom, viewModel.AdvancedLoanProviderLabel, "span");
+            AssertTagInnerTextValue(htmlDom, viewModel.ProviderLabel, "span");
+            if (!string.IsNullOrWhiteSpace(viewModel.Course.Location))
             {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, noCoursesFoundText, "h3");
-                AssertExistsElementIdWithInnerHtml(htmlDom, "results-summary");
+                AssertTagInnerTextValue(htmlDom, viewModel.LocationLabel, "span");
             }
             else
             {
-                AssertTagInnerTextValue(htmlDom, noCoursesFoundText, "h3");
-                AssertElementDoesNotExistsById(htmlDom, "results-summary");
+                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.LocationLabel, "span");
+            }
+
+            if (viewModel.Course.QualificationLevel.ToLowerInvariant().Contains("unknown"))
+            {
+                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.Course.QualificationLevel, "li");
+            }
+            else
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.Course.QualificationLevel, "li");
             }
         }
     }

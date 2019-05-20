@@ -12,12 +12,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 .Any(h2 => h2.InnerText.Contains(innerText)).Should().BeTrue();
         }
 
-        public static void AssertFirstTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)
-        {
-            htmlDocument.DocumentNode.Descendants(tag)
-                .FirstOrDefault()?.InnerText.Should().Contain(innerText);
-        }
-
         public static void AssertTagInnerTextValueDoesNotExist(HtmlDocument htmlDocument, string innerText, string tag)
         {
             htmlDocument.DocumentNode.Descendants(tag)
@@ -43,6 +37,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             htmlDocument.DocumentNode.Descendants()
                 .Any(element => element.Id.Equals(id))
                 .Should().BeFalse();
+        }
+
+        public static void AssertElementExistsByTagAndClassName(HtmlDocument htmlDocument, string tag, string className)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(element => element.Attributes["class"].Value.Contains(className))
+                .Should().BeTrue();
+        }
+
+        public static void AssertElementExistsByAttributeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(element => element.Attributes[attribute].Value.Contains(value))
+                .Should().BeTrue();
         }
     }
 }

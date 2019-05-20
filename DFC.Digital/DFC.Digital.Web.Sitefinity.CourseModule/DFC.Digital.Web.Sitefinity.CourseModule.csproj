@@ -252,6 +252,7 @@
     <Compile Include="Mvc\Models\CourseDetailsViewModel.cs" />
     <Compile Include="Mvc\Models\CourseFiltersModel.cs" />
     <Compile Include="Mvc\Models\CourseLandingViewModel.cs" />
+    <Compile Include="Mvc\Models\CourseListingViewModel.cs" />
     <Compile Include="Mvc\Models\OrderByLinks.cs" />
     <Compile Include="Mvc\Models\PaginationViewModel.cs" />
     <Compile Include="Mvc\Models\SelectItem.cs" />

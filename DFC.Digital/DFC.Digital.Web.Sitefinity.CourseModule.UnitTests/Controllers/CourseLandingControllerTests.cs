@@ -30,8 +30,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         /// Tests Index Controller with IndexSetDefaultsTest <see cref="CourseLandingController"/> controller class.
         /// </summary>
         [Theory]
-        [InlineData("CourseNameHintText", "CourseNameLabel", "ProviderLabel", "ProviderHintText", "LocationLabel", "LocationHintText", "CourseSearchResultsPage", "Dfe1619FundedText")]
-        public void IndexSetDefaultsTest(string courseNameHintText, string courseNameLabel, string providerLabel, string providerHintText, string locationLabel, string locationHintText, string courseSearchResultsPage, string dfe1619FundedText)
+        [InlineData("CourseNameHintText", "CourseNameLabel", "ProviderLabel", "ProviderHintText", "LocationLabel", "LocationHintText", "CourseSearchResultsPage", "Dfe1619FundedText", "QualificationLevelHint", "QualificationLevelLabel", "LocationRegex")]
+        public void IndexSetDefaultsTest(string courseNameHintText, string courseNameLabel, string providerLabel, string providerHintText, string locationLabel, string locationHintText, string courseSearchResultsPage, string dfe1619FundedText, string QualificationLevelHint, string QualificationLevelLabel, string LocationRegex)
         {
             // Assign
             var controller = new CourseLandingController(fakeApplicationLogger, fakeCourseSearchConverter)
@@ -44,6 +44,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LocationHintText = locationHintText,
                 CourseSearchResultsPage = courseSearchResultsPage,
                 Dfe1619FundedText = dfe1619FundedText,
+                QualificationLevelHint = QualificationLevelHint,
+                QualificationLevelLabel = QualificationLevelLabel,
+                LocationRegex = LocationRegex,
             };
 
             // Act
@@ -60,6 +63,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         vm.ProviderNameHintText.Should().BeEquivalentTo(controller.ProviderHintText);
                         vm.LocationHintText.Should().BeEquivalentTo(controller.LocationHintText);
                         vm.Dfe1619FundedText.Should().BeEquivalentTo(controller.Dfe1619FundedText);
+                        vm.QualificationLevelHint.Should().BeEquivalentTo(controller.QualificationLevelHint);
+                        vm.QualificationLevelLabel.Should().BeEquivalentTo(controller.QualificationLevelLabel);
+                        vm.LocationRegex.Should().BeEquivalentTo(controller.LocationRegex);
                     });
         }
 

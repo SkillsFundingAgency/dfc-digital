@@ -86,6 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             model.ProviderNameHintText = ProviderHintText;
             model.LocationHintText = LocationHintText;
             model.Dfe1619FundedText = Dfe1619FundedText;
+            model.LocationRegex = LocationRegex;
         }
     }
 }

@@ -35,5 +35,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models
         public string Dfe1619FundedText { get; set; }
 
         public string Dfe1619Funded { get; set; }
+
+        public string LocationRegex { get; set; }
     }
 }

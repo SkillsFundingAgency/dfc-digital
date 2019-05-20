@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string QualificationLevelLabel { get; set; } = "Qualification level (optional)";
 
         [DisplayName("Training Courses Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
@@ -69,14 +69,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseLandingViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var redirectUrl = courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex);
-                return Redirect(redirectUrl);
-            }
-
-            AddWidgetProperties(model);
-            return View("Index", model);
+            model.StrippedSearchTerm = ReplaceSpecialCharactersExtension.ReplaceSpecialCharacter(model.SearchTerm);
+            var redirectUrl = courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex);
+            return Redirect(redirectUrl);
         }
         #endregion
 

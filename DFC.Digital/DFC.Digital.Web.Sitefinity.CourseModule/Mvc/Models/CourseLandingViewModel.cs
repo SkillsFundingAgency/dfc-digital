@@ -4,8 +4,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models
 {
     public class CourseLandingViewModel
     {
-        [Required(ErrorMessage = "Enter a course name or subject")]
         public string SearchTerm { get; set; }
+
+        public string StrippedSearchTerm { get; set; }
 
         public string Location { get; set; }
 

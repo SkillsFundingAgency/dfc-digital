@@ -68,10 +68,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         /// </summary>
         /// 
         [Theory]
-        [InlineData(true, "Maths")]
-        [InlineData(false, null)]
-        [InlineData(false, "")]
-        public void SubmitTests(bool modelStateValid, string searchTerm)
+        [InlineData("Maths")]
+        [InlineData("")]
+        [InlineData("<script />")]
+        public void SubmitTests(string searchTerm)
         {
             // Assign
             var postModel = new CourseLandingViewModel()
@@ -81,41 +81,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             var controller = new CourseLandingController(this.fakeApplicationLogger, this.fakeCourseSearchConverter);
 
-            if (!modelStateValid)
-            {
-                controller.ModelState.AddModelError(nameof(CourseLandingViewModel.SearchTerm), nameof(Exception.Message));
-            }
-            else
-            {
-                A.CallTo(() => this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex)).Returns(controller.CourseSearchResultsPage);
-            }
+            A.CallTo(() => this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex)).Returns(controller.CourseSearchResultsPage);
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(postModel));
 
             // Assert
-            if (modelStateValid)
-            {
-                controllerResult.ShouldRedirectTo(
+            controllerResult.ShouldRedirectTo(
                     this.fakeCourseSearchConverter.BuildSearchRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel, controller.LocationRegex));
-            }
-            else
-            {
-                controllerResult.ShouldRenderDefaultView().WithModel<CourseLandingViewModel>(
-                   vm =>
-                   {
-                       vm.CourseNameHintText.Should().BeEquivalentTo(controller.CourseNameHintText);
-                       vm.CourseNameLabel.Should().BeEquivalentTo(controller.CourseNameLabel);
-                       vm.LocationLabel.Should().BeEquivalentTo(controller.LocationLabel);
-                       vm.ProviderLabel.Should().BeEquivalentTo(controller.ProviderLabel);
-                       vm.LocationHintText.Should().BeEquivalentTo(controller.LocationHintText);
-                       vm.Dfe1619FundedText.Should().BeEquivalentTo(controller.Dfe1619FundedText);
-                   });
 
-                controllerResult.ShouldRenderDefaultView()
-                  .WithModel<CourseLandingViewModel>()
-                  .AndModelError(nameof(CourseLandingViewModel.SearchTerm));
-            }
+
         }
     }
 }

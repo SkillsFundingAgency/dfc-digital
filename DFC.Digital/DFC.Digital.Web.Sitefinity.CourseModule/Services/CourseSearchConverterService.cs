@@ -77,16 +77,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
         {
             var queryParameters = $"{courseSearchResultsPage}?";
-            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
+            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
             {
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm) &&
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm) &&
                     !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
                 {
-                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.SearchTerm}&prv={courseLandingViewModel.ProviderKeyword}";
+                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.StrippedSearchTerm}&originalSearchTerm={courseLandingViewModel.SearchTerm}&prv={courseLandingViewModel.ProviderKeyword}";
                 }
-                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.SearchTerm))
+                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm))
                 {
-                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.SearchTerm}";
+                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.StrippedSearchTerm}";
                 }
                 else
                 {

@@ -1,20 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models
 {
     public class CourseLandingViewModel
     {
-        public string SearchTerm { get; set; }
+        [AllowHtml]
+        public string CourseName { get; set; }
 
-        public string StrippedSearchTerm { get; set; }
+        public string StrippedCourseName { get; set; }
 
+        [AllowHtml]
         public string Location { get; set; }
+
+        public string StrippedLocation { get; set; }
 
         public string QualificationLevel { get; set; }
 
         public string Distance { get; set; }
 
+        [AllowHtml]
         public string ProviderKeyword { get; set; }
+
+        public string StrippedProviderKeyword { get; set; }
 
         public string CourseNameHintText { get; set; }
 

@@ -11,9 +11,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [Theory]
         [InlineData("<script />", "script ")]
         [InlineData("??Maths@", "Maths")]
+        [InlineData("", "")]
+        [InlineData(null, null)]
         public void ReplaceSpecialCharactersTest(string searchTerm, string expectedSearchTerm)
         {
-            var dummyReturnedCharacter = ReplaceSpecialCharactersExtension.ReplaceSpecialCharacter(searchTerm);
+            var dummyReturnedCharacter = SpecialCharacterExtensions.ReplaceSpecialCharacters(searchTerm);
 
             // Assert
             dummyReturnedCharacter.Should().Be(expectedSearchTerm);

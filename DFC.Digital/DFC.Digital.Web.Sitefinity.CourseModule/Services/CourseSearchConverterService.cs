@@ -77,20 +77,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
         {
             var queryParameters = $"{courseSearchResultsPage}?";
-            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
+            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName) || !string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedProviderKeyword))
             {
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm) &&
-                    !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName) &&
+                    !string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedProviderKeyword))
                 {
-                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.StrippedSearchTerm}&originalSearchTerm={courseLandingViewModel.SearchTerm}&prv={courseLandingViewModel.ProviderKeyword}";
+                    queryParameters = $"{queryParameters}searchTerm={HttpUtility.HtmlEncode(courseLandingViewModel.CourseName)}&prv={HttpUtility.HtmlEncode(courseLandingViewModel.ProviderKeyword)}";
                 }
-                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedSearchTerm))
+                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName))
                 {
-                    queryParameters = $"{queryParameters}searchTerm={courseLandingViewModel.StrippedSearchTerm}";
+                    queryParameters = $"{queryParameters}searchTerm={HttpUtility.HtmlEncode(courseLandingViewModel.CourseName)}";
                 }
                 else
                 {
-                    queryParameters = $"{queryParameters}prv={courseLandingViewModel.ProviderKeyword}";
+                    queryParameters = $"{queryParameters}prv={HttpUtility.HtmlEncode(courseLandingViewModel.ProviderKeyword)}";
                 }
 
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.QualificationLevel) && !courseLandingViewModel.QualificationLevel.Equals("0"))
@@ -98,22 +98,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&qualificationlevel={courseLandingViewModel.QualificationLevel}";
                 }
 
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location))
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedLocation))
                 {
-                    queryParameters = $"{queryParameters}&location={courseLandingViewModel.Location}";
+                    queryParameters = $"{queryParameters}&location={HttpUtility.HtmlEncode(courseLandingViewModel.Location)}";
                 }
 
                 if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Dfe1619Funded))
                 {
                     queryParameters = $"{queryParameters}&dfe1619Funded={courseLandingViewModel.Dfe1619Funded}";
-                }
-
-                queryParameters = $"{queryParameters}&StartDate=Anytime";
-
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location) &&
-                    Regex.IsMatch(courseLandingViewModel.Location, locationDistanceRegex))
-                {
-                    queryParameters = $"{queryParameters}&distance={courseLandingViewModel.Distance}";
                 }
             }
 

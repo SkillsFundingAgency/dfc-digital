@@ -3,6 +3,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using System.ComponentModel;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -69,7 +70,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseLandingViewModel model)
         {
-            model.StrippedSearchTerm = ReplaceSpecialCharactersExtension.ReplaceSpecialCharacter(model.SearchTerm);
+            model.StrippedCourseName = SpecialCharacterExtensions.ReplaceSpecialCharacters(model.CourseName);
+            model.StrippedLocation = SpecialCharacterExtensions.ReplaceSpecialCharacters(model.Location);
+            model.StrippedProviderKeyword = SpecialCharacterExtensions.ReplaceSpecialCharacters(model.ProviderKeyword);
             var redirectUrl = courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex);
             return Redirect(redirectUrl);
         }

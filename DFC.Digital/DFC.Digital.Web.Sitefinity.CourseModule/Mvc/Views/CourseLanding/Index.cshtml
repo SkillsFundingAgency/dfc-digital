@@ -1,20 +1,16 @@
 ﻿@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseLandingViewModel
 
-@*Inside HERO banner container*@
-
-
 @* Inside main section *@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        @using (Html.BeginForm("", "CourseLanding", FormMethod.Post))
+        @using (Html.BeginForm("CourseLanding", "CourseLanding", FormMethod.Post))
         {
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="SearchTerm">@Model.CourseNameLabel </label>
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.CourseNameHintText
                 </span>
-                @Html.ValidationMessageFor(x => x.SearchTerm, null, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.SearchTerm, new { @class = "govuk-input" })
+                @Html.TextBoxFor(x => x.CourseName, new { @class = "govuk-input" })
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="ProviderKeyword">@Model.ProviderLabel </label>

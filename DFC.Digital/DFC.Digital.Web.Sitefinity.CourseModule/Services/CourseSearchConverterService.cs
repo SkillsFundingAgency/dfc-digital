@@ -77,14 +77,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex)
         {
             var queryParameters = $"{courseSearchResultsPage}?";
-            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName) || !string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedProviderKeyword))
+            if (!string.IsNullOrWhiteSpace(courseLandingViewModel.CourseName) || !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
             {
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName) &&
-                    !string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedProviderKeyword))
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.CourseName) &&
+                    !string.IsNullOrWhiteSpace(courseLandingViewModel.ProviderKeyword))
                 {
                     queryParameters = $"{queryParameters}searchTerm={HttpUtility.HtmlEncode(courseLandingViewModel.CourseName)}&prv={HttpUtility.HtmlEncode(courseLandingViewModel.ProviderKeyword)}";
                 }
-                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedCourseName))
+                else if (!string.IsNullOrWhiteSpace(courseLandingViewModel.CourseName))
                 {
                     queryParameters = $"{queryParameters}searchTerm={HttpUtility.HtmlEncode(courseLandingViewModel.CourseName)}";
                 }
@@ -98,7 +98,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     queryParameters = $"{queryParameters}&qualificationlevel={courseLandingViewModel.QualificationLevel}";
                 }
 
-                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.StrippedLocation))
+                if (!string.IsNullOrWhiteSpace(courseLandingViewModel.Location))
                 {
                     queryParameters = $"{queryParameters}&location={HttpUtility.HtmlEncode(courseLandingViewModel.Location)}";
                 }

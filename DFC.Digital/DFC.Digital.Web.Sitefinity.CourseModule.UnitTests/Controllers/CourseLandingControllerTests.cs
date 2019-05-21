@@ -77,12 +77,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [InlineData("Maths")]
         [InlineData("")]
         [InlineData("<script />")]
-        public void SubmitTests(string searchTerm)
+        public void SubmitTests(string courseName)
         {
             // Assign
             var postModel = new CourseLandingViewModel()
             {
-                SearchTerm = searchTerm,
+                CourseName = courseName,
             };
 
             var controller = new CourseLandingController(this.fakeApplicationLogger, this.fakeCourseSearchConverter);

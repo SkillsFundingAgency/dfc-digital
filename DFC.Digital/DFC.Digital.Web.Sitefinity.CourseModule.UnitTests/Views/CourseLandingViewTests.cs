@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseLandingIndex = new _MVC_Views_CourseLanding_Index_cshtml();
             var courseLandingViewModel = new CourseLandingViewModel
             {
-                SearchTerm = nameof(CourseLandingViewModel.SearchTerm)
+                CourseName = nameof(CourseLandingViewModel.CourseName)
             };
 
             // Act
@@ -38,12 +38,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var errorMessageView = new _MVC_Views_CourseLanding_Index_cshtml();
             var courseLandingViewModel = new CourseLandingViewModel
             {
-                SearchTerm = nameof(CourseLandingViewModel.SearchTerm)
+                CourseName = nameof(CourseLandingViewModel.CourseName)
             };
 
             if (modelStateInvalid)
             {
-                errorMessageView.ViewData.ModelState.AddModelError(nameof(CourseLandingViewModel.SearchTerm), nameof(Exception.Message));
+                errorMessageView.ViewData.ModelState.AddModelError(nameof(CourseLandingViewModel.CourseName), nameof(Exception.Message));
             }
 
             // Act

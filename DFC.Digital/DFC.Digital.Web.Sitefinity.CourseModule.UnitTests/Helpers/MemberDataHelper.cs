@@ -30,9 +30,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string LocationRegex =
             @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
-        private const CourseSearchSortBy DistanceSort = CourseSearchSortBy.Distance;
-        private const CourseSearchSortBy StartDateSort = CourseSearchSortBy.StartDate;
-        private const CourseSearchSortBy RelevanceSort = CourseSearchSortBy.Relevance;
+        private const CourseSearchOrderBy DistanceSort = CourseSearchOrderBy.Distance;
+        private const CourseSearchOrderBy StartDateSort = CourseSearchOrderBy.StartDate;
+        private const CourseSearchOrderBy RelevanceSort = CourseSearchOrderBy.Relevance;
         private const float ValidDistance = 10F;
         private const float InvalidDistance = default(float);
 
@@ -48,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 SearchTerm = string.Empty
             };
 
-        private static readonly CourseSearchResponse ValidCourseSearchResponse = new CourseSearchResponse
+        private static readonly CourseSearchResult ValidCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(2),
             CurrentPage = 1,
@@ -56,12 +56,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             TotalPages = 1
         };
 
-        private static readonly CourseSearchResponse ZeroResultsCourseSearchResponse = new CourseSearchResponse
+        private static readonly CourseSearchResult ZeroResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = new List<Course>()
         };
 
-        private static readonly CourseSearchResponse MultiPageResultsCourseSearchResponse = new CourseSearchResponse
+        private static readonly CourseSearchResult MultiPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
             CurrentPage = 2,
@@ -69,7 +69,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             TotalResultCount = 60
         };
 
-        private static readonly CourseSearchResponse TwoPageResultsCourseSearchResponse = new CourseSearchResponse
+        private static readonly CourseSearchResult TwoPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
             CurrentPage = 1,
@@ -262,10 +262,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 sortbyUrl,
-                CourseSearchSortBy.Distance,
+                CourseSearchOrderBy.Distance,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchSortBy.Distance,
+                    CourseSearchSortBy = CourseSearchOrderBy.Distance,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
@@ -274,10 +274,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 SearchPageUrl,
-                CourseSearchSortBy.Relevance,
+                CourseSearchOrderBy.Relevance,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchSortBy.Relevance,
+                    CourseSearchSortBy = CourseSearchOrderBy.Relevance,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
@@ -286,10 +286,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 SearchPageUrl,
-                CourseSearchSortBy.StartDate,
+                CourseSearchOrderBy.StartDate,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchSortBy.StartDate,
+                    CourseSearchSortBy = CourseSearchOrderBy.StartDate,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby=relevance", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby=distance", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby=startdate", UriKind.RelativeOrAbsolute)
@@ -654,133 +654,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&attendance=attendancemode1,attendancemode2&qualificationlevel=qual1,qual2&dfe1619Funded=1619&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&distance=10&studymode=studymode,studymode1&page=1"
-            };
-        }
-
-        public static IEnumerable<object[]> GetCourseSearchRequestTestsInput()
-        {
-            yield return new object[]
-            {
-                SearchTerm,
-                RecordsPerPage,
-                Attendance,
-                StudyMode,
-                QualificationLevel,
-                ValidDistanceInput,
-                Dfe1619Funded,
-                Pattern,
-                Location,
-                DistanceSortBy,
-                Provider,
-                PageNumber,
-                new CourseSearchRequest
-                {
-                    SearchTerm = SearchTerm,
-                    RecordsPerPage = RecordsPerPage,
-                    PageNumber = PageNumber,
-                    Attendance = Attendance,
-                    StudyMode = StudyMode,
-                    QualificationLevel = QualificationLevel,
-                    Dfe1619Funded = Dfe1619Funded,
-                    Distance = ValidDistance,
-                    AttendancePattern = Pattern,
-                    Location = Location,
-                    CourseSearchSortBy = DistanceSort,
-                    ProviderKeyword = Provider
-                }
-            };
-
-            yield return new object[]
-            {
-                SearchTerm,
-                RecordsPerPage,
-                Attendance,
-                StudyMode,
-                QualificationLevel,
-                InValidDistanceInput,
-                Dfe1619Funded,
-                Pattern,
-                Location,
-                RelevanceSortBy,
-                Provider,
-                PageNumber,
-                new CourseSearchRequest
-                {
-                    SearchTerm = SearchTerm,
-                    RecordsPerPage = RecordsPerPage,
-                    PageNumber = PageNumber,
-                    Attendance = Attendance,
-                    StudyMode = StudyMode,
-                    QualificationLevel = QualificationLevel,
-                    Dfe1619Funded = Dfe1619Funded,
-                    Distance = InvalidDistance,
-                    AttendancePattern = Pattern,
-                    Location = Location,
-                    CourseSearchSortBy = RelevanceSort,
-                    ProviderKeyword = Provider
-                }
-            };
-
-            yield return new object[]
-            {
-                SearchTerm,
-                RecordsPerPage,
-                Attendance,
-                StudyMode,
-                QualificationLevel,
-                InValidDistanceInput,
-                Dfe1619Funded,
-                Pattern,
-                Location,
-                string.Empty,
-                Provider,
-                PageNumber,
-                new CourseSearchRequest
-                {
-                    SearchTerm = SearchTerm,
-                    RecordsPerPage = RecordsPerPage,
-                    PageNumber = PageNumber,
-                    Attendance = Attendance,
-                    StudyMode = StudyMode,
-                    QualificationLevel = QualificationLevel,
-                    Dfe1619Funded = Dfe1619Funded,
-                    Distance = InvalidDistance,
-                    AttendancePattern = Pattern,
-                    Location = Location,
-                    CourseSearchSortBy = RelevanceSort,
-                    ProviderKeyword = Provider
-                }
-            };
-
-            yield return new object[]
-            {
-                SearchTerm,
-                RecordsPerPage,
-                Attendance,
-                StudyMode,
-                QualificationLevel,
-                InValidDistanceInput,
-                Dfe1619Funded,
-                Pattern,
-                Location,
-                StartDateSortBy,
-                Provider,
-                PageNumber,
-                new CourseSearchRequest
-                {
-                    SearchTerm = SearchTerm,
-                    RecordsPerPage = RecordsPerPage,
-                    PageNumber = PageNumber,
-                    Attendance = Attendance,
-                    StudyMode = StudyMode,
-                    QualificationLevel = QualificationLevel,
-                    Dfe1619Funded = Dfe1619Funded,
-                    Distance = InvalidDistance,
-                    AttendancePattern = Pattern,
-                    Location = Location,
-                    CourseSearchSortBy = StartDateSort,
-                    ProviderKeyword = Provider
-                }
             };
         }
 

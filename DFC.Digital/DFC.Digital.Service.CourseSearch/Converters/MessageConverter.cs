@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return apiRequest;
         }
 
-        internal static CourseListInput GetCourseSearchInput(CourseSearchRequest request)
+        internal static CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
         {
             var apiRequest = new CourseListInput
             {
@@ -42,12 +42,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
                         APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
-                        SubjectKeyword = request.SearchTerm,
+                        SubjectKeyword = courseName,
                         EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
                         AttendanceModes = Convert.ToString(ConfigurationManager.AppSettings[Constants.CourseSearchAttendanceModes])?.Split(',')
                     },
-                    RecordsPerPage = request.RecordsPerPage.ToString(),
-                    PageNo = request.PageNumber.ToString(),
+                    RecordsPerPage = courseSearchProperties.RecordsPerPage.ToString(),
+                    PageNo = courseSearchProperties.PageNumber.ToString(),
                     SortBy = SortType.A,
                     SortBySpecified = true
                 }

@@ -94,15 +94,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
         }
 
-        public async Task<CourseSearchResponse> SearchCoursesAsync(CourseSearchRequest courseSearchRequest)
+        public async Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
         {
-            if (string.IsNullOrWhiteSpace(courseSearchRequest.SearchTerm))
+            if (string.IsNullOrWhiteSpace(courseName))
             {
                 return null;
             }
 
-            var response = new CourseSearchResponse();
-            var request = buildTribalMessage.GetCourseSearchInput(courseSearchRequest);
+            var response = new CourseSearchResult();
+            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties, courseSearchFilters);
             auditRepository.CreateAudit(request);
 
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
@@ -114,7 +114,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 response.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
                 response.CurrentPage = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
                 response.Courses = apiResult?.ConvertToSearchCourse();
-                response.CourseSearchSortBy = courseSearchRequest.CourseSearchSortBy;
+                response.CourseSearchSortBy = courseSearchProperties.CourseSearchSortBy;
             }
             catch (Exception ex)
             {

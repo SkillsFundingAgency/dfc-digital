@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public enum CourseSearchSortBy
+    public enum CourseSearchOrderBy
     {
         Relevance = 1,
         Distance = 2,

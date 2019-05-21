@@ -76,10 +76,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(CourseSearchSortBy.Distance)]
-        [InlineData(CourseSearchSortBy.StartDate)]
-        [InlineData(CourseSearchSortBy.Relevance)]
-        public void Dfc7055OrderLinksViewTests(CourseSearchSortBy courseSearchSortBy)
+        [InlineData(CourseSearchOrderBy.Distance)]
+        [InlineData(CourseSearchOrderBy.StartDate)]
+        [InlineData(CourseSearchOrderBy.Relevance)]
+        public void Dfc7055OrderLinksViewTests(CourseSearchOrderBy courseSearchSortBy)
         {
             // Assign
             var searchResultsView = new _MVC_Views_TrainingCourses_OrderByLinks_cshtml();
@@ -97,14 +97,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             switch (courseSearchSortBy)
             {
-                case CourseSearchSortBy.Relevance:
+                case CourseSearchOrderBy.Relevance:
                     AssertTagInnerTextValue(htmlDom, viewModel.RelevanceOrderByText, "span");
                     break;
-                case CourseSearchSortBy.Distance:
+                case CourseSearchOrderBy.Distance:
                     AssertTagInnerTextValue(htmlDom, viewModel.DistanceOrderByText, "span");
                     break;
                 default:
-                case CourseSearchSortBy.StartDate:
+                case CourseSearchOrderBy.StartDate:
                     AssertTagInnerTextValue(htmlDom, viewModel.StartDateOrderByText, "span");
                     break;
             }

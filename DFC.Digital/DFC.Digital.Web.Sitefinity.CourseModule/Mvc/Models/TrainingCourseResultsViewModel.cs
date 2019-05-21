@@ -10,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
     {
         public IList<CourseListingViewModel> Courses { get; set; } = new List<CourseListingViewModel>();
 
-        public CourseSearchSortBy CourseSearchSortBy { get; set; }
+        public CourseSearchOrderBy CourseSearchSortBy { get; set; }
 
         public int ResultsCount { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Data.Model
 {
-    public class CourseSearchResponse
+    public class CourseSearchResult
     {
         public int TotalResultCount { get; set; }
 
@@ -12,6 +12,6 @@ namespace DFC.Digital.Data.Model
 
         public int CurrentPage { get; set; }
 
-        public CourseSearchSortBy CourseSearchSortBy { get; set; }
+        public CourseSearchOrderBy CourseSearchSortBy { get; set; }
     }
 }

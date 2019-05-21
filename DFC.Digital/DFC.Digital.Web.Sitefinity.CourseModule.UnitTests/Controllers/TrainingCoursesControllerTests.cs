@@ -16,13 +16,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     {
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ICourseSearchConverter fakeCourseSearchConverter;
+        private readonly ICourseSearchViewModelService fakeCourseSearchViewModelService;
         private readonly IApplicationLogger fakeApplicationLogger;
+        private readonly IBuildQueryStringService fakeBuildQueryStringService;
 
         public TrainingCoursesControllerTests()
         {
             asyncHelper = new AsyncHelper();
-            fakeCourseSearchConverter = A.Fake<ICourseSearchConverter>(ops => ops.Strict());
+            fakeCourseSearchViewModelService = A.Fake<ICourseSearchViewModelService>(ops => ops.Strict());
+            fakeBuildQueryStringService = A.Fake<IBuildQueryStringService>(ops => ops.Strict());
             fakeCourseSearchService = A.Fake<ICourseSearchService>(ops => ops.Strict());
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             SetupCalls();
@@ -30,13 +32,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexTestsInput))]
-        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchResponse courseSearchResponse)
+        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchResult courseSearchResponse)
         {
             // setupFakes
-            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchRequest>._)).Returns(courseSearchResponse);
+            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._, A<CourseSearchFilters>._)).Returns(courseSearchResponse);
 
             // Assign
-            var controller = new TrainingCoursesController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchConverter)
+            var controller = new TrainingCoursesController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService)
             {
                 FilterCourseByText = filterCourseByText,
                 PageTitle = pageTitle,
@@ -68,7 +70,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 string.Empty,
                 string.Empty,
                 string.Empty,
-                string.Empty,
+                false,
                 1));
 
             // Assert
@@ -81,18 +83,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchRequest>._)).MustHaveHappened();
+                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._, A<CourseSearchFilters>._)).MustHaveHappened();
                 if (courseSearchResponse.Courses.Any())
                 {
-                    A.CallTo(() => fakeCourseSearchConverter.GetOrderByLinks(A<string>._, A<CourseSearchSortBy>._)).MustHaveHappened();
-                    A.CallTo(() => fakeCourseSearchConverter.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResponse>._, A<string>._, A<int>._, A<string>._)).MustHaveHappened();
+                    A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustHaveHappened();
+                    A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).MustHaveHappened();
                 }
                }
             else
             {
-                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchRequest>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeCourseSearchConverter.GetOrderByLinks(A<string>._, A<CourseSearchSortBy>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeCourseSearchConverter.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResponse>._, A<string>._, A<int>._, A<string>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._, A<CourseSearchFilters>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).MustNotHaveHappened();
             }
         }
 
@@ -101,7 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void IndexPostTests(string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, TrainingCourseResultsViewModel viewModel)
         {
             // Assign
-            var controller = new TrainingCoursesController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchConverter)
+            var controller = new TrainingCoursesController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService)
             {
                 FilterCourseByText = filterCourseByText,
                 PageTitle = pageTitle,
@@ -116,7 +118,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
                 controllerResult.ShouldRedirectTo(
-                    fakeCourseSearchConverter.BuildRedirectPathAndQueryString(controller.CourseSearchResultsPage, viewModel, controller.LocationRegex));
+                    fakeBuildQueryStringService.BuildRedirectPathAndQueryString(controller.CourseSearchResultsPage, viewModel, controller.LocationRegex));
             }
             else
             {
@@ -131,14 +133,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         private void SetupCalls()
         {
-            A.CallTo(() => fakeCourseSearchConverter.GetOrderByLinks(A<string>._, A<CourseSearchSortBy>._)).Returns(new OrderByLinks());
-            A.CallTo(() => fakeCourseSearchConverter.GetActiveFilterOptions(A<CourseFiltersModel>._)).Returns(new Dictionary<string, string>());
-            A.CallTo(() => fakeCourseSearchConverter.GetFilterSelectItems(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns(new List<SelectItem>());
-
-            A.CallTo(() => fakeCourseSearchConverter.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResponse>._, A<string>._, A<int>._, A<string>._)).DoesNothing();
-            A.CallTo(() => fakeCourseSearchConverter.BuildRedirectPathAndQueryString(A<string>._, A<TrainingCourseResultsViewModel>._, A<string>._)).Returns(nameof(ICourseSearchConverter.BuildRedirectPathAndQueryString));
-            A.CallTo(() => fakeCourseSearchConverter.GetActiveFilterOptions(A<CourseFiltersModel>._)).Returns(new Dictionary<string, string>());
-            A.CallTo(() => fakeCourseSearchConverter.GetCourseSearchRequest(A<string>._, A<int>._, A<string>._, A<string>._, A<string>._, A<string>._, A<string>._, A<string>._, A<string>._, A<string>._, A<string>._, A<int>._)).Returns(new CourseSearchRequest());
+            A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).Returns(new OrderByLinks());
+            A.CallTo(() => fakeCourseSearchViewModelService.GetActiveFilterOptions(A<CourseFiltersModel>._)).Returns(new Dictionary<string, string>());
+            A.CallTo(() => fakeCourseSearchViewModelService.GetFilterSelectItems(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns(new List<SelectItem>());
+            A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<TrainingCourseResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).DoesNothing();
+            A.CallTo(() => fakeBuildQueryStringService.BuildRedirectPathAndQueryString(A<string>._, A<TrainingCourseResultsViewModel>._, A<string>._)).Returns(nameof(IBuildQueryStringService.BuildRedirectPathAndQueryString));
+            A.CallTo(() => fakeCourseSearchViewModelService.GetActiveFilterOptions(A<CourseFiltersModel>._)).Returns(new Dictionary<string, string>());
         }
     }
 }

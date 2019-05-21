@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     public class CourseLandingControllerTests
     {
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly ICourseSearchConverter fakeCourseSearchConverter;
+        private readonly IBuildQueryStringService fakeQueryStringService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CourseLandingControllerTests"/> class.
@@ -22,18 +22,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public CourseLandingControllerTests()
         {
             this.fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            this.fakeCourseSearchConverter = A.Fake<ICourseSearchConverter>();
+            this.fakeQueryStringService = A.Fake<IBuildQueryStringService>();
         }
 
-        /// <summary>
-        /// Tests Index Controller with IndexSetDefaultsTest <see cref="CourseLandingController"/> controller class.
-        /// </summary>
         [Theory]
         [InlineData("CourseNameHintText", "CourseNameLabel", "ProviderLabel", "LocationLabel", "LocationHintText", "CourseSearchResultsPage", "Dfe1619FundedText")]
         public void IndexSetDefaultsTest(string courseNameHintText, string courseNameLabel, string providerLabel, string locationLabel, string locationHintText, string courseSearchResultsPage, string dfe1619FundedText)
         {
             // Assign
-            var controller = new CourseLandingController(fakeApplicationLogger, fakeCourseSearchConverter)
+            var controller = new CourseLandingController(fakeApplicationLogger, fakeQueryStringService)
             {
                 CourseNameHintText = courseNameHintText,
                 CourseNameLabel = courseNameLabel,

@@ -12,13 +12,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseLandingController : BaseDfcController
     {
         #region private Fields
-        private readonly ICourseSearchConverter courseSearchConverter;
+        private readonly IBuildQueryStringService buildQueryStringService;
         #endregion
 
         #region Ctor
-        public CourseLandingController(IApplicationLogger loggingService, ICourseSearchConverter courseSearchConverter) : base(loggingService)
+        public CourseLandingController(IApplicationLogger loggingService, IBuildQueryStringService buildQueryStringService) : base(loggingService)
         {
-            this.courseSearchConverter = courseSearchConverter;
+            this.buildQueryStringService = buildQueryStringService;
         }
         #endregion
 
@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(model.SearchTerm))
             {
-                return Redirect(courseSearchConverter.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex));
+                return Redirect(buildQueryStringService.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex));
             }
 
             AddWidgetProperties(model);

@@ -36,13 +36,14 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             yield return new object[]
             {
-                new CourseSearchRequest
+                SearchTerm,
+                new CourseSearchProperties
                 {
-                    SearchTerm = SearchTerm,
-                    CourseSearchSortBy = CourseSearchSortBy.Distance,
+                    CourseSearchSortBy = CourseSearchOrderBy.Distance,
                     RecordsPerPage = 20,
                     PageNumber = 3
                 },
+                new CourseSearchFilters(),
                 new CourseListInput
                 {
                     CourseListRequest = new CourseListRequestStructure
@@ -62,10 +63,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                new CourseSearchRequest
+                SearchTerm,
+                new CourseSearchProperties
                 {
-                    SearchTerm = SearchTerm,
-                    CourseSearchSortBy = CourseSearchSortBy.Relevance,
+                    CourseSearchSortBy = CourseSearchOrderBy.Relevance,
                     RecordsPerPage = 30,
                     PageNumber = 1
                 },
@@ -88,10 +89,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                new CourseSearchRequest
+                SearchTerm,
+                new CourseSearchProperties
                 {
-                    SearchTerm = SearchTerm,
-                    CourseSearchSortBy = CourseSearchSortBy.StartDate,
+                    CourseSearchSortBy = CourseSearchOrderBy.StartDate,
                     RecordsPerPage = 40,
                     PageNumber = 2
                 },

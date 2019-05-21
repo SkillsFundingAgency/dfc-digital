@@ -18,16 +18,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ICourseSearchConverter courseSearchConverter;
+        private readonly ICourseSearchViewModelService courseSearchViewModelService;
+        private readonly IBuildQueryStringService buildQueryStringService;
+
         #endregion
 
         #region Constructors
 
-        public TrainingCoursesController(IApplicationLogger applicationLogger, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, ICourseSearchConverter courseSearchConverter) : base(applicationLogger)
+        public TrainingCoursesController(IApplicationLogger applicationLogger, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, ICourseSearchViewModelService courseSearchViewModelService, IBuildQueryStringService buildQueryStringService) : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
-            this.courseSearchConverter = courseSearchConverter;
+            this.courseSearchViewModelService = courseSearchViewModelService;
+            this.buildQueryStringService = buildQueryStringService;
         }
 
         #endregion Constructors
@@ -104,15 +107,32 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string sortBy, string startDate, string provider, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string pattern, string location, string sortBy, string startDate, string provider, bool dfe1619Funded = false, int page = 1)
         {
             var viewModel = new TrainingCourseResultsViewModel { SearchTerm = searchTerm };
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                var request = courseSearchConverter.GetCourseSearchRequest(searchTerm, RecordsPerPage, attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, sortBy, provider, page);
+                var courseSearchProperties = new CourseSearchProperties
+                {
+                    PageNumber = page,
+                    RecordsPerPage = RecordsPerPage,
+                    CourseSearchSortBy = GetSortBy(sortBy)
+                };
 
-                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(request));
+                float.TryParse(distance, out var localDistance);
+                var searchFilters = new CourseSearchFilters
+                {
+                    Attendance = attendance,
+                    StudyMode = studymode,
+                    Only1619Courses = dfe1619Funded,
+                    Distance = localDistance,
+                    AttendancePattern = pattern,
+                    Location = location,
+                    ProviderKeyword = provider
+                };
+
+                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(searchTerm, courseSearchProperties, searchFilters));
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
@@ -134,7 +154,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         pathQuery = pathQuery.Substring(0, pathQuery.ToLowerInvariant().IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
                     }
 
-                    courseSearchConverter.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
+                    courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
                     SetupSearchLinks(searchTerm, viewModel, pathQuery, response.CourseSearchSortBy);
                 }
 
@@ -150,7 +170,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect(courseSearchConverter.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel, LocationRegex));
+                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel, LocationRegex));
             }
 
             SetupWidgetDefaults(viewModel);
@@ -165,7 +185,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
         //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
@@ -200,9 +220,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         //        courseSearchConverter.GetFilterSelectItems(
         //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
         //}
-        private void SetupSearchLinks(string searchTerm, TrainingCourseResultsViewModel viewModel, string pathQuery, CourseSearchSortBy sortBy)
+        private void SetupSearchLinks(string searchTerm, TrainingCourseResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
         {
-            viewModel.OrderByLinks = courseSearchConverter.GetOrderByLinks(pathQuery, sortBy);
+            viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
             viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?searchterm={searchTerm}", UriKind.RelativeOrAbsolute);
         }
 
@@ -226,5 +246,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         //}
         #endregion Actions
 
+        private CourseSearchOrderBy GetSortBy(string sortBy)
+        {
+            if (string.IsNullOrWhiteSpace(sortBy))
+            {
+                return CourseSearchOrderBy.Relevance;
+            }
+
+            switch (sortBy.ToLower())
+            {
+                case "distance":
+                    return CourseSearchOrderBy.Distance;
+                case "startdate":
+                    return CourseSearchOrderBy.StartDate;
+                default:
+                    return CourseSearchOrderBy.Relevance;
+            }
+        }
     }
 }

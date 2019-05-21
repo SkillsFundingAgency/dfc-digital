@@ -17,7 +17,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.configuration = configuration;
         }
 
-        public CourseListInput GetCourseSearchInput(CourseSearchRequest request)
+        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
         {
             var apiRequest = new CourseListInput
             {
@@ -26,21 +26,20 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
-                        SubjectKeyword = request.SearchTerm,
+                        SubjectKeyword = courseName,
                         EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(request.Attendance),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(request.StudyMode),
-                        DFE1619Funded = !string.IsNullOrWhiteSpace(request.Dfe1619Funded) && request.Dfe1619Funded.Equals("1619") ? "Y" : null,
-                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(request.AttendancePattern),
-                        QualificationLevels = convertTribalCodesService.GetTribalQualificationLevels(request.QualificationLevel),
-                        ProviderKeyword = request.ProviderKeyword,
-                        Distance = request.Distance,
-                        DistanceSpecified = request.DistanceSpecified,
-                        Location = request.Location
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(courseSearchFilters.Attendance),
+                        StudyModes = convertTribalCodesService.GetTribalStudyModes(courseSearchFilters.StudyMode),
+                        DFE1619Funded = courseSearchFilters.Only1619Courses ? "Y" : null,
+                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(courseSearchFilters.AttendancePattern),
+                        ProviderKeyword = courseSearchFilters.ProviderKeyword,
+                        Distance = courseSearchFilters.Distance,
+                        DistanceSpecified = courseSearchFilters.DistanceSpecified,
+                        Location = courseSearchFilters.Location
                     },
-                    RecordsPerPage = request.RecordsPerPage.ToString(),
-                    PageNo = request.PageNumber.ToString(),
-                    SortBy = GetSortType(request.CourseSearchSortBy),
+                    RecordsPerPage = courseSearchProperties.RecordsPerPage.ToString(),
+                    PageNo = courseSearchProperties.PageNumber.ToString(),
+                    SortBy = GetSortType(courseSearchProperties.CourseSearchSortBy),
                     SortBySpecified = true
                 }
             };
@@ -57,15 +56,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
         }
 
-        private SortType GetSortType(CourseSearchSortBy courseSearchSortBy)
+        private SortType GetSortType(CourseSearchOrderBy courseSearchSortBy)
         {
             switch (courseSearchSortBy)
             {
-                case CourseSearchSortBy.Relevance:
+                case CourseSearchOrderBy.Relevance:
                     return SortType.A;
-                case CourseSearchSortBy.Distance:
+                case CourseSearchOrderBy.Distance:
                     return SortType.D;
-                case CourseSearchSortBy.StartDate:
+                case CourseSearchOrderBy.StartDate:
                     return SortType.S;
                 default:
                     return SortType.A;

@@ -1391,6 +1391,7 @@
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <Content Include="ResourcePackages\gds_toolkit\razorgenerator.directives" />
+    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

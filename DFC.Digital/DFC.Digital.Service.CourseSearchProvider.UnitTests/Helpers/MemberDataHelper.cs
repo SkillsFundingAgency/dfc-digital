@@ -43,7 +43,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                     Count = 20,
                     Page = 3
                 },
-                new CourseSearchFilters(),
                 new CourseListInput
                 {
                     CourseListRequest = new CourseListRequestStructure

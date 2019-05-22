@@ -76,9 +76,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 activeFilters.Add("Location:", courseFiltersModel.Location);
             }
 
-            if (!string.IsNullOrWhiteSpace(courseFiltersModel.ProviderKeyword))
+            if (!string.IsNullOrWhiteSpace(courseFiltersModel.Provider))
             {
-                activeFilters.Add("Provider:", courseFiltersModel.ProviderKeyword);
+                activeFilters.Add("Provider:", courseFiltersModel.Provider);
             }
 
             if (courseFiltersModel.AttendanceSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))

@@ -34,7 +34,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode ?? new List<string>())),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
                         AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern ?? new List<string>())),
-                        ProviderKeyword = courseSearchProperties.Filters.ProviderKeyword,
+                        ProviderKeyword = courseSearchProperties.Filters.Provider,
                         Distance = courseSearchProperties.Filters.Distance,
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,
                         Location = courseSearchProperties.Filters.Location

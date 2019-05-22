@@ -68,7 +68,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 string.Empty,
                 string.Empty,
                 string.Empty,
-                string.Empty,
                 false,
                 1));
 

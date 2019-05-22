@@ -16,8 +16,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public IEnumerable<SelectItem> AttendanceSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
 
-        public IEnumerable<string> StartDate { get; set; } = Enumerable.Empty<string>();
-
         public IEnumerable<SelectItem> StartDateSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
     }
 }

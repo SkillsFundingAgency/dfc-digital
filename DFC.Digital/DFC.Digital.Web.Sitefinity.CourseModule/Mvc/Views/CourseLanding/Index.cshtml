@@ -16,12 +16,12 @@
                 @Html.TextBoxFor(x => x.SearchTerm, new {@class = "govuk-input"})
             </div>
             <div class="govuk-form-group">
-                @Html.LabelFor(x => x.ProviderKeyword, Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                @Html.LabelFor(x => x.Provider, Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.ProviderNameHintText
                 </span>
 
-                @Html.TextBoxFor(x => x.ProviderKeyword, new { @class = "govuk-input" })
+                @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input" })
             </div>
             <div class="govuk-form-group">
                 @Html.LabelFor(x => x.Location, Model.LocationLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })

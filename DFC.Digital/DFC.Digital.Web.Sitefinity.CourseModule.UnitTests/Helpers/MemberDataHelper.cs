@@ -12,7 +12,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string SearchPageUrl = "/courses-search-results";
         private const string PathQuery = "/pathQuery";
         private const string QualificationLevel = "qualificationLevel";
-        private const bool Dfe1619Funded = true;
+        private const bool Only1619Courses = true;
         private const string Location = "leeds";
         private const string LocationPostCode = "cv12wt";
         private const string Provider = "ucla";
@@ -449,7 +449,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseFiltersViewModel
                 {
                     Location = Location,
-                    ProviderKeyword = Provider,
+                    Provider = Provider,
                     AgeSuitabilitySelectedList = GetSelectedItems(),
                     AttendanceSelectedList = GetSelectedItems(),
                     PatternSelectedList = GetSelectedItems(),
@@ -474,7 +474,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    ProviderKeyword = Provider
+                    Provider = Provider
                 },
                 "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
             };
@@ -484,7 +484,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseLandingViewModel
                 {
-                    ProviderKeyword = Provider
+                    Provider = Provider
                 },
                 "/courses-search-results?provider=ucla&startDate=anytime"
             };
@@ -507,9 +507,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     Location = Location,
                     Distance = ValidDistance,
-                    Only1619Courses = Dfe1619Funded
+                    Only1619Courses = Only1619Courses
                 },
-                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=leeds&startDate=anytime"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&startDate=anytime"
             };
 
             yield return new object[]
@@ -520,9 +520,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     Location = LocationPostCode,
                     Distance = ValidDistance,
-                    Only1619Courses = Dfe1619Funded
+                    Only1619Courses = Only1619Courses
                 },
-                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=cv12wt&startDate=anytime"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&startDate=anytime"
             };
         }
 
@@ -543,7 +543,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
-                        ProviderKeyword = Provider
+                        Provider = Provider
                     }
                 },
                 "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
@@ -556,7 +556,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
-                        ProviderKeyword = Provider
+                        Provider = Provider
                     }
                 },
                 "/courses-search-results?provider=ucla&startDate=anytime"
@@ -581,14 +581,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
-                        Only1619Courses = Dfe1619Funded,
+                        Only1619Courses = Only1619Courses,
                         Location = Location,
                         AttendancePattern = new List<string> { "pattern", "pattern2" },
                         StudyMode = new List<string> { "studymode", "studymode1" },
                         Distance = ValidDistance
                     }
                 },
-                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=leeds&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
 
             yield return new object[]
@@ -600,14 +600,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
-                        Only1619Courses = Dfe1619Funded,
+                        Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,
                         AttendancePattern = new List<string> { "pattern", "pattern2" },
                         StudyMode = new List<string> { "studymode", "studymode1" },
                         Distance = ValidDistance
                     }
                 },
-                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
         }
 

@@ -1065,8 +1065,6 @@
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\**\*" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\backend\js\cmsextensions.js" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />
@@ -1074,8 +1072,6 @@
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-footer.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
-    <Content Include="ResourcePackages\gds_service_toolkit\gruntfile.js" />
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="robots.prod.txt.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
@@ -1309,6 +1305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
     <Folder Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\images\" />
+    <Folder Include="ResourcePackages\gds_toolkit\assets\src\backend\js\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

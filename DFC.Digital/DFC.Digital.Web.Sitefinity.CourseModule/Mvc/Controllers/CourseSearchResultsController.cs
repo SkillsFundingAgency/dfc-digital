@@ -116,7 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studymode, string distance, string pattern, string location, string sortBy, string startDate, string provider, bool dfe1619Funded = false, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studyMode, string pattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
         {
             var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
 
@@ -125,7 +125,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             if (!string.IsNullOrEmpty(cleanCourseName))
             {
-                float.TryParse(distance, out var localDistance);
                 var courseSearchProperties = new CourseSearchProperties
                 {
                     Page = page,
@@ -134,12 +133,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     Filters = new CourseSearchFilters
                     {
                         Attendance = attendance?.Split(','),
-                        StudyMode = studymode?.Split(','),
-                        Only1619Courses = dfe1619Funded,
-                        Distance = localDistance,
+                        StudyMode = studyMode?.Split(','),
+                        Only1619Courses = only1619Courses,
                         AttendancePattern = pattern?.Split(','),
                         Location = StringManipulationExtension.ReplaceSpecialCharacters(location, InvalidCharactersRegexPattern),
-                        ProviderKeyword =
+                        Provider =
                             StringManipulationExtension.ReplaceSpecialCharacters(provider, InvalidCharactersRegexPattern)
                     }
                 };
@@ -199,7 +197,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
         //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)

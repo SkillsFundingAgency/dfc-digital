@@ -8,6 +8,6 @@
 
         public CourseSearchOrderBy OrderBy { get; set; }
 
-        public CourseSearchFilters Filters { get; set; }
+        public CourseSearchFilters Filters { get; set; } = new CourseSearchFilters();
     }
 }

@@ -11,30 +11,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string SearchTerm = "maths";
         private const string SearchPageUrl = "/courses-search-results";
         private const string PathQuery = "/pathQuery";
-        private const int PageNumber = 1;
-        private const int RecordsPerPage = 20;
-        private const string Attendance = "attendance";
-        private const string StudyMode = "studyMode";
         private const string QualificationLevel = "qualificationLevel";
-        private const string ValidDistanceInput = "10";
-        private const string InValidDistanceInput = "Distance";
         private const bool Dfe1619Funded = true;
-        private const string Pattern = "pattern";
         private const string Location = "leeds";
         private const string LocationPostCode = "cv12wt";
         private const string Provider = "ucla";
-        private const string DistanceSortBy = "distance";
-        private const string StartDateSortBy = "startDate";
-        private const string RelevanceSortBy = "relevance";
 
         private const string LocationRegex =
             @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
-        private const CourseSearchOrderBy DistanceSort = CourseSearchOrderBy.Distance;
-        private const CourseSearchOrderBy StartDateSort = CourseSearchOrderBy.StartDate;
-        private const CourseSearchOrderBy RelevanceSort = CourseSearchOrderBy.Relevance;
         private const float ValidDistance = 10F;
-        private const float InvalidDistance = default(float);
 
         private static readonly CourseSearchResultsViewModel ValidCourseResultsViewModel =
             new CourseSearchResultsViewModel
@@ -479,7 +465,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 "/courses-search-results",
                 new CourseLandingViewModel(),
-               LocationRegex,
                 "/courses-search-results?"
             };
 
@@ -491,7 +476,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     ProviderKeyword = Provider
                 },
-                LocationRegex,
                 "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
             };
 
@@ -502,7 +486,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     ProviderKeyword = Provider
                 },
-                LocationRegex,
                 "/courses-search-results?provider=ucla&startDate=anytime"
             };
 
@@ -513,7 +496,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     SearchTerm = SearchTerm
                 },
-                LocationRegex,
                 "/courses-search-results?searchTerm=maths&startDate=anytime"
             };
 
@@ -527,8 +509,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Distance = ValidDistance,
                     Only1619Courses = Dfe1619Funded
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=leeds&dfe1619Funded=1619&startDate=anytime"
+                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=leeds&startDate=anytime"
             };
 
             yield return new object[]
@@ -541,8 +522,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Distance = ValidDistance,
                     Only1619Courses = Dfe1619Funded
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=cv12wt&dfe1619Funded=1619&startDate=anytime&distance=10"
+                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=cv12wt&startDate=anytime"
             };
         }
 
@@ -552,7 +532,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 "/courses-search-results",
                 new CourseSearchResultsViewModel(),
-               LocationRegex,
                 "/courses-search-results?"
             };
 
@@ -567,8 +546,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         ProviderKeyword = Provider
                     }
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime&page=1"
+                "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
             };
 
             yield return new object[]
@@ -581,8 +559,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         ProviderKeyword = Provider
                     }
                 },
-                LocationRegex,
-                "/courses-search-results?provider=ucla&startDate=anytime&page=1"
+                "/courses-search-results?provider=ucla&startDate=anytime"
             };
 
             yield return new object[]
@@ -592,8 +569,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     SearchTerm = SearchTerm
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&startDate=anytime&page=1"
+                "/courses-search-results?searchTerm=maths&startDate=anytime"
             };
 
             yield return new object[]
@@ -612,8 +588,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         Distance = ValidDistance
                     }
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&attendance=attendancemode1,attendancemode2&qualificationlevel=qual1,qual2&dfe1619Funded=1619&location=leeds&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1&page=1"
+                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=leeds&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
 
             yield return new object[]
@@ -632,8 +607,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         Distance = ValidDistance
                     }
                 },
-                LocationRegex,
-                "/courses-search-results?searchTerm=maths&attendance=attendancemode1,attendancemode2&qualificationlevel=qual1,qual2&dfe1619Funded=1619&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&distance=10&studymode=studymode,studymode1&page=1"
+                "/courses-search-results?searchTerm=maths&dfe1619Funded=true&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
         }
 
@@ -674,7 +648,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 { "Provider:", Provider },
                 { "Attendance:", nameof(SelectItem.Label) },
                 { "Course type:", nameof(SelectItem.Label) },
-                { "Qualification Level(s):", nameof(SelectItem.Label) },
                 { "Age Suitability:", nameof(SelectItem.Label) },
                 { "Study mode:", nameof(SelectItem.Label) }
             };

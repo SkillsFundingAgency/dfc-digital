@@ -33,9 +33,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             result.Should().BeEquivalentTo(expectedCourseListInput);
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendancePatterns(A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalQualificationLevels(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<string>._)).MustHaveHappened();
-
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).MustHaveHappened(1, Times.Exactly);
         }
 

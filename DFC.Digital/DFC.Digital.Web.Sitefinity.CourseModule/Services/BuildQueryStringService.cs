@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
                 if (!string.IsNullOrWhiteSpace(courseSearchFilters.ProviderKeyword))
                 {
-                    queryParameters = $"{queryParameters}&provider={StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.ProviderKeyword)}";
+                    queryParameters = $"{queryParameters}{(!string.IsNullOrWhiteSpace(searchTerm) ? "&" : string.Empty)}provider={StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.ProviderKeyword)}";
                 }
 
                 if (courseSearchFilters.Attendance.Any())
@@ -47,8 +47,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     queryParameters = $"{queryParameters}&studymode={string.Join(",", courseSearchFilters.StudyMode)}";
                 }
-
-                queryParameters = $"{queryParameters}&page=1";
             }
 
             return queryParameters;

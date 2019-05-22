@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void Dfc7055SearchResultsViewTests(int coursesCount, string pageTitle, string noCoursesFoundText)
         {
             // Assign
-            var searchResultsView = new _MVC_Views_TrainingCourses_SearchResults_cshtml();
+            var searchResultsView = new _MVC_Views_CourseSearchResults_SearchResults_cshtml();
             var viewModel = new CourseSearchResultsViewModel
             {
                 PageTitle = pageTitle,
@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void Dfc7055PaginationViewTests(bool hasNextPage, bool hasPreviousPage, string nextPageText, string previousPageText, string pathQuery)
         {
             // Assign
-            var paginationView = new _MVC_Views_TrainingCourses_Pagination_cshtml();
+            var paginationView = new _MVC_Views_CourseSearchResults_Pagination_cshtml();
             var viewModel = new PaginationViewModel
             {
                 HasPreviousPage = hasPreviousPage,
@@ -82,7 +82,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void Dfc7055OrderLinksViewTests(CourseSearchOrderBy courseSearchSortBy)
         {
             // Assign
-            var searchResultsView = new _MVC_Views_TrainingCourses_OrderByLinks_cshtml();
+            var searchResultsView = new _MVC_Views_CourseSearchResults_OrderByLinks_cshtml();
             var viewModel = new OrderByLinks
             {
                 CourseSearchSortBy = courseSearchSortBy,
@@ -120,7 +120,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string startDateLabel)
         {
             // Assign
-            var courseDetailsView = new _MVC_Views_TrainingCourses_CourseDetail_cshtml();
+            var courseDetailsView = new _MVC_Views_CourseSearchResults_CourseDetail_cshtml();
             var viewModel = new CourseListingViewModel
             {
                 Course = course,

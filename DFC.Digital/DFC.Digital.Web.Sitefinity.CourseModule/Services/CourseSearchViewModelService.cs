@@ -9,8 +9,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
     {
         public void SetupPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage)
         {
-            viewModel.SearchProperties.Count = recordsPerPage;
-            viewModel.SearchProperties.Page = response.ResultProperties.Page;
+            viewModel.Count = recordsPerPage;
+            viewModel.Page = response.ResultProperties.Page;
             viewModel.ResultProperties = response.ResultProperties;
 
             if (viewModel.ResultProperties.TotalPages > 1 && viewModel.ResultProperties.TotalPages >= viewModel.ResultProperties.Page)

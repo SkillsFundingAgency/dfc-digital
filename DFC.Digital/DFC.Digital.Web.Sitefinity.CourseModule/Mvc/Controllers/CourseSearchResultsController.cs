@@ -12,7 +12,7 @@ using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
-    [ControllerToolboxItem(Name = "TrainingCourses", Title = "Training Courses Results", SectionName = SitefinityConstants.CustomCoursesSection)]
+    [ControllerToolboxItem(Name = "CourseSearchResults", Title = "Course Search Results", SectionName = SitefinityConstants.CustomCoursesSection)]
     public class CourseSearchResultsController : BaseDfcController
     {
         #region private fields
@@ -170,7 +170,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderBy);
                 }
 
-               // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
+                viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;
+
+                // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
             }
 
             SetupWidgetDefaults(viewModel);
@@ -182,7 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect(StringManipulationExtension.GetUrlEncodedString(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel)));
+                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel));
             }
 
             SetupWidgetDefaults(viewModel);
@@ -242,7 +244,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             viewModel.PageTitle = PageTitle;
             viewModel.FilterCourseByText = FilterCourseByText;
-            viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;
             viewModel.OrderByLinks.OrderByText = OrderByText;
             viewModel.OrderByLinks.DistanceOrderByText = DistanceOrderByText;
             viewModel.OrderByLinks.StartDateOrderByText = StartDateOrderByText;

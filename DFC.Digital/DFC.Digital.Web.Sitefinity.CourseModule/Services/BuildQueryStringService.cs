@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
                 if (!string.IsNullOrWhiteSpace(courseSearchFilters.ProviderKeyword))
                 {
-                    queryParameters = $"{queryParameters}provider={StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.ProviderKeyword)}";
+                    queryParameters = $"{queryParameters}&provider={StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.ProviderKeyword)}";
                 }
 
                 if (courseSearchFilters.Attendance.Any())

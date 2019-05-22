@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
             var courseSearchConverter = new BuildQueryStringService();
 
             //Act
-            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel.CourseSearchFilters);
+            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);

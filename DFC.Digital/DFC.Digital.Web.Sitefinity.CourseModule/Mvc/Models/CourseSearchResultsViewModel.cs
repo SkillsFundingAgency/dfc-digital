@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
-    public class CourseSearchResultsViewModel
+    public class CourseSearchResultsViewModel : CourseSearchProperties
     {
         public string SearchTerm { get; set; }
 
@@ -18,11 +18,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public IList<CourseListingViewModel> Courses { get; set; } = new List<CourseListingViewModel>();
 
-        public CourseSearchProperties SearchProperties { get; set; } = new CourseSearchProperties();
-
         public CourseSearchResultProperties ResultProperties { get; set; } = new CourseSearchResultProperties();
 
-        public string RecordsOnPageLabel => $"{((SearchProperties.Page - 1) * SearchProperties.Count) + 1} - {((SearchProperties.Page - 1) * SearchProperties.Count) + Courses.Count}";
+        public string RecordsOnPageLabel => $"{((Page - 1) * Count) + 1} - {((Page - 1) * Count) + Courses.Count}";
 
         public Uri ResetFilterUrl { get; set; }
 

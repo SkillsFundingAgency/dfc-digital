@@ -8,7 +8,7 @@
         @using (Html.BeginForm("", "CourseLanding", FormMethod.Post))
         {
             <div class="govuk-form-group">
-                @Html.LabelFor(x => x.SearchTerm, @Model.CourseNameLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                @Html.LabelFor(x => x.SearchTerm, Model.CourseNameLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.CourseNameHintText
@@ -16,26 +16,26 @@
                 @Html.TextBoxFor(x => x.SearchTerm, new {@class = "govuk-input"})
             </div>
             <div class="govuk-form-group">
-                @Html.LabelFor(x => x.CourseSearchFilters.ProviderKeyword, @Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                @Html.LabelFor(x => x.ProviderKeyword, Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.ProviderNameHintText
                 </span>
 
-                @Html.TextBoxFor(x => x.CourseSearchFilters.ProviderKeyword, new { @class = "govuk-input" })
+                @Html.TextBoxFor(x => x.ProviderKeyword, new { @class = "govuk-input" })
             </div>
             <div class="govuk-form-group">
-                @Html.LabelFor(x => x.CourseSearchFilters.Location, @Model.LocationLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                @Html.LabelFor(x => x.Location, Model.LocationLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 <span id="qualification-level-hint" class="govuk-hint">
                     @Model.LocationHintText
                 </span>
-                @Html.TextBoxFor(x => x.CourseSearchFilters.Location, new {@class = "govuk-input govuk-!-width-one-third"})
+                @Html.TextBoxFor(x => x.Location, new {@class = "govuk-input govuk-!-width-one-third"})
             </div>
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxForSimple(x => x.CourseSearchFilters.Only1619Courses, new { @class = "govuk-checkboxes__input" })
-                            @Html.LabelFor(x => x.CourseSearchFilters.Only1619Courses, @Model.Dfe1619FundedText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
+                            @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
+                            @Html.LabelFor(x => x.Only1619Courses, Model.Dfe1619FundedText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
                         </div>
                     </div>
                 </fieldset>

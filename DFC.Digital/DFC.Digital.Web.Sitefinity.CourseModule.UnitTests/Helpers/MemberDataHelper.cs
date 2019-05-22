@@ -388,10 +388,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 SearchPageUrl,
                 new CourseSearchResultsViewModel
                 {
-                    SearchProperties = new CourseSearchProperties
-                    {
-                        Page = 1
-                    },
+                    Page = 1,
                     ResultProperties = new CourseSearchResultProperties
                     {
                         TotalResultCount = 2,
@@ -409,10 +406,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 SearchPageUrl,
                 new CourseSearchResultsViewModel
                 {
-                    SearchProperties = new CourseSearchProperties
-                    {
-                        Page = 2
-                    },
+                    Page = 2,
                     ResultProperties = new CourseSearchResultProperties
                     {
                         TotalResultCount = 60,
@@ -439,10 +433,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 SearchPageUrl,
                 new CourseSearchResultsViewModel
                 {
-                    SearchProperties = new CourseSearchProperties
-                    {
-                        Page = 1
-                    },
+                    Page = 1,
                     ResultProperties = new CourseSearchResultProperties
                     {
                         TotalResultCount = 40,
@@ -498,10 +489,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseSearchFilters = new CourseSearchFilters
-                    {
-                        ProviderKeyword = Provider
-                    }
+                    ProviderKeyword = Provider
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
@@ -512,10 +500,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseLandingViewModel
                 {
-                    CourseSearchFilters = new CourseSearchFilters
-                    {
-                        ProviderKeyword = Provider
-                    }
+                    ProviderKeyword = Provider
                 },
                 LocationRegex,
                 "/courses-search-results?provider=ucla&startDate=anytime"
@@ -538,12 +523,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseSearchFilters = new CourseSearchFilters
-                    {
-                        Location = Location,
-                        Distance = ValidDistance,
-                        Only1619Courses = Dfe1619Funded
-                    }
+                    Location = Location,
+                    Distance = ValidDistance,
+                    Only1619Courses = Dfe1619Funded
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=leeds&dfe1619Funded=1619&startDate=anytime"
@@ -555,12 +537,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseSearchFilters = new CourseSearchFilters
-                    {
-                        Location = LocationPostCode,
-                        Distance = ValidDistance,
-                        Only1619Courses = Dfe1619Funded
-                    }
+                    Location = LocationPostCode,
+                    Distance = ValidDistance,
+                    Only1619Courses = Dfe1619Funded
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=cv12wt&dfe1619Funded=1619&startDate=anytime&distance=10"

@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 
@@ -29,10 +30,10 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = courseName,
                         EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",", courseSearchProperties.Filters.Attendance)),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode)),
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",", courseSearchProperties.Filters.Attendance ?? new List<string>())),
+                        StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode ?? new List<string>())),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
-                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern)),
+                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern ?? new List<string>())),
                         ProviderKeyword = courseSearchProperties.Filters.ProviderKeyword,
                         Distance = courseSearchProperties.Filters.Distance,
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,

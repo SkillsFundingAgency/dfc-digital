@@ -264,13 +264,13 @@
     <Compile Include="Services\CourseSearchViewModelService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Mvc\Views\TrainingCourses\SearchResults.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\SearchResults.cshtml" />
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <Content Include="Mvc\Views\TrainingCourses\Filters.cshtml" />
-    <Content Include="Mvc\Views\TrainingCourses\CourseDetail.cshtml" />
-    <Content Include="Mvc\Views\TrainingCourses\Pagination.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\Filters.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\CourseDetail.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\Pagination.cshtml" />
     <Content Include="Mvc\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -279,7 +279,7 @@
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
-    <Content Include="Mvc\Views\TrainingCourses\OrderByLinks.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

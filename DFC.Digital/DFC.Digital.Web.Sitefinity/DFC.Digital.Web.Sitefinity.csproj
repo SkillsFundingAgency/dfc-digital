@@ -1200,13 +1200,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
-    <Content Include="ResourcePackages\gds_service_toolkit\csslint.json" />
-    <Content Include="ResourcePackages\gds_service_toolkit\jsfiles.json" />
-    <Content Include="ResourcePackages\gds_service_toolkit\package.json" />
-    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\home.cshtml" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\results.cshtml" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\details.cshtml" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1455,7 +1448,6 @@
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
     <Content Include="ResourcePackages\gds_toolkit\razorgenerator.directives" />
-    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

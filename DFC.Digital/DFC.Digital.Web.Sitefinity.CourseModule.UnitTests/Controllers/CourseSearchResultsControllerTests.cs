@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FakeItEasy;
@@ -13,7 +12,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
-    public class TrainingCoursesControllerTests : MemberDataHelper
+    public class CourseSearchResultsControllerTests : MemberDataHelper
     {
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper asyncHelper;
@@ -21,7 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IBuildQueryStringService fakeBuildQueryStringService;
 
-        public TrainingCoursesControllerTests()
+        public CourseSearchResultsControllerTests()
         {
             asyncHelper = new AsyncHelper();
             fakeCourseSearchViewModelService = A.Fake<ICourseSearchViewModelService>(ops => ops.Strict());

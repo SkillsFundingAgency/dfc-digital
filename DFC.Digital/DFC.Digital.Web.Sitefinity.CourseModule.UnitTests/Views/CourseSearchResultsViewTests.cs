@@ -9,7 +9,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
-    public class TrainingCoursesViewTests : MemberDataHelper
+    public class CourseSearchResultsViewTests : MemberDataHelper
     {
         [Theory]
         [MemberData(nameof(Dfc7055SearchResultsViewTestsInput))]

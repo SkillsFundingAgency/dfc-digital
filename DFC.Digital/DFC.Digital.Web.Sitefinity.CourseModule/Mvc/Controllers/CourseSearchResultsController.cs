@@ -116,7 +116,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studyMode, string pattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studyMode, string attendancePattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
         {
             var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
 
@@ -135,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         Attendance = attendance?.Split(','),
                         StudyMode = studyMode?.Split(','),
                         Only1619Courses = only1619Courses,
-                        AttendancePattern = pattern?.Split(','),
+                        AttendancePattern = attendancePattern?.Split(','),
                         Location = StringManipulationExtension.ReplaceSpecialCharacters(location, InvalidCharactersRegexPattern),
                         Provider =
                             StringManipulationExtension.ReplaceSpecialCharacters(provider, InvalidCharactersRegexPattern)

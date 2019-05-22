@@ -588,7 +588,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         Distance = ValidDistance
                     }
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&attendancepattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
 
             yield return new object[]
@@ -607,7 +607,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         Distance = ValidDistance
                     }
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&pattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&attendancepattern=pattern,pattern2&startDate=anytime&studymode=studymode,studymode1"
             };
         }
 

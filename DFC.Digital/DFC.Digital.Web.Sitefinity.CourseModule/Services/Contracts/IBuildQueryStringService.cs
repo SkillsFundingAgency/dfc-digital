@@ -1,13 +1,10 @@
-﻿using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
+﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public interface IBuildQueryStringService
     {
-        string BuildRedirectPathAndQueryString(string courseSearchResultsPage, TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex);
-
-        string BuildSearchRedirectPathAndQueryString(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex);
-
-        string GetUrlEncodedString(string input);
+        string BuildRedirectPathAndQueryString(string courseSearchResultsPage, string searchTerm, CourseSearchFilters courseSearchFilters);
     }
 }

@@ -1,21 +1,6 @@
-﻿@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseLandingViewModel
+﻿@using DFC.Digital.Web.Core
+@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseLandingViewModel
 
-@*Inside HERO banner container*@
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-                <h1 class="govuk-fieldset__heading">
-                    Find a course
-                </h1>
-            </legend>
-            <p class="govuk-body">
-                Search for training and learning opportunities at all levels. We'll show you courses from colleges, training providers and local education authorities. <a target="_blank" href="https://nationalcareersservice.direct.gov.uk/contact-us/home"
-                                                                                                                                                                           class="white">Contact a careers adviser</a> if you need any help finding the right course.
-            </p>
-        </fieldset>
-    </div>
-</div>
 
 @* Inside main section *@
 <div class="govuk-grid-row">
@@ -23,34 +8,34 @@
         @using (Html.BeginForm("", "CourseLanding", FormMethod.Post))
         {
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="course-name">@Model.CourseNameLabel </label>
+                @Html.LabelFor(x => x.SearchTerm, @Model.CourseNameLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.CourseNameHintText
                 </span>
                 @Html.TextBoxFor(x => x.SearchTerm, new {@class = "govuk-input"})
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="course-name">@Model.ProviderLabel </label>
+                @Html.LabelFor(x => x.CourseSearchFilters.ProviderKeyword, @Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 <span id="course-name-hint" class="govuk-hint">
                     @Model.ProviderNameHintText
                 </span>
 
-                @Html.TextBoxFor(x => x.ProviderKeyword, new { @class = "govuk-input" })
+                @Html.TextBoxFor(x => x.CourseSearchFilters.ProviderKeyword, new { @class = "govuk-input" })
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="location">@Model.LocationLabel</label>
+                @Html.LabelFor(x => x.CourseSearchFilters.Location, @Model.LocationLabel, new { @class = "govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
                 <span id="qualification-level-hint" class="govuk-hint">
                     @Model.LocationHintText
                 </span>
-                @Html.TextBoxFor(x => x.Location, new {@class = "govuk-input govuk-!-width-one-third"})
+                @Html.TextBoxFor(x => x.CourseSearchFilters.Location, new {@class = "govuk-input govuk-!-width-one-third"})
             </div>
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="DfeFunded" name="Dfe1619Funded" type="checkbox" value="1619"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="DfeFunded">
-                                @Model.Dfe1619FundedText
-                            </label>
+                            @Html.CheckBoxForSimple(x => x.CourseSearchFilters.Only1619Courses, new { @class = "govuk-checkboxes__input" })
+                            @Html.LabelFor(x => x.CourseSearchFilters.Only1619Courses, @Model.Dfe1619FundedText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
                         </div>
                     </div>
                 </fieldset>

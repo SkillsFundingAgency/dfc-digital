@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string QualificationLevel = "qualificationLevel";
         private const string ValidDistanceInput = "10";
         private const string InValidDistanceInput = "Distance";
-        private const string Dfe1619Funded = "1619";
+        private const bool Dfe1619Funded = true;
         private const string Pattern = "pattern";
         private const string Location = "leeds";
         private const string LocationPostCode = "cv12wt";
@@ -36,14 +36,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const float ValidDistance = 10F;
         private const float InvalidDistance = default(float);
 
-        private static readonly TrainingCourseResultsViewModel ValidCourseResultsViewModel =
-            new TrainingCourseResultsViewModel
+        private static readonly CourseSearchResultsViewModel ValidCourseResultsViewModel =
+            new CourseSearchResultsViewModel
             {
-                SearchTerm = nameof(TrainingCourseResultsViewModel.SearchTerm)
+                SearchTerm = nameof(CourseSearchResultsViewModel.SearchTerm)
             };
 
-        private static readonly TrainingCourseResultsViewModel InvalidCourseResultsViewModel =
-            new TrainingCourseResultsViewModel
+        private static readonly CourseSearchResultsViewModel InvalidCourseResultsViewModel =
+            new CourseSearchResultsViewModel
             {
                 SearchTerm = string.Empty
             };
@@ -51,9 +51,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private static readonly CourseSearchResult ValidCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(2),
-            CurrentPage = 1,
-            TotalResultCount = 2,
-            TotalPages = 1
+            ResultProperties = new CourseSearchResultProperties
+            {
+                Page = 1,
+                TotalPages = 1,
+                TotalResultCount = 2
+            }
         };
 
         private static readonly CourseSearchResult ZeroResultsCourseSearchResponse = new CourseSearchResult
@@ -64,17 +67,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private static readonly CourseSearchResult MultiPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
-            CurrentPage = 2,
-            TotalPages = 3,
-            TotalResultCount = 60
+            ResultProperties = new CourseSearchResultProperties
+            {
+                Page = 2,
+                TotalPages = 3,
+                TotalResultCount = 60
+            }
         };
 
         private static readonly CourseSearchResult TwoPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
-            CurrentPage = 1,
-            TotalPages = 2,
-            TotalResultCount = 40
+            ResultProperties = new CourseSearchResultProperties
+            {
+                Page = 1,
+                TotalPages = 2,
+                TotalResultCount = 40
+            }
         };
 
         public static IEnumerable<object[]> Dfc7055SearchResultsViewTestsInput()
@@ -301,26 +310,26 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 ValidCourseResultsViewModel
             };
             yield return new object[]
             {
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 ValidCourseResultsViewModel
             };
             yield return new object[]
             {
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 InvalidCourseResultsViewModel
             };
         }
@@ -329,65 +338,32 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                nameof(TrainingCourseResultsViewModel.SearchTerm),
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 ValidCourseSearchResponse
             };
 
             yield return new object[]
             {
-                nameof(TrainingCourseResultsViewModel.SearchTerm),
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 ZeroResultsCourseSearchResponse
             };
 
             yield return new object[]
             {
                 null,
-                nameof(TrainingCoursesController.FilterCourseByText),
-                nameof(TrainingCoursesController.PageTitle),
-                nameof(TrainingCoursesController.CourseSearchResultsPage),
-                nameof(TrainingCoursesController.CourseDetailsPage),
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
                 ZeroResultsCourseSearchResponse
-            };
-        }
-
-        public static IEnumerable<object[]> GetUrlEncodedStringTestsInput()
-        {
-            yield return new object[]
-            {
-                "/courses-search-results?searchTerm=math<script>",
-                "%2fcourses-search-results%3fsearchTerm%3dmath%3cscript%3e"
-            };
-
-            yield return new object[]
-            {
-                "/courses-search-results?searchTerm=language&provider=london",
-                "%2fcourses-search-results%3fsearchTerm%3dlanguage%26provider%3dlondon"
-            };
-
-            yield return new object[]
-            {
-                "courses-search-results?searchTerm=language&provider=london&dfe1619Funded=1619&location=leeds&startDate=anytime&studymode=1&page=1",
-                "courses-search-results%3fsearchTerm%3dlanguage%26provider%3dlondon%26dfe1619Funded%3d1619%26location%3dleeds%26StartDate%3dAnytime%26studymode%3d1%26page%3d1"
-            };
-
-            yield return new object[]
-            {
-                "pageurl/itemid",
-                "pageurl%2fitemid"
-            };
-
-            yield return new object[]
-            {
-                null,
-                string.Empty
             };
         }
 
@@ -395,41 +371,53 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                new TrainingCourseResultsViewModel(),
+                new CourseSearchResultsViewModel(),
                 ZeroResultsCourseSearchResponse,
                 PathQuery,
                 20,
                 SearchPageUrl,
-                new TrainingCourseResultsViewModel()
+                new CourseSearchResultsViewModel()
             };
 
             yield return new object[]
             {
-                new TrainingCourseResultsViewModel(),
+                new CourseSearchResultsViewModel(),
                 ValidCourseSearchResponse,
                 PathQuery,
                 20,
                 SearchPageUrl,
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
-                    CurrentPageNumber = 1,
-                    ResultsCount = 2,
-                    TotalPagesCount = 1
+                    SearchProperties = new CourseSearchProperties
+                    {
+                        Page = 1
+                    },
+                    ResultProperties = new CourseSearchResultProperties
+                    {
+                        TotalResultCount = 2,
+                        TotalPages = 1
+                    }
                 }
             };
 
             yield return new object[]
             {
-                new TrainingCourseResultsViewModel(),
+                new CourseSearchResultsViewModel(),
                 MultiPageResultsCourseSearchResponse,
                 PathQuery,
                 20,
                 SearchPageUrl,
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
-                    CurrentPageNumber = 2,
-                    ResultsCount = 60,
-                    TotalPagesCount = 3,
+                    SearchProperties = new CourseSearchProperties
+                    {
+                        Page = 2
+                    },
+                    ResultProperties = new CourseSearchResultProperties
+                    {
+                        TotalResultCount = 60,
+                        TotalPages = 3
+                    },
                     PaginationViewModel = new PaginationViewModel
                     {
                         HasPreviousPage = true,
@@ -444,16 +432,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                new TrainingCourseResultsViewModel(),
+                new CourseSearchResultsViewModel(),
                 TwoPageResultsCourseSearchResponse,
                 PathQuery,
                 20,
                 SearchPageUrl,
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
-                    CurrentPageNumber = 1,
-                    ResultsCount = 40,
-                    TotalPagesCount = 2,
+                    SearchProperties = new CourseSearchProperties
+                    {
+                        Page = 1
+                    },
+                    ResultProperties = new CourseSearchResultProperties
+                    {
+                        TotalResultCount = 40,
+                        TotalPages = 2
+                    },
                     PaginationViewModel = new PaginationViewModel
                     {
                         HasPreviousPage = false,
@@ -469,20 +463,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                new CourseFiltersModel(),
+                new CourseFiltersViewModel(),
                 new Dictionary<string, string>()
             };
 
             yield return new object[]
             {
-                new CourseFiltersModel
+                new CourseFiltersViewModel
                 {
                     Location = Location,
                     ProviderKeyword = Provider,
                     AgeSuitabilitySelectedList = GetSelectedItems(),
                     AttendanceSelectedList = GetSelectedItems(),
                     PatternSelectedList = GetSelectedItems(),
-                    QualificationSelectedList = GetSelectedItems(),
                     StudyModeSelectedList = GetSelectedItems()
                 },
                 FilterDictionary()
@@ -505,7 +498,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    ProviderKeyword = Provider
+                    CourseSearchFilters = new CourseSearchFilters
+                    {
+                        ProviderKeyword = Provider
+                    }
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&provider=ucla&startDate=anytime"
@@ -516,7 +512,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseLandingViewModel
                 {
-                    ProviderKeyword = Provider
+                    CourseSearchFilters = new CourseSearchFilters
+                    {
+                        ProviderKeyword = Provider
+                    }
                 },
                 LocationRegex,
                 "/courses-search-results?provider=ucla&startDate=anytime"
@@ -539,10 +538,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                        QualificationLevel = nameof(CourseLandingViewModel.QualificationLevel),
+                    CourseSearchFilters = new CourseSearchFilters
+                    {
                         Location = Location,
-                        Distance = "10",
-                        Dfe1619Funded = Dfe1619Funded
+                        Distance = ValidDistance,
+                        Only1619Courses = Dfe1619Funded
+                    }
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=leeds&dfe1619Funded=1619&startDate=anytime"
@@ -554,10 +555,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    QualificationLevel = nameof(CourseLandingViewModel.QualificationLevel),
-                    Location = LocationPostCode,
-                    Distance = "10",
-                    Dfe1619Funded = Dfe1619Funded
+                    CourseSearchFilters = new CourseSearchFilters
+                    {
+                        Location = LocationPostCode,
+                        Distance = ValidDistance,
+                        Only1619Courses = Dfe1619Funded
+                    }
                 },
                 LocationRegex,
                 "/courses-search-results?searchTerm=maths&qualificationlevel=QualificationLevel&location=cv12wt&dfe1619Funded=1619&startDate=anytime&distance=10"
@@ -569,7 +572,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel(),
+                new CourseSearchResultsViewModel(),
                LocationRegex,
                 "/courses-search-results?"
             };
@@ -577,10 +580,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseFiltersModel = new CourseFiltersModel
+                    CourseFiltersModel = new CourseFiltersViewModel
                     {
                         ProviderKeyword = Provider
                     }
@@ -592,9 +595,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
-                    CourseFiltersModel = new CourseFiltersModel
+                    CourseFiltersModel = new CourseFiltersViewModel
                     {
                         ProviderKeyword = Provider
                     }
@@ -606,7 +609,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
                     SearchTerm = SearchTerm
                 },
@@ -617,18 +620,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseFiltersModel = new CourseFiltersModel
+                    CourseFiltersModel = new CourseFiltersViewModel
                     {
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
-                        QualificationLevel = new List<string> { "qual1", "qual2" },
-                        AgeSuitability = "1619",
+                        Only1619Courses = Dfe1619Funded,
                         Location = Location,
                         AttendancePattern = new List<string> { "pattern", "pattern2" },
                         StudyMode = new List<string> { "studymode", "studymode1" },
-                        Distance = "10"
+                        Distance = ValidDistance
                     }
                 },
                 LocationRegex,
@@ -638,18 +640,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 "/courses-search-results",
-                new TrainingCourseResultsViewModel
+                new CourseSearchResultsViewModel
                 {
                     SearchTerm = SearchTerm,
-                    CourseFiltersModel = new CourseFiltersModel
+                    CourseFiltersModel = new CourseFiltersViewModel
                     {
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
-                        QualificationLevel = new List<string> { "qual1", "qual2" },
-                        AgeSuitability = "1619",
+                        Only1619Courses = Dfe1619Funded,
                         Location = LocationPostCode,
                         AttendancePattern = new List<string> { "pattern", "pattern2" },
                         StudyMode = new List<string> { "studymode", "studymode1" },
-                        Distance = "10"
+                        Distance = ValidDistance
                     }
                 },
                 LocationRegex,

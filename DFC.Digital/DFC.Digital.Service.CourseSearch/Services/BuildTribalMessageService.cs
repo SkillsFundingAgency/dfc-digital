@@ -3,6 +3,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Configuration;
+using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
@@ -17,7 +18,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.configuration = configuration;
         }
 
-        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
+        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
         {
             var apiRequest = new CourseListInput
             {
@@ -28,18 +29,18 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = courseName,
                         EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(courseSearchFilters.Attendance),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(courseSearchFilters.StudyMode),
-                        DFE1619Funded = courseSearchFilters.Only1619Courses ? "Y" : null,
-                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(courseSearchFilters.AttendancePattern),
-                        ProviderKeyword = courseSearchFilters.ProviderKeyword,
-                        Distance = courseSearchFilters.Distance,
-                        DistanceSpecified = courseSearchFilters.DistanceSpecified,
-                        Location = courseSearchFilters.Location
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",", courseSearchProperties.Filters.Attendance)),
+                        StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode)),
+                        DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
+                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern)),
+                        ProviderKeyword = courseSearchProperties.Filters.ProviderKeyword,
+                        Distance = courseSearchProperties.Filters.Distance,
+                        DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,
+                        Location = courseSearchProperties.Filters.Location
                     },
-                    RecordsPerPage = courseSearchProperties.RecordsPerPage.ToString(),
-                    PageNo = courseSearchProperties.PageNumber.ToString(),
-                    SortBy = GetSortType(courseSearchProperties.CourseSearchSortBy),
+                    RecordsPerPage = courseSearchProperties.Count.ToString(),
+                    PageNo = courseSearchProperties.Page.ToString(),
+                    SortBy = GetSortType(courseSearchProperties.OrderBy),
                     SortBySpecified = true
                 }
             };

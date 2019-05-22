@@ -46,8 +46,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
                         AttendanceModes = Convert.ToString(ConfigurationManager.AppSettings[Constants.CourseSearchAttendanceModes])?.Split(',')
                     },
-                    RecordsPerPage = courseSearchProperties.RecordsPerPage.ToString(),
-                    PageNo = courseSearchProperties.PageNumber.ToString(),
+                    RecordsPerPage = courseSearchProperties.Count.ToString(),
+                    PageNo = courseSearchProperties.Page.ToString(),
                     SortBy = SortType.A,
                     SortBySpecified = true
                 }

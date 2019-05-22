@@ -1,4 +1,4 @@
-﻿@model DFC.Digital.Web.Sitefinity.CourseModule.TrainingCourseResultsViewModel
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.CourseSearchResultsViewModel
 
 
 @* Top Full Width Content Block *@
@@ -58,7 +58,7 @@
             {
                 <div id="results-summary">
 
-                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultsCount results</h3>
+                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultProperties.TotalResultCount results</h3>
                     <hr class="govuk-section-break govuk-section-break--visible" />
 
                 </div>

@@ -11,7 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     {
         [Theory]
         [MemberData(nameof(SetupPagingTestsInput))]
-        public void SetupPagingTest(TrainingCourseResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage, TrainingCourseResultsViewModel expectedViewModel)
+        public void SetupPagingTest(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage, CourseSearchResultsViewModel expectedViewModel)
         {
             //Assign
             var courseSearchConverter = new CourseSearchViewModelService();
@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(GetFilterSelectItemsTestInput))]
-        public void GetActiveFilterOptionsTest(CourseFiltersModel courseFiltersModel, Dictionary<string, string> expectedDictionary)
+        public void GetActiveFilterOptionsTest(CourseFiltersViewModel courseFiltersModel, Dictionary<string, string> expectedDictionary)
         {
             //Assign
             var courseSearchConverter = new CourseSearchViewModelService();

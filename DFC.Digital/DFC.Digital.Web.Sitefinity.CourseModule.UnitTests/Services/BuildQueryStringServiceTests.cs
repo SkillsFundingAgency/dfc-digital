@@ -9,13 +9,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
     {
         [Theory]
         [MemberData(nameof(BuildRedirectPathAndQueryStringTestsInput))]
-        public void BuildRedirectPathAndQueryStringTest(string courseSearchResultsPage, TrainingCourseResultsViewModel trainingCourseResultsViewModel, string locationDistanceRegex, string expectedPathAndQuery)
+        public void BuildRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
         {
             //Assign
             var courseSearchConverter = new BuildQueryStringService();
 
             //Act
-            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel, locationDistanceRegex);
+            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.SearchTerm, trainingCourseResultsViewModel.CourseFiltersModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);
@@ -23,30 +23,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
 
         [Theory]
         [MemberData(nameof(BuildSearchRedirectPathAndQueryStringTestsInput))]
-        public void BuildSearchRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string locationDistanceRegex, string expectedPathAndQuery)
+        public void BuildSearchRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
         {
             //Assign
             var courseSearchConverter = new BuildQueryStringService();
 
             //Act
-            var result = courseSearchConverter.BuildSearchRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel, locationDistanceRegex);
+            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel.CourseSearchFilters);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetUrlEncodedStringTestsInput))]
-        public void GetUrlEncodedStringTest(string input, string expectedOutput)
-        {
-            //Assign
-            var courseSearchConverter = new BuildQueryStringService();
-
-            //Act
-            var result = courseSearchConverter.GetUrlEncodedString(input);
-
-            //Assert
-            result.Should().BeEquivalentTo(expectedOutput);
         }
     }
 }

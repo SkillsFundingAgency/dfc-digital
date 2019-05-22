@@ -38,12 +38,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Location Hint Text")]
         public string LocationHintText { get; set; } = "Enter a town or postcode. For example, Birmingham.";
 
-        [DisplayName("Qualification Level Hint")]
-        public string QualificationLevelHint { get; set; } = "What qualification levels mean";
-
-        [DisplayName("Qualification Level Label")]
-        public string QualificationLevelLabel { get; set; } = "Qualification level (optional)";
-
         [DisplayName("Training Courses Results Page")]
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
@@ -68,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (!string.IsNullOrWhiteSpace(model.SearchTerm))
             {
-                return Redirect(buildQueryStringService.BuildSearchRedirectPathAndQueryString(CourseSearchResultsPage, model, LocationRegex));
+                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model.SearchTerm, model.CourseSearchFilters));
             }
 
             AddWidgetProperties(model);
@@ -82,8 +76,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             model.CourseNameLabel = CourseNameLabel;
             model.LocationLabel = LocationLabel;
             model.ProviderLabel = ProviderLabel;
-            model.QualificationLevelHint = QualificationLevelHint;
-            model.QualificationLevelLabel = QualificationLevelLabel;
             model.LocationHintText = LocationHintText;
             model.Dfe1619FundedText = Dfe1619FundedText;
         }

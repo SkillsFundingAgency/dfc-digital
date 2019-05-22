@@ -39,9 +39,9 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.Distance,
-                    RecordsPerPage = 20,
-                    PageNumber = 3
+                    OrderBy = CourseSearchOrderBy.Distance,
+                    Count = 20,
+                    Page = 3
                 },
                 new CourseSearchFilters(),
                 new CourseListInput
@@ -66,9 +66,9 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.Relevance,
-                    RecordsPerPage = 30,
-                    PageNumber = 1
+                    OrderBy = CourseSearchOrderBy.Relevance,
+                    Count = 30,
+                    Page = 1
                 },
                 new CourseListInput
                 {
@@ -92,9 +92,9 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.StartDate,
-                    RecordsPerPage = 40,
-                    PageNumber = 2
+                    OrderBy = CourseSearchOrderBy.StartDate,
+                    Count = 40,
+                    Page = 2
                 },
                 new CourseListInput
                 {

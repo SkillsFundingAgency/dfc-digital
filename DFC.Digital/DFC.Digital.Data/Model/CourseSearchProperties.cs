@@ -2,10 +2,12 @@
 {
     public class CourseSearchProperties
     {
-        public int PageNumber { get; set; }
+        public int Page { get; set; } = 1;
 
-        public int RecordsPerPage { get; set; }
+        public int Count { get; set; }
 
-        public CourseSearchOrderBy CourseSearchSortBy { get; set; }
+        public CourseSearchOrderBy OrderBy { get; set; }
+
+        public CourseSearchFilters Filters { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using Telerik.Sitefinity.Mvc;
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
     [ControllerToolboxItem(Name = "TrainingCourses", Title = "Training Courses Results", SectionName = SitefinityConstants.CustomCoursesSection)]
-    public class TrainingCoursesController : BaseDfcController
+    public class CourseSearchResultsController : BaseDfcController
     {
         #region private fields
         private readonly ICourseSearchService courseSearchService;
@@ -25,7 +25,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Constructors
 
-        public TrainingCoursesController(IApplicationLogger applicationLogger, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, ICourseSearchViewModelService courseSearchViewModelService, IBuildQueryStringService buildQueryStringService) : base(applicationLogger)
+        public CourseSearchResultsController(
+            IApplicationLogger applicationLogger,
+            ICourseSearchService courseSearchService,
+            IAsyncHelper asyncHelper,
+            ICourseSearchViewModelService courseSearchViewModelService,
+            IBuildQueryStringService buildQueryStringService)
+            : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
@@ -82,6 +88,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
+        [DisplayName("Valid Characters Regex")]
+        public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
+
         //[DisplayName("Attendance Modes Source")]
         //public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";
 
@@ -107,32 +116,35 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studymode, string qualificationLevel, string distance, string pattern, string location, string sortBy, string startDate, string provider, bool dfe1619Funded = false, int page = 1)
+        public ActionResult Index(string searchTerm, string attendance, string studymode, string distance, string pattern, string location, string sortBy, string startDate, string provider, bool dfe1619Funded = false, int page = 1)
         {
-            var viewModel = new TrainingCourseResultsViewModel { SearchTerm = searchTerm };
+            var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
 
-            if (!string.IsNullOrEmpty(searchTerm))
+            var cleanCourseName =
+                StringManipulationExtension.ReplaceSpecialCharacters(searchTerm, InvalidCharactersRegexPattern);
+
+            if (!string.IsNullOrEmpty(cleanCourseName))
             {
+                float.TryParse(distance, out var localDistance);
                 var courseSearchProperties = new CourseSearchProperties
                 {
-                    PageNumber = page,
-                    RecordsPerPage = RecordsPerPage,
-                    CourseSearchSortBy = GetSortBy(sortBy)
+                    Page = page,
+                    Count = RecordsPerPage,
+                    OrderBy = GetSortBy(sortBy),
+                    Filters = new CourseSearchFilters
+                    {
+                        Attendance = attendance?.Split(','),
+                        StudyMode = studymode?.Split(','),
+                        Only1619Courses = dfe1619Funded,
+                        Distance = localDistance,
+                        AttendancePattern = pattern?.Split(','),
+                        Location = StringManipulationExtension.ReplaceSpecialCharacters(location, InvalidCharactersRegexPattern),
+                        ProviderKeyword =
+                            StringManipulationExtension.ReplaceSpecialCharacters(provider, InvalidCharactersRegexPattern)
+                    }
                 };
 
-                float.TryParse(distance, out var localDistance);
-                var searchFilters = new CourseSearchFilters
-                {
-                    Attendance = attendance,
-                    StudyMode = studymode,
-                    Only1619Courses = dfe1619Funded,
-                    Distance = localDistance,
-                    AttendancePattern = pattern,
-                    Location = location,
-                    ProviderKeyword = provider
-                };
-
-                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(searchTerm, courseSearchProperties, searchFilters));
+                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
@@ -155,7 +167,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     }
 
                     courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
-                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.CourseSearchSortBy);
+                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderBy);
                 }
 
                // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
@@ -166,11 +178,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(TrainingCourseResultsViewModel viewModel)
+        public ActionResult Index(CourseSearchResultsViewModel viewModel)
         {
             if (!string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel, LocationRegex));
+                return Redirect(StringManipulationExtension.GetUrlEncodedString(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel)));
             }
 
             SetupWidgetDefaults(viewModel);
@@ -185,7 +197,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
         }
 
         //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
@@ -220,13 +232,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         //        courseSearchConverter.GetFilterSelectItems(
         //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
         //}
-        private void SetupSearchLinks(string searchTerm, TrainingCourseResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
+        private void SetupSearchLinks(string searchTerm, CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
         {
             viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
             viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?searchterm={searchTerm}", UriKind.RelativeOrAbsolute);
         }
 
-        private void SetupWidgetDefaults(TrainingCourseResultsViewModel viewModel)
+        private void SetupWidgetDefaults(CourseSearchResultsViewModel viewModel)
         {
             viewModel.PageTitle = PageTitle;
             viewModel.FilterCourseByText = FilterCourseByText;

@@ -17,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             // Assign
             var searchResultsView = new _MVC_Views_TrainingCourses_SearchResults_cshtml();
-            var viewModel = new TrainingCourseResultsViewModel
+            var viewModel = new CourseSearchResultsViewModel
             {
                 PageTitle = pageTitle,
                 Courses = GetCourseListings(coursesCount, true).ToList(),

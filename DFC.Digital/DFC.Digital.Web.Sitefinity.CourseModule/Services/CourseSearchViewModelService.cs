@@ -7,24 +7,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchViewModelService : ICourseSearchViewModelService
     {
-        public void SetupPaging(TrainingCourseResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage)
+        public void SetupPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage)
         {
-            viewModel.RecordsPerPage = recordsPerPage;
-            viewModel.CurrentPageNumber = response.CurrentPage;
-            viewModel.TotalPagesCount = response.TotalPages;
-            viewModel.ResultsCount = response.TotalResultCount;
+            viewModel.SearchProperties.Count = recordsPerPage;
+            viewModel.SearchProperties.Page = response.ResultProperties.Page;
+            viewModel.ResultProperties = response.ResultProperties;
 
-            if (viewModel.TotalPagesCount > 1 && viewModel.TotalPagesCount >= viewModel.CurrentPageNumber)
+            if (viewModel.ResultProperties.TotalPages > 1 && viewModel.ResultProperties.TotalPages >= viewModel.ResultProperties.Page)
             {
-                viewModel.PaginationViewModel.HasPreviousPage = viewModel.CurrentPageNumber > 1;
-                viewModel.PaginationViewModel.HasNextPage = viewModel.CurrentPageNumber < viewModel.TotalPagesCount;
-                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{pathQuery}&page={viewModel.CurrentPageNumber + 1}", UriKind.RelativeOrAbsolute);
-                viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.CurrentPageNumber + 1} of {viewModel.TotalPagesCount}";
+                viewModel.PaginationViewModel.HasPreviousPage = viewModel.ResultProperties.Page > 1;
+                viewModel.PaginationViewModel.HasNextPage = viewModel.ResultProperties.Page < viewModel.ResultProperties.TotalPages;
+                viewModel.PaginationViewModel.NextPageUrl = new Uri($"{pathQuery}&page={viewModel.ResultProperties.Page + 1}", UriKind.RelativeOrAbsolute);
+                viewModel.PaginationViewModel.NextPageUrlText = $"{viewModel.ResultProperties.Page + 1} of {viewModel.ResultProperties.TotalPages}";
 
-                if (viewModel.CurrentPageNumber > 1)
+                if (viewModel.ResultProperties.Page > 1)
                 {
-                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{pathQuery}{(viewModel.CurrentPageNumber == 2 ? string.Empty : $"&page={viewModel.CurrentPageNumber - 1}")}", UriKind.RelativeOrAbsolute);
-                    viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.CurrentPageNumber - 1} of {viewModel.TotalPagesCount}";
+                    viewModel.PaginationViewModel.PreviousPageUrl = new Uri($"{pathQuery}{(viewModel.ResultProperties.Page == 2 ? string.Empty : $"&page={viewModel.ResultProperties.Page - 1}")}", UriKind.RelativeOrAbsolute);
+                    viewModel.PaginationViewModel.PreviousPageUrlText = $"{viewModel.ResultProperties.Page - 1} of {viewModel.ResultProperties.TotalPages}";
                 }
             }
         }
@@ -68,7 +67,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             };
         }
 
-        public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersModel courseFiltersModel)
+        public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel)
         {
             var activeFilters = new Dictionary<string, string>();
 
@@ -90,11 +89,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             if (courseFiltersModel.PatternSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
             {
                 activeFilters.Add("Course type:", string.Join(", ", courseFiltersModel.PatternSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
-            }
-
-            if (courseFiltersModel.QualificationSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
-            {
-                activeFilters.Add("Qualification Level(s):", string.Join(", ", courseFiltersModel.QualificationSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
             }
 
             if (courseFiltersModel.AgeSuitabilitySelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))

@@ -152,6 +152,7 @@
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
+    <Compile Include="Model\CourseSearchResultProperties.cs" />
     <Compile Include="Model\EmailAuditRecord.cs" />
     <Compile Include="Model\EmailTemplate.cs" />
     <Compile Include="Model\CourseDetails.cs" />

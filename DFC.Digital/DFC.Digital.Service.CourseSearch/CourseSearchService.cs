@@ -94,7 +94,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
         }
 
-        public async Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
+        public async Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties)
         {
             if (string.IsNullOrWhiteSpace(courseName))
             {
@@ -102,7 +102,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
 
             var response = new CourseSearchResult();
-            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties, courseSearchFilters);
+            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties);
             auditRepository.CreateAudit(request);
 
             //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
@@ -110,11 +110,11 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
                 auditRepository.CreateAudit(apiResult);
-                response.TotalPages = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
-                response.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
-                response.CurrentPage = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
+                response.ResultProperties.TotalPages = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
+                response.ResultProperties.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
+                response.ResultProperties.Page = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
                 response.Courses = apiResult?.ConvertToSearchCourse();
-                response.CourseSearchSortBy = courseSearchProperties.CourseSearchSortBy;
+                response.ResultProperties.OrderBy = courseSearchProperties.OrderBy;
             }
             catch (Exception ex)
             {

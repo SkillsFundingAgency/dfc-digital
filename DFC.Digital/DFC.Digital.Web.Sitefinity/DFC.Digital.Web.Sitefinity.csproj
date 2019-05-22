@@ -1148,22 +1148,14 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_nav.scss" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\govuk.scss" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\main.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
     <Content Include="ResourcePackages\gds_service_toolkit\csslint.json" />
     <Content Include="ResourcePackages\gds_service_toolkit\jsfiles.json" />
     <Content Include="ResourcePackages\gds_service_toolkit\package.json" />
     <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\hero-banner.scss" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_search.scss" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
-    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\home.cshtml" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\results.cshtml" />
     <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\details.cshtml" />
-    <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1306,6 +1298,7 @@
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
     <Folder Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\images\" />
     <Folder Include="ResourcePackages\gds_toolkit\assets\src\backend\js\" />
+    <Folder Include="ResourcePackages\gds_toolkit\assets\src\frontend\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

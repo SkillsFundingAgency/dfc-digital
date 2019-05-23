@@ -257,6 +257,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         //}
         #endregion Actions
 
+        #region private Methods
         private CourseSearchOrderBy GetSortBy(string sortBy)
         {
             if (string.IsNullOrWhiteSpace(sortBy))
@@ -274,5 +275,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     return CourseSearchOrderBy.Relevance;
             }
         }
+
+        #endregion
     }
 }

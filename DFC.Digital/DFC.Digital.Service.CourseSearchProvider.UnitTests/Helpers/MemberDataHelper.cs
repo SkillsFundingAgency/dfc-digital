@@ -224,6 +224,12 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
+                "1,3,0",
+                AllQualificationLevels.Split(',')
+            };
+
+            yield return new object[]
+            {
                 "2,3",
                 new[] { Level1Qualification, Level2Qualification }
             };

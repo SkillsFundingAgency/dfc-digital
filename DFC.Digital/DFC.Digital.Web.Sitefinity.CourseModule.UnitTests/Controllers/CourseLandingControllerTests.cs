@@ -1,6 +1,5 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using TestStack.FluentMVCTesting;

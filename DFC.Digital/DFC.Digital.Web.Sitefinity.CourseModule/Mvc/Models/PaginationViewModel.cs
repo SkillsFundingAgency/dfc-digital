@@ -8,9 +8,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public Uri PreviousPageUrl { get; set; }
 
-        public string NextPageUrlText { get; set; }
+        public string NextPageText { get; set; }
 
-        public string PreviousPageUrlText { get; set; }
+        public string PreviousPageText { get; set; }
 
         public bool HasPreviousPage { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using ASP;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using RazorGenerator.Testing;
 using System;
@@ -52,9 +51,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 HasPreviousPage = hasPreviousPage,
                 HasNextPage = hasNextPage,
                 NextPageUrl = new Uri(pathQuery, UriKind.RelativeOrAbsolute),
-                NextPageUrlText = nextPageText,
+                NextPageText = nextPageText,
                 PreviousPageUrl = new Uri(pathQuery, UriKind.RelativeOrAbsolute),
-                PreviousPageUrlText = previousPageText
+                PreviousPageText = previousPageText
             };
 
             // Act

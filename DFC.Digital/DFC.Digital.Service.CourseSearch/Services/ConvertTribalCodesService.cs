@@ -22,17 +22,17 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var attendanceList = new List<string>();
             foreach (var attendance in selectedList)
             {
-                if (attendance.ToLowerInvariant().Equals("1"))
+                if (attendance.ToUpperInvariant().Equals("1"))
                 {
                     attendanceList.AddRange(CourseSearchConstants.ClassAttendanceModes.Split(','));
                 }
 
-                if (attendance.ToLowerInvariant().Equals("2"))
+                if (attendance.ToUpperInvariant().Equals("2"))
                 {
                     attendanceList.AddRange(CourseSearchConstants.WorkAttendanceModes.Split(','));
                 }
 
-                if (attendance.ToLowerInvariant().Equals("3"))
+                if (attendance.ToUpperInvariant().Equals("3"))
                 {
                     attendanceList.AddRange(CourseSearchConstants.DistantAttendanceModes.Split(','));
                     attendanceList.AddRange(CourseSearchConstants.OnlineAttendanceModes.Split(','));
@@ -45,7 +45,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         public string[] GetTribalStudyModes(string studyMode)
         {
             if (string.IsNullOrWhiteSpace(studyMode) ||
-                studyMode.ToLowerInvariant().Equals("0"))
+                studyMode.ToUpperInvariant().Equals("0"))
             {
                 return null;
             }
@@ -60,17 +60,17 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var studyModeList = new List<string>();
             foreach (var attendance in selectedList)
             {
-                if (attendance.ToLowerInvariant().Equals("1"))
+                if (attendance.ToUpperInvariant().Equals("1"))
                 {
-                    studyModeList.Add(CourseSearchConstants.FullTimeStudyMode);
+                    studyModeList.Add(CourseSearchConstants.FulltimeStudyMode);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("2"))
+                if (attendance.ToUpperInvariant().Equals("2"))
                 {
                     studyModeList.Add(CourseSearchConstants.PartTimeStudyMode);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("3"))
+                if (attendance.ToUpperInvariant().Equals("3"))
                 {
                     studyModeList.Add(CourseSearchConstants.FlexibleStudyMode);
                 }
@@ -82,7 +82,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         public string[] GetTribalQualificationLevels(string qualificationLevels)
         {
             if (string.IsNullOrWhiteSpace(qualificationLevels) ||
-                qualificationLevels.ToLowerInvariant().Equals("0"))
+                qualificationLevels.ToUpperInvariant().Equals("0"))
             {
                 return CourseSearchConstants.AllQualificationLevels.Split(',');
             }
@@ -97,47 +97,47 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var qualificationList = new List<string>();
             foreach (var attendance in selectedList)
             {
-                if (attendance.ToLowerInvariant().Equals("1"))
+                if (attendance.ToUpperInvariant().Equals("1"))
                 {
                     qualificationList.Add(CourseSearchConstants.EntryLevelQualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("2"))
+                if (attendance.ToUpperInvariant().Equals("2"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level1Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("3"))
+                if (attendance.ToUpperInvariant().Equals("3"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level2Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("4"))
+                if (attendance.ToUpperInvariant().Equals("4"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level3Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("5"))
+                if (attendance.ToUpperInvariant().Equals("5"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level4Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("6"))
+                if (attendance.ToUpperInvariant().Equals("6"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level5Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("7"))
+                if (attendance.ToUpperInvariant().Equals("7"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level6Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("8"))
+                if (attendance.ToUpperInvariant().Equals("8"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level7Qualification);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("9"))
+                if (attendance.ToUpperInvariant().Equals("9"))
                 {
                     qualificationList.Add(CourseSearchConstants.Level8Qualification);
                 }
@@ -163,17 +163,17 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var patternList = new List<string>();
             foreach (var attendance in selectedList)
             {
-                if (attendance.ToLowerInvariant().Equals("1"))
+                if (attendance.ToUpperInvariant().Equals("1"))
                 {
                     patternList.Add(CourseSearchConstants.NormalWorkingHoursPattern);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("2"))
+                if (attendance.ToUpperInvariant().Equals("2"))
                 {
                     patternList.Add(CourseSearchConstants.DayReleaseBlockPattern);
                 }
 
-                if (attendance.ToLowerInvariant().Equals("3"))
+                if (attendance.ToUpperInvariant().Equals("3"))
                 {
                     patternList.Add(CourseSearchConstants.WeekendPattern);
                     patternList.Add(CourseSearchConstants.EveningPattern);

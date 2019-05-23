@@ -27,7 +27,7 @@
         //SM3 Part of a full-time program
         //SM4 Flexible
         //SM5 Not known
-        public const string FullTimeStudyMode = "SM1";
+        public const string FulltimeStudyMode = "SM1";
         public const string PartTimeStudyMode = "SM2";
         public const string FlexibleStudyMode = "SM4";
 

@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CourseLandingControllerTests.cs" />
     <Compile Include="Controllers\CourseSearchResultsControllerTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\AssertionHelper.cs" />
     <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,6 +21,11 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
         {
+            if (courseSearchProperties == null)
+            {
+                throw new ArgumentNullException(nameof(courseSearchProperties));
+            }
+
             var apiRequest = new CourseListInput
             {
                 CourseListRequest = new CourseListRequestStructure
@@ -58,17 +63,16 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
         }
 
-        private SortType GetSortType(CourseSearchOrderBy courseSearchSortBy)
+        private static SortType GetSortType(CourseSearchOrderBy courseSearchSortBy)
         {
             switch (courseSearchSortBy)
             {
-                case CourseSearchOrderBy.Relevance:
-                    return SortType.A;
                 case CourseSearchOrderBy.Distance:
                     return SortType.D;
                 case CourseSearchOrderBy.StartDate:
                     return SortType.S;
                 default:
+                case CourseSearchOrderBy.Relevance:
                     return SortType.A;
             }
         }

@@ -9,6 +9,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
     {
         public string BuildRedirectPathAndQueryString(string courseSearchResultsPage, string searchTerm, CourseSearchFilters courseSearchFilters)
         {
+            if (courseSearchFilters == null)
+            {
+                return courseSearchResultsPage;
+            }
+
             var parameters = new Dictionary<string, string>();
             if (!string.IsNullOrWhiteSpace(searchTerm) || !string.IsNullOrWhiteSpace(courseSearchFilters.Provider))
             {
@@ -19,34 +24,33 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
                 if (!string.IsNullOrWhiteSpace(courseSearchFilters.Provider))
                 {
-                    parameters.Add(nameof(courseSearchFilters.Provider).ToLowerInvariant(), StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.Provider));
+                    parameters.Add(nameof(courseSearchFilters.Provider), StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.Provider));
                 }
 
                 if (courseSearchFilters.Attendance.Any())
                 {
-                    parameters.Add(nameof(courseSearchFilters.Attendance).ToLowerInvariant(), string.Join(",", courseSearchFilters.Attendance));
+                    parameters.Add(nameof(courseSearchFilters.Attendance), string.Join(",", courseSearchFilters.Attendance));
                 }
 
                 if (courseSearchFilters.Only1619Courses)
                 {
-                    parameters.Add(nameof(courseSearchFilters.Only1619Courses).ToLowerInvariant(), "true");
+                    parameters.Add(nameof(courseSearchFilters.Only1619Courses), "true");
                 }
 
                 if (!string.IsNullOrWhiteSpace(courseSearchFilters.Location))
                 {
-                    parameters.Add(nameof(CourseSearchFilters.Location).ToLowerInvariant(), StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.Location));
+                    parameters.Add(nameof(CourseSearchFilters.Location), StringManipulationExtension.GetUrlEncodedString(courseSearchFilters.Location));
                 }
 
                 if (courseSearchFilters.AttendancePattern.Any())
                 {
-                    parameters.Add(nameof(CourseSearchFilters.AttendancePattern).ToLowerInvariant(), string.Join(",", courseSearchFilters.AttendancePattern));
+                    parameters.Add(nameof(CourseSearchFilters.AttendancePattern), string.Join(",", courseSearchFilters.AttendancePattern));
                 }
 
-                parameters.Add(nameof(CourseSearchFilters.StartDate).ToLowerInvariant(), "anytime");
-
+                //parameters.Add(nameof(CourseSearchFilters.StartDate), "anytime");
                 if (courseSearchFilters.StudyMode.Any())
                 {
-                    parameters.Add(nameof(CourseSearchFilters.StudyMode).ToLowerInvariant(), string.Join(",", courseSearchFilters.StudyMode));
+                    parameters.Add(nameof(CourseSearchFilters.StudyMode), string.Join(",", courseSearchFilters.StudyMode));
                 }
             }
 

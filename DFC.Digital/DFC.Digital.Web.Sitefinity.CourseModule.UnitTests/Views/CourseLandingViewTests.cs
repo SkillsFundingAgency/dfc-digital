@@ -1,9 +1,7 @@
 ﻿using ASP;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
-using System;
 using System.Linq;
 using Xunit;
 

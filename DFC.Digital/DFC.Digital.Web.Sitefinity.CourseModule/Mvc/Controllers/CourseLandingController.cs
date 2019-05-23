@@ -1,7 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using System.ComponentModel;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -64,6 +63,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseLandingViewModel model)
         {
+            if (model == null)
+            {
+                return Redirect(CourseSearchResultsPage);
+            }
+
             return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model.SearchTerm, model));
         }
 

@@ -246,6 +246,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CourseAutofacModule.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\CourseDetailsController.cs" />
     <Compile Include="Mvc\Controllers\CourseLandingController.cs" />
     <Compile Include="Mvc\Controllers\CourseSearchResultsController.cs" />

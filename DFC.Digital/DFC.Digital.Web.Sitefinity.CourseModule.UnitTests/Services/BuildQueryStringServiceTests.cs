@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
-using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
+﻿using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using Xunit;
 
@@ -12,10 +11,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
         public void BuildRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
         {
             //Assign
-            var courseSearchConverter = new BuildQueryStringService();
+            var buildQueryStringService = new BuildQueryStringService();
 
             //Act
-            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.SearchTerm, trainingCourseResultsViewModel.CourseFiltersModel);
+            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.SearchTerm, trainingCourseResultsViewModel.CourseFiltersModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);
@@ -26,10 +25,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
         public void BuildSearchRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
         {
             //Assign
-            var courseSearchConverter = new BuildQueryStringService();
+            var buildQueryStringService = new BuildQueryStringService();
 
             //Act
-            var result = courseSearchConverter.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel);
+            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);

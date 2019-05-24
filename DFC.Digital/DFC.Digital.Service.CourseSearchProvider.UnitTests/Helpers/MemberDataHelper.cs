@@ -17,7 +17,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    OrderBy = CourseSearchOrderBy.Distance,
+                    OrderedBy = CourseSearchOrderBy.Distance,
                     Count = 20,
                     Page = 3
                 },
@@ -43,7 +43,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    OrderBy = CourseSearchOrderBy.Relevance,
+                    OrderedBy = CourseSearchOrderBy.Relevance,
                     Count = 30,
                     Page = 1
                 },
@@ -69,7 +69,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 SearchTerm,
                 new CourseSearchProperties
                 {
-                    OrderBy = CourseSearchOrderBy.StartDate,
+                    OrderedBy = CourseSearchOrderBy.StartDate,
                     Count = 40,
                     Page = 2
                 },
@@ -119,31 +119,31 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 string.Empty,
-                CourseSearchConstants.AllAttendanceModes.Split(',')
+                CourseSearchConstants.AllAttendanceModes
             };
 
             yield return new object[]
             {
                "0",
-               CourseSearchConstants.AllAttendanceModes.Split(',')
+               CourseSearchConstants.AllAttendanceModes
             };
 
             yield return new object[]
             {
                 "1,0",
-                CourseSearchConstants.AllAttendanceModes.Split(',')
+                CourseSearchConstants.AllAttendanceModes
             };
 
             yield return new object[]
             {
                 "1",
-                CourseSearchConstants.ClassAttendanceModes.Split(',')
+                CourseSearchConstants.ClassAttendanceModes
             };
 
             yield return new object[]
             {
                 "2,3",
-                CourseSearchConstants.WorkAttendanceModes.Split(',').Concat( CourseSearchConstants.DistantAttendanceModes.Split(',')).Concat(CourseSearchConstants.OnlineAttendanceModes.Split(','))
+                CourseSearchConstants.WorkAttendanceModes.Concat(CourseSearchConstants.DistantAttendanceModes.Concat(CourseSearchConstants.OnlineAttendanceModes))
             };
         }
 
@@ -185,13 +185,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 string.Empty,
-                CourseSearchConstants.AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels
             };
 
             yield return new object[]
             {
                 "0",
-                CourseSearchConstants.AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels
             };
 
             yield return new object[]
@@ -203,7 +203,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 "1,3,0",
-                CourseSearchConstants.AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels
             };
 
             yield return new object[]

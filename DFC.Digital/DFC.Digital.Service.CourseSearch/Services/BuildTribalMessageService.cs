@@ -46,7 +46,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     },
                     RecordsPerPage = courseSearchProperties.Count.ToString(),
                     PageNo = courseSearchProperties.Page.ToString(),
-                    SortBy = GetSortType(courseSearchProperties.OrderBy),
+                    SortBy = GetSortType(courseSearchProperties.OrderedBy),
                     SortBySpecified = true
                 }
             };

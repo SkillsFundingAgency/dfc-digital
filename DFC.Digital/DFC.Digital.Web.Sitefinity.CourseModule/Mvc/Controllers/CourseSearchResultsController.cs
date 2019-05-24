@@ -128,7 +128,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     Page = page,
                     Count = RecordsPerPage,
-                    OrderBy = GetSortBy(sortBy),
+                    OrderedBy = GetSortBy(sortBy),
                     Filters = new CourseSearchFilters
                     {
                         Attendance = attendance?.Split(','),
@@ -165,7 +165,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     }
 
                     courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
-                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderBy);
+                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
                 viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;

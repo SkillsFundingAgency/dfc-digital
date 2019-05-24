@@ -114,7 +114,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 response.ResultProperties.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
                 response.ResultProperties.Page = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
                 response.Courses = apiResult?.ConvertToSearchCourse();
-                response.ResultProperties.OrderBy = courseSearchProperties.OrderBy;
+                response.ResultProperties.OrderedBy = courseSearchProperties.OrderedBy;
             }
             catch (Exception ex)
             {

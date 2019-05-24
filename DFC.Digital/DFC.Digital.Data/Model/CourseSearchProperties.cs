@@ -6,7 +6,7 @@
 
         public int Count { get; set; } = 20;
 
-        public CourseSearchOrderBy OrderBy { get; set; } = CourseSearchOrderBy.Relevance;
+        public CourseSearchOrderBy OrderedBy { get; set; } = CourseSearchOrderBy.Relevance;
 
         public CourseSearchFilters Filters { get; set; } = new CourseSearchFilters();
     }

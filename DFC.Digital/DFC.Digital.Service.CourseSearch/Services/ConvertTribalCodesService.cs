@@ -15,14 +15,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (string.IsNullOrWhiteSpace(attendanceMode))
             {
-                return CourseSearchConstants.AllAttendanceModes.Split(',');
+                return CourseSearchConstants.AllAttendanceModes;
             }
 
             var selectedList = attendanceMode.Split(',');
 
             if (selectedList.Contains("0", StringComparer.InvariantCultureIgnoreCase))
             {
-                return CourseSearchConstants.AllAttendanceModes.Split(',');
+                return CourseSearchConstants.AllAttendanceModes;
             }
 
             var attendanceList = new List<string>();
@@ -31,15 +31,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 switch (attendance.ToUpperInvariant())
                 {
                     case "1":
-                        attendanceList.AddRange(CourseSearchConstants.ClassAttendanceModes.Split(','));
+                        attendanceList.AddRange(CourseSearchConstants.ClassAttendanceModes);
                         break;
                     case "2":
-                        attendanceList.AddRange(CourseSearchConstants.WorkAttendanceModes.Split(','));
+                        attendanceList.AddRange(CourseSearchConstants.WorkAttendanceModes);
                         break;
                     case "3":
                         default:
-                        attendanceList.AddRange(CourseSearchConstants.DistantAttendanceModes.Split(','));
-                        attendanceList.AddRange(CourseSearchConstants.OnlineAttendanceModes.Split(','));
+                        attendanceList.AddRange(CourseSearchConstants.DistantAttendanceModes);
+                        attendanceList.AddRange(CourseSearchConstants.OnlineAttendanceModes);
                         break;
                 }
             }
@@ -88,14 +88,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
             if (string.IsNullOrWhiteSpace(qualificationLevels) ||
                 qualificationLevels.ToUpperInvariant().Equals("0"))
             {
-                return CourseSearchConstants.AllQualificationLevels.Split(',');
+                return CourseSearchConstants.AllQualificationLevels;
             }
 
             var selectedList = qualificationLevels.Split(',');
 
             if (selectedList.Contains("0"))
             {
-                return CourseSearchConstants.AllQualificationLevels.Split(',');
+                return CourseSearchConstants.AllQualificationLevels;
             }
 
             var qualificationList = new List<string>();

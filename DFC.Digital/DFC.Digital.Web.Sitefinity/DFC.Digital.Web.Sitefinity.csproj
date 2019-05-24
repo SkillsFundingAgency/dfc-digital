@@ -1064,6 +1064,18 @@
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\dist\**\*" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\backend\js\cmsextensions.js" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\js\dfcdigital.js" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-third-two-thirds.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-two-thirds-third.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-grid-full.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\phase-banner.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-footer.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\service-header.html" />
+    <Content Include="ResourcePackages\gds_service_toolkit\gruntfile.js" />
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\backend\js\cmsextensions.js" />
     <Content Include="robots.prod.txt.template" />
     <Content Include="ClientBin\Telerik.Sitefinity.Analytics.xap" />
     <Content Include="ClientBin\Telerik.Sitefinity.Silverlight.xap" />
@@ -1140,6 +1152,22 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_nav.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\govuk.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\main.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\csslint.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\jsfiles.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\package.json" />
+    <Content Include="ResourcePackages\gds_service_toolkit\razorgenerator.directives" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\hero-banner.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_search.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_pagination.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\sass\includes\_filters.scss" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\home.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\results.cshtml" />
+    <Content Include="ResourcePackages\gds_service_toolkit\assets\frontend markup\details.cshtml" />
+    <None Include="ResourcePackages\gds_toolkit\assets\src\frontend\sass\includes\_servicestatus.scss" />
     <Content Include="ResourcePackages\gds_service_toolkit\MVC\Views\Layouts\service_default.cshtml" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS job profile hero.html" />
     <Content Include="ResourcePackages\gds_toolkit\GridSystem\Templates\GDS JobProfile Opportunities section.html" />
@@ -1280,6 +1308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
+    <Folder Include="ResourcePackages\gds_service_toolkit\assets\src\frontend\images\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
@@ -1421,6 +1450,10 @@
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
       <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
       <Name>DFC.Digital.Web.Sitefinity.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.CourseModule\DFC.Digital.Web.Sitefinity.CourseModule.csproj">
+      <Project>{8c132082-c8a8-40fa-a3ef-b8be1aef9550}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.CourseModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.DfcSearchModule\DFC.Digital.Web.Sitefinity.DfcSearchModule.csproj">
       <Project>{43653733-4860-4f26-a3ec-5d199fef42d6}</Project>

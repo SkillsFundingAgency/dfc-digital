@@ -1,0 +1,44 @@
+﻿$govuk-assets-path: "/ResourcePackages/gds_service_toolkit/assets/dist/" !default;
+
+@import "../../../../node_modules/govuk-frontend/all";
+
+
+.ec-hero {
+    background-color: #207e77;
+    color: #ffffff;
+    padding: 40px 0;
+}
+
+.govuk-header__container {
+    border-bottom: transparent;
+}
+
+nav {
+    .govuk-tag {
+        margin: 0 0 0 4px;
+        top: -7px;
+        font-size: 10px;
+        position: relative;
+        padding: 3px 5px;
+    }
+}
+
+
+.govuk-secondary-colour {
+    color: $govuk-secondary-text-colour;
+}
+
+.govuk-related-items {
+    margin-top: 30px;
+    border-top: 10px solid #005ea5;
+    padding-top: 5px;
+}
+
+/*Search Results page SCSS - For Search Results*/
+@import 'includes/_search.scss';
+
+/*Pagination SCSS - For Pagiated Pages*/
+@import 'includes/_pagination.scss';
+
+/*Filters SCSS - For Search Pages*/
+@import 'includes/_filters.scss';

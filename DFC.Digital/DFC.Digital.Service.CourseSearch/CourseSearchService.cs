@@ -16,19 +16,22 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
+        private readonly IBuildTribalMessage buildTribalMessage;
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
             IServiceHelper serviceHelper,
             IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
-            ITolerancePolicy tolerancePolicy)
+            ITolerancePolicy tolerancePolicy,
+            IBuildTribalMessage buildTribalMessage)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
             this.tolerancePolicy = tolerancePolicy;
+            this.buildTribalMessage = buildTribalMessage;
         }
 
         private static string ServiceName => "Course Search";
@@ -50,7 +53,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 serviceStatus.Notes = "Success Response";
 
                 //We have actual data
-                if (apiResult.CourseListResponse.CourseDetails.Count() > 0)
+                if (apiResult.CourseListResponse.CourseDetails.Any())
                 {
                     serviceStatus.Status = ServiceState.Green;
                     serviceStatus.Notes = string.Empty;
@@ -89,6 +92,65 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 applicationLogger.ErrorJustLogIt("Getting courses Failed - ", ex);
                 return Enumerable.Empty<Course>();
             }
+        }
+
+        public async Task<CourseSearchResponse> SearchCoursesAsync(CourseSearchRequest courseSearchRequest)
+        {
+            if (string.IsNullOrWhiteSpace(courseSearchRequest.SearchTerm))
+            {
+                return null;
+            }
+
+            var response = new CourseSearchResponse();
+            var request = buildTribalMessage.GetCourseSearchInput(courseSearchRequest);
+            auditRepository.CreateAudit(request);
+
+            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
+            try
+            {
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+                auditRepository.CreateAudit(apiResult);
+                response.TotalPages = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfPages);
+                response.TotalResultCount = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.NoOfRecords);
+                response.CurrentPage = Convert.ToInt32(apiResult.CourseListResponse.ResultInfo.PageNo);
+                response.Courses = apiResult?.ConvertToSearchCourse();
+                response.CourseSearchSortBy = courseSearchRequest.CourseSearchSortBy;
+            }
+            catch (Exception ex)
+            {
+                auditRepository.CreateAudit(ex);
+                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
+                response.Courses = Enumerable.Empty<Course>();
+            }
+
+            return response;
+        }
+
+        public async Task<CourseDetails> GetCourseDetails(string courseId)
+        {
+            if (string.IsNullOrWhiteSpace(courseId))
+            {
+                return null;
+            }
+
+            var response = new CourseDetails();
+            var request = buildTribalMessage.GetCourseDetailInput(courseId);
+            auditRepository.CreateAudit(request);
+
+            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
+            try
+            {
+                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+                auditRepository.CreateAudit(apiResult);
+                response = apiResult?.ConvertToCourseDetails();
+            }
+            catch (Exception ex)
+            {
+                auditRepository.CreateAudit(ex);
+                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
+            }
+
+            return response;
         }
     }
 }

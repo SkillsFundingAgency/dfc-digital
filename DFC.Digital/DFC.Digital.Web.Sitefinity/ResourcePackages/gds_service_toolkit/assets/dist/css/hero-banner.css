@@ -1,0 +1,22 @@
+.ec-hero {
+  background-color: #005ea5;
+  color: #ffffff;
+  padding: 40px 0; }
+  .ec-hero * {
+    color: #ffffff; }
+  .ec-hero input, .ec-hero select {
+    border: none !important;
+    color: black; }
+  .ec-hero option {
+    color: black; }
+  .ec-hero button {
+    background-color: black; }
+    .ec-hero button:hover {
+      background-color: black;
+      text-decoration: underline; }
+
+.govuk-header__container {
+  border-bottom: 10px solid transparent; }
+
+.govuk-header {
+  border-bottom: none; }

@@ -1,0 +1,45 @@
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseLandingViewModel
+
+@* Inside main section *@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        @using (Html.BeginForm("CourseLanding", "CourseLanding", FormMethod.Post))
+        {
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="SearchTerm">@Model.CourseNameLabel </label>
+                <span id="course-name-hint" class="govuk-hint">
+                    @Model.CourseNameHintText
+                </span>
+                @Html.TextBoxFor(x => x.CourseName, new { @class = "govuk-input" })
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="ProviderKeyword">@Model.ProviderLabel </label>
+                <span id="provider-level-hint" class="govuk-hint">
+                    @Model.ProviderNameHintText
+                </span>
+                @Html.TextBoxFor(x => x.ProviderKeyword, new { @class = "govuk-input" })
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label govuk-body govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" for="Location">@Model.LocationLabel</label>
+                <span id="location-level-hint" class="govuk-hint">
+                    @Model.LocationHintText
+                </span>
+                @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-one-third" })
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="DfeFunded" name="Dfe1619Funded" type="checkbox" value="1619"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="DfeFunded">
+                                @Model.Dfe1619FundedText
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group">
+                <button type="submit" class="govuk-button">Submit</button>
+            </div>
+        }
+    </div>
+</div>

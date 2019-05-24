@@ -4,7 +4,7 @@
     {
         public int Page { get; set; }
 
-        public CourseSearchOrderBy OrderBy { get; set; }
+        public CourseSearchOrderBy OrderedBy { get; set; }
 
         public int TotalResultCount { get; set; }
 

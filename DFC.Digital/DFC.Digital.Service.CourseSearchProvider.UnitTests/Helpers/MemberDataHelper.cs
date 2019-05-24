@@ -7,28 +7,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 {
     public class MemberDataHelper
     {
-        private const string NormalWorkingHoursPattern = "AP1";
-        private const string DayReleaseBlockPattern = "AP2";
-        private const string EveningPattern = "AP3";
-        private const string WeekendPattern = "AP5";
-        private const string FullTimeStudyMode = "SM1";
-        private const string PartTimeStudyMode = "SM2";
-        private const string FlexibleStudyMode = "SM4";
-        private const string AllQualificationLevels = "LV0,LV1,LV2,LV3,LV4,LV5,LV6,LV7,LV8,LV9,LVNA";
-        private const string EntryLevelQualification = "LV0";
-        private const string Level1Qualification = "LV1";
-        private const string Level2Qualification = "LV2";
-        private const string Level3Qualification = "LV3";
-        private const string Level4Qualification = "LV4";
-        private const string Level5Qualification = "LV5";
-        private const string Level6Qualification = "LV6";
-        private const string Level7Qualification = "LV7";
-        private const string Level8Qualification = "LV8";
-        private const string AllAttendanceModes = "AM1,AM2,AM3,AM4,AM5,AM6,AM7,AM8,AM9";
-        private const string ClassAttendanceModes = "AM1,AM2,AM4,AM9";
-        private const string OnlineAttendanceModes = "AM4,AM7,AM8,AM9";
-        private const string DistantAttendanceModes = "AM4,AM5,AM6,AM9";
-        private const string WorkAttendanceModes = "AM3,AM4,AM6,AM7,AM9";
         private const string ApiKey = "apiKey";
         private const string SearchTerm = "maths";
 
@@ -141,31 +119,31 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 string.Empty,
-                AllAttendanceModes.Split(',')
+                CourseSearchConstants.AllAttendanceModes.Split(',')
             };
 
             yield return new object[]
             {
                "0",
-               AllAttendanceModes.Split(',')
+               CourseSearchConstants.AllAttendanceModes.Split(',')
             };
 
             yield return new object[]
             {
                 "1,0",
-                AllAttendanceModes.Split(',')
+                CourseSearchConstants.AllAttendanceModes.Split(',')
             };
 
             yield return new object[]
             {
                 "1",
-                ClassAttendanceModes.Split(',')
+                CourseSearchConstants.ClassAttendanceModes.Split(',')
             };
 
             yield return new object[]
             {
                 "2,3",
-                WorkAttendanceModes.Split(',').Concat(DistantAttendanceModes.Split(',')).Concat(OnlineAttendanceModes.Split(','))
+                CourseSearchConstants.WorkAttendanceModes.Split(',').Concat( CourseSearchConstants.DistantAttendanceModes.Split(',')).Concat(CourseSearchConstants.OnlineAttendanceModes.Split(','))
             };
         }
 
@@ -192,13 +170,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 "1",
-                new[] { FullTimeStudyMode }
+                new[] { CourseSearchConstants.FulltimeStudyMode }
             };
 
             yield return new object[]
             {
                 "2,3",
-                new[] { PartTimeStudyMode, FlexibleStudyMode }
+                new[] { CourseSearchConstants.PartTimeStudyMode, CourseSearchConstants.FlexibleStudyMode }
             };
         }
 
@@ -207,43 +185,43 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 string.Empty,
-                AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels.Split(',')
             };
 
             yield return new object[]
             {
                 "0",
-                AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels.Split(',')
             };
 
             yield return new object[]
             {
                 "1",
-                new[] { EntryLevelQualification }
+                new[] { CourseSearchConstants.EntryLevelQualification }
             };
 
             yield return new object[]
             {
                 "1,3,0",
-                AllQualificationLevels.Split(',')
+                CourseSearchConstants.AllQualificationLevels.Split(',')
             };
 
             yield return new object[]
             {
                 "2,3",
-                new[] { Level1Qualification, Level2Qualification }
+                new[] { CourseSearchConstants.Level1Qualification, CourseSearchConstants.Level2Qualification }
             };
 
             yield return new object[]
             {
                 "2,3",
-                new[] { Level1Qualification, Level2Qualification }
+                new[] { CourseSearchConstants.Level1Qualification, CourseSearchConstants.Level2Qualification }
             };
 
             yield return new object[]
             {
                 "3,4,5,6,7,8,9",
-                new[] { Level2Qualification, Level3Qualification, Level4Qualification, Level5Qualification, Level6Qualification, Level7Qualification, Level8Qualification }
+                new[] { CourseSearchConstants.Level2Qualification,  CourseSearchConstants.Level3Qualification,  CourseSearchConstants.Level4Qualification,  CourseSearchConstants.Level5Qualification,  CourseSearchConstants.Level6Qualification,  CourseSearchConstants.Level7Qualification,  CourseSearchConstants.Level8Qualification }
             };
         }
 
@@ -264,13 +242,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 "1",
-                new[] { NormalWorkingHoursPattern }
+                new[] { CourseSearchConstants.NormalWorkingHoursPattern }
             };
 
             yield return new object[]
             {
                 "2,3",
-                new[] { DayReleaseBlockPattern, EveningPattern, WeekendPattern }
+                new[] { CourseSearchConstants.DayReleaseBlockPattern, CourseSearchConstants.EveningPattern, CourseSearchConstants.WeekendPattern }
             };
         }
     }

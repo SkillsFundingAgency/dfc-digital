@@ -122,7 +122,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             if (throwException)
             {
                 A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<Exception>._)).MustHaveHappened();
-                A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
             }
             else
             {
@@ -177,7 +176,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         [Theory]
         [InlineData(true, ServiceState.Green)]
         [InlineData(false, ServiceState.Amber)]
-        public async Task GetServiceStatusAsyn(bool coursesAvailable, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsyncTests(bool coursesAvailable, ServiceState expectedServiceStatus)
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();

@@ -14,7 +14,24 @@
         //AM7 Online without attendance
         //AM8 Online with attendance
         //AM9 Not known
-        public const string AllAttendanceModes = "AM1,AM2,AM3,AM4,AM5,AM6,AM7,AM8,AM9";
+        public static IEnumerable<string> AllAttendanceModes 
+        {
+                get 
+                { 
+                      return new string[]
+                      {
+                          "AM1", //Location / campus
+                          "AM2", //Face-to-face(non-campus)
+                          "AM3", //Work-based
+                          "AM4", //Mixed Mode
+                          "AM5", //Distance with attendance
+                          "AM6", //Distance without attendance
+                          "AM7", //Online without attendance
+                          "AM8", //Online with attendance
+                          "AM9" //Not known
+                      };
+                }
+         }
         public const string ClassAttendanceModes = "AM1,AM2,AM4,AM9";
         public const string OnlineAttendanceModes = "AM4,AM7,AM8,AM9";
         public const string DistantAttendanceModes = "AM4,AM5,AM6,AM9";

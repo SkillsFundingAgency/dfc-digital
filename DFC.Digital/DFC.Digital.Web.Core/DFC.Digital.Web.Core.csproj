@@ -152,8 +152,7 @@
     <Compile Include="Config\WebCoreAutofacConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HtmlExtentions\MvcHtmlElementsExtensions.cs" />
-    <Compile Include="HtmlExtentions\SpecialCharacterExtensions.cs" />
-    <Compile Include="HtmlExtentions\ReplaceStringTokensExtension.cs" />
+    <Compile Include="HtmlExtentions\StringManipulationExtension.cs" />
     <Compile Include="ModelValidationAttributes\AcceptAttribute.cs" />
     <Compile Include="ModelValidationAttributes\AgeRangeAttribute.cs" />
     <Compile Include="ModelValidationAttributes\BFPOAddressAttribute.cs" />

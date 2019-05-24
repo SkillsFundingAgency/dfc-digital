@@ -33,7 +33,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return apiRequest;
         }
 
-        internal static CourseListInput GetCourseSearchInput(CourseSearchRequest request)
+        internal static CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties, CourseSearchFilters courseSearchFilters)
         {
             var apiRequest = new CourseListInput
             {
@@ -42,12 +42,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
                         APIKey = ConfigurationManager.AppSettings[Constants.CourseSearchApiKey],
-                        SubjectKeyword = request.SearchTerm,
+                        SubjectKeyword = courseName,
                         EarliestStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
                         AttendanceModes = Convert.ToString(ConfigurationManager.AppSettings[Constants.CourseSearchAttendanceModes])?.Split(',')
                     },
-                    RecordsPerPage = request.RecordsPerPage.ToString(),
-                    PageNo = request.PageNumber.ToString(),
+                    RecordsPerPage = courseSearchProperties.Count.ToString(),
+                    PageNo = courseSearchProperties.Page.ToString(),
                     SortBy = SortType.A,
                     SortBySpecified = true
                 }
@@ -85,7 +85,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     AttendancePattern = c.Opportunity.AttendancePattern,
                     QualificationLevel = c.Course.QualificationLevel,
                     StudyMode = c.Opportunity.StudyMode,
-                    Duration = $"{c.Opportunity.Duration?.DurationValue} {c.Opportunity.Duration?.DurationUnit}"
+                    AdvancedLearnerLoansOffered = c.Provider.TFPlusLoans
                 });
 
             return result ?? Enumerable.Empty<Course>();
@@ -93,7 +93,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
         {
-            var apiCourseDetail = apiResult.CourseDetails.FirstOrDefault();
+            var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
 
             if (apiCourseDetail == null)
             {

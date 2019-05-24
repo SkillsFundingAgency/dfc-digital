@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             var viewModel = new CourseDetailsViewModel { FindACoursePage = FindAcoursePage };
             if (!string.IsNullOrWhiteSpace(courseId))
             {
-                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetails(courseId));
+                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId));
             }
 
             return View(viewModel);

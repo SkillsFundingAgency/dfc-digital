@@ -108,8 +108,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CourseSearchServiceTests.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="ManageCourseServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BuildTribalMessageServiceTests.cs" />
+    <Compile Include="Services\ConvertTribalCodesServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">

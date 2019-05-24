@@ -60,5 +60,7 @@ namespace DFC.Digital.Data.Model
         public string StartDateLabel { get; set; }
 
         public string CourseUrl { get; set; }
+
+        public bool AdvancedLearnerLoansOffered { get; set; }
     }
 }

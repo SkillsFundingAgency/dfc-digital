@@ -5,7 +5,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 {
     public interface IBuildTribalMessage
     {
-        CourseListInput GetCourseSearchInput(CourseSearchRequest request);
+        CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties);
 
         CourseDetailInput GetCourseDetailInput(string courseId);
     }

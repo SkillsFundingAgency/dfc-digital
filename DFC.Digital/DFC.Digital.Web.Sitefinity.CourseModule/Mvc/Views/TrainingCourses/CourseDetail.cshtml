@@ -1,36 +1,35 @@
-﻿@model DFC.Digital.Data.Model.Course
+﻿@model DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models.CourseListingViewModel
 
 <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
     <h2 class="govuk-heading-m">
-        <a class="govuk-link" href="@Model.CourseUrl">@Model.Title</a>
+        <a class="govuk-link" href="@Model.Course.CourseUrl">@Model.Course.Title</a>
     </h2>
     <ul class="govuk-list">
-        <li>
-            @Model.QualificationLevel
-        </li>
-        <li>
-            @Model.StudyMode | @Model.AttendanceMode | @Model.AttendancePattern
-        </li>
+        @if (Model.Course.QualificationLevel?.ToLowerInvariant().Contains("unknown") == false)
+        {
+            <li>
+                @Model.Course.QualificationLevel
+            </li>
+        }
+        
         <li class="govuk-!-margin-top-3">
-            <span class="govuk-secondary-colour">Provider:</span> @Model.ProviderName
+            <span class="govuk-secondary-colour">@Model.ProviderLabel</span> @Model.Course.ProviderName
         </li>
-        @if (!string.IsNullOrWhiteSpace(Model.Location))
+        
+        <li class="govuk-!-margin-top-3">
+            <span class="govuk-secondary-colour">@Model.AdvancedLoanProviderLabel</span> @(Model.Course.AdvancedLearnerLoansOffered  ? "Yes" : "No")
+        </li>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Course.Location))
         {
             <li>
-                <span class="govuk-secondary-colour">Location:</span> @Model.Location
+                <span class="govuk-secondary-colour">@Model.LocationLabel</span> @Model.Course.Location
             </li>
         }
-        
+
         <li>
-            <span class="govuk-secondary-colour">Start date:</span> @Model.StartDateLabel
+            <span class="govuk-secondary-colour">@Model.StartDateLabel</span> @Model.Course.StartDateLabel
         </li>
-        @if (!string.IsNullOrWhiteSpace(Model.Duration))
-        {
-            <li>
-                <span class="govuk-secondary-colour">Duration:</span> @Model.Duration
-            </li>
-        }
-        
     </ul>
 </div>
 

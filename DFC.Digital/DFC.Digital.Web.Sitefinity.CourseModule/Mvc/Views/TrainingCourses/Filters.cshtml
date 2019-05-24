@@ -1,52 +1,33 @@
-﻿@model CourseFiltersModel
+﻿@model CourseFiltersViewModel
 
-<div class="filters filters">
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Distance</h3>
-        </div>
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-                    <div class="govuk-form-group">
-                        <div class="search-header">
-                            <div class="searchfield">
-                                <div class="search-input">
-                                    <label for="search-main" class="govuk-heading-s govuk-!-margin-0">Postcode</label>
-                                    <input placeholder="Your postcode" class="search-input" id="search-main" type="search" value="@Model.Location" name="CourseFiltersModel.Location">
-                                </div>
-                                <div class="search-submit">
-                                    <button class="button">Search</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        @foreach (var item in Model.DistanceSelectedList)
-                        {
-                            <div class="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" @item.Checked type="radio" value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-
+@*<div class="filters filters">
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="location">
+            Location
+        </label>
+        <input class="govuk-input govuk-!-width-full" id="location" value="@Model.Location" name="CourseFiltersModel.Location" type="text">
     </div>
+
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="provider">
+            Provider
+        </label>
+        <input class="govuk-input govuk-!-width-full" id="location" value="@Model.ProviderKeyword" name="CourseFiltersModel.ProviderKeyword" type="text">
+    </div>
+    
     <div class="filter-container">
         <div class="filter-label">
             <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.StudyModeSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -63,12 +44,13 @@
 
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.AttendanceSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -82,12 +64,13 @@
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.PatternSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -103,12 +86,13 @@
 
         <div class="filter-box">
             <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-checkboxes">
+                <div class="govuk-radios">
 
                     @foreach (var item in Model.QualificationSelectedList)
                     {
-                        <div class="govuk-checkboxes__item">
-                            <input class="govuk-checkboxes__input" id="@item.Id" name="@item.Name" type="checkbox" @item.Checked value="@item.Value"><label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="@item.Id">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
+                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
                                 @item.Label
                             </label>
                         </div>
@@ -190,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </fieldset>
         </div>
     </div>
@@ -200,4 +184,4 @@
 
 
     </div>
-</div>
+</div>*@

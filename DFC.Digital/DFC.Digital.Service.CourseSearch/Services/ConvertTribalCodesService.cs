@@ -28,7 +28,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var attendanceList = new List<string>();
             foreach (var attendance in selectedList)
             {
-                switch (attendance.ToUpperInvariant())
+                switch (attendance)
                 {
                     case "1":
                         attendanceList.AddRange(CourseSearchConstants.ClassAttendanceModes);
@@ -65,7 +65,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var studyModeList = new List<string>();
             foreach (var studyModeItem in selectedList)
             {
-                switch (studyModeItem.ToUpperInvariant())
+                switch (studyModeItem)
                 {
                     case "1":
                         studyModeList.Add(CourseSearchConstants.FulltimeStudyMode);
@@ -86,7 +86,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         public string[] GetTribalQualificationLevels(string qualificationLevels)
         {
             if (string.IsNullOrWhiteSpace(qualificationLevels) ||
-                qualificationLevels.ToUpperInvariant().Equals("0"))
+                qualificationLevels.Equals("0"))
             {
                 return CourseSearchConstants.AllQualificationLevels;
             }
@@ -101,7 +101,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var qualificationList = new List<string>();
             foreach (var qualification in selectedList)
             {
-                switch (qualification.ToUpperInvariant())
+                switch (qualification)
                 {
                     case "1":
                         qualificationList.Add(CourseSearchConstants.EntryLevelQualification);
@@ -154,7 +154,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var patternList = new List<string>();
             foreach (var pattern in selectedList)
             {
-                switch (pattern.ToUpperInvariant())
+                switch (pattern)
                 {
                     case "1":
                         patternList.Add(CourseSearchConstants.NormalWorkingHoursPattern);

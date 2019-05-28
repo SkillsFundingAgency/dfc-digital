@@ -370,10 +370,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiAutofacModule.cs" />
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\ApiAuthorizeAttribute.cs" />
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinController.cs" />
@@ -381,7 +377,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,12 +1,10 @@
 ﻿using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models
+namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
-    public class CourseLandingViewModel
+    public class CourseLandingViewModel : CourseSearchFilters
     {
         public string SearchTerm { get; set; }
-
-        public CourseSearchFilters CourseSearchFilters { get; set; }
 
         public string CourseNameHintText { get; set; }
 

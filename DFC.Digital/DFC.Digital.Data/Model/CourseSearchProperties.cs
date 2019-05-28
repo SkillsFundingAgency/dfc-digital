@@ -4,10 +4,10 @@
     {
         public int Page { get; set; } = 1;
 
-        public int Count { get; set; }
+        public int Count { get; set; } = 20;
 
-        public CourseSearchOrderBy OrderBy { get; set; }
+        public CourseSearchOrderBy OrderedBy { get; set; } = CourseSearchOrderBy.Relevance;
 
-        public CourseSearchFilters Filters { get; set; }
+        public CourseSearchFilters Filters { get; set; } = new CourseSearchFilters();
     }
 }

@@ -119,19 +119,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CourseLandingControllerTests.cs" />
-    <Compile Include="Controllers\TrainingCoursesControllerTests.cs" />
+    <Compile Include="Controllers\CourseSearchResultsControllerTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\AssertionHelper.cs" />
     <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BuildQueryStringServiceTests.cs" />
     <Compile Include="Services\CourseSearchViewModelServiceTests.cs" />
-    <Compile Include="Views\TrainingCoursesViewTests.cs" />
+    <Compile Include="Views\CourseLandingViewTests.cs" />
+    <Compile Include="Views\CourseSearchResultsViewTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

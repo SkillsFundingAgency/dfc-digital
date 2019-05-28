@@ -105,23 +105,16 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties);
             auditRepository.CreateAudit(request);
 
-            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
-            try
-            {
-                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
-                auditRepository.CreateAudit(apiResult);
-                response.ResultProperties.TotalPages = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
-                response.ResultProperties.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
-                response.ResultProperties.Page = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
-                response.Courses = apiResult?.ConvertToSearchCourse();
-                response.ResultProperties.OrderBy = courseSearchProperties.OrderBy;
-            }
-            catch (Exception ex)
-            {
-                auditRepository.CreateAudit(ex);
-                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
-                response.Courses = Enumerable.Empty<Course>();
-            }
+            var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+            auditRepository.CreateAudit(apiResult);
+
+            response.ResultProperties.TotalPages =
+                Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
+            response.ResultProperties.TotalResultCount =
+                Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
+            response.ResultProperties.Page = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
+            response.Courses = apiResult?.ConvertToSearchCourse();
+            response.ResultProperties.OrderedBy = courseSearchProperties.OrderedBy;
 
             return response;
         }
@@ -133,23 +126,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 return null;
             }
 
-            var response = new CourseDetails();
             var request = buildTribalMessage.GetCourseDetailInput(courseId);
             auditRepository.CreateAudit(request);
 
-            //if the the call to the courses API fails for anyreason we should log and continue as if there are no courses available.
-            try
-            {
-                var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
-                auditRepository.CreateAudit(apiResult);
-                response = apiResult?.ConvertToCourseDetails();
-            }
-            catch (Exception ex)
-            {
-                auditRepository.CreateAudit(ex);
-                applicationLogger.ErrorJustLogIt("search courses Failed - ", ex);
-            }
+            var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
+            auditRepository.CreateAudit(apiResult);
 
+            var response = apiResult?.ConvertToCourseDetails();
             return response;
         }
     }

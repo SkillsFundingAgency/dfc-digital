@@ -1,6 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models
+namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseListingViewModel
     {

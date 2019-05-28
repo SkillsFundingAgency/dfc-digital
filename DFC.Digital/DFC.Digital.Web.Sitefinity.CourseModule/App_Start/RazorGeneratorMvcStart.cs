@@ -1,4 +1,5 @@
 using RazorGenerator.Mvc;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
@@ -7,6 +8,7 @@ using System.Web.WebPages;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
+    [ExcludeFromCodeCoverage]
     public static class RazorGeneratorMvcStart
     {
         public static void Start()

@@ -2,8 +2,8 @@
 {
     public enum CourseSearchOrderBy
     {
-        Relevance = 1,
-        Distance = 2,
-        StartDate = 3
+        Relevance,
+        Distance,
+        StartDate
     }
 }

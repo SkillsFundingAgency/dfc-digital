@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {

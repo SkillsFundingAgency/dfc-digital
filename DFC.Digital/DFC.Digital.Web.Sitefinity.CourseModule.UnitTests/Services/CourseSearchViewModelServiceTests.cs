@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using System.Collections.Generic;
@@ -21,9 +20,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             //Assert
             viewModel.PaginationViewModel.NextPageUrl.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.NextPageUrl);
-            viewModel.PaginationViewModel.NextPageUrlText.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.NextPageUrlText);
+            viewModel.PaginationViewModel.NextPageText.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.NextPageText);
             viewModel.PaginationViewModel.PreviousPageUrl.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.PreviousPageUrl);
-            viewModel.PaginationViewModel.PreviousPageUrlText.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.PreviousPageUrlText);
+            viewModel.PaginationViewModel.PreviousPageText.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.PreviousPageText);
             viewModel.PaginationViewModel.HasPreviousPage.Should().Be(expectedViewModel.PaginationViewModel.HasPreviousPage);
             viewModel.PaginationViewModel.HasNextPage.Should().Be(expectedViewModel.PaginationViewModel.HasNextPage);
         }

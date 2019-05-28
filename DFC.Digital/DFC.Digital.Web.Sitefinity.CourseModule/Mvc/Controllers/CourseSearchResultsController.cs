@@ -64,13 +64,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string OrderByText { get; set; } = "Ordered by";
 
         [DisplayName("Relevance Order By Text")]
-        public string RelevanceOrderByText { get; set; } = "relevance";
+        public string RelevanceOrderByText { get; set; } = "Relevance";
 
         [DisplayName("StartDate Order By Text")]
-        public string DistanceOrderByText { get; set; } = "distance";
+        public string DistanceOrderByText { get; set; } = "Distance";
 
         [DisplayName("StartDate Order By Text")]
-        public string StartDateOrderByText { get; set; } = "start date";
+        public string StartDateOrderByText { get; set; } = "Start date";
 
         [DisplayName("Course Listing Location Label")]
         public string LocationLabel { get; set; } = "Location:";

@@ -10,12 +10,14 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
         private readonly IJobProfileRepository jobProfileRepository;
         private readonly ISitefinityPage sitefinityPage;
 
-        public ContentPreviewController(IJobProfileRepository jobProfileRepository)
+        public ContentPreviewController(IJobProfileRepository jobProfileRepository, ISitefinityPage sitefinityPage)
         {
             this.jobProfileRepository = jobProfileRepository;
+            this.sitefinityPage = sitefinityPage;
         }
 
-        // dfcapi/contentpreview/jobprofile/plumber
+        [ApiAuthorize]
+        [Route("dfcapi/contentpreview/{contentType}/{urlName}")]
         public IHttpActionResult Get(string contentType, string urlName)
         {
             switch (contentType)

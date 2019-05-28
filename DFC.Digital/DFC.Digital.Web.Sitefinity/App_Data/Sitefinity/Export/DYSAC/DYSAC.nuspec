@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>DYSAC</id>
+    <version>1.0.0.13</version>
+    <title>Discover your skills and careers</title>
+    <authors>DFC Development Team</authors>
+    <owners>DFC Development Team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Add-on for discover your skills and careers service</description>
+  </metadata>
+  <files>
+    <file src="..\DYSAC\**\*.*" exclude="..\DYSAC\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\DYSAC" />
+    <file src="..\DYSAC\**\*.ps1" target="tools" />
+    <file src="..\DYSAC\**\*.psm1" target="tools" />
+  </files>
+</package>

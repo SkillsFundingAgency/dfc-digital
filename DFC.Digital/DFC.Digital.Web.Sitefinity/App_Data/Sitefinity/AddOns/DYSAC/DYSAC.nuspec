@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DYSAC</id>
+    <version>1.0.0.13</version>
+    <title>Discover your skills and careers</title>
+    <authors>DFC Development Team</authors>
+    <owners>DFC Development Team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <description>Add-on for discover your skills and careers service</description>
+  </metadata>
+</package>

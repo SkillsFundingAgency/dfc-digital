@@ -25,6 +25,18 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return this.SitefinityContext.CurrentPageManager.GetPreview(this.SitefinityContext.CurrentPage.Id);
         }
 
+        public PageDraft GetPagePreviewByUrlName(string urlName)
+        {
+            var pageNode = SitefinityContext.CurrentPageManager.GetPageNodes().FirstOrDefault(page => page.UrlName == urlName);
+
+            if (pageNode != null)
+            {
+                return SitefinityContext.CurrentPageManager.GetPreview(pageNode.Id);
+            }
+
+            return null;
+        }
+
         public IEnumerable<Guid> GetControlsInOrder(IEnumerable<string> sectionFilter)
         {
             var firstControlsIDs = Context.IsPreviewMode ? GetContextPagePreview().Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id) : SitefinityContext.CurrentPage.Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id);

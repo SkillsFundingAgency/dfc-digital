@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseSearchService : ICourseSearchService, IServiceStatus
+    public class TribalCourseSearchService : ICourseSearchService, IServiceStatus
     {
         private readonly ICourseOpportunityBuilder courseOpportunityBuilder;
         private readonly IAuditRepository auditRepository;
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
-        private readonly IBuildTribalMessage buildTribalMessage;
+        private readonly ICourseSearchApiRequestBuilder tribalApiRequestBuilder;
 
-        public CourseSearchService(
+        public TribalCourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
             IServiceHelper serviceHelper,
             IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy,
-            IBuildTribalMessage buildTribalMessage)
+            ICourseSearchApiRequestBuilder buildTribalMessage)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
             this.serviceHelper = serviceHelper;
             this.applicationLogger = applicationLogger;
             this.tolerancePolicy = tolerancePolicy;
-            this.buildTribalMessage = buildTribalMessage;
+            this.tribalApiRequestBuilder = buildTribalMessage;
         }
 
         private static string ServiceName => "Course Search";
@@ -102,16 +102,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
 
             var response = new CourseSearchResult();
-            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties);
+            var request = tribalApiRequestBuilder.BuildCourseSearchRequest<CourseListInput>(courseName, courseSearchProperties);
+
             auditRepository.CreateAudit(request);
 
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
             auditRepository.CreateAudit(apiResult);
 
-            response.ResultProperties.TotalPages =
-                Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
-            response.ResultProperties.TotalResultCount =
-                Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
+            response.ResultProperties.TotalPages = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfPages);
+            response.ResultProperties.TotalResultCount = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.NoOfRecords);
             response.ResultProperties.Page = Convert.ToInt32(apiResult?.CourseListResponse?.ResultInfo?.PageNo);
             response.Courses = apiResult?.ConvertToSearchCourse();
             response.ResultProperties.OrderedBy = courseSearchProperties.OrderedBy;
@@ -126,7 +125,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 return null;
             }
 
-            var request = buildTribalMessage.GetCourseDetailInput(courseId);
+            var request = tribalApiRequestBuilder.BuildCourseDetailRequest<CourseDetailInput>(courseId);
             auditRepository.CreateAudit(request);
 
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);

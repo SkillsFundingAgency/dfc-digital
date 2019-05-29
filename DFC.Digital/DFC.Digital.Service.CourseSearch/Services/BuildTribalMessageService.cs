@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class BuildTribalMessageService : IBuildTribalMessage
+    public class BuildTribalMessageService : ITribalApiRequestBuilder
     {
         private readonly IConvertTribalCodes convertTribalCodesService;
         private readonly IConfigurationProvider configuration;
@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.configuration = configuration;
         }
 
-        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
+        public CourseListInput BuildCourseSearchRequest(string courseName, CourseSearchProperties courseSearchProperties)
         {
             if (courseSearchProperties == null)
             {
@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = courseName,
                         EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",", courseSearchProperties.Filters.Attendance ?? new List<string>())),
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(courseSearchProperties.Filters.Attendance),
                         StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode ?? new List<string>())),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
                         AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern ?? new List<string>())),
@@ -54,7 +54,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return apiRequest;
         }
 
-        public CourseDetailInput GetCourseDetailInput(string courseId)
+        public CourseDetailInput BuildCourseDetailRequest(string courseId)
         {
             return new CourseDetailInput
             {

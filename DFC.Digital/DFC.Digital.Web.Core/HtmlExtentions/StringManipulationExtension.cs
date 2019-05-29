@@ -24,11 +24,6 @@ namespace DFC.Digital.Web.Core
             return input;
         }
 
-        public static string GetUrlEncodedString(string input)
-        {
-            return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
-        }
-
         private static string RegexTokenReplacer(Match match)
         {
             var returnValue = match.ToString();

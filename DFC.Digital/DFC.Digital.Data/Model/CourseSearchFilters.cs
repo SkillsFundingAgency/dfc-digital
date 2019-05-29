@@ -5,6 +5,8 @@ namespace DFC.Digital.Data.Model
 {
     public class CourseSearchFilters
     {
+        public string SearchTerm { get; set; }
+
         public string StartDate { get; set; }
 
         public string Provider { get; set; }

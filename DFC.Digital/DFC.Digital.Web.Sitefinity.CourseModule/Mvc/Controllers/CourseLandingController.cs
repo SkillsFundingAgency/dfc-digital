@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.ComponentModel;
@@ -11,14 +12,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseLandingController : BaseDfcController
     {
         #region private Fields
-        private readonly IBuildQueryStringService buildQueryStringService;
+        private readonly IQueryStringBuilder buildQueryStringService;
         #endregion
 
         #region Ctor
-        public CourseLandingController(IApplicationLogger loggingService, IBuildQueryStringService buildQueryStringService) : base(loggingService)
+
+        public CourseLandingController(IApplicationLogger loggingService, IQueryStringBuilder<CourseSearchFilters> buildQueryStringService) : base(loggingService)
         {
             this.buildQueryStringService = buildQueryStringService;
         }
+
         #endregion
 
         #region Public Properties
@@ -68,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 return Redirect(CourseSearchResultsPage);
             }
 
-            return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model.SearchTerm, model));
+            return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model));
         }
 
         #endregion

@@ -1,8 +1,10 @@
-﻿namespace DFC.Digital.Service.CourseSearchProvider
+﻿using System.Collections.Generic;
+
+namespace DFC.Digital.Service.CourseSearchProvider
 {
     public interface IConvertTribalCodes
     {
-        string[] GetTribalAttendanceModes(string attendanceMode);
+        string[] GetTribalAttendanceModes(IEnumerable<string> attendanceMode);
 
         string[] GetTribalStudyModes(string studyMode);
 

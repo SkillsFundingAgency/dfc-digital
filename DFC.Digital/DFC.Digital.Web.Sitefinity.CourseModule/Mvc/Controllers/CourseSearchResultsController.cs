@@ -6,6 +6,7 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Web.Http;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -15,12 +16,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseSearchResultsController : BaseDfcController
     {
         #region private fields
+
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchViewModelService courseSearchViewModelService;
-        private readonly IBuildQueryStringService buildQueryStringService;
+        private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
 
-        #endregion
+        #endregion private fields
 
         #region Constructors
 
@@ -29,13 +31,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchViewModelService courseSearchViewModelService,
-            IBuildQueryStringService buildQueryStringService)
+            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
             this.courseSearchViewModelService = courseSearchViewModelService;
-            this.buildQueryStringService = buildQueryStringService;
+            this.queryStringBuilder = queryStringBuilder;
         }
 
         #endregion Constructors
@@ -90,6 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Regex - Allowed Characters")]
         public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
 
+        /*
         //[DisplayName("Attendance Modes Source")]
         //public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";
 
@@ -110,17 +113,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         //[DisplayName("Start Date Source")]
         //public string StartDateSource { get; set; } = "Anytime: 1,  From today: 2, Select date from: 3";
-        #endregion
+        */
+
+        #endregion Public Properties
 
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studyMode, string attendancePattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
+        public ActionResult Index([FromUri]CourseSearchProperties courseSearchProperties, [FromUri]CourseSearchFilters courseSearchFilters)
         {
-            var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
+            var viewModel = new CourseSearchResultsViewModel { SearchTerm = courseSearchFilters.SearchTerm };
 
-            var cleanCourseName =
-                StringManipulationExtension.ReplaceSpecialCharacters(searchTerm, InvalidCharactersRegexPattern);
+            var cleanCourseName = StringManipulationExtension.ReplaceSpecialCharacters(searchTerm, InvalidCharactersRegexPattern);
 
             if (!string.IsNullOrEmpty(cleanCourseName))
             {
@@ -128,7 +132,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     Page = page,
                     Count = RecordsPerPage,
-                    OrderedBy = GetSortBy(sortBy),
+                    OrderedBy = Enum.IsDefined(typeof(CourseSearchOrderBy), sortBy) ? (CourseSearchOrderBy)Enum.Parse(typeof(CourseSearchOrderBy), sortBy, true) : CourseSearchOrderBy.Relevance,
                     Filters = new CourseSearchFilters
                     {
                         Attendance = attendance?.Split(','),
@@ -182,12 +186,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.SearchTerm))
             {
-                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel));
+                return Redirect(queryStringBuilder.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel));
             }
 
             SetupWidgetDefaults(viewModel);
 
-            return View("SearchResults",  viewModel);
+            return View("SearchResults", viewModel);
         }
 
         /// <inheritdoc />
@@ -203,56 +207,62 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion Actions
 
         #region private Methods
-        private static CourseSearchOrderBy GetSortBy(string sortBy)
-        {
-            if (string.IsNullOrWhiteSpace(sortBy))
-            {
-                return CourseSearchOrderBy.Relevance;
-            }
 
-            switch (sortBy.ToLower())
-            {
-                case "distance":
-                    return CourseSearchOrderBy.Distance;
-                case "startdate":
-                    return CourseSearchOrderBy.StartDate;
-                default:
-                    return CourseSearchOrderBy.Relevance;
-            }
-        }
+        /*
+                private static CourseSearchOrderBy GetSortBy(string sortBy)
+                {
+                    if (string.IsNullOrWhiteSpace(sortBy))
+                    {
+                        return CourseSearchOrderBy.Relevance;
+                    }
 
-        //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
-        //{
-        //    viewModel.CourseFiltersModel.Location = location;
-        //    viewModel.CourseFiltersModel.ProviderKeyword = providerKeyword;
-        //    viewModel.CourseFiltersModel.AttendanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendanceMode)}", AttendanceModesSource.Split(','), attendance);
+                    switch (sortBy.ToLower())
+                    {
+                        case "distance":
+                            return CourseSearchOrderBy.Distance;
 
-        //    viewModel.CourseFiltersModel.PatternSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendancePattern)}", AttendancePatternModesSource.Split(','), pattern);
+                        case "startdate":
+                            return CourseSearchOrderBy.StartDate;
 
-        //    viewModel.CourseFiltersModel.QualificationSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.QualificationLevel)}", QualificationLevelSource.Split(','), qualificationLevel);
+                        default:
+                            return CourseSearchOrderBy.Relevance;
+                    }
+                }
 
-        //    viewModel.CourseFiltersModel.StudyModeSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studyMode);
+                //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
+                //{
+                //    viewModel.CourseFiltersModel.Location = location;
+                //    viewModel.CourseFiltersModel.ProviderKeyword = providerKeyword;
+                //    viewModel.CourseFiltersModel.AttendanceSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendanceMode)}", AttendanceModesSource.Split(','), attendance);
 
-        //    viewModel.CourseFiltersModel.DistanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.Distance)}", DistanceSource.Split(','), distance);
+                //    viewModel.CourseFiltersModel.PatternSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendancePattern)}", AttendancePatternModesSource.Split(','), pattern);
 
-        //    viewModel.CourseFiltersModel.AgeSuitabilitySelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabilitySource.Split(','), dfe1619Funded);
+                //    viewModel.CourseFiltersModel.QualificationSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.QualificationLevel)}", QualificationLevelSource.Split(','), qualificationLevel);
 
-        //    viewModel.CourseFiltersModel.StartDateSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
-        //}
+                //    viewModel.CourseFiltersModel.StudyModeSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studyMode);
+
+                //    viewModel.CourseFiltersModel.DistanceSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.Distance)}", DistanceSource.Split(','), distance);
+
+                //    viewModel.CourseFiltersModel.AgeSuitabilitySelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabilitySource.Split(','), dfe1619Funded);
+
+                //    viewModel.CourseFiltersModel.StartDateSelectedList =
+                //        courseSearchConverter.GetFilterSelectItems(
+                //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
+                //}
+                */
+
         private void SetupSearchLinks(string searchTerm, CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
         {
             viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
@@ -269,6 +279,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.OrderByLinks.RelevanceOrderByText = RelevanceOrderByText;
         }
 
+        /*
         //private void SetupFilterDisplayData(string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string startDate, string provider, TrainingCourseResultsViewModel viewModel)
         //{
         //    SetupFilterLists(attendance, studyMode, qualificationLevel, pattern, distance, dfe1619Funded, location, startDate, provider, viewModel);
@@ -276,6 +287,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         //    viewModel.ActiveFilterOptions =
         //        courseSearchConverter.GetActiveFilterOptions(viewModel.CourseFiltersModel);
         //}
-        #endregion
+        */
+
+        #endregion private Methods
     }
 }

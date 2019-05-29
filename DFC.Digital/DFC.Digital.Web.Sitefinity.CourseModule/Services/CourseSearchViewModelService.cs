@@ -79,9 +79,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return new OrderByLinks
             {
                 CourseSearchSortBy = courseSearchSortBy,
-                OrderByRelevanceUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
-                OrderByDistanceUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
-                OrderByStartDateUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)
+                OrderByRelevanceUrl = new Uri($"{searchUrl}&sortby={CourseSearchOrderBy.Relevance}", UriKind.RelativeOrAbsolute),
+                OrderByDistanceUrl = new Uri($"{searchUrl}&sortby={CourseSearchOrderBy.Distance}", UriKind.RelativeOrAbsolute),
+                OrderByStartDateUrl = new Uri($"{searchUrl}&sortby={CourseSearchOrderBy.StartDate}", UriKind.RelativeOrAbsolute)
             };
         }
 

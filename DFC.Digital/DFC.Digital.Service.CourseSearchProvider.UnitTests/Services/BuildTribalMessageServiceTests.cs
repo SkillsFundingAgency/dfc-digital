@@ -27,7 +27,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var buildTribalMessageService = new BuildTribalMessageService(fakeConvertTribalCodesService, fakeConfiguration);
 
             //Act
-            var result = buildTribalMessageService.GetCourseSearchInput(courseName, courseSearchProperties);
+            var result = buildTribalMessageService.BuildCourseSearchRequest(courseName, courseSearchProperties);
 
             //Assert
             result.Should().BeEquivalentTo(expectedCourseListInput);
@@ -45,7 +45,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var buildTribalMessageService = new BuildTribalMessageService(fakeConvertTribalCodesService, fakeConfiguration);
 
             //Act
-            var result = buildTribalMessageService.GetCourseDetailInput(courseId);
+            var result = buildTribalMessageService.BuildCourseDetailRequest(courseId);
 
             //Assert
             result.Should().BeEquivalentTo(expectedCourseDetailInput);

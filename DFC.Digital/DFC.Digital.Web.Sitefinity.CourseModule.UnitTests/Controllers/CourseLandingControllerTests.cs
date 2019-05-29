@@ -13,12 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     public class CourseLandingControllerTests
     {
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IBuildQueryStringService fakeBuildQueryStringService;
+        private readonly IQueryStringBuilder fakeBuildQueryStringService;
 
         public CourseLandingControllerTests()
         {
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeBuildQueryStringService = A.Fake<IBuildQueryStringService>(ops => ops.Strict());
+            fakeBuildQueryStringService = A.Fake<IQueryStringBuilder>(ops => ops.Strict());
         }
 
         [Theory]

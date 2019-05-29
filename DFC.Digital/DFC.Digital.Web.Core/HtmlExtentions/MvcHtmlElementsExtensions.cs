@@ -1,8 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -163,6 +168,55 @@ namespace DFC.Digital.Web.Core
             var checkBoxWithHidden = htmlHelper.CheckBoxFor(expression, htmlAttributes).ToHtmlString();
             var pureCheckBox = checkBoxWithHidden.Substring(0, checkBoxWithHidden.IndexOf("<input", 1, StringComparison.InvariantCultureIgnoreCase));
             return new MvcHtmlString(pureCheckBox);
+        }
+
+        public static async Task<string> ToUrlEncodedQueryStringAsync(this object metaToken)
+        {
+            var keyValueContent = metaToken.SerialiseToKeyValue();
+            var formUrlEncodedContent = new FormUrlEncodedContent(keyValueContent);
+            return await formUrlEncodedContent.ReadAsStringAsync();
+        }
+
+        public static IDictionary<string, string> SerialiseToKeyValue(this object metaToken)
+        {
+            if (metaToken is null)
+            {
+                return null;
+            }
+
+            JToken token = metaToken as JToken;
+            if (token is null)
+            {
+                return SerialiseToKeyValue(JObject.FromObject(metaToken));
+            }
+
+            if (token.HasValues)
+            {
+                var contentData = new Dictionary<string, string>();
+                foreach (var child in token.Children().ToList())
+                {
+                    var childContent = child.SerialiseToKeyValue();
+                    if (childContent != null)
+                    {
+                        contentData = contentData.Concat(childContent)
+                                                 .ToDictionary(k => k.Key, v => v.Value);
+                    }
+                }
+
+                return contentData;
+            }
+
+            var jValue = token as JValue;
+            if (jValue?.Value is null)
+            {
+                return null;
+            }
+
+            var value = jValue?.Type == JTokenType.Date ?
+                            jValue?.ToString("o", CultureInfo.InvariantCulture) :
+                            jValue?.ToString(CultureInfo.InvariantCulture);
+
+            return new Dictionary<string, string> { { token.Path, value } };
         }
     }
 }

@@ -11,15 +11,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "CourseLanding", Title = "Courses Landing", SectionName = SitefinityConstants.CustomCoursesSection)]
     public class CourseLandingController : BaseDfcController
     {
+        private readonly IAsyncHelper asyncHelper;
         #region private Fields
-        private readonly IQueryStringBuilder buildQueryStringService;
         #endregion
 
         #region Ctor
 
-        public CourseLandingController(IApplicationLogger loggingService, IQueryStringBuilder<CourseSearchFilters> buildQueryStringService) : base(loggingService)
+        public CourseLandingController(IApplicationLogger loggingService, IAsyncHelper asyncHelper) : base(loggingService)
         {
-            this.buildQueryStringService = buildQueryStringService;
+            this.asyncHelper = asyncHelper;
         }
 
         #endregion
@@ -71,7 +71,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 return Redirect(CourseSearchResultsPage);
             }
 
-            return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model));
+            return Redirect($"{CourseSearchResultsPage}?{asyncHelper.Synchronise(() => model.ToUrlEncodedQueryStringAsync())}");
         }
 
         #endregion

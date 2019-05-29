@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.Model;
+﻿/*using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,4 +31,4 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             return $"{path}?{queryParameters}";
         }
     }
-}
+}*/

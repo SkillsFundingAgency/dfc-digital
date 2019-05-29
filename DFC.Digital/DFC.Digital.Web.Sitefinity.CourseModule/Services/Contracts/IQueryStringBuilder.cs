@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.Model;
+﻿/*using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -7,3 +7,4 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         string BuildRedirectPathAndQueryString(string path, T queryParameters);
     }
 }
+*/

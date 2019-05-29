@@ -119,7 +119,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Actions
 
-        [HttpGet]
+        [System.Web.Mvc.HttpGet]
         public ActionResult Index([FromUri]CourseSearchProperties courseSearchProperties, [FromUri]CourseSearchFilters courseSearchFilters)
         {
             var viewModel = new CourseSearchResultsViewModel { SearchTerm = courseSearchFilters.SearchTerm };

@@ -37,17 +37,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var pageData = SitefinityContext.CurrentPageManager.GetPreview(pageNode.Id);
                 var controlIDs = new List<Guid>();
 
-                var firstControlsIDs = pageData.Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id).ToList();
+                var firstControlsIDs = pageData.Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id)
+                    .FirstOrDefault();
 
-                controlIDs.Add(firstControlsIDs.FirstOrDefault());
-                foreach (var id in firstControlsIDs)
+                if (!firstControlsIDs.Equals(Guid.Empty))
                 {
-                    var nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(id));
-                    while (nextControl != null)
-                    {
-                       controlIDs.Add(nextControl.Id);
-                        nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(id));
-                    }
+                    controlIDs.Add(firstControlsIDs);
+                }
+
+                var nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(firstControlsIDs));
+                while (nextControl != null)
+                {
+                    controlIDs.Add(nextControl.Id);
+                    nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(nextControl.Id));
                 }
 
                 var content = controlIDs
@@ -59,14 +61,28 @@ namespace DFC.Digital.Web.Sitefinity.Core
                             SitefinityContext.CurrentPageManager.LoadControl(control) as MvcControllerProxy);
                     });
 
+                var keysToIgnore = new List<string>
+                {
+                    "EmptyLinkText",
+                    "IsEmpty",
+                    "WidgetCssClass",
+                    "CustomMessages",
+                    "Commands",
+                    "ProviderName",
+                    "ExcludeFromSearchIndex",
+                    "ContentVersion",
+                    "WrapperCssClass",
+                    "SharedContentID"
+                };
+
                 foreach (var contentItem in content)
                 {
                     yield return new KeyValuePair<string, string>(
-                        contentItem.Key, contentItem.Value.Settings.Values["Content"]?.ToString());
+                        contentItem.Key, string.Join(",", (contentItem.Value.Settings.Values as Dictionary<string, object>).Where(x => !keysToIgnore.Contains(x.Key))));
                 }
             }
 
-             yield return default(KeyValuePair<string, string>);
+            yield return default(KeyValuePair<string, string>);
         }
 
         public IEnumerable<Guid> GetControlsInOrder(IEnumerable<string> sectionFilter)

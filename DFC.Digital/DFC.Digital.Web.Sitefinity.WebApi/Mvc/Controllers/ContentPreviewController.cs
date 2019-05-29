@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.Core;
@@ -23,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
             switch (contentType)
             {
                 case "Page":
-                    return Json(sitefinityPage.GetPagePreviewByUrlName(urlName));
+                    return Json(sitefinityPage.GetPagePreviewByUrlName(urlName).Where(item => !string.IsNullOrWhiteSpace(item.Key)));
                 case nameof(JobProfile):
                     return Json(jobProfileRepository.GetByUrlNameForPreview(urlName));
                 default:

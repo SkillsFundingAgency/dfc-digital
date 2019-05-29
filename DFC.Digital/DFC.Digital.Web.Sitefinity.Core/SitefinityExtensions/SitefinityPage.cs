@@ -2,11 +2,11 @@
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using Telerik.Sitefinity.GenericContent.Model;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web.ResourceCombining;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -32,9 +32,17 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = SitefinityContext.CurrentPageManager.GetPageDataList().FirstOrDefault(page =>
                 page.NavigationNode.UrlName == urlName);
 
+            var pageManager = new PageManager();
+            var renderer = new InMemoryPageRender();
+            var html = renderer.RenderPage(pageManager.GetPageNodes().FirstOrDefault(node => node.UrlName == urlName), true, true);
+
+            yield return new KeyValuePair<string, string>(
+                "page", html);
+
             if (pageNode != null)
             {
                 var pageData = SitefinityContext.CurrentPageManager.GetPreview(pageNode.Id);
+
                 var controlIDs = new List<Guid>();
 
                 var firstControlsIDs = pageData.Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id)
@@ -81,8 +89,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         contentItem.Key, string.Join(",", (contentItem.Value.Settings.Values as Dictionary<string, object>).Where(x => !keysToIgnore.Contains(x.Key))));
                 }
             }
-
-            yield return default(KeyValuePair<string, string>);
         }
 
         public IEnumerable<Guid> GetControlsInOrder(IEnumerable<string> sectionFilter)

@@ -168,10 +168,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
-                viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;
-
                 // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
             }
+
+            viewModel.NoTrainingCoursesFoundText =
+                string.IsNullOrWhiteSpace(searchTerm) ? string.Empty : NoTrainingCoursesFoundText;
 
             SetupWidgetDefaults(viewModel);
             return View("SearchResults", viewModel);

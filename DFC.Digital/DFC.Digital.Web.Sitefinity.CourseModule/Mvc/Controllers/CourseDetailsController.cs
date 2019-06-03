@@ -68,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             if (!string.IsNullOrWhiteSpace(courseId))
             {
                 viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, referralUrl));
-                viewModel.CourseDetails.BackToResultsUrl = GetBackToResultsUrl();
+                viewModel.CourseDetails.BackToResultsUrl = setreferralUrl;
                 viewModel.CourseDetails.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
                 viewModel.CourseDetails.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                 viewModel.CourseDetails.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
@@ -83,11 +83,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string GetBackToResultsUrl()
         {
             var resultsPage = Request?.UrlReferrer?.PathAndQuery;
-            if (resultsPage?.IndexOf("course-search-result", StringComparison.InvariantCultureIgnoreCase) > 0 &&
-                resultsPage.IndexOf("k=", StringComparison.InvariantCultureIgnoreCase) > 0 && resultsPage.IndexOf("referralUrl=", StringComparison.Ordinal) == -1)
-            {
-                return resultsPage;
-            }
 
             if (Request != null && Request.Url != null)
             {

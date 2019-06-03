@@ -122,7 +122,7 @@
                 {
                     <td class="govuk-table__cell">
                         @Model.NoVenueAvailableMessage
-                    </td>   
+                    </td>
                 }
 
             </tr>
@@ -139,6 +139,38 @@
                         <a class="govuk-link" href="https://maps.google.com/?q= @Model.VenueDetails.Location.Latitude,@Model.VenueDetails.Location.Longitude">Find on Google maps</a>
                     </td>
                 </tr>
+                if (!string.IsNullOrEmpty(Model.VenueDetails.Website))
+                {
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell govuk-body-s">Website</td>
+                        <td class="govuk-table__cell">
+                            <a class="govuk-link govuk-body-s" target="_blank" href="@Model.VenueDetails.Website" style="word-break:break-all;">@Model.VenueDetails.Website</a>
+                        </td>
+                    </tr>
+                }
+                if (!string.IsNullOrEmpty(Model.VenueDetails.EmailAddress))
+                {
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell govuk-body-s">Email</td>
+                        <td class="govuk-table__cell govuk-body-s"><a href="mailto:@Model.VenueDetails.EmailAddress" style="word-break:break-all;">@Model.VenueDetails.EmailAddress</a> </td>
+                    </tr>
+                }
+
+                if (!string.IsNullOrEmpty(Model.VenueDetails.PhoneNumber))
+                {
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell govuk-body-s">Phone</td>
+                        <td class="govuk-table__cell govuk-body-s">@Model.VenueDetails.PhoneNumber</td>
+                    </tr>
+                }
+
+                if (!string.IsNullOrEmpty(Model.VenueDetails.Fax))
+                {
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell govuk-body-s">Fax</td>
+                        <td class="govuk-table__cell govuk-body-s">@Model.VenueDetails.Fax</td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

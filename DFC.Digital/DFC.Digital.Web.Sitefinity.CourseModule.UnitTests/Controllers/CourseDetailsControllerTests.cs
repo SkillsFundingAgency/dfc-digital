@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ValidateReferralUrlTest(bool referralUrlExists)
         {
             var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper);
-            var referralUrl = nameof(CourseDetailsController.Request.QueryString);
+            var referralUrl = controller.Request?.UrlReferrer?.PathAndQuery;
 
             if (referralUrlExists)
             {
@@ -75,11 +75,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>();
             if (string.IsNullOrWhiteSpace(referralUrl))
             {
-                referralUrl.Should().BeEquivalentTo(null);
+                referralUrl.Should().BeEquivalentTo(controller.Request?.UrlReferrer?.PathAndQuery);
             }
             else
             {
-                referralUrl.Should().BeEquivalentTo(nameof(CourseDetailsController.Request.QueryString));
+                referralUrl.Should().BeEquivalentTo(controller.Request?.UrlReferrer?.PathAndQuery);
             }
         }
     }

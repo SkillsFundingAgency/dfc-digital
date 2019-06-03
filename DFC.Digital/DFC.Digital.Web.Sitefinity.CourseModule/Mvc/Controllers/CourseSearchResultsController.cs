@@ -52,10 +52,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public int RecordsPerPage { get; set; } = 20;
 
         [DisplayName("Redirect - Course Search Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
         [DisplayName("Redirect - Course Details Page")]
-        public string CourseDetailsPage { get; set; } = "/course-details";
+        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
         [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
@@ -143,11 +143,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 };
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
+                var pathQuery = Request?.Url?.PathAndQuery;
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}";
+                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}&referralUrl={pathQuery}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -158,7 +159,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
-                    var pathQuery = Request?.Url?.PathAndQuery;
                     if (!string.IsNullOrWhiteSpace(pathQuery) && pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
                     {
                         pathQuery = pathQuery.Substring(0, pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));

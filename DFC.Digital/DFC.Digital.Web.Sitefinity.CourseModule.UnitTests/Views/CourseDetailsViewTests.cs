@@ -351,9 +351,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             if (!string.IsNullOrWhiteSpace(propertyValue))
             {
-               htmlDocument.DocumentNode.Descendants("p")
-                .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
-                 div.InnerText.Contains(courseDetails.Description)).Should().BeTrue();
+                htmlDocument.DocumentNode.Descendants("p")
+                 .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
+                  div.InnerText.Contains(courseDetails.Description)).Should().BeTrue();
             }
             else
             {
@@ -473,6 +473,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 courseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
                 courseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
                 courseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
+                courseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
+                courseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
+                courseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
+                courseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
             }
             else
             {
@@ -552,6 +556,219 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 htmlDocument.DocumentNode.Descendants("td")
                 .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
                  div.InnerText.Contains(courseDetails.NoOtherDateOrVenueAvailableMessage)).Should().BeTrue();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowProviderDetailsNameTest(bool providerDetailsExist)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            if (providerDetailsExist)
+            {
+                providerDetails.Name = nameof(CourseDetails.ProviderDetails.Name);
+            }
+            else
+            {
+                providerDetails.Name = null;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(providerDetails);
+
+            // Assert
+            if (providerDetailsExist)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
+                  p.InnerText.Contains(providerDetails.Name)).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
+                  p.InnerText.Contains(providerDetails.Name)).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowProviderDetailsEmailAddressTest(bool providerDetailsExist)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            if (providerDetailsExist)
+            {
+                providerDetails.EmailAddress = nameof(CourseDetails.ProviderDetails.EmailAddress);
+            }
+            else
+            {
+                providerDetails.EmailAddress = null;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(providerDetails);
+
+            // Assert
+            if (providerDetailsExist)
+            {
+                htmlDocument.DocumentNode.Descendants("a")
+                 .Any(a => a.Attributes["class"].Value.Contains("govuk-link") &&
+                  a.InnerText.Contains(providerDetails.EmailAddress)).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("a")
+                 .Any(a => a.Attributes["class"].Value.Contains("govuk-link") &&
+                  a.InnerText.Contains(providerDetails.EmailAddress)).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowProviderDetailsWebsiteTest(bool providerDetailsExist)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            if (providerDetailsExist)
+            {
+                providerDetails.Website = nameof(CourseDetails.ProviderDetails.Website);
+            }
+            else
+            {
+                providerDetails.Website = null;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(providerDetails);
+
+            // Assert
+            if (providerDetailsExist)
+            {
+                htmlDocument.DocumentNode.Descendants("li")
+                 .Any(li => li.InnerText.Contains(providerDetails.Website)).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("li")
+                 .Any(li => li.InnerText.Contains(providerDetails.Website)).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowProviderDetailsPhoneNumberTest(bool providerDetailsExist)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            if (providerDetailsExist)
+            {
+                providerDetails.PhoneNumber = nameof(CourseDetails.ProviderDetails.PhoneNumber);
+            }
+            else
+            {
+                providerDetails.PhoneNumber = null;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(providerDetails);
+
+            // Assert
+            if (providerDetailsExist)
+            {
+                htmlDocument.DocumentNode.Descendants("li")
+                 .Any(li => li.InnerText.Contains(providerDetails.PhoneNumber)).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("li")
+                 .Any(li => li.InnerText.Contains(providerDetails.PhoneNumber)).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(false, false)]
+        [InlineData(true, false)]
+        [InlineData(false, true)]
+        public void ShowHideLearnerAndEmployerSatisfationTest(bool learnerSatisfactionSpecified, bool employeeSatisfactionSpecified)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails
+            {
+                LearnerSatisfactionSpecified = learnerSatisfactionSpecified,
+                EmployerSatisfactionSpecified = employeeSatisfactionSpecified
+            };
+            var dummyLearnerSatisfaction = 1.0;
+            var dummyEmployeeSatisfaction = 1.0;
+
+            if (learnerSatisfactionSpecified && employeeSatisfactionSpecified)
+            {
+                providerDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
+                providerDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
+            }
+            else if (learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
+            {
+                providerDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
+            }
+            else if (!learnerSatisfactionSpecified && employeeSatisfactionSpecified)
+            {
+                providerDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(providerDetails);
+
+            // Assert
+            if (learnerSatisfactionSpecified && employeeSatisfactionSpecified)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                  p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
+            }
+            else if (learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                  p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
+            }
+            else if (!learnerSatisfactionSpecified && employeeSatisfactionSpecified)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
+
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
+            }
+            else if (!learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
+
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
             }
         }
 

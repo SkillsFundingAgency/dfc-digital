@@ -279,7 +279,6 @@
     <Content Include="Mvc\Views\CourseDetails\CourseDetails.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
-    <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\OtherDatesAndVenues.cshtml" />
     <None Include="packages.config">

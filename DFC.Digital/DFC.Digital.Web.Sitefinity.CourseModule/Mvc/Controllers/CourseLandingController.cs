@@ -42,7 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string LocationHintText { get; set; } = "Enter a town or postcode. For example, Birmingham.";
 
         [DisplayName("Training Courses Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
+        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";

@@ -42,35 +42,35 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Public Properties
 
-        [DisplayName("Page Title")]
+        [DisplayName("* Page Title")]
         public string PageTitle { get; set; } = "Find a course";
 
         [DisplayName("Filter Course By Text")]
         public string FilterCourseByText { get; set; } = "Filtering courses by:";
 
-        [DisplayName("Records Per Page")]
+        [DisplayName("* Records Per Page")]
         public int RecordsPerPage { get; set; } = 20;
 
-        [DisplayName("Training Courses Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
+        [DisplayName("Redirect - Course Search Results Page")]
+        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
-        [DisplayName("Course Details Page")]
-        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
+        [DisplayName("Redirect - Course Details Page")]
+        public string CourseDetailsPage { get; set; } = "/course-details";
 
-        [DisplayName("No Training Courses Text")]
+        [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
 
         [DisplayName("Order by Text")]
         public string OrderByText { get; set; } = "Ordered by";
 
-        [DisplayName("Relevance Order By Text")]
-        public string RelevanceOrderByText { get; set; } = "relevance";
+        [DisplayName("Order By - Relevance Text")]
+        public string RelevanceOrderByText { get; set; } = "Relevance";
 
-        [DisplayName("StartDate Order By Text")]
-        public string DistanceOrderByText { get; set; } = "distance";
+        [DisplayName("Order By - StartDate Text")]
+        public string DistanceOrderByText { get; set; } = "Distance";
 
-        [DisplayName("StartDate Order By Text")]
-        public string StartDateOrderByText { get; set; } = "start date";
+        [DisplayName("Order By - StartDate Text")]
+        public string StartDateOrderByText { get; set; } = "Start date";
 
         [DisplayName("Course Listing Location Label")]
         public string LocationLabel { get; set; } = "Location:";
@@ -84,10 +84,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Listing Start Date Label")]
         public string StartDateLabel { get; set; } = "Start date:";
 
-        [DisplayName("Location Post Code Regex")]
+        [DisplayName("Regex - Location Post Code")]
         public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
 
-        [DisplayName("Valid Characters Regex")]
+        [DisplayName("Regex - Allowed Characters")]
         public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
 
         //[DisplayName("Attendance Modes Source")]
@@ -143,12 +143,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 };
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
-                var pathQuery = Request?.Url?.PathAndQuery;
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}&referralUrl={pathQuery}";
+                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -159,6 +158,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
+                    var pathQuery = Request?.Url?.PathAndQuery;
                     if (!string.IsNullOrWhiteSpace(pathQuery) && pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
                     {
                         pathQuery = pathQuery.Substring(0, pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
@@ -168,10 +168,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
-                viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText;
-
                 // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
             }
+
+            viewModel.NoTrainingCoursesFoundText =
+                string.IsNullOrWhiteSpace(searchTerm) ? string.Empty : NoTrainingCoursesFoundText;
 
             SetupWidgetDefaults(viewModel);
             return View("SearchResults", viewModel);

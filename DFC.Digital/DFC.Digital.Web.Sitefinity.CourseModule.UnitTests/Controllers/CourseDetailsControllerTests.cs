@@ -1,8 +1,10 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using FakeItEasy;
 using FluentAssertions;
+using System.Collections.Specialized;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -16,6 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper fakeAsyncHelper;
+        private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CourseDetailsControllerTests"/> class.
@@ -24,15 +27,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             this.fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             this.fakeCourseSearchService = A.Fake<ICourseSearchService>();
-            this.fakeAsyncHelper = A.Fake<IAsyncHelper>();
+            this.fakeAsyncHelper = new AsyncHelper();
         }
 
         [Theory]
-        [InlineData("FindAcoursePage", "1", "NoCourseDescriptionMessage", "NoEntryRequirementsAvailableMessage", "NoEquipmentRequiredMessage", "NoAssessmentMethodAvailableMessage", "NoVenueAvailableMessage", "NoOtherDateOrVenueAvailableMessage")]
-        public void IndexSetDefaultsTest(string findAcoursePage, string courseId, string noCourseDescriptionMessage, string noEntryRequirementsAvailableMessage, string noEquipmentRequiredMessage, string noAssessmentMethodAvailableMessage, string noVenueAvailableMessage, string noOtherDateOrVenueAvailableMessage)
+        [InlineData("FindAcoursePage", "1", "NoCourseDescriptionMessage", "NoEntryRequirementsAvailableMessage", "NoEquipmentRequiredMessage", "NoAssessmentMethodAvailableMessage", "NoVenueAvailableMessage", "NoOtherDateOrVenueAvailableMessage", "course-search-url")]
+        public void IndexSetDefaultsTest(string findAcoursePage, string courseId, string noCourseDescriptionMessage, string noEntryRequirementsAvailableMessage, string noEquipmentRequiredMessage, string noAssessmentMethodAvailableMessage, string noVenueAvailableMessage, string noOtherDateOrVenueAvailableMessage, string referralUrl)
         {
             // Assign
-            var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
+            var controller = new CourseDetailsController(webAppContextFake, fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
             {
                 FindAcoursePage = findAcoursePage,
                 NoCourseDescriptionMessage = noCourseDescriptionMessage,
@@ -42,6 +45,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoVenueAvailableMessage = noVenueAvailableMessage,
                 NoOtherDateOrVenueAvailableMessage = noOtherDateOrVenueAvailableMessage,
             };
+
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).Returns(new CourseDetails());
+
+            A.CallTo(() => webAppContextFake.RequestQueryString).Returns(new NameValueCollection { { "referralUrl", referralUrl } });
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(
@@ -53,34 +60,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                  {
                      vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
                  });
-        }
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void ValidateReferralUrlTest(bool referralUrlExists)
-        {
-            var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper);
-            var referralUrl = controller.Request?.UrlReferrer?.PathAndQuery;
-
-            if (referralUrlExists)
-            {
-                referralUrl = controller.GetBackToResultsUrl();
-            }
-
-            // Act
-            var controllerResult = controller.WithCallTo(contrl => contrl.Index("1"));
-
-            // Assert
-            controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>();
-            if (string.IsNullOrWhiteSpace(referralUrl))
-            {
-                referralUrl.Should().BeEquivalentTo(controller.Request?.UrlReferrer?.PathAndQuery);
-            }
-            else
-            {
-                referralUrl.Should().BeEquivalentTo(controller.Request?.UrlReferrer?.PathAndQuery);
-            }
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).MustHaveHappened();
         }
     }
 }

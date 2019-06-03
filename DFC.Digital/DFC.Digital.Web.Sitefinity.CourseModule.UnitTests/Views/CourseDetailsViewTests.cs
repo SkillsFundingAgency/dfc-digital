@@ -696,6 +696,41 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowHideBackToResultsTest(bool referralUrlExists)
+        {
+            // Arrange
+            var courseDetailsHtml = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetails = new CourseDetails();
+            if (referralUrlExists)
+            {
+                courseDetails.BackToResultsUrl = nameof(CourseDetails.BackToResultsUrl);
+            }
+            else
+            {
+                courseDetails.BackToResultsUrl = null;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsHtml.RenderAsHtml(courseDetails);
+
+            // Assert
+            if (referralUrlExists)
+            {
+                htmlDocument.DocumentNode.Descendants("a")
+                 .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
+                  a.Attributes["href"].Value.Contains(courseDetails.BackToResultsUrl)).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("a")
+                .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
+                a.Attributes["href"].Value.Contains(courseDetails.BackToResultsUrl)).Should().BeFalse();
+            }
+        }
+
+        [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
         [InlineData(true, false)]

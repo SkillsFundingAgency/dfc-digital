@@ -4,6 +4,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -15,13 +16,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Private Fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
+
         #endregion
 
         #region Ctor
-        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper) : base(loggingService)
+        public CourseDetailsController(IWebAppContext webAppContext, IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper) : base(loggingService)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
+            this.WebAppContext = webAppContext;
         }
         #endregion
 
@@ -48,27 +51,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("No Other Date Or Venue Available Message")]
         public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
 
+        protected IWebAppContext WebAppContext { get; set; }
+
         public ActionResult Index(string courseId)
         {
             var viewModel = new CourseDetailsViewModel
             {
                 FindACoursePage = FindAcoursePage,
             };
-            var referralUrl = Request?.QueryString["referralUrl"];
-            string setreferralUrl = null;
-            if (string.IsNullOrWhiteSpace(referralUrl))
-            {
-                setreferralUrl = Request?.UrlReferrer?.PathAndQuery;
-            }
-            else
-            {
-                setreferralUrl = GetBackToResultsUrl();
-            }
 
+            var referralUrl = HttpUtility.HtmlEncode(WebAppContext.RequestQueryString["referralUrl"]);
             if (!string.IsNullOrWhiteSpace(courseId))
             {
                 viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, referralUrl));
-                viewModel.CourseDetails.BackToResultsUrl = setreferralUrl;
+                viewModel.CourseDetails.BackToResultsUrl = referralUrl;
                 viewModel.CourseDetails.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
                 viewModel.CourseDetails.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                 viewModel.CourseDetails.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
@@ -78,21 +74,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
 
             return View(viewModel);
-        }
-
-        public string GetBackToResultsUrl()
-        {
-            var resultsPage = Request?.UrlReferrer?.PathAndQuery;
-
-            if (Request != null && Request.Url != null)
-            {
-                if (Request.RawUrl.IndexOf("referralUrl=", StringComparison.Ordinal) > 0)
-                {
-                    resultsPage = Request.RawUrl.Substring(Request.RawUrl.IndexOf("referralUrl=", StringComparison.Ordinal) + "referralUrl=".Length, Request.RawUrl.Length - (Request.RawUrl.IndexOf("referralUrl=", StringComparison.Ordinal) + "referralUrl=".Length));
-                }
-            }
-
-            return resultsPage;
         }
 
         #endregion

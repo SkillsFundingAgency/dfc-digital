@@ -93,7 +93,8 @@
 
     <h2 class="govuk-heading-m">Course description</h2>
     <p class="govuk-body">
-   @(!string.IsNullOrWhiteSpace(@Model.Description) ? @Model.Description : @Model.NoCourseDescriptionMessage)</p>
+        @(!string.IsNullOrWhiteSpace(@Model.Description) ? @Model.Description : @Model.NoCourseDescriptionMessage)
+    </p>
 
 
     <h2 class="govuk-heading-m">Entry requirements</h2>
@@ -179,7 +180,10 @@
     @Html.Partial("OtherDatesAndVenues", Model)
 
 
-    <a href="@Model.BackToResultsUrl" class="govuk-back-link">Back to results</a>
+    @if (!string.IsNullOrEmpty(Model.BackToResultsUrl))
+    {
+        <a href="@Model.BackToResultsUrl" class="govuk-back-link">Back to results</a>
+    }
 
 </div>
 

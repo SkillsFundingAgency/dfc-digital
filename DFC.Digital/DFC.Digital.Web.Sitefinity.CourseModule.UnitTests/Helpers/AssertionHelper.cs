@@ -1,5 +1,7 @@
 ﻿using FluentAssertions;
 using HtmlAgilityPack;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
@@ -16,6 +18,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(h2 => h2.InnerText.Contains(innerText)).Should().BeFalse();
+        }
+
+        public static void AssertOrderOfTextDisplayed(HtmlDocument htmlDocument, IEnumerable<string> textToCheck)
+        {
+            var orderIndex = 0;
+            foreach (var text in textToCheck)
+            {
+                var textIndex = htmlDocument.DocumentNode.InnerHtml.IndexOf(text, StringComparison.InvariantCultureIgnoreCase);
+                textIndex.Should().BeGreaterThan(orderIndex);
+                orderIndex = textIndex;
+            }
         }
 
         public static void AssertExistsElementIdWithInnerHtml(HtmlDocument htmlDocument, string id)

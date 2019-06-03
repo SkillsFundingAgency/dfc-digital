@@ -68,7 +68,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return result ?? Enumerable.Empty<Course>();
         }
 
-        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
+        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string referralUrl)
         {
             var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
 
@@ -89,9 +89,20 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 VenueDetails = new VenueDetails
                 {
                     EmailAddress = apiCourseDetail.Venue.FirstOrDefault()?.Email,
-                    Location = apiCourseDetail.Venue.FirstOrDefault()?.VenueName,
+                    Location = new DFC.Digital.Data.Model.VenueAddress
+                    {
+                        AddressLine1 = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Address_line_1,
+                        AddressLine2 = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Address_line_2,
+                        County = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.County,
+                        Town = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Town,
+                        Postcode = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.PostCode,
+                        Longitude = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Longitude,
+                        Latitude = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Latitude,
+                    },
                     PhoneNumber = apiCourseDetail.Venue.FirstOrDefault()?.Phone,
-                    Website = apiCourseDetail.Venue.FirstOrDefault()?.Website
+                    Website = apiCourseDetail.Venue.FirstOrDefault()?.Website,
+                    VenueName = apiCourseDetail.Venue.FirstOrDefault()?.VenueName,
+                    Fax = apiCourseDetail.Venue.FirstOrDefault()?.Fax,
                 },
                 ProviderDetails = new ProviderDetails
                 {
@@ -110,7 +121,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     LearnerSatisfaction = apiCourseDetail.Provider.FEChoices_LearnerSatisfaction,
                     EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
+                OtherDatesAndVenues = MapOtherVenues(apiCourseDetail, referralUrl),
                 StartDateLabel = apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
+                CourseUrl = apiCourseDetail.Course.URL,
                 CourseId = apiCourseDetail.Course.CourseID,
                 AttendanceMode = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendanceMode,
                 AttendancePattern = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendancePattern,
@@ -118,6 +131,35 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 StudyMode = apiCourseDetail.Opportunity.FirstOrDefault()?.StudyMode,
                 Duration = $"{apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationValue} {apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationUnit}"
             };
+        }
+
+        private static List<OtherDatesAndVenues> MapOtherVenues(CourseDetailStructure apiCourseDetail, string referralUrl)
+        {
+            List<OtherDatesAndVenues> otherVenues = new List<OtherDatesAndVenues>();
+
+            foreach (var oppurtunity in apiCourseDetail.Opportunity)
+            {
+                var otherVenue = new OtherDatesAndVenues
+                {
+                    StartDate = oppurtunity.StartDate.Item,
+                    Options = GetUrlPath(apiCourseDetail.Course.CourseID, oppurtunity, referralUrl),
+                    VenueName = apiCourseDetail.Venue.Where(x => x.VenueID.ToString() == oppurtunity.Items[0]).FirstOrDefault().VenueName
+                };
+                otherVenues.Add(otherVenue);
+            }
+
+            return otherVenues;
+        }
+
+        private static string GetUrlPath(string courseId, OpportunityDetail opportunity, string referralUrl)
+        {
+            var url = $"/course-directory/course-details?courseid={courseId}&opportunityid={opportunity.OpportunityId}";
+            if (!string.IsNullOrWhiteSpace(referralUrl))
+            {
+                url += "&referralUrl=" + referralUrl;
+            }
+
+            return url;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using ASP;
-using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Models;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
@@ -18,7 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseLandingIndex = new _MVC_Views_CourseLanding_Index_cshtml();
             var courseLandingViewModel = new CourseLandingViewModel
             {
-                CourseName = nameof(CourseLandingViewModel.CourseName)
+                SearchTerm = nameof(CourseLandingViewModel.SearchTerm)
             };
 
             // Act
@@ -26,24 +25,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             // Assert
             this.AssertFormGroupsCounts(htmlDocument, 5);
-
         }
 
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Dfc7053CourseNameCompulsoryTest(bool modelStateInvalid)
+        public void Dfc7053SearchTermCompulsoryTest(bool modelStateInvalid)
         {
             // Arrange
             var errorMessageView = new _MVC_Views_CourseLanding_Index_cshtml();
             var courseLandingViewModel = new CourseLandingViewModel
             {
-                CourseName = nameof(CourseLandingViewModel.CourseName)
+                SearchTerm = nameof(CourseLandingViewModel.SearchTerm)
             };
 
             if (modelStateInvalid)
             {
-                errorMessageView.ViewData.ModelState.AddModelError(nameof(CourseLandingViewModel.CourseName), nameof(Exception.Message));
+                errorMessageView.ViewData.ModelState.AddModelError(nameof(CourseLandingViewModel.SearchTerm), nameof(Exception.Message));
             }
 
             // Act

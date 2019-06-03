@@ -10,6 +10,6 @@ namespace DFC.Digital.Data.Interfaces
 
         Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties);
 
-        Task<CourseDetails> GetCourseDetailsAsync(string courseId);
+        Task<CourseDetails> GetCourseDetailsAsync(string courseId, string referralUrl);
     }
 }

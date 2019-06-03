@@ -233,6 +233,8 @@
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
+    <Compile Include="Model\OtherDatesAndVenues.cs" />
+    <Compile Include="Model\VenueAddress.cs" />
     <Compile Include="Model\VenueDetails.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />

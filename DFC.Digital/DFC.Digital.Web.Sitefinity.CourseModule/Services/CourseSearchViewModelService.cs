@@ -71,17 +71,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public OrderByLinks GetOrderByLinks(string searchUrl, CourseSearchOrderBy courseSearchSortBy)
         {
-            if (searchUrl?.IndexOf("&sortby=", StringComparison.InvariantCultureIgnoreCase) > 0)
+            if (searchUrl?.IndexOf($"&{nameof(CourseSearchProperties.OrderedBy)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
             {
-                searchUrl = searchUrl.Substring(0, searchUrl.IndexOf("&sortby=", StringComparison.InvariantCultureIgnoreCase));
+                searchUrl = searchUrl.Substring(0, searchUrl.IndexOf($"&{nameof(CourseSearchProperties.OrderedBy)}=", StringComparison.InvariantCultureIgnoreCase));
             }
 
             return new OrderByLinks
             {
                 CourseSearchSortBy = courseSearchSortBy,
-                OrderByRelevanceUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
-                OrderByDistanceUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
-                OrderByStartDateUrl = new Uri($"{searchUrl}&sortby={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)
+                OrderByRelevanceUrl = new Uri($"{searchUrl}&{nameof(CourseSearchProperties.OrderedBy)}={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
+                OrderByDistanceUrl = new Uri($"{searchUrl}&{nameof(CourseSearchProperties.OrderedBy)}={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
+                OrderByStartDateUrl = new Uri($"{searchUrl}&{nameof(CourseSearchProperties.OrderedBy)}={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)
             };
         }
 

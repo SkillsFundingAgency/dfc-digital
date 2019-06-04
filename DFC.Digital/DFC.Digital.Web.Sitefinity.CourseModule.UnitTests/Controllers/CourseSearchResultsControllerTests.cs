@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexTestsInput))]
-        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, string sortBy, CourseSearchResult courseSearchResponse)
+        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchResult courseSearchResponse)
         {
             // setupFakes
             A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).Returns(courseSearchResponse);
@@ -60,16 +60,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Act
             var controllerResult = controller.WithCallTo(contrl =>
                 contrl.Index(
-                    searchTerm,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                sortBy,
-                string.Empty,
-                string.Empty,
-                false,
-                1));
+                    new CourseSearchFilters(),
+                    new CourseSearchProperties()));
 
             // Assert
             controllerResult.ShouldRenderView("SearchResults").WithModel<CourseSearchResultsViewModel>(

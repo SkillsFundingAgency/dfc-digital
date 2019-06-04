@@ -3,6 +3,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using RazorGenerator.Testing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -107,6 +108,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     AssertTagInnerTextValue(htmlDom, viewModel.StartDateOrderByText, "span");
                     break;
             }
+
+            var orderList = new List<string>
+            {
+                viewModel.RelevanceOrderByText,
+                viewModel.StartDateOrderByText,
+                viewModel.DistanceOrderByText
+            };
+
+            AssertOrderOfTextDisplayed(
+                htmlDom,
+                orderList);
         }
 
         [Theory]

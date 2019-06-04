@@ -9,11 +9,11 @@
         </p>
         break;
     case CourseSearchOrderBy.StartDate:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">@Model.StartDateOrderByText</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.StartDateOrderByText</span>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
         </p>
         break;
     case CourseSearchOrderBy.Distance:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">@Model.DistanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2"><a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.DistanceOrderByText</span>
         </p>
         break;
     default:

@@ -7,8 +7,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchResultsViewModel : CourseSearchProperties
     {
-        public string SearchTerm { get; set; }
-
         #region Page Text and labels
         public string PageTitle { get; set; }
 

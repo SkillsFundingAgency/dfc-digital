@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
             var buildQueryStringService = new BuildQueryStringService();
 
             //Act
-            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.SearchTerm, trainingCourseResultsViewModel.CourseFiltersModel);
+            var result = buildQueryStringService.BuildPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.CourseFiltersModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);
@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
             var buildQueryStringService = new BuildQueryStringService();
 
             //Act
-            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel);
+            var result = buildQueryStringService.BuildPathAndQueryString(courseSearchResultsPage, courseLandingViewModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);

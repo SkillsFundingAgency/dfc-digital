@@ -39,9 +39,9 @@
                     <div class="searchfield">
                         <div class="search-input">
                             <label for="search-main" class="search-title">
-                                    Showing results for <span class="govuk-visually-hidden">@Model.SearchTerm</span>
+                                    Showing results for <span class="govuk-visually-hidden">@Model.CourseFiltersModel.SearchTerm</span>
                             </label>
-                            @Html.TextBoxFor(x => x.SearchTerm, new { placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search" })
+                            @Html.TextBoxFor(x => x.CourseFiltersModel.SearchTerm, new { placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search" })
                         </div>
                         <div class="search-submit">
                             <button type="submit" class="button">Search</button>

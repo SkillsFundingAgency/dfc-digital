@@ -24,13 +24,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private static readonly CourseSearchResultsViewModel ValidCourseResultsViewModel =
             new CourseSearchResultsViewModel
             {
-                SearchTerm = nameof(CourseSearchResultsViewModel.SearchTerm)
+                CourseFiltersModel = new CourseFiltersViewModel
+                {
+                    SearchTerm = nameof(CourseSearchFilters.SearchTerm)
+                }
             };
 
         private static readonly CourseSearchResultsViewModel InvalidCourseResultsViewModel =
             new CourseSearchResultsViewModel
             {
-                SearchTerm = string.Empty
+                CourseFiltersModel = new CourseFiltersViewModel
+                {
+                    SearchTerm = string.Empty
+                }
             };
 
         private static readonly CourseSearchResult ValidCourseSearchResponse = new CourseSearchResult
@@ -323,7 +329,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchFilters.SearchTerm),
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -334,7 +340,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchFilters.SearchTerm),
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -345,7 +351,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchFilters.SearchTerm),
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -356,7 +362,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchResultsViewModel.SearchTerm),
+                nameof(CourseSearchFilters.SearchTerm),
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -564,9 +570,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseSearchResultsViewModel
                 {
-                    SearchTerm = SearchTerm,
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
+                        SearchTerm = SearchTerm,
                         Provider = Provider
                     }
                 },
@@ -591,7 +597,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseSearchResultsViewModel
                 {
-                    SearchTerm = SearchTerm
+                   CourseFiltersModel = new CourseFiltersViewModel
+                   {
+                       SearchTerm = SearchTerm
+                   }
                 },
                 "/courses-search-results?searchTerm=maths"
             };
@@ -601,9 +610,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseSearchResultsViewModel
                 {
-                    SearchTerm = SearchTerm,
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
+                        SearchTerm = SearchTerm,
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
                         Only1619Courses = Only1619Courses,
                         Attendance = new List<string> { "attendance", "attendance1" },
@@ -621,9 +630,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 "/courses-search-results",
                 new CourseSearchResultsViewModel
                 {
-                    SearchTerm = SearchTerm,
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
+                        SearchTerm = SearchTerm,
                         AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
                         Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,

@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchViewModelService courseSearchViewModelService;
-        private readonly IBuildQueryStringService buildQueryStringService;
+        private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
 
         #endregion
 
@@ -29,13 +29,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchViewModelService courseSearchViewModelService,
-            IBuildQueryStringService buildQueryStringService)
+            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
             this.courseSearchViewModelService = courseSearchViewModelService;
-            this.buildQueryStringService = buildQueryStringService;
+            this.queryStringBuilder = queryStringBuilder;
         }
 
         #endregion Constructors
@@ -117,7 +117,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(string searchTerm, string attendance, string studyMode, string attendancePattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
         {
-            var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
+            var viewModel = new CourseSearchResultsViewModel
+            {
+                CourseFiltersModel = new CourseFiltersViewModel
+                {
+                    SearchTerm = searchTerm
+                }
+            };
 
             var cleanCourseName =
                 StringManipulationExtension.ReplaceSpecialCharacters(searchTerm, InvalidCharactersRegexPattern);
@@ -181,9 +187,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseSearchResultsViewModel viewModel)
         {
-            if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.SearchTerm))
+            if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm))
             {
-                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel));
+                return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel.CourseFiltersModel));
             }
 
             SetupWidgetDefaults(viewModel);

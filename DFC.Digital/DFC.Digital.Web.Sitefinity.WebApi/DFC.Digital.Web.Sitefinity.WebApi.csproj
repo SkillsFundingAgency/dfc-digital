@@ -361,6 +361,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\ApiAuthorizeAttribute.cs" />
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinController.cs" />
+    <Compile Include="Mvc\Controllers\ReadConfigController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

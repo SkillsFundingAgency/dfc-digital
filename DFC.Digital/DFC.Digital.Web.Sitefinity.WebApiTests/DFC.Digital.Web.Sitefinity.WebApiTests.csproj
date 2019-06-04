@@ -160,9 +160,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinControllerTests.cs" />
+    <Compile Include="Mvc\Controllers\ReadConfigControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">
+      <Project>{2080fba6-ae04-49b0-b343-b60cf097c1a3}</Project>
+      <Name>DFC.Digital.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>

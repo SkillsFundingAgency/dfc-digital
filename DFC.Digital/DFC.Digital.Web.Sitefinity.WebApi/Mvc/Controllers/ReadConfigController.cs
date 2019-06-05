@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
             this.configurationProvider = configurationProvider;
         }
 
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "DYSACIntegration")]
         [HttpGet]
         public IHttpActionResult Index(string key)
         {

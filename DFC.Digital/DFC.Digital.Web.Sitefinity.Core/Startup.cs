@@ -12,6 +12,7 @@ using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
@@ -59,6 +60,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
+
+            if (e.CommandName == "Bootstrapped")
+            {
+                EventHub.Subscribe<IDataEvent>(Content_Action);
+            }
+        }
+
+        private static void Content_Action(IDataEvent eventInfo)
+        {
+
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -19,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchViewModelService courseSearchViewModelService;
         private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
+        private readonly IMapper mapper;
 
         #endregion
 
@@ -29,13 +31,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchViewModelService courseSearchViewModelService,
-            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder)
+            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder,
+            IMapper mapper)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
             this.courseSearchViewModelService = courseSearchViewModelService;
             this.queryStringBuilder = queryStringBuilder;
+            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -90,6 +94,27 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Regex - Allowed Characters")]
         public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
 
+        [DisplayName("Filter - Only 1619 Courses Text")]
+        public string Only1619CoursesText { get; set; } = "Suitable for 16-19 year olds";
+
+        [DisplayName("Filter - Start Date exemplar text")]
+        public string StartDateExampleText { get; set; } = "For example, 01 01 2020";
+
+        [DisplayName("Filter - Course Hours section text")]
+        public string CourseHoursSectionText { get; set; } = "Course Hours";
+
+        [DisplayName("Filter - Start Date section text")]
+        public string StartDateSectionText { get; set; } = "Start date";
+
+        [DisplayName("Filter - Course Type section text")]
+        public string CourseTypeSectionText { get; set; } = "Course Type";
+
+        [DisplayName("Filter -Apply Filter button text")]
+        public string ApplyFiltersText { get; set; } = "Apply Filters";
+
+        [DisplayName("Filter - Distance within text")]
+        public string WithinText { get; set; } = "Within";
+
         #endregion
 
         #region Actions
@@ -99,7 +124,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             var viewModel = new CourseSearchResultsViewModel
             {
-                CourseFiltersModel = courseSearchFilters as CourseFiltersViewModel
+                CourseFiltersModel = mapper.Map<CourseFiltersViewModel>(courseSearchFilters)
             };
 
             var cleanCourseName =
@@ -148,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     SetupSearchLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
-                // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
+                SetupFilterDisplayData(viewModel);
             }
 
             viewModel.NoTrainingCoursesFoundText =
@@ -159,16 +184,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(CourseSearchResultsViewModel viewModel)
+        public ActionResult Index(CourseSearchFilters viewModel)
         {
-            if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm))
-            {
-                return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel.CourseFiltersModel));
-            }
-
-            SetupWidgetDefaults(viewModel);
-
-            return View("SearchResults",  viewModel);
+            return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
 
         /// <inheritdoc />
@@ -185,38 +203,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region private Methods
 
-        //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
-        //{
-        //    viewModel.CourseFiltersModel.Location = location;
-        //    viewModel.CourseFiltersModel.ProviderKeyword = providerKeyword;
-        //    viewModel.CourseFiltersModel.AttendanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendanceMode)}", AttendanceModesSource.Split(','), attendance);
-
-        //    viewModel.CourseFiltersModel.PatternSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendancePattern)}", AttendancePatternModesSource.Split(','), pattern);
-
-        //    viewModel.CourseFiltersModel.QualificationSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.QualificationLevel)}", QualificationLevelSource.Split(','), qualificationLevel);
-
-        //    viewModel.CourseFiltersModel.StudyModeSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studyMode);
-
-        //    viewModel.CourseFiltersModel.DistanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.Distance)}", DistanceSource.Split(','), distance);
-
-        //    viewModel.CourseFiltersModel.AgeSuitabilitySelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabilitySource.Split(','), dfe1619Funded);
-
-        //    viewModel.CourseFiltersModel.StartDateSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
-        //}
         private void SetupSearchLinks(CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
         {
             viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
@@ -231,15 +217,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.OrderByLinks.DistanceOrderByText = DistanceOrderByText;
             viewModel.OrderByLinks.StartDateOrderByText = StartDateOrderByText;
             viewModel.OrderByLinks.RelevanceOrderByText = RelevanceOrderByText;
+            viewModel.CourseFiltersModel.WithinText = WithinText;
+            viewModel.CourseFiltersModel.Only1619CoursesText = Only1619CoursesText;
+            viewModel.CourseFiltersModel.StartDateExampleText = StartDateExampleText;
+            viewModel.CourseFiltersModel.StartDateSectionText = StartDateSectionText;
+            viewModel.CourseFiltersModel.CourseHoursSectionText = CourseHoursSectionText;
+            viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
+            viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
         }
 
-        //private void SetupFilterDisplayData(string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string startDate, string provider, TrainingCourseResultsViewModel viewModel)
-        //{
-        //    SetupFilterLists(attendance, studyMode, qualificationLevel, pattern, distance, dfe1619Funded, location, startDate, provider, viewModel);
-
-        //    viewModel.ActiveFilterOptions =
-        //        courseSearchConverter.GetActiveFilterOptions(viewModel.CourseFiltersModel);
-        //}
+        private void SetupFilterDisplayData(CourseSearchResultsViewModel viewModel)
+        {
+            viewModel.ActiveFilterOptions =
+                courseSearchViewModelService.GetActiveFilterOptions(viewModel.CourseFiltersModel);
+        }
         #endregion
     }
 }

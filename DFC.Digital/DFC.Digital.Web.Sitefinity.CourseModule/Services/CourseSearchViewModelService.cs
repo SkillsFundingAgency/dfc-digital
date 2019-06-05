@@ -85,9 +85,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             };
         }
 
-        public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel)
+        public IEnumerable<KeyValuePair<string, string>> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel)
         {
-
             if (courseFiltersModel is null)
             {
                 return new Dictionary<string, string>();
@@ -96,41 +95,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             var activeFilters = new Dictionary<string, string>
             {
                 [nameof(CourseSearchFilters.Location)] = courseFiltersModel.Location,
+                [nameof(CourseSearchFilters.Provider)] = courseFiltersModel.Provider,
+                [nameof(CourseSearchFilters.CourseType)] = courseFiltersModel.CourseType != default(CourseType)
+                    ? courseFiltersModel.CourseType.ToString()
+                    : null,
+                [nameof(CourseSearchFilters.CourseHours)] = courseFiltersModel.CourseHours != default(CourseHours)
+                    ? courseFiltersModel.CourseHours.ToString()
+                    : null,
+                [nameof(CourseSearchFilters.StartDate)] = courseFiltersModel.StartDate != default(StartDate)
+                    ? courseFiltersModel.StartDate.ToString()
+                    : null,
+                [nameof(CourseSearchFilters.StartDateFrom)] = courseFiltersModel.StartDateFrom,
+                [nameof(CourseSearchFilters.Only1619Courses)] =
+                    courseFiltersModel.Only1619Courses ? true.ToString() : null
+            };
 
-
-            }
-
-            if (!string.IsNullOrWhiteSpace(courseFiltersModel.Location))
-            {
-                activeFilters.Add("Location:", courseFiltersModel.Location);
-            }
-
-            if (!string.IsNullOrWhiteSpace(courseFiltersModel.Provider))
-            {
-                activeFilters.Add("Provider:", courseFiltersModel.Provider);
-            }
-
-            if (courseFiltersModel.AttendanceSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
-            {
-                activeFilters.Add("Attendance:", string.Join(", ", courseFiltersModel.AttendanceSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
-            }
-
-            if (courseFiltersModel.PatternSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
-            {
-                activeFilters.Add("Course type:", string.Join(", ", courseFiltersModel.PatternSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
-            }
-
-            if (courseFiltersModel.AgeSuitabilitySelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
-            {
-                activeFilters.Add("Age Suitability:", string.Join(", ", courseFiltersModel.AgeSuitabilitySelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
-            }
-
-            if (courseFiltersModel.StudyModeSelectedList.Any(x => !string.IsNullOrWhiteSpace(x.Checked)))
-            {
-                activeFilters.Add("Study mode:", string.Join(", ", courseFiltersModel.StudyModeSelectedList.Where(x => !string.IsNullOrWhiteSpace(x.Checked)).Select(lbl => lbl.Label)));
-            }
-
-            return activeFilters;
+            return activeFilters.Where(x => !string.IsNullOrWhiteSpace(x.Value));
         }
     }
 }

@@ -5,13 +5,12 @@
 
     <div class="govuk-form-group">
         @Html.LabelFor(x => x.Location, "Location", new {@class="govuk-label"})
-    @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield"})
- 
+        @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield"})
     </div>
 
     <div id="distanceFormGroup" style="display: none;" class="govuk-form-group">
         <div class="govuk-inset-text" id="distance">
-            @Html.LabelFor(x => x.Distance, "Within", new { @class = "govuk-label" })
+            @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 
             @Html.GovUkEnumRadioButtonFor(x => x.DistanceRange)
             @*<select class="govuk-select" id="CurrentSearchRequest_LocationDistance" name="CurrentSearchRequest.LocationDistance">
@@ -36,7 +35,7 @@
 
     <div class="filter-container">
         <div class="filter-label">
-            <h2 class="govuk-heading-s govuk-!-margin-0">Course hours</h2>
+            <h2 class="govuk-heading-s govuk-!-margin-0">@Model.CourseHoursSectionText</h2>
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset">
@@ -50,7 +49,7 @@
 
     <div class="filter-container">
         <div class="filter-label">
-            <h2 class="govuk-heading-s govuk-!-margin-0">Course type</h2>
+            <h2 class="govuk-heading-s govuk-!-margin-0">@Model.CourseTypeSectionText</h2>
         </div>
 
         <div class="filter-box">
@@ -65,7 +64,7 @@
     </div>
     <div class="filter-container">
         <div class="filter-label">
-            <h2 class="govuk-heading-s govuk-!-margin-0">Start date</h2>
+            <h2 class="govuk-heading-s govuk-!-margin-0">@Model.StartDateSectionText</h2>
         </div>
         <div class="filter-box conditional-box">
             <fieldset class="govuk-fieldset">
@@ -83,21 +82,21 @@
                                         <div class="govuk-form-group">
                                             
                                             @Html.LabelFor(x => x.StartDateDay, "Day", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateDay, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*" })
+                                            @Html.TextBoxFor(x => x.StartDateDay, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateDay" })
                                          
                                         </div>
                                     </div>
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">
                                             @Html.LabelFor(x => x.StartDateMonth, "Month", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateMonth, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*" })
+                                            @Html.TextBoxFor(x => x.StartDateMonth, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateMonth" })
 
                                         </div>
                                     </div>
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">
                                             @Html.LabelFor(x => x.StartDateYear, "Year", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateYear, new {@class="govuk-input govuk-date-input__input govuk-input--width-4", type = "number", pattern = "[0-9]*" })
+                                            @Html.TextBoxFor(x => x.StartDateYear, new {@class="govuk-input govuk-date-input__input govuk-input--width-4", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateYear" })
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +111,7 @@
     </div>
     <div class="filter-container">
         <div class="filter-label">
-            <h2 class="govuk-heading-s govuk-!-margin-0">@Model.AgeSuitabilityText Age suitability</h2>
+            <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesText</h2>
         </div>
         <div class="filter-box">
             <fieldset class="govuk-fieldset">
@@ -128,7 +127,7 @@
     </div>
         <div class="submit js-live-search-fallback">
 
-            <button class="js-enabled gem-c-button govuk-button" type="submit">Apply filters</button>
+            <button class="js-enabled gem-c-button govuk-button" type="submit">@Model.ApplyFiltersText</button>
 
         </div>
     

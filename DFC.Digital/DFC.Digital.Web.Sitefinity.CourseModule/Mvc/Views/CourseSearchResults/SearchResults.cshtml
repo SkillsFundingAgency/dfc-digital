@@ -6,7 +6,7 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">@Model.PageTitle</h1>
-        @*  @if (Model.ActiveFilterOptions.Any())
+         @if (Model.ActiveFilterOptions.Any())
         {
             <p class="govuk-body">@Model.FilterCourseByText</p>
             <p class="govuk-body">
@@ -17,7 +17,7 @@
                 }
             </p>
             <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset</a></p>
-        }*@
+        }
     </div>
     </div>
 
@@ -39,9 +39,9 @@
                     <div class="searchfield">
                         <div class="search-input">
                             <label for="search-main" class="search-title">
-                                    Showing results for <span class="govuk-visually-hidden">@Model.CourseFiltersModel.SearchTerm</span>
+                                Showing results for <span class="govuk-visually-hidden">@Model.CourseFiltersModel.SearchTerm</span>
                             </label>
-                            @Html.TextBoxFor(x => x.CourseFiltersModel.SearchTerm, new { placeholder = "Search for courses", @class = "search-input", id = "search-main", type = "search" })
+                            <input name="SearchTerm" value="@Model.CourseFiltersModel.SearchTerm" class="govuk-input gem-c-input--search-icon" id="keyword-search" type="search">
                         </div>
                         <div class="search-submit">
                             <button type="submit" class="button">Search</button>

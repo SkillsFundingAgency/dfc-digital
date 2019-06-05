@@ -479,11 +479,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseFiltersViewModel
                 {
                     Location = Location,
-                    Provider = Provider,
-                    AgeSuitabilitySelectedList = GetSelectedItems(),
-                    AttendanceSelectedList = GetSelectedItems(),
-                    PatternSelectedList = GetSelectedItems(),
-                    StudyModeSelectedList = GetSelectedItems()
+                    Provider = Provider
                 },
                 FilterDictionary()
             };
@@ -613,12 +609,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
                         Only1619Courses = Only1619Courses,
-                        Attendance = new List<string> { "attendance", "attendance1" },
                         Location = Location,
-                        AttendancePattern = new List<string> { "pattern", "pattern2" },
-                        StudyMode = new List<string> { "studymode", "studymode1" },
                         Distance = ValidDistance
                     }
                 },
@@ -633,11 +625,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        AttendanceMode = new List<string> { "attendancemode1", "attendancemode2" },
                         Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,
-                        AttendancePattern = new List<string> { "pattern", "pattern2" },
-                        StudyMode = new List<string> { "studymode", "studymode1" },
                         Distance = ValidDistance
                     }
                 },

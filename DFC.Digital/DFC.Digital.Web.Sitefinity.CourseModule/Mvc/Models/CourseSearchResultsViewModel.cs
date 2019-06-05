@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public CourseFiltersViewModel CourseFiltersModel { get; set; } = new CourseFiltersViewModel();
 
-        public IDictionary<string, string> ActiveFilterOptions { get; set; } = new ConcurrentDictionary<string, string>();
+        public IEnumerable<KeyValuePair<string, string>> ActiveFilterOptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         #endregion
 

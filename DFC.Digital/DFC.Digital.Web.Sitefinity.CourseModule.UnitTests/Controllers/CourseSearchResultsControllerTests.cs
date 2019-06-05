@@ -1,6 +1,8 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.Config;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FakeItEasy;
@@ -19,6 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         private readonly ICourseSearchViewModelService fakeCourseSearchViewModelService;
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IQueryStringBuilder<CourseSearchFilters> fakeBuildQueryStringService;
+        private readonly IMapper mapperCfg;
 
         public CourseSearchResultsControllerTests()
         {
@@ -28,6 +31,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             fakeCourseSearchService = A.Fake<ICourseSearchService>(ops => ops.Strict());
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             SetupCalls();
+            mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<CourseAutomapperProfile>();
+            }).CreateMapper();
         }
 
         [Theory]
@@ -38,7 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).Returns(courseSearchResponse);
 
             // Assign
-            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService)
+            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService, mapperCfg)
             {
                 FilterCourseByText = filterCourseByText,
                 PageTitle = pageTitle,
@@ -90,10 +97,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexPostTestsInput))]
-        public void IndexPostTests(string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchResultsViewModel viewModel)
+        public void IndexPostTests(string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchFilters viewModel)
         {
             // Assign
-            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService)
+            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService, mapperCfg)
             {
                 FilterCourseByText = filterCourseByText,
                 PageTitle = pageTitle,
@@ -105,20 +112,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(viewModel));
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm))
-            {
-                controllerResult.ShouldRedirectTo(
-                    fakeBuildQueryStringService.BuildPathAndQueryString(controller.CourseSearchResultsPage, viewModel.CourseFiltersModel));
-            }
-            else
-            {
-                controllerResult.ShouldRenderView("SearchResults").WithModel<CourseSearchResultsViewModel>(
-                    vm =>
-                    {
-                        vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
-                        vm.FilterCourseByText.Should().BeEquivalentTo(controller.FilterCourseByText);
-                    });
-            }
+            controllerResult.ShouldRedirectTo(
+                fakeBuildQueryStringService.BuildPathAndQueryString(controller.CourseSearchResultsPage, viewModel));
         }
 
         private void SetupCalls()

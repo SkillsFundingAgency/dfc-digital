@@ -11,6 +11,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         OrderByLinks GetOrderByLinks(string searchUrl, CourseSearchOrderBy courseSearchSortBy);
 
-        Dictionary<string, string> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel);
+        IEnumerable<KeyValuePair<string, string>> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel);
     }
 }

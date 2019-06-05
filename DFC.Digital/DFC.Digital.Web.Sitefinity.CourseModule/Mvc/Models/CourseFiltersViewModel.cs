@@ -6,16 +6,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseFiltersViewModel : CourseSearchFilters
     {
-        public IEnumerable<SelectItem> AgeSuitabilitySelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string Only1619CoursesText { get; set; }
 
-        public IEnumerable<SelectItem> StudyModeSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string AgeSuitabilityText { get; set; }
 
-        public IEnumerable<SelectItem> PatternSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string StartDateExampleText { get; set; }
 
-        public IEnumerable<string> AttendanceMode { get; set; } = Enumerable.Empty<string>();
+        public string StartDateDay { get; set; }
 
-        public IEnumerable<SelectItem> AttendanceSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string StartDateMonth { get; set; }
 
-        public IEnumerable<SelectItem> StartDateSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string StartDateYear { get; set; }
     }
 }

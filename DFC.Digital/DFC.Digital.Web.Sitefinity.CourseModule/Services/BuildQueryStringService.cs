@@ -19,11 +19,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             {
                 [nameof(CourseSearchFilters.SearchTerm)] = courseSearchFilters.SearchTerm,
                 [nameof(CourseSearchFilters.Provider)] = courseSearchFilters.Provider,
-                [nameof(CourseSearchFilters.Attendance)] = courseSearchFilters.Attendance.ToConcatenatedString(),
+                [nameof(CourseSearchFilters.CourseType)] = courseSearchFilters.CourseType != default(CourseType) ? courseSearchFilters.CourseType.ToString() : null,
                 [nameof(CourseSearchFilters.Only1619Courses)] = courseSearchFilters.Only1619Courses ? true.ToString() : null,
                 [nameof(CourseSearchFilters.Location)] = courseSearchFilters.Location,
-                [nameof(CourseSearchFilters.AttendancePattern)] = courseSearchFilters.AttendancePattern.ToConcatenatedString(),
-                [nameof(CourseSearchFilters.StudyMode)] = courseSearchFilters.StudyMode.ToConcatenatedString(),
+                [nameof(CourseSearchFilters.CourseHours)] = courseSearchFilters.CourseHours != default(CourseHours) ? courseSearchFilters.CourseHours.ToString() : null,
+                [nameof(CourseSearchFilters.StartDate)] = courseSearchFilters.StartDate != default(StartDate) ? courseSearchFilters.StartDate.ToString() : null,
+                [nameof(CourseSearchFilters.StartDateFrom)] = courseSearchFilters.StartDateFrom
             };
             var queryParameters = string.Join("&", parameters.Where(d => !string.IsNullOrEmpty(d.Value)).Select(kvp => $"{kvp.Key}={HttpUtility.UrlEncode(kvp.Value)}"));
             return $"{path}?{queryParameters}";

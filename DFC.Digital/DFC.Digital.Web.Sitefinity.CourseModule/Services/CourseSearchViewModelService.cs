@@ -87,11 +87,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public Dictionary<string, string> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel)
         {
-            var activeFilters = new Dictionary<string, string>();
 
-            if (courseFiltersModel == null)
+            if (courseFiltersModel is null)
             {
-                return activeFilters;
+                return new Dictionary<string, string>();
+            }
+
+            var activeFilters = new Dictionary<string, string>
+            {
+                [nameof(CourseSearchFilters.Location)] = courseFiltersModel.Location,
+
+
             }
 
             if (!string.IsNullOrWhiteSpace(courseFiltersModel.Location))

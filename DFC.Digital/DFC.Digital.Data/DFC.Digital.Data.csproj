@@ -161,6 +161,10 @@
     <Compile Include="Model\CourseSearchResult.cs" />
     <Compile Include="Model\DigitalSkill.cs" />
     <Compile Include="Model\DigitalSkillsLevel.cs" />
+    <Compile Include="Model\Enum\Distance.cs" />
+    <Compile Include="Model\Enum\StartDate.cs" />
+    <Compile Include="Model\Enum\CourseType.cs" />
+    <Compile Include="Model\Enum\CourseHours.cs" />
     <Compile Include="Model\FrameworkContent.cs" />
     <Compile Include="Model\FrameworkSkillSuppression.cs" />
     <Compile Include="Model\FrameWorkSkill.cs" />

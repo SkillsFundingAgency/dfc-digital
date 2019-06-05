@@ -186,6 +186,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseSearchFilters viewModel)
         {
+            ModelState.Clear();
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
 

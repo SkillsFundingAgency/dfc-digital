@@ -96,13 +96,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             {
                 [nameof(CourseSearchFilters.Location)] = courseFiltersModel.Location,
                 [nameof(CourseSearchFilters.Provider)] = courseFiltersModel.Provider,
-                [nameof(CourseSearchFilters.CourseType)] = courseFiltersModel.CourseType != default(CourseType)
+                [nameof(CourseSearchFilters.CourseType)] = courseFiltersModel.CourseType != CourseType.All
                     ? courseFiltersModel.CourseType.ToString()
                     : null,
-                [nameof(CourseSearchFilters.CourseHours)] = courseFiltersModel.CourseHours != default(CourseHours)
+                [nameof(CourseSearchFilters.CourseHours)] = courseFiltersModel.CourseHours != CourseHours.All
                     ? courseFiltersModel.CourseHours.ToString()
                     : null,
-                [nameof(CourseSearchFilters.StartDate)] = courseFiltersModel.StartDate != default(StartDate)
+                [nameof(CourseSearchFilters.StartDate)] = courseFiltersModel.StartDate != StartDate.Anytime
                     ? courseFiltersModel.StartDate.ToString()
                     : null,
                 [nameof(CourseSearchFilters.StartDateFrom)] = courseFiltersModel.StartDateFrom,

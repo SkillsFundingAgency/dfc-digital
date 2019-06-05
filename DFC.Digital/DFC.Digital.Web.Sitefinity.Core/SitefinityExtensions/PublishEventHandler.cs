@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -130,6 +131,5 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
 
             return contentData;
         }
-
     }
 }

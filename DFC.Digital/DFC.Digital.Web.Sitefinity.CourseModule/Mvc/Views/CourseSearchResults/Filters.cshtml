@@ -121,11 +121,12 @@
                         @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
                         @Html.LabelFor(x => x.Only1619Courses, Model.Only1619CoursesText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
                     </div>
+                    <input name="Only1619Courses" type="hidden" value="false">
                 </div>
             </fieldset>
         </div>
     </div>
-        <div class="submit js-live-search-fallback">
+        <div class="submit">
 
             <button class="js-enabled gem-c-button govuk-button" type="submit">@Model.ApplyFiltersText</button>
 

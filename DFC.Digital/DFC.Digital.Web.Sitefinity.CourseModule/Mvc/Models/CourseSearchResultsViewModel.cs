@@ -12,6 +12,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string FilterCourseByText { get; set; }
 
+        public string SearchForCourseNameText { get; set; }
+
         public string NoTrainingCoursesFoundText { get; set; }
 
         public string RecordsOnPageLabel => $"{((Page - 1) * Count) + 1} - {((Page - 1) * Count) + Courses.Count}";
@@ -37,7 +39,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public PaginationViewModel PaginationViewModel { get; set; } = new PaginationViewModel();
 
         public OrderByLinks OrderByLinks { get; set; } = new OrderByLinks();
-
         #endregion
 
     }

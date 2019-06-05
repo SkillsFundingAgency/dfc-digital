@@ -64,6 +64,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
 
+        [DisplayName("* Search for course name Text")]
+        public string SearchForCourseNameText { get; set; } = "Course name";
+
         [DisplayName("Order by Text")]
         public string OrderByText { get; set; } = "Ordered by";
 
@@ -186,7 +189,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseSearchFilters viewModel)
         {
-            ModelState.Clear();
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
 
@@ -225,6 +227,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.CourseHoursSectionText = CourseHoursSectionText;
             viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
             viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
+            viewModel.SearchForCourseNameText = SearchForCourseNameText;
         }
 
         private void SetupFilterDisplayData(CourseSearchResultsViewModel viewModel)

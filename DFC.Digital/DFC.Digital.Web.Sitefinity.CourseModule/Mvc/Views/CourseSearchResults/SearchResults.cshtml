@@ -2,46 +2,31 @@
 
 
 @* Top Full Width Content Block *@
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">@Model.PageTitle</h1>
-         @if (Model.ActiveFilterOptions.Any())
-        {
-            <p class="govuk-body">@Model.FilterCourseByText</p>
-            <p class="govuk-body">
-               
-            </p>
-            <p class="govuk-body"><a class="govuk-link" href="@Model.ResetFilterUrl">Reset</a></p>
-        }
-    </div>
-    </div>
-
 @using (Html.BeginForm("", "CourseSearchResults", FormMethod.Post))
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">@Model.PageTitle</h1>
+        </div>
+    </div>
+
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
-                <div class="search-header">
-                    <div class="searchfield">
-                        <div class="search-input">
-                            <label for="search-main" class="search-title">
-                                Showing results for <span class="govuk-visually-hidden">@Model.CourseFiltersModel.SearchTerm</span>
-                            </label>
-                            <input name="SearchTerm" value="@Model.CourseFiltersModel.SearchTerm" class="govuk-input gem-c-input--search-icon" id="keyword-search" type="search">
-                        </div>
-                        <div class="search-submit">
-                            <button type="submit" class="button">Search</button>
-                        </div>
-                    </div>
-                </div>
+                <label class="govuk-label" for="keyword-search">
+                    @Model.SearchForCourseNameText
+                </label>
+                <span class="govuk-visually-hidden">Search results for @Model.CourseFiltersModel.SearchTerm</span>
+                <input name="SearchTerm" value="@Model.CourseFiltersModel.SearchTerm" class="govuk-input gem-c-input--search-icon" id="keyword-search" type="search">
             </div>
         </div>
     </div>
 
     <div class="govuk-grid-row">
 
-        @if (Model.Courses.Any() || Model.ActiveFilterOptions.Any())
+        @if (Model.Courses.Any())
         {
             @* Filter Section - Within 1/3 Content Block *@
             <div class="govuk-grid-column-one-third">
@@ -64,37 +49,34 @@
                     </div>
                 </div>
 
-                    @Html.Partial("OrderByLinks", Model.OrderByLinks)
+                @Html.Partial("OrderByLinks", Model.OrderByLinks)
+                <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
 
+                <div id="results-summary">
 
-                    @if (Model.ActiveFilterOptions.Any() || Model.Courses.Any())
-                    {
-                        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
-                    }
-
-                    <div id="results-summary">
-
-                        <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultProperties.TotalResultCount results</h3>
-                        <hr class="govuk-section-break govuk-section-break--visible" />
-
-                    </div>
-
-
-                    @foreach (var course in Model.Courses)
-                    {
-                        @Html.Partial("CourseDetail", course)
-                    }
-
-                    @Html.Partial("Pagination", Model.PaginationViewModel)
+                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultProperties.TotalResultCount results</h3>
+                    <hr class="govuk-section-break govuk-section-break--visible" />
 
                 </div>
 
-                }
-                else
+
+                @foreach (var course in Model.Courses)
                 {
-                <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
+                    @Html.Partial("CourseDetail", course)
                 }
+
+                @Html.Partial("Pagination", Model.PaginationViewModel)
+
             </div>
+
+        }
+        else
+        {
+            <div class="govuk-grid-column-two-thirds">
+                <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
+            </div>
+        }
+    </div>
 
 }
 

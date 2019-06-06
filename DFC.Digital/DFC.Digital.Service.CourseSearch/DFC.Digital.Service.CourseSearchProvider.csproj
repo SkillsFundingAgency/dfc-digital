@@ -77,7 +77,9 @@
     <Compile Include="Services\BuildTribalMessage.cs" />
     <Compile Include="Services\Contracts\IBuildTribalMessage.cs" />
     <Compile Include="Services\Contracts\IConvertTribalCodes.cs" />
+    <Compile Include="Services\Contracts\ICourseBusinessRules.cs" />
     <Compile Include="Services\ConvertTribalCodes.cs" />
+    <Compile Include="Services\CourseBusinessRules.cs" />
     <Compile Include="Utility\CourseSearchConstants.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
     /// <seealso cref="DFC.Digital.Service.CourseSearchProvider.IConvertTribalCodes" />
     public class ConvertTribalCodes : IConvertTribalCodes
     {
+        private readonly ICourseBusinessRules courseBusinessRules;
+
+        public ConvertTribalCodes(ICourseBusinessRules courseBusinessRules)
+        {
+            this.courseBusinessRules = courseBusinessRules;
+        }
+
         public string[] GetTribalAttendanceModes(CourseType courseType)
         {
             switch (courseType)
@@ -54,9 +61,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     return DateTime.Now.ToString("yyyy-MM-dd");
                 case StartDate.SelectDateFrom:
                 default:
-                    if (DateTime.TryParse(earliestStartDate, out var choseDate))
+                    if (DateTime.TryParse(earliestStartDate, out var chosenDate))
                     {
-                        return choseDate.ToString("yyyy-MM-dd");
+                        return courseBusinessRules.IsEarliestStartDateValid(chosenDate) ? chosenDate.ToString("yyyy-MM-dd") : null;
                     }
 
                     return null;

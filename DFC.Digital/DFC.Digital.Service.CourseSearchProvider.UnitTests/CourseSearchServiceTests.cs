@@ -115,7 +115,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
-            await courseSearchService.GetCourseDetailsAsync(courseId, null);
+            await courseSearchService.GetCourseDetailsAsync(courseId);
 
             //Assert
             if (!string.IsNullOrWhiteSpace(courseId))

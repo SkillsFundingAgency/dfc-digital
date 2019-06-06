@@ -19,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();
+        private readonly IBuildQueryStringService fakebuildQueryStringService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CourseDetailsControllerTests"/> class.
@@ -28,6 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             this.fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             this.fakeCourseSearchService = A.Fake<ICourseSearchService>();
             this.fakeAsyncHelper = new AsyncHelper();
+            this.fakebuildQueryStringService = A.Fake<IBuildQueryStringService>();
         }
 
         [Theory]
@@ -35,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void IndexSetDefaultsTest(string findAcoursePage, string courseId, string noCourseDescriptionMessage, string noEntryRequirementsAvailableMessage, string noEquipmentRequiredMessage, string noAssessmentMethodAvailableMessage, string noVenueAvailableMessage, string noOtherDateOrVenueAvailableMessage, string referralUrl)
         {
             // Assign
-            var controller = new CourseDetailsController(webAppContextFake, fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
+            var controller = new CourseDetailsController(webAppContextFake, fakeApplicationLogger, fakeCourseSearchService, fakebuildQueryStringService, fakeAsyncHelper)
             {
                 FindAcoursePage = findAcoursePage,
                 NoCourseDescriptionMessage = noCourseDescriptionMessage,
@@ -46,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoOtherDateOrVenueAvailableMessage = noOtherDateOrVenueAvailableMessage,
             };
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).Returns(new CourseDetails());
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._)).Returns(new CourseDetails());
 
             A.CallTo(() => webAppContextFake.RequestQueryString).Returns(new NameValueCollection { { "referralUrl", referralUrl } });
 
@@ -61,7 +63,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                      vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
                  });
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._)).MustHaveHappened();
         }
     }
 }

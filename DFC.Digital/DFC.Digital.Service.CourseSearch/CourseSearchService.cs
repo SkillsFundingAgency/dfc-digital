@@ -119,7 +119,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return response;
         }
 
-        public async Task<CourseDetails> GetCourseDetailsAsync(string courseId, string referralUrl)
+        public async Task<CourseDetails> GetCourseDetailsAsync(string courseId)
         {
             if (string.IsNullOrWhiteSpace(courseId))
             {
@@ -132,7 +132,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
             auditRepository.CreateAudit(apiResult);
 
-            var response = apiResult?.ConvertToCourseDetails(referralUrl);
+            var response = apiResult?.ConvertToCourseDetails();
             return response;
         }
     }

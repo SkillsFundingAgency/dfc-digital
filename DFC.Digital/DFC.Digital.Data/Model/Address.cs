@@ -1,6 +1,6 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class VenueAddress
+    public class Address
     {
         public string AddressLine1 { get; set; }
 

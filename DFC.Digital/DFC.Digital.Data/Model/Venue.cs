@@ -1,10 +1,10 @@
 ﻿namespace DFC.Digital.Data.Model
 {
-    public class VenueDetails
+    public class Venue
     {
         public string VenueName { get; set; }
 
-        public VenueAddress Location { get; set; } = new VenueAddress();
+        public Address Location { get; set; } = new Address();
 
         public string EmailAddress { get; set; }
 

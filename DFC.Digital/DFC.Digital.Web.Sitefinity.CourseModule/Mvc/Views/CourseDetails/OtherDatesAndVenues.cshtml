@@ -1,6 +1,6 @@
-﻿@model DFC.Digital.Data.Model.CourseDetails
+﻿@model CourseDetailsViewModel
 
-<h2 class="govuk-heading-m" id="other-dates-and-venues">7. Other dates and venues</h2>
+<h2 class="govuk-heading-m" id="other-dates-and-venues">@Model.OtherDatesAndVenuesLabel</h2>
 <table class="govuk-table k-table">
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
@@ -8,15 +8,15 @@
             <th class="govuk-table__header">Start date</th>
             <th class="govuk-table__header">Options</th>
         </tr>
-        @if (Model.OtherDatesAndVenues != null)
+        @if (Model.CourseDetails.Oppurtunities!= null)
         {
-            foreach (var venue in Model.OtherDatesAndVenues)
+            foreach (var venue in Model.CourseDetails.Oppurtunities)
             {
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">@venue.VenueName</td>
                     <td class="govuk-table__cell">@venue.StartDate</td>
                     <td class="govuk-table__cell">
-                        <a class="govuk-link" href="@venue.Options">View course</a>
+                        <a class="govuk-link" href="@venue.">View course</a>
                     </td>
                 </tr>
             }

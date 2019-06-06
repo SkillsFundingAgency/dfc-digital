@@ -58,5 +58,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
             return $"{courseSearchResultsPage}?{queryParameters}";
         }
+
+        public string BuildViewCourseUrlPathAndQueryString(string urlPath, string courseId, string opportunityId, string referralUrl)
+        {
+            {
+                var url = $"{urlPath}?{nameof(courseId)}={courseId}&{nameof(opportunityId)}={opportunityId}";
+                if (!string.IsNullOrWhiteSpace(referralUrl))
+                {
+                   return $"{url}{nameof(referralUrl)}={referralUrl}";
+                }
+
+                return url;
+            }
+        }
     }
 }

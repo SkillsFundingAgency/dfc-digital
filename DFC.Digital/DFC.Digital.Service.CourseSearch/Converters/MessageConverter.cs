@@ -68,7 +68,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return result ?? Enumerable.Empty<Course>();
         }
 
-        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string referralUrl)
+        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
         {
             var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
 
@@ -86,10 +86,10 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 EquipmentRequired = apiCourseDetail.Course.EquipmentRequired,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
                 Cost = apiCourseDetail.Opportunity.FirstOrDefault()?.Price,
-                VenueDetails = new VenueDetails
+                VenueDetails = new Venue
                 {
                     EmailAddress = apiCourseDetail.Venue.FirstOrDefault()?.Email,
-                    Location = new DFC.Digital.Data.Model.VenueAddress
+                    Location = new Address
                     {
                         AddressLine1 = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Address_line_1,
                         AddressLine2 = apiCourseDetail.Venue.FirstOrDefault()?.VenueAddress.Address_line_2,
@@ -121,7 +121,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     LearnerSatisfaction = apiCourseDetail.Provider.FEChoices_LearnerSatisfaction,
                     EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
-                OtherDatesAndVenues = MapOtherVenues(apiCourseDetail, referralUrl),
+                Oppurtunities = MapOppurtunities(apiCourseDetail),
                 StartDateLabel = apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
                 CourseUrl = apiCourseDetail.Course.URL,
                 CourseId = apiCourseDetail.Course.CourseID,
@@ -133,33 +133,21 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
         }
 
-        private static List<OtherDatesAndVenues> MapOtherVenues(CourseDetailStructure apiCourseDetail, string referralUrl)
+        private static List<Oppurtunity> MapOppurtunities(CourseDetailStructure apiCourseDetail)
         {
-            List<OtherDatesAndVenues> otherVenues = new List<OtherDatesAndVenues>();
+            List<Oppurtunity> oppurtunities = new List<Oppurtunity>();
 
             foreach (var oppurtunity in apiCourseDetail.Opportunity)
             {
-                var otherVenue = new OtherDatesAndVenues
+                oppurtunities.Add(new Oppurtunity
                 {
                     StartDate = oppurtunity.StartDate.Item,
-                    Options = GetUrlPath(apiCourseDetail.Course.CourseID, oppurtunity, referralUrl),
+                    OppurtunityId = oppurtunity.OpportunityId,
                     VenueName = apiCourseDetail.Venue.Where(x => x.VenueID.ToString() == oppurtunity.Items[0]).FirstOrDefault().VenueName
-                };
-                otherVenues.Add(otherVenue);
+                });
             }
 
-            return otherVenues;
-        }
-
-        private static string GetUrlPath(string courseId, OpportunityDetail opportunity, string referralUrl)
-        {
-            var url = $"/course-directory/course-details?courseid={courseId}&opportunityid={opportunity.OpportunityId}";
-            if (!string.IsNullOrWhiteSpace(referralUrl))
-            {
-                url += "&referralUrl=" + referralUrl;
-            }
-
-            return url;
+            return oppurtunities;
         }
     }
 }

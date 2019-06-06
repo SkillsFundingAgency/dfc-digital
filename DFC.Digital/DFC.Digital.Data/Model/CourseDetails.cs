@@ -4,9 +4,11 @@ namespace DFC.Digital.Data.Model
 {
     public class CourseDetails : Course
     {
-        public VenueDetails VenueDetails { get; set; }
+        public Venue VenueDetails { get; set; }
 
         public ProviderDetails ProviderDetails { get; set; }
+
+        public IList<Oppurtunity> Oppurtunities { get; set; }
 
         public string Description { get; set; }
 
@@ -19,21 +21,5 @@ namespace DFC.Digital.Data.Model
         public string Cost { get; set; }
 
         public string EquipmentRequired { get; set; }
-
-        public string BackToResultsUrl { get; set; }
-
-        public List<OtherDatesAndVenues> OtherDatesAndVenues { get; set; }
-
-        public string NoCourseDescriptionMessage { get; set; }
-
-        public string NoEntryRequirementsAvailableMessage { get; set; }
-
-        public string NoEquipmentRequiredMessage { get; set; }
-
-        public string NoAssessmentMethodAvailableMessage { get; set; }
-
-        public string NoVenueAvailableMessage { get; set; }
-
-        public string NoOtherDateOrVenueAvailableMessage { get; set; }
     }
 }

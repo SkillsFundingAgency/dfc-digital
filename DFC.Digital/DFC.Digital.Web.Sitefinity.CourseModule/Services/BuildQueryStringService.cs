@@ -23,6 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 [nameof(CourseSearchFilters.CourseType)] = courseSearchFilters.CourseType != CourseType.All ? courseSearchFilters.CourseType.ToString() : null,
                 [nameof(CourseSearchFilters.Only1619Courses)] = courseSearchFilters.Only1619Courses ? true.ToString() : null,
                 [nameof(CourseSearchFilters.Location)] = courseSearchFilters.Location,
+                [nameof(CourseSearchFilters.Distance)] = courseSearchFilters.Distance.ToString(CultureInfo.InvariantCulture),
                 [nameof(CourseSearchFilters.CourseHours)] = courseSearchFilters.CourseHours != CourseHours.All ? courseSearchFilters.CourseHours.ToString() : null,
                 [nameof(CourseSearchFilters.StartDate)] = courseSearchFilters.StartDate != StartDate.Anytime ? courseSearchFilters.StartDate.ToString() : null,
                 [nameof(CourseSearchFilters.StartDateFrom)] = courseSearchFilters.StartDateFrom

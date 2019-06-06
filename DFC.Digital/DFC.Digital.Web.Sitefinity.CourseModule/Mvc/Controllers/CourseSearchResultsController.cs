@@ -7,6 +7,7 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -131,7 +132,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             };
 
             var cleanCourseName =
-                StringManipulationExtension.ReplaceSpecialCharacters(courseSearchFilters.SearchTerm, InvalidCharactersRegexPattern);
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.SearchTerm,
+                    InvalidCharactersRegexPattern);
 
             if (!string.IsNullOrEmpty(cleanCourseName))
             {
@@ -148,9 +151,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         courseSearchFilters.Provider,
                         InvalidCharactersRegexPattern);
 
+                courseSearchFilters.DistanceSpecified = !string.IsNullOrWhiteSpace(courseSearchFilters.Location) &&
+                                                        Regex.Matches(courseSearchFilters.Location, LocationRegex).Count > 0;
+
                 courseSearchProps.Filters = courseSearchFilters;
 
-                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProps));
+                var response = asyncHelper.Synchronise(() =>
+                    courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProps));
+
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
@@ -167,12 +175,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     }
 
                     var pathQuery = Request?.Url?.PathAndQuery;
-                    if (!string.IsNullOrWhiteSpace(pathQuery) && pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
+                    if (!string.IsNullOrWhiteSpace(pathQuery) &&
+                        pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
                     {
-                        pathQuery = pathQuery.Substring(0, pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
+                        pathQuery = pathQuery.Substring(
+                            0,
+                            pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
                     }
 
-                    courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
+                    courseSearchViewModelService.SetupPaging(
+                        viewModel,
+                        response,
+                        pathQuery,
+                        RecordsPerPage,
+                        CourseSearchResultsPage);
+
                     SetupSearchLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
@@ -180,15 +197,26 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
 
             viewModel.NoTrainingCoursesFoundText =
-                string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm) ? string.Empty : NoTrainingCoursesFoundText;
+                string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
+                    ? string.Empty
+                    : NoTrainingCoursesFoundText;
 
             SetupWidgetDefaults(viewModel);
             return View("SearchResults", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(CourseSearchFilters viewModel)
+        public ActionResult Index(CourseFiltersViewModel viewModel)
         {
+            if (viewModel.StartDate == StartDate.SelectDateFrom &&
+                !string.IsNullOrWhiteSpace(viewModel.StartDateDay) &&
+                !string.IsNullOrWhiteSpace(viewModel.StartDateMonth) &&
+                !string.IsNullOrWhiteSpace(viewModel.StartDateYear))
+            {
+                viewModel.StartDateFrom =
+                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateYear}";
+            }
+
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
 

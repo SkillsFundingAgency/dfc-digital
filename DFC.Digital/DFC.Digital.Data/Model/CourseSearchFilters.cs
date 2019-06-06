@@ -1,6 +1,4 @@
-﻿using DFC.Digital.Data.Model.Enum;
-
-namespace DFC.Digital.Data.Model
+﻿namespace DFC.Digital.Data.Model
 {
     public class CourseSearchFilters
     {
@@ -23,7 +21,5 @@ namespace DFC.Digital.Data.Model
         public CourseHours CourseHours { get; set; } = CourseHours.All;
 
         public CourseType CourseType { get; set; } = CourseType.All;
-
-        public Distance DistanceRange { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using DFC.Digital.Data.Model.Enum
-@using DFC.Digital.Web.Core
+﻿@using DFC.Digital.Web.Core
 @model CourseFiltersViewModel
 
 <div class="filters filters">
@@ -14,9 +13,17 @@
         <div class="govuk-inset-text" id="distance">
             @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 
-
-            @Html.DropDownListFor(m => m.DistanceRange,
-                new SelectList(Enum.GetValues(typeof(Distance))), new {@class= "govuk-select" })
+          
+            <select class="govuk-select" name="Distance" value="@Model.Distance">
+            <option value="5">5 Miles</option>
+            <option value="10">10 Miles</option>
+            <option value="15">15 Miles</option>
+            <option value="30">30 Miles</option>
+            <option value="45">45 Miles</option>
+            <option value="60">60 Miles</option>
+            <option value="75">75 Miles</option>
+        </select>
+           
         </div>
     </div>
 

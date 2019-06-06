@@ -214,7 +214,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 !string.IsNullOrWhiteSpace(viewModel.StartDateYear))
             {
                 viewModel.StartDateFrom =
-                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateYear}";
+                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}";
             }
 
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));

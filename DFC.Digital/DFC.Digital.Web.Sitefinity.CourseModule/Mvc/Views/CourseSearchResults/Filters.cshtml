@@ -4,32 +4,33 @@
 <div class="filters filters">
 
     <div class="govuk-form-group">
-        @Html.LabelFor(x => x.Location, "Location", new {@class="govuk-label"})
-        @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield"})
-        @Html.HiddenFor(x => x.LocationRegex, new {@class= "locationRegex" })
+        @Html.LabelFor(x => x.Location, "Location", new { @class = "govuk-label" })
+        @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield" })
+        @Html.HiddenFor(x => x.LocationRegex, new { @class = "locationRegex" })
     </div>
 
     <div id="distanceFormGroup" class="govuk-form-group">
         <div class="govuk-inset-text" id="distance">
             @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 
-          
-            <select class="govuk-select" name="Distance" value="@Model.Distance">
-            <option value="5">5 Miles</option>
-            <option value="10">10 Miles</option>
-            <option value="15">15 Miles</option>
-            <option value="30">30 Miles</option>
-            <option value="45">45 Miles</option>
-            <option value="60">60 Miles</option>
-            <option value="75">75 Miles</option>
-        </select>
-           
+            @Html.DropDownListFor(model => model.Distance,
+                new List<SelectListItem>
+                { new SelectListItem{Text="5 Miles", Value="5"},
+                new SelectListItem{Text="10 Miles", Value="10"},
+                new SelectListItem{Text="30 Miles", Value="30"},
+                new SelectListItem{Text="45 Miles", Value="45"},
+                new SelectListItem{Text="60 Miles", Value="60"},
+                new SelectListItem{Text="75 Miles", Value="75"},
+               }, 
+                null, 
+                new { @class = "govuk-select" })
+
         </div>
     </div>
 
     <div class="govuk-form-group">
-        @Html.LabelFor(x => x.Provider, "Provider", new {@class="govuk-label"})
-        @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input govuk-!-width-full"})
+        @Html.LabelFor(x => x.Provider, "Provider", new { @class = "govuk-label" })
+        @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input govuk-!-width-full" })
 
     </div>
 
@@ -72,32 +73,32 @@
                 <div class="govuk-radios govuk-radios--conditional" data-module="radios">
                     <div class="govuk-form-group">
                         @Html.GovUkEnumRadioButtonFor(model => model.StartDate)
-                  
+
                         <div>
                             <div class="govuk-form-group">
                                 @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-label govuk-!-font-size-16" })
-                 
+
                                 <span class="govuk-hint govuk-!-font-size-16">@Model.StartDateExampleText For example, 01 01 2020</span>
                                 <div class="govuk-date-input" id="startDate-Date">
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">
-                                            
+
                                             @Html.LabelFor(x => x.StartDateDay, "Day", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateDay, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateDay" })
-                                         
+                                            @Html.TextBoxFor(x => x.StartDateDay, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateDay" })
+
                                         </div>
                                     </div>
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">
                                             @Html.LabelFor(x => x.StartDateMonth, "Month", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateMonth, new {@class="govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateMonth" })
+                                            @Html.TextBoxFor(x => x.StartDateMonth, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateMonth" })
 
                                         </div>
                                     </div>
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">
                                             @Html.LabelFor(x => x.StartDateYear, "Year", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
-                                            @Html.TextBoxFor(x => x.StartDateYear, new {@class="govuk-input govuk-date-input__input govuk-input--width-4", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateYear" })
+                                            @Html.TextBoxFor(x => x.StartDateYear, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateYear" })
                                         </div>
                                     </div>
                                 </div>
@@ -127,10 +128,10 @@
             </fieldset>
         </div>
     </div>
-        <div class="submit">
+    <div class="submit">
 
-            <button class="js-enabled gem-c-button govuk-button" type="submit">@Model.ApplyFiltersText</button>
+        <button class="js-enabled gem-c-button govuk-button" type="submit">@Model.ApplyFiltersText</button>
 
-        </div>
-    
+    </div>
+
 </div>

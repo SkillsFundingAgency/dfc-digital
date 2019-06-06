@@ -8,12 +8,12 @@ using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class BuildTribalMessageService : IBuildTribalMessage
+    public class BuildTribalMessage : IBuildTribalMessage
     {
         private readonly IConvertTribalCodes convertTribalCodesService;
         private readonly IConfigurationProvider configuration;
 
-        public BuildTribalMessageService(IConvertTribalCodes convertTribalCodesService, IConfigurationProvider configuration)
+        public BuildTribalMessage(IConvertTribalCodes convertTribalCodesService, IConfigurationProvider configuration)
         {
             this.convertTribalCodesService = convertTribalCodesService;
             this.configuration = configuration;
@@ -34,11 +34,10 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     {
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = courseName,
-                        EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",",  new List<string>())),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", new List<string>())),
+                        EarliestStartDate = convertTribalCodesService.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
+                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
+                        StudyModes = convertTribalCodesService.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
-                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", new List<string>())),
                         ProviderKeyword = courseSearchProperties.Filters.Provider,
                         Distance = courseSearchProperties.Filters.Distance,
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,

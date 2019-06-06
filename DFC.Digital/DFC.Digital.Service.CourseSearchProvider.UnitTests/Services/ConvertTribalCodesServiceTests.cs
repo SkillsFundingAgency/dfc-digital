@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using DFC.Digital.Data.Model;
+using FluentAssertions;
+using System;
 using Xunit;
 
 namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
@@ -7,10 +9,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
     {
         [Theory]
         [MemberData(nameof(GetTribalAttendanceModesTestInput))]
-        public void GetTribalAttendanceModesTest(string attendanceMode, string[] expectedResult)
+        public void GetTribalAttendanceModesTest(CourseType attendanceMode, string[] expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodesService();
+            var convertTribalCodesService = new ConvertTribalCodes();
 
             //Act
             var result = convertTribalCodesService.GetTribalAttendanceModes(attendanceMode);
@@ -21,10 +23,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
         [Theory]
         [MemberData(nameof(GetTribalStudyModesTestsInput))]
-        public void GetTribalStudyModesTest(string studyMode, string[] expectedResult)
+        public void GetTribalStudyModesTest(CourseHours studyMode, string[] expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodesService();
+            var convertTribalCodesService = new ConvertTribalCodes();
 
             //Act
             var result = convertTribalCodesService.GetTribalStudyModes(studyMode);
@@ -35,27 +37,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
         [Theory]
         [MemberData(nameof(GetTribalQualificationLevelsTestsInput))]
-        public void GetTribalQualificationLevelsTest(string qualificationLevel, string[] expectedResult)
+        public void GetTribalQualificationLevelsTest(StartDate startDate, string startDateFrom, string expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodesService();
+            var convertTribalCodesService = new ConvertTribalCodes();
 
             //Act
-            var result = convertTribalCodesService.GetTribalQualificationLevels(qualificationLevel);
-
-            //Assert
-            result.Should().BeEquivalentTo(expectedResult);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetTribalAttendancePatternsTestsInput))]
-        public void GetTribalAttendancePatternsTest(string attendancePattern, string[] expectedResult)
-        {
-            // Assign
-            var convertTribalCodesService = new ConvertTribalCodesService();
-
-            //Act
-            var result = convertTribalCodesService.GetTribalAttendancePatterns(attendancePattern);
+            var result = convertTribalCodesService.GetEarliestStartDate(startDate, startDateFrom);
 
             //Assert
             result.Should().BeEquivalentTo(expectedResult);

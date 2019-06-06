@@ -24,16 +24,16 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         public void GetCourseSearchInputTest(string courseName, CourseSearchProperties courseSearchProperties, CourseListInput expectedCourseListInput)
         {
             // Assign
-            var buildTribalMessageService = new BuildTribalMessageService(fakeConvertTribalCodesService, fakeConfiguration);
+            var buildTribalMessageService = new BuildTribalMessage(fakeConvertTribalCodesService, fakeConfiguration);
 
             //Act
             var result = buildTribalMessageService.GetCourseSearchInput(courseName, courseSearchProperties);
 
             //Assert
             result.Should().BeEquivalentTo(expectedCourseListInput);
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendancePatterns(A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).MustHaveHappened();
+            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).MustHaveHappened();
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).MustHaveHappened(1, Times.Exactly);
         }
 
@@ -42,7 +42,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         public void GetCourseDetailInputTest(string courseId, CourseDetailInput expectedCourseDetailInput)
         {
             // Assign
-            var buildTribalMessageService = new BuildTribalMessageService(fakeConvertTribalCodesService, fakeConfiguration);
+            var buildTribalMessageService = new BuildTribalMessage(fakeConvertTribalCodesService, fakeConfiguration);
 
             //Act
             var result = buildTribalMessageService.GetCourseDetailInput(courseId);
@@ -55,10 +55,9 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         private void SetupCalls()
         {
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns("apiKey");
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<string>._)).Returns(null);
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendancePatterns(A<string>._)).Returns(null);
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalQualificationLevels(A<string>._)).Returns(null);
-            A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<string>._)).Returns(null);
+            A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).Returns(null);
+            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<string>._)).Returns(null);
+            A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).Returns(null);
         }
     }
 }

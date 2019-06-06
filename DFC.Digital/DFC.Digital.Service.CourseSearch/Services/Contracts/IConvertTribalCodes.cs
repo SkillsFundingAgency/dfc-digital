@@ -1,13 +1,13 @@
-﻿namespace DFC.Digital.Service.CourseSearchProvider
+﻿using DFC.Digital.Data.Model;
+
+namespace DFC.Digital.Service.CourseSearchProvider
 {
     public interface IConvertTribalCodes
     {
-        string[] GetTribalAttendanceModes(string attendanceMode);
+        string[] GetTribalAttendanceModes(CourseType courseType);
 
-        string[] GetTribalStudyModes(string studyMode);
+        string[] GetTribalStudyModes(CourseHours courseHours);
 
-        string[] GetTribalQualificationLevels(string qualificationLevels);
-
-        string[] GetTribalAttendancePatterns(string attendancePattern);
+        string GetEarliestStartDate(StartDate startDate, string earliestStartDate);
     }
 }

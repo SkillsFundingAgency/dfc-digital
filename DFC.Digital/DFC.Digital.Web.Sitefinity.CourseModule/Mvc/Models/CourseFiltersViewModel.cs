@@ -25,5 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string StartDateYear { get; set; }
 
         public string WithinText { get; set; }
+
+        public string LocationRegex { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using DFC.Digital.Web.Core
+﻿@using DFC.Digital.Data.Model.Enum
+@using DFC.Digital.Web.Core
 @model CourseFiltersViewModel
 
 <div class="filters filters">
@@ -6,23 +7,16 @@
     <div class="govuk-form-group">
         @Html.LabelFor(x => x.Location, "Location", new {@class="govuk-label"})
         @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield"})
+        @Html.HiddenFor(x => x.LocationRegex, new {@class= "locationRegex" })
     </div>
 
-    <div id="distanceFormGroup" style="display: none;" class="govuk-form-group">
+    <div id="distanceFormGroup" class="govuk-form-group">
         <div class="govuk-inset-text" id="distance">
             @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 
-            @Html.GovUkEnumRadioButtonFor(x => x.DistanceRange)
-            @*<select class="govuk-select" id="CurrentSearchRequest_LocationDistance" name="CurrentSearchRequest.LocationDistance">
-            <option value="5">5 Miles</option>
-            <option value="10">10 Miles</option>
-            <option value="15">15 Miles</option>
-            <option value="30">30 Miles</option>
-            <option value="45">45 Miles</option>
-            <option value="60">60 Miles</option>
-            <option value="75">75 Miles</option>
-        </select>
-            *@
+
+            @Html.DropDownListFor(m => m.DistanceRange,
+                new SelectList(Enum.GetValues(typeof(Distance))), new {@class= "govuk-select" })
         </div>
     </div>
 
@@ -72,7 +66,7 @@
                     <div class="govuk-form-group">
                         @Html.GovUkEnumRadioButtonFor(model => model.StartDate)
                   
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden conditional-date" id="conditional-start-date-conditional-1">
+                        <div>
                             <div class="govuk-form-group">
                                 @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-label govuk-!-font-size-16" })
                  

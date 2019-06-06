@@ -228,6 +228,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
             viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
+            viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
         }
 
         private void SetupFilterDisplayData(CourseSearchResultsViewModel viewModel)

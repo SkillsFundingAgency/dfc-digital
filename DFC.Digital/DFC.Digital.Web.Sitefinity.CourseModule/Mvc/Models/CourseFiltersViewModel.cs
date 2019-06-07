@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -26,6 +27,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string WithinText { get; set; }
 
-        public string LocationRegex { get; set; }
+        public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
+
+        public bool IsDistanceLocation => !string.IsNullOrWhiteSpace(Location) &&
+                                          Regex.Matches(Location, LocationRegex).Count > 0;
     }
 }

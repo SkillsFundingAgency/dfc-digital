@@ -3,6 +3,7 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using FakeItEasy;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
@@ -32,7 +33,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             //Assert
             result.Should().BeEquivalentTo(expectedCourseListInput);
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).MustHaveHappened();
-            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).MustHaveHappened();
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).MustHaveHappened();
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).MustHaveHappened(1, Times.Exactly);
         }
@@ -56,7 +57,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns("apiKey");
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).Returns(null);
-            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<string>._)).Returns(null);
+            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).Returns(null);
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).Returns(null);
         }
     }

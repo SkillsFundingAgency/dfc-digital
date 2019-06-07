@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
@@ -8,6 +9,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         string[] GetTribalStudyModes(CourseHours courseHours);
 
-        string GetEarliestStartDate(StartDate startDate, string earliestStartDate);
+        string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate);
     }
 }

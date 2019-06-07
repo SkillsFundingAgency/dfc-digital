@@ -1,10 +1,12 @@
-﻿namespace DFC.Digital.Data.Model
+﻿using System;
+
+namespace DFC.Digital.Data.Model
 {
     public class CourseSearchFilters
     {
         public string SearchTerm { get; set; }
 
-        public string StartDateFrom { get; set; }
+        public DateTime StartDateFrom { get; set; }
 
         public string Provider { get; set; }
 

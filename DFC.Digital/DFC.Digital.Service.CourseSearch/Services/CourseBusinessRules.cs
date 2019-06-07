@@ -8,9 +8,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class CourseBusinessRules : ICourseBusinessRules
     {
-        public bool IsEarliestStartDateValid(DateTime earliestStartDate)
+        public DateTime GetEarliestStartDate(DateTime inputDate)
         {
-            return earliestStartDate > DateTime.Now.AddYears(-1) && earliestStartDate < DateTime.Now.AddYears(1);
+            var earliestDate = DateTime.Now.AddYears(-1);
+            var latestDate = DateTime.Now.AddMonths(6);
+            return inputDate >= earliestDate && inputDate < latestDate ? inputDate :
+                inputDate < earliestDate ? earliestDate :
+                latestDate;
         }
     }
 }

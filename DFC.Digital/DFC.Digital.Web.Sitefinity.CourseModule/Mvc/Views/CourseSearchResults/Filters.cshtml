@@ -9,7 +9,7 @@
         @Html.HiddenFor(x => x.LocationRegex, new { @class = "locationRegex" })
     </div>
 
-    <div id="distanceFormGroup" class="govuk-form-group">
+    <div id="distanceFormGroup" style="display: @(Model.IsDistanceLocation ? "block" : "none");" class="govuk-form-group">
         <div class="govuk-inset-text" id="distance">
             @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 

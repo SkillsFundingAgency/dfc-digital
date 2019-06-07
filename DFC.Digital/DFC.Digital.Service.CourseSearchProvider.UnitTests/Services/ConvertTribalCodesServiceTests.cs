@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using FakeItEasy;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -7,12 +8,19 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 {
     public class ConvertTribalCodesServiceTests : MemberDataHelper
     {
+        private readonly ICourseBusinessRules fakeBusinessRules;
+
+        public ConvertTribalCodesServiceTests()
+        {
+            fakeBusinessRules = A.Fake<ICourseBusinessRules>(ops => ops.Strict());
+        }
+
         [Theory]
         [MemberData(nameof(GetTribalAttendanceModesTestInput))]
         public void GetTribalAttendanceModesTest(CourseType attendanceMode, string[] expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodes();
+            var convertTribalCodesService = new ConvertTribalCodes(fakeBusinessRules);
 
             //Act
             var result = convertTribalCodesService.GetTribalAttendanceModes(attendanceMode);
@@ -26,7 +34,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         public void GetTribalStudyModesTest(CourseHours studyMode, string[] expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodes();
+            var convertTribalCodesService = new ConvertTribalCodes(fakeBusinessRules);
 
             //Act
             var result = convertTribalCodesService.GetTribalStudyModes(studyMode);
@@ -37,10 +45,10 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
         [Theory]
         [MemberData(nameof(GetTribalQualificationLevelsTestsInput))]
-        public void GetTribalQualificationLevelsTest(StartDate startDate, string startDateFrom, string expectedResult)
+        public void GetTribalQualificationLevelsTest(StartDate startDate, DateTime startDateFrom, string expectedResult)
         {
             // Assign
-            var convertTribalCodesService = new ConvertTribalCodes();
+            var convertTribalCodesService = new ConvertTribalCodes(fakeBusinessRules);
 
             //Act
             var result = convertTribalCodesService.GetEarliestStartDate(startDate, startDateFrom);

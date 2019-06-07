@@ -32,6 +32,7 @@
             </div>
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
+                    <p class="govuk-body">@Model.ResultProperties.TotalResultCount results</p>
                     <div class="facet-tags">
                         @foreach (var aFilter in Model.ActiveFilterOptions)
                         {
@@ -46,18 +47,12 @@
                         }
                     </div>
                 </div>
-               
+
                 @if (Model.Courses.Any())
                 {
-                    @Html.Partial("OrderByLinks", Model.OrderByLinks)
                     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+                    @Html.Partial("OrderByLinks", Model.OrderByLinks)
 
-                    <div id="results-summary">
-
-                        <h3 class="govuk-body-s govuk-!-margin-bottom-1">Showing @Model.RecordsOnPageLabel of @Model.ResultProperties.TotalResultCount results</h3>
-                        <hr class="govuk-section-break govuk-section-break--visible" />
-
-                    </div>
                     foreach (var course in Model.Courses)
                     {
                         @Html.Partial("CourseDetail", course)

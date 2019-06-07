@@ -1,24 +1,27 @@
 ﻿@using DFC.Digital.Data.Model
 @model OrderByLinks
-    
-<h3 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">@Model.OrderByText</h3>
 @switch (Model.CourseSearchSortBy)
 {
     case CourseSearchOrderBy.Relevance:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">@Model.RelevanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2">
+            @Model.OrderByText <span class="govuk-!-font-weight-bold">@Model.RelevanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
         </p>
         break;
     case CourseSearchOrderBy.StartDate:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.StartDateOrderByText</span>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2">
+            @Model.OrderByText <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.StartDateOrderByText</span>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
         </p>
         break;
     case CourseSearchOrderBy.Distance:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.DistanceOrderByText</span>
+        <p class="govuk-body-s govuk-!-margin-bottom-2">
+            @Model.OrderByText <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.DistanceOrderByText</span>
         </p>
         break;
     default:
-        <p class="govuk-body-s govuk-!-margin-bottom-2"><span class="govuk-!-font-weight-bold">@Model.RelevanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
+        <p class="govuk-body-s govuk-!-margin-bottom-2">
+            @Model.OrderByText <span class="govuk-!-font-weight-bold">@Model.RelevanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
         </p>
         break;
 }
 
+ 

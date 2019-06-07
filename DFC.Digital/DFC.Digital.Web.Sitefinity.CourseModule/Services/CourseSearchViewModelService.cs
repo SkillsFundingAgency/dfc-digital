@@ -105,7 +105,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 [nameof(CourseSearchFilters.StartDate)] = courseFiltersModel.StartDate != StartDate.Anytime
                     ? courseFiltersModel.StartDate.ToString()
                     : null,
-                [nameof(CourseSearchFilters.StartDateFrom)] = courseFiltersModel.StartDateFrom,
+                [nameof(CourseSearchFilters.StartDateFrom)] = !courseFiltersModel.StartDateFrom.Equals(DateTime.MinValue) ? courseFiltersModel.StartDateFrom.ToString("yyyy-MM-dd") : null,
                 [nameof(CourseSearchFilters.Only1619Courses)] =
                     courseFiltersModel.Only1619Courses ? true.ToString() : null
             };

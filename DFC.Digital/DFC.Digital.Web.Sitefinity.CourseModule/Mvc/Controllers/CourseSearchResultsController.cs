@@ -93,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string StartDateLabel { get; set; } = "Start date:";
 
         [DisplayName("Regex - Location Post Code")]
-        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
+        public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
 
         [DisplayName("Regex - Allowed Characters")]
         public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
@@ -151,8 +151,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         courseSearchFilters.Provider,
                         InvalidCharactersRegexPattern);
 
-                courseSearchFilters.DistanceSpecified = !string.IsNullOrWhiteSpace(courseSearchFilters.Location) &&
-                                                        Regex.Matches(courseSearchFilters.Location, LocationRegex).Count > 0;
+                courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
 
                 courseSearchProps.Filters = courseSearchFilters;
 
@@ -208,13 +207,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(CourseFiltersViewModel viewModel)
         {
-            if (viewModel.StartDate == StartDate.SelectDateFrom &&
-                !string.IsNullOrWhiteSpace(viewModel.StartDateDay) &&
-                !string.IsNullOrWhiteSpace(viewModel.StartDateMonth) &&
-                !string.IsNullOrWhiteSpace(viewModel.StartDateYear))
+            viewModel.Distance = viewModel.IsDistanceLocation ? viewModel.Distance : default(float);
+            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse($"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
             {
-                viewModel.StartDateFrom =
-                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}";
+                viewModel.StartDateFrom = chosenDate;
             }
 
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
@@ -261,6 +257,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private void SetupFilterDisplayData(CourseSearchResultsViewModel viewModel)
         {
+            if (!viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
+            {
+                viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = viewModel.CourseFiltersModel.StartDateFrom.Year.ToString();
+            }
+            else
+            {
+                viewModel.CourseFiltersModel.StartDateDay = DateTime.Now.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = DateTime.Now.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = DateTime.Now.Year.ToString();
+            }
+
             viewModel.ActiveFilterOptions =
                 courseSearchViewModelService.GetActiveFilterOptions(viewModel.CourseFiltersModel);
         }

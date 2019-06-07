@@ -180,9 +180,9 @@
     @Html.Partial("OtherDatesAndVenues", Model)
 
 
-    @if (!string.IsNullOrEmpty(Model.BackToResultsUrl))
+    @if (!string.IsNullOrEmpty(Model.ReferralUrl))
     {
-        <a href="@Model.BackToResultsUrl" class="govuk-back-link">Back to results</a>
+        <a href="@Model.ReferralUrl" class="govuk-back-link">Back to results</a>
     }
 
 </div>

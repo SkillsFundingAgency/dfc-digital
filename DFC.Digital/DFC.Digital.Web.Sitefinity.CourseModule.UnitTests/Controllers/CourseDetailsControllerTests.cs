@@ -48,13 +48,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoOtherDateOrVenueAvailableMessage = noOtherDateOrVenueAvailableMessage,
             };
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._)).Returns(new CourseDetails());
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).Returns(new CourseDetails());
 
             A.CallTo(() => webAppContextFake.RequestQueryString).Returns(new NameValueCollection { { "referralUrl", referralUrl } });
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(
-                courseId));
+                courseId, null, null));
 
             // Assert
             controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>(
@@ -63,7 +63,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                      vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
                  });
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).MustHaveHappened();
         }
     }
 }

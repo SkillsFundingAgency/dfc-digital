@@ -131,7 +131,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseDetailOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseDetailAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
             auditRepository.CreateAudit(apiResult);
-            var response = apiResult?.ConvertToCourseDetails(oppurtunityId);
+            var response = apiResult?.ConvertToCourseDetails(oppurtunityId, courseId);
             return response;
         }
     }

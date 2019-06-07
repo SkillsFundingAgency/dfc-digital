@@ -68,13 +68,20 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return result ?? Enumerable.Empty<Course>();
         }
 
-        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string oppurtunityId)
+        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string oppurtunityId, string courseId)
         {
-            var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
+            var apiCourseDetail = apiResult.CourseDetails?.Where(co => co.Course.CourseID == courseId)?.FirstOrDefault();
 
             if (apiCourseDetail == null)
             {
                 return null;
+            }
+
+            var activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(oppurtunityId))
+            {
+                activeOppurtunity = apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault();
             }
 
             return new CourseDetails
@@ -121,25 +128,21 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     LearnerSatisfaction = apiCourseDetail.Provider.FEChoices_LearnerSatisfaction,
                     EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
-                Oppurtunities = GetOppurtunities(apiCourseDetail, oppurtunityId),
+                Oppurtunities = GetOppurtunities(apiCourseDetail, activeOppurtunity.OpportunityId),
                 CourseUrl = apiCourseDetail.Course.URL,
                 CourseId = apiCourseDetail.Course.CourseID,
-                Cost = !string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.Price : apiCourseDetail.Opportunity.FirstOrDefault()?.Price,
-                StartDateLabel = !string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.StartDate.Item : apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
-                AttendanceMode = !string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.AttendanceMode : apiCourseDetail.Opportunity.FirstOrDefault()?.AttendanceMode,
-                AttendancePattern = !string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.AttendancePattern : apiCourseDetail.Opportunity.FirstOrDefault()?.AttendancePattern,
-                StudyMode = !string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.StudyMode : apiCourseDetail.Opportunity.FirstOrDefault()?.StudyMode,
-                Duration = $"{(!string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.Duration.DurationValue : apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationValue)} {(!string.IsNullOrEmpty(oppurtunityId) ? apiCourseDetail.Opportunity.Where(op => op.OpportunityId == oppurtunityId).FirstOrDefault()?.Duration.DurationUnit : apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationUnit)}"
+                Cost = activeOppurtunity.Price,
+                StartDateLabel = activeOppurtunity.StartDate.Item,
+                AttendanceMode = activeOppurtunity.AttendanceMode,
+                AttendancePattern = activeOppurtunity.AttendancePattern,
+                StudyMode = activeOppurtunity.StudyMode,
+                Duration = $"{activeOppurtunity.Duration.DurationValue} {activeOppurtunity.Duration?.DurationUnit}"
             };
         }
 
         private static List<Oppurtunity> GetOppurtunities(CourseDetailStructure apiCourseDetail, string oppurtunityId)
         {
             List<Oppurtunity> oppurtunities = new List<Oppurtunity>();
-            if (string.IsNullOrEmpty(oppurtunityId))
-            {
-                oppurtunityId = apiCourseDetail.Opportunity.FirstOrDefault().OpportunityId;
-            }
 
             foreach (var oppurtunity in apiCourseDetail.Opportunity.Where(op => op.OpportunityId != oppurtunityId))
             {

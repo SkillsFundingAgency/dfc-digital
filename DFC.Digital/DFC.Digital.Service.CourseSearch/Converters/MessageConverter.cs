@@ -136,6 +136,10 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private static List<Oppurtunity> GetOppurtunities(CourseDetailStructure apiCourseDetail, string oppurtunityId)
         {
             List<Oppurtunity> oppurtunities = new List<Oppurtunity>();
+            if (string.IsNullOrEmpty(oppurtunityId))
+            {
+                oppurtunityId = apiCourseDetail.Opportunity.FirstOrDefault().OpportunityId;
+            }
 
             foreach (var oppurtunity in apiCourseDetail.Opportunity.Where(op => op.OpportunityId != oppurtunityId))
             {

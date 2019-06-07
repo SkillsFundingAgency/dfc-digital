@@ -711,11 +711,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (referralUrlExists)
             {
-                courseDetailsViewModel.BackToResultsUrl = nameof(CourseDetailsViewModel.BackToResultsUrl);
+                courseDetailsViewModel.ReferralUrl = nameof(CourseDetailsViewModel.ReferralUrl);
             }
             else
             {
-                courseDetailsViewModel.BackToResultsUrl = null;
+                courseDetailsViewModel.ReferralUrl = null;
             }
 
             // Act
@@ -726,13 +726,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("a")
                  .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
-                  a.Attributes["href"].Value.Contains(courseDetailsViewModel.BackToResultsUrl)).Should().BeTrue();
+                  a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralUrl)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("a")
                 .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
-                a.Attributes["href"].Value.Contains(courseDetailsViewModel.BackToResultsUrl)).Should().BeFalse();
+                a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralUrl)).Should().BeFalse();
             }
         }
 

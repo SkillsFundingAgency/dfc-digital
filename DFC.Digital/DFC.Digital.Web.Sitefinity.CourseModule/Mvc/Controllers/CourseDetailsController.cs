@@ -36,7 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string FindAcoursePage { get; set; } = "/course-directory/home/";
 
         [DisplayName("Find a course Page")]
-        public string ViewCourseUrlPath { get; set; } = "/course-directory/course-details";
+        public string CourseDetailsUrlPath { get; set; } = "/course-directory/course-details";
 
         [DisplayName("Qualification Details Label")]
         public string QualificationDetailsLabel { get; set; } = "1. Qualification details";
@@ -91,18 +91,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         protected IWebAppContext WebAppContext { get; set; }
 
-        public ActionResult Index(string courseId)
+        public ActionResult Index(string courseId, string oppurtunityId, string referralUrl)
         {
             var viewModel = new CourseDetailsViewModel
             {
                 FindACoursePage = FindAcoursePage,
             };
 
-            var referralUrl = HttpUtility.HtmlEncode(WebAppContext.RequestQueryString["referralUrl"]);
             if (!string.IsNullOrWhiteSpace(courseId))
             {
-                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId));
-                viewModel.BackToResultsUrl = referralUrl;
+                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId));
+                viewModel.ReferralUrl = referralUrl;
                 viewModel.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
                 viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                 viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
@@ -121,12 +120,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
                 viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                 viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
-
-                //Build Querystring for oppurtunity (other venue - view course)links
-                foreach (var oppurtunity in viewModel.CourseDetails.Oppurtunities)
-                {
-                    oppurtunity.VenueUrl = buildQueryStringService.BuildViewCourseUrlPathAndQueryString(ViewCourseUrlPath, viewModel.CourseDetails.CourseId, oppurtunity.OppurtunityId, referralUrl);
-                }
+                viewModel.CourseDetailsUrlPath = CourseDetailsUrlPath;
             }
 
             return View(viewModel);

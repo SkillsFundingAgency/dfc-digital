@@ -23,11 +23,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
             this.applicationLogger = applicationLogger;
         }
 
-        private void Content_Action(IDataEvent eventInfo)
+        public void Content_Action(IDataEvent eventInfo)
         {
             try
             {
-                var dumpFolder = "SitefinityDataDump";
                 var action = eventInfo.Action;
                 var contentType = eventInfo.ItemType;
                 var itemId = eventInfo.ItemId;
@@ -38,15 +37,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
                 var workFlowStatus = eventInfo.GetPropertyValue<string>("ApprovalWorkflowState");
                 var status = eventInfo.GetPropertyValue<string>("Status");
 
-                var serialzerSettings = new JsonSerializerSettings
-                {
-                    Formatting = Formatting.Indented,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new AllPropertiesResolver(),
-
-                    Converters = new[] { new LstringJsonConverter() }
-                };
-
                 if (action == "Updated" && workFlowStatus == "Published")
                 {
                     //Checking by type did not work
@@ -54,14 +44,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
                     {
                         var item = manager.GetItemOrDefault(contentType, itemId);
                         var dynamicContent = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)item;
-                        var jsonString = JsonConvert.SerializeObject(item, serialzerSettings);
-
-                        using (System.IO.StreamWriter file = new System.IO.StreamWriter($"C:\\{dumpFolder}\\{contentType.Name}-{dynamicContent.UrlName}.json", false))
-                        {
-                            file.Write(jsonString);
-                            file.WriteLine("---------------------------------------------------------------------------");
-                            file.Flush();
-                        }
                     }
                     else if (contentType == typeof(PageNode))
                     {
@@ -71,18 +53,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
                         var jsonString = JsonConvert.SerializeObject(contentData);
 
                         var htmlContent = RenderPageToString(item.Title.ToString());
-
-                        using (System.IO.StreamWriter file = new System.IO.StreamWriter($"C:\\{dumpFolder}\\{item.Title.ToString()}.html", false))
-                        {
-                            file.Write(htmlContent);
-                            file.Flush();
-                        }
-
-                        using (System.IO.StreamWriter file = new System.IO.StreamWriter($"C:\\{dumpFolder}\\{item.Title.ToString()}.json", false))
-                        {
-                            file.Write(jsonString);
-                            file.Flush();
-                        }
                     }
                 }
             }
@@ -108,9 +78,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
             return string.Empty;
         }
 
-        private List<ContentDataHTML> GetPageContentBlocks(string pageNodeTitle)
+        private List<CompositePageData> GetPageContentBlocks(string pageNodeTitle)
         {
-            var contentData = new List<ContentDataHTML>();
+            var contentData = new List<CompositePageData>();
 
             var manager = PageManager.GetManager();
             var node = manager.GetPageNodes().Where(t => t.Title == pageNodeTitle).FirstOrDefault();
@@ -126,7 +96,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions
                 pageDraftControl.SetPersistanceStrategy();
                 Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy control =
                     pManager.LoadControl(pageDraftControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
-                contentData.Add(new ContentDataHTML() { ContentName = pageDraftControl.Caption, Content = control.Settings.Values["Content"] });
+                contentData.Add(new CompositePageData() { Name = pageDraftControl.Caption, Content = control.Settings.Values["Content"] });
             }
 
             return contentData;

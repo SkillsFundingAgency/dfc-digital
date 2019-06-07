@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
+using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -69,7 +70,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private static void Content_Action(IDataEvent eventInfo)
         {
-
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var publishEventHandler = autofacLifetimeScope.Resolve<PublishEventHandler>();
+            publishEventHandler.Content_Action(eventInfo);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

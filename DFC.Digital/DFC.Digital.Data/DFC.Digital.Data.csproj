@@ -151,7 +151,7 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\CategoryType.cs" />
-    <Compile Include="Model\ContentDataHTML.cs" />
+    <Compile Include="Model\CompositePageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
     <Compile Include="Model\CourseSearchResultProperties.cs" />
     <Compile Include="Model\EmailAuditRecord.cs" />

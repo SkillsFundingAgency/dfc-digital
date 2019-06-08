@@ -56,6 +56,52 @@ namespace DFC.Digital.Web.Core
             return new MvcHtmlString(stringBuilder.ToString());
         }
 
+        public static MvcHtmlString GovUkEnumConditionalRadioButtonFor<TModel, TProperty>(
+          this HtmlHelper<TModel> htmlHelper,
+          Expression<Func<TModel, TProperty>> expression,
+          string ariaConditionalName)
+          where TModel : class
+        {
+            var enumType = typeof(TProperty);
+            if (enumType.IsNullableEnum())
+            {
+                enumType = Nullable.GetUnderlyingType(enumType);
+            }
+
+            var enumEntryNames = Enum.GetNames(enumType);
+            var entries = enumEntryNames
+                .Select(n => new
+                {
+                    Name = n,
+                    DisplayAttribute = enumType
+                        .GetField(n)
+                        .GetCustomAttributes(typeof(DisplayAttribute), false)
+                        .OfType<DisplayAttribute>()
+                        .SingleOrDefault() ?? new DisplayAttribute()
+                })
+                .Select(e => new
+                {
+                    Value = e.Name,
+                    DisplayName = e.DisplayAttribute.Name ?? e.Name,
+                    Order = e.DisplayAttribute.GetOrder() ?? 0
+                })
+                .OrderBy(e => e.Order)
+                .ThenBy(e => e.Value);
+
+            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var item in entries)
+            {
+                var elementId = $"{metaData.PropertyName}_{item.Value}";
+                stringBuilder.AppendLine("<div class=\"govuk-radios__item\">");
+                stringBuilder.AppendLine(htmlHelper.RadioButtonFor(expression, item.Value, new { @class = "govuk-radios__input", id = elementId, aria_controls = ariaConditionalName, aria_expanded= "false" }).ToHtmlString());
+                stringBuilder.AppendLine(htmlHelper.LabelFor(expression, item.DisplayName, new { @class = "govuk-label govuk-radios__label", @for = elementId }).ToHtmlString());
+                stringBuilder.AppendLine("</div>");
+            }
+
+            return new MvcHtmlString(stringBuilder.ToString());
+        }
+
         /// <summary>
         /// Labels the with hint for.
         /// </summary>

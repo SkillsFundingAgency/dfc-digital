@@ -1,4 +1,5 @@
-﻿@using DFC.Digital.Web.Core
+﻿@using DFC.Digital.Data.Model
+@using DFC.Digital.Web.Core
 @model CourseFiltersViewModel
 
 <div class="filters filters">
@@ -9,7 +10,7 @@
         @Html.HiddenFor(x => x.LocationRegex, new { @class = "locationRegex" })
     </div>
 
-    <div id="distanceFormGroup" style="display: @(Model.IsDistanceLocation ? "block" : "none");" class="govuk-form-group">
+    <div id="distanceFormGroup" style="display: none" class="govuk-form-group">
         <div class="govuk-inset-text" id="distance">
             @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
 
@@ -72,9 +73,9 @@
             <fieldset class="govuk-fieldset">
                 <div class="govuk-radios govuk-radios--conditional" data-module="radios">
                     <div class="govuk-form-group">
-                        @Html.GovUkEnumRadioButtonFor(model => model.StartDate)
+                        @Html.GovUkEnumConditionalRadioButtonFor(model => model.StartDate, "conditional-start-date-conditional-1")
 
-                        <div>
+                        <div class="govuk-radios__conditional @(Model.StartDate == StartDate.SelectDateFrom ? string.Empty : "govuk-radios__conditional--hidden") conditional-date" id="conditional-start-date-conditional-1">
                             <div class="govuk-form-group">
                                 @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-label govuk-!-font-size-16" })
 

@@ -155,15 +155,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.LocationLabel, "span");
             }
-
-            if (viewModel.Course.QualificationLevel.ToLowerInvariant().Contains("unknown"))
-            {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.Course.QualificationLevel, "li");
-            }
-            else
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.Course.QualificationLevel, "li");
-            }
         }
     }
 }

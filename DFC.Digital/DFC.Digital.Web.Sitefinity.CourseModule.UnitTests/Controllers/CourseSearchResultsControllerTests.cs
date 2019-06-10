@@ -39,10 +39,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexTestsInput))]
-        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchResult courseSearchResponse)
+        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchOrderBy orderBy, CourseSearchResult courseSearchResponse)
         {
             // setupFakes
             A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).Returns(courseSearchResponse);
+            var searchFilter = new CourseSearchFilters
+            {
+                SearchTerm = searchTerm
+            };
+
+            var searchProperties = new CourseSearchProperties
+            {
+                OrderedBy = orderBy
+            };
 
             // Assign
             var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService, mapperCfg)
@@ -67,8 +76,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Act
             var controllerResult = controller.WithCallTo(contrl =>
                 contrl.Index(
-                    new CourseSearchFilters(),
-                    new CourseSearchProperties()));
+                    searchFilter,
+                    searchProperties));
 
             // Assert
             controllerResult.ShouldRenderView("SearchResults").WithModel<CourseSearchResultsViewModel>(
@@ -78,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         vm.FilterCourseByText.Should().BeEquivalentTo(controller.FilterCourseByText);
                     });
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchFilter.SearchTerm))
             {
                 A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).MustHaveHappened();
                 if (courseSearchResponse.Courses.Any())

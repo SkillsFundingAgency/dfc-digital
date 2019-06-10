@@ -59,7 +59,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns("apiKey");
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).Returns(null);
-            A.CallTo(() => fakeCourseBusinessRules.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).Returns("test");
+            A.CallTo(() => fakeCourseBusinessRules.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).Returns(null);
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).Returns(null);
         }
     }

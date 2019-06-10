@@ -5,14 +5,16 @@ namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class CourseBusinessRulesProcessor : ICourseBusinessRulesProcessor
     {
+        private const string CourseApiDateFormat = "yyyy-MM-dd";
+
         public string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate)
         {
             switch (startDate)
             {
                 case StartDate.FromToday:
-                    return DateTime.Now.ToString("yyyy-MM-dd");
+                    return DateTime.Now.ToString(CourseApiDateFormat);
                 case StartDate.SelectDateFrom:
-                    return CalculateEarliestStartDate(earliestStartDate).ToString("yyyy-MM-dd");
+                    return CalculateEarliestStartDate(earliestStartDate).ToString(CourseApiDateFormat);
                 case StartDate.Anytime:
                 default:
                     return null;

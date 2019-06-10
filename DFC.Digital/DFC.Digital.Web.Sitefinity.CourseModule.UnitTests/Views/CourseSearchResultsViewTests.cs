@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var searchResultsView = new _MVC_Views_CourseSearchResults_OrderByLinks_cshtml();
             var viewModel = new OrderByLinks
             {
-                CourseSearchSortBy = courseSearchSortBy,
+                OrderBy = courseSearchSortBy,
                 StartDateOrderByText = nameof(OrderByLinks.StartDateOrderByText),
                 DistanceOrderByText = nameof(OrderByLinks.DistanceOrderByText),
                 RelevanceOrderByText = nameof(OrderByLinks.RelevanceOrderByText)

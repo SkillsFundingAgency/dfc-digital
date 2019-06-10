@@ -16,7 +16,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
-        private readonly IBuildTribalMessage buildTribalMessage;
+        private readonly ITribalMessageBuilder buildTribalMessage;
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
@@ -24,7 +24,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy,
-            IBuildTribalMessage buildTribalMessage)
+            ITribalMessageBuilder buildTribalMessage)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;

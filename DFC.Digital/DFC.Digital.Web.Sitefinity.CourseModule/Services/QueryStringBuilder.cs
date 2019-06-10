@@ -7,7 +7,7 @@ using System.Web;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
-    public class BuildQueryStringService : IQueryStringBuilder<CourseSearchFilters>
+    public class QueryStringBuilder : IQueryStringBuilder<CourseSearchFilters>
     {
         public string BuildPathAndQueryString(string path, CourseSearchFilters courseSearchFilters)
         {

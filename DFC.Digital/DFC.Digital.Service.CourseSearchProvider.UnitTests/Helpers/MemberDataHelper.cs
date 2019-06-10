@@ -180,7 +180,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             };
         }
 
-        public static IEnumerable<object[]> GetTribalQualificationLevelsTestsInput()
+        public static IEnumerable<object[]> GetEarliestStartDateTestsInput()
         {
             yield return new object[]
             {
@@ -222,33 +222,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             {
                 "3,4,5,6,7,8,9",
                 new[] { CourseSearchConstants.Level2Qualification,  CourseSearchConstants.Level3Qualification,  CourseSearchConstants.Level4Qualification,  CourseSearchConstants.Level5Qualification,  CourseSearchConstants.Level6Qualification,  CourseSearchConstants.Level7Qualification,  CourseSearchConstants.Level8Qualification }
-            };
-        }
-
-        public static IEnumerable<object[]> GetTribalAttendancePatternsTestsInput()
-        {
-            yield return new object[]
-            {
-                string.Empty,
-                null
-            };
-
-            yield return new object[]
-            {
-                "0",
-                null
-            };
-
-            yield return new object[]
-            {
-                "1",
-                new[] { CourseSearchConstants.NormalWorkingHoursPattern }
-            };
-
-            yield return new object[]
-            {
-                "2,3",
-                new[] { CourseSearchConstants.DayReleaseBlockPattern, CourseSearchConstants.EveningPattern, CourseSearchConstants.WeekendPattern }
             };
         }
     }

@@ -27,36 +27,47 @@
     <div class="govuk-grid-row">
 
         @* Filter Section - Within 1/3 Content Block *@
-            <div class="govuk-grid-column-one-third">
+        <div class="govuk-grid-column-one-third">
+            <div class="filters filters">
+
                 @Html.Partial("Filters", Model.CourseFiltersModel)
+
+                @if (Model.CourseFiltersModel.FiltersApplied)
+                {
+                    <p class="govuk-body-m"><a class="govuk-link" href="@Model.ResetFilterUrl">@Model.ResetFiltersText</a></p>
+                }
             </div>
-            <div class="govuk-grid-column-two-thirds">
-                <div class="govuk-form-group">
-                    <p class="govuk-body">@Model.ResultProperties.TotalResultCount results</p>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <p class="govuk-body">@Model.ResultProperties.TotalResultCount result@(Model.ResultProperties.TotalResultCount.Equals(1) ? string.Empty : "s")</p>
+                @if (Model.CourseFiltersModel.FiltersApplied)
+                {
                     @Html.Partial("ActiveFilters", Model.CourseFiltersModel)
-            
-                </div>
-
-                @if (Model.Courses.Any())
-                {
-                    <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
-                    @Html.Partial("OrderByLinks", Model.OrderByLinks)
-
-                    foreach (var course in Model.Courses)
-                    {
-                        @Html.Partial("CourseDetail", course)
-                    }
-
-                    @Html.Partial("Pagination", Model.PaginationViewModel)
                 }
-                else
-                {
-                    <div class="govuk-grid-column-two-thirds">
-                        <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
-                    </div>
-                }
+
             </div>
-       
+
+            @if (Model.Courses.Any())
+            {
+                <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-8">
+                @Html.Partial("OrderByLinks", Model.OrderByLinks)
+
+                foreach (var course in Model.Courses)
+                {
+                    @Html.Partial("CourseDetail", course)
+                }
+
+                @Html.Partial("Pagination", Model.PaginationViewModel)
+            }
+            else
+            {
+                <div class="govuk-grid-column-two-thirds">
+                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
+                </div>
+            }
+        </div>
+
     </div>
 
 }

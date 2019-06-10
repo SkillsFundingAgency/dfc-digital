@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     {
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ICourseSearchViewModelService fakeCourseSearchViewModelService;
+        private readonly ICourseSearchResultsViewModelBullder fakeCourseSearchViewModelService;
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IQueryStringBuilder<CourseSearchFilters> fakeBuildQueryStringService;
         private readonly IMapper mapperCfg;
@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public CourseSearchResultsControllerTests()
         {
             asyncHelper = new AsyncHelper();
-            fakeCourseSearchViewModelService = A.Fake<ICourseSearchViewModelService>(ops => ops.Strict());
+            fakeCourseSearchViewModelService = A.Fake<ICourseSearchResultsViewModelBullder>(ops => ops.Strict());
             fakeBuildQueryStringService = A.Fake<IQueryStringBuilder<CourseSearchFilters>>(ops => ops.Strict());
             fakeCourseSearchService = A.Fake<ICourseSearchService>(ops => ops.Strict());
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());

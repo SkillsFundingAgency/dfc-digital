@@ -265,7 +265,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 CourseSearchOrderBy.Distance,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.Distance,
+                    OrderBy = CourseSearchOrderBy.Distance,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)
@@ -277,7 +277,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 CourseSearchOrderBy.Relevance,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.Relevance,
+                    OrderBy = CourseSearchOrderBy.Relevance,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)
@@ -289,7 +289,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 CourseSearchOrderBy.StartDate,
                 new OrderByLinks
                 {
-                    CourseSearchSortBy = CourseSearchOrderBy.StartDate,
+                    OrderBy = CourseSearchOrderBy.StartDate,
                     OrderByRelevanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Relevance)}", UriKind.RelativeOrAbsolute),
                     OrderByDistanceUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.Distance)}", UriKind.RelativeOrAbsolute),
                     OrderByStartDateUrl = new Uri($"{SearchPageUrl}&sortby={nameof(CourseSearchOrderBy.StartDate)}", UriKind.RelativeOrAbsolute)

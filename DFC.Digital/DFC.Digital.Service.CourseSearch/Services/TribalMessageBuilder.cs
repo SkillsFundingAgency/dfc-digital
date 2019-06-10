@@ -5,13 +5,13 @@ using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class BuildTribalMessage : IBuildTribalMessage
+    public class TribalMessageBuilder : ITribalMessageBuilder
     {
-        private readonly IConvertTribalCodes convertTribalCodes;
+        private readonly ITribalCodesConverter convertTribalCodes;
         private readonly IConfigurationProvider configuration;
-        private readonly ICourseBusinessRules courseBusinessRules;
+        private readonly ICourseBusinessRulesProcessor courseBusinessRules;
 
-        public BuildTribalMessage(IConvertTribalCodes convertTribalCodes, IConfigurationProvider configuration, ICourseBusinessRules courseBusinessRules)
+        public TribalMessageBuilder(ITribalCodesConverter convertTribalCodes, IConfigurationProvider configuration, ICourseBusinessRulesProcessor courseBusinessRules)
         {
             this.convertTribalCodes = convertTribalCodes;
             this.configuration = configuration;

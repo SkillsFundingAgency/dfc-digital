@@ -3,7 +3,7 @@ using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public interface IConvertTribalCodes
+    public interface ITribalCodesConverter
     {
         string[] GetTribalAttendanceModes(CourseType courseType);
 

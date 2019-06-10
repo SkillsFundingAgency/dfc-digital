@@ -3,7 +3,7 @@ using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public interface IBuildTribalMessage
+    public interface ITribalMessageBuilder
     {
         CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties);
 

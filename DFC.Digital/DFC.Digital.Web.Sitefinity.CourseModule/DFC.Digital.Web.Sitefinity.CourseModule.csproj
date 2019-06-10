@@ -260,10 +260,10 @@
     <Compile Include="Mvc\Models\SelectItem.cs" />
     <Compile Include="Mvc\Models\CourseSearchResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BuildQueryStringService.cs" />
+    <Compile Include="Services\QueryStringBuilder.cs" />
     <Compile Include="Services\Contracts\IQueryStringBuilder.cs" />
-    <Compile Include="Services\Contracts\ICourseSearchViewModelService.cs" />
-    <Compile Include="Services\CourseSearchViewModelService.cs" />
+    <Compile Include="Services\Contracts\ICourseSearchResultsViewModelBullder.cs" />
+    <Compile Include="Services\CourseSearchResultsViewModelBullder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mvc\Views\CourseSearchResults\SearchResults.cshtml" />

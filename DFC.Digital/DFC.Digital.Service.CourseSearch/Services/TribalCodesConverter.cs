@@ -7,16 +7,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
     /// This class get Tribal codes in string arrays
     /// Please check CourseSearchConstants for more info
     /// </summary>
-    /// <seealso cref="DFC.Digital.Service.CourseSearchProvider.IConvertTribalCodes" />
-    public class ConvertTribalCodes : IConvertTribalCodes
+    /// <seealso cref="ITribalCodesConverter" />
+    public class TribalCodesConverter : ITribalCodesConverter
     {
-        private readonly ICourseBusinessRules courseBusinessRules;
-
-        public ConvertTribalCodes(ICourseBusinessRules courseBusinessRules)
-        {
-            this.courseBusinessRules = courseBusinessRules;
-        }
-
         public string[] GetTribalAttendanceModes(CourseType courseType)
         {
             switch (courseType)

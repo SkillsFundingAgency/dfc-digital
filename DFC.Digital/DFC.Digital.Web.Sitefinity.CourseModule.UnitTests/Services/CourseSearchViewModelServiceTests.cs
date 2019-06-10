@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void SetupPagingTest(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, CourseSearchResultsViewModel expectedViewModel)
         {
             //Assign
-            var courseSearchConverter = new CourseSearchViewModelService();
+            var courseSearchConverter = new CourseSearchResultsViewModelBullder();
 
             //Act
             courseSearchConverter.SetupViewModelPaging(viewModel, response, pathQuery, recordsPerPage);
@@ -32,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void GetOrderByLinksTest(string searchUrl, CourseSearchOrderBy courseSearchSortBy, OrderByLinks expectedOrderByLinks)
         {
             //Assign
-            var courseSearchConverter = new CourseSearchViewModelService();
+            var courseSearchConverter = new CourseSearchResultsViewModelBullder();
 
             //Act
             var result = courseSearchConverter.GetOrderByLinks(searchUrl, courseSearchSortBy);

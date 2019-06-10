@@ -10,13 +10,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 {
     public class BuildTribalMessageServiceTests : MemberDataHelper
     {
-        private readonly IConvertTribalCodes fakeConvertTribalCodesService;
+        private readonly ITribalCodesConverter fakeConvertTribalCodesService;
         private readonly IConfigurationProvider fakeConfiguration;
+        private readonly ICourseBusinessRulesProcessor fakeCourseBusinessRules;
 
         public BuildTribalMessageServiceTests()
         {
             fakeConfiguration = A.Fake<IConfigurationProvider>(ops => ops.Strict());
-            fakeConvertTribalCodesService = A.Fake<IConvertTribalCodes>(ops => ops.Strict());
+            fakeConvertTribalCodesService = A.Fake<ITribalCodesConverter>(ops => ops.Strict());
+            fakeCourseBusinessRules = A.Fake<ICourseBusinessRulesProcessor>(ops => ops.Strict());
             SetupCalls();
         }
 
@@ -25,7 +27,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         public void GetCourseSearchInputTest(string courseName, CourseSearchProperties courseSearchProperties, CourseListInput expectedCourseListInput)
         {
             // Assign
-            var buildTribalMessageService = new BuildTribalMessage(fakeConvertTribalCodesService, fakeConfiguration);
+            var buildTribalMessageService = new TribalMessageBuilder(fakeConvertTribalCodesService, fakeConfiguration, fakeCourseBusinessRules);
 
             //Act
             var result = buildTribalMessageService.GetCourseSearchInput(courseName, courseSearchProperties);
@@ -33,7 +35,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             //Assert
             result.Should().BeEquivalentTo(expectedCourseListInput);
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).MustHaveHappened();
-            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).MustHaveHappened();
+            A.CallTo(() => fakeCourseBusinessRules.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).MustHaveHappened();
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).MustHaveHappened();
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).MustHaveHappened(1, Times.Exactly);
         }
@@ -43,7 +45,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         public void GetCourseDetailInputTest(string courseId, CourseDetailInput expectedCourseDetailInput)
         {
             // Assign
-            var buildTribalMessageService = new BuildTribalMessage(fakeConvertTribalCodesService, fakeConfiguration);
+            var buildTribalMessageService = new TribalMessageBuilder(fakeConvertTribalCodesService, fakeConfiguration, fakeCourseBusinessRules);
 
             //Act
             var result = buildTribalMessageService.GetCourseDetailInput(courseId);
@@ -57,7 +59,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             A.CallTo(() => fakeConfiguration.GetConfig<string>(A<string>._)).Returns("apiKey");
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalAttendanceModes(A<CourseType>._)).Returns(null);
-            A.CallTo(() => fakeConvertTribalCodesService.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).Returns(null);
+            A.CallTo(() => fakeCourseBusinessRules.GetEarliestStartDate(A<StartDate>._, A<DateTime>._)).Returns("test");
             A.CallTo(() => fakeConvertTribalCodesService.GetTribalStudyModes(A<CourseHours>._)).Returns(null);
         }
     }

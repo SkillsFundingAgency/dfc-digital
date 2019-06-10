@@ -19,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         #endregion
 
         #region Filter Display
+        public string ResetFiltersText { get; set; }
 
         public Uri ResetFilterUrl { get; set; }
 
@@ -35,6 +36,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public PaginationViewModel PaginationViewModel { get; set; } = new PaginationViewModel();
 
         public OrderByLinks OrderByLinks { get; set; } = new OrderByLinks();
+
         #endregion
 
     }

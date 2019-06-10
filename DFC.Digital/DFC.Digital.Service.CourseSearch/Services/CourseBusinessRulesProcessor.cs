@@ -1,9 +1,9 @@
-﻿using System;
-using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Model;
+using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseBusinessRules : ICourseBusinessRules
+    public class CourseBusinessRulesProcessor : ICourseBusinessRulesProcessor
     {
         public string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate)
         {
@@ -22,7 +22,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private DateTime CalculateEarliestStartDate(DateTime inputDate)
         {
             var earliestDate = DateTime.Now.AddYears(-1);
-            var latestDate = DateTime.Now.AddMonths(6);
+            var latestDate = DateTime.Now.AddYears(1);
             return inputDate >= earliestDate && inputDate < latestDate ? inputDate :
                 inputDate < earliestDate ? earliestDate :
                 latestDate;

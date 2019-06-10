@@ -7,7 +7,6 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -19,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ICourseSearchViewModelService courseSearchViewModelService;
+        private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
         private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
         private readonly IMapper mapper;
 
@@ -31,14 +30,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             IApplicationLogger applicationLogger,
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
-            ICourseSearchViewModelService courseSearchViewModelService,
+            ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder,
             IQueryStringBuilder<CourseSearchFilters> queryStringBuilder,
             IMapper mapper)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
-            this.courseSearchViewModelService = courseSearchViewModelService;
+            this.courseSearchResultsViewModelBuilder = courseSearchResultsViewModelBuilder;
             this.queryStringBuilder = queryStringBuilder;
             this.mapper = mapper;
         }
@@ -119,6 +118,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Filter - Distance within text")]
         public string WithinText { get; set; } = "Within";
 
+        [DisplayName("Filter - Clear filters text")]
+        public string ResetFilterText { get; set; } = "Clear filters";
+
         #endregion
 
         #region Actions
@@ -143,9 +145,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 courseSearchFilters.SearchTerm = cleanCourseName;
 
-                ReplaceSpecialCharacters(courseSearchFilters);
+                ReplaceSpecialCharactersOnFreeTextFields(courseSearchFilters);
 
-                GetDistanceSpecified(courseSearchFilters, viewModel);
+                SetSearchDistanceSpecified(courseSearchFilters, viewModel);
 
                 courseSearchProps.Filters = courseSearchFilters;
 
@@ -167,22 +169,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
-                    var pathQuery = Request?.Url?.PathAndQuery;
-                    if (!string.IsNullOrWhiteSpace(pathQuery) &&
-                        pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
-                    {
-                        pathQuery = pathQuery.Substring(
-                            0,
-                            pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase));
-                    }
-
-                    courseSearchViewModelService.SetupViewModelPaging(
-                        viewModel,
-                        response,
-                        pathQuery,
-                        RecordsPerPage);
-
-                    SetupSearchLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
+                    SetupResultsViewModel(viewModel, response);
                 }
 
                 SetupStartDateDisplayData(viewModel);
@@ -229,9 +216,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
         }
 
-        private void SetupSearchLinks(CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
+        private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, CourseSearchResult response)
         {
-            viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
+            var pathQuery = Request?.Url?.PathAndQuery;
+            if (!string.IsNullOrWhiteSpace(pathQuery) &&
+                pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
+            {
+                pathQuery = pathQuery.Substring(
+                    0,
+                    pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            courseSearchResultsViewModelBuilder.SetupViewModelPaging(
+                viewModel,
+                response,
+                pathQuery,
+                RecordsPerPage);
+
+            SetupOrderByLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
+        }
+
+        private void SetupOrderByLinks(CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
+        {
+            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, sortBy);
             viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
         }
 
@@ -252,11 +259,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
             viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
+            viewModel.ResetFiltersText = ResetFilterText;
         }
 
         private void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
         {
-            if (!viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
+            if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
             {
                 viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
                 viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
@@ -270,13 +278,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
         }
 
-        private void GetDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)
+        private void SetSearchDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)
         {
             viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
             courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
         }
 
-        private void ReplaceSpecialCharacters(CourseSearchFilters courseSearchFilters)
+        private void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.Location =
                 StringManipulationExtension.ReplaceSpecialCharacters(

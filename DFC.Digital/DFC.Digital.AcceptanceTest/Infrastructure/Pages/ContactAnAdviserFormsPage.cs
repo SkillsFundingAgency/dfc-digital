@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestStack.Seleno.PageObjects.Locators;
+
+namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
+{
+    public class ContactAnAdviserFormsPage : DFCPage
+    {
+        #region Properties
+
+        #endregion
+        public bool ContactQuestionDisplayed => Find.Element(By.Id("ContactAdviserQuestionType")) != null;
+
+        public bool UserDetailsFormDisplayed => Find.Element(By.Id("userform")) != null;
+
+        public void CompleteContactAdviserInitialForm(string option, string query)
+        {
+            SelectContactOption(option);
+            EnterText("Message", query); //Enters text into field ID 'message' which is the adviser field on the First contact adviser form
+        }
+
+        public void CompleteSecondForm(string firstName, string lastName, string email, string confEmail, string dob, string postcode)
+        {
+            EnterText("Firstname", firstName);
+            EnterText("Lastname", lastName);
+            EnterText("EmailAddress", email);
+            EnterText("ConfirmEmailAddress", confEmail);
+            DateTime birthday = DateTime.ParseExact(dob, "dd/M/yyyy", CultureInfo.InvariantCulture);
+            EnterText("DateOfBirthDay", birthday.Day.ToString());
+            EnterText("DateOfBirthMonth", birthday.Month.ToString());
+            EnterText("DateOfBirthYear", birthday.Year.ToString());
+            EnterText("Postcode", postcode);
+
+            Find.Element(By.Id("AcceptTermsAndConditions")).Click();
+        }
+
+        public void SelectContactOption(string option)
+        {
+            var selectedOption = Find.Elements(By.ClassName("govuk-radios__label")).Where(x => x.Text.Contains(option)).FirstOrDefault();
+            selectedOption.Click();
+        }
+
+        public void EnterText(string id, string query) => Find.Element(By.Id(id)).SendKeys(query);
+    }
+}

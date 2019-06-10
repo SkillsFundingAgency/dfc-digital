@@ -33,19 +33,8 @@
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
                     <p class="govuk-body">@Model.ResultProperties.TotalResultCount results</p>
-                    <div class="facet-tags">
-                        @foreach (var aFilter in Model.ActiveFilterOptions)
-                        {
-                            <div class="facet-tags__group">
-                                <div class="facet-tags__wrapper">
-                                    <p class="facet-tags__preposition">@aFilter.Key</p>
-                                    <div class="facet-tag">
-                                        <p class="facet-tag__text">@aFilter.Value</p>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                    @Html.Partial("ActiveFilters", Model.CourseFiltersModel)
+            
                 </div>
 
                 @if (Model.Courses.Any())

@@ -282,6 +282,7 @@
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\ActiveFilters.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -8,7 +8,5 @@ namespace DFC.Digital.Service.CourseSearchProvider
         string[] GetTribalAttendanceModes(CourseType courseType);
 
         string[] GetTribalStudyModes(CourseHours courseHours);
-
-        string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate);
     }
 }

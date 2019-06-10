@@ -10,13 +10,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     {
         [Theory]
         [MemberData(nameof(SetupPagingTestsInput))]
-        public void SetupPagingTest(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage, CourseSearchResultsViewModel expectedViewModel)
+        public void SetupPagingTest(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, CourseSearchResultsViewModel expectedViewModel)
         {
             //Assign
             var courseSearchConverter = new CourseSearchViewModelService();
 
             //Act
-            courseSearchConverter.SetupPaging(viewModel, response, pathQuery, recordsPerPage, courseSearchResultsPage);
+            courseSearchConverter.SetupViewModelPaging(viewModel, response, pathQuery, recordsPerPage);
 
             //Assert
             viewModel.PaginationViewModel.NextPageUrl.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.NextPageUrl);
@@ -25,20 +25,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             viewModel.PaginationViewModel.PreviousPageText.Should().BeEquivalentTo(expectedViewModel.PaginationViewModel.PreviousPageText);
             viewModel.PaginationViewModel.HasPreviousPage.Should().Be(expectedViewModel.PaginationViewModel.HasPreviousPage);
             viewModel.PaginationViewModel.HasNextPage.Should().Be(expectedViewModel.PaginationViewModel.HasNextPage);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetFilterSelectItemsTestInput))]
-        public void GetActiveFilterOptionsTest(CourseFiltersViewModel courseFiltersModel, Dictionary<string, string> expectedDictionary)
-        {
-            //Assign
-            var courseSearchConverter = new CourseSearchViewModelService();
-
-            //Act
-            var result = courseSearchConverter.GetActiveFilterOptions(courseFiltersModel);
-
-            //Assert
-            result.Should().BeEquivalentTo(expectedDictionary);
         }
 
         [Theory]
@@ -53,20 +39,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             //Assert
             result.Should().BeEquivalentTo(expectedOrderByLinks);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetFilterSelectItemsTestsInput))]
-        public void GetFilterSelectItemsTest(string propertyName, IEnumerable<string> sourceList, string value, IEnumerable<SelectItem> expectedSelectItems)
-        {
-            //Assign
-            var courseSearchConverter = new CourseSearchViewModelService();
-
-            //Act
-            var result = courseSearchConverter.GetFilterSelectItems(propertyName, sourceList, value);
-
-            //Assert
-            result.Should().BeEquivalentTo(expectedSelectItems);
         }
     }
 }

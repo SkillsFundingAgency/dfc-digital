@@ -16,8 +16,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string NoTrainingCoursesFoundText { get; set; }
 
-        public string RecordsOnPageLabel => $"{((Page - 1) * Count) + 1} - {((Page - 1) * Count) + Courses.Count}";
-
         #endregion
 
         #region Filter Display
@@ -25,8 +23,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public Uri ResetFilterUrl { get; set; }
 
         public CourseFiltersViewModel CourseFiltersModel { get; set; } = new CourseFiltersViewModel();
-
-        public IEnumerable<KeyValuePair<string, string>> ActiveFilterOptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         #endregion
 

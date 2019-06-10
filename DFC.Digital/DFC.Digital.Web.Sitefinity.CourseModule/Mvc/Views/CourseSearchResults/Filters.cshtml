@@ -16,14 +16,16 @@
 
             @Html.DropDownListFor(model => model.Distance,
                 new List<SelectListItem>
-                { new SelectListItem{Text="5 Miles", Value="5"},
-                new SelectListItem{Text="10 Miles", Value="10"},
-                new SelectListItem{Text="30 Miles", Value="30"},
-                new SelectListItem{Text="45 Miles", Value="45"},
-                new SelectListItem{Text="60 Miles", Value="60"},
-                new SelectListItem{Text="75 Miles", Value="75"},
-               }, 
-                null, 
+                {
+                    new SelectListItem{Text="Select Distance", Value="0"},
+                    new SelectListItem{Text="5 Miles", Value="5"},
+                    new SelectListItem{Text="10 Miles", Value="10"},
+                    new SelectListItem{Text="30 Miles", Value="30"},
+                    new SelectListItem{Text="45 Miles", Value="45"},
+                    new SelectListItem{Text="60 Miles", Value="60"},
+                    new SelectListItem{Text="75 Miles", Value="75"},
+               },
+                null,
                 new { @class = "govuk-select" })
 
         </div>
@@ -79,7 +81,7 @@
                             <div class="govuk-form-group">
                                 @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-label govuk-!-font-size-16" })
 
-                                <span class="govuk-hint govuk-!-font-size-16">@Model.StartDateExampleText For example, 01 01 2020</span>
+                                <span class="govuk-hint govuk-!-font-size-16">@Model.StartDateExampleText</span>
                                 <div class="govuk-date-input" id="startDate-Date">
                                     <div class="govuk-date-input__item">
                                         <div class="govuk-form-group">

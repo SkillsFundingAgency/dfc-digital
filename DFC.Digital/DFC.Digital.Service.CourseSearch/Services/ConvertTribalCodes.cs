@@ -50,19 +50,5 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     return null;
             }
         }
-
-        public string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate)
-        {
-            switch (startDate)
-            {
-                case StartDate.FromToday:
-                    return DateTime.Now.ToString("yyyy-MM-dd");
-                case StartDate.SelectDateFrom:
-                        return courseBusinessRules.GetEarliestStartDate(earliestStartDate).ToString("yyyy-MM-dd");
-                case StartDate.Anytime:
-                    default:
-                    return null;
-            }
-        }
     }
 }

@@ -142,16 +142,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 courseSearchProps.Count = RecordsPerPage;
 
                 courseSearchFilters.SearchTerm = cleanCourseName;
-                courseSearchFilters.Location =
-                    StringManipulationExtension.ReplaceSpecialCharacters(
-                        courseSearchFilters.Location,
-                        InvalidCharactersRegexPattern);
-                courseSearchFilters.Provider =
-                    StringManipulationExtension.ReplaceSpecialCharacters(
-                        courseSearchFilters.Provider,
-                        InvalidCharactersRegexPattern);
 
-                courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
+                ReplaceSpecialCharacters(courseSearchFilters);
+
+                GetDistanceSpecified(courseSearchFilters, viewModel);
 
                 courseSearchProps.Filters = courseSearchFilters;
 
@@ -175,24 +169,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                     var pathQuery = Request?.Url?.PathAndQuery;
                     if (!string.IsNullOrWhiteSpace(pathQuery) &&
-                        pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
+                        pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
                     {
                         pathQuery = pathQuery.Substring(
                             0,
-                            pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
+                            pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase));
                     }
 
-                    courseSearchViewModelService.SetupPaging(
+                    courseSearchViewModelService.SetupViewModelPaging(
                         viewModel,
                         response,
                         pathQuery,
-                        RecordsPerPage,
-                        CourseSearchResultsPage);
+                        RecordsPerPage);
 
                     SetupSearchLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
                 }
 
-                SetupFilterDisplayData(viewModel);
+                SetupStartDateDisplayData(viewModel);
             }
 
             viewModel.NoTrainingCoursesFoundText =
@@ -200,18 +193,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     ? string.Empty
                     : NoTrainingCoursesFoundText;
 
-            SetupWidgetDefaults(viewModel);
+            SetupWidgetLabelsAndTextDefaults(viewModel);
             return View("SearchResults", viewModel);
         }
 
         [HttpPost]
         public ActionResult Index(CourseFiltersViewModel viewModel)
         {
-            viewModel.Distance = viewModel.IsDistanceLocation ? viewModel.Distance : default(float);
-            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse($"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
-            {
-                viewModel.StartDateFrom = chosenDate;
-            }
+            PopulateSelectFromDate(viewModel);
 
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
@@ -230,13 +219,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region private Methods
 
+        private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
+        {
+            viewModel.Distance = viewModel.IsDistanceLocation ? viewModel.Distance : default(float);
+            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
+                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
+            {
+                viewModel.StartDateFrom = chosenDate;
+            }
+        }
+
         private void SetupSearchLinks(CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
         {
             viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
             viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
         }
 
-        private void SetupWidgetDefaults(CourseSearchResultsViewModel viewModel)
+        private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)
         {
             viewModel.PageTitle = PageTitle;
             viewModel.FilterCourseByText = FilterCourseByText;
@@ -255,7 +254,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
         }
 
-        private void SetupFilterDisplayData(CourseSearchResultsViewModel viewModel)
+        private void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
         {
             if (!viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
             {
@@ -269,9 +268,24 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.CourseFiltersModel.StartDateMonth = DateTime.Now.Month.ToString();
                 viewModel.CourseFiltersModel.StartDateYear = DateTime.Now.Year.ToString();
             }
+        }
 
-            viewModel.ActiveFilterOptions =
-                courseSearchViewModelService.GetActiveFilterOptions(viewModel.CourseFiltersModel);
+        private void GetDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)
+        {
+            viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
+            courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
+        }
+
+        private void ReplaceSpecialCharacters(CourseSearchFilters courseSearchFilters)
+        {
+            courseSearchFilters.Location =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Location,
+                    InvalidCharactersRegexPattern);
+            courseSearchFilters.Provider =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Provider,
+                    InvalidCharactersRegexPattern);
         }
         #endregion
     }

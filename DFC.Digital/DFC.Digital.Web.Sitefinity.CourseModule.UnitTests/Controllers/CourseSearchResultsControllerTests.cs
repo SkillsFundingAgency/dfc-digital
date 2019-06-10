@@ -84,14 +84,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 if (courseSearchResponse.Courses.Any())
                 {
                     A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustHaveHappened();
-                    A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).MustHaveHappened();
+                    A.CallTo(() => fakeCourseSearchViewModelService.SetupViewModelPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._)).MustHaveHappened();
                 }
                }
             else
             {
                 A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustNotHaveHappened();
-                A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeCourseSearchViewModelService.SetupViewModelPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._)).MustNotHaveHappened();
             }
         }
 
@@ -119,11 +119,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         private void SetupCalls()
         {
             A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).Returns(new OrderByLinks());
-            A.CallTo(() => fakeCourseSearchViewModelService.GetActiveFilterOptions(A<CourseFiltersViewModel>._)).Returns(new Dictionary<string, string>());
-            A.CallTo(() => fakeCourseSearchViewModelService.GetFilterSelectItems(A<string>._, A<IEnumerable<string>>._, A<string>._)).Returns(new List<SelectItem>());
-            A.CallTo(() => fakeCourseSearchViewModelService.SetupPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._, A<string>._)).DoesNothing();
+            A.CallTo(() => fakeCourseSearchViewModelService.SetupViewModelPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._)).DoesNothing();
             A.CallTo(() => fakeBuildQueryStringService.BuildPathAndQueryString(A<string>._, A<CourseSearchFilters>._)).Returns(nameof(IQueryStringBuilder<CourseSearchFilters>.BuildPathAndQueryString));
-            A.CallTo(() => fakeCourseSearchViewModelService.GetActiveFilterOptions(A<CourseFiltersViewModel>._)).Returns(new Dictionary<string, string>());
         }
     }
 }

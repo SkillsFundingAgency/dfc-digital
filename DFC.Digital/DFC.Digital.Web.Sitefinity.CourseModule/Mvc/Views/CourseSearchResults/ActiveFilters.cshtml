@@ -1,0 +1,73 @@
+﻿@using DFC.Digital.Data.Model
+@model CourseFiltersViewModel
+<div class="facet-tags">
+    <div class="facet-tags__group">
+        <div class="facet-tags__wrapper">
+            <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Showing</span>
+            @if (Model.CourseHours != CourseHours.All)
+            {
+                <div class="facet-tag-inline">
+                    <p class="facet-tag__text">@Model.CourseHoursDisplayName</p>
+                </div>
+            }
+
+            @if (Model.CourseType != CourseType.All)
+            {
+                <div class="facet-tag-inline">
+                    <p class="facet-tag__text">@Model.CourseTypeDisplayName</p>
+                </div>
+            }
+
+            <span class="govuk-body govuk-!-font-size-16">courses </span>
+
+            @if (Model.StartDate != StartDate.Anytime)
+            {
+                <span class="govuk-body govuk-!-font-size-16">starting from</span>
+                <div class="facet-tag-inline">
+                    <p class="facet-tag__text">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString("dd MMMM yyyy") : DateTime.Now.ToString("dd MMMM yyyy") ) </p>
+                </div>
+            }
+
+            @if (Model.Only1619Courses)
+            {
+                <span class="govuk-body govuk-!-font-size-16">suitable for</span>
+                <div class="facet-tag-inline">
+                    <p class="facet-tag__text">16-19 year olds</p>
+                </div>
+            }
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Location))
+    {
+        <div class="facet-tags__group">
+            <div class="facet-tags__wrapper">
+                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Within</span>
+               @if (Model.IsDistanceLocation)
+               {
+                   <div class="facet-tag-inline">
+                       <p class="facet-tag__text">@Model.Distance miles</p>
+                   </div>
+                   <span class="govuk-body govuk-!-font-size-16">of</span>
+               }
+
+               <div class="facet-tag-inline">
+                    <p class="facet-tag__text">@Model.Location</p>
+                </div>
+
+            </div>
+        </div>
+    }
+ 
+    @if (!string.IsNullOrWhiteSpace(Model.Provider))
+    {
+        <div class="facet-tags__group">
+            <div class="facet-tags__wrapper">
+                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Provided by</span>
+                <div class="facet-tag-inline">
+                    <p class="facet-tag__text">@Model.Provider</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+ 

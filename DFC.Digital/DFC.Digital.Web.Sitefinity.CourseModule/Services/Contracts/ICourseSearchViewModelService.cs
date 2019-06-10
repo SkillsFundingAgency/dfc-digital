@@ -5,12 +5,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public interface ICourseSearchViewModelService
     {
-        void SetupPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, string courseSearchResultsPage);
-
-        IEnumerable<SelectItem> GetFilterSelectItems(string propertyName, IEnumerable<string> sourceList, string value);
+        void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage);
 
         OrderByLinks GetOrderByLinks(string searchUrl, CourseSearchOrderBy courseSearchSortBy);
-
-        IEnumerable<KeyValuePair<string, string>> GetActiveFilterOptions(CourseFiltersViewModel courseFiltersModel);
     }
 }

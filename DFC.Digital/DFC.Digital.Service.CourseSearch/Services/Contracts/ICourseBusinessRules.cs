@@ -1,9 +1,10 @@
 ﻿using System;
+using DFC.Digital.Data.Model;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
     public interface ICourseBusinessRules
     {
-        DateTime GetEarliestStartDate(DateTime inputDate);
+        string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate);
     }
 }

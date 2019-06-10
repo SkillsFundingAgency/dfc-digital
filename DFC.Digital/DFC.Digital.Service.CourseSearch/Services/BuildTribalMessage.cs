@@ -2,21 +2,20 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class BuildTribalMessage : IBuildTribalMessage
     {
-        private readonly IConvertTribalCodes convertTribalCodesService;
+        private readonly IConvertTribalCodes convertTribalCodes;
         private readonly IConfigurationProvider configuration;
+        private readonly ICourseBusinessRules courseBusinessRules;
 
-        public BuildTribalMessage(IConvertTribalCodes convertTribalCodesService, IConfigurationProvider configuration)
+        public BuildTribalMessage(IConvertTribalCodes convertTribalCodes, IConfigurationProvider configuration, ICourseBusinessRules courseBusinessRules)
         {
-            this.convertTribalCodesService = convertTribalCodesService;
+            this.convertTribalCodes = convertTribalCodes;
             this.configuration = configuration;
+            this.courseBusinessRules = courseBusinessRules;
         }
 
         public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
@@ -34,9 +33,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     {
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
                         SubjectKeyword = courseName,
-                        EarliestStartDate = convertTribalCodesService.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),
+                        EarliestStartDate = courseBusinessRules.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
+                        AttendanceModes = convertTribalCodes.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
+                        StudyModes = convertTribalCodes.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
                         ProviderKeyword = courseSearchProperties.Filters.Provider,
                         Distance = courseSearchProperties.Filters.DistanceSpecified ? courseSearchProperties.Filters.Distance : default(float),

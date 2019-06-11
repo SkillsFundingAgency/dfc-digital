@@ -1127,9 +1127,6 @@
     <Content Include="App_Data\Sitefinity\Export\DYSAC\DYSAC.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\uninstall.ps1" />
-    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.12.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.13.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\widgetTemplates.sf" />

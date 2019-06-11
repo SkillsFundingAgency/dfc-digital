@@ -1,27 +1,26 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class CourseBusinessRulesProcessor : ICourseBusinessRulesProcessor
     {
-        private const string CourseApiDateFormat = "yyyy-MM-dd";
-
         public string GetEarliestStartDate(StartDate startDate, DateTime earliestStartDate)
         {
             switch (startDate)
             {
                 case StartDate.FromToday:
-                    return DateTime.Now.ToString(CourseApiDateFormat);
+                    return DateTime.Now.ToString(Constants.CourseApiDateFormat);
                 case StartDate.SelectDateFrom:
-                    return CalculateEarliestStartDate(earliestStartDate).ToString(CourseApiDateFormat);
+                    return CalculateEarliestStartDate(earliestStartDate).ToString(Constants.CourseApiDateFormat);
                 case StartDate.Anytime:
                 default:
                     return null;
             }
         }
 
-        private DateTime CalculateEarliestStartDate(DateTime inputDate)
+        private static DateTime CalculateEarliestStartDate(DateTime inputDate)
         {
             var earliestDate = DateTime.Now.AddYears(-1);
             var latestDate = DateTime.Now.AddYears(1);

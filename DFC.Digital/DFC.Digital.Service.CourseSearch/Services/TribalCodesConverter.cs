@@ -15,16 +15,16 @@ namespace DFC.Digital.Service.CourseSearchProvider
             switch (courseType)
             {
                 case CourseType.ClassroomBased:
-                    return CourseSearchConstants.ClassAttendanceModes;
+                    return CourseSearchConstants.ClassAttendanceModes();
                 case CourseType.DistanceLearning:
-                    return CourseSearchConstants.DistantAttendanceModes;
+                    return CourseSearchConstants.DistantAttendanceModes();
                 case CourseType.Online:
-                    return CourseSearchConstants.OnlineAttendanceModes;
+                    return CourseSearchConstants.OnlineAttendanceModes();
                 case CourseType.WorkBased:
-                    return CourseSearchConstants.WorkAttendanceModes;
+                    return CourseSearchConstants.WorkAttendanceModes();
                 case CourseType.All:
                 default:
-                    return CourseSearchConstants.AllAttendanceModes;
+                    return CourseSearchConstants.AllAttendanceModes();
             }
         }
 

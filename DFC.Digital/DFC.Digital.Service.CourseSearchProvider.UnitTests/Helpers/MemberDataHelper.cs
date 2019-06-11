@@ -1,8 +1,8 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 {
@@ -10,7 +10,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
     {
         private const string ApiKey = "apiKey";
         private const string SearchTerm = "maths";
-        private const string CourseApiDateFormat = "yyyy-MM-dd";
 
         public static IEnumerable<object[]> GetCourseSearchInputTestsInput()
         {
@@ -121,31 +120,31 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 CourseType.All,
-                CourseSearchConstants.AllAttendanceModes
+                CourseSearchConstants.AllAttendanceModes()
             };
 
             yield return new object[]
             {
                 CourseType.ClassroomBased,
-                CourseSearchConstants.ClassAttendanceModes
+                CourseSearchConstants.ClassAttendanceModes()
             };
 
             yield return new object[]
             {
                 CourseType.DistanceLearning,
-                CourseSearchConstants.DistantAttendanceModes
+                CourseSearchConstants.DistantAttendanceModes()
             };
 
             yield return new object[]
             {
                 CourseType.WorkBased,
-                CourseSearchConstants.WorkAttendanceModes
+                CourseSearchConstants.WorkAttendanceModes()
             };
 
             yield return new object[]
             {
                 CourseType.Online,
-                 CourseSearchConstants.OnlineAttendanceModes
+                 CourseSearchConstants.OnlineAttendanceModes()
             };
         }
 
@@ -189,41 +188,41 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             {
                 StartDate.FromToday,
                 DateTime.Now,
-                DateTime.Now.ToString(CourseApiDateFormat)
+                DateTime.Now.ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now,
-                DateTime.Now.ToString(CourseApiDateFormat)
+                DateTime.Now.ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now.AddDays(70),
-                DateTime.Now.AddDays(70).ToString(CourseApiDateFormat)
+                DateTime.Now.AddDays(70).ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now.AddYears(2),
-                DateTime.Now.AddYears(1).ToString(CourseApiDateFormat)
+                DateTime.Now.AddYears(1).ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now.AddYears(2),
-                DateTime.Now.AddYears(1).ToString(CourseApiDateFormat)
+                DateTime.Now.AddYears(1).ToString(Constants.CourseApiDateFormat)
             };
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now.AddYears(-2),
-                DateTime.Now.AddYears(-1).ToString(CourseApiDateFormat)
+                DateTime.Now.AddYears(-1).ToString(Constants.CourseApiDateFormat)
             };
         }
     }

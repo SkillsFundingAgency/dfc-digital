@@ -35,5 +35,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public bool FiltersApplied => Only1619Courses || StartDate != StartDate.Anytime ||
                                       CourseHours != CourseHours.All || CourseType != CourseType.All ||
                                       !string.IsNullOrWhiteSpace(Location) || !string.IsNullOrWhiteSpace(Provider);
+
+        public string ActiveFiltersProvidedByText { get; set; }
+
+        public string ActiveFiltersOfText { get; set; }
+
+        public string ActiveFiltersWithinText { get; set; }
+
+        public string ActiveFiltersOnly1619CoursesText { get; set; }
+
+        public string ActiveFiltersSuitableForText { get; set; }
+
+        public string ActiveFiltersStartingFromText { get; set; }
+
+        public string ActiveFiltersCoursesText { get; set; }
+
+        public string ActiveFiltersShowingText { get; set; }
+
+        public string ActiveFiltersMilesText { get; set; }
     }
 }

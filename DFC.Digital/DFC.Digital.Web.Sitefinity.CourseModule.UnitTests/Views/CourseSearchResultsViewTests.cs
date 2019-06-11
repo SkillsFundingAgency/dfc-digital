@@ -181,7 +181,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             if (viewModel.StartDate == StartDate.Anytime)
             {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, "starting from", "span");
+                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
+            }
+            else
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
             }
 
             if (viewModel.StartDate == StartDate.FromToday)
@@ -196,7 +200,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             if (viewModel.Only1619Courses)
             {
-                AssertTagInnerTextValue(htmlDom, "suitable for", "span");
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
             }
 
             if (!string.IsNullOrWhiteSpace(viewModel.Location))
@@ -207,11 +211,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             if (!string.IsNullOrWhiteSpace(viewModel.Provider))
             {
                 AssertTagInnerTextValue(htmlDom, viewModel.Provider, "p");
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersProvidedByText, "span");
             }
 
             if (viewModel.IsDistanceLocation)
             {
-                AssertTagInnerTextValue(htmlDom, $"{viewModel.Distance} miles", "p");
+                AssertTagInnerTextValue(htmlDom, $"{viewModel.Distance} {viewModel.ActiveFiltersMilesText}", "p");
             }
         }
 

@@ -121,6 +121,33 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Filter - Clear filters text")]
         public string ResetFilterText { get; set; } = "Clear filters";
 
+        [DisplayName("Active Filters - Provided by text")]
+        public string ActiveFiltersProvidedByText { get; set; } = "Provided by";
+
+        [DisplayName("Active Filters - 'of' text")]
+        public string ActiveFiltersOfText { get; set; } = "of";
+
+        [DisplayName("Active Filters - within text")]
+        public string ActiveFiltersWithinText { get; set; } = "Within";
+
+        [DisplayName("Active Filters - 16 - 19 year old text")]
+        public string ActiveFiltersOnly1619CoursesText { get; set; } = "16-19 year olds";
+
+        [DisplayName("Active Filters - suitable for text")]
+        public string ActiveFiltersSuitableForText { get; set; } = "suitable for";
+
+        [DisplayName("Active Filters - starting from text")]
+        public string ActiveFiltersStartingFromText { get; set; } = "starting from";
+
+        [DisplayName("Active Filters - courses text")]
+        public string ActiveFiltersCoursesText { get; set; } = "courses";
+
+        [DisplayName("Active Filters - Showing text")]
+        public string ActiveFiltersShowingText { get; set; } = "Showing";
+
+        [DisplayName("Active Filters - miles text")]
+        public string ActiveFiltersMilesText { get; set; } = "miles";
+
         #endregion
 
         #region Actions
@@ -272,6 +299,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
             viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
             viewModel.ResetFiltersText = ResetFilterText;
+            viewModel.CourseFiltersModel.ActiveFiltersCoursesText = ActiveFiltersCoursesText;
+            viewModel.CourseFiltersModel.ActiveFiltersMilesText = ActiveFiltersMilesText;
+            viewModel.CourseFiltersModel.ActiveFiltersOfText = ActiveFiltersOfText;
+            viewModel.CourseFiltersModel.ActiveFiltersOnly1619CoursesText = ActiveFiltersOnly1619CoursesText;
+            viewModel.CourseFiltersModel.ActiveFiltersShowingText = ActiveFiltersShowingText;
+            viewModel.CourseFiltersModel.ActiveFiltersWithinText = ActiveFiltersWithinText;
+            viewModel.CourseFiltersModel.ActiveFiltersProvidedByText = ActiveFiltersProvidedByText;
+            viewModel.CourseFiltersModel.ActiveFiltersStartingFromText = ActiveFiltersStartingFromText;
+            viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
         }
 
         private void SetSearchDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)

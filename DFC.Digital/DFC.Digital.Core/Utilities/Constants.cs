@@ -59,6 +59,7 @@ namespace DFC.Digital.Core
         public const string SendGridDeltaBackOff = "DFC.Digital.SendGridDeltaBackOff";
         public const string SendGridDefaultMaximumBackOff = "DFC.Digital.SendGridDefaultMaximumBackOff";
 
+        public const string CourseApiDateFormat = "yyyy-MM-dd";
         public const string CourseSearchFrontEndStartDateFormat = "dd MMMM yyyy";
         public const string CourseSearchQueryStringStartDateFormat = "yyyy-MM-dd";
         public const string CourseSearchLocationRegularExpression = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";

@@ -4,7 +4,7 @@
 <div class="facet-tags">
     <div class="facet-tags__group">
         <div class="facet-tags__wrapper">
-            <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Showing</span>
+            <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersShowingText</span>
             @if (Model.CourseHours != CourseHours.All)
             {
                 <div class="facet-tag-inline">
@@ -19,11 +19,11 @@
                 </div>
             }
 
-            <span class="govuk-body govuk-!-font-size-16">courses </span>
+                <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersCoursesText</span>
 
             @if (Model.StartDate != StartDate.Anytime)
             {
-                <span class="govuk-body govuk-!-font-size-16">starting from</span>
+                <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersStartingFromText</span>
                 <div class="facet-tag-inline">
                     <p class="facet-tag__text">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat) ) </p>
                 </div>
@@ -31,9 +31,9 @@
 
             @if (Model.Only1619Courses)
             {
-                <span class="govuk-body govuk-!-font-size-16">suitable for</span>
+                <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersSuitableForText</span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">16-19 year olds</p>
+                    <p class="facet-tag__text">@Model.ActiveFiltersOnly1619CoursesText</p>
                 </div>
             }
         </div>
@@ -42,13 +42,13 @@
     {
         <div class="facet-tags__group">
             <div class="facet-tags__wrapper">
-                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Within</span>
+                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersWithinText</span>
                @if (Model.IsDistanceLocation)
                {
                    <div class="facet-tag-inline">
-                       <p class="facet-tag__text">@Model.Distance miles</p>
+                       <p class="facet-tag__text">@Model.Distance @Model.ActiveFiltersMilesText</p>
                    </div>
-                   <span class="govuk-body govuk-!-font-size-16">of</span>
+                   <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersOfText </span>
                }
 
                <div class="facet-tag-inline">
@@ -63,7 +63,7 @@
     {
         <div class="facet-tags__group">
             <div class="facet-tags__wrapper">
-                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">Provided by</span>
+                <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersProvidedByText </span>
                 <div class="facet-tag-inline">
                     <p class="facet-tag__text">@Model.Provider</p>
                 </div>

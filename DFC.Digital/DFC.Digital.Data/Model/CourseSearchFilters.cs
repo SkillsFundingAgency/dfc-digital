@@ -28,7 +28,7 @@ namespace DFC.Digital.Data.Model
         public string LocationRegex { get; set; }
 
         public bool IsDistanceLocation => !string.IsNullOrWhiteSpace(Location) && !string.IsNullOrWhiteSpace(LocationRegex) &&
-                                          Regex.Matches(Location, LocationRegex).Count > 0;
+                                          Regex.IsMatch(Location, LocationRegex);
 
         public bool IsValidStartDateFrom =>
             StartDate == StartDate.SelectDateFrom && !StartDateFrom.Equals(DateTime.MinValue);

@@ -138,7 +138,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
                    CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
                    CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
-                   StartDate = StartDate.Anytime
+                   StartDate = StartDate.Anytime,
+                   ActiveFiltersMilesText = nameof(CourseFiltersViewModel.ActiveFiltersMilesText),
+                   ActiveFiltersOfText = nameof(CourseFiltersViewModel.ActiveFiltersOfText),
+                   ActiveFiltersOnly1619CoursesText = nameof(CourseFiltersViewModel.ActiveFiltersOnly1619CoursesText),
+                   ActiveFiltersProvidedByText = nameof(CourseFiltersViewModel.ActiveFiltersProvidedByText),
+                   ActiveFiltersStartingFromText = nameof(CourseFiltersViewModel.ActiveFiltersStartingFromText),
+                   ActiveFiltersSuitableForText = nameof(CourseFiltersViewModel.ActiveFiltersSuitableForText),
+                   ActiveFiltersShowingText = nameof(CourseFiltersViewModel.ActiveFiltersShowingText),
+                   ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
+                   ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText)
                }
             };
 
@@ -157,7 +166,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
                     CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
                     CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
-                    StartDate = StartDate.FromToday
+                    StartDate = StartDate.FromToday,
+                    ActiveFiltersMilesText = nameof(CourseFiltersViewModel.ActiveFiltersMilesText),
+                    ActiveFiltersOfText = nameof(CourseFiltersViewModel.ActiveFiltersOfText),
+                    ActiveFiltersOnly1619CoursesText = nameof(CourseFiltersViewModel.ActiveFiltersOnly1619CoursesText),
+                    ActiveFiltersProvidedByText = nameof(CourseFiltersViewModel.ActiveFiltersProvidedByText),
+                    ActiveFiltersStartingFromText = nameof(CourseFiltersViewModel.ActiveFiltersStartingFromText),
+                    ActiveFiltersSuitableForText = nameof(CourseFiltersViewModel.ActiveFiltersSuitableForText),
+                    ActiveFiltersShowingText = nameof(CourseFiltersViewModel.ActiveFiltersShowingText),
+                    ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
+                    ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText)
                 }
             };
 
@@ -177,7 +195,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
                     CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
                     StartDate = StartDate.SelectDateFrom,
-                    StartDateFrom = DateTime.Now.AddMonths(2)
+                    StartDateFrom = DateTime.Now.AddMonths(2),
+                    ActiveFiltersMilesText = nameof(CourseFiltersViewModel.ActiveFiltersMilesText),
+                    ActiveFiltersOfText = nameof(CourseFiltersViewModel.ActiveFiltersOfText),
+                    ActiveFiltersOnly1619CoursesText = nameof(CourseFiltersViewModel.ActiveFiltersOnly1619CoursesText),
+                    ActiveFiltersProvidedByText = nameof(CourseFiltersViewModel.ActiveFiltersProvidedByText),
+                    ActiveFiltersStartingFromText = nameof(CourseFiltersViewModel.ActiveFiltersStartingFromText),
+                    ActiveFiltersSuitableForText = nameof(CourseFiltersViewModel.ActiveFiltersSuitableForText),
+                    ActiveFiltersShowingText = nameof(CourseFiltersViewModel.ActiveFiltersShowingText),
+                    ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
+                    ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText)
                 }
             };
         }

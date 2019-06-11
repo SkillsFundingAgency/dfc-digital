@@ -164,7 +164,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                CourseHours.FullTime,
+                CourseHours.Fulltime,
                 new[] { CourseSearchConstants.FulltimeStudyMode }
             };
 

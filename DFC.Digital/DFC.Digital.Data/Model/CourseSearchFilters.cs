@@ -15,7 +15,7 @@ namespace DFC.Digital.Data.Model
 
         public float Distance { get; set; } = 10f;
 
-        public bool DistanceSpecified { get; set; }
+        public bool DistanceSpecified => IsDistanceLocation && !Distance.Equals(default(float));
 
         public bool Only1619Courses { get; set; }
 

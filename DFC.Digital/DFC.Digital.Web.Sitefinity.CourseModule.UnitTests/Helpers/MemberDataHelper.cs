@@ -156,7 +156,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseFiltersViewModel
                 {
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
-                    CourseHours = CourseHours.FullTime,
+                    CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
                     Only1619Courses = false,
                     Location = nameof(CourseFiltersViewModel.Location),
@@ -184,7 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseFiltersViewModel
                 {
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
-                    CourseHours = CourseHours.FullTime,
+                    CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
                     Only1619Courses = false,
                     Location = LocationPostCode,
@@ -217,7 +217,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseLink = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
                     Location = nameof(Course.Location),
                     StartDateLabel = nameof(Course.StartDateLabel),
                     QualificationLevel = QualificationLevel
@@ -234,7 +234,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseLink = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
                     StartDateLabel = nameof(Course.StartDateLabel),
                     QualificationLevel = "unknown"
                 },
@@ -250,7 +250,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseLink = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
                     Location = nameof(Course.Location),
                     QualificationLevel = nameof(Course.QualificationLevel)
                 },
@@ -718,7 +718,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                    CourseLink = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
                 };
             }
         }
@@ -733,7 +733,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     {
                         Title = nameof(Course.Title),
                         CourseId = nameof(Course.CourseId),
-                        CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                        CourseLink = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
                     }
                 };
             }

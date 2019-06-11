@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             switch (courseHours)
             {
-                case CourseHours.FullTime:
+                case CourseHours.Fulltime:
                     return new[] { CourseSearchConstants.FulltimeStudyMode };
                 case CourseHours.PartTime:
                     return new[] { CourseSearchConstants.PartTimeStudyMode };

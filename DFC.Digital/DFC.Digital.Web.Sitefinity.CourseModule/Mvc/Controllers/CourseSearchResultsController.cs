@@ -170,7 +170,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 ReplaceSpecialCharactersOnFreeTextFields(courseSearchFilters);
 
-                SetSearchDistanceSpecified(courseSearchFilters, viewModel);
+                courseSearchFilters.LocationRegex = Constants.CourseSearchLocationRegularExpression;
 
                 courseSearchProperties.Filters = courseSearchFilters;
 
@@ -181,7 +181,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseUrl = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}";
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -302,12 +302,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ActiveFiltersProvidedByText = ActiveFiltersProvidedByText;
             viewModel.CourseFiltersModel.ActiveFiltersStartingFromText = ActiveFiltersStartingFromText;
             viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
-        }
-
-        private void SetSearchDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)
-        {
-            viewModel.CourseFiltersModel.LocationRegex = Constants.CourseSearchLocationRegularExpression;
-            courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
         }
 
         private void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)

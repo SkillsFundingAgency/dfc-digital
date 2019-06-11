@@ -56,10 +56,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public int RecordsPerPage { get; set; } = 20;
 
         [DisplayName("Redirect - Course Search Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
         [DisplayName("Redirect - Course Details Page")]
-        public string CourseDetailsPage { get; set; } = "/course-details";
+        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
         [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
@@ -90,12 +90,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Course Listing Start Date Label")]
         public string StartDateLabel { get; set; } = "Start date:";
-
-        [DisplayName("Regex - Location Post Code")]
-        public string LocationRegex { get; set; } = Constants.CourseSearchLocationRegularExpression;
-
-        [DisplayName("Regex - Allowed Characters")]
-        public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
 
         [DisplayName("Filter - Only 1619 Courses Text")]
         public string Only1619CoursesText { get; set; } = "Suitable for 16-19 year olds";
@@ -166,7 +160,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             var cleanCourseName =
                 StringManipulationExtension.ReplaceSpecialCharacters(
                     courseSearchFilters.SearchTerm,
-                    InvalidCharactersRegexPattern);
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
 
             if (!string.IsNullOrEmpty(cleanCourseName))
             {
@@ -297,7 +291,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
             viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
-            viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
+            viewModel.CourseFiltersModel.LocationRegex = Constants.CourseSearchLocationRegularExpression;
             viewModel.ResetFiltersText = ResetFilterText;
             viewModel.CourseFiltersModel.ActiveFiltersCoursesText = ActiveFiltersCoursesText;
             viewModel.CourseFiltersModel.ActiveFiltersMilesText = ActiveFiltersMilesText;
@@ -312,7 +306,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private void SetSearchDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)
         {
-            viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
+            viewModel.CourseFiltersModel.LocationRegex = Constants.CourseSearchLocationRegularExpression;
             courseSearchFilters.DistanceSpecified = viewModel.CourseFiltersModel.IsDistanceLocation;
         }
 
@@ -321,11 +315,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             courseSearchFilters.Location =
                 StringManipulationExtension.ReplaceSpecialCharacters(
                     courseSearchFilters.Location,
-                    InvalidCharactersRegexPattern);
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider =
                 StringManipulationExtension.ReplaceSpecialCharacters(
                     courseSearchFilters.Provider,
-                    InvalidCharactersRegexPattern);
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
         }
         #endregion
     }

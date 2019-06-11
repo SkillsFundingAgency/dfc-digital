@@ -34,10 +34,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             EnterText("Lastname", lastName);
             EnterText("EmailAddress", email);
             EnterText("ConfirmEmailAddress", confEmail);
-            DateTime birthday = DateTime.ParseExact(dob, "dd/M/yyyy", CultureInfo.InvariantCulture);
-            EnterText("DateOfBirthDay", birthday.Day.ToString());
-            EnterText("DateOfBirthMonth", birthday.Month.ToString());
-            EnterText("DateOfBirthYear", birthday.Year.ToString());
+            EnterDob(dob);
             EnterText("Postcode", postcode);
 
             var acceptTAndC = Find.Element(By.Id("AcceptTermsAndConditions"));

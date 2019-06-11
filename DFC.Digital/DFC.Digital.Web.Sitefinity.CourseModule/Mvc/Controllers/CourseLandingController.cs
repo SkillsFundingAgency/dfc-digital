@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(CourseLandingViewModel model)
+        public ActionResult Index(CourseSearchFilters model)
         {
             if (model == null)
             {

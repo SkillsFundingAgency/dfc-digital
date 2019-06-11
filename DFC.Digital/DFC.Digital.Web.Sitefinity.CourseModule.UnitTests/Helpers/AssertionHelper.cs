@@ -65,5 +65,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 .Any(element => element.Attributes[attribute].Value.Contains(value))
                 .Should().BeTrue();
         }
+
+        public static void AssertElementExistsByAttributeAndTypeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value, string type)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(element => element.Attributes[attribute].Value.Contains(value) && element.Attributes[nameof(type)].Value.Contains(type))
+                .Should().BeTrue();
+        }
+
+        public static void AssertElementIsSelectedByAttributeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value)
+        {
+            htmlDocument.DocumentNode.Descendants(tag)
+                .Any(element => element.Attributes[attribute].Value.Contains(value) && element.Attributes["checked"].Value.Contains("checked"))
+                .Should().BeTrue();
+        }
     }
 }

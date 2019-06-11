@@ -92,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string StartDateLabel { get; set; } = "Start date:";
 
         [DisplayName("Regex - Location Post Code")]
-        public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
+        public string LocationRegex { get; set; } = Constants.CourseSearchLocationRegularExpression;
 
         [DisplayName("Regex - Allowed Characters")]
         public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
@@ -128,6 +128,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(CourseSearchFilters courseSearchFilters, CourseSearchProperties courseSearchProperties)
         {
+            courseSearchFilters = courseSearchFilters ?? new CourseSearchFilters();
+            courseSearchProperties = courseSearchProperties ?? new CourseSearchProperties();
+
             var viewModel = new CourseSearchResultsViewModel
             {
                 CourseFiltersModel = mapper.Map<CourseFiltersViewModel>(courseSearchFilters)
@@ -140,8 +143,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             if (!string.IsNullOrEmpty(cleanCourseName))
             {
-                var courseSearchProps = courseSearchProperties ?? new CourseSearchProperties();
-                courseSearchProps.Count = RecordsPerPage;
+                courseSearchProperties.Count = RecordsPerPage;
 
                 courseSearchFilters.SearchTerm = cleanCourseName;
 
@@ -149,10 +151,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 SetSearchDistanceSpecified(courseSearchFilters, viewModel);
 
-                courseSearchProps.Filters = courseSearchFilters;
+                courseSearchProperties.Filters = courseSearchFilters;
 
                 var response = asyncHelper.Synchronise(() =>
-                    courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProps));
+                    courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
 
                 if (response.Courses.Any())
                 {
@@ -173,6 +175,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
 
                 SetupStartDateDisplayData(viewModel);
+                viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
             }
 
             viewModel.NoTrainingCoursesFoundText =
@@ -206,9 +209,24 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region private Methods
 
+        private static void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
+        {
+            if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
+            {
+                viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = viewModel.CourseFiltersModel.StartDateFrom.Year.ToString();
+            }
+            else
+            {
+                viewModel.CourseFiltersModel.StartDateDay = DateTime.Now.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = DateTime.Now.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = DateTime.Now.Year.ToString();
+            }
+        }
+
         private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
         {
-            viewModel.Distance = viewModel.IsDistanceLocation ? viewModel.Distance : default(float);
             if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
                     $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
             {
@@ -233,13 +251,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 pathQuery,
                 RecordsPerPage);
 
-            SetupOrderByLinks(viewModel, pathQuery, response.ResultProperties.OrderedBy);
-        }
-
-        private void SetupOrderByLinks(CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
-        {
-            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, sortBy);
-            viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
+           viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
         }
 
         private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)
@@ -260,22 +272,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
             viewModel.CourseFiltersModel.LocationRegex = LocationRegex;
             viewModel.ResetFiltersText = ResetFilterText;
-        }
-
-        private void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
-        {
-            if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
-            {
-                viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
-                viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
-                viewModel.CourseFiltersModel.StartDateYear = viewModel.CourseFiltersModel.StartDateFrom.Year.ToString();
-            }
-            else
-            {
-                viewModel.CourseFiltersModel.StartDateDay = DateTime.Now.Day.ToString();
-                viewModel.CourseFiltersModel.StartDateMonth = DateTime.Now.Month.ToString();
-                viewModel.CourseFiltersModel.StartDateYear = DateTime.Now.Year.ToString();
-            }
         }
 
         private void SetSearchDistanceSpecified(CourseSearchFilters courseSearchFilters, CourseSearchResultsViewModel viewModel)

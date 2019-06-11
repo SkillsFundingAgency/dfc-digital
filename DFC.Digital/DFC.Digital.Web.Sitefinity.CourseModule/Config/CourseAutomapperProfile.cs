@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
 
-namespace DFC.Digital.Web.Sitefinity.CourseModule.Config
+namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseAutomapperProfile : Profile
     {

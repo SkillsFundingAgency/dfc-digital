@@ -2,12 +2,10 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.Digital.Web.Sitefinity.CourseModule.Config;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FakeItEasy;
 using FluentAssertions;
-using System.Collections.Generic;
 using System.Linq;
 using TestStack.FluentMVCTesting;
 using Xunit;
@@ -39,14 +37,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexTestsInput))]
-        public void IndexTests(string searchTerm, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchOrderBy orderBy, CourseSearchResult courseSearchResponse)
+        public void IndexTests(CourseSearchFilters searchFilter, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchOrderBy orderBy, CourseSearchResult courseSearchResponse)
         {
             // setupFakes
             A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).Returns(courseSearchResponse);
-            var searchFilter = new CourseSearchFilters
-            {
-                SearchTerm = searchTerm
-            };
 
             var searchProperties = new CourseSearchProperties
             {
@@ -70,7 +64,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 StartDateOrderByText = nameof(CourseSearchResultsController.StartDateOrderByText),
                 DistanceOrderByText = nameof(CourseSearchResultsController.DistanceOrderByText),
                 RelevanceOrderByText = nameof(CourseSearchResultsController.RelevanceOrderByText),
-                NoTrainingCoursesFoundText = nameof(CourseSearchResultsController.NoTrainingCoursesFoundText)
+                NoTrainingCoursesFoundText = nameof(CourseSearchResultsController.NoTrainingCoursesFoundText),
+                InvalidCharactersRegexPattern = nameof(CourseSearchResultsController.InvalidCharactersRegexPattern),
+                ApplyFiltersText = nameof(CourseSearchResultsController.ApplyFiltersText),
+                CourseTypeSectionText = nameof(CourseSearchResultsController.CourseTypeSectionText),
+                CourseHoursSectionText = nameof(CourseSearchResultsController.CourseHoursSectionText),
+                StartDateSectionText = nameof(CourseSearchResultsController.StartDateSectionText),
+                SearchForCourseNameText = nameof(CourseSearchResultsController.SearchForCourseNameText),
+                WithinText = nameof(CourseSearchResultsController.WithinText),
+                ResetFilterText = nameof(CourseSearchResultsController.ResetFilterText),
+                Only1619CoursesText = nameof(CourseSearchResultsController.Only1619CoursesText),
+                StartDateExampleText = nameof(CourseSearchResultsController.StartDateExampleText)
             };
 
             // Act

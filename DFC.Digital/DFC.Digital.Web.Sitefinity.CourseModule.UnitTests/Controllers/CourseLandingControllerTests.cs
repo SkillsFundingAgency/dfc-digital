@@ -36,7 +36,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 ProviderHintText = providerHintText,
                 LocationHintText = locationHintText,
                 CourseSearchResultsPage = courseSearchResultsPage,
-                Dfe1619FundedText = dfe1619FundedText
+                Dfe1619FundedText = dfe1619FundedText,
+                LocationRegex = nameof(CourseSearchResultsController.LocationRegex)
             };
 
             // Act

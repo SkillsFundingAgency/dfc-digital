@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,33 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string LocationPostCode = "cv12wt";
         private const string Provider = "ucla";
         private const string StartDateFormat = "yyyy-MM-dd";
-
-        private const string LocationRegex =
-            @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
-
         private const float ValidDistance = 10F;
 
         private static readonly CourseFiltersViewModel ValidCourseFiltersViewModel =
             new CourseFiltersViewModel
             {
-                SearchTerm = nameof(CourseSearchFilters.SearchTerm)
+                SearchTerm = nameof(CourseSearchFilters.SearchTerm),
+            };
+
+        private static readonly CourseFiltersViewModel ValidSelectFromCourseFiltersViewModel =
+            new CourseFiltersViewModel
+            {
+                SearchTerm = nameof(CourseSearchFilters.SearchTerm),
+                StartDateDay = DateTime.Now.Day.ToString(),
+                StartDate = StartDate.SelectDateFrom,
+                StartDateMonth = DateTime.Now.AddMonths(2).Month.ToString(),
+                StartDateYear = DateTime.Now.Year.ToString(),
+                StartDateFrom = DateTime.Now.AddDays(20)
+            };
+
+        private static readonly CourseFiltersViewModel ValidSelectFromTodayCourseFiltersViewModel =
+            new CourseFiltersViewModel
+            {
+                SearchTerm = nameof(CourseSearchFilters.SearchTerm),
+                StartDate = StartDate.FromToday,
+                CourseType = CourseType.ClassroomBased,
+                CourseHours = CourseHours.All,
+                Only1619Courses = true
             };
 
         private static readonly CourseFiltersViewModel InvalidCourseResultsViewModel =
@@ -103,7 +121,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
         }
 
-        public static IEnumerable<object[]> Dfc9208ActiveFiltersViewTestsInput()
+        public static IEnumerable<object[]> Dfc9208CourseFiltersViewModelViewTestsInput()
         {
             yield return new object[]
             {
@@ -113,10 +131,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    CourseHours = CourseHours.All,
                    CourseType = CourseType.All,
                    Only1619Courses = false,
-                   Location = nameof(CourseFiltersViewModel.Location),
+                   Location = LocationPostCode,
                    Provider = nameof(CourseFiltersViewModel.Provider),
                    Distance = 10f,
+                   LocationRegex = Constants.CourseSearchLocationRegularExpression,
                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                   CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
+                   CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
                    StartDate = StartDate.Anytime
                }
             };
@@ -132,7 +153,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Location = nameof(CourseFiltersViewModel.Location),
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
+                    LocationRegex = Constants.CourseSearchLocationRegularExpression,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                    CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
+                    CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
                     StartDate = StartDate.FromToday
                 }
             };
@@ -145,10 +169,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseHours = CourseHours.FullTime,
                     CourseType = CourseType.ClassroomBased,
                     Only1619Courses = false,
-                    Location = nameof(CourseFiltersViewModel.Location),
+                    Location = LocationPostCode,
+                    LocationRegex = Constants.CourseSearchLocationRegularExpression,
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                    CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
+                    CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
                     StartDate = StartDate.SelectDateFrom,
                     StartDateFrom = DateTime.Now.AddMonths(2)
                 }
@@ -314,13 +341,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 InvalidCourseResultsViewModel
             };
+            yield return new object[]
+            {
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
+                ValidSelectFromCourseFiltersViewModel
+            };
+            yield return new object[]
+            {
+                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.PageTitle),
+                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                nameof(CourseSearchResultsController.CourseDetailsPage),
+                ValidSelectFromTodayCourseFiltersViewModel
+            };
         }
 
         public static IEnumerable<object[]> IndexTestsInput()
         {
             yield return new object[]
             {
-                nameof(CourseSearchFilters.SearchTerm),
+               ValidSelectFromCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -331,7 +374,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchFilters.SearchTerm),
+                ValidSelectFromTodayCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -342,7 +385,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchFilters.SearchTerm),
+                ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -353,7 +396,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                nameof(CourseSearchFilters.SearchTerm),
+               ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -364,7 +407,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
-                null,
+                InvalidCourseResultsViewModel,
                 nameof(CourseSearchResultsController.FilterCourseByText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
@@ -577,11 +620,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
+                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.Anytime
                     }
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&Distance=10"
+                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds"
             };
 
             yield return new object[]
@@ -594,6 +638,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
+                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         StartDate = StartDate.FromToday
                     }
                 },
@@ -610,6 +655,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,
+                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.FromToday
                     }
@@ -627,12 +673,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
+                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.SelectDateFrom,
                         StartDateFrom = DateTime.Now.AddDays(30)
                     }
                 },
-                $"/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
+                $"/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
             };
         }
 

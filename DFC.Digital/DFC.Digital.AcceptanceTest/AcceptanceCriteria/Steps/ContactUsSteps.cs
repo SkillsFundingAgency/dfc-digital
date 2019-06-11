@@ -129,44 +129,46 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"I am redirected to the first '(.*)' contact form")]
         public void ThenIAmRedirectedToTheFirstContactForm(string contactOption)
         {
-            switch (contactOption.ToLower())
+            if (!string.IsNullOrWhiteSpace(contactOption))
             {
-                case "adviser":
-                    var adviserForm = GetNavigatedPage<ContactAnAdviserFormsPage>();
-                    adviserForm.ContactQuestionDisplayed.Should().BeTrue();
-                    break;
-                case "feedback":
-                    var feedbackForm = GetNavigatedPage<GiveFeedbackFormPage>();
-                    feedbackForm.FeedbackContactOptions.Should().BeTrue();
-                    break;
-                case "technical":
-                    var technicalForm = GetNavigatedPage<TechnicalIssueFormPage>();
-                    technicalForm.TechnicalContactOptions.Should().BeTrue();
-                    break;
-                default:
-                    throw new Exception("Contact Form does not exist");
+                switch (contactOption.ToLower())
+                {
+                    case "adviser":
+                        var adviserForm = GetNavigatedPage<ContactAnAdviserFormsPage>();
+                        adviserForm.ContactQuestionDisplayed.Should().BeTrue();
+                        break;
+                    case "feedback":
+                        var feedbackForm = GetNavigatedPage<GiveFeedbackFormPage>();
+                        feedbackForm.FeedbackContactOptions.Should().BeTrue();
+                        break;
+                    case "technical":
+                        var technicalForm = GetNavigatedPage<TechnicalIssueFormPage>();
+                        technicalForm.TechnicalContactOptions.Should().BeTrue();
+                        break;
+                }
             }
         }
 
         [Then(@"I am redirected to the second '(.*)' contact form")]
         public void ThenIAmRedirectedToTheSecondContactForm(string contactOption)
         {
-            switch (contactOption.ToLower())
+            if (!string.IsNullOrWhiteSpace(contactOption))
             {
-                case "adviser":
-                    var adviserForm = GetNavigatedPage<ContactAnAdviserFormsPage>();
-                    adviserForm.UserDetailsFormDisplayed.Should().BeTrue();
-                    break;
-                case "feedback":
-                    var feedbackForm = GetNavigatedPage<GiveFeedbackFormPage>();
-                    feedbackForm.FeedbackFormUserDetails.Should().BeTrue();
-                    break;
-                case "technical":
-                    var technicalForm = GetNavigatedPage<TechnicalIssueFormPage>();
-                    technicalForm.TechnicalFormUserDetails.Should().BeTrue();
-                    break;
-                default:
-                    throw new Exception("Contact Form does not exist");
+                switch (contactOption.ToLower())
+                {
+                    case "adviser":
+                        var adviserForm = GetNavigatedPage<ContactAnAdviserFormsPage>();
+                        adviserForm.UserDetailsFormDisplayed.Should().BeTrue();
+                        break;
+                    case "feedback":
+                        var feedbackForm = GetNavigatedPage<GiveFeedbackFormPage>();
+                        feedbackForm.FeedbackFormUserDetails.Should().BeTrue();
+                        break;
+                    case "technical":
+                        var technicalForm = GetNavigatedPage<TechnicalIssueFormPage>();
+                        technicalForm.TechnicalFormUserDetails.Should().BeTrue();
+                        break;
+                }
             }
         }
 

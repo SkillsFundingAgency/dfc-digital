@@ -61,13 +61,16 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public void SelectRecontactOption(string contact)
         {
-            if (contact.ToLower().Equals("yes"))
+            if (!string.IsNullOrWhiteSpace(contact))
             {
-                Find.Element(By.Id("radio-inline-1")).Click();
-            }
-            else
-            {
-                Find.Element(By.Id("radio-inline-2")).Click();
+                if (contact.ToLower().Equals("yes"))
+                {
+                    Find.Element(By.Id("radio-inline-1")).Click();
+                }
+                else
+                {
+                    Find.Element(By.Id("radio-inline-2")).Click();
+                }
             }
         }
 

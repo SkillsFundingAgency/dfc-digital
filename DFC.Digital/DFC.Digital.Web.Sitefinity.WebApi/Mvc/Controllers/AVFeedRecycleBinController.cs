@@ -14,7 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.WebApi
         }
 
         // DELETE dfcapi/avfeedrecyclebin
-        [ApiAuthorize]
+        [ApiAuthorize(Roles = "AVIntegration")]
         public IHttpActionResult Delete(int count)
         {
             var isThisLastPage = recyleBinRepository.DeleteVacanciesPermanently(count);

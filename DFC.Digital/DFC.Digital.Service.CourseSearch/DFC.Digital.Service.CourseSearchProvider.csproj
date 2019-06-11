@@ -74,6 +74,11 @@
     <Compile Include="CourseSearchService.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BuildTribalMessageService.cs" />
+    <Compile Include="Services\Contracts\IBuildTribalMessage.cs" />
+    <Compile Include="Services\Contracts\IConvertTribalCodes.cs" />
+    <Compile Include="Services\ConvertTribalCodesService.cs" />
+    <Compile Include="Utility\CourseSearchConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

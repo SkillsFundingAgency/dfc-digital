@@ -26,15 +26,17 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>();
 
             //Setup Calls and Dummies
-            A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
+            A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName))
+                .Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
             A.CallTo(() => manageCoursesFake.SelectCoursesForJobProfile(A<IEnumerable<Course>>._))
                 .Returns(GenerateDummyCourses());
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).DoesNothing();
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).DoesNothing();
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
             await courseSearchService.GetCoursesAsync(keywords);
@@ -45,15 +47,94 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).MustHaveHappened();
             if (coursesAvailable)
             {
-                A.CallTo(() => manageCoursesFake.SelectCoursesForJobProfile(A<IEnumerable<Course>>.That.Matches(m => m.Any()))).MustHaveHappened();
+                A.CallTo(() =>
+                        manageCoursesFake.SelectCoursesForJobProfile(A<IEnumerable<Course>>.That.Matches(m => m.Any())))
+                    .MustHaveHappened();
             }
             else
             {
-                A.CallTo(() => manageCoursesFake.SelectCoursesForJobProfile(A<IEnumerable<Course>>.That.IsEmpty())).MustHaveHappened();
+                A.CallTo(() => manageCoursesFake.SelectCoursesForJobProfile(A<IEnumerable<Course>>.That.IsEmpty()))
+                    .MustHaveHappened();
             }
         }
 
-        [Fact]
+        [Theory]
+        [InlineData("keywords", true)]
+        [InlineData("keywords", false)]
+        public async Task SearchCoursesAsyncTests(string keywords, bool coursesAvailable)
+        {
+            //Arrange
+            var serviceHelperFake = A.Fake<IServiceHelper>();
+            var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+            var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>(ops => ops.Strict());
+
+            //Setup Calls and Dummies
+            A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName))
+                .Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).DoesNothing();
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).DoesNothing();
+            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<string>._, A<CourseSearchProperties>._))
+                .Returns(new CourseListInput());
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
+
+            //Act
+            await courseSearchService.SearchCoursesAsync(keywords, new CourseSearchProperties());
+
+            //Assert
+            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<string>._, A<CourseSearchProperties>._))
+                .MustHaveHappened(1, Times.Exactly);
+            A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).MustHaveHappened();
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).MustHaveHappened();
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData("191919", true)]
+        [InlineData("272727", false)]
+        [InlineData(null, false)]
+        public async Task GetCourseDetailsAsyncTests(string courseId, bool coursesAvailable)
+        {
+            //Arrange
+            var serviceHelperFake = A.Fake<IServiceHelper>();
+            var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
+            var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>(ops => ops.Strict());
+
+            //Setup Calls and Dummies
+            A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseDetailOutput>>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? new CourseDetailOutput() : null);
+
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailInput>._)).DoesNothing();
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailOutput>._)).DoesNothing();
+            A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<Exception>._)).DoesNothing();
+            A.CallTo(() => fakeMessageBuilder.GetCourseDetailInput(A<string>._)).Returns(new CourseDetailInput());
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
+
+            //Act
+            await courseSearchService.GetCourseDetailsAsync(courseId);
+
+            //Assert
+            if (!string.IsNullOrWhiteSpace(courseId))
+            {
+                A.CallTo(() => fakeMessageBuilder.GetCourseDetailInput(A<string>._)).MustHaveHappened();
+                A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseDetailOutput>>>._, Constants.CourseSearchEndpointConfigName)).MustHaveHappened();
+                A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailInput>._)).MustHaveHappened();
+                A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailOutput>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeMessageBuilder.GetCourseDetailInput(A<string>._)).MustNotHaveHappened();
+                A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseDetailOutput>>>._, Constants.CourseSearchEndpointConfigName)).MustNotHaveHappened();
+                A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailInput>._)).MustNotHaveHappened();
+                A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseDetailOutput>._)).MustNotHaveHappened();
+            }
+        }
+
+    [Fact]
         public async Task CourseSearchServiceFailureTestAsync()
         {
             //Arrange
@@ -62,6 +143,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var courseSearchAuditRepository = A.Fake<IAuditRepository>(ops => ops.Strict());
             var loggerFake = A.Fake<IApplicationLogger>();
             var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>();
 
             //Setup Calls ANY exception will do as we are catching all of them for this call
             A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).Throws(new HttpException("failed cause I want to"));
@@ -70,7 +152,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<Exception>._)).DoesNothing();
             A.CallTo(() => loggerFake.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
             var results = await courseSearchService.GetCoursesAsync("CourseKeyWords");
@@ -86,7 +168,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         [Theory]
         [InlineData(true, ServiceState.Green)]
         [InlineData(false, ServiceState.Amber)]
-        public async Task GetServiceStatusAsyn(bool coursesAvailable, ServiceState expectedServiceStatus)
+        public async Task GetServiceStatusAsyncTests(bool coursesAvailable, ServiceState expectedServiceStatus)
         {
             //Arrange
             var serviceHelperFake = A.Fake<IServiceHelper>();
@@ -94,12 +176,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>();
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
             A.CallTo(() => loggerFake.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception acctivity id");
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
             var serviceStatus = await courseSearchService.GetCurrentStatusAsync();
@@ -117,12 +200,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             var loggerFake = A.Fake<IApplicationLogger>(ops => ops.Strict());
             var manageCoursesFake = A.Fake<ICourseOpportunityBuilder>(ops => ops.Strict());
             var fakePolicy = A.Fake<ITolerancePolicy>();
+            var fakeMessageBuilder = A.Fake<IBuildTribalMessage>();
 
             //Setup Calls and Dummies
             A.CallTo(() => serviceHelperFake.Use(A<Func<ServiceInterface, CourseListOutput>>._, "Bad EndPoint")).Returns(GetDummyCourseOutput());
             A.CallTo(() => loggerFake.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
-            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy);
+            var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
             var serviceStatus = await courseSearchService.GetCurrentStatusAsync();

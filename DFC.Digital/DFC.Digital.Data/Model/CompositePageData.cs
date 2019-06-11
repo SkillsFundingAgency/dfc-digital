@@ -13,11 +13,11 @@ namespace DFC.Digital.Data.Model
 
         public string Title { get; set; }
 
-        public string MetaData { get; set; }
+        public string MetaDescription { get; set; }
+
+        public string MetaKeyWords { get; set; }
 
         public IEnumerable<string> Content { get; set; } = Enumerable.Empty<string>();
-
-        public IEnumerable<BreadcrumbLink> Breadcrumb { get; set; } = Enumerable.Empty<BreadcrumbLink>();
 
         public bool IncludeInSitemap { get; set; }
     }

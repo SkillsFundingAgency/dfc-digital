@@ -399,8 +399,9 @@
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="PublishingEventHandling\AllPropertiesResolver.cs" />
-    <Compile Include="PublishingEventHandling\LstringJsonConverter.cs" />
+    <Compile Include="Interfaces\IDataEventHandler.cs" />
+    <Compile Include="Interfaces\ISitefinityManager.cs" />
+    <Compile Include="DataEventHandling\SitefinityManager.cs" />
     <Compile Include="SitefinityExtensions\AssetLocationAndVersion.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
@@ -409,7 +410,7 @@
     <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublishingEventHandling\PublishEventHandler.cs" />
+    <Compile Include="DataEventHandling\DataEventHandler.cs" />
     <Compile Include="SitefinityExtensions\RecycleBinProcesser.cs" />
     <Compile Include="SitefinityExtensions\SiteMapHandler.cs" />
     <Compile Include="Startup.cs" />
@@ -430,6 +431,10 @@
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj">
+      <Project>{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}</Project>
+      <Name>DFC.Digital.Service.CompositeUIPublishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
       <Project>{2161f904-4d97-4685-8c9f-05c6f4d0dd74}</Project>

@@ -206,6 +206,10 @@
       <Project>{faf8634d-ed78-4044-8bd7-56760942ce2a}</Project>
       <Name>DFC.Digital.Service.Cognitive.BingSpellCheck</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj">
+      <Project>{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}</Project>
+      <Name>DFC.Digital.Service.CompositeUIPublishing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.CourseSearch\DFC.Digital.Service.CourseSearchProvider.csproj">
       <Project>{93F01099-5E61-4C12-B666-B5DB281E393C}</Project>
       <Name>DFC.Digital.Service.CourseSearchProvider</Name>

@@ -2,7 +2,6 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using DFC.Digital.Web.Core;
-using DFC.Digital.Web.Sitefinity.Core.SitefinityExtensions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -46,7 +45,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 ControllerBuilder.Current.SetControllerFactory(factory);
 
                 FeatherActionInvokerCustom.Register();
+
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                EventHub.Subscribe<IDataEvent>(Content_Action);
+
                 GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
@@ -61,18 +63,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
-
-            if (e.CommandName == "Bootstrapped")
-            {
-                EventHub.Subscribe<IDataEvent>(Content_Action);
-            }
         }
 
         private static void Content_Action(IDataEvent eventInfo)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            var publishEventHandler = autofacLifetimeScope.Resolve<PublishEventHandler>();
-            publishEventHandler.Content_Action(eventInfo);
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventHandler>();
+            dataEventHandler.ExportCompositePage(eventInfo);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

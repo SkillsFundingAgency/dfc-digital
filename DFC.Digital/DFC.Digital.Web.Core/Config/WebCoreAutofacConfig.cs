@@ -9,6 +9,7 @@ using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
+using DFC.Digital.Service.CompositeUI;
 using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
@@ -51,7 +52,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<SpellCheckAutofacModule>()
                 .RegisterModule<SkillsFrameworkEngineAutofacModule>()
                 .RegisterModule<SkillsFrameworkAutofacModule>()
-                .RegisterModule<SendGridAutofacModule>();
+                .RegisterModule<SendGridAutofacModule>()
+                .RegisterModule<CompositeUIPublishingAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

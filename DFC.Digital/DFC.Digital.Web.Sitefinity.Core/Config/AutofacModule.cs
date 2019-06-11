@@ -4,6 +4,7 @@ using Autofac.Integration.Mvc;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Service.CompositeUI;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -41,6 +42,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.RegisterType<AssetLocationAndVersion>().As<IAssetLocationAndVersion>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<SitefinityManager>().As<ISitefinityManager>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);

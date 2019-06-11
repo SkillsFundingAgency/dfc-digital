@@ -10,6 +10,16 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
     public class ContactUsPage : DFCPage
     {
+        public void PressSentError()
+        {
+            Find.Element(By.ClassName("govuk-button")).Click();
+        }
+
+        public void PressContinueWithNoSelection()
+        {
+            Find.Element(By.ClassName("govuk-button")).Click();
+        }
+
         public void SelectContactAnAdviser()
         {
             Find.Element(By.Id("ContactOptionType_ContactAdviser")).Click();

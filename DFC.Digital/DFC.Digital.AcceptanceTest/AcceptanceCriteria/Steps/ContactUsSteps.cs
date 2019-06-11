@@ -29,18 +29,21 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I select the '(.*)' option")]
         public void WhenISelectTheContactOption(string contactOption)
         {
-            var contactUs = GetNavigatedPage<ContactUsPage>();
-            switch (contactOption.ToLower())
+            if (!string.IsNullOrWhiteSpace(contactOption))
             {
-                case "contact-adviser":
-                    contactUs.SelectContactAnAdviser();
-                    break;
-                case "give-feedback":
-                    contactUs.SelectGiveFeedback();
-                    break;
-                case "technical-issue":
-                    contactUs.SelectReportATechnicalIssue();
-                    break;
+                var contactUs = GetNavigatedPage<ContactUsPage>();
+                switch (contactOption.ToLower())
+                {
+                    case "contact-adviser":
+                        contactUs.SelectContactAnAdviser();
+                        break;
+                    case "give-feedback":
+                        contactUs.SelectGiveFeedback();
+                        break;
+                    case "technical-issue":
+                        contactUs.SelectReportATechnicalIssue();
+                        break;
+                }
             }
         }
 
@@ -49,6 +52,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             GetNavigatedPage<ContactUsPage>()?.PressContinue<ContactAnAdviserFormsPage>()
                 .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I press continue with nothing selected")]
+        public void WhenIPressContinuWithNothingSelected()
+        {
+            GetNavigatedPage<ContactUsPage>()?.PressContinueWithNoSelection();
         }
 
         [When(@"I press continue on feecback form")]
@@ -70,6 +79,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             GetNavigatedPage<ContactUsPage>()?.PressSend<ContactUsConfirmationPage>()
                 .SaveTo(ScenarioContext);
+        }
+
+        [When(@"I press send to generate an error")]
+        public void WhenIPressSendToGenerateAnError()
+        {
+            GetNavigatedPage<ContactUsPage>()?.PressSentError();
         }
 
         [When(@"I complete the first form with (.*) option and (.*) query")]
@@ -160,6 +175,30 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             GetNavigatedPage<ContactUsConfirmationPage>()?.ConfirmationText.Should().Contain("Thank you for contacting us");
         }
+
+        [Then(@"an error message is displayed on the first form")]
+        public void ThenAnErrorMessageIsDisplayedOnTheFirstForm()
+        {
+            var validationPage = GetNavigatedPage<ContactAnAdviserFormsPage>();
+            validationPage.ErrorValidationDisplayed.Should().BeTrue();
+            validationPage.QuestionTypeErrorMessage.Should().Contain("Choose a category");
+            validationPage.AdviserQueryErrorMessage.Should().Contain("Enter a message describing the issue");
+        }
+
+        [Then(@"an error message is displayed on the second form")]
+        public void ThenAnErrorMessageIsDisplayedOnTheSecondForm()
+        {
+            var validationPage = GetNavigatedPage<ContactAnAdviserFormsPage>();
+            validationPage.ErrorValidationDisplayed.Should().BeTrue();
+            validationPage.CorrectErrorMessagesDisplayed().Should().BeTrue();
+        }
+
+        [Then(@"a date of birth error is displayed")]
+        public void ThenADateOfBirthErrorIsDisplayed()
+        {
+            GetNavigatedPage<ContactAnAdviserFormsPage>().DateOfBirthErrorMessage.Should().Contain("You must be over 13 to use this service");
+        }
+
         #endregion
     }
 }

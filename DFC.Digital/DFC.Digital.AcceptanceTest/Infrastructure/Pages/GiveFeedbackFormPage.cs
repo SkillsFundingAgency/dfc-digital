@@ -28,17 +28,5 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             SelectRecontactOption(contact);
             Find.Element(By.Id("AcceptTermsAndConditions")).Click();
         }
-
-        public void SelectRecontactOption(string contact)
-        {
-            if (contact.ToLower().Equals("yes"))
-            {
-                Find.Element(By.Id("radio-inline-1")).Click();
-            }
-            else
-            {
-                Find.Element(By.Id("radio-inline-2")).Click();
-            }
-        }
     }
 }

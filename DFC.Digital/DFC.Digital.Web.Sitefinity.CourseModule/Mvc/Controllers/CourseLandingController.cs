@@ -46,7 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
 
         [DisplayName("Location Post Code Regex")]
-        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
+        public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
 
         [DisplayName("Dfe 1619 Funded Text")]
         public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
@@ -68,6 +68,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             {
                 return Redirect(CourseSearchResultsPage);
             }
+
+            model.LocationRegex = LocationRegex;
 
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, model));
         }

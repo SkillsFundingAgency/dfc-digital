@@ -1,4 +1,5 @@
-﻿@using DFC.Digital.Data.Model
+﻿@using DFC.Digital.Core
+@using DFC.Digital.Data.Model
 @model CourseFiltersViewModel
 <div class="facet-tags">
     <div class="facet-tags__group">
@@ -24,7 +25,7 @@
             {
                 <span class="govuk-body govuk-!-font-size-16">starting from</span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString("dd MMMM yyyy") : DateTime.Now.ToString("dd MMMM yyyy") ) </p>
+                    <p class="facet-tag__text">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat) ) </p>
                 </div>
             }
 

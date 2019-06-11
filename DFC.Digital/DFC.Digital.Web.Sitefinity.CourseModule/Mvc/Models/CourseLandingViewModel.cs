@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {

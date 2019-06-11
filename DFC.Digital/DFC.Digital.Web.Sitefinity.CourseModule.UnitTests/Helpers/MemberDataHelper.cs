@@ -83,6 +83,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
             yield return new object[]
             {
+                0,
+                "page title 1",
+                "no courses here"
+            };
+
+            yield return new object[]
+            {
                 5,
                 "page title 6",
                 "no courses found"
@@ -93,6 +100,58 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 5,
                 "page title 3",
                 "no courses at all"
+            };
+        }
+
+        public static IEnumerable<object[]> Dfc9208ActiveFiltersViewTestsInput()
+        {
+            yield return new object[]
+            {
+               new CourseFiltersViewModel
+               {
+                   ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
+                   CourseHours = CourseHours.All,
+                   CourseType = CourseType.All,
+                   Only1619Courses = false,
+                   Location = nameof(CourseFiltersViewModel.Location),
+                   Provider = nameof(CourseFiltersViewModel.Provider),
+                   Distance = 10f,
+                   StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                   StartDate = StartDate.Anytime
+               }
+            };
+
+            yield return new object[]
+            {
+                new CourseFiltersViewModel
+                {
+                    ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
+                    CourseHours = CourseHours.FullTime,
+                    CourseType = CourseType.ClassroomBased,
+                    Only1619Courses = false,
+                    Location = nameof(CourseFiltersViewModel.Location),
+                    Provider = nameof(CourseFiltersViewModel.Provider),
+                    Distance = 10f,
+                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                    StartDate = StartDate.FromToday
+                }
+            };
+
+            yield return new object[]
+            {
+                new CourseFiltersViewModel
+                {
+                    ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
+                    CourseHours = CourseHours.FullTime,
+                    CourseType = CourseType.ClassroomBased,
+                    Only1619Courses = false,
+                    Location = nameof(CourseFiltersViewModel.Location),
+                    Provider = nameof(CourseFiltersViewModel.Provider),
+                    Distance = 10f,
+                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
+                    StartDate = StartDate.SelectDateFrom,
+                    StartDateFrom = DateTime.Now.AddMonths(2)
+                }
             };
         }
 
@@ -185,69 +244,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 string.Empty,
                 "1 of 2",
                 SearchPageUrl
-            };
-        }
-
-        public static IEnumerable<object[]> GetFilterSelectItemsTestsInput()
-        {
-            yield return new object[]
-            {
-                "property1",
-                new List<string> { "Show All: 0", "Full Time: 1" },
-                "1",
-                new List<SelectItem>
-                {
-                    new SelectItem
-                    {
-                        Label = "Show All",
-                        Value = "0",
-                        Checked = string.Empty,
-                        Name = "property1",
-                        Id = "property10"
-                    },
-                    new SelectItem
-                    {
-                        Label = "Full Time",
-                        Value = "1",
-                        Checked = "checked",
-                        Name = "property1",
-                        Id = "property11"
-                    }
-                }
-            };
-
-            yield return new object[]
-            {
-                "property2",
-                new List<string> { "All: 0", "Entry Level: 1", "Level 1: 2" },
-                "2",
-                new List<SelectItem>
-                {
-                    new SelectItem
-                    {
-                        Label = "All",
-                        Value = "0",
-                        Checked = string.Empty,
-                        Name = "property2",
-                        Id = "property20"
-                    },
-                    new SelectItem
-                    {
-                        Label = "Entry Level",
-                        Value = "1",
-                        Checked = string.Empty,
-                        Name = "property2",
-                        Id = "property21"
-                    },
-                    new SelectItem
-                    {
-                    Label = "Level 1",
-                    Value = "2",
-                    Checked = "checked",
-                    Name = "property2",
-                    Id = "property22"
-                }
-                }
             };
         }
 

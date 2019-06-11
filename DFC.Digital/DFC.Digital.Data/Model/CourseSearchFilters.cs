@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Data.Model
 {
@@ -12,7 +13,7 @@ namespace DFC.Digital.Data.Model
 
         public string Location { get; set; }
 
-        public float Distance { get; set; }
+        public float Distance { get; set; } = 10f;
 
         public bool DistanceSpecified { get; set; }
 
@@ -23,5 +24,13 @@ namespace DFC.Digital.Data.Model
         public CourseHours CourseHours { get; set; } = CourseHours.All;
 
         public CourseType CourseType { get; set; } = CourseType.All;
+
+        public string LocationRegex { get; set; }
+
+        public bool IsDistanceLocation => !string.IsNullOrWhiteSpace(Location) && !string.IsNullOrWhiteSpace(LocationRegex) &&
+                                          Regex.Matches(Location, LocationRegex).Count > 0;
+
+        public bool IsValidStartDateFrom =>
+            StartDate == StartDate.SelectDateFrom && !StartDateFrom.Equals(DateTime.MinValue);
     }
 }

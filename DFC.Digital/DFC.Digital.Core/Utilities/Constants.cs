@@ -58,5 +58,7 @@ namespace DFC.Digital.Core
         public const string SendGridDefaultMinimumBackOff = "DFC.Digital.SendGridDefaultMinimumBackOff";
         public const string SendGridDeltaBackOff = "DFC.Digital.SendGridDeltaBackOff";
         public const string SendGridDefaultMaximumBackOff = "DFC.Digital.SendGridDefaultMaximumBackOff";
+
+        public const string CourseSearchFrontEndStartDateFormat = "dd MMMM yyyy";
     }
 }

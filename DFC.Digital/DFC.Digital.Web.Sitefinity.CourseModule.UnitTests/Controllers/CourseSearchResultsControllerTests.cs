@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexTestsInput))]
-        public void IndexTests(CourseSearchFilters searchFilter, string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchOrderBy orderBy, CourseSearchResult courseSearchResponse)
+        public void IndexTests(CourseSearchFilters searchFilter, string resetFilterText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseSearchOrderBy orderBy, CourseSearchResult courseSearchResponse)
         {
             courseSearchResponse = courseSearchResponse ?? new CourseSearchResult();
             searchFilter = searchFilter ?? new CourseSearchFilters();
@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assign
             var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService, mapperCfg)
             {
-                FilterCourseByText = filterCourseByText,
+                ResetFilterText = resetFilterText,
                 PageTitle = pageTitle,
                 CourseSearchResultsPage = courseSearchResultsPage,
                 CourseDetailsPage = courseDetailsPage,
@@ -73,7 +73,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 StartDateSectionText = nameof(CourseSearchResultsController.StartDateSectionText),
                 SearchForCourseNameText = nameof(CourseSearchResultsController.SearchForCourseNameText),
                 WithinText = nameof(CourseSearchResultsController.WithinText),
-                ResetFilterText = nameof(CourseSearchResultsController.ResetFilterText),
                 Only1619CoursesText = nameof(CourseSearchResultsController.Only1619CoursesText),
                 StartDateExampleText = nameof(CourseSearchResultsController.StartDateExampleText)
             };
@@ -89,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     vm =>
                     {
                         vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
-                        vm.FilterCourseByText.Should().BeEquivalentTo(controller.FilterCourseByText);
+                        vm.ResetFiltersText.Should().BeEquivalentTo(controller.ResetFilterText);
                     });
 
             if (!string.IsNullOrWhiteSpace(searchFilter.SearchTerm))
@@ -111,12 +110,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(IndexPostModelTestsInput))]
-        public void IndexPostTests(string filterCourseByText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseFiltersViewModel viewModel)
+        public void IndexPostModelTests(string resetFilterText, string pageTitle, string courseSearchResultsPage, string courseDetailsPage, CourseFiltersViewModel viewModel)
         {
             // Assign
             var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeBuildQueryStringService, mapperCfg)
             {
-                FilterCourseByText = filterCourseByText,
+                ResetFilterText = resetFilterText,
                 PageTitle = pageTitle,
                 CourseSearchResultsPage = courseSearchResultsPage,
                 CourseDetailsPage = courseDetailsPage

@@ -1,0 +1,214 @@
+﻿<ul class="sfForm">
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Page Title </label>
+        <div>
+            <input class="form-control" ng-model="properties.PageTitle.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Records Per Page </label>
+        <div>
+            <input class="form-control" ng-model="properties.RecordsPerPage.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Search for course name Text </label>
+        <div>
+            <input class="form-control" ng-model="properties.SearchForCourseNameText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">No Training Courses </label>
+        <div>
+            <sf-html-field class="kendo-content-block" sf-template-url="Mvc/Views/Shared/custom-html-field-template.sf-cshtml" sf-template-assembly="DFC.Digital.Web.Sitefinity.CourseModule" sf-model="properties.NoTrainingCoursesFoundText.PropertyValue"></sf-html-field>
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">Redirects Section</h4>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Course Details Page Url</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseDetailsPage.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Course Search Results Page Url</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseSearchResultsPage.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">Order by Section</h4>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Sort by Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.OrderByText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Relevance Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.RelevanceOrderByText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">StartDate Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.StartDateOrderByText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Distance Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.DistanceOrderByText.PropertyValue" type="text" />
+        </div>
+    </li>
+
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">Active Filters Section</h4>
+    </li>
+<li class="sfFormSeparator" style="padding-bottom: 15px;">
+    <label for="prop-Title">'of' text</label>
+    <div>
+        <input class="form-control" ng-model="properties.WhatItTakesSectionTitle.PropertyValue" type="text" />
+    </div>
+</li>
+<li class="sfFormSeparator" style="padding-bottom: 15px;">
+    <label for="prop-Title">Provided by text</label>
+    <div>
+        <input class="form-control" ng-model="properties.ActiveFiltersProvidedByText.PropertyValue" type="text" />
+    </div>
+</li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">16 - 19 year old text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersOnly1619CoursesText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">courses text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersCoursesText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">miles text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersMilesText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Showing text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersShowingText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">starting from text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersStartingFromText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title"> suitable for text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersSuitableForText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title"> within text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ActiveFiltersWithinText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">Course Listing Labels</h4>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+        <label for="prop-TopSectionContent">Advanced Learner Provider Label</label>
+        <div>
+            <input class="form-control" ng-model="properties.AdvancedLoanProviderLabel.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+        <label for="prop-BottomSectionContent">Location Label </label>
+        <div>
+            <input class="form-control" ng-model="properties.LocationLabel.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+        <label for="prop-TopSectionContent">Provider Label</label>
+        <div>
+            <input class="form-control" ng-model="properties.ProviderLabel.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px; padding-top: 5px">
+        <label for="prop-BottomSectionContent">Start Date Label </label>
+        <div>
+            <input class="form-control" ng-model="properties.StartDateLabel.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <h4 for="prop-Title">Filters Section</h4>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Clear filters link text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ResetFilterText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Course Hours section text</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseHoursSectionText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Course Type section text</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseTypeSectionText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Distance within text</label>
+        <div>
+            <input class="form-control" ng-model="properties.WithinText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Only 1619 Courses Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.Only1619CoursesText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title">Start Date exemplar text</label>
+        <div>
+            <input class="form-control" ng-model="properties.StartDateExampleText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title"> Start Date section text</label>
+        <div>
+            <input class="form-control" ng-model="properties.StartDateSectionText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title"> Apply Filter button text</label>
+        <div>
+            <input class="form-control" ng-model="properties.ApplyFiltersText.PropertyValue" type="text" />
+        </div>
+    </li>
+    <li class="sfFormSeparator" style="padding-bottom: 15px;">
+        <label for="prop-Title"> Course By Text</label>
+        <div>
+            <input class="form-control" ng-model="properties.CourseSearchResultsPage.PropertyValue" type="text" />
+        </div>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    $('.modal-dialog').attr('style', 'width: 980px');
+</script>

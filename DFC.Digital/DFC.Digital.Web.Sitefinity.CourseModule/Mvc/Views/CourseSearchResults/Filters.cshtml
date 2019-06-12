@@ -77,7 +77,7 @@
 
                     <div class="govuk-radios__conditional @(Model.StartDate == StartDate.SelectDateFrom ? string.Empty : "govuk-radios__conditional--hidden") conditional-date" id="conditional-start-date-conditional-1">
                         <div class="govuk-form-group">
-                            @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-label govuk-!-font-size-16" })
+                            @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-visually-hidden" })
 
                             <span class="govuk-hint govuk-!-font-size-16">@Model.StartDateExampleText</span>
                             <div class="govuk-date-input" id="startDate-Date">

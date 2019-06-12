@@ -45,101 +45,66 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion Constructors
 
         #region Public Properties
-
-        [DisplayName("* Page Title")]
         public string PageTitle { get; set; } = "Find a course";
 
-        [DisplayName("Filter Course By Text")]
-        public string FilterCourseByText { get; set; } = "Filtering courses by:";
-
-        [DisplayName("* Records Per Page")]
         public int RecordsPerPage { get; set; } = 20;
 
-        [DisplayName("Redirect - Course Search Results Page")]
         public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
-        [DisplayName("Redirect - Course Details Page")]
         public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
-        [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
 
-        [DisplayName("* Search for course name Text")]
         public string SearchForCourseNameText { get; set; } = "Course name";
 
-        [DisplayName("Order by Text")]
         public string OrderByText { get; set; } = "Ordered by";
 
-        [DisplayName("Order By - Relevance Text")]
         public string RelevanceOrderByText { get; set; } = "Relevance";
 
-        [DisplayName("Order By - StartDate Text")]
         public string DistanceOrderByText { get; set; } = "Distance";
 
-        [DisplayName("Order By - StartDate Text")]
         public string StartDateOrderByText { get; set; } = "Start date";
 
-        [DisplayName("Course Listing Location Label")]
         public string LocationLabel { get; set; } = "Location:";
 
-        [DisplayName("Course Listing Provider Label")]
         public string ProviderLabel { get; set; } = "Provider:";
 
-        [DisplayName("Course Listing Advanced Learner Provider Label")]
         public string AdvancedLoanProviderLabel { get; set; } = "Advanced Learner Loans offered by this Provider:";
 
-        [DisplayName("Course Listing Start Date Label")]
         public string StartDateLabel { get; set; } = "Start date:";
 
-        [DisplayName("Filter - Only 1619 Courses Text")]
         public string Only1619CoursesText { get; set; } = "Suitable for 16-19 year olds";
 
-        [DisplayName("Filter - Start Date exemplar text")]
         public string StartDateExampleText { get; set; } = "For example, 01 01 2020";
 
-        [DisplayName("Filter - Course Hours section text")]
         public string CourseHoursSectionText { get; set; } = "Course Hours";
 
-        [DisplayName("Filter - Start Date section text")]
         public string StartDateSectionText { get; set; } = "Start date";
 
-        [DisplayName("Filter - Course Type section text")]
         public string CourseTypeSectionText { get; set; } = "Course Type";
 
-        [DisplayName("Filter -Apply Filter button text")]
         public string ApplyFiltersText { get; set; } = "Apply Filters";
 
-        [DisplayName("Filter - Distance within text")]
         public string WithinText { get; set; } = "Within";
 
-        [DisplayName("Filter - Clear filters text")]
         public string ResetFilterText { get; set; } = "Clear filters";
 
-        [DisplayName("Active Filters - Provided by text")]
         public string ActiveFiltersProvidedByText { get; set; } = "Provided by";
 
-        [DisplayName("Active Filters - 'of' text")]
         public string ActiveFiltersOfText { get; set; } = "of";
 
-        [DisplayName("Active Filters - within text")]
         public string ActiveFiltersWithinText { get; set; } = "Within";
 
-        [DisplayName("Active Filters - 16 - 19 year old text")]
         public string ActiveFiltersOnly1619CoursesText { get; set; } = "16-19 year olds";
 
-        [DisplayName("Active Filters - suitable for text")]
         public string ActiveFiltersSuitableForText { get; set; } = "suitable for";
 
-        [DisplayName("Active Filters - starting from text")]
         public string ActiveFiltersStartingFromText { get; set; } = "starting from";
 
-        [DisplayName("Active Filters - courses text")]
         public string ActiveFiltersCoursesText { get; set; } = "courses";
 
-        [DisplayName("Active Filters - Showing text")]
         public string ActiveFiltersShowingText { get; set; } = "Showing";
 
-        [DisplayName("Active Filters - miles text")]
         public string ActiveFiltersMilesText { get; set; } = "miles";
 
         #endregion
@@ -290,7 +255,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)
         {
             viewModel.PageTitle = PageTitle;
-            viewModel.FilterCourseByText = FilterCourseByText;
             viewModel.OrderByLinks.OrderByText = OrderByText;
             viewModel.OrderByLinks.DistanceOrderByText = DistanceOrderByText;
             viewModel.OrderByLinks.StartDateOrderByText = StartDateOrderByText;

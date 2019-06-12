@@ -55,6 +55,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 {
                     Title = c.Course.CourseTitle,
                     Location = (c.Opportunity.Item as VenueInfo)?.VenueAddress.Town,
+                    LocationDetails = GetVenue(c.Opportunity.Item as VenueInfo),
                     ProviderName = c.Provider.ProviderName,
                     StartDateLabel = c.Opportunity.StartDate.Item,
                     CourseId = c.Course.CourseID,
@@ -117,6 +118,28 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 QualificationLevel = apiCourseDetail.Course.QualificationLevel,
                 StudyMode = apiCourseDetail.Opportunity.FirstOrDefault()?.StudyMode,
                 Duration = $"{apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationValue} {apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationUnit}"
+            };
+        }
+
+        private static LocationDetails GetVenue(VenueInfo venueInfo)
+        {
+            if (venueInfo is null)
+            {
+                return null;
+            }
+
+            var address = new Dictionary<string, string>
+            {
+                [nameof(VenueInfo.VenueAddress.Address_line_1)] = venueInfo.VenueAddress.Address_line_1,
+                [nameof(VenueInfo.VenueAddress.Address_line_2)] = venueInfo.VenueAddress.Address_line_2,
+                [nameof(VenueInfo.VenueAddress.Town)] = venueInfo.VenueAddress.Town,
+                [nameof(VenueInfo.VenueAddress.PostCode)] = venueInfo.VenueAddress.PostCode
+            };
+
+            return new LocationDetails
+            {
+                Distance = venueInfo.Distance,
+                LocationAddress = string.Join(", ", address.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Select(add => add.Value))
             };
         }
     }

@@ -10,8 +10,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         #region Page Text and labels
         public string PageTitle { get; set; }
 
-        public string FilterCourseByText { get; set; }
-
         public string SearchForCourseNameText { get; set; }
 
         public string NoTrainingCoursesFoundText { get; set; }

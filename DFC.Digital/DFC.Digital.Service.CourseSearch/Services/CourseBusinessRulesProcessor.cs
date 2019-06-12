@@ -23,10 +23,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private static DateTime CalculateEarliestStartDate(DateTime inputDate)
         {
             var earliestDate = DateTime.Now.AddYears(-1);
-            var latestDate = DateTime.Now.AddYears(1);
-            return inputDate >= earliestDate && inputDate < latestDate ? inputDate :
-                inputDate < earliestDate ? earliestDate :
-                latestDate;
+
+            return inputDate < earliestDate ? earliestDate : inputDate;
         }
     }
 }

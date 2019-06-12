@@ -346,7 +346,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         {
             yield return new object[]
             {
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -354,7 +354,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
             yield return new object[]
             {
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -362,7 +362,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
             yield return new object[]
             {
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -370,7 +370,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
             yield return new object[]
             {
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -378,7 +378,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
             yield return new object[]
             {
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -391,7 +391,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                ValidSelectFromCourseFiltersViewModel,
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -402,7 +402,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 ValidSelectFromTodayCourseFiltersViewModel,
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -413,7 +413,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 ValidCourseFiltersViewModel,
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -424,7 +424,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                ValidCourseFiltersViewModel,
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),
@@ -435,7 +435,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 InvalidCourseResultsViewModel,
-                nameof(CourseSearchResultsController.FilterCourseByText),
+                nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
                 nameof(CourseSearchResultsController.CourseSearchResultsPage),
                 nameof(CourseSearchResultsController.CourseDetailsPage),

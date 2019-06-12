@@ -47,6 +47,8 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string Location { get; set; }
 
+        public LocationDetails LocationDetails { get; set; }
+
         public string Duration { get; set; }
 
         public string QualificationLevel { get; set; }

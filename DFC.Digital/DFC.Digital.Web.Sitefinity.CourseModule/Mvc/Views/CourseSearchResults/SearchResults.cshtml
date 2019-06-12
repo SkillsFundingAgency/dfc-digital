@@ -40,7 +40,7 @@
         </div>
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-form-group">
-                <p class="govuk-body">@Model.ResultProperties.TotalResultCount result@(Model.ResultProperties.TotalResultCount.Equals(1) ? string.Empty : "s")</p>
+                <p class="govuk-body">@Model.ResultProperties.TotalResultCount.ToString("N0") result@(Model.ResultProperties.TotalResultCount.Equals(1) ? string.Empty : "s")</p>
                 @if (Model.CourseFiltersModel.FiltersApplied)
                 {
                     @Html.Partial("ActiveFilters", Model.CourseFiltersModel)
@@ -63,7 +63,7 @@
             else
             {
                 <div class="govuk-grid-column-two-thirds">
-                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Model.NoTrainingCoursesFoundText</h3>
+                    <h3 class="govuk-body-s govuk-!-margin-bottom-1">@Html.Raw(Model.NoTrainingCoursesFoundText)</h3>
                 </div>
             }
         </div>

@@ -208,15 +208,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
-                DateTime.Now.AddYears(2),
-                DateTime.Now.AddYears(1).ToString(Constants.CourseApiDateFormat)
+                DateTime.Now.AddYears(5),
+                DateTime.Now.AddYears(5).ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
                 StartDate.SelectDateFrom,
                 DateTime.Now.AddYears(2),
-                DateTime.Now.AddYears(1).ToString(Constants.CourseApiDateFormat)
+                DateTime.Now.AddYears(2).ToString(Constants.CourseApiDateFormat)
             };
             yield return new object[]
             {

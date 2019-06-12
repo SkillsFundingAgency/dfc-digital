@@ -212,9 +212,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             AssertTagInnerTextValue(htmlDom, viewModel.AdvancedLoanProviderLabel, "span");
             AssertTagInnerTextValue(htmlDom, viewModel.ProviderLabel, "span");
-            if (!string.IsNullOrWhiteSpace(viewModel.Course.Location))
+            if (viewModel.Course.LocationDetails != null)
             {
                 AssertTagInnerTextValue(htmlDom, viewModel.LocationLabel, "span");
+
+                if (!viewModel.Course.LocationDetails.Distance.Equals(default(float)))
+                {
+                    AssertTagInnerTextValue(htmlDom, "miles)", "li");
+                }
             }
             else
             {

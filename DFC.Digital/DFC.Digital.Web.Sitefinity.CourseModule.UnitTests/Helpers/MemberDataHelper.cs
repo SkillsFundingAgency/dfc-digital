@@ -218,7 +218,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
                     CourseLink = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
-                    Location = nameof(Course.Location),
+                    LocationDetails = new LocationDetails
+                    {
+                        LocationAddress = nameof(LocationDetails.LocationAddress),
+                        Distance = 10f
+                    },
                     StartDateLabel = nameof(Course.StartDateLabel),
                     QualificationLevel = QualificationLevel
                 },
@@ -236,7 +240,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseId = nameof(Course.CourseId),
                     CourseLink = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
                     StartDateLabel = nameof(Course.StartDateLabel),
-                    QualificationLevel = "unknown"
+                    QualificationLevel = "unknown",
+                    LocationDetails = new LocationDetails
+                    {
+                        LocationAddress = nameof(LocationDetails.LocationAddress)
+                    },
                 },
                 "provider name",
                 "advanced loan provider:",

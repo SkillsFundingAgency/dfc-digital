@@ -230,6 +230,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region private Methods
 
+        private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
+        {
+            courseSearchFilters.Location =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Location,
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Provider =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Provider,
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
+        }
+
         private static void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
         {
             if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
@@ -304,17 +316,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
         }
 
-        private void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
-        {
-            courseSearchFilters.Location =
-                StringManipulationExtension.ReplaceSpecialCharacters(
-                    courseSearchFilters.Location,
-                    Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Provider =
-                StringManipulationExtension.ReplaceSpecialCharacters(
-                    courseSearchFilters.Provider,
-                    Constants.CourseSearchInvalidCharactersRegexPattern);
-        }
         #endregion
     }
 }

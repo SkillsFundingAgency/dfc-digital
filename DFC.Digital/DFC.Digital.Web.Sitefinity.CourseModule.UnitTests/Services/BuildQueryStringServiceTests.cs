@@ -8,8 +8,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
     {
         [Theory]
         [MemberData(nameof(BuildRedirectPathAndQueryStringTestsInput))]
-        public void BuildRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
+        public static void BuildRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
         {
+            trainingCourseResultsViewModel = trainingCourseResultsViewModel ?? new CourseSearchResultsViewModel();
+
             //Assign
             var buildQueryStringService = new QueryStringBuilder();
 
@@ -22,8 +24,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
 
         [Theory]
         [MemberData(nameof(BuildSearchRedirectPathAndQueryStringTestsInput))]
-        public void BuildSearchRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
+        public static void BuildSearchRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
         {
+            courseLandingViewModel = courseLandingViewModel ?? new CourseLandingViewModel();
+
             //Assign
             var buildQueryStringService = new QueryStringBuilder();
 

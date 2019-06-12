@@ -342,7 +342,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             };
         }
 
-        public static IEnumerable<object[]> IndexPostTestsInput()
+        public static IEnumerable<object[]> IndexPostModelTestsInput()
         {
             yield return new object[]
             {

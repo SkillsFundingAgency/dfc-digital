@@ -13,6 +13,70 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     public class CourseSearchResultsViewTests : MemberDataHelper
     {
         [Theory]
+        [MemberData(nameof(Dfc9208CourseFiltersViewModelViewTestsInput))]
+        public static void Dfc9208ActiveFiltersViewTests(CourseFiltersViewModel viewModel)
+        {
+            viewModel = viewModel ?? new CourseFiltersViewModel();
+
+            // Assign
+            var searchResultsView = new _MVC_Views_CourseSearchResults_ActiveFilters_cshtml();
+
+            // Act
+            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
+
+            // Assert
+            if (viewModel.CourseHours != CourseHours.All)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursDisplayName, "p");
+            }
+
+            if (viewModel.CourseType != CourseType.All)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeDisplayName, "p");
+            }
+
+            if (viewModel.StartDate == StartDate.Anytime)
+            {
+                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
+            }
+            else
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
+            }
+
+            if (viewModel.StartDate == StartDate.FromToday)
+            {
+                AssertTagInnerTextValue(htmlDom, DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
+            }
+
+            if (viewModel.StartDate == StartDate.SelectDateFrom)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
+            }
+
+            if (viewModel.Only1619Courses)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
+            }
+
+            if (!string.IsNullOrWhiteSpace(viewModel.Location))
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
+            }
+
+            if (!string.IsNullOrWhiteSpace(viewModel.Provider))
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.Provider, "p");
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersProvidedByText, "span");
+            }
+
+            if (viewModel.IsDistanceLocation)
+            {
+                AssertTagInnerTextValue(htmlDom, $"{viewModel.Distance} {viewModel.ActiveFiltersMilesText}", "p");
+            }
+        }
+
+        [Theory]
         [MemberData(nameof(Dfc7055SearchResultsViewTestsInput))]
         public void Dfc7055SearchResultsViewTests(int coursesCount, string pageTitle, string noCoursesFoundText)
         {
@@ -160,70 +224,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
         [Theory]
         [MemberData(nameof(Dfc9208CourseFiltersViewModelViewTestsInput))]
-        public void Dfc9208ActiveFiltersViewTests(CourseFiltersViewModel viewModel)
-        {
-            // Assign
-            var searchResultsView = new _MVC_Views_CourseSearchResults_ActiveFilters_cshtml();
-
-            // Act
-            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
-
-            // Assert
-            if (viewModel.CourseHours != CourseHours.All)
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursDisplayName, "p");
-            }
-
-            if (viewModel.CourseType != CourseType.All)
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeDisplayName, "p");
-            }
-
-            if (viewModel.StartDate == StartDate.Anytime)
-            {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
-            }
-            else
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
-            }
-
-            if (viewModel.StartDate == StartDate.FromToday)
-            {
-                AssertTagInnerTextValue(htmlDom, DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
-            }
-
-            if (viewModel.StartDate == StartDate.SelectDateFrom)
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
-            }
-
-            if (viewModel.Only1619Courses)
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
-            }
-
-            if (!string.IsNullOrWhiteSpace(viewModel.Location))
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
-            }
-
-            if (!string.IsNullOrWhiteSpace(viewModel.Provider))
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.Provider, "p");
-                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersProvidedByText, "span");
-            }
-
-            if (viewModel.IsDistanceLocation)
-            {
-                AssertTagInnerTextValue(htmlDom, $"{viewModel.Distance} {viewModel.ActiveFiltersMilesText}", "p");
-            }
-        }
-
-        [Theory]
-        [MemberData(nameof(Dfc9208CourseFiltersViewModelViewTestsInput))]
         public void Dfc9208FiltersViewTests(CourseFiltersViewModel viewModel)
         {
+            viewModel = viewModel ?? new CourseFiltersViewModel();
+
             // Assign
             var searchResultsView = new _MVC_Views_CourseSearchResults_Filters_cshtml();
 

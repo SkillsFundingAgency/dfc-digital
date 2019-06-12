@@ -12,6 +12,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [MemberData(nameof(SetupPagingTestsInput))]
         public void SetupPagingTest(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage, CourseSearchResultsViewModel expectedViewModel)
         {
+            viewModel = viewModel ?? new CourseSearchResultsViewModel();
+            expectedViewModel = expectedViewModel ?? new CourseSearchResultsViewModel();
+
             //Assign
             var courseSearchConverter = new CourseSearchResultsViewModelBullder();
 

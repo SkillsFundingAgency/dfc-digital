@@ -17,6 +17,11 @@ namespace DFC.Digital.Web.Core
             Expression<Func<TModel, TProperty>> expression)
             where TModel : class
         {
+            if (htmlHelper is null)
+            {
+                return new MvcHtmlString(string.Empty);
+            }
+
             var enumType = typeof(TProperty);
             if (enumType.IsNullableEnum())
             {
@@ -63,6 +68,11 @@ namespace DFC.Digital.Web.Core
           string ariaConditionalName)
           where TModel : class
         {
+            if (htmlHelper is null)
+            {
+                return new MvcHtmlString(string.Empty);
+            }
+
             var enumType = typeof(TProperty);
             if (enumType.IsNullableEnum())
             {
@@ -114,6 +124,11 @@ namespace DFC.Digital.Web.Core
         /// <returns>MvcHtmlString</returns>
         public static MvcHtmlString LabelWithHintFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, object htmlAttributes = null)
         {
+            if (html is null)
+            {
+                return new MvcHtmlString(string.Empty);
+            }
+
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var fullBindingName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(fieldName);
             var fieldId = TagBuilder.CreateSanitizedId(fullBindingName);
@@ -191,6 +206,11 @@ namespace DFC.Digital.Web.Core
 
         public static string GetErrorClass(this HtmlHelper htmlHelper, string propertyName, ModelStateDictionary modelState)
         {
+            if (htmlHelper is null)
+            {
+                return string.Empty;
+            }
+
             if (modelState.IsValid == false)
             {
                 return modelState.ContainsKey(propertyName) && modelState[propertyName].Errors.Count > 0 ? "govuk-form-group--error" : string.Empty;
@@ -201,12 +221,17 @@ namespace DFC.Digital.Web.Core
 
         public static bool IsNullableEnum(this Type t)
         {
-            Type u = Nullable.GetUnderlyingType(t);
-            return (u != null) && u.IsEnum;
+            var u = Nullable.GetUnderlyingType(t);
+            return u != null && u.IsEnum;
         }
 
         public static MvcHtmlString CheckBoxForSimple<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
         {
+            if (htmlHelper is null)
+            {
+                return new MvcHtmlString(string.Empty);
+            }
+
             var checkBoxWithHidden = htmlHelper.CheckBoxFor(expression, htmlAttributes).ToHtmlString();
             var pureCheckBox = checkBoxWithHidden.Substring(0, checkBoxWithHidden.IndexOf("<input", 1, StringComparison.InvariantCultureIgnoreCase));
             return new MvcHtmlString(pureCheckBox);

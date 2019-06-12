@@ -10,18 +10,25 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
     {
         public static void AssertTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(h2 => h2.InnerText.Contains(innerText)).Should().BeTrue();
         }
 
         public static void AssertTagInnerTextValueDoesNotExist(HtmlDocument htmlDocument, string innerText, string tag)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(h2 => h2.InnerText.Contains(innerText)).Should().BeFalse();
         }
 
         public static void AssertOrderOfTextDisplayed(HtmlDocument htmlDocument, IEnumerable<string> textToCheck)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+            textToCheck = textToCheck ?? new List<string>();
+
             var orderIndex = 0;
             foreach (var text in textToCheck)
             {
@@ -33,6 +40,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertExistsElementIdWithInnerHtml(HtmlDocument htmlDocument, string id)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants()
                 .FirstOrDefault(element => element.Id.Equals(id))
                 ?.InnerHtml.Should().NotBeEmpty();
@@ -40,6 +49,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertExistsElementClassWithInnerHtml(HtmlDocument htmlDocument, string className)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants()
                 .FirstOrDefault(element => element.Attributes["class"].Value.Contains(className))
                 ?.InnerHtml.Should().NotBeEmpty();
@@ -47,6 +58,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertElementDoesNotExistsById(HtmlDocument htmlDocument, string id)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants()
                 .Any(element => element.Id.Equals(id))
                 .Should().BeFalse();
@@ -54,6 +67,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertElementExistsByTagAndClassName(HtmlDocument htmlDocument, string tag, string className)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(element => element.Attributes["class"].Value.Contains(className))
                 .Should().BeTrue();
@@ -61,6 +76,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertElementExistsByAttributeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(element => element.Attributes[attribute].Value.Contains(value))
                 .Should().BeTrue();
@@ -68,6 +85,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertElementExistsByAttributeAndTypeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value, string type)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(element => element.Attributes[attribute].Value.Contains(value) && element.Attributes[nameof(type)].Value.Contains(type))
                 .Should().BeTrue();
@@ -75,6 +94,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
         public static void AssertElementIsSelectedByAttributeAndValue(HtmlDocument htmlDocument, string tag, string attribute, string value)
         {
+            htmlDocument = htmlDocument ?? new HtmlDocument();
+
             htmlDocument.DocumentNode.Descendants(tag)
                 .Any(element => element.Attributes[attribute].Value.Contains(value) && element.Attributes["checked"].Value.Contains("checked"))
                 .Should().BeTrue();

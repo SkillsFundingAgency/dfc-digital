@@ -37,12 +37,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
 
-                var hasPageChanged = eventInfo.GetPropertyValue<bool>("HasPageDataChanged");
-                var workFlowStatus = eventInfo.GetPropertyValue<string>("ApprovalWorkflowState");
-                var status = eventInfo.GetPropertyValue<string>("Status");
-                var changedProperties = eventInfo.GetPropertyValue<IDictionary<string, PropertyChange>>("ChangedProperties");
+                var hasPageChanged = eventInfo.GetPropertyValue<bool>(Constants.HasPageDataChanged);
+                var workFlowStatus = eventInfo.GetPropertyValue<string>(Constants.ApprovalWorkflowState);
+                var status = eventInfo.GetPropertyValue<string>(Constants.ItemStatus);
+                var changedProperties = eventInfo.GetPropertyValue<IDictionary<string, PropertyChange>>(Constants.ChangedProperties);
 
-                if (action == "Updated" && workFlowStatus == "Published" && status == "Live")
+                if (action == Constants.ItemActionUpdated && workFlowStatus == Constants.WorkFlowStatusPublished && status == Constants.ItemStatusLive)
                 {
                     var manager = sitefinityManager.GetManager(providerName);
                     var item = manager.GetItemOrDefault(contentType, itemId);
@@ -50,14 +50,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     if (contentType == typeof(PageNode) && (hasPageChanged || changedProperties.Count > 0))
                     {
                         var pageNodeItem = (PageNode)item;
-                        var pageTitle = pageNodeItem.Title.Value;
                         var compositePageData = GetCompositePageForPageNode(pageNodeItem);
                         compositeUIService.PostPageDataAsync(compositePageData);
                     }
 
                     /*
                      //Checking by type did not work
-                     if (contentType.Name == "JobProfile")
+                     else if (contentType.Name == Constants.JobProfile)
                      {
                         var dynamicContent = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)item;
                      }
@@ -70,15 +69,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        public CompositePageData GetCompositePageForPageNode(PageNode node)
+        public CompositePageData GetCompositePageForPageNode(PageNode pageNode)
         {
-            var compositePageData = new CompositePageData() { Name = node.UrlName.Value };
+            var compositePageData = new CompositePageData() { Name = pageNode.UrlName.Value };
 
-            compositePageData.IncludeInSitemap = node.Crawlable;
-            var pageData = node.GetPageData();
+            compositePageData.IncludeInSitemap = pageNode.Crawlable;
+            var pageData = pageNode.GetPageData();
             compositePageData.Title = pageData.HtmlTitle.Value;
-            compositePageData.MetaDescription = pageData.Description.Value;
-            compositePageData.MetaKeyWords = pageData.Keywords.Value;
+            compositePageData.Description = pageData.Description.Value;
+            compositePageData.KeyWords = pageData.Keywords.Value;
             compositePageData.Content = GetPageControlsData(pageData);
             return compositePageData;
         }
@@ -89,13 +88,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pManager = sitefinityManager.GetManager();
 
             //This bit came from Sitefinity Support.
-            var pageDraftControls = pageData.Controls.Where(c => c.Caption == "Content block");
+            var pageDraftControls = pageData.Controls.Where(c => c.Caption == Constants.ContentBlock);
             foreach (var pageDraftControl in pageDraftControls)
             {
-                pageDraftControl.SetPersistanceStrategy();
                 Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy control =
                     pManager.LoadControl(pageDraftControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
-                contentData.Add(control.Settings.Values["Content"]);
+                contentData.Add(control.Settings.Values[Constants.Content]);
             }
 
             return contentData;

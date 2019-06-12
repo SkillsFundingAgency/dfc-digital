@@ -13,9 +13,9 @@ namespace DFC.Digital.Data.Model
 
         public string Title { get; set; }
 
-        public string MetaDescription { get; set; }
+        public string Description { get; set; }
 
-        public string MetaKeyWords { get; set; }
+        public string KeyWords { get; set; }
 
         public IEnumerable<string> Content { get; set; } = Enumerable.Empty<string>();
 

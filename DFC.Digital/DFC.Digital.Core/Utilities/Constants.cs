@@ -58,6 +58,19 @@ namespace DFC.Digital.Core
         public const string SendGridDefaultMinimumBackOff = "DFC.Digital.SendGridDefaultMinimumBackOff";
         public const string SendGridDeltaBackOff = "DFC.Digital.SendGridDeltaBackOff";
         public const string SendGridDefaultMaximumBackOff = "DFC.Digital.SendGridDefaultMaximumBackOff";
+
         public const string CompositeUIPublishEndPoint = "DFC.Digital.CompositeUIPublishEndPoint";
+
+        //Sitefinity event properties
+        public const string HasPageDataChanged = "HasPageDataChanged";
+        public const string ApprovalWorkflowState = "ApprovalWorkflowState";
+        public const string ItemStatus = "Status";
+        public const string ItemActionUpdated = "Updated";
+        public const string WorkFlowStatusPublished = "Published";
+        public const string ItemStatusLive = "Live";
+        public const string ChangedProperties = "ChangedProperties";
+        public const string ContentBlock = "Content block";
+        public const string Content = "Content";
+        public const string JobProfile = "JobProfile";
     }
 }

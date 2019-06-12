@@ -59,11 +59,16 @@ namespace DFC.Digital.Service.CompositeUI
 
         public async Task<bool> PostPageDataAsync(CompositePageData compositePageData)
         {
-            var response = await compositeClientProxy.PostDataAsync(JsonConvert.SerializeObject(compositePageData));
+            var pageDataJson = JsonConvert.SerializeObject(compositePageData);
+            applicationLogger.Trace($"Posting page data to api - [{pageDataJson}]");
+
+            var response = await compositeClientProxy.PostDataAsync(pageDataJson);
             if (response.IsSuccessStatusCode)
             {
+                applicationLogger.Info($"Posted page data for {compositePageData.Name}");
                 return true;
             }
+            applicationLogger.Info($"Failed to posted page data for {compositePageData.Name}");
             return false;
         }
         #endregion

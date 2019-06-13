@@ -73,7 +73,7 @@
         <fieldset class="govuk-fieldset">
             <div class="govuk-radios govuk-radios--conditional" data-module="radios">
                 <div class="govuk-form-group">
-                    @Html.GovUkEnumConditionalRadioButtonFor(model => model.StartDate, "conditional-start-date-conditional-1")
+                    @Html.GovUkEnumRadioButtonFor(model => model.StartDate, "conditional-start-date-conditional-1")
 
                     <div class="govuk-radios__conditional @(Model.StartDate == StartDate.SelectDateFrom ? string.Empty : "govuk-radios__conditional--hidden") conditional-date" id="conditional-start-date-conditional-1">
                         <div class="govuk-form-group">

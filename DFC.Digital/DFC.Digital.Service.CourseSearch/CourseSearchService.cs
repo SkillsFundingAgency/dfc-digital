@@ -94,15 +94,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
         }
 
-        public async Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties)
+        public async Task<CourseSearchResult> SearchCoursesAsync(CourseSearchProperties courseSearchProperties)
         {
-            if (string.IsNullOrWhiteSpace(courseName))
+            if (string.IsNullOrWhiteSpace(courseSearchProperties.Filters.SearchTerm))
             {
                 return null;
             }
 
             var response = new CourseSearchResult();
-            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties);
+            var request = buildTribalMessage.GetCourseSearchInput(courseSearchProperties);
             auditRepository.CreateAudit(request);
 
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);

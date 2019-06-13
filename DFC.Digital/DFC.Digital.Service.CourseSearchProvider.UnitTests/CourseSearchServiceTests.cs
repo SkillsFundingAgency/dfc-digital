@@ -76,15 +76,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 .Returns(coursesAvailable ? GetDummyCourseOutput() : new CourseListOutput());
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).DoesNothing();
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListOutput>._)).DoesNothing();
-            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<string>._, A<CourseSearchProperties>._))
+            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<CourseSearchProperties>._))
                 .Returns(new CourseListInput());
             var courseSearchService = new CourseSearchService(manageCoursesFake, serviceHelperFake, courseSearchAuditRepository, loggerFake, fakePolicy, fakeMessageBuilder);
 
             //Act
-            await courseSearchService.SearchCoursesAsync(keywords, new CourseSearchProperties());
+            await courseSearchService.SearchCoursesAsync(new CourseSearchProperties { Filters = new CourseSearchFilters { SearchTerm = keywords } });
 
             //Assert
-            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<string>._, A<CourseSearchProperties>._))
+            A.CallTo(() => fakeMessageBuilder.GetCourseSearchInput(A<CourseSearchProperties>._))
                 .MustHaveHappened(1, Times.Exactly);
             A.CallTo(() => serviceHelperFake.UseAsync(A<Func<ServiceInterface, Task<CourseListOutput>>>._, Constants.CourseSearchEndpointConfigName)).MustHaveHappened();
             A.CallTo(() => courseSearchAuditRepository.CreateAudit(A<CourseListInput>._)).MustHaveHappened();

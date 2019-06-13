@@ -54,7 +54,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 new Course
                 {
                     Title = c.Course.CourseTitle,
-                    Location = (c.Opportunity.Item as VenueInfo)?.VenueAddress.Town,
                     LocationDetails = GetVenue(c.Opportunity.Item as VenueInfo),
                     ProviderName = c.Provider.ProviderName,
                     StartDateLabel = c.Opportunity.StartDate.Item,

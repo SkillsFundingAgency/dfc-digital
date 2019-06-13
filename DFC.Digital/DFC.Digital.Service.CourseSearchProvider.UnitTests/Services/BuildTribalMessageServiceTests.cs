@@ -24,13 +24,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
         [Theory]
         [MemberData(nameof(GetCourseSearchInputTestsInput))]
-        public void GetCourseSearchInputTest(string courseName, CourseSearchProperties courseSearchProperties, CourseListInput expectedCourseListInput)
+        public void GetCourseSearchInputTest(CourseSearchProperties courseSearchProperties, CourseListInput expectedCourseListInput)
         {
             // Assign
             var buildTribalMessageService = new TribalMessageBuilder(fakeConvertTribalCodesService, fakeConfiguration, fakeCourseBusinessRules);
 
             //Act
-            var result = buildTribalMessageService.GetCourseSearchInput(courseName, courseSearchProperties);
+            var result = buildTribalMessageService.GetCourseSearchInput(courseSearchProperties);
 
             //Assert
             result.Should().BeEquivalentTo(expectedCourseListInput);

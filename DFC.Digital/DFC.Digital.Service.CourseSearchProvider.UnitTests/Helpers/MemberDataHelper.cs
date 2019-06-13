@@ -15,12 +15,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.Distance,
                     Count = 20,
-                    Page = 3
+                    Page = 3,
+                    Filters = new CourseSearchFilters
+                    {
+                        SearchTerm = SearchTerm
+                    }
                 },
                 new CourseListInput
                 {
@@ -41,12 +44,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.Relevance,
                     Count = 30,
-                    Page = 1
+                    Page = 1,
+                    Filters = new CourseSearchFilters
+                    {
+                    SearchTerm = SearchTerm
+                }
                 },
                 new CourseListInput
                 {
@@ -67,12 +73,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.StartDate,
                     Count = 40,
-                    Page = 2
+                    Page = 2,
+                    Filters = new CourseSearchFilters
+                    {
+                        SearchTerm = SearchTerm
+                    }
                 },
                 new CourseListInput
                 {

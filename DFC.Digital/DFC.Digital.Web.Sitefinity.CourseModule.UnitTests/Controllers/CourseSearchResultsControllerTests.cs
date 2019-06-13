@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             searchFilter = searchFilter ?? new CourseSearchFilters();
 
             // setupFakes
-            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).Returns(courseSearchResponse);
+            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).Returns(courseSearchResponse);
 
             var searchProperties = new CourseSearchProperties
             {
@@ -93,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             if (!string.IsNullOrWhiteSpace(searchFilter.SearchTerm))
             {
-                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).MustHaveHappened();
+                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).MustHaveHappened();
                 if (courseSearchResponse.Courses.Any())
                 {
                     A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustHaveHappened();
@@ -102,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                }
             else
             {
-                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<string>._, A<CourseSearchProperties>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeCourseSearchViewModelService.SetupViewModelPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._)).MustNotHaveHappened();
             }

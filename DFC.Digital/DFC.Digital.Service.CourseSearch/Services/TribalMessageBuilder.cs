@@ -18,7 +18,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             this.courseBusinessRules = courseBusinessRules;
         }
 
-        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
+        public CourseListInput GetCourseSearchInput(CourseSearchProperties courseSearchProperties)
         {
             if (courseSearchProperties == null)
             {
@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
-                        SubjectKeyword = courseName,
+                        SubjectKeyword = courseSearchProperties.Filters.SearchTerm,
                         EarliestStartDate = courseBusinessRules.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
                         AttendanceModes = convertTribalCodes.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
                         StudyModes = convertTribalCodes.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),

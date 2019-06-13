@@ -5,7 +5,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 {
     public interface ITribalMessageBuilder
     {
-        CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties);
+        CourseListInput GetCourseSearchInput(CourseSearchProperties courseSearchProperties);
 
         CourseDetailInput GetCourseDetailInput(string courseId);
     }

@@ -126,16 +126,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 CourseFiltersModel = mapper.Map<CourseFiltersViewModel>(courseSearchFilters)
             };
 
-            var cleanCourseName =
+            courseSearchFilters.SearchTerm =
                 StringManipulationExtension.ReplaceSpecialCharacters(
                     courseSearchFilters.SearchTerm,
                     Constants.CourseSearchInvalidCharactersRegexPattern);
 
-            if (!string.IsNullOrEmpty(cleanCourseName))
+            if (!string.IsNullOrEmpty(courseSearchFilters.SearchTerm))
             {
                 courseSearchProperties.Count = RecordsPerPage;
-
-                courseSearchFilters.SearchTerm = cleanCourseName;
 
                 ReplaceSpecialCharactersOnFreeTextFields(courseSearchFilters);
 
@@ -144,7 +142,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 courseSearchProperties.Filters = courseSearchFilters;
 
                 var response = asyncHelper.Synchronise(() =>
-                    courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
+                    courseSearchService.SearchCoursesAsync(courseSearchProperties));
 
                 if (response.Courses.Any())
                 {

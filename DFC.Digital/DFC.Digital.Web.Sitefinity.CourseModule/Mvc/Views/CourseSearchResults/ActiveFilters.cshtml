@@ -8,14 +8,14 @@
             @if (Model.CourseHours != CourseHours.All)
             {
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@Model.CourseHoursDisplayName</p>
+                    <p class="facet-tag__text govuk-body">@Model.CourseHoursDisplayName</p>
                 </div>
             }
 
             @if (Model.CourseType != CourseType.All)
             {
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@Model.CourseTypeDisplayName</p>
+                    <p class="facet-tag__text govuk-body">@Model.CourseTypeDisplayName</p>
                 </div>
             }
 
@@ -25,7 +25,7 @@
             {
                 <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersStartingFromText</span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat) ) </p>
+                    <p class="facet-tag__text govuk-body">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat) ) </p>
                 </div>
             }
 
@@ -33,7 +33,7 @@
             {
                 <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersSuitableForText</span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@Model.ActiveFiltersOnly1619CoursesText</p>
+                    <p class="facet-tag__text govuk-body">@Model.ActiveFiltersOnly1619CoursesText</p>
                 </div>
             }
         </div>
@@ -46,13 +46,13 @@
                @if (Model.IsDistanceLocation)
                {
                    <div class="facet-tag-inline">
-                       <p class="facet-tag__text">@Model.Distance @Model.ActiveFiltersMilesText</p>
+                       <p class="facet-tag__text govuk-body">@Model.Distance @Model.ActiveFiltersMilesText</p>
                    </div>
                    <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersOfText </span>
                }
 
                <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@Model.Location</p>
+                    <p class="facet-tag__text govuk-body">@Model.Location</p>
                 </div>
 
             </div>
@@ -65,7 +65,7 @@
             <div class="facet-tags__wrapper">
                 <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersProvidedByText </span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text">@Model.Provider</p>
+                    <p class="facet-tag__text govuk-body">@Model.Provider</p>
                 </div>
             </div>
         </div>

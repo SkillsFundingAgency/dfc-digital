@@ -8,13 +8,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
     {
         [Theory]
         [MemberData(nameof(BuildRedirectPathAndQueryStringTestsInput))]
-        public void BuildRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
+        public static void BuildRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseSearchResultsViewModel trainingCourseResultsViewModel, string expectedPathAndQuery)
         {
+            trainingCourseResultsViewModel = trainingCourseResultsViewModel ?? new CourseSearchResultsViewModel();
+
             //Assign
-            var buildQueryStringService = new BuildQueryStringService();
+            var buildQueryStringService = new QueryStringBuilder();
 
             //Act
-            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.SearchTerm, trainingCourseResultsViewModel.CourseFiltersModel);
+            var result = buildQueryStringService.BuildPathAndQueryString(courseSearchResultsPage, trainingCourseResultsViewModel.CourseFiltersModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);
@@ -22,13 +24,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Services.Tests
 
         [Theory]
         [MemberData(nameof(BuildSearchRedirectPathAndQueryStringTestsInput))]
-        public void BuildSearchRedirectPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
+        public static void BuildSearchRedirectBuildPathAndQueryStringTest(string courseSearchResultsPage, CourseLandingViewModel courseLandingViewModel, string expectedPathAndQuery)
         {
+            courseLandingViewModel = courseLandingViewModel ?? new CourseLandingViewModel();
+
             //Assign
-            var buildQueryStringService = new BuildQueryStringService();
+            var buildQueryStringService = new QueryStringBuilder();
 
             //Act
-            var result = buildQueryStringService.BuildRedirectPathAndQueryString(courseSearchResultsPage, courseLandingViewModel.SearchTerm, courseLandingViewModel);
+            var result = buildQueryStringService.BuildPathAndQueryString(courseSearchResultsPage, courseLandingViewModel);
 
             //Assert
             result.Should().BeEquivalentTo(expectedPathAndQuery);

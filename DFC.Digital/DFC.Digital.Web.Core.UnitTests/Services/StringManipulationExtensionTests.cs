@@ -31,7 +31,7 @@ namespace DFC.Digital.Web.Core.Tests
              
              
             //Act
-            var result = StringManipulationExtension.GetUrlEncodedString(input);
+            var result = StringManipulationExtension.GetLinkEncodedString(input);
 
             //Assert
             result.Should().BeEquivalentTo(expectedOutput);

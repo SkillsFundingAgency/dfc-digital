@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Core
             return input;
         }
 
-        public static string GetUrlEncodedString(string input)
+        public static string GetLinkEncodedString(string input)
         {
             return !string.IsNullOrWhiteSpace(input) ? HttpUtility.UrlEncode(input) : string.Empty;
         }

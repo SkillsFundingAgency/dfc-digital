@@ -4,7 +4,7 @@
 
 
 <div class="govuk-form-group">
-    @Html.LabelFor(x => x.Location, "Location", new { @class = "govuk-label" })
+    @Html.LabelFor(x => x.Location, Model.FilterLocationLabel, new { @class = "govuk-label" })
     @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield" })
     @Html.HiddenFor(x => x.LocationRegex, new { @class = "locationRegex" })
 </div>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="govuk-form-group">
-    @Html.LabelFor(x => x.Provider, "Provider", new { @class = "govuk-label" })
+    @Html.LabelFor(x => x.Provider, Model.FilterProviderLabel, new { @class = "govuk-label" })
     @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input govuk-!-width-full" })
 
 </div>

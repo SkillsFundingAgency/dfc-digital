@@ -107,6 +107,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string ActiveFiltersMilesText { get; set; } = "miles";
 
+        public string FilterProviderLabel { get; set; } = "Provider";
+
+        public string FilterLocationLabel { get; set; } = "Location";
+
         #endregion
 
         #region Actions
@@ -278,6 +282,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ActiveFiltersProvidedByText = ActiveFiltersProvidedByText;
             viewModel.CourseFiltersModel.ActiveFiltersStartingFromText = ActiveFiltersStartingFromText;
             viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
+            viewModel.CourseFiltersModel.FilterLocationLabel = FilterLocationLabel;
+            viewModel.CourseFiltersModel.FilterProviderLabel = FilterProviderLabel;
         }
 
         #endregion

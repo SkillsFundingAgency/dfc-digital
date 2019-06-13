@@ -99,10 +99,9 @@
     <script type="text/javascript">
         window.GOVUKFrontend.initAll();
     </script>
-}
+    @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
 
- 
-@Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
+}
 
 </body>
 </html>

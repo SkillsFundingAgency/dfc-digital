@@ -147,7 +147,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    ActiveFiltersSuitableForText = nameof(CourseFiltersViewModel.ActiveFiltersSuitableForText),
                    ActiveFiltersShowingText = nameof(CourseFiltersViewModel.ActiveFiltersShowingText),
                    ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
-                   ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText)
+                   ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText),
+                   FilterProviderLabel = nameof(CourseFiltersViewModel.FilterProviderLabel),
+                   FilterLocationLabel = nameof(CourseFiltersViewModel.FilterLocationLabel)
                }
             };
 

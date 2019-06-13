@@ -53,5 +53,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string ActiveFiltersShowingText { get; set; }
 
         public string ActiveFiltersMilesText { get; set; }
+
+        public string FilterProviderLabel { get; set; }
+
+        public string FilterLocationLabel { get; set; }
     }
 }

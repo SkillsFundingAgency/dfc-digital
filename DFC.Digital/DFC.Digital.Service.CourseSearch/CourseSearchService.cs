@@ -71,7 +71,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (jobProfileKeywords == null)
             {
-                return null;
+                return await Task.FromResult<IEnumerable<Course>>(null);
             }
 
             var request = MessageConverter.GetCourseListInput(jobProfileKeywords);
@@ -98,7 +98,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (string.IsNullOrWhiteSpace(courseSearchProperties.Filters.SearchTerm))
             {
-                return null;
+                return await Task.FromResult<CourseSearchResult>(null);
             }
 
             var response = new CourseSearchResult();
@@ -123,7 +123,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (string.IsNullOrWhiteSpace(courseId))
             {
-                return null;
+                return await Task.FromResult<CourseDetails>(null);
             }
 
             var request = buildTribalMessage.GetCourseDetailInput(courseId);

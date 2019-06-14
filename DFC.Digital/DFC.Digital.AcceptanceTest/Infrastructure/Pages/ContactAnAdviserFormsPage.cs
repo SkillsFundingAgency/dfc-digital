@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -22,16 +23,20 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public string DateOfBirthErrorMessage => Find.Element(By.Id("DateOfBirth-error")).Text;
 
+        public string Environment => ConfigurationManager.AppSettings["environment"];
+
+        public string BuildNumber => ConfigurationManager.AppSettings["buildNumber"];
+
         public void CompleteContactAdviserInitialForm(string option, string query)
         {
             SelectContactOption(option);
             EnterText("Message", query); //Enters text into field ID 'message' which is the adviser field on the First contact adviser form
         }
 
-        public void CompleteSecondForm(string firstName, string lastName, string email, string confEmail, string dob, string postcode)
+        public void CompleteSecondForm(string firstName, string email, string confEmail, string dob, string postcode)
         {
             EnterText("Firstname", firstName);
-            EnterText("Lastname", lastName);
+            EnterText("Lastname", Environment + " " + BuildNumber);
             EnterText("EmailAddress", email);
             EnterText("ConfirmEmailAddress", confEmail);
             EnterDob(dob);

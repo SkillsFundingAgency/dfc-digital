@@ -83,10 +83,10 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Contact An Adviser\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Contact An Adviser\' form")]
-        [Xunit.InlineDataAttribute("Funding", "contact an Adviser Form", "Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2000", "CV3 5FE", "chrome", new string[] {
-                "args:Funding,contact an Adviser Form,Automated Test,Automated Test,automatedteste" +
-                    "sfa@mailinator.com,automatedtestesfa@mailinator.com,20/11/2000,CV3 5FE"})]
-        public virtual void SubmitAContactAnAdviserForm(string contactReason, string adviserQuery, string firstname, string lastname, string emailAddress, string confirmationEmail, string dOB, string postCode, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Funding", "contact an Adviser Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2000", "CV3 5FE", "chrome", new string[] {
+                "args:Funding,contact an Adviser Form,Automated Test,automatedtestesfa@mailinator." +
+                    "com,automatedtestesfa@mailinator.com,20/11/2000,CV3 5FE"})]
+        public virtual void SubmitAContactAnAdviserForm(string contactReason, string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string dOB, string postCode, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit a \'Contact An Adviser\' form", null, exampleTags);
@@ -108,7 +108,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 11
  testRunner.Then("I am redirected to the second \'adviser\' contact form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 12
- testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}, {5}", firstname, lastname, emailAddress, confirmationEmail, dOB, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}", firstname, emailAddress, confirmationEmail, dOB, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
   testRunner.And("I press send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
@@ -120,13 +120,13 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Give Feedback\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Give Feedback\' form")]
-        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
-                "args:Funding,Give Feedback Forn,Automated Test,Automated Test,automatedtestesfa@m" +
-                    "ailinator.com,automatedtestesfa@mailinator.com,yes"})]
-        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
-                "args:Funding,Give Feedback Forn,Automated Test,Automated Test,automatedtestesfa@m" +
-                    "ailinator.com,automatedtestesfa@mailinator.com,no"})]
-        public virtual void SubmitAGiveFeedbackForm(string contactReason, string adviserQuery, string firstname, string lastname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
+                "args:Funding,Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,a" +
+                    "utomatedtestesfa@mailinator.com,yes"})]
+        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
+                "args:Funding,Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,a" +
+                    "utomatedtestesfa@mailinator.com,no"})]
+        public virtual void SubmitAGiveFeedbackForm(string contactReason, string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit a \'Give Feedback\' form", null, exampleTags);
@@ -148,8 +148,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 27
  testRunner.Then("I am redirected to the second \'feedback\' contact form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 28
- testRunner.When(string.Format("I complete the give feedback details form with the details {0}, {1}, {2}, {3}, {4" +
-                        "}", firstname, lastname, emailAddress, confirmationEmail, contact), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I complete the give feedback details form with the details {0}, {1}, {2}, {3}", firstname, emailAddress, confirmationEmail, contact), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
   testRunner.And("I press send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
@@ -161,13 +160,13 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Technical Feedback\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Technical Feedback\' form")]
-        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
-                "args:Give Feedback Forn,Automated Test,Automated Test,automatedtestesfa@mailinato" +
-                    "r.com,automatedtestesfa@mailinator.com,yes"})]
-        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
-                "args:Give Feedback Forn,Automated Test,Automated Test,automatedtestesfa@mailinato" +
-                    "r.com,automatedtestesfa@mailinator.com,no"})]
-        public virtual void SubmitATechnicalFeedbackForm(string adviserQuery, string firstname, string lastname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
+                "args:Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,automated" +
+                    "testesfa@mailinator.com,yes"})]
+        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
+                "args:Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,automated" +
+                    "testesfa@mailinator.com,no"})]
+        public virtual void SubmitATechnicalFeedbackForm(string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit a \'Technical Feedback\' form", null, exampleTags);
@@ -189,8 +188,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 44
  testRunner.Then("I am redirected to the second \'technical\' contact form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 45
- testRunner.When(string.Format("I complete the give technical details form with the details {0}, {1}, {2}, {3}, {" +
-                        "4}", firstname, lastname, emailAddress, confirmationEmail, contact), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I complete the give technical details form with the details {0}, {1}, {2}, {3}", firstname, emailAddress, confirmationEmail, contact), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 46
   testRunner.And("I press send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 47
@@ -202,10 +200,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TheoryAttribute(DisplayName="Error message checks on Contact forms")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Error message checks on Contact forms")]
-        [Xunit.InlineDataAttribute("Automated Test", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2010", "CV3 5FE", "01/01/2000", "chrome", new string[] {
-                "args:Automated Test,Automated Test,automatedtestesfa@mailinator.com,automatedtest" +
-                    "esfa@mailinator.com,20/11/2010,CV3 5FE,01/01/2000"})]
-        public virtual void ErrorMessageChecksOnContactForms(string firstname, string lastname, string emailAddress, string confirmationEmail, string dOB, string postCode, string dOB2, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2010", "CV3 5FE", "01/01/2000", "chrome", new string[] {
+                "args:Automated Test,automatedtestesfa@mailinator.com,automatedtestesfa@mailinator" +
+                    ".com,20/11/2010,CV3 5FE,01/01/2000"})]
+        public virtual void ErrorMessageChecksOnContactForms(string firstname, string emailAddress, string confirmationEmail, string dOB, string postCode, string dOB2, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Error message checks on Contact forms", null, exampleTags);
@@ -235,13 +233,13 @@ this.ScenarioInitialize(scenarioInfo);
 #line 65
  testRunner.Then("an error message is displayed on the second form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 66
- testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}, {5}", firstname, lastname, emailAddress, confirmationEmail, dOB, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}", firstname, emailAddress, confirmationEmail, dOB, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 67
   testRunner.And("I press send to generate an error", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 68
  testRunner.Then("a date of birth error is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 69
- testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}, {5}", firstname, lastname, emailAddress, confirmationEmail, dOB2, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I complete the details form with the details {0}, {1}, {2}, {3}, {4}", firstname, emailAddress, confirmationEmail, dOB2, postCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 70
   testRunner.And("I press send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 71

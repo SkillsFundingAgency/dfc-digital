@@ -398,10 +398,14 @@
     <Compile Include="Config\AutofacModule.cs" />
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
+    <Compile Include="DataEventHandling\CompositePageBuilder.cs" />
+    <Compile Include="DataEventHandling\SitefinityDataEventProxy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\ICompositePageBuilder.cs" />
     <Compile Include="Interfaces\IDataEventHandler.cs" />
-    <Compile Include="Interfaces\ISitefinityManager.cs" />
-    <Compile Include="DataEventHandling\SitefinityManager.cs" />
+    <Compile Include="Interfaces\ISitefinityDataEventProxy.cs" />
+    <Compile Include="Interfaces\ISitefinityManagerProxy.cs" />
+    <Compile Include="DataEventHandling\SitefinityManagerProxy.cs" />
     <Compile Include="SitefinityExtensions\AssetLocationAndVersion.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />

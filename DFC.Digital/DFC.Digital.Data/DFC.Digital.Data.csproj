@@ -171,6 +171,7 @@
     <Compile Include="Model\JobProfileOverloadForSearch.cs" />
     <Compile Include="Model\JobProfileOverloadForWhatItTakes.cs" />
     <Compile Include="CMSExtension\Model\JobProfileReport.cs" />
+    <Compile Include="Model\MetaTags.cs" />
     <Compile Include="Model\OnetSkill.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />

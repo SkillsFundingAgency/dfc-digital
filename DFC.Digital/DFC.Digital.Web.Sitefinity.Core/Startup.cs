@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 FeatherActionInvokerCustom.Register();
 
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
-                EventHub.Subscribe<IDataEvent>(Content_Action);
+                EventHub.Subscribe<Telerik.Sitefinity.Data.Events.IDataEvent>(Content_Action);
 
                 GlobalConfiguration.Configure(WebApiConfig.Register);
             }

@@ -32,17 +32,17 @@
 
 @if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified || Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
 {
-<h2 class="govuk-heading-s">@Model.ProviderPerformanceLabel</h2>
+<h2 class="govuk-heading-m">@Model.ProviderPerformanceLabel</h2>
     if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified)
     {
         <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.LearnerSatisfaction</p>
-        <p class="govuk-body-s">@Model.LearnerSatisfactionLabel</p>
+        <p class="govuk-body-s govuk-!-font-weight-bold">@Model.LearnerSatisfactionLabel</p>
     }
 
     if (Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
     {
         <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.EmployerSatisfaction</p>
-        <p class="govuk-body-s">@Model.EmployerSatisfactionLabel</p>
+        <p class="govuk-body-s govuk-!-font-weight-bold">@Model.EmployerSatisfactionLabel</p>
     }
 }
 <hr class="govuk-section-break govuk-section-break--visible" />

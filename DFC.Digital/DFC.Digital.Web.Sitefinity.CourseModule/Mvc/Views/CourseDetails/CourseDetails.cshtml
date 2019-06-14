@@ -85,12 +85,6 @@
         </tbody>
     </table>
 
-    <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start govuk-!-margin-bottom-2">
-        Enrol now
-    </a>
-
-    <p class="govuk-body govuk-!-font-size-14 govuk-!-margin-0">on the provider's website</p>
-
     <h2 class="govuk-heading-m" id="@nameof(Model.CourseDescriptionLabel)">2. @Model.CourseDescriptionLabel</h2>
     <p class="govuk-body">
         @(!string.IsNullOrWhiteSpace(@Model.CourseDetails.Description) ? @Model.CourseDetails.Description : @Model.NoCourseDescriptionMessage)

@@ -91,6 +91,24 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                  vm =>
                  {
                      vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
+                     vm.NoCourseDescriptionMessage.Should().BeEquivalentTo(controller.NoCourseDescriptionMessage);
+                     vm.NoEntryRequirementsAvailableMessage.Should().BeEquivalentTo(controller.NoEntryRequirementsAvailableMessage);
+                     vm.NoEquipmentRequiredMessage.Should().BeEquivalentTo(controller.NoEquipmentRequiredMessage);
+                     vm.NoAssessmentMethodAvailableMessage.Should().BeEquivalentTo(controller.NoAssessmentMethodAvailableMessage);
+                     vm.NoVenueAvailableMessage.Should().BeEquivalentTo(controller.NoVenueAvailableMessage);
+                     vm.NoOtherDateOrVenueAvailableMessage.Should().BeEquivalentTo(controller.NoOtherDateOrVenueAvailableMessage);
+                     vm.CourseDetailsPage.Should().BeEquivalentTo(controller.CourseDetailsPage);
+                     vm.QualificationDetailsLabel.Should().BeEquivalentTo(controller.QualificationDetailsLabel);
+                     vm.CourseDescriptionLabel.Should().BeEquivalentTo(controller.CourseDescriptionLabel);
+                     vm.EntryRequirementsLabel.Should().BeEquivalentTo(controller.EntryRequirementsLabel);
+                     vm.EquipmentRequiredLabel.Should().BeEquivalentTo(controller.EquipmentRequiredLabel);
+                     vm.AssessmentMethodLabel.Should().BeEquivalentTo(controller.AssessmentMethodLabel);
+                     vm.VenueLabel.Should().BeEquivalentTo(controller.VenueLabel);
+                     vm.OtherDatesAndVenuesLabel.Should().BeEquivalentTo(controller.OtherDatesAndVenuesLabel);
+                     vm.ProviderLabel.Should().BeEquivalentTo(controller.ProviderLabel);
+                     vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
+                     vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
+                     vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
                  });
             if (string.IsNullOrWhiteSpace(courseId))
             {

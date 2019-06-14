@@ -15,7 +15,8 @@ namespace DFC.Digital.Web.Core
         public static MvcHtmlString GovUkEnumRadioButtonFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
-            string ariaConditionalName = null)
+            string ariaConditionalName = null,
+            string extraLabelClasses = null)
             where TModel : class
         {
             if (htmlHelper is null)
@@ -64,7 +65,7 @@ namespace DFC.Digital.Web.Core
                     stringBuilder.AppendLine(htmlHelper.RadioButtonFor(expression, item.Value, new { @class = "govuk-radios__input", id = elementId }).ToHtmlString());
                 }
 
-                stringBuilder.AppendLine(htmlHelper.LabelFor(expression, item.DisplayName, new { @class = "govuk-label govuk-radios__label", @for = elementId }).ToHtmlString());
+                stringBuilder.AppendLine(htmlHelper.LabelFor(expression, item.DisplayName, new { @class = $"govuk-label govuk-radios__label {extraLabelClasses}", @for = elementId }).ToHtmlString());
                 stringBuilder.AppendLine("</div>");
             }
 
@@ -74,7 +75,7 @@ namespace DFC.Digital.Web.Core
         /// <summary>
         /// Labels the with hint for.
         /// </summary>
-        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TModel">The type of the model.</typeparam>s
         /// <typeparam name="TValue">The type of the value.</typeparam>
         /// <param name="html">The HTML.</param>
         /// <param name="expression">The expression.</param>

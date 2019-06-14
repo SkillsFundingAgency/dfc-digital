@@ -17,6 +17,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseSearchResultsController : BaseDfcController
     {
         #region private fields
+
+        private const string SearchTermTokenToReplace = "{searchTerm}";
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
@@ -58,7 +60,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
-        public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
+        public string NoTrainingCoursesFoundText { get; set; } = "No training courses found for {searchTerm}";
 
         public string SearchForCourseNameText { get; set; } = "Course name";
 
@@ -186,7 +188,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.NoTrainingCoursesFoundText =
                 string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
                     ? string.Empty
-                    : NoTrainingCoursesFoundText;
+                    : NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
 
             SetupWidgetLabelsAndTextDefaults(viewModel);
             return View("SearchResults", viewModel);

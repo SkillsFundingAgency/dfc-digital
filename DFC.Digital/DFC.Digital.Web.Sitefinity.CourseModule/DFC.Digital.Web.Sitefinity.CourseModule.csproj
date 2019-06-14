@@ -246,6 +246,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CourseAutofacModule.cs" />
+    <Compile Include="Config\CourseAutomapperProfile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\CourseDetailsController.cs" />
     <Compile Include="Mvc\Controllers\CourseLandingController.cs" />
@@ -259,10 +260,10 @@
     <Compile Include="Mvc\Models\SelectItem.cs" />
     <Compile Include="Mvc\Models\CourseSearchResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BuildQueryStringService.cs" />
-    <Compile Include="Services\Contracts\IBuildQueryStringService.cs" />
-    <Compile Include="Services\Contracts\ICourseSearchViewModelService.cs" />
-    <Compile Include="Services\CourseSearchViewModelService.cs" />
+    <Compile Include="Services\QueryStringBuilder.cs" />
+    <Compile Include="Services\Contracts\IQueryStringBuilder.cs" />
+    <Compile Include="Services\Contracts\ICourseSearchResultsViewModelBullder.cs" />
+    <Compile Include="Services\CourseSearchResultsViewModelBullder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mvc\Views\CourseSearchResults\SearchResults.cshtml" />
@@ -281,6 +282,9 @@
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\OtherDatesAndVenues.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\ActiveFilters.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.cshtml" />
+    <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

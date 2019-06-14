@@ -179,6 +179,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\ContactUs.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Features\HomePage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,6 +210,7 @@
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
+    <Compile Include="AcceptanceCriteria\Steps\ContactUsSteps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
@@ -220,10 +226,14 @@
     <Compile Include="Infrastructure\Config\ZapHook.cs" />
     <Compile Include="Infrastructure\Pages\BauProfilePage.cs" />
     <Compile Include="Infrastructure\Pages\BauSearchPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactAnAdviserFormsPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUsConfirmationPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUsPage.cs" />
     <Compile Include="Infrastructure\Pages\CourseDirectoryPage.cs" />
     <Compile Include="Infrastructure\Config\DFCElementFinder.cs" />
     <Compile Include="Infrastructure\Config\DFCPage.cs" />
     <Compile Include="Infrastructure\Config\DFCPageWithViewModel.cs" />
+    <Compile Include="Infrastructure\Pages\GiveFeedbackFormPage.cs" />
     <Compile Include="Infrastructure\Pages\HealthStatusPage.cs" />
     <Compile Include="Infrastructure\Pages\HelpPage.cs" />
     <Compile Include="Infrastructure\Pages\InformationSourcesPage.cs" />
@@ -232,6 +242,7 @@
     <Compile Include="Infrastructure\Pages\PrivacyPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
+    <Compile Include="Infrastructure\Pages\TechnicalIssueFormPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
@@ -239,6 +250,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AcceptanceCriteria\Features\ContactUs.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </None>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">
       <LastGenOutput>HomePage.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>

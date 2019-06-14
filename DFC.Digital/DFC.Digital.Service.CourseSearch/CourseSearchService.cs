@@ -16,7 +16,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         private readonly IServiceHelper serviceHelper;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
-        private readonly IBuildTribalMessage buildTribalMessage;
+        private readonly ITribalMessageBuilder buildTribalMessage;
 
         public CourseSearchService(
             ICourseOpportunityBuilder courseOpportunityBuilder,
@@ -24,7 +24,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             IAuditRepository auditRepository,
             IApplicationLogger applicationLogger,
             ITolerancePolicy tolerancePolicy,
-            IBuildTribalMessage buildTribalMessage)
+            ITribalMessageBuilder buildTribalMessage)
         {
             this.courseOpportunityBuilder = courseOpportunityBuilder;
             this.auditRepository = auditRepository;
@@ -71,7 +71,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (jobProfileKeywords == null)
             {
-                return null;
+                return await Task.FromResult<IEnumerable<Course>>(null);
             }
 
             var request = MessageConverter.GetCourseListInput(jobProfileKeywords);
@@ -94,15 +94,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
             }
         }
 
-        public async Task<CourseSearchResult> SearchCoursesAsync(string courseName, CourseSearchProperties courseSearchProperties)
+        public async Task<CourseSearchResult> SearchCoursesAsync(CourseSearchProperties courseSearchProperties)
         {
-            if (string.IsNullOrWhiteSpace(courseName))
+            if (string.IsNullOrWhiteSpace(courseSearchProperties.Filters.SearchTerm))
             {
-                return null;
+                return await Task.FromResult<CourseSearchResult>(null);
             }
 
             var response = new CourseSearchResult();
-            var request = buildTribalMessage.GetCourseSearchInput(courseName, courseSearchProperties);
+            var request = buildTribalMessage.GetCourseSearchInput(courseSearchProperties);
             auditRepository.CreateAudit(request);
 
             var apiResult = await serviceHelper.UseAsync<ServiceInterface, CourseListOutput>(async x => await tolerancePolicy.ExecuteAsync(() => x.CourseListAsync(request), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker), Constants.CourseSearchEndpointConfigName);
@@ -123,7 +123,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             if (string.IsNullOrWhiteSpace(courseId))
             {
-                return null;
+                return await Task.FromResult<CourseDetails>(null);
             }
 
             var request = buildTribalMessage.GetCourseDetailInput(courseId);

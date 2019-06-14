@@ -56,7 +56,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         public const string Level9Qualification = "LV9";
         public const string LevelUnknown = "LVNA";
 
-        public static string[] AllQualificationLevels =>
+        public static string[] AllQualificationLevels() =>
             new[]
             {
                 "LV0", //Entry Level
@@ -83,7 +83,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         //AM7 Online without attendance
         //AM8 Online with attendance
         //AM9 Not known
-        public static string[] AllAttendanceModes =>
+        public static string[] AllAttendanceModes() =>
             new[]
             {
                 "AM1", //Location / campus
@@ -97,7 +97,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 "AM9" //Not known
             };
 
-        public static string[] ClassAttendanceModes =>
+        public static string[] ClassAttendanceModes() =>
             new[]
             {
                 "AM1", //Location / campus
@@ -106,7 +106,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 "AM9" //Not known
             };
 
-        public static string[] OnlineAttendanceModes =>
+        public static string[] OnlineAttendanceModes() =>
             new[]
             {
                 "AM4", //Mixed Mode
@@ -115,7 +115,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 "AM9" //Not known
             };
 
-        public static string[] DistantAttendanceModes =>
+        public static string[] DistantAttendanceModes() =>
             new[]
             {
                 "AM4", //Mixed Mode
@@ -125,7 +125,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
 
         //AM3,AM4,AM6,AM7,AM9
-        public static string[] WorkAttendanceModes =>
+        public static string[] WorkAttendanceModes() =>
             new[]
             {
                 "AM3", //Work-based

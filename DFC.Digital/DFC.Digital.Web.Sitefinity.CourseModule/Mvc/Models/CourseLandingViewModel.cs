@@ -1,11 +1,10 @@
 ﻿using DFC.Digital.Data.Model;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseLandingViewModel : CourseSearchFilters
     {
-        public string SearchTerm { get; set; }
-
         public string CourseNameHintText { get; set; }
 
         public string CourseNameLabel { get; set; }

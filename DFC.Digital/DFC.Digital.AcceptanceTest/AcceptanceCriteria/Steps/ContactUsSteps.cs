@@ -93,10 +93,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<ContactAnAdviserFormsPage>()?.CompleteContactAdviserInitialForm(option, query);
         }
 
-        [When(@"I complete the details form with the details (.*), (.*), (.*), (.*), (.*), (.*)")]
-        public void WhenICompleteTheDetailsFormWithTheDetails(string firstName, string lastName, string email, string confEmail, string dob, string postcode)
+        [When(@"I complete the details form with the details (.*), (.*), (.*), (.*), (.*)")]
+        public void WhenICompleteTheDetailsFormWithTheDetails(string firstName, string email, string confEmail, string dob, string postcode)
         {
-            GetNavigatedPage<ContactAnAdviserFormsPage>()?.CompleteSecondForm(firstName, lastName, email, confEmail, dob, postcode);
+            GetNavigatedPage<ContactAnAdviserFormsPage>()?.CompleteSecondForm(firstName, email, confEmail, dob, postcode);
         }
 
         [When(@"I complete the first feedback form with (.*) option and (.*) query")]
@@ -111,16 +111,16 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<TechnicalIssueFormPage>()?.CompleteTechnicalInitialForm(query);
         }
 
-        [When(@"I complete the give feedback details form with the details (.*), (.*), (.*), (.*), (.*)")]
-        public void WhenICompleteTheGiveFeedbackDetailsFormWithTheDetails(string firstName, string lastName, string email, string confEmail, string contact)
+        [When(@"I complete the give feedback details form with the details (.*), (.*), (.*), (.*)")]
+        public void WhenICompleteTheGiveFeedbackDetailsFormWithTheDetails(string firstName, string email, string confEmail, string contact)
         {
-            GetNavigatedPage<GiveFeedbackFormPage>()?.CompleteFeedbackSecondForm(firstName, lastName, email, confEmail, contact);
+            GetNavigatedPage<GiveFeedbackFormPage>()?.CompleteFeedbackSecondForm(firstName, email, confEmail, contact);
         }
 
-        [When(@"I complete the give technical details form with the details (.*), (.*), (.*), (.*), (.*)")]
-        public void WhenICompleteTheGiveTechnicalDetailsFormWithTheDetails(string firstName, string lastName, string email, string confEmail, string contact)
+        [When(@"I complete the give technical details form with the details (.*), (.*), (.*), (.*)")]
+        public void WhenICompleteTheGiveTechnicalDetailsFormWithTheDetails(string firstName, string email, string confEmail, string contact)
         {
-            GetNavigatedPage<TechnicalIssueFormPage>()?.CompleteTechnicalSecondForm(firstName, lastName, email, confEmail, contact);
+            GetNavigatedPage<TechnicalIssueFormPage>()?.CompleteTechnicalSecondForm(firstName, email, confEmail, contact);
         }
 
         #endregion

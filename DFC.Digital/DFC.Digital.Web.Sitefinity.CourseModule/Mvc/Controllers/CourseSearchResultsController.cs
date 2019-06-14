@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Core;
+﻿using AutoMapper;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
@@ -17,8 +18,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly ICourseSearchViewModelService courseSearchViewModelService;
-        private readonly IBuildQueryStringService buildQueryStringService;
+        private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
+        private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
+        private readonly IMapper mapper;
 
         #endregion
 
@@ -28,126 +30,125 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             IApplicationLogger applicationLogger,
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
-            ICourseSearchViewModelService courseSearchViewModelService,
-            IBuildQueryStringService buildQueryStringService)
+            ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder,
+            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder,
+            IMapper mapper)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
-            this.courseSearchViewModelService = courseSearchViewModelService;
-            this.buildQueryStringService = buildQueryStringService;
+            this.courseSearchResultsViewModelBuilder = courseSearchResultsViewModelBuilder;
+            this.queryStringBuilder = queryStringBuilder;
+            this.mapper = mapper;
         }
 
         #endregion Constructors
 
         #region Public Properties
-
-        [DisplayName("* Page Title")]
         public string PageTitle { get; set; } = "Find a course";
 
-        [DisplayName("Filter Course By Text")]
-        public string FilterCourseByText { get; set; } = "Filtering courses by:";
-
-        [DisplayName("* Records Per Page")]
         public int RecordsPerPage { get; set; } = 20;
 
-        [DisplayName("Redirect - Course Search Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
-        [DisplayName("Redirect - Course Details Page")]
-        public string CourseDetailsPage { get; set; } = "/course-details";
+        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
-        [DisplayName("* No Training Courses Text")]
         public string NoTrainingCoursesFoundText { get; set; } = "No training courses found";
 
-        [DisplayName("Order by Text")]
+        public string SearchForCourseNameText { get; set; } = "Course name";
+
         public string OrderByText { get; set; } = "Ordered by";
 
-        [DisplayName("Order By - Relevance Text")]
         public string RelevanceOrderByText { get; set; } = "Relevance";
 
-        [DisplayName("Order By - StartDate Text")]
         public string DistanceOrderByText { get; set; } = "Distance";
 
-        [DisplayName("Order By - StartDate Text")]
         public string StartDateOrderByText { get; set; } = "Start date";
 
-        [DisplayName("Course Listing Location Label")]
         public string LocationLabel { get; set; } = "Location:";
 
-        [DisplayName("Course Listing Provider Label")]
         public string ProviderLabel { get; set; } = "Provider:";
 
-        [DisplayName("Course Listing Advanced Learner Provider Label")]
         public string AdvancedLoanProviderLabel { get; set; } = "Advanced Learner Loans offered by this Provider:";
 
-        [DisplayName("Course Listing Start Date Label")]
         public string StartDateLabel { get; set; } = "Start date:";
 
-        [DisplayName("Regex - Location Post Code")]
-        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
+        public string Only1619CoursesText { get; set; } = "Suitable for 16-19 year olds";
 
-        [DisplayName("Regex - Allowed Characters")]
-        public string InvalidCharactersRegexPattern { get; set; } = "(?:[^a-z0-9 ]|(?<=['\"])s)";
+        public string StartDateExampleText { get; set; } = "For example, 01 01 2020";
 
-        //[DisplayName("Attendance Modes Source")]
-        //public string AttendanceModesSource { get; set; } = "Show All: 0, Classroom: 1, Work-based: 2, Online/Distance learning : 3";
+        public string CourseHoursSectionText { get; set; } = "Course Hours";
 
-        //[DisplayName("Study Modes Source")]
-        //public string StudyModesSource { get; set; } = "Show All: 0, Full Time: 1, Part Time: 2, Flexible : 3";
+        public string StartDateSectionText { get; set; } = "Start date";
 
-        //[DisplayName("Attendance Pattern Modes Source")]
-        //public string AttendancePatternModesSource { get; set; } = "Show All: 0,  Normal working hours: 1, Day release/Block release: 2, Evening/Weekend : 3";
+        public string CourseTypeSectionText { get; set; } = "Course Type";
 
-        //[DisplayName("Qualification Levels Source")]
-        //public string QualificationLevelSource { get; set; } = "All: 0, Entry Level: 1, Level 1: 2, Level 2 : 3, Level 3 : 4, Level 4 : 5, Level 5 : 6, Level 6 : 7, Level 7 : 8, Level 8 : 9";
+        public string ApplyFiltersText { get; set; } = "Apply Filters";
 
-        //[DisplayName("Age Suitability Source")]
-        //public string AgeSuitabilitySource { get; set; } = "All Ages: 0,  16 to 19 year-olds: 1619, 19+ year-olds: 19plus";
+        public string WithinText { get; set; } = "Within";
 
-        //[DisplayName("Distance Source")]
-        //public string DistanceSource { get; set; } = "1 mile: 1,3 miles: 3, 5 miles: 5, 10 miles : 10, 15 miles : 15, 20 miles: 20, National : national";
+        public string ResetFilterText { get; set; } = "Clear filters";
 
-        //[DisplayName("Start Date Source")]
-        //public string StartDateSource { get; set; } = "Anytime: 1,  From today: 2, Select date from: 3";
+        public string ActiveFiltersProvidedByText { get; set; } = "Provided by";
+
+        public string ActiveFiltersOfText { get; set; } = "of";
+
+        public string ActiveFiltersWithinText { get; set; } = "Within";
+
+        public string ActiveFiltersOnly1619CoursesText { get; set; } = "16-19 year olds";
+
+        public string ActiveFiltersSuitableForText { get; set; } = "suitable for";
+
+        public string ActiveFiltersStartingFromText { get; set; } = "starting from";
+
+        public string ActiveFiltersCoursesText { get; set; } = "courses";
+
+        public string ActiveFiltersShowingText { get; set; } = "Showing";
+
+        public string ActiveFiltersMilesText { get; set; } = "miles";
+
+        public string FilterProviderLabel { get; set; } = "Provider";
+
+        public string FilterLocationLabel { get; set; } = "Location";
+
         #endregion
 
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(string searchTerm, string attendance, string studyMode, string attendancePattern, string location, string sortBy, string startDate, string provider, bool only1619Courses = false, int page = 1)
+        public ActionResult Index(CourseSearchFilters courseSearchFilters, CourseSearchProperties courseSearchProperties)
         {
-            var viewModel = new CourseSearchResultsViewModel { SearchTerm = searchTerm };
+            courseSearchFilters = courseSearchFilters ?? new CourseSearchFilters();
+            courseSearchProperties = courseSearchProperties ?? new CourseSearchProperties();
 
-            var cleanCourseName =
-                StringManipulationExtension.ReplaceSpecialCharacters(searchTerm, InvalidCharactersRegexPattern);
-
-            if (!string.IsNullOrEmpty(cleanCourseName))
+            var viewModel = new CourseSearchResultsViewModel
             {
-                var courseSearchProperties = new CourseSearchProperties
-                {
-                    Page = page,
-                    Count = RecordsPerPage,
-                    OrderedBy = GetSortBy(sortBy),
-                    Filters = new CourseSearchFilters
-                    {
-                        Attendance = attendance?.Split(','),
-                        StudyMode = studyMode?.Split(','),
-                        Only1619Courses = only1619Courses,
-                        AttendancePattern = attendancePattern?.Split(','),
-                        Location = StringManipulationExtension.ReplaceSpecialCharacters(location, InvalidCharactersRegexPattern),
-                        Provider =
-                            StringManipulationExtension.ReplaceSpecialCharacters(provider, InvalidCharactersRegexPattern),
-                        StartDate = startDate
-                    }
-                };
+                CourseFiltersModel = mapper.Map<CourseFiltersViewModel>(courseSearchFilters)
+            };
 
-                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
+            courseSearchFilters.SearchTerm =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.SearchTerm,
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
+
+            if (!string.IsNullOrEmpty(courseSearchFilters.SearchTerm))
+            {
+                courseSearchProperties.Count = RecordsPerPage;
+
+                ReplaceSpecialCharactersOnFreeTextFields(courseSearchFilters);
+
+                courseSearchFilters.LocationRegex = Constants.CourseSearchLocationRegularExpression;
+
+                courseSearchProperties.Filters = courseSearchFilters;
+
+                var response = asyncHelper.Synchronise(() =>
+                    courseSearchService.SearchCoursesAsync(courseSearchProperties));
+
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}";
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -158,37 +159,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
-                    var pathQuery = Request?.Url?.PathAndQuery;
-                    if (!string.IsNullOrWhiteSpace(pathQuery) && pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
-                    {
-                        pathQuery = pathQuery.Substring(0, pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
-                    }
-
-                    courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
-                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderedBy);
+                    SetupResultsViewModel(viewModel, response);
                 }
 
-                // SetupFilterDisplayData(attendance, studymode, qualificationLevel, distance, dfe1619Funded, pattern, location, startDate, provider, viewModel);
+                SetupStartDateDisplayData(viewModel);
+                viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
             }
 
             viewModel.NoTrainingCoursesFoundText =
-                string.IsNullOrWhiteSpace(searchTerm) ? string.Empty : NoTrainingCoursesFoundText;
+                string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
+                    ? string.Empty
+                    : NoTrainingCoursesFoundText;
 
-            SetupWidgetDefaults(viewModel);
+            SetupWidgetLabelsAndTextDefaults(viewModel);
             return View("SearchResults", viewModel);
         }
 
         [HttpPost]
-        public ActionResult Index(CourseSearchResultsViewModel viewModel)
+        public ActionResult Index(CourseFiltersViewModel viewModel)
         {
-            if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.SearchTerm))
-            {
-                return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, viewModel.SearchTerm, viewModel.CourseFiltersModel));
-            }
+            PopulateSelectFromDate(viewModel);
 
-            SetupWidgetDefaults(viewModel);
-
-            return View("SearchResults",  viewModel);
+            return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
         }
 
         /// <inheritdoc />
@@ -198,85 +190,100 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         /// <param name="actionName">The name of the attempted action.</param>
         protected override void HandleUnknownAction(string actionName)
         {
-            Index(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty).ExecuteResult(ControllerContext);
+            Index(new CourseSearchFilters(), new CourseSearchProperties()).ExecuteResult(ControllerContext);
         }
 
         #endregion Actions
 
         #region private Methods
-        private static CourseSearchOrderBy GetSortBy(string sortBy)
-        {
-            if (string.IsNullOrWhiteSpace(sortBy))
-            {
-                return CourseSearchOrderBy.Relevance;
-            }
 
-            switch (sortBy.ToLower())
+        private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
+        {
+            courseSearchFilters.Location =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Location,
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Provider =
+                StringManipulationExtension.ReplaceSpecialCharacters(
+                    courseSearchFilters.Provider,
+                    Constants.CourseSearchInvalidCharactersRegexPattern);
+        }
+
+        private static void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
+        {
+            if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
             {
-                case "distance":
-                    return CourseSearchOrderBy.Distance;
-                case "startdate":
-                    return CourseSearchOrderBy.StartDate;
-                default:
-                    return CourseSearchOrderBy.Relevance;
+                viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = viewModel.CourseFiltersModel.StartDateFrom.Year.ToString();
+            }
+            else
+            {
+                viewModel.CourseFiltersModel.StartDateDay = DateTime.Now.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = DateTime.Now.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = DateTime.Now.Year.ToString();
             }
         }
 
-        //private void SetupFilterLists(string attendance, string studyMode, string qualificationLevel, string pattern, string distance, string dfe1619Funded, string location, string startDate, string providerKeyword, TrainingCourseResultsViewModel viewModel)
-        //{
-        //    viewModel.CourseFiltersModel.Location = location;
-        //    viewModel.CourseFiltersModel.ProviderKeyword = providerKeyword;
-        //    viewModel.CourseFiltersModel.AttendanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendanceMode)}", AttendanceModesSource.Split(','), attendance);
-
-        //    viewModel.CourseFiltersModel.PatternSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AttendancePattern)}", AttendancePatternModesSource.Split(','), pattern);
-
-        //    viewModel.CourseFiltersModel.QualificationSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.QualificationLevel)}", QualificationLevelSource.Split(','), qualificationLevel);
-
-        //    viewModel.CourseFiltersModel.StudyModeSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StudyMode)}", StudyModesSource.Split(','), studyMode);
-
-        //    viewModel.CourseFiltersModel.DistanceSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.Distance)}", DistanceSource.Split(','), distance);
-
-        //    viewModel.CourseFiltersModel.AgeSuitabilitySelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.AgeSuitability)}", AgeSuitabilitySource.Split(','), dfe1619Funded);
-
-        //    viewModel.CourseFiltersModel.StartDateSelectedList =
-        //        courseSearchConverter.GetFilterSelectItems(
-        //            $"{nameof(CourseFiltersModel)}.{nameof(CourseFiltersModel.StartDate)}", StartDateSource.Split(','), startDate);
-        //}
-        private void SetupSearchLinks(string searchTerm, CourseSearchResultsViewModel viewModel, string pathQuery, CourseSearchOrderBy sortBy)
+        private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
         {
-            viewModel.OrderByLinks = courseSearchViewModelService.GetOrderByLinks(pathQuery, sortBy);
-            viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?searchterm={searchTerm}", UriKind.RelativeOrAbsolute);
+            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
+                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
+            {
+                viewModel.StartDateFrom = chosenDate;
+            }
         }
 
-        private void SetupWidgetDefaults(CourseSearchResultsViewModel viewModel)
+        private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, CourseSearchResult response)
+        {
+            var pathQuery = Request?.Url?.PathAndQuery;
+            if (!string.IsNullOrWhiteSpace(pathQuery) &&
+                pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
+            {
+                pathQuery = pathQuery.Substring(
+                    0,
+                    pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            courseSearchResultsViewModelBuilder.SetupViewModelPaging(
+                viewModel,
+                response,
+                pathQuery,
+                RecordsPerPage);
+
+           viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
+        }
+
+        private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)
         {
             viewModel.PageTitle = PageTitle;
-            viewModel.FilterCourseByText = FilterCourseByText;
             viewModel.OrderByLinks.OrderByText = OrderByText;
             viewModel.OrderByLinks.DistanceOrderByText = DistanceOrderByText;
             viewModel.OrderByLinks.StartDateOrderByText = StartDateOrderByText;
             viewModel.OrderByLinks.RelevanceOrderByText = RelevanceOrderByText;
+            viewModel.CourseFiltersModel.WithinText = WithinText;
+            viewModel.CourseFiltersModel.Only1619CoursesText = Only1619CoursesText;
+            viewModel.CourseFiltersModel.StartDateExampleText = StartDateExampleText;
+            viewModel.CourseFiltersModel.StartDateSectionText = StartDateSectionText;
+            viewModel.CourseFiltersModel.CourseHoursSectionText = CourseHoursSectionText;
+            viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
+            viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
+            viewModel.SearchForCourseNameText = SearchForCourseNameText;
+            viewModel.CourseFiltersModel.LocationRegex = Constants.CourseSearchLocationRegularExpression;
+            viewModel.ResetFiltersText = ResetFilterText;
+            viewModel.CourseFiltersModel.ActiveFiltersCoursesText = ActiveFiltersCoursesText;
+            viewModel.CourseFiltersModel.ActiveFiltersMilesText = ActiveFiltersMilesText;
+            viewModel.CourseFiltersModel.ActiveFiltersOfText = ActiveFiltersOfText;
+            viewModel.CourseFiltersModel.ActiveFiltersOnly1619CoursesText = ActiveFiltersOnly1619CoursesText;
+            viewModel.CourseFiltersModel.ActiveFiltersShowingText = ActiveFiltersShowingText;
+            viewModel.CourseFiltersModel.ActiveFiltersWithinText = ActiveFiltersWithinText;
+            viewModel.CourseFiltersModel.ActiveFiltersProvidedByText = ActiveFiltersProvidedByText;
+            viewModel.CourseFiltersModel.ActiveFiltersStartingFromText = ActiveFiltersStartingFromText;
+            viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
+            viewModel.CourseFiltersModel.FilterLocationLabel = FilterLocationLabel;
+            viewModel.CourseFiltersModel.FilterProviderLabel = FilterProviderLabel;
         }
 
-        //private void SetupFilterDisplayData(string attendance, string studyMode, string qualificationLevel, string distance, string dfe1619Funded, string pattern, string location, string startDate, string provider, TrainingCourseResultsViewModel viewModel)
-        //{
-        //    SetupFilterLists(attendance, studyMode, qualificationLevel, pattern, distance, dfe1619Funded, location, startDate, provider, viewModel);
-
-        //    viewModel.ActiveFilterOptions =
-        //        courseSearchConverter.GetActiveFilterOptions(viewModel.CourseFiltersModel);
-        //}
         #endregion
     }
 }

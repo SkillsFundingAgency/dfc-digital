@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System.ComponentModel;
@@ -11,13 +12,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseLandingController : BaseDfcController
     {
         #region private Fields
-        private readonly IBuildQueryStringService buildQueryStringService;
+        private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
         #endregion
 
         #region Ctor
-        public CourseLandingController(IApplicationLogger loggingService, IBuildQueryStringService buildQueryStringService) : base(loggingService)
+        public CourseLandingController(IApplicationLogger loggingService, IQueryStringBuilder<CourseSearchFilters> queryStringBuilder) : base(loggingService)
         {
-            this.buildQueryStringService = buildQueryStringService;
+            this.queryStringBuilder = queryStringBuilder;
         }
         #endregion
 
@@ -42,10 +43,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string LocationHintText { get; set; } = "Enter a town or postcode. For example, Birmingham.";
 
         [DisplayName("Training Courses Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/courses-search-results";
+        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
         [DisplayName("Location Post Code Regex")]
-        public string LocationRegex { get; set; } = @"([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})";
+        public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
 
         [DisplayName("Dfe 1619 Funded Text")]
         public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
@@ -61,14 +62,16 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(CourseLandingViewModel model)
+        public ActionResult Index(CourseSearchFilters model)
         {
             if (model == null)
             {
                 return Redirect(CourseSearchResultsPage);
             }
 
-            return Redirect(buildQueryStringService.BuildRedirectPathAndQueryString(CourseSearchResultsPage, model.SearchTerm, model));
+            model.LocationRegex = LocationRegex;
+
+            return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, model));
         }
 
         #endregion

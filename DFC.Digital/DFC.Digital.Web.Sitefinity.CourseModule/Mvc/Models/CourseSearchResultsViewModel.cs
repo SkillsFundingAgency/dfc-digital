@@ -7,26 +7,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchResultsViewModel : CourseSearchProperties
     {
-        public string SearchTerm { get; set; }
-
         #region Page Text and labels
         public string PageTitle { get; set; }
 
-        public string FilterCourseByText { get; set; }
+        public string SearchForCourseNameText { get; set; }
 
         public string NoTrainingCoursesFoundText { get; set; }
-
-        public string RecordsOnPageLabel => $"{((Page - 1) * Count) + 1} - {((Page - 1) * Count) + Courses.Count}";
 
         #endregion
 
         #region Filter Display
+        public string ResetFiltersText { get; set; }
 
         public Uri ResetFilterUrl { get; set; }
 
         public CourseFiltersViewModel CourseFiltersModel { get; set; } = new CourseFiltersViewModel();
-
-        public IDictionary<string, string> ActiveFilterOptions { get; set; } = new ConcurrentDictionary<string, string>();
 
         #endregion
 

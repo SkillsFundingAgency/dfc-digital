@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Core
@@ -26,6 +29,15 @@ namespace DFC.Digital.Web.Core
         public static string ToConcatenatedString(this IEnumerable<string> source, string delimiter = null)
         {
             return string.Join(delimiter ?? ",", source);
+        }
+
+        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)
+            where TAttribute : Attribute
+        {
+            return enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<TAttribute>();
         }
     }
 }

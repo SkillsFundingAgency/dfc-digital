@@ -1,21 +1,61 @@
 ﻿using DFC.Digital.Data.Model;
-using System.Collections.Generic;
-using System.Linq;
+using DFC.Digital.Web.Core;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseFiltersViewModel : CourseSearchFilters
     {
-        public IEnumerable<SelectItem> AgeSuitabilitySelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string Only1619CoursesText { get; set; }
 
-        public IEnumerable<SelectItem> StudyModeSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string StartDateExampleText { get; set; }
 
-        public IEnumerable<SelectItem> PatternSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string CourseHoursSectionText { get; set; }
 
-        public IEnumerable<string> AttendanceMode { get; set; } = Enumerable.Empty<string>();
+        public string StartDateSectionText { get; set; }
 
-        public IEnumerable<SelectItem> AttendanceSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string CourseTypeSectionText { get; set; }
 
-        public IEnumerable<SelectItem> StartDateSelectedList { get; set; } = Enumerable.Empty<SelectItem>();
+        public string ApplyFiltersText { get; set; }
+
+        public string StartDateDay { get; set; }
+
+        public string StartDateMonth { get; set; }
+
+        public string StartDateYear { get; set; }
+
+        public string WithinText { get; set; }
+
+        public string CourseHoursDisplayName => CourseHours.GetAttribute<DisplayAttribute>().Name;
+
+        public string CourseTypeDisplayName => CourseType.GetAttribute<DisplayAttribute>().Name;
+
+        public bool FiltersApplied => Only1619Courses || StartDate != StartDate.Anytime ||
+                                      CourseHours != CourseHours.All || CourseType != CourseType.All ||
+                                      !string.IsNullOrWhiteSpace(Location) || !string.IsNullOrWhiteSpace(Provider);
+
+        public string ActiveFiltersProvidedByText { get; set; }
+
+        public string ActiveFiltersOfText { get; set; }
+
+        public string ActiveFiltersWithinText { get; set; }
+
+        public string ActiveFiltersOnly1619CoursesText { get; set; }
+
+        public string ActiveFiltersSuitableForText { get; set; }
+
+        public string ActiveFiltersStartingFromText { get; set; }
+
+        public string ActiveFiltersCoursesText { get; set; }
+
+        public string ActiveFiltersShowingText { get; set; }
+
+        public string ActiveFiltersMilesText { get; set; }
+
+        public string FilterProviderLabel { get; set; }
+
+        public string FilterLocationLabel { get; set; }
     }
 }

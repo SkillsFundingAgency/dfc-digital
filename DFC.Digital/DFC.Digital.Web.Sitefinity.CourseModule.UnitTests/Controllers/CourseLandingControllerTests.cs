@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
 using FakeItEasy;
 using FluentAssertions;
@@ -13,12 +14,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     public class CourseLandingControllerTests
     {
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IBuildQueryStringService fakeBuildQueryStringService;
+        private readonly IQueryStringBuilder<CourseSearchFilters> fakeBuildQueryStringService;
 
         public CourseLandingControllerTests()
         {
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeBuildQueryStringService = A.Fake<IBuildQueryStringService>(ops => ops.Strict());
+            fakeBuildQueryStringService = A.Fake<IQueryStringBuilder<CourseSearchFilters>>(ops => ops.Strict());
         }
 
         [Theory]
@@ -69,14 +70,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 
             var controller = new CourseLandingController(fakeApplicationLogger, fakeBuildQueryStringService);
 
-            A.CallTo(() => fakeBuildQueryStringService.BuildRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel.SearchTerm, postModel)).Returns(controller.CourseSearchResultsPage);
+            A.CallTo(() => fakeBuildQueryStringService.BuildPathAndQueryString(controller.CourseSearchResultsPage, postModel)).Returns(controller.CourseSearchResultsPage);
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(postModel));
 
             // Assert
             controllerResult.ShouldRedirectTo(
-                    fakeBuildQueryStringService.BuildRedirectPathAndQueryString(controller.CourseSearchResultsPage, postModel.SearchTerm, postModel));
+                    fakeBuildQueryStringService.BuildPathAndQueryString(controller.CourseSearchResultsPage, postModel));
         }
     }
 }

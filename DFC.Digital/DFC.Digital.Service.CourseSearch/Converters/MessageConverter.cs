@@ -135,7 +135,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
                 Oppurtunities = GetOppurtunities(apiCourseDetail, activeOppurtunity?.OpportunityId),
-                CourseUrl = apiCourseDetail.Course.URL,
+                CourseLink = apiCourseDetail.Course.URL,
                 CourseId = apiCourseDetail.Course.CourseID,
                 Cost = activeOppurtunity?.Price,
                 StartDateLabel = activeOppurtunity?.StartDate.Item,
@@ -146,7 +146,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
             };
         }
 
-
         private static IList<Oppurtunity> GetOppurtunities(CourseDetailStructure apiCourseDetail, string oppurtunityId)
         {
             return apiCourseDetail.Opportunity.Where(op => op.OpportunityId != oppurtunityId).Select(opp => new Oppurtunity
@@ -155,8 +154,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 OppurtunityId = opp.OpportunityId,
                 VenueName = apiCourseDetail.Venue.Where(venue => venue.VenueID.ToString() == opp.Items[0]).FirstOrDefault().VenueName
             }).ToList();
-
         }
+
         private static LocationDetails GetVenue(VenueInfo venueInfo)
         {
             if (venueInfo is null)
@@ -177,7 +176,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 Distance = venueInfo.Distance,
                 LocationAddress = string.Join(", ", address.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Select(add => add.Value))
             };
-
         }
     }
 }

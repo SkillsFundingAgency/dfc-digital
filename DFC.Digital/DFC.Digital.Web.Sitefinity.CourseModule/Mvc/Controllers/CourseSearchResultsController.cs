@@ -7,7 +7,6 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -50,10 +49,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public int RecordsPerPage { get; set; } = 20;
 
-        [DisplayName("Redirect - Course Search Results Page")]
-        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
-
-        [DisplayName("Redirect - Course Details Page")]
         public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
 
         public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
@@ -148,11 +143,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 var response = asyncHelper.Synchronise(() =>
                     courseSearchService.SearchCoursesAsync(courseSearchProperties));
-                var pathQuery = Request?.Url?.PathAndQuery;
-                var referralPath = !string.IsNullOrEmpty(pathQuery) ? Server.UrlEncode(pathQuery) : string.Empty;
 
                 if (response.Courses.Any())
                 {
+                    var pathQuery = Request?.Url?.PathAndQuery;
+                    var referralPath = !string.IsNullOrEmpty(pathQuery) ? Server.UrlEncode(pathQuery) : string.Empty;
+
                     foreach (var course in response.Courses)
                     {
                         course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={referralPath}";
@@ -166,17 +162,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
-
-                    if (!string.IsNullOrWhiteSpace(pathQuery) && pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase) > 0)
-                    {
-                        pathQuery = pathQuery.Substring(0, pathQuery.IndexOf("&page=", StringComparison.InvariantCultureIgnoreCase));
-                    }
-
-                    courseSearchViewModelService.SetupPaging(viewModel, response, pathQuery, RecordsPerPage, CourseSearchResultsPage);
-                    SetupSearchLinks(searchTerm, viewModel, pathQuery, response.ResultProperties.OrderedBy);
-
                     SetupResultsViewModel(viewModel, response);
-
                 }
 
                 SetupStartDateDisplayData(viewModel);
@@ -268,7 +254,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 pathQuery,
                 RecordsPerPage);
 
-           viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
+            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
         }
 
         private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)

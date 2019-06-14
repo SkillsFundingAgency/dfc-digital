@@ -16,17 +16,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Private Fields
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
-        private readonly IBuildQueryStringService buildQueryStringService;
 
         #endregion
 
         #region Ctor
-        public CourseDetailsController(IWebAppContext webAppContext, IApplicationLogger loggingService, ICourseSearchService courseSearchService, IBuildQueryStringService buildQueryStringService, IAsyncHelper asyncHelper) : base(loggingService)
+        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper) : base(loggingService)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
-            this.WebAppContext = webAppContext;
-            this.buildQueryStringService = buildQueryStringService;
         }
         #endregion
 
@@ -36,43 +33,43 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string FindAcoursePage { get; set; } = "/course-directory/home/";
 
         [DisplayName("Find a course Page")]
-        public string CourseDetailsUrlPath { get; set; } = "/course-directory/course-details";
+        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
         [DisplayName("Qualification Details Label")]
-        public string QualificationDetailsLabel { get; set; } = "1. Qualification details";
+        public string QualificationDetailsLabel { get; set; } = "Qualification details";
 
         [DisplayName("Course Description Label")]
-        public string CourseDescriptionLabel { get; set; } = "2. Course description";
+        public string CourseDescriptionLabel { get; set; } = "Course description";
 
         [DisplayName("No Course Description Message")]
         public string NoCourseDescriptionMessage { get; set; } = "No course description available";
 
         [DisplayName("Entry Requirements Label")]
-        public string EntryRequirementsLabel { get; set; } = "3. Entry requirements";
+        public string EntryRequirementsLabel { get; set; } = "Entry requirements";
 
         [DisplayName("No Entry Requirements Available Message")]
         public string NoEntryRequirementsAvailableMessage { get; set; } = "No entry requirements available message";
 
         [DisplayName("Equipment Required Label")]
-        public string EquipmentRequiredLabel { get; set; } = "4. Equipment required";
+        public string EquipmentRequiredLabel { get; set; } = "Equipment required";
 
         [DisplayName("No Equipment Required Message")]
         public string NoEquipmentRequiredMessage { get; set; } = "No equipment required";
 
         [DisplayName("Assessment Method Label")]
-        public string AssessmentMethodLabel { get; set; } = "5. Assessment method";
+        public string AssessmentMethodLabel { get; set; } = "Assessment method";
 
         [DisplayName("No Assessment Method Available Message")]
         public string NoAssessmentMethodAvailableMessage { get; set; } = "Not available";
 
         [DisplayName("Venue Details Label")]
-        public string VenueLabel { get; set; } = "6. Venue";
+        public string VenueLabel { get; set; } = "Venue";
 
         [DisplayName("No Venue Available Message")]
         public string NoVenueAvailableMessage { get; set; } = "No venue Available";
 
         [DisplayName("Other Dates And Venues Label")]
-        public string OtherDatesAndVenuesLabel { get; set; } = "7. Other dates and venues";
+        public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
 
         [DisplayName("No Other Date Or Venue Available Message")]
         public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
@@ -89,26 +86,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Provider Performance Label")]
         public string ProviderPerformanceLabel { get; set; } = "Provider performance information";
 
-        protected IWebAppContext WebAppContext { get; set; }
-
-        public ActionResult Index(string courseId, string oppurtunityId, string referralUrl)
+        public ActionResult Index(string courseId, string oppurtunityId, string referralPath)
         {
-            var viewModel = new CourseDetailsViewModel
-            {
-                FindACoursePage = FindAcoursePage,
-            };
-
+            var viewModel = new CourseDetailsViewModel();
             if (!string.IsNullOrWhiteSpace(courseId))
             {
+                viewModel.FindACoursePage = FindAcoursePage;
                 viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId));
-                viewModel.ReferralUrl = referralUrl;
+                viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);
                 viewModel.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
                 viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                 viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
                 viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
                 viewModel.NoVenueAvailableMessage = NoVenueAvailableMessage;
                 viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
-
                 viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
                 viewModel.CourseDescriptionLabel = CourseDescriptionLabel;
                 viewModel.EntryRequirementsLabel = EntryRequirementsLabel;
@@ -120,7 +111,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
                 viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                 viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
-                viewModel.CourseDetailsUrlPath = CourseDetailsUrlPath;
+                viewModel.CourseDetailsPage = CourseDetailsPage;
             }
 
             return View(viewModel);

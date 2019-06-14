@@ -71,6 +71,36 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             }
         };
 
+        private static readonly CourseDetailsViewModel ValidCourseDetailsViewModel =
+            new CourseDetailsViewModel
+            {
+                FindACoursePage = nameof(CourseDetailsViewModel.FindACoursePage),
+                QualificationDetailsLabel = nameof(CourseDetailsViewModel.QualificationDetailsLabel),
+                CourseDescriptionLabel = nameof(CourseDetailsViewModel.CourseDescriptionLabel),
+
+                NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage),
+                EntryRequirementsLabel = nameof(CourseDetailsViewModel.EntryRequirementsLabel),
+                NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
+
+                EquipmentRequiredLabel = nameof(CourseDetailsViewModel.EquipmentRequiredLabel),
+                NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
+                AssessmentMethodLabel = nameof(CourseDetailsViewModel.AssessmentMethodLabel),
+
+                NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
+                VenueLabel = nameof(CourseDetailsViewModel.VenueLabel),
+                NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
+
+                OtherDatesAndVenuesLabel = nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
+                NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
+                ReferralPath = nameof(CourseDetailsViewModel.ReferralPath),
+
+                ProviderLabel = nameof(CourseDetailsViewModel.ProviderLabel),
+                EmployerSatisfactionLabel = nameof(CourseDetailsViewModel.EmployerSatisfactionLabel),
+                LearnerSatisfactionLabel = nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
+                ProviderPerformanceLabel = nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
+                CourseDetailsPage = nameof(CourseDetailsViewModel.CourseDetailsPage),
+            };
+
         public static IEnumerable<object[]> Dfc7055SearchResultsViewTestsInput()
         {
             yield return new object[]
@@ -103,7 +133,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}/{nameof(PathQuery)}",
                     Location = nameof(Course.Location),
                     StartDateLabel = nameof(Course.StartDateLabel),
                     QualificationLevel = QualificationLevel
@@ -120,7 +150,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}/{nameof(PathQuery)}",
                     StartDateLabel = nameof(Course.StartDateLabel),
                     QualificationLevel = "unknown"
                 },
@@ -136,7 +166,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}",
+                    CourseUrl = $"{SearchPageUrl}/{nameof(Course.CourseId)}/{nameof(PathQuery)}",
                     Location = nameof(Course.Location),
                     QualificationLevel = nameof(Course.QualificationLevel)
                 },
@@ -644,7 +674,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     Title = nameof(Course.Title),
                     CourseId = nameof(Course.CourseId),
-                    CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}" : string.Empty
+                    CourseUrl = withUrl ? $"{SearchPageUrl}/{nameof(Course.CourseId)}/{nameof(PathQuery)}" : string.Empty
                 };
             }
         }
@@ -663,6 +693,35 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     }
                 };
             }
+        }
+
+        public static IEnumerable<object[]> CourseDetailsIndexDefaultTestsInput()
+        {
+            yield return new object[]
+            {
+                nameof(CourseDetailsViewModel.FindACoursePage),
+                nameof(CourseDetailsViewModel.CourseDetails.CourseId),
+                nameof(Oppurtunity.OppurtunityId),
+                nameof(CourseDetailsViewModel.NoCourseDescriptionMessage),
+                nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
+                nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
+                nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
+                nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
+                nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
+                nameof(CourseDetailsViewModel.CourseDetailsPage),
+                nameof(CourseDetailsViewModel.QualificationDetailsLabel),
+                nameof(CourseDetailsViewModel.CourseDescriptionLabel),
+                nameof(CourseDetailsViewModel.EntryRequirementsLabel),
+                nameof(CourseDetailsViewModel.EquipmentRequiredLabel),
+                nameof(CourseDetailsViewModel.AssessmentMethodLabel),
+                nameof(CourseDetailsViewModel.VenueLabel),
+                nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
+                nameof(CourseDetailsViewModel.ProviderLabel),
+                nameof(CourseDetailsViewModel.EmployerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
+                nameof(CourseDetailsViewModel.ReferralPath)
+            };
         }
 
         private static IDictionary<string, string> FilterDictionary()

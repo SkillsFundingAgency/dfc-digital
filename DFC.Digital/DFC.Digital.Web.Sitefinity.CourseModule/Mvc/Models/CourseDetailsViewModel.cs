@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string NoOtherDateOrVenueAvailableMessage { get; set; }
 
-        public string ReferralUrl { get; set; }
+        public string ReferralPath { get; set; }
 
         public string ProviderLabel { get; set; }
 
@@ -43,7 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string ProviderPerformanceLabel { get; set; }
 
-        public string CourseDetailsUrlPath { get; set; }
+        public string CourseDetailsPage { get; set; }
 
         public CourseDetails CourseDetails { get; set; } = new CourseDetails();
     }

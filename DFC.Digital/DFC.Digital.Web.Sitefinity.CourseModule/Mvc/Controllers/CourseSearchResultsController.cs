@@ -6,6 +6,7 @@ using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -144,11 +145,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(cleanCourseName, courseSearchProperties));
                 var pathQuery = Request?.Url?.PathAndQuery;
+                var referralPath = !string.IsNullOrEmpty(pathQuery) ? Server.UrlEncode(pathQuery) : string.Empty;
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}&referralUrl={pathQuery}";
+                        course.CourseUrl = $"{CourseDetailsPage}?courseid={course.CourseId}&referralPath={referralPath}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,

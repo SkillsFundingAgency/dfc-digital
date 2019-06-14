@@ -2,6 +2,7 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers;
+using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Specialized;
@@ -13,13 +14,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
     /// <summary>
     /// description CourseDetailsControllerTests.
     /// </summary>
-    public class CourseDetailsControllerTests
+    public class CourseDetailsControllerTests : MemberDataHelper
     {
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly ICourseSearchService fakeCourseSearchService;
         private readonly IAsyncHelper fakeAsyncHelper;
-        private readonly IWebAppContext webAppContextFake = A.Fake<IWebAppContext>();
-        private readonly IBuildQueryStringService fakebuildQueryStringService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CourseDetailsControllerTests"/> class.
@@ -29,15 +28,36 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             this.fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             this.fakeCourseSearchService = A.Fake<ICourseSearchService>();
             this.fakeAsyncHelper = new AsyncHelper();
-            this.fakebuildQueryStringService = A.Fake<IBuildQueryStringService>();
         }
 
         [Theory]
-        [InlineData("FindAcoursePage", "1", "NoCourseDescriptionMessage", "NoEntryRequirementsAvailableMessage", "NoEquipmentRequiredMessage", "NoAssessmentMethodAvailableMessage", "NoVenueAvailableMessage", "NoOtherDateOrVenueAvailableMessage", "course-search-url")]
-        public void IndexSetDefaultsTest(string findAcoursePage, string courseId, string noCourseDescriptionMessage, string noEntryRequirementsAvailableMessage, string noEquipmentRequiredMessage, string noAssessmentMethodAvailableMessage, string noVenueAvailableMessage, string noOtherDateOrVenueAvailableMessage, string referralUrl)
+        [MemberData(nameof(CourseDetailsIndexDefaultTestsInput))]
+        public void IndexSetDefaultsTest(
+            string findAcoursePage,
+            string courseId,
+            string oppurtunityId,
+            string noCourseDescriptionMessage,
+            string noEntryRequirementsAvailableMessage,
+            string noEquipmentRequiredMessage,
+            string noAssessmentMethodAvailableMessage,
+            string noVenueAvailableMessage,
+            string noOtherDateOrVenueAvailableMessage,
+            string courseDetailsPage,
+            string qualificationDetailsLabel,
+            string courseDescriptionLabel,
+            string entryRequirementsLabel,
+            string equipmentRequiredLabel,
+            string assessmentMethodLabel,
+            string venueLabel,
+            string otherDatesAndVenuesLabel,
+            string providerLabel,
+            string employerSatisfactionLabel,
+            string learnerSatisfactionLabel,
+            string providerPerformanceLabel,
+            string referralPath)
         {
             // Assign
-            var controller = new CourseDetailsController(webAppContextFake, fakeApplicationLogger, fakeCourseSearchService, fakebuildQueryStringService, fakeAsyncHelper)
+            var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
             {
                 FindAcoursePage = findAcoursePage,
                 NoCourseDescriptionMessage = noCourseDescriptionMessage,
@@ -46,15 +66,25 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoAssessmentMethodAvailableMessage = noAssessmentMethodAvailableMessage,
                 NoVenueAvailableMessage = noVenueAvailableMessage,
                 NoOtherDateOrVenueAvailableMessage = noOtherDateOrVenueAvailableMessage,
+                CourseDetailsPage = courseDetailsPage,
+                QualificationDetailsLabel = qualificationDetailsLabel,
+                CourseDescriptionLabel = courseDescriptionLabel,
+                EntryRequirementsLabel = entryRequirementsLabel,
+                EquipmentRequiredLabel = equipmentRequiredLabel,
+                AssessmentMethodLabel = assessmentMethodLabel,
+                VenueLabel = venueLabel,
+                OtherDatesAndVenuesLabel = otherDatesAndVenuesLabel,
+                ProviderLabel = providerLabel,
+                EmployerSatisfactionLabel = employerSatisfactionLabel,
+                LearnerSatisfactionLabel = learnerSatisfactionLabel,
+                ProviderPerformanceLabel = providerPerformanceLabel
             };
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).Returns(new CourseDetails());
-
-            A.CallTo(() => webAppContextFake.RequestQueryString).Returns(new NameValueCollection { { "referralUrl", referralUrl } });
+                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns(new CourseDetails());
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(
-                courseId, null, null));
+                courseId, oppurtunityId, referralPath));
 
             // Assert
             controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>(
@@ -62,8 +92,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                  {
                      vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
                  });
+            if (string.IsNullOrWhiteSpace(courseId))
+            {
+                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Should().BeNull();
+            }
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(A<string>._, A<string>._)).MustHaveHappened();
+            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).MustHaveHappened();
         }
     }
 }

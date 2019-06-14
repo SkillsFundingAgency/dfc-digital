@@ -34,13 +34,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsIndex = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetails = new CourseDetails();
             var model = new CourseDetailsViewModel();
-            courseDetails.Title = nameof(CourseDetails.Title);
+           model.CourseDetails.Title = nameof(CourseDetails.Title);
 
             // Act
             var htmlDocument = courseDetailsIndex.RenderAsHtml(model);
 
             // Assert
-            this.AssertTagInnerTextValue(htmlDocument, courseDetails.Title, "h1");
+            this.AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
             this.AssertTableCounts(htmlDocument, 2);
             this.AssertH2HeadingCounts(htmlDocument, 6);
         }
@@ -56,11 +56,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.Cost = null;
+                courseDetailsViewModel.CourseDetails.Cost = null;
             }
             else
             {
-                courseDetails.Cost = nameof(CourseDetails.Cost);
+                courseDetailsViewModel.CourseDetails.Cost = nameof(CourseDetails.Cost);
             }
 
             // Act
@@ -92,11 +92,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.Duration = null;
+                courseDetailsViewModel.CourseDetails.Duration = null;
             }
             else
             {
-                courseDetails.Duration = nameof(CourseDetails.Duration);
+                courseDetailsViewModel.CourseDetails.Duration = nameof(CourseDetails.Duration);
             }
 
             // Act
@@ -128,11 +128,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.QualificationName = null;
+                courseDetailsViewModel.CourseDetails.QualificationName = null;
             }
             else
             {
-                courseDetails.QualificationName = nameof(CourseDetails.QualificationName);
+                courseDetailsViewModel.CourseDetails.QualificationName = nameof(CourseDetails.QualificationName);
             }
 
             // Act
@@ -164,11 +164,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.QualificationLevel = null;
+                courseDetailsViewModel.CourseDetails.QualificationLevel = null;
             }
             else
             {
-                courseDetails.QualificationLevel = nameof(CourseDetails.QualificationLevel);
+                courseDetailsViewModel.CourseDetails.QualificationLevel = nameof(CourseDetails.QualificationLevel);
             }
 
             // Act
@@ -200,11 +200,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.EntryRequirements = null;
+                courseDetailsViewModel.CourseDetails.EntryRequirements = null;
             }
             else
             {
-                courseDetails.EntryRequirements = nameof(CourseDetails.EntryRequirements);
+                courseDetailsViewModel.CourseDetails.EntryRequirements = nameof(CourseDetails.EntryRequirements);
             }
 
             // Act
@@ -236,11 +236,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.StartDateLabel = null;
+                courseDetailsViewModel.CourseDetails.StartDateLabel = null;
             }
             else
             {
-                courseDetails.StartDateLabel = DateTime.Today.ToShortDateString();
+                courseDetailsViewModel.CourseDetails.StartDateLabel = DateTime.Today.ToShortDateString();
             }
 
             // Act
@@ -272,11 +272,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.AttendanceMode = null;
+                courseDetailsViewModel.CourseDetails.AttendanceMode = null;
             }
             else
             {
-                courseDetails.AttendanceMode = nameof(CourseDetails.AttendanceMode);
+                courseDetailsViewModel.CourseDetails.AttendanceMode = nameof(CourseDetails.AttendanceMode);
             }
 
             // Act
@@ -308,11 +308,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (!hasValue)
             {
-                courseDetails.AttendancePattern = null;
+                courseDetailsViewModel.CourseDetails.AttendancePattern = null;
             }
             else
             {
-                courseDetails.AttendancePattern = nameof(CourseDetails.AttendancePattern);
+                courseDetailsViewModel.CourseDetails.AttendancePattern = nameof(CourseDetails.AttendancePattern);
             }
 
             // Act
@@ -343,7 +343,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.Description = propertyValue;
+            courseDetailsViewModel.CourseDetails.Description = propertyValue;
             courseDetailsViewModel.NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage);
 
             // Act
@@ -354,7 +354,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
-                  div.InnerText.Contains(courseDetails.Description)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.Description)).Should().BeTrue();
             }
             else
             {
@@ -374,7 +374,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.EntryRequirements = propertyValue;
+            courseDetailsViewModel.CourseDetails.EntryRequirements = propertyValue;
             courseDetailsViewModel.NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage);
 
             // Act
@@ -385,7 +385,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
-                  div.InnerText.Contains(courseDetails.EntryRequirements)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.EntryRequirements)).Should().BeTrue();
             }
             else
             {
@@ -405,7 +405,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.EquipmentRequired = propertyValue;
+            courseDetailsViewModel.CourseDetails.EquipmentRequired = propertyValue;
             courseDetailsViewModel.NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage);
 
             // Act
@@ -416,7 +416,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
-                  div.InnerText.Contains(courseDetails.EquipmentRequired)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.EquipmentRequired)).Should().BeTrue();
             }
             else
             {
@@ -436,7 +436,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.AssessmentMethod = propertyValue;
+            courseDetailsViewModel.CourseDetails.AssessmentMethod = propertyValue;
             courseDetailsViewModel.NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage);
 
             // Act
@@ -447,7 +447,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
-                  div.InnerText.Contains(courseDetails.AssessmentMethod)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.AssessmentMethod)).Should().BeTrue();
             }
             else
             {
@@ -466,22 +466,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
             if (venueExists)
             {
-                courseDetails.VenueDetails.VenueName = nameof(CourseDetails.VenueDetails.VenueName);
-                courseDetails.VenueDetails.Location.AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1);
-                courseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
-                courseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
-                courseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
-                courseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
-                courseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
-                courseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
-                courseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
+                courseDetailsViewModel.CourseDetails.VenueDetails.VenueName = nameof(CourseDetails.VenueDetails.VenueName);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
+                courseDetailsViewModel.CourseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
+                courseDetailsViewModel.CourseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
+                courseDetailsViewModel.CourseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
             }
             else
             {
-                courseDetails.VenueDetails = null;
+                courseDetailsViewModel.CourseDetails.VenueDetails = null;
                 courseDetailsViewModel.NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage);
             }
 
@@ -493,20 +493,20 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("td")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                  div.InnerText.Contains(courseDetails.VenueDetails.VenueName)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName)).Should().BeTrue();
 
                 htmlDocument.DocumentNode.Descendants("td")
               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-               div.InnerText.Contains(courseDetails.VenueDetails.Location.AddressLine1)).Should().BeTrue();
+               div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine1)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-             div.InnerText.Contains(courseDetails.VenueDetails.Location.AddressLine2)).Should().BeTrue();
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-             div.InnerText.Contains(courseDetails.VenueDetails.Location.Postcode)).Should().BeTrue();
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-             div.InnerText.Contains(courseDetails.VenueDetails.Location.County)).Should().BeTrue();
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.County)).Should().BeTrue();
             }
             else
             {
@@ -528,17 +528,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OtherDatesAndVenues_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
             if (otherVenuesExists)
             {
-                courseDetails.Oppurtunities = new System.Collections.Generic.List<Oppurtunity>();
+                courseDetailsViewModel.CourseDetails.Oppurtunities = new System.Collections.Generic.List<Oppurtunity>();
                 var otherDatesAndVenues = new Oppurtunity();
-                courseDetails.Oppurtunities.Add(otherDatesAndVenues);
-                courseDetails.Oppurtunities.FirstOrDefault().VenueName = nameof(CourseDetails.Oppurtunities);
+                courseDetailsViewModel.CourseDetails.Oppurtunities.Add(otherDatesAndVenues);
+                courseDetailsViewModel.CourseDetails.Oppurtunities.FirstOrDefault().VenueName = nameof(CourseDetails.Oppurtunities);
             }
             else
             {
-                courseDetails.Oppurtunities = null;
+                courseDetailsViewModel.CourseDetails.Oppurtunities = null;
                 courseDetailsViewModel.NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage);
             }
 
@@ -550,7 +550,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("td")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                  div.InnerText.Contains(courseDetails.Oppurtunities.FirstOrDefault().VenueName)).Should().BeTrue();
+                  div.InnerText.Contains(courseDetailsViewModel.CourseDetails.Oppurtunities.FirstOrDefault().VenueName)).Should().BeTrue();
             }
             else
             {
@@ -569,13 +569,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var providerDetails = new ProviderDetails();
             var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
             if (providerDetailsExist)
             {
-                providerDetails.Name = nameof(CourseDetails.ProviderDetails.Name);
+                courseDetailsViewModel.CourseDetails.ProviderDetails.Name = nameof(CourseDetails.ProviderDetails.Name);
             }
             else
             {
-                providerDetails.Name = null;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.Name = null;
             }
 
             // Act
@@ -586,13 +587,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
-                  p.InnerText.Contains(providerDetails.Name)).Should().BeTrue();
+                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Name)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
-                  p.InnerText.Contains(providerDetails.Name)).Should().BeFalse();
+                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Name)).Should().BeFalse();
             }
         }
 
@@ -605,13 +606,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var providerDetails = new ProviderDetails();
             var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
             if (providerDetailsExist)
             {
-                providerDetails.EmailAddress = nameof(CourseDetails.ProviderDetails.EmailAddress);
-            }
-            else
-            {
-                providerDetails.EmailAddress = null;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.EmailAddress = nameof(CourseDetails.ProviderDetails.EmailAddress);
             }
 
             // Act
@@ -622,13 +620,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("a")
                  .Any(a => a.Attributes["class"].Value.Contains("govuk-link") &&
-                  a.InnerText.Contains(providerDetails.EmailAddress)).Should().BeTrue();
+                  a.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmailAddress)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("a")
                  .Any(a => a.Attributes["class"].Value.Contains("govuk-link") &&
-                  a.InnerText.Contains(providerDetails.EmailAddress)).Should().BeFalse();
+                  a.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmailAddress)).Should().BeFalse();
             }
         }
 
@@ -640,29 +638,30 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var providerDetails = new ProviderDetails();
-            var model = new CourseDetailsViewModel();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
             if (providerDetailsExist)
             {
-                providerDetails.Website = nameof(CourseDetails.ProviderDetails.Website);
+                courseDetailsViewModel.CourseDetails.ProviderDetails.Website = nameof(CourseDetails.ProviderDetails.Website);
             }
             else
             {
-                providerDetails.Website = null;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.Website = null;
             }
 
             // Act
-            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(model);
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
             if (providerDetailsExist)
             {
                 htmlDocument.DocumentNode.Descendants("li")
-                 .Any(li => li.InnerText.Contains(providerDetails.Website)).Should().BeTrue();
+                 .Any(li => li.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Website)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("li")
-                 .Any(li => li.InnerText.Contains(providerDetails.Website)).Should().BeFalse();
+                 .Any(li => li.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Website)).Should().BeFalse();
             }
         }
 
@@ -674,29 +673,30 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var providerDetails = new ProviderDetails();
-            var model = new CourseDetailsViewModel();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
             if (providerDetailsExist)
             {
-                providerDetails.PhoneNumber = nameof(CourseDetails.ProviderDetails.PhoneNumber);
+                courseDetailsViewModel.CourseDetails.ProviderDetails.PhoneNumber = nameof(CourseDetails.ProviderDetails.PhoneNumber);
             }
             else
             {
-                providerDetails.PhoneNumber = null;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.PhoneNumber = null;
             }
 
             // Act
-            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(model);
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
             if (providerDetailsExist)
             {
                 htmlDocument.DocumentNode.Descendants("li")
-                 .Any(li => li.InnerText.Contains(providerDetails.PhoneNumber)).Should().BeTrue();
+                 .Any(li => li.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.PhoneNumber)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("li")
-                 .Any(li => li.InnerText.Contains(providerDetails.PhoneNumber)).Should().BeFalse();
+                 .Any(li => li.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.PhoneNumber)).Should().BeFalse();
             }
         }
 
@@ -711,11 +711,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetails = new CourseDetails();
             if (referralUrlExists)
             {
-                courseDetailsViewModel.ReferralUrl = nameof(CourseDetailsViewModel.ReferralUrl);
+                courseDetailsViewModel.ReferralPath = nameof(CourseDetailsViewModel.ReferralPath);
             }
             else
             {
-                courseDetailsViewModel.ReferralUrl = null;
+                courseDetailsViewModel.ReferralPath = null;
             }
 
             // Act
@@ -726,13 +726,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("a")
                  .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
-                  a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralUrl)).Should().BeTrue();
+                  a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralPath)).Should().BeTrue();
             }
             else
             {
                 htmlDocument.DocumentNode.Descendants("a")
                 .Any(a => a.Attributes["class"].Value.Contains("govuk-back-link") &&
-                a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralUrl)).Should().BeFalse();
+                a.Attributes["href"].Value.Contains(courseDetailsViewModel.ReferralPath)).Should().BeFalse();
             }
         }
 
@@ -751,21 +751,24 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LearnerSatisfactionSpecified = learnerSatisfactionSpecified,
                 EmployerSatisfactionSpecified = employeeSatisfactionSpecified
             };
+
+            providerDetails.Name = nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.Name);
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
             var dummyLearnerSatisfaction = 1.0;
             var dummyEmployeeSatisfaction = 1.0;
 
             if (learnerSatisfactionSpecified && employeeSatisfactionSpecified)
             {
-                providerDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
-                providerDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
             }
             else if (learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
             {
-                providerDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction = dummyLearnerSatisfaction;
             }
             else if (!learnerSatisfactionSpecified && employeeSatisfactionSpecified)
             {
-                providerDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
+                courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction = dummyEmployeeSatisfaction;
             }
 
             // Act
@@ -776,41 +779,41 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                  p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
 
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
             }
             else if (learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                  p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
 
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
             }
             else if (!learnerSatisfactionSpecified && employeeSatisfactionSpecified)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
 
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction.ToString())).Should().BeTrue();
             }
             else if (!learnerSatisfactionSpecified && !employeeSatisfactionSpecified)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeFalse();
 
                 htmlDocument.DocumentNode.Descendants("p")
                 .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
-                 p.InnerText.Contains(providerDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.EmployerSatisfaction.ToString())).Should().BeFalse();
             }
         }
 

@@ -19,10 +19,10 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             EnterText("Feedback", query); //Enters text into field ID 'message' which is the adviser field on the First contact adviser form
         }
 
-        public void CompleteFeedbackSecondForm(string firstName, string lastName, string email, string confEmail, string contact)
+        public void CompleteFeedbackSecondForm(string firstName, string email, string confEmail, string contact)
         {
             EnterText("Firstname", firstName);
-            EnterText("Lastname", lastName);
+            EnterText("Lastname", Environment + " " + BuildNumber);
             EnterText("EmailAddress", email);
             EnterText("ConfirmEmailAddress", confEmail);
             SelectRecontactOption(contact);

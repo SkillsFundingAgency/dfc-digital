@@ -9,13 +9,13 @@ Scenario Outline: Submit a 'Contact An Adviser' form
 	When I complete the first form with <ContactReason> option and <AdviserQuery> query
 		And I press continue
 	Then I am redirected to the second 'adviser' contact form
-	When I complete the details form with the details <Firstname>, <Lastname>, <EmailAddress>, <ConfirmationEmail>, <DOB>, <PostCode>
+	When I complete the details form with the details <Firstname>, <EmailAddress>, <ConfirmationEmail>, <DOB>, <PostCode>
 		And I press send
 	Then I am redirected to the confirmation page
 
 Examples: 
-| ContactReason | AdviserQuery            | Firstname      | Lastname       | EmailAddress                     | ConfirmationEmail                | DOB        | PostCode |
-| Funding       | contact an Adviser Form | Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2000 | CV3 5FE  |
+| ContactReason | AdviserQuery            | Firstname      | EmailAddress                     | ConfirmationEmail                | DOB        | PostCode |
+| Funding       | contact an Adviser Form | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2000 | CV3 5FE  | 
 
 Scenario Outline: Submit a 'Give Feedback' form
 	Given I navigate to the Contact us select option page
@@ -25,14 +25,14 @@ Scenario Outline: Submit a 'Give Feedback' form
 	When I complete the first feedback form with <ContactReason> option and <AdviserQuery> query
 		And I press continue on feecback form
 	Then I am redirected to the second 'feedback' contact form
-	When I complete the give feedback details form with the details <Firstname>, <Lastname>, <EmailAddress>, <ConfirmationEmail>, <Contact>
+	When I complete the give feedback details form with the details <Firstname>, <EmailAddress>, <ConfirmationEmail>, <Contact>
 		And I press send
 	Then I am redirected to the confirmation page
 
 Examples: 
-| ContactReason | AdviserQuery       | Firstname      | Lastname       | EmailAddress                     | ConfirmationEmail                | Contact |
-| Funding       | Give Feedback Forn | Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
-| Funding       | Give Feedback Forn | Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      |
+| ContactReason | AdviserQuery       | Firstname      |  EmailAddress                     | ConfirmationEmail                | Contact |
+| Funding       | Give Feedback Forn | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
+| Funding       | Give Feedback Forn | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      |
 
 Scenario Outline: Submit a 'Technical Feedback' form
 	Given I navigate to the Contact us select option page
@@ -42,14 +42,14 @@ Scenario Outline: Submit a 'Technical Feedback' form
 	When I complete the first technical form with <AdviserQuery> query
 		And I press continue on tecnical form
 	Then I am redirected to the second 'technical' contact form
-	When I complete the give technical details form with the details <Firstname>, <Lastname>, <EmailAddress>, <ConfirmationEmail>, <Contact>
+	When I complete the give technical details form with the details <Firstname>, <EmailAddress>, <ConfirmationEmail>, <Contact>
 		And I press send
 	Then I am redirected to the confirmation page
 
 Examples: 
-| AdviserQuery       | Firstname      | Lastname       | EmailAddress                     | ConfirmationEmail                | Contact |
-| Give Feedback Forn | Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
-| Give Feedback Forn | Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      | 
+| AdviserQuery       | Firstname      | EmailAddress                     | ConfirmationEmail                | Contact |
+| Give Feedback Forn | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
+| Give Feedback Forn | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      | 
 
 Scenario Outline: Error message checks on Contact forms
 	Given I navigate to the Contact us select option page
@@ -63,13 +63,13 @@ Scenario Outline: Error message checks on Contact forms
 	Then I am redirected to the second 'adviser' contact form
 	When I press continue with nothing selected
 	Then an error message is displayed on the second form
-	When I complete the details form with the details <Firstname>, <Lastname>, <EmailAddress>, <ConfirmationEmail>, <DOB>, <PostCode>
+	When I complete the details form with the details <Firstname>, <EmailAddress>, <ConfirmationEmail>, <DOB>, <PostCode>
 		And I press send to generate an error
 	Then a date of birth error is displayed
-	When I complete the details form with the details <Firstname>, <Lastname>, <EmailAddress>, <ConfirmationEmail>, <DOB2>, <PostCode>
+	When I complete the details form with the details <Firstname>, <EmailAddress>, <ConfirmationEmail>, <DOB2>, <PostCode>
 		And I press send
 	Then I am redirected to the confirmation page
 
 Examples: 
-| Firstname      | Lastname       | EmailAddress                     | ConfirmationEmail                | DOB        | PostCode | DOB2       |
-| Automated Test | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2010 | CV3 5FE  | 01/01/2000 |
+| Firstname      | EmailAddress                     | ConfirmationEmail                | DOB        | PostCode | DOB2       |
+| Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2010 | CV3 5FE  | 01/01/2000 |

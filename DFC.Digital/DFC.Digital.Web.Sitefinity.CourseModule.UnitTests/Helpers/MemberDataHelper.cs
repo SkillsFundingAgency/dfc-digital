@@ -804,7 +804,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.EmployerSatisfactionLabel),
                 nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
                 nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
-                nameof(CourseDetailsViewModel.ReferralPath)
+                nameof(CourseDetailsViewModel.ReferralPath),
+                nameof(CourseDetailsViewModel.ContactAdviserHeadingLabel),
+                nameof(CourseDetailsViewModel.ContactAdviserCallLabel),
+                nameof(CourseDetailsViewModel.ContactAdviserContactNumberLabel),
+                nameof(CourseDetailsViewModel.ContactAdviserWebchatLabel),
+                nameof(CourseDetailsViewModel.ContactAdviserWebchatLink),
+                nameof(CourseDetailsViewModel.ContactAdviserContactHrsLabel)
             };
         }
 

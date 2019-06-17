@@ -77,15 +77,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 return null;
             }
 
-            OpportunityDetail activeOppurtunity;
-            if (!string.IsNullOrEmpty(oppurtunityId))
-            {
-                activeOppurtunity = apiCourseDetail.Opportunity.SingleOrDefault(op => op.OpportunityId == oppurtunityId);
-            }
-            else
-            {
-                activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
-            }
+            OpportunityDetail activeOppurtunity = (!string.IsNullOrEmpty(oppurtunityId)) ?
+                         apiCourseDetail.Opportunity.SingleOrDefault(op => op.OpportunityId == oppurtunityId)
+                         : activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
 
             var venue = apiCourseDetail.Venue.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
 

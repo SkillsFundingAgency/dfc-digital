@@ -86,6 +86,24 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Provider Performance Label")]
         public string ProviderPerformanceLabel { get; set; } = "Provider performance information";
 
+        [DisplayName("Contact Adviser Heading Label ")]
+        public string ContactAdviserHeadingLabel { get; set; } = "Want to speak to an adviser?";
+
+        [DisplayName("Contact Adviser Call Label")]
+        public string ContactAdviserCallLabel { get; set; } = "Call";
+
+        [DisplayName("Contact Adviser Contact Number Label")]
+        public string ContactAdviserContactNumberLabel { get; set; } = "0800 100 900 or";
+
+        [DisplayName("Contact Adviser Webchat Label")]
+        public string ContactAdviserWebchatLabel { get; set; } = "use webchat";
+
+        [DisplayName("Contact Adviser Webchat Link")]
+        public string ContactAdviserWebchatLink { get; set; } = "#";
+
+        [DisplayName("Contact Adviser ContactHrs Label")]
+        public string ContactAdviserContactHrsLabel { get; set; } = "8am to 10pm, 7 days a week";
+
         public ActionResult Index(string courseId, string oppurtunityId, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();
@@ -112,6 +130,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                 viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
                 viewModel.CourseDetailsPage = CourseDetailsPage;
+
+                viewModel.ContactAdviserCallLabel = ContactAdviserCallLabel;
+                viewModel.ContactAdviserContactHrsLabel = ContactAdviserContactHrsLabel;
+                viewModel.ContactAdviserContactNumberLabel = ContactAdviserContactNumberLabel;
+                viewModel.ContactAdviserHeadingLabel = ContactAdviserHeadingLabel;
+                viewModel.ContactAdviserWebchatLabel = ContactAdviserWebchatLabel;
+                viewModel.ContactAdviserWebchatLink = ContactAdviserWebchatLink;
             }
 
             return View(viewModel);

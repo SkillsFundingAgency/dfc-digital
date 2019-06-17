@@ -99,7 +99,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).MustHaveHappened();
                     A.CallTo(() => fakeCourseSearchViewModelService.SetupViewModelPaging(A<CourseSearchResultsViewModel>._, A<CourseSearchResult>._, A<string>._, A<int>._)).MustHaveHappened();
                 }
-               }
+            }
             else
             {
                 A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).MustNotHaveHappened();

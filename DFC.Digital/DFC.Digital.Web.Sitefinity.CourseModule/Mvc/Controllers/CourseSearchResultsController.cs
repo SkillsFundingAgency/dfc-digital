@@ -148,9 +148,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
                 if (response.Courses.Any())
                 {
+                    var pathQuery = Request?.Url?.PathAndQuery;
+                    var referralPath = !string.IsNullOrEmpty(pathQuery) ? Server.UrlEncode(pathQuery) : string.Empty;
+
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}";
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={referralPath}";
                         viewModel.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -253,7 +256,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 pathQuery,
                 RecordsPerPage);
 
-           viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
+            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
         }
 
         private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)

@@ -1,0 +1,35 @@
+﻿@model CourseDetailsViewModel
+
+<h2 class="govuk-heading-m" id="@nameof(Model.OtherDatesAndVenuesLabel)">7. @Model.OtherDatesAndVenuesLabel</h2>
+<table class="govuk-table k-table">
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header">Venue</th>
+            <th class="govuk-table__header">Start date</th>
+            <th class="govuk-table__header">Options</th>
+        </tr>
+       
+        @if (Model.CourseDetails.Oppurtunities!= null)
+        {
+            foreach (var oppurtunity in Model.CourseDetails.Oppurtunities)
+            {
+                var venueUrl = $"{Model.CourseDetailsPage}?{nameof(Model.CourseDetails.CourseId)}={Model.CourseDetails.CourseId}&{nameof(oppurtunity.OppurtunityId)}={oppurtunity.OppurtunityId}&{nameof(Model.ReferralPath)}={Model.ReferralPath} ";
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">@oppurtunity.VenueName</td>
+                    <td class="govuk-table__cell">@oppurtunity.StartDate</td>
+                    <td class="govuk-table__cell">
+                        <a class="govuk-link" href="@venueUrl">View course</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">@Model.NoOtherDateOrVenueAvailableMessage</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

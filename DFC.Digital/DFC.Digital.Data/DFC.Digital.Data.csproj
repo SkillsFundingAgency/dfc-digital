@@ -150,6 +150,7 @@
     <Compile Include="Interfaces\ISpellCheckService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
+    <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
     <Compile Include="Model\CourseSearchResultProperties.cs" />
@@ -176,7 +177,7 @@
     <Compile Include="Model\OnetSkill.cs" />
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
-    <Compile Include="Model\OpportunityDetails.cs" />
+    <Compile Include="Model\Oppurtunity.cs" />
     <Compile Include="Model\ProviderDetails.cs" />
     <Compile Include="Model\RepoActionResult.cs" />
     <Compile Include="Model\BuildSocMatrixRequest.cs" />
@@ -237,7 +238,7 @@
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
-    <Compile Include="Model\VenueDetails.cs" />
+    <Compile Include="Model\Venue.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Model\WhatItTakesSkill.cs" />

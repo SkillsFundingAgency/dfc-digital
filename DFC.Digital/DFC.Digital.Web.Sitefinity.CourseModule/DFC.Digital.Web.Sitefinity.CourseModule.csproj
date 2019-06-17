@@ -280,8 +280,8 @@
     <Content Include="Mvc\Views\CourseDetails\CourseDetails.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
-    <Content Include="Mvc\Views\CourseDetails\Venue.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
+    <Content Include="Mvc\Views\CourseDetails\OtherDatesAndVenues.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\ActiveFilters.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.json" />
@@ -317,6 +317,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

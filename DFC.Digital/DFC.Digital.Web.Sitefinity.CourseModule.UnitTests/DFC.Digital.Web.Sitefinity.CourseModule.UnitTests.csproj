@@ -125,6 +125,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CourseDetailsControllerTests.cs" />
+    <Compile Include="Views\CourseDetailsViewTests.cs" />
     <Compile Include="Controllers\CourseLandingControllerTests.cs" />
     <Compile Include="Controllers\CourseSearchResultsControllerTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />

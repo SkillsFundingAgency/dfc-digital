@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core
 {
-    public class AcceptAttribute : ValidationAttribute, IClientValidatable
+    public sealed class AcceptAttribute : ValidationAttribute, IClientValidatable
     {
         public AcceptAttribute()
         {

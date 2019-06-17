@@ -1,10 +1,14 @@
-﻿namespace DFC.Digital.Data.Model
+﻿using System.Collections.Generic;
+
+namespace DFC.Digital.Data.Model
 {
     public class CourseDetails : Course
     {
-        public VenueDetails VenueDetails { get; set; }
+        public Venue VenueDetails { get; set; }
 
         public ProviderDetails ProviderDetails { get; set; }
+
+        public IList<Oppurtunity> Oppurtunities { get; set; }
 
         public string Description { get; set; }
 

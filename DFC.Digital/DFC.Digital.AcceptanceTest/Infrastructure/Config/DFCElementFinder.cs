@@ -81,7 +81,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             waitFor.AjaxCallsToComplete(new TimeSpan(0, 0, explicitWaitSeconds));
 
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(explicitWaitSeconds));
-            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(by));
+            wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(by));
         }
     }
 }

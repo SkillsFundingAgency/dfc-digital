@@ -1,16 +1,6 @@
 ﻿@model CourseDetailsViewModel
 
-<div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-            <a class="govuk-breadcrumbs__link" href="">Home: Explore careers</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-            <a class="govuk-breadcrumbs__link" href="@Model.FindACoursePage">Find a course</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item" aria-current="page">@Model.CourseDetails.Title</li>
-    </ol>
-</div>
+
 <div class="govuk-grid-row">
-    @Html.Partial("CourseDetails", Model.CourseDetails)
+    @Html.Partial("CourseDetails", Model)
 </div>

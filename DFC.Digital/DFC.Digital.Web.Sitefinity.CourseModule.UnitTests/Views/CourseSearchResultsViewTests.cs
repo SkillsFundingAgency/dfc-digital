@@ -1,4 +1,5 @@
 ﻿using ASP;
+using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using RazorGenerator.Testing;
@@ -11,6 +12,70 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
     public class CourseSearchResultsViewTests : MemberDataHelper
     {
+        [Theory]
+        [MemberData(nameof(Dfc9208CourseFiltersViewModelViewTestsInput))]
+        public static void Dfc9208ActiveFiltersViewTests(CourseFiltersViewModel viewModel)
+        {
+            viewModel = viewModel ?? new CourseFiltersViewModel();
+
+            // Assign
+            var searchResultsView = new _MVC_Views_CourseSearchResults_ActiveFilters_cshtml();
+
+            // Act
+            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
+
+            // Assert
+            if (viewModel.CourseHours != CourseHours.All)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursDisplayName, "p");
+            }
+
+            if (viewModel.CourseType != CourseType.All)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeDisplayName, "p");
+            }
+
+            if (viewModel.StartDate == StartDate.Anytime)
+            {
+                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
+            }
+            else
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersStartingFromText, "span");
+            }
+
+            if (viewModel.StartDate == StartDate.FromToday)
+            {
+                AssertTagInnerTextValue(htmlDom, DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
+            }
+
+            if (viewModel.StartDate == StartDate.SelectDateFrom)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
+            }
+
+            if (viewModel.Only1619Courses)
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
+            }
+
+            if (!string.IsNullOrWhiteSpace(viewModel.Location))
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
+            }
+
+            if (!string.IsNullOrWhiteSpace(viewModel.Provider))
+            {
+                AssertTagInnerTextValue(htmlDom, viewModel.Provider, "p");
+                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersProvidedByText, "span");
+            }
+
+            if (viewModel.IsDistanceLocation)
+            {
+                AssertTagInnerTextValue(htmlDom, $"{viewModel.Distance} {viewModel.ActiveFiltersMilesText}", "p");
+            }
+        }
+
         [Theory]
         [MemberData(nameof(Dfc7055SearchResultsViewTestsInput))]
         public void Dfc7055SearchResultsViewTests(int coursesCount, string pageTitle, string noCoursesFoundText)
@@ -85,7 +150,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var searchResultsView = new _MVC_Views_CourseSearchResults_OrderByLinks_cshtml();
             var viewModel = new OrderByLinks
             {
-                CourseSearchSortBy = courseSearchSortBy,
+                OrderBy = courseSearchSortBy,
                 StartDateOrderByText = nameof(OrderByLinks.StartDateOrderByText),
                 DistanceOrderByText = nameof(OrderByLinks.DistanceOrderByText),
                 RelevanceOrderByText = nameof(OrderByLinks.RelevanceOrderByText)
@@ -147,22 +212,50 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             AssertTagInnerTextValue(htmlDom, viewModel.AdvancedLoanProviderLabel, "span");
             AssertTagInnerTextValue(htmlDom, viewModel.ProviderLabel, "span");
-            if (!string.IsNullOrWhiteSpace(viewModel.Course.Location))
+            if (viewModel.Course.LocationDetails != null)
             {
                 AssertTagInnerTextValue(htmlDom, viewModel.LocationLabel, "span");
+
+                if (!viewModel.Course.LocationDetails.Distance.Equals(default(float)))
+                {
+                    AssertTagInnerTextValue(htmlDom, "miles)", "li");
+                }
             }
             else
             {
                 AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.LocationLabel, "span");
             }
+        }
 
-            if (viewModel.Course.QualificationLevel.ToLowerInvariant().Contains("unknown"))
+        [Theory]
+        [MemberData(nameof(Dfc9208CourseFiltersViewModelViewTestsInput))]
+        public void Dfc9208FiltersViewTests(CourseFiltersViewModel viewModel)
+        {
+            viewModel = viewModel ?? new CourseFiltersViewModel();
+
+            // Assign
+            var searchResultsView = new _MVC_Views_CourseSearchResults_Filters_cshtml();
+
+            // Act
+            var htmlDom = searchResultsView.RenderAsHtml(viewModel);
+
+            // Assert
+            AssertTagInnerTextValue(htmlDom, viewModel.StartDateSectionText, "h2");
+            AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursSectionText, "h2");
+            AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeSectionText, "h2");
+            AssertTagInnerTextValue(htmlDom, viewModel.ApplyFiltersText, "button");
+            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Location));
+            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Provider));
+            AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseHours), "radio");
+            AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseHours.ToString());
+            AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.StartDate), "radio");
+            AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.StartDate.ToString());
+            AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseType), "radio");
+            AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseType.ToString());
+            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Only1619Courses));
+            if (viewModel.Only1619Courses)
             {
-                AssertTagInnerTextValueDoesNotExist(htmlDom, viewModel.Course.QualificationLevel, "li");
-            }
-            else
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.Course.QualificationLevel, "li");
+                AssertElementIsSelectedByAttributeAndValue(htmlDom, "radio", "value", true.ToString());
             }
         }
     }

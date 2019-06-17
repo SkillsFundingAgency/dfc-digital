@@ -2,24 +2,23 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class BuildTribalMessageService : IBuildTribalMessage
+    public class TribalMessageBuilder : ITribalMessageBuilder
     {
-        private readonly IConvertTribalCodes convertTribalCodesService;
+        private readonly ITribalCodesConverter convertTribalCodes;
         private readonly IConfigurationProvider configuration;
+        private readonly ICourseBusinessRulesProcessor courseBusinessRules;
 
-        public BuildTribalMessageService(IConvertTribalCodes convertTribalCodesService, IConfigurationProvider configuration)
+        public TribalMessageBuilder(ITribalCodesConverter convertTribalCodes, IConfigurationProvider configuration, ICourseBusinessRulesProcessor courseBusinessRules)
         {
-            this.convertTribalCodesService = convertTribalCodesService;
+            this.convertTribalCodes = convertTribalCodes;
             this.configuration = configuration;
+            this.courseBusinessRules = courseBusinessRules;
         }
 
-        public CourseListInput GetCourseSearchInput(string courseName, CourseSearchProperties courseSearchProperties)
+        public CourseListInput GetCourseSearchInput(CourseSearchProperties courseSearchProperties)
         {
             if (courseSearchProperties == null)
             {
@@ -33,14 +32,13 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     CourseSearchCriteria = new SearchCriteriaStructure
                     {
                         APIKey = configuration.GetConfig<string>(Constants.CourseSearchApiKey),
-                        SubjectKeyword = courseName,
-                        EarliestStartDate = null,
-                        AttendanceModes = convertTribalCodesService.GetTribalAttendanceModes(string.Join(",", courseSearchProperties.Filters.Attendance ?? new List<string>())),
-                        StudyModes = convertTribalCodesService.GetTribalStudyModes(string.Join(",", courseSearchProperties.Filters.StudyMode ?? new List<string>())),
+                        SubjectKeyword = courseSearchProperties.Filters.SearchTerm,
+                        EarliestStartDate = courseBusinessRules.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
+                        AttendanceModes = convertTribalCodes.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
+                        StudyModes = convertTribalCodes.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),
                         DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
-                        AttendancePatterns = convertTribalCodesService.GetTribalAttendancePatterns(string.Join(",", courseSearchProperties.Filters.AttendancePattern ?? new List<string>())),
                         ProviderKeyword = courseSearchProperties.Filters.Provider,
-                        Distance = courseSearchProperties.Filters.Distance,
+                        Distance = courseSearchProperties.Filters.DistanceSpecified ? courseSearchProperties.Filters.Distance : default(float),
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,
                         Location = courseSearchProperties.Filters.Location
                     },

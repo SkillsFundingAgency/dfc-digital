@@ -5,7 +5,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class OrderByLinks
     {
-        public CourseSearchOrderBy CourseSearchSortBy { get; set; }
+        public CourseSearchOrderBy OrderBy { get; set; }
 
         public Uri OrderByStartDateUrl { get; set; }
 

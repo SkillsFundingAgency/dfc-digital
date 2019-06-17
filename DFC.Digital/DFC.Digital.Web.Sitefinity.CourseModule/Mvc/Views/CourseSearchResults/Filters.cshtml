@@ -1,187 +1,136 @@
-﻿@model CourseFiltersViewModel
+﻿@using DFC.Digital.Data.Model
+@using DFC.Digital.Web.Core
+@model CourseFiltersViewModel
 
-@*<div class="filters filters">
-    <div class="govuk-form-group">
-        <label class="govuk-label" for="location">
-            Location
-        </label>
-        <input class="govuk-input govuk-!-width-full" id="location" value="@Model.Location" name="CourseFiltersModel.Location" type="text">
+
+<div class="govuk-form-group">
+    @Html.LabelFor(x => x.Location, Model.FilterLocationLabel, new { @class = "govuk-label" })
+    @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield" })
+    @Html.HiddenFor(x => x.LocationRegex, new { @class = "locationRegex" })
+</div>
+
+<div id="distanceFormGroup" style="display: @(Model.IsDistanceLocation ? "block" : "none")" class="govuk-form-group">
+    <div class="govuk-inset-text" id="distance">
+        @Html.LabelFor(x => x.Distance, Model.WithinText, new { @class = "govuk-label" })
+
+        @Html.DropDownListFor(model => model.Distance,
+            new List<SelectListItem>
+            {
+                new SelectListItem{Text="5 Miles", Value="5"},
+                new SelectListItem{Text="10 Miles", Value="10"},
+                new SelectListItem{Text="30 Miles", Value="30"},
+                new SelectListItem{Text="45 Miles", Value="45"},
+                new SelectListItem{Text="60 Miles", Value="60"},
+                new SelectListItem{Text="75 Miles", Value="75"},
+           },
+            null,
+            new { @class = "govuk-select" })
+
+    </div>
+</div>
+
+<div class="govuk-form-group">
+    @Html.LabelFor(x => x.Provider, Model.FilterProviderLabel, new { @class = "govuk-label" })
+    @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input govuk-!-width-full" })
+
+</div>
+
+
+<div class="filters-container">
+    <div class="filter-label">
+        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.CourseHoursSectionText</h2>
+    </div>
+    <div class="filter-box">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-visually-hidden">Choose desired course hours</legend>
+            <div class="govuk-radios">
+                @Html.GovUkEnumRadioButtonFor(model => model.CourseHours, null, "govuk-!-font-size-16")
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="filters-container">
+    <div class="filter-label">
+        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.CourseTypeSectionText</h2>
     </div>
 
-    <div class="govuk-form-group">
-        <label class="govuk-label" for="provider">
-            Provider
-        </label>
-        <input class="govuk-input govuk-!-width-full" id="location" value="@Model.ProviderKeyword" name="CourseFiltersModel.ProviderKeyword" type="text">
-    </div>
-    
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Full-time or part-time</h3>
-        </div>
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-
-                    @foreach (var item in Model.StudyModeSelectedList)
-                    {
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
-                                @item.Label
-                            </label>
-                        </div>
-                    }
-                </div>
-            </fieldset>
-        </div>
+    <div class="filter-box">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-visually-hidden">Choose desired course type</legend>
+            <div class="govuk-radios">
+                @Html.GovUkEnumRadioButtonFor(model => model.CourseType, null, "govuk-!-font-size-16")
+            </div>
+        </fieldset>
     </div>
 
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Classroom or online</h3>
-        </div>
-
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-
-                    @foreach (var item in Model.AttendanceSelectedList)
-                    {
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
-                                @item.Label
-                            </label>
-                        </div>
-                    }
-                </div>
-            </fieldset>
-        </div>
-
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Day, night or weekend</h3>
-        </div>
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-
-                    @foreach (var item in Model.PatternSelectedList)
-                    {
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
-                                @item.Label
-                            </label>
-                        </div>
-                    }
-                </div>
-            </fieldset>
-        </div>
+</div>
+<div class="filters-container">
+    <div class="filter-label">
+        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.StartDateSectionText</h2>
     </div>
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Qualification level</h3>
-        </div>
+    <div class="filter-box conditional-box">
+        <fieldset class="govuk-fieldset">
+            <div class="govuk-radios govuk-radios--conditional" data-module="radios">
+                <div class="govuk-form-group">
+                    @Html.GovUkEnumRadioButtonFor(model => model.StartDate, "conditional-start-date-conditional-1", "govuk-!-font-size-16")
 
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
+                    <div class="govuk-radios__conditional @(Model.StartDate == StartDate.SelectDateFrom ? string.Empty : "govuk-radios__conditional--hidden") conditional-date" id="conditional-start-date-conditional-1">
+                        <div class="govuk-form-group">
+                            @Html.LabelFor(x => x.StartDateDay, "Start date", new { @class = "govuk-visually-hidden" })
 
-                    @foreach (var item in Model.QualificationSelectedList)
-                    {
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value">
-                            <label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">
-                                @item.Label
-                            </label>
-                        </div>
-                    }
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Age suitability</h3>
-        </div>
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios">
-                    <div class="govuk-form-group">
+                            <span class="govuk-hint govuk-!-font-size-16">@Model.StartDateExampleText</span>
+                            <div class="govuk-date-input" id="startDate-Date">
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
 
-                        @foreach (var item in Model.AgeSuitabilitySelectedList)
-                        {
-                            <div class="govuk-radios">
-                                <div class="govuk-radios__item">
-                                    <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
+                                        @Html.LabelFor(x => x.StartDateDay, "Day", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
+                                        @Html.TextBoxFor(x => x.StartDateDay, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateDay" })
+
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        @Html.LabelFor(x => x.StartDateMonth, "Month", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
+                                        @Html.TextBoxFor(x => x.StartDateMonth, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateMonth" })
 
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-
-    <div class="filter-container">
-        <div class="filter-label">
-            <h3 class="govuk-heading-s govuk-!-margin-0">Start date</h3>
-        </div>
-        <div class="filter-box">
-            <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-                <div class="govuk-radios govuk-radios--conditional" data-module="radios"">
-                    <div class="govuk-form-group">
-
-                        @foreach (var item in Model.StartDateSelectedList)
-                        {
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="@item.Id" name="@item.Name" type="radio" @item.Checked value="@item.Value" data-aria-controls="conditional-start-date-conditional-1"><label class="govuk-label govuk-radios__label govuk-!-font-size-16" for="@item.Id">@item.Label</label>
-                            </div>
-                        }
-                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-start-date-conditional-1">
-                            <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-size-16" for="startDate-Date">
-                                    Start date
-                                </label>
-                                <div class="govuk-date-input" id="startDate-Date">
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-day">
-                                                Day
-                                            </label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-day" name="startDate-Date-day" type="number" pattern="[0-9]*">
-                                        </div>
                                     </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-month">
-                                                Month
-                                            </label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-month" name="startDate-Date-month" type="number" pattern="[0-9]*">
-                                        </div>
-                                    </div>
-                                    <div class="govuk-date-input__item">
-                                        <div class="govuk-form-group">
-                                            <label class="govuk-label govuk-date-input__label govuk-!-font-size-16" for="startDate-Date-year">
-                                                Year
-                                            </label>
-                                            <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="startDate-Date-year" name="startDate-Date-year" type="number" pattern="[0-9]*">
-                                        </div>
+                                </div>
+                                <div class="govuk-date-input__item">
+                                    <div class="govuk-form-group">
+                                        @Html.LabelFor(x => x.StartDateYear, "Year", new { @class = "govuk-label govuk-date-input__label govuk-!-font-size-14" })
+                                        @Html.TextBoxFor(x => x.StartDateYear, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", type = "number", pattern = "[0-9]*", name = "CourseFiltersModel.StartDateYear" })
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </fieldset>
-        </div>
+            </div>
+        </fieldset>
     </div>
-    <div class="submit js-live-search-fallback">
-
-        <button class="gem-c-button govuk-button" type="submit">Submit filters</button>
 
 
+</div>
+<div class="filters-container">
+    <div class="filter-label">
+        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesText</h2>
     </div>
-</div>*@
+    <div class="filter-box">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-visually-hidden">Choose age range for courses</legend>
+            <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
+                    @Html.LabelFor(x => x.Only1619Courses, Model.Only1619CoursesText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
+                </div>
+                <input name="Only1619Courses" type="hidden" value="false">
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="submit">
+
+    <button class="js-enabled gem-c-button govuk-button" type="submit">@Model.ApplyFiltersText</button>
+
+</div> 

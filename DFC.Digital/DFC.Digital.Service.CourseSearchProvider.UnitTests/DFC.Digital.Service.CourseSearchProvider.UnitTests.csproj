@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BuildTribalMessageServiceTests.cs" />
     <Compile Include="Services\ConvertTribalCodesServiceTests.cs" />
+    <Compile Include="Services\CourseBusinessRulesProcessorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">

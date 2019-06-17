@@ -1,7 +1,8 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 {
@@ -14,12 +15,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.Distance,
                     Count = 20,
-                    Page = 3
+                    Page = 3,
+                    Filters = new CourseSearchFilters
+                    {
+                        SearchTerm = SearchTerm
+                    }
                 },
                 new CourseListInput
                 {
@@ -40,12 +44,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.Relevance,
                     Count = 30,
-                    Page = 1
+                    Page = 1,
+                    Filters = new CourseSearchFilters
+                    {
+                    SearchTerm = SearchTerm
+                }
                 },
                 new CourseListInput
                 {
@@ -66,12 +73,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                SearchTerm,
                 new CourseSearchProperties
                 {
                     OrderedBy = CourseSearchOrderBy.StartDate,
                     Count = 40,
-                    Page = 2
+                    Page = 2,
+                    Filters = new CourseSearchFilters
+                    {
+                        SearchTerm = SearchTerm
+                    }
                 },
                 new CourseListInput
                 {
@@ -118,32 +128,32 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             yield return new object[]
             {
-                string.Empty,
-                CourseSearchConstants.AllAttendanceModes
+                CourseType.All,
+                CourseSearchConstants.AllAttendanceModes()
             };
 
             yield return new object[]
             {
-               "0",
-               CourseSearchConstants.AllAttendanceModes
+                CourseType.ClassroomBased,
+                CourseSearchConstants.ClassAttendanceModes()
             };
 
             yield return new object[]
             {
-                "1,0",
-                CourseSearchConstants.AllAttendanceModes
+                CourseType.DistanceLearning,
+                CourseSearchConstants.DistantAttendanceModes()
             };
 
             yield return new object[]
             {
-                "1",
-                CourseSearchConstants.ClassAttendanceModes
+                CourseType.WorkBased,
+                CourseSearchConstants.WorkAttendanceModes()
             };
 
             yield return new object[]
             {
-                "2,3",
-                CourseSearchConstants.WorkAttendanceModes.Concat(CourseSearchConstants.DistantAttendanceModes.Concat(CourseSearchConstants.OnlineAttendanceModes))
+                CourseType.Online,
+                 CourseSearchConstants.OnlineAttendanceModes()
             };
         }
 
@@ -151,104 +161,77 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             yield return new object[]
             {
-                string.Empty,
-                null
+                CourseHours.All,
+               null
             };
 
             yield return new object[]
             {
-                "0",
-                null
+                CourseHours.Flexible,
+               new[] { CourseSearchConstants.FlexibleStudyMode }
             };
 
             yield return new object[]
             {
-                "0,1",
-                null
-            };
-
-            yield return new object[]
-            {
-                "1",
+                CourseHours.Fulltime,
                 new[] { CourseSearchConstants.FulltimeStudyMode }
             };
 
             yield return new object[]
             {
-                "2,3",
-                new[] { CourseSearchConstants.PartTimeStudyMode, CourseSearchConstants.FlexibleStudyMode }
+                CourseHours.PartTime,
+                new[] { CourseSearchConstants.PartTimeStudyMode }
             };
         }
 
-        public static IEnumerable<object[]> GetTribalQualificationLevelsTestsInput()
+        public static IEnumerable<object[]> GetEarliestStartDateTestsInput()
         {
             yield return new object[]
             {
-                string.Empty,
-                CourseSearchConstants.AllQualificationLevels
-            };
-
-            yield return new object[]
-            {
-                "0",
-                CourseSearchConstants.AllQualificationLevels
-            };
-
-            yield return new object[]
-            {
-                "1",
-                new[] { CourseSearchConstants.EntryLevelQualification }
-            };
-
-            yield return new object[]
-            {
-                "1,3,0",
-                CourseSearchConstants.AllQualificationLevels
-            };
-
-            yield return new object[]
-            {
-                "2,3",
-                new[] { CourseSearchConstants.Level1Qualification, CourseSearchConstants.Level2Qualification }
-            };
-
-            yield return new object[]
-            {
-                "2,3",
-                new[] { CourseSearchConstants.Level1Qualification, CourseSearchConstants.Level2Qualification }
-            };
-
-            yield return new object[]
-            {
-                "3,4,5,6,7,8,9",
-                new[] { CourseSearchConstants.Level2Qualification,  CourseSearchConstants.Level3Qualification,  CourseSearchConstants.Level4Qualification,  CourseSearchConstants.Level5Qualification,  CourseSearchConstants.Level6Qualification,  CourseSearchConstants.Level7Qualification,  CourseSearchConstants.Level8Qualification }
-            };
-        }
-
-        public static IEnumerable<object[]> GetTribalAttendancePatternsTestsInput()
-        {
-            yield return new object[]
-            {
-                string.Empty,
+                StartDate.Anytime,
+                DateTime.Now,
                 null
             };
 
             yield return new object[]
             {
-                "0",
-                null
+                StartDate.FromToday,
+                DateTime.Now,
+                DateTime.Now.ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
-                "1",
-                new[] { CourseSearchConstants.NormalWorkingHoursPattern }
+                StartDate.SelectDateFrom,
+                DateTime.Now,
+                DateTime.Now.ToString(Constants.CourseApiDateFormat)
             };
 
             yield return new object[]
             {
-                "2,3",
-                new[] { CourseSearchConstants.DayReleaseBlockPattern, CourseSearchConstants.EveningPattern, CourseSearchConstants.WeekendPattern }
+                StartDate.SelectDateFrom,
+                DateTime.Now.AddDays(70),
+                DateTime.Now.AddDays(70).ToString(Constants.CourseApiDateFormat)
+            };
+
+            yield return new object[]
+            {
+                StartDate.SelectDateFrom,
+                DateTime.Now.AddYears(5),
+                DateTime.Now.AddYears(5).ToString(Constants.CourseApiDateFormat)
+            };
+
+            yield return new object[]
+            {
+                StartDate.SelectDateFrom,
+                DateTime.Now.AddYears(2),
+                DateTime.Now.AddYears(2).ToString(Constants.CourseApiDateFormat)
+            };
+            yield return new object[]
+            {
+                StartDate.SelectDateFrom,
+                DateTime.Now.AddYears(-2),
+                DateTime.Now.AddYears(-1).ToString(Constants.CourseApiDateFormat)
             };
         }
     }

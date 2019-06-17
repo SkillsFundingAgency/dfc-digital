@@ -86,23 +86,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Provider Performance Label")]
         public string ProviderPerformanceLabel { get; set; } = "Provider performance information";
 
-        [DisplayName("Contact Adviser Heading Label ")]
-        public string ContactAdviserHeadingLabel { get; set; } = "Want to speak to an adviser?";
-
-        [DisplayName("Contact Adviser Call Label")]
-        public string ContactAdviserCallLabel { get; set; } = "Call";
-
-        [DisplayName("Contact Adviser Contact Number Label")]
-        public string ContactAdviserContactNumberLabel { get; set; } = "0800 100 900 or";
-
-        [DisplayName("Contact Adviser Webchat Label")]
-        public string ContactAdviserWebchatLabel { get; set; } = "use webchat";
-
-        [DisplayName("Contact Adviser Webchat Link")]
-        public string ContactAdviserWebchatLink { get; set; } = "#";
-
-        [DisplayName("Contact Adviser ContactHrs Label")]
-        public string ContactAdviserContactHrsLabel { get; set; } = "8am to 10pm, 7 days a week";
+        [DisplayName("Contact Adviser Section")]
+        public string ContactAdviserSection { get; set; } = "<div class='app-related-items'><h3 class='govuk-heading-m'>Want to speak to an adviser?</h3><p class='govuk-body'><b>Call</b> Call 0800 100 900 or <a href='#' class='govuk-link govuk-link--no-visited-state'>use webchat</a></p><p class='govuk-hint'>8am to 10pm, 7 days a week</p></div>";
 
         public ActionResult Index(string courseId, string oppurtunityId, string referralPath)
         {
@@ -130,13 +115,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                 viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
                 viewModel.CourseDetailsPage = CourseDetailsPage;
-
-                viewModel.ContactAdviserCallLabel = ContactAdviserCallLabel;
-                viewModel.ContactAdviserContactHrsLabel = ContactAdviserContactHrsLabel;
-                viewModel.ContactAdviserContactNumberLabel = ContactAdviserContactNumberLabel;
-                viewModel.ContactAdviserHeadingLabel = ContactAdviserHeadingLabel;
-                viewModel.ContactAdviserWebchatLabel = ContactAdviserWebchatLabel;
-                viewModel.ContactAdviserWebchatLink = ContactAdviserWebchatLink;
+                viewModel.ContactAdviserSection = ContactAdviserSection;
             }
 
             return View(viewModel);

@@ -188,10 +188,5 @@
         @Html.Partial("Provider", Model)
 
     </aside>
-    <div class="app-related-items">
-        <h3 class="govuk-heading-m">@Model.ContactAdviserHeadingLabel</h3>
-        <p class="govuk-body"><b>@Model.ContactAdviserCallLabel</b> @Model.ContactAdviserContactNumberLabel
-        <a href="@Model.ContactAdviserWebchatLink" class="govuk-link govuk-link--no-visited-state">@Model.ContactAdviserWebchatLabel</a></p>
-        <p class="govuk-hint">@Model.ContactAdviserContactHrsLabel</p>
-    </div>
+    @Html.Raw(Model.ContactAdviserSection)
 </div>

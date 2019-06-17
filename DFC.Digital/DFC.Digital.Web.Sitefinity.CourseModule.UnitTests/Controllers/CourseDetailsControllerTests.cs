@@ -55,12 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string learnerSatisfactionLabel,
             string providerPerformanceLabel,
             string referralPath,
-            string contactAdviserHeadingLabel,
-            string contactAdviserCallLabel,
-            string contactAdviserContactNumberLabel,
-            string contactAdviserWebchatLabel,
-            string contactAdviserWebchatLink,
-            string contactAdviserContactHrsLabel)
+            string contactAdviserSection)
         {
             // Assign
             var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
@@ -84,12 +79,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 EmployerSatisfactionLabel = employerSatisfactionLabel,
                 LearnerSatisfactionLabel = learnerSatisfactionLabel,
                 ProviderPerformanceLabel = providerPerformanceLabel,
-                ContactAdviserCallLabel = contactAdviserCallLabel,
-                ContactAdviserHeadingLabel = contactAdviserHeadingLabel,
-                ContactAdviserWebchatLabel = contactAdviserWebchatLabel,
-                ContactAdviserWebchatLink = contactAdviserWebchatLink,
-                ContactAdviserContactHrsLabel = contactAdviserContactHrsLabel,
-                ContactAdviserContactNumberLabel = contactAdviserContactNumberLabel
+                ContactAdviserSection = contactAdviserSection,
             };
 
             A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns(new CourseDetails());

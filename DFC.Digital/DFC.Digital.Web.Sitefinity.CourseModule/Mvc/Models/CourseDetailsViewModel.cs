@@ -47,16 +47,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public CourseDetails CourseDetails { get; set; } = new CourseDetails();
 
-        public string ContactAdviserHeadingLabel { get; set; }
-
-        public string ContactAdviserCallLabel { get; set; }
-
-        public string ContactAdviserContactNumberLabel { get; set; }
-
-        public string ContactAdviserWebchatLabel { get; set; }
-
-        public string ContactAdviserWebchatLink { get; set; }
-
-        public string ContactAdviserContactHrsLabel { get; set; }
+        public string ContactAdviserSection { get; set; }
     }
 }

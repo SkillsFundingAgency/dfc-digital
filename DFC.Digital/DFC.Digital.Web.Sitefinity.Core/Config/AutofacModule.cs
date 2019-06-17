@@ -56,6 +56,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
+            builder.RegisterType<SitefinityPageDataProxy>().As<ISitefinityPageDataProxy>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<SitefinityPageNodeProxy>().As<ISitefinityPageNodeProxy>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
             builder.RegisterType<CompositePageBuilder>().As<ICompositePageBuilder>()
               .InstancePerLifetimeScope()
               .EnableInterfaceInterceptors()

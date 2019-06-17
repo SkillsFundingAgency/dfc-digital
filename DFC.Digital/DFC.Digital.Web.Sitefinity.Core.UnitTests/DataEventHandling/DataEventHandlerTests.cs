@@ -1,15 +1,10 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using FakeItEasy;
-using FluentAssertions;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using Telerik.Sitefinity.Data.Events;
-using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Pages.Model;
-using Telerik.Sitefinity.Publishing;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.Core.UnitTests

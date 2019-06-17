@@ -399,13 +399,17 @@
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="DataEventHandling\CompositePageBuilder.cs" />
-    <Compile Include="DataEventHandling\SitefinityDataEventProxy.cs" />
+    <Compile Include="SitefinityProxies\SitefinityDataEventProxy.cs" />
+    <Compile Include="SitefinityProxies\SitefinityPageDataProxy.cs" />
+    <Compile Include="SitefinityProxies\SitefinityPageNodeProxy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ICompositePageBuilder.cs" />
     <Compile Include="Interfaces\IDataEventHandler.cs" />
     <Compile Include="Interfaces\ISitefinityDataEventProxy.cs" />
     <Compile Include="Interfaces\ISitefinityManagerProxy.cs" />
-    <Compile Include="DataEventHandling\SitefinityManagerProxy.cs" />
+    <Compile Include="SitefinityProxies\SitefinityManagerProxy.cs" />
+    <Compile Include="Interfaces\ISitefinityPageDataProxy.cs" />
+    <Compile Include="Interfaces\ISitefinityPageNodeProxy.cs" />
     <Compile Include="SitefinityExtensions\AssetLocationAndVersion.cs" />
     <Compile Include="SitefinityExtensions\DfcCustomRequestValidator.cs" />
     <Compile Include="HttpModules\AppStatusSitefinityHttpModule.cs" />
@@ -449,6 +453,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

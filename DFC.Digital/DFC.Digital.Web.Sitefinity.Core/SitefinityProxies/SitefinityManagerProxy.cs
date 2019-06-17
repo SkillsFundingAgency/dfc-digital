@@ -1,7 +1,9 @@
-﻿using System;
+﻿using DFC.Digital.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
@@ -22,9 +24,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return GetPageNode(providerName, contentType, itemId).GetPageData();
         }
 
-        public MvcControllerProxy LoadControl(string providerName, PageControl pageControl)
+        public string GetControlContent(string providerName, PageControl pageControl)
         {
-            return PageManager.GetManager(providerName).LoadControl(pageControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
+            var control = PageManager.GetManager(providerName).LoadControl(pageControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
+            return control.Settings.Values[Constants.Content];
+        }
+
+        public string GetLstringValue(Lstring lstring)
+        {
+            return lstring.Value;
         }
     }
 }

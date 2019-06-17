@@ -10,10 +10,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class CompositePageBuilder : ICompositePageBuilder
     {
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
+        private readonly ISitefinityPageNodeProxy sitefinityPageNodeProxy;
+        private readonly ISitefinityPageDataProxy sitefinityPageDataProxy;
 
-        public CompositePageBuilder(ISitefinityManagerProxy sitefinityManagerProxy)
+        public CompositePageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy)
         {
             this.sitefinityManagerProxy = sitefinityManagerProxy;
+            this.sitefinityPageDataProxy = sitefinityPageDataProxy;
+            this.sitefinityPageNodeProxy = sitefinityPageNodeProxy;
         }
 
         public CompositePageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId)
@@ -21,10 +25,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
-            var compositePageData = new CompositePageData() { Name = pageNode.UrlName.Value };
+            var compositePageData = new CompositePageData() { Name = sitefinityPageNodeProxy.GetURLName(pageNode) };
             compositePageData.IncludeInSitemap = pageNode.Crawlable;
-            compositePageData.Title = pageData.HtmlTitle.Value;
-            compositePageData.MetaTags = new MetaTags() { Description = pageData.Description.Value, KeyWords = pageData.Keywords.Value };
+            compositePageData.Title = sitefinityPageDataProxy.GetHtmlTitle(pageData);
+            compositePageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), KeyWords = sitefinityPageDataProxy.GetKeywords(pageData) };
             compositePageData.Content = GetPageContentBlocks(providerName, contentType, itemId);
             return compositePageData;
         }
@@ -38,8 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageDraftControls = pageData.Controls.Where(c => c.Caption == Constants.ContentBlock);
             foreach (var pageDraftControl in pageDraftControls)
             {
-                MvcControllerProxy control = sitefinityManagerProxy.LoadControl(providerName, pageDraftControl);
-                contentData.Add(control.Settings.Values[Constants.Content]);
+                contentData.Add(sitefinityManagerProxy.GetControlContent(providerName, pageDraftControl));
             }
 
             return contentData;

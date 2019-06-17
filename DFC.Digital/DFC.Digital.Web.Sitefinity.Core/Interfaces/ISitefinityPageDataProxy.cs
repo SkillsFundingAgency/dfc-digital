@@ -4,25 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Telerik.Sitefinity.Model;
-using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public interface ISitefinityManagerProxy
+    public interface ISitefinityPageDataProxy
     {
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        PageNode GetPageNode(string providerName, Type contentType, Guid itemId);
+        string GetHtmlTitle(PageData pageData);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        PageData GetPageData(string providerName, Type contentType, Guid itemId);
+        string GetDescription(PageData pageData);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        string GetControlContent(string providerName, PageControl pageControl);
+        string GetKeywords(PageData pageData);
     }
 }

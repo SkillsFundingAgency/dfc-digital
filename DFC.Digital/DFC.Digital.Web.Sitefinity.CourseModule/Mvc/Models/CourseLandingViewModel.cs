@@ -19,6 +19,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string Dfe1619FundedText { get; set; }
 
-        public string SubmitText { get; set; }
+        public string SubmitButtonText { get; set; }
     }
 }

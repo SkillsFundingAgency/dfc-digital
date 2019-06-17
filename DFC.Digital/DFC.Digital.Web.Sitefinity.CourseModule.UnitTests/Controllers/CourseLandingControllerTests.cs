@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LocationHintText = locationHintText,
                 CourseSearchResultsPage = courseSearchResultsPage,
                 Dfe1619FundedText = dfe1619FundedText,
-                SubmitText = buttonText
+                SubmitButtonText = buttonText
             };
 
             // Act
@@ -54,7 +54,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         vm.ProviderNameHintText.Should().BeEquivalentTo(controller.ProviderHintText);
                         vm.LocationHintText.Should().BeEquivalentTo(controller.LocationHintText);
                         vm.Dfe1619FundedText.Should().BeEquivalentTo(controller.Dfe1619FundedText);
-                        vm.SubmitText.Should().BeEquivalentTo(controller.SubmitText);
+                        vm.SubmitButtonText.Should().BeEquivalentTo(controller.SubmitButtonText);
                     });
         }
 

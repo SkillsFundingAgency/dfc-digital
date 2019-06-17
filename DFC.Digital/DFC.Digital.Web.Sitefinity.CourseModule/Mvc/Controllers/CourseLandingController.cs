@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
 
         [DisplayName("Submit button Text")]
-        public string SubmitText { get; set; } = "Find a course";
+        public string SubmitButtonText { get; set; } = "Find a course";
         #endregion
 
         #region Action
@@ -88,7 +88,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             model.ProviderNameHintText = ProviderHintText;
             model.LocationHintText = LocationHintText;
             model.Dfe1619FundedText = Dfe1619FundedText;
-            model.SubmitText = SubmitText;
+            model.SubmitButtonText = SubmitButtonText;
         }
     }
 }

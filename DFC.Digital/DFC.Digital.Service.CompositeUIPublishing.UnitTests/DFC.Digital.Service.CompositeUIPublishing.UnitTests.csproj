@@ -13,6 +13,7 @@
     <AssemblyName>DFC.Digital.Service.CompositeUIPublishing.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -83,7 +84,7 @@
       <Name>DFC.Digital.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
-      <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
+      <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj">

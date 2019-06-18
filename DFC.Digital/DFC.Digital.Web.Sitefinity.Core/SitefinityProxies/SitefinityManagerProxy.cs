@@ -1,15 +1,12 @@
 ﻿using DFC.Digital.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.Pages;
-using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitefinityManagerProxy : ISitefinityManagerProxy
     {
         public PageNode GetPageNode(string providerName, Type contentType, Guid itemId)

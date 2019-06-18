@@ -4,6 +4,7 @@ using Telerik.Sitefinity.Publishing;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitefinityDataEventProxy : ISitefinityDataEventProxy
     {
         public T GetPropertyValue<T>(IDataEvent eventInfo, string propertyName)

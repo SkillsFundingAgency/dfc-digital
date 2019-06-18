@@ -26,6 +26,6 @@ namespace DFC.Digital.Service.CompositeUI
             return await httpClient.PostAsync(ConfigurationManager.AppSettings[Constants.CompositeUIPublishEndPoint], pageDataJSon);
         }
 
-        #endregion Implementation of IAsheHttpClientProxy
+        #endregion Implementation of ICompositeClientProxy
     }
 }

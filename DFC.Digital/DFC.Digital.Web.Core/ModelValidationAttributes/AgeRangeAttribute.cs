@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Core
 {
-    public class AgeRangeAttribute : ValidationAttribute, IClientValidatable
+    public sealed class AgeRangeAttribute : ValidationAttribute, IClientValidatable
     {
         public AgeRangeAttribute(int minAge, int maxAge)
         {

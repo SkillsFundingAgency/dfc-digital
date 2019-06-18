@@ -1,35 +1,51 @@
-﻿@model DFC.Digital.Data.Model.ProviderDetails
+﻿@model CourseDetailsViewModel
 
-<h2 class="govuk-heading-m govuk-!-margin-top-2">Provider details</h2>
-<p class="govuk-body-lead">@Model.Name</p>
+<h2 class="govuk-heading-m govuk-!-margin-top-2" id="@nameof(Model.ProviderLabel)">@Model.ProviderLabel</h2>
+@if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.Name))
+{
+    <p class="govuk-body-lead">@Model.CourseDetails.ProviderDetails.Name</p>
+}
+
 
 <ul class="govuk-list govuk-!-font-size-16">
-    <li>
-        Website:
-        <a class="govuk-link" href="@Model.Website">@Model.Website</a>
-    </li>
-    <li>
-        Email:
-        <a class="govuk-link" href="#">@Model.EmailAddress</a>
-    </li>
-    <li>
-        Phone: @Model.PhoneNumber
-    </li>
-</ul>
-
-@if(Model.LearnerSatisfactionSpecified || Model.EmployerSatisfactionSpecified)
+    @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.Website))
     {
-        <h2 class="govuk-heading-s">Provider performance information</h2>
-        if (Model.LearnerSatisfactionSpecified)
-         {
-        <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.LearnerSatisfaction</p>
-         <p class="govuk-body-s">out of 10 for learner satisfaction</p>
-         }
-        
-        if (Model.EmployerSatisfactionSpecified)
-         {
-         <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.EmployerSatisfaction</p>
-             <p class="govuk-body-s">out of 10 for employer satisfaction</p>
-         }
+        <li>
+            Website:
+            <a class="govuk-link" href="@Model.CourseDetails.ProviderDetails.Website">@Model.CourseDetails.ProviderDetails.Website</a>
+        </li>
     }
+    @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.EmailAddress))
+    {
+        <li>
+            Email:
+            <a class="govuk-link" href="#">@Model.CourseDetails.ProviderDetails.EmailAddress</a>
+        </li>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.PhoneNumber))
+    {
+        <li>
+            Phone: @Model.CourseDetails.ProviderDetails.PhoneNumber
+        </li>
+    }
+</ul>
+@if (Model.CourseDetails.ProviderDetails != null)
+{
+
+    if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified || Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
+    {
+        <h2 class="govuk-heading-m">@Model.ProviderPerformanceLabel</h2>
+        if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified)
+        {
+            <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.LearnerSatisfaction</p>
+            <p class="govuk-body-s govuk-!-font-weight-bold">@Model.LearnerSatisfactionLabel</p>
+        }
+
+        if (Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
+        {
+            <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.EmployerSatisfaction</p>
+            <p class="govuk-body-s govuk-!-font-weight-bold">@Model.EmployerSatisfactionLabel</p>
+        }
+    }
+}
 <hr class="govuk-section-break govuk-section-break--visible" />

@@ -54,7 +54,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 new Course
                 {
                     Title = c.Course.CourseTitle,
-                    Location = (c.Opportunity.Item as VenueInfo)?.VenueAddress.Town,
+                    LocationDetails = GetVenue(c.Opportunity.Item as VenueInfo),
                     ProviderName = c.Provider.ProviderName,
                     StartDateLabel = c.Opportunity.StartDate.Item,
                     CourseId = c.Course.CourseID,
@@ -68,14 +68,20 @@ namespace DFC.Digital.Service.CourseSearchProvider
             return result ?? Enumerable.Empty<Course>();
         }
 
-        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult)
+        internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string oppurtunityId, string courseId)
         {
-            var apiCourseDetail = apiResult.CourseDetails?.FirstOrDefault();
+            var apiCourseDetail = apiResult.CourseDetails?.SingleOrDefault(co => co.Course.CourseID == courseId);
 
             if (apiCourseDetail == null)
             {
                 return null;
             }
+
+            OpportunityDetail activeOppurtunity = (!string.IsNullOrEmpty(oppurtunityId)) ?
+                         apiCourseDetail.Opportunity.SingleOrDefault(op => op.OpportunityId == oppurtunityId)
+                         : activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
+
+            var venue = apiCourseDetail.Venue.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
 
             return new CourseDetails
             {
@@ -85,13 +91,25 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 AssessmentMethod = apiCourseDetail.Course.AssessmentMethod,
                 EquipmentRequired = apiCourseDetail.Course.EquipmentRequired,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
-                Cost = apiCourseDetail.Opportunity.FirstOrDefault()?.Price,
-                VenueDetails = new VenueDetails
+                QualificationLevel = apiCourseDetail.Course.QualificationLevel,
+                VenueDetails =
+                new Venue
                 {
-                    EmailAddress = apiCourseDetail.Venue.FirstOrDefault()?.Email,
-                    Location = apiCourseDetail.Venue.FirstOrDefault()?.VenueName,
-                    PhoneNumber = apiCourseDetail.Venue.FirstOrDefault()?.Phone,
-                    Website = apiCourseDetail.Venue.FirstOrDefault()?.Website
+                    EmailAddress = venue?.Email,
+                    Location = new Address
+                    {
+                        AddressLine1 = venue?.VenueAddress.Address_line_1,
+                        AddressLine2 = venue?.VenueAddress.Address_line_2,
+                        County = venue?.VenueAddress.County,
+                        Town = venue?.VenueAddress.Town,
+                        Postcode = venue?.VenueAddress.PostCode,
+                        Longitude = venue?.VenueAddress.Longitude,
+                        Latitude = venue?.VenueAddress.Latitude,
+                    },
+                    PhoneNumber = venue?.Phone,
+                    Website = venue?.Website,
+                    VenueName = venue?.VenueName,
+                    Fax = venue?.Fax,
                 },
                 ProviderDetails = new ProviderDetails
                 {
@@ -110,13 +128,47 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     LearnerSatisfaction = apiCourseDetail.Provider.FEChoices_LearnerSatisfaction,
                     EmployerSatisfaction = apiCourseDetail.Provider.FEChoices_EmployerSatisfaction
                 },
-                StartDateLabel = apiCourseDetail.Opportunity.FirstOrDefault()?.StartDate.Item,
+                Oppurtunities = GetOppurtunities(apiCourseDetail, activeOppurtunity?.OpportunityId),
+                CourseLink = apiCourseDetail.Course.URL,
                 CourseId = apiCourseDetail.Course.CourseID,
-                AttendanceMode = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendanceMode,
-                AttendancePattern = apiCourseDetail.Opportunity.FirstOrDefault()?.AttendancePattern,
-                QualificationLevel = apiCourseDetail.Course.QualificationLevel,
-                StudyMode = apiCourseDetail.Opportunity.FirstOrDefault()?.StudyMode,
-                Duration = $"{apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationValue} {apiCourseDetail.Opportunity.FirstOrDefault()?.Duration?.DurationUnit}"
+                Cost = activeOppurtunity?.Price,
+                StartDateLabel = activeOppurtunity?.StartDate.Item,
+                AttendanceMode = activeOppurtunity?.AttendanceMode,
+                AttendancePattern = activeOppurtunity?.AttendancePattern,
+                StudyMode = activeOppurtunity?.StudyMode,
+                Duration = $"{activeOppurtunity?.Duration?.DurationValue} {activeOppurtunity?.Duration?.DurationUnit}"
+            };
+        }
+
+        private static IList<Oppurtunity> GetOppurtunities(CourseDetailStructure apiCourseDetail, string oppurtunityId)
+        {
+            return apiCourseDetail.Opportunity.Where(op => op.OpportunityId != oppurtunityId).Select(opp => new Oppurtunity
+            {
+                StartDate = opp.StartDate.Item,
+                OppurtunityId = opp.OpportunityId,
+                VenueName = apiCourseDetail.Venue.Where(venue => venue.VenueID.ToString() == opp.Items[0]).FirstOrDefault().VenueName
+            }).ToList();
+        }
+
+        private static LocationDetails GetVenue(VenueInfo venueInfo)
+        {
+            if (venueInfo is null)
+            {
+                return null;
+            }
+
+            var address = new Dictionary<string, string>
+            {
+                [nameof(VenueInfo.VenueAddress.Address_line_1)] = venueInfo.VenueAddress.Address_line_1,
+                [nameof(VenueInfo.VenueAddress.Address_line_2)] = venueInfo.VenueAddress.Address_line_2,
+                [nameof(VenueInfo.VenueAddress.Town)] = venueInfo.VenueAddress.Town,
+                [nameof(VenueInfo.VenueAddress.PostCode)] = venueInfo.VenueAddress.PostCode
+            };
+
+            return new LocationDetails
+            {
+                Distance = venueInfo.Distance,
+                LocationAddress = string.Join(", ", address.Where(x => !string.IsNullOrWhiteSpace(x.Value)).Select(add => add.Value))
             };
         }
     }

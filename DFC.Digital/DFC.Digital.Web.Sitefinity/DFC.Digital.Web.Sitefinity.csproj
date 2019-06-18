@@ -1133,6 +1133,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.16.nupkg" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec">
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

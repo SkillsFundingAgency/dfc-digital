@@ -89,6 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     {
                         vm.PageTitle.Should().BeEquivalentTo(controller.PageTitle);
                         vm.ResetFiltersText.Should().BeEquivalentTo(controller.ResetFilterText);
+                        vm.ResetFilterUrl.AbsoluteUri.Should().NotBeEmpty();
                     });
 
             if (!string.IsNullOrWhiteSpace(searchFilter.SearchTerm))

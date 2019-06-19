@@ -16,7 +16,7 @@ namespace DFC.Digital.Data.Model
         [Display(Name = "Online", Order = 4)]
         Online,
 
-        [Display(Name = "Work Based", Order = 5)]
+        [Display(Name = "Work based", Order = 5)]
         WorkBased
     }
 }

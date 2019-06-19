@@ -7,10 +7,10 @@ namespace DFC.Digital.Data.Model
         [Display(Name = "All", Order = 1)]
         All,
 
-        [Display(Name = "Full Time", Order = 2)]
+        [Display(Name = "Full time", Order = 2)]
         Fulltime,
 
-        [Display(Name = "Part Time", Order = 3)]
+        [Display(Name = "Part time", Order = 3)]
         PartTime,
 
         [Display(Name = "Flexible", Order = 4)]

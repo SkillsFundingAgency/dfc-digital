@@ -179,7 +179,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
                    ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText),
                    FilterProviderLabel = nameof(CourseFiltersViewModel.FilterProviderLabel),
-                   FilterLocationLabel = nameof(CourseFiltersViewModel.FilterLocationLabel)
+                   FilterLocationLabel = nameof(CourseFiltersViewModel.FilterLocationLabel),
+                   Only1619CoursesSectionText = nameof(CourseFiltersViewModel.Only1619CoursesSectionText)
                }
             };
 
@@ -433,7 +434,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                ValidSelectFromCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Relevance,
                 ValidCourseSearchResponse
@@ -444,7 +445,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 ValidSelectFromTodayCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Distance,
                 ValidCourseSearchResponse
@@ -455,7 +456,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.StartDate,
                 ValidCourseSearchResponse
@@ -466,7 +467,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.StartDate,
                 ZeroResultsCourseSearchResponse
@@ -477,7 +478,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 InvalidCourseResultsViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Distance,
                 ZeroResultsCourseSearchResponse

@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion Constructors
 
         #region Public Properties
-        public string PageTitle { get; set; } = "Find a course";
+        public string PageTitle { get; set; } = "Search";
 
         public int RecordsPerPage { get; set; } = 20;
 
@@ -59,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string SearchForCourseNameText { get; set; } = "Course name";
 
-        public string OrderByText { get; set; } = "Ordered by";
+        public string OrderByText { get; set; } = "Sort by:";
 
         public string RelevanceOrderByText { get; set; } = "Relevance";
 
@@ -79,11 +79,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string StartDateExampleText { get; set; } = "For example, 01 01 2020";
 
-        public string CourseHoursSectionText { get; set; } = "Course Hours";
+        public string CourseHoursSectionText { get; set; } = "Course hours";
 
         public string StartDateSectionText { get; set; } = "Start date";
 
-        public string CourseTypeSectionText { get; set; } = "Course Type";
+        public string CourseTypeSectionText { get; set; } = "Course type";
 
         public string ApplyFiltersText { get; set; } = "Apply Filters";
 
@@ -112,6 +112,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string FilterProviderLabel { get; set; } = "Provider";
 
         public string FilterLocationLabel { get; set; } = "Location";
+
+        public string Only1619CoursesSectionText { get; set; } = "Age suitability";
 
         #endregion
 
@@ -168,9 +170,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
 
                 SetupStartDateDisplayData(viewModel);
-                viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
             }
 
+            viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
             viewModel.NoTrainingCoursesFoundText =
                 string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
                     ? string.Empty
@@ -287,6 +289,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
             viewModel.CourseFiltersModel.FilterLocationLabel = FilterLocationLabel;
             viewModel.CourseFiltersModel.FilterProviderLabel = FilterProviderLabel;
+            viewModel.CourseFiltersModel.Only1619CoursesSectionText = Only1619CoursesSectionText;
         }
 
         #endregion

@@ -81,7 +81,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                          apiCourseDetail.Opportunity.SingleOrDefault(op => op.OpportunityId == oppurtunityId)
                          : activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
 
-            var venue = apiCourseDetail.Venue.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
+            var venue = apiCourseDetail.Venue?.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
 
             return new CourseDetails
             {
@@ -136,7 +136,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 AttendanceMode = activeOppurtunity?.AttendanceMode,
                 AttendancePattern = activeOppurtunity?.AttendancePattern,
                 StudyMode = activeOppurtunity?.StudyMode,
-                Duration = $"{activeOppurtunity?.Duration?.DurationValue} {activeOppurtunity?.Duration?.DurationUnit}"
+                Duration = $"{activeOppurtunity?.Duration?.DurationValue} {activeOppurtunity?.Duration?.DurationUnit}",
+                AwardingOrganisation = apiCourseDetail.Course.AwardingBody,
+                SubjectCategory = apiCourseDetail.Course.Level2EntitlementCategoryDesc,
+                AdditionalPrice = activeOppurtunity?.PriceDesc,
+                SupportingFacilities = venue?.Facilities,
+                AdvancedLearnerLoansOffered = apiCourseDetail.Provider?.TFPlusLoans == true,
+                LanguageOfInstruction = activeOppurtunity?.LanguageOfInstruction,
+                CourseWebPageLink = activeOppurtunity?.URL
             };
         }
 

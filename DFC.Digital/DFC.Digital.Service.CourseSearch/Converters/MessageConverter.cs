@@ -81,7 +81,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                          apiCourseDetail.Opportunity.SingleOrDefault(op => op.OpportunityId == oppurtunityId)
                          : activeOppurtunity = apiCourseDetail.Opportunity.FirstOrDefault();
 
-            var venue = apiCourseDetail.Venue.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
+            var venue = apiCourseDetail.Venue?.Where(v => v.VenueID.ToString() == activeOppurtunity.Items[0])?.FirstOrDefault();
 
             return new CourseDetails
             {
@@ -92,8 +92,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 EquipmentRequired = apiCourseDetail.Course.EquipmentRequired,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
                 QualificationLevel = apiCourseDetail.Course.QualificationLevel,
-                VenueDetails =
-                new Venue
+                VenueDetails = venue == null ? null :
+               new Venue
                 {
                     EmailAddress = venue?.Email,
                     Location = new Address
@@ -114,6 +114,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 ProviderDetails = new ProviderDetails
                 {
                     EmailAddress = apiCourseDetail.Provider.Email,
+                    Website = apiCourseDetail.Provider.Website,
                     AddressLine = apiCourseDetail.Provider.ProviderAddress.Address_line_1,
                     AddressLine2 = apiCourseDetail.Provider.ProviderAddress.Address_line_2,
                     Town = apiCourseDetail.Provider.ProviderAddress.Town,

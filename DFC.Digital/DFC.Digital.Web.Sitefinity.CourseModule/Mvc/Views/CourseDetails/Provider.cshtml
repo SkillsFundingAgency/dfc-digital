@@ -19,7 +19,7 @@
     {
         <li>
             Email:
-            <a class="govuk-link" href="#">@Model.CourseDetails.ProviderDetails.EmailAddress</a>
+            <a class="govuk-link" href="mailto:@Model.CourseDetails.ProviderDetails.EmailAddress">@Model.CourseDetails.ProviderDetails.EmailAddress</a>
         </li>
     }
     @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.PhoneNumber))

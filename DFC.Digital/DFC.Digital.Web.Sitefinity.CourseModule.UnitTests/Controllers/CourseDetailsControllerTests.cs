@@ -40,7 +40,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string noEntryRequirementsAvailableMessage,
             string noEquipmentRequiredMessage,
             string noAssessmentMethodAvailableMessage,
-            string noVenueAvailableMessage,
             string noOtherDateOrVenueAvailableMessage,
             string courseDetailsPage,
             string qualificationDetailsLabel,
@@ -65,7 +64,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoEntryRequirementsAvailableMessage = noEntryRequirementsAvailableMessage,
                 NoEquipmentRequiredMessage = noEquipmentRequiredMessage,
                 NoAssessmentMethodAvailableMessage = noAssessmentMethodAvailableMessage,
-                NoVenueAvailableMessage = noVenueAvailableMessage,
                 NoOtherDateOrVenueAvailableMessage = noOtherDateOrVenueAvailableMessage,
                 CourseDetailsPage = courseDetailsPage,
                 QualificationDetailsLabel = qualificationDetailsLabel,
@@ -81,8 +79,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 ProviderPerformanceLabel = providerPerformanceLabel,
                 ContactAdviserSection = contactAdviserSection,
             };
-
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns(new CourseDetails());
+            if (!string.IsNullOrEmpty(courseId))
+            {
+                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns(new CourseDetails());
+            }
 
             // Act
             var controllerResult = controller.WithCallTo(contrl => contrl.Index(
@@ -97,7 +97,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                      vm.NoEntryRequirementsAvailableMessage.Should().BeEquivalentTo(controller.NoEntryRequirementsAvailableMessage);
                      vm.NoEquipmentRequiredMessage.Should().BeEquivalentTo(controller.NoEquipmentRequiredMessage);
                      vm.NoAssessmentMethodAvailableMessage.Should().BeEquivalentTo(controller.NoAssessmentMethodAvailableMessage);
-                     vm.NoVenueAvailableMessage.Should().BeEquivalentTo(controller.NoVenueAvailableMessage);
                      vm.NoOtherDateOrVenueAvailableMessage.Should().BeEquivalentTo(controller.NoOtherDateOrVenueAvailableMessage);
                      vm.CourseDetailsPage.Should().BeEquivalentTo(controller.CourseDetailsPage);
                      vm.QualificationDetailsLabel.Should().BeEquivalentTo(controller.QualificationDetailsLabel);

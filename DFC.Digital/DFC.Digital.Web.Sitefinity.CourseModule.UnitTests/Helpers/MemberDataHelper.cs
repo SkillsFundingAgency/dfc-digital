@@ -107,7 +107,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
                 NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
                 VenueLabel = nameof(CourseDetailsViewModel.VenueLabel),
-                NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
 
                 OtherDatesAndVenuesLabel = nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
                 NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
@@ -791,7 +790,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
                 nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
                 nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
-                nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
                 nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
                 nameof(CourseDetailsViewModel.CourseDetailsPage),
                 nameof(CourseDetailsViewModel.QualificationDetailsLabel),

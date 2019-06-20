@@ -27,8 +27,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string VenueLabel { get; set; }
 
-        public string NoVenueAvailableMessage { get; set; }
-
         public string OtherDatesAndVenuesLabel { get; set; }
 
         public string NoOtherDateOrVenueAvailableMessage { get; set; }

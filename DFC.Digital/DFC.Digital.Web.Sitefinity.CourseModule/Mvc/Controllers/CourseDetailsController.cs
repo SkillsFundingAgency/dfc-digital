@@ -65,9 +65,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Venue Details Label")]
         public string VenueLabel { get; set; } = "Venue";
 
-        [DisplayName("No Venue Available Message")]
-        public string NoVenueAvailableMessage { get; set; } = "No venue Available";
-
         [DisplayName("Other Dates And Venues Label")]
         public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
 
@@ -101,7 +98,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                 viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
                 viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
-                viewModel.NoVenueAvailableMessage = NoVenueAvailableMessage;
                 viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
                 viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
                 viewModel.CourseDescriptionLabel = CourseDescriptionLabel;

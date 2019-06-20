@@ -34,14 +34,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsIndex = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetails = new CourseDetails();
             var model = new CourseDetailsViewModel();
-           model.CourseDetails.Title = nameof(CourseDetails.Title);
+            model.CourseDetails.Title = nameof(CourseDetails.Title);
 
             // Act
             var htmlDocument = courseDetailsIndex.RenderAsHtml(model);
 
             // Assert
             this.AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
-            this.AssertTableCounts(htmlDocument, 2);
+            this.AssertTableCounts(htmlDocument, 1);
             this.AssertH2HeadingCounts(htmlDocument, 6);
         }
 
@@ -342,8 +342,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.Description = propertyValue;
+            courseDetailsViewModel.CourseDetails = new CourseDetails
+            {
+                Description = propertyValue
+            };
             courseDetailsViewModel.NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage);
 
             // Act
@@ -466,23 +468,27 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+
             if (venueExists)
             {
-                courseDetailsViewModel.CourseDetails.VenueDetails.VenueName = nameof(CourseDetails.VenueDetails.VenueName);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
-                courseDetailsViewModel.CourseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
-                courseDetailsViewModel.CourseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
+                courseDetailsViewModel.CourseDetails.VenueDetails = new Venue
+                {
+                    VenueName = nameof(CourseDetails.VenueDetails.VenueName),
+                    Location = new Address
+                    {
+                        AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
+                        AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        County = nameof(CourseDetails.VenueDetails.Location.County),
+                        Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
+                    },
+                    Website = nameof(CourseDetails.VenueDetails.Website),
+                    EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress),
+                    PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber),
+                };
             }
             else
             {
                 courseDetailsViewModel.CourseDetails.VenueDetails = null;
-                courseDetailsViewModel.NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage);
             }
 
             // Act
@@ -510,9 +516,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             }
             else
             {
-                htmlDocument.DocumentNode.Descendants("td")
-                .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                 div.InnerText.Contains(courseDetailsViewModel.NoVenueAvailableMessage)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("th")
              .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
               div.InnerText.Contains("Address")).Should().BeFalse();
@@ -593,7 +596,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
-                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Name)).Should().BeFalse();
+                  p.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.Name))).Should().BeFalse();
             }
         }
 

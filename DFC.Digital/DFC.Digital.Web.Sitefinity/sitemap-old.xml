@@ -3776,4 +3776,16 @@
     <loc>https://nationalcareersservice.direct.gov.uk/contact-us/contact-an-adviser</loc>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/course-directory/home</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/course-directory/course-search-result</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://nationalcareersservice.direct.gov.uk/course-directory/course-details</loc>
+    <priority>0.5</priority>
+  </url>
  </urlset>

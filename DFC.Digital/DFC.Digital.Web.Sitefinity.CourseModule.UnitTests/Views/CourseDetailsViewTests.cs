@@ -342,7 +342,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            courseDetailsViewModel.CourseDetails = new CourseDetails{ Description = propertyValue };
+            courseDetailsViewModel.CourseDetails = new CourseDetails { Description = propertyValue };
             courseDetailsViewModel.NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage);
 
             // Act

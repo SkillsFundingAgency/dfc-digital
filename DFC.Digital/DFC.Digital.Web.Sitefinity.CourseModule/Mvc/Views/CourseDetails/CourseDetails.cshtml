@@ -123,7 +123,7 @@
                             @Model.CourseDetails.VenueDetails.Location.County<br />
                             @Model.CourseDetails.VenueDetails.Location.Postcode<br />
 
-                            <a class="govuk-link" href="https://maps.google.com/?q=@Model.CourseDetails.VenueDetails.Location.Latitude,@Model.CourseDetails.VenueDetails.Location.Longitude">Find on Google maps</a>
+                            <a class="govuk-link" target="_blank" href="https://maps.google.com/?q=@Model.CourseDetails.VenueDetails.Location.Latitude,@Model.CourseDetails.VenueDetails.Location.Longitude">Find on Google maps</a>
                         </td>
                     </tr>
                     if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.Website))

@@ -12,7 +12,7 @@
     {
         <li>
             Website:
-            <a class="govuk-link" href="@Model.CourseDetails.ProviderDetails.Website">@Model.CourseDetails.ProviderDetails.Website</a>
+            <a class="govuk-link" target="_blank" href="@Model.CourseDetails.ProviderDetails.Website">@Model.CourseDetails.ProviderDetails.Website</a>
         </li>
     }
     @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.EmailAddress))

@@ -113,7 +113,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Course Web Page Label")]
         public string CourseWebPageLinkLabel { get; set; } = "Course webpage";
 
-        [DisplayName("Course Details - Price Label")]
+        [DisplayName("Course Details - course type Label")]
         public string CourseTypeLabel { get; set; } = "Course type";
 
         [DisplayName("Course Details - Additional Price Label")]

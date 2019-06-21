@@ -63,10 +63,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.Description = propertyValue;
-            courseDetailsViewModel.NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage);
+            var courseDetailsViewModel = new CourseDetailsViewModel
+            {
+                CourseDetails = {Description = propertyValue},
+                NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage)
+            };
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);

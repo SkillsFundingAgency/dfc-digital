@@ -134,13 +134,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Funding Information Link")]
         public string FundingInformationLink { get; set; } = "https://www.gov.uk/advanced-learner-loan/overview";
 
-        public ActionResult Index(string courseId, string opportunity, string referralPath)
+        public ActionResult Index(string courseId, string oppurtunity, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();
             if (!string.IsNullOrWhiteSpace(courseId))
             {
                 viewModel.FindACoursePage = FindAcoursePage;
-                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, opportunity));
+                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunity));
                 viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);
                 viewModel.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
                 viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;

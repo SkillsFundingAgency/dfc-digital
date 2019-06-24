@@ -47,7 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion Constructors
 
         #region Public Properties
-        public string PageTitle { get; set; } = "Find a course";
+        public string PageTitle { get; set; } = "Search";
 
         public int RecordsPerPage { get; set; } = 20;
 
@@ -55,11 +55,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
-        public string NoTrainingCoursesFoundText { get; set; } = "No training courses found for {searchTerm}";
+        public string NoTrainingCoursesFoundText { get; set; } = "<p class=\"govuk-body\">We didn't find any results for {searchTerm} with the active filters you've applied. Try searching again.</p><p class=\"govuk-body\">You could:</p><ul class=\"list list-bullet govuk-body\">    <li>check your spelling</li>    <li>change the start date</li>    <li>check your location or postcode</li>    <li>change your filters</li>    <li>try different search terms</li></ul>";
 
         public string SearchForCourseNameText { get; set; } = "Course name";
 
-        public string OrderByText { get; set; } = "Ordered by";
+        public string OrderByText { get; set; } = "Sort by:";
 
         public string RelevanceOrderByText { get; set; } = "Relevance";
 
@@ -79,13 +79,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string StartDateExampleText { get; set; } = "For example, 01 01 2020";
 
-        public string CourseHoursSectionText { get; set; } = "Course Hours";
+        public string CourseHoursSectionText { get; set; } = "Course hours";
 
         public string StartDateSectionText { get; set; } = "Start date";
 
-        public string CourseTypeSectionText { get; set; } = "Course Type";
+        public string CourseTypeSectionText { get; set; } = "Course type";
 
-        public string ApplyFiltersText { get; set; } = "Apply Filters";
+        public string ApplyFiltersText { get; set; } = "Apply filters";
 
         public string WithinText { get; set; } = "Within";
 
@@ -112,6 +112,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string FilterProviderLabel { get; set; } = "Provider";
 
         public string FilterLocationLabel { get; set; } = "Location";
+
+        public string Only1619CoursesSectionText { get; set; } = "Age suitability";
 
         #endregion
 
@@ -168,13 +170,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
 
                 SetupStartDateDisplayData(viewModel);
-                viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
             }
 
-            viewModel.NoTrainingCoursesFoundText =
-                string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
-                    ? string.Empty
-                    : NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
+            viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
+            viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
 
             SetupWidgetLabelsAndTextDefaults(viewModel);
             return View("SearchResults", viewModel);
@@ -287,6 +286,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.ActiveFiltersSuitableForText = ActiveFiltersSuitableForText;
             viewModel.CourseFiltersModel.FilterLocationLabel = FilterLocationLabel;
             viewModel.CourseFiltersModel.FilterProviderLabel = FilterProviderLabel;
+            viewModel.CourseFiltersModel.Only1619CoursesSectionText = Only1619CoursesSectionText;
         }
 
         #endregion

@@ -71,6 +71,7 @@
     </div>
     <div class="filter-box conditional-box">
         <fieldset class="govuk-fieldset">
+            <legend class="govuk-visually-hidden">@Model.StartDateSectionText</legend>
             <div class="govuk-radios govuk-radios--conditional" data-module="radios">
                 <div class="govuk-form-group">
                     @Html.GovUkEnumRadioButtonFor(model => model.StartDate, "conditional-start-date-conditional-1", "govuk-!-font-size-16")
@@ -114,11 +115,11 @@
 </div>
 <div class="filters-container">
     <div class="filter-label">
-        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesText</h2>
+        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesSectionText</h2>
     </div>
     <div class="filter-box">
         <fieldset class="govuk-fieldset">
-            <legend class="govuk-visually-hidden">Choose age range for courses</legend>
+            <legend class="govuk-visually-hidden">@Model.Only1619CoursesText</legend>
             <div class="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })

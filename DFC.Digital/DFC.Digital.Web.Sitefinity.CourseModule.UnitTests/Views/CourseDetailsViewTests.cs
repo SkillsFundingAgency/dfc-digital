@@ -47,8 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var htmlDocument = courseDetailsIndex.RenderAsHtml(model);
 
             // Assert
-
-            this.AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
+            AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
             this.AssertTableCounts(htmlDocument, 1);
             this.AssertH2HeadingCounts(htmlDocument, 6);
         }
@@ -234,9 +233,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             }
             else
             {
-                htmlDocument.DocumentNode.Descendants("th")
-             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-              div.InnerText.Contains("Address")).Should().BeFalse();
+                htmlDocument.DocumentNode.Descendants("td")
+                  .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+                   div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName)).Should().BeFalse();
             }
         }
 

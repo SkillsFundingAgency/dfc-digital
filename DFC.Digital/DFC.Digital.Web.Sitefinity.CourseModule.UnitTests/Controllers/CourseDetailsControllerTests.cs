@@ -54,7 +54,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string learnerSatisfactionLabel,
             string providerPerformanceLabel,
             string referralPath,
-            string contactAdviserSection)
+            string contactAdviserSection,
+            string additionalPriceLabel,
+            string attendancePatternLabel,
+            string awardingOrganisationLabel,
+            string courseTypeLabel,
+            string courseWebPageLinkLabel,
+            string supportingFacilitiesLabel,
+            string fundingInformationLabel,
+            string fundingInformationLink,
+            string fundingInformationText,
+            string languageOfInstructionLabel,
+            string priceLabel,
+            string qualificationLevelLabel,
+            string qualificationNameLabel,
+            string startDateLabel,
+            string subjectCategoryLabel)
         {
             // Assign
             var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
@@ -78,6 +93,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LearnerSatisfactionLabel = learnerSatisfactionLabel,
                 ProviderPerformanceLabel = providerPerformanceLabel,
                 ContactAdviserSection = contactAdviserSection,
+                AdditionalPriceLabel = additionalPriceLabel,
+                AttendancePatternLabel = attendancePatternLabel,
+                AwardingOrganisationLabel = awardingOrganisationLabel,
+                CourseTypeLabel = courseTypeLabel,
+                CourseWebPageLinkLabel = courseWebPageLinkLabel,
+                SupportingFacilitiesLabel = supportingFacilitiesLabel,
+                FundingInformationLabel = fundingInformationLabel,
+                FundingInformationLink = fundingInformationLink,
+                FundingInformationText = fundingInformationText,
+                LanguageOfInstructionLabel = languageOfInstructionLabel,
+                PriceLabel = priceLabel,
+                QualificationLevelLabel = qualificationLevelLabel,
+                QualificationNameLabel = qualificationNameLabel,
+                StartDateLabel = startDateLabel,
+                SubjectCategoryLabel = subjectCategoryLabel
             };
             if (!string.IsNullOrEmpty(courseId))
             {
@@ -110,6 +140,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                      vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
                      vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
                      vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
+
+                     vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.AdditionalPriceLabel);
+                     vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
+                     vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
+                     vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);
+                     vm.CourseWebPageLinkLabel.Should().BeEquivalentTo(controller.CourseWebPageLinkLabel);
+                     vm.SupportingFacilitiesLabel.Should().BeEquivalentTo(controller.SupportingFacilitiesLabel);
+                     vm.FundingInformationLabel.Should().BeEquivalentTo(controller.FundingInformationLabel);
+                     vm.FundingInformationLink.Should().BeEquivalentTo(controller.FundingInformationLink);
+                     vm.FundingInformationText.Should().BeEquivalentTo(controller.FundingInformationText);
+                     vm.LanguageOfInstructionLabel.Should().BeEquivalentTo(controller.LanguageOfInstructionLabel);
+                     vm.PriceLabel.Should().BeEquivalentTo(controller.PriceLabel);
+                     vm.QualificationLevelLabel.Should().BeEquivalentTo(controller.QualificationLevelLabel);
+                     vm.QualificationNameLabel.Should().BeEquivalentTo(controller.QualificationNameLabel);
+                     vm.StartDateLabel.Should().BeEquivalentTo(controller.StartDateLabel);
+                     vm.SubjectCategoryLabel.Should().BeEquivalentTo(controller.SubjectCategoryLabel);
                  });
             if (string.IsNullOrWhiteSpace(courseId))
             {

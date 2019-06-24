@@ -824,7 +824,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
                 nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
                 nameof(CourseDetailsViewModel.ReferralPath),
-                nameof(CourseDetailsViewModel.ContactAdviserSection)
+                nameof(CourseDetailsViewModel.ContactAdviserSection),
+                nameof(CourseDetailsViewModel.AdditionalPriceLabel),
+                nameof(CourseDetailsViewModel.AttendancePatternLabel),
+                nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
+                nameof(CourseDetailsViewModel.CourseTypeLabel),
+                nameof(CourseDetailsViewModel.CourseWebPageLinkLabel),
+                nameof(CourseDetailsViewModel.SupportingFacilitiesLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLink),
+                nameof(CourseDetailsViewModel.FundingInformationText),
+                nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
+                nameof(CourseDetailsViewModel.PriceLabel),
+                nameof(CourseDetailsViewModel.QualificationLevelLabel),
+                nameof(CourseDetailsViewModel.QualificationNameLabel),
+                nameof(CourseDetailsViewModel.StartDateLabel),
+                nameof(CourseDetailsViewModel.SubjectCategoryLabel)
             };
         }
 

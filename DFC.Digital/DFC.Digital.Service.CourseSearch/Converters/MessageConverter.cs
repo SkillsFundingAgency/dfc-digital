@@ -86,6 +86,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         private static CourseDetails GetCourseDetailsData(CourseDetailStructure apiCourseDetail, OpportunityDetail activeOpportunity)
         {
+            var venue = GetVenueData(apiCourseDetail.Venue, activeOpportunity);
             return apiCourseDetail?.Course is null ? null : new CourseDetails
             {
                 Title = apiCourseDetail.Course.CourseTitle,
@@ -95,7 +96,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 EquipmentRequired = apiCourseDetail.Course.EquipmentRequired,
                 QualificationName = apiCourseDetail.Course.QualificationTitle,
                 QualificationLevel = apiCourseDetail.Course.QualificationLevel,
-                VenueDetails = GetVenueData(apiCourseDetail.Venue, activeOpportunity),
+                VenueDetails = venue,
                 ProviderDetails = GetProviderDetailsData(apiCourseDetail.Provider),
                 Oppurtunities = GetOpportunities(apiCourseDetail, activeOpportunity?.OpportunityId),
                 CourseLink = apiCourseDetail.Course.URL,
@@ -105,7 +106,14 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 AttendanceMode = activeOpportunity?.AttendanceMode,
                 AttendancePattern = activeOpportunity?.AttendancePattern,
                 StudyMode = activeOpportunity?.StudyMode,
-                Duration = $"{activeOpportunity?.Duration?.DurationValue} {activeOpportunity?.Duration?.DurationUnit}"
+                Duration = $"{activeOpportunity?.Duration?.DurationValue} {activeOpportunity?.Duration?.DurationUnit}",
+                AwardingOrganisation = apiCourseDetail.Course.AwardingBody,
+                SubjectCategory = apiCourseDetail.Course.Level2EntitlementCategoryDesc,
+                AdditionalPrice = activeOpportunity?.PriceDesc,
+                SupportingFacilities = venue?.Facilities,
+                AdvancedLearnerLoansOffered = apiCourseDetail.Provider?.TFPlusLoans == true,
+                LanguageOfInstruction = activeOpportunity?.LanguageOfInstruction,
+                CourseWebPageLink = activeOpportunity?.URL
             };
         }
 
@@ -153,6 +161,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                     Website = venueData.Website,
                     VenueName = venueData.VenueName,
                     Fax = venueData.Fax,
+                    Facilities = venueData.Facilities
                 };
         }
 

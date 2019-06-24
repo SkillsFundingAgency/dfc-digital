@@ -12,14 +12,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     [ControllerToolboxItem(Name = "JobProfileStructuredData", Title = "JobProfile Structured Data", SectionName = SitefinityConstants.CustomWidgetSection)]
     public class JobProfileStructuredDataController : BaseDfcController
     {
+        #region private fields
         private readonly IStructuredDataInjectionRepository structuredDataInjectionRepository;
         private readonly IMapper mapper;
+        #endregion
 
+        #region Ctor
         public JobProfileStructuredDataController(IMapper mapper, IStructuredDataInjectionRepository structuredDataInjectionRepository, IApplicationLogger loggingService) : base(loggingService)
         {
             this.structuredDataInjectionRepository = structuredDataInjectionRepository;
             this.mapper = mapper;
         }
+
+        #endregion
+
         #region Actions
 
         /// <summary>

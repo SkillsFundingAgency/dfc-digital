@@ -21,5 +21,6 @@
         internal const string PreferredTaskTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.PreSearchFilters.PreferredTaskType";
         internal const string ConfigurationsModuleName = "Configurations";
         internal const string EmailTemplateContentType = "Telerik.Sitefinity.DynamicTypes.Model.Configurations.Noncitizenemailtemplates";
+        internal const string StructuredDataInjectionContentType = "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection";
     }
 }

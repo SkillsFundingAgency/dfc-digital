@@ -108,7 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string SubjectCategoryLabel { get; set; } = "Subject category";
 
         [DisplayName("Course Details - Course Web Page Label")]
-        public string CourseWebPageLinkLabel { get; set; } = "Course webpage";
+        public string CourseWebpageLinkLabel { get; set; } = "Course webpage";
 
         [DisplayName("Course Details - course type Label")]
         public string CourseTypeLabel { get; set; } = "Course type";
@@ -161,7 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 viewModel.QualificationLevelLabel = QualificationLevelLabel;
                 viewModel.AwardingOrganisationLabel = AwardingOrganisationLabel;
                 viewModel.SubjectCategoryLabel = SubjectCategoryLabel;
-                viewModel.CourseWebPageLinkLabel = CourseWebPageLinkLabel;
+                viewModel.CourseWebpageLinkLabel = CourseWebpageLinkLabel;
                 viewModel.CourseTypeLabel = CourseTypeLabel;
                 viewModel.StartDateLabel = StartDateLabel;
                 viewModel.PriceLabel = PriceLabel;

@@ -59,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string attendancePatternLabel,
             string awardingOrganisationLabel,
             string courseTypeLabel,
-            string courseWebPageLinkLabel,
+            string courseWebpageLinkLabel,
             string supportingFacilitiesLabel,
             string fundingInformationLabel,
             string fundingInformationLink,
@@ -97,7 +97,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AttendancePatternLabel = attendancePatternLabel,
                 AwardingOrganisationLabel = awardingOrganisationLabel,
                 CourseTypeLabel = courseTypeLabel,
-                CourseWebPageLinkLabel = courseWebPageLinkLabel,
+                CourseWebpageLinkLabel = courseWebpageLinkLabel,
                 SupportingFacilitiesLabel = supportingFacilitiesLabel,
                 FundingInformationLabel = fundingInformationLabel,
                 FundingInformationLink = fundingInformationLink,
@@ -145,7 +145,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                      vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
                      vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
                      vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);
-                     vm.CourseWebPageLinkLabel.Should().BeEquivalentTo(controller.CourseWebPageLinkLabel);
+                     vm.CourseWebpageLinkLabel.Should().BeEquivalentTo(controller.CourseWebpageLinkLabel);
                      vm.SupportingFacilitiesLabel.Should().BeEquivalentTo(controller.SupportingFacilitiesLabel);
                      vm.FundingInformationLabel.Should().BeEquivalentTo(controller.FundingInformationLabel);
                      vm.FundingInformationLink.Should().BeEquivalentTo(controller.FundingInformationLink);

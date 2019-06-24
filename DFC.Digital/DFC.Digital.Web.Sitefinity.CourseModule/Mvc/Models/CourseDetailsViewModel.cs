@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string SubjectCategoryLabel { get; set; }
 
-        public string CourseWebPageLinkLabel { get; set; }
+        public string CourseWebpageLinkLabel { get; set; }
 
         public string CourseTypeLabel { get; set; }
 

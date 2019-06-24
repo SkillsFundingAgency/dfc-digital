@@ -4,6 +4,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using System.Web.Mvc;
+using AutoMapper;
 using Telerik.Sitefinity.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
@@ -12,10 +13,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     public class JobProfileStructuredDataController : BaseDfcController
     {
         private readonly IStructuredDataInjectionRepository structuredDataInjectionRepository;
+        private readonly IMapper mapper;
 
-        public JobProfileStructuredDataController(IStructuredDataInjectionRepository structuredDataInjectionRepository, IApplicationLogger loggingService) : base(loggingService)
+        public JobProfileStructuredDataController(IMapper mapper, IStructuredDataInjectionRepository structuredDataInjectionRepository, IApplicationLogger loggingService) : base(loggingService)
         {
             this.structuredDataInjectionRepository = structuredDataInjectionRepository;
+            this.mapper = mapper;
         }
         #region Actions
 
@@ -42,7 +45,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [RelativeRoute("{urlName}")]
         public ActionResult Index(string urlName)
         {
-            return View(structuredDataInjectionRepository.GetByJobProfileUrlName(urlName) ?? new JobProfileStructuredDataViewModel());
+            var dataStructure = structuredDataInjectionRepository.GetByJobProfileUrlName(urlName);
+
+            if (dataStructure != null)
+            {
+                return View(mapper.Map<JobProfileStructuredDataViewModel>(dataStructure));
+            }
+
+            return new EmptyResult();
         }
 
         /// <summary>

@@ -8,5 +8,7 @@ namespace DFC.Digital.Data.Interfaces
         StructuredDataInjection GetByJobProfileUrlName(string urlName);
 
         Type GetContentType();
+
+        string GetProviderName();
     }
 }

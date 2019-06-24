@@ -29,7 +29,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             if (jobProfile != null)
             {
-                var structuredDataItems = dynamicContentExtensions.GetRelatedParentItems(jobProfile, DynamicTypes.StructuredDataInjectionContentType, jobprofileRepository.GetProviderName());
+                var structuredDataItems = dynamicContentExtensions.GetRelatedParentItems(jobProfile, DynamicTypes.StructuredDataInjectionContentType, structuredDataDynamicModuleRepository.GetProviderName());
 
                 if (structuredDataItems.Any())
                 {
@@ -43,6 +43,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public Type GetContentType()
         {
             return structuredDataDynamicModuleRepository.GetContentType();
+        }
+
+        public string GetProviderName()
+        {
+            return structuredDataDynamicModuleRepository.GetProviderName();
         }
     }
 }

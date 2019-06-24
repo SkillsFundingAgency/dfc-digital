@@ -608,7 +608,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             //Act
             var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
 
-            //Assert
+            //Asserts
             if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");

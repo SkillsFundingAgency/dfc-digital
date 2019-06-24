@@ -86,7 +86,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         private static CourseDetails GetCourseDetailsData(CourseDetailStructure apiCourseDetail, OpportunityDetail activeOpportunity)
         {
-            var venue = GetVenueData(apiCourseDetail.Venue, activeOpportunity);
+            var venue = GetVenueData(apiCourseDetail?.Venue, activeOpportunity);
             return apiCourseDetail?.Course is null ? null : new CourseDetails
             {
                 Title = apiCourseDetail.Course.CourseTitle,

@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
 
-        public string NoTrainingCoursesFoundText { get; set; } = "No training courses found for {searchTerm}";
+        public string NoTrainingCoursesFoundText { get; set; } = "<p class=\"govuk-body\">We didn't find any results for {searchTerm} with the active filters you've applied. Try searching again.</p><p class=\"govuk-body\">You could:</p><ul class=\"list list-bullet govuk-body\">    <li>check your spelling</li>    <li>change the start date</li>    <li>check your location or postcode</li>    <li>change your filters</li>    <li>try different search terms</li></ul>";
 
         public string SearchForCourseNameText { get; set; } = "Course name";
 
@@ -85,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string CourseTypeSectionText { get; set; } = "Course type";
 
-        public string ApplyFiltersText { get; set; } = "Apply Filters";
+        public string ApplyFiltersText { get; set; } = "Apply filters";
 
         public string WithinText { get; set; } = "Within";
 
@@ -173,10 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
 
             viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
-            viewModel.NoTrainingCoursesFoundText =
-                string.IsNullOrWhiteSpace(viewModel.CourseFiltersModel.SearchTerm)
-                    ? string.Empty
-                    : NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
+            viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
 
             SetupWidgetLabelsAndTextDefaults(viewModel);
             return View("SearchResults", viewModel);

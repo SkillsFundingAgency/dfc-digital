@@ -46,5 +46,35 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public CourseDetails CourseDetails { get; set; } = new CourseDetails();
 
         public string ContactAdviserSection { get; set; }
+
+        public string AttendancePatternLabel { get; set; }
+
+        public string PriceLabel { get; set; }
+
+        public string StartDateLabel { get; set; }
+
+        public string QualificationLevelLabel { get; set; }
+
+        public string QualificationNameLabel { get; set; }
+
+        public string AwardingOrganisationLabel { get; set; }
+
+        public string SubjectCategoryLabel { get; set; }
+
+        public string CourseWebPageLinkLabel { get; set; }
+
+        public string CourseTypeLabel { get; set; }
+
+        public string AdditionalPriceLabel { get; set; }
+
+        public string FundingInformationLabel { get; set; }
+
+        public string SupportingFacilitiesLabel { get; set; }
+
+        public string FundingInformationText { get; set; }
+
+        public string FundingInformationLink { get; set; }
+
+        public string LanguageOfInstructionLabel { get; set; }
     }
 }

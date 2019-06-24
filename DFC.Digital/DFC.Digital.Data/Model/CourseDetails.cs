@@ -21,5 +21,17 @@ namespace DFC.Digital.Data.Model
         public string Cost { get; set; }
 
         public string EquipmentRequired { get; set; }
+
+        public string AwardingOrganisation { get; set; }
+
+        public string SubjectCategory { get; set; }
+
+        public string CourseWebPageLink { get; set; }
+
+        public string AdditionalPrice { get; set; }
+
+        public string SupportingFacilities { get; set; }
+
+        public string LanguageOfInstruction { get; set; }
     }
 }

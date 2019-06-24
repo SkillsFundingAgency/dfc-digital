@@ -2,12 +2,9 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
-using Newtonsoft;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace DFC.Digital.Service.CompositeUI
 {
@@ -35,7 +32,9 @@ namespace DFC.Digital.Service.CompositeUI
             try
             {
                 var compositePageData = new CompositePageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, Title = "Last updated = {DateTime.Now}" };
-                var response = await compositeClientProxy.PostDataAsync(JsonConvert.SerializeObject(compositePageData));
+
+                //Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
+                var response = await compositeClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
                 if (response.IsSuccessStatusCode)
                 {
                     //Got a response back
@@ -57,12 +56,13 @@ namespace DFC.Digital.Service.CompositeUI
 
         #region Implement of ICompositeUIService
 
-        public async Task<bool> PostPageDataAsync(CompositePageData compositePageData)
+        public async Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey, CompositePageData compositePageData)
         {
             var pageDataJson = JsonConvert.SerializeObject(compositePageData);
             applicationLogger.Trace($"Posting page data to api - [{pageDataJson}]");
 
-            var response = await compositeClientProxy.PostDataAsync(pageDataJson);
+            //Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
+            var response = await compositeClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
             if (response.IsSuccessStatusCode)
             {
                 applicationLogger.Info($"Posted page data for {compositePageData.Name}");

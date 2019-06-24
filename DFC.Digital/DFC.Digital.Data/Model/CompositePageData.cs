@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> URLs { get; set; } = Enumerable.Empty<string>();
 
         public bool IncludeInSitemap { get; set; }
+
+        public DateTime LastPublished { get; set; }
     }
 }

@@ -42,8 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 {
                     if (contentType == typeof(PageNode) && (hasPageChanged || changedProperties.Count > 0))
                     {
-                        var compositePageData = compositePageBuilder.GetCompositePageForPageNode(providerName, contentType, itemId);
-                        var result = asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(compositePageData));
+                        ExportPageNode(providerName, contentType, itemId);
                     }
 
                     /*
@@ -58,6 +57,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
             catch (Exception ex)
             {
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
+            }
+        }
+
+        private void ExportPageNode(string providerName, Type contentType, Guid itemId)
+        {
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(providerName, contentType, itemId);
+            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
+            {
+                var compositePageData = compositePageBuilder.GetCompositePageForPageNode(providerName, contentType, itemId);
+                var result = asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }
     }

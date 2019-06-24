@@ -9,6 +9,6 @@ namespace DFC.Digital.Service.CompositeUI
 {
     public interface ICompositeClientProxy
     {
-         Task<HttpResponseMessage> PostDataAsync(string pageDataJSon);
+         Task<HttpResponseMessage> PostDataAsync(string postEndPoint, string pageDataJSon);
     }
 }

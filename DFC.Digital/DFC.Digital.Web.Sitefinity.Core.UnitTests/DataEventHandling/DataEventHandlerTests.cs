@@ -37,6 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Setup
             SetUp(action, typeof(PageNode), true, workFlowState, status, 1);
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns("DummyMicroServiceEndPointConfigKey");
 
             //Act
             var dataEventHandler = new DataEventHandler(fakeApplicationLogger, fakeCompositePageBuilder, fakeSitefinityDataEventProxy, fakeCompositeUIService, fakeAsyncHelper);
@@ -63,6 +64,31 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Setup
             SetUp(Constants.ItemActionUpdated, type, hasPageChanged, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, changedProperites);
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns("DummyMicroServiceEndPointConfigKey");
+
+            //Act
+            var dataEventHandler = new DataEventHandler(fakeApplicationLogger, fakeCompositePageBuilder, fakeSitefinityDataEventProxy, fakeCompositeUIService, fakeAsyncHelper);
+            dataEventHandler.ExportCompositePage(fakeDataEvent);
+
+            //Asserts
+            if (shouldPostPage)
+            {
+                A.CallTo(() => fakeCompositePageBuilder.GetCompositePageForPageNode(A<string>._, A<Type>._, A<Guid>._)).MustHaveHappenedOnceExactly();
+            }
+            else
+            {
+                A.CallTo(() => fakeCompositePageBuilder.GetCompositePageForPageNode(A<string>._, A<Type>._, A<Guid>._)).MustNotHaveHappened();
+            }
+        }
+
+        [Theory]
+        [InlineData("", false)]
+        [InlineData("KeyNameIsSetUp", true)]
+        public void MicroServiceEndPointConfigKeyTest(string microServiceEndPointConfigKey, bool shouldPostPage)
+        {
+            //Setup
+            SetUp(Constants.ItemActionUpdated, typeof(PageNode), true, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, 1);
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
             var dataEventHandler = new DataEventHandler(fakeApplicationLogger, fakeCompositePageBuilder, fakeSitefinityDataEventProxy, fakeCompositeUIService, fakeAsyncHelper);

@@ -13,7 +13,11 @@ using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
 
@@ -109,6 +113,32 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             routes.MapRoute("serviceStatus", "health/{controller}/{action}", new { controller = "ServiceStatus", action = "Index", id = string.Empty });
             routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
+        }
+
+        private static void CreateCustomPageField(string fieldName)
+        {
+            var metaManager = MetadataManager.GetManager();
+
+            if (metaManager.GetMetaType(typeof(PageNode)) == null)
+            {
+                var type = metaManager.CreateMetaType(typeof(PageNode));
+                metaManager.SaveChanges();
+            }
+
+            var metaType = metaManager.GetMetaType(typeof(PageNode));
+
+            var field = metaManager.CreateMetafield(fieldName);
+            field.MetaAttributes.Add(new MetaFieldAttribute()
+            {
+                Name = "UserFriendlyDataType",
+                Value = "ShortText"
+            });
+
+            field.ClrType = typeof(Lstring).FullName;
+            field.Hidden = false;
+
+            metaType.Fields.Add(field);
+            metaManager.SaveChanges();
         }
     }
 }

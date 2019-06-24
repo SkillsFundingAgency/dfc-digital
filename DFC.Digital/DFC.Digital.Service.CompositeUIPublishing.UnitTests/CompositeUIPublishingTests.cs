@@ -38,13 +38,13 @@ namespace DFC.Digital.Service.CompositeUIPublishing.UnitTests
 
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
 
-            A.CallTo(() => clientProxy.PostDataAsync(A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => clientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Trace(A<string>._)).DoesNothing();
             A.CallTo(() => applicationLogger.Info(A<string>._)).DoesNothing();
 
             //Act
             var compositeUIService = new CompositeUIService(applicationLogger, clientProxy);
-            var result = await compositeUIService.PostPageDataAsync(new CompositePageData());
+            var result = await compositeUIService.PostPageDataAsync("DummyEnd", new CompositePageData());
 
             //Assert
             result.Should().Be(expectedResponse);
@@ -72,7 +72,7 @@ namespace DFC.Digital.Service.CompositeUIPublishing.UnitTests
 
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
 
-            A.CallTo(() => clientProxy.PostDataAsync(A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => clientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
             A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
@@ -94,7 +94,7 @@ namespace DFC.Digital.Service.CompositeUIPublishing.UnitTests
             //add no content to cause an exception
             var httpResponseMessage = new HttpResponseMessage();
 
-            A.CallTo(() => clientProxy.PostDataAsync(A<string>._)).Throws(new HttpRequestException() );
+            A.CallTo(() => clientProxy.PostDataAsync(A<string>._, A<string>._)).Throws(new HttpRequestException() );
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
             A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 

@@ -21,9 +21,9 @@ namespace DFC.Digital.Service.CompositeUI
 
         #region Implementation of ICompositeClientProxy
 
-        public async Task<HttpResponseMessage> PostDataAsync(string pageDataJSon)
+        public async Task<HttpResponseMessage> PostDataAsync(string postEndPoint, string pageDataJSon)
         {
-            return await httpClient.PostAsync(ConfigurationManager.AppSettings[Constants.CompositeUIPublishEndPoint], pageDataJSon);
+            return await httpClient.PostAsync(postEndPoint, pageDataJSon);
         }
 
         #endregion Implementation of ICompositeClientProxy

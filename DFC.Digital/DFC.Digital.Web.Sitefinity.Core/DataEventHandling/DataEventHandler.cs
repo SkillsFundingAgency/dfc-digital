@@ -11,11 +11,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
-        private readonly ICompositeUIService compositeUIService;
+        private readonly IMicroServicesPublishingService compositeUIService;
         private readonly ISitefinityDataEventProxy sitefinityDataEventProxy;
         private readonly IAsyncHelper asyncHelper;
 
-        public DataEventHandler(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, ICompositeUIService compositeUIService, IAsyncHelper asyncHelper)
+        public DataEventHandler(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;

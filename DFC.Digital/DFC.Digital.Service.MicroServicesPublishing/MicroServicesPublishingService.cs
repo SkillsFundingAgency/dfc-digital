@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Configuration;
 
-namespace DFC.Digital.Service.CompositeUI
+namespace DFC.Digital.Service.MicroServicesPublishing
 {
-    public class CompositeUIService : ICompositeUIService, IServiceStatus
+    public class MicroServicesPublishingService : IMicroServicesPublishingService, IServiceStatus
     {
         private readonly IApplicationLogger applicationLogger;
-        private readonly ICompositeClientProxy compositeClientProxy;
+        private readonly IMicroServicesPublishingClientProxy microServicesPublishingClientProxy;
 
         #region ctor
 
-        public CompositeUIService(IApplicationLogger applicationLogger, ICompositeClientProxy compositeClientProxy)
+        public MicroServicesPublishingService(IApplicationLogger applicationLogger, IMicroServicesPublishingClientProxy compositeClientProxy)
         {
             this.applicationLogger = applicationLogger;
-            this.compositeClientProxy = compositeClientProxy;
+            this.microServicesPublishingClientProxy = compositeClientProxy;
         }
 
         #endregion ctor
@@ -31,10 +31,10 @@ namespace DFC.Digital.Service.CompositeUI
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
             try
             {
-                var compositePageData = new CompositePageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, Title = "Last updated = {DateTime.Now}" };
+                var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, Title = "Last updated = {DateTime.Now}" };
 
                 //Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
-                var response = await compositeClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
+                var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
                 if (response.IsSuccessStatusCode)
                 {
                     //Got a response back
@@ -54,15 +54,15 @@ namespace DFC.Digital.Service.CompositeUI
 
         #endregion
 
-        #region Implement of ICompositeUIService
+        #region Implement of IMicroServicesPublishingService
 
-        public async Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey, CompositePageData compositePageData)
+        public async Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey, MicroServicesPublishingPageData compositePageData)
         {
             var pageDataJson = JsonConvert.SerializeObject(compositePageData);
             applicationLogger.Trace($"Posting page data to api - [{pageDataJson}]");
 
             //Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
-            var response = await compositeClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
+            var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
             if (response.IsSuccessStatusCode)
             {
                 applicationLogger.Info($"Posted page data for {compositePageData.Name}");

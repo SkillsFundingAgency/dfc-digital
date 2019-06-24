@@ -4,10 +4,10 @@ using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 
 
-namespace DFC.Digital.Service.CompositeUI
+namespace DFC.Digital.Service.MicroServicesPublishing
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class CompositeUIPublishingAutofacModule : Module
+    public class MicroServicesPublishingAutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -19,7 +19,7 @@ namespace DFC.Digital.Service.CompositeUI
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
 
-            builder.RegisterType<HttpClientService<ICompositeClientProxy>>()
+            builder.RegisterType<HttpClientService<IMicroServicesPublishingClientProxy>>()
               .AsImplementedInterfaces()
               .SingleInstance()
               .EnableInterfaceInterceptors()

@@ -150,9 +150,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Web.Sitefinity.CourseModule", "DFC.Digital.Web.Sitefinity.CourseModule\DFC.Digital.Web.Sitefinity.CourseModule.csproj", "{8C132082-C8A8-40FA-A3EF-B8BE1AEF9550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.CompositeUIPublishing", "DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj", "{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.MicroServicesPublishing", "DFC.Digital.Service.MicroServicesPublishing\DFC.Digital.Service.MicroServicesPublishing.csproj", "{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.CompositeUIPublishing.UnitTests", "DFC.Digital.Service.CompositeUIPublishing.UnitTests\DFC.Digital.Service.CompositeUIPublishing.UnitTests.csproj", "{55D6FD3C-6937-4C92-A1A9-7A573BE62EE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.MicroServicesPublishing.UnitTests", "DFC.Digital.Service.MicroServicesPublishing.UnitTests\DFC.Digital.Service.MicroServicesPublishing.UnitTests.csproj", "{55D6FD3C-6937-4C92-A1A9-7A573BE62EE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

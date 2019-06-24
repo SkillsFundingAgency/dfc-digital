@@ -22,12 +22,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.sitefinityPageNodeProxy = sitefinityPageNodeProxy;
         }
 
-        public CompositePageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId)
+        public MicroServicesPublishingPageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId)
         {
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
-            var compositePageData = new CompositePageData() { Name = sitefinityPageNodeProxy.GetURLName(pageNode) };
+            var compositePageData = new MicroServicesPublishingPageData() { Name = sitefinityPageNodeProxy.GetURLName(pageNode) };
             compositePageData.IncludeInSitemap = pageNode.Crawlable;
             compositePageData.Title = sitefinityPageDataProxy.GetHtmlTitle(pageData);
             compositePageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), KeyWords = sitefinityPageDataProxy.GetKeywords(pageData) };

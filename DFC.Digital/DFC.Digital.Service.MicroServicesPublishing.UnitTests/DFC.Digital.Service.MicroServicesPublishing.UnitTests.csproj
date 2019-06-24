@@ -69,7 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeUIPublishingTests.cs" />
+    <Compile Include="MicroServicesPublishingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +87,9 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj">
+    <ProjectReference Include="..\DFC.Digital.Service.MicroServicesPublishing\DFC.Digital.Service.MicroServicesPublishing.csproj">
       <Project>{bf41a8c6-2dad-4c06-a3d0-e889b7ed24ac}</Project>
-      <Name>DFC.Digital.Service.CompositeUIPublishing</Name>
+      <Name>DFC.Digital.Service.MicroServicesPublishing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

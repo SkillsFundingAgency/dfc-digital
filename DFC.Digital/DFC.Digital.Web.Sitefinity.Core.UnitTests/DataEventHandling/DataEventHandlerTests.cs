@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
     {
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly ICompositePageBuilder fakeCompositePageBuilder;
-        private readonly ICompositeUIService fakeCompositeUIService;
+        private readonly IMicroServicesPublishingService fakeCompositeUIService;
         private readonly ISitefinityDataEventProxy fakeSitefinityDataEventProxy;
         private readonly IDataEvent fakeDataEvent;
         private readonly IAsyncHelper fakeAsyncHelper;
@@ -22,7 +22,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeCompositePageBuilder = A.Fake<ICompositePageBuilder>();
-            fakeCompositeUIService = A.Fake<ICompositeUIService>();
+            fakeCompositeUIService = A.Fake<IMicroServicesPublishingService>();
             fakeSitefinityDataEventProxy = A.Fake<ISitefinityDataEventProxy>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeDataEvent = A.Fake<IDataEvent>();

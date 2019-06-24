@@ -206,10 +206,6 @@
       <Project>{faf8634d-ed78-4044-8bd7-56760942ce2a}</Project>
       <Name>DFC.Digital.Service.Cognitive.BingSpellCheck</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.CompositeUI\DFC.Digital.Service.CompositeUIPublishing.csproj">
-      <Project>{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}</Project>
-      <Name>DFC.Digital.Service.CompositeUIPublishing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.CourseSearch\DFC.Digital.Service.CourseSearchProvider.csproj">
       <Project>{93F01099-5E61-4C12-B666-B5DB281E393C}</Project>
       <Name>DFC.Digital.Service.CourseSearchProvider</Name>
@@ -221,6 +217,10 @@
     <ProjectReference Include="..\DFC.Digital.Service.LMIFeed\DFC.Digital.Service.LMIFeed.csproj">
       <Project>{4DDF6E01-52E9-4799-89A0-F6C81F59F296}</Project>
       <Name>DFC.Digital.Service.LMIFeed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.MicroServicesPublishing\DFC.Digital.Service.MicroServicesPublishing.csproj">
+      <Project>{bf41a8c6-2dad-4c06-a3d0-e889b7ed24ac}</Project>
+      <Name>DFC.Digital.Service.MicroServicesPublishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
       <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>

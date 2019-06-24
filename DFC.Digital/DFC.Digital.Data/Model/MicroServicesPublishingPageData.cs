@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class CompositePageData
+    public class MicroServicesPublishingPageData
     {
         public string Name { get; set; }
 

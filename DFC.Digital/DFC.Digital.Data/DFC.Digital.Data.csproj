@@ -105,7 +105,7 @@
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\IAssetLocationAndVersion.cs" />
     <Compile Include="Interfaces\IAuditNonCitizenEmailRepository.cs" />
-    <Compile Include="Interfaces\ICompositeUIService.cs" />
+    <Compile Include="Interfaces\IMicroServicesPublishingService.cs" />
     <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IMergeEmailContent.cs" />
     <Compile Include="Interfaces\INonCitizenEmailService{T}.cs" />
@@ -153,7 +153,7 @@
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
-    <Compile Include="Model\CompositePageData.cs" />
+    <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
     <Compile Include="Model\CourseSearchResultProperties.cs" />
     <Compile Include="Model\EmailAuditRecord.cs" />

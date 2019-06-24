@@ -55,10 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeClientProxy.cs" />
-    <Compile Include="CompositeUIService.cs" />
-    <Compile Include="Config\CompositeUIPublishingAutofacModule.cs" />
-    <Compile Include="Interfaces\ICompositeClientProxy.cs" />
+    <Compile Include="MicroServicesPublishingClientProxy.cs" />
+    <Compile Include="MicroServicesPublishingService.cs" />
+    <Compile Include="Config\MicroServicesPublishingAutofacModule.cs" />
+    <Compile Include="Interfaces\IMicroServicesPublishingClientProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

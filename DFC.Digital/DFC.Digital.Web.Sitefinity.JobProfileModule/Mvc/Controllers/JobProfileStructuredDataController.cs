@@ -15,15 +15,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region private fields
         private readonly IStructuredDataInjectionRepository structuredDataInjectionRepository;
         private readonly IMapper mapper;
+        private readonly ISitefinityPage sitefinityPage;
         #endregion
 
         #region Ctor
-        public JobProfileStructuredDataController(IMapper mapper, IStructuredDataInjectionRepository structuredDataInjectionRepository, IApplicationLogger loggingService) : base(loggingService)
+        public JobProfileStructuredDataController(ISitefinityPage sitefinityPage, IMapper mapper, IStructuredDataInjectionRepository structuredDataInjectionRepository, IApplicationLogger loggingService) : base(loggingService)
         {
             this.structuredDataInjectionRepository = structuredDataInjectionRepository;
             this.mapper = mapper;
+            this.sitefinityPage = sitefinityPage;
         }
 
+        #endregion
+
+        #region Actions
+        public string DefaultJobProfileUrlName { get; set; } = "plumber";
         #endregion
 
         #region Actions
@@ -36,10 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [RelativeRoute("")]
         public ActionResult Index()
         {
-            return View(new JobProfileStructuredDataViewModel
-            {
-                InPreviewMode = true
-            });
+            return GetActionResult(sitefinityPage.GetDefaultJobProfileToUse(DefaultJobProfileUrlName));
         }
 
         /// <summary>
@@ -50,6 +53,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [HttpGet]
         [RelativeRoute("{urlName}")]
         public ActionResult Index(string urlName)
+        {
+            return GetActionResult(urlName);
+        }
+
+        private ActionResult GetActionResult(string urlName)
         {
             var dataStructure = structuredDataInjectionRepository.GetByJobProfileUrlName(urlName);
 

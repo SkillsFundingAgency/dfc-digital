@@ -18,32 +18,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             var view = new _MVC_Views_JobProfileStructuredData_Index_cshtml();
             var viewModel = new JobProfileStructuredDataViewModel
             {
-                InPreviewMode = inPreviewMode,
-                Script = nameof(JobProfileStructuredDataViewModel.Script),
-                DemoScript = nameof(JobProfileStructuredDataViewModel.DemoScript)
+                Script = inPreviewMode ? string.Empty : nameof(JobProfileStructuredDataViewModel.Script)
             };
 
             //Act
             var htmlDocument = view.RenderAsHtml(viewModel);
 
             //Assert
-            if (inPreviewMode)
-            {
-                AssertContentStatus(htmlDocument, true, viewModel.DemoScript);
-                AssertContentStatus(htmlDocument, false, viewModel.Script);
-            }
-            else
-            {
-                AssertContentStatus(htmlDocument, true, viewModel.Script);
-                AssertContentStatus(htmlDocument, false, viewModel.DemoScript);
-            }
+            AssertContentStatus(htmlDocument, viewModel.Script);
         }
 
-        private static void AssertContentStatus(HtmlDocument htmlDocument, bool exists, string innerText)
+        private static void AssertContentStatus(HtmlDocument htmlDocument, string innerText)
         {
             htmlDocument = htmlDocument ?? new HtmlDocument();
 
-            htmlDocument.DocumentNode.InnerHtml.Equals(innerText).Should().Be(exists);
+            htmlDocument.DocumentNode.InnerHtml.Equals(innerText).Should().BeTrue();
         }
     }
 }

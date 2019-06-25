@@ -2,6 +2,7 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
@@ -18,6 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         private readonly IMapper mapperCfg;
         private readonly JobProfileStructuredDataController jobProfileStructuredDataController;
         private readonly IApplicationLogger fakeApplicationLogger;
+        private readonly ISitefinityPage fakeSitefinityPage;
         #endregion
 
         #region Ctor
@@ -30,6 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
             {
                 cfg.AddProfile<JobProfilesAutoMapperProfile>();
             }).CreateMapper();
+            fakeSitefinityPage = A.Fake<ISitefinityPage>(ops => ops.Strict());
             jobProfileStructuredDataController = GetController();
         }
         #endregion
@@ -40,6 +43,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
         public void IndexTest()
         {
             //Assign
+            A.CallTo(() => fakeSitefinityPage.GetDefaultJobProfileToUse(A<string>._)).Returns("test");
+            A.CallTo(() => fakeStructuredDataInjectionRepository.GetByJobProfileUrlName(A<string>._))
+                .Returns(
+                    new StructuredDataInjection
+                    {
+                        Title = nameof(StructuredDataInjection.Title),
+                        Script = nameof(StructuredDataInjection.Script),
+                        DataType = nameof(StructuredDataInjection.DataType),
+                        JobProfileLinkName = nameof(StructuredDataInjection.JobProfileLinkName)
+                    });
+
             //Act
             var indexMethodCall = jobProfileStructuredDataController.WithCallTo(c => c.Index());
 
@@ -48,9 +62,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                 .ShouldRenderDefaultView()
                 .WithModel<JobProfileStructuredDataViewModel>(vm =>
                 {
-                    vm.InPreviewMode.Should().BeTrue();
+                    vm.Title.Should().BeEquivalentTo(nameof(StructuredDataInjection.Title));
+                    vm.Script.Should().BeEquivalentTo(nameof(StructuredDataInjection.Script));
+                    vm.DataType.Should().BeEquivalentTo(nameof(StructuredDataInjection.DataType));
+                    vm.JobProfileLinkName.Should().BeEquivalentTo(nameof(StructuredDataInjection.JobProfileLinkName));
                 })
                 .AndNoModelErrors();
+
+            A.CallTo(() => fakeSitefinityPage.GetDefaultJobProfileToUse(A<string>._)).MustHaveHappened();
         }
 
         [Theory]
@@ -81,7 +100,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
                     .ShouldRenderDefaultView()
                     .WithModel<JobProfileStructuredDataViewModel>(vm =>
                     {
-                        vm.InPreviewMode.Should().BeFalse();
                         vm.Title.Should().BeEquivalentTo(nameof(StructuredDataInjection.Title));
                         vm.Script.Should().BeEquivalentTo(nameof(StructuredDataInjection.Script));
                         vm.DataType.Should().BeEquivalentTo(nameof(StructuredDataInjection.DataType));
@@ -105,7 +123,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
         private JobProfileStructuredDataController GetController()
         {
-            return new JobProfileStructuredDataController(mapperCfg, fakeStructuredDataInjectionRepository, fakeApplicationLogger);
+            return new JobProfileStructuredDataController(fakeSitefinityPage, mapperCfg, fakeStructuredDataInjectionRepository, fakeApplicationLogger);
         }
         #endregion
     }

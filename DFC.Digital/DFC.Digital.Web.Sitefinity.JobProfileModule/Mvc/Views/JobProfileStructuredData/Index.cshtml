@@ -1,9 +1,2 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileStructuredDataViewModel
-@if (Model.InPreviewMode)
-{
-    @Html.Raw(Model.DemoScript)
-}
-else
-{
-    @Html.Raw(Model.Script)
-}
+@Html.Raw(Model.Script)

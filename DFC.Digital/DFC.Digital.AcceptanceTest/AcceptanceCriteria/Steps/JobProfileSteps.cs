@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -79,7 +80,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void WhenIClickFindcoursesnearyou()
         {
             var profilePage = GetNavigatedPage<JobProfilePage>();
-            profilePage.ClickFindCourseLink<CourseDirectoryPage>().SaveTo(ScenarioContext);
+            profilePage.ClickFindCourseLink<FaCLandingPage>().SaveTo(ScenarioContext);
         }
 
         [When(@"I click on the training course title no '(.*)'")]
@@ -87,7 +88,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var profilePage = GetNavigatedPage<JobProfilePage>();
             ScenarioContext.Set(profilePage.GetCourseTitle(courseNumber), "courseTitle");
-            profilePage.ClickCourseTitle<CourseDirectoryPage>(courseNumber).SaveTo(ScenarioContext);
+            profilePage.ClickCourseTitle<FaCCourseDetailsPage>(courseNumber).SaveTo(ScenarioContext);
         }
 
         [When(@"I click to go back")]
@@ -288,12 +289,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"take me to the training course page on Course Directory")]
         public void ThenTakeMeToTheTrainingCoursePageOnCourseDirectory()
         {
-            var courseDirectoryPage = GetNavigatedPage<CourseDirectoryPage>();
+            var courseDetailsPage = GetNavigatedPage<FaCCourseDetailsPage>();
             var coursetitle = string.Empty;
 
             ScenarioContext.TryGetValue("courseTitle", out coursetitle);
 
-            courseDirectoryPage.Heading.Should().Contain(coursetitle);
+            courseDetailsPage.CourseDetailsTitle.Should().Contain(coursetitle);
         }
 
         [Then(@"take me back to the job profile I had been viewing")]
@@ -311,8 +312,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"take me to the search page on Course Directory")]
         public void ThenTakeMeToTheSearchPageOnCourseDirectory()
         {
-            var courseDirectoryPage = GetNavigatedPage<CourseDirectoryPage>();
-            courseDirectoryPage.Heading.Should().Contain("Find a course");
+            var courseDirectoryPage = GetNavigatedPage<FaCLandingPage>();
+            courseDirectoryPage.PageTitle.Should().Contain("Find a course");
         }
 
         [Then(@"the '(.*)' page signpost banner is displayed")]

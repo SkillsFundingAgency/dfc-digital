@@ -30,10 +30,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Public Properties
 
         [DisplayName("Find a course Page")]
-        public string FindAcoursePage { get; set; } = "/course-directory/home/";
+        public string FindAcoursePage { get; set; } = "/find-a-course/home/";
 
         [DisplayName("Find a course Page")]
-        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
+        public string CourseDetailsPage { get; set; } = "/find-a-course/course-details";
 
         [DisplayName("Qualification Details Label")]
         public string QualificationDetailsLabel { get; set; } = "Qualification details";
@@ -64,9 +64,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Venue Details Label")]
         public string VenueLabel { get; set; } = "Venue";
-
-        [DisplayName("No Venue Available Message")]
-        public string NoVenueAvailableMessage { get; set; } = "No venue Available";
 
         [DisplayName("Other Dates And Venues Label")]
         public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
@@ -111,7 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string SubjectCategoryLabel { get; set; } = "Subject category";
 
         [DisplayName("Course Details - Course Web Page Label")]
-        public string CourseWebPageLinkLabel { get; set; } = "Course webpage";
+        public string CourseWebpageLinkLabel { get; set; } = "Course webpage";
 
         [DisplayName("Course Details - course type Label")]
         public string CourseTypeLabel { get; set; } = "Course type";
@@ -139,46 +136,50 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             var viewModel = new CourseDetailsViewModel();
             if (!string.IsNullOrWhiteSpace(courseId))
             {
-                viewModel.FindACoursePage = FindAcoursePage;
-                viewModel.CourseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunity));
-                viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);
-                viewModel.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
-                viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
-                viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
-                viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
-                viewModel.NoVenueAvailableMessage = NoVenueAvailableMessage;
-                viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
-                viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
-                viewModel.CourseDescriptionLabel = CourseDescriptionLabel;
-                viewModel.EntryRequirementsLabel = EntryRequirementsLabel;
-                viewModel.EquipmentRequiredLabel = EquipmentRequiredLabel;
-                viewModel.AssessmentMethodLabel = AssessmentMethodLabel;
-                viewModel.VenueLabel = VenueLabel;
-                viewModel.OtherDatesAndVenuesLabel = OtherDatesAndVenuesLabel;
-                viewModel.ProviderLabel = ProviderLabel;
-                viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
-                viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
-                viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
-                viewModel.CourseDetailsPage = CourseDetailsPage;
-                viewModel.ContactAdviserSection = ContactAdviserSection;
-                viewModel.QualificationNameLabel = QualificationNameLabel;
-                viewModel.QualificationLevelLabel = QualificationLevelLabel;
-                viewModel.AwardingOrganisationLabel = AwardingOrganisationLabel;
-                viewModel.SubjectCategoryLabel = SubjectCategoryLabel;
-                viewModel.CourseWebPageLinkLabel = CourseWebPageLinkLabel;
-                viewModel.CourseTypeLabel = CourseTypeLabel;
-                viewModel.StartDateLabel = StartDateLabel;
-                viewModel.PriceLabel = PriceLabel;
-                viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
-                viewModel.FundingInformationLabel = FundingInformationLabel;
-                viewModel.AttendancePatternLabel = AttendancePatternLabel;
-                viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;
-                viewModel.FundingInformationLink = FundingInformationLink;
-                viewModel.FundingInformationText = FundingInformationText;
-                viewModel.LanguageOfInstructionLabel = LanguageOfInstructionLabel;
+                var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunity));
+                if (courseDetails != null)
+                {
+                    viewModel.FindACoursePage = FindAcoursePage;
+                    viewModel.CourseDetails = courseDetails;
+                    viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);
+                    viewModel.NoCourseDescriptionMessage = NoCourseDescriptionMessage;
+                    viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
+                    viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
+                    viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
+                    viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
+                    viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
+                    viewModel.CourseDescriptionLabel = CourseDescriptionLabel;
+                    viewModel.EntryRequirementsLabel = EntryRequirementsLabel;
+                    viewModel.EquipmentRequiredLabel = EquipmentRequiredLabel;
+                    viewModel.AssessmentMethodLabel = AssessmentMethodLabel;
+                    viewModel.VenueLabel = VenueLabel;
+                    viewModel.OtherDatesAndVenuesLabel = OtherDatesAndVenuesLabel;
+                    viewModel.ProviderLabel = ProviderLabel;
+                    viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
+                    viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
+                    viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
+                    viewModel.CourseDetailsPage = CourseDetailsPage;
+                    viewModel.ContactAdviserSection = ContactAdviserSection;
+                    viewModel.QualificationNameLabel = QualificationNameLabel;
+                    viewModel.QualificationLevelLabel = QualificationLevelLabel;
+                    viewModel.AwardingOrganisationLabel = AwardingOrganisationLabel;
+                    viewModel.SubjectCategoryLabel = SubjectCategoryLabel;
+                    viewModel.CourseWebpageLinkLabel = CourseWebpageLinkLabel;
+                    viewModel.CourseTypeLabel = CourseTypeLabel;
+                    viewModel.StartDateLabel = StartDateLabel;
+                    viewModel.PriceLabel = PriceLabel;
+                    viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
+                    viewModel.FundingInformationLabel = FundingInformationLabel;
+                    viewModel.AttendancePatternLabel = AttendancePatternLabel;
+                    viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;
+                    viewModel.FundingInformationLink = FundingInformationLink;
+                    viewModel.FundingInformationText = FundingInformationText;
+                    viewModel.LanguageOfInstructionLabel = LanguageOfInstructionLabel;
+                    return View(viewModel);
+                }
             }
 
-            return View(viewModel);
+            return HttpNotFound();
         }
 
         #endregion

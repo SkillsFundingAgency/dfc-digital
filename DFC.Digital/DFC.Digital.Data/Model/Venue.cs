@@ -13,5 +13,7 @@
         public string Website { get; set; }
 
         public string Fax { get; set; }
+
+        public string Facilities { get; set; }
     }
 }

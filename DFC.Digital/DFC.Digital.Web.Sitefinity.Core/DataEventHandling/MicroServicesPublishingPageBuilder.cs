@@ -9,13 +9,13 @@ using Telerik.Sitefinity.Pages.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public class CompositePageBuilder : ICompositePageBuilder
+    public class MicroServicesPublishingPageBuilder : ICompositePageBuilder
     {
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy sitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy sitefinityPageDataProxy;
 
-        public CompositePageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy)
+        public MicroServicesPublishingPageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy)
         {
             this.sitefinityManagerProxy = sitefinityManagerProxy;
             this.sitefinityPageDataProxy = sitefinityPageDataProxy;
@@ -27,15 +27,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
-            var compositePageData = new MicroServicesPublishingPageData() { Name = sitefinityPageNodeProxy.GetURLName(pageNode) };
-            compositePageData.IncludeInSitemap = pageNode.Crawlable;
-            compositePageData.Title = sitefinityPageDataProxy.GetHtmlTitle(pageData);
-            compositePageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), KeyWords = sitefinityPageDataProxy.GetKeywords(pageData) };
-            compositePageData.Content = GetPageContentBlocks(providerName, contentType, itemId);
-            compositePageData.URLs = GetPageURLs(pageNode);
-            compositePageData.LastPublished = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
+            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { Name = sitefinityPageNodeProxy.GetURLName(pageNode) };
+            microServicesPublishingPageData.IncludeInSitemap = pageNode.Crawlable;
+            microServicesPublishingPageData.Title = sitefinityPageDataProxy.GetHtmlTitle(pageData);
+            microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), KeyWords = sitefinityPageDataProxy.GetKeywords(pageData) };
+            microServicesPublishingPageData.Content = GetPageContentBlocks(providerName, contentType, itemId);
+            microServicesPublishingPageData.URLs = GetPageURLs(pageNode);
+            microServicesPublishingPageData.LastPublished = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
 
-            return compositePageData;
+            return microServicesPublishingPageData;
         }
 
         public IList<string> GetPageContentBlocks(string providerName, Type contentType, Guid itemId)

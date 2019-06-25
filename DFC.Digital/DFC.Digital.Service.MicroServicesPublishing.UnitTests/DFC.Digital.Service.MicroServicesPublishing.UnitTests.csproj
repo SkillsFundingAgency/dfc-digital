@@ -9,8 +9,8 @@
     <ProjectGuid>{55D6FD3C-6937-4C92-A1A9-7A573BE62EE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Service.CompositeUIPublishing.UnitTests</RootNamespace>
-    <AssemblyName>DFC.Digital.Service.CompositeUIPublishing.UnitTests</AssemblyName>
+    <RootNamespace>DFC.Digital.Service.MicroServicesPublishing.UnitTests</RootNamespace>
+    <AssemblyName>DFC.Digital.Service.MicroServicesPublishing.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MicroServicesClientProxyTests.cs" />
     <Compile Include="MicroServicesPublishingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

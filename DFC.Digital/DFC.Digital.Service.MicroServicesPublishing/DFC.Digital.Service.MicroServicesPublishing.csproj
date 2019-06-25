@@ -7,8 +7,8 @@
     <ProjectGuid>{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Digital.Service.CompositeUI</RootNamespace>
-    <AssemblyName>DFC.Digital.Service.CompositeUI</AssemblyName>
+    <RootNamespace>DFC.Digital.Service.MicroServicesPublishing</RootNamespace>
+    <AssemblyName>DFC.Digital.Service.MicroServicesPublishing</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

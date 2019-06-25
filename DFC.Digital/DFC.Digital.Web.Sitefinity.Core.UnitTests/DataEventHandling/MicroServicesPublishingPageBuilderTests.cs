@@ -9,7 +9,7 @@ using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
-    public class CompositePageBuilderTests
+    public class MicroServicesPublishingPageBuilderTests
     {
         private const string DummyUrl = "/DummyUrl";
         private const string DummyContent = "DummyContent";
@@ -18,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly ISitefinityPageNodeProxy fakeSitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy fakeSitefinityPageDataProxy;
 
-        public CompositePageBuilderTests()
+        public MicroServicesPublishingPageBuilderTests()
         {
             fakeSitefinityManagerProxy = A.Fake<ISitefinityManagerProxy>();
             fakeSitefinityPageDataProxy = A.Fake<ISitefinityPageDataProxy>();
@@ -55,25 +55,25 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<string>._, A<PageControl>._)).Returns(DummyContent);
 
             //Act
-            var compositePageBuilder = new CompositePageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var compositePage = compositePageBuilder.GetCompositePageForPageNode("dummyProvider", typeof(PageNode), A.Dummy<Guid>());
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode("dummyProvider", typeof(PageNode), A.Dummy<Guid>());
 
             //Asserts
-            compositePage.IncludeInSitemap.Should().Be(isCrawlable);
-            compositePage.Name.Should().Be(nameof(PageNode.UrlName));
-            compositePage.Title.Should().Be(nameof(PageData.HtmlTitle));
-            compositePage.MetaTags.Description.Should().Be(nameof(PageData.Description));
-            compositePage.MetaTags.KeyWords.Should().Be(nameof(PageData.Keywords));
-            compositePage.LastPublished.Should().Be(dummyPublishedDate);
-            compositePage.URLs.ToList().FirstOrDefault().Should().Be(DummyUrl);
+            microServicesPublishingPageData.IncludeInSitemap.Should().Be(isCrawlable);
+            microServicesPublishingPageData.Name.Should().Be(nameof(PageNode.UrlName));
+            microServicesPublishingPageData.Title.Should().Be(nameof(PageData.HtmlTitle));
+            microServicesPublishingPageData.MetaTags.Description.Should().Be(nameof(PageData.Description));
+            microServicesPublishingPageData.MetaTags.KeyWords.Should().Be(nameof(PageData.Keywords));
+            microServicesPublishingPageData.LastPublished.Should().Be(dummyPublishedDate);
+            microServicesPublishingPageData.URLs.ToList().FirstOrDefault().Should().Be(DummyUrl);
 
             if (hasContentBlock)
             {
-                compositePage.Content.ToList().FirstOrDefault().Should().Be(DummyContent);
+                microServicesPublishingPageData.Content.ToList().FirstOrDefault().Should().Be(DummyContent);
             }
             else
             {
-                compositePage.Content.Should().BeNullOrEmpty();
+                microServicesPublishingPageData.Content.Should().BeNullOrEmpty();
             }
         }
     }

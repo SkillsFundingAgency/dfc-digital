@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DFC.Digital.Service.CompositeUIPublishing.UnitTests
+namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
 {
     public class MicroServicesPublishingTests
     {

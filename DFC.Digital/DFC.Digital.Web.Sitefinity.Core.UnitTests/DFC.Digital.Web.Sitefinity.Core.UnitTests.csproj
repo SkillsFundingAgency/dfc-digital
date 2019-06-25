@@ -305,7 +305,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controllers\ServiceStatusControllerTests.cs" />
-    <Compile Include="DataEventHandling\CompositePageBuilderTests.cs" />
+    <Compile Include="DataEventHandling\MicroServicesPublishingPageBuilderTests.cs" />
     <Compile Include="DummySettings.cs" />
     <Compile Include="DataEventHandling\DataEventHandlerTests.cs" />
     <Compile Include="JobProfilePageContentServiceTests.cs" />

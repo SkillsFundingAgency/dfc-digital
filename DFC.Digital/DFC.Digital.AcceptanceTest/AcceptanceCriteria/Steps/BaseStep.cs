@@ -73,7 +73,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public TPage NavigateToFindACoursePage<TPage>()
              where TPage : UiComponent, new()
         {
-            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/course-directory");
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/find-a-course");
             ScenarioContext.Set(page);
 
             return page;

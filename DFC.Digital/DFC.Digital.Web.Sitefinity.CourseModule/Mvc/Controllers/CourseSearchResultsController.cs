@@ -51,9 +51,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public int RecordsPerPage { get; set; } = 20;
 
-        public string CourseSearchResultsPage { get; set; } = "/course-directory/course-search-result";
+        public string CourseSearchResultsPage { get; set; } = "/find-a-course/course-search-result";
 
-        public string CourseDetailsPage { get; set; } = "/course-directory/course-details";
+        public string CourseDetailsPage { get; set; } = "/find-a-course/course-details";
 
         public string NoTrainingCoursesFoundText { get; set; } = "<p class=\"govuk-body\">We didn't find any results for {searchTerm} with the active filters you've applied. Try searching again.</p><p class=\"govuk-body\">You could:</p><ul class=\"list list-bullet govuk-body\">    <li>check your spelling</li>    <li>change the start date</li>    <li>check your location or postcode</li>    <li>change your filters</li>    <li>try different search terms</li></ul>";
 

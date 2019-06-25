@@ -70,11 +70,15 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         internal static CourseDetails ConvertToCourseDetails(this CourseDetailOutput apiResult, string oppurtunityId, string courseId)
         {
-            var apiCourseDetail = apiResult.CourseDetails?.Single(co => co.Course.CourseID == courseId);
-            var activeOpportunity = GetActiveOpportunity(oppurtunityId, apiCourseDetail);
-            var courseDetails = GetCourseDetailsData(apiCourseDetail, activeOpportunity);
+            var apiCourseDetail = apiResult.CourseDetails?.SingleOrDefault(co => co.Course.CourseID == courseId);
+            if (apiCourseDetail != null)
+            {
+                var activeOpportunity = GetActiveOpportunity(oppurtunityId, apiCourseDetail);
+                var courseDetails = GetCourseDetailsData(apiCourseDetail, activeOpportunity);
+                return courseDetails;
+            }
 
-            return courseDetails;
+            return null;
         }
 
         private static OpportunityDetail GetActiveOpportunity(string oppurtunityId, CourseDetailStructure apiCourseDetail)

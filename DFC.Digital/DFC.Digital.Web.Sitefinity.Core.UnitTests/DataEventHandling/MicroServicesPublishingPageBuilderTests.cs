@@ -35,6 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             dummyPageNode.Crawlable = isCrawlable;
             dummyPageNode.Urls.Add(new PageUrlData() { Url = DummyUrl });
             var dummyPublishedDate = DateTime.Now;
+            var dummyGuid = Guid.NewGuid();
+
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageNode);
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetURLName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetLastPublishedDate(A<PageNode>._)).Returns(dummyPublishedDate);
@@ -44,6 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityPageDataProxy.GetDescription(A<PageData>._)).Returns(nameof(PageData.Description));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetKeywords(A<PageData>._)).Returns(nameof(PageData.Keywords));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetHtmlTitle(A<PageData>._)).Returns(nameof(PageData.HtmlTitle));
+            A.CallTo(() => fakeSitefinityPageDataProxy.GetTitle(A<PageData>._)).Returns(nameof(PageData.NavigationNode.Title));
 
             if (hasContentBlock)
             {
@@ -56,14 +59,16 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode("dummyProvider", typeof(PageNode), A.Dummy<Guid>());
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode("dummyProvider", typeof(PageNode), dummyGuid);
 
             //Asserts
             microServicesPublishingPageData.IncludeInSitemap.Should().Be(isCrawlable);
             microServicesPublishingPageData.Name.Should().Be(nameof(PageNode.UrlName));
-            microServicesPublishingPageData.PageTitle.Should().Be(nameof(PageData.HtmlTitle));
+            microServicesPublishingPageData.Id.Should().Be(dummyGuid);
+            microServicesPublishingPageData.PageTitle.Should().Be(nameof(PageData.NavigationNode.Title));
             microServicesPublishingPageData.MetaTags.Description.Should().Be(nameof(PageData.Description));
             microServicesPublishingPageData.MetaTags.KeyWords.Should().Be(nameof(PageData.Keywords));
+            microServicesPublishingPageData.MetaTags.Title.Should().Be(nameof(PageData.HtmlTitle));
             microServicesPublishingPageData.LastPublished.Should().Be(dummyPublishedDate);
             microServicesPublishingPageData.URLs.ToList().FirstOrDefault().Should().Be(DummyUrl);
 

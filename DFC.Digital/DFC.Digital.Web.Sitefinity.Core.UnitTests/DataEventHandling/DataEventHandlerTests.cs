@@ -11,6 +11,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 {
     public class DataEventHandlerTests
     {
+        private const string PropertyChangeThatCauseExport = "propertyChangeThatCauseExport";
+
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly ICompositePageBuilder fakeCompositePageBuilder;
         private readonly IMicroServicesPublishingService fakeCompositeUIService;
@@ -36,7 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void ExportCompositePageEventConditionsTest(string action, string workFlowState, string status, bool shouldPostPage)
         {
             //Setup
-            SetUp(action, typeof(PageNode), true, workFlowState, status, 1);
+            SetUp(action, typeof(PageNode), true, workFlowState, status, PropertyChangeThatCauseExport);
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns("DummyMicroServiceEndPointConfigKey");
 
             //Act
@@ -55,15 +57,15 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         }
 
         [Theory]
-        [InlineData(typeof(PageNode),  true, 1, true)]
-        [InlineData(typeof(PageNode), false, 1, true)]
-        [InlineData(typeof(PageNode), true, 0, true)]
-        [InlineData(typeof(int), true, 1, false)]
-        [InlineData(typeof(PageNode), false, 0, false)]
-        public void ExportCompositePageNodeConditionsTest(Type type, bool hasPageChanged, int changedProperites, bool shouldPostPage)
+        [InlineData(typeof(PageNode),  true, PropertyChangeThatCauseExport, true)]
+        [InlineData(typeof(PageNode), false, PropertyChangeThatCauseExport, true)]
+        [InlineData(typeof(PageNode), true, Constants.ApprovalWorkflowState, true)]
+        [InlineData(typeof(int), true, PropertyChangeThatCauseExport, false)]
+        [InlineData(typeof(PageNode), false, Constants.ApprovalWorkflowState, false)]
+        public void ExportCompositePageNodeConditionsTest(Type type, bool hasPageChanged, string changedProperitesKey, bool shouldPostPage)
         {
             //Setup
-            SetUp(Constants.ItemActionUpdated, type, hasPageChanged, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, changedProperites);
+            SetUp(Constants.ItemActionUpdated, type, hasPageChanged, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, changedProperitesKey);
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns("DummyMicroServiceEndPointConfigKey");
 
             //Act
@@ -87,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void MicroServiceEndPointConfigKeyTest(string microServiceEndPointConfigKey, bool shouldPostPage)
         {
             //Setup
-            SetUp(Constants.ItemActionUpdated, typeof(PageNode), true, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, 1);
+            SetUp(Constants.ItemActionUpdated, typeof(PageNode), true, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, PropertyChangeThatCauseExport);
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
@@ -105,7 +107,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
         }
 
-        private void SetUp(string eventAction, Type itemType, bool pageChanged, string workflowStatus, string itemStatus, int numberChangedProperties)
+        private void SetUp(string eventAction, Type itemType, bool pageChanged, string workflowStatus, string itemStatus, string changedPropertiesKey)
         {
             A.CallTo(() => fakeDataEvent.Action).Returns(eventAction);
             A.CallTo(() => fakeDataEvent.ItemType).Returns(itemType);
@@ -115,10 +117,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<string>(fakeDataEvent, Constants.ItemStatus)).Returns(itemStatus);
 
             var dummyChangedProperties = new Dictionary<string, PropertyChange>();
-            for (int ii = 0; ii < numberChangedProperties; ii++)
-            {
-                dummyChangedProperties.Add($"Description{ii}", new PropertyChange() { NewValue = $"New Text{ii}" });
-            }
+            dummyChangedProperties.Add(changedPropertiesKey, new PropertyChange() { NewValue = $"New Text" });
 
             A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(fakeDataEvent, Constants.ChangedProperties)).Returns(dummyChangedProperties);
         }

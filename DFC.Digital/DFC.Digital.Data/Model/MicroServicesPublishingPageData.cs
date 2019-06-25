@@ -22,6 +22,8 @@ namespace DFC.Digital.Data.Model
 
         public bool IncludeInSitemap { get; set; }
 
+        public Guid Id { get; set; }
+
         public DateTime LastPublished { get; set; }
     }
 }

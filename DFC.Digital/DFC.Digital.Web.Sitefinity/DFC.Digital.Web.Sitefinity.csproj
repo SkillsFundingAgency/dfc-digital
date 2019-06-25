@@ -1134,6 +1134,7 @@
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
+    <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1358,7 +1359,7 @@
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\PreSearchFilters.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\PreSearchFilters\uninstall.ps1" />
     <Content Include="App_Data\Sitefinity\AddOns\PreSearchFilters\PreSearchFilters.nuspec" />
-    <Content Include="App_Data\Sitefinity\Configuration\ContentViewConfig.config">
+    <Content Include="App_Data\Sitefinity\Configuration\ContentViewConfig.config" >
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\Sitefinity\Configuration\DynamicModulesConfig.config" />

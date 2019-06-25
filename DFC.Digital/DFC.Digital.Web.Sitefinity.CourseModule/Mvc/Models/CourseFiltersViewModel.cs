@@ -57,5 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string FilterProviderLabel { get; set; }
 
         public string FilterLocationLabel { get; set; }
+
+        public string Only1619CoursesSectionText { get; set; }
     }
 }

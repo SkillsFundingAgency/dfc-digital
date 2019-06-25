@@ -19,6 +19,26 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string StartDateFormat = "yyyy-MM-dd";
         private const float ValidDistance = 10F;
 
+        private static readonly CourseDetailsViewModel CourseDetailsViewModelWithDetailsLabels =
+            new CourseDetailsViewModel
+            {
+                SubjectCategoryLabel = nameof(CourseDetailsViewModel.SubjectCategoryLabel),
+                StartDateLabel = nameof(CourseDetailsViewModel.StartDateLabel),
+                AdditionalPriceLabel = nameof(CourseDetailsViewModel.AdditionalPriceLabel),
+                LanguageOfInstructionLabel = nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
+                AwardingOrganisationLabel = nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
+                CourseTypeLabel = nameof(CourseDetailsViewModel.CourseTypeLabel),
+                CourseWebPageLinkLabel = nameof(CourseDetailsViewModel.CourseWebPageLinkLabel),
+                QualificationLevelLabel = nameof(CourseDetailsViewModel.QualificationLevelLabel),
+                QualificationNameLabel = nameof(CourseDetailsViewModel.QualificationNameLabel),
+                PriceLabel = nameof(CourseDetailsViewModel.PriceLabel),
+                FundingInformationLabel = nameof(CourseDetailsViewModel.FundingInformationLabel),
+                AttendancePatternLabel = nameof(CourseDetailsViewModel.AttendancePatternLabel),
+                SupportingFacilitiesLabel = nameof(CourseDetailsViewModel.SupportingFacilitiesLabel),
+                FundingInformationLink = nameof(CourseDetailsViewModel.FundingInformationLink),
+                FundingInformationText = nameof(CourseDetailsViewModel.FundingInformationText)
+            };
+
         private static readonly CourseFiltersViewModel ValidCourseFiltersViewModel =
             new CourseFiltersViewModel
             {
@@ -179,7 +199,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    ActiveFiltersCoursesText = nameof(CourseFiltersViewModel.ActiveFiltersCoursesText),
                    ActiveFiltersWithinText = nameof(CourseFiltersViewModel.ActiveFiltersWithinText),
                    FilterProviderLabel = nameof(CourseFiltersViewModel.FilterProviderLabel),
-                   FilterLocationLabel = nameof(CourseFiltersViewModel.FilterLocationLabel)
+                   FilterLocationLabel = nameof(CourseFiltersViewModel.FilterLocationLabel),
+                   Only1619CoursesSectionText = nameof(CourseFiltersViewModel.Only1619CoursesSectionText)
                }
             };
 
@@ -433,7 +454,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                ValidSelectFromCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Relevance,
                 ValidCourseSearchResponse
@@ -444,7 +465,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 ValidSelectFromTodayCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Distance,
                 ValidCourseSearchResponse
@@ -455,7 +476,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.StartDate,
                 ValidCourseSearchResponse
@@ -466,7 +487,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                ValidCourseFiltersViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.StartDate,
                 ZeroResultsCourseSearchResponse
@@ -477,7 +498,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 InvalidCourseResultsViewModel,
                 nameof(CourseSearchResultsController.ResetFilterText),
                 nameof(CourseSearchResultsController.PageTitle),
-                nameof(CourseSearchResultsController.CourseSearchResultsPage),
+                $"/{nameof(CourseSearchResultsController.CourseSearchResultsPage)}",
                 nameof(CourseSearchResultsController.CourseDetailsPage),
                 CourseSearchOrderBy.Distance,
                 ZeroResultsCourseSearchResponse
@@ -806,6 +827,68 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
                 nameof(CourseDetailsViewModel.ReferralPath),
                 nameof(CourseDetailsViewModel.ContactAdviserSection)
+            };
+        }
+
+        public static IEnumerable<object[]> Dfc9560MissingFieldsTestInput()
+        {
+            yield return new object[]
+            {
+               CourseDetailsViewModelWithDetailsLabels,
+               new CourseDetails
+               {
+                   SubjectCategory = nameof(CourseDetails.SubjectCategory),
+                   LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
+                   AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
+                   CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                   AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
+                   StudyMode = nameof(CourseDetails.StudyMode),
+                   SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
+                   AdvancedLearnerLoansOffered = true,
+                   QualificationLevel = nameof(CourseDetails.QualificationLevel),
+                   QualificationName = nameof(CourseDetails.QualificationName),
+                   Cost = nameof(CourseDetails.Cost)
+               }
+            };
+
+            yield return new object[]
+            {
+                CourseDetailsViewModelWithDetailsLabels,
+                new CourseDetails
+                {
+                    SubjectCategory = nameof(CourseDetails.SubjectCategory),
+                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
+                    AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
+                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                    AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
+                    StudyMode = nameof(CourseDetails.StudyMode),
+                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
+                    AdvancedLearnerLoansOffered = true
+                }
+            };
+
+            yield return new object[]
+            {
+                CourseDetailsViewModelWithDetailsLabels,
+                new CourseDetails
+                {
+                    SubjectCategory = nameof(CourseDetails.SubjectCategory),
+                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
+                    AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
+                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink)
+                }
+            };
+
+            yield return new object[]
+            {
+                CourseDetailsViewModelWithDetailsLabels,
+                new CourseDetails
+                {
+                    AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
+                    StudyMode = nameof(CourseDetails.StudyMode),
+                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
+                    AdvancedLearnerLoansOffered = true
+                }
             };
         }
 

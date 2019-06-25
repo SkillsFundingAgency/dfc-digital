@@ -12,6 +12,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
+        string GetTitle(PageData pageData);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
         string GetHtmlTitle(PageData pageData);
 
         [IgnoreInputInInterception]

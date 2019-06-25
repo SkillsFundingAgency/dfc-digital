@@ -31,7 +31,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
             try
             {
-                var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, Title = "Last updated = {DateTime.Now}" };
+                var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, PageTitle = "Last updated = {DateTime.Now}" };
 
                 //Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
                 var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));

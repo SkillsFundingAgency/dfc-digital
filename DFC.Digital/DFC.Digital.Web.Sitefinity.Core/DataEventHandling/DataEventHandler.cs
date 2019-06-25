@@ -2,6 +2,7 @@
 using DFC.Digital.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.Pages.Model;
 
@@ -36,11 +37,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(eventInfo, Constants.HasPageDataChanged);
                 var workFlowStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ApprovalWorkflowState);
                 var status = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
+
                 var changedProperties = sitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(eventInfo, Constants.ChangedProperties);
+
+                //Ignore any workflow property chages
+                var filteredProperties = changedProperties.Where(p => p.Key != Constants.ApprovalWorkflowState).Count();
 
                 if (action == Constants.ItemActionUpdated && workFlowStatus == Constants.WorkFlowStatusPublished && status == Constants.ItemStatusLive)
                 {
-                    if (contentType == typeof(PageNode) && (hasPageChanged || changedProperties.Count > 0))
+                    if (contentType == typeof(PageNode) && (hasPageChanged || filteredProperties > 0))
                     {
                         ExportPageNode(providerName, contentType, itemId);
                     }

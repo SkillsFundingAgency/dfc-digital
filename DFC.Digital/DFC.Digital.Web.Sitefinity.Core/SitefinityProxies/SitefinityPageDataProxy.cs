@@ -19,5 +19,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             return pageData.Keywords.Value;
         }
+
+        public string GetTitle(PageData pageData)
+        {
+            return pageData.NavigationNode.Title.Value;
+        }
     }
 }

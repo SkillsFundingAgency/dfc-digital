@@ -12,7 +12,7 @@ namespace DFC.Digital.Data.Model
     {
         public string Name { get; set; }
 
-        public string Title { get; set; }
+        public string PageTitle { get; set; }
 
         public MetaTags MetaTags { get; set; }
 

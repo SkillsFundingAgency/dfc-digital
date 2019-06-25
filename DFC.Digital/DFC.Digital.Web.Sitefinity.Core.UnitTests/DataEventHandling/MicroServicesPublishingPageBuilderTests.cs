@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             //Asserts
             microServicesPublishingPageData.IncludeInSitemap.Should().Be(isCrawlable);
             microServicesPublishingPageData.Name.Should().Be(nameof(PageNode.UrlName));
-            microServicesPublishingPageData.Title.Should().Be(nameof(PageData.HtmlTitle));
+            microServicesPublishingPageData.PageTitle.Should().Be(nameof(PageData.HtmlTitle));
             microServicesPublishingPageData.MetaTags.Description.Should().Be(nameof(PageData.Description));
             microServicesPublishingPageData.MetaTags.KeyWords.Should().Be(nameof(PageData.Keywords));
             microServicesPublishingPageData.LastPublished.Should().Be(dummyPublishedDate);

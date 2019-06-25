@@ -5,446 +5,6 @@
   "Status": 1,
   "Types": [
     {
-      "DisplayName": "Filtering Question",
-      "ParentModuleId": "153903bf-0045-47cb-8245-20e2fd507235",
-      "TypeNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers",
-      "TypeName": "FilteringQuestion",
-      "Fields": [
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "Title",
-          "Title": "Title",
-          "FieldType": 1,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "ShortText",
-          "IsRequired": true,
-          "LengthValidationMessage": "",
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "VARCHAR",
-          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "ShowInGrid": true,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Short text\n                            ",
-          "IsLocalizable": true,
-          "Id": "d6f0aafe-c823-412b-990e-2da63f52d33f",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "Description",
-          "Title": "Description",
-          "FieldType": 1,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "ShortText",
-          "LengthValidationMessage": "",
-          "Ordinal": 1,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "VARCHAR",
-          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Short text\n                            ",
-          "IsLocalizable": true,
-          "Id": "6681bef2-6946-41a1-b587-199ccb120429",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "jobprofilecategories",
-          "Title": "jobprofilecategories",
-          "FieldType": 8,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "Classification",
-          "LengthValidationMessage": "",
-          "Ordinal": 2,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TaxonField",
-          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Classification\n                            ",
-          "Id": "345cc049-305b-40d6-9e0b-a7861b8cbce1",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "QuestionText",
-          "Title": "Question Text",
-          "FieldType": 1,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "ShortText",
-          "IsRequired": true,
-          "LengthValidationMessage": "",
-          "Ordinal": 3,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "VARCHAR",
-          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "ShowInGrid": true,
-          "GridColumnOrdinal": 1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Short text\n                            ",
-          "IsLocalizable": true,
-          "Id": "9ab92430-4ddb-4c4a-ad35-2996116e349e",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "PositiveResultDisplayText",
-          "Title": "Positive result display text",
-          "FieldType": 2,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "LongText",
-          "IsRequired": true,
-          "LengthValidationMessage": "",
-          "Ordinal": 4,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "CLOB",
-          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Long text\n                            ",
-          "IsLocalizable": true,
-          "Id": "46873741-7b61-4ca2-b9c2-05102a9f9bcb",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "NegativeResultDisplayText",
-          "Title": "Negative result display text",
-          "FieldType": 2,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "LongText",
-          "IsRequired": true,
-          "LengthValidationMessage": "",
-          "Ordinal": 5,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "CLOB",
-          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Long text\n                            ",
-          "IsLocalizable": true,
-          "Id": "1d234ebb-00d8-4199-adc9-3081e21c79d0",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "IsYes",
-          "Title": "Exclude if yes",
-          "FieldType": 4,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "YesNo",
-          "LengthValidationMessage": "",
-          "Ordinal": 6,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
-          "DBType": "BIT",
-          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
-          "TypeUIName": "\n                                Yes / No\n                            ",
-          "Id": "bf08069e-d3ea-410e-922f-f616588afd87",
-          "LastModified": "2019-05-15T19:00:03.497Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
-          "Name": "ExcludedJobProfiles",
-          "Title": "Excluded job profiles",
-          "FieldType": 15,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "RelatedData",
-          "AllowMultipleImages": true,
-          "AllowMultipleVideos": true,
-          "AllowMultipleFiles": true,
-          "MinNumberRange": "0",
-          "MaxNumberRange": "0",
-          "LengthValidationMessage": "",
-          "CanCreateItemsWhileSelecting": true,
-          "CanSelectMultipleItems": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.RelatedDataField",
-          "FrontendWidgetTypeName": "Telerik.Sitefinity.DynamicModules.Web.UI.Frontend.DynamicContentView",
-          "FrontendWidgetLabel": "Excluded job profiles",
-          "DBType": "",
-          "DBLength": "",
-          "InstructionalChoice": "",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "RadioButton",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "aca9e940-182c-4ef1-b752-db1c151f7afb",
-          "TypeUIName": "\n                                Related data\n                            ",
-          "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
-          "RelatedDataProvider": "sf-site-default-provider",
-          "Id": "296c102a-3def-4951-9478-3b86f6bc8eea",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "IncludeInSitemap",
-          "Title": "Include in sitemap",
-          "FieldType": 0,
-          "SpecialType": 7,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "8a1d274f-d3c0-4603-b9ff-17c7d0fa16a2",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "Translations",
-          "Title": "Translations",
-          "FieldType": 0,
-          "SpecialType": 6,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 1,
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "f7f633f0-fae3-4e7f-acd7-e7c70784df54",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "UrlName",
-          "Title": "URL Name",
-          "FieldType": 0,
-          "SpecialType": 1,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "IsRequired": true,
-          "Ordinal": 1,
-          "RegularExpression": "^([\\.]?[\\p{L}-_!'()@\\d])+$",
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "e77840d1-9b14-4ff1-876f-6cba0334e1ac",
-          "LastModified": "2019-05-15T18:56:20.687Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "Actions",
-          "Title": "Actions",
-          "FieldType": 0,
-          "SpecialType": 2,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 3,
-          "ShowInGrid": true,
-          "GridColumnOrdinal": 2,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "cae42fc2-d023-46c8-86b0-800b248adf28",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "Author",
-          "Title": "Author",
-          "FieldType": 0,
-          "SpecialType": 4,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 4,
-          "ShowInGrid": true,
-          "GridColumnOrdinal": 3,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "570ac985-a50e-426b-ade9-b1814d3faf17",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "PublicationDate",
-          "Title": "Publication date",
-          "FieldType": 0,
-          "SpecialType": 3,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 5,
-          "GridColumnOrdinal": -1,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "6a5292a1-03d6-4882-ab57-05420549fd1c",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "LastModified",
-          "Title": "Last modified",
-          "FieldType": 0,
-          "SpecialType": 8,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 7,
-          "ShowInGrid": true,
-          "GridColumnOrdinal": 4,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "ac1fcc1b-cf6e-4ef7-a732-9b666e0aed5f",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        },
-        {
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "FieldNamespace": null,
-          "Name": "DateCreated",
-          "Title": "Created on",
-          "FieldType": 0,
-          "SpecialType": 9,
-          "IsTransient": true,
-          "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 8,
-          "ShowInGrid": true,
-          "GridColumnOrdinal": 5,
-          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
-          "Id": "1073f62b-73e7-4532-8d45-599c9d1deea4",
-          "LastModified": "2019-05-08T15:23:54.07Z"
-        }
-      ],
-      "Sections": [
-        {
-          "Name": "MainSection",
-          "Ordinal": 0,
-          "Title": "Main Section",
-          "IsExpandable": false,
-          "IsExpandedByDefault": false,
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "Id": "f5d123b9-7b4e-4078-9adb-c3b815b76bed"
-        },
-        {
-          "Name": "RelatedData",
-          "Ordinal": 1,
-          "Title": "Related data",
-          "IsExpandable": true,
-          "IsExpandedByDefault": true,
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "Id": "aca9e940-182c-4ef1-b752-db1c151f7afb"
-        },
-        {
-          "Name": "MoreOptions",
-          "Ordinal": 2,
-          "Title": "More Options",
-          "IsExpandable": true,
-          "IsExpandedByDefault": false,
-          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-          "Id": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08"
-        }
-      ],
-      "MainShortTextFieldName": "Title",
-      "IsSelfReferencing": false,
-      "CheckFieldPermissions": false,
-      "PageId": "b8ac69b4-edff-470f-8348-3992199dfc5b",
-      "Id": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
-      "LastModified": "2019-05-15T19:00:03.497Z"
-    },
-    {
       "DisplayName": "Short Question",
       "ParentModuleId": "153903bf-0045-47cb-8245-20e2fd507235",
       "TypeNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers",
@@ -481,7 +41,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "c25f1f66-f468-4e18-bc90-4066a684b59b",
-          "LastModified": "2019-05-15T19:01:01.433Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -513,7 +73,7 @@
           "ParentSectionId": "b9e00a6b-24aa-4b89-aaed-2650b73f34f8",
           "TypeUIName": "\n                                Yes / No\n                            ",
           "Id": "12c6843b-50b1-41a6-96cd-e7a2e614cea5",
-          "LastModified": "2019-05-15T19:01:01.433Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -552,7 +112,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.Trait",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "13f2320e-9970-4657-82eb-2c7b8c997865",
-          "LastModified": "2019-05-15T19:01:01.433Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -585,7 +145,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "e23f3e30-5bc2-48c5-86a1-49cfd300ea2b",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -599,7 +159,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "5f066fed-4823-4188-9e43-b7a533dc3080",
-          "LastModified": "2019-05-15T19:01:01.433Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -615,7 +175,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "311468ec-81a1-491f-8079-e810ec637b8d",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -632,7 +192,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "2485b984-6d7f-47e5-b945-319c8b4f0358",
-          "LastModified": "2019-05-15T19:01:01.433Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -648,7 +208,7 @@
           "GridColumnOrdinal": 3,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "ecf0c84c-aac1-45c4-a3d4-35d76660a226",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -664,7 +224,7 @@
           "GridColumnOrdinal": 4,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "dd6dbbff-888e-4e05-ad7a-292340755e7f",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -679,7 +239,7 @@
           "GridColumnOrdinal": 5,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "cd3dcd6c-ccd8-4956-abe1-0f493d467786",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -695,7 +255,7 @@
           "GridColumnOrdinal": 7,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "a17fb0d7-8a07-4c0d-9f5a-5fc6c4fa4bbe",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
@@ -711,7 +271,7 @@
           "GridColumnOrdinal": 8,
           "ParentSectionId": "81b3984f-0036-474e-b241-8d6544fa0c19",
           "Id": "a4b78a2f-cf38-436c-b34b-5aeb23db430f",
-          "LastModified": "2019-03-13T16:04:13.36Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         }
       ],
       "Sections": [
@@ -739,7 +299,7 @@
       "CheckFieldPermissions": false,
       "PageId": "874bbba6-8956-4b7d-9f89-1063a892b629",
       "Id": "7d5f82c1-5ff4-438b-8096-0bb24504aa84",
-      "LastModified": "2019-05-15T19:01:01.433Z"
+      "LastModified": "2019-06-12T23:57:23.577Z"
     },
     {
       "DisplayName": "Trait",
@@ -778,7 +338,7 @@
           "TypeUIName": "Short text",
           "IsLocalizable": true,
           "Id": "2abf32de-7a52-4b2b-b329-f2fad82df9f8",
-          "LastModified": "2019-05-15T19:01:15.613Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -811,7 +371,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "d31aa6f7-bfe4-4e29-8fb1-7fe77aed1d47",
-          "LastModified": "2019-05-15T19:01:15.613Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -844,7 +404,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "96e44113-60b0-4d5b-a556-bb433fdb9116",
-          "LastModified": "2019-05-15T19:01:15.613Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -875,7 +435,7 @@
           "ParentSectionId": "a51f2971-6d6d-4e83-afb3-fa24549c2ed7",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "5dc71fcf-79ed-489c-a3a0-bcd79351b56a",
-          "LastModified": "2019-05-06T12:49:08.593Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -889,7 +449,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "47f67966-a550-4351-b0c5-4e707596e0c6",
-          "LastModified": "2019-05-15T19:01:15.613Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -905,7 +465,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "7357bc96-f203-47e7-b7ed-b2a9355b1d13",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -922,7 +482,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "672ffbde-b355-46f2-b9b9-46d7b37facd7",
-          "LastModified": "2019-05-15T19:01:15.613Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -938,7 +498,7 @@
           "GridColumnOrdinal": 3,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "dde669a4-8404-43af-8647-f160046276e9",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -954,7 +514,7 @@
           "GridColumnOrdinal": 4,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "9077c104-1a50-4a19-82a1-c10dddb9ac47",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -969,7 +529,7 @@
           "GridColumnOrdinal": 5,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "32f121d8-cc5f-431a-8abb-e0af4087da1b",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -985,7 +545,7 @@
           "GridColumnOrdinal": 7,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "70bfa80b-7f55-46d5-ae2a-9ae9199b73b9",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "c70573b6-55ff-4731-ac74-6a31038032b3",
@@ -1001,7 +561,7 @@
           "GridColumnOrdinal": 8,
           "ParentSectionId": "ffc1c9c8-b266-4f68-9830-e39fc961b9bb",
           "Id": "952fcf40-8680-41b1-b618-3091af5092b0",
-          "LastModified": "2019-03-13T16:02:13.513Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         }
       ],
       "Sections": [
@@ -1038,7 +598,7 @@
       "CheckFieldPermissions": false,
       "PageId": "fc413242-7719-4d8d-bc9c-39835026a18a",
       "Id": "c70573b6-55ff-4731-ac74-6a31038032b3",
-      "LastModified": "2019-05-15T19:01:15.613Z"
+      "LastModified": "2019-06-12T23:57:23.577Z"
     },
     {
       "DisplayName": "Short Question Set",
@@ -1077,7 +637,7 @@
           "TypeUIName": "Short text",
           "IsLocalizable": true,
           "Id": "405a727d-8ac2-4916-a999-74ae0a711fde",
-          "LastModified": "2019-05-15T19:01:25.48Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1110,7 +670,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "da0a5cef-e042-4565-8a16-171b487c1bdc",
-          "LastModified": "2019-05-15T19:01:25.48Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1151,7 +711,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.Shortquestion",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "c9bd916f-7983-46cb-a876-bce70538c178",
-          "LastModified": "2019-05-15T19:01:25.48Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1165,7 +725,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "c9fc272a-2676-40e1-850b-34c1adeca92f",
-          "LastModified": "2019-05-15T19:01:25.48Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1181,7 +741,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "528f5f8c-1012-415f-b626-b1d26ff3a731",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1198,7 +758,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "67145ec2-114c-4894-a81e-21520017c934",
-          "LastModified": "2019-05-15T19:01:25.48Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1214,7 +774,7 @@
           "GridColumnOrdinal": 3,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "0ef13adf-681f-46bb-a004-955923a5f5d5",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1230,7 +790,7 @@
           "GridColumnOrdinal": 4,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "4512ee78-3cc9-4551-85fa-a317b981da0c",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1245,7 +805,7 @@
           "GridColumnOrdinal": 5,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "db967cae-fbdc-4398-8176-a7f8a162a03e",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1261,7 +821,7 @@
           "GridColumnOrdinal": 7,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "968a01c4-c035-45fe-9a27-2c9e2b068d63",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
@@ -1277,7 +837,7 @@
           "GridColumnOrdinal": 8,
           "ParentSectionId": "b5a36f5d-a241-4d9e-ba91-b462acf30d45",
           "Id": "1a95c7dc-8d98-4a9c-9db4-7dacc6cb996f",
-          "LastModified": "2019-03-13T16:06:15.1Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         }
       ],
       "Sections": [
@@ -1314,7 +874,315 @@
       "CheckFieldPermissions": false,
       "PageId": "7db33a35-1200-4199-99d2-510d65dc45bc",
       "Id": "778017c3-8557-4626-a1c6-7e2de5ed05f1",
-      "LastModified": "2019-05-15T19:01:25.48Z"
+      "LastModified": "2019-06-12T23:57:23.577Z"
+    },
+    {
+      "DisplayName": "Filtering Question",
+      "ParentModuleId": "153903bf-0045-47cb-8245-20e2fd507235",
+      "TypeNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers",
+      "TypeName": "FilteringQuestion",
+      "Fields": [
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
+          "Name": "Title",
+          "Title": "Title",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "ShowInGrid": true,
+          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
+          "TypeUIName": "\n                                Short text\n                            ",
+          "IsLocalizable": true,
+          "Id": "d6f0aafe-c823-412b-990e-2da63f52d33f",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
+          "Name": "Description",
+          "Title": "Description",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "LengthValidationMessage": "",
+          "Ordinal": 1,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
+          "TypeUIName": "\n                                Short text\n                            ",
+          "IsLocalizable": true,
+          "Id": "6681bef2-6946-41a1-b587-199ccb120429",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
+          "Name": "QuestionText",
+          "Title": "Question Text",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "Ordinal": 3,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 1,
+          "ParentSectionId": "f5d123b9-7b4e-4078-9adb-c3b815b76bed",
+          "TypeUIName": "\n                                Short text\n                            ",
+          "IsLocalizable": true,
+          "Id": "9ab92430-4ddb-4c4a-ad35-2996116e349e",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
+          "Name": "RelatedSkill",
+          "Title": "Related skills",
+          "FieldType": 15,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "RelatedData",
+          "IsRequired": true,
+          "AllowMultipleImages": true,
+          "AllowMultipleVideos": true,
+          "AllowMultipleFiles": true,
+          "MinNumberRange": "0",
+          "MaxNumberRange": "0",
+          "LengthValidationMessage": "",
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.RelatedDataField",
+          "FrontendWidgetTypeName": "inline",
+          "FrontendWidgetLabel": "Related skills",
+          "DBType": "",
+          "DBLength": "",
+          "InstructionalChoice": "",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "RadioButton",
+          "ParentSectionId": "aca9e940-182c-4ef1-b752-db1c151f7afb",
+          "TypeUIName": "\n                                Related data\n                            ",
+          "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
+          "RelatedDataProvider": "sf-site-default-provider",
+          "Id": "e857ce78-6359-44e3-9cfd-f8a999d33c91",
+          "LastModified": "2019-06-13T00:17:53.02Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "IncludeInSitemap",
+          "Title": "Include in sitemap",
+          "FieldType": 0,
+          "SpecialType": 7,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "8a1d274f-d3c0-4603-b9ff-17c7d0fa16a2",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "Translations",
+          "Title": "Translations",
+          "FieldType": 0,
+          "SpecialType": 6,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 1,
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "f7f633f0-fae3-4e7f-acd7-e7c70784df54",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "UrlName",
+          "Title": "URL Name",
+          "FieldType": 0,
+          "SpecialType": 1,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "IsRequired": true,
+          "Ordinal": 1,
+          "RegularExpression": "^([\\.]?[\\p{L}-_!'()@\\d])+$",
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "e77840d1-9b14-4ff1-876f-6cba0334e1ac",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "Actions",
+          "Title": "Actions",
+          "FieldType": 0,
+          "SpecialType": 2,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 3,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 2,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "cae42fc2-d023-46c8-86b0-800b248adf28",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "Author",
+          "Title": "Author",
+          "FieldType": 0,
+          "SpecialType": 4,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 4,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 3,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "570ac985-a50e-426b-ade9-b1814d3faf17",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "PublicationDate",
+          "Title": "Publication date",
+          "FieldType": 0,
+          "SpecialType": 3,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 5,
+          "GridColumnOrdinal": -1,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "6a5292a1-03d6-4882-ab57-05420549fd1c",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "LastModified",
+          "Title": "Last modified",
+          "FieldType": 0,
+          "SpecialType": 8,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 7,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 4,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "ac1fcc1b-cf6e-4ef7-a732-9b666e0aed5f",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        },
+        {
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "FieldNamespace": null,
+          "Name": "DateCreated",
+          "Title": "Created on",
+          "FieldType": 0,
+          "SpecialType": 9,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 8,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 5,
+          "ParentSectionId": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08",
+          "Id": "1073f62b-73e7-4532-8d45-599c9d1deea4",
+          "LastModified": "2019-06-12T23:57:23.577Z"
+        }
+      ],
+      "Sections": [
+        {
+          "Name": "MainSection",
+          "Ordinal": 0,
+          "Title": "Main Section",
+          "IsExpandable": false,
+          "IsExpandedByDefault": false,
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "Id": "f5d123b9-7b4e-4078-9adb-c3b815b76bed"
+        },
+        {
+          "Name": "RelatedData",
+          "Ordinal": 1,
+          "Title": "Related data",
+          "IsExpandable": true,
+          "IsExpandedByDefault": true,
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "Id": "aca9e940-182c-4ef1-b752-db1c151f7afb"
+        },
+        {
+          "Name": "MoreOptions",
+          "Ordinal": 2,
+          "Title": "More Options",
+          "IsExpandable": true,
+          "IsExpandedByDefault": false,
+          "ParentTypeId": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+          "Id": "62ebbe6b-5d6f-4459-9e3c-5d60254d8d08"
+        }
+      ],
+      "MainShortTextFieldName": "Title",
+      "IsSelfReferencing": false,
+      "CheckFieldPermissions": false,
+      "PageId": "b8ac69b4-edff-470f-8348-3992199dfc5b",
+      "Id": "3d0451c1-9532-4f8e-a6fb-d03bee0f8baf",
+      "LastModified": "2019-06-13T00:31:25.933Z"
     },
     {
       "DisplayName": "Filtering Question Set",
@@ -1353,7 +1221,7 @@
           "TypeUIName": "Short text",
           "IsLocalizable": true,
           "Id": "bdc8a16c-74fa-4623-bfd7-893e928127f5",
-          "LastModified": "2019-05-15T19:01:49.63Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1386,37 +1254,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "b3229596-a745-425a-a2d5-409bfb07590f",
-          "LastModified": "2019-05-15T19:01:49.63Z"
-        },
-        {
-          "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestionSet",
-          "Name": "jobprofilecategories",
-          "Title": "jobprofilecategories",
-          "FieldType": 8,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "Classification",
-          "LengthValidationMessage": "",
-          "Ordinal": 2,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TaxonField",
-          "ClassificationId": "3b635a67-db48-43d2-b94b-332304775d37",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "ParentSectionId": "f6021502-3f1a-43b0-a317-fd97765ef45b",
-          "TypeUIName": "\n                                Classification\n                            ",
-          "Id": "8722a7d5-f96c-4708-9cae-34eaae04f6b6",
-          "LastModified": "2019-05-06T07:27:46.987Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1455,7 +1293,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.DiscoverYourSkillsAndCareers.FilteringQuestion",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "4d93f0fe-aaa8-48f7-bbcc-5a4b8ca8e0fa",
-          "LastModified": "2019-05-09T11:44:27.173Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1469,7 +1307,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "48e1ba26-9bc7-4453-bf55-55a36c06e7bd",
-          "LastModified": "2019-05-15T19:01:49.63Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1485,7 +1323,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "0a7bbeb5-5d7b-4be3-beb2-33eb1ec55ec8",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1502,7 +1340,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "d2431e2a-0b04-4a76-8dbf-cbbe67599b9b",
-          "LastModified": "2019-05-15T19:01:49.63Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1518,7 +1356,7 @@
           "GridColumnOrdinal": 3,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "65408c1a-2276-4068-b9a8-d368ef104369",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1534,7 +1372,7 @@
           "GridColumnOrdinal": 4,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "861c905f-b343-42dd-aa97-d6e91a929ae9",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1549,7 +1387,7 @@
           "GridColumnOrdinal": 5,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "d235561a-1aa2-4b6c-b1af-6d1fdfe502c1",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1565,7 +1403,7 @@
           "GridColumnOrdinal": 7,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "8139edf4-14d4-47be-bba1-af43625ba9a0",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         },
         {
           "ParentTypeId": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
@@ -1581,7 +1419,7 @@
           "GridColumnOrdinal": 8,
           "ParentSectionId": "f01eecca-c161-4bc3-9048-ca12bda9692d",
           "Id": "301334e6-fac7-4358-80ac-4cee67714991",
-          "LastModified": "2019-03-13T15:45:03.647Z"
+          "LastModified": "2019-06-12T23:57:23.577Z"
         }
       ],
       "Sections": [
@@ -1618,7 +1456,7 @@
       "CheckFieldPermissions": false,
       "PageId": "2a002459-a0a8-4fec-b5e7-0c83a5edf729",
       "Id": "76d1a9fc-8f7c-41eb-ba31-edc2d88c50eb",
-      "LastModified": "2019-05-15T19:01:49.63Z"
+      "LastModified": "2019-06-13T00:36:58.653Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

@@ -69,7 +69,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string qualificationLevelLabel,
             string qualificationNameLabel,
             string startDateLabel,
-            string subjectCategoryLabel)
+            string subjectCategoryLabel,
+            bool hasCourseId)
         {
             // Assign
             var controller = new CourseDetailsController(fakeApplicationLogger, fakeCourseSearchService, fakeAsyncHelper)
@@ -109,9 +110,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 StartDateLabel = startDateLabel,
                 SubjectCategoryLabel = subjectCategoryLabel
             };
-            if (!string.IsNullOrEmpty(courseId))
+            if (hasCourseId)
             {
                 A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns(new CourseDetails());
+            }
+            else
+            {
+                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Returns<CourseDetails>(null);
             }
 
             // Act
@@ -119,50 +124,52 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 courseId, oppurtunityId, referralPath));
 
             // Assert
-            controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>(
-                 vm =>
-                 {
-                     vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
-                     vm.NoCourseDescriptionMessage.Should().BeEquivalentTo(controller.NoCourseDescriptionMessage);
-                     vm.NoEntryRequirementsAvailableMessage.Should().BeEquivalentTo(controller.NoEntryRequirementsAvailableMessage);
-                     vm.NoEquipmentRequiredMessage.Should().BeEquivalentTo(controller.NoEquipmentRequiredMessage);
-                     vm.NoAssessmentMethodAvailableMessage.Should().BeEquivalentTo(controller.NoAssessmentMethodAvailableMessage);
-                     vm.NoOtherDateOrVenueAvailableMessage.Should().BeEquivalentTo(controller.NoOtherDateOrVenueAvailableMessage);
-                     vm.CourseDetailsPage.Should().BeEquivalentTo(controller.CourseDetailsPage);
-                     vm.QualificationDetailsLabel.Should().BeEquivalentTo(controller.QualificationDetailsLabel);
-                     vm.CourseDescriptionLabel.Should().BeEquivalentTo(controller.CourseDescriptionLabel);
-                     vm.EntryRequirementsLabel.Should().BeEquivalentTo(controller.EntryRequirementsLabel);
-                     vm.EquipmentRequiredLabel.Should().BeEquivalentTo(controller.EquipmentRequiredLabel);
-                     vm.AssessmentMethodLabel.Should().BeEquivalentTo(controller.AssessmentMethodLabel);
-                     vm.VenueLabel.Should().BeEquivalentTo(controller.VenueLabel);
-                     vm.OtherDatesAndVenuesLabel.Should().BeEquivalentTo(controller.OtherDatesAndVenuesLabel);
-                     vm.ProviderLabel.Should().BeEquivalentTo(controller.ProviderLabel);
-                     vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
-                     vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
-                     vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
-
-                     vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.AdditionalPriceLabel);
-                     vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
-                     vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
-                     vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);
-                     vm.CourseWebpageLinkLabel.Should().BeEquivalentTo(controller.CourseWebpageLinkLabel);
-                     vm.SupportingFacilitiesLabel.Should().BeEquivalentTo(controller.SupportingFacilitiesLabel);
-                     vm.FundingInformationLabel.Should().BeEquivalentTo(controller.FundingInformationLabel);
-                     vm.FundingInformationLink.Should().BeEquivalentTo(controller.FundingInformationLink);
-                     vm.FundingInformationText.Should().BeEquivalentTo(controller.FundingInformationText);
-                     vm.LanguageOfInstructionLabel.Should().BeEquivalentTo(controller.LanguageOfInstructionLabel);
-                     vm.PriceLabel.Should().BeEquivalentTo(controller.PriceLabel);
-                     vm.QualificationLevelLabel.Should().BeEquivalentTo(controller.QualificationLevelLabel);
-                     vm.QualificationNameLabel.Should().BeEquivalentTo(controller.QualificationNameLabel);
-                     vm.StartDateLabel.Should().BeEquivalentTo(controller.StartDateLabel);
-                     vm.SubjectCategoryLabel.Should().BeEquivalentTo(controller.SubjectCategoryLabel);
-                 });
-            if (string.IsNullOrWhiteSpace(courseId))
+            if (hasCourseId)
             {
-                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).Should().BeNull();
-            }
+                controllerResult.ShouldRenderDefaultView().WithModel<CourseDetailsViewModel>(
+                vm =>
+                {
+                    vm.FindACoursePage.Should().BeEquivalentTo(controller.FindAcoursePage);
+                    vm.NoCourseDescriptionMessage.Should().BeEquivalentTo(controller.NoCourseDescriptionMessage);
+                    vm.NoEntryRequirementsAvailableMessage.Should().BeEquivalentTo(controller.NoEntryRequirementsAvailableMessage);
+                    vm.NoEquipmentRequiredMessage.Should().BeEquivalentTo(controller.NoEquipmentRequiredMessage);
+                    vm.NoAssessmentMethodAvailableMessage.Should().BeEquivalentTo(controller.NoAssessmentMethodAvailableMessage);
+                    vm.NoOtherDateOrVenueAvailableMessage.Should().BeEquivalentTo(controller.NoOtherDateOrVenueAvailableMessage);
+                    vm.CourseDetailsPage.Should().BeEquivalentTo(controller.CourseDetailsPage);
+                    vm.QualificationDetailsLabel.Should().BeEquivalentTo(controller.QualificationDetailsLabel);
+                    vm.CourseDescriptionLabel.Should().BeEquivalentTo(controller.CourseDescriptionLabel);
+                    vm.EntryRequirementsLabel.Should().BeEquivalentTo(controller.EntryRequirementsLabel);
+                    vm.EquipmentRequiredLabel.Should().BeEquivalentTo(controller.EquipmentRequiredLabel);
+                    vm.AssessmentMethodLabel.Should().BeEquivalentTo(controller.AssessmentMethodLabel);
+                    vm.VenueLabel.Should().BeEquivalentTo(controller.VenueLabel);
+                    vm.OtherDatesAndVenuesLabel.Should().BeEquivalentTo(controller.OtherDatesAndVenuesLabel);
+                    vm.ProviderLabel.Should().BeEquivalentTo(controller.ProviderLabel);
+                    vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
+                    vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
+                    vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
+                    vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.AdditionalPriceLabel);
+                    vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
+                    vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
+                    vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);
+                    vm.CourseWebpageLinkLabel.Should().BeEquivalentTo(controller.CourseWebpageLinkLabel);
+                    vm.SupportingFacilitiesLabel.Should().BeEquivalentTo(controller.SupportingFacilitiesLabel);
+                    vm.FundingInformationLabel.Should().BeEquivalentTo(controller.FundingInformationLabel);
+                    vm.FundingInformationLink.Should().BeEquivalentTo(controller.FundingInformationLink);
+                    vm.FundingInformationText.Should().BeEquivalentTo(controller.FundingInformationText);
+                    vm.LanguageOfInstructionLabel.Should().BeEquivalentTo(controller.LanguageOfInstructionLabel);
+                    vm.PriceLabel.Should().BeEquivalentTo(controller.PriceLabel);
+                    vm.QualificationLevelLabel.Should().BeEquivalentTo(controller.QualificationLevelLabel);
+                    vm.QualificationNameLabel.Should().BeEquivalentTo(controller.QualificationNameLabel);
+                    vm.StartDateLabel.Should().BeEquivalentTo(controller.StartDateLabel);
+                    vm.SubjectCategoryLabel.Should().BeEquivalentTo(controller.SubjectCategoryLabel);
+                });
 
-            A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).MustHaveHappened();
+                A.CallTo(() => fakeCourseSearchService.GetCourseDetailsAsync(courseId, oppurtunityId)).MustHaveHappened();
+            }
+            else
+            {
+                controllerResult.ShouldGiveHttpStatus(404);
+            }
         }
     }
 }

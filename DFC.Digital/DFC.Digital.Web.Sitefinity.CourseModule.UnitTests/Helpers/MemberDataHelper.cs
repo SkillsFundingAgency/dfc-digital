@@ -839,8 +839,51 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.QualificationLevelLabel),
                 nameof(CourseDetailsViewModel.QualificationNameLabel),
                 nameof(CourseDetailsViewModel.StartDateLabel),
-                nameof(CourseDetailsViewModel.SubjectCategoryLabel)
+                nameof(CourseDetailsViewModel.SubjectCategoryLabel),
+                false
             };
+
+            yield return new object[]
+          {
+                nameof(CourseDetailsViewModel.FindACoursePage),
+                nameof(CourseDetailsViewModel.CourseDetails.CourseId),
+                nameof(Oppurtunity.OppurtunityId),
+                nameof(CourseDetailsViewModel.NoCourseDescriptionMessage),
+                nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
+                nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
+                nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
+                nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
+                nameof(CourseDetailsViewModel.CourseDetailsPage),
+                nameof(CourseDetailsViewModel.QualificationDetailsLabel),
+                nameof(CourseDetailsViewModel.CourseDescriptionLabel),
+                nameof(CourseDetailsViewModel.EntryRequirementsLabel),
+                nameof(CourseDetailsViewModel.EquipmentRequiredLabel),
+                nameof(CourseDetailsViewModel.AssessmentMethodLabel),
+                nameof(CourseDetailsViewModel.VenueLabel),
+                nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
+                nameof(CourseDetailsViewModel.ProviderLabel),
+                nameof(CourseDetailsViewModel.EmployerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
+                nameof(CourseDetailsViewModel.ReferralPath),
+                nameof(CourseDetailsViewModel.ContactAdviserSection),
+                nameof(CourseDetailsViewModel.AdditionalPriceLabel),
+                nameof(CourseDetailsViewModel.AttendancePatternLabel),
+                nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
+                nameof(CourseDetailsViewModel.CourseTypeLabel),
+                nameof(CourseDetailsViewModel.CourseWebpageLinkLabel),
+                nameof(CourseDetailsViewModel.SupportingFacilitiesLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLink),
+                nameof(CourseDetailsViewModel.FundingInformationText),
+                nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
+                nameof(CourseDetailsViewModel.PriceLabel),
+                nameof(CourseDetailsViewModel.QualificationLevelLabel),
+                nameof(CourseDetailsViewModel.QualificationNameLabel),
+                nameof(CourseDetailsViewModel.StartDateLabel),
+                nameof(CourseDetailsViewModel.SubjectCategoryLabel),
+                true
+          };
         }
 
         public static IEnumerable<object[]> Dfc9560MissingFieldsTestInput()

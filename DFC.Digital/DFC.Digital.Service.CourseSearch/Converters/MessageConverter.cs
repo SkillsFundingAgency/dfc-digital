@@ -145,7 +145,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         private static Venue GetVenueData(VenueDetail[] venue, OpportunityDetail activeOpportunity)
         {
-            var venueData = venue?.Where(v => v.VenueID.ToString() == activeOpportunity?.Items[0]).FirstOrDefault();
+            var venueData = venue?.Where(v => v.VenueID == activeOpportunity?.Items[0]).FirstOrDefault();
             return venueData is null
                 ? null
                 : new Venue
@@ -175,7 +175,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 StartDate = opp.StartDate.Item,
                 OppurtunityId = opp.OpportunityId,
-                VenueName = apiCourseDetail.Venue.Where(venue => venue.VenueID.ToString() == opp.Items[0]).FirstOrDefault().VenueName
+                VenueName = apiCourseDetail.Venue.Where(venue => venue.VenueID == opp.Items[0]).FirstOrDefault().VenueName
             }).ToList();
         }
 

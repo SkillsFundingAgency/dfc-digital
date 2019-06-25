@@ -38,7 +38,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <DisableOutOfProcTask>True</DisableOutOfProcTask>
     <VisualStudioVersion>11.0</VisualStudioVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -1127,12 +1127,13 @@
     <Content Include="App_Data\Sitefinity\Export\DYSAC\DYSAC.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\install.ps1" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\uninstall.ps1" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.16.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.11.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Export\DYSAC.1.0.0.16.nupkg" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1481,7 +1482,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://local-beta.nationalcareersservice.org.uk</IISUrl>
+          <IISUrl>http://localhost:60876</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -57,13 +57,13 @@
                 </tr>
             }
 
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.CourseWebPageLink))
+            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.CourseWebpageLink))
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.CourseWebPageLinkLabel</th>
                     <td class="govuk-table__cell">
-                        <a href="@Model.CourseDetails.CourseWebPageLink" target="_blank">
-                            @Model.CourseDetails.CourseWebPageLink
+                        <a href="@Model.CourseDetails.CourseWebpageLink" target="_blank">
+                            @Model.CourseDetails.CourseWebpageLink
                         </a>
                     </td>
                 </tr>

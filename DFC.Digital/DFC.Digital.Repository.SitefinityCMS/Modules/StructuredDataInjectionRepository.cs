@@ -33,7 +33,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 if (structuredDataItems.Any())
                 {
-                    return converter.ConvertFrom(structuredDataItems.First());
+                    var structuredDataItem = converter.ConvertFrom(structuredDataItems.First());
+                    structuredDataItem.JobProfileLinkName = urlName;
+                    return structuredDataItem;
                 }
             }
 

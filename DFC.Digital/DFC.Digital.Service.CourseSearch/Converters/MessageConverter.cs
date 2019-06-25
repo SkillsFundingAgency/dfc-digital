@@ -143,7 +143,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 SupportingFacilities = venue?.Facilities,
                 AdvancedLearnerLoansOffered = apiCourseDetail.Provider?.TFPlusLoans == true,
                 LanguageOfInstruction = activeOppurtunity?.LanguageOfInstruction,
-                CourseWebPageLink = activeOppurtunity?.URL
+                CourseWebpageLink = activeOppurtunity?.URL
             };
         }
 

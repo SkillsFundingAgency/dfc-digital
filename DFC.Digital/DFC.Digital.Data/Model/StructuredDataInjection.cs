@@ -8,6 +8,6 @@
 
         public string Script { get; set; }
 
-        public string JobProfileUrlName { get; set; }
+        public string JobProfileLinkName { get; set; }
     }
 }

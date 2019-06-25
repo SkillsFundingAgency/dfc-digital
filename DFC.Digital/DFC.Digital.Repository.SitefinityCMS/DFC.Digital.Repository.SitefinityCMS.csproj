@@ -248,6 +248,7 @@
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="CMSExtensions\ApprenticeshipReportConverter.cs" />
     <Compile Include="CMSExtensions\CmsReportItemConverter.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="Modules\EmailTemplateConverter.cs" />
     <Compile Include="Modules\EmailTemplateRepository.cs" />
     <Compile Include="CMSExtensions\JobProfileReportConverter.cs" />

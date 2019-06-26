@@ -1,23 +1,29 @@
 using ASP;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
-    public class CourseDetailsViewTests
+    public class CourseDetailsViewTests : MemberDataHelper
     {
         [Fact]
         public void Dfc7056CourseDetailsIndexViewTests()
         {
             // Arrange
             var courseDetailsIndex = new _MVC_Views_CourseDetails_Index_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            courseDetailsViewModel.CourseDetails.Title = nameof(CourseDetailsViewModel.CourseDetails.Title);
+            var courseDetailsViewModel = new CourseDetailsViewModel
+            {
+                CourseDetails =
+                {
+                    Title = nameof(CourseDetailsViewModel.CourseDetails.Title)
+                }
+            };
 
             // Act
             var htmlDocument = courseDetailsIndex.RenderAsHtml(courseDetailsViewModel);
@@ -32,325 +38,41 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             // Arrange
             var courseDetailsIndex = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+
             var courseDetails = new CourseDetails();
             var model = new CourseDetailsViewModel();
-           model.CourseDetails.Title = nameof(CourseDetails.Title);
+            model.CourseDetails.Title = nameof(CourseDetails.Title);
 
             // Act
             var htmlDocument = courseDetailsIndex.RenderAsHtml(model);
 
             // Assert
-            this.AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
-            this.AssertTableCounts(htmlDocument, 2);
+            AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
+            this.AssertTableCounts(htmlDocument, 1);
             this.AssertH2HeadingCounts(htmlDocument, 6);
         }
 
         [Theory]
-        [InlineData("Cost", true)]
-        [InlineData("Cost", false)]
-        public void ShowAndHideCostTableRowTest(string propertyName, bool hasValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowCourseDescriptionTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.Cost = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.Cost = nameof(CourseDetails.Cost);
-            }
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            courseDetailsViewModel.NoCourseDescriptionMessage = nameof(courseDetailsViewModel.NoCourseDescriptionMessage);
+
+            courseDetailsViewModel.CourseDetails.Description = hasValue
+                ? nameof(courseDetailsViewModel.CourseDetails.Description)
+                : nameof(courseDetailsViewModel.NoCourseDescriptionMessage);
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
             if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Duration", true)]
-        [InlineData("Duration", false)]
-        public void ShowAndHideDurationTableRowTest(string propertyName, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.Duration = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.Duration = nameof(CourseDetails.Duration);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Qualification name", true)]
-        [InlineData("Qualification name", false)]
-        public void ShowAndHideQualificationNameTableRowTest(string propertyTitle, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.QualificationName = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.QualificationName = nameof(CourseDetails.QualificationName);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyTitle)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyTitle)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Qualification level", true)]
-        [InlineData("Qualification level", false)]
-        public void ShowAndHideQualificationLevelTableRowTest(string propertyTitle, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.QualificationLevel = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.QualificationLevel = nameof(CourseDetails.QualificationLevel);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyTitle)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyTitle)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Entry requirements", true)]
-        [InlineData("Entry requirements", false)]
-        public void ShowAndHideEntryRequirementsTableRowTest(string propertyName, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.EntryRequirements = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.EntryRequirements = nameof(CourseDetails.EntryRequirements);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Start date", true)]
-        [InlineData("Start date", false)]
-        public void ShowAndHideStartDateLabelTableRowTest(string propertyName, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.StartDateLabel = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.StartDateLabel = DateTime.Today.ToShortDateString();
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Classroom or online", true)]
-        [InlineData("Classroom or online", false)]
-        public void ShowAndHideAttendanceModeTableRowTest(string propertyName, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.AttendanceMode = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.AttendanceMode = nameof(CourseDetails.AttendanceMode);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData("Day, night or weekend", true)]
-        [InlineData("Day, night or weekend", false)]
-        public void ShowAndHideAttendancePatternTableRowTest(string propertyName, bool hasValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            if (!hasValue)
-            {
-                courseDetailsViewModel.CourseDetails.AttendancePattern = null;
-            }
-            else
-            {
-                courseDetailsViewModel.CourseDetails.AttendancePattern = nameof(CourseDetails.AttendancePattern);
-            }
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (hasValue)
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeTrue();
-            }
-            else
-            {
-                htmlDocument.DocumentNode.Descendants("th")
-               .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-                div.InnerText.Contains(propertyName)).Should().BeFalse();
-            }
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("Description")]
-        public void ShowCourseDescriptionTest(string propertyValue)
-        {
-            // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.Description = propertyValue;
-            courseDetailsViewModel.NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage);
-
-            // Act
-            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
-
-            // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -365,23 +87,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("EntryRequirements")]
-        public void ShowEntryRequirementsTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowEntryRequirementsTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.EntryRequirements = propertyValue;
-            courseDetailsViewModel.NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.EntryRequirements = nameof(CourseDetailsViewModel.CourseDetails.EntryRequirements);
+            }
+            else
+            {
+                courseDetailsViewModel.NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -396,23 +123,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("EquipmentRequired")]
-        public void ShowEquipmentRequiredTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowEquipmentRequiredTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.EquipmentRequired = propertyValue;
-            courseDetailsViewModel.NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.EquipmentRequired = nameof(CourseDetailsViewModel.CourseDetails.EquipmentRequired);
+            }
+            else
+            {
+                courseDetailsViewModel.NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -427,23 +159,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("AssessmentMethod")]
-        public void ShowAssessmentMethodTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowAssessmentMethodTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.AssessmentMethod = propertyValue;
-            courseDetailsViewModel.NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.AssessmentMethod = nameof(CourseDetailsViewModel.CourseDetails.AssessmentMethod);
+            }
+            else
+            {
+                courseDetailsViewModel.NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -465,24 +202,30 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+
             if (venueExists)
             {
-                courseDetailsViewModel.CourseDetails.VenueDetails.VenueName = nameof(CourseDetails.VenueDetails.VenueName);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
-                courseDetailsViewModel.CourseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
-                courseDetailsViewModel.CourseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
+                courseDetailsViewModel.CourseDetails.VenueDetails = new Venue
+                {
+                    VenueName = nameof(CourseDetails.VenueDetails.VenueName),
+                    Location = new Address
+                    {
+                        AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
+                        AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        County = nameof(CourseDetails.VenueDetails.Location.County),
+                        Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
+                    },
+                    Website = nameof(CourseDetails.VenueDetails.Website),
+                    EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress),
+                    PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber),
+                    Facilities = nameof(CourseDetails.VenueDetails.Facilities),
+                    Fax = nameof(CourseDetails.VenueDetails.Fax)
+                };
             }
             else
             {
                 courseDetailsViewModel.CourseDetails.VenueDetails = null;
-                courseDetailsViewModel.NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage);
             }
 
             // Act
@@ -511,11 +254,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             else
             {
                 htmlDocument.DocumentNode.Descendants("td")
-                .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                 div.InnerText.Contains(courseDetailsViewModel.NoVenueAvailableMessage)).Should().BeTrue();
-                htmlDocument.DocumentNode.Descendants("th")
-             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-              div.InnerText.Contains("Address")).Should().BeFalse();
+                  .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+                   div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName)).Should().BeFalse();
             }
         }
 
@@ -593,7 +333,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
-                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Name)).Should().BeFalse();
+                  p.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.Name))).Should().BeFalse();
             }
         }
 
@@ -817,22 +557,118 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             }
         }
 
-        private static void AssertErrorFieldIsEmpty(HtmlDocument htmlDocument)
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void Dfc9563NoOtherDatesTextTests(bool otherDatesAvailable)
         {
-            htmlDocument.DocumentNode.Descendants("span")
-               .Count(span => span.InnerText.Contains("Message")).Should().Be(0);
+            // Arrange
+            var otherDatesView = new _MVC_Views_CourseDetails_OtherDatesAndVenues_cshtml();
+            var viewModel = new CourseDetailsViewModel
+            {
+                NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
+                CourseDetails =
+                {
+                    Oppurtunities = otherDatesAvailable
+                        ? new List<Oppurtunity>
+                        {
+                            new Oppurtunity
+                            {
+                                StartDate = nameof(Oppurtunity.StartDate),
+                                OppurtunityId = nameof(Oppurtunity.OppurtunityId),
+                                VenueName = nameof(Oppurtunity.VenueName), VenueUrl = nameof(Oppurtunity.VenueName)
+                            }
+                        }
+                        : Enumerable.Empty<Oppurtunity>().ToList()
+                }
+            };
+
+            // Act
+            var htmlDocument = otherDatesView.RenderAsHtml(viewModel);
+
+            // Assert
+            if (otherDatesAvailable)
+            {
+                AssertTagInnerTextValueDoesNotExist(htmlDocument, viewModel.NoOtherDateOrVenueAvailableMessage, "td");
+            }
+            else
+            {
+                AssertTagInnerTextValue(htmlDocument, viewModel.NoOtherDateOrVenueAvailableMessage, "td");
+            }
         }
 
-        private void AssertErrorDetailOnField(HtmlDocument htmlDocument, string errorMessage)
+        [Theory]
+        [MemberData(nameof(Dfc9560MissingFieldsTestInput))]
+        public void Dfc9560MissingFieldsTest(CourseDetailsViewModel courseDetailsViewModel, CourseDetails courseDetails)
         {
-            htmlDocument.DocumentNode.Descendants("span")
-                .Count(span => span.InnerText.Contains("Message")).Should().BeGreaterThan(0);
-        }
+            //Arrange
+            courseDetailsViewModel.CourseDetails = courseDetails;
+            var detailsView = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
 
-        private void AssertTagInnerTextValue(HtmlDocument htmlDocument, string innerText, string tag)
-        {
-            htmlDocument.DocumentNode.Descendants(tag)
-                .Any(h1 => h1.InnerText.Contains(innerText)).Should().BeTrue();
+            //Act
+            var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
+
+            //Asserts
+            if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.SupportingFacilities, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.AwardingOrganisation))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AwardingOrganisationLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.AwardingOrganisation, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.CourseWebPageLink))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.CourseWebpageLinkLabel, "th");
+                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetails.CourseWebPageLink);
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.StudyMode))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.CourseTypeLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.StudyMode, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.AdditionalPrice))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AdditionalPriceLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.AdditionalPrice, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.LanguageOfInstruction))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.LanguageOfInstructionLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.LanguageOfInstruction, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.QualificationName))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.QualificationNameLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.QualificationName, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.QualificationLevel))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.QualificationLevelLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.QualificationLevel, "td");
+            }
+
+            if (!string.IsNullOrWhiteSpace(courseDetails.Cost))
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.PriceLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.Cost, "td");
+            }
+
+            if (courseDetails.AdvancedLearnerLoansOffered)
+            {
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationLabel, "th");
+                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetailsViewModel.FundingInformationLink);
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationText, "a");
+            }
         }
 
         private void AssertTableCounts(HtmlDocument htmlDocument, int count)
@@ -845,12 +681,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             htmlDocument.DocumentNode.Descendants("h2")
                 .Count(div => div.Attributes["class"].Value.Contains("govuk-heading-m")).Should().Be(count);
-        }
-
-        private void AssertTableRowsCount(HtmlDocument htmlDocument, int remainingRows)
-        {
-            htmlDocument.DocumentNode.Descendants("tr")
-                .Count(div => div.Attributes["class"].Value.Contains("govuk-table__row")).Should().Be(remainingRows);
         }
     }
 }

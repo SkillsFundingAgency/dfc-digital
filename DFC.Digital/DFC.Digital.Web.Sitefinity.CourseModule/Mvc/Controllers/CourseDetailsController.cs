@@ -84,7 +84,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string ProviderPerformanceLabel { get; set; } = "Provider performance information";
 
         [DisplayName("Contact Adviser Section")]
-        public string ContactAdviserSection { get; set; } = "<div class='app-related-items'><h3 class='govuk-heading-m'>Want to speak to an adviser?</h3><p class='govuk-body'><b>Call</b> Call 0800 100 900 or <a href='https://nationalcareers.service.gov.uk/webchat/chat/' target='_blank' class='govuk-link govuk-link--no-visited-state'>use webchat</a></p><p class='govuk-hint'>8am to 10pm, 7 days a week</p></div>";
+        public string ContactAdviserSection { get; set; } = "<div class='app-related-items'><h3 class='govuk-heading-m'>Want to speak to an adviser?</h3><p class='govuk-body'><b>Call</b> 0800 100 900 or <a href='https://nationalcareers.service.gov.uk/webchat/chat/' target='_blank' class='govuk-link govuk-link--no-visited-state'>use webchat</a></p><p class='govuk-hint'>8am to 10pm, 7 days a week</p></div>";
 
         [DisplayName("Course Details - Attendance Pattern Label")]
         public string AttendancePatternLabel { get; set; } = "Attendance pattern";

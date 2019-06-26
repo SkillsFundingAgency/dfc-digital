@@ -1051,6 +1051,7 @@
     <Content Include="App_Data\RadCaptcha\X.wav" />
     <Content Include="App_Data\RadCaptcha\Y.wav" />
     <Content Include="App_Data\RadCaptcha\Z.wav" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
@@ -1130,6 +1131,10 @@
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\widgetTemplates.sf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

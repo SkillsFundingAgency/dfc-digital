@@ -621,10 +621,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDocument, courseDetails.AwardingOrganisation, "td");
             }
 
-            if (!string.IsNullOrWhiteSpace(courseDetails.CourseWebPageLink))
+            if (!string.IsNullOrWhiteSpace(courseDetails.CourseWebpageLink))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.CourseWebpageLinkLabel, "th");
-                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetails.CourseWebPageLink);
+                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetails.CourseWebpageLink);
             }
 
             if (!string.IsNullOrWhiteSpace(courseDetails.StudyMode))

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.HtmlControls;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
@@ -15,12 +16,16 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
+using Telerik.Sitefinity.Web.Events;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [ExcludeFromCodeCoverage]
     public sealed class Startup
     {
+        private const string MetaAttrKey = "name";
+        private const string MetaAttrValue = "Generator";
+
         private Startup()
         {
         }
@@ -45,6 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 FeatherActionInvokerCustom.Register();
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
@@ -98,6 +104,26 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             routes.MapRoute("serviceStatus", "health/{controller}/{action}", new { controller = "ServiceStatus", action = "Index", id = string.Empty });
             routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
+        }
+
+        private static void OnPagePreRenderCompleteEventHandler(IPagePreRenderCompleteEvent evt)
+        {
+            var page = evt.Page;
+            if (page != null)
+            {
+                var headerControls = page.Header.Controls;
+                foreach (var control in headerControls)
+                {
+                    if (control is HtmlMeta metaTag)
+                    {
+                        if (metaTag.Attributes[MetaAttrKey] == MetaAttrValue)
+                        {
+                            headerControls.Remove(metaTag);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

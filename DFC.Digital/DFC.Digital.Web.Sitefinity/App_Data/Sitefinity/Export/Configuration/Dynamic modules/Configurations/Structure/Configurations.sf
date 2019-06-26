@@ -41,7 +41,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "4eab88cd-3fbd-4fac-b2b4-891c471913d9",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -74,7 +74,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "c9aecd8e-9989-464c-93f1-7a34f7abd6b5",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -107,7 +107,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "bcd0a7ce-b797-498b-b040-9b3b8bb2ca00",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -140,7 +140,7 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "d8b20fb2-2d60-4117-9ce5-cfb2ecf211d1",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -173,7 +173,7 @@
           "TypeUIName": "\n                                Long text\n                            ",
           "IsLocalizable": true,
           "Id": "45b69dd3-27b0-4897-b8f9-dd9a1237e60a",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -187,7 +187,7 @@
           "GridColumnOrdinal": -1,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "ea1e57f8-349d-4370-ac0d-c851d6e99b91",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -202,7 +202,7 @@
           "GridColumnOrdinal": -1,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "45253850-e946-47c9-8fb0-48906dc819b0",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -219,7 +219,7 @@
           "GridColumnOrdinal": -1,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "fd93798c-9dc0-4287-9441-190d9c25223e",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -235,7 +235,7 @@
           "GridColumnOrdinal": 4,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "f8f89203-fda1-46d7-a53f-d4b304723ee4",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -251,7 +251,7 @@
           "GridColumnOrdinal": 1,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "63911da6-2280-46cc-9697-880be6bb69c1",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -266,7 +266,7 @@
           "GridColumnOrdinal": -1,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "1b23bc6a-f638-477b-be3c-256d20699f4d",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -282,7 +282,7 @@
           "GridColumnOrdinal": 2,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "d7e88d8e-613d-4018-bcfa-6ed5993d0c2f",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         },
         {
           "ParentTypeId": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
@@ -298,7 +298,7 @@
           "GridColumnOrdinal": 3,
           "ParentSectionId": "4459fe02-34a5-4831-a940-1adbe0fcb87f",
           "Id": "f656c3b2-fcb2-402f-9c5d-d57e6c51c8e0",
-          "LastModified": "2019-03-01T16:29:33.137Z"
+          "LastModified": "2019-03-27T15:46:29.197Z"
         }
       ],
       "Sections": [
@@ -326,7 +326,329 @@
       "CheckFieldPermissions": false,
       "PageId": "981e8d54-fb55-4fcf-8fbd-db4d1e268b48",
       "Id": "eb0541c7-66dc-4ca1-9fee-0bcc736d7094",
-      "LastModified": "2019-03-01T16:29:33.137Z"
+      "LastModified": "2019-03-27T15:46:29.197Z"
+    },
+    {
+      "DisplayName": "JP Structured Data Injection",
+      "ParentModuleId": "007da9f5-719e-4521-ae81-0163944d53e3",
+      "TypeNamespace": "Telerik.Sitefinity.DynamicTypes.Model.Configurations",
+      "TypeName": "StructuredDataInjection",
+      "Fields": [
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection",
+          "Name": "Title",
+          "Title": "Title",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "Ordinal": 1,
+          "CanCreateItemsWhileSelecting": true,
+          "CanSelectMultipleItems": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "d7831091-e7b1-41b8-9e75-dff32d6a7837",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "RadioButton",
+          "ShowInGrid": true,
+          "ParentSectionId": "cf983723-b70b-4976-a9a1-ee695a3e62b3",
+          "TypeUIName": "Short text",
+          "IsLocalizable": true,
+          "Id": "3b541e7c-1ef3-4e9f-a22a-787bde62ae5d",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection",
+          "Name": "Script",
+          "Title": "Script",
+          "FieldType": 2,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "LongText",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "Ordinal": 3,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "CLOB",
+          "ClassificationId": "0b0ab25e-7a8b-4e7a-93ba-bd4f0e3fd10e",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "GridColumnOrdinal": 2,
+          "ParentSectionId": "cf983723-b70b-4976-a9a1-ee695a3e62b3",
+          "TypeUIName": "\n                                Long text\n                            ",
+          "IsLocalizable": true,
+          "Id": "59a4b217-ff73-4ea6-a960-a88fe016bdd1",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection",
+          "Name": "DataType",
+          "Title": "Data Type",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "IsRequired": true,
+          "LengthValidationMessage": "",
+          "Ordinal": 5,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "GridColumnOrdinal": 4,
+          "ParentSectionId": "cf983723-b70b-4976-a9a1-ee695a3e62b3",
+          "TypeUIName": "\n                                Short text\n                            ",
+          "IsLocalizable": true,
+          "Id": "38ce8af9-fc44-4348-83c3-124303c0acca",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.Configurations.StructuredDataInjection",
+          "Name": "RelatedJobProfile",
+          "Title": "Applies To",
+          "FieldType": 15,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "RelatedData",
+          "AllowMultipleImages": true,
+          "AllowMultipleVideos": true,
+          "AllowMultipleFiles": true,
+          "MinNumberRange": "0",
+          "MaxNumberRange": "0",
+          "LengthValidationMessage": "",
+          "Ordinal": 7,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.RelatedDataField",
+          "FrontendWidgetTypeName": "inline",
+          "FrontendWidgetLabel": "Related job profiles",
+          "DBType": "",
+          "DBLength": "",
+          "InstructionalChoice": "",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "RadioButton",
+          "GridColumnOrdinal": 6,
+          "ParentSectionId": "4779d704-cd1c-4690-9df2-2b90df3f5c1d",
+          "TypeUIName": "\n                                Related data\n                            ",
+          "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile",
+          "RelatedDataProvider": "sf-site-default-provider",
+          "Id": "f1b9772e-d7d6-4cd3-95fc-dc1e64ba70e0",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "IncludeInSitemap",
+          "Title": "Include in sitemap",
+          "FieldType": 0,
+          "SpecialType": 7,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 1,
+          "GridColumnOrdinal": 1,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "be50f996-4cb5-4ecb-9348-3f7807885f3f",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "Translations",
+          "Title": "Translations",
+          "FieldType": 0,
+          "SpecialType": 6,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 1,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 1,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "50edf6a9-4522-4ef6-bfdf-51e8aee873b5",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "UrlName",
+          "Title": "URL Name",
+          "FieldType": 0,
+          "SpecialType": 1,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "IsRequired": true,
+          "Ordinal": 2,
+          "RegularExpression": "^([\\.]?[\\p{L}-_!'()@\\d])+$",
+          "GridColumnOrdinal": 2,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "37e7fbc9-a4bf-4895-895a-2f92771f6f15",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "Actions",
+          "Title": "Actions",
+          "FieldType": 0,
+          "SpecialType": 2,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 3,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 3,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "9846b90d-2953-455c-838c-f05e149dda64",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "Author",
+          "Title": "Author",
+          "FieldType": 0,
+          "SpecialType": 4,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 4,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 4,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "e2abfdbf-0299-4fda-b827-11cbe2a8fe52",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "PublicationDate",
+          "Title": "Publication date",
+          "FieldType": 0,
+          "SpecialType": 3,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 5,
+          "GridColumnOrdinal": 5,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "3eda273f-7d3d-44f5-8a16-bdb87811d2d8",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "LastModified",
+          "Title": "Last modified",
+          "FieldType": 0,
+          "SpecialType": 8,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 7,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 7,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "ebaaf1c3-f426-4b54-b771-fae8b9d53aee",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        },
+        {
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "FieldNamespace": null,
+          "Name": "DateCreated",
+          "Title": "Created on",
+          "FieldType": 0,
+          "SpecialType": 9,
+          "IsTransient": true,
+          "FieldTypeDisplayName": "Unknown",
+          "Ordinal": 8,
+          "ShowInGrid": true,
+          "GridColumnOrdinal": 8,
+          "ParentSectionId": "2f25e513-1c11-4a26-81a7-100bb962c5eb",
+          "Id": "0f8c5fe2-bb96-4a8a-9087-0e82a780ebf1",
+          "LastModified": "2019-06-24T14:45:56.903Z"
+        }
+      ],
+      "Sections": [
+        {
+          "Name": "MainSection",
+          "Ordinal": 0,
+          "Title": "Main Section",
+          "IsExpandable": false,
+          "IsExpandedByDefault": false,
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "Id": "cf983723-b70b-4976-a9a1-ee695a3e62b3"
+        },
+        {
+          "Name": "Classification",
+          "Ordinal": 1,
+          "Title": "Classification",
+          "IsExpandable": true,
+          "IsExpandedByDefault": true,
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "Id": "111d66f5-de42-439c-bdd7-eeeeeb4604c3"
+        },
+        {
+          "Name": "RelatedData",
+          "Ordinal": 2,
+          "Title": "Related data",
+          "IsExpandable": true,
+          "IsExpandedByDefault": true,
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "Id": "4779d704-cd1c-4690-9df2-2b90df3f5c1d"
+        },
+        {
+          "Name": "MoreOptions",
+          "Ordinal": 3,
+          "Title": "More Options",
+          "IsExpandable": true,
+          "IsExpandedByDefault": false,
+          "ParentTypeId": "4867e13f-e990-4691-9190-de170e2e9f28",
+          "Id": "2f25e513-1c11-4a26-81a7-100bb962c5eb"
+        }
+      ],
+      "MainShortTextFieldName": "Title",
+      "IsSelfReferencing": false,
+      "CheckFieldPermissions": false,
+      "PageId": "c95e6540-154a-49eb-ad7f-773308b58e50",
+      "Id": "4867e13f-e990-4691-9190-de170e2e9f28",
+      "LastModified": "2019-06-25T08:44:47.677Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

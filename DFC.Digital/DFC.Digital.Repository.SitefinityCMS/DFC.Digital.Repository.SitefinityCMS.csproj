@@ -248,6 +248,7 @@
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="CMSExtensions\ApprenticeshipReportConverter.cs" />
     <Compile Include="CMSExtensions\CmsReportItemConverter.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="Modules\EmailTemplateConverter.cs" />
     <Compile Include="Modules\EmailTemplateRepository.cs" />
     <Compile Include="CMSExtensions\JobProfileReportConverter.cs" />
@@ -264,6 +265,8 @@
     <Compile Include="Modules\DynamicTypes.cs" />
     <Compile Include="Modules\FrameworkSkillRepository.cs" />
     <Compile Include="Modules\RecycleBinRepository.cs" />
+    <Compile Include="Modules\StructuredDataInjectionConverter.cs" />
+    <Compile Include="Modules\StructuredDataInjectionRepository.cs" />
     <Compile Include="Modules\WhatYouWillDoConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverter.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillsRepository.cs" />

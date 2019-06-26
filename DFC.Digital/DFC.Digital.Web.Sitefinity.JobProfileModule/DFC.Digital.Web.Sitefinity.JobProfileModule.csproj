@@ -368,6 +368,7 @@
     <Compile Include="Mvc\Controllers\BaseJobProfileWidgetController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileCourseOpportunityController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileHowToBecomeController.cs" />
+    <Compile Include="Mvc\Controllers\JobProfileStructuredDataController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileWhatYouWillDoController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileWhatItTakesController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileSettingsAndPreviewController.cs" />
@@ -396,6 +397,7 @@
     <Compile Include="Mvc\Models\JobProfileSearchBoxViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSearchResultItemViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSearchWidgetPageMode.cs" />
+    <Compile Include="Mvc\Models\JobProfileStructuredDataViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileWhatItTakesViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSectionViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSettingsAndPreviewModel.cs" />
@@ -443,6 +445,7 @@
     <Content Include="Mvc\Views\JobProfileWhatItTakes\WhatItTakesSkills.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\JobProfileStructuredData\Index.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

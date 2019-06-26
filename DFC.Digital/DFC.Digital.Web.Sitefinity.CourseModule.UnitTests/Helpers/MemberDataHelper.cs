@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 LanguageOfInstructionLabel = nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
                 AwardingOrganisationLabel = nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
                 CourseTypeLabel = nameof(CourseDetailsViewModel.CourseTypeLabel),
-                CourseWebPageLinkLabel = nameof(CourseDetailsViewModel.CourseWebPageLinkLabel),
+                CourseWebpageLinkLabel = nameof(CourseDetailsViewModel.CourseWebpageLinkLabel),
                 QualificationLevelLabel = nameof(CourseDetailsViewModel.QualificationLevelLabel),
                 QualificationNameLabel = nameof(CourseDetailsViewModel.QualificationNameLabel),
                 PriceLabel = nameof(CourseDetailsViewModel.PriceLabel),
@@ -127,7 +127,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
 
                 NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
                 VenueLabel = nameof(CourseDetailsViewModel.VenueLabel),
-                NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
 
                 OtherDatesAndVenuesLabel = nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
                 NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
@@ -146,7 +145,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 5,
                 "page title 1",
-                "no courses here"
+                "no courses"
             };
 
             yield return new object[]
@@ -811,7 +810,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
                 nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
                 nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
-                nameof(CourseDetailsViewModel.NoVenueAvailableMessage),
                 nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
                 nameof(CourseDetailsViewModel.CourseDetailsPage),
                 nameof(CourseDetailsViewModel.QualificationDetailsLabel),
@@ -826,8 +824,66 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
                 nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
                 nameof(CourseDetailsViewModel.ReferralPath),
-                nameof(CourseDetailsViewModel.ContactAdviserSection)
+                nameof(CourseDetailsViewModel.ContactAdviserSection),
+                nameof(CourseDetailsViewModel.AdditionalPriceLabel),
+                nameof(CourseDetailsViewModel.AttendancePatternLabel),
+                nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
+                nameof(CourseDetailsViewModel.CourseTypeLabel),
+                nameof(CourseDetailsViewModel.CourseWebpageLinkLabel),
+                nameof(CourseDetailsViewModel.SupportingFacilitiesLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLink),
+                nameof(CourseDetailsViewModel.FundingInformationText),
+                nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
+                nameof(CourseDetailsViewModel.PriceLabel),
+                nameof(CourseDetailsViewModel.QualificationLevelLabel),
+                nameof(CourseDetailsViewModel.QualificationNameLabel),
+                nameof(CourseDetailsViewModel.StartDateLabel),
+                nameof(CourseDetailsViewModel.SubjectCategoryLabel),
+                false
             };
+
+            yield return new object[]
+          {
+                nameof(CourseDetailsViewModel.FindACoursePage),
+                nameof(CourseDetailsViewModel.CourseDetails.CourseId),
+                nameof(Oppurtunity.OppurtunityId),
+                nameof(CourseDetailsViewModel.NoCourseDescriptionMessage),
+                nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage),
+                nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage),
+                nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage),
+                nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
+                nameof(CourseDetailsViewModel.CourseDetailsPage),
+                nameof(CourseDetailsViewModel.QualificationDetailsLabel),
+                nameof(CourseDetailsViewModel.CourseDescriptionLabel),
+                nameof(CourseDetailsViewModel.EntryRequirementsLabel),
+                nameof(CourseDetailsViewModel.EquipmentRequiredLabel),
+                nameof(CourseDetailsViewModel.AssessmentMethodLabel),
+                nameof(CourseDetailsViewModel.VenueLabel),
+                nameof(CourseDetailsViewModel.OtherDatesAndVenuesLabel),
+                nameof(CourseDetailsViewModel.ProviderLabel),
+                nameof(CourseDetailsViewModel.EmployerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.LearnerSatisfactionLabel),
+                nameof(CourseDetailsViewModel.ProviderPerformanceLabel),
+                nameof(CourseDetailsViewModel.ReferralPath),
+                nameof(CourseDetailsViewModel.ContactAdviserSection),
+                nameof(CourseDetailsViewModel.AdditionalPriceLabel),
+                nameof(CourseDetailsViewModel.AttendancePatternLabel),
+                nameof(CourseDetailsViewModel.AwardingOrganisationLabel),
+                nameof(CourseDetailsViewModel.CourseTypeLabel),
+                nameof(CourseDetailsViewModel.CourseWebpageLinkLabel),
+                nameof(CourseDetailsViewModel.SupportingFacilitiesLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLabel),
+                nameof(CourseDetailsViewModel.FundingInformationLink),
+                nameof(CourseDetailsViewModel.FundingInformationText),
+                nameof(CourseDetailsViewModel.LanguageOfInstructionLabel),
+                nameof(CourseDetailsViewModel.PriceLabel),
+                nameof(CourseDetailsViewModel.QualificationLevelLabel),
+                nameof(CourseDetailsViewModel.QualificationNameLabel),
+                nameof(CourseDetailsViewModel.StartDateLabel),
+                nameof(CourseDetailsViewModel.SubjectCategoryLabel),
+                true
+          };
         }
 
         public static IEnumerable<object[]> Dfc9560MissingFieldsTestInput()
@@ -840,7 +896,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    SubjectCategory = nameof(CourseDetails.SubjectCategory),
                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                    AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                   CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                   CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                    AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                    StudyMode = nameof(CourseDetails.StudyMode),
                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
@@ -859,7 +915,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
                     LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                    CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                     AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                     StudyMode = nameof(CourseDetails.StudyMode),
                     SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
@@ -875,7 +931,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
                     LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink)
+                    CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink)
                 }
             };
 

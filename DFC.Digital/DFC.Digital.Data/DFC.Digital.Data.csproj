@@ -148,6 +148,7 @@
     <Compile Include="Interfaces\ISkillsFrameworkService.cs" />
     <Compile Include="Interfaces\ISkillsRepository.cs" />
     <Compile Include="Interfaces\ISpellCheckService.cs" />
+    <Compile Include="Interfaces\IStructuredDataInjectionRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\Address.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Model\SocMappingStatus.cs" />
     <Compile Include="Model\SocSkillMatrix.cs" />
     <Compile Include="Model\SpellCheckResult.cs" />
+    <Compile Include="Model\StructuredDataInjection.cs" />
     <Compile Include="Model\SuggestionResult.cs" />
     <Compile Include="Model\SuggestionResultItem.cs" />
     <Compile Include="Model\SuggestProperties.cs" />

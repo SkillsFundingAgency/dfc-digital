@@ -145,7 +145,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 5,
                 "page title 1",
-                "no courses here"
+                "no courses"
             };
 
             yield return new object[]

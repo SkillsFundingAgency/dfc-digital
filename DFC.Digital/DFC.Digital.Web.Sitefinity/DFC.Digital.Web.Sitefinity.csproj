@@ -1051,6 +1051,7 @@
     <Content Include="App_Data\RadCaptcha\X.wav" />
     <Content Include="App_Data\RadCaptcha\Y.wav" />
     <Content Include="App_Data\RadCaptcha\Z.wav" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
@@ -1114,11 +1115,6 @@
     <Content Include="App_Data\Sitefinity\Export\Configuration.1.0.9.1.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\Configuration.nuspec" />
     <Content Include="App_Data\Sitefinity\Export\Configuration.1.0.9.2.nupkg" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\widgetTemplates.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\version.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
-    <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\Export\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\Discover Your Skills And Careers.sf" />
@@ -1135,6 +1131,10 @@
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\Dynamic modules\Discover Your Skills And Careers\Structure\configs.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\AddOns\DYSAC\DYSAC.nuspec" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\configs.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\Configurations.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\version.sf" />
+    <Content Include="App_Data\Sitefinity\AddOns\Configuration\Dynamic modules\Configurations\Structure\widgetTemplates.sf" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

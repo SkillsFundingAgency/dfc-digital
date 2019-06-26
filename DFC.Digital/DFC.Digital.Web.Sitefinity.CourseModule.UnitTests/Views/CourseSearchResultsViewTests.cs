@@ -86,7 +86,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 PageTitle = pageTitle,
                 Courses = GetCourseListings(coursesCount, true).ToList(),
-                NoTrainingCoursesFoundText = noCoursesFoundText
+                NoTrainingCoursesFoundText = noCoursesFoundText,
+                SearchForCourseNameText = nameof(CourseSearchResultsViewModel.SearchForCourseNameText)
             };
 
             // Act

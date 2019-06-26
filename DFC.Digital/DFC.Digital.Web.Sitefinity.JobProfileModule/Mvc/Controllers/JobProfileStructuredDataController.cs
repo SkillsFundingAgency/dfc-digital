@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #endregion
 
         #region Actions
-        public string DefaultJobProfileUrlName { get; set; } = "plumber";
+        public string DefaultJobProfileLinkName { get; set; } = "plumber";
         #endregion
 
         #region Actions
@@ -42,7 +42,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [RelativeRoute("")]
         public ActionResult Index()
         {
-            return GetActionResult(sitefinityPage.GetDefaultJobProfileToUse(DefaultJobProfileUrlName));
+            return GetActionResult(sitefinityPage.GetDefaultJobProfileToUse(DefaultJobProfileLinkName));
         }
 
         /// <summary>

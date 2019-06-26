@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.Digital.Repository.SitefinityCMS.Helpers
+namespace DFC.Digital.Repository.SitefinityCMS
 {
     public class MemberDataHelper
     {

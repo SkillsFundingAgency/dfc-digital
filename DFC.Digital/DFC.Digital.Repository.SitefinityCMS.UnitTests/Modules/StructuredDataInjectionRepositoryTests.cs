@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Data.Model;
-using DFC.Digital.Repository.SitefinityCMS.Helpers;
 using FakeItEasy;
 using FluentAssertions;
 using System;

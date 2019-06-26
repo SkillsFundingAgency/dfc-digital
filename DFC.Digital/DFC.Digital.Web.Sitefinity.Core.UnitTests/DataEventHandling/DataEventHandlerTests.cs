@@ -107,6 +107,22 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
         }
 
+        [Fact]
+        public void ExportCompositePageExceptionTest()
+        {
+            //Setup
+            SetUp(Constants.ItemActionUpdated, typeof(PageNode), true, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, PropertyChangeThatCauseExport);
+            A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<bool>(fakeDataEvent, Constants.HasPageDataChanged)).Throws(new SystemException());
+            A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+
+            //Act
+            var dataEventHandler = new DataEventHandler(fakeApplicationLogger, fakeCompositePageBuilder, fakeSitefinityDataEventProxy, fakeCompositeUIService, fakeAsyncHelper);
+            dataEventHandler.ExportCompositePage(fakeDataEvent);
+
+            //Asserts
+            A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappenedOnceExactly();
+        }
+
         private void SetUp(string eventAction, Type itemType, bool pageChanged, string workflowStatus, string itemStatus, string changedPropertiesKey)
         {
             A.CallTo(() => fakeDataEvent.Action).Returns(eventAction);

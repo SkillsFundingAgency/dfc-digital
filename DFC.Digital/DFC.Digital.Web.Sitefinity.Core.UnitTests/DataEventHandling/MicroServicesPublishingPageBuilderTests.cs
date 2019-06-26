@@ -13,6 +13,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
     {
         private const string DummyUrl = "/DummyUrl";
         private const string DummyContent = "DummyContent";
+        private const string DummyProvider = "DummyProvider";
 
         private readonly ISitefinityManagerProxy fakeSitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy fakeSitefinityPageNodeProxy;
@@ -59,7 +60,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode("dummyProvider", typeof(PageNode), dummyGuid);
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode(DummyProvider, typeof(PageNode), dummyGuid);
 
             //Asserts
             microServicesPublishingPageData.IncludeInSitemap.Should().Be(isCrawlable);
@@ -80,6 +81,25 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             {
                 microServicesPublishingPageData.Content.Should().BeNullOrEmpty();
             }
+        }
+
+        [Fact]
+        public void GetMicroServiceEndPointConfigKeyForPageNodeTest()
+        {
+            //Setup
+            var dummyPageNode = new PageNode();
+            var dummyKeyName = "dummyKeyName   ";
+            var dummyGuid = Guid.NewGuid();
+
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageNode);
+            A.CallTo(() => fakeSitefinityPageNodeProxy.GetCustomField(A<PageNode>._, A<string>._)).Returns(dummyKeyName);
+
+            //Act
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var configKeyName = microServicesPublishingPageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(DummyProvider, typeof(PageNode), dummyGuid);
+
+            //Asserts
+            configKeyName.Should().Be(dummyKeyName.Trim());
         }
     }
 }

@@ -123,7 +123,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Controllers
 
         private JobProfileStructuredDataController GetController()
         {
-            return new JobProfileStructuredDataController(fakeSitefinityPage, mapperCfg, fakeStructuredDataInjectionRepository, fakeApplicationLogger);
+            return new JobProfileStructuredDataController(fakeSitefinityPage, mapperCfg, fakeStructuredDataInjectionRepository, fakeApplicationLogger)
+            {
+                DefaultJobProfileUrlName = nameof(JobProfileStructuredDataController.DefaultJobProfileUrlName)
+            };
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -8,7 +9,7 @@ using System.Linq.Expressions;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Xunit;
 
-namespace DFC.Digital.Repository.SitefinityCMS.Modules.Tests
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class StructuredDataInjectionRepositoryTests : MemberDataHelper
     {

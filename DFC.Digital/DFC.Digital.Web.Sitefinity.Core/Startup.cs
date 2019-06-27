@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.HtmlControls;
 using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
@@ -20,12 +21,16 @@ using Telerik.Sitefinity.Mvc;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
+using Telerik.Sitefinity.Web.Events;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     [ExcludeFromCodeCoverage]
     public sealed class Startup
     {
+        private const string MetaAttrKey = "name";
+        private const string MetaAttrValue = "Generator";
+
         private Startup()
         {
         }
@@ -53,6 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
                 EventHub.Subscribe<Telerik.Sitefinity.Data.Events.IDataEvent>(Content_Action);
 
+                EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
             }
             catch (Exception ex)
@@ -115,30 +121,24 @@ namespace DFC.Digital.Web.Sitefinity.Core
             routes.MapRoute("restartsitefinity", "restartsitefinity/{controller}/{action}", new { controller = "AdminPanel", action = "RestartSitefinity", id = string.Empty });
         }
 
-        private static void CreateCustomPageField(string fieldName)
+        private static void OnPagePreRenderCompleteEventHandler(IPagePreRenderCompleteEvent evt)
         {
-            var metaManager = MetadataManager.GetManager();
-
-            if (metaManager.GetMetaType(typeof(PageNode)) == null)
+            var page = evt.Page;
+            if (page != null)
             {
-                var type = metaManager.CreateMetaType(typeof(PageNode));
-                metaManager.SaveChanges();
+                var headerControls = page.Header.Controls;
+                foreach (var control in headerControls)
+                {
+                    if (control is HtmlMeta metaTag)
+                    {
+                        if (metaTag.Attributes[MetaAttrKey] == MetaAttrValue)
+                        {
+                            headerControls.Remove(metaTag);
+                            break;
+                        }
+                    }
+                }
             }
-
-            var metaType = metaManager.GetMetaType(typeof(PageNode));
-
-            var field = metaManager.CreateMetafield(fieldName);
-            field.MetaAttributes.Add(new MetaFieldAttribute()
-            {
-                Name = "UserFriendlyDataType",
-                Value = "ShortText"
-            });
-
-            field.ClrType = typeof(Lstring).FullName;
-            field.Hidden = false;
-
-            metaType.Fields.Add(field);
-            metaManager.SaveChanges();
         }
     }
 }

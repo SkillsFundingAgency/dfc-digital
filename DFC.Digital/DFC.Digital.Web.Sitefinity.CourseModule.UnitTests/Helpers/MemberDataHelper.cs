@@ -145,7 +145,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             {
                 5,
                 "page title 1",
-                "no courses here"
+                "no courses"
             };
 
             yield return new object[]
@@ -896,7 +896,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    SubjectCategory = nameof(CourseDetails.SubjectCategory),
                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                    AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                   CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                   CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                    AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                    StudyMode = nameof(CourseDetails.StudyMode),
                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
@@ -915,7 +915,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
                     LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink),
+                    CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                     AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                     StudyMode = nameof(CourseDetails.StudyMode),
                     SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
@@ -931,7 +931,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
                     LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
-                    CourseWebPageLink = nameof(CourseDetails.CourseWebPageLink)
+                    CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink)
                 }
             };
 

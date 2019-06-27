@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Configuration</id>
-    <version>1.0.9.1</version>
+    <version>1.0.17.1</version>
     <title>Configuration</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>

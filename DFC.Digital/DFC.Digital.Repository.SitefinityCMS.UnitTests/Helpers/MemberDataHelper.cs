@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DFC.Digital.Repository.SitefinityCMS
+namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 {
     public class MemberDataHelper
     {

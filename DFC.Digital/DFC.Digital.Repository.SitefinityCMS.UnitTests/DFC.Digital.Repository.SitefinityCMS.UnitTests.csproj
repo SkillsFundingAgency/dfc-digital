@@ -260,6 +260,7 @@
     <Compile Include="CMSExtensions\JobProfileReportRepositoryTests.cs" />
     <Compile Include="CMSExtensions\SocCodeReportConverterTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />

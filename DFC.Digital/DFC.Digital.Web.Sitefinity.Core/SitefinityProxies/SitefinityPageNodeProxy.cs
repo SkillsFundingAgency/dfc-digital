@@ -11,7 +11,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         public ApprovalTrackingRecord GetCurrentApprovalTrackingRecord(PageNode pageNode)
         {
-            return pageNode.GetCurrentApprovalTrackingRecord();
+            var workFlowItem = (IWorkflowItem)pageNode;
+            return workFlowItem.GetCurrentApprovalTrackingRecord();
         }
 
         public string GetCustomField(PageNode pageNode, string customFieldName)
@@ -27,9 +28,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return pageNode.GetCurrentApprovalTrackingRecord().DateCreated.ToSitefinityUITime();
         }
 
-        public string GetURLName(PageNode pageNode)
+        public string GetPageName(PageNode pageNode)
         {
-            return pageNode.UrlName.Value;
+            return pageNode?.UrlName.Value;
         }
     }
 }

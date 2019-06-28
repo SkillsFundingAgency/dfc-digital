@@ -8,7 +8,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        string GetURLName(PageNode pageNode);
+        string GetPageName(PageNode pageNode);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]

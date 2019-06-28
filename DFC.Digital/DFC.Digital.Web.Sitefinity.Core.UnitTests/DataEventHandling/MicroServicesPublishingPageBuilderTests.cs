@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             var dummyGuid = Guid.NewGuid();
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageNode);
-            A.CallTo(() => fakeSitefinityPageNodeProxy.GetURLName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
+            A.CallTo(() => fakeSitefinityPageNodeProxy.GetPageName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetLastPublishedDate(A<PageNode>._)).Returns(dummyPublishedDate);
 
             var dummyPageData = new PageData();

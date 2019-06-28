@@ -3,7 +3,6 @@ using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 
-
 namespace DFC.Digital.Service.MicroServicesPublishing
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -18,13 +17,11 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-
             builder.RegisterType<HttpClientService<IMicroServicesPublishingClientProxy>>()
               .AsImplementedInterfaces()
               .SingleInstance()
               .EnableInterfaceInterceptors()
               .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
-
         }
     }
 }

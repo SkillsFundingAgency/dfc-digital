@@ -29,7 +29,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public string GetLstringValue(Lstring lstring)
         {
-            return lstring.Value;
+            return lstring?.Value;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DFC.Digital.Core;
-using DFC.Digital.Service.MicroServicesPublishing;
 using FakeItEasy;
 using System.Net.Http;
 using Xunit;
@@ -8,11 +7,11 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
 {
     public class MicroServicesClientProxyTests
     {
-        private const string dummyEndpoint = "dummyEndpoint";
-        private const string dummyJson = "dummyJson";
+        private const string DummyEndpoint = "dummyEndpoint";
+        private const string DummyJson = "dummyJson";
 
         [Fact]
-        public void PostDataAsyncTest()
+        public async void PostDataAsyncTest()
         {
             //Setup
             var fakeHttpClientService = A.Fake<IHttpClientService<IMicroServicesPublishingClientProxy>>(ops => ops.Strict());
@@ -20,10 +19,10 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
 
             //Act
             var microServicesPublishingClientProxy = new MicroServicesPublishingClientProxy(fakeHttpClientService);
-            var result = microServicesPublishingClientProxy.PostDataAsync(dummyEndpoint, dummyJson);
+            await microServicesPublishingClientProxy.PostDataAsync(DummyEndpoint, DummyJson);
 
             //Asserts
-            A.CallTo(() => fakeHttpClientService.PostAsync(dummyEndpoint, dummyJson, A<FaultToleranceType>._)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeHttpClientService.PostAsync(DummyEndpoint, DummyJson, A<FaultToleranceType>._)).MustHaveHappenedOnceExactly();
         }
     }
 }

@@ -27,6 +27,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public void ExportCompositePage(IDataEvent eventInfo)
         {
+            if (eventInfo == null)
+            {
+                throw new ArgumentNullException("eventInfo");
+            }
+
             try
             {
                 var action = eventInfo.Action;
@@ -61,7 +66,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
+                //Sitefinity will throw this type of expetion if it  failes to get data attributes requested.
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
+                throw ex;
             }
         }
 
@@ -71,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
                 var compositePageData = compositePageBuilder.GetCompositePageForPageNode(providerName, contentType, itemId);
-                var result = asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
+                asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }
     }

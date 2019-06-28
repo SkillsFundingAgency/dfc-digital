@@ -45,7 +45,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
 
             A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
-     
+
             //Act
             var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeMicroServicesPublishingClientProxy);
             var result = await microServicesPublishingService.PostPageDataAsync("DummyEnd", new MicroServicesPublishingPageData());
@@ -53,7 +53,6 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             //Assert
             result.Should().Be(expectedResponse);
         }
-
 
         [Theory]
         [InlineData(true, ServiceState.Green)]
@@ -74,7 +73,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
 
             A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
-       
+
             //Act
             var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeMicroServicesPublishingClientProxy);
             var serviceStatus = await microServicesPublishingService.GetCurrentStatusAsync();
@@ -90,7 +89,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             //add no content to cause an exception
             var httpResponseMessage = new HttpResponseMessage();
 
-            A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Throws(new HttpRequestException() );
+            A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Throws(new HttpRequestException());
             A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             //Act

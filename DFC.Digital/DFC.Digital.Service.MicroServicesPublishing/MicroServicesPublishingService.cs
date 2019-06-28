@@ -1,10 +1,10 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using System;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.MicroServicesPublishing
 {
@@ -23,7 +23,6 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 
         #endregion ctor
 
-        #region Implement of IServiceStatus
         private static string ServiceName => "Composite UI Publish";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
@@ -33,11 +32,11 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             {
                 var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, PageTitle = "Last updated = {DateTime.Now}" };
 
-                //Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
-                var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
+                // Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
+                var response = await this.microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
                 if (response.IsSuccessStatusCode)
                 {
-                    //Got a response back
+                    // Got a response back
                     serviceStatus.Status = ServiceState.Green;
                 }
                 else
@@ -47,30 +46,27 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {this.applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
+
             return serviceStatus;
         }
-
-        #endregion
-
-        #region Implement of IMicroServicesPublishingService
 
         public async Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey, MicroServicesPublishingPageData compositePageData)
         {
             var pageDataJson = JsonConvert.SerializeObject(compositePageData);
             applicationLogger.Trace($"Posting page data to api - [{pageDataJson}]");
 
-            //Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
+            // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
             var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
             if (response.IsSuccessStatusCode)
             {
                 applicationLogger.Info($"Posted page data for {compositePageData.Name}");
                 return true;
             }
+
             applicationLogger.Info($"Failed to posted page data for {compositePageData.Name}");
             return false;
         }
-        #endregion
     }
 }

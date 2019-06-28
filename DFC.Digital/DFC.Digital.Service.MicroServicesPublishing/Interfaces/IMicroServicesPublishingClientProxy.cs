@@ -5,6 +5,6 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 {
     public interface IMicroServicesPublishingClientProxy
     {
-         Task<HttpResponseMessage> PostDataAsync(string postEndPoint, string pageDataJSon);
+         Task<HttpResponseMessage> PostDataAsync(string postEndPoint, string pageDataJson);
     }
 }

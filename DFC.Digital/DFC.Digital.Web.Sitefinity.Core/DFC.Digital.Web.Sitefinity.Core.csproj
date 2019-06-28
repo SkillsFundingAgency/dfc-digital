@@ -404,7 +404,7 @@
     <Compile Include="SitefinityProxies\SitefinityPageNodeProxy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ICompositePageBuilder.cs" />
-    <Compile Include="Interfaces\IDataEventHandler.cs" />
+    <Compile Include="Interfaces\IDataEventProcessor.cs" />
     <Compile Include="Interfaces\ISitefinityDataEventProxy.cs" />
     <Compile Include="Interfaces\ISitefinityManagerProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityManagerProxy.cs" />
@@ -418,7 +418,7 @@
     <Compile Include="Mvc\Controllers\ServiceStatusController.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataEventHandling\DataEventHandler.cs" />
+    <Compile Include="DataEventHandling\DataEventProcessor.cs" />
     <Compile Include="SitefinityExtensions\RecycleBinProcesser.cs" />
     <Compile Include="SitefinityExtensions\SiteMapHandler.cs" />
     <Compile Include="Startup.cs" />

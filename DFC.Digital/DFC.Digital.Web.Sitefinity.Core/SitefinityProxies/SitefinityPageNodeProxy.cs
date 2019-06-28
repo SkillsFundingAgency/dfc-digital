@@ -9,7 +9,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitefinityPageNodeProxy : ISitefinityPageNodeProxy
     {
-        public ApprovalTrackingRecord GetCurrentApprovalTrackingRecord(PageNode pageNode)
+        public static ApprovalTrackingRecord GetCurrentApprovalTrackingRecord(PageNode pageNode)
         {
             var workFlowItem = (IWorkflowItem)pageNode;
             return workFlowItem.GetCurrentApprovalTrackingRecord();

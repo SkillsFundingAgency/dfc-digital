@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private static void Content_Action(IDataEvent eventInfo)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
-            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventHandler>();
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
             dataEventHandler.ExportCompositePage(eventInfo);
         }
 

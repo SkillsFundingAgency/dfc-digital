@@ -2,7 +2,7 @@
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public interface IDataEventHandler
+    public interface IDataEventProcessor
     {
         void ExportCompositePage(IDataEvent eventInfo);
     }

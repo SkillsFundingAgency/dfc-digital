@@ -22,6 +22,17 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.sitefinityPageNodeProxy = sitefinityPageNodeProxy;
         }
 
+        public static IList<string> GetPageURLs(PageNode pageNode)
+        {
+            var pageUrls = new List<string>();
+            foreach (var pageDataUrl in pageNode?.Urls)
+            {
+                pageUrls?.Add(pageDataUrl.Url);
+            }
+
+            return pageUrls;
+        }
+
         public MicroServicesPublishingPageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId)
         {
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
@@ -51,17 +62,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             return contentData;
-        }
-
-        public IList<string> GetPageURLs(PageNode pageNode)
-        {
-            var pageUrls = new List<string>();
-            foreach (var pageDataUrl in pageNode?.Urls)
-            {
-                pageUrls?.Add(pageDataUrl.Url);
-            }
-
-            return pageUrls;
         }
 
         public string GetMicroServiceEndPointConfigKeyForPageNode(string providerName, Type contentType, Guid itemId)

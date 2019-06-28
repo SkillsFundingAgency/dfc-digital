@@ -8,7 +8,7 @@ using Telerik.Sitefinity.Pages.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
-    public class DataEventHandler : IDataEventHandler
+    public class DataEventProcessor : IDataEventProcessor
     {
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly ISitefinityDataEventProxy sitefinityDataEventProxy;
         private readonly IAsyncHelper asyncHelper;
 
-        public DataEventHandler(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
@@ -66,9 +66,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                //Sitefinity will throw this type of expetion if it  failes to get data attributes requested.
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
-                throw ex;
+                throw;
             }
         }
 

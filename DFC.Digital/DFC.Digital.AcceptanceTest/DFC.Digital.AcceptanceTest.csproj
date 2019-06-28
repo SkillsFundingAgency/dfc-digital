@@ -179,6 +179,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\ContactUs.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Features\FindACourse.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FindACourse.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Features\HomePage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,8 +215,10 @@
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
+    <Compile Include="AcceptanceCriteria\Steps\ContactUsSteps.cs" />
+    <Compile Include="AcceptanceCriteria\Steps\FindACourseSteps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Infrastructure\Pages\BauJPLandingPage.cs" />
+    <Compile Include="Infrastructure\Pages\BAU\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\HomePageSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\JobProfileCategorySteps.cs" />
@@ -218,12 +230,19 @@
     <Compile Include="Infrastructure\Config\ScreenshotHook.cs" />
     <Compile Include="Infrastructure\LocalBrowserHost.cs" />
     <Compile Include="Infrastructure\Config\ZapHook.cs" />
-    <Compile Include="Infrastructure\Pages\BauProfilePage.cs" />
-    <Compile Include="Infrastructure\Pages\BauSearchPage.cs" />
-    <Compile Include="Infrastructure\Pages\CourseDirectoryPage.cs" />
+    <Compile Include="Infrastructure\Pages\BAU\BauProfilePage.cs" />
+    <Compile Include="Infrastructure\Pages\BAU\BauSearchPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUs\ContactAnAdviserFormsPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUs\ContactUsConfirmationPage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUs\ContactUsPage.cs" />
+    <Compile Include="Infrastructure\Pages\BAU\CourseDirectoryPage.cs" />
     <Compile Include="Infrastructure\Config\DFCElementFinder.cs" />
     <Compile Include="Infrastructure\Config\DFCPage.cs" />
     <Compile Include="Infrastructure\Config\DFCPageWithViewModel.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUs\GiveFeedbackFormPage.cs" />
+    <Compile Include="Infrastructure\Pages\FindACourse\FaCCourseDetailsPage.cs" />
+    <Compile Include="Infrastructure\Pages\FindACourse\FaCLandingPage.cs" />
+    <Compile Include="Infrastructure\Pages\FindACourse\FaCResultsPage.cs" />
     <Compile Include="Infrastructure\Pages\HealthStatusPage.cs" />
     <Compile Include="Infrastructure\Pages\HelpPage.cs" />
     <Compile Include="Infrastructure\Pages\InformationSourcesPage.cs" />
@@ -232,6 +251,7 @@
     <Compile Include="Infrastructure\Pages\PrivacyPage.cs" />
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
+    <Compile Include="Infrastructure\Pages\ContactUs\TechnicalIssueFormPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
@@ -239,6 +259,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AcceptanceCriteria\Features\ContactUs.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AcceptanceCriteria\Features\FindACourse.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FindACourse.feature.cs</LastGenOutput>
+    </None>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">
       <LastGenOutput>HomePage.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>

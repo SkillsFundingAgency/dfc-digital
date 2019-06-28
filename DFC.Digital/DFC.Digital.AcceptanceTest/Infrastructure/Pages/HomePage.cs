@@ -88,6 +88,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return NavigateTo<T>(By.LinkText("Help"));
         }
 
+        public T ClickFindACourseLink<T>()
+             where T : UiComponent, new()
+        {
+            return NavigateTo<T>(By.Id("nav-FC"));
+        }
+
         public void SelectSuggestedSearch(int index)
         {
             var list = Find.Elements(By.ClassName("ui-menu-item-wrapper")).ToList();

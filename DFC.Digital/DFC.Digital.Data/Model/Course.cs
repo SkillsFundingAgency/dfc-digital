@@ -46,5 +46,23 @@ namespace DFC.Digital.Data.Model
         /// The location.
         /// </value>
         public string Location { get; set; }
+
+        public LocationDetails LocationDetails { get; set; }
+
+        public string Duration { get; set; }
+
+        public string QualificationLevel { get; set; }
+
+        public string AttendanceMode { get; set; }
+
+        public string AttendancePattern { get; set; }
+
+        public string StudyMode { get; set; }
+
+        public string StartDateLabel { get; set; }
+
+        public string CourseLink { get; set; }
+
+        public bool AdvancedLearnerLoansOffered { get; set; }
     }
 }

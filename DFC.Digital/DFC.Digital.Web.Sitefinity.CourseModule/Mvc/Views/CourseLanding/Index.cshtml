@@ -1,0 +1,48 @@
+﻿@using DFC.Digital.Web.Core
+@model CourseLandingViewModel
+
+
+@* Inside main section *@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        @using (Html.BeginForm("", "CourseLanding", FormMethod.Post))
+        {
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.SearchTerm, Model.CourseNameLabel, new { @class = "govuk-label govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                
+                <span id="course-name-hint" class="govuk-hint">
+                    @Model.CourseNameHintText
+                </span>
+                @Html.TextBoxFor(x => x.SearchTerm, new {@class = "govuk-input", aria_describedby = "course-name-hint" })
+            </div>
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.Provider, Model.ProviderLabel, new { @class = "govuk-label govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                <span id="provider-name-hint" class="govuk-hint">
+                    @Model.ProviderNameHintText
+                </span>
+
+                @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input", aria_describedby = "provider-name-hint" })
+            </div>
+            <div class="govuk-form-group">
+                @Html.LabelFor(x => x.Location, Model.LocationLabel, new { @class = "govuk-label govuk-body govuk-!-font-size-24 govuk-!-font-weight-bold" })
+                <span id="location-name-hint" class="govuk-hint">
+                    @Model.LocationHintText
+                </span>
+                @Html.TextBoxFor(x => x.Location, new {@class = "govuk-input govuk-!-width-one-third", aria_describedby = "location-name-hint" })
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-visually-hidden">@Model.Dfe1619FundedText</legend>
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
+                            @Html.LabelFor(x => x.Only1619Courses, Model.Dfe1619FundedText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group"><button type="submit" class="govuk-button">@Model.SubmitButtonText</button>
+            </div>
+        }
+    </div>
+</div>

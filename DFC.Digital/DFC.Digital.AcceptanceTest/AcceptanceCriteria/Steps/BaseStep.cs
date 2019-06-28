@@ -61,6 +61,24 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             return page;
         }
 
+        public TPage NavigateToContactUsPage<TPage>()
+            where TPage : UiComponent, new()
+        {
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/contact-us/select-option");
+            ScenarioContext.Set(page);
+
+            return page;
+        }
+
+        public TPage NavigateToFindACoursePage<TPage>()
+             where TPage : UiComponent, new()
+        {
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/find-a-course");
+            ScenarioContext.Set(page);
+
+            return page;
+        }
+
         internal TPage NavigateToHomePage<TPage, TModel>()
             where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()

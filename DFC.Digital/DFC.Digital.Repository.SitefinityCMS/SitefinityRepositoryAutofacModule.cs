@@ -82,6 +82,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
                         case var _ when t.Instance is DynamicModuleRepository<EmailTemplate> instance:
                             instance.Initialise(DynamicTypes.EmailTemplateContentType, DynamicTypes.ConfigurationsModuleName);
                             break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<StructuredDataInjection> instance:
+                            instance.Initialise(DynamicTypes.StructuredDataInjectionContentType, DynamicTypes.ConfigurationsModuleName);
+                            break;
                     }
                 })
                 .EnableInterfaceInterceptors()

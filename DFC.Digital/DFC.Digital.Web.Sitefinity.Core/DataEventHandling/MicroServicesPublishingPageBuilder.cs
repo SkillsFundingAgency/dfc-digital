@@ -25,6 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public static IList<string> GetPageURLs(PageNode pageNode)
         {
             var pageUrls = new List<string>();
+
             foreach (var pageDataUrl in pageNode?.Urls)
             {
                 pageUrls?.Add(pageDataUrl.Url);

@@ -13,7 +13,12 @@ using Telerik.Microsoft.Practices.EnterpriseLibrary.Logging;
 using Telerik.Microsoft.Practices.Unity;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.Metadata.Model;
+using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
+using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Services;
 using Telerik.Sitefinity.SitemapGenerator.Abstractions.Events;
 using Telerik.Sitefinity.Web.Events;
@@ -49,7 +54,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 ControllerBuilder.Current.SetControllerFactory(factory);
 
                 FeatherActionInvokerCustom.Register();
+
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
+                EventHub.Subscribe<Telerik.Sitefinity.Data.Events.IDataEvent>(Content_Action);
+
                 EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
             }
@@ -65,6 +73,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 RegisterRoutes(RouteTable.Routes);
             }
+        }
+
+        private static void Content_Action(IDataEvent eventInfo)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
+            dataEventHandler.ExportCompositePage(eventInfo);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

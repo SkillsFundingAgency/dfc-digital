@@ -210,4 +210,11 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.CDNLocation']/@value" />
   </parameter>
+  <parameter name="MicroService-Help-EndPoint"
+            description="Micro services endpoint for Help key to be replaced by VSTS task"
+            defaultValue="__MicroServiceHelpEndPoint__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService-Help-EndPoint']/@value" />
+  </parameter>
 </parameters>

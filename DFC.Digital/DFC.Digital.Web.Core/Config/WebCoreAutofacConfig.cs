@@ -12,6 +12,7 @@ using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
+using DFC.Digital.Service.MicroServicesPublishing;
 using DFC.Digital.Service.SkillsFramework;
 using DFC.Digital.Services.SendGrid;
 using System;
@@ -51,7 +52,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<SpellCheckAutofacModule>()
                 .RegisterModule<SkillsFrameworkEngineAutofacModule>()
                 .RegisterModule<SkillsFrameworkAutofacModule>()
-                .RegisterModule<SendGridAutofacModule>();
+                .RegisterModule<SendGridAutofacModule>()
+                .RegisterModule<MicroServicesPublishingAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

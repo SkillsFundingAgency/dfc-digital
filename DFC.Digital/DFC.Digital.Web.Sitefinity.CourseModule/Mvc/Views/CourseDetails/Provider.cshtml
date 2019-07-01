@@ -12,14 +12,14 @@
     {
         <li>
             Website:
-            <a class="govuk-link" href="@Model.CourseDetails.ProviderDetails.Website">@Model.CourseDetails.ProviderDetails.Website</a>
+            <a class="govuk-link" target="_blank" href="@Model.CourseDetails.ProviderDetails.Website">@Model.CourseDetails.ProviderDetails.Website</a>
         </li>
     }
     @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.EmailAddress))
     {
         <li>
             Email:
-            <a class="govuk-link" href="#">@Model.CourseDetails.ProviderDetails.EmailAddress</a>
+            <a class="govuk-link" href="mailto:@Model.CourseDetails.ProviderDetails.EmailAddress">@Model.CourseDetails.ProviderDetails.EmailAddress</a>
         </li>
     }
     @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.ProviderDetails?.PhoneNumber))

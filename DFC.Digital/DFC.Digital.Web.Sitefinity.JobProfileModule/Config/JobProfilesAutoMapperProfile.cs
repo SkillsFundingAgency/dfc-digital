@@ -35,6 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
             CreateMap<PsfOption, PreSearchFilterOption>();
             CreateMap<PreSearchFilterSection, PsfSection>();
             CreateMap<PreSearchFilterOption, PsfOption>();
+
+            CreateMap<StructuredDataInjection, JobProfileStructuredDataViewModel>();
         }
 
         public override string ProfileName => "DFC.Digital.Web.Sitefinity.JobProfileModule";

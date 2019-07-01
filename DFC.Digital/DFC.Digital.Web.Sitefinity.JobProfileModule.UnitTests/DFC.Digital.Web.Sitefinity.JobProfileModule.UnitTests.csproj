@@ -149,6 +149,7 @@
     <Compile Include="Controllers\JobProfileApprenticeshipsControllerTests.cs" />
     <Compile Include="Controllers\JobProfileRelatedCareersControllerTests.cs" />
     <Compile Include="Controllers\JobProfileSearchBoxControllerTests.cs" />
+    <Compile Include="Controllers\JobProfileStructuredDataControllerTests.cs" />
     <Compile Include="Controllers\JobProfileWhatItTakesControllerTests.cs" />
     <Compile Include="Controllers\JobProfileSectionControllerTests.cs" />
     <Compile Include="Controllers\JobProfileCategoriesControllerTests.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Views\JobProfileDetailsViewTests.cs" />
     <Compile Include="Views\JobProfileHowToBecomeViewTests.cs" />
     <Compile Include="Views\JobProfileRelatedCareersViewTest.cs" />
+    <Compile Include="Views\JobProfileStructuredDataViewTests.cs" />
     <Compile Include="Views\JobProfileWhatItTakesViewTests.cs" />
     <Compile Include="Views\JobProfileWhatYouWillDoViewTests.cs" />
     <Compile Include="Views\PsfSearchViewTests.cs" />

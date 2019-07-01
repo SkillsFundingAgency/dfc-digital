@@ -260,6 +260,7 @@
     <Compile Include="CMSExtensions\JobProfileReportRepositoryTests.cs" />
     <Compile Include="CMSExtensions\SocCodeReportConverterTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\MemberDataHelper.cs" />
     <Compile Include="JobProfileRelatedSkillsRepositoryTests.cs" />
     <Compile Include="LinqExpressionsTestHelper.cs" />
     <Compile Include="Modules\ApprenticeVacancyConverterTests.cs" />
@@ -273,6 +274,8 @@
     <Compile Include="Modules\SocSkillMatrixRepositoryTests.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverterTests.cs" />
     <Compile Include="Modules\JobProfileRelatedSkillConverterTests.cs" />
+    <Compile Include="Modules\StructuredDataInjectionConverterTests.cs" />
+    <Compile Include="Modules\StructuredDataInjectionRepositoryTests.cs" />
     <Compile Include="Modules\WhatYouWillDoConverterTests.cs" />
     <Compile Include="Modules\HowToBecomeConverterTests.cs" />
     <Compile Include="Modules\JobProfileCategoryRepositoryUnitTests.cs" />

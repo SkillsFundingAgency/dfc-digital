@@ -38,45 +38,41 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             // Arrange
             var courseDetailsIndex = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var model = new CourseDetailsViewModel
-            {
-                CourseDetails =
-                {
-                    Title = nameof(CourseDetails.Title)
-                }
-            };
+
+            var courseDetails = new CourseDetails();
+            var model = new CourseDetailsViewModel();
+            model.CourseDetails.Title = nameof(CourseDetails.Title);
 
             // Act
             var htmlDocument = courseDetailsIndex.RenderAsHtml(model);
 
             // Assert
             AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
-            this.AssertTableCounts(htmlDocument, 2);
+            this.AssertTableCounts(htmlDocument, 1);
             this.AssertH2HeadingCounts(htmlDocument, 6);
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("Description")]
-        public void ShowCourseDescriptionTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowCourseDescriptionTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
-            var courseDetailsViewModel = new CourseDetailsViewModel
-            {
-                CourseDetails =
-                {
-                    Description = propertyValue
-                },
-                NoCourseDescriptionMessage = nameof(CourseDetailsViewModel.NoCourseDescriptionMessage)
-            };
+
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            courseDetailsViewModel.NoCourseDescriptionMessage = nameof(courseDetailsViewModel.NoCourseDescriptionMessage);
+
+            courseDetailsViewModel.CourseDetails.Description = hasValue
+                ? nameof(courseDetailsViewModel.CourseDetails.Description)
+                : nameof(courseDetailsViewModel.NoCourseDescriptionMessage);
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -91,23 +87,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("EntryRequirements")]
-        public void ShowEntryRequirementsTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowEntryRequirementsTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.EntryRequirements = propertyValue;
-            courseDetailsViewModel.NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.EntryRequirements = nameof(CourseDetailsViewModel.CourseDetails.EntryRequirements);
+            }
+            else
+            {
+                courseDetailsViewModel.NoEntryRequirementsAvailableMessage = nameof(CourseDetailsViewModel.NoEntryRequirementsAvailableMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -122,23 +123,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("EquipmentRequired")]
-        public void ShowEquipmentRequiredTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowEquipmentRequiredTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.EquipmentRequired = propertyValue;
-            courseDetailsViewModel.NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.EquipmentRequired = nameof(CourseDetailsViewModel.CourseDetails.EquipmentRequired);
+            }
+            else
+            {
+                courseDetailsViewModel.NoEquipmentRequiredMessage = nameof(CourseDetailsViewModel.NoEquipmentRequiredMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -153,23 +159,28 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("AssessmentMethod")]
-        public void ShowAssessmentMethodTest(string propertyValue)
+        [InlineData(true)]
+        [InlineData(false)]
+        public void ShowAssessmentMethodTest(bool hasValue)
         {
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.AssessmentMethod = propertyValue;
-            courseDetailsViewModel.NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage);
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+            if (hasValue)
+            {
+                courseDetailsViewModel.CourseDetails.AssessmentMethod = nameof(CourseDetailsViewModel.CourseDetails.AssessmentMethod);
+            }
+            else
+            {
+                courseDetailsViewModel.NoAssessmentMethodAvailableMessage = nameof(CourseDetailsViewModel.NoAssessmentMethodAvailableMessage);
+            }
 
             // Act
             var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
 
             // Assert
-            if (!string.IsNullOrWhiteSpace(propertyValue))
+            if (hasValue)
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(div => div.Attributes["class"].Value.Contains("govuk-body") &&
@@ -191,24 +202,30 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
-            var courseDetails = new CourseDetails();
-            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails = new CourseDetails();
+
             if (venueExists)
             {
-                courseDetailsViewModel.CourseDetails.VenueDetails.VenueName = nameof(CourseDetails.VenueDetails.VenueName);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.County = nameof(CourseDetails.VenueDetails.Location.County);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Website = nameof(CourseDetails.VenueDetails.Website);
-                courseDetailsViewModel.CourseDetails.VenueDetails.EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress);
-                courseDetailsViewModel.CourseDetails.VenueDetails.PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber);
-                courseDetailsViewModel.CourseDetails.VenueDetails.Fax = nameof(CourseDetails.VenueDetails.Fax);
+                courseDetailsViewModel.CourseDetails.VenueDetails = new Venue
+                {
+                    VenueName = nameof(CourseDetails.VenueDetails.VenueName),
+                    Location = new Address
+                    {
+                        AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
+                        AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        County = nameof(CourseDetails.VenueDetails.Location.County),
+                        Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
+                    },
+                    Website = nameof(CourseDetails.VenueDetails.Website),
+                    EmailAddress = nameof(CourseDetails.VenueDetails.EmailAddress),
+                    PhoneNumber = nameof(CourseDetails.VenueDetails.PhoneNumber),
+                    Facilities = nameof(CourseDetails.VenueDetails.Facilities),
+                    Fax = nameof(CourseDetails.VenueDetails.Fax)
+                };
             }
             else
             {
                 courseDetailsViewModel.CourseDetails.VenueDetails = null;
-                courseDetailsViewModel.NoVenueAvailableMessage = nameof(CourseDetailsViewModel.NoVenueAvailableMessage);
             }
 
             // Act
@@ -237,11 +254,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             else
             {
                 htmlDocument.DocumentNode.Descendants("td")
-                .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                 div.InnerText.Contains(courseDetailsViewModel.NoVenueAvailableMessage)).Should().BeTrue();
-                htmlDocument.DocumentNode.Descendants("th")
-             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__header") &&
-              div.InnerText.Contains("Address")).Should().BeFalse();
+                  .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+                   div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName)).Should().BeFalse();
             }
         }
 
@@ -319,7 +333,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("p")
                  .Any(p => p.Attributes["class"].Value.Contains("govuk-body-lead") &&
-                  p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.Name)).Should().BeFalse();
+                  p.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.Name))).Should().BeFalse();
             }
         }
 
@@ -594,7 +608,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             //Act
             var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
 
-            //Assert
+            //Asserts
             if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");
@@ -607,10 +621,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDocument, courseDetails.AwardingOrganisation, "td");
             }
 
-            if (!string.IsNullOrWhiteSpace(courseDetails.CourseWebPageLink))
+            if (!string.IsNullOrWhiteSpace(courseDetails.CourseWebpageLink))
             {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.CourseWebPageLinkLabel, "th");
-                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetails.CourseWebPageLink);
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.CourseWebpageLinkLabel, "th");
+                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetails.CourseWebpageLink);
             }
 
             if (!string.IsNullOrWhiteSpace(courseDetails.StudyMode))
@@ -652,7 +666,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             if (courseDetails.AdvancedLearnerLoansOffered)
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationLabel, "th");
-                AssertElementExistsByAttributeAndValue(htmlDocument, "a",  "href", courseDetailsViewModel.FundingInformationLink);
+                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetailsViewModel.FundingInformationLink);
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationText, "a");
             }
         }

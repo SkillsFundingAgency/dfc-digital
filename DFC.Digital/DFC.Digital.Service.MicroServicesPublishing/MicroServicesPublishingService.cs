@@ -25,7 +25,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 
         #endregion ctor
 
-        private static string ServiceName => "Micro Service Publish";
+        private static string ServiceName => "Micro Service Publishing";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {

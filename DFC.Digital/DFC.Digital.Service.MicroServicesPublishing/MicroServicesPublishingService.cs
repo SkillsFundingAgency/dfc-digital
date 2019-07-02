@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.MicroServicesPublishing
 {
-    public class MicroServicesPublishingService : IMicroServicesPublishingService, IServiceStatus
+    public class MicroServicesPublishingService : IMicroServicesPublishingService
     {
+        //Have removed this the IServiceStatus inteface from above to stop it been auto called for now.
+        //Once the method of checking the status for each service is definied this can be implemented and the interface readded.
         private readonly IApplicationLogger applicationLogger;
         private readonly IMicroServicesPublishingClientProxy microServicesPublishingClientProxy;
 
@@ -23,7 +25,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 
         #endregion ctor
 
-        private static string ServiceName => "Composite UI Publish";
+        private static string ServiceName => "Micro Service Publish";
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
@@ -33,7 +35,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, PageTitle = "Last updated = {DateTime.Now}" };
 
                 // Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
-                var response = await this.microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService-Help-EndPoint"], JsonConvert.SerializeObject(compositePageData));
+                var response = await this.microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService.HelpEndPoint"], JsonConvert.SerializeObject(compositePageData));
                 if (response.IsSuccessStatusCode)
                 {
                     // Got a response back

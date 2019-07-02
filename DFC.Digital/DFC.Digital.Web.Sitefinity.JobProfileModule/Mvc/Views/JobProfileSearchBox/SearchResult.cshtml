@@ -4,11 +4,11 @@
     <div class="search-header">
         <div class="searchfield">
             <div class="search-input ui-front">
-                <label for="search-main">
-                    <h1 class="search-title">
-                        Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
-                    </h1>
-                </label>
+                <h1 class="search-title">
+                      Search results for <span class="visuallyhidden">@Model.SearchTerm</span>
+                </h1>
+                    <label class="visuallyhidden" for="search-main">Search
+                    </label>
                @Html.TextBoxFor(model => model.SearchTerm, new{ @class = "search-input js-autocomplete",
                @type = "search",
                @id = "search-main",

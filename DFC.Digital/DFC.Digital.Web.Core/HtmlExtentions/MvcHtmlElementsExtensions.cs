@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -63,6 +64,10 @@ namespace DFC.Digital.Web.Core
                 else
                 {
                     stringBuilder.AppendLine(htmlHelper.RadioButtonFor(expression, item.Value, new { @class = "govuk-radios__input", id = elementId }).ToHtmlString());
+                    stringBuilder.Replace("/>", string.Empty);
+                    stringBuilder.Replace("checked=\"checked\"", string.Empty);
+                    stringBuilder.Replace("type=\"radio\"", string.Empty);
+                    stringBuilder.Append("type=\"radio\" checked=\"checked\" />");
                 }
 
                 stringBuilder.AppendLine(htmlHelper.LabelFor(expression, item.DisplayName, new { @class = $"govuk-label govuk-radios__label {extraLabelClasses}", @for = elementId }).ToHtmlString());

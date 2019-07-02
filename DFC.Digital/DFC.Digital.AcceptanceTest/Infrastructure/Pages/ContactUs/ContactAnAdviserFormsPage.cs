@@ -33,10 +33,22 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             EnterText("Message", query); //Enters text into field ID 'message' which is the adviser field on the First contact adviser form
         }
 
+        public string EnvironmentAndBuild()
+        {
+            var buildText = Environment + " " + BuildNumber;
+
+            if (buildText.Length >= 50)
+            {
+                buildText = buildText.Substring(0, 49);
+            }
+
+            return buildText;
+        }
+
         public void CompleteSecondForm(string firstName, string email, string confEmail, string dob, string postcode)
         {
             EnterText("Firstname", firstName);
-            EnterText("Lastname", Environment + " " + BuildNumber);
+            EnterText("Lastname", EnvironmentAndBuild());
             EnterText("EmailAddress", email);
             EnterText("ConfirmEmailAddress", confEmail);
             EnterDob(dob);

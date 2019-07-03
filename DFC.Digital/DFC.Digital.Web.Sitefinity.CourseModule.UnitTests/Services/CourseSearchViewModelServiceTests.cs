@@ -20,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             //Assign
             var fakeWebAppContext = A.Fake<IWebAppContext>();
             var courseSearchConverter = new CourseSearchResultsViewModelBullder(fakeWebAppContext);
+            A.CallTo(() => fakeWebAppContext.GetQueryStringExcluding(A<IEnumerable<string>>._)).Returns("a=b");
 
             //Act
             courseSearchConverter.SetupViewModelPaging(viewModel, response, pathQuery, recordsPerPage);
@@ -40,6 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             //Assign
             var fakeWebAppContext = A.Fake<IWebAppContext>();
             var courseSearchConverter = new CourseSearchResultsViewModelBullder(fakeWebAppContext);
+            A.CallTo(() => fakeWebAppContext.GetQueryStringExcluding(A<IEnumerable<string>>._)).Returns("a=b");
 
             //Act
             var result = courseSearchConverter.GetOrderByLinks(searchUrl, courseSearchSortBy);

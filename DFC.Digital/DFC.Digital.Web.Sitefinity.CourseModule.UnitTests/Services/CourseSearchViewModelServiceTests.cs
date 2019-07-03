@@ -1,5 +1,7 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
+using FakeItEasy;
 using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
@@ -16,7 +18,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             expectedViewModel = expectedViewModel ?? new CourseSearchResultsViewModel();
 
             //Assign
-            var courseSearchConverter = new CourseSearchResultsViewModelBullder();
+            var fakeWebAppContext = A.Fake<IWebAppContext>();
+            var courseSearchConverter = new CourseSearchResultsViewModelBullder(fakeWebAppContext);
 
             //Act
             courseSearchConverter.SetupViewModelPaging(viewModel, response, pathQuery, recordsPerPage);
@@ -35,7 +38,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void GetOrderByLinksTest(string searchUrl, CourseSearchOrderBy courseSearchSortBy, OrderByLinks expectedOrderByLinks)
         {
             //Assign
-            var courseSearchConverter = new CourseSearchResultsViewModelBullder();
+            var fakeWebAppContext = A.Fake<IWebAppContext>();
+            var courseSearchConverter = new CourseSearchResultsViewModelBullder(fakeWebAppContext);
 
             //Act
             var result = courseSearchConverter.GetOrderByLinks(searchUrl, courseSearchSortBy);

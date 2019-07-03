@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             foreach (var pageDataUrl in pageNode?.Urls)
             {
-                pageUrls?.Add(pageDataUrl.Url.Split('/').Last());
+                pageUrls?.Add(pageDataUrl.Url.Split('/').Last()?.ToLower());
             }
 
             return pageUrls;
@@ -39,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
-            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode), Id = itemId };
+            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(), Id = itemId };
             microServicesPublishingPageData.IncludeInSiteMap = pageNode.Crawlable;
             microServicesPublishingPageData.BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData);
             microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) };

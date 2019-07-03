@@ -63,14 +63,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Asserts
             microServicesPublishingPageData.IncludeInSiteMap.Should().Be(isCrawlable);
-            microServicesPublishingPageData.CanonicalName.Should().Be(nameof(PageNode.UrlName));
+            microServicesPublishingPageData.CanonicalName.Should().Be(nameof(PageNode.UrlName).ToLower());
             microServicesPublishingPageData.Id.Should().Be(dummyGuid);
             microServicesPublishingPageData.BreadcrumbTitle.Should().Be(nameof(PageData.NavigationNode.Title));
             microServicesPublishingPageData.MetaTags.Description.Should().Be(nameof(PageData.Description));
             microServicesPublishingPageData.MetaTags.Keywords.Should().Be(nameof(PageData.Keywords));
             microServicesPublishingPageData.MetaTags.Title.Should().Be(nameof(PageData.HtmlTitle));
             microServicesPublishingPageData.LastReviewed.Should().Be(dummyPublishedDate);
-            microServicesPublishingPageData.AlternativeNames.ToList().FirstOrDefault().Should().Be(DummyUrl.Split('/').Last());
+            microServicesPublishingPageData.AlternativeNames.ToList().FirstOrDefault().Should().Be(DummyUrl.Split('/').Last().ToLower());
 
             if (hasContentBlock)
             {

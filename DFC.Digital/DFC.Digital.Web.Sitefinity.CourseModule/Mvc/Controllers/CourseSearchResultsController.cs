@@ -5,7 +5,6 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
@@ -21,7 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private readonly ICourseSearchService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
-        private readonly IQueryStringBuilder<CourseSearchFilters> queryStringBuilder;
+        private readonly IWebAppContext context;
         private readonly IMapper mapper;
 
         #endregion
@@ -33,14 +32,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             ICourseSearchService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder,
-            IQueryStringBuilder<CourseSearchFilters> queryStringBuilder,
+            IWebAppContext context,
             IMapper mapper)
             : base(applicationLogger)
         {
             this.courseSearchService = courseSearchService;
             this.asyncHelper = asyncHelper;
             this.courseSearchResultsViewModelBuilder = courseSearchResultsViewModelBuilder;
-            this.queryStringBuilder = queryStringBuilder;
+            this.context = context;
             this.mapper = mapper;
         }
 
@@ -120,43 +119,32 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(CourseSearchFilters courseSearchFilters, CourseSearchProperties courseSearchProperties)
+        public ActionResult Index(CourseFiltersViewModel filtersInput, CourseSearchProperties inputSearchProperties)
         {
-            courseSearchFilters = courseSearchFilters ?? new CourseSearchFilters();
-            courseSearchProperties = courseSearchProperties ?? new CourseSearchProperties();
-
-            var viewModel = new CourseSearchResultsViewModel
+            var cleanedSearchTerm = filtersInput.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            var courseSearchResults = new CourseSearchResultsViewModel
             {
-                CourseFiltersModel = mapper.Map<CourseFiltersViewModel>(courseSearchFilters)
+                CourseFiltersModel = filtersInput,
+                ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={filtersInput.SearchTerm}", UriKind.RelativeOrAbsolute),
+                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
             };
 
-            courseSearchFilters.SearchTerm =
-                StringManipulationExtension.ReplaceSpecialCharacters(
-                    courseSearchFilters.SearchTerm,
-                    Constants.CourseSearchInvalidCharactersRegexPattern);
-
-            if (!string.IsNullOrEmpty(courseSearchFilters.SearchTerm))
+            if (!string.IsNullOrEmpty(cleanedSearchTerm))
             {
+                //create a new object if invoked from landing page
+                var courseSearchProperties = inputSearchProperties ?? new CourseSearchProperties();
                 courseSearchProperties.Count = RecordsPerPage;
+                courseSearchProperties.Filters = mapper.Map<CourseSearchFilters>(filtersInput);
+                courseSearchProperties.Filters.DistanceSpecified = filtersInput.IsDistanceLocation && (filtersInput.Distance > 0);
+                ReplaceSpecialCharactersOnFreeTextFields(courseSearchProperties.Filters);
 
-                ReplaceSpecialCharactersOnFreeTextFields(courseSearchFilters);
-
-                courseSearchFilters.LocationRegex = Constants.CourseSearchLocationRegularExpression;
-
-                courseSearchProperties.Filters = courseSearchFilters;
-
-                var response = asyncHelper.Synchronise(() =>
-                    courseSearchService.SearchCoursesAsync(courseSearchProperties));
-
+                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
                 if (response.Courses.Any())
                 {
-                    var pathQuery = Request?.Url?.PathAndQuery;
-                    var referralPath = !string.IsNullOrEmpty(pathQuery) ? Server.UrlEncode(pathQuery) : string.Empty;
-
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={referralPath}";
-                        viewModel.Courses.Add(new CourseListingViewModel
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
+                        courseSearchResults.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
                             AdvancedLoanProviderLabel = AdvancedLoanProviderLabel,
@@ -166,35 +154,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
-                    SetupResultsViewModel(viewModel, response);
+                    SetupResultsViewModel(courseSearchResults, response);
                 }
 
-                SetupStartDateDisplayData(viewModel);
+                SetupStartDateDisplayData(courseSearchResults);
             }
 
-            viewModel.ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={viewModel.CourseFiltersModel.SearchTerm}", UriKind.RelativeOrAbsolute);
-            viewModel.NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{viewModel.CourseFiltersModel.SearchTerm}'");
-
-            SetupWidgetLabelsAndTextDefaults(viewModel);
-            return View("SearchResults", viewModel);
-        }
-
-        [HttpPost]
-        public ActionResult Index(CourseFiltersViewModel viewModel)
-        {
-            PopulateSelectFromDate(viewModel);
-
-            return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, viewModel));
-        }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Called when a request matches this controller, but no method with the specified action name is found in the controller.
-        /// </summary>
-        /// <param name="actionName">The name of the attempted action.</param>
-        protected override void HandleUnknownAction(string actionName)
-        {
-            Index(new CourseSearchFilters(), new CourseSearchProperties()).ExecuteResult(ControllerContext);
+            SetupWidgetLabelsAndTextDefaults(courseSearchResults);
+            return View("SearchResults", courseSearchResults);
         }
 
         #endregion Actions
@@ -240,22 +207,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, CourseSearchResult response)
         {
-            var pathQuery = Request?.Url?.PathAndQuery;
-            if (!string.IsNullOrWhiteSpace(pathQuery) &&
-                pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase) > 0)
-            {
-                pathQuery = pathQuery.Substring(
-                    0,
-                    pathQuery.IndexOf($"&{nameof(CourseSearchResultProperties.Page)}=", StringComparison.InvariantCultureIgnoreCase));
-            }
-
             courseSearchResultsViewModelBuilder.SetupViewModelPaging(
                 viewModel,
                 response,
-                pathQuery,
+                CourseSearchResultsPage,
                 RecordsPerPage);
 
-            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(pathQuery, response.ResultProperties.OrderedBy);
+            viewModel.OrderByLinks = courseSearchResultsViewModelBuilder.GetOrderByLinks(CourseSearchResultsPage, response.ResultProperties.OrderedBy);
         }
 
         private void SetupWidgetLabelsAndTextDefaults(CourseSearchResultsViewModel viewModel)
@@ -273,7 +231,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             viewModel.CourseFiltersModel.CourseTypeSectionText = CourseTypeSectionText;
             viewModel.CourseFiltersModel.ApplyFiltersText = ApplyFiltersText;
             viewModel.SearchForCourseNameText = SearchForCourseNameText;
-            viewModel.CourseFiltersModel.LocationRegex = Constants.CourseSearchLocationRegularExpression;
             viewModel.ResetFiltersText = ResetFilterText;
             viewModel.CourseFiltersModel.ActiveFiltersCoursesText = ActiveFiltersCoursesText;
             viewModel.CourseFiltersModel.ActiveFiltersMilesText = ActiveFiltersMilesText;

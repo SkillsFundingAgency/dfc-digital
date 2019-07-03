@@ -183,7 +183,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    Location = LocationPostCode,
                    Provider = nameof(CourseFiltersViewModel.Provider),
                    Distance = 10f,
-                   LocationRegex = Constants.CourseSearchLocationRegularExpression,
                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
                    CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
                    CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
@@ -214,7 +213,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     Location = nameof(CourseFiltersViewModel.Location),
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
-                    LocationRegex = Constants.CourseSearchLocationRegularExpression,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
                     CourseTypeSectionText = nameof(CourseFiltersViewModel.CourseTypeSectionText),
                     CourseHoursSectionText = nameof(CourseFiltersViewModel.CourseHoursSectionText),
@@ -240,7 +238,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseType = CourseType.ClassroomBased,
                     Only1619Courses = false,
                     Location = LocationPostCode,
-                    LocationRegex = Constants.CourseSearchLocationRegularExpression,
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
@@ -707,7 +704,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
-                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.Anytime
                     }
@@ -725,7 +721,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
-                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         StartDate = StartDate.FromToday
                     }
                 },
@@ -742,7 +737,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,
-                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.FromToday
                     }
@@ -760,7 +754,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         SearchTerm = SearchTerm,
                         Only1619Courses = Only1619Courses,
                         Location = Location,
-                        LocationRegex = Constants.CourseSearchLocationRegularExpression,
                         Distance = ValidDistance,
                         StartDate = StartDate.SelectDateFrom,
                         StartDateFrom = DateTime.Now.AddDays(30)

@@ -37,12 +37,16 @@ namespace DFC.Digital.Data.Interfaces
 
         void SetMetaDescription(string description);
 
-        string GetCurrentQueryString(Dictionary<string, object> additionalQueryStrings);
+        string GetCurrentUrlWithQueryString(Dictionary<string, object> additionalQueryStrings = null);
+
+        string GetQueryStringExcluding(IEnumerable<string> keysToExclude);
 
         void SetupCanonicalUrlEventHandler();
 
         void CheckAuthenticationByAuthCookie();
 
         string ServerMapPath(string fileName);
+
+        string GetUrlEncodedPathAndQuery();
     }
 }

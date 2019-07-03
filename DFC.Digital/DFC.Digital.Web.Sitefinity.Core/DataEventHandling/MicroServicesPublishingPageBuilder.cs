@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             foreach (var pageDataUrl in pageNode?.Urls)
             {
-                pageUrls?.Add(pageDataUrl.Url);
+                pageUrls?.Add(pageDataUrl.Url.Split('/').Last());
             }
 
             return pageUrls;
@@ -39,27 +39,27 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
-            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { Name = sitefinityPageNodeProxy.GetPageName(pageNode), Id = itemId };
-            microServicesPublishingPageData.IncludeInSitemap = pageNode.Crawlable;
-            microServicesPublishingPageData.PageTitle = sitefinityPageDataProxy.GetTitle(pageData);
-            microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), KeyWords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) };
+            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode), Id = itemId };
+            microServicesPublishingPageData.IncludeInSiteMap = pageNode.Crawlable;
+            microServicesPublishingPageData.BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData);
+            microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) };
             microServicesPublishingPageData.Content = GetPageContentBlocks(providerName, contentType, itemId);
-            microServicesPublishingPageData.URLs = GetPageURLs(pageNode);
-            microServicesPublishingPageData.LastPublished = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
+            microServicesPublishingPageData.AlternativeNames = GetPageURLs(pageNode);
+            microServicesPublishingPageData.LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
 
             return microServicesPublishingPageData;
         }
 
-        public IList<string> GetPageContentBlocks(string providerName, Type contentType, Guid itemId)
+        public string GetPageContentBlocks(string providerName, Type contentType, Guid itemId)
         {
-            var contentData = new List<string>();
+            string contentData = string.Empty;
             var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
 
             //This bit came from Sitefinity Support.
             var pageDraftControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
             foreach (var pageDraftControl in pageDraftControls)
             {
-                contentData.Add(sitefinityManagerProxy.GetControlContent(providerName, pageDraftControl));
+                contentData += sitefinityManagerProxy.GetControlContent(providerName, pageDraftControl);
             }
 
             return contentData;

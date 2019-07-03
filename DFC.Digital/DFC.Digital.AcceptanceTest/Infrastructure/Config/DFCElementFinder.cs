@@ -23,7 +23,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public IWebElement Element(By findExpression, TimeSpan maxWait = default(TimeSpan))
         {
-            ExplicitCheckForPageReady(findExpression, maxWait);
+            ExplicitCheckForPageReady(findExpression);
             return find.Element(findExpression, maxWait).ScrollToElement(execute);
         }
 
@@ -34,7 +34,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public IEnumerable<IWebElement> Elements(By findExpression, TimeSpan maxWait = default(TimeSpan))
         {
-            ExplicitCheckForPageReady(findExpression, maxWait);
+            ExplicitCheckForPageReady(findExpression);
             return find.Elements(findExpression, maxWait);
         }
 
@@ -51,7 +51,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 
         public IWebElement OptionalElement(By findExpression, TimeSpan maxWait = default(TimeSpan))
         {
-            ExplicitCheckForPageReady(findExpression, maxWait);
+            ExplicitCheckForPageReady(findExpression);
             return find.OptionalElement(findExpression, maxWait).ScrollToElement(execute);
         }
 
@@ -76,7 +76,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return find.OptionalElement(by).ScrollToElement(execute);
         }
 
-        private void ExplicitCheckForPageReady(By by, TimeSpan maxWait = default(TimeSpan), int explicitWaitSeconds = 20)
+        private void ExplicitCheckForPageReady(By by, int explicitWaitSeconds = 20)
         {
             waitFor.AjaxCallsToComplete(new TimeSpan(0, 0, explicitWaitSeconds));
 

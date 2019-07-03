@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
             try
             {
-                var compositePageData = new MicroServicesPublishingPageData() { Name = "ServiceStatusCheck", IncludeInSitemap = false, PageTitle = "Last updated = {DateTime.Now}" };
+                var compositePageData = new MicroServicesPublishingPageData() { CanonicalName = "ServiceStatusCheck", IncludeInSiteMap = false, BreadcrumbTitle = "Last updated = {DateTime.Now}" };
 
                 // Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
                 var response = await this.microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService.HelpEndPoint"], JsonConvert.SerializeObject(compositePageData));
@@ -63,11 +63,11 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
             if (response.IsSuccessStatusCode)
             {
-                applicationLogger.Info($"Posted page data for {compositePageData.Name}");
+                applicationLogger.Info($"Posted page data for {compositePageData.CanonicalName}");
                 return true;
             }
 
-            applicationLogger.Info($"Failed to posted page data for {compositePageData.Name}");
+            applicationLogger.Info($"Failed to posted page data for {compositePageData.CanonicalName}");
             return false;
         }
     }

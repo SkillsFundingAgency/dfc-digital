@@ -15,7 +15,7 @@ namespace DFC.Digital.Data.Model
 
         public float Distance { get; set; } = 10f;
 
-        public bool DistanceSpecified => IsDistanceLocation && !Distance.Equals(default(float));
+        public bool DistanceSpecified { get; set; }
 
         public bool Only1619Courses { get; set; }
 
@@ -24,11 +24,6 @@ namespace DFC.Digital.Data.Model
         public CourseHours CourseHours { get; set; } = CourseHours.All;
 
         public CourseType CourseType { get; set; } = CourseType.All;
-
-        public string LocationRegex { get; set; }
-
-        public bool IsDistanceLocation => !string.IsNullOrWhiteSpace(Location) && !string.IsNullOrWhiteSpace(LocationRegex) &&
-                                          Regex.IsMatch(Location, LocationRegex);
 
         public bool IsValidStartDateFrom =>
             StartDate == StartDate.SelectDateFrom && !StartDateFrom.Equals(DateTime.MinValue);

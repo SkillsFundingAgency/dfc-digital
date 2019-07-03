@@ -8,6 +8,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public CourseAutomapperProfile()
         {
             CreateMap<CourseSearchFilters, CourseFiltersViewModel>();
+            CreateMap<CourseFiltersViewModel, CourseSearchFilters>();
         }
     }
 }

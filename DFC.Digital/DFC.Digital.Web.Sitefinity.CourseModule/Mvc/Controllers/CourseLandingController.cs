@@ -72,8 +72,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 return Redirect(CourseSearchResultsPage);
             }
 
-            model.LocationRegex = LocationRegex;
-
             return Redirect(queryStringBuilder.BuildPathAndQueryString(CourseSearchResultsPage, model));
         }
 

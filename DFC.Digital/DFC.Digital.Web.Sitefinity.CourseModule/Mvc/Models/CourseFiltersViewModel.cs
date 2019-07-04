@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -59,5 +60,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string FilterLocationLabel { get; set; }
 
         public string Only1619CoursesSectionText { get; set; }
+
+        public bool IsDistanceLocation => !string.IsNullOrWhiteSpace(Location) && Regex.IsMatch(Location, Constants.CourseSearchLocationRegularExpression);
     }
 }

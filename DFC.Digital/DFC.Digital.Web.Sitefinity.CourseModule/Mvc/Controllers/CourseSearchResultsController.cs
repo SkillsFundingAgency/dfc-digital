@@ -138,6 +138,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 courseSearchProperties.Filters.DistanceSpecified = filtersInput.IsDistanceLocation && (filtersInput.Distance > 0);
                 ReplaceSpecialCharactersOnFreeTextFields(courseSearchProperties.Filters);
 
+                var combinedDate = $"{filtersInput.StartDateYear}/{filtersInput.StartDateMonth}/{filtersInput.StartDateDay}";
+                if (DateTime.TryParse(combinedDate, out DateTime result))
+                {
+                    courseSearchProperties.Filters.StartDateFrom = result;
+                }
+
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
                 if (response.Courses.Any())
                 {

@@ -215,6 +215,6 @@
             defaultValue="__MicroServiceHelpEndPoint__">
     <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService-HelpEndPoint']/@value" />
+                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpEndPoint']/@value" />
   </parameter>
 </parameters>

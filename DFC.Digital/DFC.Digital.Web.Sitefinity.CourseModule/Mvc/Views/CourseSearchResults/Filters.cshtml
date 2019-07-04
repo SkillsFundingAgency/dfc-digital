@@ -1,11 +1,12 @@
 ﻿@using DFC.Digital.Data.Model
 @using DFC.Digital.Web.Core
+@using DFC.Digital.Core
 @model CourseFiltersViewModel
 
 
 <div class="govuk-form-group">
     @Html.LabelFor(x => x.Location, Model.FilterLocationLabel, new { @class = "govuk-label" })
-    @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield" })
+    @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield", data_val_postcode = Constants.CourseSearchLocationRegularExpression })
 </div>
 
 <div id="distanceFormGroup" style="display: @(Model.IsDistanceLocation ? "block" : "none")" class="govuk-form-group">
@@ -31,7 +32,6 @@
 <div class="govuk-form-group">
     @Html.LabelFor(x => x.Provider, Model.FilterProviderLabel, new { @class = "govuk-label" })
     @Html.TextBoxFor(x => x.Provider, new { @class = "govuk-input govuk-!-width-full" })
-
 </div>
 
 

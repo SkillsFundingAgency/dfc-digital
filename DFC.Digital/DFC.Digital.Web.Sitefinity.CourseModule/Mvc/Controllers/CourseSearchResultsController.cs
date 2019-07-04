@@ -176,14 +176,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
-            courseSearchFilters.Location =
-                StringManipulationExtension.ReplaceSpecialCharacters(
-                    courseSearchFilters.Location,
-                    Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Provider =
-                StringManipulationExtension.ReplaceSpecialCharacters(
-                    courseSearchFilters.Provider,
-                    Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }
 
         private static void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)

@@ -35,10 +35,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         [InlineData("NotUpdated", Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, false)]
         [InlineData(Constants.ItemActionUpdated, "Not Published", Constants.ItemStatusLive, false)]
         [InlineData(Constants.ItemActionUpdated, Constants.WorkFlowStatusPublished, "NotLive", false)]
-        public void ExportCompositePageEventConditionsTest(string action, string workFlowState, string status, bool shouldPostPage)
+        public void ExportCompositePageEventConditionsTest(string action, string workflowState, string status, bool shouldPostPage)
         {
             //Setup
-            SetUp(action, typeof(PageNode), true, workFlowState, status, PropertyChangeThatCauseExport);
+            SetUp(action, typeof(PageNode), true, workflowState, status, PropertyChangeThatCauseExport);
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns("DummyMicroServiceEndPointConfigKey");
 
             //Act
@@ -112,14 +112,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Setup
             SetUp(Constants.ItemActionUpdated, typeof(PageNode), true, Constants.WorkFlowStatusPublished, Constants.ItemStatusLive, PropertyChangeThatCauseExport);
-            A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<bool>(fakeDataEvent, Constants.HasPageDataChanged)).Throws(new SystemException());
+            A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<bool>(fakeDataEvent, Constants.HasPageDataChanged)).Throws(new ApplicationException());
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeSitefinityDataEventProxy, fakeCompositeUIService, fakeAsyncHelper);
 
             //Asserts
-            var ex = Assert.Throws<SystemException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
+            Assert.Throws<ApplicationException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappenedOnceExactly();
         }
 

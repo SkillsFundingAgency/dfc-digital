@@ -16,7 +16,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     {
         #region Private Fields
 
-        private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly IMapper fakeMapper;
         private readonly IWebAppContext fakeWebAppcontext;
@@ -28,7 +27,6 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public FeedbackControllerTests()
         {
             fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
-            fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeWebAppcontext = A.Fake<IWebAppContext>();
             fakeMapper = A.Fake<IMapper>();

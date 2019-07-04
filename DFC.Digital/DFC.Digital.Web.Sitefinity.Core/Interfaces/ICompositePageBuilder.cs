@@ -8,7 +8,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         MicroServicesPublishingPageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId);
 
-        IList<string> GetPageContentBlocks(string providerName, Type contentType, Guid itemId);
+        string GetPageContentBlocks(string providerName, Type contentType, Guid itemId);
 
         string GetMicroServiceEndPointConfigKeyForPageNode(string providerName, Type contentType, Guid itemId);
     }

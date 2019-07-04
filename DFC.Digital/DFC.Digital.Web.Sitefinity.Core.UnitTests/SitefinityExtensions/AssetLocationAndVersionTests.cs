@@ -51,12 +51,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests.SitefinityExtensions
         [Fact]
         public void GetLocationAssetFileAndVersionNoCdnTest()
         {
-            var dummyHttpResponseMessage = new HttpResponseMessage()
-            {
-                Content = new StringContent("Dummy Content"),
-                StatusCode = System.Net.HttpStatusCode.InternalServerError
-            };
-
             var expectedAssetFileLocation = "/ResourcePackages/folder/assets/dist/DummyAssetFile?";
 
             A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns(null);

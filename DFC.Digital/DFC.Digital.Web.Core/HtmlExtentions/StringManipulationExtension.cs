@@ -13,7 +13,7 @@ namespace DFC.Digital.Web.Core
             return Regex.Replace(valueWithTokens, @"{([^\.]+)\.([^}]+)}", RegexTokenReplacer);
         }
 
-        public static string ReplaceSpecialCharacters(string input, string regexPattern)
+        public static string ReplaceSpecialCharacters(this string input, string regexPattern)
         {
             var regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
             if (!string.IsNullOrEmpty(input))

@@ -5,8 +5,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public interface ICourseSearchResultsViewModelBullder
     {
-        void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string pathQuery, int recordsPerPage);
+        void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string resultsPage, int recordsPerPage);
 
-        OrderByLinks GetOrderByLinks(string pathAndQuery, CourseSearchOrderBy orderBy);
+        OrderByLinks GetOrderByLinks(string resultsPage, CourseSearchOrderBy orderBy);
     }
 }

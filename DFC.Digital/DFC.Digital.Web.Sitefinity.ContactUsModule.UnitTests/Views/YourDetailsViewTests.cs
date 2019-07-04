@@ -40,7 +40,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         }
 
         [Fact]
-        public void Dfc7630YourDetailsFeedBackViewTests()
+        public void Dfc7630YourDetailsFeedbackViewTests()
         {
             // Arrange
             var yourDetailsIndex = new _MVC_Views_YourDetails_Feedback_cshtml();

@@ -15,7 +15,7 @@ Scenario Outline: Submit a 'Contact An Adviser' form
 
 Examples: 
 | ContactReason | AdviserQuery            | Firstname      | EmailAddress                     | ConfirmationEmail                | DOB        | PostCode |
-| Funding       | contact an Adviser Form | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2000 | CV3 5FE  | 
+| Funding       | Contact an Adviser Form | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | 20/11/2000 | CV3 5FE  | 
 
 Scenario Outline: Submit a 'Give Feedback' form
 	Given I navigate to the Contact us select option page
@@ -31,8 +31,8 @@ Scenario Outline: Submit a 'Give Feedback' form
 
 Examples: 
 | ContactReason | AdviserQuery       | Firstname      |  EmailAddress                     | ConfirmationEmail                | Contact |
-| Funding       | Give Feedback Forn | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
-| Funding       | Give Feedback Forn | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      |
+| Funding       | Give Feedback Form | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
+| Funding       | Give Feedback Form | Automated Test |  automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      |
 
 Scenario Outline: Submit a 'Technical Feedback' form
 	Given I navigate to the Contact us select option page
@@ -48,8 +48,8 @@ Scenario Outline: Submit a 'Technical Feedback' form
 
 Examples: 
 | AdviserQuery       | Firstname      | EmailAddress                     | ConfirmationEmail                | Contact |
-| Give Feedback Forn | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
-| Give Feedback Forn | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      | 
+| Give Feedback Form | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | yes     |
+| Give Feedback Form | Automated Test | automatedtestesfa@mailinator.com | automatedtestesfa@mailinator.com | no      | 
 
 Scenario Outline: Error message checks on Contact forms
 	Given I navigate to the Contact us select option page

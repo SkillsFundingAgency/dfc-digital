@@ -14,10 +14,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     public class SelectOptionControllerTests
     {
         #region Private Fields
-        private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
-        private readonly ISitefinityCurrentContext fakeSitefinityCurrentContext;
         private readonly ISessionStorage<ContactUs> fakeSessionStorage;
         #endregion Private Fields
 
@@ -26,10 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public SelectOptionControllerTests()
         {
             fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
-            fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeEmailTemplateRepository = A.Fake<IEmailTemplateRepository>();
-            fakeSitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>();
         }
 
         #endregion Constructors

@@ -83,8 +83,8 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Contact An Adviser\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Contact An Adviser\' form")]
-        [Xunit.InlineDataAttribute("Funding", "contact an Adviser Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2000", "CV3 5FE", "chrome", new string[] {
-                "args:Funding,contact an Adviser Form,Automated Test,automatedtestesfa@mailinator." +
+        [Xunit.InlineDataAttribute("Funding", "Contact an Adviser Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "20/11/2000", "CV3 5FE", "chrome", new string[] {
+                "args:Funding,Contact an Adviser Form,Automated Test,automatedtestesfa@mailinator." +
                     "com,automatedtestesfa@mailinator.com,20/11/2000,CV3 5FE"})]
         public virtual void SubmitAContactAnAdviserForm(string contactReason, string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string dOB, string postCode, string browser, string[] exampleTags)
         {
@@ -120,11 +120,11 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Give Feedback\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Give Feedback\' form")]
-        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
-                "args:Funding,Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,a" +
+        [Xunit.InlineDataAttribute("Funding", "Give Feedback Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
+                "args:Funding,Give Feedback Form,Automated Test,automatedtestesfa@mailinator.com,a" +
                     "utomatedtestesfa@mailinator.com,yes"})]
-        [Xunit.InlineDataAttribute("Funding", "Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
-                "args:Funding,Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,a" +
+        [Xunit.InlineDataAttribute("Funding", "Give Feedback Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
+                "args:Funding,Give Feedback Form,Automated Test,automatedtestesfa@mailinator.com,a" +
                     "utomatedtestesfa@mailinator.com,no"})]
         public virtual void SubmitAGiveFeedbackForm(string contactReason, string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
         {
@@ -160,11 +160,11 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TheoryAttribute(DisplayName="Submit a \'Technical Feedback\' form")]
         [Xunit.TraitAttribute("FeatureTitle", "ContactUs")]
         [Xunit.TraitAttribute("Description", "Submit a \'Technical Feedback\' form")]
-        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
-                "args:Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,automated" +
+        [Xunit.InlineDataAttribute("Give Feedback Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "yes", "chrome", new string[] {
+                "args:Give Feedback Form,Automated Test,automatedtestesfa@mailinator.com,automated" +
                     "testesfa@mailinator.com,yes"})]
-        [Xunit.InlineDataAttribute("Give Feedback Forn", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
-                "args:Give Feedback Forn,Automated Test,automatedtestesfa@mailinator.com,automated" +
+        [Xunit.InlineDataAttribute("Give Feedback Form", "Automated Test", "automatedtestesfa@mailinator.com", "automatedtestesfa@mailinator.com", "no", "chrome", new string[] {
+                "args:Give Feedback Form,Automated Test,automatedtestesfa@mailinator.com,automated" +
                     "testesfa@mailinator.com,no"})]
         public virtual void SubmitATechnicalFeedbackForm(string adviserQuery, string firstname, string emailAddress, string confirmationEmail, string contact, string browser, string[] exampleTags)
         {

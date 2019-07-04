@@ -21,7 +21,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         public void CompleteTechnicalSecondForm(string firstName, string email, string confEmail, string contact)
         {
             EnterText("Firstname", firstName);
-            EnterText("Lastname", Environment + " " + BuildNumber);
+            EnterText("Lastname", EnvironmentAndBuild());
             EnterText("EmailAddress", email);
             EnterText("ConfirmEmailAddress", confEmail);
             SelectRecontactOption(contact);

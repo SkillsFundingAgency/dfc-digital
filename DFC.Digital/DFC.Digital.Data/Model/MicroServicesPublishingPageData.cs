@@ -10,20 +10,20 @@ namespace DFC.Digital.Data.Model
 {
     public class MicroServicesPublishingPageData
     {
-        public string Name { get; set; }
+        public Guid Id { get; set; }
 
-        public string PageTitle { get; set; }
+        public string CanonicalName { get; set; }
+
+        public string BreadcrumbTitle { get; set; }
+
+        public bool IncludeInSiteMap { get; set; }
 
         public MetaTags MetaTags { get; set; }
 
-        public IEnumerable<string> Content { get; set; } = Enumerable.Empty<string>();
+        public string Content { get; set; }
 
-        public IEnumerable<string> URLs { get; set; } = Enumerable.Empty<string>();
+        public DateTime LastReviewed { get; set; }
 
-        public bool IncludeInSitemap { get; set; }
-
-        public Guid Id { get; set; }
-
-        public DateTime LastPublished { get; set; }
+        public IEnumerable<string> AlternativeNames { get; set; } = Enumerable.Empty<string>();
     }
 }

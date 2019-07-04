@@ -16,10 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
     {
         #region Private Fields
 
-        private readonly IAsyncHelper fakeAsyncHelper;
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IEmailTemplateRepository fakeEmailTemplateRepository;
-        private readonly ISitefinityCurrentContext fakeSitefinityCurrentContext;
         private readonly IMapper fakeMapper;
         private readonly IWebAppContext fakeWebAppcontext;
         private readonly ISessionStorage<ContactUs> fakeSessionStorage;
@@ -30,10 +27,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         public ContactAdviserControllerTests()
         {
             fakeSessionStorage = A.Fake<ISessionStorage<ContactUs>>(ops => ops.Strict());
-            fakeAsyncHelper = new AsyncHelper();
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeEmailTemplateRepository = A.Fake<IEmailTemplateRepository>();
-            fakeSitefinityCurrentContext = A.Fake<ISitefinityCurrentContext>();
             fakeWebAppcontext = A.Fake<IWebAppContext>();
             fakeMapper = A.Fake<IMapper>();
         }
@@ -45,7 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         [Theory]
         [InlineData(true, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/", "You can enter up to 1000 characters")]
         [InlineData(false, "Why would you like to contact us?", "/contact-us/feedback/", "/contact-us/technical/", "/contact-us/contact-adviser/", "You can enter up to 1000 characters")]
-        public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl, string characterLimitString)
+        public void IndexSetDefaultsTest(bool validSessionVm, string title, string personalInformation, string nextPageUrl, string contactOptionPageUrl, string characterLimit)
         {
             //Assign
             var controller = new ContactAdviserController(fakeApplicationLogger, fakeMapper, fakeWebAppcontext, fakeSessionStorage)
@@ -54,7 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 PersonalInformation = personalInformation,
                 NextPage = nextPageUrl,
                 ContactOptionPage = contactOptionPageUrl,
-                CharacterLimit = characterLimitString
+                CharacterLimit = characterLimit
             };
 
             if (!validSessionVm)

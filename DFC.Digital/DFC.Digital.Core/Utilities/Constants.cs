@@ -64,5 +64,18 @@ namespace DFC.Digital.Core
         public const string CourseSearchFrontEndStartDateFormat = "dd MMMM yyyy";
         public const string CourseSearchQueryStringStartDateFormat = "yyyy-MM-dd";
         public const string CourseSearchLocationRegularExpression = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
+
+        //Sitefinity event properties
+        public const string HasPageDataChanged = "HasPageDataChanged";
+        public const string ApprovalWorkflowState = "ApprovalWorkflowState";
+        public const string ItemStatus = "Status";
+        public const string ItemActionUpdated = "Updated";
+        public const string WorkFlowStatusPublished = "Published";
+        public const string ItemStatusLive = "Live";
+        public const string ChangedProperties = "ChangedProperties";
+        public const string ContentBlock = "Content block";
+        public const string Content = "Content";
+        public const string JobProfile = "JobProfile";
+        public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
     }
 }

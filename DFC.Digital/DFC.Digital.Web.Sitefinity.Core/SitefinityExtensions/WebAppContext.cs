@@ -116,12 +116,28 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        public string GetCurrentQueryString(Dictionary<string, object> additionalQueryStrings)
+        public string GetCurrentUrlWithQueryString(Dictionary<string, object> additionalQueryStrings = null)
         {
             var currentUrl = HttpContext.Current?.Request.RawUrl;
-            return RequestQueryString?.Count > 0
+            return additionalQueryStrings is null ? currentUrl : RequestQueryString?.Count > 0
                 ? $"{currentUrl}&{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}"
                 : $"{currentUrl}?{string.Join("&", additionalQueryStrings.Select(a => $"{a.Key}={a.Value}"))}";
+        }
+
+        public string GetQueryStringExcluding(IEnumerable<string> keysToExclude)
+        {
+            var queryParams = RequestQueryString
+               .AllKeys
+               .Where(k => !keysToExclude.Contains(k, StringComparer.OrdinalIgnoreCase))
+               .Select(k => $"{HttpUtility.UrlEncode(k)}={HttpUtility.UrlEncode(RequestQueryString[k])}");
+
+            return string.Join("&", queryParams);
+        }
+
+        public string GetUrlEncodedPathAndQuery()
+        {
+            var pathQuery = HttpContext.Current?.Request.Url.PathAndQuery;
+            return !string.IsNullOrEmpty(pathQuery) ? HttpUtility.UrlEncode(pathQuery) : string.Empty;
         }
 
         public void SetupCanonicalUrlEventHandler()

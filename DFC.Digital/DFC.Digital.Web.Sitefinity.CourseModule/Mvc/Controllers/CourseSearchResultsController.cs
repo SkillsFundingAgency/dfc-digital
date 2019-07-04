@@ -182,11 +182,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private static void SetupStartDateDisplayData(CourseSearchResultsViewModel viewModel)
         {
-            if (viewModel.CourseFiltersModel.StartDate == StartDate.SelectDateFrom && !viewModel.CourseFiltersModel.StartDateFrom.Equals(DateTime.MinValue))
+            var combinedDate = $"{viewModel.CourseFiltersModel.StartDateYear}/{viewModel.CourseFiltersModel.StartDateMonth}/{viewModel.CourseFiltersModel.StartDateDay}";
+            if (DateTime.TryParse(combinedDate, out DateTime result))
             {
-                viewModel.CourseFiltersModel.StartDateDay = viewModel.CourseFiltersModel.StartDateFrom.Day.ToString();
-                viewModel.CourseFiltersModel.StartDateMonth = viewModel.CourseFiltersModel.StartDateFrom.Month.ToString();
-                viewModel.CourseFiltersModel.StartDateYear = viewModel.CourseFiltersModel.StartDateFrom.Year.ToString();
+                viewModel.CourseFiltersModel.StartDateFrom = result;
+                viewModel.CourseFiltersModel.StartDateDay = result.Day.ToString();
+                viewModel.CourseFiltersModel.StartDateMonth = result.Month.ToString();
+                viewModel.CourseFiltersModel.StartDateYear = result.Year.ToString();
             }
             else
             {

@@ -1,9 +1,12 @@
-﻿using Telerik.Sitefinity.Data.Events;
+﻿using DFC.Digital.Data.Model;
+using Telerik.Sitefinity.Data.Events;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface IDataEventProcessor
     {
         void ExportCompositePage(IDataEvent eventInfo);
+
+        MicroServicesDataEventAction GetEventAction(IDataEvent eventInfo);
     }
 }

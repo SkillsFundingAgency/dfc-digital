@@ -4,6 +4,7 @@ using DFC.Digital.Data.Model;
 using Newtonsoft.Json;
 using System;
 using System.Configuration;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.MicroServicesPublishing
@@ -13,14 +14,16 @@ namespace DFC.Digital.Service.MicroServicesPublishing
         //Have removed this the IServiceStatus inteface from above to stop it been auto called for now.
         //Once the method of checking the status for each service is definied this can be implemented and the interface readded.
         private readonly IApplicationLogger applicationLogger;
-        private readonly IMicroServicesPublishingClientProxy microServicesPublishingClientProxy;
+        private readonly IHttpClientService<IMicroServicesPublishingService> httpPublishingClient;
+        private readonly IConfigurationProvider configurationProvider;
 
         #region ctor
 
-        public MicroServicesPublishingService(IApplicationLogger applicationLogger, IMicroServicesPublishingClientProxy compositeClientProxy)
+        public MicroServicesPublishingService(IApplicationLogger applicationLogger, IConfigurationProvider configurationProvider,  IHttpClientService<IMicroServicesPublishingService> httpPublishingClient)
         {
             this.applicationLogger = applicationLogger;
-            this.microServicesPublishingClientProxy = compositeClientProxy;
+            this.httpPublishingClient = httpPublishingClient;
+            this.configurationProvider = configurationProvider;
         }
 
         #endregion ctor
@@ -35,7 +38,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 var compositePageData = new MicroServicesPublishingPageData() { CanonicalName = "ServiceStatusCheck", IncludeInSiteMap = false, BreadcrumbTitle = "Last updated = {DateTime.Now}" };
 
                 // Use the key for help at the moment, this needs to be expanded to pick up all keys that are posing to a micro service.
-                var response = await this.microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings["DFC.Digital.MicroService.HelpEndPoint"], JsonConvert.SerializeObject(compositePageData));
+                var response = await this.httpPublishingClient.PostAsync(configurationProvider.GetConfig<string>("DFC.Digital.MicroService.HelpEndPoint"), JsonConvert.SerializeObject(compositePageData));
                 if (response.IsSuccessStatusCode)
                 {
                     // Got a response back
@@ -57,17 +60,27 @@ namespace DFC.Digital.Service.MicroServicesPublishing
         public async Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey, MicroServicesPublishingPageData compositePageData)
         {
             var pageDataJson = JsonConvert.SerializeObject(compositePageData);
-            applicationLogger.Trace($"Posting page data to api - [{pageDataJson}]");
 
             // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
-            var response = await microServicesPublishingClientProxy.PostDataAsync(ConfigurationManager.AppSettings[microServiceEndPointConfigKey], pageDataJson);
+            var response = await httpPublishingClient.PostAsync(configurationProvider.GetConfig<string>(microServiceEndPointConfigKey), pageDataJson);
             if (response.IsSuccessStatusCode)
             {
-                applicationLogger.Info($"Posted page data for {compositePageData.CanonicalName}");
                 return true;
             }
 
-            applicationLogger.Info($"Failed to posted page data for {compositePageData.CanonicalName}");
+            return false;
+        }
+
+        public async Task<bool> DeletePageAsync(string microServiceEndPointConfigKey, Guid pageId)
+        {
+            // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
+            string deleteEndPoint = $"{configurationProvider.GetConfig<string>(microServiceEndPointConfigKey)?.TrimEnd('/')}/{pageId}";
+            var response = await httpPublishingClient.DeleteAsync(deleteEndPoint, res => !res.IsSuccessStatusCode || res.StatusCode != System.Net.HttpStatusCode.NotFound);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
             return false;
         }
     }

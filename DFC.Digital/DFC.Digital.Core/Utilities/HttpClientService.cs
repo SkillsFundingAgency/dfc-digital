@@ -35,5 +35,10 @@ namespace DFC.Digital.Core
         {
             return await policy.ExecuteAsync(() => httpClient.PostAsync(new Uri(requestUri), new StringContent(content, Encoding.UTF8, "application/json")), response => !response.IsSuccessStatusCode, typeof(TService).Name, toleranceType);
         }
+
+        public async Task<HttpResponseMessage> DeleteAsync(string requestUri, Func<HttpResponseMessage, bool> predicate = null, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
+        {
+            return await policy.ExecuteAsync(() => httpClient.DeleteAsync(new Uri(requestUri)), predicate ?? (response => !response.IsSuccessStatusCode), typeof(TService).Name, toleranceType);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,21 +35,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             try
             {
-                var action = eventInfo.Action;
-                var contentType = eventInfo.ItemType;
+                var microServicesDataEventAction = GetEventAction(eventInfo);
+
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
+                var contentType = eventInfo.ItemType;
 
-                var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(eventInfo, Constants.HasPageDataChanged);
-                var workFlowStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ApprovalWorkflowState);
-                var status = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
-
+                //Ignore any workflow property changes
                 var changedProperties = sitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(eventInfo, Constants.ChangedProperties);
-
-                //Ignore any workflow property chages
                 var filteredProperties = changedProperties.Where(p => p.Key != Constants.ApprovalWorkflowState).Count();
 
-                if (action == Constants.ItemActionUpdated && workFlowStatus == Constants.WorkFlowStatusPublished && status == Constants.ItemStatusLive)
+                var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(eventInfo, Constants.HasPageDataChanged);
+
+                if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                 {
                     if (contentType == typeof(PageNode) && (hasPageChanged || filteredProperties > 0))
                     {
@@ -63,11 +62,50 @@ namespace DFC.Digital.Web.Sitefinity.Core
                      }
                     */
                 }
+                else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                {
+                    DeletePage(providerName, contentType, itemId);
+                }
             }
             catch (Exception ex)
             {
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
                 throw;
+            }
+        }
+
+        public MicroServicesDataEventAction GetEventAction(IDataEvent eventInfo)
+        {
+            if (eventInfo == null)
+            {
+                throw new ArgumentNullException("eventInfo");
+            }
+
+            var itemAction = eventInfo.Action;
+            var workFlowStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ApprovalWorkflowState);
+            var itemStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
+            var recycleBinAction = sitefinityDataEventProxy.GetPropertyValue<RecycleBinAction>(eventInfo, Constants.RecycleBinAction);
+
+            if (itemAction == Constants.ItemActionDeleted || (workFlowStatus == Constants.WorkFlowStatusUnPublished && recycleBinAction != RecycleBinAction.RestoreFromRecycleBin))
+            {
+                //Unpublished or deleted Check for this first
+                return MicroServicesDataEventAction.UnpublishedOrDeleted;
+            }
+            else if (workFlowStatus == Constants.WorkFlowStatusPublished && itemStatus == Constants.ItemStatusLive)
+            {
+                //Published
+                return MicroServicesDataEventAction.PublishedOrUpdated;
+            }
+
+            return MicroServicesDataEventAction.Ignored;
+        }
+
+        private void DeletePage(string providerName, Type contentType, Guid itemId)
+        {
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(providerName, contentType, itemId);
+            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
+            {
+                asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
             }
         }
 

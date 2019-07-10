@@ -14,16 +14,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
         private readonly IMicroServicesPublishingService compositeUIService;
-        private readonly ISitefinityDataEventProxy sitefinityDataEventProxy;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IDataEventActions dataEventActions;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
             this.compositeUIService = compositeUIService;
-            this.sitefinityDataEventProxy = sitefinityDataEventProxy;
             this.asyncHelper = asyncHelper;
+            this.dataEventActions = dataEventActions;
         }
 
         public void ExportCompositePage(IDataEvent eventInfo)
@@ -35,21 +35,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             try
             {
-                var microServicesDataEventAction = GetEventAction(eventInfo);
+                var microServicesDataEventAction = dataEventActions.GetEventAction(eventInfo);
 
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
                 var contentType = eventInfo.ItemType;
 
-                //Ignore any workflow property changes
-                var changedProperties = sitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(eventInfo, Constants.ChangedProperties);
-                var filteredProperties = changedProperties.Where(p => p.Key != Constants.ApprovalWorkflowState).Count();
-
-                var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(eventInfo, Constants.HasPageDataChanged);
-
                 if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                 {
-                    if (contentType == typeof(PageNode) && (hasPageChanged || filteredProperties > 0))
+                    if (dataEventActions.ShouldExportPage(eventInfo))
                     {
                         ExportPageNode(providerName, contentType, itemId);
                     }
@@ -72,32 +66,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
                 throw;
             }
-        }
-
-        public MicroServicesDataEventAction GetEventAction(IDataEvent eventInfo)
-        {
-            if (eventInfo == null)
-            {
-                throw new ArgumentNullException("eventInfo");
-            }
-
-            var itemAction = eventInfo.Action;
-            var workFlowStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ApprovalWorkflowState);
-            var itemStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
-            var recycleBinAction = sitefinityDataEventProxy.GetPropertyValue<RecycleBinAction>(eventInfo, Constants.RecycleBinAction);
-
-            if (itemAction == Constants.ItemActionDeleted || (workFlowStatus == Constants.WorkFlowStatusUnPublished && recycleBinAction != RecycleBinAction.RestoreFromRecycleBin))
-            {
-                //Unpublished or deleted Check for this first
-                return MicroServicesDataEventAction.UnpublishedOrDeleted;
-            }
-            else if (workFlowStatus == Constants.WorkFlowStatusPublished && itemStatus == Constants.ItemStatusLive)
-            {
-                //Published
-                return MicroServicesDataEventAction.PublishedOrUpdated;
-            }
-
-            return MicroServicesDataEventAction.Ignored;
         }
 
         private void DeletePage(string providerName, Type contentType, Guid itemId)

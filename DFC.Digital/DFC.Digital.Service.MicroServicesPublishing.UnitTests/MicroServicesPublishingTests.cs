@@ -16,14 +16,16 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
     public class MicroServicesPublishingTests
     {
         private readonly IApplicationLogger fakeApplicationLogger;
-        private readonly IMicroServicesPublishingClientProxy fakeMicroServicesPublishingClientProxy;
+        private readonly IHttpClientService<IMicroServicesPublishingService> fakeHttpClientService;
+        private readonly IConfigurationProvider fakeConfigurationProvider;
 
         public MicroServicesPublishingTests()
         {
-            fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
-            fakeMicroServicesPublishingClientProxy = A.Fake<IMicroServicesPublishingClientProxy>(ops => ops.Strict());
-            A.CallTo(() => fakeApplicationLogger.Trace(A<string>._)).DoesNothing();
-            A.CallTo(() => fakeApplicationLogger.Info(A<string>._)).DoesNothing();
+            fakeApplicationLogger = A.Fake<IApplicationLogger>();
+            fakeHttpClientService = A.Fake<IHttpClientService<IMicroServicesPublishingService>>(ops => ops.Strict());
+            fakeConfigurationProvider = A.Fake<IConfigurationProvider>(ops => ops.Strict());
+
+            A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns(A.Dummy<string>());
         }
 
         [Theory]
@@ -43,15 +45,44 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             }
 
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
-
-            A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => fakeHttpClientService.PostAsync(A<string>._, A<string>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
 
             //Act
-            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeMicroServicesPublishingClientProxy);
-            var result = await microServicesPublishingService.PostPageDataAsync("DummyEnd", new MicroServicesPublishingPageData());
+            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeConfigurationProvider, fakeHttpClientService);
+            var result = await microServicesPublishingService.PostPageDataAsync(A.Dummy<string>(), new MicroServicesPublishingPageData());
 
             //Assert
             result.Should().Be(expectedResponse);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task DeletePageAsync(bool expectedResponse)
+        {
+            //Arrange
+            HttpStatusCode expectedHttpStatusCode;
+            if (expectedResponse)
+            {
+                expectedHttpStatusCode = HttpStatusCode.OK;
+            }
+            else
+            {
+                expectedHttpStatusCode = HttpStatusCode.BadRequest;
+            }
+
+            var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
+            A.CallTo(() => fakeHttpClientService.DeleteAsync(A<string>._, A<Func<HttpResponseMessage, bool>>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
+
+            A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns($"{A.Dummy<string>()}/");
+
+            //Act
+            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeConfigurationProvider, fakeHttpClientService);
+            var result = await microServicesPublishingService.DeletePageAsync(A.Dummy<string>(), A.Dummy<Guid>());
+
+            //Assert
+            result.Should().Be(expectedResponse);
+            A.CallTo(() => fakeHttpClientService.DeleteAsync($"{A.Dummy<string>()}/{A.Dummy<Guid>()}", A<Func<HttpResponseMessage, bool>>._, A<FaultToleranceType>._)).MustHaveHappened();
         }
 
         [Theory]
@@ -71,11 +102,10 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             }
 
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
-
-            A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Returns(httpResponseMessage);
+            A.CallTo(() => fakeHttpClientService.PostAsync(A<string>._, A<string>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
 
             //Act
-            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeMicroServicesPublishingClientProxy);
+            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeConfigurationProvider, fakeHttpClientService);
             var serviceStatus = await microServicesPublishingService.GetCurrentStatusAsync();
 
             //Assert
@@ -89,11 +119,11 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             //add no content to cause an exception
             var httpResponseMessage = new HttpResponseMessage();
 
-            A.CallTo(() => fakeMicroServicesPublishingClientProxy.PostDataAsync(A<string>._, A<string>._)).Throws(new HttpRequestException());
+            A.CallTo(() => fakeHttpClientService.PostAsync(A<string>._, A<string>._, A<FaultToleranceType>._)).Throws(new HttpRequestException());
             A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             //Act
-            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeMicroServicesPublishingClientProxy);
+            var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeConfigurationProvider, fakeHttpClientService);
             var serviceStatus = await microServicesPublishingService.GetCurrentStatusAsync();
 
             //Asserts

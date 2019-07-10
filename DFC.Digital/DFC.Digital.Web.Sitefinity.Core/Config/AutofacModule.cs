@@ -71,6 +71,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
               .EnableInterfaceInterceptors()
               .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
+            builder.RegisterType<DataEventActions>().As<IDataEventActions>()
+             .InstancePerLifetimeScope()
+             .EnableInterfaceInterceptors()
+             .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.
             // Also, if you register controllers manually and choose to specify

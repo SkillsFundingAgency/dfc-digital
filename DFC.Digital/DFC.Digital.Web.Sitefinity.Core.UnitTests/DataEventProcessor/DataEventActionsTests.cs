@@ -42,6 +42,16 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             result.Should().Be(expectedAction);
         }
 
+        [Fact]
+        public void GetEventActionNullArgumentsTest()
+        {
+            //Act
+            var dataEventHandler = new DataEventActions(fakeSitefinityDataEventProxy);
+
+            //Asserts
+            Assert.Throws<ArgumentNullException>(() => dataEventHandler.GetEventAction(null));
+        }
+
         [Theory]
         [InlineData(true, typeof(PageNode), false, true)]
         [InlineData(false, null, false, true)]

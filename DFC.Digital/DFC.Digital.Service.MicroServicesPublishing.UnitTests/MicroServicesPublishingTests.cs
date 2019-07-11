@@ -34,16 +34,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
         public async Task PostPageDataAsync(bool expectedResponse)
         {
             //Arrange
-            HttpStatusCode expectedHttpStatusCode;
-            if (expectedResponse)
-            {
-                expectedHttpStatusCode = HttpStatusCode.OK;
-            }
-            else
-            {
-                expectedHttpStatusCode = HttpStatusCode.BadRequest;
-            }
-
+            HttpStatusCode expectedHttpStatusCode = expectedResponse ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
             A.CallTo(() => fakeHttpClientService.PostAsync(A<string>._, A<string>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
 
@@ -61,15 +52,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
         public async Task DeletePageAsync(bool expectedResponse, string backSlash)
         {
             //Arrange
-            HttpStatusCode expectedHttpStatusCode;
-            if (expectedResponse)
-            {
-                expectedHttpStatusCode = HttpStatusCode.OK;
-            }
-            else
-            {
-                expectedHttpStatusCode = HttpStatusCode.BadRequest;
-            }
+            HttpStatusCode expectedHttpStatusCode = expectedResponse ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
 
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
             A.CallTo(() => fakeHttpClientService.DeleteAsync(A<string>._, A<Func<HttpResponseMessage, bool>>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
@@ -86,22 +69,12 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
         }
 
         [Theory]
-        [InlineData(true, ServiceState.Green)]
-        [InlineData(false, ServiceState.Red)]
-        public async Task GetServiceStatusAsync(bool returnValidHttpStatusCode, ServiceState expectedServiceStatus)
+        [InlineData(HttpStatusCode.OK, ServiceState.Green)]
+        [InlineData(HttpStatusCode.BadRequest, ServiceState.Red)]
+        public async Task GetServiceStatusAsync(HttpStatusCode returnHttpStatusCode, ServiceState expectedServiceStatus)
         {
             //Arrange
-            HttpStatusCode expectedHttpStatusCode;
-            if (returnValidHttpStatusCode)
-            {
-                expectedHttpStatusCode = HttpStatusCode.OK;
-            }
-            else
-            {
-                expectedHttpStatusCode = HttpStatusCode.BadRequest;
-            }
-
-            var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
+            var httpResponseMessage = new HttpResponseMessage(returnHttpStatusCode);
             A.CallTo(() => fakeHttpClientService.PostAsync(A<string>._, A<string>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
 
             //Act

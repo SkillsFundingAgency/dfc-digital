@@ -2,6 +2,7 @@
 using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data.Interfaces;
 
 namespace DFC.Digital.Service.MicroServicesPublishing
 {
@@ -17,7 +18,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-            builder.RegisterType<HttpClientService<IMicroServicesPublishingClientProxy>>()
+            builder.RegisterType<HttpClientService<IMicroServicesPublishingService>>()
               .AsImplementedInterfaces()
               .SingleInstance()
               .EnableInterfaceInterceptors()

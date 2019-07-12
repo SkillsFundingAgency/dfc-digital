@@ -71,7 +71,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
         {
             // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
             string deleteEndPoint = $"{configurationProvider.GetConfig<string>(microServiceEndPointConfigKey)?.TrimEnd('/')}/{pageId}";
-            var response = await httpPublishingClient.DeleteAsync(deleteEndPoint, res => !res.IsSuccessStatusCode || res.StatusCode != System.Net.HttpStatusCode.NotFound);
+            var response = await httpPublishingClient.DeleteAsync(deleteEndPoint, res => !res.IsSuccessStatusCode && res.StatusCode != System.Net.HttpStatusCode.NotFound);
             return response.IsSuccessStatusCode;
         }
     }

@@ -28,17 +28,17 @@ namespace DFC.Digital.Core
 
         public async Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), response => !response.IsSuccessStatusCode, typeof(TService).Name, toleranceType);
+            return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), response => !response.IsSuccessStatusCode, $"{typeof(TService).Name}-GetAsync", toleranceType);
         }
 
         public async Task<HttpResponseMessage> PostAsync(string requestUri, string content,  FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return await policy.ExecuteAsync(() => httpClient.PostAsync(new Uri(requestUri), new StringContent(content, Encoding.UTF8, "application/json")), response => !response.IsSuccessStatusCode, typeof(TService).Name, toleranceType);
+            return await policy.ExecuteAsync(() => httpClient.PostAsync(new Uri(requestUri), new StringContent(content, Encoding.UTF8, "application/json")), response => !response.IsSuccessStatusCode, $"{typeof(TService).Name}-PostAsync", toleranceType);
         }
 
         public async Task<HttpResponseMessage> DeleteAsync(string requestUri, Func<HttpResponseMessage, bool> predicate = null, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return await policy.ExecuteAsync(() => httpClient.DeleteAsync(new Uri(requestUri)), predicate ?? (response => !response.IsSuccessStatusCode), typeof(TService).Name, toleranceType);
+            return await policy.ExecuteAsync(() => httpClient.DeleteAsync(new Uri(requestUri)), predicate ?? (response => !response.IsSuccessStatusCode), $"{typeof(TService).Name}-DeleteAsync", toleranceType);
         }
     }
 }

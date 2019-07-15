@@ -45,19 +45,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public bool ShouldExportPage(IDataEvent dataEvent)
         {
-            var contentType = dataEvent.ItemType;
-
             //Ignore any workflow property changes
             var changedProperties = sitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(dataEvent, Constants.ChangedProperties);
             var filteredProperties = changedProperties.Where(p => p.Key != Constants.ApprovalWorkflowState).Count();
             var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(dataEvent, Constants.HasPageDataChanged);
-
-            if (contentType == typeof(PageNode) && (hasPageChanged || filteredProperties > 0))
-            {
-                return true;
-            }
-
-            return false;
-        }
+            return hasPageChanged || filteredProperties > 0;
+         }
     }
 }

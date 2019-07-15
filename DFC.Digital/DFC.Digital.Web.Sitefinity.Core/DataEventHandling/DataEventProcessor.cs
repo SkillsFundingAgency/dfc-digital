@@ -33,6 +33,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
+            if (eventInfo.ItemType != typeof(PageNode))
+            {
+                return;
+            }
+
             try
             {
                 var microServicesDataEventAction = dataEventActions.GetEventAction(eventInfo);
@@ -58,7 +63,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
                 else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
-                    DeletePage(providerName, contentType, itemId);
+                     DeletePage(providerName, contentType, itemId);
                 }
             }
             catch (Exception ex)

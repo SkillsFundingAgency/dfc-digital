@@ -53,16 +53,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         }
 
         [Theory]
-        [InlineData(true, typeof(PageNode), false, true)]
-        [InlineData(false, null, false, true)]
-        [InlineData(false, null, true, true)]
-        [InlineData(true, typeof(PageNode), true, true)]
+        [InlineData(true, false, true)]
+        [InlineData(true, true, false)]
+        [InlineData(true, true, true)]
+        [InlineData(false, false, false)]
 
-        public void ShouldExportPageTest(bool expectedResult, Type itemType, bool propertiesChanged, bool hasPageChanged)
+        public void ShouldExportPageTest(bool expectedResult, bool propertiesChanged, bool hasPageChanged)
         {
             //Setup
-            A.CallTo(() => fakeDataEvent.ItemType).Returns(itemType);
-
             var dummyChangedProperties = new Dictionary<string, PropertyChange>();
             if (propertiesChanged)
             {

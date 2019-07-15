@@ -30,6 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             fakeDataEventActions = A.Fake<IDataEventActions>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeDataEvent = A.Fake<IDataEvent>();
+            A.CallTo(() => fakeDataEvent.ItemType).Returns(typeof(PageNode));
         }
 
         [Theory]
@@ -37,6 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         [InlineData(false, false, MicroServicesDataEventAction.PublishedOrUpdated, "DummyConfigKey")]
         [InlineData(false, true, MicroServicesDataEventAction.PublishedOrUpdated, "")]
         [InlineData(false, true, MicroServicesDataEventAction.UnpublishedOrDeleted, "DummyConfigKey")]
+
         public void ExportCompositePageTests(bool expectDataTobePosted, bool shouldPostPage, MicroServicesDataEventAction microServicesDataEventAction, string microServiceEndPointConfigKey)
         {
             //Setup
@@ -110,6 +112,30 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Asserts
             Assert.Throws<ArgumentNullException>(() => dataEventHandler.ExportCompositePage(null));
+        }
+
+        [Theory]
+        [InlineData(true, typeof(PageNode))]
+        [InlineData(false, null)]
+        public void PageNodeTest(bool expectToProcess, Type itemType)
+        {
+            //Setup
+            A.CallTo(() => fakeDataEvent.ItemType).Returns(itemType);
+            A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(MicroServicesDataEventAction.Ignored);
+
+            //Act
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            dataEventHandler.ExportCompositePage(fakeDataEvent);
+
+            //Asserts
+            if (expectToProcess)
+            {
+                A.CallTo(() => fakeDataEventActions.GetEventAction(fakeDataEvent)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeDataEventActions.GetEventAction(fakeDataEvent)).MustNotHaveHappened();
+            }
         }
     }
 }

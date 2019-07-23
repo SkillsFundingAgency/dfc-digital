@@ -56,7 +56,6 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
 
             //Assert
             var response = lmiFeed.GetSalaryBySocAsync(socCode);
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>.That.IsEqualTo(expectedSocCode))).MustHaveHappened();
             response.Result.Should().Be(null);
         }

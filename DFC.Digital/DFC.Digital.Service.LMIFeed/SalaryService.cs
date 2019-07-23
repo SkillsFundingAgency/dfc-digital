@@ -75,26 +75,20 @@ namespace DFC.Digital.Service.LMIFeed
                 throw new ArgumentNullException(nameof(socCode));
             }
 
-            try
+            // Four digit soccode
+            var fourDigitSocCode = socCode.Substring(0, 4);
+            var response = await asheProxy.EstimatePayMdAsync(fourDigitSocCode);
+            if (response.IsSuccessStatusCode)
             {
-                // Four digit soccode
-                var fourDigitSocCode = socCode.Substring(0, 4);
-                var response = await asheProxy.EstimatePayMdAsync(fourDigitSocCode);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<JobProfileSalary>();
-                }
-                else
-                {
-                    applicationLogger.Warn($"Failed to get the salary information from LMI feed. StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase} Content: {await response.Content.ReadAsStringAsync()}");
-                    return null;
-                }
+                return await response.Content.ReadAsAsync<JobProfileSalary>();
             }
-            catch (Exception ex)
+            else
             {
-                applicationLogger.ErrorJustLogIt($"Failed to get the salary information from LMI feed.", ex);
-                return null;
+                applicationLogger.Warn($"Failed to get the salary information from LMI feed. StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase} Content: {await response.Content.ReadAsStringAsync()}");
+                response.EnsureSuccessStatusCode();
             }
+
+            return await Task.FromResult<JobProfileSalary>(default);
         }
 
         #endregion Implementation of IAsheFeed

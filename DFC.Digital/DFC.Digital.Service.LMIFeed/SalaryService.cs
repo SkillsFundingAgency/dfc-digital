@@ -88,7 +88,7 @@ namespace DFC.Digital.Service.LMIFeed
                 response.EnsureSuccessStatusCode();
             }
 
-            return await Task.FromResult<JobProfileSalary>(default);
+            return await Task.FromResult<JobProfileSalary>(default(JobProfileSalary));
         }
 
         #endregion Implementation of IAsheFeed

@@ -75,7 +75,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private void DeletePage(string providerName, Type contentType, Guid itemId)
         {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(providerName, contentType, itemId);
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
                 asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
@@ -84,10 +84,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private void ExportPageNode(string providerName, Type contentType, Guid itemId)
         {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(providerName, contentType, itemId);
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
-                var compositePageData = compositePageBuilder.GetCompositePageForPageNode(providerName, contentType, itemId);
+                var compositePageData = compositePageBuilder.GetCompositePublishedPage(contentType, itemId, providerName);
                 asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }

@@ -15,14 +15,26 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        PageNode GetPageNode(string providerName, Type contentType, Guid itemId);
+        PageNode GetPageNode(Type contentType, Guid itemId, string providerName = null);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        PageData GetPageData(string providerName, Type contentType, Guid itemId);
+        PageData GetPageDataByName(string name);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        string GetControlContent(string providerName, PageControl pageControl);
+        PageDraft GetPreViewPageDataByNodeId(Guid id);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        PageData GetPageData(Type contentType, Guid itemId, string providerName = null);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        string GetControlContent(PageControl pageControl, string providerName = null);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        string GetControlContent(PageDraftControl pageDraftControl);
     }
 }

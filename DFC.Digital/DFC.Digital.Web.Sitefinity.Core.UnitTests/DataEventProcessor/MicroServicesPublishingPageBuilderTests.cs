@@ -38,12 +38,12 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             var dummyPublishedDate = DateTime.Now;
             var dummyGuid = Guid.NewGuid();
 
-            A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageNode);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageNode);
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetPageName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetLastPublishedDate(A<PageNode>._)).Returns(dummyPublishedDate);
 
             var dummyPageData = new PageData();
-            A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageData);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageData);
             A.CallTo(() => fakeSitefinityPageDataProxy.GetDescription(A<PageData>._)).Returns(nameof(PageData.Description));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetKeywords(A<PageData>._)).Returns(nameof(PageData.Keywords));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetHtmlTitle(A<PageData>._)).Returns(nameof(PageData.HtmlTitle));
@@ -55,11 +55,11 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                 dummyPageData.Controls.Add(pageControl);
             }
 
-            A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<string>._, A<PageControl>._)).Returns(DummyContent);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageControl>._, A<string>._)).Returns(DummyContent);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePageForPageNode(DummyProvider, typeof(PageNode), dummyGuid);
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePublishedPage(typeof(PageNode), dummyGuid, DummyProvider);
 
             //Asserts
             microServicesPublishingPageData.IncludeInSiteMap.Should().Be(isCrawlable);
@@ -90,12 +90,12 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             var dummyKeyName = "dummyKeyName   ";
             var dummyGuid = Guid.NewGuid();
 
-            A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(dummyPageNode);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageNode);
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetCustomField(A<PageNode>._, A<string>._)).Returns(dummyKeyName);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var configKeyName = microServicesPublishingPageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(DummyProvider, typeof(PageNode), dummyGuid);
+            var configKeyName = microServicesPublishingPageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(typeof(PageNode), dummyGuid, DummyProvider);
 
             //Asserts
             configKeyName.Should().Be(dummyKeyName.Trim());

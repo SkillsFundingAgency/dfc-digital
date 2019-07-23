@@ -25,9 +25,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
         [IgnoreOutputInInterception]
         PageDraft GetContextPagePreview();
 
-        [IgnoreOutputInInterception]
-        IEnumerable<KeyValuePair<string, string>> GetPagePreviewByUrlName(string urlName);
-
         [IgnoreInputInInterception]
         JobProfileSection GetJobProfileSectionFromWidget(JobProfileSectionFilter sectionFilter, KeyValuePair<string, MvcControllerProxy> widget);
 

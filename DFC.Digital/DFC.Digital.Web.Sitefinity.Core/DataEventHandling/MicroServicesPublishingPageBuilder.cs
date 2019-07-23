@@ -56,10 +56,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
 
             //This bit came from Sitefinity Support.
-            var pageDraftControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageDraftControl in pageDraftControls)
+            var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
+            foreach (var pageControl in pageControls)
             {
-                contentData += sitefinityManagerProxy.GetControlContent(pageDraftControl, providerName);
+                contentData += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
             }
 
             return contentData;

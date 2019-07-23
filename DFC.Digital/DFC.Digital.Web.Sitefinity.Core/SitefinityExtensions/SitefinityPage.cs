@@ -3,8 +3,10 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Modules.Pages;
 using Telerik.Sitefinity.Mvc.Proxy;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Web.ResourceCombining;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -23,6 +25,70 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public PageDraft GetContextPagePreview()
         {
             return this.SitefinityContext.CurrentPageManager.GetPreview(this.SitefinityContext.CurrentPage.Id);
+        }
+
+        public IEnumerable<KeyValuePair<string, string>> GetPagePreviewByUrlName(string urlName)
+        {
+            var pageNode = SitefinityContext.CurrentPageManager.GetPageDataList().FirstOrDefault(page =>
+                page.NavigationNode.UrlName == urlName);
+
+            var pageManager = new PageManager();
+            var renderer = new InMemoryPageRender();
+            var html = renderer.RenderPage(pageManager.GetPageNodes().FirstOrDefault(node => node.UrlName == urlName), true, true);
+
+            yield return new KeyValuePair<string, string>(
+                "page", html);
+
+            if (pageNode != null)
+            {
+                var pageData = SitefinityContext.CurrentPageManager.GetPreview(pageNode.Id);
+
+                var controlIDs = new List<Guid>();
+
+                var firstControlsIDs = pageData.Controls.Where(x => x.SiblingId.Equals(Guid.Empty)).Select(x => x.Id)
+                    .FirstOrDefault();
+
+                if (!firstControlsIDs.Equals(Guid.Empty))
+                {
+                    controlIDs.Add(firstControlsIDs);
+                }
+
+                var nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(firstControlsIDs));
+                while (nextControl != null)
+                {
+                    controlIDs.Add(nextControl.Id);
+                    nextControl = pageData.Controls.FirstOrDefault(x => x.SiblingId.Equals(nextControl.Id));
+                }
+
+                var content = controlIDs
+                    .Select(c =>
+                    {
+                        var control = pageData.Controls.FirstOrDefault(ctrl => ctrl.Id == c);
+                        return new KeyValuePair<string, MvcControllerProxy>(
+                            control.Caption,
+                            SitefinityContext.CurrentPageManager.LoadControl(control) as MvcControllerProxy);
+                    });
+
+                var keysToIgnore = new List<string>
+                {
+                    "EmptyLinkText",
+                    "IsEmpty",
+                    "WidgetCssClass",
+                    "CustomMessages",
+                    "Commands",
+                    "ProviderName",
+                    "ExcludeFromSearchIndex",
+                    "ContentVersion",
+                    "WrapperCssClass",
+                    "SharedContentID"
+                };
+
+                foreach (var contentItem in content)
+                {
+                    yield return new KeyValuePair<string, string>(
+                        contentItem.Key, string.Join(",", (contentItem.Value.Settings.Values as Dictionary<string, object>).Where(x => !keysToIgnore.Contains(x.Key))));
+                }
+            }
         }
 
         public IEnumerable<Guid> GetControlsInOrder(IEnumerable<string> sectionFilter)

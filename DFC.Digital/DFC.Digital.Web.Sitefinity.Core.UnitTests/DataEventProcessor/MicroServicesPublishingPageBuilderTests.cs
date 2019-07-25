@@ -48,6 +48,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageControl>._, A<string>._)).Returns(DummyContent);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageData);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
@@ -74,7 +75,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
         }
 
-        /*
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
@@ -90,7 +90,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                 dummyPageDraft.Controls.Add(pageDraftControl);
             }
 
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPreViewPageDataByNodeId(A<Guid>._)).Returns(dummyPageDraft);
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageDraftControl>._)).Returns(DummyContent);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(dummyPageData);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
@@ -116,7 +118,20 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                 microServicesPublishingPageData.Content.Should().BeNullOrEmpty();
             }
         }
-        */
+
+        [Fact]
+        public void GetCompositePreviewPageDoesNotExsitTest()
+        {
+            SetUpData(false);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(null);
+
+            //Act
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePreviewPage(nameof(PageNode.UrlName));
+
+            //Asserts
+            microServicesPublishingPageData.Should().BeNull();
+         }
 
         [Fact]
         public void GetMicroServiceEndPointConfigKeyForPageNodeTest()
@@ -145,12 +160,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             dummyPageNode.Crawlable = isCrawlable;
             dummyPageNode.Urls.Add(new PageUrlData() { Url = DummyUrl });
+            dummyPageData.NavigationNode = dummyPageNode;
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageNode);
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetPageName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetLastPublishedDate(A<PageNode>._)).Returns(dummyPublishedDate);
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageData);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(dummyPageData);
             A.CallTo(() => fakeSitefinityPageDataProxy.GetDescription(A<PageData>._)).Returns(nameof(PageData.Description));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetKeywords(A<PageData>._)).Returns(nameof(PageData.Keywords));
             A.CallTo(() => fakeSitefinityPageDataProxy.GetHtmlTitle(A<PageData>._)).Returns(nameof(PageData.HtmlTitle));

@@ -160,6 +160,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinControllerTests.cs" />
+    <Compile Include="Mvc\Controllers\ContentPreviewControllerTests.cs" />
     <Compile Include="Mvc\Controllers\ReadConfigControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -171,6 +172,10 @@
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
+      <Project>{22CFB09D-D5C9-4376-85A2-BA564FBABBC2}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.WebApi\DFC.Digital.Web.Sitefinity.WebApi.csproj">
       <Project>{6F6301D4-5CA5-4E6F-9425-B70CBD8EEE59}</Project>

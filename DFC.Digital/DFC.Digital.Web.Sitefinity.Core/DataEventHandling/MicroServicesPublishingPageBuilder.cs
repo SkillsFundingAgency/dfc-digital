@@ -44,25 +44,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public MicroServicesPublishingPageData GetCompositePreviewPage(string name)
         {
             var pageData = sitefinityManagerProxy.GetPageDataByName(name);
+            if (pageData is null)
+            {
+                return null;
+            }
+
             var pageNode = pageData.NavigationNode;
             var pageDraft = sitefinityManagerProxy.GetPreViewPageDataByNodeId(pageData.Id);
 
             return BuildPreViewPageData(pageNode, pageData, pageDraft);
-        }
-
-        public string GetPageContentBlocks(Type contentType, Guid itemId, string providerName)
-        {
-            string contentData = string.Empty;
-            var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
-
-            //This bit came from Sitefinity Support.
-            var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageControl in pageControls)
-            {
-                contentData += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
-            }
-
-            return contentData;
         }
 
         public string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName)
@@ -92,8 +82,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
 
-            var pageDraftControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageDraftControl in pageDraftControls)
+            var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
+            foreach (var pageDraftControl in pageControls)
             {
                 microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageDraftControl, providerName);
             }

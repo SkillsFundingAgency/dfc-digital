@@ -90,7 +90,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                 dummyPageDraft.Controls.Add(pageDraftControl);
             }
 
-            A.CallTo(() => fakeSitefinityManagerProxy.GetPreViewPageDataById(A<Guid>._)).Returns(dummyPageDraft);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPreviewPageDataById(A<Guid>._)).Returns(dummyPageDraft);
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageDraftControl>._)).Returns(DummyContent);
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(dummyPageData);
 
@@ -137,7 +137,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void GetMicroServiceEndPointConfigKeyForPageNodeTest()
         {
             //Setup
-            var dummyPageNode = new PageNode();
             var dummyKeyName = "dummyKeyName   ";
             var dummyGuid = Guid.NewGuid();
 

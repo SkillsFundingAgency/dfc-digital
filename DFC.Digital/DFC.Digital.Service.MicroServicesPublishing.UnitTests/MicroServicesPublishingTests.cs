@@ -49,7 +49,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
         [Theory]
         [InlineData(true, "")]
         [InlineData(false, "/")]
-        public async Task DeletePageAsync(bool expectedResponse, string backSlash)
+        public async Task DeletePageAsync(bool expectedResponse, string backslash)
         {
             //Arrange
             HttpStatusCode expectedHttpStatusCode = expectedResponse ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
@@ -57,7 +57,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
             var httpResponseMessage = new HttpResponseMessage(expectedHttpStatusCode);
             A.CallTo(() => fakeHttpClientService.DeleteAsync(A<string>._, A<Func<HttpResponseMessage, bool>>._, A<FaultToleranceType>._)).Returns(httpResponseMessage);
 
-            A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns($"{A.Dummy<string>()}{backSlash}");
+            A.CallTo(() => fakeConfigurationProvider.GetConfig<string>(A<string>._)).Returns($"{A.Dummy<string>()}{backslash}");
 
             //Act
             var microServicesPublishingService = new MicroServicesPublishingService(fakeApplicationLogger, fakeConfigurationProvider, fakeHttpClientService);

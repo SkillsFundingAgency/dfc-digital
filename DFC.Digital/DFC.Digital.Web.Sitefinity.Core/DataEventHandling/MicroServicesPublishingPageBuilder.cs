@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             var pageNode = pageData.NavigationNode;
-            var pageDraft = sitefinityManagerProxy.GetPreViewPageDataById(pageData.Id);
+            var pageDraft = sitefinityManagerProxy.GetPreviewPageDataById(pageData.Id);
 
             return BuildPreViewPageData(pageNode, pageData, pageDraft);
         }

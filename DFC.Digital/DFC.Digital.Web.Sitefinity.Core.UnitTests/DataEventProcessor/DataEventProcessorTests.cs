@@ -93,13 +93,13 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Setup
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
-            A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ApplicationException());
+            A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ArgumentException());
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
 
             //Asserts
-            Assert.Throws<ApplicationException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
+            Assert.Throws<ArgumentException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
 
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappenedOnceExactly();
         }

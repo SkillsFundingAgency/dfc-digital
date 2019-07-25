@@ -71,8 +71,8 @@ namespace DFC.Digital.Core
         public const string ItemStatus = "Status";
         public const string ItemActionUpdated = "Updated";
         public const string ItemActionDeleted = "Deleted";
-        public const string WorkFlowStatusPublished = "Published";
-        public const string WorkFlowStatusUnPublished = "Unpublished";
+        public const string WorkflowStatusPublished = "Published";
+        public const string WorkflowStatusUnpublished = "Unpublished";
         public const string ItemStatusLive = "Live";
         public const string ItemStatusMaster = "Master";
         public const string ChangedProperties = "ChangedProperties";

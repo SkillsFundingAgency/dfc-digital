@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        PageDraft GetPreViewPageDataById(Guid id);
+        PageDraft GetPreviewPageDataById(Guid id);
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]

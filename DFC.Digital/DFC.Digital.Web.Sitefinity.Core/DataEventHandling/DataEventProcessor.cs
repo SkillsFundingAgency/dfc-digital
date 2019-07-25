@@ -87,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
-                var compositePageData = compositePageBuilder.GetCompositePublishedPage(contentType, itemId, providerName);
+                var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
                 asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }

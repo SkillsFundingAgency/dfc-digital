@@ -22,11 +22,11 @@ namespace DFC.Digital.Web.Sitefinity.WebApiTests.Mvc.Controllers
 
             if (contentExists)
             {
-                A.CallTo(() => fakeCompositePageBuilder.GetCompositePreviewPage(A<string>._)).Returns(dummymicroServicesPublishingPageData);
+                A.CallTo(() => fakeCompositePageBuilder.GetPreviewPage(A<string>._)).Returns(dummymicroServicesPublishingPageData);
             }
             else
             {
-                A.CallTo(() => fakeCompositePageBuilder.GetCompositePreviewPage(A<string>._)).Returns(null);
+                A.CallTo(() => fakeCompositePageBuilder.GetPreviewPage(A<string>._)).Returns(null);
             }
 
             // Act

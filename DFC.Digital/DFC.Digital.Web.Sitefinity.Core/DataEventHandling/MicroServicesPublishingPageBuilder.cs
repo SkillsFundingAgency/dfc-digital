@@ -34,14 +34,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return pageUrls;
         }
 
-        public MicroServicesPublishingPageData GetCompositePublishedPage(Type contentType, Guid itemId, string providerName)
+        public MicroServicesPublishingPageData GetPublishedPage(Type contentType, Guid itemId, string providerName)
         {
             var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
             var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
             return BuildPageData(pageNode, pageData, providerName);
         }
 
-        public MicroServicesPublishingPageData GetCompositePreviewPage(string name)
+        public MicroServicesPublishingPageData GetPreviewPage(string name)
         {
             var pageData = sitefinityManagerProxy.GetPageDataByName(name);
             if (pageData is null)
@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             var pageNode = pageData.NavigationNode;
-            var pageDraft = sitefinityManagerProxy.GetPreViewPageDataByNodeId(pageData.Id);
+            var pageDraft = sitefinityManagerProxy.GetPreViewPageDataById(pageData.Id);
 
             return BuildPreViewPageData(pageNode, pageData, pageDraft);
         }
@@ -83,9 +83,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
 
             var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageDraftControl in pageControls)
+            foreach (var pageControl in pageControls)
             {
-                microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageDraftControl, providerName);
+                microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
             }
 
             return microServicesPublishingPageData;

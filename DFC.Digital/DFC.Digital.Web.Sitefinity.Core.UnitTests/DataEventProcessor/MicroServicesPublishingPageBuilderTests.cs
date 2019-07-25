@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void GetCompositePublishedPageTest(bool isCrawlable, bool hasContentBlock)
+        public void GetPublishedPageTest(bool isCrawlable, bool hasContentBlock)
         {
             SetUpData(isCrawlable);
 
@@ -52,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePublishedPage(typeof(PageNode), dummyPageNode.Id, DummyProvider);
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPublishedPage(typeof(PageNode), dummyPageNode.Id, DummyProvider);
 
             //Asserts
             microServicesPublishingPageData.IncludeInSiteMap.Should().Be(isCrawlable);
@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void GetCompositePreviewPageTest(bool isCrawlable, bool hasContentBlock)
+        public void GetPreviewPageTest(bool isCrawlable, bool hasContentBlock)
         {
             SetUpData(isCrawlable);
 
@@ -90,13 +90,13 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                 dummyPageDraft.Controls.Add(pageDraftControl);
             }
 
-            A.CallTo(() => fakeSitefinityManagerProxy.GetPreViewPageDataByNodeId(A<Guid>._)).Returns(dummyPageDraft);
+            A.CallTo(() => fakeSitefinityManagerProxy.GetPreViewPageDataById(A<Guid>._)).Returns(dummyPageDraft);
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageDraftControl>._)).Returns(DummyContent);
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(dummyPageData);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePreviewPage(nameof(PageNode.UrlName));
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPreviewPage(nameof(PageNode.UrlName));
 
             //Asserts
             microServicesPublishingPageData.IncludeInSiteMap.Should().Be(isCrawlable);
@@ -120,14 +120,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         }
 
         [Fact]
-        public void GetCompositePreviewPageDoesNotExsitTest()
+        public void GetPreviewPageDoesNotExsitTest()
         {
             SetUpData(false);
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(null);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
-            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetCompositePreviewPage(nameof(PageNode.UrlName));
+            var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPreviewPage(nameof(PageNode.UrlName));
 
             //Asserts
             microServicesPublishingPageData.Should().BeNull();

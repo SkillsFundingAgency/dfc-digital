@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.WebApi.Mvc.Controllers
         [Route("dfcapi/contentpreview/{name}")]
         public IHttpActionResult Get(string name)
         {
-            var microServicesPublishingPageData = compositePageBuilder.GetCompositePreviewPage(name);
+            var microServicesPublishingPageData = compositePageBuilder.GetPreviewPage(name);
 
             if (microServicesPublishingPageData is null)
             {

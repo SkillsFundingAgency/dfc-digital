@@ -44,7 +44,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return control.Settings.Values[Constants.Content];
         }
 
-        public PageDraft GetPreViewPageDataByNodeId(Guid id)
+        public PageDraft GetPreViewPageDataById(Guid id)
         {
             return GetPageManagerForProvider().GetPreview(id);
         }

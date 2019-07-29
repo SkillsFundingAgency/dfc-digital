@@ -51,8 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private PageManager GetPageManagerForProvider(string providerName = null)
         {
-            var pageManager = providerName == null ? PageManager.GetManager() : PageManager.GetManager(providerName);
-            return pageManager;
+            return providerName == null ? PageManager.GetManager() : PageManager.GetManager(providerName);
         }
     }
 }

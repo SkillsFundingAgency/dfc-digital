@@ -78,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return microServicesPublishingPageData;
         }
 
-        private MicroServicesPublishingPageData BuildPageData(PageNode pageNode, PageData pageData,  string providerName = null)
+        private MicroServicesPublishingPageData BuildPageData(PageNode pageNode, PageData pageData, string providerName = null)
         {
             var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
 
@@ -93,15 +93,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)
         {
-            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower() };
-            microServicesPublishingPageData.IncludeInSiteMap = pageNode.Crawlable;
-            microServicesPublishingPageData.AlternativeNames = GetPageURLs(pageNode);
-            microServicesPublishingPageData.LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
-            microServicesPublishingPageData.Id = pageNode.Id;
-
-            microServicesPublishingPageData.BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData);
-            microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) };
-            return microServicesPublishingPageData;
+            return new MicroServicesPublishingPageData()
+            {
+                CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
+                IncludeInSiteMap = pageNode.Crawlable,
+                AlternativeNames = GetPageURLs(pageNode),
+                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                Id = pageNode.Id,
+                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
+                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+            };
         }
     }
 }

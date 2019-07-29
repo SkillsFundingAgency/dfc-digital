@@ -42,10 +42,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void ExportCompositePageTests(bool expectDataTobePosted, bool shouldPostPage, MicroServicesDataEventAction microServicesDataEventAction, string microServiceEndPointConfigKey)
         {
             //Setup
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(A.Dummy<string>());
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(A.Dummy<string>());
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(microServicesDataEventAction);
             A.CallTo(() => fakeDataEventActions.ShouldExportPage(A<IDataEvent>._)).Returns(shouldPostPage);
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(microServiceEndPointConfigKey);
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
@@ -69,9 +69,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void DeleteCompositePageTests(bool expectDataTobePosted, MicroServicesDataEventAction microServicesDataEventAction, string microServiceEndPointConfigKey)
         {
             //Setup
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(A.Dummy<string>());
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(A.Dummy<string>());
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(microServicesDataEventAction);
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<string>._, A<Type>._, A<Guid>._)).Returns(microServiceEndPointConfigKey);
+            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
@@ -93,13 +93,13 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Setup
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
-            A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ApplicationException());
+            A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ArgumentException());
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
 
             //Asserts
-            Assert.Throws<ApplicationException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
+            Assert.Throws<ArgumentException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
 
             A.CallTo(() => fakeApplicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappenedOnceExactly();
         }

@@ -29,12 +29,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var itemStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
             var recycleBinAction = sitefinityDataEventProxy.GetPropertyValue<RecycleBinAction>(eventInfo, Constants.RecycleBinAction);
 
-            if (itemAction == Constants.ItemActionDeleted || (workFlowStatus == Constants.WorkFlowStatusUnPublished && recycleBinAction != RecycleBinAction.RestoreFromRecycleBin))
+            if (itemAction == Constants.ItemActionDeleted || (workFlowStatus == Constants.WorkflowStatusUnpublished && recycleBinAction != RecycleBinAction.RestoreFromRecycleBin))
             {
                 //Unpublished or deleted Check for this first
                 return MicroServicesDataEventAction.UnpublishedOrDeleted;
             }
-            else if (workFlowStatus == Constants.WorkFlowStatusPublished && itemStatus == Constants.ItemStatusLive)
+            else if (workFlowStatus == Constants.WorkflowStatusPublished && itemStatus == Constants.ItemStatusLive)
             {
                 //Published
                 return MicroServicesDataEventAction.PublishedOrUpdated;

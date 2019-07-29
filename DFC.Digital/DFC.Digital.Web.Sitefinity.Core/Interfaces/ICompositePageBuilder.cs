@@ -6,10 +6,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface ICompositePageBuilder
     {
-        MicroServicesPublishingPageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId);
+        MicroServicesPublishingPageData GetPublishedPage(Type contentType, Guid itemId, string providerName);
 
-        string GetPageContentBlocks(string providerName, Type contentType, Guid itemId);
+        MicroServicesPublishingPageData GetPreviewPage(string name);
 
-        string GetMicroServiceEndPointConfigKeyForPageNode(string providerName, Type contentType, Guid itemId);
+        string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName);
     }
 }

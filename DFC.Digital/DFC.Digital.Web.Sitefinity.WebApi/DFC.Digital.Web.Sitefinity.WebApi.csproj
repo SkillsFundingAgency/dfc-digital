@@ -362,6 +362,7 @@
     <Compile Include="Models\ApiAuthorizeAttribute.cs" />
     <Compile Include="Mvc\Controllers\AVFeedRecycleBinController.cs" />
     <Compile Include="Mvc\Controllers\ReadConfigController.cs" />
+    <Compile Include="Mvc\Controllers\ContentPreviewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +394,10 @@
     <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
       <Project>{11E5EC8F-531D-47E4-9C22-E19044DDD678}</Project>
       <Name>DFC.Digital.Repository.SitefinityCMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Web.Sitefinity.Core\DFC.Digital.Web.Sitefinity.Core.csproj">
+      <Project>{22cfb09d-d5c9-4376-85a2-ba564fbabbc2}</Project>
+      <Name>DFC.Digital.Web.Sitefinity.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -23,14 +23,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         }
 
         [Theory]
-        [InlineData(MicroServicesDataEventAction.PublishedOrUpdated, Constants.ItemActionUpdated, Constants.WorkFlowStatusPublished, RecycleBinAction.None)]
-        [InlineData(MicroServicesDataEventAction.UnpublishedOrDeleted, Constants.ItemActionDeleted, Constants.WorkFlowStatusUnPublished, RecycleBinAction.RestoreFromRecycleBin)]
+        [InlineData(MicroServicesDataEventAction.PublishedOrUpdated, Constants.ItemActionUpdated, Constants.WorkflowStatusPublished, RecycleBinAction.None)]
+        [InlineData(MicroServicesDataEventAction.UnpublishedOrDeleted, Constants.ItemActionDeleted, Constants.WorkflowStatusUnpublished, RecycleBinAction.RestoreFromRecycleBin)]
         [InlineData(MicroServicesDataEventAction.Ignored, Constants.ItemActionUpdated, "", RecycleBinAction.None)]
-        public void GetEventActionTest(MicroServicesDataEventAction expectedAction, string eventAction, string workFlowState, RecycleBinAction recycleBinAction)
+        public void GetEventActionTest(MicroServicesDataEventAction expectedAction, string eventAction, string workflowState, RecycleBinAction recycleBinAction)
         {
             //Setup
             A.CallTo(() => fakeDataEvent.Action).Returns(eventAction);
-            A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<string>(fakeDataEvent, Constants.ApprovalWorkflowState)).Returns(workFlowState);
+            A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<string>(fakeDataEvent, Constants.ApprovalWorkflowState)).Returns(workflowState);
             A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<RecycleBinAction>(fakeDataEvent, Constants.RecycleBinAction)).Returns(recycleBinAction);
             A.CallTo(() => fakeSitefinityDataEventProxy.GetPropertyValue<string>(fakeDataEvent, Constants.ItemStatus)).Returns(Constants.ItemStatusLive);
 

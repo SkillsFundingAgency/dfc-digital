@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="WebTest1" Id="f5142adb-1ed8-4248-a7a8-cf3f47ccfc66" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.51f13fa0-f085-4f8f-883e-5b94954354ff.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="efa93c5d-fabb-4f79-ba8f-9ee866ddb0b4" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="6f33fe9b-6f84-463a-8ec8-a79c17e69291" Version="1.1" Url="{{WebServer1}}/get-a-job/advertised-job-vacancies" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="5f982523-7cca-492e-9f29-fbf3a179e808" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="9429c630-e47d-4679-bacf-4df0c68c73b8" Version="1.1" Url="{{WebServer1}}/get-a-job/networking" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="0cb94872-28c6-4663-b5a6-e9b183aa45a2" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="f4e35f99-af59-4a41-bf29-b3d17b1344b6" Version="1.1" Url="{{WebServer1}}/get-a-job/cv-sections" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="d6456cdf-eda5-4f16-ad7f-05128bc53d4f" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="1003b8aa-0b43-4550-9d91-318157ea1870" Version="1.1" Url="{{WebServer1}}/get-a-job/cv-tips" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="a7ced66e-87ea-4997-bc1a-7b6c8c4662c6" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="180ec3c9-bc90-4f90-aec0-ae8620fcf21a" Version="1.1" Url="{{WebServer1}}/get-a-job/covering-letter" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="46d281ff-72de-49c2-b21a-69bc780304ee" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="2785c67f-bad0-46d8-9f98-da1dd131c917" Version="1.1" Url="{{WebServer1}}/get-a-job/application-forms" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="ab2915ae-2aa0-448f-bbc0-cabd5aa90a9e" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="7c4f11a3-4ae9-47b9-b793-1722d8465aa2" Version="1.1" Url="{{WebServer1}}/get-a-job/interview-advice" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="7e8b2da6-07a3-48c2-86b4-062fb215ffff" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="8ef46326-08b0-45f0-999e-64e855300faf" Version="1.1" Url="{{WebServer1}}/get-a-job/top-10-interview-questions" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/get-a-job" />
+      </Headers>
+    </Request>
+  </Items>
+  <ContextParameters>
+    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareers.service.gov.uk" />
+  </ContextParameters>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>

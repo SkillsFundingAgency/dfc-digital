@@ -126,6 +126,15 @@
     <None Include="WebTests\FindACourse.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="WebTests\SkillsHealthCheck.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\GetAJob.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\AboutUs.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.TLS1.2PerformancePlugin\DFC.Digital.TLS12PerformancePlugin.csproj">

@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="SkillsHealthCheck" Id="b98f7cb2-d286-400b-87cd-37b53f547621" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.2fde2fa4-68c0-4d09-9937-fd4bddbda69d.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="128554c7-30e6-4143-9146-8a6acdbf411b" Version="1.1" Url="{{WebServer1}}/skills-health-check/home" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="74e3fa55-e94c-4d95-aa57-3e98dd775ff2" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/home" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="9d2c203b-417e-4867-892e-205c4938adba" RecordedValue="9d2c203b-417e-4867-892e-205c4938adba" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/home" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/home" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+    </Request>
+    <Request Method="POST" Guid="fe0e0059-9f08-4162-aa4f-8243cd523218" Version="1.1" Url="{{WebServer1}}/skills-health-check/home/CreateSkillsDocument/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/home" />
+      </Headers>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="QueryStringParam5236.assessmentType" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="?assessmentType=" />
+            <RuleParameter Name="EndsWith" Value="&quot;" />
+            <RuleParameter Name="Index" Value="7" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <FormPostHttpBody>
+        <FormPostParameter Name="ListTypeFieldsString" Value="{{$HIDDEN1.ListTypeFieldsString}}" RecordedValue="Numeric.Type,Numeric.Answers,Numeric.Complete,Numeric.Ease,Numeric.Timing,Verbal.Type,Verbal.Answers,Verbal.Complete,Verbal.Ease,Verbal.Timing,Motivation.Type,Motivation.Answers,Motivation.Complete,Personal.Type,Personal.Answers,Personal.Complete,SkillAreas.Type,SkillAreas.Answers,SkillAreas.Complete,SkillAreas.ExcludedJobFamilies1,SkillAreas.ExcludedJobFamilies2,SkillAreas.ExcludedJobFamilies3,Mechanical.Type,Mechanical.Answers,Mechanical.Complete,Mechanical.Ease,Mechanical.Timing,Mechanical.Enjoyment,Checking.Type,Checking.Answers,Checking.Complete,Checking.Ease,Checking.Timing,Checking.Enjoyment,Qualification.Level,Interest.Type,Interest.Answers,Interest.Complete,Spatial.Type,Spatial.Answers,Spatial.Complete,Spatial.Ease,Spatial.Timing,Spatial.Enjoyment,Abstract.Type,Abstract.Answers,Abstract.Complete,Abstract.Ease,Abstract.Timing,Abstract.Enjoyment,CandidateFullName" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="GET" Guid="64172845-c46a-441d-832a-f9996d5a3228" Version="1.1" Url="{{WebServer1}}/skills-health-check/question" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="7b13e035-73a5-4aec-8872-9290d0c1cb2d" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/your-assessments" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam217.QuestionAnswer" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="radio-A                                                 " />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam218.answerAction" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="answerAction" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam219.QuestionAnswer" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="radio-A                                                 " />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam220.answerAction" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="answerAction" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <QueryStringParameters>
+        <QueryStringParameter Name="assessmentType" Value="Mechanical" RecordedValue="Mechanical" CorrelationBinding="{{QueryStringParam5236.assessmentType}}" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="POST" Guid="4f1167c3-5158-4565-98cc-e1bf48ec31f9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Required" Value="True" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam229.QuestionAnswer" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&#xD;" />
+            <RuleParameter Name="Index" Value="2" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam232.Question.QuestionNumber" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
+            <RuleParameter Name="Index" Value="5" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam234.Question.NextQuestionNumber" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
+            <RuleParameter Name="Index" Value="7" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+      <CorrelationExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam230.answerAction" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot;/&gt;&#xD;&#xA;" />
+            <RuleParameter Name="Index" Value="3" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam231.Question.AssessmentType" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
+            <RuleParameter Name="Index" Value="4" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam233.Question.TotalQuestionNumber" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
+            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
+            <RuleParameter Name="Index" Value="6" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam235.QuestionAnswer" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="radio-C                                                 " />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="2" />
+          </RuleParameters>
+        </ExtractionRule>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam236.answerAction" DisplayName="" Description="">
+          <RuleParameters>
+            <RuleParameter Name="Name" Value="answerAction" />
+            <RuleParameter Name="HtmlDecode" Value="True" />
+            <RuleParameter Name="Required" Value="False" />
+            <RuleParameter Name="Index" Value="0" />
+          </RuleParameters>
+        </ExtractionRule>
+      </CorrelationExtractionRules>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B                                                 " RecordedValue="B                                                 " CorrelationBinding="{{FormPostParam227.QuestionAnswer}}" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="Continue" CorrelationBinding="{{FormPostParam228.answerAction}}" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="Mechanical" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="1" RecordedValue="2" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="11" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="2" RecordedValue="3" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="2" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="3" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="3" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="4" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="4" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="5" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="5" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="6" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="6" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="7" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="7" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="8" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="8" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="9" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="9" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="10" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="10" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.QuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.TotalQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Question.NextQuestionNumber" Value="-1" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="3" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="QuestionNumber" Value="12" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ActualTotalQuestions" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Timing" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="1" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Continue" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="QuestionNumber" Value="13" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ActualTotalQuestions" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Ease" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="2" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Return to Skills health check page" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="QuestionNumber" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ActualTotalQuestions" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Enjoyment" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Referer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType=Mechanical" />
+          </Headers>
+          <QueryStringParameters>
+            <QueryStringParameter Name="pageNodeId" Value="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" RecordedValue="bdbb0ece-cc1e-4623-b70f-b8c5e79a2997" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="trackingId" Value="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" RecordedValue="8015f37b-f9a8-4d97-a3b7-12bebcfe2bab" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="referrer" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+            <QueryStringParameter Name="pageUrl" Value="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" RecordedValue="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/question?assessmentType%3dMechanical" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+          </QueryStringParameters>
+        </Request>
+      </DependentRequests>
+      <Headers>
+        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+      </Headers>
+      <FormPostHttpBody>
+        <FormPostParameter Name="QuestionAnswer" Value="2" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="answerAction" Value="Return to Skills health check page" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.AssessmentType" Value="Mechanical" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="QuestionNumber" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ActualTotalQuestions" Value="14" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Enjoyment" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+  </Items>
+  <ContextParameters>
+    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareersservice.direct.gov.uk" />
+  </ContextParameters>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+  <WebTestPlugins>
+    <WebTestPlugin Classname="DFC.Digital.TLS12PerformancePlugin.Tls12Plugin, DFC.Digital.TLS1.2PerformancePlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Tls12Plugin" Description="">
+      <RuleParameters>
+        <RuleParameter Name="Enabled" Value="True" />
+      </RuleParameters>
+    </WebTestPlugin>
+  </WebTestPlugins>
+</WebTest>

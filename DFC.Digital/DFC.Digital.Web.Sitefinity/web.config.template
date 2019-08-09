@@ -75,6 +75,7 @@ that is bundled with the nuget package under the tools folder.
     <add key="DFC.Cognitive.BingSpellCheck.RequestEndPoint" value="https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?text={0}&amp;mode=spell&amp;mkt=en-gb" />
     <!-- Micro Services Publishing Endpoints-->
     <add key="DFC.Digital.MicroService.HelpEndPoint" value="__MicroServiceHelpEndPoint__" />
+    <add key="DFC.Digital.MicroService.HelpPreviewEndPoint" value="__MicroServiceHelpPreviewEndPoint__" />
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

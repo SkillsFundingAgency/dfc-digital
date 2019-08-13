@@ -151,7 +151,7 @@
     <Compile Include="Base\BaseDfcController.cs" />
     <Compile Include="Config\WebCoreAutofacConfig.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="HtmlExtentions\CompositeServiceExtentions.cs" />
+    <Compile Include="HtmlExtentions\CompositeServiceExtensions.cs" />
     <Compile Include="HtmlExtentions\MvcHtmlElementsExtensions.cs" />
     <Compile Include="HtmlExtentions\StringManipulationExtension.cs" />
     <Compile Include="ModelValidationAttributes\AcceptAttribute.cs" />

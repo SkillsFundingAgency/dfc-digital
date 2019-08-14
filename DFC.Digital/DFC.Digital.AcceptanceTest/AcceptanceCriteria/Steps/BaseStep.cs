@@ -79,6 +79,15 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             return page;
         }
 
+        public TPage NavigateToYourAssesmentsPage<TPage>()
+             where TPage : UiComponent, new()
+        {
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/skills-assessment/skills-health-check/your-assessments");
+            ScenarioContext.Set(page);
+
+            return page;
+        }
+
         internal TPage NavigateToHomePage<TPage, TModel>()
             where TPage : DFCPageWithViewModel<TModel>, new()
             where TModel : class, new()

@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data.Interfaces;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -27,28 +28,28 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        public Taxon Get(Expression<Func<Taxon, bool>> where)
+        public HierarchicalTaxon Get(Expression<Func<HierarchicalTaxon, bool>> where)
         {
-            return taxonomyManagerExtensions.Where(manager.GetTaxa<Taxon>(), where);
+            return taxonomyManagerExtensions.Where(manager.GetTaxa<HierarchicalTaxon>(), where);
         }
 
         [IgnoreOutputInInterception]
-        public IQueryable<Taxon> GetAll()
+        public IQueryable<HierarchicalTaxon> GetAll()
         {
-            return manager.GetTaxa<Taxon>();
+            return manager.GetTaxa<HierarchicalTaxon>();
         }
 
         [IgnoreOutputInInterception]
-        public Taxon GetById(string id)
+        public HierarchicalTaxon GetById(string id)
         {
-            return manager.GetTaxon(new Guid(id)) as Taxon;
+            return manager.GetTaxon(new Guid(id)) as HierarchicalTaxon;
         }
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        public IQueryable<Taxon> GetMany(Expression<Func<Taxon, bool>> where)
+        public IQueryable<HierarchicalTaxon> GetMany(Expression<Func<HierarchicalTaxon, bool>> where)
         {
-            return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<Taxon>(), where);
+            return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<HierarchicalTaxon>(), where);
         }
 
         protected virtual void Dispose(bool disposing)

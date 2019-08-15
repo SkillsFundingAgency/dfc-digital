@@ -68,7 +68,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 //Need to wait for Sitefinity client side scripts to run and render the buttons, before we go looking for them. 
-                setTimeout(attachbuttons, 500);
+                setTimeout(attachbuttons, 1000);
             });
 
             function attachbuttons() {
@@ -77,7 +77,7 @@
 
                     var compositepreviewurl = '@Html.GetCompositeServiceEndPoint()';
                     if (compositepreviewurl !== undefined) {
-                        var compositedraft = compositepreviewurl + pathname.replace('/Action/Edit', '');
+                        var compositedraft = compositepreviewurl + 'draft' + pathname.replace('/Action/Edit', '').substr(1);
                         $("<a class='sfLinkBtn sfPreview' href=" + compositedraft + " target='_blank' class='sfLinkBtn'><span class='sfLinkBtnIn'>Composite Preview</span></a>").insertAfter("#ctl08_ctl00_ctl00_workflowMenu_ctl00_ctl00_secondaryActionsContainer_Preview")
                     }
                 }

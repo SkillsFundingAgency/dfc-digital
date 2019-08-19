@@ -2,7 +2,9 @@
 As a Citizen, I want to be able to do skills health checks tests with the National Careers Service
 
 Scenario Outline: Complete a 'Skills Health Check' 
-	Given I navigate to the Your Assessments page
+	Given I navigate to the Skills Health Check Home page
+	And I click on Start a new Skills Health Check button
+	Then I am directed to the Your Assessments List page
 	When I select to start the <TypeOfSkillsHealthCheck> check
 	Then I am redirected to the start page for a <TypeOfSkillsHealthCheck> check with <QuestionsToAnswer> questions to answer
 	When I answer all <QuestionsToAnswer> questions 

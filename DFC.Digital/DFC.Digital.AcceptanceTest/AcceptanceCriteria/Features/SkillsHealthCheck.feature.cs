@@ -93,22 +93,26 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
 #line 5
- testRunner.Given("I navigate to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 7
- testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", typeOfSkillsHealthCheck, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
- testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", typeOfSkillsHealthCheck, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
- testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
- testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 12
- testRunner.And("I can down load my completed assessment as a PDF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 13
+ testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 14
+ testRunner.And("I can down load my completed assessment as a PDF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
  testRunner.And("I can down load my completed assessment as a Word document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

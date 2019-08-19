@@ -246,7 +246,7 @@
     <Compile Include="Infrastructure\Config\DFCPage.cs" />
     <Compile Include="Infrastructure\Config\DFCPageWithViewModel.cs" />
     <Compile Include="Infrastructure\Pages\ContactUs\GiveFeedbackFormPage.cs" />
-    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\YourAssessmentsPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\SkillsHealthCheckHomePage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCCourseDetailsPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCLandingPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCResultsPage.cs" />
@@ -259,6 +259,8 @@
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
     <Compile Include="Infrastructure\Pages\ContactUs\TechnicalIssueFormPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\SkillsHealthCheckPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\YourAssesmentsPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />

@@ -82,7 +82,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public TPage NavigateToYourAssesmentsPage<TPage>()
              where TPage : UiComponent, new()
         {
-            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/skills-assessment/skills-health-check/your-assessments");
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}skills-assessment/skills-health-check/home");
             ScenarioContext.Set(page);
 
             return page;

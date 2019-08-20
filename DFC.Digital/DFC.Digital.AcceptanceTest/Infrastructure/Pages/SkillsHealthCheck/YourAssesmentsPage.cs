@@ -16,7 +16,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         public void DownLoadSkillsHeathCheckReport(string reportDownLoadType)
         {
             Find.Element(By.XPath($"//input[@value='{reportDownLoadType}']")).Click();
-            Find.Element(By.Name("answerAction")).Click();
+            Find.Element(By.XPath("//input[@value='Download your report']")).Click();
         }
     }
 }

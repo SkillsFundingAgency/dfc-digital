@@ -86,7 +86,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"I can down load my completed assessment as a Word document")]
         public void ThenICanDownLoadMyCompletedAssessmentAsAWordDocument()
         {
-            ScenarioContext.Current.Pending();
+            GetNavigatedPage<YourAssesmentsPage>().DownLoadSkillsHeathCheckReport("Word");
         }
     }
 }

@@ -161,6 +161,10 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.AzureSearch\DFC.Digital.Service.AzureSearch.csproj">
+      <Project>{f0161590-6a22-4d74-ba7c-ede8a4ac602c}</Project>
+      <Name>DFC.Digital.Service.AzureSearch</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -84,7 +84,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}skills-assessment/skills-health-check/home");
             ScenarioContext.Set(page);
-
             return page;
         }
 

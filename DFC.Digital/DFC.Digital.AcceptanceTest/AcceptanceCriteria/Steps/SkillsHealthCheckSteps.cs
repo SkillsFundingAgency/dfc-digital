@@ -29,10 +29,11 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<SkillsHealthCheckHomePage>().ClickSignIn<SignInPage>().SaveTo(ScenarioContext);
         }
 
-        [Then(@"I can see my completed checks")]
-        public void ThenICanSeeMyCompletedChecks()
+        [Then(@"I can see my completed (.*) check")]
+        public void ThenICanSeeMyCompletedChecks(string typeOfSkillsHealthCheck)
         {
             GetNavigatedPage<YourAssesmentsPage>().PageTitle.Should().Contain("Skills Health Check");
+            GetNavigatedPage<YourAssesmentsPage>().FirstCompletedRowName.Should().Contain(typeOfSkillsHealthCheck);
         }
 
         [Then(@"I am directed to the SignIn Page")]
@@ -124,6 +125,36 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void WhenIClickOnStartANewSkillsHealthCheckButton()
         {
             GetNavigatedPage<SkillsHealthCheckHomePage>().ClickStartANewSkillsHealthCheck<YourAssesmentsPage>().SaveTo(ScenarioContext);
+        }
+
+        [When(@"I Click on the Your Account link")]
+        public void WhenIClickOnTheYourAccountLink()
+        {
+            GetNavigatedPage<YourAssesmentsPage>().ClickYourAccountLink<YourAccountHomePage>().SaveTo(ScenarioContext);
+        }
+
+        [Then(@"I am redirected to the Your Account Home page")]
+        public void ThenIAmRedirectedToTheYourAccountHomePage()
+        {
+            GetNavigatedPage<YourAccountHomePage>().PageTitle.Should().Contain("Your account");
+        }
+
+        [Then(@"I can the saved Skills health check")]
+        public void ThenICanTheSavedSkillsHealthCheck()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [When(@"I delete my Skills health check")]
+        public void WhenIDeleteMySkillsHealthCheck()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I have no saved Skills health checks")]
+        public void ThenIHaveNoSavedSkillsHealthChecks()
+        {
+            ScenarioContext.Current.Pending();
         }
     }
 }

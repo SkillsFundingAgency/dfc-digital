@@ -33,7 +33,14 @@ Scenario Outline: Save and delete a 'Skills Health Check' when signed in
 	Then on the last question I see the Return to Skills health check page button
 	When I click on the Return to Skills health check page button 
 	Then I am taken back to the Your Assessments page
-	And II can see my completed checks
+	And I can see my completed <TypeOfSkillsHealthCheck> check
+	When I Click on the Your Account link
+	Then I am redirected to the Your Account Home page
+	And I can the saved Skills health check
+	When I delete my Skills health check
+	Then I am redirected to the Your Account Home page
+	And I have no saved Skills health checks
+	
 Examples: 
 | TypeOfSkillsHealthCheck	| QuestionsToAnswer	| 
 | Motivation				| 42				|  

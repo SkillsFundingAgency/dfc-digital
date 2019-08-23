@@ -8,10 +8,18 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
     {
         public string PageTitle => Find.Element(By.ClassName("heading-xlarge")).Text;
 
+        public string FirstCompletedRowName => Find.Element(By.XPath("//[@id='shc']/tbody/tr/td[1]")).Text;
+
         public T StartASkillsHealthCheck<T>(string typeOfSkillsHealthCheck)
            where T : UiComponent, new()
         {
             return NavigateTo<T>(By.CssSelector($"a[href*='{typeOfSkillsHealthCheck}']"));
+        }
+
+        public T ClickYourAccountLink<T>()
+          where T : UiComponent, new()
+        {
+            return NavigateTo<T>(By.Id("myaccount-link"));
         }
 
         public void DownLoadSkillsHeathCheckReport(string reportDownLoadType)

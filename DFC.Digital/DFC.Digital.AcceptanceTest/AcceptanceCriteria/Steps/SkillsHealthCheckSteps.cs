@@ -3,6 +3,7 @@ using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
@@ -22,40 +23,28 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             NavigateToYourAssesmentsPage<SkillsHealthCheckHomePage>();
         }
 
-        [Given(@"I click on Start a new Skills Health Check button")]
-        public void GivenIClickOnStartANewSkillsHealthCheckButton()
+        [Given(@"I click on the SignIn button")]
+        public void GivenIClickOnTheSignInButton()
         {
-            GetNavigatedPage<SkillsHealthCheckHomePage>().ClickStartANewSkillsHealthCheck<YourAssesmentsPage>().SaveTo(ScenarioContext);
+            GetNavigatedPage<SkillsHealthCheckHomePage>().ClickSignIn<SignInPage>().SaveTo(ScenarioContext);
+        }
+
+        [Then(@"I can see my completed checks")]
+        public void ThenICanSeeMyCompletedChecks()
+        {
+            GetNavigatedPage<YourAssesmentsPage>().PageTitle.Should().Contain("Skills Health Check");
+        }
+
+        [Then(@"I am directed to the SignIn Page")]
+        public void ThenIAmDirectedToTheSignInPage()
+        {
+            GetNavigatedPage<SignInPage>().PageTitle.Should().Contain("Sign in");
         }
 
         [Then(@"I am directed to the Your Assessments List page")]
         public void ThenIAmDirectedToTheYourAssessmentsListPage()
         {
             GetNavigatedPage<YourAssesmentsPage>().PageTitle.Should().Contain("Skills Health Check");
-        }
-
-        [When(@"I select to start the (.*) check")]
-        public void WhenISelectToStartANewSkilsHealthCheckCheck(string typeOfSkillsHealthCheck)
-        {
-            GetNavigatedPage<YourAssesmentsPage>().StartASkillsHealthCheck<SkillsHealthCheckPage>(typeOfSkillsHealthCheck).SaveTo(ScenarioContext);
-        }
-
-        [When(@"I answer all (.*) questions")]
-        public void WhenIAnswerAllQuestions(int numberOfQuestions)
-        {
-            var skillsHealthCheckPage = GetNavigatedPage<SkillsHealthCheckPage>();
-
-            //Answer questions untill we get to the last one
-            for (int ii = 1; ii < numberOfQuestions; ii++)
-            {
-                skillsHealthCheckPage.AnswerQuestion(1);
-            }
-        }
-
-        [When(@"I click on the Return to Skills health check page button")]
-        public void WhenIClickOnTheReturnToSkillsHealthCheckPageButton()
-        {
-            GetNavigatedPage<SkillsHealthCheckPage>().AnswerQuestion(1);
         }
 
         [Then(@"I am redirected to the start page for a (.*) check with (.*) questions to answer")]
@@ -87,6 +76,54 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenICanDownLoadMyCompletedAssessmentAsAWordDocument()
         {
             GetNavigatedPage<YourAssesmentsPage>().DownLoadSkillsHeathCheckReport("Word");
+        }
+
+        [Then(@"I am directed back to the Skills Health Check Home page")]
+        public void ThenIAmDirectedBackToTheSkillsHealthCheckHomePage()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().PageTitle.Should().Contain("Skills Health Check");
+        }
+
+        [Then(@"I am now signed in")]
+        public void ThenIAmNowSignedIn()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().SignOutLinkText.Should().Be("Sign out");
+        }
+
+        [When(@"I select to start the (.*) check")]
+        public void WhenISelectToStartANewSkilsHealthCheckCheck(string typeOfSkillsHealthCheck)
+        {
+            GetNavigatedPage<YourAssesmentsPage>().StartASkillsHealthCheck<SkillsHealthCheckPage>(typeOfSkillsHealthCheck).SaveTo(ScenarioContext);
+        }
+
+        [When(@"I answer all (.*) questions")]
+        public void WhenIAnswerAllQuestions(int numberOfQuestions)
+        {
+            var skillsHealthCheckPage = GetNavigatedPage<SkillsHealthCheckPage>();
+
+            //Answer questions untill we get to the last one
+            for (int ii = 1; ii < numberOfQuestions; ii++)
+            {
+                skillsHealthCheckPage.AnswerQuestion(1);
+            }
+        }
+
+        [When(@"I click on the Return to Skills health check page button")]
+        public void WhenIClickOnTheReturnToSkillsHealthCheckPageButton()
+        {
+            GetNavigatedPage<SkillsHealthCheckPage>().AnswerQuestion(1);
+        }
+
+        [When(@"I sign in with an existing user name and password")]
+        public void WhenISignInWithAnExistingUserNameAndPassword()
+        {
+            GetNavigatedPage<SignInPage>().Login<SkillsHealthCheckHomePage>(ConfigurationManager.AppSettings["existingUserName"], ConfigurationManager.AppSettings["existingUserPassword"]).SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click on Start a new Skills Health Check button")]
+        public void WhenIClickOnStartANewSkillsHealthCheckButton()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().ClickStartANewSkillsHealthCheck<YourAssesmentsPage>().SaveTo(ScenarioContext);
         }
     }
 }

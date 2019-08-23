@@ -224,6 +224,7 @@
     <Compile Include="AcceptanceCriteria\Steps\FindACourseSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\SkillsHealthCheckSteps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\Pages\Accounts\SignInPage.cs" />
     <Compile Include="Infrastructure\Pages\BAU\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\HomePageSteps.cs" />

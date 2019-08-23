@@ -95,7 +95,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
  testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.And("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
  testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
@@ -114,6 +114,52 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I can down load my completed assessment as a PDF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
  testRunner.And("I can down load my completed assessment as a Word document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.TheoryAttribute(DisplayName="Save and delete a \'Skills Health Check\' when signed in")]
+        [Xunit.TraitAttribute("FeatureTitle", "SkillsHealthCheck")]
+        [Xunit.TraitAttribute("Description", "Save and delete a \'Skills Health Check\' when signed in")]
+        [Xunit.InlineDataAttribute("Motivation", "42", "chrome", new string[] {
+                "args:Motivation,42"})]
+        public virtual void SaveAndDeleteASkillsHealthCheckWhenSignedIn(string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
+        {
+            this._browser = browser;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Save and delete a \'Skills Health Check\' when signed in", null, exampleTags);
+#line 21
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 22
+ testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
+ testRunner.And("I click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+ testRunner.Then("I am directed to the SignIn Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
+ testRunner.When("I sign in with an existing user name and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("I am directed back to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 27
+ testRunner.And("I am now signed in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.When("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 30
+ testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", typeOfSkillsHealthCheck, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+ testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+ testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 35
+ testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 36
+ testRunner.And("II can see my completed checks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

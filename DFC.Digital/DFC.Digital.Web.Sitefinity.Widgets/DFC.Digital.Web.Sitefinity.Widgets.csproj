@@ -432,7 +432,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenAccessNuGet.targets" />
     <Content Include="Mvc\Views\SendGrid\Index.cshtml" />
     <Content Include="Mvc\Views\SendGrid\SendResult.cshtml" />
     <None Include="packages.config" />
@@ -446,7 +445,6 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="OpenAccessNuget.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

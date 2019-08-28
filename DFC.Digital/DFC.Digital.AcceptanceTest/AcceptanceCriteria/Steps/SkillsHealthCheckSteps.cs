@@ -24,7 +24,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         [Given(@"I click on the SignIn button")]
-        public void GivenIClickOnTheSignInButton()
+        [When(@"I click on the SignIn button")]
+        public void IClickOnTheSignInButton()
         {
             GetNavigatedPage<SkillsHealthCheckHomePage>().ClickSignIn<SignInPage>().SaveTo(ScenarioContext);
         }
@@ -127,7 +128,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<SkillsHealthCheckHomePage>().ClickStartANewSkillsHealthCheck<YourAssesmentsPage>().SaveTo(ScenarioContext);
         }
 
-        [When(@"I Click on the Your Account link")]
+        [When(@"I click on the Your Account link")]
         public void WhenIClickOnTheYourAccountLink()
         {
             GetNavigatedPage<YourAssesmentsPage>().ClickYourAccountLink<YourAccountHomePage>().SaveTo(ScenarioContext);
@@ -139,22 +140,64 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<YourAccountHomePage>().PageTitle.Should().Contain("Your account");
         }
 
-        [Then(@"I can the saved Skills health check")]
-        public void ThenICanTheSavedSkillsHealthCheck()
+        [Then(@"I can see the saved Skills health check")]
+        public void ThenICanSeeTheSavedSkillsHealthCheck()
         {
-            ScenarioContext.Current.Pending();
+            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Contain("Started");
         }
 
         [When(@"I delete my Skills health check")]
         public void WhenIDeleteMySkillsHealthCheck()
         {
-            ScenarioContext.Current.Pending();
+            GetNavigatedPage<YourAccountHomePage>().ClickDeleteLink<YourAccountHomePage>().SaveTo(ScenarioContext);
         }
 
         [Then(@"I have no saved Skills health checks")]
         public void ThenIHaveNoSavedSkillsHealthChecks()
         {
-            ScenarioContext.Current.Pending();
+            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Be("No skills health checks found.");
+        }
+
+        [Then(@"I am shown the section I have already started a Skills Health Check")]
+        public void ThenIAmShownTheSectionIHaveAlreadyStartedASkillsHealthCheck()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().SectionHeading.Should().Be("You've already started a Skills Health Check");
+        }
+
+        [When(@"I click on the Show my Skills Health Check documents")]
+        public void WhenIClickOnTheShowMySkillsHealthCheckDocuments()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().ClickShowMySkillHealthCheck<YourAccountHomePage>().SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click the View link")]
+        public void WhenIClickTheViewLink()
+        {
+            GetNavigatedPage<YourAccountHomePage>().ClickViewLink<YourAssesmentsPage>().SaveTo(ScenarioContext);
+        }
+
+        [Then(@"I am asked to confirm the delete")]
+        public void ThenIAmAskedToConfirmTheDelete()
+        {
+            GetNavigatedPage<YourAccountHomePage>().PageSectionTitle.Should().Be("You've asked to delete a document");
+        }
+
+        [When(@"I confirm the delete")]
+        public void WhenIConfirmTheDelete()
+        {
+            GetNavigatedPage<YourAccountHomePage>().ClickDeleteButton<YourAccountHomePage>().SaveTo(ScenarioContext);
+        }
+
+        [When(@"I click on Sign out")]
+        public void WhenIClickOnSignOut()
+        {
+            GetNavigatedPage<YourAccountHomePage>().ClickSignOutLink<Homepage>().SaveTo(ScenarioContext);
+        }
+
+        [Then(@"I am signed out of my account")]
+        public void ThenIAmSignedOutOfMyAccount()
+        {
+            GetNavigatedPage<Homepage>().Title.Should().Contain("Explore careers");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
     {
         public string PageTitle => Find.Element(By.ClassName("heading-xlarge")).Text;
 
-        public string FirstCompletedRowName => Find.Element(By.XPath("//[@id='shc']/tbody/tr/td[1]")).Text;
+        public string FirstCompletedRowName => Find.Element(By.XPath("//*[@id='3']/table/tbody/tr/td[1]")).Text;
 
         public T StartASkillsHealthCheck<T>(string typeOfSkillsHealthCheck)
            where T : UiComponent, new()

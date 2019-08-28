@@ -9,6 +9,8 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public string SignOutLinkText => Find.Element(By.Id("signout-link")).Text;
 
+        public string SectionHeading => Find.Element(By.ClassName("heading-large")).Text;
+
         public T ClickStartANewSkillsHealthCheck<T>()
            where T : UiComponent, new()
         {
@@ -19,6 +21,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
          where T : UiComponent, new()
         {
             return NavigateTo<T>(By.Id("signin-link"));
+        }
+
+        public T ClickShowMySkillHealthCheck<T>()
+        where T : UiComponent, new()
+        {
+            return NavigateTo<T>(By.XPath("//input[@value='Show my Skills Health Check documents']"));
         }
     }
 }

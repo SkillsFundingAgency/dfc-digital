@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WebTest Name="SkillsHealthCheck" Id="b98f7cb2-d286-400b-87cd-37b53f547621" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.2fde2fa4-68c0-4d09-9937-fd4bddbda69d.rec.webtestresult" ResultsLocale="">
   <Items>
-    <Request Method="GET" Guid="128554c7-30e6-4143-9146-8a6acdbf411b" Version="1.1" Url="{{WebServer1}}/skills-health-check/home" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="GET" Guid="128554c7-30e6-4143-9146-8a6acdbf411b" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/home" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="74e3fa55-e94c-4d95-aa57-3e98dd775ff2" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -15,18 +15,10 @@
           </QueryStringParameters>
         </Request>
       </DependentRequests>
-      <ExtractionRules>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="Required" Value="True" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-          </RuleParameters>
-        </ExtractionRule>
-      </ExtractionRules>
     </Request>
-    <Request Method="POST" Guid="fe0e0059-9f08-4162-aa4f-8243cd523218" Version="1.1" Url="{{WebServer1}}/skills-health-check/home/CreateSkillsDocument/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="fe0e0059-9f08-4162-aa4f-8243cd523218" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/home/CreateSkillsDocument/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/home" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/home" />
       </Headers>
       <CorrelationExtractionRules>
         <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="QueryStringParam5236.assessmentType" DisplayName="" Description="">
@@ -42,10 +34,10 @@
         </ExtractionRule>
       </CorrelationExtractionRules>
       <FormPostHttpBody>
-        <FormPostParameter Name="ListTypeFieldsString" Value="{{$HIDDEN1.ListTypeFieldsString}}" RecordedValue="Numeric.Type,Numeric.Answers,Numeric.Complete,Numeric.Ease,Numeric.Timing,Verbal.Type,Verbal.Answers,Verbal.Complete,Verbal.Ease,Verbal.Timing,Motivation.Type,Motivation.Answers,Motivation.Complete,Personal.Type,Personal.Answers,Personal.Complete,SkillAreas.Type,SkillAreas.Answers,SkillAreas.Complete,SkillAreas.ExcludedJobFamilies1,SkillAreas.ExcludedJobFamilies2,SkillAreas.ExcludedJobFamilies3,Mechanical.Type,Mechanical.Answers,Mechanical.Complete,Mechanical.Ease,Mechanical.Timing,Mechanical.Enjoyment,Checking.Type,Checking.Answers,Checking.Complete,Checking.Ease,Checking.Timing,Checking.Enjoyment,Qualification.Level,Interest.Type,Interest.Answers,Interest.Complete,Spatial.Type,Spatial.Answers,Spatial.Complete,Spatial.Ease,Spatial.Timing,Spatial.Enjoyment,Abstract.Type,Abstract.Answers,Abstract.Complete,Abstract.Ease,Abstract.Timing,Abstract.Enjoyment,CandidateFullName" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ListTypeFieldsString" Value="Numeric.Type,Numeric.Answers,Numeric.Complete,Numeric.Ease,Numeric.Timing,Verbal.Type,Verbal.Answers,Verbal.Complete,Verbal.Ease,Verbal.Timing,Motivation.Type,Motivation.Answers,Motivation.Complete,Personal.Type,Personal.Answers,Personal.Complete,SkillAreas.Type,SkillAreas.Answers,SkillAreas.Complete,SkillAreas.ExcludedJobFamilies1,SkillAreas.ExcludedJobFamilies2,SkillAreas.ExcludedJobFamilies3,Mechanical.Type,Mechanical.Answers,Mechanical.Complete,Mechanical.Ease,Mechanical.Timing,Mechanical.Enjoyment,Checking.Type,Checking.Answers,Checking.Complete,Checking.Ease,Checking.Timing,Checking.Enjoyment,Qualification.Level,Interest.Type,Interest.Answers,Interest.Complete,Spatial.Type,Spatial.Answers,Spatial.Complete,Spatial.Ease,Spatial.Timing,Spatial.Enjoyment,Abstract.Type,Abstract.Answers,Abstract.Complete,Abstract.Ease,Abstract.Timing,Abstract.Enjoyment,CandidateFullName" RecordedValue="Numeric.Type,Numeric.Answers,Numeric.Complete,Numeric.Ease,Numeric.Timing,Verbal.Type,Verbal.Answers,Verbal.Complete,Verbal.Ease,Verbal.Timing,Motivation.Type,Motivation.Answers,Motivation.Complete,Personal.Type,Personal.Answers,Personal.Complete,SkillAreas.Type,SkillAreas.Answers,SkillAreas.Complete,SkillAreas.ExcludedJobFamilies1,SkillAreas.ExcludedJobFamilies2,SkillAreas.ExcludedJobFamilies3,Mechanical.Type,Mechanical.Answers,Mechanical.Complete,Mechanical.Ease,Mechanical.Timing,Mechanical.Enjoyment,Checking.Type,Checking.Answers,Checking.Complete,Checking.Ease,Checking.Timing,Checking.Enjoyment,Qualification.Level,Interest.Type,Interest.Answers,Interest.Complete,Spatial.Type,Spatial.Answers,Spatial.Complete,Spatial.Ease,Spatial.Timing,Spatial.Enjoyment,Abstract.Type,Abstract.Answers,Abstract.Complete,Abstract.Ease,Abstract.Timing,Abstract.Enjoyment,CandidateFullName" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="GET" Guid="64172845-c46a-441d-832a-f9996d5a3228" Version="1.1" Url="{{WebServer1}}/skills-health-check/question" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="GET" Guid="64172845-c46a-441d-832a-f9996d5a3228" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="7b13e035-73a5-4aec-8872-9290d0c1cb2d" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -60,16 +52,8 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/your-assessments" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/your-assessments" />
       </Headers>
-      <ExtractionRules>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="Required" Value="True" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-          </RuleParameters>
-        </ExtractionRule>
-      </ExtractionRules>
       <CorrelationExtractionRules>
         <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractFormField, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam217.QuestionAnswer" DisplayName="" Description="">
           <RuleParameters>
@@ -108,51 +92,10 @@
         <QueryStringParameter Name="assessmentType" Value="Mechanical" RecordedValue="Mechanical" CorrelationBinding="{{QueryStringParam5236.assessmentType}}" UrlEncode="False" UseToGroupResults="False" />
       </QueryStringParameters>
     </Request>
-    <Request Method="POST" Guid="4f1167c3-5158-4565-98cc-e1bf48ec31f9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="4f1167c3-5158-4565-98cc-e1bf48ec31f9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
-      <ExtractionRules>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHiddenFields, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="1" DisplayName="Extract Hidden Fields" Description="Extract all hidden fields from the response and place them into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="Required" Value="True" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-          </RuleParameters>
-        </ExtractionRule>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam229.QuestionAnswer" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
-            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&#xD;" />
-            <RuleParameter Name="Index" Value="2" />
-            <RuleParameter Name="IgnoreCase" Value="False" />
-            <RuleParameter Name="UseRegularExpression" Value="False" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-            <RuleParameter Name="Required" Value="False" />
-          </RuleParameters>
-        </ExtractionRule>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam232.Question.QuestionNumber" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
-            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
-            <RuleParameter Name="Index" Value="5" />
-            <RuleParameter Name="IgnoreCase" Value="False" />
-            <RuleParameter Name="UseRegularExpression" Value="False" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-            <RuleParameter Name="Required" Value="False" />
-          </RuleParameters>
-        </ExtractionRule>
-        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam234.Question.NextQuestionNumber" DisplayName="Extract Text" Description="Extract text from the response and place it into the test context.">
-          <RuleParameters>
-            <RuleParameter Name="StartsWith" Value="lue=&quot;" />
-            <RuleParameter Name="EndsWith" Value="&quot; /&gt;&lt;" />
-            <RuleParameter Name="Index" Value="7" />
-            <RuleParameter Name="IgnoreCase" Value="False" />
-            <RuleParameter Name="UseRegularExpression" Value="False" />
-            <RuleParameter Name="HtmlDecode" Value="True" />
-            <RuleParameter Name="Required" Value="False" />
-          </RuleParameters>
-        </ExtractionRule>
-      </ExtractionRules>
       <CorrelationExtractionRules>
         <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam230.answerAction" DisplayName="" Description="">
           <RuleParameters>
@@ -213,7 +156,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="2" RecordedValue="3" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -228,7 +171,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -239,7 +182,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="3" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -254,7 +197,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -265,7 +208,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="4" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -280,7 +223,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -291,7 +234,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="5" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -306,7 +249,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -317,7 +260,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="6" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -332,7 +275,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -343,7 +286,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="7" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -358,7 +301,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -369,7 +312,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="8" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -384,7 +327,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -395,7 +338,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="9" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -410,7 +353,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -421,7 +364,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="10" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -436,7 +379,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -447,7 +390,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="11" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -462,7 +405,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="B" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -473,7 +416,7 @@
         <FormPostParameter Name="Question.NextQuestionNumber" Value="-1" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -488,7 +431,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="3" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -499,7 +442,7 @@
         <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Timing" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -514,7 +457,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="1" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -525,7 +468,7 @@
         <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Ease" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -540,7 +483,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="2" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -551,7 +494,7 @@
         <FormPostParameter Name="FeedbackQuestion.DocValueTitle" Value="Mechanical.Enjoyment" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="https://staging.nationalcareersservice.direct.gov.uk/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="f15ecc5c-824e-4f80-8b9f-f03e6ac891b9" Version="1.1" Url="{{WebServer1}}/skills-assessment/skills-health-check/question/AnswerFeedBackQuestion/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/skills-assessment/skills-health-check/your-assessments" ReportingName="" IgnoreHttpStatusCode="False">
       <DependentRequests>
         <Request Method="GET" Guid="cf208a11-4f53-462c-aec4-9f389be7906e" Version="1.1" Url="{{WebServer1}}/Sitefinity/Public/Services/Statistics/Log.svc/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
           <Headers>
@@ -566,7 +509,7 @@
         </Request>
       </DependentRequests>
       <Headers>
-        <Header Name="Referer" Value="{{WebServer1}}/skills-health-check/question?assessmentType=Mechanical" />
+        <Header Name="Referer" Value="{{WebServer1}}/skills-assessment/skills-health-check/question?assessmentType=Mechanical" />
       </Headers>
       <FormPostHttpBody>
         <FormPostParameter Name="QuestionAnswer" Value="2" RecordedValue="" CorrelationBinding="" UrlEncode="True" />
@@ -579,7 +522,7 @@
     </Request>
   </Items>
   <ContextParameters>
-    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareersservice.direct.gov.uk" />
+    <ContextParameter Name="WebServer1" Value="https://staging-ag.nationalcareers.service.gov.uk" />
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />

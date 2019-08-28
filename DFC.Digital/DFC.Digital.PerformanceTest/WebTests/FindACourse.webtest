@@ -82,7 +82,7 @@
     </DataSource>
   </DataSources>
   <ContextParameters>
-    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareers.service.gov.uk" />
+    <ContextParameter Name="WebServer1" Value="https://staging-ag.nationalcareers.service.gov.uk" />
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">

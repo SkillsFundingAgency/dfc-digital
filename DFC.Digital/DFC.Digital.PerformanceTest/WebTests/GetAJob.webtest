@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WebTest Name="WebTest1" Id="f5142adb-1ed8-4248-a7a8-cf3f47ccfc66" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.51f13fa0-f085-4f8f-883e-5b94954354ff.rec.webtestresult" ResultsLocale="">
+<WebTest Name="GetAJob" Id="f5142adb-1ed8-4248-a7a8-cf3f47ccfc66" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.51f13fa0-f085-4f8f-883e-5b94954354ff.rec.webtestresult" ResultsLocale="">
   <Items>
     <Request Method="GET" Guid="efa93c5d-fabb-4f79-ba8f-9ee866ddb0b4" Version="1.1" Url="{{WebServer1}}/get-a-job" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
     <Request Method="GET" Guid="6f33fe9b-6f84-463a-8ec8-a79c17e69291" Version="1.1" Url="{{WebServer1}}/get-a-job/advertised-job-vacancies" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
@@ -51,7 +51,7 @@
     </Request>
   </Items>
   <ContextParameters>
-    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareers.service.gov.uk" />
+    <ContextParameter Name="WebServer1" Value="https://staging-ag.nationalcareers.service.gov.uk" />
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />

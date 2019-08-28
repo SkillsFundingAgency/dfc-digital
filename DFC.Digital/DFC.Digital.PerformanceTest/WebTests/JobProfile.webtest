@@ -11,7 +11,7 @@
     </DataSource>
   </DataSources>
   <ContextParameters>
-    <ContextParameter Name="WebServer1" Value="https://staging.nationalcareers.service.gov.uk" />
+    <ContextParameter Name="WebServer1" Value="https://staging-ag.nationalcareers.service.gov.uk" />
   </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />

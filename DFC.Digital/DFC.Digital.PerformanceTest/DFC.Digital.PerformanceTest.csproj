@@ -66,6 +66,9 @@
     <None Include="Data\JCSource.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="LoadTest\DFC-15min-1000-Staging-AG - Copy.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="LoadTest\DFC-CircuitBreakerLoad.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -84,7 +87,7 @@
     <None Include="LoadTest\DFC-Load-20-Blue-Green.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LoadTest\DFC-LiveLoad-1000-Staging.loadtest">
+    <None Include="LoadTest\DFC-1hr-1000-Staging-AG.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="LoadTest\DFC-Load-FindACourse.loadtest">
@@ -133,6 +136,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="WebTests\AboutUs.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\ContactUs.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

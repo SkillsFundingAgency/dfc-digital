@@ -83,9 +83,9 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         [Xunit.TheoryAttribute(DisplayName="Complete and download \'Skills Health Check\'")]
         [Xunit.TraitAttribute("FeatureTitle", "SkillsHealthCheck")]
         [Xunit.TraitAttribute("Description", "Complete and download \'Skills Health Check\'")]
-        [Xunit.InlineDataAttribute("Motivation", "42", "chrome", new string[] {
-                "args:Motivation,42"})]
-        public virtual void CompleteAndDownloadSkillsHealthCheck(string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Working with shapes", "Spatial", "17", "chrome", new string[] {
+                "args:Working with shapes,Spatial,17"})]
+        public virtual void CompleteAndDownloadSkillsHealthCheck(string checkTitle, string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Complete and download \'Skills Health Check\'", null, exampleTags);
@@ -101,7 +101,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 8
  testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", typeOfSkillsHealthCheck, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", checkTitle, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
  testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
@@ -123,9 +123,9 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "SkillsHealthCheck")]
         [Xunit.TraitAttribute("Description", "Sign in complete a check, sign out and back in to access completed saved checks i" +
             "n my account")]
-        [Xunit.InlineDataAttribute("Motivation", "42", "chrome", new string[] {
-                "args:Motivation,42"})]
-        public virtual void SignInCompleteACheckSignOutAndBackInToAccessCompletedSavedChecksInMyAccount(string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
+        [Xunit.InlineDataAttribute("Solving mechanical problems", "Mechanical", "14", "chrome", new string[] {
+                "args:Solving mechanical problems,Mechanical,14"})]
+        public virtual void SignInCompleteACheckSignOutAndBackInToAccessCompletedSavedChecksInMyAccount(string checkTitle, string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign in complete a check, sign out and back in to access completed saved checks i" +
@@ -152,7 +152,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 30
  testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
- testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", typeOfSkillsHealthCheck, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", checkTitle, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 32
  testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 33
@@ -162,7 +162,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 35
  testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 36
- testRunner.And(string.Format("I can see my completed {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I can see my completed {0} check", checkTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 37
  testRunner.When("I click on the Your Account link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 38
@@ -194,7 +194,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 51
  testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 52
- testRunner.And(string.Format("I can see my completed {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I can see my completed {0} check", checkTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 53
  testRunner.When("I click on the Your Account link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 54

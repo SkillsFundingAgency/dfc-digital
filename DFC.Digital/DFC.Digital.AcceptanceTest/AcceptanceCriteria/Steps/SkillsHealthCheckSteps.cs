@@ -50,9 +50,9 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         }
 
         [Then(@"I am redirected to the start page for a (.*) check with (.*) questions to answer")]
-        public void ThenIAmRedirectedToTheStartPageForASkillsHealthCheckCheckWithQuestionsToAnswer(string typeOfSkillsHealthCheck, int numberOfQuestions)
+        public void ThenIAmRedirectedToTheStartPageForASkillsHealthCheckCheckWithQuestionsToAnswer(string checkTitle, int numberOfQuestions)
         {
-            GetNavigatedPage<SkillsHealthCheckPage>().PageTitle.ToUpperInvariant().Should().Contain(typeOfSkillsHealthCheck.ToUpperInvariant());
+            GetNavigatedPage<SkillsHealthCheckPage>().PageTitle.ToUpperInvariant().Should().Contain(checkTitle.ToUpperInvariant());
             GetNavigatedPage<SkillsHealthCheckPage>().PageTitle.Should().Contain($"Question 1 out of {numberOfQuestions}");
         }
 

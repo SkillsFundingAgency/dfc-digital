@@ -6,7 +6,7 @@ Scenario Outline: Complete and download 'Skills Health Check'
 	When I click on Start a new Skills Health Check button
 	Then I am directed to the Your Assessments List page
 	When I select to start the <TypeOfSkillsHealthCheck> check
-	Then I am redirected to the start page for a <TypeOfSkillsHealthCheck> check with <QuestionsToAnswer> questions to answer
+	Then I am redirected to the start page for a <CheckTitle> check with <QuestionsToAnswer> questions to answer
 	When I answer all <QuestionsToAnswer> questions 
 	Then on the last question I see the Return to Skills health check page button
 	When I click on the Return to Skills health check page button 
@@ -14,8 +14,8 @@ Scenario Outline: Complete and download 'Skills Health Check'
 	And I can down load my completed assessment as a PDF 
 	And I can down load my completed assessment as a Word document 
 Examples: 
-| TypeOfSkillsHealthCheck	| QuestionsToAnswer	| 
-| Motivation				| 42				|  
+| CheckTitle			| TypeOfSkillsHealthCheck	| QuestionsToAnswer |
+| Working with shapes	| Spatial					| 17                |  
 
 
 Scenario Outline: Sign in complete a check, sign out and back in to access completed saved checks in my account 
@@ -28,12 +28,12 @@ Scenario Outline: Sign in complete a check, sign out and back in to access compl
 	When I click on Start a new Skills Health Check button
 	Then I am directed to the Your Assessments List page
 	When I select to start the <TypeOfSkillsHealthCheck> check
-	Then I am redirected to the start page for a <TypeOfSkillsHealthCheck> check with <QuestionsToAnswer> questions to answer
+	Then I am redirected to the start page for a <CheckTitle> check with <QuestionsToAnswer> questions to answer
 	When I answer all <QuestionsToAnswer> questions 
 	Then on the last question I see the Return to Skills health check page button
 	When I click on the Return to Skills health check page button 
 	Then I am taken back to the Your Assessments page
-	And I can see my completed <TypeOfSkillsHealthCheck> check
+	And I can see my completed <CheckTitle> check
 	When I click on the Your Account link
 	Then I am redirected to the Your Account Home page
 	And I can see the saved Skills health check
@@ -49,7 +49,7 @@ Scenario Outline: Sign in complete a check, sign out and back in to access compl
 	Then I am redirected to the Your Account Home page
 	When I click the View link
 	Then I am taken back to the Your Assessments page
-	And I can see my completed <TypeOfSkillsHealthCheck> check
+	And I can see my completed <CheckTitle> check
 	When I click on the Your Account link
 	Then I am redirected to the Your Account Home page
 	And I can see the saved Skills health check
@@ -62,6 +62,8 @@ Scenario Outline: Sign in complete a check, sign out and back in to access compl
 	Then I am signed out of my account
 	
 Examples: 
-| TypeOfSkillsHealthCheck	| QuestionsToAnswer	| 
-| Motivation				| 42				|  
+| CheckTitle					| TypeOfSkillsHealthCheck	| QuestionsToAnswer |
+| Solving mechanical problems	| Mechanical				| 14               |  
+
+
 

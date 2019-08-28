@@ -11,14 +11,14 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public void AnswerQuestion(int answerValue)
         {
-            Find.Element(By.XPath($"//input[@value='{answerValue}']")).Click();
+            Find.Element(By.XPath($"//*[@id='skillsForm']/div[1]/fieldset/label[{answerValue}]/input")).Click();
             Find.Element(By.Name("answerAction")).Click();
         }
 
         public T FinishSkillsHealthCheck<T>(int answerValue)
            where T : UiComponent, new()
         {
-            Find.Element(By.XPath($"//input[@value='{answerValue}']")).Click();
+            Find.Element(By.XPath($"//*[@id='skillsForm']/div[1]/fieldset/label[{answerValue}]/input")).Click();
             return NavigateTo<T>(By.Name("answerAction"));
         }
     }

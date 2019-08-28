@@ -217,4 +217,11 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpEndPoint']/@value" />
   </parameter>
+  <parameter name="MicroService-HelpPreviewEndPoint"
+            description="Micro services preview endpoint for Help key to be replaced by VSTS task"
+            defaultValue="__MicroServiceHelpPreviewEndPoint__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpPreviewEndPoint']/@value" />
+  </parameter>
 </parameters>

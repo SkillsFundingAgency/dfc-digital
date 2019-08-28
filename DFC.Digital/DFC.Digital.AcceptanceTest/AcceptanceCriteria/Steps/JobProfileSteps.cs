@@ -386,6 +386,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<VocSurveyPage>().IsJPSurveyQuestionDisplayed().Should().BeTrue();
         }
 
+        [Then(@"I am redirected to the explore careers page")]
+        public void ThenIAmRedirectedToTheExploreCareersPage()
+        {
+            GetNavigatedPage<ExploreCareersPage>().PageHeader.Should().Be("Explore careers");
+        }
+
         #endregion
     }
 }

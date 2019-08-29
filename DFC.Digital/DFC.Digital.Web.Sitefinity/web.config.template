@@ -209,8 +209,8 @@ that is bundled with the nuget package under the tools folder.
         <add assembly="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
         <add assembly="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
         <add assembly="PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-
-        <add assembly="Telerik.OpenAccess, Version=2016.2.822.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" />
+<add assembly="Telerik.OpenAccess, Version=2018.0.1127.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" />
+        <add assembly="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
       </assemblies>
       <buildProviders>
         <remove extension=".svc" />
@@ -651,25 +651,46 @@ that is bundled with the nuget package under the tools folder.
         <assemblyIdentity name="AutoMapper" publicKeyToken="be96cd2c38ef1005" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-8.0.0.0" newVersion="8.0.0.0" />
       </dependentAssembly>
-      <dependentAssembly>
+     <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-11.2.6921.0" newVersion="11.2.6921.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
+ <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Frontend" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Search" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Search.Impl" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Mvc" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.SitemapGenerator" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+      </dependentAssembly>
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -709,7 +730,7 @@ that is bundled with the nuget package under the tools folder.
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Buffers" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.3.0" newVersion="4.0.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.2.0" newVersion="4.0.2.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Numerics.Vectors" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
@@ -719,6 +740,31 @@ that is bundled with the nuget package under the tools folder.
         <assemblyIdentity name="Microsoft.AspNet.TelemetryCorrelation" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-1.0.5.0" newVersion="1.0.5.0" />
       </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-7.5.0.20627" newVersion="7.5.0.20627" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Web.UI" publicKeyToken="121fae78165ba3d4" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2019.1.115.45" newVersion="2019.1.115.45" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Windows.Documents" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2019.1.116.45" newVersion="2019.1.116.45" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Windows.Documents.Fixed" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2019.1.114.40" newVersion="2019.1.114.40" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Windows.Documents.FormatProviders.Rtf" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2019.1.116.45" newVersion="2019.1.116.45" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Windows.Documents.FormatProviders.Html" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2019.1.116.45" newVersion="2019.1.116.45" />
+      </dependentAssembly>
+      <dependentAssembly>
     </assemblyBinding>
   </runtime>
   <entityFramework>

@@ -280,7 +280,6 @@
             <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
             <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
             <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
-            <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
             <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" />
             <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" />
         </httpModules>
@@ -356,7 +355,6 @@
             <!--<add name="OutputCache" type="Telerik.Sitefinity.Web.OutputCache.SitefinityOutputCacheModule, Telerik.Sitefinity" preCondition="integratedMode" />-->
             <add name="ScriptModule" preCondition="managedHandler" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
             <add name="RadUploadModule" type="Telerik.Web.UI.RadUploadHttpModule, Telerik.Web.UI" />
-            <add name="SitefinityAnalyticsModule" type="Telerik.Sitefinity.Analytics.Server.DependencyResolution.Module.DependencyRegistrarHttpModule, Telerik.Sitefinity.Analytics.Server.Infrastructure" />
             <remove name="TelemetryCorrelationHttpModule" />
             <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" preCondition="integratedMode,managedHandler" />
             <remove name="ApplicationInsightsWebTracking" />

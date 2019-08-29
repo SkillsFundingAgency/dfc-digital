@@ -9,6 +9,8 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public string ActionButtonText => Find.Element(By.Name("answerAction")).GetAttribute("value");
 
+        public string ErrorMessage => Find.Element(By.Id("QuestionAnswer-error")).Text;
+
         public void AnswerQuestion(int answerValue)
         {
             Find.Element(By.XPath($"//*[@id='skillsForm']/div[1]/fieldset/label[{answerValue}]/input")).Click();
@@ -20,6 +22,11 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         {
             Find.Element(By.XPath($"//*[@id='skillsForm']/div[1]/fieldset/label[{answerValue}]/input")).Click();
             return NavigateTo<T>(By.Name("answerAction"));
+        }
+
+        public void ClickContinue()
+        {
+            Find.Element(By.Name("answerAction")).Click();
         }
     }
 }

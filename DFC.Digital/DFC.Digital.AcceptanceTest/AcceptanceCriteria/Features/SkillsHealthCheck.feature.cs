@@ -114,6 +114,8 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("I can down load my completed assessment as a PDF", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
  testRunner.And("I can down load my completed assessment as a Word document", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.Then("I clear my session to remove my temp Skills Health Check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -130,91 +132,131 @@ this.ScenarioInitialize(scenarioInfo);
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sign in complete a check, sign out and back in to access completed saved checks i" +
                     "n my account", null, exampleTags);
-#line 21
+#line 22
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 22
- testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 23
- testRunner.And("I click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
- testRunner.Then("I am directed to the SignIn Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 25
- testRunner.When("I sign in with an existing user name and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 26
- testRunner.Then("I am directed back to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 27
- testRunner.And("I am now signed in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
- testRunner.When("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 29
- testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 30
- testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 31
- testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", checkTitle, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 32
- testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
- testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 34
- testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 35
- testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 36
- testRunner.And(string.Format("I can see my completed {0} check", checkTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 37
- testRunner.When("I click on the Your Account link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 38
- testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 39
- testRunner.And("I can see the saved Skills health check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
- testRunner.When("I click on Sign out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
- testRunner.Then("I am signed out of my account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 42
  testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 43
- testRunner.When("I click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 44
+#line 24
+ testRunner.And("I click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
  testRunner.Then("I am directed to the SignIn Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 45
+#line 26
  testRunner.When("I sign in with an existing user name and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 27
  testRunner.Then("I am directed back to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 47
- testRunner.And("I am shown the section I have already started a Skills Health Check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
- testRunner.When("I click on the Show my Skills Health Check documents", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 49
- testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 50
- testRunner.When("I click the View link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 51
+#line 28
+ testRunner.And("I am now signed in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+ testRunner.When("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+ testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 31
+ testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", checkTitle, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 33
+ testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 35
+ testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
  testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 52
+#line 37
  testRunner.And(string.Format("I can see my completed {0} check", checkTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 53
+#line 38
  testRunner.When("I click on the Your Account link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
+#line 39
  testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 55
+#line 40
  testRunner.And("I can see the saved Skills health check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
- testRunner.When("I delete my Skills health check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 57
- testRunner.Then("I am asked to confirm the delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 58
- testRunner.When("I confirm the delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 59
- testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 60
- testRunner.And("I have no saved Skills health checks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 61
+#line 41
  testRunner.When("I click on Sign out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 62
+#line 42
  testRunner.Then("I am signed out of my account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 43
+ testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 44
+ testRunner.When("I click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+ testRunner.Then("I am directed to the SignIn Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+ testRunner.When("I sign in with an existing user name and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 47
+ testRunner.Then("I am directed back to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 48
+ testRunner.And("I am shown the section I have already started a Skills Health Check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 49
+ testRunner.When("I click on the Show my Skills Health Check documents", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
+ testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 51
+ testRunner.When("I click the View link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
+ testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 53
+ testRunner.And(string.Format("I can see my completed {0} check", checkTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+ testRunner.When("I click on the Your Account link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 55
+ testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 56
+ testRunner.And("I can see the saved Skills health check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 57
+ testRunner.When("I delete my Skills health check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+ testRunner.Then("I am asked to confirm the delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 59
+ testRunner.When("I confirm the delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 60
+ testRunner.Then("I am redirected to the Your Account Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 61
+ testRunner.And("I have no saved Skills health checks", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 62
+ testRunner.When("I click on Sign out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 63
+ testRunner.Then("I am signed out of my account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.TheoryAttribute(DisplayName="Must answer a question before you can continue to the next one.")]
+        [Xunit.TraitAttribute("FeatureTitle", "SkillsHealthCheck")]
+        [Xunit.TraitAttribute("Description", "Must answer a question before you can continue to the next one.")]
+        [Xunit.InlineDataAttribute("Solving mechanical problems", "Mechanical", "14", "chrome", new string[] {
+                "args:Solving mechanical problems,Mechanical,14"})]
+        public virtual void MustAnswerAQuestionBeforeYouCanContinueToTheNextOne_(string checkTitle, string typeOfSkillsHealthCheck, string questionsToAnswer, string browser, string[] exampleTags)
+        {
+            this._browser = browser;
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Must answer a question before you can continue to the next one.", null, exampleTags);
+#line 71
+this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 72
+ testRunner.Given("I navigate to the Skills Health Check Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 73
+ testRunner.When("I click on Start a new Skills Health Check button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 74
+ testRunner.Then("I am directed to the Your Assessments List page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 75
+ testRunner.When(string.Format("I select to start the {0} check", typeOfSkillsHealthCheck), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 76
+ testRunner.Then(string.Format("I am redirected to the start page for a {0} check with {1} questions to answer", checkTitle, questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 77
+ testRunner.When("I try to continue with out answering a question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 78
+ testRunner.Then("I am shown an error message and not allowed to continue", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 79
+ testRunner.When(string.Format("I answer all {0} questions", questionsToAnswer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 80
+ testRunner.Then("on the last question I see the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 81
+ testRunner.When("I click on the Return to Skills health check page button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 82
+ testRunner.Then("I am taken back to the Your Assessments page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 83
+ testRunner.Then("I clear my session to remove my temp Skills Health Check", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

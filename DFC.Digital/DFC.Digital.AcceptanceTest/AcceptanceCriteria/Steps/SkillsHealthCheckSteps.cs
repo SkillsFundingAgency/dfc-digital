@@ -13,9 +13,14 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
     [Binding]
     public class SkillsHealthCheckSteps : BaseStep
     {
+        #region Ctor
         public SkillsHealthCheckSteps(BrowserStackSelenoHost browserStackSelenoHost, ScenarioContext scenarioContext) : base(browserStackSelenoHost, scenarioContext)
         {
         }
+
+        #endregion Ctor
+
+        #region Givens
 
         [Given(@"I navigate to the Skills Health Check Home page")]
         public void GivenINavigateToTheSkillsHealthCheckHomePage()
@@ -29,6 +34,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         {
             GetNavigatedPage<SkillsHealthCheckHomePage>().ClickSignIn<SignInPage>().SaveTo(ScenarioContext);
         }
+
+        #endregion Givens
+
+        #region Thens
 
         [Then(@"I can see my completed (.*) check")]
         public void ThenICanSeeMyCompletedChecks(string typeOfSkillsHealthCheck)
@@ -92,6 +101,59 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<SkillsHealthCheckHomePage>().SignOutLinkText.Should().Be("Sign out");
         }
 
+        [Then(@"I am redirected to the Your Account Home page")]
+        public void ThenIAmRedirectedToTheYourAccountHomePage()
+        {
+            GetNavigatedPage<YourAccountHomePage>().PageTitle.Should().Contain("Your account");
+        }
+
+        [Then(@"I can see the saved Skills health check")]
+        public void ThenICanSeeTheSavedSkillsHealthCheck()
+        {
+            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Contain("Started");
+        }
+
+        [Then(@"I have no saved Skills health checks")]
+        public void ThenIHaveNoSavedSkillsHealthChecks()
+        {
+            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Be("No skills health checks found.");
+        }
+
+        [Then(@"I am shown the section I have already started a Skills Health Check")]
+        public void ThenIAmShownTheSectionIHaveAlreadyStartedASkillsHealthCheck()
+        {
+            GetNavigatedPage<SkillsHealthCheckHomePage>().SectionHeading.Should().Be("You've already started a Skills Health Check");
+        }
+
+        [Then(@"I am asked to confirm the delete")]
+        public void ThenIAmAskedToConfirmTheDelete()
+        {
+            GetNavigatedPage<YourAccountHomePage>().PageSectionTitle.Should().Be("You've asked to delete a document");
+        }
+
+        [Then(@"I am signed out of my account")]
+        public void ThenIAmSignedOutOfMyAccount()
+        {
+            GetNavigatedPage<Homepage>().Title.Should().Contain("Explore careers");
+        }
+
+        [Then(@"I am shown an error message and not allowed to continue")]
+        public void ThenIAmShownAnErrorMessageAndNotAllowedToContinue()
+        {
+            GetNavigatedPage<SkillsHealthCheckPage>().ErrorMessage.Should().Be("Choose an answer");
+        }
+
+        [Then(@"I clear my session to remove my temp Skills Health Check")]
+        public void ThenIClearMyShillsHealthCheck()
+        {
+            DeleteCookie("ASP.NET_SessionId");
+            RefreshPage();
+        }
+
+        #endregion Thens
+
+        #region Whens
+
         [When(@"I select to start the (.*) check")]
         public void WhenISelectToStartANewSkilsHealthCheckCheck(string typeOfSkillsHealthCheck)
         {
@@ -134,34 +196,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<YourAssesmentsPage>().ClickYourAccountLink<YourAccountHomePage>().SaveTo(ScenarioContext);
         }
 
-        [Then(@"I am redirected to the Your Account Home page")]
-        public void ThenIAmRedirectedToTheYourAccountHomePage()
-        {
-            GetNavigatedPage<YourAccountHomePage>().PageTitle.Should().Contain("Your account");
-        }
-
-        [Then(@"I can see the saved Skills health check")]
-        public void ThenICanSeeTheSavedSkillsHealthCheck()
-        {
-            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Contain("Started");
-        }
-
         [When(@"I delete my Skills health check")]
         public void WhenIDeleteMySkillsHealthCheck()
         {
             GetNavigatedPage<YourAccountHomePage>().ClickDeleteLink<YourAccountHomePage>().SaveTo(ScenarioContext);
-        }
-
-        [Then(@"I have no saved Skills health checks")]
-        public void ThenIHaveNoSavedSkillsHealthChecks()
-        {
-            GetNavigatedPage<YourAccountHomePage>().SkillsHealthChecksFirstRowFirstColumn.Should().Be("No skills health checks found.");
-        }
-
-        [Then(@"I am shown the section I have already started a Skills Health Check")]
-        public void ThenIAmShownTheSectionIHaveAlreadyStartedASkillsHealthCheck()
-        {
-            GetNavigatedPage<SkillsHealthCheckHomePage>().SectionHeading.Should().Be("You've already started a Skills Health Check");
         }
 
         [When(@"I click on the Show my Skills Health Check documents")]
@@ -176,12 +214,6 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<YourAccountHomePage>().ClickViewLink<YourAssesmentsPage>().SaveTo(ScenarioContext);
         }
 
-        [Then(@"I am asked to confirm the delete")]
-        public void ThenIAmAskedToConfirmTheDelete()
-        {
-            GetNavigatedPage<YourAccountHomePage>().PageSectionTitle.Should().Be("You've asked to delete a document");
-        }
-
         [When(@"I confirm the delete")]
         public void WhenIConfirmTheDelete()
         {
@@ -194,10 +226,12 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             GetNavigatedPage<YourAccountHomePage>().ClickSignOutLink<Homepage>().SaveTo(ScenarioContext);
         }
 
-        [Then(@"I am signed out of my account")]
-        public void ThenIAmSignedOutOfMyAccount()
+        [When(@"I try to continue with out answering a question")]
+        public void WhenITryToContinueWithOutAnsweringAQuestion()
         {
-            GetNavigatedPage<Homepage>().Title.Should().Contain("Explore careers");
+            GetNavigatedPage<SkillsHealthCheckPage>().ClickContinue();
         }
+
+        #endregion Whens
     }
 }

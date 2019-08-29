@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
@@ -40,7 +41,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Given(@"that I am viewing the search results page for '(.*)'")]
         public void GivenThatIAmViewingTheSearchResultsPageFor(string previousSearchTerm)
         {
-            NavigateToHomePage<Homepage, JobProfileSearchBoxViewModel>()
+            NavigateToExploreCareersPage<ExploreCareersPage, JobProfileSearchBoxViewModel>()
                 .Search<SearchPage>(new JobProfileSearchBoxViewModel
                 {
                     SearchTerm = previousSearchTerm
@@ -61,7 +62,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I search using '(.*)'")]
         public void WhenISearchUsing(string searchTerm)
         {
-            GetNavigatedPage<Homepage>()
+            GetNavigatedPage<ExploreCareersPage>()
                 .Search<SearchPage>(new JobProfileSearchBoxViewModel
                 {
                     SearchTerm = searchTerm
@@ -117,19 +118,19 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             {
                 case "Search results":
                     var searchPage = GetNavigatedPage<SearchPage>();
-                    searchPage.ClickExploreCareerBreadcrumb<Homepage>()
+                    searchPage.ClickExploreCareerBreadcrumb<ExploreCareersPage>()
                         .SaveTo(ScenarioContext);
                     break;
 
                 case "Job profile":
                     var jobProfile = GetNavigatedPage<JobProfilePage>();
-                    jobProfile.ClickExploreCareerBreadcrumb<Homepage>()
+                    jobProfile.ClickExploreCareerBreadcrumb<ExploreCareersPage>()
                         .SaveTo(ScenarioContext);
                     break;
 
                 case "Job category":
                     var jobCategory = GetNavigatedPage<JobProfileCategoryPage>();
-                    jobCategory.ClickExploreCareerBreadcrumb<Homepage>()
+                    jobCategory.ClickExploreCareerBreadcrumb<ExploreCareersPage>()
                         .SaveTo(ScenarioContext);
                     break;
             }
@@ -138,18 +139,18 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I select suggested result no '(.*)' and search")]
         public void WhenISelectSuggestedResultNo(int suggestionNo)
         {
-            var homePage = GetNavigatedPage<Homepage>();
-            ScenarioContext.Set(homePage.GetSuggestedSearchText(suggestionNo), "selectedSearch");
-            homePage.SelectSuggestedSearch(suggestionNo);
-            homePage.Search<SearchPage>()
+            var exploreCareersPage = GetNavigatedPage<ExploreCareersPage>();
+            ScenarioContext.Set(exploreCareersPage.GetSuggestedSearchText(suggestionNo), "selectedSearch");
+            exploreCareersPage.SelectSuggestedSearch(suggestionNo);
+            exploreCareersPage.Search<SearchPage>()
             .SaveTo(ScenarioContext);
         }
 
         [When(@"I enter the term '(.*)'")]
         public void WhenIEnterTheTerm(string searchTerm)
         {
-            var homePage = GetNavigatedPage<Homepage>();
-            homePage.EnterSearchText(searchTerm);
+            var exploreCareersPage = GetNavigatedPage<ExploreCareersPage>();
+            exploreCareersPage.EnterSearchText(searchTerm);
         }
 
         [When(@"I click the first category link on result no '(.*)'")]
@@ -403,8 +404,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the suggested results should appear")]
         public void ThenTheSuggestedResultsShouldAppear()
         {
-            var homePage = GetNavigatedPage<Homepage>();
-            homePage.HasSuggestedSearch.Should().BeTrue();
+            var exploreCareersPage = GetNavigatedPage<ExploreCareersPage>();
+            exploreCareersPage.HasSuggestedSearch.Should().BeTrue();
         }
 
         [Then(@"the search box should populate with the selected result")]
@@ -419,8 +420,8 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"the suggested box should be disappear")]
         public void ThenTheSuggestedBoxShouldBeDisappear()
         {
-            var homePage = GetNavigatedPage<Homepage>();
-            homePage.HasSuggestedSearch.Should().BeFalse();
+            var exploreCareersPage = GetNavigatedPage<ExploreCareersPage>();
+            exploreCareersPage.HasSuggestedSearch.Should().BeFalse();
         }
 
         #endregion Then

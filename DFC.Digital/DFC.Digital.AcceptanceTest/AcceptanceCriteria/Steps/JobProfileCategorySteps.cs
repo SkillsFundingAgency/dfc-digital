@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.AcceptanceTest.Infrastructure;
+using DFC.Digital.AcceptanceTest.Infrastructure.Pages;
 using DFC.Digital.AutomationTest.Utilities;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FluentAssertions;
@@ -42,7 +43,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I click on job profile category no '(\d+)'")]
         public void WhenIClickOnJobProfileCategory(int category)
         {
-            var homePage = GetNavigatedPage<Homepage>();
+            var homePage = GetNavigatedPage<ExploreCareersPage>();
             firstobProfileCategoryUrl = homePage.GetJobProfileCategoryUrl(category);
             homePage.GoToResult<JobProfileCategoryPage>(category).SaveTo(ScenarioContext);
         }

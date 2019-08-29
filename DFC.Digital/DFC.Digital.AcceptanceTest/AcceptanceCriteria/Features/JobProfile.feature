@@ -6,7 +6,7 @@ Scenario: [DFC-1342 - A2] Profile Page displays the correct breadcrumb and links
 	Then the correct 'Job profile' breadcrumb is displayed
 
 	When I click the Explore career breadcrumb on 'Job profile'
-	Then I am redirected to the homepage
+	Then I am redirected to the explore careers page
 
 Scenario: [DFC-1335 - A1] Profile Page displays Related careers with no more than 5 shown and takes you to the correct carers page
 	Given that I am viewing the 'gp' job profile page

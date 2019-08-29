@@ -762,7 +762,6 @@
                 <assemblyIdentity name="Telerik.Windows.Documents.FormatProviders.Html" publicKeyToken="5803cfa389c90ce7" culture="neutral" />
                 <bindingRedirect oldVersion="0.0.0.0-2019.1.116.45" newVersion="2019.1.116.45" />
             </dependentAssembly>
-            <dependentAssembly>
         </assemblyBinding>
     </runtime>
     <entityFramework>

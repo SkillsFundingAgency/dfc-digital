@@ -81,5 +81,6 @@ namespace DFC.Digital.Core
         public const string Content = "Content";
         public const string JobProfile = "JobProfile";
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
+        public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
     }
 }

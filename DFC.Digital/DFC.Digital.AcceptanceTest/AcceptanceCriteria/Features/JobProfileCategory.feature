@@ -6,7 +6,7 @@ Scenario: [DFC-1342 - A3] Job Category Page displays the correct breadcrumb and 
 	Then the correct 'Job category' breadcrumb is displayed
 
 	When I click the Explore career breadcrumb on 'Job category'
-	Then I am redirected to the homepage
+	Then I am redirected to the explore careers page
 
 
 @EndToEnd
@@ -29,7 +29,7 @@ Scenario: Navigate between different categories
 
 @EndToEnd
 Scenario: Job Profile Category End to End Test
-	Given that I am viewing the Home page
+	Given that I am viewing the Explore careers page
 	Then display the "Explore by job category" text
 	And display a list of job profile categories
 

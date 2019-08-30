@@ -79,6 +79,16 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
             return page;
         }
 
+        public TPage NavigateToExploreCareersPage<TPage, TModel>()
+            where TPage : DFCPageWithViewModel<TModel>, new()
+            where TModel : class, new()
+        {
+            var page = Instance.NavigateToInitialPage<TPage>($"{RootUrl.OriginalString}/explore-careers");
+            ScenarioContext.Set(page);
+
+            return page;
+        }
+
         public TPage NavigateToYourAssesmentsPage<TPage>()
              where TPage : UiComponent, new()
         {

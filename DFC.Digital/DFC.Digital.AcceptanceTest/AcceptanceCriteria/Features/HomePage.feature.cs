@@ -81,27 +81,6 @@ testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractio
         }
         
         [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
-        [Xunit.TraitAttribute("Description", "[DFC-274 - A2] Job profile category page")]
-        [Xunit.TheoryAttribute(DisplayName="[DFC-274 - A2] Job profile category page")]
-        [Xunit.InlineDataAttribute("chrome")]
-        public virtual void DFC_274_A2JobProfileCategoryPage(string browser)
-        {
-            this._browser = browser;
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[DFC-274 - A2] Job profile category page", null, ((string[])(null)));
-#line 5
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 6
- testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
- testRunner.When("I click on job profile category no \'5\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 8
- testRunner.Then("display the job profile category page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.TraitAttribute("FeatureTitle", "HomePage")]
         [Xunit.TraitAttribute("Description", "404 Page is displayed when navigating to a profile that doesn\'t exist")]
         [Xunit.TheoryAttribute(DisplayName="404 Page is displayed when navigating to a profile that doesn\'t exist")]
         [Xunit.InlineDataAttribute("chrome")]
@@ -111,21 +90,17 @@ this.ScenarioInitialize(scenarioInfo);
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("404 Page is displayed when navigating to a profile that doesn\'t exist", null, new string[] {
                         "EndToEnd"});
-#line 11
+#line 6
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 12
+#line 7
  testRunner.Given("that I am viewing the \'profile-does-not-exist\' job profile page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 13
+#line 8
  testRunner.Then("I am redirected to the 404 page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 15
+#line 10
  testRunner.When("I click on the Back To Homepage link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 11
  testRunner.Then("I am redirected to the homepage", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 17
- testRunner.And("display the \"Explore by job category\" text", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
- testRunner.And("display a list of job profile categories", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -138,14 +113,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Footer - Check Privacy & Cookies link", null, ((string[])(null)));
-#line 20
+#line 13
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 21
+#line 14
  testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 22
+#line 15
  testRunner.When("I click the Privacy link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
+#line 16
  testRunner.Then("I am redirected to the Privacy page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -159,14 +134,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Footer - Check T&C link", null, ((string[])(null)));
-#line 25
+#line 18
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 26
+#line 19
  testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
+#line 20
  testRunner.When("I click the T&C link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
+#line 21
  testRunner.Then("I am redirected to the T&C page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -180,14 +155,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Footer - Check Information Sources link", null, ((string[])(null)));
-#line 30
+#line 23
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 31
+#line 24
  testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 32
+#line 25
  testRunner.When("I click the Information Sources link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
+#line 26
  testRunner.Then("I am redirected to the Information Sources page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -201,14 +176,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Footer - Check Help link", null, ((string[])(null)));
-#line 35
+#line 28
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 36
+#line 29
  testRunner.Given("that I am viewing the Home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 37
+#line 30
  testRunner.When("I click the Help link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 38
+#line 31
  testRunner.Then("I am redirected to the Help page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -222,12 +197,12 @@ this.ScenarioInitialize(scenarioInfo);
         {
             this._browser = browser;
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Check Health Status page", null, ((string[])(null)));
-#line 40
+#line 33
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 41
+#line 34
  testRunner.Given("that I am viewing the health status page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 42
+#line 35
  testRunner.Then("I am redirected to the Health Status page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

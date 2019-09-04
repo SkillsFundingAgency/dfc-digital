@@ -179,6 +179,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\ExploreCareersFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExploreCareersFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Steps\ExploreCareersSteps.cs" />
     <Compile Include="AcceptanceCriteria\Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

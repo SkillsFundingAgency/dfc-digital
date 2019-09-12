@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LoadTest Name="DFC-AG-1000-Staging-AG" Description="" Owner="" storage="c:\beta\dfc.digital\dfc.digital.performancetest\loadtest\dfc-ag-1000-staging-ag.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Run Settings1" Id="a7013a7f-9734-4c3b-a97e-01da356b2e09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+<LoadTest Name="DFC-1hr-1000-Staging" Description="" Owner="" storage="c:\beta\dfc.digital\dfc.digital.performancetest\loadtest\dfc-1hr-1000-staging.loadtest" Priority="2147483647" Enabled="true" CssProjectStructure="" CssIteration="" DeploymentItemsEditable="" WorkItemIds="" TraceLevel="None" CurrentRunConfig="Run Settings1" Id="a7013a7f-9734-4c3b-a97e-01da356b2e09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
   <Scenarios>
-    <Scenario Name="DFC-LiveLoad-1000-Staging" DelayBetweenIterations="5" PercentNewUsers="0" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
+    <Scenario Name="DFC-LiveLoad-1000-Staging" DelayBetweenIterations="5" PercentNewUsers="100" IPSwitching="false" TestMixType="PercentageOfTestsStarted" ApplyDistributionToPacingDelay="true" MaxTestIterations="0" DisableDuringWarmup="false" DelayStartTime="0" AllowedAgents="">
       <ThinkProfile Value="0.2" Pattern="NormalDistribution" />
       <LoadProfile Pattern="Step" InitialUsers="200" MaxUsers="1000" StepUsers="200" StepDuration="180" StepRampTime="90" />
       <TestMix>
@@ -447,7 +447,7 @@
         <GeoLocation Location="West Europe" Percentage="100" />
       </LoadGeneratorLocations>
       <ContextParameters>
-        <ContextParameter Name="WebServer1" Value="https://staging-ag.nationalcareers.service.gov.uk" />
+        <ContextParameter Name="WebServer1" Value="https://staging.nationalcareers.service.gov.uk" />
       </ContextParameters>
     </RunConfiguration>
   </RunConfigurations>

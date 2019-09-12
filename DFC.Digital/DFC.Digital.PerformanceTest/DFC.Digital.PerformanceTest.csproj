@@ -87,7 +87,7 @@
     <None Include="LoadTest\DFC-Load-20-Blue-Green.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="LoadTest\DFC-1hr-1000-Staging-AG.loadtest">
+    <None Include="LoadTest\DFC-1hr-1000-Staging.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="LoadTest\DFC-Load-FindACourse.loadtest">

@@ -12,18 +12,18 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
         public T ClickStartANewSkillsHealthCheck<T>()
            where T : UiComponent, new()
         {
-            T x = new T();
+            T page = new T();
 
             if (Url.Contains("skills-health-check/home"))
             {
-                x = NavigateTo<T>(By.CssSelector("input.button.button-start"));
+                page = NavigateTo<T>(By.CssSelector("input.button.button-start"));
             }
             else
             {
-                x = Navigate.To<T>("/skills-assessment/skills-health-check/your-assessments");
+                page = Navigate.To<T>("/skills-assessment/skills-health-check/your-assessments");
             }
 
-            return x;
+            return page;
         }
 
         public T ClickSignIn<T>()

@@ -8,7 +8,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
 {
     public class Homepage : DFCPageWithViewModel<JobProfileSearchBoxViewModel>
     {
-        public bool ServiceName => Find.OptionalElement(By.Id("site-header")) != null;
+        public bool ServiceName => Find.OptionalElement(By.ClassName("govuk-heading-xl")) != null;
 
         public T ClickCookiesLink<T>()
             where T : UiComponent, new()

@@ -7,14 +7,23 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
     {
         public string PageTitle => Find.Element(By.ClassName("heading-xlarge")).Text;
 
-        public string SignOutLinkText => Find.Element(By.Id("signout-link")).Text;
-
         public string SectionHeading => Find.Element(By.ClassName("heading-large")).Text;
 
         public T ClickStartANewSkillsHealthCheck<T>()
            where T : UiComponent, new()
         {
-            return NavigateTo<T>(By.CssSelector("input.button.button-start"));
+            T x = new T();
+
+            if (Url.Contains("skills-health-check/home"))
+            {
+                x = NavigateTo<T>(By.CssSelector("input.button.button-start"));
+            }
+            else
+            {
+                x = Navigate.To<T>("/skills-assessment/skills-health-check/your-assessments");
+            }
+
+            return x;
         }
 
         public T ClickSignIn<T>()

@@ -70,12 +70,17 @@ namespace DFC.Digital.Core
         public const string ApprovalWorkflowState = "ApprovalWorkflowState";
         public const string ItemStatus = "Status";
         public const string ItemActionUpdated = "Updated";
-        public const string WorkFlowStatusPublished = "Published";
+        public const string ItemActionDeleted = "Deleted";
+        public const string WorkflowStatusPublished = "Published";
+        public const string WorkflowStatusUnpublished = "Unpublished";
         public const string ItemStatusLive = "Live";
+        public const string ItemStatusMaster = "Master";
         public const string ChangedProperties = "ChangedProperties";
+        public const string RecycleBinAction = "RecycleBinAction";
         public const string ContentBlock = "Content block";
         public const string Content = "Content";
         public const string JobProfile = "JobProfile";
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
+        public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
     }
 }

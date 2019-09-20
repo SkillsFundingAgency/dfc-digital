@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
         private readonly IMicroServicesPublishingService compositeUIService;
-        private readonly ISitefinityDataEventProxy sitefinityDataEventProxy;
         private readonly IAsyncHelper asyncHelper;
+        private readonly IDataEventActions dataEventActions;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, ISitefinityDataEventProxy sitefinityDataEventProxy, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
             this.compositeUIService = compositeUIService;
-            this.sitefinityDataEventProxy = sitefinityDataEventProxy;
             this.asyncHelper = asyncHelper;
+            this.dataEventActions = dataEventActions;
         }
 
         public void ExportCompositePage(IDataEvent eventInfo)
@@ -32,25 +33,22 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
+            if (eventInfo.ItemType != typeof(PageNode))
+            {
+                return;
+            }
+
             try
             {
-                var action = eventInfo.Action;
-                var contentType = eventInfo.ItemType;
+                var microServicesDataEventAction = dataEventActions.GetEventAction(eventInfo);
+
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
+                var contentType = eventInfo.ItemType;
 
-                var hasPageChanged = sitefinityDataEventProxy.GetPropertyValue<bool>(eventInfo, Constants.HasPageDataChanged);
-                var workFlowStatus = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ApprovalWorkflowState);
-                var status = sitefinityDataEventProxy.GetPropertyValue<string>(eventInfo, Constants.ItemStatus);
-
-                var changedProperties = sitefinityDataEventProxy.GetPropertyValue<IDictionary<string, PropertyChange>>(eventInfo, Constants.ChangedProperties);
-
-                //Ignore any workflow property chages
-                var filteredProperties = changedProperties.Where(p => p.Key != Constants.ApprovalWorkflowState).Count();
-
-                if (action == Constants.ItemActionUpdated && workFlowStatus == Constants.WorkFlowStatusPublished && status == Constants.ItemStatusLive)
+                if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                 {
-                    if (contentType == typeof(PageNode) && (hasPageChanged || filteredProperties > 0))
+                    if (dataEventActions.ShouldExportPage(eventInfo))
                     {
                         ExportPageNode(providerName, contentType, itemId);
                     }
@@ -63,6 +61,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                      }
                     */
                 }
+                else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                {
+                     DeletePage(providerName, contentType, itemId);
+                }
             }
             catch (Exception ex)
             {
@@ -71,12 +73,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        private void ExportPageNode(string providerName, Type contentType, Guid itemId)
+        private void DeletePage(string providerName, Type contentType, Guid itemId)
         {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(providerName, contentType, itemId);
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
-                var compositePageData = compositePageBuilder.GetCompositePageForPageNode(providerName, contentType, itemId);
+                asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
+            }
+        }
+
+        private void ExportPageNode(string providerName, Type contentType, Guid itemId)
+        {
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
+            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
+            {
+                var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
                 asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }

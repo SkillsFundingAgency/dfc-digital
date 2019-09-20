@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Core
@@ -10,5 +11,7 @@ namespace DFC.Digital.Core
         Task<HttpResponseMessage> GetAsync(string requestUri, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker);
 
         Task<HttpResponseMessage> PostAsync(string requestUri, string content, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker);
+
+        Task<HttpResponseMessage> DeleteAsync(string requestUri, Func<HttpResponseMessage, bool> predicate = null, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker);
     }
 }

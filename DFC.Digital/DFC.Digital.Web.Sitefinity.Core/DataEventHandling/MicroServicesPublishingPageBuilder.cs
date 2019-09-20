@@ -34,44 +34,75 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return pageUrls;
         }
 
-        public MicroServicesPublishingPageData GetCompositePageForPageNode(string providerName, Type contentType, Guid itemId)
+        public MicroServicesPublishingPageData GetPublishedPage(Type contentType, Guid itemId, string providerName)
         {
-            var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
-            var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
-
-            var microServicesPublishingPageData = new MicroServicesPublishingPageData() { CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(), Id = itemId };
-            microServicesPublishingPageData.IncludeInSiteMap = pageNode.Crawlable;
-            microServicesPublishingPageData.BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData);
-            microServicesPublishingPageData.MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) };
-            microServicesPublishingPageData.Content = GetPageContentBlocks(providerName, contentType, itemId);
-            microServicesPublishingPageData.AlternativeNames = GetPageURLs(pageNode);
-            microServicesPublishingPageData.LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode);
-
-            return microServicesPublishingPageData;
+            var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
+            var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
+            return BuildPageData(pageNode, pageData, providerName);
         }
 
-        public string GetPageContentBlocks(string providerName, Type contentType, Guid itemId)
+        public MicroServicesPublishingPageData GetPreviewPage(string name)
         {
-            string contentData = string.Empty;
-            var pageData = sitefinityManagerProxy.GetPageData(providerName, contentType, itemId);
-
-            //This bit came from Sitefinity Support.
-            var pageDraftControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageDraftControl in pageDraftControls)
+            var pageData = sitefinityManagerProxy.GetPageDataByName(name);
+            if (pageData is null)
             {
-                contentData += sitefinityManagerProxy.GetControlContent(providerName, pageDraftControl);
+                return null;
             }
 
-            return contentData;
+            var pageNode = pageData.NavigationNode;
+            var pageDraft = sitefinityManagerProxy.GetPreviewPageDataById(pageData.Id);
+
+            return BuildPreViewPageData(pageNode, pageData, pageDraft);
         }
 
-        public string GetMicroServiceEndPointConfigKeyForPageNode(string providerName, Type contentType, Guid itemId)
+        public string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName)
         {
-            var pageNode = sitefinityManagerProxy.GetPageNode(providerName, contentType, itemId);
+            var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
 
             //If the custom field is not there this will throw a system exception
             //as we dont want to catch unnecessary exceptions this custom page field should be created.
             return sitefinityPageNodeProxy.GetCustomField(pageNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
+        }
+
+        private MicroServicesPublishingPageData BuildPreViewPageData(PageNode pageNode, PageData pageData, PageDraft pageDraft)
+        {
+            var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
+
+            var pageDraftControls = pageDraft.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
+
+            foreach (var pageDraftControl in pageDraftControls)
+            {
+                microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageDraftControl);
+            }
+
+            return microServicesPublishingPageData;
+        }
+
+        private MicroServicesPublishingPageData BuildPageData(PageNode pageNode, PageData pageData, string providerName = null)
+        {
+            var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
+
+            var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
+            foreach (var pageControl in pageControls)
+            {
+                microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
+            }
+
+            return microServicesPublishingPageData;
+        }
+
+        private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)
+        {
+            return new MicroServicesPublishingPageData()
+            {
+                CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
+                IncludeInSiteMap = pageNode.Crawlable,
+                AlternativeNames = GetPageURLs(pageNode),
+                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                Id = pageNode.Id,
+                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
+                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+            };
         }
     }
 }

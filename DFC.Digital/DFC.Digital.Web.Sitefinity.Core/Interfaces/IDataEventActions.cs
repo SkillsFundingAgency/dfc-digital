@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.DynamicModules.Events;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -13,5 +14,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         MicroServicesDataEventAction GetEventAction(IDataEvent dataEvent);
 
         bool ShouldExportPage(IDataEvent dataEvent);
+
+        bool ShouldExportDynamicModuleData(IDynamicContentUpdatedEvent dataEvent);
+
+        MicroServicesDataEventAction GetDynamicContentEventAction(IDynamicContentUpdatedEvent dataEvent);
     }
 }

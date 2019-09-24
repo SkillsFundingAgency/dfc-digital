@@ -74,6 +74,7 @@ namespace DFC.Digital.Core
         public const string WorkflowStatusPublished = "Published";
         public const string WorkflowStatusUnpublished = "Unpublished";
         public const string ItemStatusLive = "Live";
+        public const string DynamicContentStatus = "Temp";
         public const string ItemStatusMaster = "Master";
         public const string ChangedProperties = "ChangedProperties";
         public const string RecycleBinAction = "RecycleBinAction";

@@ -1,5 +1,7 @@
 ﻿using System;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.DynamicTypes.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Workflow.Model.Tracking;
@@ -18,6 +20,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public string GetCustomField(PageNode pageNode, string customFieldName)
         {
             var customField = pageNode.GetValue(customFieldName) as Lstring;
+            return customField.Value;
+        }
+
+        public string GetCustomContentField(DynamicContent dynamicContentNode, string customFieldName)
+        {
+            var customField = dynamicContentNode.GetValue(customFieldName) as Lstring;
             return customField.Value;
         }
 

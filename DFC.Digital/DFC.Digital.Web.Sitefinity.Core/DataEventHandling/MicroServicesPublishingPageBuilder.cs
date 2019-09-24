@@ -41,6 +41,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return BuildPageData(pageNode, pageData, providerName);
         }
 
+        public MicroServicesPublishingPageData GetPublishedDynamicContent(Type contentType, Guid itemId, string providerName)
+        {
+            var pageNode = sitefinityManagerProxy.GetDynamicContentTypeNode(contentType, itemId, providerName);
+            //var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
+            return BuildPageData(pageNode, pageData, providerName);
+        }
+
         public MicroServicesPublishingPageData GetPreviewPage(string name)
         {
             var pageData = sitefinityManagerProxy.GetPageDataByName(name);
@@ -62,6 +69,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //If the custom field is not there this will throw a system exception
             //as we dont want to catch unnecessary exceptions this custom page field should be created.
             return sitefinityPageNodeProxy.GetCustomField(pageNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
+        }
+
+        public string GetMicroServiceEndPointConfigKeyForDynamicContentNode(Type contentType, Guid itemId, string providerName)
+        {
+            var dynamicContentNode = sitefinityManagerProxy.GetDynamicContentTypeNode(contentType, itemId, providerName);
+
+            //If the custom field is not there this will throw a system exception
+            //as we dont want to catch unnecessary exceptions this custom page field should be created.
+            return sitefinityPageNodeProxy.GetCustomContentField(dynamicContentNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
         }
 
         private MicroServicesPublishingPageData BuildPreViewPageData(PageNode pageNode, PageData pageData, PageDraft pageDraft)
@@ -89,6 +105,20 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             return microServicesPublishingPageData;
+        }
+
+        private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)
+        {
+            return new MicroServicesPublishingPageData()
+            {
+                CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
+                IncludeInSiteMap = pageNode.Crawlable,
+                AlternativeNames = GetPageURLs(pageNode),
+                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                Id = pageNode.Id,
+                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
+                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+            };
         }
 
         private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)

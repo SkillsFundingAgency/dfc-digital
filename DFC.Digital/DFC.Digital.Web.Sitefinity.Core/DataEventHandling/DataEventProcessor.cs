@@ -5,7 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.DynamicModules.Events;
+using Telerik.Sitefinity.DynamicModules.Model;
+using Telerik.Sitefinity.DynamicTypes.Model;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -26,6 +30,41 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.dataEventActions = dataEventActions;
         }
 
+        public void ExportCompositeDynamicContentUpdated(IDynamicContentUpdatedEvent eventInfo)
+        {
+            if (eventInfo == null)
+            {
+                throw new ArgumentNullException("eventInfo");
+            }
+
+            Type jobProfileType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
+            try
+            {
+                var microServicesDataEventAction = dataEventActions.GetDynamicContentEventAction(eventInfo);
+
+                var itemId = eventInfo.Item.Id;
+                var providerName = eventInfo.Item.ProviderName;
+                var contentType = eventInfo.Item.GetType();
+
+                if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
+                {
+                    if (dataEventActions.ShouldExportDynamicModuleData(eventInfo))
+                    {
+                            ExportDynamicContentTypeNode(providerName, contentType, itemId);
+                    }
+                }
+                else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                {
+                    DeleteDynamicContentType(providerName, contentType, itemId);
+                }
+            }
+            catch (Exception ex)
+            {
+                applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.Item.Id}", ex);
+                throw;
+            }
+        }
+
         public void ExportCompositePage(IDataEvent eventInfo)
         {
             if (eventInfo == null)
@@ -33,7 +72,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
-            if (eventInfo.ItemType != typeof(PageNode))
+            Type jobProfileType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
+            if (eventInfo.ItemType != typeof(PageNode) && eventInfo.ItemType == jobProfileType)
             {
                 return;
             }
@@ -52,18 +92,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     {
                         ExportPageNode(providerName, contentType, itemId);
                     }
-
-                    /*
-                     //Checking by type did not work
-                     else if (contentType.Name == Constants.JobProfile)
-                     {
-                        var dynamicContent = (Telerik.Sitefinity.DynamicModules.Model.DynamicContent)item;
-                     }
-                    */
                 }
                 else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
-                     DeletePage(providerName, contentType, itemId);
+                    DeletePage(providerName, contentType, itemId);
                 }
             }
             catch (Exception ex)
@@ -82,9 +114,32 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
+        private void DeleteDynamicContentType(string providerName, Type contentType, Guid itemId)
+        {
+            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForDynamicContentNode(contentType, itemId, providerName);
+            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
+            {
+                //asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
+            }
+        }
+
         private void ExportPageNode(string providerName, Type contentType, Guid itemId)
         {
             var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
+
+            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
+            {
+                var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
+                asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
+            }
+        }
+
+        private void ExportDynamicContentTypeNode(string providerName, Type contentType, Guid itemId)
+        {
+            //only for testing add the microServiceEndPointConfigKey here
+            var microServiceEndPointConfigKey = "DFC.Digital.MicroService.HelpEndPoint";
+
+            //var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForDynamicContentNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
                 var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);

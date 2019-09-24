@@ -179,6 +179,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcceptanceCriteria\Features\ExploreCareersFeature.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExploreCareersFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptanceCriteria\Steps\ExploreCareersSteps.cs" />
     <Compile Include="AcceptanceCriteria\Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -240,6 +246,7 @@
     <Compile Include="Infrastructure\Config\DFCPage.cs" />
     <Compile Include="Infrastructure\Config\DFCPageWithViewModel.cs" />
     <Compile Include="Infrastructure\Pages\ContactUs\GiveFeedbackFormPage.cs" />
+    <Compile Include="Infrastructure\Pages\ExploreCareersPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCCourseDetailsPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCLandingPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCResultsPage.cs" />
@@ -262,6 +269,10 @@
     <None Include="AcceptanceCriteria\Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </None>
+    <None Include="AcceptanceCriteria\Features\ExploreCareersFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ExploreCareersFeature.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\FindACourse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

@@ -200,7 +200,7 @@
       <Name>DFC.Digital.Repository.SitefinityCMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.AzureSearch\DFC.Digital.Service.AzureSearch.csproj">
-      <Project>{F0161590-6A22-4D74-BA7C-EDE8A4AC602C}</Project>
+      <Project>{f0161590-6a22-4d74-ba7c-ede8a4ac602c}</Project>
       <Name>DFC.Digital.Service.AzureSearch</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.Cognitive.BingSpellCheck\DFC.Digital.Service.Cognitive.BingSpellCheck.csproj">

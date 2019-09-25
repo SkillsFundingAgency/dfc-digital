@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity;
+using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Pages.Model;
 
@@ -44,8 +45,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         public MicroServicesPublishingPageData GetPublishedDynamicContent(Type contentType, Guid itemId, string providerName)
         {
             var pageNode = sitefinityManagerProxy.GetDynamicContentTypeNode(contentType, itemId, providerName);
+
             //var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
-            return BuildPageData(pageNode, pageData, providerName);
+            return BuildBaseDynamicContentData(pageNode);
         }
 
         public MicroServicesPublishingPageData GetPreviewPage(string name)
@@ -121,17 +123,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             };
         }
 
-        private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)
+        private MicroServicesPublishingPageData BuildBaseDynamicContentData(DynamicContent contentNode)
         {
             return new MicroServicesPublishingPageData()
             {
-                CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
-                IncludeInSiteMap = pageNode.Crawlable,
-                AlternativeNames = GetPageURLs(pageNode),
-                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
-                Id = pageNode.Id,
-                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
-                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+                Id = contentNode.Id
             };
         }
     }

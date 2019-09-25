@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.DynamicModules.Builder.Model;
 using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.DynamicTypes.Model;
@@ -73,7 +74,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             Type jobProfileType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
-            if (eventInfo.ItemType != typeof(PageNode) && eventInfo.ItemType == jobProfileType)
+            if (eventInfo.ItemType == typeof(DynamicModule))
+            {
+                return;
+            }
+            else if (eventInfo.ItemType == typeof(DynamicContent))
+            {
+                return;
+            }
+
+            if (eventInfo.ItemType != typeof(PageNode))
             {
                 return;
             }
@@ -142,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForDynamicContentNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
-                var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
+                var compositePageData = compositePageBuilder.GetPublishedDynamicContent(contentType, itemId, providerName);
                 asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }

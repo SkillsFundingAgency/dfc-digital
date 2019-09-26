@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 using Telerik.Sitefinity.Frontend.Mvc.Infrastructure;
+using Telerik.Sitefinity.Multisite;
 using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -19,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         private const string CanonicalAttrKey = "rel";
         private const string CanonicalAttrValue = "canonical";
+        private const string DefaultSiteName = "dfc-beta";
 
         public Page CurrentPage => new HttpContextWrapper(HttpContext.Current).CurrentHandler?.GetPageHandler();
 
@@ -173,12 +175,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private void AddCanonicalTag()
         {
             var page = CurrentPage;
-            if (page != null)
+            var site = MultisiteManager.GetManager().GetSites().FirstOrDefault(x => x.Name == DefaultSiteName);
+
+            if (page != null && site != null)
             {
                 var link = new HtmlLink();
                 link.Attributes.Add(CanonicalAttrKey, CanonicalAttrValue);
-                link.Href = HttpContext.Current.Request.Url.AbsoluteUri.Substring(0, HttpContext.Current.Request.Url.AbsoluteUri.IndexOf("?", StringComparison.InvariantCultureIgnoreCase) > 0 ? HttpContext.Current.Request.Url.AbsoluteUri.IndexOf("?", StringComparison.InvariantCultureIgnoreCase) : HttpContext.Current.Request.Url.AbsoluteUri.Length);
-
+                link.Href = $"{page.Request.Url.Scheme}://{site.LiveUrl}{page.Request.Url.LocalPath}";
                 if (!string.IsNullOrWhiteSpace(link.Href))
                 {
                     page.Header.Controls.Add(link);

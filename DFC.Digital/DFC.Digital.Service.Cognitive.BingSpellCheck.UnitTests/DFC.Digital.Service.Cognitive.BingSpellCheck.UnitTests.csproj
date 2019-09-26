@@ -117,12 +117,10 @@
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </CodeAnalysisDictionary>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

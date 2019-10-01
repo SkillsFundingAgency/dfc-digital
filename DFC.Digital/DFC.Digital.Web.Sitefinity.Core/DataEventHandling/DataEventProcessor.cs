@@ -51,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 {
                     if (dataEventActions.ShouldExportDynamicModuleData(eventInfo))
                     {
-                            ExportDynamicContentTypeNode(providerName, contentType, itemId);
+                        ExportDynamicContentTypeNode(providerName, contentType, itemId);
                     }
                 }
                 else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
@@ -73,45 +73,33 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
-            Type jobProfileType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
-            if (eventInfo.ItemType == typeof(DynamicModule))
+            if (eventInfo.ItemType == typeof(PageNode))
             {
-                return;
-            }
-            else if (eventInfo.ItemType == typeof(DynamicContent))
-            {
-                return;
-            }
-
-            if (eventInfo.ItemType != typeof(PageNode))
-            {
-                return;
-            }
-
-            try
-            {
-                var microServicesDataEventAction = dataEventActions.GetEventAction(eventInfo);
-
-                var itemId = eventInfo.ItemId;
-                var providerName = eventInfo.ProviderName;
-                var contentType = eventInfo.ItemType;
-
-                if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
+                try
                 {
-                    if (dataEventActions.ShouldExportPage(eventInfo))
+                    var microServicesDataEventAction = dataEventActions.GetEventAction(eventInfo);
+
+                    var itemId = eventInfo.ItemId;
+                    var providerName = eventInfo.ProviderName;
+                    var contentType = eventInfo.ItemType;
+
+                    if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                     {
-                        ExportPageNode(providerName, contentType, itemId);
+                        if (dataEventActions.ShouldExportPage(eventInfo))
+                        {
+                            ExportPageNode(providerName, contentType, itemId);
+                        }
+                    }
+                    else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                    {
+                        DeletePage(providerName, contentType, itemId);
                     }
                 }
-                else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                catch (Exception ex)
                 {
-                    DeletePage(providerName, contentType, itemId);
+                    applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
+                    throw;
                 }
-            }
-            catch (Exception ex)
-            {
-                applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.ItemId}", ex);
-                throw;
             }
         }
 
@@ -152,8 +140,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForDynamicContentNode(contentType, itemId, providerName);
             if (!microServiceEndPointConfigKey.IsNullOrEmpty())
             {
-                var compositePageData = compositePageBuilder.GetPublishedDynamicContent(contentType, itemId, providerName);
-                asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
+                var compositePageData = compositePageBuilder.GetPublishedDynamicContent(itemId);
+                asyncHelper.Synchronise(() => compositeUIService.PostDynamicContentDataAsync(microServiceEndPointConfigKey, compositePageData));
             }
         }
     }

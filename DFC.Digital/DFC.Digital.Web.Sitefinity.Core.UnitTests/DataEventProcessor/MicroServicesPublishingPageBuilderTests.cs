@@ -1,4 +1,6 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -18,20 +20,24 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly ISitefinityManagerProxy fakeSitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy fakeSitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy fakeSitefinityPageDataProxy;
+        private readonly IJobProfileRepository fakeJobProfileRepository;
 
         private readonly PageNode dummyPageNode;
         private readonly PageData dummyPageData;
         private readonly DateTime dummyPublishedDate;
+        private readonly JobProfile dummyJobProfile;
 
         public MicroServicesPublishingPageBuilderTests()
         {
             fakeSitefinityManagerProxy = A.Fake<ISitefinityManagerProxy>();
             fakeSitefinityPageDataProxy = A.Fake<ISitefinityPageDataProxy>();
             fakeSitefinityPageNodeProxy = A.Fake<ISitefinityPageNodeProxy>();
+            fakeJobProfileRepository = A.Fake<IJobProfileRepository>();
 
             dummyPublishedDate = DateTime.Now;
             dummyPageNode = new PageNode();
             dummyPageData = new PageData();
+            dummyJobProfile = new JobProfile();
         }
 
         [Theory]
@@ -49,9 +55,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageControl>._, A<string>._)).Returns(DummyContent);
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageData);
+            A.CallTo(() => fakeJobProfileRepository.GetById(A<Guid>._)).Returns(dummyJobProfile);
 
             //Act
-            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeJobProfileRepository);
             var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPublishedPage(typeof(PageNode), dummyPageNode.Id, DummyProvider);
 
             //Asserts
@@ -95,7 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(dummyPageData);
 
             //Act
-            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeJobProfileRepository);
             var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPreviewPage(nameof(PageNode.UrlName));
 
             //Asserts
@@ -126,7 +133,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageDataByName(A<string>._)).Returns(null);
 
             //Act
-            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeJobProfileRepository);
             var microServicesPublishingPageData = microServicesPublishingPageBuilder.GetPreviewPage(nameof(PageNode.UrlName));
 
             //Asserts
@@ -144,7 +151,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetCustomField(A<PageNode>._, A<string>._)).Returns(dummyKeyName);
 
             //Act
-            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeJobProfileRepository);
             var configKeyName = microServicesPublishingPageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(typeof(PageNode), dummyGuid, DummyProvider);
 
             //Asserts

@@ -76,6 +76,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp));
         }
 
+        public JobProfile GetById(Guid itemId)
+        {
+           return ConvertDynamicContent(repository.Get(item =>
+                     item.Id == itemId && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
+        }
+
         public JobProfile GetByUrlNameForSearchIndex(string urlName, bool isPublishing)
         {
             var content = repository.Get(item => item.UrlName == urlName && item.Status == (isPublishing ? ContentLifecycleStatus.Master : ContentLifecycleStatus.Live));

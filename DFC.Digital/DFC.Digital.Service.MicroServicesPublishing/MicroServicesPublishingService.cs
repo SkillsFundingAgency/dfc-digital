@@ -66,6 +66,15 @@ namespace DFC.Digital.Service.MicroServicesPublishing
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> PostDynamicContentDataAsync(string microServiceEndPointConfigKey, JobProfile compositeDynamicContentData)
+        {
+            var pageDataJson = JsonConvert.SerializeObject(compositeDynamicContentData);
+
+            // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page
+            var response = await httpPublishingClient.PostAsync(configurationProvider.GetConfig<string>(microServiceEndPointConfigKey), pageDataJson);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> DeletePageAsync(string microServiceEndPointConfigKey, Guid pageId)
         {
             // Get the correct end point to send this request from configurations, Key to use is passed in as we go to diffrent endpoints depending on the page

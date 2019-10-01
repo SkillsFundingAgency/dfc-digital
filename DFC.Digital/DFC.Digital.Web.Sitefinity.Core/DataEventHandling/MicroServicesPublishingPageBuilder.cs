@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy sitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy sitefinityPageDataProxy;
+        private readonly IJobProfileRepository jobProfileRepository;
 
-        public MicroServicesPublishingPageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy)
+        public MicroServicesPublishingPageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy, IJobProfileRepository jobProfileRepository)
         {
             this.sitefinityManagerProxy = sitefinityManagerProxy;
             this.sitefinityPageDataProxy = sitefinityPageDataProxy;
             this.sitefinityPageNodeProxy = sitefinityPageNodeProxy;
+            this.jobProfileRepository = jobProfileRepository;
         }
 
         public static IList<string> GetPageURLs(PageNode pageNode)
@@ -40,14 +43,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
             var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
             return BuildPageData(pageNode, pageData, providerName);
-        }
-
-        public MicroServicesPublishingPageData GetPublishedDynamicContent(Type contentType, Guid itemId, string providerName)
-        {
-            var pageNode = sitefinityManagerProxy.GetDynamicContentTypeNode(contentType, itemId, providerName);
-
-            //var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
-            return BuildBaseDynamicContentData(pageNode);
         }
 
         public MicroServicesPublishingPageData GetPreviewPage(string name)
@@ -80,6 +75,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //If the custom field is not there this will throw a system exception
             //as we dont want to catch unnecessary exceptions this custom page field should be created.
             return sitefinityPageNodeProxy.GetCustomContentField(dynamicContentNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
+        }
+
+        public JobProfile GetPublishedDynamicContent(Guid itemId)
+        {
+            return jobProfileRepository.GetById(itemId);
         }
 
         private MicroServicesPublishingPageData BuildPreViewPageData(PageNode pageNode, PageData pageData, PageDraft pageDraft)

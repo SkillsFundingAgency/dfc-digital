@@ -9,5 +9,7 @@ namespace DFC.Digital.Data.Interfaces
         Task<bool> PostPageDataAsync(string microServiceEndPointConfigKey,  MicroServicesPublishingPageData compositePageData);
 
         Task<bool> DeletePageAsync(string microServiceEndPointConfigKey, Guid pageId);
+
+        Task<bool> PostDynamicContentDataAsync(string microServiceEndPointConfigKey, JobProfile compositeDynamicContentData);
     }
 }

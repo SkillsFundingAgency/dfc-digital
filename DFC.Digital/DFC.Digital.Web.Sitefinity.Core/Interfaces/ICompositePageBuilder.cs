@@ -10,7 +10,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         MicroServicesPublishingPageData GetPreviewPage(string name);
 
-        MicroServicesPublishingPageData GetPublishedDynamicContent(Type contentType, Guid itemId, string providerName);
+        JobProfile GetPublishedDynamicContent(Guid itemId);
 
         string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName);
 

@@ -21,7 +21,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
         private readonly ISearchQueryService<JobProfileIndex> fakeSearchService;
         private readonly ITaxonomyRepository fakeTaxonomyRepository;
         private readonly IMapper fakeMapper;
-        private readonly Taxon dummyTaxon;
+        private readonly HierarchicalTaxon dummyTaxon;
 
         public JobProfileCategoryRepositoryUnitTests()
         {
@@ -39,8 +39,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //Instantiate
             var jobProfileCategoryRepository = GetTestJobProfileCategoryRepository();
 
-            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<Taxon, bool>>>._)).Returns(isExistingJobCategory ? dummyTaxon : null);
-            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).Returns(new EnumerableQuery<Taxon>(new List<Taxon>()));
+            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<HierarchicalTaxon, bool>>>._)).Returns(isExistingJobCategory ? dummyTaxon : null);
+            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).Returns(new EnumerableQuery<HierarchicalTaxon>(new List<HierarchicalTaxon>()));
 
             string categoryUrlName = dummyTaxon.UrlName;
             var retunedCategory = jobProfileCategoryRepository.GetByUrlName(categoryUrlName);
@@ -52,22 +52,22 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
                 retunedCategory.Name.Should().Be(dummyTaxon.Name);
                 retunedCategory.Title.Should().Be(dummyTaxon.Title);
                 retunedCategory.Description.Should().Be(dummyTaxon.Description);
-                A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustHaveHappened();
+                A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustHaveHappened();
             }
             else
             {
                 //Asserts
                 retunedCategory.Should().BeNull();
-                A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustNotHaveHappened();
             }
 
-            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<Taxon, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName)))).MustHaveHappened();
+            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<HierarchicalTaxon, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName)))).MustHaveHappened();
         }
 
         [Fact]
         public void GetJobProfileCategoriesTests()
         {
-            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).Returns(new EnumerableQuery<Taxon>(new List<Taxon> { dummyTaxon }));
+            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).Returns(new EnumerableQuery<HierarchicalTaxon>(new List<HierarchicalTaxon> { dummyTaxon }));
 
             //Instantiate
             var jobProfileCategoryRepository = GetTestJobProfileCategoryRepository();
@@ -76,8 +76,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 
             //Asset - should get back the same number
             retunedCategories.Should().HaveCount(1);
-            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, category => category.Taxonomy.Name == JobprofileTaxonomyName)))).MustHaveHappened();
+            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustNotHaveHappened();
+            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, category => category.Taxonomy.Name == JobprofileTaxonomyName)))).MustHaveHappened();
         }
 
         [Fact]
@@ -102,8 +102,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             //The results from search do not include the SOCCode so ignore this
             returnedJobProfiles.Should().BeEquivalentTo(expectedResults, options => options.Excluding(j => j.SOCCode));
             A.CallTo(() => fakeSearchService.Search("*", A<SearchProperties>.That.Matches(x => x.Count.Equals(1000)))).WithAnyArguments().MustHaveHappened();
-            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
-            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<Taxon, bool>>>._)).MustNotHaveHappened();
+            A.CallTo(() => fakeTaxonomyRepository.Get(A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustNotHaveHappened();
+            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustNotHaveHappened();
         }
 
         private SearchResult<JobProfileIndex> DummySearchResults()
@@ -146,23 +146,23 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
 
         private IQueryable<Taxon> DummyTaxons()
         {
-            var t = new List<Taxon>();
-            A.Dummy<Taxon>();
+            var t = new List<HierarchicalTaxon>();
+            A.Dummy<HierarchicalTaxon>();
             t.Add(GetDummyTaxon("categoryOne"));
             t.Add(GetDummyTaxon("categoryTwo"));
             t.Add(GetDummyTaxon("categoryThree"));
             return t.AsQueryable();
         }
 
-        private Taxon GetDummyTaxon(string name)
+        private HierarchicalTaxon GetDummyTaxon(string name)
         {
-            var b = A.Dummy<Taxon>();
+            var b = A.Dummy<HierarchicalTaxon>();
             b.Taxonomy.Name = "job-profile-categories";
             b.Name = $"Name-{name}";
             b.UrlName = $"URL-{name}";
             b.Title = $"Title-{name}";
             b.Description = $"Description-{name}";
-            b.Parent = A.Dummy<Taxon>();
+            b.Parent = A.Dummy<HierarchicalTaxon>();
             b.Parent.Name = "parentName";
             return b;
         }

@@ -46,8 +46,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public PageDraft GetPreviewPageDataById(Guid id)
         {
-            //return GetPageManagerForProvider().GetPreview(id);
-            return GetPageManagerForProvider().GetDrafts<PageDraft>().Where(d => d.ParentId == id && d.IsTempDraft == true).FirstOrDefault();
+            return GetPageManagerForProvider().GetPreview(id);
         }
 
         private PageManager GetPageManagerForProvider(string providerName = null)

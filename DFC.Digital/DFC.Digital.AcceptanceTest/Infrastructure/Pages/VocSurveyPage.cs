@@ -7,9 +7,9 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
     {
         public bool IsSurveyDisplayed()
         {
-            Browser.SwitchTo().Frame(0);
+            Browser.SwitchTo().Window(Browser.WindowHandles[1]);
 
-            return Find.Element(By.ClassName("ss-question-title")) != null;
+            return Find.Element(By.ClassName("mrQuestionText")) != null;
         }
 
         public void StartSurvey()

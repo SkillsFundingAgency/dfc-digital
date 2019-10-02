@@ -37,7 +37,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public TPage ClickFeedbackLink<TPage>()
             where TPage : UiComponent, new()
         {
-            return NavigateTo<TPage>(By.CssSelector(".phase-banner p span a"));
+            return NavigateTo<TPage>(By.PartialLinkText("feedback"));
         }
 
         public TPage SelectOnlineSurvey<TPage>()

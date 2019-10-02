@@ -79,7 +79,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         public void ThenIAmRedirectedToTheTCPage()
         {
             var termsPage = GetNavigatedPage<TermsAndConditionPage>();
-            termsPage.PageTitle.Should().Contain("Terms and Conditions");
+            termsPage.PageTitle.Should().Contain("Terms and conditions");
         }
 
         [Then(@"I am redirected to the Information Sources page")]

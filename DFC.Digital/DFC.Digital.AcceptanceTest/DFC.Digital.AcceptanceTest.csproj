@@ -215,6 +215,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>JobProfileSearch.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceCriteria\Features\SkillsHealthCheck.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SkillsHealthCheck.feature</DependentUpon>
+    </Compile>
     <Compile Include="AcceptanceCriteria\Features\VocSurvey.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -223,6 +228,7 @@
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="AcceptanceCriteria\Steps\ContactUsSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\FindACourseSteps.cs" />
+    <Compile Include="AcceptanceCriteria\Steps\SkillsHealthCheckSteps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Pages\BAU\BauJPLandingPage.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BauSteps.cs" />
@@ -247,6 +253,7 @@
     <Compile Include="Infrastructure\Config\DFCPageWithViewModel.cs" />
     <Compile Include="Infrastructure\Pages\ContactUs\GiveFeedbackFormPage.cs" />
     <Compile Include="Infrastructure\Pages\ExploreCareersPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\SkillsHealthCheckHomePage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCCourseDetailsPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCLandingPage.cs" />
     <Compile Include="Infrastructure\Pages\FindACourse\FaCResultsPage.cs" />
@@ -259,6 +266,8 @@
     <Compile Include="Infrastructure\Pages\SearchPage.cs" />
     <Compile Include="Infrastructure\Pages\HomePage.cs" />
     <Compile Include="Infrastructure\Pages\ContactUs\TechnicalIssueFormPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\SkillsHealthCheckPage.cs" />
+    <Compile Include="Infrastructure\Pages\SkillsHealthCheck\YourAssesmentsPage.cs" />
     <Compile Include="Infrastructure\Pages\TermsAndConditionPage.cs" />
     <Compile Include="Infrastructure\Pages\VocSurveyPage.cs" />
     <Compile Include="Infrastructure\Utilities\HelperExtensions.cs" />
@@ -293,6 +302,10 @@
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
       <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+    </None>
+    <None Include="AcceptanceCriteria\Features\SkillsHealthCheck.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SkillsHealthCheck.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

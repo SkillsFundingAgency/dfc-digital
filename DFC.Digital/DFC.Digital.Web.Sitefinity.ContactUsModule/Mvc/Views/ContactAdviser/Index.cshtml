@@ -1,7 +1,7 @@
 ﻿@model DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models.ContactAdviserViewModel
 
 @Html.Partial("ErrorSummary")
-@using (Html.BeginForm("index", "ContactAdviser", FormMethod.Post, new { id = "form-contact-adviser" }))
+@using (Html.BeginForm("index", "ContactAdviser", FormMethod.Post, new { id = "form-contact-adviser", @class = "with-validation-summary" }))
 {
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.ContactAdviserQuestionType), ViewData.ModelState)">
         <fieldset class="govuk-fieldset">

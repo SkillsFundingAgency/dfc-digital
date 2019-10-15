@@ -14,9 +14,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService;
         private readonly IMapper mapper;
-        private readonly ITaxonomyRepository taxonomyRepository;
+        private readonly IHierarchicalTaxonomyRepository taxonomyRepository;
 
-        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, ITaxonomyRepository taxonomyRepository)
+        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, IHierarchicalTaxonomyRepository taxonomyRepository)
         {
             this.jobprofileSearchQueryService = jobprofileSearchQueryService;
             this.mapper = mapper;

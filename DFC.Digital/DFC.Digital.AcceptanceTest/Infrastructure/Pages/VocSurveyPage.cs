@@ -24,6 +24,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             close.Click();
         }
 
+        public void CloseSurveyWindow()
+        {
+            Browser.Close();
+            Browser.SwitchTo().Window(Browser.WindowHandles[0]);
+        }
+
         public bool IsJPSurveyQuestionDisplayed() => Find.Element(By.ClassName("ss-question-title")) != null;
     }
 }

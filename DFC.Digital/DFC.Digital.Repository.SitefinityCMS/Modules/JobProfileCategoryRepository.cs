@@ -60,7 +60,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 yield return new JobProfileCategory
                 {
-                    Id = category.Id,
                     Name = category.Name,
                     Title = category.Title,
                     Description = category.Description,

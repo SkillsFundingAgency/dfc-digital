@@ -19,7 +19,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
     {
         private const string JobprofileTaxonomyName = "job-profile-categories";
         private readonly ISearchQueryService<JobProfileIndex> fakeSearchService;
-        private readonly ITaxonomyRepository fakeTaxonomyRepository;
+        private readonly IHierarchicalTaxonomyRepository fakeTaxonomyRepository;
         private readonly IMapper fakeMapper;
         private readonly HierarchicalTaxon dummyTaxon;
 
@@ -28,7 +28,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             fakeSearchService = A.Fake<ISearchQueryService<JobProfileIndex>>();
             fakeMapper = A.Fake<IMapper>();
             dummyTaxon = GetDummyTaxon("categoryTwo");
-            fakeTaxonomyRepository = A.Fake<ITaxonomyRepository>();
+            fakeTaxonomyRepository = A.Fake<IHierarchicalTaxonomyRepository>();
         }
 
         [Theory]

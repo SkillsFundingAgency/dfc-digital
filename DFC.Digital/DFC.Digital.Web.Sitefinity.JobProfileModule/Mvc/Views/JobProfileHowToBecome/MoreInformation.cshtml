@@ -1,5 +1,5 @@
 ﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileHowToBecomeViewModel
-@if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.CareerTips) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.FurtherInformation) || Model.HowToBecome.Registrations.Any())
+@if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.ProfessionalAndIndustryBodies) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.CareerTips) || !string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.FurtherInformation) || Model.HowToBecome.Registrations.Any())
 {
     <section class="job-profile-subsection" id="moreinfo">
         <h3>@Model.SubsectionMoreInfo</h3>
@@ -20,20 +20,20 @@
                 </ul>
             }
 
-            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.CareerTips))
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.CareerTips))
             {
                 <h4>@Model.SubsectionMoreInfoTips</h4>
-                @Html.Raw(Model.HowToBecome.FurtherInformation.CareerTips)
+                @Html.Raw(Model.HowToBecome.FurtherMoreInformation.CareerTips)
             }
-            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies))
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.ProfessionalAndIndustryBodies))
             {
                 <h4>@Model.SubsectionMoreInfoBodies</h4>
-                @Html.Raw(Model.HowToBecome.FurtherInformation.ProfessionalAndIndustryBodies)
+                @Html.Raw(Model.HowToBecome.FurtherMoreInformation.ProfessionalAndIndustryBodies)
             }
-            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherInformation.FurtherInformation))
+            @if (!string.IsNullOrEmpty(Model.HowToBecome.FurtherMoreInformation.FurtherInformation))
             {
                 <h4>@Model.SubsectionMoreInfoFurtherInfo</h4>
-                @Html.Raw(Model.HowToBecome.FurtherInformation.FurtherInformation)
+                @Html.Raw(Model.HowToBecome.FurtherMoreInformation.FurtherInformation)
             }
         </div>
     </section>

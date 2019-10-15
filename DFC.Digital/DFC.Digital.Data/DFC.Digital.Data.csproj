@@ -155,6 +155,7 @@
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
+    <Compile Include="Model\JobProfileMessage.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
     <Compile Include="Model\CourseSearchResultProperties.cs" />

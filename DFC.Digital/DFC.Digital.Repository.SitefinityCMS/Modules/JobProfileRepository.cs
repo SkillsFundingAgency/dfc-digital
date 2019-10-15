@@ -17,6 +17,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private readonly IDynamicModuleRepository<JobProfile> repository;
         private readonly IDynamicModuleRepository<SocSkillMatrix> socSkillRepository;
         private readonly IDynamicModuleConverter<JobProfile> converter;
+        private readonly IDynamicModuleConverter<JobProfileMessage> messageConverter;
         private readonly IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterForWITOnly;
         private readonly IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
@@ -32,7 +33,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
             IDynamicContentExtensions dynamicContentExtensions,
             IDynamicModuleRepository<SocSkillMatrix> socSkillRepository,
             IDynamicModuleConverter<JobProfileOverloadForWhatItTakes> converterLight,
-            IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly)
+            IDynamicModuleConverter<JobProfileOverloadForSearch> converterForSearchableFieldsOnly,
+            IDynamicModuleConverter<JobProfileMessage> messageConverter)
         {
             this.repository = repository;
             this.converter = converter;
@@ -40,6 +42,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
             this.socSkillRepository = socSkillRepository;
             this.converterForWITOnly = converterLight;
             this.converterForSearchableFieldsOnly = converterForSearchableFieldsOnly;
+            this.messageConverter = messageConverter;
         }
 
         #endregion Ctor
@@ -76,9 +79,9 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return ConvertDynamicContent(repository.Get(item => item.UrlName == urlName && item.Status == ContentLifecycleStatus.Temp));
         }
 
-        public JobProfile GetById(Guid itemId)
+        public JobProfileMessage GetById(Guid itemId)
         {
-           return ConvertDynamicContent(repository.Get(item =>
+           return ConvertDynamicContentForMessage(repository.Get(item =>
                      item.Id == itemId && item.Status == ContentLifecycleStatus.Live && item.Visible == true));
         }
 
@@ -158,6 +161,16 @@ namespace DFC.Digital.Repository.SitefinityCMS
             if (dynamicContent != null)
             {
                 return converter.ConvertFrom(dynamicContent);
+            }
+
+            return null;
+        }
+
+        private JobProfileMessage ConvertDynamicContentForMessage(DynamicContent dynamicContent)
+        {
+            if (dynamicContent != null)
+            {
+                return messageConverter.ConvertFrom(dynamicContent);
             }
 
             return null;

@@ -9,5 +9,7 @@ namespace DFC.Digital.Data.Model
         public string ProfessionalAndIndustryBodies { get; set; }
 
         public string FurtherInformation { get; set; }
+
+        public string CType { get; set; }
     }
 }

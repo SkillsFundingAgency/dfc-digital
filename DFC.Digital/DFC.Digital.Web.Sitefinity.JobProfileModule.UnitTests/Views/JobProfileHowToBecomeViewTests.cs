@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests.Views
             {
                 HowToBecome = new HowToBecome
                 {
-                    FurtherInformation = new MoreInformation
+                    FurtherMoreInformation = new MoreInformation
                     {
                         CareerTips = careerTips,
                         ProfessionalAndIndustryBodies = professionalAndIndustryBodies,

@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Web.Sitefinity.Core;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -21,15 +22,18 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly IDataEventActions fakeDataEventActions;
         private readonly IDataEvent fakeDataEvent;
         private readonly IAsyncHelper fakeAsyncHelper;
+        private readonly IServiceBusMessageProcessor fakeServiceBusMessageProcessor;
 
         public DataEventProcessorTests()
         {
             fakeApplicationLogger = A.Fake<IApplicationLogger>(ops => ops.Strict());
             fakeCompositePageBuilder = A.Fake<ICompositePageBuilder>();
             fakeCompositeUIService = A.Fake<IMicroServicesPublishingService>();
+            fakeServiceBusMessageProcessor = A.Fake<IServiceBusMessageProcessor>();
             fakeDataEventActions = A.Fake<IDataEventActions>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeDataEvent = A.Fake<IDataEvent>();
+
             A.CallTo(() => fakeDataEvent.ItemType).Returns(typeof(PageNode));
         }
 
@@ -48,7 +52,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeServiceBusMessageProcessor);
             dataEventHandler.ExportCompositePage(fakeDataEvent);
 
             //Asserts
@@ -74,7 +78,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeServiceBusMessageProcessor);
             dataEventHandler.ExportCompositePage(fakeDataEvent);
 
             //Asserts
@@ -96,7 +100,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ArgumentException());
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeServiceBusMessageProcessor);
 
             //Asserts
             Assert.Throws<ArgumentException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
@@ -108,7 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void NullArgumentExceptionTest()
         {
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeServiceBusMessageProcessor);
 
             //Asserts
             Assert.Throws<ArgumentNullException>(() => dataEventHandler.ExportCompositePage(null));
@@ -124,7 +128,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(MicroServicesDataEventAction.Ignored);
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeServiceBusMessageProcessor);
             dataEventHandler.ExportCompositePage(fakeDataEvent);
 
             //Asserts

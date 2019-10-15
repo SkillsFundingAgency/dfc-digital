@@ -24,10 +24,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
         {
-            return contentItem?
+            var relatedData = contentItem?
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
                 .Take(maximumItemsToReturn);
+
+            return relatedData;
         }
 
         public IEnumerable<DynamicContent> GetRelatedSearchItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)

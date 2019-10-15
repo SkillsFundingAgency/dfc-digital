@@ -77,7 +77,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             return sitefinityPageNodeProxy.GetCustomContentField(dynamicContentNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
         }
 
-        public JobProfile GetPublishedDynamicContent(Guid itemId)
+        public JobProfileMessage GetPublishedJobProfileDynamicContent(Guid itemId)
         {
             return jobProfileRepository.GetById(itemId);
         }
@@ -110,6 +110,20 @@ namespace DFC.Digital.Web.Sitefinity.Core
         }
 
         private MicroServicesPublishingPageData BuildBasePageData(PageNode pageNode, PageData pageData)
+        {
+            return new MicroServicesPublishingPageData()
+            {
+                CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
+                IncludeInSiteMap = pageNode.Crawlable,
+                AlternativeNames = GetPageURLs(pageNode),
+                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                Id = pageNode.Id,
+                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
+                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+            };
+        }
+
+        private MicroServicesPublishingPageData BuildDynamicContentData(PageNode pageNode, PageData pageData)
         {
             return new MicroServicesPublishingPageData()
             {

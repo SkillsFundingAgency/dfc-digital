@@ -8,8 +8,12 @@ namespace DFC.Digital.Data.Model
 {
     public class InfoItem
     {
+        public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public string Info { get; set; }
+
+        public string CType { get; set; }
     }
 }

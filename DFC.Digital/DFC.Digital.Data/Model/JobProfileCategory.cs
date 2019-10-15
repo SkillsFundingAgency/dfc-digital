@@ -5,6 +5,8 @@ namespace DFC.Digital.Data.Model
 {
     public class JobProfileCategory
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Title { get; set; }

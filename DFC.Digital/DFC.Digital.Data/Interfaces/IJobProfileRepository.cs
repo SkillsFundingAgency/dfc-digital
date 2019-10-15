@@ -10,7 +10,7 @@ namespace DFC.Digital.Data.Interfaces
 
         JobProfile GetByUrlNameForPreview(string urlName);
 
-        JobProfile GetById(Guid itemId);
+        JobProfileMessage GetById(Guid itemId);
 
         string GetProviderName();
 

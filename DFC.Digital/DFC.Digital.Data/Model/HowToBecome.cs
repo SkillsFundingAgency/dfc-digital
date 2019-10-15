@@ -6,7 +6,7 @@ namespace DFC.Digital.Data.Model
     {
         public IEnumerable<RouteEntry> RouteEntries { get; set; }
 
-        public MoreInformation FurtherInformation { get; set; }
+        public MoreInformation FurtherMoreInformation { get; set; }
 
         public FurtherRoutes FurtherRoutes { get; set; }
 

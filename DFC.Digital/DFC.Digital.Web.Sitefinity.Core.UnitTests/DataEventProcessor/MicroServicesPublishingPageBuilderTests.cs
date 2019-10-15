@@ -25,6 +25,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly PageNode dummyPageNode;
         private readonly PageData dummyPageData;
         private readonly DateTime dummyPublishedDate;
+        private readonly JobProfileMessage dummyJobProfileMessage;
         private readonly JobProfile dummyJobProfile;
 
         public MicroServicesPublishingPageBuilderTests()
@@ -38,6 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             dummyPageNode = new PageNode();
             dummyPageData = new PageData();
             dummyJobProfile = new JobProfile();
+            dummyJobProfileMessage = new JobProfileMessage();
         }
 
         [Theory]
@@ -55,7 +57,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             A.CallTo(() => fakeSitefinityManagerProxy.GetControlContent(A<PageControl>._, A<string>._)).Returns(DummyContent);
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageData(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageData);
-            A.CallTo(() => fakeJobProfileRepository.GetById(A<Guid>._)).Returns(dummyJobProfile);
+            A.CallTo(() => fakeJobProfileRepository.GetById(A<Guid>._)).Returns(dummyJobProfileMessage);
 
             //Act
             var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeJobProfileRepository);

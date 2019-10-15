@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
+using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -10,7 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         MicroServicesPublishingPageData GetPreviewPage(string name);
 
-        JobProfile GetPublishedDynamicContent(Guid itemId);
+        JobProfileMessage GetPublishedJobProfileDynamicContent(Guid itemId);
 
         string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName);
 

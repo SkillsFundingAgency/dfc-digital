@@ -69,12 +69,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     DirectApplication = dynamicContentExtensions.GetFieldValue<Lstring>(content, DirectApplicationField),
                     OtherRoutes = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRoutesField)
                 },
-                FurtherInformation = new MoreInformation
+                FurtherMoreInformation = new MoreInformation
                 {
                     ProfessionalAndIndustryBodies =
                             dynamicContentExtensions.GetFieldValue<Lstring>(content, ProfessionalAndIndustryBodiesField),
                     CareerTips = dynamicContentExtensions.GetFieldValue<Lstring>(content, CareerTipsField),
-                    FurtherInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, FurtherInformationField)
+                    FurtherInformation = dynamicContentExtensions.GetFieldValue<Lstring>(content, FurtherInformationField),
+                    CType = nameof(MoreInformation)
                 },
                 RouteEntries = new List<RouteEntry>
                 {
@@ -130,9 +131,11 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var link = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Url));
                     linkItems.Add(new MoreInformationLink
                     {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(MoreInformationLink.Id)),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Title)),
                         Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
                         Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLink.Text)),
+                        CType = nameof(MoreInformationLink)
                     });
                 }
             }
@@ -150,8 +153,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new EntryRequirement
                     {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(InfoItem.Id)),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info)),
+                        CType = nameof(EntryRequirement)
                     });
                 }
             }
@@ -169,8 +174,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new Registration
                     {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(InfoItem.Id)),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info))
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info)),
+                        CType = nameof(Registration)
                     });
                 }
             }

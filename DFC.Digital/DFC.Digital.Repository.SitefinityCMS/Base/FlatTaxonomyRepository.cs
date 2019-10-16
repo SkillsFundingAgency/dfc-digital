@@ -9,12 +9,12 @@ using Telerik.Sitefinity.Taxonomies.Web;
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public class TaxonomyRepository : ITaxonomyRepository
+    public abstract class FlatTaxonomyRepository : IFlatTaxonomyRepository
     {
         private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;
 
-        public TaxonomyRepository(ITaxonomyManager manager, ITaxonomyManagerExtensions taxonomyManagerExtensions)
+        protected FlatTaxonomyRepository(ITaxonomyManager manager, ITaxonomyManagerExtensions taxonomyManagerExtensions)
         {
             this.manager = manager;
             this.taxonomyManagerExtensions = taxonomyManagerExtensions;
@@ -28,28 +28,28 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        public HierarchicalTaxon Get(Expression<Func<HierarchicalTaxon, bool>> where)
+        public FlatTaxon Get(Expression<Func<FlatTaxon, bool>> where)
         {
-            return taxonomyManagerExtensions.Where(manager.GetTaxa<HierarchicalTaxon>(), where);
+            return taxonomyManagerExtensions.Where(manager.GetTaxa<FlatTaxon>(), where);
         }
 
         [IgnoreOutputInInterception]
-        public IQueryable<HierarchicalTaxon> GetAll()
+        public IQueryable<FlatTaxon> GetAll()
         {
-            return manager.GetTaxa<HierarchicalTaxon>();
+            return manager.GetTaxa<FlatTaxon>();
         }
 
         [IgnoreOutputInInterception]
-        public HierarchicalTaxon GetById(string id)
+        public FlatTaxon GetById(string id)
         {
-            return manager.GetTaxon(new Guid(id)) as HierarchicalTaxon;
+            return manager.GetTaxon(new Guid(id)) as FlatTaxon;
         }
 
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
-        public IQueryable<HierarchicalTaxon> GetMany(Expression<Func<HierarchicalTaxon, bool>> where)
+        public IQueryable<FlatTaxon> GetMany(Expression<Func<FlatTaxon, bool>> where)
         {
-            return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<HierarchicalTaxon>(), where);
+            return taxonomyManagerExtensions.WhereQueryable(manager.GetTaxa<FlatTaxon>(), where);
         }
 
         protected virtual void Dispose(bool disposing)

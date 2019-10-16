@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class RelatedClassificationsRepository : TaxonomyRepository, IRelatedClassificationsRepository
+    public class RelatedClassificationsRepository : FlatTaxonomyRepository, IRelatedClassificationsRepository
     {
         private const string LarsCodeFieldName = "UrlName";
         private const string TitleFieldName = "Title";
@@ -32,7 +32,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return clasifications.Select(c => new TaxonReport { Title = c.Title, LarsCode = c.UrlName });
         }
 
-        private IQueryable<Taxon> GetClasifications(DynamicContent content, string relatedField, string taxonomyName)
+        private IQueryable<FlatTaxon> GetClasifications(DynamicContent content, string relatedField, string taxonomyName)
         {
             var relatedClasifications = dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, relatedField);
             var clasifications = GetMany(c => relatedClasifications.Contains(c.Id) && c.Taxonomy.Name == taxonomyName);

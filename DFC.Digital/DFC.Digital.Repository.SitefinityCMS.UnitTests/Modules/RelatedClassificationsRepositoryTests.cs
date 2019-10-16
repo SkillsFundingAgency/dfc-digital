@@ -44,7 +44,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
 
-            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<HierarchicalTaxon>>._, A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustHaveHappened();
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<FlatTaxon>>._, A<Expression<Func<FlatTaxon, bool>>>._)).MustHaveHappened();
         }
 
         [Theory]
@@ -64,7 +64,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .MustHaveHappened();
 
-            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<HierarchicalTaxon>>._, A<Expression<Func<HierarchicalTaxon, bool>>>._)).MustHaveHappened();
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<FlatTaxon>>._, A<Expression<Func<FlatTaxon, bool>>>._)).MustHaveHappened();
         }
 
         private void SetupCalls(bool classificationsAvailable)
@@ -73,9 +73,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             A.CallTo(() => fakeDynamicContentExtensions.GetFieldValue<IList<Guid>>(A<DynamicContent>._, A<string>._))
                 .Returns(dummyIdList);
 
-            var fakeTaxonlist = A.CollectionOfDummy<HierarchicalTaxon>(2).ToList().AsQueryable();
-            A.CallTo(() => fakeTaxonomyManager.GetTaxa<HierarchicalTaxon>()).Returns(fakeTaxonlist);
-            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<HierarchicalTaxon>>._, A<Expression<Func<HierarchicalTaxon, bool>>>._)).Returns(fakeTaxonlist);
+            var fakeTaxonlist = A.CollectionOfDummy<FlatTaxon>(2).ToList().AsQueryable();
+            A.CallTo(() => fakeTaxonomyManager.GetTaxa<FlatTaxon>()).Returns(fakeTaxonlist);
+            A.CallTo(() => fakeTaxonomyManagerExtensions.WhereQueryable(A<IQueryable<FlatTaxon>>._, A<Expression<Func<FlatTaxon, bool>>>._)).Returns(fakeTaxonlist);
         }
     }
 }

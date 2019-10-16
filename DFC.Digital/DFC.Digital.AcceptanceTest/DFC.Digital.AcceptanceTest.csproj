@@ -184,7 +184,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExploreCareersFeature.feature</DependentUpon>
     </Compile>
-    <Compile Include="AcceptanceCriteria\Steps\ExploreCareersSteps.cs" />
     <Compile Include="AcceptanceCriteria\Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -225,6 +224,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VocSurvey.feature</DependentUpon>
     </Compile>
+    <Compile Include="AcceptanceCriteria\Steps\ExploreCareersSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\BaseStep.cs" />
     <Compile Include="AcceptanceCriteria\Steps\ContactUsSteps.cs" />
     <Compile Include="AcceptanceCriteria\Steps\FindACourseSteps.cs" />
@@ -288,10 +288,11 @@
       <LastGenOutput>FindACourse.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\HomePage.feature">
-      <LastGenOutput>HomePage.feature.cs</LastGenOutput>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HomePage.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\JobProfile.feature">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>JobProfile.feature.cs</LastGenOutput>
     </None>
@@ -300,8 +301,9 @@
       <LastGenOutput>JobProfileCategory.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\JobProfileSearch.feature">
-      <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>JobProfileSearch.feature.cs</LastGenOutput>
     </None>
     <None Include="AcceptanceCriteria\Features\SkillsHealthCheck.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

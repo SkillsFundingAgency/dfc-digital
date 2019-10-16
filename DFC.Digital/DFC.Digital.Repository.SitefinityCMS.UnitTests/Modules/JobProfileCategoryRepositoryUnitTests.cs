@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity.Taxonomies.Model;
+using Telerik.Sitefinity.Taxonomies.Web;
 using Xunit;
 
 namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
@@ -22,6 +23,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
         private readonly IHierarchicalTaxonomyRepository fakeTaxonomyRepository;
         private readonly IMapper fakeMapper;
         private readonly HierarchicalTaxon dummyTaxon;
+        private ITaxonomyManager fakeTaxonomyManager;
+        private ITaxonomyManagerExtensions fakeTaxonomyManagerExtensions;
 
         public JobProfileCategoryRepositoryUnitTests()
         {
@@ -29,6 +32,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             fakeMapper = A.Fake<IMapper>();
             dummyTaxon = GetDummyTaxon("categoryTwo");
             fakeTaxonomyRepository = A.Fake<IHierarchicalTaxonomyRepository>();
+            fakeTaxonomyManager = A.Fake<ITaxonomyManager>();
+            fakeTaxonomyManagerExtensions = A.Fake<ITaxonomyManagerExtensions>();
         }
 
         [Theory]
@@ -92,7 +97,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
             var mapper = config.CreateMapper();
 
             //Instantiate
-            var jobProfileCategoryRepository = new JobProfileCategoryRepository(fakeSearchService, mapper, fakeTaxonomyRepository);
+            var jobProfileCategoryRepository = new JobProfileCategoryRepository(fakeTaxonomyManager, fakeSearchService, mapper, fakeTaxonomyManagerExtensions);
 
             var returnedJobProfiles = jobProfileCategoryRepository.GetRelatedJobProfiles("test");
 
@@ -141,7 +146,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.UnitTests
         private JobProfileCategoryRepository GetTestJobProfileCategoryRepository()
         {
             // Set up calls
-            return new JobProfileCategoryRepository(fakeSearchService, fakeMapper, fakeTaxonomyRepository);
+            return new JobProfileCategoryRepository(fakeTaxonomyManager, fakeSearchService, fakeMapper, fakeTaxonomyManagerExtensions);
         }
 
         private IQueryable<Taxon> DummyTaxons()

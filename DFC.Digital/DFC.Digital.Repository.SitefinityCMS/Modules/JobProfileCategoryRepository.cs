@@ -5,22 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class JobProfileCategoryRepository : IJobProfileCategoryRepository
+    public class JobProfileCategoryRepository : HierarchicalTaxonomyRepository, IJobProfileCategoryRepository
     {
         private const string JobprofileTaxonomyName = "job-profile-categories";
 
         private readonly ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService;
         private readonly IMapper mapper;
-        private readonly IHierarchicalTaxonomyRepository taxonomyRepository;
 
-        public JobProfileCategoryRepository(ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, IHierarchicalTaxonomyRepository taxonomyRepository)
+        public JobProfileCategoryRepository(ITaxonomyManager taxonomyManager, ISearchQueryService<JobProfileIndex> jobprofileSearchQueryService, IMapper mapper, ITaxonomyManagerExtensions taxonomyManagerExtensions) : base(taxonomyManager, taxonomyManagerExtensions)
         {
             this.jobprofileSearchQueryService = jobprofileSearchQueryService;
             this.mapper = mapper;
-            this.taxonomyRepository = taxonomyRepository;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
@@ -44,7 +43,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<JobProfileCategory> GetJobProfileCategories()
         {
-            return taxonomyRepository.GetMany(category => category.Taxonomy.Name == JobprofileTaxonomyName).Select(category => new JobProfileCategory
+            return GetMany(category => category.Taxonomy.Name == JobprofileTaxonomyName).Select(category => new JobProfileCategory
             {
                 Name = category.Name,
                 Title = category.Title,
@@ -55,7 +54,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IEnumerable<JobProfileCategory> GetByIds(IList<Guid> categoryIds)
         {
-            var categories = taxonomyRepository.GetMany(c => categoryIds.Contains(c.Id) && c.Taxonomy.Name == JobprofileTaxonomyName);
+            var categories = GetMany(c => categoryIds.Contains(c.Id) && c.Taxonomy.Name == JobprofileTaxonomyName);
             foreach (var category in categories)
             {
                 yield return new JobProfileCategory
@@ -64,14 +63,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     Title = category.Title,
                     Description = category.Description,
                     Url = category.UrlName,
-                    Subcategories = taxonomyRepository.GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
+                    Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
                 };
             }
         }
 
         public JobProfileCategory GetByUrlName(string categoryUrlName)
         {
-            var category = taxonomyRepository.Get(c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName);
+            var category = Get(c => c.UrlName == categoryUrlName && c.Taxonomy.Name == JobprofileTaxonomyName);
 
             //if not found via the url return
             if (category == null)
@@ -85,7 +84,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 Title = category.Title,
                 Description = category.Description,
                 Url = category.UrlName,
-                Subcategories = taxonomyRepository.GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
+                Subcategories = GetMany(c => c.Parent.Name == category.Name).Select(q => GetByUrlName(q.UrlName))
             };
         }
 

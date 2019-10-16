@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public abstract class HierarchicalTaxonomyRepository : IHierarchicalTaxonomyRepository
+    public class HierarchicalTaxonomyRepository : IHierarchicalTaxonomyRepository
     {
         private readonly ITaxonomyManagerExtensions taxonomyManagerExtensions;
         private ITaxonomyManager manager;

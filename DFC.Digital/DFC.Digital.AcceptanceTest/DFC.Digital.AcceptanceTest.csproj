@@ -309,6 +309,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SkillsHealthCheck.feature.cs</LastGenOutput>
     </None>
+    <None Include="AcceptanceCriteria\Features\SkillsHealthCheck.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SkillsHealthCheck.feature.cs</LastGenOutput>
+    </None>
     <None Include="AcceptanceCriteria\Features\VocSurvey.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>VocSurvey.feature.cs</LastGenOutput>

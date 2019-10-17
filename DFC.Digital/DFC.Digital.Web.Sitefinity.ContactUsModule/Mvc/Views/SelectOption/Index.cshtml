@@ -2,7 +2,7 @@
  
 
 @Html.Partial("ErrorSummary")
-@using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro" }))
+@using (Html.BeginForm("index", "SelectOption", FormMethod.Post, new { id = "form-select-option", @class = "form form-intro with-validation-summary" }))
 {
     <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.ContactOptionType), ViewData.ModelState)">
         <fieldset class="govuk-fieldset">

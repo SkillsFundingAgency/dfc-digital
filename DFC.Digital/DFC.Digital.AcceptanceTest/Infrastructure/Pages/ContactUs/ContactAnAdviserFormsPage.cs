@@ -21,7 +21,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 
         public string AdviserQueryErrorMessage => Find.Element(By.Id("Message-error")).Text;
 
-        public string DateOfBirthErrorMessage => Find.Element(By.Id("DateOfBirth-error")).Text;
+        public string DateOfBirthErrorMessage => Find.Element(By.CssSelector(".govuk-error-summary__list li a")).Text;
 
         public string Environment => ConfigurationManager.AppSettings["environment"];
 
@@ -107,6 +107,11 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
             EnterText("DateOfBirthDay", birthday.Day.ToString());
             EnterText("DateOfBirthMonth", birthday.Month.ToString());
             EnterText("DateOfBirthYear", birthday.Year.ToString());
+        }
+
+        public void PressSentError()
+        {
+            Find.Element(By.ClassName("govuk-button")).Click();
         }
     }
 }

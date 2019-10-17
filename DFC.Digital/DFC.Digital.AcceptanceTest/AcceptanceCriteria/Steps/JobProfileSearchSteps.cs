@@ -187,7 +187,10 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [Then(@"I am redirected to the survey page")]
         public void ThenIAmRedirectedToTheSurveyPage()
         {
-            GetNavigatedPage<VocSurveyPage>().IsSurveyDisplayed();
+            GetNavigatedPage<VocSurveyPage>()
+                .IsSurveyDisplayed();
+            GetNavigatedPage<VocSurveyPage>()
+                .CloseSurveyWindow();
         }
 
         [Then(@"the total number of results found that match the search term display '(.*)'")]

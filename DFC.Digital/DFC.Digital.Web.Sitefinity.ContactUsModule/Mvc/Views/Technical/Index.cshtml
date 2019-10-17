@@ -3,7 +3,7 @@
 @Html.Partial("ErrorSummary")
 <h1 class="govuk-heading-xl">@Model.Title</h1>
 <p class="govuk-body-m">@Model.PageIntroduction</p>
-@using (Html.BeginForm("Index", "Technical", FormMethod.Post, new { id = "userform" }))
+@using (Html.BeginForm("Index", "Technical", FormMethod.Post, new { id = "userform", @class = "with-validation-summary" }))
 {
     <div class="govuk-character-count" data-module="character-count" data-maxlength="1000">
         <div class="govuk-form-group @Html.GetErrorClass(nameof(Model.Message), ViewData.ModelState)">

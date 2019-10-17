@@ -90,6 +90,15 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             return resultPage;
         }
 
+        internal static TPage Navigate<TPage>(this IElementFinder finder, IPageNavigator navigator, IWebDriver browser, By by, int waitTimeout = 10)
+            where TPage : UiComponent, new()
+        {
+            var element = finder.Element(by);
+            var resultPage = navigator.To<TPage>(by);
+
+            return resultPage;
+        }
+
         internal static bool IsThisStatusPage(this IWebDriver browser)
         {
             try

@@ -243,12 +243,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\DynamicModuleRepository.cs" />
-    <Compile Include="Base\HierarchicalTaxonomyRepository.cs" />
+    <Compile Include="Base\FlatTaxonomyRepository.cs" />
     <Compile Include="Base\IDynamicContentExtensions.cs" />
     <Compile Include="Base\IContentPropertyConverter.cs" />
     <Compile Include="Base\IDynamicModuleConverter.cs" />
     <Compile Include="Base\IDynamicModuleRepository.cs" />
-    <Compile Include="Base\IHierarchicalTaxonomyRepository.cs" />
+    <Compile Include="Base\IFlatTaxonomyRepository.cs" />
     <Compile Include="Base\IRelatedClassificationsRepository.cs" />
     <Compile Include="Base\ITaxonomyManagerExtensions.cs" />
     <Compile Include="Base\ITaxonomyRepository.cs" />

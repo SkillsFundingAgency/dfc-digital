@@ -9,7 +9,7 @@ using Telerik.Sitefinity.Taxonomies.Web;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class RelatedClassificationsRepository : TaxonomyRepository, IRelatedClassificationsRepository
+    public class RelatedClassificationsRepository : FlatTaxonomyRepository, IRelatedClassificationsRepository
     {
         private const string LarsCodeFieldName = "UrlName";
         private const string TitleFieldName = "Title";

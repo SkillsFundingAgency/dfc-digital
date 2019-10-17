@@ -5,7 +5,7 @@ using Telerik.Sitefinity.Taxonomies.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
 {
-    public interface ITaxonomyRepository : IQueryRepository<FlatTaxon>, IDisposable
+    public interface ITaxonomyRepository : IQueryRepository<HierarchicalTaxon>, IDisposable
     {
     }
 }

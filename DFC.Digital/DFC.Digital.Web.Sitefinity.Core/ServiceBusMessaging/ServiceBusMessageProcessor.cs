@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class ServiceBusMessageProcessor : IServiceBusMessageProcessor
     {
         private const string ConnectionStringServiceBus = "Endpoint=sb://dfc-dev-app-sharedresources-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SCSwv/2V0DoiZGXn6fnx77YOeH09nQbIqpk4GIsavgU=";
-        private const string TopicName = "cms-job-profile-topic";
+        private const string TopicName = "cms-messages-localdev";
 
         public ServiceBusMessageProcessor()
         {
@@ -47,6 +47,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     Console.WriteLine($"Sending message to queue: {jsonData}");
                     message.ContentType = "application/json";
                     message.Label = jpData.Title;
+                    message.UserProperties.Add("Id", jpData.JobProfileId);
                     message.UserProperties.Add("EventType", status);
                     message.UserProperties.Add("CType", jpData.CType);
 

@@ -65,7 +65,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The soc code.
         /// </value>
-        public string SOCCode { get; set; }
+        public string SocLevelTwo { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the URL.
@@ -100,8 +100,6 @@ namespace DFC.Digital.Data.Model
         public decimal? MinimumHours { get; set; }
 
         public decimal? MaximumHours { get; set; }
-
-        public string WorkingHoursDetails { get; set; }
 
         public bool? DoesNotExistInBAU { get; set; }
 
@@ -185,18 +183,30 @@ namespace DFC.Digital.Data.Model
         [JsonIgnore]
         public IQueryable<string> RelatedJobAreas { get; set; }
 
-        public string WorkingPattern { get; set; }
+        public IEnumerable<Classification> WorkingPattern { get; set; }
 
-        public string WorkingPatternDetails { get; set; }
+        public IEnumerable<Classification> WorkingPatternDetails { get; set; }
+
+        public IEnumerable<Classification> WorkingHoursDetails { get; set; }
+
+        public IEnumerable<Classification> HiddenAlternativeTitle { get; set; }
+
+        public IEnumerable<Classification> JobProfileSpecialism { get; set; }
 
         public bool? IsImported { get; set; }
 
         public HowToBecome HowToBecomeData { get; set; }
 
-        public WhatYouWillDo WhatYouWillDoData { get; set; }
+        public WhatYouWillDoData WhatYouWillDoData { get; set; }
 
-        [JsonIgnore]
-        public IList<string> RelatedSkills { get; set; }
+        public SocCode SocCodeData { get; set; }
+
+        //public IEnumerable<JobProfileRelatedCareer> RelatedCareersData { get; set; }
+        public IEnumerable<JobProfileRelatedCareer> RelatedCareersData { get; set; }
+
+        public IEnumerable<SocSkillMatrix> RelatedSkills { get; set; }
+
+        public IEnumerable<JobProfileCategoryData> JobProfileCategories { get; set; }
 
         public string ONetOccupationalCode { get; set; }
 
@@ -207,8 +217,6 @@ namespace DFC.Digital.Data.Model
         //Additional properties that needs to be exposed
         public string SocCodeId { get; set; }
 
-        public Guid ParentId { get; set; }
-
         public string CType { get; set; }
 
         public DateTime LastModified { get; set; }
@@ -218,7 +226,5 @@ namespace DFC.Digital.Data.Model
         public bool IncludeInSiteMap { get; set; }
 
         public string ActionType { get; set; }
-
-        public IEnumerable<JobProfileCategory> JobProfileCategories { get; set; }
     }
 }

@@ -153,7 +153,9 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Classification.cs" />
     <Compile Include="Model\CategoryType.cs" />
+    <Compile Include="Model\Composite\JobProfileCategoryData.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
     <Compile Include="Model\JobProfileMessage.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
@@ -249,7 +251,9 @@
     <Compile Include="Model\VocSurveyPersonalisation.cs" />
     <Compile Include="Model\WhatYouWillDo.cs" />
     <Compile Include="Model\WhatItTakesSkill.cs" />
+    <Compile Include="Model\WhatYouWillDoData.cs" />
     <Compile Include="Model\WorkflowStatus.cs" />
+    <Compile Include="Model\WYDRelatedContentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

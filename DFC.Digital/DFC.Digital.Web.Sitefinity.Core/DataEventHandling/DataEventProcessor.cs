@@ -227,6 +227,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else
             {
+                //Child content types
                 //var relatedParentItems = GetRelationsByParent(itemId, "dynamicProvider2", contentType.Name, "JobProfile");
                 //var relatedChildItems = GetRelationsByChild(itemId, "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.UniversityLink", "dynamicProvider2", "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
                 // Set a transaction name

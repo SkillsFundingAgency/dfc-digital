@@ -42,6 +42,24 @@ namespace DFC.Digital.Core
         public const string Technology = "Technology";
         public const string SearchScoringProfileName = "jp";
         public const string SocField = "SOC";
+        public const string SOCCode = "SOCCode";
+        public const string ApprenticeshipFramework = "ApprenticeshipFrameworks";
+        public const string ApprenticeshipStandards = "ApprenticeshipStandards";
+        public const string WorkingPattern = "WorkingPattern";
+        public const string WorkingPatternDetail = "WorkingPatternDetails";
+        public const string WorkingHoursDetail = "WorkingHoursDetails";
+        public const string HiddenAlternativeTitle = "HiddenAlternativeTitle";
+        public const string JobProfileSpecialism = "JobProfileSpecialism";
+
+        public const string RelatedLocations = "RelatedLocations";
+        public const string RelatedEnvironments = "RelatedEnvironments";
+        public const string RelatedUniforms = "RelatedUniforms";
+
+        public const string RelatedCareerProfiles = "RelatedCareerProfiles";
+
+        public const string RelatedSkills = "RelatedSkills";
+        public const string Url = "ItemDefaultUrl";
+
         public const string JobProfileSearchIndex = "DFC.Digital.JobProfileSearchIndex";
         public const string SearchServiceQueryAPIKey = "DFC.Digital.SearchServiceQueryAPIKey";
         public const string SearchServiceAdminAPIKey = "DFC.Digital.SearchServiceAdminAPIKey";

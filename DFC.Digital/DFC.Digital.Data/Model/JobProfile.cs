@@ -13,6 +13,14 @@ namespace DFC.Digital.Data.Model
     public class JobProfile : IDigitalDataModel
     {
         /// <summary>
+        /// Gets or sets the Id.
+        /// </summary>
+        /// <value>
+        /// The Id.
+        /// </value>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the title.
         /// </summary>
         /// <value>

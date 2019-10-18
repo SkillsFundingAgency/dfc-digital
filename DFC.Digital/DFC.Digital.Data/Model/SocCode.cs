@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace DFC.Digital.Data.Model
 {
@@ -14,5 +15,9 @@ namespace DFC.Digital.Data.Model
         public string ONetOccupationalCode { get; set; }
 
         public string UrlName { get; set; }
+
+        public IEnumerable<Classification> ApprenticeshipFramework { get; set; }
+
+        public IEnumerable<Classification> ApprenticeshipStandards { get; set; }
     }
 }

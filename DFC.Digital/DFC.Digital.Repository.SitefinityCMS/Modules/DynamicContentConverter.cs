@@ -6,8 +6,12 @@ using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.OpenAccess;
+using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -30,6 +34,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
+        private readonly IDynamicModuleConverter<JobProfileRelatedCareer> careersContentPropertyConverter;
         private readonly IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter;
         private readonly IJobProfileCategoryRepository jobProfileCategoryRepository;
 
@@ -37,12 +42,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public DynamicContentConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter, IJobProfileCategoryRepository jobProfileCategoryRepository)
+        public DynamicContentConverter(IDynamicModuleConverter<JobProfileRelatedCareer> careersContentPropertyConverter, IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter, IJobProfileCategoryRepository jobProfileCategoryRepository)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
             this.htbContentPropertyConverter = htbContentPropertyConverter;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.whatYouWillDoPropertyConverter = whatYouWillDoPropertyConverter;
+            this.careersContentPropertyConverter = careersContentPropertyConverter;
             this.jobProfileCategoryRepository = jobProfileCategoryRepository;
         }
 
@@ -74,28 +80,46 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
                 // How To Become section
                 HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
+                RelatedCareersData = GetRelatedCareersData(content, Constants.RelatedCareerProfiles),
                 Restrictions = GetRestrictions(content, RelatedRestrictionsField),
                 OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
                 DynamicTitlePrefix = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DynamicTitlePrefix)),
-
-                //What You will do section
-                WhatYouWillDoData = whatYouWillDoPropertyConverter.ConvertFrom(content),
-                RelatedSkills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkillsField)?.ToList(),
-                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DigitalSkillsLevel))
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DigitalSkillsLevel)),
             };
 
+            //What You will do section
+            jobProfileMessage.WhatYouWillDoData = GetWYDRelatedData(content);
+
+            //Related Skills Data
+            jobProfileMessage.RelatedSkills = GetSocMatrixSkills(content, Constants.RelatedSkills);
+
+            //Get SOC Code data
             var socItem = dynamicContentExtensions.GetRelatedItems(content, Constants.SocField, 1).FirstOrDefault();
+
+            //SocCode Data
+            jobProfileMessage.SocCodeData = GenerateSocData(socItem);
+
+            //Working Pattern Details
+            jobProfileMessage.WorkingPatternDetails = MapClassificationData(content.GetValue<TrackedList<Guid>>(Constants.WorkingPatternDetail));
+
+            //Working Hours Details
+            jobProfileMessage.WorkingHoursDetails = MapClassificationData(content.GetValue<TrackedList<Guid>>(Constants.WorkingHoursDetail));
+
+            //Working Pattern
+            jobProfileMessage.WorkingPattern = MapClassificationData(content.GetValue<TrackedList<Guid>>(Constants.WorkingPattern));
+
+            //Hidden Alternative Title
+            jobProfileMessage.HiddenAlternativeTitle = MapClassificationData(content.GetValue<TrackedList<Guid>>(Constants.HiddenAlternativeTitle));
+
+            //Job Profile Specialism
+            jobProfileMessage.JobProfileSpecialism = MapClassificationData(content.GetValue<TrackedList<Guid>>(Constants.JobProfileSpecialism));
 
             if (socItem != null)
             {
-                jobProfileMessage.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfileMessage.SOCCode));
+                jobProfileMessage.SocLevelTwo = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, Constants.SOCCode);
                 jobProfileMessage.ONetOccupationalCode =
                     dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfileMessage.ONetOccupationalCode));
             }
-
-            jobProfileMessage.WorkingHoursDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileMessage.WorkingHoursDetails), nameof(JobProfileMessage.WorkingHoursDetails)).FirstOrDefault();
-            jobProfileMessage.WorkingPattern = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileMessage.WorkingPattern), nameof(JobProfileMessage.WorkingPattern)).FirstOrDefault();
-            jobProfileMessage.WorkingPatternDetails = relatedClassificationsRepository.GetRelatedClassifications(content, nameof(JobProfileMessage.WorkingPatternDetails), nameof(JobProfileMessage.WorkingPatternDetails)).FirstOrDefault();
 
             //PSF
             jobProfileMessage.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
@@ -105,12 +129,74 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfileMessage.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfileMessage.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
 
-            jobProfileMessage.SocCodeId = jobProfileMessage.SOCCode.Substring(0, 2);
+            jobProfileMessage.SocCodeId = jobProfileMessage.SocLevelTwo.Substring(0, 2);
             jobProfileMessage.LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, nameof(JobProfileMessage.LastModified));
             jobProfileMessage.IncludeInSiteMap = content.IncludeInSitemap;
             jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)).ToLower();
             jobProfileMessage.JobProfileCategories = GetJobCategories(dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField));
             return jobProfileMessage;
+        }
+
+        private IEnumerable<SocSkillMatrix> GetSocMatrixSkills(DynamicContent content, string relatedField)
+        {
+            var relatedSkills = new List<SocSkillMatrix>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedSkills.Add(new SocSkillMatrix
+                    {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(SocSkillMatrix.Id)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrix.Title)),
+                        Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrix.Contextualised)),
+                        ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrix.ONetAttributeType)),
+                        ONetElementId = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrix.RelatedSkill)).SingleOrDefault().ONetElementId,
+                        ONetRank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrix.ONetRank)),
+                        Rank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrix.Rank)),
+                        RelatedSkill = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrix.RelatedSkill)),
+                        RelatedSOC = GetRelatedSocsData(relatedItem, nameof(SocSkillMatrix.RelatedSOC))
+                    });
+                }
+            }
+
+            return relatedSkills;
+        }
+
+        private IEnumerable<FrameworkSkill> GetRelatedSkillsData(DynamicContent content, string relatedField)
+        {
+            var relatedSkillsData = new List<FrameworkSkill>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedSkillsData.Add(new FrameworkSkill
+                    {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(FrameworkSkill.Id)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.Title)),
+                        Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.Description)),
+                        ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.ONetElementId))
+                    });
+                }
+            }
+
+            return relatedSkillsData;
+        }
+
+        private IEnumerable<SocCode> GetRelatedSocsData(DynamicContent content, string relatedField)
+        {
+            var relatedSocsData = new List<SocCode>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedSocsData.Add(GenerateSocData(relatedItem));
+                }
+            }
+
+            return relatedSocsData;
         }
 
         private IEnumerable<Restriction> GetRestrictions(DynamicContent content, string relatedField)
@@ -123,9 +209,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     restrictions.Add(new Restriction
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(InfoItem.Id)),
-                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoItem.Info)),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(Restriction.Id)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(Restriction.Title)),
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(Restriction.Info)),
                         CType = nameof(Restriction)
                     });
                 }
@@ -134,22 +220,120 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return restrictions;
         }
 
-        private IEnumerable<JobProfileCategory> GetJobCategories(IList<Guid> categoryIds)
+        private SocCode GenerateSocData(DynamicContent content)
         {
-            IEnumerable<JobProfileCategory> jobProfileCategories = jobProfileCategoryRepository.GetByIds(categoryIds);
-            if (jobProfileCategories != null)
+            var apprenticeshipStandardsData = content.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipStandards.ToLower());
+            var apprenticeshipFrameworkData = content.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipFramework.ToLower());
+
+            var socCodes = new SocCode
             {
-                foreach (var jobProfileCategory in jobProfileCategories.ToList())
+                Id = content.Id,
+                SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)).ToLower(),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)).ToLower(),
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.UrlName)),
+                ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.ONetOccupationalCode)),
+                ApprenticeshipFramework = MapClassificationData(apprenticeshipFrameworkData),
+                ApprenticeshipStandards = MapClassificationData(apprenticeshipStandardsData)
+            };
+
+            return socCodes;
+        }
+
+        private IEnumerable<Classification> MapClassificationData(TrackedList<Guid> classifications)
+        {
+            var classificationData = new List<Classification>();
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            foreach (var cat in classifications)
+            {
+                classificationData.Add(new Classification
                 {
-                    jobProfileCategories.Append(new JobProfileCategory
+                    Id = taxonomyManager.GetTaxon(cat).Id,
+                    Title = taxonomyManager.GetTaxon(cat).Title
+                });
+            }
+
+            return classificationData;
+        }
+
+        private IEnumerable<JobProfileRelatedCareer> GetRelatedCareersData(DynamicContent content, string relatedField)
+        {
+            var jobProfileRelatedCareerData = new List<JobProfileRelatedCareer>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    jobProfileRelatedCareerData.Add(new JobProfileRelatedCareer
                     {
-                        Id = jobProfileCategory.Id,
-                        Title = jobProfileCategory.Title
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(JobProfileRelatedCareer.Id)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(JobProfileRelatedCareer.Title)),
+                        ProfileLink = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, Constants.Url),
                     });
                 }
             }
 
-            return jobProfileCategories;
+            return jobProfileRelatedCareerData;
+        }
+
+        private IEnumerable<JobProfileCategoryData> GetJobCategories(IList<Guid> categoryIds)
+        {
+            IEnumerable<JobProfileCategory> jobProfileCategories = jobProfileCategoryRepository.GetByIds(categoryIds);
+            List<JobProfileCategoryData> jobProfileCategoriesData = new List<JobProfileCategoryData>();
+            if (jobProfileCategories != null)
+            {
+                foreach (var jobProfileCategory in jobProfileCategories.ToList())
+                {
+                    jobProfileCategoriesData.Add(new JobProfileCategoryData
+                    {
+                        Id = jobProfileCategory.Id,
+                        Title = jobProfileCategory.Title,
+                        Name = jobProfileCategory.Name
+                    });
+                }
+            }
+
+            return jobProfileCategoriesData;
+        }
+
+        private WhatYouWillDoData GetWYDRelatedData(DynamicContent content)
+        {
+            var wydData = new WhatYouWillDoData
+            {
+                IsCadReady = true,
+                Introduction =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDoData.Introduction)),
+                DailyTasks =
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDoData.DailyTasks)),
+                Locations = GetWYDRelatedItems(content, Constants.RelatedLocations),
+                Uniforms = GetWYDRelatedItems(content, Constants.RelatedUniforms),
+                Environments = GetWYDRelatedItems(content, Constants.RelatedEnvironments),
+            };
+
+            return wydData;
+        }
+
+        private IEnumerable<WYDRelatedContentType> GetWYDRelatedItems(DynamicContent content, string relatedField)
+        {
+            var items = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            var relatedContentTypes = new List<WYDRelatedContentType>();
+            if (items != null && items.Any())
+            {
+                foreach (var item in items)
+                {
+                    relatedContentTypes.Add(new WYDRelatedContentType
+                    {
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(item, nameof(WYDRelatedContentType.Id)),
+                        Description = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(WYDRelatedContentType.Description)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(WYDRelatedContentType.Title)),
+                        Url = dynamicContentExtensions.GetFieldValue<Lstring>(item, Constants.Url),
+                        IsNegative = dynamicContentExtensions.GetFieldValue<bool>(item, nameof(WYDRelatedContentType.IsNegative))
+                    });
+                }
+
+                return relatedContentTypes;
+            }
+
+            return Enumerable.Empty<WYDRelatedContentType>();
         }
     }
 }

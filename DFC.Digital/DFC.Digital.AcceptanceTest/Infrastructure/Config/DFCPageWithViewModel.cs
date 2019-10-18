@@ -37,7 +37,7 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
         public TPage ClickFeedbackLink<TPage>()
             where TPage : UiComponent, new()
         {
-            return NavigateTo<TPage>(By.CssSelector(".phase-banner p span a"));
+            return NavigateToTab<TPage>(By.CssSelector(".govuk-phase-banner__text a"));
         }
 
         public TPage SelectOnlineSurvey<TPage>()
@@ -83,6 +83,12 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure
             where TPage : UiComponent, new()
         {
             return Find.NavigateAndWaitForStalenessTo<TPage>(Navigate, Browser, by, waitTimeout);
+        }
+
+        protected virtual TPage NavigateToTab<TPage>(By by, int waitTimeout = 10)
+            where TPage : UiComponent, new()
+        {
+            return Find.Navigate<TPage>(Navigate, Browser, by, waitTimeout);
         }
 
         protected virtual TPage NavigateTo<TPage>(string url, By checkUsing, int waitTimeout = 10)

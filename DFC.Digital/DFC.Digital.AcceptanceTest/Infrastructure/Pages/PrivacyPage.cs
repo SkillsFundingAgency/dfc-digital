@@ -10,6 +10,6 @@ namespace DFC.Digital.AcceptanceTest.Infrastructure.Pages
 {
     public class PrivacyPage : DFCPage
     {
-        public string PageTitle => Find.OptionalElement(By.ClassName("heading-xlarge")).Text;
+        public string PageTitle => Find.OptionalElement(By.ClassName("govuk-heading-xl")).Text;
     }
 }

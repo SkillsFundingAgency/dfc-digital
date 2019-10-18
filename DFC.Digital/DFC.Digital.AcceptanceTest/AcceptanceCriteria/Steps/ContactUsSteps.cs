@@ -84,7 +84,7 @@ namespace DFC.Digital.AcceptanceTest.AcceptanceCriteria.Steps
         [When(@"I press send to generate an error")]
         public void WhenIPressSendToGenerateAnError()
         {
-            GetNavigatedPage<ContactUsPage>()?.PressSentError();
+            GetNavigatedPage<ContactAnAdviserFormsPage>()?.PressSentError();
         }
 
         [When(@"I complete the first form with (.*) option and (.*) query")]

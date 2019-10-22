@@ -1,11 +1,18 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Events;
+using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Events;
+using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Pages.Model;
+using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -16,14 +23,44 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IMicroServicesPublishingService compositeUIService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IDataEventActions dataEventActions;
+        private readonly IServiceBusMessageProcessor serviceBusMessageProcessor;
+        private readonly IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
             this.compositeUIService = compositeUIService;
             this.asyncHelper = asyncHelper;
             this.dataEventActions = dataEventActions;
+            this.dynamicContentConverter = dynamicContentConverter;
+            this.serviceBusMessageProcessor = serviceBusMessageProcessor;
+        }
+
+        public void PublishDynamicContent(IDynamicContentUpdatedEvent eventInfo)
+        {
+            if (eventInfo == null)
+            {
+                throw new ArgumentNullException("eventInfo");
+            }
+
+            try
+            {
+                if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
+                    eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
+                {
+                    GenerateServiceBusMessage(eventInfo);
+                }
+                else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
+                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.Item.Id}", ex);
+                throw;
+            }
         }
 
         public void ExportCompositePage(IDataEvent eventInfo)
@@ -63,7 +100,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
                 else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
-                     DeletePage(providerName, contentType, itemId);
+                    DeletePage(providerName, contentType, itemId);
                 }
             }
             catch (Exception ex)
@@ -89,6 +126,36 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
                 asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
+            }
+        }
+
+        private void GenerateServiceBusMessage(IDynamicContentUpdatedEvent eventInfo)
+        {
+            Type parentType = TypeResolutionService.ResolveType("Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile");
+            var itemId = eventInfo.Item.Id;
+            var providerName = eventInfo.Item.ProviderName;
+            var contentType = eventInfo.Item.GetType();
+            var dynamicContent = eventInfo.Item;
+
+            if (contentType == parentType)
+            {
+                JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(dynamicContent);
+                jobprofileData.CType = contentType.Name;
+                jobprofileData.ActionType = dynamicContent.ApprovalWorkflowState.Value;
+                serviceBusMessageProcessor.SendMessage(jobprofileData);
+            }
+            else
+            {
+                var contentLinksManager = ContentLinksManager.GetManager();
+
+                // here you get the IDs of News items which has as related data that Author
+                var parentItemContentLinks = contentLinksManager.GetContentLinks()
+                    .Where(c => c.ParentItemType == parentType.FullName && c.ChildItemId == itemId)
+                    .Select(c => c.ParentItemId).ToList();
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(dynamicContent.ProviderName, "transactionName");
+
+                //var relatedNewsItems = dynamicModuleManager.GetNewsItems().Where(i => parentItemContentLinks.Contains(i.Id));
+                var result = dynamicModuleManager.GetDataItems(parentType).Where(d => parentItemContentLinks.Contains(d.OriginalContentId) && d.Status == ContentLifecycleStatus.Live);
             }
         }
     }

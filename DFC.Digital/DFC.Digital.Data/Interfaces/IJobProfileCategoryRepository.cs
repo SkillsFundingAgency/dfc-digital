@@ -14,5 +14,7 @@ namespace DFC.Digital.Data.Interfaces
         IEnumerable<JobProfile> GetRelatedJobProfiles(string category);
 
         IQueryable<JobProfileCategory> GetJobProfileCategories();
+
+        IEnumerable<JobProfileCategoryItem> GetByCategoryIds(IList<Guid> categoryIds);
     }
 }

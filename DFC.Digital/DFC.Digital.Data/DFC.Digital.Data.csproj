@@ -154,6 +154,17 @@
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
+    <Compile Include="Model\CompositeUI\RelatedSocCodeItem.cs" />
+    <Compile Include="Model\CompositeUI\Classification.cs" />
+    <Compile Include="Model\CompositeUI\InfoDataItem.cs" />
+    <Compile Include="Model\CompositeUI\JobProfileCategoryItem.cs" />
+    <Compile Include="Model\CompositeUI\JobProfileMessage.cs" />
+    <Compile Include="Model\CompositeUI\JobProfileRelatedCareerItem.cs" />
+    <Compile Include="Model\CompositeUI\RestrictionItem.cs" />
+    <Compile Include="Model\CompositeUI\SocCodeItem.cs" />
+    <Compile Include="Model\CompositeUI\SocSkillMatrixItem.cs" />
+    <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />
+    <Compile Include="Model\CompositeUI\WYDRelatedContentType.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />

@@ -10,6 +10,7 @@ using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Events;
+using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Pages.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
@@ -146,16 +147,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else
             {
-                var contentLinksManager = ContentLinksManager.GetManager();
-
-                // here you get the IDs of News items which has as related data that Author
-                var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                    .Where(c => c.ParentItemType == parentType.FullName && c.ChildItemId == itemId)
-                    .Select(c => c.ParentItemId).ToList();
-                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(dynamicContent.ProviderName, "transactionName");
-
-                //var relatedNewsItems = dynamicModuleManager.GetNewsItems().Where(i => parentItemContentLinks.Contains(i.Id));
-                var result = dynamicModuleManager.GetDataItems(parentType).Where(d => parentItemContentLinks.Contains(d.OriginalContentId) && d.Status == ContentLifecycleStatus.Live);
+                //Work in progress to PUBLISH related dynamic content and its parent items
             }
         }
     }

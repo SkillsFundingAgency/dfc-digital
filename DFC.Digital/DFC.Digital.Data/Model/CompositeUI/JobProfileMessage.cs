@@ -52,14 +52,6 @@ namespace DFC.Digital.Data.Model
         public string Overview { get; set; }
 
         /// <summary>
-        /// Gets or sets the salary range.
-        /// </summary>
-        /// <value>
-        /// The salary range.
-        /// </value>
-        public string SalaryRange { get; set; }
-
-        /// <summary>
         /// Gets or sets the soc code.
         /// </summary>
         /// <value>
@@ -99,56 +91,6 @@ namespace DFC.Digital.Data.Model
 
         public decimal? MinimumHours { get; set; }
 
-        public decimal? MaximumHours { get; set; }
-
-        public bool? DoesNotExistInBAU { get; set; }
-
-        public string BAUSystemOverrideUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related interests identifier URL name collection.
-        /// </summary>
-        /// <value>
-        /// The related interests identifier URL name collection.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedInterests { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related entry qualifications identifier URL name collection.
-        /// </summary>
-        /// <value>
-        /// The related entry qualifications identifier URL name collection.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedEntryQualifications { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related enablers identifier URL name collection.
-        /// </summary>
-        /// <value>
-        /// The related enablers identifier URL name collection.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedEnablers { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related training routes identifier URL name collection.
-        /// </summary>
-        /// <value>
-        /// The related training routes identifier URL name collection.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedTrainingRoutes { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether IsLMISalaryFeedOverriden is selected.
-        /// </summary>
-        /// <value>
-        /// The IsLMISalaryFeedOverriden.
-        /// </value>
-        public bool? IsLMISalaryFeedOverriden { get; set; }
-
         /// <summary>
         /// Gets or sets the SalaryStarter.
         /// </summary>
@@ -164,24 +106,6 @@ namespace DFC.Digital.Data.Model
         /// The SalaryExperienced.
         /// </value>
         public decimal? SalaryExperienced { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related preferred task types.
-        /// </summary>
-        /// <value>
-        /// The related preferred task types.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedPreferredTaskTypes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the related job areas.
-        /// </summary>
-        /// <value>
-        /// The related job areas.
-        /// </value>
-        [JsonIgnore]
-        public IQueryable<string> RelatedJobAreas { get; set; }
 
         public IEnumerable<Classification> WorkingPattern { get; set; }
 
@@ -208,21 +132,8 @@ namespace DFC.Digital.Data.Model
 
         public IEnumerable<JobProfileCategoryItem> JobProfileCategories { get; set; }
 
-        public string ONetOccupationalCode { get; set; }
-
-        public bool HasRelatedSocSkillMatrices { get; set; }
-
-        public string WidgetContentTitle { get; set; }
-
-        //Additional properties that needs to be exposed
-        public string CType { get; set; }
-
         public DateTime LastModified { get; set; }
 
         public string CanonicalName { get; set; }
-
-        public bool IncludeInSiteMap { get; set; }
-
-        public string ActionType { get; set; }
     }
 }

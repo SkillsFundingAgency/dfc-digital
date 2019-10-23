@@ -11,8 +11,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface IServiceBusMessageProcessor
     {
-        Task SendMessage(JobProfileMessage dynamicContent);
+        Task SendJobProfileMessage(JobProfileMessage dynamicContent, string contentType, string actionType);
 
-        Task SendMessagesToQueueAsync(JobProfileMessage jobprofileMessage, int numberOfMessages, TopicClient topicClient, string status);
+        Task SendMessagesToQueueAsync(Message message, TopicClient topicClient);
     }
 }

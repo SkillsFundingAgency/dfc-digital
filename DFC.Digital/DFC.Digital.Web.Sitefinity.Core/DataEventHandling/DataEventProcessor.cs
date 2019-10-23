@@ -141,9 +141,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             if (contentType == parentType)
             {
                 JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(dynamicContent);
-                jobprofileData.CType = contentType.Name;
-                jobprofileData.ActionType = dynamicContent.ApprovalWorkflowState.Value;
-                serviceBusMessageProcessor.SendMessage(jobprofileData);
+                serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, contentType.Name, dynamicContent.ApprovalWorkflowState.Value);
             }
             else
             {

@@ -21,16 +21,10 @@ namespace DFC.Digital.Data.Model
 
         public decimal? ONetRank { get; set; }
 
-        public string SocCode { get; set; }
-
-        public string Skill { get; set; }
-
         public string ONetElementId { get; set; }
 
-        public IEnumerable<FrameworkSkill> RelatedSkill { get; set; }
+        public IEnumerable<FrameworkSkillItem> RelatedSkill { get; set; }
 
         public IEnumerable<RelatedSocCodeItem> RelatedSOC { get; set; }
-
-        public string SfUrlName => Regex.Replace(Title.ToLower().Trim(), UrlNameRegexPattern, "-");
     }
 }

@@ -59,21 +59,16 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id"),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)),
                 AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.AlternativeTitle)),
-                WidgetContentTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.WidgetContentTitle)),
                 Overview = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Overview)),
-                IsLMISalaryFeedOverriden = dynamicContentExtensions.GetFieldValue<bool?>(content, nameof(JobProfileMessage.IsLMISalaryFeedOverriden)),
                 SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryStarter)),
                 SalaryExperienced = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryExperienced)),
                 MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MinimumHours)),
-                MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CareerPathAndProgression)),
                 CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CourseKeywords)),
 
                 //Need to use a string to get the content cannot use JobProfileMessage.JobProfileCategories as this is already used in the search
                 //index and we will get a clash
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.UrlName)),
-                DoesNotExistInBAU = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfileMessage.DoesNotExistInBAU)),
-                BAUSystemOverrideUrl = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.BAUSystemOverrideUrl)),
                 IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfileMessage.IsImported)),
 
                 // How To Become section
@@ -115,20 +110,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             if (socItem != null)
             {
                 jobProfileMessage.SocLevelTwo = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, Constants.SOCCode).ToString().Substring(0, 2);
-                jobProfileMessage.ONetOccupationalCode =
-                    dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfileMessage.ONetOccupationalCode));
             }
 
-            //PSF
-            jobProfileMessage.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
-            jobProfileMessage.RelatedEnablers = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEnablersField);
-            jobProfileMessage.RelatedEntryQualifications = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEntryQualificationsField);
-            jobProfileMessage.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
-            jobProfileMessage.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
-            jobProfileMessage.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
-
             jobProfileMessage.LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, nameof(JobProfileMessage.LastModified));
-            jobProfileMessage.IncludeInSiteMap = content.IncludeInSitemap;
             jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)).ToLower();
             jobProfileMessage.JobProfileCategories = GetJobCategories(dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField));
             return jobProfileMessage;
@@ -160,20 +144,20 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return relatedSkills;
         }
 
-        private IEnumerable<FrameworkSkill> GetRelatedSkillsData(DynamicContent content, string relatedField)
+        private IEnumerable<FrameworkSkillItem> GetRelatedSkillsData(DynamicContent content, string relatedField)
         {
-            var relatedSkillsData = new List<FrameworkSkill>();
+            var relatedSkillsData = new List<FrameworkSkillItem>();
             var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
             if (relatedItems != null)
             {
                 foreach (var relatedItem in relatedItems)
                 {
-                    relatedSkillsData.Add(new FrameworkSkill
+                    relatedSkillsData.Add(new FrameworkSkillItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(FrameworkSkill.Id)),
-                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.Title)),
-                        Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.Description)),
-                        ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkill.ONetElementId))
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(FrameworkSkillItem.Id)),
+                        Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Title)),
+                        Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Description)),
+                        ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.ONetElementId))
                     });
                 }
             }

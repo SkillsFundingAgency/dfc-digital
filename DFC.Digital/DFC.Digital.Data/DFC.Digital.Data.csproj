@@ -154,6 +154,7 @@
     <Compile Include="Interfaces\IWebAppContext.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
+    <Compile Include="Model\CompositeUI\FrameworkSkillItem.cs" />
     <Compile Include="Model\CompositeUI\RelatedSocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\Classification.cs" />
     <Compile Include="Model\CompositeUI\InfoDataItem.cs" />

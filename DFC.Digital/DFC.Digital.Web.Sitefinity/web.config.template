@@ -75,6 +75,9 @@
         <!-- Micro Services Publishing Endpoints-->
         <add key="DFC.Digital.MicroService.HelpEndPoint" value="__MicroServiceHelpEndPoint__" />
         <add key="DFC.Digital.MicroService.HelpPreviewEndPoint" value="__MicroServiceHelpPreviewEndPoint__" />
+      <!-- Servicebus Connection String-->
+      <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
+      <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
     </appSettings>
     <connectionStrings>
         <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

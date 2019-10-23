@@ -215,8 +215,6 @@ namespace DFC.Digital.Data.Model
         public string WidgetContentTitle { get; set; }
 
         //Additional properties that needs to be exposed
-        public string SocCodeId { get; set; }
-
         public string CType { get; set; }
 
         public DateTime LastModified { get; set; }

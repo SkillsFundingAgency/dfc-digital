@@ -114,7 +114,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             if (socItem != null)
             {
-                jobProfileMessage.SocLevelTwo = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, Constants.SOCCode);
+                jobProfileMessage.SocLevelTwo = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, Constants.SOCCode).ToString().Substring(0, 2);
                 jobProfileMessage.ONetOccupationalCode =
                     dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfileMessage.ONetOccupationalCode));
             }
@@ -127,7 +127,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfileMessage.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfileMessage.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
 
-            jobProfileMessage.SocCodeId = jobProfileMessage.SocLevelTwo.Substring(0, 2);
             jobProfileMessage.LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, nameof(JobProfileMessage.LastModified));
             jobProfileMessage.IncludeInSiteMap = content.IncludeInSitemap;
             jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)).ToLower();
@@ -257,7 +256,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 classificationData.Add(new Classification
                 {
                     Id = taxonomyManager.GetTaxon(cat).Id,
-                    Title = taxonomyManager.GetTaxon(cat).Title
+                    Title = taxonomyManager.GetTaxon(cat).Title,
+                    Url = taxonomyManager.GetTaxon(cat).UrlName
                 });
             }
 

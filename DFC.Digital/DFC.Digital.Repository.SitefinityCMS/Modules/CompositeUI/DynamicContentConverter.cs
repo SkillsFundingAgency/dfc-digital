@@ -33,7 +33,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private readonly IRelatedClassificationsRepository relatedClassificationsRepository;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
-        private readonly IContentPropertyConverter<HowToBecome> htbContentPropertyConverter;
+        private readonly IContentPropertyConverter<HowToBecomeData> htbContentPropertyConverter;
         private readonly IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter;
         private readonly IJobProfileCategoryRepository jobProfileCategoryRepository;
 
@@ -41,7 +41,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region Ctor
 
-        public DynamicContentConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecome> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter, IJobProfileCategoryRepository jobProfileCategoryRepository)
+        public DynamicContentConverter(IRelatedClassificationsRepository relatedClassificationsRepository, IDynamicContentExtensions dynamicContentExtensions, IContentPropertyConverter<HowToBecomeData> htbContentPropertyConverter, IContentPropertyConverter<WhatYouWillDo> whatYouWillDoPropertyConverter, IJobProfileCategoryRepository jobProfileCategoryRepository)
         {
             this.relatedClassificationsRepository = relatedClassificationsRepository;
             this.htbContentPropertyConverter = htbContentPropertyConverter;
@@ -193,8 +193,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     {
                         Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(RestrictionItem.Id)),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(RestrictionItem.Title)),
-                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(RestrictionItem.Info)),
-                        CType = nameof(Restriction)
+                        Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(RestrictionItem.Info))
                     });
                 }
             }

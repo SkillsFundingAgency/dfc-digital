@@ -155,6 +155,10 @@
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\CompositeUI\FrameworkSkillItem.cs" />
+    <Compile Include="Model\CompositeUI\EntryRequirementItem.cs" />
+    <Compile Include="Model\CompositeUI\HowToBecomeData.cs" />
+    <Compile Include="Model\CompositeUI\MoreInformationLinkItem.cs" />
+    <Compile Include="Model\CompositeUI\RegistrationItem.cs" />
     <Compile Include="Model\CompositeUI\RelatedSocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\Classification.cs" />
     <Compile Include="Model\CompositeUI\InfoDataItem.cs" />
@@ -162,6 +166,7 @@
     <Compile Include="Model\CompositeUI\JobProfileMessage.cs" />
     <Compile Include="Model\CompositeUI\JobProfileRelatedCareerItem.cs" />
     <Compile Include="Model\CompositeUI\RestrictionItem.cs" />
+    <Compile Include="Model\CompositeUI\RouteEntryItem.cs" />
     <Compile Include="Model\CompositeUI\SocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\SocSkillMatrixItem.cs" />
     <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />

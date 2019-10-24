@@ -7,8 +7,6 @@ namespace DFC.Digital.Data.Model
 {
     public class SocSkillMatrixItem : IDigitalDataModel
     {
-        private const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
-
         public Guid Id { get; set; }
 
         public string Title { get; set; }

@@ -33,6 +33,7 @@ namespace DFC.Digital.Core
         public const decimal Multiplier = 52;
         public const string Ashe = "LMI-ASHE";
         public const string ServiceStatusFailedLogMessage = "Service status check failed for activity id";
+        public const string ServiceStatusPassedLogMessage = "Service status check passed for activity id";
 
         public const string ServiceStatusFailedCheckLogsMessage =
             "Service status check failed, check logs with activity id";

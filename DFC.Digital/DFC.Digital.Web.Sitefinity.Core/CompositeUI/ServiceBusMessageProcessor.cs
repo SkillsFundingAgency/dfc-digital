@@ -16,10 +16,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class ServiceBusMessageProcessor : IServiceBusMessageProcessor
     {
         private readonly IConfigurationProvider configurationProvider;
+        private readonly IApplicationLogger applicationLogger;
 
-        public ServiceBusMessageProcessor(IConfigurationProvider configurationProvider)
+        public ServiceBusMessageProcessor(IApplicationLogger applicationLogger, IConfigurationProvider configurationProvider)
         {
             this.configurationProvider = configurationProvider;
+            this.applicationLogger = applicationLogger;
         }
 
         public async Task SendJobProfileMessage(JobProfileMessage jpData, string contentType, string actionType)
@@ -39,25 +41,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             message.UserProperties.Add("Id", jpData.JobProfileId);
             message.UserProperties.Add("EventType", actionType);
             message.UserProperties.Add("CType", contentType);
-
-            await SendMessagesToQueueAsync(message, topicClient);
-
-            Console.ReadKey();
+            await topicClient.SendAsync(message);
+            applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
 
             await topicClient.CloseAsync();
-        }
-
-        public async Task SendMessagesToQueueAsync(Message message, TopicClient topicClient)
-        {
-            try
-            {
-                // Send the message to the queue
-                await topicClient.SendAsync(message);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"Exception: {exception.Message}");
-            }
         }
     }
 }

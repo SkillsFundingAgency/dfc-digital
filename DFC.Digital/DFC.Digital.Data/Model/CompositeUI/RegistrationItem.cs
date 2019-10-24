@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class InfoDataItem
+    public class RegistrationItem : InfoDataItem
     {
-        public Guid Id { get; set; }
-
-        public string Title { get; set; }
-
-        public string Info { get; set; }
     }
 }

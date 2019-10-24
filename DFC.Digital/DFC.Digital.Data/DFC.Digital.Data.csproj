@@ -155,6 +155,8 @@
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\CompositeUI\FrameworkSkillItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\RelatedContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\WYDRelatedItem.cs" />
     <Compile Include="Model\CompositeUI\RelatedSocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\Classification.cs" />
     <Compile Include="Model\CompositeUI\InfoDataItem.cs" />

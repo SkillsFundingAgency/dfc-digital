@@ -47,6 +47,34 @@ namespace DFC.Digital.Web.Sitefinity.Core
             await topicClient.CloseAsync();
         }
 
+        public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
+        {
+            var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
+            var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
+            var topicClient = new TopicClient(connectionStringServiceBus, topicName);
+
+            foreach (var relatedContentItem in relatedContentItems)
+            {
+                // Send Messages
+                var jsonData = JsonConvert.SerializeObject(relatedContentItem);
+
+                // Message that send to the queue
+                var message = new Message(Encoding.UTF8.GetBytes(jsonData));
+                Console.WriteLine($"Sending message to queue: {jsonData}");
+                message.ContentType = "application/json";
+                message.Label = relatedContentItem.Title;
+                message.UserProperties.Add("Id", relatedContentItem.JobProfileId);
+                message.UserProperties.Add("EventType", actionType);
+                message.UserProperties.Add("CType", contentType);
+
+                await SendMessagesToQueueAsync(message, topicClient);
+
+                Console.ReadKey();
+            }
+
+            await topicClient.CloseAsync();
+        }
+
         public async Task SendMessagesToQueueAsync(Message message, TopicClient topicClient)
         {
             try

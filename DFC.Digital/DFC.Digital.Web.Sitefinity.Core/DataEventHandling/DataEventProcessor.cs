@@ -145,7 +145,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else
             {
-                //Work in progress to PUBLISH related dynamic content and its parent items
+                var contentLinksManager = ContentLinksManager.GetManager();
+                DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
+
+                // Here you get the IDs of items which has as related data that Author
+                var parentItemContentLinks = contentLinksManager.GetContentLinks()
+                    .Where(c => c.ParentItemType == parentType.FullName && c.ChildItemId == itemId)
+                    .Select(c => c.ParentItemId).ToList();
+
+                //var relatedWYDTypes = dynamicContentConverter.();
             }
         }
     }

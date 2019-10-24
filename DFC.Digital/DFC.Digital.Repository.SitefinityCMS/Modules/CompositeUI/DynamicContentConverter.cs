@@ -118,6 +118,28 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfileMessage;
         }
 
+        public IEnumerable<WYDRelatedItem> GetWYDRelatedItems(DynamicContent childItem, List<Guid> parentItemLinks, DynamicModuleManager dynamicModuleManager, Type parentType)
+        {
+            var relatedContentItems = new List<WYDRelatedItem>();
+            foreach (var contentId in parentItemLinks)
+            {
+                var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+
+                relatedContentItems.Add(new WYDRelatedItem
+                {
+                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(WYDRelatedItem.Id)),
+                    JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(WYDRelatedItem.Title)),
+                    Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(WYDRelatedItem.Id)),
+                    Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDRelatedItem.Title)),
+                    Description = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDRelatedItem.Description)),
+                    Url = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDRelatedItem.Url)),
+                    IsNegative = dynamicContentExtensions.GetFieldValue<bool>(childItem, nameof(WYDRelatedItem.IsNegative))
+                });
+            }
+
+            return relatedContentItems;
+        }
+
         private IEnumerable<SocSkillMatrixItem> GetSocMatrixSkills(DynamicContent content, string relatedField)
         {
             var relatedSkills = new List<SocSkillMatrixItem>();

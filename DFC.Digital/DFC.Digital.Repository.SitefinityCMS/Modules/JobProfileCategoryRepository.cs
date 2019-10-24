@@ -94,5 +94,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var searchResult = FilterByCategory(category, jobprofileSearchQueryService);
             return searchResult.Results.Select(r => mapper.Map<JobProfile>(r.ResultItem));
         }
+
+        public IEnumerable<JobProfileCategoryItem> GetByCategoryIds(IList<Guid> categoryIds)
+        {
+            var categories = taxonomyRepository.GetMany(c => categoryIds.Contains(c.Id) && c.Taxonomy.Name == JobprofileTaxonomyName);
+            foreach (var category in categories)
+            {
+                yield return new JobProfileCategoryItem
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Title = category.Title
+                };
+            }
+        }
     }
 }

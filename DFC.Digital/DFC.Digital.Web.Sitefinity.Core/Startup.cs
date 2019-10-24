@@ -15,6 +15,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
@@ -56,7 +57,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 FeatherActionInvokerCustom.Register();
 
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
-                EventHub.Subscribe<Telerik.Sitefinity.Data.Events.IDataEvent>(Content_Action);
+                EventHub.Subscribe<IDataEvent>(Content_Action);
+                EventHub.Subscribe<IDynamicContentUpdatedEvent>(Dynamic_Content_Updated_Action);
 
                 EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -80,6 +82,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
             dataEventHandler.ExportCompositePage(eventInfo);
+        }
+
+        // Event Action for Job Profile Dynamic content PUBLISH event
+        private static void Dynamic_Content_Updated_Action(IDynamicContentUpdatedEvent updatedEventInfo)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
+            dataEventHandler.PublishDynamicContent(updatedEventInfo);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

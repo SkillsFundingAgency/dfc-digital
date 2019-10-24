@@ -63,6 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryStarter)),
                 SalaryExperienced = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryExperienced)),
                 MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MinimumHours)),
+                MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MaximumHours)),
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CareerPathAndProgression)),
                 CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CourseKeywords)),
 

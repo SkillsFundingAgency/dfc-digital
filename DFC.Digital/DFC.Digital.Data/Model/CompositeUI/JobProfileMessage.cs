@@ -91,6 +91,8 @@ namespace DFC.Digital.Data.Model
 
         public decimal? MinimumHours { get; set; }
 
+        public decimal? MaximumHours { get; set; }
+
         /// <summary>
         /// Gets or sets the SalaryStarter.
         /// </summary>

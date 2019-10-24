@@ -14,7 +14,5 @@ namespace DFC.Digital.Web.Sitefinity.Core
         Task SendJobProfileMessage(JobProfileMessage dynamicContent, string contentType, string actionType);
 
         Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType);
-
-        Task SendMessagesToQueueAsync(Message message, TopicClient topicClient);
     }
 }

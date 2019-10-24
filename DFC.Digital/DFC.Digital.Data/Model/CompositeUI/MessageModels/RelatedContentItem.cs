@@ -19,5 +19,7 @@ namespace DFC.Digital.Data.Model
         public string JobProfileTitle { get; set; }
 
         public string Url { get; set; }
+
+        public bool IsNegative { get; set; }
     }
 }

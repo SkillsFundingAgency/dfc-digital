@@ -160,7 +160,6 @@
     <Compile Include="Model\CompositeUI\MoreInformationLinkItem.cs" />
     <Compile Include="Model\CompositeUI\RegistrationItem.cs" />
     <Compile Include="Model\CompositeUI\MessageModels\RelatedContentItem.cs" />
-    <Compile Include="Model\CompositeUI\MessageModels\WYDRelatedItem.cs" />
     <Compile Include="Model\CompositeUI\RelatedSocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\Classification.cs" />
     <Compile Include="Model\CompositeUI\InfoDataItem.cs" />

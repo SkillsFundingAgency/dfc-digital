@@ -33,17 +33,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             // Message that send to the queue
             var message = new Message(Encoding.UTF8.GetBytes(jsonData));
-            Console.WriteLine($"Sending message to queue: {jsonData}");
             message.ContentType = "application/json";
             message.Label = jpData.Title;
             message.UserProperties.Add("Id", jpData.JobProfileId);
             message.UserProperties.Add("EventType", actionType);
             message.UserProperties.Add("CType", contentType);
-
-            await SendMessagesToQueueAsync(message, topicClient);
-
-            Console.ReadKey();
-
+            await topicClient.SendAsync(message);
             await topicClient.CloseAsync();
         }
 
@@ -60,32 +55,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 // Message that send to the queue
                 var message = new Message(Encoding.UTF8.GetBytes(jsonData));
-                Console.WriteLine($"Sending message to queue: {jsonData}");
                 message.ContentType = "application/json";
                 message.Label = relatedContentItem.Title;
                 message.UserProperties.Add("Id", relatedContentItem.JobProfileId);
                 message.UserProperties.Add("EventType", actionType);
                 message.UserProperties.Add("CType", contentType);
-
-                await SendMessagesToQueueAsync(message, topicClient);
-
-                Console.ReadKey();
+                await topicClient.SendAsync(message);
             }
 
             await topicClient.CloseAsync();
-        }
-
-        public async Task SendMessagesToQueueAsync(Message message, TopicClient topicClient)
-        {
-            try
-            {
-                // Send the message to the queue
-                await topicClient.SendAsync(message);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"Exception: {exception.Message}");
-            }
         }
     }
 }

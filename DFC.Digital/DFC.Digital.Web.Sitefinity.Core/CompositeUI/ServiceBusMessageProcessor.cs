@@ -16,10 +16,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
     public class ServiceBusMessageProcessor : IServiceBusMessageProcessor
     {
         private readonly IConfigurationProvider configurationProvider;
+        private readonly IApplicationLogger applicationLogger;
 
-        public ServiceBusMessageProcessor(IConfigurationProvider configurationProvider)
+        public ServiceBusMessageProcessor(IApplicationLogger applicationLogger, IConfigurationProvider configurationProvider)
         {
             this.configurationProvider = configurationProvider;
+            this.applicationLogger = applicationLogger;
         }
 
         public async Task SendJobProfileMessage(JobProfileMessage jpData, string contentType, string actionType)
@@ -39,6 +41,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             message.UserProperties.Add("EventType", actionType);
             message.UserProperties.Add("CType", contentType);
             await topicClient.SendAsync(message);
+            applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
             await topicClient.CloseAsync();
         }
 
@@ -57,10 +60,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var message = new Message(Encoding.UTF8.GetBytes(jsonData));
                 message.ContentType = "application/json";
                 message.Label = relatedContentItem.Title;
-                message.UserProperties.Add("Id", relatedContentItem.JobProfileId);
+                message.UserProperties.Add("Id", $"{relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
                 message.UserProperties.Add("EventType", actionType);
                 message.UserProperties.Add("CType", contentType);
                 await topicClient.SendAsync(message);
+                applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
             }
 
             await topicClient.CloseAsync();

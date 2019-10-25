@@ -7,10 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.OpenAccess;
+using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.DynamicModules;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Modules.GenericContent;
+using Telerik.Sitefinity.RelatedData;
 using Telerik.Sitefinity.Taxonomies;
+using Telerik.Sitefinity.Taxonomies.Model;
 using Telerik.Sitefinity.Utilities.TypeConverters;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
@@ -54,6 +58,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public JobProfileMessage ConvertFrom(DynamicContent content)
         {
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var jobProfileMessage = new JobProfileMessage
             {
                 JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id"),

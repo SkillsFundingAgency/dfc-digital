@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
-            GenerateRelatedJobProfilesByTaxon(eventInfo.Item);
+            //GenerateRelatedJobProfilesByTaxon(eventInfo.Item);
             try
             {
                 switch (eventInfo.Item.GetType().FullName)

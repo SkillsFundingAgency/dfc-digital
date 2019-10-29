@@ -177,6 +177,7 @@
     <Compile Include="Model\CompositeUI\RouteEntryItem.cs" />
     <Compile Include="Model\CompositeUI\SocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\SocSkillMatrixItem.cs" />
+    <Compile Include="Model\CompositeUI\SocSkillsMatrixClassificationItem.cs" />
     <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />
     <Compile Include="Model\CompositeUI\WYDRelatedContentType.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />

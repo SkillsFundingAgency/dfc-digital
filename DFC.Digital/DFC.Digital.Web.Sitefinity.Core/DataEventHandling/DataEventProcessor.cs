@@ -250,13 +250,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     GetIndividualClassifications(manager, dynamicType, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonApprenticeshipStandards:
+
+                    //Sitefinity equivalent
                     relatedPropertyName = "apprenticeshipstandards";
                     GetIndividualClassifications(manager, dynamicType, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonApprenticeshipEntryRequirements:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonApprenticeshipEntryRequirements);
                     break;
                 case Constants.TaxonCollegeEntryRequirements:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonCollegeEntryRequirements);
                     break;
                 case Constants.TaxonHiddenAlternativeTitle:

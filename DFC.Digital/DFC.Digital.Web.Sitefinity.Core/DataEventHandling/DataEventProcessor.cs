@@ -266,21 +266,33 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonCollegeEntryRequirements);
                     break;
                 case Constants.TaxonHiddenAlternativeTitle:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonHiddenAlternativeTitle);
                     break;
                 case Constants.TaxonJobProfileSpecialism:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonJobProfileSpecialism);
                     break;
                 case Constants.TaxonUniversityEntryRequirements:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonUniversityEntryRequirements);
                     break;
                 case Constants.TaxonWorkingHoursDetails:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingHoursDetails);
                     break;
                 case Constants.TaxonWorkingPattern:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingPattern);
                     break;
                 case Constants.TaxonWorkingPatternDetails:
+
+                    //Sitefinity equivalent
                     GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingPatternDetails);
                     break;
                 default:

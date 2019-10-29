@@ -8,8 +8,6 @@ namespace DFC.Digital.Data.Model
 {
     public class SocSkillMatrixContentItem : RelatedContentItem
     {
-        public string SocSkillMatrixTitle { get; set; }
-
         public string Contextualised { get; set; }
 
         public string ONetAttributeType { get; set; }

@@ -127,6 +127,21 @@ namespace DFC.Digital.Core
         //All Soc and Skill related fields with ONetAttributeType, ONetRank, Rank, RelatedSkill and RelatedSoc as fields
         public const string SOCSkillsMatrix = "SocSkillsMatrix";
 
+        //Get all classifications
+        public const string TaxonApprenticeshipFrameworks = "apprenticeship-frameworks";
+        public const string TaxonApprenticeshipStandards = "apprenticeship-standards";
+
+        public const string TaxonHiddenAlternativeTitle = "HiddenAlternativeTitle";
+        public const string TaxonJobProfileSpecialism = "JobProfileSpecialism";
+
+        public const string TaxonWorkingHoursDetails = "WorkingHoursDetails";
+        public const string TaxonWorkingPattern = "WorkingPattern";
+        public const string TaxonWorkingPatternDetails = "WorkingPatternDetails";
+
+        public const string TaxonUniversityEntryRequirements = "UniversityEntryRequirements";
+        public const string TaxonCollegeEntryRequirements = "CollegeEntryRequirements";
+        public const string TaxonApprenticeshipEntryRequirements = "ApprenticeshipEntryRequirements";
+
         public const string WYDIntroduction = "WYDIntroduction";
         public const string WYDDayToDayTasks = "WYDDayToDayTasks";
 

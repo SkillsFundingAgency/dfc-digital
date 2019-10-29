@@ -236,32 +236,81 @@ namespace DFC.Digital.Web.Sitefinity.Core
             DynamicModuleManager manager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             Type dynamicType = TypeResolutionService.ResolveType(ParentType);
             var taxonomyManager = TaxonomyManager.GetManager();
+
             var taxon = taxonomyManager.GetTaxa<FlatTaxon>()
                 .Where(t => t.Id == eventInfo.ItemId)
                 .FirstOrDefault();
+            var relatedPropertyName = "jobprofile";
+            switch (taxon.FlatTaxonomy.Name)
+            {
+                case Constants.TaxonApprenticeshipFrameworks:
 
+                    //Sitefinity equivalent
+                    relatedPropertyName = "apprenticeshipframeworks";
+                    GetIndividualClassifications(manager, dynamicType, taxon, relatedPropertyName);
+                    break;
+                case Constants.TaxonApprenticeshipStandards:
+                    relatedPropertyName = "apprenticeshipstandards";
+                    GetIndividualClassifications(manager, dynamicType, taxon, relatedPropertyName);
+                    break;
+                case Constants.TaxonApprenticeshipEntryRequirements:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonApprenticeshipEntryRequirements);
+                    break;
+                case Constants.TaxonCollegeEntryRequirements:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonCollegeEntryRequirements);
+                    break;
+                case Constants.TaxonHiddenAlternativeTitle:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonHiddenAlternativeTitle);
+                    break;
+                case Constants.TaxonJobProfileSpecialism:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonJobProfileSpecialism);
+                    break;
+                case Constants.TaxonUniversityEntryRequirements:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonUniversityEntryRequirements);
+                    break;
+                case Constants.TaxonWorkingHoursDetails:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingHoursDetails);
+                    break;
+                case Constants.TaxonWorkingPattern:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingPattern);
+                    break;
+                case Constants.TaxonWorkingPatternDetails:
+                    GetIndividualClassifications(manager, dynamicType, taxon, Constants.TaxonWorkingPatternDetails);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void GetIndividualClassifications(DynamicModuleManager manager, Type dynamicType, FlatTaxon taxon, string relatedPropertyName)
+        {
             IOrganizableProvider contentProvider = manager.Provider as IOrganizableProvider;
             int? totalCount = -1;
 
-            var jobProfileIds = contentProvider.GetItemsByTaxon(taxon.Id, false, taxon.FlatTaxonomy.Name, dynamicType, null, null, 0, 0, ref totalCount)
+            var jobProfileIds = contentProvider.GetItemsByTaxon(taxon.Id, false, relatedPropertyName, dynamicType, null, null, 0, 0, ref totalCount)
                 .Cast<DynamicContent>()
                 .Select(p => p.Id)
                 .ToList();
+
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var classificationData = new List<ClassificationItem>();
             foreach (var jobProfileId in jobProfileIds)
             {
                 //Get JobProfile Item
                 var relatedJobprofile = dynamicModuleManager.GetDataItem(dynamicType, jobProfileId);
-                classificationData.Add(new ClassificationItem
+
+                if (relatedJobprofile.Status.ToString() == Constants.ItemStatusLive)
                 {
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(relatedJobprofile, nameof(ClassificationItem.Id)),
-                    JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(relatedJobprofile, nameof(ClassificationItem.Title)),
-                    Id = taxon.Id,
-                    Title = taxon.Title,
-                    Url = taxon.GetDefaultUrl(),
-                    Description = taxon.Description
-                });
+                    classificationData.Add(new ClassificationItem
+                    {
+                        JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(relatedJobprofile, nameof(ClassificationItem.Id)),
+                        JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(relatedJobprofile, nameof(ClassificationItem.Title)),
+                        Id = taxon.Id,
+                        Title = taxon.Title,
+                        Url = taxon.GetDefaultUrl(),
+                        Description = taxon.Description
+                    });
+                }
 
                 serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, taxon.Status.ToString());
             }
@@ -452,7 +501,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var socSkillsMatrixContent = new SocSkillMatrixContentItem
             {
                 Id = childItem.Id,
-                SocSkillMatrixTitle = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocCodeContentItem.Title)),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.Title)),
                 Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.Contextualised)),
                 ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.ONetAttributeType)),
@@ -468,7 +516,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
                 {
                     Id = childItem.Id,
-                    SocSkillMatrixTitle = socSkillsMatrixContent.SocSkillMatrixTitle,
                     Title = socSkillsMatrixContent.Title,
                     Contextualised = socSkillsMatrixContent.Title,
                     ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,

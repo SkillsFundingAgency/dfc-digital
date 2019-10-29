@@ -90,7 +90,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfileMessage.WhatYouWillDoData = GetWYDRelatedDataForJobProfiles(content);
 
             //Related Skills Data
-            jobProfileMessage.SocSkillMatrixData = GetSocSkillMatrixItems(content, Constants.RelatedSkills);
+            jobProfileMessage.SocSkillsMatrixData = GetSocSkillMatrixItems(content, Constants.RelatedSkills);
 
             //Get SOC Code data
             var socItem = dynamicContentExtensions.GetRelatedItems(content, Constants.SocField, 1).FirstOrDefault();
@@ -138,7 +138,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Title)),
                         Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Contextualised)),
                         ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.ONetAttributeType)),
-                        ONetElementId = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSkill)).SingleOrDefault().ONetElementId,
                         ONetRank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrixItem.ONetRank)),
                         Rank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrixItem.Rank)),
                         RelatedSkill = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSkill)),

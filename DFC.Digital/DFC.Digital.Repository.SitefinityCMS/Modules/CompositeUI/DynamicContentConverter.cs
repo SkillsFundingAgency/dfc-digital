@@ -90,7 +90,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfileMessage.WhatYouWillDoData = GetWYDRelatedDataForJobProfiles(content);
 
             //Related Skills Data
-            jobProfileMessage.RelatedSkills = GetSocMatrixSkills(content, Constants.RelatedSkills);
+            jobProfileMessage.SocSkillMatrixData = GetSocSkillMatrixItems(content, Constants.RelatedSkills);
 
             //Get SOC Code data
             var socItem = dynamicContentExtensions.GetRelatedItems(content, Constants.SocField, 1).FirstOrDefault();
@@ -124,7 +124,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             return jobProfileMessage;
         }
 
-        private IEnumerable<SocSkillMatrixItem> GetSocMatrixSkills(DynamicContent content, string relatedField)
+        private IEnumerable<SocSkillMatrixItem> GetSocSkillMatrixItems(DynamicContent content, string relatedField)
         {
             var relatedSkills = new List<SocSkillMatrixItem>();
             var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
@@ -214,8 +214,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             var socCodes = new SocCodeItem
             {
                 Id = content.Id,
-                SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)).ToLower(),
-                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)).ToLower(),
+                SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)),
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.UrlName)),
                 ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.ONetOccupationalCode)),
                 ApprenticeshipFramework = MapClassificationData(apprenticeshipFrameworkData),
@@ -299,9 +299,9 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 IsCadReady = true,
                 Introduction =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDoData.Introduction)),
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, Constants.WYDIntroduction),
                 DailyTasks =
-                        dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(WhatYouWillDoData.DailyTasks)),
+                        dynamicContentExtensions.GetFieldValue<Lstring>(content, Constants.WYDDayToDayTasks),
                 Locations = GetWYDRelatedItems(content, Constants.RelatedLocations),
                 Uniforms = GetWYDRelatedItems(content, Constants.RelatedUniforms),
                 Environments = GetWYDRelatedItems(content, Constants.RelatedEnvironments),

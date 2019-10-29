@@ -12,14 +12,8 @@ namespace DFC.Digital.Data.Model
 
         public string Title { get; set; }
 
-        public string Description { get; set; }
-
         public Guid JobProfileId { get; set; }
 
         public string JobProfileTitle { get; set; }
-
-        public string Url { get; set; }
-
-        public bool IsNegative { get; set; }
     }
 }

@@ -157,6 +157,13 @@
     <Compile Include="Model\CompositeUI\FrameworkSkillItem.cs" />
     <Compile Include="Model\CompositeUI\EntryRequirementItem.cs" />
     <Compile Include="Model\CompositeUI\HowToBecomeData.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\ClassificationItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\InfoContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\SkillContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\SocCodeContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\SocSkillMatrixContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\TextFieldContentItem.cs" />
+    <Compile Include="Model\CompositeUI\MessageModels\WYDContentItem.cs" />
     <Compile Include="Model\CompositeUI\MoreInformationLinkItem.cs" />
     <Compile Include="Model\CompositeUI\RegistrationItem.cs" />
     <Compile Include="Model\CompositeUI\MessageModels\RelatedContentItem.cs" />

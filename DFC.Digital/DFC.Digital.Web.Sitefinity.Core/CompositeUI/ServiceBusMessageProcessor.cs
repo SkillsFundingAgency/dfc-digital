@@ -51,7 +51,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-
         public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
         {
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
@@ -69,7 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     message.ContentType = "application/json";
                     message.Label = relatedContentItem.Title;
                     message.UserProperties.Add("Id", $"{relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
-                    message.UserProperties.Add("EventType", actionType);
+                    message.UserProperties.Add("ActionType", actionType);
                     message.UserProperties.Add("CType", contentType);
                     await topicClient.SendAsync(message);
                     applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");

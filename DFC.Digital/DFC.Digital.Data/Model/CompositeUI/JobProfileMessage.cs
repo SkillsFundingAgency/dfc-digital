@@ -130,7 +130,7 @@ namespace DFC.Digital.Data.Model
         //public IEnumerable<JobProfileRelatedCareer> RelatedCareersData { get; set; }
         public IEnumerable<JobProfileRelatedCareerItem> RelatedCareersData { get; set; }
 
-        public IEnumerable<SocSkillMatrixItem> RelatedSkills { get; set; }
+        public IEnumerable<SocSkillMatrixItem> SocSkillsMatrixData { get; set; }
 
         public IEnumerable<JobProfileCategoryItem> JobProfileCategories { get; set; }
 

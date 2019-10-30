@@ -34,7 +34,6 @@ namespace DFC.Digital.Core
         public const string Ashe = "LMI-ASHE";
         public const string ServiceStatusFailedLogMessage = "Service status check failed for activity id";
         public const string ServiceStatusPassedLogMessage = "Service status check passed for activity id";
-
         public const string ServiceStatusFailedCheckLogsMessage =
             "Service status check failed, check logs with activity id";
 
@@ -43,7 +42,6 @@ namespace DFC.Digital.Core
         public const string Technology = "Technology";
         public const string SearchScoringProfileName = "jp";
         public const string SocField = "SOC";
-        public const string SOCCode = "SOCCode";
         public const string ApprenticeshipFramework = "ApprenticeshipFrameworks";
         public const string ApprenticeshipStandards = "ApprenticeshipStandards";
         public const string WorkingPattern = "WorkingPattern";
@@ -101,6 +99,52 @@ namespace DFC.Digital.Core
         public const string ContentBlock = "Content block";
         public const string Content = "Content";
         public const string JobProfile = "JobProfile";
+
+        //Fields with Info as field
+        public const string Restriction = "Restriction";
+        public const string Registration = "Registration";
+        public const string ApprenticeshipRequirement = "ApprenticeshipRequirement";
+        public const string CollegeRequirement = "CollegeRequirement";
+        public const string UniversityRequirement = "UniversityRequirement";
+
+        //Fields with Text as field
+        public const string UniversityLink = "UniversityLink";
+        public const string CollegeLink = "CollegeLink";
+        public const string ApprenticeshipLink = "ApprenticeshipLink";
+
+        //Fields with Description and IsNegative as fields
+        public const string Location = "Location";
+        public const string Uniform = "Uniform";
+        public const string Environment = "Environment";
+
+        //All Soc Code fields
+        public const string SOCCode = "SOCCode";
+        public const string JobProfileSoc = "JobProfileSoc";
+
+        //Fields with Description and ONetElementId as fields
+        public const string Skill = "Skill";
+
+        //All Soc and Skill related fields with ONetAttributeType, ONetRank, Rank, RelatedSkill and RelatedSoc as fields
+        public const string SOCSkillsMatrix = "SocSkillsMatrix";
+
+        //Get all classifications
+        public const string TaxonApprenticeshipFrameworks = "apprenticeship-frameworks";
+        public const string TaxonApprenticeshipStandards = "apprenticeship-standards";
+
+        public const string TaxonHiddenAlternativeTitle = "HiddenAlternativeTitle";
+        public const string TaxonJobProfileSpecialism = "JobProfileSpecialism";
+
+        public const string TaxonWorkingHoursDetails = "WorkingHoursDetails";
+        public const string TaxonWorkingPattern = "WorkingPattern";
+        public const string TaxonWorkingPatternDetails = "WorkingPatternDetails";
+
+        public const string TaxonUniversityEntryRequirements = "UniversityEntryRequirements";
+        public const string TaxonCollegeEntryRequirements = "CollegeEntryRequirements";
+        public const string TaxonApprenticeshipEntryRequirements = "ApprenticeshipEntryRequirements";
+
+        public const string WYDIntroduction = "WYDIntroduction";
+        public const string WYDDayToDayTasks = "WYDDayToDayTasks";
+
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
         public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
     }

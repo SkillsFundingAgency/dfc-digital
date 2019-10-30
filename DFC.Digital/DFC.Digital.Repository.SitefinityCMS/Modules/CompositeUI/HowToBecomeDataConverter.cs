@@ -56,10 +56,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public HowToBecomeData ConvertFrom(DynamicContent content)
         {
-            var isCadReady = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(HowToBecome.IsHTBCaDReady));
-            return !isCadReady ? new HowToBecomeData() : new HowToBecomeData
+           return new HowToBecomeData
             {
-                IsHTBCaDReady = true,
                 IntroText = dynamicContentExtensions.GetFieldValue<Lstring>(content, IntroTextField),
                 FurtherRoutes = new FurtherRoutes
                 {

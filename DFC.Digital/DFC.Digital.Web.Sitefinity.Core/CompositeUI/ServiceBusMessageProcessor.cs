@@ -32,42 +32,53 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             // Send Messages
             var jsonData = JsonConvert.SerializeObject(jpData);
-
-            // Message that send to the queue
-            var message = new Message(Encoding.UTF8.GetBytes(jsonData));
-            message.ContentType = "application/json";
-            message.Label = jpData.Title;
-            message.UserProperties.Add("Id", jpData.JobProfileId);
-            message.UserProperties.Add("EventType", actionType);
-            message.UserProperties.Add("CType", contentType);
-            await topicClient.SendAsync(message);
-            applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
-            await topicClient.CloseAsync();
+            try
+            {
+                // Message that send to the queue
+                var message = new Message(Encoding.UTF8.GetBytes(jsonData));
+                message.ContentType = "application/json";
+                message.Label = jpData.Title;
+                message.UserProperties.Add("Id", jpData.JobProfileId);
+                message.UserProperties.Add("ActionType", actionType);
+                message.UserProperties.Add("CType", contentType);
+                message.CorrelationId = Guid.NewGuid().ToString();
+                await topicClient.SendAsync(message);
+                applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
+            }
+            finally
+            {
+                await topicClient.CloseAsync();
+            }
         }
+
 
         public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
         {
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
             var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
             var topicClient = new TopicClient(connectionStringServiceBus, topicName);
-
-            foreach (var relatedContentItem in relatedContentItems)
+            try
             {
-                // Send Messages
-                var jsonData = JsonConvert.SerializeObject(relatedContentItem);
+                foreach (var relatedContentItem in relatedContentItems)
+                {
+                    // Send Messages
+                    var jsonData = JsonConvert.SerializeObject(relatedContentItem);
 
-                // Message that send to the queue
-                var message = new Message(Encoding.UTF8.GetBytes(jsonData));
-                message.ContentType = "application/json";
-                message.Label = relatedContentItem.Title;
-                message.UserProperties.Add("Id", $"{relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
-                message.UserProperties.Add("EventType", actionType);
-                message.UserProperties.Add("CType", contentType);
-                await topicClient.SendAsync(message);
-                applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
+                    // Message that send to the queue
+                    var message = new Message(Encoding.UTF8.GetBytes(jsonData));
+                    message.ContentType = "application/json";
+                    message.Label = relatedContentItem.Title;
+                    message.UserProperties.Add("Id", $"{relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
+                    message.UserProperties.Add("EventType", actionType);
+                    message.UserProperties.Add("CType", contentType);
+                    await topicClient.SendAsync(message);
+                    applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
+                }
             }
-
-            await topicClient.CloseAsync();
+            finally
+            {
+                await topicClient.CloseAsync();
+            }
         }
     }
 }

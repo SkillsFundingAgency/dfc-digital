@@ -338,7 +338,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     socCodeClassificationItem.JobProfileId = jobProfileItem.Id;
                     socCodeClassificationItem.JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SOCCodeClassificationItem.Title));
                     classificationData.Add(socCodeClassificationItem);
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, taxon.Status.ToString());
+                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
                 }
             }
         }
@@ -371,7 +371,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         Url = taxon.GetDefaultUrl(),
                         Description = taxon.Description
                     });
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, taxon.Status.ToString());
+                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
                 }
             }
         }
@@ -398,7 +398,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private void GenerateServiceBusMessageForJobProfile(IDynamicContentUpdatedEvent eventInfo)
         {
             JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(eventInfo.Item);
-            serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private void GenerateServiceBusMessageForInfoTypes(IDynamicContentUpdatedEvent eventInfo)
@@ -410,7 +410,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedInfoTypes = GetInfoRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private void GenerateServiceBusMessageForSocCodeType(IDynamicContentUpdatedEvent eventInfo)
@@ -422,7 +422,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedSocContentTypes = GetSocRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocContentTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocContentTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private List<Guid> GetParentItemsForSocSkillsMatrix(IDynamicContentUpdatedEvent eventInfo)
@@ -443,7 +443,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedSocSkillsMatrixContentTypes = GetSocSkillMatrixRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private void GenerateServiceBusMessageForWYDTypes(IDynamicContentUpdatedEvent eventInfo)
@@ -456,7 +456,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedWYDTypes = GetWYDRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private void GenerateServiceBusMessageForTextFieldTypes(IDynamicContentUpdatedEvent eventInfo)
@@ -468,7 +468,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedTextFieldTypes = GetTextFieldRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private void GenerateServiceBusMessageForSkillTypes(IDynamicContentUpdatedEvent eventInfo)
@@ -480,7 +480,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedSkillTypes = GetRelatedSkillTypeItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, SocSkillsMatrixType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSkillTypes, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSkillTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
         }
 
         private IEnumerable<SocCodeContentItem> GetSocRelatedItems(DynamicContent childItem, List<Guid> parentItemLinks, DynamicModuleManager dynamicModuleManager, string parentName)
@@ -705,6 +705,22 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             return relatedContentItems;
+        }
+
+        private string GetActionType(string status)
+        {
+            if (status == "Published" || status == "Active")
+            {
+                return nameof(MessageAction.Published);
+            }
+            else if (status == "UnPublished" || status == "Deleted")
+            {
+                return nameof(MessageAction.Deleted);
+            }
+            else
+            {
+                return status == "Draft" ? nameof(MessageAction.Draft) : null;
+            }
         }
     }
 }

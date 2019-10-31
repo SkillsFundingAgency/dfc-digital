@@ -180,6 +180,7 @@
     <Compile Include="Model\CompositeUI\SOCCodeClassificationItem.cs" />
     <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />
     <Compile Include="Model\CompositeUI\WYDRelatedContentType.cs" />
+    <Compile Include="Model\Enum\MessageAction.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />

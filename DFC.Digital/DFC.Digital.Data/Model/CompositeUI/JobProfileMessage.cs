@@ -137,5 +137,7 @@ namespace DFC.Digital.Data.Model
         public DateTime LastModified { get; set; }
 
         public string CanonicalName { get; set; }
+
+        public string WidgetContentTitle { get; set; }
     }
 }

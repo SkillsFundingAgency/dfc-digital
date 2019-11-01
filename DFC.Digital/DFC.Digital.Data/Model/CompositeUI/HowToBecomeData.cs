@@ -13,7 +13,5 @@ namespace DFC.Digital.Data.Model
         public string IntroText { get; set; }
 
         public IEnumerable<RegistrationItem> Registrations { get; set; }
-
-        public bool IsHTBCaDReady { get; set; }
     }
 }

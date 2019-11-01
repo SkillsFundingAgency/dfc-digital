@@ -297,7 +297,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var wydData = new WhatYouWillDoData
             {
-                IsCadReady = true,
                 Introduction =
                         dynamicContentExtensions.GetFieldValue<Lstring>(content, Constants.WYDIntroduction),
                 DailyTasks =

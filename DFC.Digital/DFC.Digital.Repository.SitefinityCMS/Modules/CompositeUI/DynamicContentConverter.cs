@@ -63,6 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id"),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)),
+                WidgetContentTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.WidgetContentTitle)),
                 AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.AlternativeTitle)),
                 Overview = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Overview)),
                 SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryStarter)),
@@ -119,7 +120,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             jobProfileMessage.LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, nameof(JobProfileMessage.LastModified));
-            jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)).ToLower();
+            jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.UrlName)).ToLower();
             jobProfileMessage.JobProfileCategories = GetJobCategories(dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField));
             return jobProfileMessage;
         }

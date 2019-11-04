@@ -244,7 +244,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .Where(t => t.Id == eventInfo.ItemId)
                 .FirstOrDefault();
             var relatedPropertyName = "jobprofile";
-            switch (taxon.FlatTaxonomy.Name)
+            switch (taxon.FlatTaxonomy.Name.Trim())
             {
                 case Constants.TaxonApprenticeshipFrameworks:
 

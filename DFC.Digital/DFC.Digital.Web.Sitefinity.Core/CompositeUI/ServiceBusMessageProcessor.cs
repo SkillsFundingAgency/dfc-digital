@@ -43,6 +43,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             await topicClient.SendAsync(message);
             applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
             await topicClient.CloseAsync();
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+            {
+                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |Ctype{contentType} | EventType {actionType} | Id {jpData.JobProfileId} |");
+            }
         }
 
         public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
@@ -65,8 +70,33 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 message.UserProperties.Add("CType", contentType);
                 await topicClient.SendAsync(message);
                 applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+                {
+                    file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |Ctype{contentType} | EventType {actionType} | Id {relatedContentItem.JobProfileId}--{relatedContentItem.Id} |");
+                }
             }
 
+            await topicClient.CloseAsync();
+        }
+
+        public async Task SendUnPubishMessage(UnPublishItem unPublishItem, string contentType, string actionType)
+        {
+            var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
+            var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
+            var topicClient = new TopicClient(connectionStringServiceBus, topicName);
+
+            // Send Messages
+            var jsonData = JsonConvert.SerializeObject(unPublishItem);
+
+            // Message that send to the queue
+            var message = new Message(Encoding.UTF8.GetBytes(jsonData));
+            message.ContentType = "application/json";
+            message.Label = unPublishItem.Title;
+            message.UserProperties.Add("Id", unPublishItem.Id);
+            message.UserProperties.Add("EventType", actionType);
+            message.UserProperties.Add("CType", contentType);
+            await topicClient.SendAsync(message);
+            applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {unPublishItem.Id}");
             await topicClient.CloseAsync();
         }
     }

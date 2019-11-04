@@ -269,6 +269,7 @@
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
+    <Compile Include="Model\CompositeUI\UnPublishItem.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\Venue.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />

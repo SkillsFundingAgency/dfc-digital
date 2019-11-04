@@ -59,20 +59,32 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+            {
+                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{eventInfo.Item.GetType().Name.PadRight(15, ' ')} |{eventInfo.Item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {eventInfo.Item.Status.ToString().PadRight(15, ' ')} |");
+            }
+
             try
             {
+                /*
+                if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                {
+                    var contentDeletedOrUnPublished = new ContentDeletedOrUnPublished(applicationLogger, serviceBusMessageProcessor, dynamicContentExtensions);
+                    contentDeletedOrUnPublished.UnPublishDynamicContent(eventInfo);
+                    return;
+                }
+                */
+
                 switch (eventInfo.Item.GetType().Name)
                 {
                     case Constants.JobProfile:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Visible && eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
                         {
                             GenerateServiceBusMessageForJobProfile(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForJobProfileUnPublish(eventInfo);
                         }
 
                         break;
@@ -81,15 +93,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.ApprenticeshipRequirement:
                     case Constants.CollegeRequirement:
                     case Constants.UniversityRequirement:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             GenerateServiceBusMessageForInfoTypes(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForInfoTypes(eventInfo);
                         }
 
                         break;
@@ -97,15 +107,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.Uniform:
                     case Constants.Location:
                     case Constants.Environment:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             GenerateServiceBusMessageForWYDTypes(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForWYDTypes(eventInfo);
                         }
 
                         break;
@@ -113,43 +121,37 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.UniversityLink:
                     case Constants.CollegeLink:
                     case Constants.ApprenticeshipLink:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             GenerateServiceBusMessageForTextFieldTypes(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForTextFieldTypes(eventInfo);
                         }
 
                         break;
 
                     case Constants.Skill:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             GenerateServiceBusMessageForSkillTypes(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForSkillTypes(eventInfo);
                         }
 
                         break;
 
                     case Constants.JobProfileSoc:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             GenerateServiceBusMessageForSocCodeType(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForSocCodeType(eventInfo);
                         }
 
                         break;
@@ -157,21 +159,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.SOCSkillsMatrix:
 
                         //Get all the parentitem links when the status is Master and then get related data when the status is LIVE
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
                             SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(eventInfo);
                         }
 
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                   eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
+                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && eventInfo.Item.Visible && eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
                         {
                             GenerateServiceBusMessageForSocSkillsMatrixType(eventInfo);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
                         {
-                            // Add delete function here
+                            SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(eventInfo);
+                            GenerateServiceBusMessageForSocSkillsMatrixType(eventInfo);
                         }
 
                         break;
@@ -400,6 +400,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
         }
 
+        private void GenerateServiceBusMessageForJobProfileUnPublish(IDynamicContentUpdatedEvent eventInfo)
+        {
+            var jobProfileMessage = new JobProfileMessage();
+            jobProfileMessage.JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(eventInfo.Item, "Id");
+            jobProfileMessage.Title = dynamicContentExtensions.GetFieldValue<Lstring>(eventInfo.Item, nameof(JobProfileMessage.Title));
+            serviceBusMessageProcessor.SendJobProfileMessage(jobProfileMessage, eventInfo.Item.GetType().Name, eventInfo.Item.ApprovalWorkflowState.Value);
+        }
+
         private void GenerateServiceBusMessageForInfoTypes(IDynamicContentUpdatedEvent eventInfo)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
@@ -569,22 +577,25 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 RelatedSOC = GetRelatedSocsData(childItem, nameof(SocSkillMatrixContentItem.RelatedSOC))
             };
 
-            foreach (var contentId in SkillsMatrixParentItems)
+            if (SkillsMatrixParentItems != null)
             {
-                var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
+                foreach (var contentId in SkillsMatrixParentItems)
                 {
-                    Id = childItem.Id,
-                    Title = socSkillsMatrixContent.Title,
-                    Contextualised = socSkillsMatrixContent.Title,
-                    ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,
-                    ONetRank = socSkillsMatrixContent.ONetRank,
-                    Rank = socSkillsMatrixContent.Rank,
-                    RelatedSkill = socSkillsMatrixContent.RelatedSkill,
-                    RelatedSOC = socSkillsMatrixContent.RelatedSOC,
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
-                    JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
-                });
+                    var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                    relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
+                    {
+                        Id = childItem.Id,
+                        Title = socSkillsMatrixContent.Title,
+                        Contextualised = socSkillsMatrixContent.Title,
+                        ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,
+                        ONetRank = socSkillsMatrixContent.ONetRank,
+                        Rank = socSkillsMatrixContent.Rank,
+                        RelatedSkill = socSkillsMatrixContent.RelatedSkill,
+                        RelatedSOC = socSkillsMatrixContent.RelatedSOC,
+                        JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
+                        JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
+                    });
+                }
             }
 
             return relatedSocSkillMatrixContentItems;

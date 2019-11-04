@@ -59,6 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
                 EventHub.Subscribe<IDataEvent>(Content_Action);
                 EventHub.Subscribe<IDynamicContentUpdatedEvent>(Dynamic_Content_Updated_Action);
+                EventHub.Subscribe<IDynamicContentDeletingEvent>(Dynamic_Content_Deleteing_Action);
 
                 EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -90,6 +91,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
             dataEventHandler.PublishDynamicContent(updatedEventInfo);
+        }
+
+        private static void Dynamic_Content_Deleteing_Action(IDynamicContentUpdatedEvent updatedEventInfo)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
+           // dataEventHandler.PublishDynamicContent(updatedEventInfo);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

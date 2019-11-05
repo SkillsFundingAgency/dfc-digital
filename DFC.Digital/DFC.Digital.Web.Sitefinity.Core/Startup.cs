@@ -90,14 +90,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-            dataEventHandler.PublishDynamicContent(updatedEventInfo);
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
         }
 
-        private static void Dynamic_Content_Deleteing_Action(IDynamicContentUpdatedEvent updatedEventInfo)
+        private static void Dynamic_Content_Deleteing_Action(IDynamicContentDeletingEvent updatedEventInfo)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-           // dataEventHandler.PublishDynamicContent(updatedEventInfo);
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

@@ -462,10 +462,12 @@
     <Compile Include="Config\FeatherActionInvokerCustom.cs" />
     <Compile Include="Config\WebApiConfig.cs" />
     <Compile Include="DataEventHandling\DataEventActions.cs" />
+    <Compile Include="DataEventHandling\DynamicContentAction.cs" />
     <Compile Include="DataEventHandling\MicroServicesPublishingPageBuilder.cs" />
     <Compile Include="CompositeUI\IServiceBusMessageProcessor.cs" />
     <Compile Include="Interfaces\IDataEventActions.cs" />
     <Compile Include="CompositeUI\ServiceBusMessageProcessor.cs" />
+    <Compile Include="Interfaces\IDynamicContentAction.cs" />
     <Compile Include="SitefinityProxies\SitefinityDataEventProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageDataProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageNodeProxy.cs" />

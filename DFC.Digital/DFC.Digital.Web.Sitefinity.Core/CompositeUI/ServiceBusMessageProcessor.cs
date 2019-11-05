@@ -78,26 +78,5 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             await topicClient.CloseAsync();
         }
-
-        public async Task SendUnPubishMessage(UnPublishItem unPublishItem, string contentType, string actionType)
-        {
-            var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
-            var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
-            var topicClient = new TopicClient(connectionStringServiceBus, topicName);
-
-            // Send Messages
-            var jsonData = JsonConvert.SerializeObject(unPublishItem);
-
-            // Message that send to the queue
-            var message = new Message(Encoding.UTF8.GetBytes(jsonData));
-            message.ContentType = "application/json";
-            message.Label = unPublishItem.Title;
-            message.UserProperties.Add("Id", unPublishItem.Id);
-            message.UserProperties.Add("EventType", actionType);
-            message.UserProperties.Add("CType", contentType);
-            await topicClient.SendAsync(message);
-            applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {unPublishItem.Id}");
-            await topicClient.CloseAsync();
-        }
     }
 }

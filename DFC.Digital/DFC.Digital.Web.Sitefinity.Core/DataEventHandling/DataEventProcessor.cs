@@ -338,9 +338,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     socCodeClassificationItem.JobProfileId = jobProfileItem.Id;
                     socCodeClassificationItem.JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SOCCodeClassificationItem.Title));
                     classificationData.Add(socCodeClassificationItem);
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
                 }
             }
+
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
         }
 
         private void GetIndividualClassifications(DynamicModuleManager manager, Type dynamicType, FlatTaxon taxon, string relatedPropertyName)
@@ -371,9 +372,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         Url = taxon.GetDefaultUrl(),
                         Description = taxon.Description
                     });
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
                 }
             }
+
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
         }
 
         private void DeletePage(string providerName, Type contentType, Guid itemId)

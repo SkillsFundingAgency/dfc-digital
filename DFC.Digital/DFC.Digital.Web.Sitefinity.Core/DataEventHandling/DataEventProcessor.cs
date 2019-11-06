@@ -83,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                 }
 
-                if (eventAction == DynamicContentEventAction.Ignored)
+                if (eventAction == MessageAction.Ignored)
                 {
                     return;
                 }
@@ -91,7 +91,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 switch (item.GetType().Name)
                 {
                     case Constants.JobProfile:
-                        if (eventAction == DynamicContentEventAction.Published)
+                        if (eventAction == MessageAction.Published)
                         {
                             GenerateServiceBusMessageForJobProfile(item, eventAction);
                         }
@@ -137,7 +137,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                     case Constants.SOCSkillsMatrix:
 
-                        if (eventAction == DynamicContentEventAction.Deleted)
+                        if (eventAction == MessageAction.Deleted)
                         {
                             SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         }
@@ -366,13 +366,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        private void GenerateServiceBusMessageForJobProfile(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForJobProfile(DynamicContent item, MessageAction eventAction)
         {
             JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(item);
             serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForJobProfileUnPublish(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForJobProfileUnPublish(DynamicContent item, MessageAction eventAction)
         {
             var jobProfileMessage = new JobProfileMessage();
             jobProfileMessage.JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(item, "Id");
@@ -380,7 +380,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendJobProfileMessage(jobProfileMessage, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForInfoTypes(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForInfoTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
@@ -392,7 +392,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSocCodeType(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForSocCodeType(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
@@ -413,7 +413,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
         }
 
-        private void GenerateServiceBusMessageForSocSkillsMatrixType(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForSocSkillsMatrixType(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
@@ -425,7 +425,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForWYDTypes(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForWYDTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
@@ -438,7 +438,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForTextFieldTypes(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForTextFieldTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
@@ -450,7 +450,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSkillTypes(DynamicContent item, DynamicContentEventAction eventAction)
+        private void GenerateServiceBusMessageForSkillTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();

@@ -10,6 +10,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.Interfaces
 {
     public interface IDynamicContentAction
     {
-        DynamicContentEventAction GetDynamicContentEventAction(DynamicContent item);
+        MessageAction GetDynamicContentEventAction(DynamicContent item);
     }
 }

@@ -8,6 +8,7 @@ namespace DFC.Digital.Data.Model
 {
     public enum MessageAction
     {
+        Ignored,
         Published,
         Deleted,
         Draft,

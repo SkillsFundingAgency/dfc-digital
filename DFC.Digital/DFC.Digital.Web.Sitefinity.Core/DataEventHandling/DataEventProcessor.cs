@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
+using DFC.Digital.Web.Sitefinity.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +39,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IServiceBusMessageProcessor serviceBusMessageProcessor;
         private readonly IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IDynamicContentAction dynamicContentAction;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
@@ -49,131 +51,98 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.dynamicContentConverter = dynamicContentConverter;
             this.serviceBusMessageProcessor = serviceBusMessageProcessor;
             this.dynamicContentExtensions = dynamicContentExtensions;
+            this.dynamicContentAction = dynamicContentAction;
         }
 
         public List<Guid> SkillsMatrixParentItems { get; set; }
 
-        public void PublishDynamicContent(IDynamicContentUpdatedEvent eventInfo)
+        public void PublishDynamicContent(DynamicContent item)
         {
-            if (eventInfo == null)
+            if (item == null)
             {
                 throw new ArgumentNullException("eventInfo");
             }
 
+            var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
+
+            /*
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+            {
+                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+            }
+            */
+
+            applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
+
             try
             {
-                switch (eventInfo.Item.GetType().Name)
+                //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
+                //This is an odd case that was there for the existing publishing, we need to find a betterway of doing this
+                if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
+                {
+                    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
+                }
+
+                if (eventAction == MessageAction.Ignored)
+                {
+                    return;
+                }
+
+                switch (item.GetType().Name)
                 {
                     case Constants.JobProfile:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
+                        if (eventAction == MessageAction.Published)
                         {
-                            GenerateServiceBusMessageForJobProfile(eventInfo);
+                            GenerateServiceBusMessageForJobProfile(item, eventAction);
                         }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
+                        else
                         {
-                            // Add delete function here
+                            GenerateServiceBusMessageForJobProfileUnPublish(item, eventAction);
                         }
 
                         break;
+
                     case Constants.Restriction:
                     case Constants.Registration:
                     case Constants.ApprenticeshipRequirement:
                     case Constants.CollegeRequirement:
                     case Constants.UniversityRequirement:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
-                        {
-                            GenerateServiceBusMessageForInfoTypes(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                            GenerateServiceBusMessageForInfoTypes(item, eventAction);
 
                         break;
 
                     case Constants.Uniform:
                     case Constants.Location:
                     case Constants.Environment:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
-                        {
-                            GenerateServiceBusMessageForWYDTypes(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                            GenerateServiceBusMessageForWYDTypes(item, eventAction);
 
                         break;
 
                     case Constants.UniversityLink:
                     case Constants.CollegeLink:
                     case Constants.ApprenticeshipLink:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
-                        {
-                            GenerateServiceBusMessageForTextFieldTypes(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                            GenerateServiceBusMessageForTextFieldTypes(item, eventAction);
 
                         break;
 
                     case Constants.Skill:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
-                        {
-                            GenerateServiceBusMessageForSkillTypes(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                        GenerateServiceBusMessageForSkillTypes(item, eventAction);
 
                         break;
 
                     case Constants.JobProfileSoc:
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
-                        {
-                            GenerateServiceBusMessageForSocCodeType(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                            GenerateServiceBusMessageForSocCodeType(item, eventAction);
 
                         break;
 
                     case Constants.SOCSkillsMatrix:
 
-                        //Get all the parentitem links when the status is Master and then get related data when the status is LIVE
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                     eventInfo.Item.Status.ToString() == Constants.ItemStatusMaster)
+                        if (eventAction == MessageAction.Deleted)
                         {
-                            SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(eventInfo);
+                            SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         }
 
-                        if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished &&
-                   eventInfo.Item.Status.ToString() == Constants.ItemStatusLive)
-                        {
-                            GenerateServiceBusMessageForSocSkillsMatrixType(eventInfo);
-                        }
-                        else if (eventInfo.Item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished &&
-                    eventInfo.Item.Status.ToString() == Constants.ItemActionDeleted)
-                        {
-                            // Add delete function here
-                        }
+                        GenerateServiceBusMessageForSocSkillsMatrixType(item, eventAction);
 
                         break;
 
@@ -183,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {eventInfo.Item.Id}", ex);
+                applicationLogger.ErrorJustLogIt($"Failed to export data for item id {item.Id}", ex);
                 throw;
             }
         }
@@ -397,92 +366,100 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        private void GenerateServiceBusMessageForJobProfile(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForJobProfile(DynamicContent item, MessageAction eventAction)
         {
-            JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(eventInfo.Item);
-            serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            JobProfileMessage jobprofileData = dynamicContentConverter.ConvertFrom(item);
+            serviceBusMessageProcessor.SendJobProfileMessage(jobprofileData, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForInfoTypes(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForJobProfileUnPublish(DynamicContent item, MessageAction eventAction)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
-            var relatedInfoTypes = GetInfoRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var jobProfileMessage = new JobProfileMessage();
+            jobProfileMessage.JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(item, "Id");
+            jobProfileMessage.Title = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(JobProfileMessage.Title));
+            serviceBusMessageProcessor.SendJobProfileMessage(jobProfileMessage, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSocCodeType(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForInfoTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
             var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
 
-            var relatedSocContentTypes = GetSocRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocContentTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var relatedInfoTypes = GetInfoRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private List<Guid> GetParentItemsForSocSkillsMatrix(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForSocCodeType(DynamicContent item, MessageAction eventAction)
+        {
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
+            var contentLinksManager = ContentLinksManager.GetManager();
+            var parentItemContentLinks = contentLinksManager.GetContentLinks()
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
+                   .Select(c => c.ParentItemId).ToList();
+
+            var relatedSocContentTypes = GetSocRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocContentTypes, item.GetType().Name, eventAction.ToString());
+        }
+
+        private List<Guid> GetParentItemsForSocSkillsMatrix(DynamicContent item)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
             return contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
         }
 
-        private void GenerateServiceBusMessageForSocSkillsMatrixType(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForSocSkillsMatrixType(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
             var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
 
-            var relatedSocSkillsMatrixContentTypes = GetSocSkillMatrixRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var relatedSocSkillsMatrixContentTypes = GetSocSkillMatrixRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForWYDTypes(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForWYDTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
 
             var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
 
-            var relatedWYDTypes = GetWYDRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var relatedWYDTypes = GetWYDRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForTextFieldTypes(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForTextFieldTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
             var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
 
-            var relatedTextFieldTypes = GetTextFieldRelatedItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, ParentType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var relatedTextFieldTypes = GetTextFieldRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSkillTypes(IDynamicContentUpdatedEvent eventInfo)
+        private void GenerateServiceBusMessageForSkillTypes(DynamicContent item, MessageAction eventAction)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var contentLinksManager = ContentLinksManager.GetManager();
             var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == SocSkillsMatrixType && c.ChildItemId == eventInfo.Item.Id)
+                   .Where(c => c.ParentItemType == SocSkillsMatrixType && c.ChildItemId == item.Id)
                    .Select(c => c.ParentItemId).ToList();
 
-            var relatedSkillTypes = GetRelatedSkillTypeItems(eventInfo.Item, parentItemContentLinks, dynamicModuleManager, SocSkillsMatrixType);
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSkillTypes, eventInfo.Item.GetType().Name, GetActionType(eventInfo.Item.ApprovalWorkflowState.Value));
+            var relatedSkillTypes = GetRelatedSkillTypeItems(item, parentItemContentLinks, dynamicModuleManager, SocSkillsMatrixType);
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSkillTypes, item.GetType().Name, eventAction.ToString());
         }
 
         private IEnumerable<SocCodeContentItem> GetSocRelatedItems(DynamicContent childItem, List<Guid> parentItemLinks, DynamicModuleManager dynamicModuleManager, string parentName)
@@ -566,28 +543,31 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.Title)),
                 Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.Contextualised)),
                 ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocSkillMatrixContentItem.ONetAttributeType)),
-                ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(childItem, nameof(SocSkillMatrixContentItem.ONetRank)),
-                Rank = dynamicContentExtensions.GetFieldValue<decimal?>(childItem, nameof(SocSkillMatrixContentItem.Rank)),
+                ONetRank = dynamicContentExtensions.GetFieldValue<decimal>(childItem, nameof(SocSkillMatrixContentItem.ONetRank)),
+                Rank = dynamicContentExtensions.GetFieldValue<decimal>(childItem, nameof(SocSkillMatrixContentItem.Rank)),
                 RelatedSkill = GetRelatedSkillsData(childItem, nameof(SocSkillMatrixContentItem.RelatedSkill)),
                 RelatedSOC = GetRelatedSocsData(childItem, nameof(SocSkillMatrixContentItem.RelatedSOC))
             };
 
-            foreach (var contentId in SkillsMatrixParentItems)
+            if (SkillsMatrixParentItems != null)
             {
-                var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
+                foreach (var contentId in SkillsMatrixParentItems)
                 {
-                    Id = childItem.Id,
-                    Title = socSkillsMatrixContent.Title,
-                    Contextualised = socSkillsMatrixContent.Title,
-                    ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,
-                    ONetRank = socSkillsMatrixContent.ONetRank,
-                    Rank = socSkillsMatrixContent.Rank,
-                    RelatedSkill = socSkillsMatrixContent.RelatedSkill,
-                    RelatedSOC = socSkillsMatrixContent.RelatedSOC,
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
-                    JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
-                });
+                    var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                    relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
+                    {
+                        Id = childItem.Id,
+                        Title = socSkillsMatrixContent.Title,
+                        Contextualised = socSkillsMatrixContent.Title,
+                        ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,
+                        ONetRank = socSkillsMatrixContent.ONetRank,
+                        Rank = socSkillsMatrixContent.Rank,
+                        RelatedSkill = socSkillsMatrixContent.RelatedSkill,
+                        RelatedSOC = socSkillsMatrixContent.RelatedSOC,
+                        JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
+                        JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
+                    });
+                }
             }
 
             return relatedSocSkillMatrixContentItems;

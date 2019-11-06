@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Data.Model;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.DynamicModules.Events;
+using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -8,6 +9,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         void ExportCompositePage(IDataEvent eventInfo);
 
-        void PublishDynamicContent(IDynamicContentUpdatedEvent eventInfo);
+        void PublishDynamicContent(DynamicContent eventInfo);
     }
 }

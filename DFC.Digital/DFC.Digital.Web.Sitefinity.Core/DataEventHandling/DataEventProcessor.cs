@@ -28,6 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         private const string ParentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
         private const string SocSkillsMatrixType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix";
+        private const string JobProfileSocType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc";
 
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
@@ -202,7 +203,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             DynamicModuleManager manager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             Type dynamicType = TypeResolutionService.ResolveType(ParentType);
-            Type socSkillsMatrixType = TypeResolutionService.ResolveType(SocSkillsMatrixType);
+            Type jobProfileSocype = TypeResolutionService.ResolveType(JobProfileSocType);
 
             var taxonomyManager = TaxonomyManager.GetManager();
 
@@ -210,19 +211,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 .Where(t => t.Id == eventInfo.ItemId)
                 .FirstOrDefault();
             var relatedPropertyName = "jobprofile";
-            switch (taxon.FlatTaxonomy.Name)
+            switch (taxon.FlatTaxonomy.Name.Trim())
             {
                 case Constants.TaxonApprenticeshipFrameworks:
 
                     //Sitefinity equivalent
                     relatedPropertyName = "apprenticeshipframeworks";
-                    GetIndividualClassificationsForSocCodeData(manager, socSkillsMatrixType, taxon, relatedPropertyName);
+                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocype, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonApprenticeshipStandards:
 
                     //Sitefinity equivalent
                     relatedPropertyName = "apprenticeshipstandards";
-                    GetIndividualClassificationsForSocCodeData(manager, socSkillsMatrixType, taxon, relatedPropertyName);
+                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocype, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonCollegeEntryRequirements:
 
@@ -272,41 +273,42 @@ namespace DFC.Digital.Web.Sitefinity.Core
             IOrganizableProvider contentProvider = manager.Provider as IOrganizableProvider;
             int? totalCount = -1;
 
-            var socSkillsMatrixIds = contentProvider.GetItemsByTaxon(taxon.Id, false, relatedPropertyName, dynamicType, null, null, 0, 0, ref totalCount)
+            var socCodeIds = contentProvider.GetItemsByTaxon(taxon.Id, false, relatedPropertyName, dynamicType, null, null, 0, 0, ref totalCount)
                 .Cast<DynamicContent>()
                 .Select(p => p.Id)
                 .ToList();
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var classificationData = new List<SocSkillsMatrixClassificationItem>();
+            var classificationData = new List<SOCCodeClassificationItem>();
             var contentLinksManager = ContentLinksManager.GetManager();
             var parentType = TypeResolutionService.ResolveType(ParentType);
-            foreach (var socSkillsMatrixId in socSkillsMatrixIds)
+            foreach (var socCodeDataId in socCodeIds)
             {
                 //Get JobProfile Item
-                var relatedJobprofile = dynamicModuleManager.GetDataItem(dynamicType, socSkillsMatrixId);
+                var relatedSocData = dynamicModuleManager.GetDataItem(dynamicType, socCodeDataId);
 
-                if (relatedJobprofile.Status.ToString() == Constants.ItemStatusLive)
+                if (relatedSocData.Status.ToString() == Constants.ItemStatusMaster)
                 {
-                    var socSkillsMatrixClassificationItem = new SocSkillsMatrixClassificationItem
+                    var socCodeClassificationItem = new SOCCodeClassificationItem
                     {
-                        SocSkillsMatrixId = dynamicContentExtensions.GetFieldValue<Guid>(relatedJobprofile, nameof(SocSkillsMatrixClassificationItem.Id)),
-                        SocSkillsMatrixTitle = dynamicContentExtensions.GetFieldValue<Lstring>(relatedJobprofile, nameof(SocSkillsMatrixClassificationItem.Title)),
+                        SOCCodeClassificationId = dynamicContentExtensions.GetFieldValue<Guid>(relatedSocData, nameof(SOCCodeClassificationItem.Id)),
+                        SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(relatedSocData, nameof(SOCCodeClassificationItem.SOCCode)),
                         Id = taxon.Id,
                         Title = taxon.Title,
-                        Url = taxon.GetDefaultUrl(),
+                        Url = taxon.UrlName,
                         Description = taxon.Description
                     };
                     var jobProfileId = contentLinksManager.GetContentLinks()
-                .Where(c => c.ParentItemType == ParentType && c.ChildItemId == dynamicContentExtensions.GetFieldValue<Guid>(relatedJobprofile, nameof(SocSkillsMatrixClassificationItem.Id)))
+                .Where(c => c.ParentItemType == ParentType && c.ChildItemId == dynamicContentExtensions.GetFieldValue<Guid>(relatedSocData, nameof(SOCCodeClassificationItem.Id)))
                 .Select(c => c.ParentItemId).FirstOrDefault();
-                    socSkillsMatrixClassificationItem.JobProfileId = jobProfileId;
                     var jobProfileItem = dynamicModuleManager.GetDataItem(parentType, jobProfileId);
-                    socSkillsMatrixClassificationItem.JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SocSkillsMatrixClassificationItem.Title));
-                    classificationData.Add(socSkillsMatrixClassificationItem);
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, taxon.Status.ToString());
+                    socCodeClassificationItem.JobProfileId = jobProfileItem.Id;
+                    socCodeClassificationItem.JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SOCCodeClassificationItem.Title));
+                    classificationData.Add(socCodeClassificationItem);
                 }
             }
+
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
         }
 
         private void GetIndividualClassifications(DynamicModuleManager manager, Type dynamicType, FlatTaxon taxon, string relatedPropertyName)
@@ -337,9 +339,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         Url = taxon.GetDefaultUrl(),
                         Description = taxon.Description
                     });
-                    serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, taxon.Status.ToString());
                 }
             }
+
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
         }
 
         private void DeletePage(string providerName, Type contentType, Guid itemId)

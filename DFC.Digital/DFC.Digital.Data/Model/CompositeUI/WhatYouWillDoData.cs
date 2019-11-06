@@ -4,8 +4,6 @@ namespace DFC.Digital.Data.Model
 {
     public class WhatYouWillDoData
     {
-        public bool IsCadReady { get; set; }
-
         public string DailyTasks { get; set; }
 
         public IEnumerable<WYDRelatedContentType> Locations { get; set; }

@@ -59,17 +59,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public JobProfileMessage ConvertFrom(DynamicContent content)
         {
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var jobProfileMessage = new JobProfileMessage();
-            jobProfileMessage.JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id");
-            jobProfileMessage.Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title));
-            jobProfileMessage.AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.AlternativeTitle));
-            jobProfileMessage.Overview = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Overview));
-            jobProfileMessage.SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryStarter));
-            jobProfileMessage.SalaryExperienced = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryExperienced));
-            jobProfileMessage.MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MinimumHours));
-            jobProfileMessage.MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MaximumHours));
-            jobProfileMessage.CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CareerPathAndProgression));
-            jobProfileMessage.CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CourseKeywords));
+            var jobProfileMessage = new JobProfileMessage
+            {
+                JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id"),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)),
+                WidgetContentTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.WidgetContentTitle)),
+                AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.AlternativeTitle)),
+                Overview = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Overview)),
+                SalaryStarter = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryStarter)),
+                SalaryExperienced = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.SalaryExperienced)),
+                MinimumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MinimumHours)),
+                MaximumHours = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(JobProfileMessage.MaximumHours)),
+                CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CareerPathAndProgression)),
+                CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CourseKeywords)),
 
             //Need to use a string to get the content cannot use JobProfileMessage.JobProfileCategories as this is already used in the search
             //index and we will get a clash
@@ -117,7 +119,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             jobProfileMessage.LastModified = dynamicContentExtensions.GetFieldValue<DateTime>(content, nameof(JobProfileMessage.LastModified));
-            jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)).ToLower();
+            jobProfileMessage.CanonicalName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.UrlName)).ToLower();
             jobProfileMessage.JobProfileCategories = GetJobCategories(dynamicContentExtensions.GetFieldValue<IList<Guid>>(content, RelatedJobProfileCategoriesField));
             return jobProfileMessage;
         }
@@ -136,8 +138,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Title)),
                         Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Contextualised)),
                         ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.ONetAttributeType)),
-                        ONetRank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrixItem.ONetRank)),
-                        Rank = dynamicContentExtensions.GetFieldValue<decimal>(relatedItem, nameof(SocSkillMatrixItem.Rank)),
+                        ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.ONetRank)),
+                        Rank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.Rank)),
                         RelatedSkill = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSkill)),
                         RelatedSOC = GetRelatedSocsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSOC))
                     });
@@ -294,7 +296,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var wydData = new WhatYouWillDoData
             {
-                IsCadReady = true,
                 Introduction =
                         dynamicContentExtensions.GetFieldValue<Lstring>(content, Constants.WYDIntroduction),
                 DailyTasks =

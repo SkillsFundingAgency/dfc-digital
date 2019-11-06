@@ -3,6 +3,7 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
+using DFC.Digital.Web.Sitefinity.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +39,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IServiceBusMessageProcessor serviceBusMessageProcessor;
         private readonly IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
+        private readonly IDynamicContentAction dynamicContentAction;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
@@ -49,6 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.dynamicContentConverter = dynamicContentConverter;
             this.serviceBusMessageProcessor = serviceBusMessageProcessor;
             this.dynamicContentExtensions = dynamicContentExtensions;
+            this.dynamicContentAction = dynamicContentAction;
         }
 
         public List<Guid> SkillsMatrixParentItems { get; set; }
@@ -60,12 +63,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
-            var eventAction = new DynamicContentAction().GetDynamicContentEventAction(item);
+            var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
 
+            /*
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
             {
                 file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
             }
+            */
 
             try
             {
@@ -145,11 +150,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
-                {
-                    file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} | Failed to export page data for item id {item.Id} - {ex.ToString()}");
-                }
-
                 applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {item.Id}", ex);
                 throw;
             }
@@ -685,6 +685,22 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             return relatedContentItems;
+        }
+
+        private string GetActionType(string status)
+        {
+            if (status == "Published" || status == "Active")
+            {
+                return nameof(MessageAction.Published);
+            }
+            else if (status == "UnPublished" || status == "Deleted")
+            {
+                return nameof(MessageAction.Deleted);
+            }
+            else
+            {
+                return status == "Draft" ? nameof(MessageAction.Draft) : null;
+            }
         }
     }
 }

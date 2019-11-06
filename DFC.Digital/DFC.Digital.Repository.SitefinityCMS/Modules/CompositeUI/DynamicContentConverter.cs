@@ -73,18 +73,19 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 CareerPathAndProgression = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CareerPathAndProgression)),
                 CourseKeywords = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.CourseKeywords)),
 
-            //Need to use a string to get the content cannot use JobProfileMessage.JobProfileCategories as this is already used in the search
-            //index and we will get a clash
-            jobProfileMessage.UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.UrlName));
-            jobProfileMessage.IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfileMessage.IsImported));
+                //Need to use a string to get the content cannot use JobProfileMessage.JobProfileCategories as this is already used in the search
+                //index and we will get a clash
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.UrlName)),
+                IsImported = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(JobProfileMessage.IsImported)),
 
-            // How To Become section
-            jobProfileMessage.HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content);
-            jobProfileMessage.RelatedCareersData = GetRelatedCareersData(content, Constants.RelatedCareerProfiles);
-            jobProfileMessage.Restrictions = GetRestrictions(content, RelatedRestrictionsField);
-            jobProfileMessage.OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField);
-            jobProfileMessage.DynamicTitlePrefix = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DynamicTitlePrefix));
-            jobProfileMessage.DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DigitalSkillsLevel));
+                // How To Become section
+                HowToBecomeData = htbContentPropertyConverter.ConvertFrom(content),
+                RelatedCareersData = GetRelatedCareersData(content, Constants.RelatedCareerProfiles),
+                Restrictions = GetRestrictions(content, RelatedRestrictionsField),
+                OtherRequirements = dynamicContentExtensions.GetFieldValue<Lstring>(content, OtherRequirementsField),
+                DynamicTitlePrefix = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DynamicTitlePrefix)),
+                DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DigitalSkillsLevel)),
+            };
 
             //What You will do section
             jobProfileMessage.WhatYouWillDoData = GetWYDRelatedDataForJobProfiles(content);

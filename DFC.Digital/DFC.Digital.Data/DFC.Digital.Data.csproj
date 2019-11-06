@@ -175,12 +175,14 @@
     <Compile Include="Model\CompositeUI\JobProfileRelatedCareerItem.cs" />
     <Compile Include="Model\CompositeUI\RestrictionItem.cs" />
     <Compile Include="Model\CompositeUI\RouteEntryItem.cs" />
+    <Compile Include="Model\CompositeUI\SOCCodeClassificationItem.cs" />
     <Compile Include="Model\CompositeUI\SocCodeItem.cs" />
     <Compile Include="Model\CompositeUI\SocSkillMatrixItem.cs" />
     <Compile Include="Model\CompositeUI\SocSkillsMatrixClassificationItem.cs" />
     <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />
     <Compile Include="Model\CompositeUI\WYDRelatedContentType.cs" />
     <Compile Include="Model\Enum\DynamicContentEventAction.cs" />
+    <Compile Include="Model\Enum\MessageAction.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />

@@ -10,7 +10,6 @@ namespace DFC.Digital.Data.Model
     {
         Ignored,
         Published,
-        Unpublished,
         Deleted
     }
 }

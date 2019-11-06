@@ -72,6 +72,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             */
 
+            applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
+
             try
             {
                 //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
@@ -135,7 +137,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                     case Constants.SOCSkillsMatrix:
 
-                        if (eventAction == DynamicContentEventAction.Unpublished || eventAction == DynamicContentEventAction.Deleted)
+                        if (eventAction == DynamicContentEventAction.Deleted)
                         {
                             SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         }
@@ -150,7 +152,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             catch (Exception ex)
             {
-                applicationLogger.ErrorJustLogIt($"Failed to export page data for item id {item.Id}", ex);
+                applicationLogger.ErrorJustLogIt($"Failed to export data for item id {item.Id}", ex);
                 throw;
             }
         }

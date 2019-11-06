@@ -24,7 +24,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
             {
-                return DynamicContentEventAction.Unpublished;
+                //Unpublished
+                return DynamicContentEventAction.Deleted;
             }
             else if (item.GetType().Name == Constants.SOCSkillsMatrix || item.GetType().Name == Constants.JobProfile)
             {

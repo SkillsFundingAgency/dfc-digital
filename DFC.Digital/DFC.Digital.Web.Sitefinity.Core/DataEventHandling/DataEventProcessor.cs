@@ -558,7 +558,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     {
                         Id = childItem.Id,
                         Title = socSkillsMatrixContent.Title,
-                        Contextualised = socSkillsMatrixContent.Title,
+                        Contextualised = socSkillsMatrixContent.Contextualised,
                         ONetAttributeType = socSkillsMatrixContent.ONetAttributeType,
                         ONetRank = socSkillsMatrixContent.ONetRank,
                         Rank = socSkillsMatrixContent.Rank,

@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     return MessageAction.Published;
                 }
             }
-            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
+            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusLive)
             {
                 return MessageAction.Published;
             }

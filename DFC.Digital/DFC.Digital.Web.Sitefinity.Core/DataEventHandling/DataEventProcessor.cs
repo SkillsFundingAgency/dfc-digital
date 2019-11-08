@@ -63,14 +63,26 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("eventInfo");
             }
 
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
-
-            /*
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+            var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
+            Type dynamicType = TypeResolutionService.ResolveType(ParentType);
+            var currentMasterItem = dynamicModuleManager.GetDataItem(dynamicType, masterItem.Id);
+            var liveItem = dynamicModuleManager.Lifecycle.GetLive(item);
+            var contentLinksManager = ContentLinksManager.GetManager();
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Hari\SkillsFunding\logs\logger.txt", true))
             {
-                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+                file.WriteLine($"EVENT -- ID-{item.Id.ToString()}-- {DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+
+                file.WriteLine("|*********************************************************************************************************************************************************|");
+                file.WriteLine($"MASTER -- ID-{masterItem.Id.ToString()}--{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{masterItem.GetType().Name.PadRight(15, ' ')} |{masterItem.ApplicationName.PadRight(15, ' ')} | {masterItem.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+                if (liveItem != null)
+                {
+                    file.WriteLine($"LIVE -- ID-{liveItem.Id.ToString()}--{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{liveItem.GetType().Name.PadRight(15, ' ')} |{liveItem.ApplicationName.PadRight(15, ' ')} | {liveItem.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+                }
+
+                file.WriteLine("|*********************************************************************************************************************************************************|");
             }
-            */
 
             applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
 
@@ -94,6 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         if (eventAction == MessageAction.Published)
                         {
                             GenerateServiceBusMessageForJobProfile(item, eventAction);
+                            GenerateServiceBusMessageForJobProfile(currentMasterItem, eventAction);
                         }
                         else
                         {
@@ -107,9 +120,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.ApprenticeshipRequirement:
                     case Constants.CollegeRequirement:
                     case Constants.UniversityRequirement:
-                            GenerateServiceBusMessageForInfoTypes(item, eventAction);
-
-                        break;
+                        {
+                            var parentLinks = contentLinksManager.GetContentLinks()
+                      .Where(c => c.ParentItemType == ParentType && c.ChildItemId == masterItem.Id)
+                      .Select(c => c.ParentItemId).ToList();
+                            GenerateServiceBusMessageForInfoTypes(item, eventAction, parentLinks, dynamicModuleManager);
+                            break;
+                        }
 
                     case Constants.Uniform:
                     case Constants.Location:
@@ -380,15 +397,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendJobProfileMessage(jobProfileMessage, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForInfoTypes(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForInfoTypes(DynamicContent item, MessageAction eventAction, List<Guid> parentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
-            var relatedInfoTypes = GetInfoRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+            var relatedInfoTypes = GetInfoRelatedItems(item, parentLinks, dynamicModuleManager, ParentType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, item.GetType().Name, eventAction.ToString());
         }
 
@@ -619,10 +630,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
 
                 relatedContentItems.Add(new InfoContentItem
                 {
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(InfoContentItem.Id)),
+                    JobProfileId = parentLiveItem.Id,
                     JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(InfoContentItem.Title)),
                     Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(InfoContentItem.Id)),
                     Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(InfoContentItem.Title)),

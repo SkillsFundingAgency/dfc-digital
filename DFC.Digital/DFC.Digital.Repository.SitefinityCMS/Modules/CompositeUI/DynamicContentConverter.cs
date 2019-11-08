@@ -58,7 +58,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public JobProfileMessage ConvertFrom(DynamicContent content)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
+           if (content.Status.ToString() == Constants.ItemStatusMaster)
+            {
+                content.Provider = null;
+            }
+
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(content.ProviderName);
+
             var jobProfileMessage = new JobProfileMessage
             {
                 JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, "Id"),

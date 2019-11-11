@@ -145,6 +145,8 @@ namespace DFC.Digital.Core
         public const string WYDIntroduction = "WYDIntroduction";
         public const string WYDDayToDayTasks = "WYDDayToDayTasks";
 
+        //Orginal Content Id is used where master version Id is needed
+        public const string OriginalContentId = "OriginalContentId";
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
         public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
     }

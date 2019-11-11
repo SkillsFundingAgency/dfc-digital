@@ -78,10 +78,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
                 //This is an odd case that was there for the existing publishing, we need to find a betterway of doing this
-                if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
-                {
-                    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
-                }
+                //if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
+                //{
+                //    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
+                //}
 
                 if (eventAction == MessageAction.Ignored)
                 {
@@ -141,7 +141,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         {
                             SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         }
-
+                        //var skillMatrixMasterVersionItems = 
+                        SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         GenerateServiceBusMessageForSocSkillsMatrixType(item, eventAction);
 
                         break;
@@ -330,7 +331,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 //Get JobProfile Item
                 var relatedJobprofile = dynamicModuleManager.GetDataItem(dynamicType, jobProfileId);
 
-                if (relatedJobprofile.Status.ToString() == Constants.ItemStatusLive)
+                if (relatedJobprofile.Status.ToString() == Constants.ItemStatusMaster)
                 {
                     classificationData.Add(new ClassificationItem
                     {

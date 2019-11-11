@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.Digital.Core;
+using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
@@ -128,7 +129,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var link = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Url));
                     linkItems.Add(new MoreInformationLinkItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(MoreInformationLinkItem.Id)),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, Constants.OriginalContentId),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Title)),
                         Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
                         Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Text)),
@@ -149,7 +150,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new EntryRequirementItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(InfoDataItem.Id)),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, Constants.OriginalContentId),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Title)),
                         Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Info))
                     });
@@ -169,7 +170,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new RegistrationItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(InfoDataItem.Id)),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, Constants.OriginalContentId),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Title)),
                         Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Info))
                     });

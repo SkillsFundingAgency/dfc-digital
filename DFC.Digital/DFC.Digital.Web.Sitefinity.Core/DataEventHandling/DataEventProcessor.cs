@@ -77,12 +77,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             try
             {
-                //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
-                //This is an odd case that was there for the existing publishing, we need to find a betterway of doing this
-                //if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
-                //{
-                //    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
-                //}
                 if (eventAction == MessageAction.Ignored)
                 {
                     return;

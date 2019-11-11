@@ -63,7 +63,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 content.Provider = null;
             }
 
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(content.ProviderName);
+            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
 
             var jobProfileMessage = new JobProfileMessage
             {

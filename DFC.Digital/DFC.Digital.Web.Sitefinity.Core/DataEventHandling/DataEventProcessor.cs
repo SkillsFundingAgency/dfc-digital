@@ -2,19 +2,15 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
-using DFC.Digital.Repository.SitefinityCMS.Modules;
 using DFC.Digital.Web.Sitefinity.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.OpenAccess;
-using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.DynamicModules;
-using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.DynamicModules.Model;
-using Telerik.Sitefinity.GenericContent.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Modules.GenericContent;
 using Telerik.Sitefinity.Pages.Model;
@@ -65,21 +61,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
-            var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
-            Type dynamicType = TypeResolutionService.ResolveType(ParentType);
-            var currentMasterItem = dynamicModuleManager.GetDataItem(dynamicType, masterItem.Id);
-            var liveItem = dynamicModuleManager.Lifecycle.GetLive(item);
-            var contentLinksManager = ContentLinksManager.GetManager();
+
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Hari\SkillsFunding\logs\logger.txt", true))
             {
                 file.WriteLine($"EVENT -- ID-{item.Id.ToString()}-- {DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
-
-                file.WriteLine("|*********************************************************************************************************************************************************|");
-                file.WriteLine($"MASTER -- ID-{masterItem.Id.ToString()}--{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{masterItem.GetType().Name.PadRight(15, ' ')} |{masterItem.ApplicationName.PadRight(15, ' ')} | {masterItem.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
-                if (liveItem != null)
-                {
-                    file.WriteLine($"LIVE -- ID-{liveItem.Id.ToString()}--{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{liveItem.GetType().Name.PadRight(15, ' ')} |{liveItem.ApplicationName.PadRight(15, ' ')} | {liveItem.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
-                }
 
                 file.WriteLine("|*********************************************************************************************************************************************************|");
             }
@@ -88,16 +73,34 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             try
             {
-                //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
-                //This is an odd case that was there for the existing publishing, we need to find a betterway of doing this
-                if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
-                {
-                    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
-                }
-
                 if (eventAction == MessageAction.Ignored)
                 {
                     return;
+                }
+
+                Type dynamicType = TypeResolutionService.ResolveType(ParentType);
+                var contentLinksManager = ContentLinksManager.GetManager();
+
+                //For all the Dynamic content types we are using Jobprofile as Parent Type
+                //and for only Skills we are using SocSkillsMatrix Type as the Parent Type
+                var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
+                var masterVersionItem = dynamicModuleManager.GetDataItem(item.GetType(), masterItem.Id);
+
+                var parentLinks = contentLinksManager.GetContentLinks()
+                        .Where(c => c.ParentItemType == ParentType && c.ChildItemId == masterItem.Id)
+                        .Select(c => c.ParentItemId).ToList();
+                if (item.GetType().Name == Constants.Skill)
+                {
+                    parentLinks = contentLinksManager.GetContentLinks()
+                        .Where(c => c.ParentItemType == SocSkillsMatrixType && c.ChildItemId == masterItem.Id)
+                        .Select(c => c.ParentItemId).ToList();
+                }
+
+                //Get all the parentitem links when the status is Master and then get related data when the status is LIVE,
+                //This is an odd case that was there for the existing publishing, we need to find a betterway of doing this
+                if (item.GetType().Name == Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished)
+                {
+                    SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(masterVersionItem);
                 }
 
                 switch (item.GetType().Name)
@@ -106,7 +109,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         if (eventAction == MessageAction.Published)
                         {
                             GenerateServiceBusMessageForJobProfile(item, eventAction);
-                            GenerateServiceBusMessageForJobProfile(currentMasterItem, eventAction);
                         }
                         else
                         {
@@ -121,9 +123,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.CollegeRequirement:
                     case Constants.UniversityRequirement:
                         {
-                            var parentLinks = contentLinksManager.GetContentLinks()
-                      .Where(c => c.ParentItemType == ParentType && c.ChildItemId == masterItem.Id)
-                      .Select(c => c.ParentItemId).ToList();
                             GenerateServiceBusMessageForInfoTypes(item, eventAction, parentLinks, dynamicModuleManager);
                             break;
                         }
@@ -131,24 +130,23 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.Uniform:
                     case Constants.Location:
                     case Constants.Environment:
-                            GenerateServiceBusMessageForWYDTypes(item, eventAction);
-
+                        GenerateServiceBusMessageForWYDTypes(item, eventAction, parentLinks, dynamicModuleManager);
                         break;
 
                     case Constants.UniversityLink:
                     case Constants.CollegeLink:
                     case Constants.ApprenticeshipLink:
-                            GenerateServiceBusMessageForTextFieldTypes(item, eventAction);
+                        GenerateServiceBusMessageForTextFieldTypes(item, eventAction, parentLinks, dynamicModuleManager);
 
                         break;
 
                     case Constants.Skill:
-                        GenerateServiceBusMessageForSkillTypes(item, eventAction);
+                        GenerateServiceBusMessageForSkillTypes(item, eventAction, parentLinks, dynamicModuleManager);
 
                         break;
 
                     case Constants.JobProfileSoc:
-                            GenerateServiceBusMessageForSocCodeType(item, eventAction);
+                        GenerateServiceBusMessageForSocCodeType(item, eventAction, parentLinks, dynamicModuleManager);
 
                         break;
 
@@ -159,7 +157,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                             SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
                         }
 
-                        GenerateServiceBusMessageForSocSkillsMatrixType(item, eventAction);
+                        GenerateServiceBusMessageForSocSkillsMatrixType(item, eventAction, parentLinks, dynamicModuleManager);
 
                         break;
 
@@ -222,7 +220,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             DynamicModuleManager manager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             Type dynamicType = TypeResolutionService.ResolveType(ParentType);
-            Type jobProfileSocype = TypeResolutionService.ResolveType(JobProfileSocType);
+            Type jobProfileSocType = TypeResolutionService.ResolveType(JobProfileSocType);
 
             var taxonomyManager = TaxonomyManager.GetManager();
 
@@ -236,13 +234,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                     //Sitefinity equivalent
                     relatedPropertyName = "apprenticeshipframeworks";
-                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocype, taxon, relatedPropertyName);
+                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocType, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonApprenticeshipStandards:
 
                     //Sitefinity equivalent
                     relatedPropertyName = "apprenticeshipstandards";
-                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocype, taxon, relatedPropertyName);
+                    GetIndividualClassificationsForSocCodeData(manager, jobProfileSocType, taxon, relatedPropertyName);
                     break;
                 case Constants.TaxonCollegeEntryRequirements:
 
@@ -403,14 +401,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedInfoTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSocCodeType(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForSocCodeType(DynamicContent item, MessageAction eventAction, List<Guid> parentItemContentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
             var relatedSocContentTypes = GetSocRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocContentTypes, item.GetType().Name, eventAction.ToString());
         }
@@ -424,51 +416,26 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
         }
 
-        private void GenerateServiceBusMessageForSocSkillsMatrixType(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForSocSkillsMatrixType(DynamicContent item, MessageAction eventAction, List<Guid> parentItemContentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
             var relatedSocSkillsMatrixContentTypes = GetSocSkillMatrixRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSocSkillsMatrixContentTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForWYDTypes(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForWYDTypes(DynamicContent item, MessageAction eventAction, List<Guid> parentItemContentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
             var relatedWYDTypes = GetWYDRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedWYDTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForTextFieldTypes(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForTextFieldTypes(DynamicContent item, MessageAction eventAction, List<Guid> parentItemContentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == ParentType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
             var relatedTextFieldTypes = GetTextFieldRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, item.GetType().Name, eventAction.ToString());
         }
 
-        private void GenerateServiceBusMessageForSkillTypes(DynamicContent item, MessageAction eventAction)
+        private void GenerateServiceBusMessageForSkillTypes(DynamicContent item, MessageAction eventAction, List<Guid> parentItemContentLinks, DynamicModuleManager dynamicModuleManager)
         {
-            DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
-            var contentLinksManager = ContentLinksManager.GetManager();
-            var parentItemContentLinks = contentLinksManager.GetContentLinks()
-                   .Where(c => c.ParentItemType == SocSkillsMatrixType && c.ChildItemId == item.Id)
-                   .Select(c => c.ParentItemId).ToList();
-
             var relatedSkillTypes = GetRelatedSkillTypeItems(item, parentItemContentLinks, dynamicModuleManager, SocSkillsMatrixType);
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedSkillTypes, item.GetType().Name, eventAction.ToString());
         }
@@ -483,7 +450,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-
+                var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
                 relatedSocContentItems.Add(new SocCodeContentItem
                 {
                     Id = childItem.Id,
@@ -494,53 +461,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SocCodeContentItem.ONetOccupationalCode)),
                     ApprenticeshipFramework = MapClassificationData(apprenticeshipFrameworkData),
                     ApprenticeshipStandards = MapClassificationData(apprenticeshipStandardsData),
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
+                    JobProfileId = parentLiveItem.Id,
                     JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
                 });
             }
 
             return relatedSocContentItems;
-        }
-
-        private FrameworkSkillItem GetRelatedSkillsData(DynamicContent content, string relatedField)
-        {
-            var relatedSkillsData = new FrameworkSkillItem();
-            content.ProviderName = string.Empty;
-            var relatedItem = dynamicContentExtensions.GetRelatedItems(content, relatedField).FirstOrDefault();
-
-            return new FrameworkSkillItem
-            {
-                Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(FrameworkSkillItem.Id)),
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Title)),
-                Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Description)),
-                ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.ONetElementId))
-            };
-        }
-
-        private RelatedSocCodeItem GenerateSocData(DynamicContent content)
-        {
-            var socCodes = new RelatedSocCodeItem
-            {
-                Id = content.Id,
-                SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode))
-            };
-
-            return socCodes;
-        }
-
-        private IEnumerable<RelatedSocCodeItem> GetRelatedSocsData(DynamicContent content, string relatedField)
-        {
-            var relatedSocsData = new List<RelatedSocCodeItem>();
-            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
-            if (relatedItems != null)
-            {
-                foreach (var relatedItem in relatedItems)
-                {
-                    relatedSocsData.Add(GenerateSocData(relatedItem));
-                }
-            }
-
-            return relatedSocsData;
         }
 
         private IEnumerable<SocSkillMatrixContentItem> GetSocSkillMatrixRelatedItems(DynamicContent childItem, List<Guid> parentItemLinks, DynamicModuleManager dynamicModuleManager, string parentName)
@@ -565,6 +491,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 foreach (var contentId in SkillsMatrixParentItems)
                 {
                     var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                    var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
                     relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
                     {
                         Id = childItem.Id,
@@ -575,30 +502,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         Rank = socSkillsMatrixContent.Rank,
                         RelatedSkill = socSkillsMatrixContent.RelatedSkill,
                         RelatedSOC = socSkillsMatrixContent.RelatedSOC,
-                        JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SocCodeContentItem.Id)),
+                        JobProfileId = parentLiveItem.Id,
                         JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SocCodeContentItem.Title))
                     });
                 }
             }
 
             return relatedSocSkillMatrixContentItems;
-        }
-
-        private IEnumerable<Classification> MapClassificationData(TrackedList<Guid> classifications)
-        {
-            var classificationData = new List<Classification>();
-            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-            foreach (var cat in classifications)
-            {
-                classificationData.Add(new Classification
-                {
-                    Id = taxonomyManager.GetTaxon(cat).Id,
-                    Title = taxonomyManager.GetTaxon(cat).Title,
-                    Url = taxonomyManager.GetTaxon(cat).UrlName
-                });
-            }
-
-            return classificationData;
         }
 
         private IEnumerable<WYDContentItem> GetWYDRelatedItems(DynamicContent childItem, List<Guid> parentItemLinks, DynamicModuleManager dynamicModuleManager, string parentName)
@@ -608,10 +518,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
 
                 relatedContentItems.Add(new WYDContentItem
                 {
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(WYDContentItem.Id)),
+                    JobProfileId = parentLiveItem.Id,
                     JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(WYDContentItem.Title)),
                     Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(WYDContentItem.Id)),
                     Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDContentItem.Title)),
@@ -652,10 +563,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
+                var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
 
                 relatedContentItems.Add(new TextFieldContentItem
                 {
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(TextFieldContentItem.Id)),
+                    JobProfileId = parentLiveItem.Id,
                     JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(TextFieldContentItem.Title)),
                     Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(TextFieldContentItem.Id)),
                     Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(TextFieldContentItem.Title)),
@@ -678,27 +590,85 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(socSkillsMatrixType, contentId);
-
+                var parentLiveItem = dynamicModuleManager.Lifecycle.GetLive(parentItem);
                 var jobProfileId = contentLinksManager.GetContentLinks()
                  .Where(c => c.ParentItemType == ParentType && c.ChildItemId == parentItem.Id)
                  .Select(c => c.ParentItemId).FirstOrDefault();
 
                 var jobProfileItem = dynamicModuleManager.GetDataItem(parentType, jobProfileId);
-
+                var jobProfileLiveItem = dynamicModuleManager.Lifecycle.GetLive(jobProfileItem);
                 relatedContentItems.Add(new SkillContentItem
                 {
-                    JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(jobProfileItem, nameof(SkillContentItem.Id)),
+                    JobProfileId = jobProfileLiveItem.Id,
                     JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SkillContentItem.Title)),
                     Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(SkillContentItem.Id)),
                     Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Title)),
                     ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.ONetElementId)),
-                    SocSkillMatrixId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SkillContentItem.Id)),
+                    SocSkillMatrixId = parentLiveItem.Id,
                     SocSkillMatrixTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SkillContentItem.Title)),
                     Description = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Description))
                 });
             }
 
             return relatedContentItems;
+        }
+
+        private IEnumerable<Classification> MapClassificationData(TrackedList<Guid> classifications)
+        {
+            var classificationData = new List<Classification>();
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            foreach (var cat in classifications)
+            {
+                classificationData.Add(new Classification
+                {
+                    Id = taxonomyManager.GetTaxon(cat).Id,
+                    Title = taxonomyManager.GetTaxon(cat).Title,
+                    Url = taxonomyManager.GetTaxon(cat).UrlName
+                });
+            }
+
+            return classificationData;
+        }
+
+        private FrameworkSkillItem GetRelatedSkillsData(DynamicContent content, string relatedField)
+        {
+            var relatedSkillsData = new FrameworkSkillItem();
+            content.ProviderName = string.Empty;
+            var relatedItem = dynamicContentExtensions.GetRelatedItems(content, relatedField).FirstOrDefault();
+
+            return new FrameworkSkillItem
+            {
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, nameof(FrameworkSkillItem.Id)),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Title)),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Description)),
+                ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.ONetElementId))
+            };
+        }
+
+        private IEnumerable<RelatedSocCodeItem> GetRelatedSocsData(DynamicContent content, string relatedField)
+        {
+            var relatedSocsData = new List<RelatedSocCodeItem>();
+            var relatedItems = dynamicContentExtensions.GetRelatedItems(content, relatedField);
+            if (relatedItems != null)
+            {
+                foreach (var relatedItem in relatedItems)
+                {
+                    relatedSocsData.Add(GenerateSocData(relatedItem));
+                }
+            }
+
+            return relatedSocsData;
+        }
+
+        private RelatedSocCodeItem GenerateSocData(DynamicContent content)
+        {
+            var socCodes = new RelatedSocCodeItem
+            {
+                Id = content.Id,
+                SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode))
+            };
+
+            return socCodes;
         }
 
         private string GetActionType(string status)

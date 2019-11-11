@@ -22,23 +22,25 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 return MessageAction.Deleted;
             }
-            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
+            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusLive)
             {
                 //Unpublished
                 return MessageAction.Deleted;
             }
-            else if (item.GetType().Name == Constants.SOCSkillsMatrix || item.GetType().Name == Constants.JobProfile)
-            {
-                if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
-                {
-                    return MessageAction.Published;
-                }
-            }
-            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusLive)
+            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
             {
                 return MessageAction.Published;
             }
 
+            //else if (item.GetType().Name == Constants.SOCSkillsMatrix || item.GetType().Name == Constants.JobProfile)
+            //{
+
+            //}
+
+            //else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusLive)
+            //{
+            //    return MessageAction.Published;
+            //}
             return MessageAction.Ignored;
         }
     }

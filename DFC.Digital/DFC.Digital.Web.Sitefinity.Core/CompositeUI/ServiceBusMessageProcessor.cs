@@ -70,6 +70,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     message.UserProperties.Add("Id", $"{relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
                     message.UserProperties.Add("ActionType", actionType);
                     message.UserProperties.Add("CType", contentType);
+                    message.CorrelationId = Guid.NewGuid().ToString();
                     await topicClient.SendAsync(message);
                     applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
                 }

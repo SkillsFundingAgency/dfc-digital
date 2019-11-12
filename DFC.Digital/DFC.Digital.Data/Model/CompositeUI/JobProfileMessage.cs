@@ -139,5 +139,7 @@ namespace DFC.Digital.Data.Model
         public string CanonicalName { get; set; }
 
         public string WidgetContentTitle { get; set; }
+
+        public bool IncludeInSiteMap { get; set; }
     }
 }

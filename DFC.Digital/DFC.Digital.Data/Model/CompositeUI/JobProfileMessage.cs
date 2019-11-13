@@ -140,6 +140,6 @@ namespace DFC.Digital.Data.Model
 
         public string WidgetContentTitle { get; set; }
 
-        public bool IncludeInSiteMap { get; set; }
+        public bool IncludeInSitemap { get; set; }
     }
 }

@@ -304,7 +304,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
             }
 
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name.Trim(), GetActionType(taxon.Status.ToString()));
         }
 
         private void GetIndividualClassifications(DynamicModuleManager manager, Type dynamicType, FlatTaxon taxon, string relatedPropertyName)
@@ -338,7 +338,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 }
             }
 
-            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name, GetActionType(taxon.Status.ToString()));
+            serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name.Trim(), GetActionType(taxon.Status.ToString()));
         }
 
         private void DeletePage(string providerName, Type contentType, Guid itemId)

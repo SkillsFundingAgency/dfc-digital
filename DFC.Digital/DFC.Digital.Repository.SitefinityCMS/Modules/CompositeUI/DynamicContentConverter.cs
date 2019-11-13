@@ -87,6 +87,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 DigitalSkillsLevel = dynamicContentExtensions.GetFieldChoiceLabel(content, nameof(JobProfileMessage.DigitalSkillsLevel)),
             };
 
+            jobProfileMessage.IncludeInSitemap = content.IncludeInSitemap;
+
             //What You will do section
             jobProfileMessage.WhatYouWillDoData = GetWYDRelatedDataForJobProfiles(content);
 

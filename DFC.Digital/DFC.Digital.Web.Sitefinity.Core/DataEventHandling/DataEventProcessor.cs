@@ -66,12 +66,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
 
-            /*
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Temp\EventStates.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Hari\SkillsFunding\logs\logger.txt", true))
             {
-                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} |{item.GetType().Name.PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')} |");
+                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} | {item.GetType().Name.PadRight(10, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} | {item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(10, ' ')} | Derived action - {eventAction.ToString().PadRight(10, ' ')} |");
             }
-            */
 
             applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
 
@@ -291,8 +289,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(relatedSocData, nameof(SOCCodeClassificationItem.SOCCode)),
                         Id = taxon.Id,
                         Title = taxon.Title,
-                        Url = taxon.UrlName,
-                        Description = taxon.Description
+                        Url = taxon.UrlName
                     };
                     var jobProfileId = contentLinksManager.GetContentLinks()
                 .Where(c => c.ParentItemType == ParentType && c.ChildItemId == dynamicContentExtensions.GetFieldValue<Guid>(relatedSocData, nameof(SOCCodeClassificationItem.Id)))
@@ -332,8 +329,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(relatedJobprofile, nameof(ClassificationItem.Title)),
                         Id = taxon.Id,
                         Title = taxon.Title,
-                        Url = taxon.GetDefaultUrl(),
-                        Description = taxon.Description
+                        Url = taxon.UrlName
                     });
                 }
             }

@@ -288,7 +288,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(relatedSocData, nameof(SOCCodeClassificationItem.SOCCode)),
                         Id = taxon.Id,
                         Title = taxon.Title,
-                        Url = taxon.UrlName
+                        Url = taxon.UrlName,
+                        Description = taxon.Description
                     };
                     var jobProfileId = contentLinksManager.GetContentLinks()
                 .Where(c => c.ParentItemType == ParentType && c.ChildItemId == dynamicContentExtensions.GetFieldValue<Guid>(relatedSocData, nameof(SOCCodeClassificationItem.Id)))
@@ -328,7 +329,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(relatedJobprofile, nameof(ClassificationItem.Title)),
                         Id = taxon.Id,
                         Title = taxon.Title,
-                        Url = taxon.UrlName
+                        Url = taxon.UrlName,
+                        Description = taxon.Description
                     });
                 }
             }

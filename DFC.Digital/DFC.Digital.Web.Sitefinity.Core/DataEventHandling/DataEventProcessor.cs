@@ -595,7 +595,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(WYDContentItem.Id)),
                     Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDContentItem.Title)),
                     Description = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(WYDContentItem.Description)),
-                    IsNegative = dynamicContentExtensions.GetFieldValue<bool>(childItem, nameof(WYDContentItem.IsNegative))
+                    IsNegative = dynamicContentExtensions.GetFieldValue<bool>(childItem, nameof(WYDContentItem.IsNegative)),
+                    Url = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, Constants.Url)
                 });
             }
 

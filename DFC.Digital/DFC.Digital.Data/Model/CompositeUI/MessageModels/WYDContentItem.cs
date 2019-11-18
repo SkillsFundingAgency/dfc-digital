@@ -11,5 +11,7 @@ namespace DFC.Digital.Data.Model
         public string Description { get; set; }
 
         public bool IsNegative { get; set; }
+
+        public string Url { get; set; }
     }
 }

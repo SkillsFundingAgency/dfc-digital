@@ -248,7 +248,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     Id = taxonomyManager.GetTaxon(cat).Id,
                     Title = taxonomyManager.GetTaxon(cat).Title,
-                    Url = taxonomyManager.GetTaxon(cat).UrlName
+                    Url = taxonomyManager.GetTaxon(cat).UrlName,
+                    Description = taxonomyManager.GetTaxon(cat).Description
                 });
             }
 

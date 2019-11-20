@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using DFC.Digital.Core;
 using DFC.Digital.Web.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -90,14 +91,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item, Constants.WorkflowStatusPublished);
         }
 
         private static void Dynamic_Content_Deleteing_Action(IDynamicContentDeletingEvent updatedEventInfo)
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item, Constants.ItemActionDeleted);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

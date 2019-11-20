@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public List<Guid> SkillsMatrixParentItems { get; set; }
 
-        public void PublishDynamicContent(DynamicContent item)
+        public void PublishDynamicContent(DynamicContent item, string eventActionType)
         {
             if (item == null)
             {
@@ -66,10 +66,11 @@ namespace DFC.Digital.Web.Sitefinity.Core
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var eventAction = dynamicContentAction.GetDynamicContentEventAction(item);
 
-            //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"\logs\logger.txt", true))
-            //{
-            //    file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} | {item.GetType().Name.PadRight(10, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} | {item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(10, ' ')} | Derived action - {eventAction.ToString().PadRight(10, ' ')} |");
-            //}
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Hari\SkillsFunding\logs\logger.txt", true))
+            {
+                file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} | {item.GetType().Name.PadRight(10, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} | {item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(10, ' ')} | Derived action - {eventActionType.PadRight(10, ' ')} |");
+            }
+
             applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
 
             try

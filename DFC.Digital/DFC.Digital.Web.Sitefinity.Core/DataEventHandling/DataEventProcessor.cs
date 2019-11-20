@@ -149,16 +149,32 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        public void ExportCompositePage(IDataEvent eventInfo)
+        public void ExportContentData(IDataEvent eventInfo)
         {
             if (eventInfo == null)
             {
                 throw new ArgumentNullException("eventInfo");
             }
 
-            if (eventInfo.ItemType != typeof(PageNode) && eventInfo.ItemType != typeof(FlatTaxon))
+            if (eventInfo.ItemType == typeof(PageNode))
             {
-                return;
+                ExportCompositePage(eventInfo);
+            }
+            else if (eventInfo.ItemType == typeof(FlatTaxon))
+            {
+                //Don't do this for deletes as the TaxonItem will not exist by now, linked JPs will fire updated events.
+                if (eventInfo.Action != Constants.ItemActionDeleted)
+                {
+                    GetClassificationRelatedItems(eventInfo);
+                }
+            }
+        }
+
+        public void ExportCompositePage(IDataEvent eventInfo)
+        {
+            if (eventInfo == null)
+            {
+                throw new ArgumentNullException("eventInfo");
             }
 
             try
@@ -168,11 +184,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
                 var contentType = eventInfo.ItemType;
-
-                if (eventInfo.ItemType.Name == "FlatTaxon")
-                {
-                    GetClassificationRelatedItems(eventInfo);
-                }
 
                 if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                 {

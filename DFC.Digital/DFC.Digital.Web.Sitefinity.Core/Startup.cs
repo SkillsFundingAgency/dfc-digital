@@ -83,7 +83,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-            dataEventHandler.ExportCompositePage(eventInfo);
+            dataEventHandler.ExportContentData(eventInfo);
         }
 
         // Event Action for Job Profile Dynamic content PUBLISH event

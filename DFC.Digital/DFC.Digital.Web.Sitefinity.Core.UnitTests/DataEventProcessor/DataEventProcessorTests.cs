@@ -135,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction);
-            dataEventHandler.ExportCompositePage(fakeDataEvent);
+            dataEventHandler.ExportContentData(fakeDataEvent);
 
             //Asserts
             if (expectToProcess)

@@ -9,6 +9,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
     {
         void ExportCompositePage(IDataEvent eventInfo);
 
+        void ExportContentData(IDataEvent eventInfo);
+
         void PublishDynamicContent(DynamicContent eventInfo);
     }
 }

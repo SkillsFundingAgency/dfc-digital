@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using DFC.Digital.Core;
 using DFC.Digital.Web.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -15,6 +16,7 @@ using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.Data.Metadata;
+using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.Metadata.Model;
 using Telerik.Sitefinity.Model;
 using Telerik.Sitefinity.Mvc;
@@ -56,7 +58,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 FeatherActionInvokerCustom.Register();
 
                 EventHub.Subscribe<ISitemapGeneratorBeforeWriting>(BeforeWritingSitemap);
-                EventHub.Subscribe<Telerik.Sitefinity.Data.Events.IDataEvent>(Content_Action);
+                EventHub.Subscribe<IDataEvent>(Content_Action);
+                EventHub.Subscribe<IDynamicContentUpdatedEvent>(Dynamic_Content_Updated_Action);
+                EventHub.Subscribe<IDynamicContentDeletingEvent>(Dynamic_Content_Deleteing_Action);
 
                 EventHub.Subscribe<IPagePreRenderCompleteEvent>(OnPagePreRenderCompleteEventHandler);
                 GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -79,7 +83,22 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
             var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
-            dataEventHandler.ExportCompositePage(eventInfo);
+            dataEventHandler.ExportContentData(eventInfo);
+        }
+
+        // Event Action for Job Profile Dynamic content PUBLISH event
+        private static void Dynamic_Content_Updated_Action(IDynamicContentUpdatedEvent updatedEventInfo)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
+        }
+
+        private static void Dynamic_Content_Deleteing_Action(IDynamicContentDeletingEvent updatedEventInfo)
+        {
+            var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
+            var dataEventHandler = autofacLifetimeScope.Resolve<DataEventProcessor>();
+            dataEventHandler.PublishDynamicContent(updatedEventInfo.Item);
         }
 
         private static void BeforeWritingSitemap(ISitemapGeneratorBeforeWriting evt)

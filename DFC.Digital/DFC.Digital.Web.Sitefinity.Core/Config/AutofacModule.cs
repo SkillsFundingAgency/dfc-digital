@@ -5,6 +5,7 @@ using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.Digital.Web.Sitefinity.Core.Interfaces;
 
 namespace DFC.Digital.Web.Sitefinity.Core
 {
@@ -75,6 +76,16 @@ namespace DFC.Digital.Web.Sitefinity.Core
              .InstancePerLifetimeScope()
              .EnableInterfaceInterceptors()
              .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<DynamicContentAction>().As<IDynamicContentAction>()
+            .InstancePerLifetimeScope()
+            .EnableInterfaceInterceptors()
+            .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<ServiceBusMessageProcessor>().As<IServiceBusMessageProcessor>()
+           .InstancePerLifetimeScope()
+           .EnableInterfaceInterceptors()
+           .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.

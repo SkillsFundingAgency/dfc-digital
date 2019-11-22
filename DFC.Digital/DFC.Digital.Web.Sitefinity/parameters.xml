@@ -224,4 +224,18 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpPreviewEndPoint']/@value" />
   </parameter>
+  <parameter name="ServiceBus-ConnectionString"
+            description="End point to connect to Service bus"
+            defaultValue="__ServiceBusCMSConnectionString__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.ConnectionString']/@value" />
+  </parameter>
+  <parameter name="ServiceBus-TopicName"
+            description="Topic used in Service bus to publish Sitefinity JobProfile "
+            defaultValue="__ServiceBusCMSTopicName__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName']/@value" />
+  </parameter>
 </parameters>

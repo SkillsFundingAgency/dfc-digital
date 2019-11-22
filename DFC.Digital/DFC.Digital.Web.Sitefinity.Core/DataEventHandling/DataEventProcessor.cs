@@ -56,7 +56,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public List<Guid> SkillsMatrixParentItems { get; set; }
 
-        public void PublishDynamicContent(DynamicContent item, string eventActionType)
+        public void PublishDynamicContent(DynamicContent item)
         {
             if (item == null)
             {
@@ -132,10 +132,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                         //For all the Dynamic content types we are using Jobprofile as Parent Type
                         //and for only Skills we are using SocSkillsMatrix Type as the Parent Type
-                        var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
-                        var masterVersionItem = dynamicModuleManager.GetDataItem(item.GetType(), masterItem.Id);
-                        SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(masterVersionItem);
-                        GenerateServiceBusMessageForSocSkillsMatrixType(item, masterVersionItem, eventAction);
+                        var liveVersionItem = item;
+
+                        if (item.Status.ToString() != Constants.ItemStatusLive)
+                        {
+                            var liveItem = dynamicModuleManager.Lifecycle.GetLive(item);
+                            liveVersionItem = dynamicModuleManager.GetDataItem(item.GetType(), liveItem.Id);
+                        }
+                        else
+                        {
+                            var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
+                            item = dynamicModuleManager.GetDataItem(item.GetType(), masterItem.Id);
+                        }
+
+                        SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
+                        GenerateServiceBusMessageForSocSkillsMatrixType(liveVersionItem, item, eventAction);
 
                         break;
 

@@ -18,7 +18,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 throw new ArgumentNullException("item");
             }
 
-            if (item.Status.ToString() == Constants.ItemActionDeleted)
+            if (item.GetType().Name.ToString() == Constants.JobProfile && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
+            {
+                return MessageAction.Published;
+            }
+            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && !item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
+            {
+                return MessageAction.Deleted;
+            }
+            else if (item.Status.ToString() == Constants.ItemActionDeleted)
             {
                 if (item.GetType().Name == Constants.SOCSkillsMatrix)
                     {
@@ -27,23 +35,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                 return MessageAction.Deleted;
             }
-            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
+            else if (item.GetType().Name.ToString() != Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
             {
                 //Unpublished
                 return MessageAction.Deleted;
             }
-            else if (item.GetType().Name == Constants.SOCSkillsMatrix || item.GetType().Name == Constants.JobProfile)
-            {
-                if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
-                {
-                    return MessageAction.Published;
-                }
-                else
-                {
-                    return MessageAction.Deleted;
-                }
-            }
-            else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
+            else if (item.GetType().Name.ToString() != Constants.JobProfile && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && item.Status.ToString() == Constants.ItemStatusMaster)
             {
                 return MessageAction.Published;
             }

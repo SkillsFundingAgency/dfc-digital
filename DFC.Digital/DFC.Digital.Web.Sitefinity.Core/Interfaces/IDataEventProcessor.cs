@@ -11,6 +11,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         void ExportContentData(IDataEvent eventInfo);
 
-        void PublishDynamicContent(DynamicContent eventInfo, string eventActionType);
+        void PublishDynamicContent(DynamicContent eventInfo);
     }
 }

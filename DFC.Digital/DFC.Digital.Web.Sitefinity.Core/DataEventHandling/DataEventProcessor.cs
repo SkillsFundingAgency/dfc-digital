@@ -68,7 +68,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             //using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"\logs\logger.txt", true))
             //{
-            //    file.WriteLine($"{DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()} | {item.GetType().Name.PadRight(10, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} | {item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(10, ' ')} | Derived action - {eventAction.ToString().PadRight(10, ' ')} |");
+            //    //file.WriteLine($"\n| Dynamic Content Action Type - | {eventActionType.PadRight(10, ' ')}");
+            //    file.WriteLine($" |Item Type -- {item.GetType().Name.PadRight(10, ' ')} |Item ID -- {item.Id.ToString().PadRight(15, ' ')} | Item ApprovalWorkflowState -- {item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | Item Status -- {item.Status.ToString().PadRight(10, ' ')} | Item Triggered action - {eventActionType.PadRight(10, ' ')} |");
+            //    file.WriteLine($"*********************************************************************************************************************************************************\n");
             //}
             applicationLogger.Trace($"Got event - |{item.GetType().Name.PadRight(15, ' ')} -- {item.Id.ToString().PadRight(15, ' ')} |{item.ApprovalWorkflowState.Value.PadRight(15, ' ')} | {item.Status.ToString().PadRight(15, ' ')} | Derived action - {eventAction.ToString().PadRight(15, ' ')}");
 
@@ -130,10 +132,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
                         //For all the Dynamic content types we are using Jobprofile as Parent Type
                         //and for only Skills we are using SocSkillsMatrix Type as the Parent Type
-                        var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
-                        var masterVersionItem = dynamicModuleManager.GetDataItem(item.GetType(), masterItem.Id);
-                        SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(masterVersionItem);
-                        GenerateServiceBusMessageForSocSkillsMatrixType(item, masterVersionItem, eventAction);
+                        var liveVersionItem = item;
+
+                        if (item.Status.ToString() != Constants.ItemStatusLive)
+                        {
+                            var liveItem = dynamicModuleManager.Lifecycle.GetLive(item);
+                            liveVersionItem = dynamicModuleManager.GetDataItem(item.GetType(), liveItem.Id);
+                        }
+                        else
+                        {
+                            var masterItem = dynamicModuleManager.Lifecycle.GetMaster(item);
+                            item = dynamicModuleManager.GetDataItem(item.GetType(), masterItem.Id);
+                        }
+
+                        SkillsMatrixParentItems = GetParentItemsForSocSkillsMatrix(item);
+                        GenerateServiceBusMessageForSocSkillsMatrixType(liveVersionItem, item, eventAction);
 
                         break;
 

@@ -15,9 +15,9 @@ namespace DFC.Digital.Data.Model
 
         public string ONetAttributeType { get; set; }
 
-        public decimal? Rank { get; set; }
+        public string Rank { get; set; }
 
-        public decimal? ONetRank { get; set; }
+        public string ONetRank { get; set; }
 
         public IEnumerable<FrameworkSkillItem> RelatedSkill { get; set; }
 

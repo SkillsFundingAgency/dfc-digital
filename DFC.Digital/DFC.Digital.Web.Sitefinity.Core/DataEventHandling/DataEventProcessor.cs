@@ -542,8 +542,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(childLiveItem, nameof(SocSkillMatrixContentItem.Title)),
                 Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(childLiveItem, nameof(SocSkillMatrixContentItem.Contextualised)),
                 ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(childLiveItem, nameof(SocSkillMatrixContentItem.ONetAttributeType)),
-                ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(childLiveItem, nameof(SocSkillMatrixContentItem.ONetRank)),
-                Rank = dynamicContentExtensions.GetFieldValue<decimal?>(childLiveItem, nameof(SocSkillMatrixContentItem.Rank)),
+                ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(childLiveItem, nameof(SocSkillMatrixContentItem.ONetRank)).GetValueOrDefault(0),
+                Rank = dynamicContentExtensions.GetFieldValue<decimal?>(childLiveItem, nameof(SocSkillMatrixContentItem.Rank)).GetValueOrDefault(0),
                 RelatedSkill = GetRelatedSkillsData(childLiveItem, nameof(SocSkillMatrixContentItem.RelatedSkill)),
                 RelatedSOC = GetRelatedSocsData(childLiveItem, nameof(SocSkillMatrixContentItem.RelatedSOC))
             };

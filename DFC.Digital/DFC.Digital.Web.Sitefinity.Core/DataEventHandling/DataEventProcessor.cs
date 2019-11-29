@@ -449,6 +449,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                    .Select(c => c.ParentItemId).ToList();
 
             var relatedTextFieldTypes = GetTextFieldRelatedItems(item, parentItemContentLinks, dynamicModuleManager, ParentType);
+
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(relatedTextFieldTypes, item.GetType().Name, eventAction.ToString());
         }
 
@@ -474,7 +475,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedSocContentItems.Add(new SocCodeContentItem
                     {
@@ -555,7 +556,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 foreach (var contentId in SkillsMatrixParentItems)
                 {
                     var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                    if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                    if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                     {
                         relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
                         {
@@ -617,7 +618,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new WYDContentItem
                     {
@@ -642,7 +643,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new InfoContentItem
                     {
@@ -665,7 +666,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new TextFieldContentItem
                     {
@@ -693,14 +694,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(socSkillsMatrixType, contentId);
-                if (parentItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     var jobProfileId = contentLinksManager.GetContentLinks()
                  .Where(c => c.ParentItemType == ParentType && c.ChildItemId == parentItem.Id)
                  .Select(c => c.ParentItemId).FirstOrDefault();
 
                     var jobProfileItem = dynamicModuleManager.GetDataItem(parentType, jobProfileId);
-                    if (jobProfileItem.ApprovalWorkflowState != Constants.WorkflowStatusUnpublished)
+                    if (jobProfileItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !jobProfileItem.IsDeleted)
                     {
                         relatedContentItems.Add(new SkillContentItem
                         {

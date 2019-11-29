@@ -26,6 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public async Task SendJobProfileMessage(JobProfileMessage jpData, string contentType, string actionType)
         {
+            applicationLogger.Info($" CREATED Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for JobProfile with Title -- {jpData.Title.PadRight(15, ' ')} and Jobprofile Id -- {jpData.JobProfileId.ToString().PadRight(15, ' ')}");
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
             var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
             var topicClient = new TopicClient(connectionStringServiceBus, topicName);
@@ -34,6 +35,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var jsonData = JsonConvert.SerializeObject(jpData);
             try
             {
+                applicationLogger.Info($" SENDING Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for JobProfile with Title -- {jpData.Title.PadRight(15, ' ')} and with Jobprofile Id -- {jpData.JobProfileId.ToString().PadRight(15, ' ')} ");
+
                 // Message that send to the queue
                 var message = new Message(Encoding.UTF8.GetBytes(jsonData));
                 message.ContentType = "application/json";
@@ -43,7 +46,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 message.UserProperties.Add("CType", contentType);
                 message.CorrelationId = Guid.NewGuid().ToString();
                 await topicClient.SendAsync(message);
-                applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {jpData.JobProfileId.ToString()}");
+
+                applicationLogger.Info($" SENT SUCCESSFULLY Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for JobProfile with Title -- {jpData.Title.PadRight(15, ' ')}, with Jobprofile Id -- {jpData.JobProfileId.ToString().PadRight(15, ' ')} and with Correlation Id -- {message.CorrelationId.ToString().PadRight(15, ' ')}");
+            }
+            catch (Exception ex)
+            {
+                applicationLogger.Info($" FAILED Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for JobProfile with Title -- {jpData.Title.PadRight(15, ' ')} and with Jobprofile Id -- {jpData.JobProfileId.ToString().PadRight(15, ' ')} has an exception \n {ex.Message} ");
             }
             finally
             {
@@ -53,6 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public async Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType)
         {
+            applicationLogger.Info($" CREATED Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for Item Type -- {contentType.PadRight(15, ' ')} with {relatedContentItems.Count().ToString().PadRight(15, ' ')} message(s)");
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
             var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
             var topicClient = new TopicClient(connectionStringServiceBus, topicName);
@@ -60,6 +69,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 foreach (var relatedContentItem in relatedContentItems)
                 {
+                    applicationLogger.Info($" SENDING Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message created for Item -- {relatedContentItem.Title.PadRight(15, ' ')} of Type -- {contentType.PadRight(15, ' ')} with Id -- {relatedContentItem.Id.ToString().PadRight(15, ' ')} linked to Job Profile {relatedContentItem.JobProfileTitle.PadRight(15, ' ')} -- {relatedContentItem.JobProfileId.ToString().PadRight(15, ' ')}");
+
                     // Send Messages
                     var jsonData = JsonConvert.SerializeObject(relatedContentItem);
 
@@ -72,8 +83,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     message.UserProperties.Add("CType", contentType);
                     message.CorrelationId = Guid.NewGuid().ToString();
                     await topicClient.SendAsync(message);
-                    applicationLogger.Info($"{Constants.ServiceStatusPassedLogMessage} {relatedContentItem.JobProfileId}--{relatedContentItem.Id}");
+
+                    applicationLogger.Info($" SENT SUCCESSFULLY Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message created for Item -- {relatedContentItem.Title.PadRight(15, ' ')} of Type -- {contentType.PadRight(15, ' ')} with Id -- {relatedContentItem.Id.ToString().PadRight(15, ' ')} linked to Job Profile {relatedContentItem.JobProfileTitle.PadRight(15, ' ')} -- {relatedContentItem.JobProfileId.ToString().PadRight(15, ' ')} with Correlation Id -- {message.CorrelationId.ToString().PadRight(15, ' ')}");
                 }
+            }
+            catch (Exception ex)
+            {
+                applicationLogger.Info($" FAILED Sitefinity Service Bus {actionType.PadRight(15, ' ').ToUpper()} message for Item Type -- {contentType.PadRight(15, ' ')} with {relatedContentItems.Count().ToString().PadRight(15, ' ')} message(s) has an exception \n {ex.Message}");
             }
             finally
             {

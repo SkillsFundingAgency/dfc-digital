@@ -100,21 +100,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     case Constants.ApprenticeshipRequirement:
                     case Constants.CollegeRequirement:
                     case Constants.UniversityRequirement:
-                            GenerateServiceBusMessageForInfoTypes(item, eventAction);
+                        GenerateServiceBusMessageForInfoTypes(item, eventAction);
 
                         break;
 
                     case Constants.Uniform:
                     case Constants.Location:
                     case Constants.Environment:
-                            GenerateServiceBusMessageForWYDTypes(item, eventAction);
+                        GenerateServiceBusMessageForWYDTypes(item, eventAction);
 
                         break;
 
                     case Constants.UniversityLink:
                     case Constants.CollegeLink:
                     case Constants.ApprenticeshipLink:
-                            GenerateServiceBusMessageForTextFieldTypes(item, eventAction);
+                        GenerateServiceBusMessageForTextFieldTypes(item, eventAction);
 
                         break;
 
@@ -124,7 +124,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                         break;
 
                     case Constants.JobProfileSoc:
-                            GenerateServiceBusMessageForSocCodeType(item, eventAction);
+                        GenerateServiceBusMessageForSocCodeType(item, eventAction);
 
                         break;
 
@@ -699,21 +699,23 @@ namespace DFC.Digital.Web.Sitefinity.Core
                     var jobProfileId = contentLinksManager.GetContentLinks()
                  .Where(c => c.ParentItemType == ParentType && c.ChildItemId == parentItem.Id)
                  .Select(c => c.ParentItemId).FirstOrDefault();
-
-                    var jobProfileItem = dynamicModuleManager.GetDataItem(parentType, jobProfileId);
-                    if (jobProfileItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !jobProfileItem.IsDeleted)
+                    if (jobProfileId != Guid.Empty)
                     {
-                        relatedContentItems.Add(new SkillContentItem
+                        var jobProfileItem = dynamicModuleManager.GetDataItem(parentType, jobProfileId);
+                        if (jobProfileItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !jobProfileItem.IsDeleted)
                         {
-                            JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(jobProfileItem, nameof(SkillContentItem.Id)),
-                            JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SkillContentItem.Title)),
-                            Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(SkillContentItem.Id)),
-                            Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Title)),
-                            ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.ONetElementId)),
-                            SocSkillMatrixId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SkillContentItem.Id)),
-                            SocSkillMatrixTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SkillContentItem.Title)),
-                            Description = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Description))
-                        });
+                            relatedContentItems.Add(new SkillContentItem
+                            {
+                                JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(jobProfileItem, nameof(SkillContentItem.Id)),
+                                JobProfileTitle = dynamicContentExtensions.GetFieldValue<Lstring>(jobProfileItem, nameof(SkillContentItem.Title)),
+                                Id = dynamicContentExtensions.GetFieldValue<Guid>(childItem, nameof(SkillContentItem.Id)),
+                                Title = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Title)),
+                                ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.ONetElementId)),
+                                SocSkillMatrixId = dynamicContentExtensions.GetFieldValue<Guid>(parentItem, nameof(SkillContentItem.Id)),
+                                SocSkillMatrixTitle = dynamicContentExtensions.GetFieldValue<Lstring>(parentItem, nameof(SkillContentItem.Title)),
+                                Description = dynamicContentExtensions.GetFieldValue<Lstring>(childItem, nameof(SkillContentItem.Description))
+                            });
+                        }
                     }
                 }
             }

@@ -28,14 +28,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
             else if (item.Status.ToString() == Constants.ItemActionDeleted)
             {
-                if (item.GetType().Name == Constants.SOCSkillsMatrix)
-                    {
+                if (item.GetType().Name == Constants.SOCSkillsMatrix || item.GetType().Name == Constants.JobProfile)
+                {
                     return MessageAction.Ignored;
-                    }
+                }
 
                 return MessageAction.Deleted;
             }
-            else if (item.GetType().Name.ToString() != Constants.SOCSkillsMatrix && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
+            else if (item.GetType().Name.ToString() != Constants.SOCSkillsMatrix && item.GetType().Name.ToString() != Constants.JobProfile && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusUnpublished && item.Status.ToString() == Constants.ItemStatusMaster)
             {
                 //Unpublished
                 return MessageAction.Deleted;

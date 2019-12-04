@@ -141,8 +141,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Title)),
                         Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Contextualised)),
                         ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.ONetAttributeType)),
-                        ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.ONetRank)),
-                        Rank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.Rank)),
+                        ONetRank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.ONetRank)).GetValueOrDefault(0),
+                        Rank = dynamicContentExtensions.GetFieldValue<decimal?>(relatedItem, nameof(SocSkillMatrixItem.Rank)).GetValueOrDefault(0),
                         RelatedSkill = GetRelatedSkillsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSkill)),
                         RelatedSOC = GetRelatedSocsData(relatedItem, nameof(SocSkillMatrixItem.RelatedSOC))
                     });

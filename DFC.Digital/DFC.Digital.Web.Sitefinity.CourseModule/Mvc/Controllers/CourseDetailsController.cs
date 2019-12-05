@@ -29,6 +29,37 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Public Properties
 
+        //10  Sections
+        [DisplayName("Course Details Label")]
+        public string CourseDetailsLabel { get; set; } = "Course details";
+
+        [DisplayName("Who This Course Is For Label")]
+        public string WhoThisCourseIsForLabel { get; set; } = "Who this course is for";
+
+        [DisplayName("Entry Requirements Label")]
+        public string EntryRequirementsLabel { get; set; } = "Entry requirements";
+
+        [DisplayName("What You'll Learn Label")]
+        public string WhatYoullLearn { get; set; } = "What you'll learn";
+
+        [DisplayName("How You'll Learn Label")]
+        public string HowYoullLearn { get; set; } = "How you'll learn";
+
+        [DisplayName("What You'll Need To Bring Label")]
+        public string WhatYoullNeedToBring { get; set; } = "What you'll need to bring";
+
+        [DisplayName("How You'll Be Assessed Label")]
+        public string HowYoullBeAssessed { get; set; } = "How you'll be assessed";
+
+        [DisplayName("Next Steps Label")]
+        public string NextSteps { get; set; } = "Next steps";
+
+         [DisplayName("Venue Details Label")]
+        public string VenueLabel { get; set; } = "Venue";
+
+        [DisplayName("Other Dates And Venues Label")]
+        public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
+
         [DisplayName("Find a course Page")]
         public string FindAcoursePage { get; set; } = "/find-a-course/home/";
 
@@ -44,9 +75,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("No Course Description Message")]
         public string NoCourseDescriptionMessage { get; set; } = "No course description available";
 
-        [DisplayName("Entry Requirements Label")]
-        public string EntryRequirementsLabel { get; set; } = "Entry requirements";
-
         [DisplayName("No Entry Requirements Available Message")]
         public string NoEntryRequirementsAvailableMessage { get; set; } = "No entry requirements available message";
 
@@ -61,12 +89,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("No Assessment Method Available Message")]
         public string NoAssessmentMethodAvailableMessage { get; set; } = "Not available";
-
-        [DisplayName("Venue Details Label")]
-        public string VenueLabel { get; set; } = "Venue";
-
-        [DisplayName("Other Dates And Venues Label")]
-        public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
 
         [DisplayName("No Other Date Or Venue Available Message")]
         public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
@@ -89,11 +111,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Attendance Pattern Label")]
         public string AttendancePatternLabel { get; set; } = "Attendance pattern";
 
-        [DisplayName("Course Details - Price Label")]
-        public string PriceLabel { get; set; } = "Price";
+        [DisplayName("Course Details - Cost Label")]
+        public string CostLabel { get; set; } = "Cost";
 
         [DisplayName("Course Details - Start Date Label")]
-        public string StartDateLabel { get; set; } = "Course start date";
+        public string StartDateLabel { get; set; } = "Start date";
 
         [DisplayName("Course Details - Qualification Level Label")]
         public string QualificationLevelLabel { get; set; } = "Qualification level";
@@ -113,23 +135,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - course type Label")]
         public string CourseTypeLabel { get; set; } = "Course type";
 
-        [DisplayName("Course Details - Additional Price Label")]
-        public string AdditionalPriceLabel { get; set; } = "Additional price description";
+        [DisplayName("Course Hours - course hours Label")]
+        public string CourseHoursLabel { get; set; } = "Course hours";
 
-        [DisplayName("Course Details - funding Information Label")]
-        public string FundingInformationLabel { get; set; } = "Funding information";
-
-        [DisplayName("Course Details - Supporting Facilities Label")]
-        public string SupportingFacilitiesLabel { get; set; } = "Support facilities";
-
-        [DisplayName("Course Details - Language of instruction Label")]
-        public string LanguageOfInstructionLabel { get; set; } = "Instruction language";
-
-        [DisplayName("Course Details - Funding Information text")]
-        public string FundingInformationText { get; set; } = "Advanced Learner Loans available";
-
-        [DisplayName("Course Details - Funding Information Link")]
-        public string FundingInformationLink { get; set; } = "https://www.gov.uk/advanced-learner-loan/overview";
+        [DisplayName("Course Details - Cost Description Label")]
+        public string CostDescriptionLabel { get; set; } = "Cost Description";
 
         public ActionResult Index(string courseId, string oppurtunity, string referralPath)
         {
@@ -167,14 +177,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.CourseWebpageLinkLabel = CourseWebpageLinkLabel;
                     viewModel.CourseTypeLabel = CourseTypeLabel;
                     viewModel.StartDateLabel = StartDateLabel;
-                    viewModel.PriceLabel = PriceLabel;
-                    viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
-                    viewModel.FundingInformationLabel = FundingInformationLabel;
+                    viewModel.PriceLabel = CostLabel;
+                    viewModel.AdditionalPriceLabel = CostDescriptionLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
-                    viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;
-                    viewModel.FundingInformationLink = FundingInformationLink;
-                    viewModel.FundingInformationText = FundingInformationText;
-                    viewModel.LanguageOfInstructionLabel = LanguageOfInstructionLabel;
                     return View(viewModel);
                 }
             }

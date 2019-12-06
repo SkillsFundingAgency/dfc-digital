@@ -609,12 +609,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
 
             //Asserts
-            if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.SupportingFacilities, "td");
-            }
-
             if (!string.IsNullOrWhiteSpace(courseDetails.AwardingOrganisation))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AwardingOrganisationLabel, "th");
@@ -637,12 +631,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AdditionalPriceLabel, "th");
                 AssertTagInnerTextValue(htmlDocument, courseDetails.AdditionalPrice, "td");
-            }
-
-            if (!string.IsNullOrWhiteSpace(courseDetails.LanguageOfInstruction))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.LanguageOfInstructionLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.LanguageOfInstruction, "td");
             }
 
             if (!string.IsNullOrWhiteSpace(courseDetails.QualificationName))

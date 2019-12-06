@@ -886,12 +886,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                new CourseDetails
                {
                    SubjectCategory = nameof(CourseDetails.SubjectCategory),
-                   LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                    AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
                    CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                    AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                    StudyMode = nameof(CourseDetails.StudyMode),
-                   SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
                    AdvancedLearnerLoansOffered = true,
                    QualificationLevel = nameof(CourseDetails.QualificationLevel),
                    QualificationName = nameof(CourseDetails.QualificationName),
@@ -905,12 +903,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseDetails
                 {
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
-                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
                     CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink),
                     AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                     StudyMode = nameof(CourseDetails.StudyMode),
-                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
                     AdvancedLearnerLoansOffered = true
                 }
             };
@@ -921,7 +917,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseDetails
                 {
                     SubjectCategory = nameof(CourseDetails.SubjectCategory),
-                    LanguageOfInstruction = nameof(CourseDetails.LanguageOfInstruction),
                     AwardingOrganisation = nameof(CourseDetails.AwardingOrganisation),
                     CourseWebpageLink = nameof(CourseDetails.CourseWebpageLink)
                 }
@@ -934,7 +929,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     AdditionalPrice = nameof(CourseDetails.AdditionalPrice),
                     StudyMode = nameof(CourseDetails.StudyMode),
-                    SupportingFacilities = nameof(CourseDetails.SupportingFacilities),
                     AdvancedLearnerLoansOffered = true
                 }
             };

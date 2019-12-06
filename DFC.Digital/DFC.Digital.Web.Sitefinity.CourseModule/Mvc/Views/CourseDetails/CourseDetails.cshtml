@@ -82,13 +82,6 @@
                     <td class="govuk-table__cell">@Model.CourseDetails.StartDateLabel</td>
                 </tr>
             }
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.LanguageOfInstruction))
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.LanguageOfInstructionLabel</th>
-                    <td class="govuk-table__cell">@Model.CourseDetails.LanguageOfInstruction</td>
-                </tr>
-            }
 
             @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.Cost))
             {
@@ -121,14 +114,6 @@
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.AttendancePatternLabel</th>
                     <td class="govuk-table__cell">@Model.CourseDetails.AttendancePattern</td>
-                </tr>
-            }
-
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.SupportingFacilities))
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.SupportingFacilitiesLabel</th>
-                    <td class="govuk-table__cell">@Model.CourseDetails.SupportingFacilities</td>
                 </tr>
             }
         </tbody>

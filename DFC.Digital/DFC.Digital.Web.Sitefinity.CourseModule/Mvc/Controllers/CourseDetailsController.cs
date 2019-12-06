@@ -115,7 +115,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CostLabel { get; set; } = "Cost";
 
         [DisplayName("Course Details - Start Date Label")]
-        public string StartDateLabel { get; set; } = "Start date";
+        public string StartDateLabel { get; set; } = "Course start date";
 
         [DisplayName("Course Details - Qualification Level Label")]
         public string QualificationLevelLabel { get; set; } = "Qualification level";
@@ -139,7 +139,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseHoursLabel { get; set; } = "Course hours";
 
         [DisplayName("Course Details - Cost Description Label")]
-        public string CostDescriptionLabel { get; set; } = "Cost Description";
+        public string CostDescriptionLabel { get; set; } = "Cost description";
+
+        [DisplayName("Course Details - Location Label")]
+        public string LocationLabel { get; set; } = "Location";
 
         public ActionResult Index(string courseId, string oppurtunity, string referralPath)
         {
@@ -158,6 +161,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
                     viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
                     viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
+                    viewModel.CourseDetailsLabel = CourseDetailsLabel;
                     viewModel.CourseDescriptionLabel = CourseDescriptionLabel;
                     viewModel.EntryRequirementsLabel = EntryRequirementsLabel;
                     viewModel.EquipmentRequiredLabel = EquipmentRequiredLabel;
@@ -180,6 +184,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.PriceLabel = CostLabel;
                     viewModel.AdditionalPriceLabel = CostDescriptionLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
+                    viewModel.WhoThisCourseIsForLabel = WhoThisCourseIsForLabel;
+                    viewModel.WhatYoullLearn = WhatYoullLearn;
+                    viewModel.HowYoullLearn = HowYoullLearn;
+                    viewModel.WhatYoullNeedToBring = WhatYoullNeedToBring;
+                    viewModel.HowYoullBeAssessed = HowYoullBeAssessed;
+                    viewModel.NextSteps = NextSteps;
+                    viewModel.LocationLabel = LocationLabel;
+                    viewModel.CourseHoursLabel = CourseHoursLabel;
                     return View(viewModel);
                 }
             }

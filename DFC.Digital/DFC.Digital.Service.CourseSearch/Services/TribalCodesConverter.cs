@@ -16,8 +16,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
             {
                 case CourseType.ClassroomBased:
                     return CourseSearchConstants.ClassAttendanceModes();
-                case CourseType.DistanceLearning:
-                    return CourseSearchConstants.DistantAttendanceModes();
                 case CourseType.Online:
                     return CourseSearchConstants.OnlineAttendanceModes();
                 case CourseType.WorkBased:

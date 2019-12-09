@@ -9,7 +9,8 @@
         <li class="govuk-!-margin-top-3">
             <span class="govuk-secondary-colour">@Model.ProviderLabel</span> @Model.Course.ProviderName
         </li>
-
+        
+        @* Add logic here so that location only appears on CLASSROOM BASED courses *@
         @if (Model.Course.LocationDetails != null)
         {
             <li>
@@ -18,11 +19,7 @@
         }
 
         <li>
-            <span class="govuk-secondary-colour">@Model.StartDateLabel</span> @Model.Course.StartDateLabel
-        </li>
-
-        <li>
-            <span class="govuk-secondary-colour">@Model.AdvancedLoanProviderLabel</span> @(Model.Course.AdvancedLearnerLoansOffered ? "Yes" : "No")
+            <span class="govuk-secondary-colour">@Model.StartDateLabel</span> To be implemented - if flexible then show "Flexible" otherwise date
         </li>
     </ul>
 </div>

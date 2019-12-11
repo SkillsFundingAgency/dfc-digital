@@ -1,7 +1,8 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.FindACourseClient.Models.ExternalInterfaceModels;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using CourseSearchResultProperties = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchResultProperties;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {

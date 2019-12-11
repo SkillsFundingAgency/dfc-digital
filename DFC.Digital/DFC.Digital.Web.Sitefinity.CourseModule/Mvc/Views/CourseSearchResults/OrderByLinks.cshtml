@@ -1,5 +1,7 @@
-﻿@using DFC.Digital.Data.Model
-@model OrderByLinks
+﻿@using DFC.FindACourseClient.Models.ExternalInterfaceModels;
+@model DFC.Digital.Web.Sitefinity.CourseModule.OrderByLinks
+
+
 @switch (Model.OrderBy)
 {
     case CourseSearchOrderBy.StartDate:
@@ -20,4 +22,3 @@
         break;
 }
 
- 

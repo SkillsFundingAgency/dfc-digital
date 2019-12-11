@@ -2,11 +2,13 @@
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.FindACourseClient.Contracts;
 using System;
 using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
+using ICourseSearchService = DFC.FindACourseClient.Contracts.ICourseSearchService;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
@@ -15,14 +17,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     {
         #region Private Fields
         private readonly ICourseSearchService courseSearchService;
+        private readonly IFindACourseClient findACourseClient;
+        private readonly IAuditService auditService;
         private readonly IAsyncHelper asyncHelper;
 
         #endregion
 
         #region Ctor
-        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper) : base(loggingService)
+        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, IFindACourseClient findACourseClient, IAuditService auditService) : base(loggingService)
         {
             this.courseSearchService = courseSearchService;
+            this.findACourseClient = findACourseClient;
+            this.auditService = auditService;
             this.asyncHelper = asyncHelper;
         }
         #endregion
@@ -144,6 +150,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Location Label")]
         public string LocationLabel { get; set; } = "Location";
 
+        #endregion
+
         public ActionResult Index(string courseId, string oppurtunity, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();
@@ -198,7 +206,5 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
             return HttpNotFound();
         }
-
-        #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿using DFC.Digital.Data.Model;
+﻿using DFC.FindACourseClient.Models.ExternalInterfaceModels;
 using System;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule

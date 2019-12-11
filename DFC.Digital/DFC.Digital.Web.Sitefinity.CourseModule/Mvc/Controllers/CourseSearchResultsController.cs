@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
+using CourseDetails = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseDetails;
+using CourseSearchFilters = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchFilters;
+using CourseSearchProperties = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchProperties;
+using CourseSearchResult = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchResult;
+using ICourseSearchService = DFC.FindACourseClient.Contracts.ICourseSearchService;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
@@ -149,10 +153,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
                         courseSearchResults.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
+                            CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}",
                             AdvancedLoanProviderLabel = AdvancedLoanProviderLabel,
                             LocationLabel = LocationLabel,
                             ProviderLabel = ProviderLabel,
@@ -199,15 +203,14 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
         }
 
-        private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
-        {
-            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
-                    $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
-            {
-                viewModel.StartDateFrom = chosenDate;
-            }
-        }
-
+        //private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
+        //{
+        //    if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
+        //            $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
+        //    {
+        //        viewModel.StartDateFrom = chosenDate;
+        //    }
+        //}
         private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, CourseSearchResult response)
         {
             courseSearchResultsViewModelBuilder.SetupViewModelPaging(

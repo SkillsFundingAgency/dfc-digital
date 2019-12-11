@@ -1,5 +1,4 @@
-﻿using DFC.Digital.Data.Model;
-using System.Collections.Generic;
+﻿using DFC.FindACourseClient.Models.ExternalInterfaceModels;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -7,6 +6,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
     {
         void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string resultsPage, int recordsPerPage);
 
-        OrderByLinks GetOrderByLinks(string resultsPage, CourseSearchOrderBy orderBy);
+        OrderByLinks GetOrderByLinks(string resultsPage, CourseSearchOrderBy courseSearchOrderBy);
     }
 }

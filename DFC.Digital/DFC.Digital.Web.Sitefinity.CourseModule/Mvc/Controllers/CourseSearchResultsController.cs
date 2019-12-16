@@ -4,10 +4,13 @@ using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.FindACourseClient.Contracts;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
+
+using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
@@ -17,7 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
 
         private const string SearchTermTokenToReplace = "{searchTerm}";
-        private readonly ICourseSearchService courseSearchService;
+        private readonly ICourseSearchApiService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
         private readonly IWebAppContext context;
@@ -29,7 +32,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public CourseSearchResultsController(
             IApplicationLogger applicationLogger,
-            ICourseSearchService courseSearchService,
+            ICourseSearchApiService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder,
             IWebAppContext context,
@@ -119,7 +122,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region Actions
 
         [HttpGet]
-        public ActionResult Index(CourseFiltersViewModel filtersInput, CourseSearchProperties inputSearchProperties)
+        public ActionResult Index(CourseFiltersViewModel filtersInput, FAC.CourseSearchProperties inputSearchProperties)
         {
             var cleanedSearchTerm = filtersInput.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             var courseSearchResults = new CourseSearchResultsViewModel
@@ -132,9 +135,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
             {
                 //create a new object if invoked from landing page
-                var courseSearchProperties = inputSearchProperties ?? new CourseSearchProperties();
+                var courseSearchProperties = inputSearchProperties ?? new FAC.CourseSearchProperties();
                 courseSearchProperties.Count = RecordsPerPage;
-                courseSearchProperties.Filters = mapper.Map<CourseSearchFilters>(filtersInput);
+                courseSearchProperties.Filters = mapper.Map<FAC.CourseSearchFilters>(filtersInput);
                 courseSearchProperties.Filters.DistanceSpecified = filtersInput.IsDistanceLocation && (filtersInput.Distance > 0);
                 ReplaceSpecialCharactersOnFreeTextFields(courseSearchProperties.Filters);
 
@@ -149,14 +152,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
+                        var courseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
                         courseSearchResults.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
                             AdvancedLoanProviderLabel = AdvancedLoanProviderLabel,
                             LocationLabel = LocationLabel,
                             ProviderLabel = ProviderLabel,
-                            StartDateLabel = StartDateLabel
+                            StartDateLabel = StartDateLabel,
+                            CourseLink = courseLink
                         });
                     }
 
@@ -174,7 +178,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region private Methods
 
-        private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
+        private static void ReplaceSpecialCharactersOnFreeTextFields(FAC.CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
@@ -208,7 +212,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             }
         }
 
-        private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, CourseSearchResult response)
+        private void SetupResultsViewModel(CourseSearchResultsViewModel viewModel, FAC.CourseSearchResult response)
         {
             courseSearchResultsViewModelBuilder.SetupViewModelPaging(
                 viewModel,

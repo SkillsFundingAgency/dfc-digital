@@ -1,18 +1,18 @@
-﻿@using DFC.Digital.Data.Model
+﻿@using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
 @model OrderByLinks
 @switch (Model.OrderBy)
 {
-    case CourseSearchOrderBy.StartDate:
+    case FAC.CourseSearchOrderBy.StartDate:
         <p class="govuk-body-s govuk-!-margin-bottom-2">
             @Model.OrderByText <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.StartDateOrderByText</span>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
         </p>
         break;
-    case CourseSearchOrderBy.Distance:
+    case FAC.CourseSearchOrderBy.Distance:
         <p class="govuk-body-s govuk-!-margin-bottom-2">
             @Model.OrderByText <a class="govuk-link" href="@Model.OrderByRelevanceUrl">@Model.RelevanceOrderByText</a>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <span class="govuk-!-font-weight-bold">@Model.DistanceOrderByText</span>
         </p>
         break;
-    case CourseSearchOrderBy.Relevance:
+    case FAC.CourseSearchOrderBy.Relevance:
     default:
         <p class="govuk-body-s govuk-!-margin-bottom-2">
             @Model.OrderByText <span class="govuk-!-font-weight-bold">@Model.RelevanceOrderByText</span>, <a class="govuk-link" href="@Model.OrderByStartDateUrl">@Model.StartDateOrderByText</a>, <a class="govuk-link" href="@Model.OrderByDistanceUrl">@Model.DistanceOrderByText</a>
@@ -20,4 +20,3 @@
         break;
 }
 
- 

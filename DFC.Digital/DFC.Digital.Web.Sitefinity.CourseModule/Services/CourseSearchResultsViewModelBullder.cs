@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
+
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchResultsViewModelBullder : ICourseSearchResultsViewModelBullder
@@ -17,7 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             this.context = context;
         }
 
-        public void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, CourseSearchResult response, string resultsPage, int recordsPerPage)
+        public void SetupViewModelPaging(CourseSearchResultsViewModel viewModel, FAC.CourseSearchResult response, string resultsPage, int recordsPerPage)
         {
             if (viewModel != null && response != null)
             {
@@ -42,7 +44,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             }
         }
 
-        public OrderByLinks GetOrderByLinks(string resultsPage, CourseSearchOrderBy orderBy)
+        public OrderByLinks GetOrderByLinks(string resultsPage, FAC.CourseSearchOrderBy orderBy)
         {
             var partialQueryString = context.GetQueryStringExcluding(new[] { $"{nameof(CourseSearchProperties.OrderedBy)}" });
             return new OrderByLinks

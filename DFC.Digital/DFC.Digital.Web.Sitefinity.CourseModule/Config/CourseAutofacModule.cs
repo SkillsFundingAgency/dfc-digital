@@ -1,8 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Autofac.Integration.Mvc;
+using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
+using DFC.FindACourseClient;
+using DFC.FindACourseClient.Models.Configuration;
 using System.Diagnostics.CodeAnalysis;
+
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -16,6 +20,19 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterFindACourseClientSdk();
+            builder.Register(c =>
+            {
+                var config = c.Resolve<IConfigurationProvider>();
+                return new CourseSearchClientSettings
+                {
+                    CourseSearchAuditCosmosDbSettings = new CourseSearchAuditCosmosDbSettings
+                    {
+                        AccessKey = config.GetConfig($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.AccessKey)}")
+                    }
+                };
+            });
 
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
+using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
+
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class CourseSearchResultsViewModel : CourseSearchProperties
@@ -29,7 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public IList<CourseListingViewModel> Courses { get; set; } = new List<CourseListingViewModel>();
 
-        public CourseSearchResultProperties ResultProperties { get; set; } = new CourseSearchResultProperties();
+        public FAC.CourseSearchResultProperties ResultProperties { get; set; } = new FAC.CourseSearchResultProperties();
 
         public PaginationViewModel PaginationViewModel { get; set; } = new PaginationViewModel();
 

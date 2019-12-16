@@ -1,11 +1,13 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
 
+using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
+
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
     public class OrderByLinks
     {
-        public CourseSearchOrderBy OrderBy { get; set; }
+        public FAC.CourseSearchOrderBy OrderBy { get; set; }
 
         public Uri OrderByStartDateUrl { get; set; }
 

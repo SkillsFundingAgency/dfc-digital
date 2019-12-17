@@ -205,7 +205,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         private static void PopulateSelectFromDate(CourseFiltersViewModel viewModel)
         {
-            if (viewModel.StartDate == StartDate.SelectDateFrom && DateTime.TryParse(
+            if (viewModel.StartDate == FAC.StartDate.SelectDateFrom && DateTime.TryParse(
                     $"{viewModel.StartDateYear}-{viewModel.StartDateMonth}-{viewModel.StartDateDay}", out var chosenDate))
             {
                 viewModel.StartDateFrom = chosenDate;

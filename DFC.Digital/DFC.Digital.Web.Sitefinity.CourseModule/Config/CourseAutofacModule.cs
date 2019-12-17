@@ -5,8 +5,8 @@ using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.FindACourseClient;
 using DFC.FindACourseClient.Models.Configuration;
+using System;
 using System.Diagnostics.CodeAnalysis;
-
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
@@ -29,8 +29,21 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 {
                     CourseSearchAuditCosmosDbSettings = new CourseSearchAuditCosmosDbSettings
                     {
-                        AccessKey = config.GetConfig($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.AccessKey)}")
-                    }
+                        AccessKey = config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.AccessKey)}"),
+                        CollectionId = config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.CollectionId)}"),
+                        DatabaseId = config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.DatabaseId)}"),
+                        EndpointUrl = new Uri(config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.EndpointUrl)}")),
+                        Environment = config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.Environment)}"),
+                        PartitionKey = config.GetConfig<string>($"FAC.{nameof(CourseSearchAuditCosmosDbSettings)}.{nameof(CourseSearchAuditCosmosDbSettings.PartitionKey)}"),
+                    },
+                    CourseSearchSvcSettings = new CourseSearchSvcSettings
+                    {
+                        ApiKey = config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.ApiKey)}"),
+                        RequestTimeOutSeconds = config.GetConfig<int>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.RequestTimeOutSeconds)}"),
+                        SearchPageSize = config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.SearchPageSize)}"),
+                        ServiceEndpoint = new Uri(config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.ServiceEndpoint)}")),
+                        TransintErrorsNumberOfRetries = config.GetConfig<int>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.TransintErrorsNumberOfRetries)}"),
+                    },
                 };
             });
 

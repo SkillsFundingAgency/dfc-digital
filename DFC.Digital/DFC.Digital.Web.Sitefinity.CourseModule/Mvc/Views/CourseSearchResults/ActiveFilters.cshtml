@@ -1,31 +1,32 @@
 ﻿@using DFC.Digital.Core
-@using DFC.Digital.Data.Model
+@using DFC.FindACourseClient.Models.ExternalInterfaceModels
+
 @model CourseFiltersViewModel
 <div class="facet-tags">
     <div class="facet-tags__group">
         <div class="facet-tags__wrapper">
             <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersShowingText</span>
-            @if (Model.CourseHours != CourseHours.All)
+            @if (Model.CourseHours.First() != CourseHours.All)
             {
                 <div class="facet-tag-inline">
                     <p class="facet-tag__text govuk-body">@Model.CourseHoursDisplayName</p>
                 </div>
             }
 
-            @if (Model.CourseType != CourseType.All)
+            @if (Model.CourseTypes.First() != CourseType.All)
             {
                 <div class="facet-tag-inline">
                     <p class="facet-tag__text govuk-body">@Model.CourseTypeDisplayName</p>
                 </div>
             }
 
-                <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersCoursesText</span>
+            <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersCoursesText</span>
 
             @if (Model.StartDate != StartDate.Anytime)
             {
                 <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersStartingFromText</span>
                 <div class="facet-tag-inline">
-                    <p class="facet-tag__text govuk-body">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat) ) </p>
+                    <p class="facet-tag__text govuk-body">@(Model.IsValidStartDateFrom ? Model.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat) : DateTime.Now.ToString(Constants.CourseSearchFrontEndStartDateFormat)) </p>
                 </div>
             }
 
@@ -43,22 +44,22 @@
         <div class="facet-tags__group">
             <div class="facet-tags__wrapper">
                 <span class="govuk-body govuk-!-font-weight-bold govuk-!-font-size-16">@Model.ActiveFiltersWithinText</span>
-               @if (Model.IsDistanceLocation)
-               {
-                   <div class="facet-tag-inline">
-                       <p class="facet-tag__text govuk-body">@Model.Distance @Model.ActiveFiltersMilesText</p>
-                   </div>
-                   <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersOfText </span>
-               }
+                @if (Model.IsDistanceLocation)
+                {
+                    <div class="facet-tag-inline">
+                        <p class="facet-tag__text govuk-body">@Model.Distance @Model.ActiveFiltersMilesText</p>
+                    </div>
+                    <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersOfText </span>
+                }
 
-               <div class="facet-tag-inline">
+                <div class="facet-tag-inline">
                     <p class="facet-tag__text govuk-body">@Model.Location</p>
                 </div>
 
             </div>
         </div>
     }
- 
+
     @if (!string.IsNullOrWhiteSpace(Model.Provider))
     {
         <div class="facet-tags__group">
@@ -71,4 +72,3 @@
         </div>
     }
 </div>
- 

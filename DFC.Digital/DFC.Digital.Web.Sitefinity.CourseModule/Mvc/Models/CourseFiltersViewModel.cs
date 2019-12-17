@@ -3,11 +3,14 @@ using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Core;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.RegularExpressions;
+
+using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule
 {
-    public class CourseFiltersViewModel : CourseSearchFilters
+    public class CourseFiltersViewModel : FAC.CourseSearchFilters
     {
         public string Only1619CoursesText { get; set; }
 
@@ -29,12 +32,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string WithinText { get; set; }
 
-        public string CourseHoursDisplayName => CourseHours.GetAttribute<DisplayAttribute>().Name;
+        public string CourseHoursDisplayName => CourseHours.First().GetAttribute<DisplayAttribute>().Name;
 
-        public string CourseTypeDisplayName => CourseType.GetAttribute<DisplayAttribute>().Name;
+        public string CourseTypeDisplayName => CourseTypes.First().GetAttribute<DisplayAttribute>().Name;
 
-        public bool FiltersApplied => Only1619Courses || StartDate != StartDate.Anytime ||
-                                      CourseHours != CourseHours.All || CourseType != CourseType.All ||
+        public bool FiltersApplied => Only1619Courses || StartDate != FAC.StartDate.Anytime ||
+                                      CourseHours.First() != FAC.Enums.CourseHours.All || CourseTypes.First() != FAC.Enums.CourseType.All ||
                                       !string.IsNullOrWhiteSpace(Location) || !string.IsNullOrWhiteSpace(Provider);
 
         public string ActiveFiltersProvidedByText { get; set; }

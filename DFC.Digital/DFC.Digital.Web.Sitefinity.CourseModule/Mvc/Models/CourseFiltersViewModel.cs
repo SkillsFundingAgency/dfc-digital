@@ -32,12 +32,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string WithinText { get; set; }
 
-        public string CourseHoursDisplayName => CourseHours.First().GetAttribute<DisplayAttribute>().Name;
+        public string CourseHoursDisplayName => CourseHours?.First().GetAttribute<DisplayAttribute>().Name;
 
-        public string CourseTypeDisplayName => CourseTypes.First().GetAttribute<DisplayAttribute>().Name;
+        public string CourseTypeDisplayName => CourseTypes?.First().GetAttribute<DisplayAttribute>().Name;
 
         public bool FiltersApplied => Only1619Courses || StartDate != FAC.StartDate.Anytime ||
-                                      CourseHours.First() != FAC.Enums.CourseHours.All || CourseTypes.First() != FAC.Enums.CourseType.All ||
+                                      CourseHours?.First() != FAC.Enums.CourseHours.All || CourseTypes.First() != FAC.Enums.CourseType.All ||
                                       !string.IsNullOrWhiteSpace(Location) || !string.IsNullOrWhiteSpace(Provider);
 
         public string ActiveFiltersProvidedByText { get; set; }

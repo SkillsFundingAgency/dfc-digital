@@ -82,6 +82,7 @@
     <Compile Include="Services\TribalCodesConverter.cs" />
     <Compile Include="Services\CourseBusinessRulesProcessor.cs" />
     <Compile Include="Utility\CourseSearchConstants.cs" />
+    <Compile Include="Utility\CourseSearchLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Digital.Core\DFC.Digital.Core.csproj">

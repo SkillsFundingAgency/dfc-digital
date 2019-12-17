@@ -3,15 +3,12 @@ using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.FindACourseClient.Contracts;
+using DFC.FindACourseClient.Models.ExternalInterfaceModels;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using CourseDetails = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseDetails;
-using CourseSearchFilters = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchFilters;
-using CourseSearchProperties = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchProperties;
-using CourseSearchResult = DFC.FindACourseClient.Models.ExternalInterfaceModels.CourseSearchResult;
-using ICourseSearchService = DFC.FindACourseClient.Contracts.ICourseSearchService;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
@@ -21,7 +18,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #region private fields
 
         private const string SearchTermTokenToReplace = "{searchTerm}";
-        private readonly ICourseSearchService courseSearchService;
+        private readonly ICourseSearchApiService courseSearchService;
         private readonly IAsyncHelper asyncHelper;
         private readonly ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder;
         private readonly IWebAppContext context;
@@ -33,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public CourseSearchResultsController(
             IApplicationLogger applicationLogger,
-            ICourseSearchService courseSearchService,
+            ICourseSearchApiService courseSearchService,
             IAsyncHelper asyncHelper,
             ICourseSearchResultsViewModelBullder courseSearchResultsViewModelBuilder,
             IWebAppContext context,

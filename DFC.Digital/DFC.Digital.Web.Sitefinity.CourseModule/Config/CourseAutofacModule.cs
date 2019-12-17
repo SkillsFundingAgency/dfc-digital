@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(ThisAssembly);
             builder.RegisterModelBinderProvider();
-            builder.RegisterFindACourse();
+            builder.RegisterFindACourseClientSdk();
         }
     }
 }

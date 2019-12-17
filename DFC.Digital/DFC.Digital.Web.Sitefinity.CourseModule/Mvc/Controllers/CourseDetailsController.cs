@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
-using ICourseSearchService = DFC.FindACourseClient.Contracts.ICourseSearchService;
+using ICourseSearchApiService = DFC.FindACourseClient.Contracts.ICourseSearchApiService;
 
 namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 {
@@ -16,7 +16,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
     public class CourseDetailsController : BaseDfcController
     {
         #region Private Fields
-        private readonly ICourseSearchService courseSearchService;
+        private readonly ICourseSearchApiService courseSearchService;
         private readonly IFindACourseClient findACourseClient;
         private readonly IAuditService auditService;
         private readonly IAsyncHelper asyncHelper;
@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion
 
         #region Ctor
-        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchService courseSearchService, IAsyncHelper asyncHelper, IFindACourseClient findACourseClient, IAuditService auditService) : base(loggingService)
+        public CourseDetailsController(IApplicationLogger loggingService, ICourseSearchApiService courseSearchService, IAsyncHelper asyncHelper, IFindACourseClient findACourseClient, IAuditService auditService) : base(loggingService)
         {
             this.courseSearchService = courseSearchService;
             this.findACourseClient = findACourseClient;

@@ -39,10 +39,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     CourseSearchSvcSettings = new CourseSearchSvcSettings
                     {
                         ApiKey = config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.ApiKey)}"),
-                        RequestTimeOutSeconds = config.GetConfig<int>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.RequestTimeOutSeconds)}"),
-                        SearchPageSize = config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.SearchPageSize)}"),
                         ServiceEndpoint = new Uri(config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.ServiceEndpoint)}")),
-                        TransintErrorsNumberOfRetries = config.GetConfig<int>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.TransintErrorsNumberOfRetries)}"),
                     },
                 };
             });

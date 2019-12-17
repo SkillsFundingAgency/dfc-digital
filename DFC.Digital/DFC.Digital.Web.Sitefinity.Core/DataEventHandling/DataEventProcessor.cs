@@ -201,12 +201,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 {
                     if (dataEventActions.ShouldExportPage(eventInfo))
                     {
-                        ExportPageNode(providerName, contentType, itemId);
+                        ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusPublished);
                     }
                 }
                 else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
-                    DeletePage(providerName, contentType, itemId);
+                    ExportPageNode(providerName, contentType, itemId, Constants.ItemActionDeleted);
                 }
             }
             catch (Exception ex)
@@ -371,14 +371,15 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
         }
 
-        private void ExportPageNode(string providerName, Type contentType, Guid itemId)
+        private void ExportPageNode(string providerName, Type contentType, Guid itemId, string eventAction)
         {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
-            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
-            {
-                var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
-                asyncHelper.Synchronise(() => compositeUIService.PostPageDataAsync(microServiceEndPointConfigKey, compositePageData));
-            }
+            var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
+            GenerateServiceBusMessageForContentPages(compositePageData, contentType.Name.ToString(), eventAction);
+        }
+
+        private void GenerateServiceBusMessageForContentPages(MicroServicesPublishingPageData item, string contentType, string eventAction)
+        {
+            serviceBusMessageProcessor.SendContentPageMessage(item, contentType, eventAction);
         }
 
         private void GenerateServiceBusMessageForJobProfile(DynamicContent item, MessageAction eventAction)

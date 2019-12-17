@@ -44,18 +44,16 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         }
 
         [Theory]
-        [InlineData(true, true, MicroServicesDataEventAction.PublishedOrUpdated, "DummyConfigKey")]
-        [InlineData(false, false, MicroServicesDataEventAction.PublishedOrUpdated, "DummyConfigKey")]
-        [InlineData(false, true, MicroServicesDataEventAction.PublishedOrUpdated, "")]
-        [InlineData(false, true, MicroServicesDataEventAction.UnpublishedOrDeleted, "DummyConfigKey")]
+        [InlineData(true, true, MicroServicesDataEventAction.PublishedOrUpdated)]
+        [InlineData(false, false, MicroServicesDataEventAction.PublishedOrUpdated)]
+        [InlineData(false, true, MicroServicesDataEventAction.PublishedOrUpdated)]
+        [InlineData(false, true, MicroServicesDataEventAction.UnpublishedOrDeleted)]
 
-        public void ExportCompositePageTests(bool expectDataTobePosted, bool shouldPostPage, MicroServicesDataEventAction microServicesDataEventAction, string microServiceEndPointConfigKey)
+        public void ExportCompositePageTests(bool expectDataTobePosted, bool shouldPostPage, MicroServicesDataEventAction microServicesDataEventAction)
         {
             //Setup
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(A.Dummy<string>());
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(microServicesDataEventAction);
             A.CallTo(() => fakeDataEventActions.ShouldExportPage(A<IDataEvent>._)).Returns(shouldPostPage);
-            A.CallTo(() => fakeCompositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(microServiceEndPointConfigKey);
 
             //Act
             var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction);
@@ -64,11 +62,11 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             //Asserts
             if (expectDataTobePosted)
             {
-                A.CallTo(() => fakeCompositeUIService.PostPageDataAsync(A<string>._, A<MicroServicesPublishingPageData>._)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => fakeServiceBusMessageProcessor.SendContentPageMessage(A<MicroServicesPublishingPageData>._, A<string>._, A<string>._)).MustHaveHappenedOnceExactly();
             }
             else
             {
-                A.CallTo(() => fakeCompositeUIService.PostPageDataAsync(A<string>._, A<MicroServicesPublishingPageData>._)).MustNotHaveHappened();
+                A.CallTo(() => fakeServiceBusMessageProcessor.SendContentPageMessage(A<MicroServicesPublishingPageData>._, A<string>._, A<string>._)).MustNotHaveHappened();
             }
         }
 

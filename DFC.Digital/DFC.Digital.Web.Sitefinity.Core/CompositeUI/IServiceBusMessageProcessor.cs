@@ -11,6 +11,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 {
     public interface IServiceBusMessageProcessor
     {
+        Task SendContentPageMessage(MicroServicesPublishingPageData contentPageData, string contentType, string eventAction);
+
         Task SendJobProfileMessage(JobProfileMessage dynamicContent, string itemType, string eventAction);
 
         Task SendOtherRelatedTypeMessages(IEnumerable<RelatedContentItem> relatedContentItems, string contentType, string actionType);

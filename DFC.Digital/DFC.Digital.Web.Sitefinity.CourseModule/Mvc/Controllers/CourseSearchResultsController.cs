@@ -108,7 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string ActiveFiltersMilesText { get; set; } = "miles";
 
-        public string FilterProviderLabel { get; set; } = "Provider";
+        public string FilterProviderLabel { get; set; } = "Course provider";
 
         public string FilterLocationLabel { get; set; } = "Location";
 

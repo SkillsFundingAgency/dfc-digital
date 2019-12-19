@@ -530,6 +530,7 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Config\CourseAutofacModule.cs" />
     <Compile Include="Config\CourseAutomapperProfile.cs" />
+    <Compile Include="Config\CourseSearchLogger.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Mvc\Controllers\CourseDetailsController.cs" />
     <Compile Include="Mvc\Controllers\CourseLandingController.cs" />

@@ -43,6 +43,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                     },
                 };
             });
+            builder.RegisterType<CourseSearchLogger>().As<Microsoft.Extensions.Logging.ILogger>();
 
             // Note that ASP.NET MVC requests controllers by their concrete types,
             // so registering them As<IController>() is incorrect.

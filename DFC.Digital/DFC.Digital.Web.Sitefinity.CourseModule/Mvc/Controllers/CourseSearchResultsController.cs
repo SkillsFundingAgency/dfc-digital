@@ -147,8 +147,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     courseSearchProperties.Filters.StartDateFrom = result;
                 }
 
-                //var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
-                var response = courseSearchService.SearchCoursesAsync(courseSearchProperties).GetAwaiter().GetResult();
+                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)

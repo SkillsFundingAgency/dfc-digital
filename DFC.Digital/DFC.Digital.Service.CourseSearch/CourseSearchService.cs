@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseSearchService : ICourseSearchService, IServiceStatus
+    public class CourseSearchService : ICourseSearchService
     {
         private readonly ICourseOpportunityBuilder courseOpportunityBuilder;
         private readonly IAuditRepository auditRepository;

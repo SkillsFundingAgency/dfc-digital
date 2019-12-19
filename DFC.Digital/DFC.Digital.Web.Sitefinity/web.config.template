@@ -78,6 +78,15 @@
     <!-- Servicebus Connection String-->
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
+    <add key="FAC.CourseSearchAuditCosmosDbSettings.AccessKey" value="__cosmosDbPrimaryKey__" />
+    <add key="FAC.CourseSearchAuditCosmosDbSettings.CollectionId" value="CourseSearchAudit" />
+    <add key="FAC.CourseSearchAuditCosmosDbSettings.DatabaseId" value="dfc-digital-audit" />
+    <add key="FAC.CourseSearchAuditCosmosDbSettings.EndpointUrl" value="__cosmosDbEndpointUrl__" />
+    <add key="FAC.CourseSearchAuditCosmosDbSettings.PartitionKey" value="/PartitionKey" />
+
+    <add key="FAC.CourseSearchSvcSettings.ApiKey" value="__FacApiKey__" />
+    <add key="FAC.CourseSearchSvcSettings.ServiceEndpoint" value="__FacApimEndpoint__" />
+
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

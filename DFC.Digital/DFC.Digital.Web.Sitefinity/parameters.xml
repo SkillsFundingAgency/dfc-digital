@@ -238,4 +238,29 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName']/@value" />
   </parameter>
+  <!-- Course search API settings -->
+  <parameter name="CS_Api_CosmosDb_EndpointUrl"
+         description="Tokenize the cosmos endpoint url to be replaced by VSTS task"
+         defaultValue="__cosmosDbEndpointUrl__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='FAC.CourseSearchAuditCosmosDbSettings.EndpointUrl']/@value" />
+  </parameter>
+  <parameter name="CS_Api_CosmosDb_PrimaryKey"
+             description="Tokenize the cosmos primary key to be replaced by VSTS task"
+             defaultValue="__cosmosDbPrimaryKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='FAC.CourseSearchAuditCosmosDbSettings.AccessKey']/@value" />
+  </parameter>
+  <parameter name="CS_Api_CouseSearch_Apim_ApiKey"
+           description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
+           defaultValue="__FacApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='FAC.CourseSearchSvcSettings.ApiKey']/@value" />
+  </parameter>
+  <parameter name="CS_Api_CouseSearch_Apim_Endpoint"
+           description="Tokenize the course search wcf endpoint to be replaced by VSTS task"
+           defaultValue="__FacApimEndpoint__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='FAC.CourseSearchSvcSettings.ServiceEndpoint']/@value" />
+  </parameter>
 </parameters>

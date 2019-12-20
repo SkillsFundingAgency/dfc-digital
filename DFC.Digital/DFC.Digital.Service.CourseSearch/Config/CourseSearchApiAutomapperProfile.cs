@@ -18,8 +18,11 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 .ForMember(d => d.CourseType, o => o.ConvertUsing(new CourseTypeConverter()))
                 .ReverseMap()
                 ;
+
             CreateMap<FAC.Venue, Venue>();
-            CreateMap<FAC.CourseDetails, CourseDetails>();
+            CreateMap<FAC.CourseDetails, CourseDetails>()
+                .ForSourceMember(s => s.SubRegions, o => o.DoNotValidate());
+
             CreateMap<FAC.Course, Course>(); //You need to construct course link as well
             CreateMap<FAC.CourseSearchResult, CourseSearchResult>();
             CreateMap<FAC.CourseSearchResultProperties, CourseSearchResultProperties>();

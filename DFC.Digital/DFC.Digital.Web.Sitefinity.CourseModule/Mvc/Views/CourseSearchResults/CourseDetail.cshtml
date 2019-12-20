@@ -10,7 +10,7 @@
             <span class="govuk-secondary-colour">@Model.ProviderLabel</span> @Model.Course.ProviderName
         </li>
         
-        @* Add logic here so location appears on CLASSROOM BASED courses as full venue address, and on WORK BASED as region returned in API. These should be returned with DISTANCE. If the WORK BASED COURSE is a NATIONAL course then it should return NATIONAL with no distance. *@
+        @* Add logic here so location appears on CLASSROOM BASED courses as full venue address. The subregion will be shown on WORK BASED courses. This field SHOULD NOT appear on ONLINE courses. *@
         @if (Model.Course.LocationDetails != null)
         {
             <li>

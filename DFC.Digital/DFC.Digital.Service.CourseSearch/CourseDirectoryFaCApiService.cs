@@ -2,22 +2,22 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using DFC.FindACourseClient.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FAC = DFC.FindACourseClient;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
     public class CourseDirectoryFaCApiService : ICourseSearchService, IServiceStatus
     {
         private readonly IMapper mapper;
-        private readonly ICourseSearchApiService apiService;
+        private readonly FAC.ICourseSearchApiService apiService;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITolerancePolicy tolerancePolicy;
 
-        public CourseDirectoryFaCApiService(IMapper mapper, ICourseSearchApiService apiService, IApplicationLogger applicationLogger, ITolerancePolicy tolerancePolicy)
+        public CourseDirectoryFaCApiService(IMapper mapper, FAC.ICourseSearchApiService apiService, IApplicationLogger applicationLogger, ITolerancePolicy tolerancePolicy)
         {
             this.mapper = mapper;
             this.apiService = apiService;
@@ -71,7 +71,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public async Task<CourseSearchResult> SearchCoursesAsync(CourseSearchProperties courseSearchProperties)
         {
-            var result = await tolerancePolicy.ExecuteAsync(async () => await apiService.SearchCoursesAsync(mapper.Map<FindACourseClient.Models.ExternalInterfaceModels.CourseSearchProperties>(courseSearchProperties)).ConfigureAwait(false), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker).ConfigureAwait(false);
+            var result = await tolerancePolicy.ExecuteAsync(async () => await apiService.SearchCoursesAsync(mapper.Map<FindACourseClient.CourseSearchProperties>(courseSearchProperties)).ConfigureAwait(false), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker).ConfigureAwait(false);
             return mapper.Map<CourseSearchResult>(result);
         }
     }

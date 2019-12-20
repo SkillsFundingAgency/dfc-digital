@@ -3,7 +3,6 @@ using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.FindACourseClient;
-using DFC.FindACourseClient.Models.Configuration;
 using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider

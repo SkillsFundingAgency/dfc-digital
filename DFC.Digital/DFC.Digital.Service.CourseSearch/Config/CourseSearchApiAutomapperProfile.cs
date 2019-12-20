@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FAC = DFC.FindACourseClient.Models.ExternalInterfaceModels;
+using FAC = DFC.FindACourseClient;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {

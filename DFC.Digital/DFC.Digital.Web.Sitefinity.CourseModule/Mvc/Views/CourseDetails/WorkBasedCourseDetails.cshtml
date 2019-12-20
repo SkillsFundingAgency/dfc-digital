@@ -48,11 +48,6 @@
                 </tr>
             }
 
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row">@Model.LocationLabel</th>
-                <td class="govuk-table__cell">To be implemented</td>
-            </tr>
-
             @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.CourseWebpageLink))
             {
                 <tr class="govuk-table__row">
@@ -76,7 +71,7 @@
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.StartDateLabel</th>
-                    <td class="govuk-table__cell">Flexible flag to be implemented</td>
+                    <td class="govuk-table__cell">Flexible flag to be implemented if flexible is set as true then show "Flexible" otherwise show date</td>
                 </tr>
             }
 

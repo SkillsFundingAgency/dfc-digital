@@ -21,7 +21,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly ISitefinityPageDataProxy fakeSitefinityPageDataProxy;
 
         private readonly PageNode dummyPageNode;
-        private readonly PageNode dummyParentPageNode;
         private readonly PageData dummyPageData;
         private readonly DateTime dummyPublishedDate;
 
@@ -33,7 +32,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             dummyPublishedDate = DateTime.Now;
             dummyPageNode = new PageNode();
-            dummyParentPageNode = new PageNode();
             dummyPageData = new PageData();
         }
 
@@ -62,15 +60,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             dummyPageNode.Id = dummyGuid;
             dummyPageNode.Crawlable = isCrawlable;
             dummyPageNode.Urls.Add(new PageUrlData() { Url = DummyUrl });
-
             dummyPageData.NavigationNode = dummyPageNode;
 
-            dummyParentPageNode.Id = dummyGuid;
-            dummyParentPageNode.Crawlable = isCrawlable;
-            dummyParentPageNode.Title = "Title";
-            dummyParentPageNode.UrlName = "UrlName";
-
-            // dummyParentPageNode.Title = "dummy Title";
             A.CallTo(() => fakeSitefinityManagerProxy.GetPageNode(A<Type>._, A<Guid>._, A<string>._)).Returns(dummyPageNode);
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetPageName(A<PageNode>._)).Returns(nameof(PageNode.UrlName));
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetLastPublishedDate(A<PageNode>._)).Returns(dummyPublishedDate);

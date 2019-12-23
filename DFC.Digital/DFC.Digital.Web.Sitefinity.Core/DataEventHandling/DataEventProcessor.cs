@@ -40,8 +40,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
         private readonly IDynamicContentAction dynamicContentAction;
+        private readonly ISitefinityManagerProxy sitefinityManagerProxy;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction, ISitefinityManagerProxy sitefinityManagerProxy)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
@@ -52,6 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             this.serviceBusMessageProcessor = serviceBusMessageProcessor;
             this.dynamicContentExtensions = dynamicContentExtensions;
             this.dynamicContentAction = dynamicContentAction;
+            this.sitefinityManagerProxy = sitefinityManagerProxy;
         }
 
         public List<Guid> SkillsMatrixParentItems { get; set; }
@@ -196,17 +198,19 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var itemId = eventInfo.ItemId;
                 var providerName = eventInfo.ProviderName;
                 var contentType = eventInfo.ItemType;
+                var isContentPage = compositePageBuilder.GetContentPageTypeFromPageNode(contentType, itemId, providerName);
 
-                if (microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
+                if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.PublishedOrUpdated)
                 {
-                    if (dataEventActions.ShouldExportPage(eventInfo))
-                    {
-                        ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusPublished);
-                    }
+                    ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusPublished);
                 }
-                else if (microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
+                else if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
                     ExportPageNode(providerName, contentType, itemId, Constants.ItemActionDeleted);
+                }
+                else if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.Draft)
+                {
+                    ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusDraft);
                 }
             }
             catch (Exception ex)
@@ -374,7 +378,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private void ExportPageNode(string providerName, Type contentType, Guid itemId, string eventAction)
         {
             var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
-            GenerateServiceBusMessageForContentPages(compositePageData, contentType.Name.ToString(), eventAction);
+            GenerateServiceBusMessageForContentPages(compositePageData, Constants.Pages, eventAction);
         }
 
         private void GenerateServiceBusMessageForContentPages(MicroServicesPublishingPageData item, string contentType, string eventAction)

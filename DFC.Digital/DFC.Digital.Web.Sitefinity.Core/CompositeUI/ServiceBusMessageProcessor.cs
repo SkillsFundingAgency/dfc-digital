@@ -26,7 +26,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public async Task SendContentPageMessage(MicroServicesPublishingPageData contentPageData, string contentType, string actionType)
         {
-            applicationLogger.Info($" CREATED service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} and Id -- {contentPageData.Id.ToString()}");
+            applicationLogger.Info($" CREATED service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} and Id -- {contentPageData.ContentPageId.ToString()}");
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
             var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
             var topicClient = new TopicClient(connectionStringServiceBus, topicName);
@@ -35,23 +35,23 @@ namespace DFC.Digital.Web.Sitefinity.Core
             var jsonData = JsonConvert.SerializeObject(contentPageData);
             try
             {
-                applicationLogger.Info($" SENDING service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} and Id -- {contentPageData.Id.ToString()} ");
+                applicationLogger.Info($" SENDING service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} and Id -- {contentPageData.ContentPageId.ToString()} ");
 
                 // Message that send to the queue
                 var message = new Message(Encoding.UTF8.GetBytes(jsonData));
                 message.ContentType = "application/json";
                 message.Label = contentPageData.CanonicalName;
-                message.UserProperties.Add("Id", contentPageData.Id);
+                message.UserProperties.Add("Id", contentPageData.ContentPageId);
                 message.UserProperties.Add("ActionType", actionType);
                 message.UserProperties.Add("CType", contentType);
                 message.CorrelationId = Guid.NewGuid().ToString();
                 await topicClient.SendAsync(message);
 
-                applicationLogger.Info($" SENT SUCCESSFULLY service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} with Id -- {contentPageData.Id.ToString()} and with Correlation Id -- {message.CorrelationId.ToString()}");
+                applicationLogger.Info($" SENT SUCCESSFULLY service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} with Id -- {contentPageData.ContentPageId.ToString()} and with Correlation Id -- {message.CorrelationId.ToString()}");
             }
             catch (Exception ex)
             {
-                applicationLogger.Info($" FAILED service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} with Id -- {contentPageData.Id.ToString()} has an exception \n {ex.Message} ");
+                applicationLogger.Info($" FAILED service bus message for sitefinity event {actionType.ToUpper()} on ContentPage with Title -- {contentPageData.CanonicalName} with Id -- {contentPageData.ContentPageId.ToString()} has an exception \n {ex.Message} ");
             }
             finally
             {

@@ -54,7 +54,7 @@
       <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="DFC.FindACourseClient, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DFC.FindACourseClient.2.0.0\lib\netstandard2.0\DFC.FindACourseClient.dll</HintPath>
+      <HintPath>..\packages\DFC.FindACourseClient.2.0.1\lib\netstandard2.0\DFC.FindACourseClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
@@ -367,6 +367,7 @@
     <None Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </None>
+    <None Include="app.config" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.wsdl" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.xsd">
       <SubType>Designer</SubType>
@@ -430,7 +431,9 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\CourseSearchServiceApi\" />

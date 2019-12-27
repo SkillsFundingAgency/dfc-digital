@@ -129,6 +129,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
             };
 
+            if (!filtersInput.IsDistanceLocation)
+            {
+                filtersInput.Town = filtersInput.Postcode;
+                filtersInput.Postcode = null;
+            }
+
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
             {
                 //create a new object if invoked from landing page
@@ -177,7 +183,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Postcode = courseSearchFilters.Postcode.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Town = courseSearchFilters.Town.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }
 

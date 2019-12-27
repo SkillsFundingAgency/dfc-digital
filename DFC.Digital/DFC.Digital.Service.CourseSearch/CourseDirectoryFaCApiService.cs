@@ -71,7 +71,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public async Task<CourseSearchResult> SearchCoursesAsync(CourseSearchProperties courseSearchProperties)
         {
-            var result = await tolerancePolicy.ExecuteAsync(async () => await apiService.SearchCoursesAsync(mapper.Map<FindACourseClient.CourseSearchProperties>(courseSearchProperties)).ConfigureAwait(false), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker).ConfigureAwait(false);
+            var request = mapper.Map<FAC.CourseSearchProperties>(courseSearchProperties);
+            var result = await tolerancePolicy.ExecuteAsync(async () => await apiService.SearchCoursesAsync(request).ConfigureAwait(false), Constants.CourseSearchEndpointConfigName, FaultToleranceType.CircuitBreaker).ConfigureAwait(false);
             return mapper.Map<CourseSearchResult>(result);
         }
     }

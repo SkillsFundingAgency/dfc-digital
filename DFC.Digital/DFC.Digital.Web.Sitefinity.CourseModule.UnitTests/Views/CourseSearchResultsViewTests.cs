@@ -54,14 +54,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
             }
 
-            if (viewModel.Only1619Courses)
+            if (!string.IsNullOrWhiteSpace(viewModel.Postcode))
             {
-                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
-            }
-
-            if (!string.IsNullOrWhiteSpace(viewModel.Location))
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
+                AssertTagInnerTextValue(htmlDom, viewModel.Postcode, "p");
             }
 
             if (!string.IsNullOrWhiteSpace(viewModel.Provider))
@@ -245,7 +240,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursSectionText, "h2");
             AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeSectionText, "h2");
             AssertTagInnerTextValue(htmlDom, viewModel.ApplyFiltersText, "button");
-            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Location));
+            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Postcode));
             AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Provider));
             AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseHours), "radio");
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseHours.ToString());
@@ -253,11 +248,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.StartDate.ToString());
             AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseType), "radio");
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseType.ToString());
-            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Only1619Courses));
-            if (viewModel.Only1619Courses)
-            {
-                AssertElementIsSelectedByAttributeAndValue(htmlDom, "radio", "value", true.ToString());
-            }
         }
     }
 }

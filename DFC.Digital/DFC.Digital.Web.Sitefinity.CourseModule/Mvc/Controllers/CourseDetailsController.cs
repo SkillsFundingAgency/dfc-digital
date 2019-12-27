@@ -64,7 +64,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string VenueLabel { get; set; } = "Venue";
 
         [DisplayName("Other Dates And Venues Label")]
-        public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
+        public string OtherDatesAndVenuesLabel { get; set; } = "Other venues and dates";
 
         [DisplayName("Find a course Page")]
         public string FindAcoursePage { get; set; } = "/find-a-course/home/";
@@ -94,10 +94,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string AssessmentMethodLabel { get; set; } = "Assessment method";
 
         [DisplayName("No Assessment Method Available Message")]
-        public string NoAssessmentMethodAvailableMessage { get; set; } = "Not available";
+        public string NoAssessmentMethodAvailableMessage { get; set; } = "Check with course provider";
 
         [DisplayName("No Other Date Or Venue Available Message")]
-        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
+        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other venue or date available";
 
         [DisplayName("Provider Details Label")]
         public string ProviderLabel { get; set; } = "Provider details";

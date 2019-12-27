@@ -82,6 +82,9 @@ namespace DFC.Digital.Core
         public const string CourseSearchQueryStringStartDateFormat = "yyyy-MM-dd";
         public const string CourseSearchLocationRegularExpression = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
 
+        //Sitefinity page properties
+        public const string Pages = "Pages";
+
         //Sitefinity event properties
         public const string DynamicProvider = "dynamicProvider2";
         public const string HasPageDataChanged = "HasPageDataChanged";
@@ -90,6 +93,7 @@ namespace DFC.Digital.Core
         public const string ItemActionUpdated = "Updated";
         public const string ItemActionDeleted = "Deleted";
         public const string WorkflowStatusPublished = "Published";
+        public const string WorkflowStatusDraft = "Draft";
         public const string WorkflowStatusUnpublished = "Unpublished";
         public const string ItemStatusLive = "Live";
         public const string ItemStatusTemp = "Temp";
@@ -149,5 +153,8 @@ namespace DFC.Digital.Core
         public const string OriginalContentId = "OriginalContentId";
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
         public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
+
+        // Check for Content Pages using Page Property
+        public const string ShouldIncludeInDFCAppContentPages = "ShouldIncludeInDFCAppContentPages";
     }
 }

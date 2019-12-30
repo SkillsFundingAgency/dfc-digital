@@ -12,7 +12,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string SearchPageUrl = "/courses-search-results";
         private const string PathQuery = "/pathQuery";
         private const string QualificationLevel = "qualificationLevel";
-        private const bool Only1619Courses = true;
         private const string Location = "leeds";
         private const string LocationPostCode = "cv12wt";
         private const string Provider = "ucla";
@@ -623,7 +622,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     Postcode = Location,
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&Distance=10"
+                "/courses-search-results?searchTerm=maths&Postcode=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -634,7 +633,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     SearchTerm = SearchTerm,
                     Postcode = LocationPostCode,
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&Distance=10"
+                "/courses-search-results?searchTerm=maths&Postcode=cv12wt&Distance=10"
             };
         }
 
@@ -700,7 +699,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         StartDate = StartDate.Anytime
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10"
+                "/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -715,7 +714,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10&StartDate=FromToday"
+                "/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -731,7 +730,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&Distance=10&StartDate=FromToday"
+                "/courses-search-results?searchTerm=maths&Postcode=cv12wt&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -748,7 +747,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                         StartDateFrom = DateTime.Now.AddDays(30)
                     }
                 },
-                $"/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
+                $"/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
             };
         }
 

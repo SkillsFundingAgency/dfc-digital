@@ -54,8 +54,8 @@ namespace DFC.Digital.Web.Core.Tests
 
             yield return new object[]
             {
-                "courses-search-results?searchTerm=language&provider=london&Postcode=leeds&studymode=1&page=1",
-                "courses-search-results%3fsearchTerm%3dlanguage%26provider%3dlondon%26location%3dleeds%26studymode%3d1%26page%3d1"
+                "courses-search-results?searchTerm=language&provider=london&postcode=leeds&studymode=1&page=1",
+                "courses-search-results%3fsearchTerm%3dlanguage%26provider%3dlondon%26postcode%3dleeds%26studymode%3d1%26page%3d1"
             };
 
             yield return new object[]

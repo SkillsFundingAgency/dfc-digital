@@ -108,7 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string ActiveFiltersMilesText { get; set; } = "miles";
 
-        public string FilterProviderLabel { get; set; } = "Provider";
+        public string FilterProviderLabel { get; set; } = "Course provider";
 
         public string FilterLocationLabel { get; set; } = "Location";
 
@@ -128,6 +128,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={filtersInput.SearchTerm}", UriKind.RelativeOrAbsolute),
                 NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
             };
+
+            if (!filtersInput.IsDistanceLocation)
+            {
+                filtersInput.Town = filtersInput.Postcode;
+                filtersInput.Postcode = null;
+            }
 
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
             {
@@ -177,7 +183,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Postcode = courseSearchFilters.Postcode.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Town = courseSearchFilters.Town.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }
 

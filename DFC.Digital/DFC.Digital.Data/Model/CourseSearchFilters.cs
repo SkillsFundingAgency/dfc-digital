@@ -11,13 +11,13 @@ namespace DFC.Digital.Data.Model
 
         public string Provider { get; set; }
 
-        public string Location { get; set; }
+        public string Postcode { get; set; }
 
         public float Distance { get; set; } = 10f;
 
-        public bool DistanceSpecified { get; set; }
+        public string Town { get; set; }
 
-        public bool Only1619Courses { get; set; }
+        public bool DistanceSpecified { get; set; }
 
         public StartDate StartDate { get; set; } = StartDate.Anytime;
 

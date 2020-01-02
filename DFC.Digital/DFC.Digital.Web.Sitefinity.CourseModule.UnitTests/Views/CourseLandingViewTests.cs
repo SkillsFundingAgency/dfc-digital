@@ -23,7 +23,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var htmlDocument = courseLandingIndex.RenderAsHtml(courseLandingViewModel);
 
             // Assert
-            this.AssertFormGroupsCounts(htmlDocument, 5);
+            this.AssertFormGroupsCounts(htmlDocument, 4);
         }
 
         private void AssertFormGroupsCounts(HtmlDocument htmlDocument, int count)

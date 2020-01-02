@@ -10,13 +10,10 @@ namespace DFC.Digital.Data.Model
         [Display(Name = "Classroom based", Order = 2)]
         ClassroomBased,
 
-        [Display(Name = "Distance learning", Order = 3)]
-        DistanceLearning,
-
-        [Display(Name = "Online", Order = 4)]
+        [Display(Name = "Online", Order = 3)]
         Online,
 
-        [Display(Name = "Work based", Order = 5)]
+        [Display(Name = "Work based", Order = 4)]
         WorkBased
     }
 }

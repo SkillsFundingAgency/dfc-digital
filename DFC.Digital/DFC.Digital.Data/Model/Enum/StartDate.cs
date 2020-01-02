@@ -10,7 +10,7 @@ namespace DFC.Digital.Data.Model
         [Display(Name = "From today", Order = 2)]
         FromToday,
 
-        [Display(Name = "Select date from", Order = 3)]
+        [Display(Name = "Enter a date", Order = 3)]
         SelectDateFrom
     }
 }

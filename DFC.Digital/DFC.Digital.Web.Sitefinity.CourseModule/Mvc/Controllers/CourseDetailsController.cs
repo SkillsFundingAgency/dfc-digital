@@ -116,15 +116,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Additional Price Label")]
         public string AdditionalPriceLabel { get; set; } = "Additional price description";
 
-        [DisplayName("Course Details - funding Information Label")]
-        public string FundingInformationLabel { get; set; } = "Funding information";
-
-        [DisplayName("Course Details - Supporting Facilities Label")]
-        public string SupportingFacilitiesLabel { get; set; } = "Support facilities";
-
-        [DisplayName("Course Details - Language of instruction Label")]
-        public string LanguageOfInstructionLabel { get; set; } = "Instruction language";
-
         [DisplayName("Course Details - Funding Information text")]
         public string FundingInformationText { get; set; } = "Advanced Learner Loans available";
 
@@ -156,7 +147,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.OtherDatesAndVenuesLabel = OtherDatesAndVenuesLabel;
                     viewModel.ProviderLabel = ProviderLabel;
                     viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
-                    viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                     viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
                     viewModel.CourseDetailsPage = CourseDetailsPage;
                     viewModel.ContactAdviserSection = ContactAdviserSection;
@@ -169,12 +159,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.StartDateLabel = StartDateLabel;
                     viewModel.PriceLabel = PriceLabel;
                     viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
-                    viewModel.FundingInformationLabel = FundingInformationLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
-                    viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;
                     viewModel.FundingInformationLink = FundingInformationLink;
                     viewModel.FundingInformationText = FundingInformationText;
-                    viewModel.LanguageOfInstructionLabel = LanguageOfInstructionLabel;
                     return View(viewModel);
                 }
             }

@@ -114,9 +114,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 AwardingOrganisation = apiCourseDetail.Course.AwardingBody,
                 SubjectCategory = apiCourseDetail.Course.Level2EntitlementCategoryDesc,
                 AdditionalPrice = activeOpportunity?.PriceDesc,
-                SupportingFacilities = venue?.Facilities,
                 AdvancedLearnerLoansOffered = apiCourseDetail.Provider?.TFPlusLoans == true,
-                LanguageOfInstruction = activeOpportunity?.LanguageOfInstruction,
                 CourseWebpageLink = activeOpportunity?.URL
             };
         }

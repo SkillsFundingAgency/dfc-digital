@@ -30,8 +30,6 @@ namespace DFC.Digital.Data.Model
 
         public string AdditionalPrice { get; set; }
 
-        public string SupportingFacilities { get; set; }
-
-        public string LanguageOfInstruction { get; set; }
+        public CourseType CourseType { get; set; }
     }
 }

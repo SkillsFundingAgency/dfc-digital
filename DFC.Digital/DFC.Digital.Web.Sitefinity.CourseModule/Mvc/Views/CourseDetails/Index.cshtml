@@ -1,6 +1,19 @@
-﻿@model CourseDetailsViewModel
+﻿@using DFC.Digital.Data.Model;
+@model CourseDetailsViewModel
 
 
 <div class="govuk-grid-row">
-    @Html.Partial("CourseDetails", Model)
+
+    @if (Model.CourseDetails.CourseType == CourseType.ClassroomBased)
+    {
+        @Html.Partial("ClassroomCourseDetails", Model)
+    }
+    else if (Model.CourseDetails.CourseType == CourseType.Online)
+    {
+        @Html.Partial("OnlineCourseDetails", Model)
+    }
+    else{
+        @Html.Partial("WorkBasedCourseDetails", Model)
+    }
+    
 </div>

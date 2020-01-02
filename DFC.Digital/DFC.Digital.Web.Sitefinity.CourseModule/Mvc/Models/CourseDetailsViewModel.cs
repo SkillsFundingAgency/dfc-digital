@@ -37,8 +37,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string EmployerSatisfactionLabel { get; set; }
 
-        public string LearnerSatisfactionLabel { get; set; }
-
         public string ProviderPerformanceLabel { get; set; }
 
         public string CourseDetailsPage { get; set; }
@@ -67,14 +65,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string AdditionalPriceLabel { get; set; }
 
-        public string FundingInformationLabel { get; set; }
-
-        public string SupportingFacilitiesLabel { get; set; }
-
         public string FundingInformationText { get; set; }
 
         public string FundingInformationLink { get; set; }
 
-        public string LanguageOfInstructionLabel { get; set; }
+        public string CourseDetailsLabel { get; set; }
     }
 }

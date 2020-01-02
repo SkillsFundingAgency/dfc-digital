@@ -551,7 +551,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Mvc\Views\CourseLanding\Index.cshtml" />
-    <Content Include="Mvc\Views\CourseDetails\CourseDetails.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Index.cshtml" />
     <Content Include="Mvc\Views\CourseDetails\Provider.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\OrderByLinks.cshtml" />
@@ -559,6 +558,9 @@
     <Content Include="Mvc\Views\CourseSearchResults\ActiveFilters.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.json" />
+    <Content Include="Mvc\Views\CourseDetails\ClassroomCourseDetails.cshtml" />
+    <Content Include="Mvc\Views\CourseDetails\OnlineCourseDetails.cshtml" />
+    <Content Include="Mvc\Views\CourseDetails\WorkBasedCourseDetails.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

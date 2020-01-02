@@ -37,7 +37,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void Dfc7056CourseDetailsPartialViewTests()
         {
             // Arrange
-            var courseDetailsIndex = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsIndex = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
 
             var courseDetails = new CourseDetails();
             var model = new CourseDetailsViewModel();
@@ -58,7 +58,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowCourseDescriptionTest(bool hasValue)
         {
             // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
 
             var courseDetailsViewModel = new CourseDetailsViewModel();
             courseDetailsViewModel.CourseDetails = new CourseDetails();
@@ -92,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowEntryRequirementsTest(bool hasValue)
         {
             // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             courseDetailsViewModel.CourseDetails = new CourseDetails();
             if (hasValue)
@@ -128,7 +128,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowEquipmentRequiredTest(bool hasValue)
         {
             // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             courseDetailsViewModel.CourseDetails = new CourseDetails();
             if (hasValue)
@@ -164,7 +164,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowAssessmentMethodTest(bool hasValue)
         {
             // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             courseDetailsViewModel.CourseDetails = new CourseDetails();
             if (hasValue)
@@ -200,7 +200,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowVenueDetailsTest(bool venueExists)
         {
             // Arrange
-            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             courseDetailsViewModel.CourseDetails = new CourseDetails();
 
@@ -446,7 +446,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         public void ShowHideBackToResultsTest(bool referralUrlExists)
         {
             // Arrange
-            var courseDetailsHtml = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var courseDetailsHtml = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
             var courseDetails = new CourseDetails();
             if (referralUrlExists)
@@ -603,18 +603,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         {
             //Arrange
             courseDetailsViewModel.CourseDetails = courseDetails;
-            var detailsView = new _MVC_Views_CourseDetails_CourseDetails_cshtml();
+            var detailsView = new _MVC_Views_CourseDetails_OnlineCourseDetails_cshtml();
 
             //Act
             var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
 
             //Asserts
-            if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.SupportingFacilities, "td");
-            }
-
             if (!string.IsNullOrWhiteSpace(courseDetails.AwardingOrganisation))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AwardingOrganisationLabel, "th");
@@ -637,12 +631,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AdditionalPriceLabel, "th");
                 AssertTagInnerTextValue(htmlDocument, courseDetails.AdditionalPrice, "td");
-            }
-
-            if (!string.IsNullOrWhiteSpace(courseDetails.LanguageOfInstruction))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.LanguageOfInstructionLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.LanguageOfInstruction, "td");
             }
 
             if (!string.IsNullOrWhiteSpace(courseDetails.QualificationName))

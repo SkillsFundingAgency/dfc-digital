@@ -121,7 +121,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Course Details - Funding Information Link")]
         public string FundingInformationLink { get; set; } = "https://www.gov.uk/advanced-learner-loan/overview";
+        #endregion
 
+        #region Actions
         public ActionResult Index(string courseId, string oppurtunity, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();

@@ -627,12 +627,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDocument, courseDetails.StudyMode, "td");
             }
 
-            if (!string.IsNullOrWhiteSpace(courseDetails.AdditionalPrice))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AdditionalPriceLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.AdditionalPrice, "td");
-            }
-
             if (!string.IsNullOrWhiteSpace(courseDetails.QualificationName))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.QualificationNameLabel, "th");

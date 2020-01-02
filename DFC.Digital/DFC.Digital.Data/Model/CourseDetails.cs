@@ -29,7 +29,5 @@ namespace DFC.Digital.Data.Model
         public string CourseWebpageLink { get; set; }
 
         public string AdditionalPrice { get; set; }
-
-        public CourseType CourseType { get; set; }
     }
 }

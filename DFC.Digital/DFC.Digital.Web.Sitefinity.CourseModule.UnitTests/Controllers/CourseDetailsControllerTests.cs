@@ -55,14 +55,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             string providerPerformanceLabel,
             string referralPath,
             string contactAdviserSection,
-            string additionalPriceLabel,
+            string costDescriptionLabel,
             string attendancePatternLabel,
             string awardingOrganisationLabel,
             string courseTypeLabel,
             string courseWebpageLinkLabel,
-            string fundingInformationLink,
-            string fundingInformationText,
-            string priceLabel,
             string qualificationLevelLabel,
             string qualificationNameLabel,
             string startDateLabel,
@@ -91,14 +88,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LearnerSatisfactionLabel = learnerSatisfactionLabel,
                 ProviderPerformanceLabel = providerPerformanceLabel,
                 ContactAdviserSection = contactAdviserSection,
-                AdditionalPriceLabel = additionalPriceLabel,
                 AttendancePatternLabel = attendancePatternLabel,
                 AwardingOrganisationLabel = awardingOrganisationLabel,
+                CostDescriptionLabel = costDescriptionLabel,
                 CourseTypeLabel = courseTypeLabel,
                 CourseWebpageLinkLabel = courseWebpageLinkLabel,
-                FundingInformationLink = fundingInformationLink,
-                FundingInformationText = fundingInformationText,
-                PriceLabel = priceLabel,
                 QualificationLevelLabel = qualificationLevelLabel,
                 QualificationNameLabel = qualificationNameLabel,
                 StartDateLabel = startDateLabel,
@@ -141,14 +135,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
                     vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
                     vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
-                    vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.AdditionalPriceLabel);
+                    vm.CostDescriptionLabel.Should().BeEquivalentTo(controller.CostDescriptionLabel);
                     vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
                     vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
                     vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);
                     vm.CourseWebpageLinkLabel.Should().BeEquivalentTo(controller.CourseWebpageLinkLabel);
-                    vm.FundingInformationLink.Should().BeEquivalentTo(controller.FundingInformationLink);
-                    vm.FundingInformationText.Should().BeEquivalentTo(controller.FundingInformationText);
-                    vm.PriceLabel.Should().BeEquivalentTo(controller.PriceLabel);
                     vm.QualificationLevelLabel.Should().BeEquivalentTo(controller.QualificationLevelLabel);
                     vm.QualificationNameLabel.Should().BeEquivalentTo(controller.QualificationNameLabel);
                     vm.StartDateLabel.Should().BeEquivalentTo(controller.StartDateLabel);

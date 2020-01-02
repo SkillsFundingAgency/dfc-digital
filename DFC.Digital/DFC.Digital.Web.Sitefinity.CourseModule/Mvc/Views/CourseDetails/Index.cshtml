@@ -4,11 +4,11 @@
 
 <div class="govuk-grid-row">
 
-    @if (Model.CourseDetails.CourseType == CourseType.ClassroomBased)
+    @if (Model.CourseDetails.AttendanceMode == "ClassroomBased")
     {
         @Html.Partial("ClassroomCourseDetails", Model)
     }
-    else if (Model.CourseDetails.CourseType == CourseType.Online)
+    else if (Model.CourseDetails.AttendanceMode == "Online")
     {
         @Html.Partial("OnlineCourseDetails", Model)
     }

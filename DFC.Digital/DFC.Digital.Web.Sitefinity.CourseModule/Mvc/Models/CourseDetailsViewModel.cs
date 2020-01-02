@@ -65,7 +65,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string CourseTypeLabel { get; set; }
 
-        public string AdditionalPriceLabel { get; set; }
+        public string CostDescriptionLabel { get; set; }
 
         public string FundingInformationLabel { get; set; }
 

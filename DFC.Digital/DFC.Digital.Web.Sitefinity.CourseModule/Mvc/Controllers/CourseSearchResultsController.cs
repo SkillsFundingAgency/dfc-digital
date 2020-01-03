@@ -155,7 +155,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&runId={course.RunId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
                         courseSearchResults.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,

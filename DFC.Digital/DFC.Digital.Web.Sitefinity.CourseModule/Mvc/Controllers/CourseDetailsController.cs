@@ -160,12 +160,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion
 
         #region Actions
-        public ActionResult Index(string courseId, string oppurtunity, string referralPath)
+        public ActionResult Index(string courseId, string runId, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();
             if (!string.IsNullOrWhiteSpace(courseId))
             {
-                var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunity));
+                var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, runId));
                 if (courseDetails != null)
                 {
                     viewModel.FindACoursePage = FindAcoursePage;

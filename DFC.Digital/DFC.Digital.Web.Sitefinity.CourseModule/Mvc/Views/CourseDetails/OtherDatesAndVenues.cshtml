@@ -9,7 +9,7 @@
             <th class="govuk-table__header">Options</th>
         </tr>
        
-        @if (Model.CourseDetails.Oppurtunities?.Any() == true)
+        @if (Model.CourseDetails.Oppurtunities?.Any() == true && Model.CourseDetails.VenueDetails != null)
         {
             foreach (var oppurtunity in Model.CourseDetails.Oppurtunities)
             {

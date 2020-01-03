@@ -76,7 +76,7 @@
                 <td class="govuk-table__cell">@Model.CourseDetails.AttendanceMode</td>
             </tr>
 
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.StudyMode))
+            @if (Model.CourseDetails.StudyMode != "Undefined")
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.CourseHoursLabel</th>
@@ -109,7 +109,7 @@
                 </tr>
             }
           
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.AttendancePattern))
+            @if (Model.CourseDetails.AttendancePattern != "Undefined")
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.AttendancePatternLabel</th>

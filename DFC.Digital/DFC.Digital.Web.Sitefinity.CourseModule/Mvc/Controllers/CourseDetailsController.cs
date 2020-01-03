@@ -89,7 +89,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string VenueLabel { get; set; } = "Venue";
 
         [DisplayName("No Other Date Or Venue Available Message")]
-        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
+        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other venues or dates available";
 
         [DisplayName("Provider Details Label")]
         public string ProviderLabel { get; set; } = "Provider details";

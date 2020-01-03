@@ -4,7 +4,7 @@
     {
       "CollectionName": "CourseSearchAudit",
       "OfferThroughput": __CourseSearchAuditRecordsRu__,
-			"PartitionKey": "/Data/CourseListRequest/CourseSearchCriteria/SubjectKeyword",
+			"PartitionKey": "/PartitionKey",
       "DefaultTtl": 2592000,
       "IndexingPolicy": {
         "indexingMode": "consistent",

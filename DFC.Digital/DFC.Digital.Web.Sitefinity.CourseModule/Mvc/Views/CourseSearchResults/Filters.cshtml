@@ -5,8 +5,8 @@
 
 
 <div class="govuk-form-group">
-    @Html.LabelFor(x => x.Location, Model.FilterLocationLabel, new { @class = "govuk-label" })
-    @Html.TextBoxFor(x => x.Location, new { @class = "govuk-input govuk-!-width-full locationfield", data_val_postcode = Constants.CourseSearchLocationRegularExpression })
+    @Html.LabelFor(x => x.Postcode, Model.FilterLocationLabel, new { @class = "govuk-label" })
+    @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-!-width-full locationfield", data_val_postcode = Constants.CourseSearchLocationRegularExpression })
 </div>
 
 <div id="distanceFormGroup" style="display: @(Model.IsDistanceLocation ? "block" : "none")" class="govuk-form-group">
@@ -111,22 +111,6 @@
     </div>
 
 
-</div>
-<div class="filters-container">
-    <div class="filter-label">
-        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesSectionText</h2>
-    </div>
-    <div class="filter-box">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-visually-hidden">@Model.Only1619CoursesText</legend>
-            <div class="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
-                    @Html.LabelFor(x => x.Only1619Courses, Model.Only1619CoursesText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
-                </div>
-            </div>
-        </fieldset>
-    </div>
 </div>
 <div class="submit">
 

@@ -23,7 +23,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
             CreateMap<FAC.CourseDetails, CourseDetails>()
                 .ForSourceMember(s => s.SubRegions, o => o.DoNotValidate());
 
-            CreateMap<FAC.Course, Course>(); //You need to construct course link as well
+            CreateMap<FAC.Course, Course>();
             CreateMap<FAC.CourseSearchResult, CourseSearchResult>();
             CreateMap<FAC.CourseSearchResultProperties, CourseSearchResultProperties>();
             CreateMap<CourseSearchProperties, FAC.CourseSearchResult>();

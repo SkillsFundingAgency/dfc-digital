@@ -4,7 +4,7 @@ using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
 {
-    public class CourseSearchLogger : Microsoft.Extensions.Logging.ILogger
+    public class CourseSearchLogger<T> : Microsoft.Extensions.Logging.ILogger<T>
     {
         private readonly IApplicationLogger applicationLogger;
 
@@ -41,23 +41,23 @@ namespace DFC.Digital.Service.CourseSearchProvider
             switch (logLevel)
             {
                 case LogLevel.Information:
-                    applicationLogger.Info($"{nameof(CourseSearchLogger)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
+                    applicationLogger.Info($"{nameof(CourseSearchLogger<T>)}-{typeof(T)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
                     break;
 
                 case LogLevel.Warning:
-                    applicationLogger.Warn($"{nameof(CourseSearchLogger)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
+                    applicationLogger.Warn($"{nameof(CourseSearchLogger<T>)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
                     break;
 
                 case LogLevel.Critical:
                 case LogLevel.Error:
-                    applicationLogger.ErrorJustLogIt($"{nameof(CourseSearchLogger)}-EventId:{eventId}-Formatted:{formatter(state, exception)}", exception);
+                    applicationLogger.ErrorJustLogIt($"{nameof(CourseSearchLogger<T>)}-{typeof(T)}-EventId:{eventId}-Formatted:{formatter(state, exception)}", exception);
                     break;
 
                 case LogLevel.None:
                 case LogLevel.Trace:
                 case LogLevel.Debug:
                 default:
-                    applicationLogger.Trace($"{nameof(CourseSearchLogger)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
+                    applicationLogger.Trace($"{nameof(CourseSearchLogger<T>)}-{typeof(T)}-EventId:{eventId}-Formatted:{formatter(state, exception)}");
                     break;
             }
         }

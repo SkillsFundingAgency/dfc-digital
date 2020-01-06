@@ -23,6 +23,8 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string CourseId { get; set; }
 
+        public string RunId { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the provider.
         /// </summary>

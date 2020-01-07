@@ -28,6 +28,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         #endregion
 
         #region Public Properties
+        [DisplayName("Course Details Label")]
+        public string CourseDetailsLabel { get; set; } = "Course details";
+
+        [DisplayName("Who This Course Is For Label")]
+        public string WhoThisCourseIsForLabel { get; set; } = "Who this course is for";
+
+        [DisplayName("What You'll Learn Label")]
+        public string WhatYoullLearn { get; set; } = "What you'll learn";
+
+        [DisplayName("How You'll Learn Label")]
+        public string HowYoullLearn { get; set; } = "How you'll learn";
+
+        [DisplayName("What You'll Need To Bring Label")]
+        public string WhatYoullNeedToBring { get; set; } = "What you'll need to bring";
+
+        [DisplayName("How You'll Be Assessed Label")]
+        public string HowYoullBeAssessed { get; set; } = "How you'll be assessed";
+
+        [DisplayName("Next Steps Label")]
+        public string NextSteps { get; set; } = "Next steps";
+
+        [DisplayName("Other Dates And Venues Label")]
+        public string OtherDatesAndVenuesLabel { get; set; } = "Other venues and dates";
 
         [DisplayName("Find a course Page")]
         public string FindAcoursePage { get; set; } = "/find-a-course/home/";
@@ -60,16 +83,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string AssessmentMethodLabel { get; set; } = "Assessment method";
 
         [DisplayName("No Assessment Method Available Message")]
-        public string NoAssessmentMethodAvailableMessage { get; set; } = "Not available";
+        public string NoAssessmentMethodAvailableMessage { get; set; } = "Check with course provider";
 
         [DisplayName("Venue Details Label")]
         public string VenueLabel { get; set; } = "Venue";
 
-        [DisplayName("Other Dates And Venues Label")]
-        public string OtherDatesAndVenuesLabel { get; set; } = "Other dates and venues";
-
         [DisplayName("No Other Date Or Venue Available Message")]
-        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other date or venue available";
+        public string NoOtherDateOrVenueAvailableMessage { get; set; } = "No other venues or dates available";
 
         [DisplayName("Provider Details Label")]
         public string ProviderLabel { get; set; } = "Provider details";
@@ -89,8 +109,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Attendance Pattern Label")]
         public string AttendancePatternLabel { get; set; } = "Attendance pattern";
 
-        [DisplayName("Course Details - Price Label")]
-        public string PriceLabel { get; set; } = "Price";
+        [DisplayName("Course Details - Cost Label")]
+        public string PriceLabel { get; set; } = "Cost";
 
         [DisplayName("Course Details - Start Date Label")]
         public string StartDateLabel { get; set; } = "Course start date";
@@ -113,8 +133,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - course type Label")]
         public string CourseTypeLabel { get; set; } = "Course type";
 
-        [DisplayName("Course Details - Additional Price Label")]
-        public string AdditionalPriceLabel { get; set; } = "Additional price description";
+        [DisplayName("Course Hours - course hours Label")]
+        public string CourseHoursLabel { get; set; } = "Course hours";
+
+        [DisplayName("Course Details - Cost Description Label")]
+        public string AdditionalPriceLabel { get; set; } = "Cost description";
 
         [DisplayName("Course Details - funding Information Label")]
         public string FundingInformationLabel { get; set; } = "Funding information";
@@ -131,12 +154,18 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Funding Information Link")]
         public string FundingInformationLink { get; set; } = "https://www.gov.uk/advanced-learner-loan/overview";
 
-        public ActionResult Index(string courseId, string oppurtunity, string referralPath)
+        [DisplayName("Course Details - Location Label")]
+        public string LocationLabel { get; set; } = "Location";
+
+        #endregion
+
+        #region Actions
+        public ActionResult Index(string courseId, string r, string referralPath)
         {
             var viewModel = new CourseDetailsViewModel();
             if (!string.IsNullOrWhiteSpace(courseId))
             {
-                var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, oppurtunity));
+                var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, r));
                 if (courseDetails != null)
                 {
                     viewModel.FindACoursePage = FindAcoursePage;
@@ -148,6 +177,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
                     viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
                     viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
+                    viewModel.CourseDetailsLabel = CourseDetailsLabel;
                     viewModel.CourseDescriptionLabel = CourseDescriptionLabel;
                     viewModel.EntryRequirementsLabel = EntryRequirementsLabel;
                     viewModel.EquipmentRequiredLabel = EquipmentRequiredLabel;
@@ -158,7 +188,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.EmployerSatisfactionLabel = EmployerSatisfactionLabel;
                     viewModel.LearnerSatisfactionLabel = LearnerSatisfactionLabel;
                     viewModel.ProviderPerformanceLabel = ProviderPerformanceLabel;
-                    viewModel.CourseDetailsPage = CourseDetailsPage;
                     viewModel.ContactAdviserSection = ContactAdviserSection;
                     viewModel.QualificationNameLabel = QualificationNameLabel;
                     viewModel.QualificationLevelLabel = QualificationLevelLabel;
@@ -175,6 +204,15 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.FundingInformationLink = FundingInformationLink;
                     viewModel.FundingInformationText = FundingInformationText;
                     viewModel.LanguageOfInstructionLabel = LanguageOfInstructionLabel;
+                    viewModel.WhoThisCourseIsForLabel = WhoThisCourseIsForLabel;
+                    viewModel.WhatYoullLearn = WhatYoullLearn;
+                    viewModel.HowYoullLearn = HowYoullLearn;
+                    viewModel.WhatYoullNeedToBring = WhatYoullNeedToBring;
+                    viewModel.HowYoullBeAssessed = HowYoullBeAssessed;
+                    viewModel.NextSteps = NextSteps;
+                    viewModel.LocationLabel = LocationLabel;
+                    viewModel.CourseHoursLabel = CourseHoursLabel;
+                    viewModel.CourseDetailsPage = CourseDetailsPage;
                     return View(viewModel);
                 }
             }

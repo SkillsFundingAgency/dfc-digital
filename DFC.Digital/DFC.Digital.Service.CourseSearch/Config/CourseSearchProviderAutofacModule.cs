@@ -3,6 +3,7 @@ using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.FindACourseClient;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace DFC.Digital.Service.CourseSearchProvider
@@ -24,10 +25,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
-            builder.RegisterType<CourseSearchLogger>()
-                .As<Microsoft.Extensions.Logging.ILogger>()
-                .SingleInstance();
-
+            builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
+            builder.RegisterGeneric(typeof(CourseSearchLogger<>)).As(typeof(ILogger<>)).SingleInstance();
             builder.RegisterFindACourseClientSdk();
             builder.Register(c =>
             {
@@ -49,7 +48,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         ServiceEndpoint = new Uri(config.GetConfig<string>($"FAC.{nameof(CourseSearchSvcSettings)}.{nameof(CourseSearchSvcSettings.ServiceEndpoint)}")),
                     },
                 };
-            }).SingleInstance();
+            })
+            .AsSelf()
+            .SingleInstance();
         }
     }
 }

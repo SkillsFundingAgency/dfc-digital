@@ -5,15 +5,19 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <ol class="govuk-list govuk-list--number">
-                    <li><a class="govuk-link" href="#@nameof(Model.QualificationDetailsLabel)">@Model.QualificationDetailsLabel</a></li>
-                    <li><a class="govuk-link" href="#@nameof(Model.CourseDescriptionLabel)">@Model.CourseDescriptionLabel</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.CourseDetailsLabel)">@Model.CourseDetailsLabel</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.WhoThisCourseIsForLabel)">@Model.WhoThisCourseIsForLabel</a></li>
                     <li><a class="govuk-link" href="#@nameof(Model.EntryRequirementsLabel)">@Model.EntryRequirementsLabel</a></li>
-                    <li><a class="govuk-link" href="#@nameof(Model.EquipmentRequiredLabel)">@Model.EquipmentRequiredLabel</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.WhatYoullLearn)">@Model.WhatYoullLearn</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.HowYoullLearn)">@Model.HowYoullLearn</a></li>
+
                 </ol>
             </div>
             <div class="govuk-grid-column-one-half">
-                <ol class="govuk-list govuk-list--number" start="5">
-                    <li><a class="govuk-link" href="#@nameof(Model.AssessmentMethodLabel)">@Model.AssessmentMethodLabel</a></li>
+                <ol class="govuk-list govuk-list--number" start="6">
+                    <li><a class="govuk-link" href="#@nameof(Model.WhatYoullNeedToBring)">@Model.WhatYoullNeedToBring</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.HowYoullBeAssessed)">@Model.HowYoullBeAssessed</a></li>
+                    <li><a class="govuk-link" href="#@nameof(Model.NextSteps)">@Model.NextSteps</a></li>
                     <li><a class="govuk-link" href="#@nameof(Model.VenueLabel)">@Model.VenueLabel</a></li>
                     <li><a class="govuk-link" href="#@nameof(Model.OtherDatesAndVenuesLabel)">@Model.OtherDatesAndVenuesLabel</a></li>
                 </ol>
@@ -21,7 +25,7 @@
         </div>
     </nav>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <h2 class="govuk-heading-m" id="@nameof(Model.QualificationDetailsLabel)">1. @Model.QualificationDetailsLabel</h2>
+    <h2 class="govuk-heading-m" id="@nameof(Model.CourseDetailsLabel)">1. @Model.CourseDetailsLabel</h2>
     <table class="govuk-table k-table">
         <tbody class="govuk-table__body">
             @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.QualificationName))
@@ -67,26 +71,25 @@
                 </tr>
             }
 
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.StudyMode))
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header" scope="row">@Model.CourseTypeLabel</th>
+                <td class="govuk-table__cell">@Model.CourseDetails.AttendanceMode</td>
+            </tr>
+
+            @if (Model.CourseDetails.StudyMode != "Undefined")
             {
                 <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.CourseTypeLabel</th>
+                    <th class="govuk-table__header" scope="row">@Model.CourseHoursLabel</th>
                     <td class="govuk-table__cell">@Model.CourseDetails.StudyMode</td>
                 </tr>
             }
+
 
             @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.StartDateLabel))
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.StartDateLabel</th>
                     <td class="govuk-table__cell">@Model.CourseDetails.StartDateLabel</td>
-                </tr>
-            }
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.LanguageOfInstruction))
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.LanguageOfInstructionLabel</th>
-                    <td class="govuk-table__cell">@Model.CourseDetails.LanguageOfInstruction</td>
                 </tr>
             }
 
@@ -105,18 +108,8 @@
                     <td class="govuk-table__cell">@Model.CourseDetails.AdditionalPrice</td>
                 </tr>
             }
-
-            @if (Model.CourseDetails.AdvancedLearnerLoansOffered)
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.FundingInformationLabel</th>
-                    <td class="govuk-table__cell">
-                        <a href="@Model.FundingInformationLink" target="_blank">@Model.FundingInformationText</a>
-                    </td>
-                </tr>
-            }
-
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.AttendancePattern))
+          
+            @if (Model.CourseDetails.AttendancePattern != "Undefined")
             {
                 <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">@Model.AttendancePatternLabel</th>
@@ -124,13 +117,6 @@
                 </tr>
             }
 
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.SupportingFacilities))
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.SupportingFacilitiesLabel</th>
-                    <td class="govuk-table__cell">@Model.CourseDetails.SupportingFacilities</td>
-                </tr>
-            }
         </tbody>
     </table>
 
@@ -143,15 +129,23 @@
     <h2 class="govuk-heading-m" id="@nameof(Model.EntryRequirementsLabel)">3. @Model.EntryRequirementsLabel</h2>
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.EntryRequirements) ? @Model.CourseDetails.EntryRequirements : @Model.NoEntryRequirementsAvailableMessage)</p>
 
-    <h2 class="govuk-heading-m" id="@nameof(Model.EquipmentRequiredLabel)">4. @Model.EquipmentRequiredLabel</h2>
+    <h2 class="govuk-heading-m" id="@nameof(Model.WhatYoullLearn)">4. @Model.WhatYoullLearn</h2>
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.EquipmentRequired) ? @Model.CourseDetails.EquipmentRequired : @Model.NoEquipmentRequiredMessage)</p>
 
 
-    <h2 class="govuk-heading-m" id="@nameof(Model.AssessmentMethodLabel)">5. @Model.AssessmentMethodLabel</h2>
+    <h2 class="govuk-heading-m" id="@nameof(Model.HowYoullLearn)">5. @Model.HowYoullLearn</h2>
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
 
+    <h2 class="govuk-heading-m" id="@nameof(Model.WhatYoullNeedToBring)">6. @Model.WhatYoullNeedToBring</h2>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
 
-    <h2 class="govuk-heading-m" id="@nameof(Model.VenueLabel)">6. @Model.VenueLabel</h2>
+    <h2 class="govuk-heading-m" id="@nameof(Model.HowYoullBeAssessed)">7. @Model.HowYoullBeAssessed</h2>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
+
+    <h2 class="govuk-heading-m" id="@nameof(Model.NextSteps)">8. @Model.NextSteps</h2>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
+
+    <h2 class="govuk-heading-m" id="@nameof(Model.VenueLabel)">9. @Model.VenueLabel</h2>
     @if (Model.CourseDetails.VenueDetails != null)
     {
         <table class="govuk-table k-table">
@@ -192,7 +186,7 @@
                     </tr>
                 }
 
-                 
+
 
                 @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.EmailAddress))
                 {
@@ -232,7 +226,6 @@
     }
 
     @Html.Partial("OtherDatesAndVenues", Model)
-
 
     @if (!string.IsNullOrEmpty(Model.ReferralPath))
     {

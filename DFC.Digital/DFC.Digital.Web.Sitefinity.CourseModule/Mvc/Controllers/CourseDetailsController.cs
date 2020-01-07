@@ -76,14 +76,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Equipment Required Label")]
         public string EquipmentRequiredLabel { get; set; } = "Equipment required";
 
-        [DisplayName("No Equipment Required Message")]
-        public string NoEquipmentRequiredMessage { get; set; } = "No equipment required";
-
         [DisplayName("Assessment Method Label")]
         public string AssessmentMethodLabel { get; set; } = "Assessment method";
 
         [DisplayName("No Assessment Method Available Message")]
         public string NoAssessmentMethodAvailableMessage { get; set; } = "Check with course provider";
+
+        [DisplayName("No What You Will Learn Available Message")]
+        public string NoWhatYoullLearnAvailableMessage { get; set; } = "Check with course provider";
+
+        [DisplayName("No How You Will Learn Available Message")]
+        public string NoHowYoullLearnAvailableMessage { get; set; } = "Check with course provider";
+
+        [DisplayName("No Equipment Required Message")]
+        public string NoEquipmentRequiredMessage { get; set; } = "Check with course provider";
+
+        [DisplayName("No Next Steps Available Message")]
+        public string NoNextStepsAvailableMessage { get; set; } = "Check with course provider";
 
         [DisplayName("Venue Details Label")]
         public string VenueLabel { get; set; } = "Venue";
@@ -175,6 +184,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.NoEntryRequirementsAvailableMessage = NoEntryRequirementsAvailableMessage;
                     viewModel.NoEquipmentRequiredMessage = NoEquipmentRequiredMessage;
                     viewModel.NoAssessmentMethodAvailableMessage = NoAssessmentMethodAvailableMessage;
+                    viewModel.NoWhatYoullLearnAvailableMessage = NoWhatYoullLearnAvailableMessage;
+                    viewModel.NoHowYoullLearnAvailableMessage = NoHowYoullLearnAvailableMessage;
+                    viewModel.NoNextStepsAvailableMessage = NoNextStepsAvailableMessage;
                     viewModel.NoOtherDateOrVenueAvailableMessage = NoOtherDateOrVenueAvailableMessage;
                     viewModel.QualificationDetailsLabel = QualificationDetailsLabel;
                     viewModel.CourseDetailsLabel = CourseDetailsLabel;

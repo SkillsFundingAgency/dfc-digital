@@ -25,6 +25,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string NoAssessmentMethodAvailableMessage { get; set; }
 
+        public string NoWhatYoullLearnAvailableMessage { get; set; }
+
+        public string NoHowYoullLearnAvailableMessage { get; set; }
+
+        public string NoNextStepsAvailableMessage { get; set; }
+
         public string VenueLabel { get; set; }
 
         public string OtherDatesAndVenuesLabel { get; set; }

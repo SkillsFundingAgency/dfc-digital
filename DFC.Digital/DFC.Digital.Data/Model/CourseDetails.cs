@@ -33,5 +33,11 @@ namespace DFC.Digital.Data.Model
         public string SupportingFacilities { get; set; }
 
         public string LanguageOfInstruction { get; set; }
+
+        public string NextSteps { get; set; }
+
+        public string WhatYoullLearn { get; set; }
+
+        public string HowYoullLearn { get; set; }
     }
 }

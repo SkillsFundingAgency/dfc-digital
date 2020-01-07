@@ -130,20 +130,20 @@
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.EntryRequirements) ? @Model.CourseDetails.EntryRequirements : @Model.NoEntryRequirementsAvailableMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.WhatYoullLearn)">4. @Model.WhatYoullLearn</h2>
-    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.EquipmentRequired) ? @Model.CourseDetails.EquipmentRequired : @Model.NoEquipmentRequiredMessage)</p>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.WhatYoullLearn) ? @Model.CourseDetails.WhatYoullLearn : @Model.NoWhatYoullLearnAvailableMessage)</p>
 
 
     <h2 class="govuk-heading-m" id="@nameof(Model.HowYoullLearn)">5. @Model.HowYoullLearn</h2>
-    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.HowYoullLearn) ? @Model.CourseDetails.HowYoullLearn : @Model.NoHowYoullLearnAvailableMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.WhatYoullNeedToBring)">6. @Model.WhatYoullNeedToBring</h2>
-    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.EquipmentRequired) ? @Model.CourseDetails.EquipmentRequired : @Model.NoEquipmentRequiredMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.HowYoullBeAssessed)">7. @Model.HowYoullBeAssessed</h2>
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.NextSteps)">8. @Model.NextSteps</h2>
-    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.AssessmentMethod) ? @Model.CourseDetails.AssessmentMethod : @Model.NoAssessmentMethodAvailableMessage)</p>
+    <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.NextSteps) ? @Model.CourseDetails.NextSteps : @Model.NoNextStepsAvailableMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.VenueLabel)">9. @Model.VenueLabel</h2>
     @if (Model.CourseDetails.VenueDetails != null)

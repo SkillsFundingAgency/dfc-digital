@@ -39,5 +39,9 @@ namespace DFC.Digital.Data.Model
         public string WhatYoullLearn { get; set; }
 
         public string HowYoullLearn { get; set; }
+
+        public IList<CourseRegion> CourseRegions { get; set; }
+
+        public bool National { get; set; }
     }
 }

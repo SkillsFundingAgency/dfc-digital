@@ -328,6 +328,7 @@
   <ItemGroup>
     <Compile Include="Config\CourseCostConverter.cs" />
     <Compile Include="Config\CourseHoursConverter.cs" />
+    <Compile Include="Config\CourseRegionsConverter.cs" />
     <Compile Include="Config\CourseSearchApiAutomapperProfile.cs" />
     <Compile Include="Config\CourseSearchProviderAutofacModule.cs" />
     <Compile Include="Config\CourseTypeConverter.cs" />

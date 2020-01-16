@@ -20,6 +20,8 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 .ReverseMap()
                 ;
 
+            CreateMap<FAC.Venue, Venue>();
+
             CreateMap<FAC.CourseDetails, CourseDetails>()
                 .ForSourceMember(s => s.SubRegions, o => o.DoNotValidate())
                 .ForMember(c => c.Cost, d => d.ConvertUsing(new CourseCostConverter()))

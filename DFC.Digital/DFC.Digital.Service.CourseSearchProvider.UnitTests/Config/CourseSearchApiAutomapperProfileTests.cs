@@ -36,27 +36,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             mapped.Cost.Should().BeEquivalentTo(expectedFormatedCost);
         }
-    }
-}
-using AutoMapper;
-using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Data.Model;
-using DFC.Digital.Service.CourseSearchProvider.CourseSearchServiceApi;
-using FakeItEasy;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using Xunit;
-using FAC = DFC.FindACourseClient;
 
-namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
-{
-    public class CourseSearchApiAutomapperProfileTests
-    {
         [Fact]
         public void AutoMapperProfileCourseRegionsConverter()
         {

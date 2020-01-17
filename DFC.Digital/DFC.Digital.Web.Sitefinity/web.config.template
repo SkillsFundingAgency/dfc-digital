@@ -565,7 +565,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Autofac.Integration.Owin" publicKeyToken="17863af14b0044da" culture="neutral" />
@@ -653,23 +653,23 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -756,7 +756,7 @@
       </parameters>
     </defaultConnectionFactory>
     <providers>
-      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"/>
     </providers>
   </entityFramework>
   <system.codedom>

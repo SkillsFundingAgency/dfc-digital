@@ -129,10 +129,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
             };
 
+            CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;
             if (!filtersInput.IsDistanceLocation)
             {
                 filtersInput.Town = filtersInput.Postcode;
                 filtersInput.Postcode = null;
+
+                //Make CD API behave the same way as tribal if there is no postcode, the order by relevence if distance is selected.
+                if (inputSearchProperties.OrderedBy == CourseSearchOrderBy.Distance)
+                {
+                    inputSearchProperties.OrderedBy = CourseSearchOrderBy.Relevance;
+                }
             }
 
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
@@ -148,16 +155,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 if (DateTime.TryParse(combinedDate, out DateTime result))
                 {
                     courseSearchProperties.Filters.StartDateFrom = result;
-                }
-
-                CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;
-                if (string.IsNullOrEmpty(filtersInput.Town))
-                {
-                    //Make CD API behave the same way as tribal if there is no postcode, the order by relevence if distance is selected.
-                    if (inputSearchProperties.OrderedBy == CourseSearchOrderBy.Distance)
-                    {
-                        inputSearchProperties.OrderedBy = CourseSearchOrderBy.Relevance;
-                    }
                 }
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));

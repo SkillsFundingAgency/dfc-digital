@@ -84,6 +84,8 @@ namespace DFC.Digital.Core
 
         //Sitefinity page properties
         public const string Pages = "Pages";
+        public const string AlertPages = "Alerts";
+        public const string AlertPagesTitle = "Error";
 
         //Sitefinity event properties
         public const string DynamicProvider = "dynamicProvider2";

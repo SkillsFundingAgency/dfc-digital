@@ -51,14 +51,7 @@
                 </tr>
             }
 
-            @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.SubjectCategory))
-            {
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">@Model.SubjectCategoryLabel</th>
-                    <td class="govuk-table__cell">@Model.CourseDetails.SubjectCategory</td>
-                </tr>
-            }
-
+           
             @if (!string.IsNullOrWhiteSpace(Model.CourseDetails.CourseWebpageLink))
             {
                 <tr class="govuk-table__row">

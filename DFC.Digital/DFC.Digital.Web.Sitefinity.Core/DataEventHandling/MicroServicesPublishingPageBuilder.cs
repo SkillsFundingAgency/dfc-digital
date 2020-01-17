@@ -108,11 +108,18 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 LastModified = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
                 ContentPageId = pageNode.Id,
                 Category = pageNode.Parent.Title != Digital.Core.Constants.Pages ? pageNode.Parent.UrlName : pageNode.UrlName,
-                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
+                BreadcrumbTitle = GetBreadcrumbData(pageNode, pageData),
                 Description = sitefinityPageDataProxy.GetDescription(pageData),
                 Keywords = sitefinityPageDataProxy.GetKeywords(pageData),
                 Title = sitefinityPageDataProxy.GetHtmlTitle(pageData)
             };
+        }
+
+        private string GetBreadcrumbData(PageNode pageNode, PageData pageData)
+        {
+            return pageNode.Parent.Title == Digital.Core.Constants.Pages
+                ? (string)pageNode.UrlName
+                : pageNode.Parent.Title == Digital.Core.Constants.AlertPages ? Digital.Core.Constants.AlertPagesTitle : (string)pageNode.Parent.UrlName;
         }
     }
 }

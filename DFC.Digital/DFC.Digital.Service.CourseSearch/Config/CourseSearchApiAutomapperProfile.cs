@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Data.Model;
+using System.Collections.Generic;
 using FAC = DFC.FindACourseClient;
 
 namespace DFC.Digital.Service.CourseSearchProvider
@@ -19,9 +20,9 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 .ReverseMap()
                 ;
 
-            CreateMap<FAC.Venue, Venue>();
             CreateMap<FAC.CourseDetails, CourseDetails>()
-                .ForSourceMember(s => s.SubRegions, o => o.DoNotValidate());
+                .ForSourceMember(s => s.SubRegions, o => o.DoNotValidate())
+                .ForMember(d => d.CourseRegions, o => o.ConvertUsing(new CourseRegionsConverter(), src => src.SubRegions));
 
             CreateMap<FAC.Course, Course>();
             CreateMap<FAC.CourseSearchResult, CourseSearchResult>();

@@ -101,7 +101,7 @@
                     <td class="govuk-table__cell">@Model.CourseDetails.AdditionalPrice</td>
                 </tr>
             }
-          
+
             @if (Model.CourseDetails.AttendancePattern != "Undefined")
             {
                 <tr class="govuk-table__row">
@@ -139,83 +139,104 @@
     <p class="govuk-body">@(!string.IsNullOrWhiteSpace(@Model.CourseDetails.NextSteps) ? @Model.CourseDetails.NextSteps : @Model.NoNextStepsAvailableMessage)</p>
 
     <h2 class="govuk-heading-m" id="@nameof(Model.VenueLabel)">9. @Model.VenueLabel</h2>
-    @if (Model.CourseDetails.VenueDetails != null)
+    @if (Model.CourseDetails.AttendanceMode == "Work based")
     {
-        <table class="govuk-table k-table">
-            <tbody class="govuk-table__body">
-
-                <tr class="govuk-table__row">
-                    <th class="govuk-table__header" scope="row">Name</th>
-                    <td class="govuk-table__cell">
-                        @Model.CourseDetails.VenueDetails.VenueName
-                    </td>
-                </tr>
-
-                @if (Model.CourseDetails.VenueDetails.Location != null)
-                {
+        if (Model.CourseDetails.National)
+        {
+            <p class="govuk-body" id="@nameof(Model.NationalWorkBasedText)">@Model.NationalWorkBasedText</p>
+        }
+        else
+        { 
+            foreach (var r in Model.CourseDetails.CourseRegions)
+            {
+                <details class="govuk-details" id="@nameof(Model.CourseDetails.CourseRegions)" data-module="govuk-details">
+                    <summary class="govuk-details__summary">
+                        <span class="govuk-details__summary-text">@r.Region</span>
+                    </summary>
+                    <div class="govuk-details__text">@r.Area</div>
+                </details>
+            }
+        }
+    }
+    else
+    {
+        if (Model.CourseDetails.VenueDetails != null)
+        {
+            <table class="govuk-table k-table">
+                <tbody class="govuk-table__body">
 
                     <tr class="govuk-table__row">
-                        <th class="govuk-table__header" scope="row">Address</th>
+                        <th class="govuk-table__header" scope="row">Name</th>
                         <td class="govuk-table__cell">
-                            @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.AddressLine1))
-                            {
-                                @Model.CourseDetails.VenueDetails.Location.AddressLine1<br />
-                            }
-                            @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.AddressLine2))
-                            {
-                                @Model.CourseDetails.VenueDetails.Location.AddressLine2<br />
-                            }
-                            @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.County))
-                            {
-                                @Model.CourseDetails.VenueDetails.Location.County<br />
-                            }
-                            @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.Postcode))
-                            {
-                                @Model.CourseDetails.VenueDetails.Location.Postcode<br />
-                            }
-
-                            <a class="govuk-link" target="_blank" href="https://maps.google.com/?q=@Model.CourseDetails.VenueDetails.Location.Latitude,@Model.CourseDetails.VenueDetails.Location.Longitude">Find on Google maps</a>
+                            @Model.CourseDetails.VenueDetails.VenueName
                         </td>
                     </tr>
-                }
+
+                    @if (Model.CourseDetails.VenueDetails.Location != null)
+                    {
+
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header" scope="row">Address</th>
+                            <td class="govuk-table__cell">
+                                @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.AddressLine1))
+                                {
+                                    @Model.CourseDetails.VenueDetails.Location.AddressLine1<br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.AddressLine2))
+                                {
+                                    @Model.CourseDetails.VenueDetails.Location.AddressLine2<br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.County))
+                                {
+                                    @Model.CourseDetails.VenueDetails.Location.County<br />
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.Postcode))
+                                {
+                                    @Model.CourseDetails.VenueDetails.Location.Postcode<br />
+                                }
+
+                                <a class="govuk-link" target="_blank" href="https://maps.google.com/?q=@Model.CourseDetails.VenueDetails.Location.Latitude,@Model.CourseDetails.VenueDetails.Location.Longitude">Find on Google maps</a>
+                            </td>
+                        </tr>
+                    }
 
 
 
-                @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.EmailAddress))
-                {
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">Email</th>
-                        <td class="govuk-table__cell govuk-body-s"><a href="mailto:@Model.CourseDetails.VenueDetails.EmailAddress" style="word-break:break-all;">@Model.CourseDetails.VenueDetails.EmailAddress</a> </td>
-                    </tr>
-                }
+                    @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.EmailAddress))
+                    {
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header">Email</th>
+                            <td class="govuk-table__cell govuk-body-s"><a href="mailto:@Model.CourseDetails.VenueDetails.EmailAddress" style="word-break:break-all;">@Model.CourseDetails.VenueDetails.EmailAddress</a> </td>
+                        </tr>
+                    }
 
-                @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.PhoneNumber))
-                {
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">Phone</th>
-                        <td class="govuk-table__cell govuk-body-s">@Model.CourseDetails.VenueDetails.PhoneNumber</td>
-                    </tr>
-                }
+                    @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.PhoneNumber))
+                    {
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header">Phone</th>
+                            <td class="govuk-table__cell govuk-body-s">@Model.CourseDetails.VenueDetails.PhoneNumber</td>
+                        </tr>
+                    }
 
-                @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.Fax))
-                {
-                    <tr class="govuk-table__row">
-                        <th class="govuk-table__header">Fax</th>
-                        <td class="govuk-table__cell govuk-body-s">@Model.CourseDetails.VenueDetails.Fax</td>
-                    </tr>
-                }
-                @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.Website))
-                {
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__header">Website</td>
-                        <td class="govuk-table__cell">
-                            <a class="govuk-link govuk-body-s" target="_blank" href="@Model.CourseDetails.VenueDetails.Website" style="word-break:break-all;">@Model.CourseDetails.VenueDetails.Website</a>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
+                    @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.Fax))
+                    {
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header">Fax</th>
+                            <td class="govuk-table__cell govuk-body-s">@Model.CourseDetails.VenueDetails.Fax</td>
+                        </tr>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.CourseDetails.VenueDetails.Website))
+                    {
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__header">Website</td>
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-body-s" target="_blank" href="@Model.CourseDetails.VenueDetails.Website" style="word-break:break-all;">@Model.CourseDetails.VenueDetails.Website</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     }
 
     @Html.Partial("OtherDatesAndVenues", Model)

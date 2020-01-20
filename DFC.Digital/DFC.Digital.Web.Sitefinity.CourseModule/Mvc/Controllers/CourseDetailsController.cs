@@ -166,6 +166,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - Location Label")]
         public string LocationLabel { get; set; } = "Location";
 
+        [DisplayName("Course Details - National work based text")]
+        public string NationalWorkBasedText { get; set; } = "This course is available anywhere in England";
+
         #endregion
 
         #region Actions
@@ -225,6 +228,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.LocationLabel = LocationLabel;
                     viewModel.CourseHoursLabel = CourseHoursLabel;
                     viewModel.CourseDetailsPage = CourseDetailsPage;
+                    viewModel.NationalWorkBasedText = NationalWorkBasedText;
                     return View(viewModel);
                 }
             }

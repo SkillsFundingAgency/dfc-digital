@@ -369,7 +369,6 @@
     <None Include="..\DFC.Digital.CodeAnalysis.ruleset">
       <Link>DFC.Digital.CodeAnalysis.ruleset</Link>
     </None>
-    <None Include="app.config" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.wsdl" />
     <None Include="Connected Services\CourseSearchServiceApi\CourseSearchService.xsd">
       <SubType>Designer</SubType>

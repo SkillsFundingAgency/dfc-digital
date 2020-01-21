@@ -146,7 +146,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseHoursLabel { get; set; } = "Course hours";
 
         [DisplayName("Course Details - Cost Description Label")]
-        public string AdditionalPriceLabel { get; set; } = "Cost description";
+        public string CostDescriptionLabel { get; set; } = "Cost description";
 
         [DisplayName("Course Details - funding Information Label")]
         public string FundingInformationLabel { get; set; } = "Funding information";
@@ -212,7 +212,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.CourseTypeLabel = CourseTypeLabel;
                     viewModel.StartDateLabel = StartDateLabel;
                     viewModel.PriceLabel = PriceLabel;
-                    viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
+                    viewModel.AdditionalPriceLabel = CostDescriptionLabel;
                     viewModel.FundingInformationLabel = FundingInformationLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
                     viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;

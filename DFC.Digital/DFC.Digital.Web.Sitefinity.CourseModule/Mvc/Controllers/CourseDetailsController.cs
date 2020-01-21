@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string QualificationDetailsLabel { get; set; } = "Qualification details";
 
         [DisplayName("Course Description Label")]
-        public string CourseDescriptionLabel { get; set; } = "Course description";
+        public string CourseDescriptionLabel { get; set; } = "Who this course is for";
 
         [DisplayName("No Course Description Message")]
         public string NoCourseDescriptionMessage { get; set; } = "No course description available";

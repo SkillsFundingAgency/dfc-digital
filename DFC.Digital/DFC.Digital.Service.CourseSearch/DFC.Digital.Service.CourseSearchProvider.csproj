@@ -326,6 +326,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\CourseCostConverter.cs" />
     <Compile Include="Config\CourseHoursConverter.cs" />
     <Compile Include="Config\CourseRegionsConverter.cs" />
     <Compile Include="Config\CourseSearchApiAutomapperProfile.cs" />

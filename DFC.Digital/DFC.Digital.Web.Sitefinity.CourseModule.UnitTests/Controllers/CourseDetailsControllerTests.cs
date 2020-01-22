@@ -94,7 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 LearnerSatisfactionLabel = learnerSatisfactionLabel,
                 ProviderPerformanceLabel = providerPerformanceLabel,
                 ContactAdviserSection = contactAdviserSection,
-                AdditionalPriceLabel = additionalPriceLabel,
+                CostDescriptionLabel = additionalPriceLabel,
                 AttendancePatternLabel = attendancePatternLabel,
                 AwardingOrganisationLabel = awardingOrganisationLabel,
                 CourseTypeLabel = courseTypeLabel,
@@ -147,7 +147,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     vm.EmployerSatisfactionLabel.Should().BeEquivalentTo(controller.EmployerSatisfactionLabel);
                     vm.LearnerSatisfactionLabel.Should().BeEquivalentTo(controller.LearnerSatisfactionLabel);
                     vm.ProviderPerformanceLabel.Should().BeEquivalentTo(controller.ProviderPerformanceLabel);
-                    vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.AdditionalPriceLabel);
+                    vm.AdditionalPriceLabel.Should().BeEquivalentTo(controller.CostDescriptionLabel);
                     vm.AttendancePatternLabel.Should().BeEquivalentTo(controller.AttendancePatternLabel);
                     vm.AwardingOrganisationLabel.Should().BeEquivalentTo(controller.AwardingOrganisationLabel);
                     vm.CourseTypeLabel.Should().BeEquivalentTo(controller.CourseTypeLabel);

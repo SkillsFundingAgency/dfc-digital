@@ -23,7 +23,10 @@
                     </h3>
                     <ul class="list">
                         <li><span class="bold-small">Provider:</span> @trainingCourse.ProviderName</li>
-                        <li><span class="bold-small">Start date:</span> @trainingCourse.StartDate.ToString("dd MMMM yyyy")</li>
+                        @if (@trainingCourse.StartDate != null)
+                        {
+                            <li><span class="bold-small">Start date:</span> @trainingCourse.StartDate.ToString("dd MMMM yyyy")</li>
+                        }
                         <li><span class="bold-small">Location:</span> @trainingCourse.Location</li>
                     </ul>
                 </div>

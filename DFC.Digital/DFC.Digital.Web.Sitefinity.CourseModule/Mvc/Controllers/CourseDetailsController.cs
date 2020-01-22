@@ -62,7 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string QualificationDetailsLabel { get; set; } = "Qualification details";
 
         [DisplayName("Course Description Label")]
-        public string CourseDescriptionLabel { get; set; } = "Course description";
+        public string CourseDescriptionLabel { get; set; } = "Who this course is for";
 
         [DisplayName("No Course Description Message")]
         public string NoCourseDescriptionMessage { get; set; } = "No course description available";
@@ -146,7 +146,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseHoursLabel { get; set; } = "Course hours";
 
         [DisplayName("Course Details - Cost Description Label")]
-        public string AdditionalPriceLabel { get; set; } = "Cost description";
+        public string CostDescriptionLabel { get; set; } = "Cost description";
 
         [DisplayName("Course Details - funding Information Label")]
         public string FundingInformationLabel { get; set; } = "Funding information";
@@ -165,6 +165,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Course Details - Location Label")]
         public string LocationLabel { get; set; } = "Location";
+
+        [DisplayName("Course Details - National work based text")]
+        public string NationalWorkBasedText { get; set; } = "This course is available anywhere in England";
 
         #endregion
 
@@ -209,7 +212,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.CourseTypeLabel = CourseTypeLabel;
                     viewModel.StartDateLabel = StartDateLabel;
                     viewModel.PriceLabel = PriceLabel;
-                    viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
+                    viewModel.AdditionalPriceLabel = CostDescriptionLabel;
                     viewModel.FundingInformationLabel = FundingInformationLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
                     viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;
@@ -225,6 +228,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.LocationLabel = LocationLabel;
                     viewModel.CourseHoursLabel = CourseHoursLabel;
                     viewModel.CourseDetailsPage = CourseDetailsPage;
+                    viewModel.NationalWorkBasedText = NationalWorkBasedText;
                     return View(viewModel);
                 }
             }

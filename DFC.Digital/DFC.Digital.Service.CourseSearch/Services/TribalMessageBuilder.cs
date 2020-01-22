@@ -39,7 +39,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         ProviderKeyword = courseSearchProperties.Filters.Provider,
                         Distance = courseSearchProperties.Filters.DistanceSpecified ? courseSearchProperties.Filters.Distance : default(float),
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,
-                        Location = courseSearchProperties.Filters.Postcode
+                        Location = courseSearchProperties.Filters.Location
                     },
                     RecordsPerPage = courseSearchProperties.Count.ToString(),
                     PageNo = courseSearchProperties.Page.ToString(),

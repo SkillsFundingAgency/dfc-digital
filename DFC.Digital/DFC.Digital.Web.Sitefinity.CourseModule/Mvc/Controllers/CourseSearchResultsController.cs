@@ -132,14 +132,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;
             if (!filtersInput.IsDistanceLocation)
             {
-                filtersInput.Town = filtersInput.Postcode;
-                filtersInput.Postcode = null;
+                filtersInput.Town = filtersInput.Location;
 
                 //Make CD API behave the same way as tribal if there is no postcode, the order by relevence if distance is selected.
                 if (inputSearchProperties.OrderedBy == CourseSearchOrderBy.Distance)
                 {
                     inputSearchProperties.OrderedBy = CourseSearchOrderBy.Relevance;
                 }
+            }
+            else
+            {
+                filtersInput.Postcode = filtersInput.Location;
             }
 
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
@@ -192,7 +195,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Postcode = courseSearchFilters.Postcode.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Town = courseSearchFilters.Town.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }

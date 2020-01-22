@@ -39,6 +39,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 //Published
                 return MicroServicesDataEventAction.PublishedOrUpdated;
             }
+            else if (workFlowStatus == Constants.WorkflowStatusDraft && itemStatus == Constants.ItemStatusMaster)
+            {
+                return MicroServicesDataEventAction.Draft;
+            }
 
             return MicroServicesDataEventAction.Ignored;
         }

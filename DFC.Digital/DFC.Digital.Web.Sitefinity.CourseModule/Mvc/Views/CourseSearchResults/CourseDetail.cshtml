@@ -10,7 +10,8 @@
             <span class="govuk-secondary-colour">@Model.ProviderLabel</span> @Model.Course.ProviderName
         </li>
 
-        @if (Model.Course.LocationDetails != null)
+        @* Add logic here so location appears on CLASSROOM BASED courses as full venue address. The subregion will be shown on WORK BASED courses. This field SHOULD NOT appear on ONLINE courses. *@
+        @if (!String.IsNullOrEmpty(Model.Course.LocationDetails?.LocationAddress))
         {
             <li>
                 <span class="govuk-secondary-colour">@Model.LocationLabel</span> @Model.Course.LocationDetails.LocationAddress @(Model.Course.LocationDetails.Distance.Equals(default(float)) ? string.Empty : $"({Model.Course.LocationDetails.Distance} miles)" )
@@ -19,10 +20,6 @@
 
         <li>
             <span class="govuk-secondary-colour">@Model.StartDateLabel</span> @Model.Course.StartDateLabel
-        </li>
-
-        <li>
-            <span class="govuk-secondary-colour">@Model.AdvancedLoanProviderLabel</span> @(Model.Course.AdvancedLearnerLoansOffered ? "Yes" : "No")
         </li>
     </ul>
 </div>

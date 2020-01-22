@@ -292,6 +292,7 @@
     <Content Include="Mvc\Views\CourseSearchResults\ActiveFilters.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\CourseSearchResults\DesignerView.Simple.json" />
+    <Content Include="libman.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

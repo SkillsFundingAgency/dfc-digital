@@ -213,6 +213,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     {
                         AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
                         AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        Town = nameof(CourseDetails.VenueDetails.Location.Town),
                         County = nameof(CourseDetails.VenueDetails.Location.County),
                         Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
                     },
@@ -244,6 +245,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2)).Should().BeTrue();
+                htmlDocument.DocumentNode.Descendants("td")
+            .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Town)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode)).Should().BeTrue();

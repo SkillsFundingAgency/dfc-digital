@@ -54,9 +54,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
             }
 
-            if (!string.IsNullOrWhiteSpace(viewModel.Postcode))
+            if (!string.IsNullOrWhiteSpace(viewModel.Location))
             {
-                AssertTagInnerTextValue(htmlDom, viewModel.Postcode, "p");
+                AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
             }
 
             if (!string.IsNullOrWhiteSpace(viewModel.Provider))
@@ -240,7 +240,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             AssertTagInnerTextValue(htmlDom, viewModel.CourseHoursSectionText, "h2");
             AssertTagInnerTextValue(htmlDom, viewModel.CourseTypeSectionText, "h2");
             AssertTagInnerTextValue(htmlDom, viewModel.ApplyFiltersText, "button");
-            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Postcode));
+            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Location));
             AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Provider));
             AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseHours), "radio");
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseHours.ToString());

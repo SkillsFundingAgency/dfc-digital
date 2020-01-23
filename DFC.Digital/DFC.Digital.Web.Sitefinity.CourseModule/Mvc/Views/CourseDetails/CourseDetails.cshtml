@@ -186,6 +186,10 @@
                                 {
                                     @Model.CourseDetails.VenueDetails.Location.AddressLine2<br />
                                 }
+                                @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.Town))
+                                {
+                                    @Model.CourseDetails.VenueDetails.Location.Town<br />
+                                }
                                 @if (!string.IsNullOrWhiteSpace(@Model.CourseDetails.VenueDetails.Location.County))
                                 {
                                     @Model.CourseDetails.VenueDetails.Location.County<br />

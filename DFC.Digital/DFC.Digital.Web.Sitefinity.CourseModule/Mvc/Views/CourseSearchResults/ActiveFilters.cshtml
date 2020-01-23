@@ -31,7 +31,7 @@
 
         </div>
     </div>
-    @if (!string.IsNullOrWhiteSpace(Model.Postcode))
+    @if (!string.IsNullOrWhiteSpace(Model.Location))
     {
         <div class="facet-tags__group">
             <div class="facet-tags__wrapper">
@@ -45,7 +45,7 @@
                }
 
                <div class="facet-tag-inline">
-                    <p class="facet-tag__text govuk-body">@Model.Postcode</p>
+                    <p class="facet-tag__text govuk-body">@Model.Location</p>
                 </div>
 
             </div>

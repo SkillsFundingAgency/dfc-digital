@@ -1,0 +1,5 @@
+{
+    "SearchIndex": "__jobProfileSearchIndex__",
+    "SearchServiceName": "__searchServiceName__",
+    "AccessKey": "__searchServiceQueryApiKey__"
+}

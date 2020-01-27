@@ -43,6 +43,74 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Theory]
+        [InlineData("", false)]
+        [InlineData(null, false)]
+        [InlineData("LocationOne", true)]
+        public void LocationNullTests(string location, bool shouldBeShown)
+        {
+            //Arrange
+            var index = new _MVC_Views_JobProfileCourseOpportunity_Index_cshtml();
+            var testCourse = new Course() { Location = location };
+            var courses = new List<Course>
+            {
+                testCourse
+            };
+
+            var jobProfileApprenticeViewModel = new JobProfileCourseSearchViewModel();
+            jobProfileApprenticeViewModel.Courses = courses.AsEnumerable();
+
+            //Act
+            var htmlDom = index.RenderAsHtml(jobProfileApprenticeViewModel);
+
+            //Assert
+            if (shouldBeShown)
+            {
+                htmlDom.DocumentNode.InnerHtml.Should().Contain($"Location:</span> {testCourse.Location}");
+            }
+            else
+            {
+                htmlDom.DocumentNode.InnerHtml.Should().NotContain($"Location:");
+            }
+        }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData(true)]
+        public void StartDateNullTests(bool startDateIsNotNull)
+        {
+            DateTime? startDate = null;
+
+            if (startDateIsNotNull)
+            {
+                startDate = DateTime.Now;
+            }
+
+            //Arrange
+            var index = new _MVC_Views_JobProfileCourseOpportunity_Index_cshtml();
+            var testCourse = new Course() { StartDate = startDate };
+            var courses = new List<Course>
+            {
+                testCourse
+            };
+
+            var jobProfileApprenticeViewModel = new JobProfileCourseSearchViewModel();
+            jobProfileApprenticeViewModel.Courses = courses.AsEnumerable();
+
+            //Act
+            var htmlDom = index.RenderAsHtml(jobProfileApprenticeViewModel);
+
+            //Assert
+            if (startDateIsNotNull)
+            {
+                htmlDom.DocumentNode.InnerHtml.Should().Contain($"Start date:</span> {string.Format("{0:dd MMMM yyyy}", startDate)}");
+            }
+            else
+            {
+                htmlDom.DocumentNode.InnerHtml.Should().NotContain($"Start date:");
+            }
+        }
+
         public JobProfileCourseSearchViewModel GenerateJobProfileApprenticeshipTrainingCourseViewModel(int courseCount)
         {
             return new JobProfileCourseSearchViewModel
@@ -80,7 +148,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 {
                     Title = opportunity.Descendants("h3").FirstOrDefault()?.Descendants("a").FirstOrDefault()?.InnerText,
                     Location = opportunity.Descendants("li").ElementAt(2)?.InnerText.Substring(opportunity.Descendants("li").ElementAt(2).InnerText.IndexOf(":", StringComparison.Ordinal) + 1).Trim(),
-                    CourseId = opportunity.Descendants("h3").FirstOrDefault()?.Descendants("a").FirstOrDefault()?.GetAttributeValue("href", string.Empty),
+                    CourseId = opportunity.Descendants("h3").FirstOrDefault()?.Descendants("a").FirstOrDefault()?.GetAttributeValue("href", string.Empty).Replace("&amp;r=", string.Empty),
                     StartDate = Convert.ToDateTime(opportunity.Descendants("li").ElementAt(1)?.InnerText.Substring(opportunity.Descendants("li").ElementAt(1).InnerText.IndexOf(":", StringComparison.Ordinal) + 1).Trim()),
                     ProviderName = opportunity.Descendants("li").ElementAt(0)?.InnerText.Substring(opportunity.Descendants("li").ElementAt(0).InnerText.IndexOf(":", StringComparison.Ordinal) + 1).Trim(),
                 };

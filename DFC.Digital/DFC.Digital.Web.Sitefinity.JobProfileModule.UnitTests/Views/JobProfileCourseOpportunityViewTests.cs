@@ -43,6 +43,25 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Fact]
+        public void LocationAndPostcodeNullTests()
+        {
+            //Arrange
+            var index = new _MVC_Views_JobProfileCourseOpportunity_Index_cshtml();
+            var testCourse = new Course() { Location = "LocationOne" };
+            var courses = new List<Course>();
+            courses.Add(testCourse);
+
+            var jobProfileApprenticeViewModel = new JobProfileCourseSearchViewModel();
+            jobProfileApprenticeViewModel.Courses = courses.AsEnumerable();
+
+            //Act
+            var htmlDom = index.RenderAsHtml(jobProfileApprenticeViewModel);
+
+            //Assert
+            //GetCoursesSectionTitleDetailsText(htmlDom).Should().Contain($"Location:</span> {testCourse.Location}");
+        }
+
         public JobProfileCourseSearchViewModel GenerateJobProfileApprenticeshipTrainingCourseViewModel(int courseCount)
         {
             return new JobProfileCourseSearchViewModel

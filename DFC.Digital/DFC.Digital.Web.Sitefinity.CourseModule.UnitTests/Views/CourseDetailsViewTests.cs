@@ -4,6 +4,7 @@ using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -307,6 +308,45 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
+        public void OtherVenuesStartdatesTest(bool startDateIsNull)
+        {
+            //Arrange
+            var startDate = DateTime.Now;
+
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OtherDatesAndVenues_cshtml();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            var courseDetails = new CourseDetails();
+
+            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails.Oppurtunities = new System.Collections.Generic.List<Oppurtunity>();
+            var otherDatesAndVenues = new Oppurtunity();
+            if (!startDateIsNull)
+            {
+                otherDatesAndVenues.StartDate = startDate;
+            }
+
+            courseDetailsViewModel.CourseDetails.Oppurtunities.Add(otherDatesAndVenues);
+
+            // Act
+            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
+
+            var expectedStartDate = $"{string.Format("{0:dd MMMM yyyy}", startDate)}";
+            var dateCell = htmlDocument.DocumentNode.SelectNodes("//table[1]/tbody/tr[2]/td[2]").FirstOrDefault().InnerText;
+
+            // Assert
+          if (startDateIsNull)
+            {
+               dateCell.Should().NotContain(expectedStartDate);
+            }
+            else
+            {
+                dateCell.Should().Contain(expectedStartDate);
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
         public void ShowProviderDetailsNameTest(bool providerDetailsExist)
         {
             // Arrange
@@ -579,7 +619,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         {
                             new Oppurtunity
                             {
-                                StartDate = nameof(Oppurtunity.StartDate),
+                                StartDate = DateTime.Now,
                                 OppurtunityId = nameof(Oppurtunity.OppurtunityId),
                                 VenueName = nameof(Oppurtunity.VenueName), VenueUrl = nameof(Oppurtunity.VenueName)
                             }

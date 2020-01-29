@@ -1,10 +1,12 @@
-﻿namespace DFC.Digital.Data.Model
+﻿using System;
+
+namespace DFC.Digital.Data.Model
 {
     public class Oppurtunity
     {
         public string VenueName { get; set; }
 
-        public string StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         public string OppurtunityId { get; set; }
 

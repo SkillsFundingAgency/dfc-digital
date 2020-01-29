@@ -173,7 +173,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
         {
             return apiCourseDetail.Opportunity.Where(op => op.OpportunityId != oppurtunityId).Select(opp => new Oppurtunity
             {
-                StartDate = opp.StartDate.Item,
+                StartDate = DateTime.Parse(opp.StartDate.Item),
                 OppurtunityId = opp.OpportunityId,
                 VenueName = apiCourseDetail.Venue.Where(venue => venue.VenueID == opp.Items[0]).FirstOrDefault().VenueName
             }).ToList();

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="LayoutCtrl">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{siteName}</title>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+        }
+        form {
+            margin: 0 auto;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            padding: 40px 50px;
+            width: 430px;
+            min-height: 430px;
+            background-color: #fff;
+        }
+    </style>
+    {stylesheets}
+    <script src="content/app/webfont-loader-top.js"></script>
+</head>
+<body ng-cloak>
+    <div class="sf-authentication-screen">
+        <h1 class="sf-logo"></h1>
+        <form name="form" method="post" action="{{model.fullLoginUrl}}" id="loginForm" class="sf-login-form -sf-content-centered -sf-center-text">
+            <anti-forgery-token token="model.antiForgery"></anti-forgery-token>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAAflBMVEXc7PXd7PXd7fXe7fXe7fbf7vbh7/bh7/fi7/fj8Pfk8Pfl8fjm8fjm8vjn8vjo8vjo8/np8/nq9Pnr9Pns9frt9fru9vrv9vrw9/vx+Pvy+Pvz+fz0+fz1+vz2+vz2+v34+/35+/36/P76/f77/f78/f78/v79/v7+//////+lNPEBAAABIElEQVR4Ae3V2w6aUBSE4dkCYj2gICoHQVRQ5v1fsNpoI0gTa9e+aLK+F/iTuRkopZRSSimlPuP6vmu5EB95c4wtdpYNH5olLNnxxQ5WbNmxhQUBewKIcxv2NK7tsawMZi58czGQNeOAmf215PfKOSCHrJIDSsgqOKCArJQDUshac8AasnwO8CGs4psK0iK+iSDNnNhzMhA3Z88cFiTsSGCD2fPF3sAKk/G3zMCWsOEvTQiLRqvscMhWI/zHvAV6Fh5kTbOWqYMXTso2m0KME1W8q0ODBxPWvKsiBxL85MqnczzGzTg+8+ma+PhHJijZVRdFza4yMPiet6n5kXrj4TuTvOXH2nwi97h/ttaIRjRiKeL9+CselFJKKaWUUj0/AWGBopm+4+PNAAAAAElFTkSuQmCC" alt="Default profile photo" />
+            <h2>{{model.resources["loginHeader"]}}</h2>
+            <ul class="-sf-clearfix">
+                <li ng-show="model.showProviders">
+                    <label for="membershipProvider">{{model.resources["provider"]}}</label>
+                    <select id="membershipProvider" name="membershipProvider" ng-model="model.selectedProvider" ng-options="p.friendlyName for p in model.providers track by p.name"></select>
+                </li>
+                <li>
+                    <input required name="username" autofocus id="username" type="text" class="sf-input" placeholder='{{model.resources["emailOrUsername"]}}' ng-model="model.username">
+                </li>
+                <li>
+                    <input required id="password" name="password" type="password" class="sf-input" placeholder='{{model.resources["password"]}}' ng-model="model.password" autocomplete="off">
+                </li>
+                <li class="sf-login-form__remember" ng-show="model.allowRememberMe">
+                    <input type="checkbox" id="rememberMe" name="rememberMe" ng-model="model.rememberMe" value="true">
+                    <label for="rememberMe">{{model.resources["rememberMe"]}}</label>
+                </li>
+                <!--TODO: To be uncommented when backend forgot password is implemented
+                <li class="sf-login-form__forgot-passowrd">
+                    <a id="forgotPassowrd" href="#">{{model.resources["forgotYourPassword"]}}</a>
+                </li>-->
+            </ul>
+            <div class="-sf-txt-failure" ng-show="model.errorMessage">
+                {{model.errorMessage}}
+            </div>
+            <button class="sf-button -sf-action" id="loginButton">{{model.resources["login"]}}</button>
+            <!--<div ng-show="model.externalProviders">
+                <h2>{{model.resources["useYorAccount"]}}</h2>
+                <ul class="sf-mt--20">
+                    <li ng-repeat="provider in model.externalProviders">
+                        <a class="sf-button {{provider.linkCssClass}}" href="{{provider.href}}">{{provider.text}}</a>
+                    </li>
+                </ul>
+            </div>-->
+        </form>
+    </div>
+    <script id='modelJson' type='application/json'>
+        {model}
+    </script>
+    <!--{scripts}-->
+    <!-- OR THE VERSION YOU DESIRE -->
+    <script src='/Sitefinity/Authenticate/OpenID/content/libs/jquery/jquery-3.4.1.min.js'></script>
+    <script src='/Sitefinity/Authenticate/OpenID/content/libs/bootstrap/js/bootstrap.min.js'></script>
+    <script src='/Sitefinity/Authenticate/OpenID/content/libs/angular/angular.1.7.8.min.js'></script>
+    <script src='/Sitefinity/Authenticate/OpenID/content/libs/encoder/encoder.min.js'></script>
+    <script src='/Sitefinity/Authenticate/OpenID/content/app/app.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js'></script>
+    <script src='/Sitefinity/Authenticate/OpenID/content/app/webfont-loader-bottom.js'></script> 
+</body>
+</html>

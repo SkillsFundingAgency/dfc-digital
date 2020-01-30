@@ -1,0 +1,383 @@
+@font-face {
+    font-family: 'font_awesome';
+    src: url("../fonts/fontawesome-webfont.woff") format('woff'), 
+         url("../fonts/fontawesome-webfont.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* app.css */
+[ng-cloak] {
+  display: none;
+}
+.page-loggedOut iframe.signout {
+  display: none;
+}
+.page-permissions .page-header {
+  margin-bottom: 10px;
+}
+.page-permissions .permissions .permission {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
+.page-permissions .permissions .permission img {
+  width: 100px;
+  height: 100px;
+}
+.page-permissions .permissions .permission .permission-clientname {
+  font-size: 140%;
+  font-weight: bold;
+}
+.page-permissions .permissions .permission .permission-type {
+  font-size: 120%;
+  font-weight: bold;
+}
+.page-permissions .permissions .permission li {
+  list-style-type: none;
+  display: inline;
+}
+.page-permissions .permissions .permission li:after {
+  content: ', ';
+}
+.page-permissions .permissions .permission li:last-child:after {
+  content: '';
+}
+/* end of app.css */
+/* Common */
+body, h1, h2, h3, h4, h5, h6 
+{
+    font-family: Arial, Verdana, sans-serif;
+}
+.wf-active body, .wf-active h1, .wf-active h2, .wf-active h3, .wf-active h4, .wf-active h5, .wf-active h6 
+{
+    font-family: 'Open Sans';
+}
+body 
+{
+    font-weight: 400;
+}
+h1, h2, h3, h4, h5, h6, b, strong
+{
+    font-weight: 600;
+}
+h1, h2, h3
+{
+    margin-bottom: 20px;
+}
+.-sf-clearfix:before,
+.-sf-clearfix:after 
+{
+    content:"";
+    display:table;
+}
+.-sf-clearfix:after 
+{
+    clear:both;
+}
+.-sf-center-text
+{
+    text-align: center;
+}
+.sf-mt--20
+{
+    margin-top: 20px;
+}
+.sf-mt--30
+{
+    margin-top: 30px;
+}
+.sf-mb--40
+{
+    margin-bottom: 40px;
+}
+input
+{
+    box-shadow: none;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #ccc;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #ccc;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #ccc;
+}
+/* End of common */
+/* Authentication */
+.sf-authentication-screen
+{
+    color: #333;
+    font-size: 13px;
+    padding-bottom: 80px;
+}
+.sf-authentication-screen h2
+{
+    font-weight: 400;
+    font-size: 16px;
+}
+.sf-authentication-screen .sf-logo 
+{
+    margin: 120px auto 60px;
+	width: 180px;
+	height: 30px;
+    background: transparent url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20694.24%2094.98%22%3E%3Cdefs%3E%3C%2Fdefs%3E%3Ctitle%3ESitefinityCMS%3C%2Ftitle%3E%3Cpath%20fill%3D%22%235ce500%22%20d%3D%22M76%2023.09V63.7a3.13%203.13%200%200%201-1.41%202.45l-1.33.77-10.12%205.84-6.84%203.95-1.41.82V33.65l-38-21.94%2018-10.42%201.65-1a3.14%203.14%200%200%201%202.83%200l25.09%2014.53L76%2021.49v1.63zM46.46%2038.52l-7.79-4.5-18.26-10.53a3.15%203.15%200%200%200-2.83%200L1.41%2032.82%200%2033.64l27.46%2015.85v31.69l16.14-9.36%201.42-.82a3.14%203.14%200%200%200%201.44-2.42V38.52zM0%2065.34l19%2011V54.37z%22%2F%3E%3Cpath%20fill%3D%22%234b4e52%22%20d%3D%22M117.83%2021.46H97.12v56.08h9.19v-22h11.59c12.55%200%2019.46-6.13%2019.46-17.26%200-5.05-1.91-16.81-19.53-16.81m10.19%2017c0%206.32-3.28%208.9-11.33%208.9h-10.38V29.74h11.59c6.81%200%2010.11%202.84%2010.11%208.68m36.69-1.74l.69.34-1.56%208.29-1.07-.33a9%209%200%200%200-2.65-.41c-8.58%200-9.28%206.84-9.28%2015.1v17.87h-8.51V36.36h8v5c2.17-3.34%204.8-5.07%208.25-5.49a11.58%2011.58%200%200%201%206.15.84m20.91-1.15c-6.7%200-12.06%202.55-15.51%207.37-3.63%205.07-4.16%2011-4.16%2014.12%200%2013%207.72%2021.42%2019.68%2021.42%2014.53%200%2019.68-11.7%2019.68-21.72a23%2023%200%200%200-4.86-14.76c-3.51-4.22-8.65-6.46-14.88-6.46m0%2035.31c-6.66%200-10.79-5.3-10.79-13.82s4.14-14%2010.79-14%2010.88%205.45%2010.88%2013.85c0%208.61-4.17%2014-10.87%2014m91.18-34.16l.69.31-1.56%208.29-1.07-.33a9%209%200%200%200-2.65-.41c-8.58%200-9.28%206.84-9.28%2015.1v17.87h-8.44V36.36h8v5c2.17-3.34%204.8-5.07%208.25-5.49a11.57%2011.57%200%200%201%206.15.84m30.56%2027.65l-.16.45c-1.78%205.06-6%206.12-9.27%206.12-6.44%200-10.58-4.27-11-11.21h29.07l.11-.81a24.88%2024.88%200%200%200%20.09-3.28v-.74c-.43-11.53-7.94-19.27-18.7-19.27-6.28%200-11.44%202.47-14.9%207.14a24.55%2024.55%200%200%200-4.41%2014.35c0%2012.72%207.91%2021.28%2019.69%2021.28%209.11%200%2015.38-4.63%2017.67-13l.27-1h-8.52zm-20.13-12c.72-5.71%204.62-9.33%2010.17-9.33%204.24%200%209.26%202.47%2010%209.33h-20.23zm-48.36-12.54a14.55%2014.55%200%200%200-10.95-4.29c-12.48%200-18.17%2011-18.17%2021.19%200%2010.47%205.62%2021%2018.17%2021a14.58%2014.58%200%200%200%2010.62-4.31c0%201.81-.08%203.54-.13%204.28-.46%206.79-3.73%2010-10.27%2010-3.56%200-7.64-1.26-8.43-4.81l-.17-.78h-8.38l.14%201.12c.88%207.26%207.25%2011.77%2016.63%2011.77%208.23%200%2014.09-3.1%2016.93-9%201.37-2.82%202.07-6.94%202.07-12.23v-37.4h-8.05v3.46zm-10.41%2030.35c-3%200-9.89-1.35-9.89-13.82%200-8.2%203.87-13.29%2010.11-13.29%204.82%200%2010%203.49%2010%2013.29%200%208.65-3.81%2013.82-10.19%2013.82m127-5c0%206.55-5.44%2013.16-17.58%2013.16-10.74%200-17.13-4.65-18-13.09l-.09-.87h8.37l.13.63c1%205.08%205.86%206.14%209.74%206.14%204.25%200%208.78-1.37%208.78-5.21%200-1.95-1.27-3.33-3.76-4.1-1.48-.44-3.3-1-5.22-1.49-3.31-.93-6.74-1.89-8.85-2.62-5.22-1.87-8.22-5.51-8.22-10%200-8.3%208.08-12%2016.09-12%2010.71%200%2016.25%204%2016.95%2012.33l.09.77h-8.25l-.11-.65c-.83-4.78-5.58-5.49-8.34-5.49-2.38%200-7.92.43-7.92%204.37%200%201.79%201.53%203.11%204.69%204%20.94.26%202.34.62%204%201%203.36.87%207.54%202%209.65%202.68%205.25%201.84%207.9%205.31%207.9%2010.31m39.3%200c0%206.55-5.44%2013.16-17.58%2013.16-10.74%200-17.13-4.65-18-13.09l-.09-.87h8.37l.12.63c1%205.08%205.86%206.14%209.74%206.14%204.25%200%208.78-1.37%208.78-5.21%200-1.95-1.27-3.33-3.76-4.1-1.48-.44-3.3-1-5.23-1.49-3.31-.93-6.74-1.89-8.84-2.62-5.22-1.87-8.22-5.51-8.22-10%200-8.3%208.08-12%2016.09-12%2010.71%200%2016.25%204%2016.94%2012.33l.06.9h-8.25l-.11-.65c-.83-4.78-5.58-5.49-8.34-5.49-2.38%200-7.92.43-7.92%204.37%200%201.79%201.53%203.11%204.69%204%20.94.26%202.34.62%204%201%203.36.87%207.54%202%209.65%202.68%205.24%201.84%207.9%205.31%207.9%2010.31%22%2F%3E%3Cpath%20fill%3D%22%237c878e%22%20d%3D%22M417.88%2067.52a23.94%2023.94%200%200%200%2017.06%206.55c7.9%200%2012.93-4%2012.93-10.32%200-5.57-3.14-7.81-9.88-10.68l-8.08-3.41c-5.75-2.42-11.94-5.75-11.94-14.1%200-9.34%207.81-14%2016.7-14a26.65%2026.65%200%200%201%2015.44%204.67v5.12a22.86%2022.86%200%200%200-15.36-5.53c-6.82%200-12.3%203.23-12.3%209.7%200%205.39%203.77%207.72%209.61%2010.06l8.53%203.59c8.08%203.5%2011.76%207.45%2011.76%2014.54%200%208.8-7.36%2014.63-17.42%2014.63-7.36%200-13.47-2.33-17.06-5.48v-5.3zM460.46%2028.56a3%203%200%200%201-3.05-3.05%203.055%203.055%200%200%201%206.11%200%203%203%200%200%201-3.06%203.05zm2.24%2048.93h-4.49V37.63h4.49v39.86zM480.14%2077.49h-4.49v-36h-8.53v-3.86h8.53V27.39h4.49v10.24h9.43v3.86h-9.43v36zM509.13%2074.35a16%2016%200%200%200%2011.22-4v4.47c-3%202.42-6.91%203.5-11.58%203.5-11.13%200-18.58-7.9-18.58-20.38%200-12.3%206.64-21.1%2017.24-21.1%2010.41%200%2015.8%207.9%2015.8%2019.48v1.6h-28.65c0%2010.77%206.29%2016.43%2014.55%2016.43zm-14.37-20.11h24.15c-.27-7-3.59-13.47-11.49-13.47-6.55%200-11.58%204.85-12.66%2013.47zM546.62%2023.26a8.4%208.4%200%200%200-4-1c-4.22%200-7.27%203.05-7.27%208.62v6.73h9.34v3.86h-9.34v36h-4.4v-36h-6.49v-3.84h6.46v-7.19c0-7.27%204.76-12.12%2011.22-12.12a11.76%2011.76%200%200%201%204.49.81v4.13zM552.46%2028.56a3%203%200%200%201-3.05-3.05%203.055%203.055%200%201%201%206.11%200%203%203%200%200%201-3.06%203.05zm2.24%2048.93h-4.49V37.63h4.49v39.86zM563.37%2037.63h4.49V44a15.53%2015.53%200%200%201%2012.75-7.18c9.07%200%2013.85%205.83%2013.85%2014.27v26.4h-4.4V51.72c0-6.2-3.14-10.77-10.24-10.77-5.48%200-10%203.86-11.94%208.62v27.92h-4.49V37.63zM605.05%2028.56a3%203%200%200%201-3.05-3.05%203.055%203.055%200%201%201%206.11%200%203%203%200%200%201-3.06%203.05zm2.24%2048.93h-4.49V37.63h4.49v39.86zM624.75%2077.49h-4.49v-36h-8.53v-3.86h8.53V27.39h4.49v10.24h9.43v3.86h-9.43v36zM645.68%2092.75l6.46-15.8-15.62-39.32h4.76l13.11%2033.76%2013.07-33.76h4.58l-21.91%2055.13h-4.49zM677.95%2030.82h7v1.47h-2.6v6.67h-1.73v-6.7h-2.63v-1.44zm12.18%206.32l-2.31-3.46v5.29h-1.67v-8.15h1.57l2.47%203.81%202.5-3.81h1.54v8.14h-1.67v-5.32l-2.28%203.46h-.16z%22%2F%3E%3Cpath%20fill%3D%22%234b4e52%22%20d%3D%22M401.59%2040.73a5.87%205.87%200%201%201%205.8-5.86%205.75%205.75%200%200%201-5.8%205.86m0-10.74a4.87%204.87%200%201%200%204.74%204.83%204.7%204.7%200%200%200-4.74-4.87m-.67%206v2h-1.73v-6.2h2.88a2.06%202.06%200%200%201%202.28%202.15%201.8%201.8%200%200%201-1.19%201.86l1.41%202.15h-1.92l-1.19-2h-.54zm1-2.76h-1v1.38h1a.68.68%200%200%200%20.8-.67.7.7%200%200%200-.8-.71%22%2F%3E%3C%2Fsvg%3E") no-repeat;
+}
+.sf-authentication-screen .-sf-content-centered
+{
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 40px 50px;
+    width: 430px;
+    background-color: #fff;
+}
+.sf-authentication-screen .sf-button
+{
+    display: inline-block;
+    min-height: 30px;
+    line-height: 30px;
+    padding: 2px 20px;
+    vertical-align: middle;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #fff;
+    color: #333;
+}
+.sf-authentication-screen .sf-button:hover
+{
+    background-color: #f2f2f2;
+}
+
+.sf-authentication-screen .sf-button.-sf-action
+{
+    background-color: #38AB63;
+    border: 0;
+    color: #fff;
+}
+.sf-authentication-screen .sf-button.-sf-action:hover
+{
+    background-color: #1F924A;
+}
+.sf-authentication-screen img
+{
+    border-radius: 50%;
+}
+.sf-authentication-screen .-sf-txt-failure
+{
+    font-size: 13px;
+    color: #FF0000;
+    margin-bottom: 20px;
+}
+.sf-authentication-screen .-sf-txt-hint
+{
+    color: #999;
+}
+/* End of authentication */
+/* Login screen */
+.sf-login-form a:hover
+{
+    text-decoration: none;
+}
+.sf-login-form .sf-input
+{
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    background-color: #fff;
+    padding: 10px;
+    font-size: 16px;
+}
+.sf-login-form label
+{
+    font-weight: 600;
+}
+.sf-login-form ul li
+{
+    text-align: left;
+    padding-bottom: 10px;
+}
+.sf-login-form ul
+{
+    padding: 0;
+    list-style: none;
+}
+.sf-login-form select
+{
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 2px 5px 4px;
+}
+.sf-login-form .sf-login-form__remember
+{
+    float: left;
+}
+.sf-login-form .sf-login-form__remember label
+{
+    font-weight: 400;
+    vertical-align: top;
+}
+.sf-login-form .sf-login-form__forgot-passowrd
+{
+    float: right;
+}
+.sf-login-form .-sf-txt-failure
+{
+    text-align: left;
+}
+.sf-login-form .sf-button
+{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+}
+.sf-login-form .sf-button.-sf-google-button
+{
+    border-color: #D54F50;
+    color: #D54F50;
+}
+.sf-login-form .sf-button.-sf-google-button:hover
+{
+    background-color: #D54F50;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-facebook-button
+{
+    border-color: #3E86B4;
+    color: #3E86B4;
+}
+.sf-login-form .sf-button.-sf-facebook-button:hover
+{
+    background-color: #3E86B4;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-github-button
+{
+    border-color: #333;
+    color: #333;
+}
+.sf-login-form .sf-button.-sf-github-button:hover
+{
+    background-color: #333;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-yahoo-button
+{
+    border-color: #410093;
+    color: #410093;
+}
+.sf-login-form .sf-button.-sf-yahoo-button:hover
+{
+    background-color: #410093;
+    color: #fff;
+}
+ .sf-login-form .sf-button.-sf-linkedin-button
+{
+    border-color: #0077b5;
+    color: #0077b5;
+}
+.sf-login-form .sf-button.-sf-linkedin-button:hover
+{
+    background-color: #0077b5;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-microsoft-button, .sf-login-form .sf-button.-sf-adfs-button
+{
+    border-color: #00a1f1;
+    color: #00a1f1;
+}
+.sf-login-form .sf-button.-sf-microsoft-button:hover, .sf-login-form .sf-button.-sf-adfs-button:hover
+{
+    background-color: #00a1f1;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-windows-button
+{
+    border-color: #00bcf2;
+    color: #00bcf2;
+}
+.sf-login-form .sf-button.-sf-windows-button:hover
+{
+    background-color: #00bcf2;
+    color: #fff;
+}
+.sf-login-form .sf-button.-sf-twitter-button
+{
+    border-color: #1da1f2;
+    color: #1da1f2;
+}
+.sf-login-form .sf-button.-sf-twitter-button:hover
+{
+    background-color: #1da1f2;
+    color: #fff;
+}
+/* end of Login screen */
+/* Consent screen */
+.sf-consent-form h2
+{
+    margin-bottom: 40px;
+}
+.sf-consent-form h4 
+{
+    font-weight: 600;
+    font-size: 13px;
+}
+.sf-consent-form label
+{
+    font-weight: 400;
+}
+.sf-consent-form ul
+{    
+    margin: 0;
+    padding: 0;
+    padding-bottom: 10px;
+    list-style: none;
+}
+.sf-consent-form ul li
+{
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.sf-consent-form ul li:first-child
+{
+    border-top: 1px solid #ddd;
+}
+.sf-consent-form .sf-button:hover
+{
+    background-color: #E4E4E4;
+}
+.sf-consent-form ul li input[disabled="disabled"]
+{
+    visibility: hidden;
+}
+.sf-consent-form ul li label input[disabled="disabled"] + .-sf-checked
+{
+    margin-left: -15px;
+}
+.sf-consent-form ul li label input[disabled="disabled"] + .-sf-checked:before
+{
+    display: inline-block;
+    font-family: 'font_awesome';
+    content: "\f00c";
+    color: #38AB63;
+}
+/* End of Consent screen */
+/* Error screen */
+.sf-authentication-screen .sf-authentication-screen__error-wrp 
+{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+/* End of Error screen */

@@ -1080,7 +1080,9 @@
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="browserconfig.xml" />
+    <Content Include="Content\app\authentication.css" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
+    <Content Include="Content\Pages\login.html" />
     <Content Include="Default.aspx" />
     <Content Include="extensions.bundle.js" />
     <Content Include="Mvc\Controllers\readme.txt" />

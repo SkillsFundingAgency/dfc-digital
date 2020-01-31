@@ -1077,6 +1077,7 @@
     <Content Include="App_Data\RadCaptcha\Z.wav" />
     <Content Include="App_Data\Sitefinity\AddOns\Configuration\addons-registry.psm1" />
     <Content Include="App_Data\Sitefinity\AddOns\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
+    <Content Include="App_Data\Sitefinity\Configuration\WebSecurityConfig.config" />
     <Content Include="App_Data\Sitefinity\Export\nuget.exe" />
     <Content Include="App_Data\Sitefinity\Export\TestJobProfiles\Page templates\Content\Telerik.Sitefinity.Pages.Model.PageTemplate.sfpackage.xml" />
     <Content Include="browserconfig.xml" />
@@ -1169,7 +1170,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="App_Data\Sitefinity\Configuration\WebSecurityConfig.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

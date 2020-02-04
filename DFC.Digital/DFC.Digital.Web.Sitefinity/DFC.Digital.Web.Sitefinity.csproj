@@ -940,6 +940,9 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="AzureWebRole.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1083,6 +1086,7 @@
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Default.aspx" />
     <Content Include="extensions.bundle.js" />
+    <Content Include="Global.asax" />
     <Content Include="Mvc\Controllers\readme.txt" />
     <Content Include="Mvc\Models\readme.txt" />
     <Content Include="Mvc\Views\readme.txt" />

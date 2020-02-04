@@ -12,6 +12,7 @@ namespace DFC.Digital.Web.Sitefinity
     {
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
+            //Fix for ITHC Jquery version issue
             if (HttpContext.Current.Request.Url.AbsoluteUri.Contains("jquery-1.11.0.min.js"))
             {
                 HttpContext.Current.Response.Redirect($"{ConfigurationManager.AppSettings["DFC.Digital.CDNLocation"]}/gds_service_toolkit/js/jquerybundle.min.js", true);

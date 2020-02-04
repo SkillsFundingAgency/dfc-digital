@@ -32,14 +32,14 @@
     <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
                     match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dsac']/allowedCorsOrigins/add/@allowedCorsOrigin" />
   </parameter>
-  
+
   <parameter name="Sitefinity_EncryptionKey"
              description="Tokenize the sitefinity encryptionKey to be replaced by VSTS task"
              defaultValue="__sitefinityAuthenticationEncKey__">
     <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
                     match="/authenticationConfig/@encryptionKey" />
   </parameter>
- 
+
   <!-- DataConfig configurations -->
   <parameter name="Sitefinity_connectionString"
              description="Tokenize connection string so we can use the Tokenize task to set the connection string in VSTS Release"
@@ -53,7 +53,7 @@
     <parameterEntry kind="XmlFile" scope="\\DataConfig\.config$"
                     match="/dataConfig/connectionStrings/add[@name='Sitefinity']/@dbType" />
   </parameter>
-  
+
   <!-- SystemConfig configurations -->
   <parameter name="Sitefinity_Redis"
            description="Tokenize redis connection string so we can use the Tokenize task to set the redis connection string in VSTS Release"
@@ -61,7 +61,7 @@
     <parameterEntry kind="XmlFile" scope="\\SystemConfig\.config$"
                     match="/systemConfig" />
   </parameter>
-  
+
   <!-- SearchConfig configurations -->
   <parameter name="Sitefinity_Search_Name"
              description="Tokenize the job profile search name to be replaced by VSTS task"
@@ -75,7 +75,16 @@
     <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
                     match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureServiceAdminKey" />
   </parameter>
-  
+
+  <!-- WebSecurityConfig configurations -->
+  <parameter name="Sitefinity_CDN_Url"
+             description="Tokenize the trusted sources URL to be replaced by VSTS task"
+             defaultValue="__cdnUrl__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.CDNLocation']/@value" />
+  </parameter>
+
   <!-- SecurityConfig configurations -->
   <parameter name="Sitefinity_SecurityConfig_decryptionKey"
              description="Tokenize the sitefinity decryptionKey to be replaced by VSTS task"

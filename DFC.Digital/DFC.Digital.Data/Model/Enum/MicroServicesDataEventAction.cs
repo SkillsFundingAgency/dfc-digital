@@ -11,5 +11,6 @@ namespace DFC.Digital.Data.Model
         Ignored,
         PublishedOrUpdated,
         UnpublishedOrDeleted,
+        Draft
     }
 }

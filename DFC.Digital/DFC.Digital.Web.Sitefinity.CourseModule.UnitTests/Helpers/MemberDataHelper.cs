@@ -12,7 +12,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
         private const string SearchPageUrl = "/courses-search-results";
         private const string PathQuery = "/pathQuery";
         private const string QualificationLevel = "qualificationLevel";
-        private const bool Only1619Courses = true;
         private const string Location = "leeds";
         private const string LocationPostCode = "cv12wt";
         private const string Provider = "ucla";
@@ -63,7 +62,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 StartDate = StartDate.FromToday,
                 CourseType = CourseType.ClassroomBased,
                 CourseHours = CourseHours.All,
-                Only1619Courses = true
             };
 
         private static readonly CourseFiltersViewModel InvalidCourseResultsViewModel =
@@ -179,7 +177,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                    CourseHours = CourseHours.All,
                    CourseType = CourseType.All,
-                   Only1619Courses = false,
                    Location = LocationPostCode,
                    Provider = nameof(CourseFiltersViewModel.Provider),
                    Distance = 10f,
@@ -209,7 +206,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                     CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
-                    Only1619Courses = false,
                     Location = nameof(CourseFiltersViewModel.Location),
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
@@ -236,7 +232,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                     CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
-                    Only1619Courses = false,
                     Location = LocationPostCode,
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
@@ -626,9 +621,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     SearchTerm = SearchTerm,
                     Location = Location,
-                    Only1619Courses = Only1619Courses
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=leeds&Distance=10"
+                "/courses-search-results?searchTerm=maths&Location=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -638,9 +632,8 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 {
                     SearchTerm = SearchTerm,
                     Location = LocationPostCode,
-                    Only1619Courses = Only1619Courses
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&Distance=10"
+                "/courses-search-results?searchTerm=maths&Location=cv12wt&Distance=10"
             };
         }
 
@@ -701,13 +694,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Only1619Courses = Only1619Courses,
                         Location = Location,
                         Distance = ValidDistance,
                         StartDate = StartDate.Anytime
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10"
+                "/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -718,12 +710,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Only1619Courses = Only1619Courses,
                         Location = Location,
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10&StartDate=FromToday"
+                "/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -734,13 +725,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Only1619Courses = Only1619Courses,
                         Location = LocationPostCode,
                         Distance = ValidDistance,
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?searchTerm=maths&only1619courses=true&location=cv12wt&Distance=10&StartDate=FromToday"
+                "/courses-search-results?searchTerm=maths&Location=cv12wt&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -751,14 +741,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Only1619Courses = Only1619Courses,
                         Location = Location,
                         Distance = ValidDistance,
                         StartDate = StartDate.SelectDateFrom,
                         StartDateFrom = DateTime.Now.AddDays(30)
                     }
                 },
-                $"/courses-search-results?SearchTerm=maths&Only1619Courses=True&Location=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
+                $"/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
             };
         }
 

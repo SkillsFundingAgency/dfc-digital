@@ -24,7 +24,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         #region Public Properties
         [DisplayName("Course Name Hint Text")]
-        public string CourseNameHintText { get; set; } = "For example, Maths or Sports Studies";
+        public string CourseNameHintText { get; set; } = "For example, maths or sports studies";
 
         [DisplayName("Course Name Label")]
         public string CourseNameLabel { get; set; } = "Course name";
@@ -47,9 +47,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         [DisplayName("Location Post Code Regex")]
         public string LocationRegex { get; set; } = @"^([bB][fF][pP][oO]\s{0,1}[0-9]{1,4}|[gG][iI][rR]\s{0,1}0[aA][aA]|[a-pr-uwyzA-PR-UWYZ]([0-9]{1,2}|([a-hk-yA-HK-Y][0-9]|[a-hk-yA-HK-Y][0-9]([0-9]|[abehmnprv-yABEHMNPRV-Y]))|[0-9][a-hjkps-uwA-HJKPS-UW])\s{0,1}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2})$";
-
-        [DisplayName("Dfe 1619 Funded Text")]
-        public string Dfe1619FundedText { get; set; } = "Only show courses suitable for 16-19 year olds";
 
         [DisplayName("Submit button Text")]
         public string SubmitButtonText { get; set; } = "Find a course";
@@ -85,7 +82,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             model.ProviderLabel = ProviderLabel;
             model.ProviderNameHintText = ProviderHintText;
             model.LocationHintText = LocationHintText;
-            model.Dfe1619FundedText = Dfe1619FundedText;
             model.SubmitButtonText = SubmitButtonText;
         }
     }

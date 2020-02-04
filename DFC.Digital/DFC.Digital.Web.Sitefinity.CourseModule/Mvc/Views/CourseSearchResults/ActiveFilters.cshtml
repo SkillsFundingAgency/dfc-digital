@@ -29,13 +29,6 @@
                 </div>
             }
 
-            @if (Model.Only1619Courses)
-            {
-                <span class="govuk-body govuk-!-font-size-16">@Model.ActiveFiltersSuitableForText</span>
-                <div class="facet-tag-inline">
-                    <p class="facet-tag__text govuk-body">@Model.ActiveFiltersOnly1619CoursesText</p>
-                </div>
-            }
         </div>
     </div>
     @if (!string.IsNullOrWhiteSpace(Model.Location))

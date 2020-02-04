@@ -30,17 +30,6 @@
                 </span>
                 @Html.TextBoxFor(x => x.Location, new {@class = "govuk-input govuk-!-width-one-third", aria_describedby = "location-name-hint" })
             </div>
-            <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-visually-hidden">@Model.Dfe1619FundedText</legend>
-                    <div class="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
-                            @Html.LabelFor(x => x.Only1619Courses, Model.Dfe1619FundedText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
             <div class="govuk-form-group"><button type="submit" class="govuk-button novalidate">@Model.SubmitButtonText</button>
             </div>
         }

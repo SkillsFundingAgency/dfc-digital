@@ -21,7 +21,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
                 [nameof(CourseSearchFilters.SearchTerm)] = queryParameters.SearchTerm,
                 [nameof(CourseSearchFilters.Provider)] = queryParameters.Provider,
                 [nameof(CourseSearchFilters.CourseType)] = queryParameters.CourseType != CourseType.All ? queryParameters.CourseType.ToString() : null,
-                [nameof(CourseSearchFilters.Only1619Courses)] = queryParameters.Only1619Courses ? true.ToString() : null,
                 [nameof(CourseSearchFilters.Location)] = queryParameters.Location,
                 [nameof(CourseSearchFilters.Distance)] = queryParameters.Distance.ToString(CultureInfo.InvariantCulture),
                 [nameof(CourseSearchFilters.CourseHours)] = queryParameters.CourseHours != CourseHours.All ? queryParameters.CourseHours.ToString() : null,

@@ -38,7 +38,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
             var pageData = sitefinityManagerProxy.GetPageData(contentType, itemId, providerName);
-            return BuildPageData(pageNode, pageData, providerName);
+            return BuildPageData(pageNode, pageData);
         }
 
         public MicroServicesPublishingPageData GetPreviewPage(string name)
@@ -51,7 +51,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
             var pageNode = pageData.NavigationNode;
             var pageDraft = sitefinityManagerProxy.GetPreviewPageDataById(pageData.Id);
-
             return BuildPreViewPageData(pageNode, pageData, pageDraft);
         }
 
@@ -62,6 +61,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             //If the custom field is not there this will throw a system exception
             //as we dont want to catch unnecessary exceptions this custom page field should be created.
             return sitefinityPageNodeProxy.GetCustomField(pageNode, Digital.Core.Constants.MicroServiceEndPointConfigKey)?.Trim();
+        }
+
+        public bool GetContentPageTypeFromPageNode(Type contentType, Guid itemId, string providerName)
+        {
+            var pageNode = sitefinityManagerProxy.GetPageNode(contentType, itemId, providerName);
+            return (bool)pageNode.GetValue(Digital.Core.Constants.ShouldIncludeInDFCAppContentPages);
         }
 
         private MicroServicesPublishingPageData BuildPreViewPageData(PageNode pageNode, PageData pageData, PageDraft pageDraft)
@@ -81,11 +86,13 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private MicroServicesPublishingPageData BuildPageData(PageNode pageNode, PageData pageData, string providerName = null)
         {
             var microServicesPublishingPageData = BuildBasePageData(pageNode, pageData);
-
-            var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
-            foreach (var pageControl in pageControls)
+            if (microServicesPublishingPageData != null)
             {
-                microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
+                var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
+                foreach (var pageControl in pageControls)
+                {
+                    microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
+                }
             }
 
             return microServicesPublishingPageData;
@@ -98,11 +105,21 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
                 IncludeInSiteMap = pageNode.Crawlable,
                 AlternativeNames = GetPageURLs(pageNode),
-                LastReviewed = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
-                Id = pageNode.Id,
-                BreadcrumbTitle = sitefinityPageDataProxy.GetTitle(pageData),
-                MetaTags = new MetaTags() { Description = sitefinityPageDataProxy.GetDescription(pageData), Keywords = sitefinityPageDataProxy.GetKeywords(pageData), Title = sitefinityPageDataProxy.GetHtmlTitle(pageData) }
+                LastModified = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                ContentPageId = pageNode.Id,
+                Category = pageNode.Parent.Title != Digital.Core.Constants.Pages ? pageNode.Parent.UrlName : pageNode.UrlName,
+                BreadcrumbTitle = GetBreadcrumbData(pageNode, pageData),
+                Description = sitefinityPageDataProxy.GetDescription(pageData),
+                Keywords = sitefinityPageDataProxy.GetKeywords(pageData),
+                Title = sitefinityPageDataProxy.GetHtmlTitle(pageData)
             };
+        }
+
+        private string GetBreadcrumbData(PageNode pageNode, PageData pageData)
+        {
+            return pageNode.Parent.Title == Digital.Core.Constants.Pages
+                ? (string)pageNode.UrlName
+                : pageNode.Parent.Title == Digital.Core.Constants.AlertPages ? Digital.Core.Constants.AlertPagesTitle : (string)pageNode.Parent.UrlName;
         }
     }
 }

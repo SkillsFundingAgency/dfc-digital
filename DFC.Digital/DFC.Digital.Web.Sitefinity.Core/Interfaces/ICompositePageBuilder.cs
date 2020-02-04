@@ -11,5 +11,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         MicroServicesPublishingPageData GetPreviewPage(string name);
 
         string GetMicroServiceEndPointConfigKeyForPageNode(Type contentType, Guid itemId, string providerName);
+
+        bool GetContentPageTypeFromPageNode(Type contentType, Guid itemId, string providerName);
     }
 }

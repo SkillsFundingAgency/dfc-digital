@@ -54,11 +54,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDom, viewModel.StartDateFrom.ToString(Constants.CourseSearchFrontEndStartDateFormat), "p");
             }
 
-            if (viewModel.Only1619Courses)
-            {
-                AssertTagInnerTextValue(htmlDom, viewModel.ActiveFiltersSuitableForText, "span");
-            }
-
             if (!string.IsNullOrWhiteSpace(viewModel.Location))
             {
                 AssertTagInnerTextValue(htmlDom, viewModel.Location, "p");
@@ -211,7 +206,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var htmlDom = courseDetailsView.RenderAsHtml(viewModel);
 
             // Assert
-            AssertTagInnerTextValue(htmlDom, viewModel.AdvancedLoanProviderLabel, "span");
+           // AssertTagInnerTextValue(htmlDom, viewModel.AdvancedLoanProviderLabel, "span");
             AssertTagInnerTextValue(htmlDom, viewModel.ProviderLabel, "span");
             if (viewModel.Course.LocationDetails != null)
             {
@@ -253,11 +248,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.StartDate.ToString());
             AssertElementExistsByAttributeAndTypeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.CourseType), "radio");
             AssertElementIsSelectedByAttributeAndValue(htmlDom, "input", "value", viewModel.CourseType.ToString());
-            AssertElementExistsByAttributeAndValue(htmlDom, "input", "name", nameof(CourseFiltersViewModel.Only1619Courses));
-            if (viewModel.Only1619Courses)
-            {
-                AssertElementIsSelectedByAttributeAndValue(htmlDom, "radio", "value", true.ToString());
-            }
         }
     }
 }

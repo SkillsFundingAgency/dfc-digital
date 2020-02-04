@@ -112,22 +112,6 @@
 
 
 </div>
-<div class="filters-container">
-    <div class="filter-label">
-        <h2 class="govuk-heading-s govuk-!-margin-0">@Model.Only1619CoursesSectionText</h2>
-    </div>
-    <div class="filter-box">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-visually-hidden">@Model.Only1619CoursesText</legend>
-            <div class="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    @Html.CheckBoxForSimple(x => x.Only1619Courses, new { @class = "govuk-checkboxes__input" })
-                    @Html.LabelFor(x => x.Only1619Courses, Model.Only1619CoursesText, new { @class = "govuk-label govuk-checkboxes__label govuk-!-font-size-16" })
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</div>
 <div class="submit">
 
     <button class="js-enabled gem-c-button govuk-button novalidate" type="submit">@Model.ApplyFiltersText</button>

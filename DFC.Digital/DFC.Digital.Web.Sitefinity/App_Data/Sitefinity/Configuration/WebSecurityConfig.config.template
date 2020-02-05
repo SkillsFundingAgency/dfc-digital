@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <webSecurityConfig xmlns:config="urn:telerik:sitefinity:configuration" xmlns:type="urn:telerik:sitefinity:configuration:type" config:version="12.2.7224.0">
-  <httpSecurityHeaders>
-    <responseHeaders>
-      <add value="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.googletagmanager.com *.google-analytics.com apis.google.com __cdnUrl__; style-src 'self' 'unsafe-inline' 'unsafe-eval' __cdnUrl__ *.googleapis.com *.gstatic.com netdna.bootstrapcdn.com kendo.cdn.telerik.com; font-src 'self' __cdnUrl__ kendo.cdn.telerik.com netdna.bootstrapcdn.com; img-src 'self' *.gstatic.com *.googleapis.com *.google-analytics.com __cdnUrl__ https://*.dec.sitefinity.com; media-src 'self' data: blob:; child-src 'self' apis.google.com accounts.google.com __cdnUrl__; connect-src 'self' accounts.google.com https://*.dec.sitefinity.com __cdnUrl__;" name="Content-Security-Policy" config:flags="1" />
-    </responseHeaders>
-  </httpSecurityHeaders>
+	<httpSecurityHeaders>
+		<responseHeaders>
+			<add value="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.googletagmanager.com *.google-analytics.com apis.google.com __cdnUrl__ https://manager.eu.smartlook.cloud/rec/check https://rec.smartlook.com/recorder.js; style-src 'self' 'unsafe-inline' 'unsafe-eval' __cdnUrl__ *.googleapis.com *.gstatic.com netdna.bootstrapcdn.com kendo.cdn.telerik.com; font-src 'self' __cdnUrl__ kendo.cdn.telerik.com netdna.bootstrapcdn.com; img-src 'self' *.gstatic.com *.googleapis.com *.google-analytics.com __cdnUrl__ https://*.dec.sitefinity.com; media-src 'self' data: blob:; child-src 'self' apis.google.com accounts.google.com __cdnUrl__; connect-src 'self' accounts.google.com https://*.dec.sitefinity.com __cdnUrl__;" name="Content-Security-Policy" config:flags="1" />
+		</responseHeaders>
+	</httpSecurityHeaders>
 </webSecurityConfig>

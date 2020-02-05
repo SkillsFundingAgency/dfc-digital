@@ -4,6 +4,7 @@ using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -49,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Assert
             AssertTagInnerTextValue(htmlDocument, model.CourseDetails.Title, "h1");
             this.AssertTableCounts(htmlDocument, 1);
-            this.AssertH2HeadingCounts(htmlDocument, 6);
+            this.AssertH2HeadingCounts(htmlDocument, 9);
         }
 
         [Theory]
@@ -213,6 +214,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     {
                         AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
                         AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        Town = nameof(CourseDetails.VenueDetails.Location.Town),
                         County = nameof(CourseDetails.VenueDetails.Location.County),
                         Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
                     },
@@ -246,6 +248,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Town)).Should().BeTrue();
+                htmlDocument.DocumentNode.Descendants("td")
+            .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
@@ -255,7 +260,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 htmlDocument.DocumentNode.Descendants("td")
                   .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
-                   div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName)).Should().BeFalse();
+                   div.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.VenueDetails.VenueName))).Should().BeFalse();
             }
         }
 
@@ -297,6 +302,45 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 htmlDocument.DocumentNode.Descendants("td")
                 .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
                  div.InnerText.Contains(courseDetailsViewModel.NoOtherDateOrVenueAvailableMessage)).Should().BeTrue();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void OtherVenuesStartdatesTest(bool startDateIsNull)
+        {
+            //Arrange
+            var startDate = DateTime.Now;
+
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OtherDatesAndVenues_cshtml();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            var courseDetails = new CourseDetails();
+
+            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails.Oppurtunities = new System.Collections.Generic.List<Oppurtunity>();
+            var otherDatesAndVenues = new Oppurtunity();
+            if (!startDateIsNull)
+            {
+                otherDatesAndVenues.StartDate = startDate;
+            }
+
+            courseDetailsViewModel.CourseDetails.Oppurtunities.Add(otherDatesAndVenues);
+
+            // Act
+            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
+
+            var expectedStartDate = $"{string.Format("{0:dd MMMM yyyy}", startDate)}";
+            var dateCell = htmlDocument.DocumentNode.SelectNodes("//table[1]/tbody/tr[2]/td[2]").FirstOrDefault().InnerText;
+
+            // Assert
+          if (startDateIsNull)
+            {
+               dateCell.Should().NotContain(expectedStartDate);
+            }
+            else
+            {
+                dateCell.Should().Contain(expectedStartDate);
             }
         }
 
@@ -569,12 +613,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 NoOtherDateOrVenueAvailableMessage = nameof(CourseDetailsViewModel.NoOtherDateOrVenueAvailableMessage),
                 CourseDetails =
                 {
+                    VenueDetails = otherDatesAvailable ? new Venue() : null,
                     Oppurtunities = otherDatesAvailable
                         ? new List<Oppurtunity>
                         {
                             new Oppurtunity
                             {
-                                StartDate = nameof(Oppurtunity.StartDate),
+                                StartDate = DateTime.Now,
                                 OppurtunityId = nameof(Oppurtunity.OppurtunityId),
                                 VenueName = nameof(Oppurtunity.VenueName), VenueUrl = nameof(Oppurtunity.VenueName)
                             }
@@ -609,10 +654,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             var htmlDocument = detailsView.RenderAsHtml(courseDetailsViewModel);
 
             //Asserts
-            if (!string.IsNullOrWhiteSpace(courseDetails.SupportingFacilities))
+            if (!string.IsNullOrWhiteSpace(courseDetails.AttendancePattern))
             {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.SupportingFacilitiesLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.SupportingFacilities, "td");
+                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.AttendancePatternLabel, "th");
+                AssertTagInnerTextValue(htmlDocument, courseDetails.AttendancePattern, "td");
             }
 
             if (!string.IsNullOrWhiteSpace(courseDetails.AwardingOrganisation))
@@ -639,12 +684,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 AssertTagInnerTextValue(htmlDocument, courseDetails.AdditionalPrice, "td");
             }
 
-            if (!string.IsNullOrWhiteSpace(courseDetails.LanguageOfInstruction))
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.LanguageOfInstructionLabel, "th");
-                AssertTagInnerTextValue(htmlDocument, courseDetails.LanguageOfInstruction, "td");
-            }
-
             if (!string.IsNullOrWhiteSpace(courseDetails.QualificationName))
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.QualificationNameLabel, "th");
@@ -661,13 +700,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             {
                 AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.PriceLabel, "th");
                 AssertTagInnerTextValue(htmlDocument, courseDetails.Cost, "td");
-            }
-
-            if (courseDetails.AdvancedLearnerLoansOffered)
-            {
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationLabel, "th");
-                AssertElementExistsByAttributeAndValue(htmlDocument, "a", "href", courseDetailsViewModel.FundingInformationLink);
-                AssertTagInnerTextValue(htmlDocument, courseDetailsViewModel.FundingInformationText, "a");
             }
         }
 

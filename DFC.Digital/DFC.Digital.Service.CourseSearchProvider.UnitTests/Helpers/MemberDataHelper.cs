@@ -140,12 +140,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             yield return new object[]
             {
-                CourseType.DistanceLearning,
-                CourseSearchConstants.DistantAttendanceModes()
-            };
-
-            yield return new object[]
-            {
                 CourseType.WorkBased,
                 CourseSearchConstants.WorkAttendanceModes()
             };

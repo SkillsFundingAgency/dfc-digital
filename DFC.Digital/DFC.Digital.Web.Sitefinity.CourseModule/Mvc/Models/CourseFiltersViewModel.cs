@@ -33,7 +33,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string CourseTypeDisplayName => CourseType.GetAttribute<DisplayAttribute>().Name;
 
-        public bool FiltersApplied => Only1619Courses || StartDate != StartDate.Anytime ||
+        public bool FiltersApplied => StartDate != StartDate.Anytime ||
                                       CourseHours != CourseHours.All || CourseType != CourseType.All ||
                                       !string.IsNullOrWhiteSpace(Location) || !string.IsNullOrWhiteSpace(Provider);
 

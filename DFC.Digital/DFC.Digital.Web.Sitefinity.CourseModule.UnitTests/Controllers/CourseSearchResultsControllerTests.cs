@@ -109,6 +109,82 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             }
         }
 
+        [Fact]
+        public void OrderByDistanceWithNoPostcodeTest()
+        {
+            var courseSearchResponse = new CourseSearchResult
+            {
+                Courses = GetCourses(2),
+                ResultProperties = new CourseSearchResultProperties
+                {
+                    Page = 1,
+                    TotalPages = 1,
+                    TotalResultCount = 2
+                }
+            };
+
+            var searchFilter = new CourseFiltersViewModel() { Location = null, SearchTerm = "AnySearchTerm" };
+
+            // setupFakes
+            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).Returns(courseSearchResponse);
+
+            var searchProperties = new CourseSearchProperties
+            {
+                OrderedBy = CourseSearchOrderBy.Distance
+            };
+
+            // Assign
+            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeWebAppContext, mapperCfg)
+            {
+            };
+
+            // Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index(searchFilter, searchProperties));
+
+            // Assert
+            controllerResult.ShouldRenderView("SearchResults").WithModel<CourseSearchResultsViewModel>();
+            A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, CourseSearchOrderBy.Distance)).MustHaveHappened();
+        }
+
+        [Theory]
+        [InlineData("B1 1AA", "B1 1AA", null)]
+        [InlineData("Birmingham", null, "Birmingham")]
+        public void LocationToPostcodeTest(string location, string expectedPostCode, string expectedTown)
+        {
+            var courseSearchResponse = new CourseSearchResult
+            {
+                Courses = GetCourses(1),
+                ResultProperties = new CourseSearchResultProperties
+                {
+                    Page = 1,
+                    TotalPages = 1,
+                    TotalResultCount = 1
+                }
+            };
+
+            var searchProperties = new CourseSearchProperties();
+            var searchFilter = new CourseFiltersViewModel() { Location = location, SearchTerm = "AnySearchTerm" };
+
+            // setupFakes
+            A.CallTo(() => fakeCourseSearchService.SearchCoursesAsync(A<CourseSearchProperties>._)).Returns(courseSearchResponse);
+
+            // Assign
+            var controller = new CourseSearchResultsController(fakeApplicationLogger, fakeCourseSearchService, asyncHelper, fakeCourseSearchViewModelService, fakeWebAppContext, mapperCfg)
+            {
+            };
+
+            // Act
+            var controllerResult = controller.WithCallTo(contrl => contrl.Index(searchFilter, searchProperties));
+
+            // Assert
+            controllerResult.ShouldRenderView("SearchResults").WithModel<CourseSearchResultsViewModel>(
+            vm =>
+            {
+                vm.CourseFiltersModel.Postcode.Should().BeEquivalentTo(expectedPostCode);
+                vm.CourseFiltersModel.Town.Should().BeEquivalentTo(expectedTown);
+            });
+        }
+
         private void SetupCalls()
         {
             A.CallTo(() => fakeCourseSearchViewModelService.GetOrderByLinks(A<string>._, A<CourseSearchOrderBy>._)).Returns(new OrderByLinks());

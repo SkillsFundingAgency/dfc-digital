@@ -19,13 +19,19 @@
             <div class="column-half">
                 <div class="panel panel-border-narrow opportunity-item">
                     <h3 class="heading-small">
-                        <a href="@($"{Model.CourseLink}{trainingCourse.CourseId}")">@trainingCourse.Title</a>
+                        <a href="@($"{Model.CourseLink}{trainingCourse.CourseId}&r={trainingCourse.RunId}")">@trainingCourse.Title</a>
                     </h3>
                     <ul class="list">
                         <li><span class="bold-small">Provider:</span> @trainingCourse.ProviderName</li>
-                        <li><span class="bold-small">Start date:</span> @trainingCourse.StartDate.ToString("dd MMMM yyyy")</li>
-                        <li><span class="bold-small">Location:</span> @trainingCourse.Location</li>
-                    </ul>
+                        @if (@trainingCourse.StartDate != null)
+                        {
+                            <li><span class="bold-small">Start date:</span> @string.Format("{0:dd MMMM yyyy}", trainingCourse.StartDate)</li>
+                        }
+                        @if (!String.IsNullOrWhiteSpace(trainingCourse.Location))
+                        {
+                            <li><span class="bold-small">Location:</span> @trainingCourse.Location</li>
+                        }
+                        </ul>
                 </div>
             </div>
         }

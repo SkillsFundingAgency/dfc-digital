@@ -36,7 +36,6 @@ namespace DFC.Digital.Service.CourseSearchProvider
                         EarliestStartDate = courseBusinessRules.GetEarliestStartDate(courseSearchProperties.Filters.StartDate, courseSearchProperties.Filters.StartDateFrom),
                         AttendanceModes = convertTribalCodes.GetTribalAttendanceModes(courseSearchProperties.Filters.CourseType),
                         StudyModes = convertTribalCodes.GetTribalStudyModes(courseSearchProperties.Filters.CourseHours),
-                        DFE1619Funded = courseSearchProperties.Filters.Only1619Courses ? "Y" : null,
                         ProviderKeyword = courseSearchProperties.Filters.Provider,
                         Distance = courseSearchProperties.Filters.DistanceSpecified ? courseSearchProperties.Filters.Distance : default(float),
                         DistanceSpecified = courseSearchProperties.Filters.DistanceSpecified,

@@ -25,6 +25,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
 
         public string NoAssessmentMethodAvailableMessage { get; set; }
 
+        public string NoWhatYoullLearnAvailableMessage { get; set; }
+
+        public string NoHowYoullLearnAvailableMessage { get; set; }
+
+        public string NoNextStepsAvailableMessage { get; set; }
+
         public string VenueLabel { get; set; }
 
         public string OtherDatesAndVenuesLabel { get; set; }
@@ -76,5 +82,25 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string FundingInformationLink { get; set; }
 
         public string LanguageOfInstructionLabel { get; set; }
+
+        public string CourseDetailsLabel { get; set; }
+
+        public string WhoThisCourseIsForLabel { get; set; }
+
+        public string WhatYoullLearn { get; set; }
+
+        public string HowYoullLearn { get; set; }
+
+        public string WhatYoullNeedToBring { get; set; }
+
+        public string HowYoullBeAssessed { get; set; }
+
+        public string NextSteps { get; set; }
+
+        public string LocationLabel { get; set; }
+
+        public string CourseHoursLabel { get; set; }
+
+        public string NationalWorkBasedText { get; set; }
     }
 }

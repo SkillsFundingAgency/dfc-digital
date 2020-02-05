@@ -273,7 +273,7 @@
       "CheckFieldPermissions": false,
       "PageId": "7e560616-3197-4475-8905-94f4a7b336a7",
       "Id": "65da21c7-712b-4d83-b568-04d04355324d",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Apprenticeship Link",
@@ -543,7 +543,7 @@
       "CheckFieldPermissions": false,
       "PageId": "64fc8ca6-d83e-486f-9301-0073e64d740a",
       "Id": "0fd7ab9b-6c20-4e7a-b757-0d0295bf257b",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Skill",
@@ -815,7 +815,7 @@
       "CheckFieldPermissions": false,
       "PageId": "f223390c-3e6b-4724-b98d-c813fa8604f4",
       "Id": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "College Link",
@@ -1085,7 +1085,7 @@
       "CheckFieldPermissions": false,
       "PageId": "1cc35603-3732-4004-a348-d09d9259a622",
       "Id": "b2c4f363-63e7-4ec4-b6f3-1d582fbd733e",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Apprenticeship Requirement",
@@ -1323,7 +1323,7 @@
       "CheckFieldPermissions": false,
       "PageId": "425859f4-6e6f-4dd0-bae2-90bbbe98687b",
       "Id": "3d683643-1394-4636-9c27-4d830d903c53",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Restriction",
@@ -1561,7 +1561,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9e64a344-3e50-4707-8aae-ce5648e096ac",
       "Id": "3fa194e3-187c-49c6-9e6f-51a4c579d8e7",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "College Requirement",
@@ -1799,7 +1799,7 @@
       "CheckFieldPermissions": false,
       "PageId": "5c423bbf-67ad-4a95-ae45-30d2fe2aef5e",
       "Id": "42b76ae2-cdc1-4dec-948e-5ebf5e910c10",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "University Link",
@@ -2070,7 +2070,7 @@
       "CheckFieldPermissions": false,
       "PageId": "a6f31a12-b372-4136-8f83-458890b211f3",
       "Id": "21300621-3389-43f0-82cd-780a87bc64ff",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Location",
@@ -2341,7 +2341,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ef37060-30ed-4441-b7bf-2d7487251405",
       "Id": "79c31c54-a32e-4ee8-a153-818447136e5a",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Apprenticeship Vacancy",
@@ -2756,7 +2756,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Environment",
@@ -3027,7 +3027,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ca36593-1ac3-460a-aacf-56a37bfd1a17",
       "Id": "9ebaf9c9-5fa5-4d1a-8d94-baaf14631afb",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "University Requirement",
@@ -3265,7 +3265,7 @@
       "CheckFieldPermissions": false,
       "PageId": "73f4bbb7-7be3-4abb-939c-ad70cbc18c1c",
       "Id": "132608ea-139c-4eba-a6d6-cbecc44b9672",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "SOC Skills Matrix",
@@ -3693,7 +3693,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6054b1db-5387-4cf9-9de0-c84ea30069a5",
       "Id": "a476038b-4188-474d-88af-ccc192794d48",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Registration",
@@ -3931,7 +3931,7 @@
       "CheckFieldPermissions": false,
       "PageId": "47e71b55-46fd-4d58-b2d0-fcf9fac81677",
       "Id": "b074b87e-ede1-472c-996b-dcb22db4110e",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -4265,7 +4265,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2019-02-12T10:06:43.27Z"
+      "LastModified": "2019-03-27T15:46:42.373Z"
     },
     {
       "DisplayName": "Job Profile",
@@ -4282,6 +4282,7 @@
           "SpecialType": 0,
           "MediaType": "",
           "FieldTypeDisplayName": "RelatedData",
+          "IsRequired": true,
           "AllowMultipleImages": true,
           "AllowMultipleVideos": true,
           "AllowMultipleFiles": true,
@@ -4310,7 +4311,7 @@
           "RelatedDataType": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfileSoc",
           "RelatedDataProvider": "sf-site-default-provider",
           "Id": "b49a3d21-dc80-44be-8fb3-9b9b2715ea64",
-          "LastModified": "2018-09-04T13:27:23.43Z"
+          "LastModified": "2020-01-20T15:23:25.19Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -5903,7 +5904,7 @@
           "ParentSectionId": "7ba4fadb-1df2-47c4-8859-2260b313c35a",
           "TypeUIName": "\n                                Choices\n                            ",
           "Id": "b2345d4c-e6a8-49d1-9de2-50df141b1053",
-          "LastModified": "2019-02-21T11:56:23.093Z"
+          "LastModified": "2019-03-27T15:46:39.297Z"
         },
         {
           "ParentTypeId": "9439c675-86fc-4d9e-a82f-894b31d7098b",
@@ -7009,7 +7010,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2019-02-21T11:56:23.093Z"
+      "LastModified": "2020-01-20T15:23:25.19Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

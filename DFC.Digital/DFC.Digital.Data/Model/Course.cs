@@ -23,6 +23,8 @@ namespace DFC.Digital.Data.Model
         /// </value>
         public string CourseId { get; set; }
 
+        public string RunId { get; set; }
+
         /// <summary>
         /// Gets or sets the name of the provider.
         /// </summary>
@@ -37,7 +39,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The start date.
         /// </value>
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the location.

@@ -2,13 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JobProfile</id>
-    <version>2.0.8.1</version>
+    <version>2.0.31.4</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <description>Job Profile -- Updating Digital Skills in WIT as per new content from SMEs</description>
+    <description>Job Profile Dynamic Module -- Updating SoC field validation to Required field.
+      SoC field was made compulsory field when creating new JobProfiles for use in CompositeUI.
+      This was not creating any messages in Service Bus when a JobProfile is PUBLISHED although new JobProfile was created.</description>
     <language>en-GB</language>
     <dependencies>
       <dependency id="PreSearchFilters" version="1.0.0.3" />

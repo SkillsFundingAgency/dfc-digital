@@ -108,7 +108,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
 
         public string ActiveFiltersMilesText { get; set; } = "miles";
 
-        public string FilterProviderLabel { get; set; } = "Provider";
+        public string FilterProviderLabel { get; set; } = "Course provider";
 
         public string FilterLocationLabel { get; set; } = "Location";
 
@@ -129,6 +129,22 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
             };
 
+            CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;
+            if (!filtersInput.IsDistanceLocation)
+            {
+                filtersInput.Town = filtersInput.Location;
+
+                //Make CD API behave the same way as tribal if there is no postcode, the order by relevence if distance is selected.
+                if (inputSearchProperties.OrderedBy == CourseSearchOrderBy.Distance)
+                {
+                    inputSearchProperties.OrderedBy = CourseSearchOrderBy.Relevance;
+                }
+            }
+            else
+            {
+                filtersInput.Postcode = filtersInput.Location;
+            }
+
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
             {
                 //create a new object if invoked from landing page
@@ -145,11 +161,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
+
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
                     {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
+                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&r={course.RunId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
                         courseSearchResults.Courses.Add(new CourseListingViewModel
                         {
                             Course = course,
@@ -160,6 +177,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
+                    response.ResultProperties.OrderedBy = originalCourseSearchOrderBy;
                     SetupResultsViewModel(courseSearchResults, response);
                 }
 
@@ -178,6 +196,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Town = courseSearchFilters.Town.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }
 

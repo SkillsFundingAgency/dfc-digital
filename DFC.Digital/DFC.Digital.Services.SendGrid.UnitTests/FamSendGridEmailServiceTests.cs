@@ -103,9 +103,10 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         {
             // Arrange
             const string sharedConfigEmail = "EmailFromSharedConfig@config.com";
+            var sharedConfigResponse = new AreaRoutingApiResponse { EmailAddress = sharedConfigEmail };
             var sendEmailRequest = new ContactUsRequest { ContactOption = "ContactAdviser", Email = DefaultFromEmailAddress };
             var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService);
-            A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<string>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).Returns(sharedConfigEmail);
+            A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<AreaRoutingApiResponse>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).Returns(sharedConfigResponse);
             A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Throws<BrokenCircuitException>();
 
             // Act

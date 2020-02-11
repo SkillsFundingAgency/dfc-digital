@@ -15,8 +15,8 @@ namespace DFC.Digital.Services.SendGrid
 {
     public class FamSendGridEmailService : SendGridEmailService
     {
-        private const string SharedConfigServiceName = "test";
-        private const string SharedConfigKeyName = "test2";
+        private const string SharedConfigServiceName = "dfc-fam";
+        private const string SharedConfigKeyName = "FamFallbackApiResponse";
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IHttpClientService<INoncitizenEmailService<ContactUsRequest>> httpClientService;
         private readonly ISharedConfigurationService sharedConfigurationService;
@@ -55,7 +55,8 @@ namespace DFC.Digital.Services.SendGrid
                 }
                 catch (BrokenCircuitException)
                 {
-                    template.To = await sharedConfigurationService.GetConfigAsync<string>(SharedConfigServiceName, SharedConfigKeyName);
+                    var fallbackResponse = await sharedConfigurationService.GetConfigAsync<AreaRoutingApiResponse>(SharedConfigServiceName, SharedConfigKeyName);
+                    template.To = fallbackResponse.EmailAddress;
                 }
 
                 return await SendEmail(sendEmailRequest, template).ConfigureAwait(false);

@@ -87,6 +87,16 @@
     <add key="FAC.CourseSearchSvcSettings.ApiKey" value="__FacApiKey__" />
     <add key="FAC.CourseSearchSvcSettings.ServiceEndpoint" value="__FacApimEndpoint__" />
 
+    <!--Area Routing API settings-->
+    <add key="DFC.Digital.AreaRoutingApi.ServiceUrl" value="__AreaRoutingAPIAreasEndpoint__" />
+    <add key="DFC.Digital.AreaRoutingApi.SubscriptionKey" value="__AreaRoutingApiKey__" />
+
+    <!--SharedConfig Settings-->
+    <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
+    <add key="DFC.SharedConfig.CloudStorageTableName" value="Configuration" />
+    <add key="DFC.SharedConfig.InMemoryCacheTimeToLiveTimespan" value="00:01:00" />
+    <add key="DFC.SharedConfig.EnvironmentName" value="Development" />
+
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

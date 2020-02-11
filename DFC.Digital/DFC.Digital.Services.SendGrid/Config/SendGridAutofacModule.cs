@@ -2,6 +2,10 @@
 using Autofac.Extras.DynamicProxy;
 using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
+using Dfc.SharedConfig.IoC;
+using Dfc.SharedConfig.Models;
 using SendGrid;
 using SendGrid.Helpers.Reliability;
 using System;
@@ -21,37 +25,58 @@ namespace DFC.Digital.Services.SendGrid
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
 
             builder.Register(c => new SendGridClient(new SendGridClientOptions
-                {
-                    ApiKey = c.Resolve<IConfigurationProvider>().GetConfig<string>(Constants.SendGridApiKey),
+            {
+                ApiKey = c.Resolve<IConfigurationProvider>().GetConfig<string>(Constants.SendGridApiKey),
 
-                    // Summary:
-                    //     Initializes a new instance of the SendGrid.Helpers.Reliability.ReliabilitySettings
-                    //     class.
-                    //
-                    // Parameters:
-                    //   maximumNumberOfRetries:
-                    //     The maximum number of retries to execute against when sending an HTTP Request
-                    //     before throwing an exception
-                    //
-                    //   minimumBackoff:
-                    //     The minimum amount of time to wait between between HTTP retries
-                    //
-                    //   maximumBackOff:
-                    //     the maximum amount of time to wait between between HTTP retries
-                    //
-                    //   deltaBackOff:
-                    //     the value that will be used to calculate a random delta in the exponential delay
-                    //     between retries
+                // Summary:
+                //     Initializes a new instance of the SendGrid.Helpers.Reliability.ReliabilitySettings
+                //     class.
+                //
+                // Parameters:
+                //   maximumNumberOfRetries:
+                //     The maximum number of retries to execute against when sending an HTTP Request
+                //     before throwing an exception
+                //
+                //   minimumBackoff:
+                //     The minimum amount of time to wait between between HTTP retries
+                //
+                //   maximumBackOff:
+                //     the maximum amount of time to wait between between HTTP retries
+                //
+                //   deltaBackOff:
+                //     the value that will be used to calculate a random delta in the exponential delay
+                //     between retries
                 ReliabilitySettings = new ReliabilitySettings(
                         c.Resolve<IConfigurationProvider>().GetConfig(Constants.SendGridDefaultNumberOfRetries, 2),
                         TimeSpan.FromSeconds(c.Resolve<IConfigurationProvider>().GetConfig(Constants.SendGridDefaultMinimumBackOff, 2)),
                         TimeSpan.FromSeconds(c.Resolve<IConfigurationProvider>().GetConfig(Constants.SendGridDefaultMaximumBackOff, 3)),
                         TimeSpan.FromSeconds(c.Resolve<IConfigurationProvider>().GetConfig(Constants.SendGridDeltaBackOff, 3)))
-                })).As<ISendGridClient>()
+            })).As<ISendGridClient>()
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+
+            builder.RegisterType<FamSendGridEmailService>().As<INoncitizenEmailService<ContactUsRequest>>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.RegisterType<HttpClientService<INoncitizenEmailService<ContactUsRequest>>>()
+                .AsImplementedInterfaces()
+                .SingleInstance()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
+
+            builder.AddTableConfigServices();
+
+            builder.Register(c => new SharedConfigSettings
+            {
+                ConfigurationStorageConnectionString = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigStorageConnectionString, string.Empty),
+                CloudStorageTableName = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigCloudStorageTableName, "Configuration"),
+                EnvironmentName = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigEnvironmentName, "Production"),
+                InMemoryCacheTimeToLiveTimeSpan = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigInMemoryCacheTimeToLiveTimespan, "00:01:00"),
+            }).AsSelf().SingleInstance();
         }
     }
 }

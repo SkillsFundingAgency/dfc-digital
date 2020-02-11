@@ -34,31 +34,36 @@ namespace DFC.Digital.Services.SendGrid
             this.mapper = mapper;
         }
 
-        public async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
+        public virtual async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
+        {
+            var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
+            return await SendEmail(sendEmailRequest, template).ConfigureAwait(false);
+        }
+
+        protected async Task<bool> SendEmail(ContactUsRequest sendEmailRequest, EmailTemplate template)
         {
             if (simulateEmailResponsesService.IsThisSimulationRequest(sendEmailRequest.Email))
             {
                 return simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
             }
 
-            var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
-            if (template != null)
+            if (template == null)
             {
-                var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
-                var subject = template.Subject;
-                var to = template.To?.Split(';').Select(toEmail => new EmailAddress(toEmail.Trim(), toEmail.Trim())).ToList();
-                var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
-                var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
-                var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, to, subject, plainTextContent, htmlContent);
-                var clientResponse = await sendGridClient.SendEmailAsync(msg);
-                var auditResponse = mapper.Map<SendEmailResponse>(clientResponse);
-                var result = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
-
-                auditRepository.CreateAudit(sendEmailRequest, template, auditResponse);
-                return result;
+                return false;
             }
 
-            return false;
+            var from = new EmailAddress(sendEmailRequest.Email, $"{sendEmailRequest.FirstName} {sendEmailRequest.LastName}");
+            var subject = template.Subject;
+            var to = template.To?.Split(';').Select(toEmail => new EmailAddress(toEmail.Trim(), toEmail.Trim())).ToList();
+            var plainTextContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.BodyNoHtml);
+            var htmlContent = mergeEmailContentService.MergeTemplateBodyWithContent(sendEmailRequest, template.Body);
+            var msg = MailHelper.CreateSingleEmailToMultipleRecipients(@from, to, subject, plainTextContent, htmlContent);
+            var clientResponse = await sendGridClient.SendEmailAsync(msg);
+            var auditResponse = mapper.Map<SendEmailResponse>(clientResponse);
+            var result = clientResponse.StatusCode.Equals(HttpStatusCode.Accepted);
+
+            auditRepository.CreateAudit(sendEmailRequest, template, auditResponse);
+            return result;
         }
     }
 }

@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
+using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.Enum;
 using DFC.Digital.Services.SendGrid.Models;
 using Dfc.SharedConfig.Services;
 using Polly.CircuitBreaker;
 using SendGrid;
-using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IConfigurationProvider = DFC.Digital.Core.IConfigurationProvider;
 
 namespace DFC.Digital.Services.SendGrid
 {
@@ -20,6 +22,7 @@ namespace DFC.Digital.Services.SendGrid
         private readonly IEmailTemplateRepository emailTemplateRepository;
         private readonly IHttpClientService<INoncitizenEmailService<ContactUsRequest>> httpClientService;
         private readonly ISharedConfigurationService sharedConfigurationService;
+        private readonly IConfigurationProvider configuration;
 
         public FamSendGridEmailService(
             IEmailTemplateRepository emailTemplateRepository,
@@ -29,41 +32,46 @@ namespace DFC.Digital.Services.SendGrid
             ISendGridClient sendGridClient,
             IMapper mapper,
             IHttpClientService<INoncitizenEmailService<ContactUsRequest>> httpClientService,
-            ISharedConfigurationService sharedConfigurationService) : base(emailTemplateRepository, mergeEmailContentService, auditRepository, simulateEmailResponsesService, sendGridClient, mapper)
+            ISharedConfigurationService sharedConfigurationService,
+            IConfigurationProvider configuration) : base(emailTemplateRepository, mergeEmailContentService, auditRepository, simulateEmailResponsesService, sendGridClient, mapper)
         {
             this.emailTemplateRepository = emailTemplateRepository;
             this.httpClientService = httpClientService;
             this.sharedConfigurationService = sharedConfigurationService;
+            this.configuration = configuration;
         }
 
-        public override async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
+        public override async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest, EmailTemplate template = null)
         {
-            if (sendEmailRequest.ContactOption == "ContactAdviser")
+            if (sendEmailRequest.ContactOption == nameof(ContactOption.ContactAdviser))
             {
-                var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
+                if (template == null)
+                {
+                    template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
+                }
 
                 try
                 {
-                    var url = $"{ConfigurationManager.AppSettings[Constants.AreaRoutingApiServiceUrl]}?location={sendEmailRequest.Postcode}";
-                    var accessKey = ConfigurationManager.AppSettings[Constants.AreaRoutingApiSubscriptionKey];
+                    var url = $"{configuration.GetConfig<string>(Constants.AreaRoutingApiServiceUrl)}?location={sendEmailRequest.Postcode}";
+                    var accessKey = configuration.GetConfig<string>(Constants.AreaRoutingApiSubscriptionKey);
 
                     httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, accessKey);
-                    var response = await this.httpClientService.GetWhereAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode && httpResponseMessage.StatusCode != HttpStatusCode.NoContent);
+                    var response = await this.httpClientService.GetAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode || httpResponseMessage.StatusCode != HttpStatusCode.NoContent);
                     var areaRoutingApiResponse = await response.Content.ReadAsAsync<AreaRoutingApiResponse>();
 
                     template.To = areaRoutingApiResponse.EmailAddress;
                 }
-                catch (BrokenCircuitException)
+                catch (LoggedException)
                 {
                     var fallbackResponse = await sharedConfigurationService.GetConfigAsync<AreaRoutingApiResponse>(SharedConfigServiceName, SharedConfigKeyName);
                     template.To = fallbackResponse.EmailAddress;
                 }
 
-                return await SendEmail(sendEmailRequest, template).ConfigureAwait(false);
+                return await base.SendEmailAsync(sendEmailRequest, template).ConfigureAwait(false);
             }
             else
             {
-                return await base.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
+                return await base.SendEmailAsync(sendEmailRequest, null).ConfigureAwait(false);
             }
         }
     }

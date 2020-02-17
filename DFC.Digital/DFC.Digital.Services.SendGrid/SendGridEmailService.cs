@@ -34,17 +34,16 @@ namespace DFC.Digital.Services.SendGrid
             this.mapper = mapper;
         }
 
-        public virtual async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest)
-        {
-            var template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
-            return await SendEmail(sendEmailRequest, template).ConfigureAwait(false);
-        }
-
-        protected async Task<bool> SendEmail(ContactUsRequest sendEmailRequest, EmailTemplate template)
+        public virtual async Task<bool> SendEmailAsync(ContactUsRequest sendEmailRequest, EmailTemplate template = null)
         {
             if (simulateEmailResponsesService.IsThisSimulationRequest(sendEmailRequest.Email))
             {
                 return simulateEmailResponsesService.SimulateEmailResponse(sendEmailRequest.Email);
+            }
+
+            if (template == null)
+            {
+                template = emailTemplateRepository.GetByTemplateName(sendEmailRequest.TemplateName);
             }
 
             if (template == null)

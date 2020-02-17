@@ -31,9 +31,9 @@ namespace DFC.Digital.Core
             return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), response => !response.IsSuccessStatusCode, $"{typeof(TService).Name}-{nameof(GetAsync)}", toleranceType);
         }
 
-        public async Task<HttpResponseMessage> GetWhereAsync(string requestUri, Func<HttpResponseMessage, bool> predicate, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
+        public async Task<HttpResponseMessage> GetAsync(string requestUri, Func<HttpResponseMessage, bool> predicate, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)
         {
-            return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), predicate, $"{typeof(TService).Name}-{nameof(GetWhereAsync)}", toleranceType);
+            return await policy.ExecuteAsync(() => httpClient.GetAsync(new Uri(requestUri)), predicate, $"{typeof(TService).Name}-{nameof(GetAsync)}", toleranceType);
         }
 
         public async Task<HttpResponseMessage> PostAsync(string requestUri, string content, FaultToleranceType toleranceType = FaultToleranceType.RetryWithCircuitBreaker)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
+using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Services.SendGrid.Models;
@@ -16,6 +17,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using IConfigurationProvider = DFC.Digital.Core.IConfigurationProvider;
 
 namespace DFC.Digital.Services.SendGrid.UnitTests
 {
@@ -32,6 +34,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         private readonly IMapper fakeMapper;
         private readonly IHttpClientService<INoncitizenEmailService<ContactUsRequest>> fakeHttpClientService;
         private readonly ISharedConfigurationService fakeSharedConfigurationService;
+        private readonly IConfigurationProvider fakeConfigurationProvider;
 
         public FamSendGridEmailServiceTests()
         {
@@ -56,10 +59,11 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
 
             var areaRoutingApiResponse = new AreaRoutingApiResponse { EmailAddress = EmailAddressFromAreaRouting };
             var httpResponseMessage = new HttpResponseMessage { Content = new StringContent(JsonConvert.SerializeObject(areaRoutingApiResponse), Encoding.Default, "application/json") };
-            A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Returns(httpResponseMessage);
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Returns(httpResponseMessage);
 
             fakeSharedConfigurationService = A.Fake<ISharedConfigurationService>();
             fakeMapper = A.Fake<IMapper>();
+            fakeConfigurationProvider = A.Fake<IConfigurationProvider>();
         }
 
         [Fact]
@@ -67,14 +71,14 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         {
             // Arrange
             var sendEmailRequest = new ContactUsRequest { ContactOption = "Feedback", Email = "test@test.com" };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
 
             // Act
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
 
             // Assert
             Assert.True(result);
-            A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustNotHaveHappened();
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustNotHaveHappened();
             A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<string>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).MustNotHaveHappened();
         }
 
@@ -83,14 +87,14 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         {
             // Arrange
             var sendEmailRequest = new ContactUsRequest { ContactOption = "ContactAdviser", Email = DefaultFromEmailAddress };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
 
             // Act
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
 
             // Assert
             Assert.True(result);
-            A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<string>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).MustNotHaveHappened();
             A.CallTo(() => fakeSendGridClient.SendEmailAsync(
                     A<SendGridMessage>.That.Matches(
@@ -105,16 +109,17 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
             const string sharedConfigEmail = "EmailFromSharedConfig@config.com";
             var sharedConfigResponse = new AreaRoutingApiResponse { EmailAddress = sharedConfigEmail };
             var sendEmailRequest = new ContactUsRequest { ContactOption = "ContactAdviser", Email = DefaultFromEmailAddress };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
             A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<AreaRoutingApiResponse>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).Returns(sharedConfigResponse);
-            A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Throws<BrokenCircuitException>();
+            var exception = new LoggedException("message", new BrokenCircuitException());
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Throws(exception);
 
             // Act
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
 
             // Assert
             Assert.True(result);
-            A.CallTo(() => fakeHttpClientService.GetWhereAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => fakeSendGridClient.SendEmailAsync(
                     A<SendGridMessage>.That.Matches(
                         msg => msg.Personalizations[0].Tos[0].Email == sharedConfigEmail),

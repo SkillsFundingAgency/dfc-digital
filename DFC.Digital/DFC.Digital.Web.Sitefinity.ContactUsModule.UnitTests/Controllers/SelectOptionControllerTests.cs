@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using DFC.Digital.Core;
-using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model.Enum;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
-using DFC.Digital.Web.Sitefinity.Core;
 using FakeItEasy;
 using FluentAssertions;
 using TestStack.FluentMVCTesting;

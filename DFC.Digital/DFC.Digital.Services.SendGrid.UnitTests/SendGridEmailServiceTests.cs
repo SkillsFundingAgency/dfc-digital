@@ -74,7 +74,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
                 false,
                 true
             };
-
             yield return new object[]
             {
                 new ContactUsRequest

@@ -93,9 +93,6 @@
 
     <!--SharedConfig Settings-->
     <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
-    <add key="DFC.SharedConfig.CloudStorageTableName" value="Configuration" />
-    <add key="DFC.SharedConfig.InMemoryCacheTimeToLiveTimespan" value="00:01:00" />
-    <add key="DFC.SharedConfig.EnvironmentName" value="Production" />
 
   </appSettings>
   <connectionStrings>

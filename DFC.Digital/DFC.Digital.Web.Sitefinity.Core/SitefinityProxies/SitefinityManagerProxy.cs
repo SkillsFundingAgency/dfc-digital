@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Linq;
 using Telerik.Sitefinity.Model;
@@ -42,6 +43,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var control = GetPageManagerForProvider().LoadControl(pageDraftControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
             return control.Settings.Values[Constants.Content];
+        }
+
+        public string GetControlSharedContent(PageControl pageControl, IDynamicContentExtensions dynamicContentExtensions, string providerName)
+        {
+            var control = GetPageManagerForProvider(providerName).LoadControl(pageControl) as Telerik.Sitefinity.Mvc.Proxy.MvcControllerProxy;
+            return dynamicContentExtensions.GetFieldValue<Guid>(control.Settings.Values, Constants.SharedContent);
         }
 
         public PageDraft GetPreviewPageDataById(Guid id)

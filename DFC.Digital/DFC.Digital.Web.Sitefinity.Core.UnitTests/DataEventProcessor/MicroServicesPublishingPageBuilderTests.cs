@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using DFC.Digital.Repository.SitefinityCMS;
 using FakeItEasy;
 using FluentAssertions;
 using System;
@@ -19,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly ISitefinityManagerProxy fakeSitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy fakeSitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy fakeSitefinityPageDataProxy;
+        private readonly IDynamicContentExtensions fakeDynamicContentExtensions;
 
         private readonly PageNode dummyPageNode;
         private readonly PageData dummyPageData;
@@ -29,6 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             fakeSitefinityManagerProxy = A.Fake<ISitefinityManagerProxy>();
             fakeSitefinityPageDataProxy = A.Fake<ISitefinityPageDataProxy>();
             fakeSitefinityPageNodeProxy = A.Fake<ISitefinityPageNodeProxy>();
+            fakeDynamicContentExtensions = A.Fake<IDynamicContentExtensions>();
 
             dummyPublishedDate = DateTime.Now;
             dummyPageNode = new PageNode();
@@ -46,7 +49,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeSitefinityPageNodeProxy.GetCustomField(A<PageNode>._, A<string>._)).Returns(dummyKeyName);
 
             //Act
-            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy);
+            var microServicesPublishingPageBuilder = new MicroServicesPublishingPageBuilder(fakeSitefinityManagerProxy, fakeSitefinityPageDataProxy, fakeSitefinityPageNodeProxy, fakeDynamicContentExtensions);
             var configKeyName = microServicesPublishingPageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(typeof(PageNode), dummyGuid, DummyProvider);
 
             //Asserts

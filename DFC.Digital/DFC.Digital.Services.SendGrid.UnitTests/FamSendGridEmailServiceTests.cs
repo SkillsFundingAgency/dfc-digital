@@ -35,6 +35,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         private readonly IHttpClientService<INoncitizenEmailService<ContactUsRequest>> fakeHttpClientService;
         private readonly ISharedConfigurationService fakeSharedConfigurationService;
         private readonly IConfigurationProvider fakeConfigurationProvider;
+        private readonly IApplicationLogger fakeApplicationLogger;
 
         public FamSendGridEmailServiceTests()
         {
@@ -64,6 +65,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
             fakeSharedConfigurationService = A.Fake<ISharedConfigurationService>();
             fakeMapper = A.Fake<IMapper>();
             fakeConfigurationProvider = A.Fake<IConfigurationProvider>();
+            fakeApplicationLogger = A.Fake<IApplicationLogger>();
         }
 
         [Fact]
@@ -71,7 +73,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         {
             // Arrange
             var sendEmailRequest = new ContactUsRequest { ContactOption = "Feedback", Email = "test@test.com" };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider, fakeApplicationLogger);
 
             // Act
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
@@ -87,7 +89,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
         {
             // Arrange
             var sendEmailRequest = new ContactUsRequest { ContactOption = "ContactAdviser", Email = DefaultFromEmailAddress };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider, fakeApplicationLogger);
 
             // Act
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
@@ -109,12 +111,12 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
             const string sharedConfigEmail = "EmailFromSharedConfig@config.com";
             var sharedConfigResponse = new AreaRoutingApiResponse { EmailAddress = sharedConfigEmail };
             var sendEmailRequest = new ContactUsRequest { ContactOption = "ContactAdviser", Email = DefaultFromEmailAddress };
-            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider);
+            var service = new FamSendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper, fakeHttpClientService, fakeSharedConfigurationService, fakeConfigurationProvider, fakeApplicationLogger);
             A.CallTo(() => fakeSharedConfigurationService.GetConfigAsync<AreaRoutingApiResponse>(A<string>.Ignored, A<string>.Ignored, A<bool>.Ignored)).Returns(sharedConfigResponse);
             var exception = new LoggedException("message", new BrokenCircuitException());
             A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Throws(exception);
 
-            // Act
+            // Act 
             var result = await service.SendEmailAsync(sendEmailRequest).ConfigureAwait(false);
 
             // Assert

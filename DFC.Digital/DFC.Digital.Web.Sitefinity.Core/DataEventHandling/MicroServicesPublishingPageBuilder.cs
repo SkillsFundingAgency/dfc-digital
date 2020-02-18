@@ -94,8 +94,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
                 foreach (var pageControl in pageControls)
                 {
-                    microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
                     microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlSharedContent(pageControl, dynamicContentExtensions, providerName);
+                    microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
                 }
             }
 

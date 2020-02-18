@@ -104,6 +104,7 @@ namespace DFC.Digital.Core
         public const string RecycleBinAction = "RecycleBinAction";
         public const string ContentBlock = "Content block";
         public const string Content = "Content";
+        public const string SharedContent = "SharedContentID";
         public const string JobProfile = "JobProfile";
 
         //Fields with Info as field

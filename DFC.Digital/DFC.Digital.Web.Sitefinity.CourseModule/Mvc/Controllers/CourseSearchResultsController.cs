@@ -126,7 +126,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             {
                 CourseFiltersModel = filtersInput,
                 ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={filtersInput.SearchTerm}", UriKind.RelativeOrAbsolute),
-                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
+                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{Server.HtmlEncode(filtersInput.SearchTerm)}'"),
             };
 
             CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;

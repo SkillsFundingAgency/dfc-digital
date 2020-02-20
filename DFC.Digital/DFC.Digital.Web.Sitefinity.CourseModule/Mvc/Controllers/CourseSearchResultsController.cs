@@ -6,6 +6,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -126,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             {
                 CourseFiltersModel = filtersInput,
                 ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={filtersInput.SearchTerm}", UriKind.RelativeOrAbsolute),
-                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{Server.HtmlEncode(filtersInput.SearchTerm)}'"),
+                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{HttpUtility.HtmlEncode(filtersInput.SearchTerm)}'"),
             };
 
             CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;

@@ -272,4 +272,27 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='FAC.CourseSearchSvcSettings.ServiceEndpoint']/@value" />
   </parameter>
+  
+   <!-- Area Routing API -->
+  <parameter name="AreaRouting_Api_Areas_Apim_Endpoint"
+           description="Tokenize the Area routing Areas endpoint to be replaced by VSTS task"
+           defaultValue="__AreaRoutingAPIAreasEndpoint__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.ServiceUrl']/@value" />
+  </parameter>
+  <parameter name="AreaRouting_Api_Areas_Apim_ApiKey"
+           description="Tokenize the Area routing Api Key to be replaced by VSTS task"
+           defaultValue="__AreaRoutingApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.SubscriptionKey']/@value" />
+  </parameter>
+
+  <!-- Shared Config -->
+  <parameter name="SharedConfig_Storage_ConnectionString"
+           description="Tokenize the Shared config table storage connection string to be replaced by VSTS task"
+           defaultValue="__SharedConfigStorageConnectionString__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
+  </parameter>
+
 </parameters>

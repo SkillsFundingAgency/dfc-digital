@@ -6,6 +6,6 @@ namespace DFC.Digital.Data.Interfaces
     public interface INoncitizenEmailService<in T>
         where T : class
     {
-        Task<bool> SendEmailAsync(T sendEmailRequest);
+        Task<bool> SendEmailAsync(T sendEmailRequest, EmailTemplate template = null);
     }
 }

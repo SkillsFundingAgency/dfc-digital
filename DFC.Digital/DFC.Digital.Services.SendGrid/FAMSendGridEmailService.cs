@@ -59,7 +59,7 @@ namespace DFC.Digital.Services.SendGrid
                     var accessKey = configuration.GetConfig<string>(Constants.AreaRoutingApiSubscriptionKey);
 
                     httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, accessKey);
-                    var response = await this.httpClientService.GetAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode || httpResponseMessage.StatusCode != HttpStatusCode.NoContent);
+                    var response = await this.httpClientService.GetAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode || httpResponseMessage.StatusCode != HttpStatusCode.OK);
                     var areaRoutingApiResponse = await response.Content.ReadAsAsync<AreaRoutingApiResponse>();
 
                     template.To = areaRoutingApiResponse.EmailAddress;
@@ -80,7 +80,7 @@ namespace DFC.Digital.Services.SendGrid
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            const string ServiceName = nameof(FamSendGridEmailService);
+            const string ServiceName = "FAM Area Routing API";
             const string DummyPostcode = "CV1 2WT";
 
             var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
@@ -91,23 +91,25 @@ namespace DFC.Digital.Services.SendGrid
                 var accessKey = configuration.GetConfig<string>(Constants.AreaRoutingApiSubscriptionKey);
 
                 httpClientService.AddHeader(Constants.OcpApimSubscriptionKey, accessKey);
-                var response = await this.httpClientService.GetAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode || httpResponseMessage.StatusCode != HttpStatusCode.NoContent);
+                var response = await this.httpClientService.GetAsync(url, (httpResponseMessage) => !httpResponseMessage.IsSuccessStatusCode || httpResponseMessage.StatusCode != HttpStatusCode.OK);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    serviceStatus.Status = ServiceState.Amber;
-                    serviceStatus.Notes = "Success results";
-
                     var areaRoutingApiResponse = await response.Content.ReadAsAsync<AreaRoutingApiResponse>();
                     if (!string.IsNullOrWhiteSpace(areaRoutingApiResponse.EmailAddress))
                     {
                         serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.Notes = string.Empty;
+                        serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Received email address '{areaRoutingApiResponse.EmailAddress}', Api Response was {response.StatusCode}";
+                    }
+                    else
+                    {
+                        serviceStatus.Status = ServiceState.Amber;
+                        serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Received email address '{areaRoutingApiResponse.EmailAddress}', Api Response was {response.StatusCode}";
                     }
                 }
                 else
                 {
-                    serviceStatus.Notes = $"{response.ReasonPhrase}";
+                    serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Api Response was {response.StatusCode}, {response.ReasonPhrase}";
                 }
             }
             catch (Exception e)

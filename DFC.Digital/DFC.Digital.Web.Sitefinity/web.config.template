@@ -458,7 +458,6 @@
     <httpProtocol>
       <customHeaders>
         <clear />
-        <add name="X-Frame-Options" value="SAMEORIGIN" />
       </customHeaders>
     </httpProtocol>
     <applicationInitialization doAppInitAfterRestart="true">

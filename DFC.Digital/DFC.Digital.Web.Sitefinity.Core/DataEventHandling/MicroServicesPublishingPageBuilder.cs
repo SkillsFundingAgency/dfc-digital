@@ -109,7 +109,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
                 IncludeInSiteMap = pageNode.Crawlable,
                 AlternativeNames = GetPageURLs(pageNode),
-                LastModified = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                LastModified = pageData.LastModified,
                 ContentPageId = pageNode.Id,
                 Category = pageNode.Parent.Title != Digital.Core.Constants.Pages ? pageNode.Parent.UrlName : pageNode.UrlName,
                 BreadcrumbTitle = GetBreadcrumbData(pageNode, pageData),

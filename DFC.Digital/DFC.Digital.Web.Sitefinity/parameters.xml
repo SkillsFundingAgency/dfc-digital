@@ -290,7 +290,7 @@
   <!-- Shared Config -->
   <parameter name="SharedConfig_Storage_ConnectionString"
            description="Tokenize the Shared config table storage connection string to be replaced by VSTS task"
-           defaultValue="__SharedConfigStorageConnectionString__">
+           defaultValue="__SharedConfigStorageConnectionStringXml__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
   </parameter>

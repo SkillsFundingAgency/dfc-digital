@@ -79,7 +79,7 @@
   <!-- WebSecurityConfig configurations -->
   <parameter name="CSP"
              description="Tokenize the trusted sources URL to be replaced by VSTS task"
-             defaultValue="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.googletagmanager.com *.google-analytics.com apis.google.com __cdnUrl__; style-src 'self' 'unsafe-inline' 'unsafe-eval' __cdnUrl__ *.googleapis.com *.gstatic.com netdna.bootstrapcdn.com kendo.cdn.telerik.com; font-src 'self' __cdnUrl__ kendo.cdn.telerik.com netdna.bootstrapcdn.com; img-src 'self' *.gstatic.com *.googleapis.com *.google-analytics.com __cdnUrl__ https://*.dec.sitefinity.com; media-src 'self' data: blob:; child-src 'self' apis.google.com accounts.google.com __cdnUrl__; connect-src 'self' accounts.google.com https://*.dec.sitefinity.com __cdnUrl__;">
+             defaultValue="default-src 'self' accounts.google.com https://*.dec.sitefinity.com __cdnUrl__ https://dc.services.visualstudio.com/ https://*.smartlook.cloud/ https://*.smartlook.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.googletagmanager.com *.google-analytics.com apis.google.com __cdnUrl__ https://manager.eu.smartlook.cloud/ https://manager.eu.smartlook.cloud/* https://rec.smartlook.com/ https://az416426.vo.msecnd.net/scripts/; style-src 'self' 'unsafe-inline' 'unsafe-eval' __cdnUrl__ *.googleapis.com *.gstatic.com netdna.bootstrapcdn.com kendo.cdn.telerik.com; font-src 'self' data: __cdnUrl__ kendo.cdn.telerik.com netdna.bootstrapcdn.com; img-src 'self' data: https://cdsprdwesfstorage.blob.core.windows.net/ https://www.googletagmanager.com/ *.gstatic.com *.googleapis.com *.google-analytics.com __cdnUrl__ https://*.dec.sitefinity.com https://stats.g.doubleclick.net/; media-src 'self' data: blob:; frame-src 'self' apis.google.com accounts.google.com __cdnUrl__ https://*.serco.com/ https://*.google.com/ https://www.smartsurvey.co.uk/ https://www.timeforstorm.com/; frame-ancestors 'self'; worker-src blob:;">
     <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\WebSecurityConfig\.config$"
                     match="/webSecurityConfig/httpSecurityHeaders/responseHeaders/add[@name='Content-Security-Policy']/@value" />
@@ -272,4 +272,27 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='FAC.CourseSearchSvcSettings.ServiceEndpoint']/@value" />
   </parameter>
+  
+   <!-- Area Routing API -->
+  <parameter name="AreaRouting_Api_Areas_Apim_Endpoint"
+           description="Tokenize the Area routing Areas endpoint to be replaced by VSTS task"
+           defaultValue="__AreaRoutingAPIAreasEndpoint__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.ServiceUrl']/@value" />
+  </parameter>
+  <parameter name="AreaRouting_Api_Areas_Apim_ApiKey"
+           description="Tokenize the Area routing Api Key to be replaced by VSTS task"
+           defaultValue="__AreaRoutingApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.SubscriptionKey']/@value" />
+  </parameter>
+
+  <!-- Shared Config -->
+  <parameter name="SharedConfig_Storage_ConnectionString"
+           description="Tokenize the Shared config table storage connection string to be replaced by VSTS task"
+           defaultValue="__SharedConfigStorageConnectionStringXml__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
+  </parameter>
+
 </parameters>

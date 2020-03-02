@@ -395,7 +395,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private void GenerateServiceBusMessageForJobProfileUnPublish(DynamicContent item, MessageAction eventAction)
         {
             var jobProfileMessage = new JobProfileMessage();
-            jobProfileMessage.JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(item, "Id");
+            jobProfileMessage.JobProfileId = item.OriginalContentId;
             jobProfileMessage.Title = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(JobProfileMessage.Title));
             serviceBusMessageProcessor.SendJobProfileMessage(jobProfileMessage, item.GetType().Name, eventAction.ToString());
         }

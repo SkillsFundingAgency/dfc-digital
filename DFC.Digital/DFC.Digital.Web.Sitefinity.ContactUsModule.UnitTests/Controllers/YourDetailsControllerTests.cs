@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.Enum;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.ContactUsModule.Mvc.Models;
 using FakeItEasy;
@@ -134,7 +135,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         {
             //Assign
             var postModel = new ContactUsWithConsentViewModel();
-            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
+            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._, A<EmailTemplate>.Ignored)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(validSession ? GetSessionObject(contactOption) : null);
             A.CallTo(() => fakeSessionStorage.Remove()).DoesNothing();
 
@@ -161,7 +162,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(2, Times.Exactly);
 
                     A.CallTo(() => fakeSessionStorage.Remove()).MustHaveHappened();
-                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).MustHaveHappened();
+                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._, A<EmailTemplate>.Ignored)).MustHaveHappened();
 
                     if (validSubmission)
                     {
@@ -197,7 +198,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
         {
             //Assign
             var postModel = new ContactUsWithDobPostcodeViewModel();
-            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).Returns(validSubmission);
+            A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._, A<EmailTemplate>.Ignored)).Returns(validSubmission);
             A.CallTo(() => fakeSessionStorage.Get()).Returns(validSession ? GetSessionObject(ContactOption.ContactAdviser) : null);
             A.CallTo(() => fakeSessionStorage.Remove()).DoesNothing();
 
@@ -222,7 +223,7 @@ namespace DFC.Digital.Web.Sitefinity.ContactUsModule.UnitTests
                 {
                     A.CallTo(() => fakeSessionStorage.Get()).MustHaveHappened(2, Times.Exactly);
                     A.CallTo(() => fakeSessionStorage.Remove()).MustHaveHappened();
-                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._)).MustHaveHappened();
+                    A.CallTo(() => fakeSendEmailService.SendEmailAsync(A<ContactUsRequest>._, A<EmailTemplate>.Ignored)).MustHaveHappened();
 
                     if (validSubmission)
                     {

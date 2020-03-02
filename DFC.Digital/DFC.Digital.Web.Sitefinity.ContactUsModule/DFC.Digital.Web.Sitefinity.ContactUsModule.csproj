@@ -308,7 +308,6 @@
     <Compile Include="Mvc\Models\ViewModels\ContactUsViewModel.cs" />
     <Compile Include="Mvc\Models\Enum\ContactAdivserQuestionType.cs" />
     <Compile Include="Mvc\Models\ContactAnAdviserFeedback.cs" />
-    <Compile Include="Mvc\Models\Enum\ContactOption.cs" />
     <Compile Include="Mvc\Models\ContactUsOption.cs" />
     <Compile Include="Mvc\Models\Enum\FeedbackQuestionType.cs" />
     <Compile Include="Mvc\Models\Enum\FormState.cs" />

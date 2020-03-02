@@ -8,7 +8,6 @@ using FluentAssertions.Common;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -75,7 +74,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
                 false,
                 true
             };
-
             yield return new object[]
             {
                 new ContactUsRequest
@@ -111,7 +109,6 @@ namespace DFC.Digital.Services.SendGrid.Tests
             result.Should().Be(expectation);
             if (isThisSimulation)
             {
-                A.CallTo(() => fakeEmailTemplateRepository.GetByTemplateName(A<string>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeSendGridClient.SendEmailAsync(A<SendGridMessage>._, A<CancellationToken>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeMergeEmailContentService.MergeTemplateBodyWithContent(A<ContactUsRequest>._, A<string>._)).MustNotHaveHappened();
                 A.CallTo(() => fakeAuditRepository.CreateAudit(A<ContactUsRequest>._, A<EmailTemplate>._, A<SendEmailResponse>._)).MustNotHaveHappened();
@@ -169,12 +166,12 @@ namespace DFC.Digital.Services.SendGrid.Tests
             var sendEmailService = new SendGridEmailService(fakeEmailTemplateRepository, fakeMergeEmailContentService, fakeAuditRepository, fakeSimulateEmailResponsesService, fakeSendGridClient, fakeMapper);
 
             //Act
-            var result = await sendEmailService.SendEmailAsync(new ContactUsRequest());
+            await sendEmailService.SendEmailAsync(new ContactUsRequest());
 
             // Assert
             A.CallTo(() => fakeSendGridClient.SendEmailAsync(
                     A<SendGridMessage>.That.Matches(
-                        msg => msg.Personalizations.Count().IsSameOrEqualTo(numberOfEmails)), A<CancellationToken>._))
+                        msg => msg.Personalizations.Count.IsSameOrEqualTo(numberOfEmails)), A<CancellationToken>._))
                 .MustHaveHappened();
         }
     }

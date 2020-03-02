@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
         private readonly ISitefinityPageNodeProxy sitefinityPageNodeProxy;
         private readonly ISitefinityPageDataProxy sitefinityPageDataProxy;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public MicroServicesPublishingPageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy)
+        public MicroServicesPublishingPageBuilder(ISitefinityManagerProxy sitefinityManagerProxy, ISitefinityPageDataProxy sitefinityPageDataProxy, ISitefinityPageNodeProxy sitefinityPageNodeProxy, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.sitefinityManagerProxy = sitefinityManagerProxy;
             this.sitefinityPageDataProxy = sitefinityPageDataProxy;
             this.sitefinityPageNodeProxy = sitefinityPageNodeProxy;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         public static IList<string> GetPageURLs(PageNode pageNode)
@@ -91,6 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 var pageControls = pageData.Controls.Where(c => c.Caption == Digital.Core.Constants.ContentBlock);
                 foreach (var pageControl in pageControls)
                 {
+                    microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlSharedContent(pageControl, dynamicContentExtensions, providerName);
                     microServicesPublishingPageData.Content += sitefinityManagerProxy.GetControlContent(pageControl, providerName);
                 }
             }
@@ -105,7 +109,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 CanonicalName = sitefinityPageNodeProxy.GetPageName(pageNode).ToLower(),
                 IncludeInSiteMap = pageNode.Crawlable,
                 AlternativeNames = GetPageURLs(pageNode),
-                LastModified = sitefinityPageNodeProxy.GetLastPublishedDate(pageNode),
+                LastModified = pageData.LastModified,
                 ContentPageId = pageNode.Id,
                 Category = pageNode.Parent.Title != Digital.Core.Constants.Pages ? pageNode.Parent.UrlName : pageNode.UrlName,
                 BreadcrumbTitle = GetBreadcrumbData(pageNode, pageData),

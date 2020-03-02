@@ -182,6 +182,7 @@
     <Compile Include="Model\CompositeUI\SocSkillsMatrixClassificationItem.cs" />
     <Compile Include="Model\CompositeUI\WhatYouWillDoData.cs" />
     <Compile Include="Model\CompositeUI\WYDRelatedContentType.cs" />
+    <Compile Include="Model\Enum\ContactOption.cs" />
     <Compile Include="Model\Enum\MessageAction.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />

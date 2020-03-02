@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core.Interceptors;
+using DFC.Digital.Repository.SitefinityCMS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,5 +37,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
         [IgnoreInputInInterception]
         [IgnoreOutputInInterception]
         string GetControlContent(PageDraftControl pageDraftControl);
+
+        [IgnoreInputInInterception]
+        [IgnoreOutputInInterception]
+        string GetControlSharedContent(PageControl pageControl, IDynamicContentExtensions dynamicContentExtensions, string providerName = null);
     }
 }

@@ -87,6 +87,13 @@
     <add key="FAC.CourseSearchSvcSettings.ApiKey" value="__FacApiKey__" />
     <add key="FAC.CourseSearchSvcSettings.ServiceEndpoint" value="__FacApimEndpoint__" />
 
+    <!--Area Routing API settings-->
+    <add key="DFC.Digital.AreaRoutingApi.ServiceUrl" value="__AreaRoutingAPIAreasEndpoint__" />
+    <add key="DFC.Digital.AreaRoutingApi.SubscriptionKey" value="__AreaRoutingApiKey__" />
+
+    <!--SharedConfig Settings-->
+    <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
+
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />
@@ -451,7 +458,6 @@
     <httpProtocol>
       <customHeaders>
         <clear />
-        <add name="X-Frame-Options" value="SAMEORIGIN" />
       </customHeaders>
     </httpProtocol>
     <applicationInitialization doAppInitAfterRestart="true">

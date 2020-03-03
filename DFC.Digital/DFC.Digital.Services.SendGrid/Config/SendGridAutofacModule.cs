@@ -4,8 +4,6 @@ using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
-using Dfc.SharedConfig.IoC;
-using Dfc.SharedConfig.Models;
 using SendGrid;
 using SendGrid.Helpers.Reliability;
 using System;
@@ -67,16 +65,6 @@ namespace DFC.Digital.Services.SendGrid
                 .SingleInstance()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
-
-            builder.AddTableConfigServices();
-
-            builder.Register(c => new SharedConfigSettings
-            {
-                ConfigurationStorageConnectionString = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigStorageConnectionString, string.Empty),
-                CloudStorageTableName = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigCloudStorageTableName, "Configuration"),
-                EnvironmentName = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigEnvironmentName, "Production"),
-                InMemoryCacheTimeToLiveTimeSpan = c.Resolve<IConfigurationProvider>().GetConfig(Constants.SharedConfigInMemoryCacheTimeToLiveTimespan, "00:01:00"),
-            }).AsSelf().SingleInstance();
         }
     }
 }

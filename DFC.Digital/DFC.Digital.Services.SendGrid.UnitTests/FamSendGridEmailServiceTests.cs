@@ -58,7 +58,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
 
             var areaRoutingApiResponse = new AreaRoutingApiResponse { EmailAddress = EmailAddressFromAreaRouting };
             var httpResponseMessage = new HttpResponseMessage { Content = new StringContent(JsonConvert.SerializeObject(areaRoutingApiResponse), Encoding.Default, "application/json") };
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).Returns(httpResponseMessage);
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<FaultToleranceType>.Ignored)).Returns(httpResponseMessage);
             fakeMapper = A.Fake<IMapper>();
             fakeConfigurationProvider = A.Fake<IConfigurationProvider>();
             fakeApplicationLogger = A.Fake<IApplicationLogger>();
@@ -91,7 +91,7 @@ namespace DFC.Digital.Services.SendGrid.UnitTests
 
             // Assert
             Assert.True(result);
-            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<Func<HttpResponseMessage, bool>>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeHttpClientService.GetAsync(A<string>.Ignored, A<FaultToleranceType>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => fakeSendGridClient.SendEmailAsync(
                     A<SendGridMessage>.That.Matches(
                         msg => msg.Personalizations[0].Tos[0].Email == EmailAddressFromAreaRouting),

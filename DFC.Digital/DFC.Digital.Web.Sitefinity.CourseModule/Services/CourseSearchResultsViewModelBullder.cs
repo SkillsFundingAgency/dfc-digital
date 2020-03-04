@@ -21,6 +21,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         {
             if (viewModel != null && response != null)
             {
+                if (response.ResultProperties.Page == 0)
+                {
+                    response.ResultProperties.Page = 1;
+                }
+
                 viewModel.Count = recordsPerPage;
                 viewModel.Page = response.ResultProperties.Page;
                 viewModel.ResultProperties = response.ResultProperties;

@@ -86,6 +86,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             Courses = new List<Course>()
         };
 
+        private static readonly CourseSearchResult MultiPageResultsPageOneCourseSearchResponse = new CourseSearchResult
+        {
+            Courses = GetCourses(20),
+            ResultProperties = new CourseSearchResultProperties
+            {
+                Page = 0,
+                TotalPages = 3,
+                TotalResultCount = 60
+            }
+        };
+
         private static readonly CourseSearchResult MultiPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
@@ -504,6 +515,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 PathQuery,
                 20,
                 new CourseSearchResultsViewModel()
+            };
+
+            yield return new object[]
+            {
+                new CourseSearchResultsViewModel(),
+                MultiPageResultsPageOneCourseSearchResponse,
+                PathQuery,
+                20,
+                new CourseSearchResultsViewModel
+                {
+                    Page = 1,
+                    ResultProperties = new CourseSearchResultProperties
+                    {
+                        TotalResultCount = 60,
+                        TotalPages = 3
+                    },
+                    PaginationViewModel = new PaginationViewModel
+                    {
+                        HasNextPage = true,
+                        NextPageUrl = new Uri($"{PathQuery}?a=b&Page=2", UriKind.RelativeOrAbsolute),
+                        NextPageText = "2 of 3",
+                    }
+                }
             };
 
             yield return new object[]

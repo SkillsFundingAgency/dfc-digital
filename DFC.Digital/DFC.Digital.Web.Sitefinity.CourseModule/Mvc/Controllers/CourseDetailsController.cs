@@ -169,6 +169,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - National work based text")]
         public string NationalWorkBasedText { get; set; } = "This course is available anywhere in England";
 
+        //ShouldShowFeChoices
+        [DisplayName("ShouldShowFeChoices")]
+        public bool ShouldShowFeChoices { get; set; } = false;
+
         #endregion
 
         #region Actions
@@ -180,6 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, r));
                 if (courseDetails != null)
                 {
+                    viewModel.ShouldShowFeChoices = ShouldShowFeChoices;
                     viewModel.FindACoursePage = FindAcoursePage;
                     viewModel.CourseDetails = courseDetails;
                     viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);

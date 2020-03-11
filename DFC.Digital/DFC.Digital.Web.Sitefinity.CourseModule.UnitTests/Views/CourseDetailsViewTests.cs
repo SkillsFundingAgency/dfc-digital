@@ -487,6 +487,45 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
+        public void ShowProviderFEDetailsTest(bool showFEDetails)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
+            courseDetailsViewModel.ShouldShowFeChoices = showFEDetails;
+            courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction = 0;
+            if (showFEDetails)
+            {
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified = true;
+            }
+            else
+            {
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified = false;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(courseDetailsViewModel);
+
+            // Assert
+            if (showFEDetails)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+               .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                p.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction))).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
         public void ShowHideBackToResultsTest(bool referralUrlExists)
         {
             // Arrange
@@ -530,6 +569,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.ShouldShowFeChoices = true;
             var providerDetails = new ProviderDetails
             {
                 LearnerSatisfactionSpecified = learnerSatisfactionSpecified,

@@ -29,22 +29,25 @@
         </li>
     }
 </ul>
-@if (Model.CourseDetails.ProviderDetails != null)
+@if (Model.ShouldShowFeChoices)
 {
-
-    if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified || Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
+    if (Model.CourseDetails.ProviderDetails != null)
     {
-        <h2 class="govuk-heading-m">@Model.ProviderPerformanceLabel</h2>
-        if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified)
+
+        if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified || Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
         {
+        <h2 class="govuk-heading-m">@Model.ProviderPerformanceLabel</h2>
+            if (Model.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified)
+            {
             <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.LearnerSatisfaction</p>
             <p class="govuk-body-s govuk-!-font-weight-bold">@Model.LearnerSatisfactionLabel</p>
-        }
+            }
 
-        if (Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
-        {
+            if (Model.CourseDetails.ProviderDetails.EmployerSatisfactionSpecified)
+            {
             <p class="govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2">@Model.CourseDetails.ProviderDetails.EmployerSatisfaction</p>
             <p class="govuk-body-s govuk-!-font-weight-bold">@Model.EmployerSatisfactionLabel</p>
+            }
         }
     }
 }

@@ -10,11 +10,15 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
     public class CourseSearchApiAutomapperProfileTests
     {
         private readonly FAC.CourseDetails clientCourseDetails;
+        private readonly IMapper mapper;
 
         public CourseSearchApiAutomapperProfileTests()
         {
-            Mapper.Reset();
-            Mapper.Initialize(m => m.AddProfile<CourseSearchApiAutomapperProfile>());
+            mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<CourseSearchApiAutomapperProfile>();
+            }).CreateMapper();
+
             clientCourseDetails = new FAC.CourseDetails();
             clientCourseDetails.Title = nameof(FAC.CourseDetails.Title);
             clientCourseDetails.SubRegions = new List<FAC.SubRegion>();
@@ -28,7 +32,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         {
             clientCourseDetails.Cost = inCost;
 
-            var mapped = Mapper.Map<CourseDetails>(clientCourseDetails);
+            var mapped = mapper.Map<CourseDetails>(clientCourseDetails);
 
             mapped.Cost.Should().BeEquivalentTo(expectedFormatedCost);
         }
@@ -36,8 +40,6 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
         [Fact]
         public void AutoMapperProfileCourseRegionsConverter()
         {
-             var expectedVenuesOutput = new List<CourseRegion>();
-
             //Build the input and expected output
             for (int regions = 0; regions < 2; regions++)
             {
@@ -51,13 +53,13 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
                 }
 
                 expectedCourseRegion.Area = expectedCourseRegion.Area.Substring(2);
-                expectedVenuesOutput.Add(expectedCourseRegion);
+                new List<CourseRegion>().Add(expectedCourseRegion);
             }
 
-            var mapped = Mapper.Map<CourseDetails>(clientCourseDetails);
+            var mapped = mapper.Map<CourseDetails>(clientCourseDetails);
 
             mapped.Title.Should().Be(clientCourseDetails.Title);
-            mapped.CourseRegions.Should().BeEquivalentTo(expectedVenuesOutput);
+            mapped.CourseRegions.Should().BeEquivalentTo(new List<CourseRegion>());
         }
     }
 }

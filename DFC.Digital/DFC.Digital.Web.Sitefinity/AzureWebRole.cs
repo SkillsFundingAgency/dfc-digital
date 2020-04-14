@@ -1,6 +1,6 @@
 ﻿using Telerik.Sitefinity.Cloud.WindowsAzure;
 
-namespace DFC.Digital.Web.Sitefinity
+namespace SitefinityWebApp
 {
     /// <summary>
     /// Sitefinity's Windows Azure role entry point.

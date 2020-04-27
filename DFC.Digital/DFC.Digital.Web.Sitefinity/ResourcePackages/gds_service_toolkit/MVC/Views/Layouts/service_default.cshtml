@@ -90,6 +90,10 @@
     });
 
     window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();
+    if (typeof cookiePrefrences.configureAppInsightsUsage === 'function' ) {
+        cookiePrefrences.configureAppInsightsUsage();
+    }
+
 </script>
 
 @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)

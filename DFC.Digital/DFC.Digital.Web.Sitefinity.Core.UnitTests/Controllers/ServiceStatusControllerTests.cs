@@ -28,7 +28,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             var indexResult = serviceStatusController.WithCallTo(c => c.Index());
 
             //Assert
-            indexResult.ShouldRenderDefaultView().WithModel<ServiceStatusModel>(vm =>
+            indexResult.ShouldRenderDefaultView().WithModel<ServiceStatuesModel>(vm =>
             {
                 vm.CheckDateTime.Should().BeCloseTo(DateTime.Now, 100000);
                 vm.ServiceStatues.Should().NotBeNullOrEmpty();
@@ -50,7 +50,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             //Set up a fake service
             var servicesFake = A.Fake<IServiceStatus>(ops => ops.Strict());
-            A.CallTo(() => servicesFake.GetCurrentStatusAsync()).Returns(new ServiceStatus { Name = "Dummy Service One", Status = serviceState, Notes = string.Empty });
+            A.CallTo(() => servicesFake.GetCurrentStatusAsync()).Returns(new ServiceStatus { Name = "Dummy Service One", Status = serviceState, CheckCorrelationId = string.Empty });
             yield return new DependencyHealthCheckService(servicesFake);
         }
     }

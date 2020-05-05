@@ -101,7 +101,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.Notes.Should().Contain("Exception");
+            serviceStatus.CheckCorrelationId.Should().Contain("Exception");
             A.CallTo(() => fakeApplicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }

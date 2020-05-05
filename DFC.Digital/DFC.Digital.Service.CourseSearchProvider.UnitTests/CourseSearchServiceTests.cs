@@ -213,7 +213,7 @@ namespace DFC.Digital.Service.CourseSearchProvider.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.Notes.Should().Contain("Exception");
+            serviceStatus.CheckCorrelationId.Should().Contain("Exception");
             A.CallTo(() => loggerFake.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
 

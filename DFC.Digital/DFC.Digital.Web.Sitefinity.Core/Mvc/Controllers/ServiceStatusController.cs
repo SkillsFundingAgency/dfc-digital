@@ -1,4 +1,5 @@
-﻿using DFC.Digital.Data.Interfaces;
+﻿using AutoMapper;
+using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using System;
@@ -16,15 +17,17 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
         private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
         private readonly IWebAppContext webAppContext;
+        private readonly IMapper mapper;
 
         #endregion private
 
         #region Constructors
 
-        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext)
+        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext, IMapper mapper)
         {
             this.dependencyHealth = dependencyHealth;
             this.webAppContext = webAppContext;
+            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -33,21 +36,22 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var serviceStatusModel = new ServiceStatusModel()
+            var serviceStatusModel = new ServiceStatuesModel()
             {
                 CheckDateTime = DateTime.Now,
-                ServiceStatues = new Collection<ServiceStatus>()
+                ServiceStatues = new Collection<ServiceStatusModel>()
             };
 
             foreach (DependencyHealthCheckService d in dependencyHealth)
             {
-                serviceStatusModel.ServiceStatues.Add(await d.GetServiceStatus());
+                var serviceStatus = await d.GetServiceStatus();
+                serviceStatusModel.ServiceStatues.Add(mapper.Map<ServiceStatusModel>(serviceStatus));
             }
 
             //if we have any state thats is not green
             if (serviceStatusModel.ServiceStatues.Any(s => s.Status != ServiceState.Green))
             {
-                webAppContext.SetResponseStatusCode(502);
+                webAppContext.SetResponseStatusCode(200);
             }
 
             return View(serviceStatusModel);

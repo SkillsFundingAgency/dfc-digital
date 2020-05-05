@@ -14,6 +14,8 @@ namespace DFC.Digital.Core
 
         void Error(string message, Exception ex);
 
+        void Error(string message);
+
         void ErrorJustLogIt(string message, Exception ex);
 
         string LogExceptionWithActivityId(string message, Exception ex);

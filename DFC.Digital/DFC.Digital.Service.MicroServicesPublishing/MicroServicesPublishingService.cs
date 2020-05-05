@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
             try
             {
                 var compositePageData = new MicroServicesPublishingPageData() { CanonicalName = "ServiceStatusCheck", IncludeInSiteMap = false, BreadcrumbTitle = "Last updated = {DateTime.Now}" };
@@ -46,12 +46,12 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 }
                 else
                 {
-                    serviceStatus.Notes = $"Non Success Response StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase}";
+                    applicationLogger.Warn($"{nameof(MicroServicesPublishingService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Non Success Response StatusCode [{response.StatusCode}] Reason [{response.ReasonPhrase}]");
                 }
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {this.applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+                applicationLogger.ErrorJustLogIt($"{nameof(MicroServicesPublishingService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}]", ex);
             }
 
             return serviceStatus;

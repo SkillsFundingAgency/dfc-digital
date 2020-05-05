@@ -13,8 +13,6 @@
 
         public ServiceState Status { get; set; }
 
-        public string CheckParametersUsed { get; set; }
-
-        public string Notes { get; set; }
+        public string CheckCorrelationId { get; set; }
     }
 }

@@ -123,7 +123,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
 
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.Notes.Should().Contain("Exception");
+            serviceStatus.CheckCorrelationId.Should().Contain("Exception");
             A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }

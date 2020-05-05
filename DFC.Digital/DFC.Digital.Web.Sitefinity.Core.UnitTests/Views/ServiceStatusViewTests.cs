@@ -49,9 +49,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckParametersUsed);
 
             //Second row contains extended information
-            if (!string.IsNullOrEmpty(serviceStatus?.Notes))
+            if (!string.IsNullOrEmpty(serviceStatus?.CheckCorrelationId))
             {
-                htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[2]/div").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Notes);
+                htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[2]/div").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckCorrelationId);
             }
         }
 
@@ -75,18 +75,18 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
                   .ToList();
         }
 
-        private ServiceStatusModel GenerateServiceStatusViewModel()
+        private ServiceStatuesModel GenerateServiceStatusViewModel()
         {
-            return new ServiceStatusModel() { CheckDateTime = DateTime.Now, ServiceStatues = GetDummyStatuses() };
+            return new ServiceStatuesModel() { CheckDateTime = DateTime.Now, ServiceStatues = GetDummyStatuses() };
         }
 
         private Collection<ServiceStatus> GetDummyStatuses()
         {
             var serviceStates = new Collection<ServiceStatus>
             {
-                new ServiceStatus() { Name = "Dummy Service Green", Status = ServiceState.Green, Notes = string.Empty, CheckParametersUsed = "P1=Green Parameter" },
-                new ServiceStatus() { Name = "Dummy Service Amber", Status = ServiceState.Amber, Notes = "Nearly Bad Service", CheckParametersUsed = "P1=Amber Parameter" },
-                new ServiceStatus() { Name = "Dummy Service Red", Status = ServiceState.Red, Notes = "Bad Service", CheckParametersUsed = "P1=Red Parameter" }
+                new ServiceStatus() { Name = "Dummy Service Green", Status = ServiceState.Green, CheckCorrelationId = string.Empty, CheckParametersUsed = "P1=Green Parameter" },
+                new ServiceStatus() { Name = "Dummy Service Amber", Status = ServiceState.Amber, CheckCorrelationId = "Nearly Bad Service", CheckParametersUsed = "P1=Amber Parameter" },
+                new ServiceStatus() { Name = "Dummy Service Red", Status = ServiceState.Red, CheckCorrelationId = "Bad Service", CheckParametersUsed = "P1=Red Parameter" }
             };
             return serviceStates;
         }

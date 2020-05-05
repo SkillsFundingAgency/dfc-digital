@@ -297,7 +297,8 @@
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
-    </AdditionalFiles>    
+    </AdditionalFiles>
+    <None Include="app.config" />
     <None Include="OpenAccessNuGet.targets" />
     <None Include="packages.config" />
   </ItemGroup>

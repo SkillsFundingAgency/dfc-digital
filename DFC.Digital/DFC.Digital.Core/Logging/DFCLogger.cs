@@ -43,13 +43,6 @@ namespace DFC.Digital.Core.Logging
             logService.Info(message);
         }
 
-        public string LogExceptionWithActivityId(string message, Exception ex)
-        {
-            var activityId = Guid.NewGuid().ToString();
-            logService.LogException(NLog.LogLevel.Error, $"{message} - {activityId}", ex);
-            return activityId;
-        }
-
         public bool IsTraceDisabled()
         {
             return !logService.IsTraceEnabled;

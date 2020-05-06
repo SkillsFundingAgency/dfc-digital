@@ -41,7 +41,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
             var checkSubject = "maths";
 
             try
@@ -50,13 +50,12 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
-                serviceStatus.CheckCorrelationId = "Success Response";
 
                 //We have actual data
                 if (apiResult.Any())
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = string.Empty;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
                 }
                 else
                 {

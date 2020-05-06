@@ -119,9 +119,6 @@ namespace DFC.Digital.Service.GovUkNotify.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.CheckCorrelationId.Should().Contain("Exception");
-          
         }
-
     }
 }

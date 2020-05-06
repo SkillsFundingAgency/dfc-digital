@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.GovUkNotify
 
         public Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
 
             var emailAddress = "simulate-delivered@notifications.service.gov.uk";
             var vocPersonalisation = new VocSurveyPersonalisation();
@@ -47,7 +47,7 @@ namespace DFC.Digital.Service.GovUkNotify
                 if (!string.IsNullOrEmpty(response?.id))
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = string.Empty;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
                 }
                 else
                 {

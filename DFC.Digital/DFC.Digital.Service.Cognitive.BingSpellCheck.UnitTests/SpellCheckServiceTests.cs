@@ -107,7 +107,6 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            serviceStatus.CheckCorrelationId.Should().Contain("Exception logged");
             A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }

@@ -32,7 +32,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
             try
             {
                 var compositePageData = new MicroServicesPublishingPageData() { CanonicalName = "ServiceStatusCheck", IncludeInSiteMap = false, BreadcrumbTitle = "Last updated = {DateTime.Now}" };
@@ -43,6 +43,7 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 {
                     // Got a response back
                     serviceStatus.Status = ServiceState.Green;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
                 }
                 else
                 {

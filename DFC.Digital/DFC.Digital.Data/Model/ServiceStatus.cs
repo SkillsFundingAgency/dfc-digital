@@ -1,4 +1,6 @@
-﻿namespace DFC.Digital.Data.Interfaces
+﻿using System;
+
+namespace DFC.Digital.Data.Interfaces
 {
     public enum ServiceState
     {
@@ -13,6 +15,6 @@
 
         public ServiceState Status { get; set; }
 
-        public string CheckCorrelationId { get; set; }
+        public Guid CheckCorrelationId { get; set; }
     }
 }

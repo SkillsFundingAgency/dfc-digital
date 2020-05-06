@@ -38,7 +38,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
             var searchTerm = "*";
             try
             {
@@ -51,7 +51,7 @@ namespace DFC.Digital.Service.AzureSearch
                 if (result.Results.Count > 0)
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = string.Empty;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
                 }
                 else
                 {

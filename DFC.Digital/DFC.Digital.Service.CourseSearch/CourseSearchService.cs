@@ -38,7 +38,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
             var checkSubject = "maths";
 
             try
@@ -53,7 +53,7 @@ namespace DFC.Digital.Service.CourseSearchProvider
                 if (apiResult.CourseListResponse.CourseDetails.Any())
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = string.Empty;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
                 }
                 else
                 {

@@ -80,7 +80,7 @@ namespace DFC.Digital.Services.SendGrid
             const string ServiceName = "FAM Area Routing API";
             const string DummyPostcode = "CV1 2WT";
 
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid().ToString() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
 
             try
             {
@@ -96,7 +96,7 @@ namespace DFC.Digital.Services.SendGrid
                     if (!string.IsNullOrWhiteSpace(areaRoutingApiResponse.EmailAddress))
                     {
                         serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.CheckCorrelationId = string.Empty;
+                        serviceStatus.CheckCorrelationId = Guid.Empty;
                     }
                     else
                     {

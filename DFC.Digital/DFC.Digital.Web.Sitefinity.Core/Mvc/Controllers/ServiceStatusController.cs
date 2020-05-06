@@ -44,14 +44,19 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
             foreach (DependencyHealthCheckService d in dependencyHealth)
             {
-                var serviceStatus = await d.GetServiceStatus();
-                serviceStatusModel.ServiceStatues.Add(mapper.Map<ServiceStatusModel>(serviceStatus));
+                var serviceStatus = mapper.Map<ServiceStatusModel>(await d.GetServiceStatus());
+                if (serviceStatus.Status == ServiceState.Green)
+                {
+                    serviceStatus.CheckCorrelationId = string.Empty;
+                }
+
+                serviceStatusModel.ServiceStatues.Add(serviceStatus);
             }
 
             //if we have any state thats is not green
             if (serviceStatusModel.ServiceStatues.Any(s => s.Status != ServiceState.Green))
             {
-                webAppContext.SetResponseStatusCode(200);
+                webAppContext.SetResponseStatusCode(502);
             }
 
             return View(serviceStatusModel);

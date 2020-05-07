@@ -14,9 +14,9 @@ namespace DFC.Digital.Core
 
         void Error(string message, Exception ex);
 
-        void ErrorJustLogIt(string message, Exception ex);
+        void Error(string message);
 
-        string LogExceptionWithActivityId(string message, Exception ex);
+        void ErrorJustLogIt(string message, Exception ex);
 
         bool IsTraceDisabled();
     }

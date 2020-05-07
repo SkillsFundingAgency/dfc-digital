@@ -15,7 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
     public class ServiceStatusControllerTests
     {
         [Theory]
-        [InlineData(ServiceState.Green, "Avaialble", 200)]
+        [InlineData(ServiceState.Green, "Available", 200)]
         [InlineData(ServiceState.Amber, "Degraded", 502)]
         public void IndexDataTest(ServiceState serviceState, string serviceText,  int expectedStatusCode)
         {

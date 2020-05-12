@@ -201,7 +201,7 @@
         </system.Web>
     -->
   <system.web>
-    <httpRuntime targetFramework="4.7.1" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
+    <httpRuntime targetFramework="4.7.2" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
     <siteMap defaultProvider="SitefinitySiteMap">
       <providers>
         <add name="SitefinitySiteMap" type="Telerik.Sitefinity.Web.SitefinitySiteMap, Telerik.Sitefinity" />
@@ -668,23 +668,23 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7232.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7232.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7232.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7232.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7232.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -768,12 +768,12 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.1.1" newVersion="4.0.1.1" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Text.Encodings.Web" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.4.0" newVersion="4.0.4.0" />
-      </dependentAssembly>      
+      </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Azure.Amqp" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0" />

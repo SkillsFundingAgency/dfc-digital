@@ -99,7 +99,7 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
 
             A.CallTo(() => fakeHttpClientService.GetAsync(A<string>._, A<FaultToleranceType>._)).Returns(fakeHttpResponseMessage);
             A.CallTo(() => fakeHttpClientService.AddHeader(Constants.OcpApimSubscriptionKey, A<string>._)).Returns(true);
-            A.CallTo(() => fakeLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+            A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             //Act
             var spellingService = new SpellCheckService(fakeHttpClientService, fakeLogger);
@@ -107,7 +107,8 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck.UnitTests
 
             //Asserts
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            A.CallTo(() => fakeLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+            serviceStatus.Notes.Should().Contain("Exception logged");
+            A.CallTo(() => fakeLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }
 }

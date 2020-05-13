@@ -32,9 +32,10 @@ namespace DFC.Digital.Service.GovUkNotify
 
         public Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
             var emailAddress = "simulate-delivered@notifications.service.gov.uk";
+            serviceStatus.CheckParametersUsed = $"Email used - {emailAddress}";
             var vocPersonalisation = new VocSurveyPersonalisation();
             vocPersonalisation.Personalisation.Add("jpprofile", "ServiceCheck");
             vocPersonalisation.Personalisation.Add("clientId", "ServiceCheck ClientId");
@@ -44,19 +45,17 @@ namespace DFC.Digital.Service.GovUkNotify
 
                 //Got a response back
                 serviceStatus.Status = ServiceState.Amber;
+                serviceStatus.Notes = "Success Response";
+
                 if (!string.IsNullOrEmpty(response?.id))
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = Guid.Empty;
-                }
-                else
-                {
-                    applicationLogger.Warn($"{nameof(GovUkNotifyService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Email used [{emailAddress}]");
+                    serviceStatus.Notes = string.Empty;
                 }
             }
             catch (Exception ex)
             {
-                applicationLogger.ErrorJustLogIt($"{nameof(GovUkNotifyService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Email used [{emailAddress}]", ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return Task.FromResult(serviceStatus);

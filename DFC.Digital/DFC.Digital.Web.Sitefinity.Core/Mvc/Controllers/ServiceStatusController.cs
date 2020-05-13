@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Digital.Data.Interfaces;
+﻿using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core.Mvc.Models;
 using System;
@@ -17,17 +16,15 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
         private readonly IEnumerable<DependencyHealthCheckService> dependencyHealth;
         private readonly IWebAppContext webAppContext;
-        private readonly IMapper mapper;
 
         #endregion private
 
         #region Constructors
 
-        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext, IMapper mapper)
+        public ServiceStatusController(IEnumerable<DependencyHealthCheckService> dependencyHealth, IWebAppContext webAppContext)
         {
             this.dependencyHealth = dependencyHealth;
             this.webAppContext = webAppContext;
-            this.mapper = mapper;
         }
 
         #endregion Constructors
@@ -36,21 +33,15 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var serviceStatusModel = new ServiceStatuesModel()
+            var serviceStatusModel = new ServiceStatusModel()
             {
                 CheckDateTime = DateTime.Now,
-                ServiceStatues = new Collection<ServiceStatusModel>()
+                ServiceStatues = new Collection<ServiceStatus>()
             };
 
             foreach (DependencyHealthCheckService d in dependencyHealth)
             {
-                var serviceStatus = mapper.Map<ServiceStatusModel>(await d.GetServiceStatus());
-                if (serviceStatus.Status == ServiceState.Green)
-                {
-                    serviceStatus.CheckCorrelationId = string.Empty;
-                }
-
-                serviceStatusModel.ServiceStatues.Add(serviceStatus);
+                serviceStatusModel.ServiceStatues.Add(await d.GetServiceStatus());
             }
 
             //if we have any state thats is not green

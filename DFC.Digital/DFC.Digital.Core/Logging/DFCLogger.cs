@@ -28,11 +28,6 @@ namespace DFC.Digital.Core.Logging
             }
         }
 
-        public void Error(string message)
-        {
-            logService.Error(message);
-        }
-
         public void ErrorJustLogIt(string message, Exception ex)
         {
             logService.LogException(NLog.LogLevel.Error, message, ex);
@@ -41,6 +36,13 @@ namespace DFC.Digital.Core.Logging
         public void Info(string message)
         {
             logService.Info(message);
+        }
+
+        public string LogExceptionWithActivityId(string message, Exception ex)
+        {
+            var activityId = Guid.NewGuid().ToString();
+            logService.LogException(NLog.LogLevel.Error, $"{message} - {activityId}", ex);
+            return activityId;
         }
 
         public bool IsTraceDisabled()

@@ -38,11 +38,8 @@ namespace DFC.Digital.Service.AzureSearch
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
-
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
             var searchTerm = "*";
-            serviceStatus.CheckParametersUsed = $"Search term - {searchTerm}";
-
             try
             {
                 var searchParam = new SearchParameters { Top = 5 };
@@ -50,17 +47,20 @@ namespace DFC.Digital.Service.AzureSearch
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
-                serviceStatus.Notes = "Success search with 0 results";
 
                 if (result.Results.Count > 0)
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.Notes = string.Empty;
+                    serviceStatus.CheckCorrelationId = Guid.Empty;
+                }
+                else
+                {
+                    applicationLogger.Warn($"{nameof(AzSearchQueryService<T>)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Search term used [{searchTerm}]");
                 }
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+                applicationLogger.ErrorJustLogIt($"{nameof(AzSearchQueryService<T>)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Search term used [{searchTerm}]", ex);
             }
 
             return serviceStatus;

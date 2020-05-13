@@ -38,8 +38,10 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+
             var checkSubject = "maths";
+            serviceStatus.CheckParametersUsed = $"Searched for - {checkSubject}";
 
             try
             {
@@ -48,21 +50,18 @@ namespace DFC.Digital.Service.CourseSearchProvider
 
                 //The call worked ok
                 serviceStatus.Status = ServiceState.Amber;
+                serviceStatus.Notes = "Success Response";
 
                 //We have actual data
                 if (apiResult.CourseListResponse.CourseDetails.Any())
                 {
                     serviceStatus.Status = ServiceState.Green;
-                    serviceStatus.CheckCorrelationId = Guid.Empty;
-                }
-                else
-                {
-                    applicationLogger.Warn($"{nameof(CourseSearchService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Searched for [{checkSubject}]");
+                    serviceStatus.Notes = string.Empty;
                 }
             }
             catch (Exception ex)
             {
-                applicationLogger.ErrorJustLogIt($"{nameof(CourseSearchService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Searched for [{checkSubject}]", ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return serviceStatus;

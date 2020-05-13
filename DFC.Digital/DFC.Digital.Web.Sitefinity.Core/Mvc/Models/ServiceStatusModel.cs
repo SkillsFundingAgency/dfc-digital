@@ -6,12 +6,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Models
 {
     public class ServiceStatusModel
     {
-        public string Name { get; set; }
+        public DateTime CheckDateTime { get; set; }
 
-        public ServiceState Status { get; set; }
-
-        public string StatusText { get; set; }
-
-        public string CheckCorrelationId { get; set; }
+        public Collection<ServiceStatus> ServiceStatues { get; set; }
     }
 }

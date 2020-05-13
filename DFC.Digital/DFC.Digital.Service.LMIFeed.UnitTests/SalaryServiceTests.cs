@@ -114,7 +114,7 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
 
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).Returns(httpResponseMessage);
             A.CallTo(() => applicationLogger.Warn(A<string>._)).DoesNothing();
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).DoesNothing();
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).Returns("Exception logged");
 
             //Act
             IServiceStatus lmiFeed = new SalaryService(applicationLogger, clientProxy);
@@ -123,7 +123,8 @@ namespace DFC.Digital.Service.LMIFeed.UnitTests
             A.CallTo(() => clientProxy.EstimatePayMdAsync(A<string>._)).MustHaveHappened();
 
             serviceStatus.Status.Should().NotBe(ServiceState.Green);
-            A.CallTo(() => applicationLogger.ErrorJustLogIt(A<string>._, A<Exception>._)).MustHaveHappened();
+            serviceStatus.Notes.Should().Contain("Exception");
+            A.CallTo(() => applicationLogger.LogExceptionWithActivityId(A<string>._, A<Exception>._)).MustHaveHappened();
         }
     }
 }

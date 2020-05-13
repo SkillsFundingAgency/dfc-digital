@@ -30,35 +30,43 @@ namespace DFC.Digital.Service.Cognitive.BingSpellCheck
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
-            var checkText = "nursee";
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
 
             try
             {
+                var checkText = "nursee";
+                serviceStatus.CheckParametersUsed = $"Text used - {checkText}";
+
                 var response = await GetSpellCheckResponseAsync(checkText);
 
                 if (response.IsSuccessStatusCode)
                 {
                     //Got a response back
                     serviceStatus.Status = ServiceState.Amber;
+                    serviceStatus.Notes = "Success Response";
+
                     var resultsString = await response.Content.ReadAsStringAsync();
+
+                    //Manged to read result information
+                    serviceStatus.Notes = "Success Result";
 
                     dynamic spellSuggestions = JObject.Parse(resultsString);
                     if (spellSuggestions.flaggedTokens.Count > 0)
                     {
                         //got corrections
                         serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.CheckCorrelationId = Guid.Empty;
+                        serviceStatus.Notes = string.Empty;
                     }
                 }
                 else
                 {
-                    applicationLogger.Warn($"{nameof(SpellCheckService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Text used [{checkText}] - Unsuccessful reason [{response.ReasonPhrase} - {await response.Content.ReadAsStringAsync()}]");
+                    serviceStatus.Notes = $"{response.ReasonPhrase}";
+                    applicationLogger.Warn($"{nameof(SpellCheckService)}.{nameof(GetCurrentStatusAsync)} : Unsuccessful reason - {response.ReasonPhrase} - {await response.Content.ReadAsStringAsync()}");
                 }
             }
             catch (Exception ex)
             {
-                applicationLogger.ErrorJustLogIt($"{nameof(SpellCheckService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Text used [{checkText}]", ex);
+                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
             }
 
             return serviceStatus;

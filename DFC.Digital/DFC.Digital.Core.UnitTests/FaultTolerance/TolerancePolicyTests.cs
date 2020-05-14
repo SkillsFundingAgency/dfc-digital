@@ -15,7 +15,7 @@ namespace DFC.Digital.Core.Tests
 {
     public class TolerancePolicyTests
     {
-        private const int Precision = 1000;
+        private const int Precision = 2500;
 
         [Theory]
         [InlineData("timeout", FaultToleranceType.Timeout)]

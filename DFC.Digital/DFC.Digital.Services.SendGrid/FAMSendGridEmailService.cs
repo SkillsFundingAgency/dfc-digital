@@ -80,7 +80,7 @@ namespace DFC.Digital.Services.SendGrid
             const string ServiceName = "FAM Area Routing API";
             const string DummyPostcode = "CV1 2WT";
 
-            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+            var serviceStatus = new ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
 
             try
             {
@@ -96,22 +96,22 @@ namespace DFC.Digital.Services.SendGrid
                     if (!string.IsNullOrWhiteSpace(areaRoutingApiResponse.EmailAddress))
                     {
                         serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Received email address '{areaRoutingApiResponse.EmailAddress}', Api Response was {response.StatusCode}";
+                        serviceStatus.CheckCorrelationId = Guid.Empty;
                     }
                     else
                     {
                         serviceStatus.Status = ServiceState.Amber;
-                        serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Received email address '{areaRoutingApiResponse.EmailAddress}', Api Response was {response.StatusCode}";
+                        applicationLogger.Warn($"{nameof(FamSendGridEmailService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Called using postcode [{DummyPostcode}], Received email address [{areaRoutingApiResponse.EmailAddress}], Api Response was [{response.StatusCode}]");
                     }
                 }
                 else
                 {
-                    serviceStatus.Notes = $"Called using postcode '{DummyPostcode}'. Api Response was {response.StatusCode}, {response.ReasonPhrase}";
+                    applicationLogger.Error($"{nameof(FamSendGridEmailService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Called using postcode [{DummyPostcode}]. Api Response was [{response.StatusCode}], [{response.ReasonPhrase}]");
                 }
             }
             catch (Exception e)
             {
-                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, e)}";
+                applicationLogger.ErrorJustLogIt($"{nameof(FamSendGridEmailService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - Called using postcode [{DummyPostcode}]", e);
             }
 
             return serviceStatus;

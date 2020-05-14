@@ -27,39 +27,37 @@ namespace DFC.Digital.Service.LMIFeed
 
         public async Task<ServiceStatus> GetCurrentStatusAsync()
         {
-            var serviceStatus = new  ServiceStatus { Name = ServiceName, Status = ServiceState.Red, Notes = string.Empty };
+            var serviceStatus = new  ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
+            //Plumber
+            var checkSOC = "5314";
             try
             {
-                //Plumber
-                var checkSOC = "5314";
-                serviceStatus.CheckParametersUsed = $"SOC used - {checkSOC}";
-
                 var response = await asheProxy.EstimatePayMdAsync(checkSOC);
                 if (response.IsSuccessStatusCode)
                 {
                     //Got a response back
                     serviceStatus.Status = ServiceState.Amber;
-                    serviceStatus.Notes = "Success Response";
-
                     var JobProfileSalary = await response.Content.ReadAsAsync<JobProfileSalary>();
-
-                    serviceStatus.Notes = "Response Read";
-
+       
                     if (JobProfileSalary?.Median != null)
                     {
                         //Manged to read salary information
                         serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.Notes = string.Empty;
+                        serviceStatus.CheckCorrelationId = Guid.Empty;
+                    }
+                    else
+                    {
+                        applicationLogger.Warn($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]");
                     }
                 }
                 else
                 {
-                    serviceStatus.Notes = $"Non Success Response StatusCode: {response.StatusCode} Reason: {response.ReasonPhrase}";
+                    applicationLogger.Error($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]");
                 }
             }
             catch (Exception ex)
             {
-                serviceStatus.Notes = $"{Constants.ServiceStatusFailedCheckLogsMessage} - {applicationLogger.LogExceptionWithActivityId(Constants.ServiceStatusFailedLogMessage, ex)}";
+                applicationLogger.ErrorJustLogIt($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]", ex);
             }
             return serviceStatus;
         }

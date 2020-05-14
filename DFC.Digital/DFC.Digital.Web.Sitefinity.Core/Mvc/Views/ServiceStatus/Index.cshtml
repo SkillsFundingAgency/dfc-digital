@@ -1,6 +1,6 @@
 ﻿@using DFC.Digital.Web.Core;
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
-@model DFC.Digital.Web.Sitefinity.Core.Mvc.Models.ServiceStatusModel
+@model DFC.Digital.Web.Sitefinity.Core.Mvc.Models.ServiceStatuesModel
 <!DOCTYPE html>
 <html @Html.RenderLangAttribute()>
 <head>
@@ -33,12 +33,8 @@
                                 @(status?.Name)
                             </div>
                             <div class="column-one-half">
-                                @(status?.CheckParametersUsed)
-                            </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="column-full">
-                                @(status?.Notes)
+                                @(status?.StatusText) 
+                                @(status?.CheckCorrelationId)
                             </div>
                         </div>
                     </li>

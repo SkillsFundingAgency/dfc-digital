@@ -1,8 +1,5 @@
 ﻿User-agent: *
-Disallow: /sitefinity/
-Disallow: /health/
 Disallow: /alerts/
 Disallow: /ab/
 Disallow: /webchat/
-Disallow: /api/
 Sitemap: https://__baseUrl__/sitemap/sitemap.xml

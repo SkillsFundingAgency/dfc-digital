@@ -24,6 +24,7 @@ namespace DFC.Digital.Web.Sitefinity
             foreach (string sCookie in Response.Cookies)
             {
                 Response.Cookies[sCookie].Secure = true;
+                Response.Cookies[sCookie].Path += ";HttpOnly";
             }
         }
     }

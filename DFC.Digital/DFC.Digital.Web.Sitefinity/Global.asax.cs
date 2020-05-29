@@ -18,5 +18,14 @@ namespace DFC.Digital.Web.Sitefinity
                 HttpContext.Current.Response.Redirect($"{ConfigurationManager.AppSettings["DFC.Digital.CDNLocation"]}/gds_service_toolkit/js/jquerybundle.min.js", true);
             }
         }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            foreach (string sCookie in Response.Cookies)
+            {
+                Response.Cookies[sCookie].Secure = true;
+                Response.Cookies[sCookie].Path += ";HttpOnly";
+            }
+        }
     }
 }

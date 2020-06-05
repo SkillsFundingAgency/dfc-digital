@@ -82,7 +82,7 @@
     {
       "type": "Microsoft.Web/sites/config",
       "apiVersion": "2016-03-01",
-      "name": "[parameters('name')]",
+      "name": "[concat(parameters('name'), '/config')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/Sites', parameters('name'))]"
       ],

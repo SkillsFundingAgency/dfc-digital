@@ -81,7 +81,7 @@
     },
     {
       "type": "Microsoft.Web/sites/config",
-      "apiVersion": "2018-11-01",
+      "apiVersion": "2016-03-01",
       "name": "[parameters('name')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/Sites', parameters('name'))]"

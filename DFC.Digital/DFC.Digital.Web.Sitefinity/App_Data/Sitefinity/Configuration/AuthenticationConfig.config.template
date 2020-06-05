@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<authenticationConfig xmlns:config="urn:telerik:sitefinity:configuration" xmlns:type="urn:telerik:sitefinity:configuration:type" config:version="10.2.6628.0"  requireHttps="True"  encryptionKey="__sitefinityAuthenticationEncKey__">
+<authenticationConfig xmlns:config="urn:telerik:sitefinity:configuration" xmlns:type="urn:telerik:sitefinity:configuration:type" config:version="10.2.6628.0" encryptionKey="__sitefinityAuthenticationEncKey__">
   <relyingPartySettings authCookieExpirationTime="60" />
   <securityTokenServiceSettings>
     <identityServerSettings cookieRememberMeDuration="3600">

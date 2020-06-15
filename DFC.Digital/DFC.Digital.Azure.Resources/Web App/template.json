@@ -29,6 +29,9 @@
     {
       "name": "[parameters('name')]",
       "type": "Microsoft.Web/sites",
+      "Identity": {
+                "type": "SystemAssigned"
+            },
       "dependsOn": [
         "[resourceId('microsoft.insights/components/', parameters('name'))]"
       ],

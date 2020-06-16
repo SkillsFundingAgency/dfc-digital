@@ -29,6 +29,9 @@
     {
       "name": "[parameters('name')]",
       "type": "Microsoft.Web/sites",
+      "Identity": {
+                "type": "SystemAssigned"
+            },
       "dependsOn": [
         "[resourceId('microsoft.insights/components/', parameters('name'))]"
       ],
@@ -54,10 +57,12 @@
           ],
           "alwaysOn": true,
           "phpVersion": "",
-          "use32BitWorkerProcess": false
+          "use32BitWorkerProcess": false,
+          "minTlsVersion": "1.2"
         },
         "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+        "hostingEnvironment": "[parameters('hostingEnvironment')]",
+        "httpsOnly": true
       },
       "apiVersion": "2016-03-01",
       "location": "[parameters('location')]",
@@ -98,10 +103,12 @@
           ],
           "alwaysOn": true,
           "phpVersion": "",
-          "use32BitWorkerProcess": false
+          "use32BitWorkerProcess": false,
+          "minTlsVersion": "1.2"
         },
         "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+        "hostingEnvironment": "[parameters('hostingEnvironment')]",
+        "httpsOnly": true
       },
       "apiVersion": "2016-03-01",
       "location": "[parameters('location')]",

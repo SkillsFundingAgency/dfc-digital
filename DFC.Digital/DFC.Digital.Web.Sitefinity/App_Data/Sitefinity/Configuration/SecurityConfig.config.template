@@ -10,6 +10,6 @@
     __sitefinitySecurityRolesSection__
   </applicationRoles>
   <membershipProviders>
-    <add minRequiredNonalphanumericCharacters="1" minRequiredPasswordLength="8" passwordStrengthRegularExpression="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{8,}$" enablePasswordReset="true" name="Default" config:flags="1" />
+    <add newPasswordLength ="10" minRequiredNonalphanumericCharacters="1" minRequiredPasswordLength="10" passwordStrengthRegularExpression="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{10,}$" enablePasswordReset="true" name="Default" config:flags="1" />
   </membershipProviders>
 </securityConfig>

@@ -379,6 +379,8 @@
       <remove name="ApplicationInsightsWebTracking" />
       <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.ApplicationInsightsHttpModule, Microsoft.AI.Web" preCondition="managedHandler" />
       <add name="CustomHeaderModule" type="DFC.Digital.Web.Core.CustomHeaderModule" />
+      <remove name="SitefinitySecurityHttpModule"/>
+      <add name="SitefinitySecurityHttpModule" type="DFC.Digital.Web.Sitefinity.SecurityHttpModule, DFC.Digital.Web.Sitefinity" />
     </modules>
     <handlers>
       <remove name="WebDAV" />

@@ -247,6 +247,13 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName']/@value" />
   </parameter>
+  <parameter name="ServiceBus-TopicName-For-Draft"
+            description="Topic used in Service bus to send Draft Sitefinity JobProfiles "
+            defaultValue="__ServiceBusCMSTopicNameForDraft__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName.Draft']/@value" />
+  </parameter>
   <!-- Course search API settings -->
   <parameter name="CS_Api_CosmosDb_EndpointUrl"
          description="Tokenize the cosmos endpoint url to be replaced by VSTS task"

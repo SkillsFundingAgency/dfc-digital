@@ -210,8 +210,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         private SocCodeItem GenerateSocData(DynamicContent content)
         {
-            var apprenticeshipStandardsData = content.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipStandards.ToLower());
-            var apprenticeshipFrameworkData = content.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipFramework.ToLower());
+            var apprenticeshipStandardsData = content?.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipStandards.ToLower());
+            var apprenticeshipFrameworkData = content?.GetValue<TrackedList<Guid>>(Constants.ApprenticeshipFramework.ToLower());
 
             var socCodes = new SocCodeItem
             {

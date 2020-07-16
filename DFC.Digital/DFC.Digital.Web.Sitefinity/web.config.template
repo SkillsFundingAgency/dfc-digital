@@ -78,6 +78,7 @@
     <!-- Servicebus Connection String-->
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
+    <add key="DFC.Digital.ServiceBus.TopicName.Draft" value="__ServiceBusCMSTopicNameForDraft__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.AccessKey" value="__cosmosDbPrimaryKey__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.CollectionId" value="CourseSearchAudit" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.DatabaseId" value="dfc-digital-audit" />

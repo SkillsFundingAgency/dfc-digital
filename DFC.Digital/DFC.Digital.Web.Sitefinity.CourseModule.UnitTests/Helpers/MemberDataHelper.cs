@@ -86,6 +86,17 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             Courses = new List<Course>()
         };
 
+        private static readonly CourseSearchResult MultiPageResultsPageOneCourseSearchResponse = new CourseSearchResult
+        {
+            Courses = GetCourses(20),
+            ResultProperties = new CourseSearchResultProperties
+            {
+                Page = 0,
+                TotalPages = 3,
+                TotalResultCount = 60
+            }
+        };
+
         private static readonly CourseSearchResult MultiPageResultsCourseSearchResponse = new CourseSearchResult
         {
             Courses = GetCourses(20),
@@ -177,7 +188,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                    ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                    CourseHours = CourseHours.All,
                    CourseType = CourseType.All,
-                   Postcode = LocationPostCode,
+                   Location = LocationPostCode,
                    Provider = nameof(CourseFiltersViewModel.Provider),
                    Distance = 10f,
                    StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
@@ -206,7 +217,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                     CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
-                    Postcode = nameof(CourseFiltersViewModel.Postcode),
+                    Location = nameof(CourseFiltersViewModel.Location),
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
@@ -232,7 +243,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     ApplyFiltersText = nameof(CourseFiltersViewModel.ApplyFiltersText),
                     CourseHours = CourseHours.Fulltime,
                     CourseType = CourseType.ClassroomBased,
-                    Postcode = LocationPostCode,
+                    Location = LocationPostCode,
                     Provider = nameof(CourseFiltersViewModel.Provider),
                     Distance = 10f,
                     StartDateSectionText = nameof(CourseFiltersViewModel.StartDateSectionText),
@@ -509,6 +520,29 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
             yield return new object[]
             {
                 new CourseSearchResultsViewModel(),
+                MultiPageResultsPageOneCourseSearchResponse,
+                PathQuery,
+                20,
+                new CourseSearchResultsViewModel
+                {
+                    Page = 1,
+                    ResultProperties = new CourseSearchResultProperties
+                    {
+                        TotalResultCount = 60,
+                        TotalPages = 3
+                    },
+                    PaginationViewModel = new PaginationViewModel
+                    {
+                        HasNextPage = true,
+                        NextPageUrl = new Uri($"{PathQuery}?a=b&Page=2", UriKind.RelativeOrAbsolute),
+                        NextPageText = "2 of 3",
+                    }
+                }
+            };
+
+            yield return new object[]
+            {
+                new CourseSearchResultsViewModel(),
                 ValidCourseSearchResponse,
                 PathQuery,
                 20,
@@ -620,9 +654,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    Postcode = Location,
+                    Location = Location,
                 },
-                "/courses-search-results?searchTerm=maths&Postcode=leeds&Distance=10"
+                "/courses-search-results?searchTerm=maths&Location=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -631,9 +665,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                 new CourseLandingViewModel
                 {
                     SearchTerm = SearchTerm,
-                    Postcode = LocationPostCode,
+                    Location = LocationPostCode,
                 },
-                "/courses-search-results?searchTerm=maths&Postcode=cv12wt&Distance=10"
+                "/courses-search-results?searchTerm=maths&Location=cv12wt&Distance=10"
             };
         }
 
@@ -694,12 +728,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Postcode = Location,
+                        Location = Location,
                         Distance = ValidDistance,
                         StartDate = StartDate.Anytime
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10"
+                "/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10"
             };
 
             yield return new object[]
@@ -710,11 +744,11 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Postcode = Location,
+                        Location = Location,
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10&StartDate=FromToday"
+                "/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -725,12 +759,12 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Postcode = LocationPostCode,
+                        Location = LocationPostCode,
                         Distance = ValidDistance,
                         StartDate = StartDate.FromToday
                     }
                 },
-                "/courses-search-results?searchTerm=maths&Postcode=cv12wt&Distance=10&StartDate=FromToday"
+                "/courses-search-results?searchTerm=maths&Location=cv12wt&Distance=10&StartDate=FromToday"
             };
 
             yield return new object[]
@@ -741,13 +775,13 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers
                     CourseFiltersModel = new CourseFiltersViewModel
                     {
                         SearchTerm = SearchTerm,
-                        Postcode = Location,
+                        Location = Location,
                         Distance = ValidDistance,
                         StartDate = StartDate.SelectDateFrom,
                         StartDateFrom = DateTime.Now.AddDays(30)
                     }
                 },
-                $"/courses-search-results?SearchTerm=maths&Postcode=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
+                $"/courses-search-results?SearchTerm=maths&Location=leeds&Distance=10&StartDate=SelectDateFrom&StartDateFrom={DateTime.Now.AddDays(30).ToString(StartDateFormat)}"
             };
         }
 

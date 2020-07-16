@@ -4,6 +4,7 @@ using DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Helpers;
 using FluentAssertions;
 using HtmlAgilityPack;
 using RazorGenerator.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -213,6 +214,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                     {
                         AddressLine1 = nameof(CourseDetails.VenueDetails.Location.AddressLine1),
                         AddressLine2 = nameof(CourseDetails.VenueDetails.Location.AddressLine2),
+                        Town = nameof(CourseDetails.VenueDetails.Location.Town),
                         County = nameof(CourseDetails.VenueDetails.Location.County),
                         Postcode = nameof(CourseDetails.VenueDetails.Location.Postcode)
                     },
@@ -244,6 +246,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.AddressLine2)).Should().BeTrue();
+                htmlDocument.DocumentNode.Descendants("td")
+            .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
+             div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Town)).Should().BeTrue();
                 htmlDocument.DocumentNode.Descendants("td")
             .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
              div.InnerText.Contains(courseDetailsViewModel.CourseDetails.VenueDetails.Location.Postcode)).Should().BeTrue();
@@ -297,6 +302,45 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                 htmlDocument.DocumentNode.Descendants("td")
                 .Any(div => div.Attributes["class"].Value.Contains("govuk-table__cell") &&
                  div.InnerText.Contains(courseDetailsViewModel.NoOtherDateOrVenueAvailableMessage)).Should().BeTrue();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void OtherVenuesStartdatesTest(bool startDateIsNull)
+        {
+            //Arrange
+            var startDate = DateTime.Now;
+
+            var courseDetailsCourseDetails = new _MVC_Views_CourseDetails_OtherDatesAndVenues_cshtml();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            var courseDetails = new CourseDetails();
+
+            courseDetailsViewModel.CourseDetails.VenueDetails = new Venue();
+            courseDetailsViewModel.CourseDetails.Oppurtunities = new System.Collections.Generic.List<Oppurtunity>();
+            var otherDatesAndVenues = new Oppurtunity();
+            if (!startDateIsNull)
+            {
+                otherDatesAndVenues.StartDate = startDate;
+            }
+
+            courseDetailsViewModel.CourseDetails.Oppurtunities.Add(otherDatesAndVenues);
+
+            // Act
+            var htmlDocument = courseDetailsCourseDetails.RenderAsHtml(courseDetailsViewModel);
+
+            var expectedStartDate = $"{string.Format("{0:dd MMMM yyyy}", startDate)}";
+            var dateCell = htmlDocument.DocumentNode.SelectNodes("//table[1]/tbody/tr[2]/td[2]").FirstOrDefault().InnerText;
+
+            // Assert
+          if (startDateIsNull)
+            {
+               dateCell.Should().NotContain(expectedStartDate);
+            }
+            else
+            {
+                dateCell.Should().Contain(expectedStartDate);
             }
         }
 
@@ -443,6 +487,45 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
+        public void ShowProviderFEDetailsTest(bool showFEDetails)
+        {
+            // Arrange
+            var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
+            var providerDetails = new ProviderDetails();
+            var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.CourseDetails.ProviderDetails = providerDetails;
+            courseDetailsViewModel.ShouldShowFeChoices = showFEDetails;
+            courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction = 0;
+            if (showFEDetails)
+            {
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified = true;
+            }
+            else
+            {
+                courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfactionSpecified = false;
+            }
+
+            // Act
+            var htmlDocument = courseDetailsProviderDetails.RenderAsHtml(courseDetailsViewModel);
+
+            // Assert
+            if (showFEDetails)
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+                .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                 p.InnerText.Contains(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction.ToString())).Should().BeTrue();
+            }
+            else
+            {
+                htmlDocument.DocumentNode.Descendants("p")
+               .Any(p => p.Attributes["class"].Value.Contains("govuk-body govuk-!-font-size-48 govuk-!-font-weight-bold govuk-!-margin-bottom-2") &&
+                p.InnerText.Contains(nameof(courseDetailsViewModel.CourseDetails.ProviderDetails.LearnerSatisfaction))).Should().BeFalse();
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
         public void ShowHideBackToResultsTest(bool referralUrlExists)
         {
             // Arrange
@@ -486,6 +569,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
             // Arrange
             var courseDetailsProviderDetails = new _MVC_Views_CourseDetails_Provider_cshtml();
             var courseDetailsViewModel = new CourseDetailsViewModel();
+            courseDetailsViewModel.ShouldShowFeChoices = true;
             var providerDetails = new ProviderDetails
             {
                 LearnerSatisfactionSpecified = learnerSatisfactionSpecified,
@@ -575,7 +659,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
                         {
                             new Oppurtunity
                             {
-                                StartDate = nameof(Oppurtunity.StartDate),
+                                StartDate = DateTime.Now,
                                 OppurtunityId = nameof(Oppurtunity.OppurtunityId),
                                 VenueName = nameof(Oppurtunity.VenueName), VenueUrl = nameof(Oppurtunity.VenueName)
                             }

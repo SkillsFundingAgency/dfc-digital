@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests.Views
+namespace DFC.Digital.Web.Sitefinity.CourseModule.UnitTests
 {
     public class CourseDetailsWorkBasedVenuesTests
     {

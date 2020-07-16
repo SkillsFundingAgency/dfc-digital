@@ -146,7 +146,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         public string CourseHoursLabel { get; set; } = "Course hours";
 
         [DisplayName("Course Details - Cost Description Label")]
-        public string AdditionalPriceLabel { get; set; } = "Cost description";
+        public string CostDescriptionLabel { get; set; } = "Cost description";
 
         [DisplayName("Course Details - funding Information Label")]
         public string FundingInformationLabel { get; set; } = "Funding information";
@@ -169,6 +169,10 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [DisplayName("Course Details - National work based text")]
         public string NationalWorkBasedText { get; set; } = "This course is available anywhere in England";
 
+        //ShouldShowFeChoices
+        [DisplayName("ShouldShowFeChoices")]
+        public bool ShouldShowFeChoices { get; set; } = false;
+
         #endregion
 
         #region Actions
@@ -180,6 +184,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 var courseDetails = asyncHelper.Synchronise(() => courseSearchService.GetCourseDetailsAsync(courseId, r));
                 if (courseDetails != null)
                 {
+                    viewModel.ShouldShowFeChoices = ShouldShowFeChoices;
                     viewModel.FindACoursePage = FindAcoursePage;
                     viewModel.CourseDetails = courseDetails;
                     viewModel.ReferralPath = HttpUtility.HtmlDecode(referralPath);
@@ -212,7 +217,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                     viewModel.CourseTypeLabel = CourseTypeLabel;
                     viewModel.StartDateLabel = StartDateLabel;
                     viewModel.PriceLabel = PriceLabel;
-                    viewModel.AdditionalPriceLabel = AdditionalPriceLabel;
+                    viewModel.AdditionalPriceLabel = CostDescriptionLabel;
                     viewModel.FundingInformationLabel = FundingInformationLabel;
                     viewModel.AttendancePatternLabel = AttendancePatternLabel;
                     viewModel.SupportingFacilitiesLabel = SupportingFacilitiesLabel;

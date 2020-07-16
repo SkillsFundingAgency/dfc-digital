@@ -39,7 +39,7 @@ namespace DFC.Digital.Data.Model
         /// <value>
         /// The start date.
         /// </value>
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the location.

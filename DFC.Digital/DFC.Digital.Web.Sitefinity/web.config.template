@@ -87,6 +87,13 @@
     <add key="FAC.CourseSearchSvcSettings.ApiKey" value="__FacApiKey__" />
     <add key="FAC.CourseSearchSvcSettings.ServiceEndpoint" value="__FacApimEndpoint__" />
 
+    <!--Area Routing API settings-->
+    <add key="DFC.Digital.AreaRoutingApi.ServiceUrl" value="__AreaRoutingAPIAreasEndpoint__" />
+    <add key="DFC.Digital.AreaRoutingApi.SubscriptionKey" value="__AreaRoutingApiKey__" />
+
+    <!--SharedConfig Settings-->
+    <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
+
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />
@@ -451,7 +458,6 @@
     <httpProtocol>
       <customHeaders>
         <clear />
-        <add name="X-Frame-Options" value="SAMEORIGIN" />
       </customHeaders>
     </httpProtocol>
     <applicationInitialization doAppInitAfterRestart="true">
@@ -574,7 +580,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Autofac.Integration.Owin" publicKeyToken="17863af14b0044da" culture="neutral" />
@@ -662,23 +668,23 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.1.7100.0" newVersion="12.1.7100.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -742,7 +748,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Extensions.Primitives" publicKeyToken="adb9793829ddae60" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Extensions.Configuration.Abstractions" publicKeyToken="adb9793829ddae60" culture="neutral" />
@@ -754,7 +760,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Extensions.Options" publicKeyToken="adb9793829ddae60" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.0.2.0" newVersion="2.0.2.0" />
+        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Extensions.Configuration.Binder" publicKeyToken="adb9793829ddae60" culture="neutral" />
@@ -767,11 +773,7 @@
       <dependentAssembly>
         <assemblyIdentity name="System.Text.Encodings.Web" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.4.0" newVersion="4.0.4.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.ComponentModel.Annotations" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.2.1.0" newVersion="4.2.1.0" />
-      </dependentAssembly>
+      </dependentAssembly>      
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Azure.Amqp" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0" />
@@ -821,7 +823,7 @@
       </parameters>
     </defaultConnectionFactory>
     <providers>
-      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"/>
     </providers>
   </entityFramework>
   <system.codedom>

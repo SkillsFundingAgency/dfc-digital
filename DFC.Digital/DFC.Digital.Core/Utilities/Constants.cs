@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DFC.Digital.Core
+﻿namespace DFC.Digital.Core
 {
     //Reason to exlude is because these are constants not code with logic
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -33,9 +31,7 @@ namespace DFC.Digital.Core
         public const decimal Multiplier = 52;
         public const string Ashe = "LMI-ASHE";
         public const string ServiceStatusFailedLogMessage = "Service status check failed for activity id";
-        public const string ServiceStatusPassedLogMessage = "Service status check passed for activity id";
-        public const string ServiceStatusFailedCheckLogsMessage =
-            "Service status check failed, check logs with activity id";
+        public const string ServiceStatusWarnLogMessage = "Service status check is degraded for activity id";
 
         public const int DefaultMaxRelatedItems = 100;
         public const string UrlNameRegexPattern = @"[^\w\-\!\$\'\(\)\=\@\d_]+";
@@ -84,11 +80,13 @@ namespace DFC.Digital.Core
 
         //Sitefinity page properties
         public const string Pages = "Pages";
+
         public const string AlertPages = "Alerts";
         public const string AlertPagesTitle = "Error";
 
         //Sitefinity event properties
         public const string DynamicProvider = "dynamicProvider2";
+
         public const string HasPageDataChanged = "HasPageDataChanged";
         public const string ApprovalWorkflowState = "ApprovalWorkflowState";
         public const string ItemStatus = "Status";
@@ -104,10 +102,12 @@ namespace DFC.Digital.Core
         public const string RecycleBinAction = "RecycleBinAction";
         public const string ContentBlock = "Content block";
         public const string Content = "Content";
+        public const string SharedContent = "SharedContentID";
         public const string JobProfile = "JobProfile";
 
         //Fields with Info as field
         public const string Restriction = "Restriction";
+
         public const string Registration = "Registration";
         public const string ApprenticeshipRequirement = "ApprenticeshipRequirement";
         public const string CollegeRequirement = "CollegeRequirement";
@@ -115,16 +115,19 @@ namespace DFC.Digital.Core
 
         //Fields with Text as field
         public const string UniversityLink = "UniversityLink";
+
         public const string CollegeLink = "CollegeLink";
         public const string ApprenticeshipLink = "ApprenticeshipLink";
 
         //Fields with Description and IsNegative as fields
         public const string Location = "Location";
+
         public const string Uniform = "Uniform";
         public const string Environment = "Environment";
 
         //All Soc Code fields
         public const string SOCCode = "SOCCode";
+
         public const string JobProfileSoc = "JobProfileSoc";
 
         //Fields with Description and ONetElementId as fields
@@ -135,6 +138,7 @@ namespace DFC.Digital.Core
 
         //Get all classifications
         public const string TaxonApprenticeshipFrameworks = "apprenticeship-frameworks";
+
         public const string TaxonApprenticeshipStandards = "apprenticeship-standards";
 
         public const string TaxonHiddenAlternativeTitle = "HiddenAlternativeTitle";
@@ -153,10 +157,21 @@ namespace DFC.Digital.Core
 
         //Orginal Content Id is used where master version Id is needed
         public const string OriginalContentId = "OriginalContentId";
+
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
         public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
 
         // Check for Content Pages using Page Property
         public const string ShouldIncludeInDFCAppContentPages = "ShouldIncludeInDFCAppContentPages";
+
+        // Area Routing Api settings for Contact Us
+        public const string AreaRoutingApiServiceUrl = "DFC.Digital.AreaRoutingApi.ServiceUrl";
+
+        public const string AreaRoutingApiSubscriptionKey = "DFC.Digital.AreaRoutingApi.SubscriptionKey";
+
+        public const string SharedConfigStorageConnectionString = "DFC.SharedConfig.ConfigurationStorageConnectionString";
+        public const string SharedConfigCloudStorageTableName = "DFC.SharedConfig.CloudStorageTableName";
+        public const string SharedConfigInMemoryCacheTimeToLiveTimespan = "DFC.SharedConfig.InMemoryCacheTimeToLiveTimespan";
+        public const string SharedConfigEnvironmentName = "DFC.SharedConfig.EnvironmentName";
     }
 }

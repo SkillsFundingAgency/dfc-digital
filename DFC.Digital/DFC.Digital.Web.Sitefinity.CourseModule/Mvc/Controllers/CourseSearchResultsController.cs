@@ -6,6 +6,7 @@ using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -126,13 +127,23 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             {
                 CourseFiltersModel = filtersInput,
                 ResetFilterUrl = new Uri($"{CourseSearchResultsPage}?{nameof(CourseSearchFilters.SearchTerm)}={filtersInput.SearchTerm}", UriKind.RelativeOrAbsolute),
-                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{filtersInput.SearchTerm}'"),
+                NoTrainingCoursesFoundText = NoTrainingCoursesFoundText.Replace(SearchTermTokenToReplace, $"'{HttpUtility.HtmlEncode(filtersInput.SearchTerm)}'"),
             };
 
+            CourseSearchOrderBy originalCourseSearchOrderBy = inputSearchProperties.OrderedBy;
             if (!filtersInput.IsDistanceLocation)
             {
-                filtersInput.Town = filtersInput.Postcode;
-                filtersInput.Postcode = null;
+                filtersInput.Town = filtersInput.Location;
+
+                //Make CD API behave the same way as tribal if there is no postcode, the order by relevence if distance is selected.
+                if (inputSearchProperties.OrderedBy == CourseSearchOrderBy.Distance)
+                {
+                    inputSearchProperties.OrderedBy = CourseSearchOrderBy.Relevance;
+                }
+            }
+            else
+            {
+                filtersInput.Postcode = filtersInput.Location;
             }
 
             if (!string.IsNullOrEmpty(cleanedSearchTerm))
@@ -151,6 +162,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 }
 
                 var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
+
                 if (response.Courses.Any())
                 {
                     foreach (var course in response.Courses)
@@ -166,6 +178,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                         });
                     }
 
+                    response.ResultProperties.OrderedBy = originalCourseSearchOrderBy;
                     SetupResultsViewModel(courseSearchResults, response);
                 }
 
@@ -183,7 +196,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         private static void ReplaceSpecialCharactersOnFreeTextFields(CourseSearchFilters courseSearchFilters)
         {
             courseSearchFilters.SearchTerm = courseSearchFilters.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
-            courseSearchFilters.Postcode = courseSearchFilters.Postcode.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            courseSearchFilters.Location = courseSearchFilters.Location.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Town = courseSearchFilters.Town.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             courseSearchFilters.Provider = courseSearchFilters.Provider.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
         }

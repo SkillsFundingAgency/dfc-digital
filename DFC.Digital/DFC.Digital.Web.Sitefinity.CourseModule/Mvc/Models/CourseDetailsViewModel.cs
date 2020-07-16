@@ -102,5 +102,7 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule
         public string CourseHoursLabel { get; set; }
 
         public string NationalWorkBasedText { get; set; }
+
+        public bool ShouldShowFeChoices { get; set; }
     }
 }

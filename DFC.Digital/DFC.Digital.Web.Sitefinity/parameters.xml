@@ -32,14 +32,14 @@
     <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
                     match="/authenticationConfig/securityTokenServiceSettings/identityServerSettings/identityServerClients/add[@clientName='dsac']/allowedCorsOrigins/add/@allowedCorsOrigin" />
   </parameter>
-  
+
   <parameter name="Sitefinity_EncryptionKey"
              description="Tokenize the sitefinity encryptionKey to be replaced by VSTS task"
              defaultValue="__sitefinityAuthenticationEncKey__">
     <parameterEntry kind="XmlFile" scope="\\AuthenticationConfig\.config$"
                     match="/authenticationConfig/@encryptionKey" />
   </parameter>
- 
+
   <!-- DataConfig configurations -->
   <parameter name="Sitefinity_connectionString"
              description="Tokenize connection string so we can use the Tokenize task to set the connection string in VSTS Release"
@@ -53,7 +53,7 @@
     <parameterEntry kind="XmlFile" scope="\\DataConfig\.config$"
                     match="/dataConfig/connectionStrings/add[@name='Sitefinity']/@dbType" />
   </parameter>
-  
+
   <!-- SystemConfig configurations -->
   <parameter name="Sitefinity_Redis"
            description="Tokenize redis connection string so we can use the Tokenize task to set the redis connection string in VSTS Release"
@@ -61,7 +61,7 @@
     <parameterEntry kind="XmlFile" scope="\\SystemConfig\.config$"
                     match="/systemConfig" />
   </parameter>
-  
+
   <!-- SearchConfig configurations -->
   <parameter name="Sitefinity_Search_Name"
              description="Tokenize the job profile search name to be replaced by VSTS task"
@@ -75,7 +75,16 @@
     <parameterEntry kind="XmlFile" scope="\\SearchConfig\.config$"
                     match="/searchConfig/searchServices/add[@name='AzureSearchService']/@azureServiceAdminKey" />
   </parameter>
-  
+
+  <!-- WebSecurityConfig configurations -->
+  <parameter name="CSP"
+             description="Tokenize the trusted sources URL to be replaced by VSTS task"
+             defaultValue="default-src 'self' accounts.google.com https://*.dec.sitefinity.com __cdnUrl__ https://dc.services.visualstudio.com/ https://*.smartlook.cloud/ https://*.smartlook.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com *.gstatic.com *.googletagmanager.com *.google-analytics.com apis.google.com __cdnUrl__ https://manager.eu.smartlook.cloud/ https://manager.eu.smartlook.cloud/* https://rec.smartlook.com/ https://az416426.vo.msecnd.net/scripts/; style-src 'self' 'unsafe-inline' 'unsafe-eval' __cdnUrl__ *.googleapis.com *.gstatic.com netdna.bootstrapcdn.com kendo.cdn.telerik.com; font-src 'self' data: __cdnUrl__ kendo.cdn.telerik.com netdna.bootstrapcdn.com; img-src 'self' data: https://cdsprdwesfstorage.blob.core.windows.net/ https://www.googletagmanager.com/ *.gstatic.com *.googleapis.com *.google-analytics.com __cdnUrl__ https://*.dec.sitefinity.com https://stats.g.doubleclick.net/; media-src 'self' data: blob:; frame-src 'self' apis.google.com accounts.google.com __cdnUrl__ https://*.serco.com/ https://*.google.com/ https://www.smartsurvey.co.uk/ https://www.timeforstorm.com/; frame-ancestors 'self'; worker-src blob:;">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\WebSecurityConfig\.config$"
+                    match="/webSecurityConfig/httpSecurityHeaders/responseHeaders/add[@name='Content-Security-Policy']/@value" />
+  </parameter>
+
   <!-- SecurityConfig configurations -->
   <parameter name="Sitefinity_SecurityConfig_decryptionKey"
              description="Tokenize the sitefinity decryptionKey to be replaced by VSTS task"
@@ -263,4 +272,27 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='FAC.CourseSearchSvcSettings.ServiceEndpoint']/@value" />
   </parameter>
+  
+   <!-- Area Routing API -->
+  <parameter name="AreaRouting_Api_Areas_Apim_Endpoint"
+           description="Tokenize the Area routing Areas endpoint to be replaced by VSTS task"
+           defaultValue="__AreaRoutingAPIAreasEndpoint__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.ServiceUrl']/@value" />
+  </parameter>
+  <parameter name="AreaRouting_Api_Areas_Apim_ApiKey"
+           description="Tokenize the Area routing Api Key to be replaced by VSTS task"
+           defaultValue="__AreaRoutingApiKey__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.AreaRoutingApi.SubscriptionKey']/@value" />
+  </parameter>
+
+  <!-- Shared Config -->
+  <parameter name="SharedConfig_Storage_ConnectionString"
+           description="Tokenize the Shared config table storage connection string to be replaced by VSTS task"
+           defaultValue="__SharedConfigStorageConnectionStringXml__">
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
+  </parameter>
+
 </parameters>

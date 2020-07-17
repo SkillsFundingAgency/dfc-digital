@@ -101,6 +101,7 @@
     <Compile Include="CMSExtension\Model\JobProfileApprenticeshipVacancyReport.cs" />
     <Compile Include="CMSExtension\Model\SocCodeReport.cs" />
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
+    <Compile Include="Interfaces\IServiceStatusCUIApp.cs" />
     <Compile Include="Model\CourseRegion.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />

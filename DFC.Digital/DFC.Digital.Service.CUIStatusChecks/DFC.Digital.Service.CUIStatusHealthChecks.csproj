@@ -59,6 +59,7 @@
     <Compile Include="CUIJobProfilesHealthCheck.cs" />
     <Compile Include="CUIShellHealthCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceStatusCUIApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\DFC.Digital.CodeAnalysis.ruleset">

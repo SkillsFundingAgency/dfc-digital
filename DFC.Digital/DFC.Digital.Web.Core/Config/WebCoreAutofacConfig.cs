@@ -10,6 +10,7 @@ using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
 using DFC.Digital.Service.Cognitive.BingSpellCheck.Config;
 using DFC.Digital.Service.CourseSearchProvider;
+using DFC.Digital.Service.CUIStatusChecks.Config;
 using DFC.Digital.Service.GovUkNotify.Config;
 using DFC.Digital.Service.LMIFeed;
 using DFC.Digital.Service.MicroServicesPublishing;
@@ -53,7 +54,8 @@ namespace DFC.Digital.Web.Core
                 .RegisterModule<SkillsFrameworkEngineAutofacModule>()
                 .RegisterModule<SkillsFrameworkAutofacModule>()
                 .RegisterModule<SendGridAutofacModule>()
-                .RegisterModule<MicroServicesPublishingAutofacModule>();
+                .RegisterModule<MicroServicesPublishingAutofacModule>()
+                .RegisterModule<CUIHealthStatusChecksAutofacModule>();
 
             //Register defined modules from all DFC.Digital.Web assemblies
             IEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies();

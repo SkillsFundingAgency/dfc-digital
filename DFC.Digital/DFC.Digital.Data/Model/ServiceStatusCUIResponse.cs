@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model
 {
-    public class ServiceStatusCUIApps
+    public class ServiceStatusCUIResponse
     {
         public string Service { get; set; }
 

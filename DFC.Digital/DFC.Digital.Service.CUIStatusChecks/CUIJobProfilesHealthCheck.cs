@@ -6,6 +6,7 @@ using DFC.Digital.Data.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.CUIStatusChecks
@@ -37,14 +38,19 @@ namespace DFC.Digital.Service.CUIStatusChecks
                 this.httpClient.AddHeader("Accept", "application/json");
                 var response = await this.httpClient.GetAsync(configurationProvider.GetConfig<string>(Constants.CUIAppJobProfilesHealthEndPoint));
 
-                if (response.IsSuccessStatusCode)
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     serviceStatus.Status = ServiceState.Amber;
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var cuiHealthStatuses = JsonConvert.DeserializeObject<IList<ServiceStatusCUIResponse>>(responseString);
+                    serviceStatus.ChildAppStatuses = new List<ServiceStatusChildApp>();
+                    foreach (ServiceStatusCUIResponse s in cuiHealthStatuses)
                     {
-                        var responseString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        var result = JsonConvert.DeserializeObject<IList<ServiceStatusCUIApps>>(responseString);
+                        serviceStatus.ChildAppStatuses.Add(new ServiceStatusChildApp() { Name = s.Service, Status = s.Message.Contains("is available") ? ServiceState.Green : ServiceState.Red });
+                    }
+
+                    if (serviceStatus.ChildAppStatuses.All(s => s.Status == ServiceState.Green))
+                    {
                         serviceStatus.Status = ServiceState.Green;
                         serviceStatus.CheckCorrelationId = Guid.Empty;
                     }

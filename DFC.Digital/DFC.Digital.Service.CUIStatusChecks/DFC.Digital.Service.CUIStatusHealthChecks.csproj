@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\CUIHealthStatusChecksAutofacModule.cs" />
+    <Compile Include="CUIContentPagesHealthCheck.cs" />
     <Compile Include="CUIJobProfilesHealthCheck.cs" />
     <Compile Include="CUIShellHealthCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -250,7 +250,7 @@
 
   <parameter name="ServiceBus-TopicName-For-Draft"
             description="Topic used in Service bus to send Draft Sitefinity JobProfiles "
-            defaultValue="__ServiceBusCMSTopicNameForDraft__">
+            defaultValue="__ServiceBusCMSTopicName__-draft">
     <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName.Draft']/@value" />

@@ -64,6 +64,12 @@ namespace DFC.Digital.Web.Sitefinity.Core
             applicationLogger.Info($" CREATED service bus message for sitefinity event {actionType.ToUpper()} on JobProfile with Title -- {jpData.Title} and Jobprofile Id -- {jpData.JobProfileId.ToString()}");
             var connectionStringServiceBus = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.ConnectionString");
             var topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName");
+
+            if (actionType == "Draft")
+            {
+                topicName = configurationProvider.GetConfig<string>("DFC.Digital.ServiceBus.TopicName.Draft");
+            }
+
             var topicClient = new TopicClient(connectionStringServiceBus, topicName);
 
             // Send Messages

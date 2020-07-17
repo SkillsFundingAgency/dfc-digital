@@ -157,6 +157,7 @@
 
         //Orginal Content Id is used where master version Id is needed
         public const string OriginalContentId = "OriginalContentId";
+        public const string ContentId = "Id";
 
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
         public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";

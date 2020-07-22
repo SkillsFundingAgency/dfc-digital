@@ -45,6 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Controllers
             foreach (DependencyHealthCheckService d in dependencyHealth)
             {
                 var serviceStatus = mapper.Map<ServiceStatusModel>(await d.GetServiceStatus());
+
                 if (serviceStatus.Status == ServiceState.Green)
                 {
                     serviceStatus.CheckCorrelationId = string.Empty;

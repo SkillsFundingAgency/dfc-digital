@@ -211,6 +211,10 @@
       <Project>{93F01099-5E61-4C12-B666-B5DB281E393C}</Project>
       <Name>DFC.Digital.Service.CourseSearchProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Service.CUIStatusChecks\DFC.Digital.Service.CUIStatusHealthChecks.csproj">
+      <Project>{DA074FDC-6A5F-4C38-B2F6-CFC76E799DF5}</Project>
+      <Name>DFC.Digital.Service.CUIStatusHealthChecks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.GovUkNotify\DFC.Digital.Service.GovUkNotify.csproj">
       <Project>{EDEA097E-2756-42A0-BB2E-E0CE7A4EFB3C}</Project>
       <Name>DFC.Digital.Service.GovUkNotify</Name>

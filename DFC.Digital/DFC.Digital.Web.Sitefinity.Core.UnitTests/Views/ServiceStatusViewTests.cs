@@ -37,6 +37,37 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
         }
 
+        [Fact]
+        public void ServiceStatusChildAppsViewTest()
+        {
+            var index = new _MVC_Views_ServiceStatus_Index_cshtml();
+            var serviceStatusViewModel = GenerateServiceStatusViewModel();
+
+            serviceStatusViewModel.ServiceStatues[1].ChildAppStatuses = new List<ServiceStatusChildModel>
+            {
+                new ServiceStatusChildModel() { Name = "Dummy Service Green", StatusText = "Available" },
+                new ServiceStatusChildModel() { Name = "Dummy Service Amber", StatusText = "Degraded" },
+                new ServiceStatusChildModel() { Name = "Dummy Service Red",   StatusText = "Unavailable" }
+            };
+
+            var htmlDom = index.RenderAsHtml(serviceStatusViewModel);
+
+            //The li of each element matches the state of the service
+            for (int ii = 0; ii < serviceStatusViewModel.ServiceStatues[1].ChildAppStatuses.Count(); ii++)
+            {
+                CheckViewForChildAppService(serviceStatusViewModel.ServiceStatues[1].ChildAppStatuses[ii], htmlDom, ii + 1);
+            }
+        }
+
+        private void CheckViewForChildAppService(ServiceStatusChildModel serviceChildStatus, HtmlDocument htmlDom, int index)
+        {
+            //First col contains child service name
+            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceChildStatus.Name);
+
+            //Second col contains status text
+            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceChildStatus.StatusText);
+        }
+
         private void CheckViewForService(ServiceStatusModel serviceStatus, HtmlDocument htmlDom, int index)
         {
             //Check class of li

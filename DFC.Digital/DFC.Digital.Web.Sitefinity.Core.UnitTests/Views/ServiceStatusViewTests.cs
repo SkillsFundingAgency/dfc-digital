@@ -61,11 +61,11 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
         private void CheckViewForChildAppService(ServiceStatusChildModel serviceChildStatus, HtmlDocument htmlDom, int index)
         {
-            //First col contains child service name
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceChildStatus.Name);
+            var node = htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[2]/div/div[1]/ul/li[{index}]").FirstOrDefault();
 
-            //Second col contains status text
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceChildStatus.StatusText);
+            //First col contains child service name and status
+            node.InnerText.Should().Contain(serviceChildStatus.Name);
+            node.InnerText.Should().Contain(serviceChildStatus.StatusText);
         }
 
         private void CheckViewForService(ServiceStatusModel serviceStatus, HtmlDocument htmlDom, int index)
@@ -90,9 +90,9 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             var serviceStatusModel = new Collection<ServiceStatusModel>
             {
-                new ServiceStatusModel() { Name = "Dummy Service Green", Status = ServiceState.Green, StatusText = "Available", CheckCorrelationId = "DummyGuid" },
-                new ServiceStatusModel() { Name = "Dummy Service Amber", Status = ServiceState.Amber, StatusText = "Degraded", CheckCorrelationId = "DummyGuid" },
-                new ServiceStatusModel() { Name = "Dummy Service Red", Status = ServiceState.Red, StatusText = "Unavailable",  CheckCorrelationId = "DummyGuid" }
+                new ServiceStatusModel() { Name = "Dummy Service Green", Status = ServiceState.Green, StatusText = "Available", CheckCorrelationId = "DummyGuid", ChildAppStatuses = new List<ServiceStatusChildModel>() },
+                new ServiceStatusModel() { Name = "Dummy Service Amber", Status = ServiceState.Amber, StatusText = "Degraded", CheckCorrelationId = "DummyGuid", ChildAppStatuses = new List<ServiceStatusChildModel>() },
+                new ServiceStatusModel() { Name = "Dummy Service Red", Status = ServiceState.Red, StatusText = "Unavailable",  CheckCorrelationId = "DummyGuid", ChildAppStatuses = new List<ServiceStatusChildModel>() }
             };
             return serviceStatusModel;
         }

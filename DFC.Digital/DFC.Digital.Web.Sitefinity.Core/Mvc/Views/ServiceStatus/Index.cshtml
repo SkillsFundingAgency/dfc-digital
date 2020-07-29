@@ -31,9 +31,17 @@
                         <div class="grid-row">
                             <div class="column-one-half">
                                 @(status?.Name)
+                                <ul class="list-service">
+                                    @foreach (var childStatus in status?.ChildAppStatuses)
+                                    {
+                                        <li class="list-service_@(status?.Status)">
+                                            @childStatus.Name - @childStatus.StatusText
+                                        </li>
+                                    }
+                                </ul>
                             </div>
                             <div class="column-one-half">
-                                @(status?.StatusText) 
+                                @(status?.StatusText)
                                 @(status?.CheckCorrelationId)
                             </div>
                         </div>

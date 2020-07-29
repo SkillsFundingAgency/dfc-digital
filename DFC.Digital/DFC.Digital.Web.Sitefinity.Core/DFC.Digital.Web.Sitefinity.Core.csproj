@@ -481,6 +481,7 @@
     <Compile Include="Interfaces\IDataEventActions.cs" />
     <Compile Include="CompositeUI\ServiceBusMessageProcessor.cs" />
     <Compile Include="Interfaces\IDynamicContentAction.cs" />
+    <Compile Include="Mvc\Models\ServiceStatusChildModel.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
     <Compile Include="SitefinityProxies\SitefinityDataEventProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageDataProxy.cs" />

@@ -78,12 +78,16 @@
     <!-- Servicebus Connection String-->
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
+    <!--CUI health status end points-->
+    <add key="DFC.Digital.CUIShell.HealthEndPoint" value="__CUIShellHealthEndPoint__" />
+    <add key="DFC.Digital.CUIAppJobProfiles.HealthEndPoint" value="__CUIAppJobProfilesHealthEndPoint__" />
+    <add key="DFC.Digital.CUIAppContentPages.HealthEndPoint" value="__CUIAppContentPagesHealthEndPoint__" />
+    
     <add key="FAC.CourseSearchAuditCosmosDbSettings.AccessKey" value="__cosmosDbPrimaryKey__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.CollectionId" value="CourseSearchAudit" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.DatabaseId" value="dfc-digital-audit" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.EndpointUrl" value="__cosmosDbEndpointUrl__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.PartitionKey" value="/PartitionKey" />
-
     <add key="FAC.CourseSearchSvcSettings.ApiKey" value="__FacApiKey__" />
     <add key="FAC.CourseSearchSvcSettings.ServiceEndpoint" value="__FacApimEndpoint__" />
 

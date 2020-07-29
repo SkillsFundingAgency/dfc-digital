@@ -72,6 +72,10 @@
         public const string SendGridDeltaBackOff = "DFC.Digital.SendGridDeltaBackOff";
         public const string SendGridDefaultMaximumBackOff = "DFC.Digital.SendGridDefaultMaximumBackOff";
 
+        public const string CUIShellHealthEndPoint = "DFC.Digital.CUIShell.HealthEndPoint";
+        public const string CUIAppJobProfilesHealthEndPoint = "DFC.Digital.CUIAppJobProfiles.HealthEndPoint";
+        public const string CUIAppContentPagesHealthEndPoint = "DFC.Digital.CUIAppContentPages.HealthEndPoint";
+
         public const string CourseSearchInvalidCharactersRegexPattern = "[^a-zA-Z0-9& ()+:'’,.]*";
         public const string CourseApiDateFormat = "yyyy-MM-dd";
         public const string CourseSearchFrontEndStartDateFormat = "dd MMMM yyyy";

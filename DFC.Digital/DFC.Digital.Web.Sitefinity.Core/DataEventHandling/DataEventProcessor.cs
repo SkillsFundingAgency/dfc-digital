@@ -86,7 +86,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 switch (item.GetType().Name)
                 {
                     case Constants.JobProfile:
-                        if (eventAction == MessageAction.Published)
+                        if (eventAction == MessageAction.Published || eventAction == MessageAction.Draft)
                         {
                             GenerateServiceBusMessageForJobProfile(item, eventAction);
                         }
@@ -602,14 +602,17 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var classificationData = new List<Classification>();
             TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-            foreach (var cat in classifications)
+            if (classifications != null)
             {
-                classificationData.Add(new Classification
+                foreach (var cat in classifications)
                 {
-                    Id = taxonomyManager.GetTaxon(cat).Id,
-                    Title = taxonomyManager.GetTaxon(cat).Title,
-                    Url = taxonomyManager.GetTaxon(cat).UrlName
-                });
+                    classificationData.Add(new Classification
+                    {
+                        Id = taxonomyManager.GetTaxon(cat).Id,
+                        Title = taxonomyManager.GetTaxon(cat).Title,
+                        Url = taxonomyManager.GetTaxon(cat).UrlName
+                    });
+                }
             }
 
             return classificationData;

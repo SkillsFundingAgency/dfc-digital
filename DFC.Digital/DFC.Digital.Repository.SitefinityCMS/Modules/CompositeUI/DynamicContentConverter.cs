@@ -3,6 +3,7 @@ using DFC.Digital.Core.Logging;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             DynamicModuleManager dynamicModuleManager = DynamicModuleManager.GetManager(Constants.DynamicProvider);
             var jobProfileMessage = new JobProfileMessage
             {
-                JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                JobProfileId = dynamicContentExtensions.GetFieldValue<Guid>(content, content.GetContentItemIdKey()),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.Title)),
                 WidgetContentTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.WidgetContentTitle)),
                 AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfileMessage.AlternativeTitle)),
@@ -137,7 +138,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     relatedSkills.Add(new SocSkillMatrixItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Title)),
                         Contextualised = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.Contextualised)),
                         ONetAttributeType = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(SocSkillMatrixItem.ONetAttributeType)),
@@ -162,7 +163,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     relatedSkillsData.Add(new FrameworkSkillItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, jobProfileContent.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, jobProfileContent.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Title)),
                         Description = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.Description)),
                         ONetElementId = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(FrameworkSkillItem.ONetElementId))
@@ -198,7 +199,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     restrictions.Add(new RestrictionItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, relatedItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, relatedItem.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(RestrictionItem.Title)),
                         Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(RestrictionItem.Info))
                     });
@@ -215,7 +216,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             var socCodes = new SocCodeItem
             {
-                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, jobprofileContent.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, jobprofileContent.GetContentItemIdKey()),
                 SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)),
                 Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)),
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.UrlName)),
@@ -231,7 +232,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var socCodes = new RelatedSocCodeItem
             {
-                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, jobprofileContent.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, jobprofileContent.GetContentItemIdKey()),
                 SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)).ToLower()
             };
 
@@ -269,7 +270,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     jobProfileRelatedCareerData.Add(new JobProfileRelatedCareerItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(JobProfileRelatedCareerItem.Title)),
                         ProfileLink = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, Constants.Url),
                     });
@@ -325,7 +326,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     relatedContentTypes.Add(new WYDRelatedContentType
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(item, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(item, content.GetContentItemIdKey()),
                         Description = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(WYDRelatedContentType.Description)),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(item, nameof(WYDRelatedContentType.Title)),
                         Url = dynamicContentExtensions.GetFieldValue<Lstring>(item, Constants.Url),

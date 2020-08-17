@@ -1,6 +1,7 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Data.Model;
 using DFC.Digital.Repository.SitefinityCMS;
+using DFC.Digital.Repository.SitefinityCMS.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,7 +130,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                     var link = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Url));
                     linkItems.Add(new MoreInformationLinkItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Title)),
                         Url = !string.IsNullOrWhiteSpace(link) ? new Uri(link, UriKind.RelativeOrAbsolute) : default,
                         Text = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(MoreInformationLinkItem.Text)),
@@ -150,7 +151,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new EntryRequirementItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Title)),
                         Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Info))
                     });
@@ -170,7 +171,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 {
                     requirements.Add(new RegistrationItem
                     {
-                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.ApprovalWorkflowState == Constants.WorkflowStatusDraft ? Constants.ContentId : Constants.OriginalContentId),
+                        Id = dynamicContentExtensions.GetFieldValue<Guid>(relatedItem, content.GetContentItemIdKey()),
                         Title = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Title)),
                         Info = dynamicContentExtensions.GetFieldValue<Lstring>(relatedItem, nameof(InfoDataItem.Info))
                     });

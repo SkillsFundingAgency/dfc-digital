@@ -101,6 +101,7 @@
     <Compile Include="CMSExtension\Model\JobProfileApprenticeshipVacancyReport.cs" />
     <Compile Include="CMSExtension\Model\SocCodeReport.cs" />
     <Compile Include="CMSExtension\Model\TaxonReport.cs" />
+    <Compile Include="Interfaces\IServiceStatusCUIApp.cs" />
     <Compile Include="Model\CourseRegion.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
@@ -222,6 +223,8 @@
     <Compile Include="Model\RelatedSkillMapping.cs" />
     <Compile Include="Model\ContactUsRequest.cs" />
     <Compile Include="Model\SendEmailResponse.cs" />
+    <Compile Include="Model\ServiceStatusCUIResponse.cs" />
+    <Compile Include="Model\ServiceStatusChildApp.cs" />
     <Compile Include="Model\SkillsFramework.cs" />
     <Compile Include="Model\MoreInformation.cs" />
     <Compile Include="Model\HowToBecome.cs" />

@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Models
@@ -11,6 +12,8 @@ namespace DFC.Digital.Web.Sitefinity.Core.Mvc.Models
         public ServiceState Status { get; set; }
 
         public string StatusText { get; set; }
+
+        public List<ServiceStatusChildModel> ChildAppStatuses { get; set; }
 
         public string CheckCorrelationId { get; set; }
     }

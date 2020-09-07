@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -651,7 +652,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
                 {
                     relatedContentItems.Add(new InfoContentItem
                     {
@@ -674,7 +675,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
                 {
                     relatedContentItems.Add(new TextFieldContentItem
                     {

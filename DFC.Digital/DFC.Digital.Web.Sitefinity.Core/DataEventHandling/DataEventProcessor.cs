@@ -652,7 +652,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new InfoContentItem
                     {
@@ -675,7 +675,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
+                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new TextFieldContentItem
                     {

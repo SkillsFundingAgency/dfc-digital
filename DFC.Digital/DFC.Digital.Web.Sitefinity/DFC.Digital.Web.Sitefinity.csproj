@@ -1089,6 +1089,7 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DynamicModulesDetailViewExtender\DynamicModulesDetailViewExtender.js" />
     <Content Include="extensions.bundle.js" />
     <Content Include="Global.asax" />
     <Content Include="Mvc\Controllers\readme.txt" />

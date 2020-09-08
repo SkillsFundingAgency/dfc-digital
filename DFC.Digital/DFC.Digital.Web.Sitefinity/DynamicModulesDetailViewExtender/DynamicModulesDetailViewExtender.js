@@ -2,7 +2,6 @@
 function OnDetailViewLoadedCustom(sender, args) {
     // the sender here is DetailFormView
     var currentForm = sender;
-
     DynamicModulesDetailViewExtender.initialize(currentForm);
 }
 
@@ -41,10 +40,13 @@ var DynamicModulesDetailViewExtender = (function ($) {
         // fired when one of the toolbars fires a command event
         _widgetCommandHandlerExtended: function (sender, args) {
             var commandName = args.get_commandName();
+            
+            //if (commandName == this._detailsView._previewCommandName && draftUrl) {
             if (commandName == this._detailsView._previewCommandName) {
-                debugger;
                 var id = this._detailsView.get_dataItem().Item.OriginalContentId;
-                window.open('/home?itemId=' + id + '&isPreview=true');
+                var itemUrl = this._detailsView.get_dataItem().Item.SystemUrl;
+                var draftUrl = ""; //service Url
+                window.open("/job-profiles/"+ itemUrl);
             }
             else {
                 // no need to revert the delegate since we set it through widgetBar command handler

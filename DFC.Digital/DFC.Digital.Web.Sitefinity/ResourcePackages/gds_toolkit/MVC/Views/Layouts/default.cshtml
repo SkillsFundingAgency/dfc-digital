@@ -22,6 +22,7 @@
     @Html.Section("top")
     @Html.Partial("_govuk_Header")
     @Html.SfPlaceHolder("GovUKHeader")
+   
     <main role="main">
         <div class="content-container">
             @Html.SfPlaceHolder("BannerContainer")
@@ -48,10 +49,14 @@
     </main>
     @Html.SfPlaceHolder("GovUKFooter")
     @Html.Section("bottom")
+
+<
+
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/jquerybundle.min.js"), "bottom");
     }
+
     @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/govuksel.min.js"), "bottom")
 
     @if (Html.IsDebugSymbol())
@@ -63,28 +68,6 @@
         @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/dfcdigital.min.js"), "bottom")
     }
 
-    @if (SystemManager.IsDesignMode)
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                //Need to wait for Sitefinity client side scripts to run and render the buttons, before we go looking for them. 
-                setTimeout(attachbuttons, 2000);
-            });
-
-            function attachbuttons() {
-                var pathname = window.location.pathname;
-                console.log("pathname -- " + pathname);
-                if (pathname.endsWith('Action/Edit')) {
-                    console.log("pathname -- " + pathname);
-                    var compositepreviewurl = '@Html.GetCompositeServiceEndPoint()';
-                    if (compositepreviewurl !== undefined) {
-                        var compositedraft = compositepreviewurl + 'draft' + pathname.replace('/Action/Edit', '').substr(1);
-                        $("<a class='sfLinkBtn sfPreview' href=" + compositedraft + " target='_blank' class='sfLinkBtn'><span class='sfLinkBtnIn'>Composite Preview</span></a>").insertAfter("#ctl08_ctl00_ctl00_workflowMenu_ctl00_ctl00_secondaryActionsContainer_Preview")
-                    }
-                }
-            }
-        </script>
-    }
 
     <script type="text/javascript">
         var appInsights = window.appInsights || function (a) {

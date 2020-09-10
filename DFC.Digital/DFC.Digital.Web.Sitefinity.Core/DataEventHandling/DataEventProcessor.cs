@@ -481,7 +481,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedSocContentItems.Add(new SocCodeContentItem
                     {
@@ -562,7 +562,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 foreach (var contentId in SkillsMatrixParentItems)
                 {
                     var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                    if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                    if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                     {
                         relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
                         {
@@ -627,7 +627,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new WYDContentItem
                     {
@@ -652,7 +652,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new InfoContentItem
                     {
@@ -675,7 +675,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted && parentItem.IsUnlockable)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new TextFieldContentItem
                     {
@@ -703,7 +703,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(socSkillsMatrixType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     var jobProfileId = contentLinksManager.GetContentLinks()
                  .Where(c => c.ParentItemType == ParentType && c.ChildItemId == parentItem.Id)

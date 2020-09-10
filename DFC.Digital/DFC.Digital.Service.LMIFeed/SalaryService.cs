@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Service.LMIFeed
 {
-    public class SalaryService : ISalaryService, IServiceStatus
+    public class SalaryService : ISalaryService
     {
         private readonly IApplicationLogger applicationLogger;
         private readonly IAsheHttpClientProxy asheProxy;
@@ -21,48 +21,6 @@ namespace DFC.Digital.Service.LMIFeed
         }
 
         #endregion ctor
-
-        #region Implement of IServiceStatus
-        private static string ServiceName => "LMI Feed";
-
-        public async Task<ServiceStatus> GetCurrentStatusAsync()
-        {
-            var serviceStatus = new  ServiceStatus { Name = ServiceName, Status = ServiceState.Red, CheckCorrelationId = Guid.NewGuid() };
-            //Plumber
-            var checkSOC = "5314";
-            try
-            {
-                var response = await asheProxy.EstimatePayMdAsync(checkSOC);
-                if (response.IsSuccessStatusCode)
-                {
-                    //Got a response back
-                    serviceStatus.Status = ServiceState.Amber;
-                    var JobProfileSalary = await response.Content.ReadAsAsync<JobProfileSalary>();
-       
-                    if (JobProfileSalary?.Median != null)
-                    {
-                        //Manged to read salary information
-                        serviceStatus.Status = ServiceState.Green;
-                        serviceStatus.CheckCorrelationId = Guid.Empty;
-                    }
-                    else
-                    {
-                        applicationLogger.Warn($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusWarnLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]");
-                    }
-                }
-                else
-                {
-                    applicationLogger.Error($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]");
-                }
-            }
-            catch (Exception ex)
-            {
-                applicationLogger.ErrorJustLogIt($"{nameof(SalaryService)}.{nameof(GetCurrentStatusAsync)} : {Constants.ServiceStatusFailedLogMessage} - Correlation Id [{serviceStatus.CheckCorrelationId}] - SOC used [{checkSOC}]", ex);
-            }
-            return serviceStatus;
-        }
-
-        #endregion
 
         #region Implementation of IAsheFeed
 

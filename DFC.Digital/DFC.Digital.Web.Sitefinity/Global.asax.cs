@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DFC.Digital.Web.Sitefinity.Core;
+using System;
 using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
+using Telerik.Sitefinity.Abstractions;
+using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity
 {
     public class Global : System.Web.HttpApplication
     {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
+        }
+
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             //Fix for ITHC Jquery version issue
@@ -26,6 +30,11 @@ namespace DFC.Digital.Web.Sitefinity
                 Response.Cookies[sCookie].Secure = true;
                 Response.Cookies[sCookie].Path += ";HttpOnly";
             }
+        }
+
+        private void Bootstrapper_Bootstrapped(object sender, EventArgs e)
+        {
+            SystemManager.RegisterWebService(typeof(CompUIConfigSettingService), "RestApi/CompUIConfigSettingService");
         }
     }
 }

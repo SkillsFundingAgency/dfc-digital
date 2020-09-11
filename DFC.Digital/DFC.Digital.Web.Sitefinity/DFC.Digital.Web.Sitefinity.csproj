@@ -1089,7 +1089,7 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Default.aspx" />
-    <Content Include="DynamicModulesDetailViewExtender\DynamicModulesDetailViewExtender.js" />
+    <Content Include="Scripts\BackendScripts\DynamicModulesDetailViewExtender.js" />
     <Content Include="extensions.bundle.js" />
     <Content Include="Global.asax" />
     <Content Include="Mvc\Controllers\readme.txt" />
@@ -1201,6 +1201,7 @@
     <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Ecommerce\Order\CartOrder.svc" />
+    <Content Include="Sitefinity\Public\Services\GetUrl\GetUrl.svc" />
     <Content Include="Sitefinity\Public\Services\LoadBalancing\AzureSystemWebService.svc" />
     <Content Include="Sitefinity\Services\Analytics\AnalyticsPermissionsService.svc" />
     <Content Include="Sitefinity\Services\Analytics\DashboardData.svc" />
@@ -1515,7 +1516,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60876</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

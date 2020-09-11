@@ -1,7 +1,19 @@
-﻿// called by the DetailFormView when it is loaded
+﻿var extUrl = "/";
+// called by the DetailFormView when it is loaded
 function OnDetailViewLoadedCustom(sender, args) {
     // the sender here is DetailFormView
     var currentForm = sender;
+    
+    $.ajax({
+        type: "GET",
+        url: "/RestApi/CompUIConfigSettingService/GetFromKey/DFC.Digital.MicroService.HelpPreviewEndPoint",
+        contentType: "application/json",
+        dataType: "json",
+        success: function (result) { extUrl = result },
+        error: function (error) { console.log(error); },
+        async: false
+    });
+
     DynamicModulesDetailViewExtender.initialize(currentForm);
 }
 
@@ -12,6 +24,7 @@ var DynamicModulesDetailViewExtender = (function ($) {
         this._detailsView = detailsView;
         this._baseSaveChanges = null;
     };
+
 
     extender.prototype = {
         init: function () {
@@ -40,13 +53,11 @@ var DynamicModulesDetailViewExtender = (function ($) {
         // fired when one of the toolbars fires a command event
         _widgetCommandHandlerExtended: function (sender, args) {
             var commandName = args.get_commandName();
-            
-            //if (commandName == this._detailsView._previewCommandName && draftUrl) {
             if (commandName == this._detailsView._previewCommandName) {
                 var id = this._detailsView.get_dataItem().Item.OriginalContentId;
                 var itemUrl = this._detailsView.get_dataItem().Item.SystemUrl;
-                var draftUrl = ""; //service Url
-                window.open("/job-profiles/"+ itemUrl);
+
+                window.open(extUrl + "/job-profiles" + itemUrl);
             }
             else {
                 // no need to revert the delegate since we set it through widgetBar command handler

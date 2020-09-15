@@ -1201,7 +1201,7 @@
     <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Ecommerce\Order\CartOrder.svc" />
-    <Content Include="Sitefinity\Public\Services\GetUrl\GetUrl.svc" />
+    <Content Include="Sitefinity\Services\CompUIPreviewDomain\CompUIPreviewDomain.svc" />
     <Content Include="Sitefinity\Public\Services\LoadBalancing\AzureSystemWebService.svc" />
     <Content Include="Sitefinity\Services\Analytics\AnalyticsPermissionsService.svc" />
     <Content Include="Sitefinity\Services\Analytics\DashboardData.svc" />

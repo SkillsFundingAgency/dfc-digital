@@ -11,7 +11,6 @@ namespace DFC.Digital.Web.Sitefinity
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -30,11 +29,6 @@ namespace DFC.Digital.Web.Sitefinity
                 Response.Cookies[sCookie].Secure = true;
                 Response.Cookies[sCookie].Path += ";HttpOnly";
             }
-        }
-
-        private void Bootstrapper_Bootstrapped(object sender, EventArgs e)
-        {
-            SystemManager.RegisterWebService(typeof(CompUIConfigSettingService), "RestApi/CompUIConfigSettingService");
         }
     }
 }

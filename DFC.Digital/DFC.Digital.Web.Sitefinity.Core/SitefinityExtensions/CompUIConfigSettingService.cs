@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using DFC.Digital.Core;
+using System.ServiceModel;
 using System.ServiceModel.Activation;
 
 namespace DFC.Digital.Web.Sitefinity.Core
@@ -10,9 +11,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class CompUIConfigSettingService : ICompUIConfigSettingService
     {
-        public string GetFromKey(string key)
+        public string GetUrl()
         {
-            return System.Web.Configuration.WebConfigurationManager.AppSettings[key];
+            return System.Web.Configuration.WebConfigurationManager.AppSettings[Constants.MicroServiceHelpPreviewEndPoint];
         }
     }
 }

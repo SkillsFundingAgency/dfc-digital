@@ -10,9 +10,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         /// <summary>
         /// Tests the connection to the service.
         /// </summary>
-        [WebHelp(Comment = "Tests the connection to the service. Result is returned in JSON format.")]
-        [WebGet(UriTemplate = "/GetFromKey/{key}", ResponseFormat = WebMessageFormat.Json)]
+        /// <returns>returns COMPUI preview Url for JobProfiles</returns>
+        [WebHelp(Comment = "Service to get the COMPUI Domain Url for Job Profiles. Result is returned in JSON format.")]
+        [WebGet(UriTemplate = "/GetUrl", ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        string GetFromKey(string key);
+        string GetUrl();
     }
 }

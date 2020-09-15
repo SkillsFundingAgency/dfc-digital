@@ -6,7 +6,7 @@ function OnDetailViewLoadedCustom(sender, args) {
     
     $.ajax({
         type: "GET",
-        url: "/RestApi/CompUIConfigSettingService/GetFromKey/DFC.Digital.MicroService.HelpPreviewEndPoint",
+        url: "/Sitefinity/Services/CompUIPreviewDomain/CompUIPreviewDomain.svc/GetUrl",
         contentType: "application/json",
         dataType: "json",
         success: function (result) { extUrl = result },

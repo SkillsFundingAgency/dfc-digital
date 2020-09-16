@@ -20,14 +20,14 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public string GetUrl()
         {
-            var readConfig = this.configurationProvider.GetConfig<string>(Constants.MicroServiceHelpPreviewEndPoint);
+            var domainUrl = this.configurationProvider.GetConfig<string>(Constants.MicroServiceHelpPreviewEndPoint);
 
-            if (string.IsNullOrEmpty(readConfig))
+            if (string.IsNullOrEmpty(domainUrl))
             {
                 return string.Empty;
             }
 
-            return readConfig;
+            return domainUrl;
         }
     }
 }

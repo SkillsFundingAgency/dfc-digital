@@ -11,9 +11,23 @@ namespace DFC.Digital.Web.Sitefinity.Core
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class CompUIConfigSettingService : ICompUIConfigSettingService
     {
+        private readonly IConfigurationProvider configurationProvider;
+
+        public CompUIConfigSettingService(IConfigurationProvider configurationProvider)
+        {
+            this.configurationProvider = configurationProvider;
+        }
+
         public string GetUrl()
         {
-            return System.Web.Configuration.WebConfigurationManager.AppSettings[Constants.MicroServiceHelpPreviewEndPoint];
+            var readConfig = this.configurationProvider.GetConfig<string>(Constants.MicroServiceHelpPreviewEndPoint);
+
+            if (string.IsNullOrEmpty(readConfig))
+            {
+                return string.Empty;
+            }
+
+            return readConfig;
         }
     }
 }

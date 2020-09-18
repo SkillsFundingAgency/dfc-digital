@@ -1,9 +1,6 @@
-﻿using DFC.Digital.Web.Sitefinity.Core;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Web;
-using Telerik.Sitefinity.Abstractions;
-using Telerik.Sitefinity.Services;
 
 namespace DFC.Digital.Web.Sitefinity
 {

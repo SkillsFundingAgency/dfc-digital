@@ -209,10 +209,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 {
                     ExportPageNode(providerName, contentType, itemId, Constants.ItemActionDeleted);
                 }
-                else if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.Draft)
-                {
-                    ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusDraft);
-                }
             }
             catch (Exception ex)
             {

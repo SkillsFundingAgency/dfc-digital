@@ -78,6 +78,8 @@
     <!-- Servicebus Connection String-->
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
+    <add key="DFC.Digital.ServiceBus.TopicName.Draft" value="__ServiceBusCMSTopicNameForDraft__" />
+    
     <!--CUI health status end points-->
     <add key="DFC.Digital.CUIShell.HealthEndPoint" value="__CUIShellHealthEndPoint__" />
     <add key="DFC.Digital.CUIAppJobProfiles.HealthEndPoint" value="__CUIAppJobProfilesHealthEndPoint__" />

@@ -16,7 +16,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<DynamicContent> GetRelatedParentItems(DynamicContent contentItem, string contentTypeName, string providerName)
         {
-            return contentItem?
+            return contentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft
+                ? contentItem?
+                .GetRelatedParentItems(contentTypeName, providerName)
+                .OfType<DynamicContent>()
+                .Where(d => d.Status == ContentLifecycleStatus.Master)
+                : contentItem?
                 .GetRelatedParentItems(contentTypeName, providerName)
                 .OfType<DynamicContent>()
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible);
@@ -24,7 +29,10 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         public IQueryable<DynamicContent> GetRelatedItems(DynamicContent contentItem, string fieldName, int maximumItemsToReturn = Constants.DefaultMaxRelatedItems)
         {
-            return contentItem?
+            return (contentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft && contentItem.GetType().Name == Constants.JobProfile)
+                ? contentItem?
+                .GetRelatedItems<DynamicContent>(fieldName).Where(d => d.Status == ContentLifecycleStatus.Master).Take(maximumItemsToReturn)
+                : contentItem?
                 .GetRelatedItems<DynamicContent>(fieldName)
                 .Where(d => d.Status == ContentLifecycleStatus.Live && d.Visible)
                 .Take(maximumItemsToReturn);

@@ -256,6 +256,7 @@
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="CMSExtensions\ApprenticeshipReportConverter.cs" />
     <Compile Include="CMSExtensions\CmsReportItemConverter.cs" />
+    <Compile Include="Extensions\DynamicContentExtensions.cs" />
     <Compile Include="Modules\CompositeUI\DynamicContentConverter.cs" />
     <Compile Include="Modules\CompositeUI\HowToBecomeDataConverter.cs" />
     <Compile Include="Modules\EmailTemplateConverter.cs" />

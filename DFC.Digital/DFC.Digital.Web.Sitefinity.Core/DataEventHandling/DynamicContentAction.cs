@@ -22,6 +22,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
             {
                 return MessageAction.Published;
             }
+            else if (item.GetType().Name.ToString() == Constants.JobProfile && item.ApprovalWorkflowState.Value == Constants.WorkflowStatusDraft && item.Status.ToString() == Constants.ItemStatusMaster)
+            {
+                return MessageAction.Draft;
+            }
             else if (item.ApprovalWorkflowState.Value == Constants.WorkflowStatusPublished && !item.Visible && item.Status.ToString() == Constants.ItemStatusLive)
             {
                 return MessageAction.Deleted;

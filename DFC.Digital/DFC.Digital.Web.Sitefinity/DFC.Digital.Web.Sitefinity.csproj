@@ -1089,6 +1089,7 @@
     <Content Include="browserconfig.xml" />
     <Content Include="Content\MvcGrid\mvc-grid.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Scripts\BackendScripts\DynamicModulesDetailViewExtender.js" />
     <Content Include="extensions.bundle.js" />
     <Content Include="Global.asax" />
     <Content Include="Mvc\Controllers\readme.txt" />
@@ -1200,6 +1201,7 @@
     <Content Include="Scripts\MvcGrid\mvc-grid.min.js" />
     <Content Include="Sitefinity\Default.aspx" />
     <Content Include="Sitefinity\Public\Services\Ecommerce\Order\CartOrder.svc" />
+    <Content Include="Sitefinity\Services\CompUIPreviewDomain\CompUIPreviewDomain.svc" />
     <Content Include="Sitefinity\Public\Services\LoadBalancing\AzureSystemWebService.svc" />
     <Content Include="Sitefinity\Services\Analytics\AnalyticsPermissionsService.svc" />
     <Content Include="Sitefinity\Services\Analytics\DashboardData.svc" />

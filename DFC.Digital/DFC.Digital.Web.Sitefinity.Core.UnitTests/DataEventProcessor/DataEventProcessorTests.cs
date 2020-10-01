@@ -20,7 +20,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private readonly IApplicationLogger fakeApplicationLogger;
         private readonly ICompositePageBuilder fakeCompositePageBuilder;
         private readonly ISitefinityManagerProxy fakeSitefinityManagerProxy;
-        private readonly IMicroServicesPublishingService fakeCompositeUIService;
         private readonly IDataEventActions fakeDataEventActions;
         private readonly IDataEvent fakeDataEvent;
         private readonly IAsyncHelper fakeAsyncHelper;
@@ -33,7 +32,6 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         {
             fakeApplicationLogger = A.Fake<IApplicationLogger>();
             fakeCompositePageBuilder = A.Fake<ICompositePageBuilder>();
-            fakeCompositeUIService = A.Fake<IMicroServicesPublishingService>();
             fakeDataEventActions = A.Fake<IDataEventActions>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
             fakeDataEvent = A.Fake<IDataEvent>();
@@ -63,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
             dataEventHandler.ExportCompositePage(fakeDataEvent);
 
             //Asserts
@@ -94,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             }
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
             dataEventHandler.ExportCompositePage(fakeDataEvent);
 
             //Asserts
@@ -116,7 +114,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Throws(new ArgumentException());
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
 
             //Asserts
             Assert.Throws<ArgumentException>(() => dataEventHandler.ExportCompositePage(fakeDataEvent));
@@ -128,7 +126,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         public void NullArgumentExceptionTest()
         {
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
 
             //Asserts
             Assert.Throws<ArgumentNullException>(() => dataEventHandler.ExportCompositePage(null));
@@ -144,7 +142,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
             A.CallTo(() => fakeDataEventActions.GetEventAction(A<IDataEvent>._)).Returns(MicroServicesDataEventAction.Ignored);
 
             //Act
-            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeCompositeUIService, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
+            var dataEventHandler = new DataEventProcessor(fakeApplicationLogger, fakeCompositePageBuilder, fakeAsyncHelper, fakeDataEventActions, fakeDynamicContentConverter, fakeServiceBusMessageProcessor, fakeDynamicContentExtensions, fakeDynamicContentAction, fakeSitefinityManagerProxy);
             dataEventHandler.ExportContentData(fakeDataEvent);
 
             //Asserts

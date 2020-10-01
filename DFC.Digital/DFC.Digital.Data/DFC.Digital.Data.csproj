@@ -107,7 +107,6 @@
     <Compile Include="CMSExtension\Interfaces\IJobProfileReportRepository.cs" />
     <Compile Include="Interfaces\IAssetLocationAndVersion.cs" />
     <Compile Include="Interfaces\IAuditNonCitizenEmailRepository.cs" />
-    <Compile Include="Interfaces\IMicroServicesPublishingService.cs" />
     <Compile Include="Interfaces\IEmailTemplateRepository.cs" />
     <Compile Include="Interfaces\IMergeEmailContent.cs" />
     <Compile Include="Interfaces\INonCitizenEmailService{T}.cs" />

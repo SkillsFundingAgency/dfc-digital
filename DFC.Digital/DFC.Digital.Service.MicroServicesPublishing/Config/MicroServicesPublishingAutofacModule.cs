@@ -17,12 +17,6 @@ namespace DFC.Digital.Service.MicroServicesPublishing
                 .InstancePerLifetimeScope()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
-
-            builder.RegisterType<HttpClientService<IMicroServicesPublishingService>>()
-              .AsImplementedInterfaces()
-              .SingleInstance()
-              .EnableInterfaceInterceptors()
-              .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name);
         }
     }
 }

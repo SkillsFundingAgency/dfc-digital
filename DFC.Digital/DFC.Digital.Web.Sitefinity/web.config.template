@@ -72,9 +72,7 @@
     <!-- Bing  Cognitive API-->
     <add key="DFC.Cognitive.BingSpellCheck.ApiKey" value="__bingSpellCheckApiKey__" />
     <add key="DFC.Cognitive.BingSpellCheck.RequestEndPoint" value="https://api.cognitive.microsoft.com/bing/v7.0/spellcheck/?text={0}&amp;mode=spell&amp;mkt=en-gb" />
-    <!-- Micro Services Publishing Endpoints-->
-    <add key="DFC.Digital.MicroService.HelpEndPoint" value="__MicroServiceHelpEndPoint__" />
-    <add key="DFC.Digital.MicroService.HelpPreviewEndPoint" value="__MicroServiceHelpPreviewEndPoint__" />
+    <add key="DFC.Digital.Draft.CustomEndPoint" value="__DFCDraftCustomEndPoint__" />
     <!-- Servicebus Connection String-->
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />

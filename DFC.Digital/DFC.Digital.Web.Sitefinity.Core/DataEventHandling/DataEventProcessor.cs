@@ -34,7 +34,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
-        private readonly IMicroServicesPublishingService compositeUIService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IDataEventActions dataEventActions;
         private readonly IServiceBusMessageProcessor serviceBusMessageProcessor;
@@ -43,11 +42,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IDynamicContentAction dynamicContentAction;
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction, ISitefinityManagerProxy sitefinityManagerProxy)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction, ISitefinityManagerProxy sitefinityManagerProxy)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
-            this.compositeUIService = compositeUIService;
             this.asyncHelper = asyncHelper;
             this.dataEventActions = dataEventActions;
             this.dynamicContentConverter = dynamicContentConverter;
@@ -361,15 +359,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             }
 
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name.Trim(), GetActionType(taxon.Status.ToString()));
-        }
-
-        private void DeletePage(string providerName, Type contentType, Guid itemId)
-        {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
-            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
-            {
-                asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
-            }
         }
 
         private void ExportPageNode(string providerName, Type contentType, Guid itemId, string eventAction)

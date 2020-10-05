@@ -164,7 +164,7 @@
         public const string ContentId = "Id";
 
         public const string MicroServiceEndPointConfigKey = "MicroServiceEndPointConfigKey";
-        public const string MicroServiceHelpPreviewEndPoint = "DFC.Digital.MicroService.HelpPreviewEndPoint";
+        public const string DFCDraftCustomEndpoint = "DFC.Digital.Draft.CustomEndPoint";
 
         // Check for Content Pages using Page Property
         public const string ShouldIncludeInDFCAppContentPages = "ShouldIncludeInDFCAppContentPages";

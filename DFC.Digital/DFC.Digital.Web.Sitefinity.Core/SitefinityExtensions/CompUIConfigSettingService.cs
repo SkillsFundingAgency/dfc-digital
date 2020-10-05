@@ -20,7 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         public string GetUrl()
         {
-            var domainUrl = this.configurationProvider.GetConfig<string>(Constants.MicroServiceHelpPreviewEndPoint);
+            var domainUrl = this.configurationProvider.GetConfig<string>(Constants.DFCDraftCustomEndpoint);
 
             if (string.IsNullOrEmpty(domainUrl))
             {

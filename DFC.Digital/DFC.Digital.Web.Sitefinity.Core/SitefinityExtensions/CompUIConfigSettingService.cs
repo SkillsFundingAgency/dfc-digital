@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Core;
+using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 
@@ -11,16 +12,9 @@ namespace DFC.Digital.Web.Sitefinity.Core
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Required)]
     public class CompUIConfigSettingService : ICompUIConfigSettingService
     {
-        private readonly IConfigurationProvider configurationProvider;
-
-        public CompUIConfigSettingService(IConfigurationProvider configurationProvider)
-        {
-            this.configurationProvider = configurationProvider;
-        }
-
         public string GetUrl()
         {
-            var domainUrl = this.configurationProvider.GetConfig<string>(Constants.DFCDraftCustomEndpoint);
+            var domainUrl = ConfigurationManager.AppSettings[Constants.DFCDraftCustomEndpoint];
 
             if (string.IsNullOrEmpty(domainUrl))
             {

@@ -57,7 +57,7 @@ var DynamicModulesDetailViewExtender = (function ($) {
                 var id = this._detailsView.get_dataItem().Item.OriginalContentId;
                 var itemUrl = this._detailsView.get_dataItem().Item.SystemUrl;
 
-                window.open(extUrl + "/job-profiles" + itemUrl);
+                window.open(extUrl + "job-profiles" + itemUrl);
             }
             else {
                 // no need to revert the delegate since we set it through widgetBar command handler

@@ -174,6 +174,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     {
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                     }
+
                 default:
                     {
                         return Enumerable.Empty<PreSearchFilter>();

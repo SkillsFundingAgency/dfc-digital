@@ -8,6 +8,7 @@
         TrainingRoute,
         JobArea,
         CareerFocus,
-        PreferredTaskType
+        PreferredTaskType,
+        Skills
     }
 }

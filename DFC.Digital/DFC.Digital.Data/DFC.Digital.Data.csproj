@@ -214,6 +214,7 @@
     <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\Oppurtunity.cs" />
     <Compile Include="Model\ProviderDetails.cs" />
+    <Compile Include="Model\PsfOnetSkill.cs" />
     <Compile Include="Model\RepoActionResult.cs" />
     <Compile Include="Model\BuildSocMatrixRequest.cs" />
     <Compile Include="Model\BuildSocMatrixResponse.cs" />

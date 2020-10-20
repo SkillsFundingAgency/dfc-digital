@@ -44,6 +44,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+            builder.RegisterType<PreSearchFilterOnetSkillConverter>()
+                .As<IDynamicModuleConverter<PsfOnetSkill>>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
 
         private static void RegisterDynamicModuleRepository(ContainerBuilder builder)
@@ -113,6 +119,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                         case var _ when t.Instance is DynamicModuleRepository<PsfPreferredTaskType> instance:
                             instance.Initialise(DynamicTypes.PreferredTaskTypeContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfOnetSkill> instance:
+                            instance.Initialise(DynamicTypes.OnetSkillTypeContentType, DynamicTypes.JobProfileModuleName);
                             break;
                     }
                 })

@@ -2,6 +2,7 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
@@ -19,6 +20,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         private readonly IPreSearchFiltersFactory preSearchFiltersFactory;
+        private readonly IJobProfileRelatedSkillsRepository jobProfileSkillsRepository;
         private readonly IPreSearchFilterStateManager preSearchFilterStateManager;
         private readonly IMapper autoMapper;
 
@@ -31,17 +33,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </summary>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="preSearchFiltersFactory">Sitefinity Repository to use</param>
+        /// <param name="jobProfileSkillsRepository">Sitefinity Skills to use</param>
         /// <param name="preSearchFilterStateManager">Pre search filter state manager</param>
         /// <param name="autoMapper">Instance of auto mapper</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
             IPreSearchFiltersFactory preSearchFiltersFactory,
+            IJobProfileRelatedSkillsRepository jobProfileSkillsRepository,
             IPreSearchFilterStateManager preSearchFilterStateManager) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
             this.preSearchFilterStateManager = preSearchFilterStateManager;
+            this.jobProfileSkillsRepository = jobProfileSkillsRepository;
         }
 
         #endregion Constructors
@@ -54,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Section Description")]
         public string SectionDescription { get; set; } = "Demo Description";
 
-        [DisplayName("Section Content Type - One of  Interest, Enabler, EntryQualification, TrainingRoute, JobArea, CareerFocus, PreferredTaskType")]
+        [DisplayName("Section Content Type - One of  Interest, Enabler, EntryQualification, TrainingRoute, JobArea, CareerFocus, PreferredTaskType, Skills")]
         public PreSearchFilterType FilterType { get; set; }
 
         [DisplayName("Is this section a single option select only")]
@@ -173,6 +178,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 case PreSearchFilterType.PreferredTaskType:
                     {
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
+                    }
+
+               case PreSearchFilterType.Skills:
+                    {
+                        return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Title);
                     }
 
                 default:

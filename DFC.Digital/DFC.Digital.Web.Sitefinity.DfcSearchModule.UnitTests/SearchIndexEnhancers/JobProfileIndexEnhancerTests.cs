@@ -70,7 +70,17 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             var salaryCalculator = A.Fake<ISalaryCalculator>();
             var fakeLogger = A.Fake<IApplicationLogger>();
             var dummyJobProfileIndex = A.Dummy<JobProfileIndex>();
-            var dummyJobProfile = A.Dummy<JobProfile>();
+
+            var dummyJobProfile = new JobProfile
+            {
+                RelatedInterests = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedEnablers = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedEntryQualifications = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedTrainingRoutes = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedPreferredTaskTypes = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedJobAreas = new[] { "1|one", "2|two" }.AsQueryable()
+            };
+
             var dummyCategories = new List<JobProfileCategory>
             {
                 new JobProfileCategory
@@ -101,6 +111,12 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
             A.CallTo(() => fakeJobProfileCategoryRepo.GetByIds(A<IList<Guid>>._)).MustHaveHappened();
 
             dummyJobProfileIndex.JobProfileCategoriesWithUrl.Should().BeEquivalentTo(expectedCategories);
+            dummyJobProfileIndex.Interests.Should().BeEquivalentTo(dummyJobProfile.RelatedInterests);
+            dummyJobProfileIndex.Enablers.Should().BeEquivalentTo(dummyJobProfile.RelatedEnablers);
+            dummyJobProfileIndex.EntryQualifications.Should().BeEquivalentTo(dummyJobProfile.RelatedEntryQualifications);
+            dummyJobProfileIndex.TrainingRoutes.Should().BeEquivalentTo(dummyJobProfile.RelatedTrainingRoutes);
+            dummyJobProfileIndex.JobAreas.Should().BeEquivalentTo(dummyJobProfile.RelatedJobAreas);
+            dummyJobProfileIndex.PreferredTaskTypes.Should().BeEquivalentTo(dummyJobProfile.RelatedPreferredTaskTypes);
         }
     }
 }

@@ -20,7 +20,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #region Private Fields
 
         private readonly IPreSearchFiltersFactory preSearchFiltersFactory;
-        private readonly IJobProfileRelatedSkillsRepository jobProfileSkillsRepository;
         private readonly IPreSearchFilterStateManager preSearchFilterStateManager;
         private readonly IMapper autoMapper;
 
@@ -33,20 +32,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// </summary>
         /// <param name="applicationLogger">application logger</param>
         /// <param name="preSearchFiltersFactory">Sitefinity Repository to use</param>
-        /// <param name="jobProfileSkillsRepository">Sitefinity Skills to use</param>
         /// <param name="preSearchFilterStateManager">Pre search filter state manager</param>
         /// <param name="autoMapper">Instance of auto mapper</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
             IPreSearchFiltersFactory preSearchFiltersFactory,
-            IJobProfileRelatedSkillsRepository jobProfileSkillsRepository,
             IPreSearchFilterStateManager preSearchFilterStateManager) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
             this.preSearchFilterStateManager = preSearchFilterStateManager;
-            this.jobProfileSkillsRepository = jobProfileSkillsRepository;
         }
 
         #endregion Constructors

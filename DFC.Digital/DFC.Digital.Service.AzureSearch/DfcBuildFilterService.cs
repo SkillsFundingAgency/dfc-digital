@@ -46,7 +46,7 @@ namespace DFC.Digital.Service.AzureSearch
 
         private string GetFilter(KeyValuePair<string, PreSearchFilterLogicalOperator> field, string fieldValue)
         {
-            return field.Value == PreSearchFilterLogicalOperator.Nand || field.Value == PreSearchFilterLogicalOperator.Nor ? $"all(t: not(search.in(t, '{fieldValue}')) " : $"any(t: search.in(t, '{fieldValue}') ";
+            return field.Value == PreSearchFilterLogicalOperator.Nand || field.Value == PreSearchFilterLogicalOperator.Nor ? $"all(t: not(search.in(t, '{fieldValue}')) " : $"any(t: search.in(t, '{fieldValue}')) ";
         }
 
         private object GetOperator(StringBuilder builder, KeyValuePair<string, PreSearchFilterLogicalOperator> field)

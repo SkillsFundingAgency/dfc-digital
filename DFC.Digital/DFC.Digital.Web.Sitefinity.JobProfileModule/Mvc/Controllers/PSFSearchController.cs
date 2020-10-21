@@ -386,10 +386,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             foreach (var field in fields)
             {
                 var fieldDefinition = field.Split('|');
-                if (fieldDefinition.Length == 2)
+                if (fieldDefinition.Length == 2 && Enum.TryParse<PreSearchFilterLogicalOperator>(fieldDefinition[1], true, out var operand))
                 {
-                    fieldDefinitions.Add(
-                        new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], fieldDefinition[1].Equals(nameof(PreSearchFilterLogicalOperator.And), StringComparison.InvariantCultureIgnoreCase) ? PreSearchFilterLogicalOperator.And : PreSearchFilterLogicalOperator.Or));
+                    fieldDefinitions.Add(new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], operand));
                 }
             }
 

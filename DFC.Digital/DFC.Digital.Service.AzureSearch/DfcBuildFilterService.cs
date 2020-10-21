@@ -3,6 +3,7 @@ using DFC.Digital.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DFC.Digital.Service.AzureSearch
 {
@@ -32,7 +33,7 @@ namespace DFC.Digital.Service.AzureSearch
                                     : string.Join(",", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
                                 if (!string.IsNullOrWhiteSpace(fieldValue))
                                 {
-                                    builder.Append($"{(builder.Length > 0 ? field.Value.ToString().ToLower() : string.Empty)} {field.Key}/any(t: search.in(t, '{fieldValue}')) ");
+                                    builder.Append($"{GetOperator(builder, field)} {field.Key}/{GetFilter(field, fieldValue)}");
                                 }
                             }
                         }
@@ -41,6 +42,24 @@ namespace DFC.Digital.Service.AzureSearch
             }
 
             return builder.ToString().Trim();
+        }
+
+        private string GetFilter(KeyValuePair<string, PreSearchFilterLogicalOperator> field, string fieldValue)
+        {
+            return field.Value == PreSearchFilterLogicalOperator.Nand || field.Value == PreSearchFilterLogicalOperator.Nor ? $"all(t: not(search.in(t, '{fieldValue}')) " : $"any(t: search.in(t, '{fieldValue}') ";
+        }
+
+        private object GetOperator(StringBuilder builder, KeyValuePair<string, PreSearchFilterLogicalOperator> field)
+        {
+            var logicalOperator = field.Value;
+            if (builder.Length > 0)
+            {
+                logicalOperator = logicalOperator == PreSearchFilterLogicalOperator.Nand ? PreSearchFilterLogicalOperator.And : field.Value;
+                logicalOperator = logicalOperator == PreSearchFilterLogicalOperator.Or ? PreSearchFilterLogicalOperator.Or : field.Value;
+                return logicalOperator.ToString().ToLower();
+            }
+
+            return string.Empty;
         }
     }
 }

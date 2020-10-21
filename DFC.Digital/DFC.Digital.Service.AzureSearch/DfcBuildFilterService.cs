@@ -51,11 +51,11 @@ namespace DFC.Digital.Service.AzureSearch
 
         private object GetOperator(StringBuilder builder, KeyValuePair<string, PreSearchFilterLogicalOperator> field)
         {
-            var logicalOperator = field.Value;
             if (builder.Length > 0)
             {
+                var logicalOperator = field.Value;
                 logicalOperator = logicalOperator == PreSearchFilterLogicalOperator.Nand ? PreSearchFilterLogicalOperator.And : field.Value;
-                logicalOperator = logicalOperator == PreSearchFilterLogicalOperator.Or ? PreSearchFilterLogicalOperator.Or : field.Value;
+                logicalOperator = logicalOperator == PreSearchFilterLogicalOperator.Nor ? PreSearchFilterLogicalOperator.Or : logicalOperator;
                 return logicalOperator.ToString().ToLower();
             }
 

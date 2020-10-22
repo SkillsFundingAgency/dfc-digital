@@ -47,5 +47,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// The pre search filters model.
         /// </value>
         public PsfModel PreSearchFiltersModel { get; set; }
+
+        public string CaveatTagMarkup { get; internal set; }
+
+        public string CaveatMarkup { get; internal set; }
     }
 }

@@ -127,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The index field operators.
         /// </value>
         [DisplayName("Index Field Operators")]
-        public string IndexFieldOperators { get; set; } = "Interests|and,TrainingRoutes|and,Enablers|nand,EntryQualifications|and,PreferredTaskTypes|and,JobAreas|and";
+        public string IndexFieldOperators { get; set; } = "EntryQualifications|and,Interests|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand,PreferredTaskTypes|and";
 
         /// <summary>
         /// Gets or sets message to be displayed when there are no results
@@ -156,6 +156,18 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Demo Preferred Tasks value")]
         public string DemoPreferredTaskTypesValues { get; set; } = "true,level-8~true,level-6~false,hdhdhdhdhdhdhd";
+
+        [DisplayName("Caveat index field")]
+        public string CaveatFinderIndexFieldName { get; set; } = nameof(JobProfileIndex.TrainingRoutes);
+
+        [DisplayName("Caveat index field value e.g. Covid19")]
+        public string CaveatFinderIndexValue { get; set; } = "no";
+
+        [DisplayName("Caveat tag for title")]
+        public MvcHtmlString CaveatTagMarkup { get; set; } = new MvcHtmlString(@"<strong class=""govuk-tag govuk-tag--grey"">COVID Impacted</strong>");
+
+        [DisplayName("Caveat disclaimer")]
+        public MvcHtmlString CaveatMarkup { get; set; } = new MvcHtmlString(@"<p class=""govuk-inset-text"">This may be impacted in the short term due to current Coronavirus pandemic</p>");
 
         #endregion Public Properties
 
@@ -314,7 +326,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var results = await searchQueryService.SearchAsync("*", properties);
             resultModel.Count = results.Count;
             resultModel.PageNumber = pageNumber;
-            resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);
+            resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results, opts =>
+            {
+                opts.Items.Add(nameof(CaveatFinderIndexFieldName), CaveatFinderIndexFieldName);
+                opts.Items.Add(nameof(CaveatFinderIndexValue), CaveatFinderIndexValue);
+            });
+
             foreach (var resultItem in resultModel.SearchResults)
             {
                 resultItem.ResultItemUrlName = $"{JobProfileDetailsPage}{resultItem.ResultItemUrlName}";
@@ -369,7 +386,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 BackPageUrl = new Uri(BackPageUrl, UriKind.RelativeOrAbsolute),
                 BackPageUrlText = BackPageUrlText,
                 JobProfileCategoryPage = JobProfileCategoryPage,
-                SalaryBlankText = SalaryBlankText
+                SalaryBlankText = SalaryBlankText,
+                CaveatTagMarkup = CaveatTagMarkup,
+                CaveatMarkup = CaveatMarkup
             };
 
             //Need to do this to force the model we have changed to refresh

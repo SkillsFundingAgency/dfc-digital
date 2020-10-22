@@ -55,7 +55,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Section Description")]
         public string SectionDescription { get; set; } = "Demo Description";
 
-        [DisplayName("Section Content Type - One of  Interest, Enabler, EntryQualification, TrainingRoute, JobArea, CareerFocus, PreferredTaskType, Skills")]
+        [DisplayName("Section Content Type - One of  Interest, Enabler, EntryQualification, TrainingRoute, JobArea, CareerFocus, PreferredTaskType, Skill")]
         public PreSearchFilterType FilterType { get; set; }
 
         [DisplayName("Is this section a single option select only")]
@@ -176,7 +176,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                     }
 
-               case PreSearchFilterType.Skills:
+               case PreSearchFilterType.Skill:
                     {
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Title);
                     }

@@ -78,7 +78,8 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule.UnitTests
                 RelatedEntryQualifications = new[] { "1|one", "2|two" }.AsQueryable(),
                 RelatedTrainingRoutes = new[] { "1|one", "2|two" }.AsQueryable(),
                 RelatedPreferredTaskTypes = new[] { "1|one", "2|two" }.AsQueryable(),
-                RelatedJobAreas = new[] { "1|one", "2|two" }.AsQueryable()
+                RelatedJobAreas = new[] { "1|one", "2|two" }.AsQueryable(),
+                RelatedSkills = new List<string>() { "1|one", "2|two" }
             };
 
             var dummyCategories = new List<JobProfileCategory>

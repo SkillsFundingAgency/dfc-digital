@@ -20,6 +20,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string RelatedTrainingRoutesField = "RelatedTrainingRoutes";
         private const string RelatedJobAreasField = "RelatedJobAreas";
         private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
+        private const string RelatedSkills = "RelatedSkills";
 
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
@@ -58,6 +59,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
+
+            var skills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkills);
+
+            if (skills != null)
+            {
+                jobProfile.RelatedSkills = new List<string>();
+
+                foreach (var skill in skills)
+                {
+                    jobProfile.RelatedSkills.Add(skill.Substring(skill.IndexOf("-") + 1).Replace(" ", "-"));
+                }
+            }
 
             return jobProfile;
         }

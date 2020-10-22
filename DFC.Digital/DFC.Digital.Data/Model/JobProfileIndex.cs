@@ -99,6 +99,10 @@ namespace DFC.Digital.Data.Model
         [IsFilterable]
         public IEnumerable<string> JobAreas { get; set; }
 
+        [IsFilterable]
+        [IsSearchable]
+        public IEnumerable<string> Skills { get; set; }
+
         [IsSearchable]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string CollegeRelevantSubjects { get; set; }

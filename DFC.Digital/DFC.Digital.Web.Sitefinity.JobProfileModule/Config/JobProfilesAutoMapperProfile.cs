@@ -2,6 +2,8 @@
 using DFC.Digital.Data.Model;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
@@ -18,17 +20,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                 .ForMember(d => d.ResultItemAlternativeTitle, o => o.MapFrom(s => string.Join(", ", s.ResultItem.AlternativeTitle).Trim().TrimEnd(',')))
                 .ForMember(c => c.JobProfileCategoriesWithUrl, m => m.MapFrom(j => j.ResultItem.JobProfileCategoriesWithUrl))
                 .ForMember(d => d.ResultItemSalaryRange, o => o.MapFrom(s => s.ResultItem.SalaryStarter.Equals(0) || s.ResultItem.SalaryExperienced.Equals(0) ? string.Empty : string.Format(new CultureInfo("en-GB", false), "{0:C0} to {1:C0}", s.ResultItem.SalaryStarter, s.ResultItem.SalaryExperienced)))
-                .ForMember(d => d.ShouldDisplayCaveat, o => o.Condition((a, b, c, d, ctx) =>
+                .ForMember(d => d.ShouldDisplayCaveat, o => o.MapFrom((src, dest, destMember, ctx) =>
                 {
                     if (ctx.Items.ContainsKey(nameof(PsfSearchController.CaveatFinderIndexFieldName))
                         && ctx.Items.ContainsKey(nameof(PsfSearchController.CaveatFinderIndexValue))
                         && !string.IsNullOrEmpty(ctx.Items[nameof(PsfSearchController.CaveatFinderIndexFieldName)]?.ToString()))
                     {
                         var indexFieldName = ctx.Items[nameof(PsfSearchController.CaveatFinderIndexFieldName)]?.ToString();
-                        var indexField = a.ResultItem.GetType().GetProperties().FirstOrDefault(m => m.Name.Equals(indexFieldName, System.StringComparison.OrdinalIgnoreCase));
-                        var indexedValue = indexField.GetValue(a.ResultItem)?.ToString();
+                        var indexField = src.ResultItem.GetType().GetProperties().FirstOrDefault(m => m.Name.Equals(indexFieldName, System.StringComparison.OrdinalIgnoreCase));
+                        var indexedValue = indexField.GetValue(src.ResultItem) as IEnumerable<string>;
                         var expectedCaveatValue = ctx.Items[nameof(PsfSearchController.CaveatFinderIndexValue)]?.ToString();
-                        return expectedCaveatValue != null && expectedCaveatValue.Equals(indexedValue, System.StringComparison.OrdinalIgnoreCase);
+                        return expectedCaveatValue != null && indexedValue.Contains(expectedCaveatValue, StringComparer.OrdinalIgnoreCase);
                     }
 
                     return false;

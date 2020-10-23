@@ -32,13 +32,11 @@
                                 @foreach (var jobProfile in Model.SearchResults)
                                 {
                                 <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
-                                    <h3>
-                                        <a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a>
-                                        @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatTagMarkup))
-                                        {
-                                            @Html.Raw(Model.CaveatTagMarkup)
-                                        }
-                                        </h3>
+                                    <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
+                                    @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatTagMarkup))
+                                    {
+                                        @Html.Raw(Model.CaveatTagMarkup)
+                                    }
                                     @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
                                     {
                                         <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>

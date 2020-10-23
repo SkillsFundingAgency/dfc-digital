@@ -53,7 +53,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string SectionTitle { get; set; } = "Demo Section";
 
         [DisplayName("Section Description")]
-        public MvcHtmlString SectionDescription { get; set; } = new MvcHtmlString("Demo Description");
+        public string SectionDescription { get; set; } = "Demo Description";
 
         [DisplayName("Section Content Type - One of  Interest, Enabler, EntryQualification, TrainingRoute, JobArea, CareerFocus, PreferredTaskType, Skill")]
         public PreSearchFilterType FilterType { get; set; }
@@ -112,7 +112,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var filterSection = currentSection ?? new PsfSection();
 
             filterSection.Name = SectionTitle;
-            filterSection.Description = SectionDescription.ToHtmlString();
+            filterSection.Description = SectionDescription;
             filterSection.SingleSelectOnly = SingleSelectOnly;
             filterSection.NextPageUrl = NextPageUrl;
             filterSection.PreviousPageUrl = PreviousPageUrl;

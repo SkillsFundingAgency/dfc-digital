@@ -30,7 +30,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule
                         var indexField = src.ResultItem.GetType().GetProperties().FirstOrDefault(m => m.Name.Equals(indexFieldName, System.StringComparison.OrdinalIgnoreCase));
                         var indexedValue = indexField.GetValue(src.ResultItem) as IEnumerable<string>;
                         var expectedCaveatValue = ctx.Items[nameof(PsfSearchController.CaveatFinderIndexValue)]?.ToString();
-                        return expectedCaveatValue != null && indexedValue.Contains(expectedCaveatValue, StringComparer.OrdinalIgnoreCase);
+                        return expectedCaveatValue != null && indexedValue != null && indexedValue.Contains(expectedCaveatValue, StringComparer.OrdinalIgnoreCase);
                     }
 
                     return false;

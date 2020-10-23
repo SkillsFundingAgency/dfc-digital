@@ -15,14 +15,18 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
-        public T ConvertFrom(DynamicContent content) => new T
+        public T ConvertFrom(DynamicContent content)
         {
-            Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title)),
-            Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
-            NotApplicable = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(PreSearchFilter.NotApplicable)),
-            Order = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(PreSearchFilter.Order)),
-            UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
-            Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
-        };
+            var title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title));
+            return new T
+            {
+                Title = title,
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
+                NotApplicable = title.Equals("None", StringComparison.OrdinalIgnoreCase),
+                Order = title.Equals("None", StringComparison.OrdinalIgnoreCase) ? 1 : 2,
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
+            };
+        }
     }
 }

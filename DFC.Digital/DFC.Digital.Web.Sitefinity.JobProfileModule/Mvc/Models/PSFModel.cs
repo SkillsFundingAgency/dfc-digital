@@ -9,5 +9,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public PsfSection Section { get; set; }
 
         public string OptionsSelected { get; set; }
+
+        public int NumberOfMatches { get; set; }
     }
 }

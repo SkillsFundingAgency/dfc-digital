@@ -5,23 +5,27 @@ using Telerik.Sitefinity.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
-    public class PreSearchFilterOnetSkillConverter : PreSearchFilterConverter<PsfOnetSkill>
+    public class PreSearchFilterOnetSkillConverter : IDynamicModuleConverter<PsfOnetSkill>
     {
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
-        public PreSearchFilterOnetSkillConverter(IDynamicContentExtensions dynamicContentExtensions) : base(dynamicContentExtensions)
+        public PreSearchFilterOnetSkillConverter(IDynamicContentExtensions dynamicContentExtensions)
         {
             this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
-        public new PsfOnetSkill ConvertFrom(DynamicContent content) => new PsfOnetSkill
+        public PsfOnetSkill ConvertFrom(DynamicContent content)
         {
-            Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title)),
-            Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
-            NotApplicable = false,
-            Order = 1,
-            UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
-            Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
-        };
+            var title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title));
+            return new PsfOnetSkill
+            {
+                Title = title,
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
+                NotApplicable = title.Equals("None", StringComparison.OrdinalIgnoreCase) || title.Equals("Skip", StringComparison.OrdinalIgnoreCase),
+                Order = title.Equals("Skip", StringComparison.OrdinalIgnoreCase) ? 100 : title.Equals("None", StringComparison.OrdinalIgnoreCase) ? 1 : 2,
+                UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
+            };
+        }
     }
 }

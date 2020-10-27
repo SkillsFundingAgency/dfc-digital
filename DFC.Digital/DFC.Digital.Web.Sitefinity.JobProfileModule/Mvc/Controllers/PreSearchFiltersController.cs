@@ -178,7 +178,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
                case PreSearchFilterType.Skill:
                     {
-                        return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Title).ThenBy(o => o.NotApplicable);
+                        return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
                     }
 
                 default:

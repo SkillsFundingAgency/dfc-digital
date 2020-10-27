@@ -135,8 +135,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var resultsModel = autoMapper.Map<PreSearchFiltersResultsModel>(model);
             var properties = new SearchProperties
             {
-                Page = 1,
-                Count = 1,
+                Page = 0,
+                Count = 0,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value))
             };
             var results = await searchQueryService.SearchAsync("*", properties);

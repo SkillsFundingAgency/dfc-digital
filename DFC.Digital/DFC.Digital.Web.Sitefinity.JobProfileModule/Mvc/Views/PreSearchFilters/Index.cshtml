@@ -18,13 +18,7 @@
         </form>
         <form action="@Model.Section.NextPageUrl" method="post" id="continueForm">
             <div class="active">
-                <h4>
-                    Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages
-                    @if (@Model.Section.PageNumber > 1)
-                    {
-                         <span> you have @Model.NumberOfMatches career matches</span>
-                    }
-                </h4>
+                <h4>Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages@if (@Model.Section.PageNumber > 1){<span> you have @Model.NumberOfMatches career matches</span>}</h4>
                 <h2>@Html.DisplayFor(model => Model.Section.Name)</h2>
                 @Html.Raw(Model.Section.Description)      
 

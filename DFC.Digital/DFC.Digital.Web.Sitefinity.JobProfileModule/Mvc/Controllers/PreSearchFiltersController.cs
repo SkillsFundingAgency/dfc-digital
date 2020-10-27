@@ -127,7 +127,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private async Task<int> GetNumberOfMatches(PsfModel model)
         {
-            var fieldDefinitions = GetIndexFieldDefinitions();
+            var fieldDefinitions = buildSearchFilterService.GetIndexFieldDefinitions(IndexFieldOperators);
             preSearchFilterStateManager.RestoreState(model.OptionsSelected);
             var filterState = preSearchFilterStateManager.GetPreSearchFilterState();
             model.Sections = autoMapper.Map<List<PsfSection>>(filterState.Sections);
@@ -142,25 +142,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var results = await searchQueryService.SearchAsync("*", properties);
 
             return (int)results.Count;
-        }
-
-        //If this is moved forward with after demo, this needs to be moved to the buildSearchFilterService as its copied from
-        //the PsfSearchController
-        private IEnumerable<KeyValuePair<string, PreSearchFilterLogicalOperator>> GetIndexFieldDefinitions()
-        {
-            var fields = IndexFieldOperators.Split(',');
-
-            var fieldDefinitions = new List<KeyValuePair<string, PreSearchFilterLogicalOperator>>();
-            foreach (var field in fields)
-            {
-                var fieldDefinition = field.Split('|');
-                if (fieldDefinition.Length == 2 && Enum.TryParse<PreSearchFilterLogicalOperator>(fieldDefinition[1], true, out var operand))
-                {
-                    fieldDefinitions.Add(new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], operand));
-                }
-            }
-
-            return fieldDefinitions;
         }
 
         private PsfModel GetCurrentPageFilter()

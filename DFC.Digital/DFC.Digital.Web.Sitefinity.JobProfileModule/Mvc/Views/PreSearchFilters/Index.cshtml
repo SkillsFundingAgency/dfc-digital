@@ -26,7 +26,7 @@
                     }
                 </h4>
                 <h2>@Html.DisplayFor(model => Model.Section.Name)</h2>
-                <p>@Html.DisplayFor(model => Model.Section.Description)</p>
+                @Html.Raw(Model.Section.Description)      
 
                 @Html.HiddenFor(m => Model.Section.Name)
                 @Html.HiddenFor(m => Model.Section.SectionDataType)

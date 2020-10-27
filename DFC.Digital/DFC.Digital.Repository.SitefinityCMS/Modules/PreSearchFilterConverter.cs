@@ -22,8 +22,8 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 Title = title,
                 Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
-                NotApplicable = title.Equals("None", StringComparison.OrdinalIgnoreCase),
-                Order = title.Equals("None", StringComparison.OrdinalIgnoreCase) ? 1 : 2,
+                NotApplicable = dynamicContentExtensions.GetFieldValue<bool>(content, nameof(PreSearchFilter.NotApplicable)),
+                Order = dynamicContentExtensions.GetFieldValue<decimal?>(content, nameof(PreSearchFilter.Order)),
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
                 Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
             };

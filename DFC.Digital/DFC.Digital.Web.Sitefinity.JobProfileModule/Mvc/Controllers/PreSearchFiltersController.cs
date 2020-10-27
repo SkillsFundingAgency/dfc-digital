@@ -6,9 +6,11 @@ using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Telerik.Sitefinity.Mvc;
 
@@ -23,6 +25,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IPreSearchFilterStateManager preSearchFilterStateManager;
         private readonly IMapper autoMapper;
 
+        private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
+        private readonly IBuildSearchFilterService buildSearchFilterService;
+        private readonly IAsyncHelper asyncHelper;
+
         #endregion Private Fields
 
         #region Constructors
@@ -34,15 +40,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="preSearchFiltersFactory">Sitefinity Repository to use</param>
         /// <param name="preSearchFilterStateManager">Pre search filter state manager</param>
         /// <param name="autoMapper">Instance of auto mapper</param>
+        /// <param name="searchQueryService">Instance of search query service</param>
+        /// <param name="buildSearchFilterService">Instance of search filter service</param>
+        /// <param name="asyncHelper">Instance of asyncHelper</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
             IPreSearchFiltersFactory preSearchFiltersFactory,
-            IPreSearchFilterStateManager preSearchFilterStateManager) : base(applicationLogger)
+            IPreSearchFilterStateManager preSearchFilterStateManager,
+            ISearchQueryService<JobProfileIndex> searchQueryService,
+            IBuildSearchFilterService buildSearchFilterService,
+            IAsyncHelper asyncHelper) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
             this.preSearchFilterStateManager = preSearchFilterStateManager;
+            this.searchQueryService = searchQueryService;
+            this.buildSearchFilterService = buildSearchFilterService;
+            this.asyncHelper = asyncHelper;
         }
 
         #endregion Constructors
@@ -73,6 +88,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("The total number of selection pages")]
         public int TotalNumberOfPages { get; set; } = 99;
 
+        [DisplayName("Index Field Operators - Should match the one in the results widget up to this point in the journey")]
+        public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
         #endregion Public Properties
 
         #region Actions
@@ -99,7 +116,32 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             var currentPageFilter = GetCurrentPageFilter();
+
+            if (ThisPageNumber > 1)
+            {
+                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+            }
+
             return View(currentPageFilter);
+        }
+
+        private async Task<int> GetNumberOfMatches(PsfModel model)
+        {
+            var fieldDefinitions = buildSearchFilterService.GetIndexFieldDefinitions(IndexFieldOperators);
+            preSearchFilterStateManager.RestoreState(model.OptionsSelected);
+            var filterState = preSearchFilterStateManager.GetPreSearchFilterState();
+            model.Sections = autoMapper.Map<List<PsfSection>>(filterState.Sections);
+
+            var resultsModel = autoMapper.Map<PreSearchFiltersResultsModel>(model);
+            var properties = new SearchProperties
+            {
+                Page = 1,
+                Count = 1,
+                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value))
+            };
+            var results = await searchQueryService.SearchAsync("*", properties);
+
+            return (int)results.Count;
         }
 
         private PsfModel GetCurrentPageFilter()

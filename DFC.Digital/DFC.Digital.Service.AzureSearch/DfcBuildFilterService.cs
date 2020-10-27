@@ -44,6 +44,23 @@ namespace DFC.Digital.Service.AzureSearch
             return builder.ToString().Trim();
         }
 
+        public IEnumerable<KeyValuePair<string, PreSearchFilterLogicalOperator>> GetIndexFieldDefinitions(string indexFieldOperators)
+        {
+            var fields = indexFieldOperators.Split(',');
+
+            var fieldDefinitions = new List<KeyValuePair<string, PreSearchFilterLogicalOperator>>();
+            foreach (var field in fields)
+            {
+                var fieldDefinition = field.Split('|');
+                if (fieldDefinition.Length == 2 && Enum.TryParse<PreSearchFilterLogicalOperator>(fieldDefinition[1], true, out var operand))
+                {
+                    fieldDefinitions.Add(new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], operand));
+                }
+            }
+
+            return fieldDefinitions;
+        }
+
         private string GetFilter(KeyValuePair<string, PreSearchFilterLogicalOperator> field, string fieldValue)
         {
             return field.Value == PreSearchFilterLogicalOperator.Nand || field.Value == PreSearchFilterLogicalOperator.Nor ? $"all(t: not(search.in(t, '{fieldValue}'))) " : $"any(t: search.in(t, '{fieldValue}')) ";

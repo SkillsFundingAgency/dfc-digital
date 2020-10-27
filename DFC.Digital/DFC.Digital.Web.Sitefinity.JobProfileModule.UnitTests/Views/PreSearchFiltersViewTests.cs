@@ -91,6 +91,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void MatchingTotalIsDisplayedOnPagesAfterPageOne(int pageOn)
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.PageNumber = pageOn;
+            var htmlDom = index.RenderAsHtml(testDataModel);
+
+            var matchingCountMessage = $" you have {testDataModel.NumberOfMatches} career matches";
+            if (pageOn > 1)
+            {
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(matchingCountMessage);
+            }
+            else
+            {
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(matchingCountMessage);
+            }
+        }
+
         private void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
         {
             //*[@id="Section_Name"]
@@ -128,7 +149,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     PageNumber = 1,
                     TotalNumberOfPages = 2,
                     SectionDataType = "Dummy Data Type One"
-                }
+                },
+                NumberOfMatches = 5,
             };
 
             filtersModel.Section.Options = new List<PsfOption>();

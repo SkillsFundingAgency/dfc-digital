@@ -14,6 +14,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         private const string SocField = "SOC";
         private const string RelatedJobProfileCategoriesField = "JobProfileCategories";
 
+        private const string RelatedInterestsField = "RelatedInterests";
+        private const string RelatedEnablersField = "RelatedEnablers";
+        private const string RelatedEntryQualificationsField = "RelatedEntryQualifications";
+        private const string RelatedTrainingRoutesField = "RelatedTrainingRoutes";
+        private const string RelatedJobAreasField = "RelatedJobAreas";
+        private const string RelatedPreferredTaskTypesField = "RelatedPreferredTaskTypes";
+        private const string RelatedSkills = "RelatedSkills";
+
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         #endregion Fields
@@ -42,6 +50,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             {
                 jobProfile.SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.SOCCode));
                 jobProfile.ONetOccupationalCode = dynamicContentExtensions.GetFieldValue<Lstring>(socItem, nameof(JobProfile.ONetOccupationalCode));
+            }
+
+            //PSF
+            jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
+            jobProfile.RelatedEnablers = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEnablersField);
+            jobProfile.RelatedEntryQualifications = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEntryQualificationsField);
+            jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
+            jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
+            jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
+
+            var skills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkills);
+
+            if (skills != null)
+            {
+                jobProfile.RelatedSkills = new List<string>();
+
+                foreach (var skill in skills)
+                {
+                    jobProfile.RelatedSkills.Add(skill.Substring(skill.IndexOf("-") + 1).Replace(" ", "-"));
+                }
             }
 
             return jobProfile;

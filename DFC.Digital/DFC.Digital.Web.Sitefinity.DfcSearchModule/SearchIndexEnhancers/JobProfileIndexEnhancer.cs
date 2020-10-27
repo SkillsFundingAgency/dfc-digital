@@ -51,6 +51,14 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             if (JobProfile != null)
             {
                 jobProfileIndex.JobProfileCategoriesWithUrl = GetJobProfileCategoriesWithUrl();
+
+                jobProfileIndex.Interests = JobProfile.RelatedInterests.ToList();
+                jobProfileIndex.Enablers = JobProfile.RelatedEnablers.ToList();
+                jobProfileIndex.EntryQualifications = JobProfile.RelatedEntryQualifications.ToList();
+                jobProfileIndex.TrainingRoutes = JobProfile.RelatedTrainingRoutes.ToList();
+                jobProfileIndex.JobAreas = JobProfile.RelatedJobAreas.ToList();
+                jobProfileIndex.PreferredTaskTypes = JobProfile.RelatedPreferredTaskTypes.ToList();
+                jobProfileIndex.Skills = JobProfile.RelatedSkills.ToList();
             }
         }
 

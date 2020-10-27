@@ -19,5 +19,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }
 
         public double Score { get; set; }
+
+        public bool ShouldDisplayCaveat { get; internal set; }
     }
 }

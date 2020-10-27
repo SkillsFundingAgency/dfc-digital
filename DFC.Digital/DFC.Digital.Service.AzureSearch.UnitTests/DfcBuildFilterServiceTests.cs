@@ -70,12 +70,12 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
                 {
                     { nameof(JobProfileIndex.Interests), PreSearchFilterLogicalOperator.Or },
                     { nameof(JobProfileIndex.TrainingRoutes), PreSearchFilterLogicalOperator.Or },
-                    { nameof(JobProfileIndex.EntryQualifications), PreSearchFilterLogicalOperator.Or },
-                    { nameof(JobProfileIndex.Enablers), PreSearchFilterLogicalOperator.And },
-                    { nameof(JobProfileIndex.JobAreas), PreSearchFilterLogicalOperator.And },
+                    { nameof(JobProfileIndex.EntryQualifications), PreSearchFilterLogicalOperator.And },
+                    { nameof(JobProfileIndex.Enablers), PreSearchFilterLogicalOperator.Nand },
+                    { nameof(JobProfileIndex.JobAreas), PreSearchFilterLogicalOperator.Nor },
                     { nameof(JobProfileIndex.PreferredTaskTypes), PreSearchFilterLogicalOperator.Or }
                 },
-                "Interests/any(t: search.in(t, 'interest1')) or TrainingRoutes/any(t: search.in(t, 'trainingroute1')) or EntryQualifications/any(t: search.in(t, 'entryqualification1')) and Enablers/any(t: search.in(t, 'enabler1')) and JobAreas/any(t: search.in(t, 'jobarea1')) or PreferredTaskTypes/any(t: search.in(t, 'preferredtasktype1'))"
+                "Interests/any(t: search.in(t, 'interest1')) or TrainingRoutes/any(t: search.in(t, 'trainingroute1')) and EntryQualifications/any(t: search.in(t, 'entryqualification1')) and Enablers/all(t: not(search.in(t, 'enabler1'))) or JobAreas/all(t: not(search.in(t, 'jobarea1'))) or PreferredTaskTypes/any(t: search.in(t, 'preferredtasktype1'))"
             };
             yield return new object[]
             {

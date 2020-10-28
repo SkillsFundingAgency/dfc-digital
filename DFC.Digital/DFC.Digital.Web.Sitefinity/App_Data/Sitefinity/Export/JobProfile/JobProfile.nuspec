@@ -2,26 +2,23 @@
 <package>
   <metadata>
     <id>JobProfile</id>
-    <version>2.0.31.4</version>
+    <version>2.0.31.5</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
-    <language>en-GB</language>
-    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <description>
-      Job Profile Dynamic Module -- Updating SoC field validation to Required field.
-      SoC field was made compulsory field when creating new JobProfiles for use in CompositeUI.
-      This was not creating any messages in Service Bus when a JobProfile is PUBLISHED although new JobProfile was created.
+      Job Profile Dynamic Module -- Adding PSF related fields to SKills Dynamic Content
+      This nuget package contains all the new PSF fields added to the Skills Dynamic Content Type.
+      These new fields and classification were added to search JobProfiles based on PSF data.
     </description>
+    <language>en-GB</language>
     <references></references>
-    <dependencies>
-      <dependency id="PreSearchFilters" version="1.0.0.3" />
-    </dependencies>
   </metadata>
   <files>
-    <file src="..\JobProfile\**\*.*" exclude="..\JobProfile\**\*.ps1" target="content\App_Data\Sitefinity\AddOns\JobProfile" />
-    <file src="..\JobProfile\**\*.ps1" target="tools" />
-    <file src="..\JobProfile\**\*.psm1" target="tools" />
+    <file src="**\*.*" exclude="**\*.ps1" target="content\App_Data\Sitefinity\AddOns\JobProfile" />
+    <file src="**\*.ps1" target="tools" />
+    <file src="\**\*.psm1" target="tools" />
   </files>
 </package>

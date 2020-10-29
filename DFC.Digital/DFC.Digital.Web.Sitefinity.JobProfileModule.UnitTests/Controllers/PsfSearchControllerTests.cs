@@ -71,8 +71,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._))
                 .Returns(dummySearchResult);
+            A.CallTo(() => buildSearchFilterServiceFake.GetSearchTerm(A<SearchProperties>._, A<PreSearchFiltersResultsModel>._, A<string[]>._))
+            .Returns("*");
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))
                 .Returns(nameof(SearchProperties.FilterBy));
+
             A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).Returns(new PreSearchFilterState());
             A.CallTo(() => stateManagerFake.GetStateJson()).Returns(string.Empty);
             A.CallTo(() => stateManagerFake.RestoreState(A<string>._)).DoesNothing();
@@ -183,6 +186,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._))
                 .Returns(dummySearchResult);
+            A.CallTo(() => buildSearchFilterServiceFake.GetSearchTerm(A<SearchProperties>._, A<PreSearchFiltersResultsModel>._, A<string[]>._))
+                .Returns("*");
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))
                 .Returns(nameof(SearchProperties.FilterBy));
             A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).Returns(new PreSearchFilterState());
@@ -294,6 +299,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))
                 .Returns(nameof(SearchProperties.FilterBy));
+            A.CallTo(() => buildSearchFilterServiceFake.GetSearchTerm(A<SearchProperties>._, A<PreSearchFiltersResultsModel>._, A<string[]>._))
+                .Returns("*");
             A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).Returns(new PreSearchFilterState());
             A.CallTo(() => stateManagerFake.GetStateJson()).Returns(string.Empty);
             A.CallTo(() => stateManagerFake.RestoreState(A<string>._)).DoesNothing();
@@ -398,6 +405,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             expectedSearchResultsViewModel = expectedVmList.AsEnumerable();
 
             A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
+            A.CallTo(() => buildSearchFilterServiceFake.GetSearchTerm(A<SearchProperties>._, A<PreSearchFiltersResultsModel>._, A<string[]>._))
+                .Returns("*");
             A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._))
                 .Returns(nameof(SearchProperties.FilterBy));
             A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).Returns(new PreSearchFilterState());

@@ -321,9 +321,30 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 Page = pageNumber,
                 Count = this.PageSize,
-                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value))
+                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
+                SearchFields = new List<string>() { "Skills" },
+                OrderByFields = new List<string>() { "search.score() desc", "EntryQualificationLowestLevel desc" },
             };
-            var results = await searchQueryService.SearchAsync("*", properties);
+
+            var searchTerm = "*";
+            var builder = new System.Text.StringBuilder();
+            var fieldFilter = resultsModel.Sections?.FirstOrDefault(section =>
+                           section.SectionDataTypes.Equals("Skills", StringComparison.InvariantCultureIgnoreCase));
+            if (fieldFilter != null)
+            {
+                var notApplicableSelected = fieldFilter.Options.Any(opt => opt.ClearOtherOptionsIfSelected);
+                if (!notApplicableSelected && !fieldFilter.SingleSelectOnly)
+                {
+                    var fieldValue = string.Join(" + ", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
+                    if (!string.IsNullOrWhiteSpace(fieldValue))
+                    {
+                        searchTerm = fieldValue;
+                        properties.SearchFields = new List<string>() { "Skills" };
+                    }
+                }
+            }
+
+            var results = await searchQueryService.SearchAsync(searchTerm, properties);
             resultModel.Count = results.Count;
             resultModel.PageNumber = pageNumber;
             resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results, opts =>

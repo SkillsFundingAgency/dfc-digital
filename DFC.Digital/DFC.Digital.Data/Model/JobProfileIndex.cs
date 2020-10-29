@@ -103,6 +103,10 @@ namespace DFC.Digital.Data.Model
         [IsSearchable]
         public IEnumerable<string> Skills { get; set; }
 
+        [IsFilterable]
+        [IsSortable]
+        public double EntryQualificationLowestLevel { get; set; }
+
         [IsSearchable]
         [Analyzer(AnalyzerName.AsString.EnLucene)]
         public string CollegeRelevantSubjects { get; set; }

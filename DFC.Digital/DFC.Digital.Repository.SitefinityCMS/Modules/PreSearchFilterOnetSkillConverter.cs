@@ -17,12 +17,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public PsfOnetSkill ConvertFrom(DynamicContent content)
         {
             var title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title));
+            var psfTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, "PSFLabel");
+            var psfDescription = dynamicContentExtensions.GetFieldValue<Lstring>(content, $"PSF{nameof(PreSearchFilter.Description)}");
             return new PsfOnetSkill
             {
-                Title = title,
-                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
-                NotApplicable = title.Equals("None", StringComparison.OrdinalIgnoreCase) || title.Equals("Skip", StringComparison.OrdinalIgnoreCase),
-                Order = title.Equals("Skip", StringComparison.OrdinalIgnoreCase) ? 100 : title.Equals("None", StringComparison.OrdinalIgnoreCase) ? 1 : 2,
+                Title = string.IsNullOrEmpty(psfTitle) ? title : psfTitle,
+                Description = !string.IsNullOrEmpty(psfDescription) ? psfDescription : dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
+                NotApplicable = dynamicContentExtensions.GetFieldValue<bool>(content, $"PSF{nameof(PreSearchFilter.NotApplicable)}"),
+                Order = dynamicContentExtensions.GetFieldValue<decimal?>(content, $"PSF{nameof(PreSearchFilter.Order)}") ?? 0,
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
                 Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
             };

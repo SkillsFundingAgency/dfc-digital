@@ -129,6 +129,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Index Field Operators")]
         public string IndexFieldOperators { get; set; } = "EntryQualifications|and,Interests|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand,PreferredTaskTypes|and";
 
+        [DisplayName("Index search fields, comma seperated. Used to rank the search results after filtering")]
+        public string IndexSearchField { get; set; } = "Skills";
+
+        [DisplayName("Index sort fields, comma seperated. Used to sort the search results after filtering and ranking, the sort field needs to already be in the index")]
+        public string IndexSortField { get; set; } = "search.score() desc, EntryQualificationLowestLevel desc";
+
         /// <summary>
         /// Gets or sets message to be displayed when there are no results
         /// </summary>
@@ -322,28 +328,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Page = pageNumber,
                 Count = this.PageSize,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
-                SearchFields = new List<string>() { "Skills" },
-                OrderByFields = new List<string>() { "search.score() desc", "EntryQualificationLowestLevel desc" },
+                OrderByFields = IndexSortField.TrimEnd(',').Split(',').ToList(),
             };
 
-            var searchTerm = "*";
-            var builder = new System.Text.StringBuilder();
-            var fieldFilter = resultsModel.Sections?.FirstOrDefault(section =>
-                           section.SectionDataTypes.Equals("Skills", StringComparison.InvariantCultureIgnoreCase));
-            if (fieldFilter != null)
-            {
-                var notApplicableSelected = fieldFilter.Options.Any(opt => opt.ClearOtherOptionsIfSelected);
-                if (!notApplicableSelected && !fieldFilter.SingleSelectOnly)
-                {
-                    var fieldValue = string.Join(" + ", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
-                    if (!string.IsNullOrWhiteSpace(fieldValue))
-                    {
-                        searchTerm = fieldValue;
-                        properties.SearchFields = new List<string>() { "Skills" };
-                    }
-                }
-            }
-
+            var searchTerm = buildSearchFilterService.GetSearchTerm(properties, resultsModel, IndexSearchField.Split(','));
             var results = await searchQueryService.SearchAsync(searchTerm, properties);
             resultModel.Count = results.Count;
             resultModel.PageNumber = pageNumber;

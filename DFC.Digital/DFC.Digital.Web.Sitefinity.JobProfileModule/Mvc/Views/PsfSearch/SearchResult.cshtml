@@ -19,7 +19,7 @@
             <header class="filter-results-header">
                 <h1 class="filter-results-heading">@Model.MainPageTitle</h1>
                 <p class="filter-results-subheading">@Model.SecondaryText</p>
-                <div class="filter-results-count scoped-result-count">@Model.TotalResultsMessage</div>
+                <div class="filter-results-count scoped-result-count" data-ga-result-count="@Model.TotalResultCount">@Model.TotalResultsMessage</div>
             </header>
 
             <div id="results">

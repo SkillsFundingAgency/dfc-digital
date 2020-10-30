@@ -1,32 +1,32 @@
 [
-  {
-    "AddonName": "JobProfile",
-    "Key": "21261c95-c0d7-426b-8555-3e222474cb5d",
-    "IsDeleted": false
-  },
-  {
-    "AddonName": "TestJobProfiles",
-    "Key": "1937ed5a-1397-47f8-918c-9e89f6e0bc59",
-    "IsDeleted": false
-  },
-  {
-    "AddonName": "WorkingHPE",
-    "Key": "5d785028-cb4f-48ca-a5a4-97bafa6b8262",
-    "IsDeleted": true
-  },
-  {
-    "AddonName": "PreSearchFilters",
-    "Key": "0d35e02b-1f89-4210-a3fb-9afd0a71c7bf",
-    "IsDeleted": false
-  },
-  {
-    "AddonName": "Configuration",
-    "Key": "2cf18a40-b881-4ae4-bb89-ae98645c8003",
-    "IsDeleted": false
-  },
-  {
-    "AddonName": "DYSAC",
-    "Key": "4a863984-cf6f-4f05-93ab-41213275db25",
-    "IsDeleted": false
-  }
+    {
+        "AddonName":  "JobProfile",
+        "Key":  "ef1eb382-3d32-486a-a6cf-0e75bfc777a4",
+        "IsDeleted":  false
+    },
+    {
+        "AddonName":  "TestJobProfiles",
+        "Key":  "1937ed5a-1397-47f8-918c-9e89f6e0bc59",
+        "IsDeleted":  false
+    },
+    {
+        "AddonName":  "WorkingHPE",
+        "Key":  "5d785028-cb4f-48ca-a5a4-97bafa6b8262",
+        "IsDeleted":  true
+    },
+    {
+        "AddonName":  "PreSearchFilters",
+        "Key":  "0d35e02b-1f89-4210-a3fb-9afd0a71c7bf",
+        "IsDeleted":  false
+    },
+    {
+        "AddonName":  "Configuration",
+        "Key":  "2cf18a40-b881-4ae4-bb89-ae98645c8003",
+        "IsDeleted":  false
+    },
+    {
+        "AddonName":  "DYSAC",
+        "Key":  "4a863984-cf6f-4f05-93ab-41213275db25",
+        "IsDeleted":  false
+    }
 ]

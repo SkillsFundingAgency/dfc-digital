@@ -61,6 +61,49 @@ namespace DFC.Digital.Service.AzureSearch
             return fieldDefinitions;
         }
 
+        public string GetSearchTerm(SearchProperties searchProperties, PreSearchFiltersResultsModel preSearchFiltersResultsModel, string[] searchFields)
+        {
+            var searchTerm = "*";
+            var builder = new System.Text.StringBuilder();
+            string usedSearchFields = string.Empty;
+
+            if (searchFields == null)
+            {
+                return searchTerm;
+            }
+
+            foreach (var searchField in searchFields)
+            {
+                var fieldFilter = preSearchFiltersResultsModel.Sections?.FirstOrDefault(section =>
+                        section.SectionDataTypes.Equals(searchField, StringComparison.InvariantCultureIgnoreCase));
+
+                if (fieldFilter != null)
+                {
+                    var notApplicableSelected = fieldFilter.Options.Any(opt => opt.ClearOtherOptionsIfSelected);
+                    if (!notApplicableSelected && !fieldFilter.SingleSelectOnly)
+                    {
+                        var fieldValue = string.Join(" + ", fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey));
+                        if (!string.IsNullOrWhiteSpace(fieldValue))
+                        {
+                            builder.Append($"{fieldValue} + ");
+                            usedSearchFields += $"{searchField},";
+                        }
+                    }
+                }
+            }
+
+            if (builder.Length > 0)
+            {
+                searchProperties.SearchFields = usedSearchFields.TrimEnd(',').Split(',').ToList();
+                searchTerm = builder.ToString();
+
+                //remove the last " + "
+                searchTerm = searchTerm.TrimEnd(' ', '+');
+            }
+
+            return searchTerm;
+        }
+
         private string GetFilter(KeyValuePair<string, PreSearchFilterLogicalOperator> field, string fieldValue)
         {
             return field.Value == PreSearchFilterLogicalOperator.Nand || field.Value == PreSearchFilterLogicalOperator.Nor ? $"all(t: not(search.in(t, '{fieldValue}'))) " : $"any(t: search.in(t, '{fieldValue}')) ";

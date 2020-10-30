@@ -160,6 +160,9 @@ namespace DFC.Digital.Data.Model
         [JsonIgnore]
         public IQueryable<string> RelatedEntryQualifications { get; set; }
 
+        [JsonIgnore]
+        public double EntryQualificationLowestLevel { get; set; }
+
         /// <summary>
         /// Gets or sets the related enablers identifier URL name collection.
         /// </summary>

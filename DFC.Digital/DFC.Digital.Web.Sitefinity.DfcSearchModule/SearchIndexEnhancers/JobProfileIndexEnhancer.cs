@@ -59,6 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
                 jobProfileIndex.JobAreas = JobProfile.RelatedJobAreas.ToList();
                 jobProfileIndex.PreferredTaskTypes = JobProfile.RelatedPreferredTaskTypes.ToList();
                 jobProfileIndex.Skills = JobProfile.RelatedSkills.ToList();
+                jobProfileIndex.EntryQualificationLowestLevel = JobProfile.EntryQualificationLowestLevel;
             }
         }
 

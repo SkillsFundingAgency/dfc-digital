@@ -211,6 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
                     vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
+                    vm.TotalResultCount.Should().Be(resultCount);
                     vm.SearchResults.Should().NotBeNull();
                     vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
                     vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
@@ -322,6 +323,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
                     vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
+                    vm.TotalResultCount.Should().Be(resultCount);
                     vm.SearchResults.Should().NotBeNull();
                     vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
                     vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);
@@ -430,6 +432,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     vm.MainPageTitle.Should().Be(psfSearchController.MainPageTitle);
                     vm.SecondaryText.Should().BeEquivalentTo(psfSearchController.SecondaryText);
                     vm.TotalResultsMessage.Should().Be(expectedTotalMessage);
+                    vm.TotalResultCount.Should().Be(resultCount);
                     vm.SearchResults.Should().NotBeNull();
                     vm.SearchResults.Should().BeEquivalentTo(expectedSearchResultsViewModel);
                     vm.BackPageUrl.OriginalString.Should().BeEquivalentTo(psfSearchController.BackPageUrl);

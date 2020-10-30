@@ -1165,6 +1165,15 @@
     <Content Include="libman.json" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.31.2.nupkg" />
     <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.31.4.nupkg" />
+    <Content Include="AdminApp\config.json" />
+    <Content Include="AdminApp\assets\js\kendo-editor\kendo.custom.min.js.map" />
+    <Content Include="App_Data\RadSpell\fr-FR.tdf" />
+    <Content Include="App_Data\RadSpell\en-US.tdf" />
+    <Content Include="App_Data\RadSpell\de-DE.tdf" />
+    <Content Include="App_Data\GeoLocation\GeoLite2-City.mmdb" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.31.5.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.31.6.nupkg" />
+    <Content Include="App_Data\Sitefinity\Export\JobProfile.2.0.31.7.nupkg" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\widgetTemplates.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Dynamic modules\Job Profile\Structure\Job Profile.sf" />
@@ -1172,12 +1181,6 @@
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\version.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\Classifications\Structure\taxonomies.sf" />
     <Content Include="App_Data\Sitefinity\AddOns\JobProfile\addons-registry.psm1" />
-    <Content Include="AdminApp\config.json" />
-    <Content Include="AdminApp\assets\js\kendo-editor\kendo.custom.min.js.map" />
-    <Content Include="App_Data\RadSpell\fr-FR.tdf" />
-    <Content Include="App_Data\RadSpell\en-US.tdf" />
-    <Content Include="App_Data\RadSpell\de-DE.tdf" />
-    <Content Include="App_Data\GeoLocation\GeoLite2-City.mmdb" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

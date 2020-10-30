@@ -426,6 +426,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private void SetTotalResultsMessage(JobProfileSearchResultViewModel resultModel)
         {
             var totalFound = resultModel.Count;
+            resultModel.TotalResultCount = totalFound;
             resultModel.TotalResultsMessage = totalFound == 0 ? NoResultsMessage : $"{totalFound} result{(totalFound == 1 ? string.Empty : "s")} found";
         }
 

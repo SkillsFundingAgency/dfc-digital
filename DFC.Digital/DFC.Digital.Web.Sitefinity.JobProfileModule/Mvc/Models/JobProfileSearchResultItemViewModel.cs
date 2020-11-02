@@ -21,5 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public double Score { get; set; }
 
         public bool ShouldDisplayCaveat { get; internal set; }
+
+        public int MatchingSkillsCount { get; set; }
     }
 }

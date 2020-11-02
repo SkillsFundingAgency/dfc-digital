@@ -134,6 +134,63 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
             result.Should().Be(expectedFilterBy);
         }
 
+        [Theory]
+        [InlineData("a|b", 0, "")]
+        [InlineData("a|and", 1, "[a, And]")]
+        public void GetIndexFieldDefinitionsTest(string input, int expectedOutPutCount, string expectedOutPut)
+        {
+            var buildFilterService = new DfcBuildFilterService();
+            var indexFieldDefinitions = buildFilterService.GetIndexFieldDefinitions(input);
+
+            indexFieldDefinitions.Count().Should().Be(expectedOutPutCount);
+            if (expectedOutPutCount > 0)
+            {
+                indexFieldDefinitions.FirstOrDefault().ToString().Should().BeEquivalentTo(expectedOutPut);
+            }
+        }
+
+        [Theory]
+        [InlineData("", "", "*")]
+        [InlineData("DummySectionDataType", "DummySectionDataTypes", "Option1 + Option2")]
+        public void GetSearchTermTests(string inputSearchFieldsSingular, string inputSearchFieldsPlural, string expcetedSearchTerm)
+        {
+            var buildFilterService = new DfcBuildFilterService();
+            var searchProperties = new SearchProperties();
+
+            var preSearchFiltersResultsModel = new PreSearchFiltersResultsModel()
+            {
+                Sections = new List<FilterResultsSection>()
+            };
+
+            var testField1 = new FilterResultsOption()
+            {
+                ClearOtherOptionsIfSelected = false,
+                IsSelected = true,
+                OptionKey = "Option1"
+            };
+
+            var testField2 = new FilterResultsOption()
+            {
+                ClearOtherOptionsIfSelected = false,
+                IsSelected = true,
+                OptionKey = "Option2"
+            };
+
+            foreach (string field in inputSearchFieldsSingular.Split(','))
+            {
+                preSearchFiltersResultsModel.Sections.Add(new FilterResultsSection()
+                {
+                    SectionDataType = field,
+                    SingleSelectOnly = false,
+                    Options = new List<FilterResultsOption>() { testField1, testField2 }
+                });
+            }
+
+            var searchTerm = buildFilterService.GetSearchTerm(searchProperties, preSearchFiltersResultsModel, inputSearchFieldsPlural.Split(','));
+
+            searchTerm.Should().BeEquivalentTo(expcetedSearchTerm);
+        }
+
         private static IEnumerable<FilterResultsOption> GetTestFilterOptions(KeyValuePair<string, int> item)
         {
             for (var index = 0; index < item.Value; index++)

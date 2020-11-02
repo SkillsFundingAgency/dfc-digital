@@ -273,7 +273,7 @@
       "CheckFieldPermissions": false,
       "PageId": "7e560616-3197-4475-8905-94f4a7b336a7",
       "Id": "65da21c7-712b-4d83-b568-04d04355324d",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Apprenticeship Link",
@@ -543,7 +543,7 @@
       "CheckFieldPermissions": false,
       "PageId": "64fc8ca6-d83e-486f-9301-0073e64d740a",
       "Id": "0fd7ab9b-6c20-4e7a-b757-0d0295bf257b",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "College Link",
@@ -813,7 +813,7 @@
       "CheckFieldPermissions": false,
       "PageId": "1cc35603-3732-4004-a348-d09d9259a622",
       "Id": "b2c4f363-63e7-4ec4-b6f3-1d582fbd733e",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Apprenticeship Requirement",
@@ -1051,7 +1051,7 @@
       "CheckFieldPermissions": false,
       "PageId": "425859f4-6e6f-4dd0-bae2-90bbbe98687b",
       "Id": "3d683643-1394-4636-9c27-4d830d903c53",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Restriction",
@@ -1289,7 +1289,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9e64a344-3e50-4707-8aae-ce5648e096ac",
       "Id": "3fa194e3-187c-49c6-9e6f-51a4c579d8e7",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "College Requirement",
@@ -1527,7 +1527,7 @@
       "CheckFieldPermissions": false,
       "PageId": "5c423bbf-67ad-4a95-ae45-30d2fe2aef5e",
       "Id": "42b76ae2-cdc1-4dec-948e-5ebf5e910c10",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "University Link",
@@ -1798,7 +1798,7 @@
       "CheckFieldPermissions": false,
       "PageId": "a6f31a12-b372-4136-8f83-458890b211f3",
       "Id": "21300621-3389-43f0-82cd-780a87bc64ff",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Location",
@@ -2069,7 +2069,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ef37060-30ed-4441-b7bf-2d7487251405",
       "Id": "79c31c54-a32e-4ee8-a153-818447136e5a",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Job Profile",
@@ -4814,7 +4814,7 @@
       "CheckFieldPermissions": false,
       "PageId": "9ba8f965-5ca3-401e-b470-5259d837a312",
       "Id": "9439c675-86fc-4d9e-a82f-894b31d7098b",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Apprenticeship Vacancy",
@@ -5229,7 +5229,7 @@
       "CheckFieldPermissions": false,
       "PageId": "ddad8773-3dab-4dc0-b7e7-daec9d66aa07",
       "Id": "9ab610f3-35f4-4797-bd28-9bff899975e7",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Environment",
@@ -5500,7 +5500,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6ca36593-1ac3-460a-aacf-56a37bfd1a17",
       "Id": "9ebaf9c9-5fa5-4d1a-8d94-baaf14631afb",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "University Requirement",
@@ -5738,7 +5738,7 @@
       "CheckFieldPermissions": false,
       "PageId": "73f4bbb7-7be3-4abb-939c-ad70cbc18c1c",
       "Id": "132608ea-139c-4eba-a6d6-cbecc44b9672",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "SOC Skills Matrix",
@@ -6166,7 +6166,7 @@
       "CheckFieldPermissions": false,
       "PageId": "6054b1db-5387-4cf9-9de0-c84ea30069a5",
       "Id": "a476038b-4188-474d-88af-ccc192794d48",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Registration",
@@ -6404,7 +6404,7 @@
       "CheckFieldPermissions": false,
       "PageId": "47e71b55-46fd-4d58-b2d0-fcf9fac81677",
       "Id": "b074b87e-ede1-472c-996b-dcb22db4110e",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "SOC Code",
@@ -6738,7 +6738,7 @@
       "CheckFieldPermissions": false,
       "PageId": "c9c80cef-3d86-4e43-b0b1-961a71829104",
       "Id": "c42d322c-95f7-493f-a2eb-f64389d4dc7d",
-      "LastModified": "2020-10-30T08:25:06.857Z"
+      "LastModified": "2020-11-01T21:58:18.877Z"
     },
     {
       "DisplayName": "Skill",
@@ -6757,7 +6757,6 @@
           "FieldTypeDisplayName": "ShortText",
           "IsRequired": true,
           "LengthValidationMessage": "",
-          "Ordinal": 1,
           "CanCreateItemsWhileSelecting": true,
           "CanSelectMultipleItems": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
@@ -6779,7 +6778,7 @@
           "TypeUIName": "Short text",
           "IsLocalizable": true,
           "Id": "05d10243-ae6b-476b-b0d9-633f5ba65c83",
-          "LastModified": "2018-09-04T13:27:17.787Z"
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -6792,7 +6791,7 @@
           "FieldTypeDisplayName": "ShortText",
           "IsRequired": true,
           "LengthValidationMessage": "",
-          "Ordinal": 3,
+          "Ordinal": 1,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
           "DBType": "VARCHAR",
@@ -6813,7 +6812,40 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "3173f729-83d0-44af-b598-d3e59e1f7910",
-          "LastModified": "2018-09-04T13:27:17.787Z"
+          "LastModified": "2020-11-01T23:38:37.353Z"
+        },
+        {
+          "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
+          "Name": "ONetElementId",
+          "Title": "ONet Element Id",
+          "FieldType": 1,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "ShortText",
+          "LengthValidationMessage": "",
+          "Ordinal": 2,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
+          "DBType": "VARCHAR",
+          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "GridColumnOrdinal": 4,
+          "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
+          "TypeUIName": "\n                                Short text\n                            ",
+          "IsLocalizable": true,
+          "Id": "37919b15-0bc3-45b5-a2af-3f052de85d4b",
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -6845,19 +6877,19 @@
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
           "Id": "e50806a0-7d43-4572-8e6f-e98aaaa60e2b",
-          "LastModified": "2020-10-29T15:48:42.667Z"
+          "LastModified": "2020-10-29T09:32:40.73Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
           "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
-          "Name": "ONetElementId",
-          "Title": "ONet Element Id",
+          "Name": "PSFDescription",
+          "Title": "PSFDescription",
           "FieldType": 1,
           "SpecialType": 0,
           "MediaType": "",
           "FieldTypeDisplayName": "ShortText",
           "LengthValidationMessage": "",
-          "Ordinal": 5,
+          "Ordinal": 4,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
           "DBType": "VARCHAR",
@@ -6873,12 +6905,11 @@
           "DefaultValue": "",
           "Choices": "",
           "ChoiceRenderType": "",
-          "GridColumnOrdinal": 4,
           "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
           "TypeUIName": "\n                                Short text\n                            ",
           "IsLocalizable": true,
-          "Id": "37919b15-0bc3-45b5-a2af-3f052de85d4b",
-          "LastModified": "2018-09-04T13:27:17.787Z"
+          "Id": "06af6d3d-43d8-4d60-a67d-e07f7d2546f6",
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -6910,38 +6941,7 @@
           "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
           "TypeUIName": "\n                                Number\n                            ",
           "Id": "e839a46c-db69-49ad-abea-698e8ba258be",
-          "LastModified": "2020-10-29T15:48:42.667Z"
-        },
-        {
-          "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
-          "Name": "PSFHidden",
-          "Title": "    PSFHidden",
-          "FieldType": 4,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "YesNo",
-          "LengthValidationMessage": "",
-          "Ordinal": 6,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
-          "DBType": "BIT",
-          "ClassificationId": "cb0f3a19-a211-48a7-88ec-77495c0f5374",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
-          "TypeUIName": "\n                                Yes / No\n                            ",
-          "Id": "e89d7654-2e60-4539-80cc-bebe5d557f8d",
-          "LastModified": "2020-10-30T09:16:27.243Z"
+          "LastModified": "2020-10-29T09:32:40.73Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -6953,7 +6953,7 @@
           "MediaType": "",
           "FieldTypeDisplayName": "YesNo",
           "LengthValidationMessage": "",
-          "Ordinal": 7,
+          "Ordinal": 6,
           "CanCreateItemsWhileSelecting": true,
           "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
           "DBType": "BIT",
@@ -6972,7 +6972,38 @@
           "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
           "TypeUIName": "\n                                Yes / No\n                            ",
           "Id": "dab65d84-3bae-4fd7-9983-dac59aba64ae",
-          "LastModified": "2020-10-30T09:16:27.243Z"
+          "LastModified": "2020-11-01T23:38:37.353Z"
+        },
+        {
+          "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
+          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
+          "Name": "PSFHidden",
+          "Title": "    PSFHidden",
+          "FieldType": 4,
+          "SpecialType": 0,
+          "MediaType": "",
+          "FieldTypeDisplayName": "YesNo",
+          "LengthValidationMessage": "",
+          "Ordinal": 7,
+          "CanCreateItemsWhileSelecting": true,
+          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.ChoiceField",
+          "DBType": "BIT",
+          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
+          "DBLength": "",
+          "InstructionalChoice": "- Select -",
+          "NumberUnit": "",
+          "ColumnName": "",
+          "InstructionalText": "",
+          "ImageExtensions": "",
+          "VideoExtensions": "",
+          "FileExtensions": "",
+          "DefaultValue": "",
+          "Choices": "",
+          "ChoiceRenderType": "",
+          "ParentSectionId": "136991b1-e317-4cec-9cce-6bc53fc6db84",
+          "TypeUIName": "\n                                Yes / No\n                            ",
+          "Id": "0795d99f-9bb2-4a37-b4bd-385ca100e23b",
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -7001,39 +7032,7 @@
           "ParentSectionId": "825ed7b5-f05d-4597-957b-6b138ae6d25a",
           "TypeUIName": "\n                                Classification\n                            ",
           "Id": "6ea398b4-dc9c-4baf-a9ec-af73c46fb1bc",
-          "LastModified": "2020-10-30T08:29:10.003Z"
-        },
-        {
-          "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-          "FieldNamespace": "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill",
-          "Name": "PSFDescription",
-          "Title": "PSFDescription",
-          "FieldType": 1,
-          "SpecialType": 0,
-          "MediaType": "",
-          "FieldTypeDisplayName": "ShortText",
-          "LengthValidationMessage": "",
-          "Ordinal": 1,
-          "CanCreateItemsWhileSelecting": true,
-          "WidgetTypeName": "Telerik.Sitefinity.Web.UI.Fields.TextField",
-          "DBType": "VARCHAR",
-          "ClassificationId": "fffb5cde-8c2f-4ba1-b6ae-1fd17c4491c6",
-          "DBLength": "",
-          "InstructionalChoice": "- Select -",
-          "NumberUnit": "",
-          "ColumnName": "",
-          "InstructionalText": "",
-          "ImageExtensions": "",
-          "VideoExtensions": "",
-          "FileExtensions": "",
-          "DefaultValue": "",
-          "Choices": "",
-          "ChoiceRenderType": "",
-          "ParentSectionId": "825ed7b5-f05d-4597-957b-6b138ae6d25a",
-          "TypeUIName": "\n                                Short text\n                            ",
-          "IsLocalizable": true,
-          "Id": "0e20ca7d-8b7c-4b56-98d5-f3738fe94bc8",
-          "LastModified": "2020-10-30T09:14:24.66Z"
+          "LastModified": "2020-11-01T21:58:18.877Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -7044,11 +7043,10 @@
           "SpecialType": 7,
           "IsTransient": true,
           "FieldTypeDisplayName": "Unknown",
-          "Ordinal": 1,
           "GridColumnOrdinal": 1,
           "ParentSectionId": "73c38526-6838-4d3d-825c-4e6df0289a0f",
           "Id": "2c7d1cec-8e5b-41a4-a5f8-c1ad6df9ec6c",
-          "LastModified": "2018-09-04T13:27:17.787Z"
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -7076,12 +7074,12 @@
           "IsTransient": true,
           "FieldTypeDisplayName": "Unknown",
           "IsRequired": true,
-          "Ordinal": 2,
+          "Ordinal": 1,
           "RegularExpression": "^([\\.]?[\\p{L}\\–\\'’…„“”\"\\-\\!\\(\\)\\d_~])+$",
           "GridColumnOrdinal": 2,
           "ParentSectionId": "73c38526-6838-4d3d-825c-4e6df0289a0f",
           "Id": "dc963ca9-fb40-4e88-8d55-b7432d34f6b8",
-          "LastModified": "2018-09-04T13:27:17.787Z"
+          "LastModified": "2020-11-01T23:38:37.353Z"
         },
         {
           "ParentTypeId": "63177677-3adb-4cb7-8bd2-136e4c34201f",
@@ -7197,7 +7195,7 @@
       "CheckFieldPermissions": false,
       "PageId": "f223390c-3e6b-4724-b98d-c813fa8604f4",
       "Id": "63177677-3adb-4cb7-8bd2-136e4c34201f",
-      "LastModified": "2020-10-30T09:16:27.243Z"
+      "LastModified": "2020-11-01T23:38:37.353Z"
     }
   ],
   "DefaultBackendDefinitionName": null,

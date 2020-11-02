@@ -8,5 +8,7 @@ namespace DFC.Digital.Data.Interfaces
         string BuildPreSearchFilters(PreSearchFiltersResultsModel preSearchFilterModel, IDictionary<string, PreSearchFilterLogicalOperator> indexFields);
 
         IEnumerable<KeyValuePair<string, PreSearchFilterLogicalOperator>> GetIndexFieldDefinitions(string indexFieldOperators);
+
+        string GetSearchTerm(SearchProperties searchProperties, PreSearchFiltersResultsModel preSearchFiltersResultsModel, string[] searchFields);
     }
 }

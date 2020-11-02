@@ -55,7 +55,6 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             //PSF
             jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
             jobProfile.RelatedEnablers = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEnablersField);
-            jobProfile.RelatedEntryQualifications = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEntryQualificationsField);
             jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
             jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
             jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
@@ -72,7 +71,29 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 }
             }
 
+            var relatedRelatedEntryQualifications = dynamicContentExtensions.GetRelatedItems(content, RelatedEntryQualificationsField, 100);
+            jobProfile.RelatedEntryQualifications = relatedRelatedEntryQualifications?.Select(x => $"{x.UrlName}");
+            jobProfile.EntryQualificationLowestLevel = GetLowestLevel(relatedRelatedEntryQualifications);
+
             return jobProfile;
+        }
+
+        private double GetLowestLevel(IQueryable<DynamicContent> entryQualifications)
+        {
+            double retlevel = double.MaxValue;
+            foreach (DynamicContent dc in entryQualifications)
+            {
+                if (!dynamicContentExtensions.GetFieldValue<bool>(dc, nameof(PreSearchFilter.NotApplicable)))
+                {
+                    var order = (double)dynamicContentExtensions.GetFieldValue<decimal?>(dc, nameof(PreSearchFilter.Order));
+                    if (order < retlevel)
+                    {
+                        retlevel = order;
+                    }
+                }
+            }
+
+            return retlevel == double.MaxValue ? 0 : retlevel;
         }
     }
 }

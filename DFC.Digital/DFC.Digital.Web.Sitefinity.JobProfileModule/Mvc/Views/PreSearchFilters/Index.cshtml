@@ -44,7 +44,7 @@
                             {
                                 <div class="filter-option">
                                     @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
-                                    <label for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                    <label for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description - (@jj.ToString())</span></label>
                                 </div>
                             }
 

@@ -119,7 +119,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             if (ThisPageNumber > 1)
             {
-                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                if (FilterType.ToString() == "Skill")
+                {
+                    currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => HideSkillsForProfiles(currentPageFilter));
+                }
+                else
+                {
+                    currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                }
             }
 
             return View(currentPageFilter);
@@ -142,6 +149,29 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var results = await searchQueryService.SearchAsync("*", properties);
 
             return (int)results.Count;
+        }
+
+        private async Task<int> HideSkillsForProfiles(PsfModel model)
+        {
+            var fieldDefinitions = buildSearchFilterService.GetIndexFieldDefinitions(IndexFieldOperators);
+            preSearchFilterStateManager.RestoreState(model.OptionsSelected);
+            var filterState = preSearchFilterStateManager.GetPreSearchFilterState();
+            model.Sections = autoMapper.Map<List<PsfSection>>(filterState.Sections);
+
+            var resultsModel = autoMapper.Map<PreSearchFiltersResultsModel>(model);
+            var properties = new SearchProperties
+            {
+                Page = 1,
+                Count = 2000,
+                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value))
+            };
+            var searchResponse = await searchQueryService.SearchAsync("*", properties);
+            var skillForJobLevel = searchResponse.Results.SelectMany(r => r.ResultItem.Skills).Distinct().ToList();
+
+            //remove unused
+            model.Section.Options.RemoveAll(skill => !skillForJobLevel.Contains(skill.OptionKey));
+
+            return (int)searchResponse.Count;
         }
 
         private PsfModel GetCurrentPageFilter()

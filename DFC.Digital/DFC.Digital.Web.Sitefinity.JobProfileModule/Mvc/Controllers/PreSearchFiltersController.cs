@@ -90,6 +90,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Index Field Operators - Should match the one in the results widget up to this point in the journey")]
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
+
+        [DisplayName("Enable Accordion")]
+        public string EnableAccordion { get; set; } = "False";
+
+        [DisplayName("Group By")]
+        public string GroupFieldsBy { get; set; } = "Skill";
+
         #endregion Public Properties
 
         #region Actions
@@ -148,11 +155,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
             var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
+            var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory);
 
             //create the section for this page
             var currentSection = autoMapper.Map<PsfSection>(restoredSection);
-            var filterSection = currentSection ?? new PsfSection();
 
+            var filterSection = currentSection ?? new PsfSection();
             filterSection.Name = SectionTitle;
             filterSection.Description = SectionDescription;
             filterSection.SingleSelectOnly = SingleSelectOnly;
@@ -167,6 +175,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
+                GroupedOptions = groupedSections
             };
 
             //Need to do this to force the model we have changed to refresh
@@ -218,7 +227,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                     }
 
-               case PreSearchFilterType.Skill:
+                case PreSearchFilterType.Skill:
                     {
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
                     }

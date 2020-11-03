@@ -90,6 +90,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Index Field Operators - Should match the one in the results widget up to this point in the journey")]
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
+
+        [DisplayName("Should show number of profile matched banner")]
+        public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
+
         #endregion Public Properties
 
         #region Actions
@@ -167,6 +171,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
+                NumberOfMatchesMessage = NumberOfMatchesMessage
             };
 
             //Need to do this to force the model we have changed to refresh

@@ -25,6 +25,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// </value>
         public string SecondaryText { get; set; }
 
+        public string OverviewMessage { get; set; }
+
         /// <summary>
         /// Gets or sets the back page URL.
         /// </summary>

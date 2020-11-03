@@ -31,8 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var backUrl = GetPreviouspageUrl(htmlDom);
             var searchResults = GetSearchResults(htmlDom);
 
-            mainPageTitle.Should().BeEquivalentTo(psfSearchResultsViewModel.MainPageTitle);
-            secondaryText.Should().BeEquivalentTo(psfSearchResultsViewModel.SecondaryText);
+            mainPageTitle.Should().BeEquivalentTo(psfSearchResultsViewModel.MainPageTitle + psfSearchResultsViewModel.SecondaryText);
             searchResults.Should().BeEquivalentTo(psfSearchResultsViewModel.SearchResults);
             backText.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
             backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl.OriginalString);
@@ -169,7 +168,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private IEnumerable<JobProfileSearchResultItemViewModel> GetSearchResults(HtmlDocument htmlDom)
         {
-            foreach (var n in htmlDom.DocumentNode.Descendants("ol").FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list"))?.Descendants("li"))
+            foreach (var n in htmlDom.DocumentNode.Descendants("ol").FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list govuk-list"))?.Descendants("li"))
             {
                 yield return new JobProfileSearchResultItemViewModel
                 {

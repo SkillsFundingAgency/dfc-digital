@@ -80,7 +80,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     //if we have a N/A option needs this class
                     if (testDataModel.Section.Options[jj].ClearOtherOptionsIfSelected)
                     {
-                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na");
+                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na govuk-checkboxes__input");
                     }
                 }
 

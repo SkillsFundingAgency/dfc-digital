@@ -12,6 +12,12 @@
             @Html.HiddenFor(m => Model.Section.PageNumber)
             @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
         </form>
+        @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage))
+        {
+        <div class="banner-message">
+            <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
+        </div>
+        }
         <form action="@Model.Section.NextPageUrl" method="post" id="continueForm">
             <div class="active">
                 <span class="govuk-caption-xl">Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</span>

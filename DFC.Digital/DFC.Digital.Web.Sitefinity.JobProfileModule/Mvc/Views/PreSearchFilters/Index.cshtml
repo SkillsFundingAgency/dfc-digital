@@ -4,9 +4,12 @@
         @{ Html.EnableClientValidation(false); }
 
         <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
-            <div id="BackLink" class="govuk-breadcrumbs">
-                <button type="submit" class="govuk-back-link" id="filter-home">@(Model.Section.PageNumber == 1 ? "Home" : "Back")</button>
-            </div>
+            @if (@Model.Section.PageNumber > 1)
+            {
+                <div id="BackLink" class="govuk-breadcrumbs">
+                    <button type="submit" class="govuk-back-link" id="filter-home">Back</button>
+                </div>
+            }
             @Html.HiddenFor(m => Model.Section.Name)
             @Html.HiddenFor(m => Model.Section.SectionDataType)
             @Html.HiddenFor(m => Model.OptionsSelected)
@@ -20,6 +23,13 @@
                 <span class="govuk-caption-xl">Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</span>
 
                 <h1 class="govuk-heading-xl">@Html.DisplayFor(model => Model.Section.Name)</h1>
+                @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage) && @Model.Section.PageNumber > 1)
+                {
+                    <div class="banner-message">
+                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
+                    </div>
+                }
+
                 @Html.Raw(Model.Section.Description)
 
                 @Html.HiddenFor(m => Model.Section.Name)
@@ -28,12 +38,6 @@
                 @Html.HiddenFor(m => Model.Section.PageNumber)
                 @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
 
-                @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage) && @Model.Section.PageNumber > 1)
-                {
-                    <div class="banner-message">
-                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
-                    </div>
-                }
 
                 @if (!Model.Section.EnableAccordion)
                 {
@@ -48,9 +52,11 @@
                                     {
                                         if (Model.Section.SingleSelectOnly == true)
                                         {
-                                            <div class="filter-option govuk-radios__item">
-                                                @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })
-                                                <label class="govuk-label govuk-radios__label" for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                            <div class="govuk-radios govuk-radios--inline">
+                                                <div class="filter-option govuk-radios__item">
+                                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })
+                                                    <label class="govuk-label govuk-radios__label" for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                                </div>
                                             </div>
                                         }
                                         else
@@ -71,14 +77,14 @@
                 }
                 else
                 {
-
+                    <p class="govuk-body search-title govuk-!-margin-top-3 govuk-!-margin-bottom-0" id="count"><span class="govuk-!-font-weight-bold ">0</span> @Model.Section.GroupFieldsBy selected </p>
                     <div class="govuk-accordion" data-module="accordion" id="accordion-filter-skills-list">
 
                         @foreach (var filteredCategory in Model.GroupedOptions)
                         {
                             <div class="govuk-accordion__section ">
                                 <div class="govuk-accordion__section-header">
-                                    <h2 class="govuk-accordion__section-heading"> <span class="govuk-accordion__section-button" id="accordion-filter-knowledge"> @filteredCategory.Key </span> </h2>
+                                    <h2 class="govuk-accordion__section-heading"> <span class="govuk-accordion__section-button" id="accordion-filter-knowledge"> @filteredCategory.Key <strong class="govuk-tag govuk-tag--green section-count"></strong></span></h2>
                                 </div>
                                 <div id="accordion-default-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-filter-knowledge">
                                     <div class="govuk-grid-row">

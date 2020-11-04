@@ -31,7 +31,7 @@
                 @if (@Model.Section.PageNumber > 1)
         {<span> you have @Model.NumberOfMatches career matches</span>}
 
-                @if (Model.Section.EnableAccordion && Model.Section.GroupFieldsBy != "Skill")
+                @if (!Model.Section.EnableAccordion)
                 {
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
@@ -72,8 +72,6 @@
 
                         @foreach (var filteredCategory in Model.GroupedOptions)
                         {
-
-
                             <div class="govuk-accordion__section ">
                                 <div class="govuk-accordion__section-header">
                                     <h2 class="govuk-accordion__section-heading"> <span class="govuk-accordion__section-button" id="accordion-filter-knowledge"> @filteredCategory.Key </span> </h2>

@@ -92,7 +92,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
 
         [DisplayName("Enable Accordion")]
-        public string EnableAccordion { get; set; } = "False";
+        public bool EnableAccordion { get; set; } = true;
 
         [DisplayName("Group By")]
         public string GroupFieldsBy { get; set; } = "Skill";
@@ -170,7 +170,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             filterSection.NextPageUrl = NextPageUrl;
             filterSection.PreviousPageUrl = PreviousPageUrl;
             filterSection.PageNumber = ThisPageNumber;
-            filterSection.EnableAccordion = Convert.ToBoolean(EnableAccordion);
+            filterSection.EnableAccordion = EnableAccordion;
             filterSection.GroupFieldsBy = GroupFieldsBy;
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
@@ -180,7 +180,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
-                GroupedOptions = groupedSections
+                GroupedOptions = groupedSections,
                 NumberOfMatchesMessage = NumberOfMatchesMessage
             };
 

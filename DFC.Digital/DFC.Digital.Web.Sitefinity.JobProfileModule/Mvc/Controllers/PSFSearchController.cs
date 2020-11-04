@@ -175,6 +175,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Caveat disclaimer")]
         public string CaveatMarkup { get; set; } = @"<p class=""govuk-inset-text"">This may be impacted in the short term due to current Coronavirus pandemic</p>";
 
+        public string OverviewMessage { get; set; } = @"<div class=""govuk-warning-text"">
+                <span class=""govuk-warning-text__icon"" aria-hidden=""true"">!</span>
+                <strong class=""govuk-warning-text__text"">
+                    <span class=""govuk-warning-text__assistive"">Warning</span>
+                    If the job roles you have been matched to are COVID impacted, you should
+                    <a href= ""/contact-us"" class=""govuk-link"">contact our advisers</a> to consider your options and next steps.
+                 </strong>
+            </div>";
+
         #endregion Public Properties
 
         #region Actions
@@ -327,6 +336,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 Page = pageNumber,
                 Count = this.PageSize,
+                UseRawSearchTerm = true,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
                 OrderByFields = IndexSortField.TrimEnd(',').Split(',').ToList(),
             };
@@ -384,6 +394,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 MainPageTitle = MainPageTitle,
                 SecondaryText = SecondaryText,
+                OverviewMessage = OverviewMessage,
                 PreSearchFiltersModel = new PsfModel
                 {
                     OptionsSelected = preSearchFilterStateManager.GetStateJson(),

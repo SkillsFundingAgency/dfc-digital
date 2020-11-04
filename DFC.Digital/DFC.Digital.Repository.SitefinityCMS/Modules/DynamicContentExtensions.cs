@@ -125,6 +125,12 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 return relatedContent?.Select(x => $"{x.UrlName}");
         }
 
+        public IQueryable<string> GetRelatedSearchItemsUrl(DynamicContent content, string relatedField)
+        {
+            var relatedContent = GetRelatedSearchItems(content, relatedField, 100);
+            return relatedContent.AsQueryable().Select(x => $"{x.UrlName}");
+        }
+
         public string GetContentWithoutHtmlTags(DynamicContent contentItem, string fieldName)
         {
             if (contentItem != null && contentItem.DoesFieldExist(fieldName))

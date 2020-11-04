@@ -97,6 +97,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Group By")]
         public string GroupFieldsBy { get; set; } = "Skill";
 
+        [DisplayName("Should show number of profile matched banner")]
+        public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
+
         #endregion Public Properties
 
         #region Actions
@@ -178,6 +181,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
                 GroupedOptions = groupedSections
+                NumberOfMatchesMessage = NumberOfMatchesMessage
             };
 
             //Need to do this to force the model we have changed to refresh

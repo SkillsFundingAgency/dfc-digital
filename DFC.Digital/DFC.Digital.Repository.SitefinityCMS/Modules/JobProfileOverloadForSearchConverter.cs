@@ -53,13 +53,13 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             }
 
             //PSF
-            jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedInterestsField);
-            jobProfile.RelatedEnablers = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedEnablersField);
-            jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedTrainingRoutesField);
-            jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedPreferredTaskTypesField);
-            jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedJobAreasField);
+            jobProfile.RelatedInterests = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedInterestsField);
+            jobProfile.RelatedEnablers = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedEnablersField);
+            jobProfile.RelatedTrainingRoutes = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedTrainingRoutesField);
+            jobProfile.RelatedPreferredTaskTypes = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedPreferredTaskTypesField);
+            jobProfile.RelatedJobAreas = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedJobAreasField);
 
-            var skills = dynamicContentExtensions.GetRelatedContentUrl(content, RelatedSkills);
+            var skills = dynamicContentExtensions.GetRelatedSearchItemsUrl(content, RelatedSkills);
 
             if (skills != null)
             {
@@ -71,14 +71,14 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 }
             }
 
-            var relatedRelatedEntryQualifications = dynamicContentExtensions.GetRelatedItems(content, RelatedEntryQualificationsField, 100);
-            jobProfile.RelatedEntryQualifications = relatedRelatedEntryQualifications?.Select(x => $"{x.UrlName}");
+            var relatedRelatedEntryQualifications = dynamicContentExtensions.GetRelatedSearchItems(content, RelatedEntryQualificationsField, 100);
+            jobProfile.RelatedEntryQualifications = relatedRelatedEntryQualifications?.AsQueryable().Select(x => $"{x.UrlName}");
             jobProfile.EntryQualificationLowestLevel = GetLowestLevel(relatedRelatedEntryQualifications);
 
             return jobProfile;
         }
 
-        private double GetLowestLevel(IQueryable<DynamicContent> entryQualifications)
+        private double GetLowestLevel(IEnumerable<DynamicContent> entryQualifications)
         {
             double retlevel = double.MaxValue;
             foreach (DynamicContent dc in entryQualifications)

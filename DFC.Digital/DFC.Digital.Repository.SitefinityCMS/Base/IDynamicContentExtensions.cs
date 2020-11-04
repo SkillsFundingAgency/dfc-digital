@@ -55,5 +55,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         [IgnoreInputInInterception]
         string GetContentWithoutHtmlTags(DynamicContent contentItem, string fieldName);
+
+        [IgnoreInputInInterception]
+        IQueryable<string> GetRelatedSearchItemsUrl(DynamicContent content, string relatedField);
     }
 }

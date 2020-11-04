@@ -167,6 +167,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             filterSection.NextPageUrl = NextPageUrl;
             filterSection.PreviousPageUrl = PreviousPageUrl;
             filterSection.PageNumber = ThisPageNumber;
+            filterSection.EnableAccordion = Convert.ToBoolean(EnableAccordion);
+            filterSection.GroupFieldsBy = GroupFieldsBy;
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
 

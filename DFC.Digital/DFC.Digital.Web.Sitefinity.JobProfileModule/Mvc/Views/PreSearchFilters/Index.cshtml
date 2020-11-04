@@ -31,7 +31,7 @@
                 @if (@Model.Section.PageNumber > 1)
         {<span> you have @Model.NumberOfMatches career matches</span>}
 
-                @if (Model.Section.SectionDataType != "Skill")
+                @if (Model.Section.EnableAccordion && Model.Section.GroupFieldsBy != "Skill")
                 {
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">

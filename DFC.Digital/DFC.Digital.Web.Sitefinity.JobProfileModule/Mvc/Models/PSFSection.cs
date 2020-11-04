@@ -35,6 +35,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public bool EnableAccordion { get; set; }
 
         [JsonIgnore]
+        public string GroupFieldsBy { get; set; }
+
+        [JsonIgnore]
         public string PSFCategory { get; set; }
     }
 }

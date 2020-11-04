@@ -336,6 +336,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 Page = pageNumber,
                 Count = this.PageSize,
+                UseRawSearchTerm = true,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
                 OrderByFields = IndexSortField.TrimEnd(',').Split(',').ToList(),
             };

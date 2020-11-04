@@ -104,7 +104,7 @@
             window.GOVUKFrontend.initAll();
         </script>
 
-        @*if (Html.IsDebugSymbol())
+        if (Html.IsDebugSymbol())
             {
                 @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
                 @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/custom-validation.js").Replace("assets/dist/", string.Empty), "bottom")
@@ -113,9 +113,7 @@
             else
             {
                 @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
-            }*@
-
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
+            }
     }
 
 </body>

@@ -91,6 +91,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Index Field Operators - Should match the one in the results widget up to this point in the journey")]
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
 
+        [DisplayName("Enable Accordion")]
+        public bool EnableAccordion { get; set; } = true;
+
+        [DisplayName("Group By")]
+        public string GroupFieldsBy { get; set; } = "Skill";
+
         [DisplayName("Should show number of profile matched banner")]
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
 
@@ -152,17 +158,20 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
             var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
+            var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory);
 
             //create the section for this page
             var currentSection = autoMapper.Map<PsfSection>(restoredSection);
-            var filterSection = currentSection ?? new PsfSection();
 
+            var filterSection = currentSection ?? new PsfSection();
             filterSection.Name = SectionTitle;
             filterSection.Description = SectionDescription;
             filterSection.SingleSelectOnly = SingleSelectOnly;
             filterSection.NextPageUrl = NextPageUrl;
             filterSection.PreviousPageUrl = PreviousPageUrl;
             filterSection.PageNumber = ThisPageNumber;
+            filterSection.EnableAccordion = EnableAccordion;
+            filterSection.GroupFieldsBy = GroupFieldsBy;
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
 
@@ -171,6 +180,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
+                GroupedOptions = groupedSections,
                 NumberOfMatchesMessage = NumberOfMatchesMessage
             };
 
@@ -223,7 +233,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                     }
 
-               case PreSearchFilterType.Skill:
+                case PreSearchFilterType.Skill:
                     {
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
                     }

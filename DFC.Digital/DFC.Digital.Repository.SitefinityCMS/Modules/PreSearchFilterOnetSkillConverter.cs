@@ -1,7 +1,11 @@
 ﻿using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Telerik.OpenAccess;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.Model;
+using Telerik.Sitefinity.Taxonomies;
 
 namespace DFC.Digital.Repository.SitefinityCMS.Modules
 {
@@ -26,16 +30,26 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
                 var title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Title));
                 var psfTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, "PSFLabel");
                 var psfDescription = dynamicContentExtensions.GetFieldValue<Lstring>(content, $"PSF{nameof(PreSearchFilter.Description)}");
-                return new PsfOnetSkill
-                {
-                    Title = string.IsNullOrEmpty(psfTitle) ? title : psfTitle,
-                    Description = !string.IsNullOrEmpty(psfDescription) ? psfDescription : dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description)),
-                    NotApplicable = dynamicContentExtensions.GetFieldValue<bool>(content, $"PSF{nameof(PreSearchFilter.NotApplicable)}"),
-                    Order = dynamicContentExtensions.GetFieldValue<decimal?>(content, $"PSF{nameof(PreSearchFilter.Order)}") ?? 0,
-                    UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName)),
-                    Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id)),
-                };
+                PsfOnetSkill psfOnetSkill = new PsfOnetSkill();
+                psfOnetSkill.Title = string.IsNullOrEmpty(psfTitle) ? title : psfTitle;
+                psfOnetSkill.Description = !string.IsNullOrEmpty(psfDescription) ? psfDescription : dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.Description));
+                psfOnetSkill.NotApplicable = dynamicContentExtensions.GetFieldValue<bool>(content, $"PSF{nameof(PreSearchFilter.NotApplicable)}");
+                psfOnetSkill.Order = dynamicContentExtensions.GetFieldValue<decimal?>(content, $"PSF{nameof(PreSearchFilter.Order)}") ?? 0;
+                psfOnetSkill.UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(PreSearchFilter.UrlName));
+                psfOnetSkill.PSFCategory = GetPSFCategoryClassification(content.GetValue<TrackedList<Guid>>("PSFCategories"));
+                psfOnetSkill.Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(PreSearchFilter.Id));
+
+                return psfOnetSkill;
             }
+        }
+
+        private string GetPSFCategoryClassification(TrackedList<Guid> classifications)
+        {
+            var classificationData = new List<Classification>();
+            TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
+            var category = classifications.FirstOrDefault();
+
+            return category != Guid.Empty ? (string)taxonomyManager.GetTaxon(category).Title : null;
         }
     }
 }

@@ -410,7 +410,7 @@
     <Compile Include="Mvc\Models\JobProfileWhatYouWillDoViewModel.cs" />
     <Compile Include="Mvc\Models\PSFModel.cs" />
     <Compile Include="Mvc\Models\PSFOption.cs" />
-    <Compile Include="Mvc\Models\PSFSection.cs" />
+    <Compile Include="Mvc\Models\PsfSection.cs" />
     <Compile Include="Mvc\Models\PsfSearchResultsViewModel.cs" />
     <Compile Include="Mvc\Models\PSFState.cs" />
     <Compile Include="Mvc\Models\RelatedJobProfileCategoriesViewModel.cs" />

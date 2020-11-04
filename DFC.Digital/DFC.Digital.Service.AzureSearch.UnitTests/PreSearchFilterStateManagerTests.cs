@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         }
 
         [Theory]
-        [InlineData(true, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\"}],\"SingleSelectedValue\":null}]}")]
+        [InlineData(true, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\",\"PSFCategory\":null}],\"SingleSelectedValue\":null}]}")]
         [InlineData(false, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[],\"SingleSelectedValue\":null}]}")]
         public void UpdateSectionStateTest(bool validSection, string stateJson, string expectedJson)
         {
@@ -123,8 +123,8 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         }
 
         [Theory]
-        [InlineData(true, false, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"\"}]}")]
-        [InlineData(true, true, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\"}],\"SingleSelectedValue\":\"SingleSelectedValue\"}]}")]
+        [InlineData(true, false, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\",\"PSFCategory\":null}],\"SingleSelectedValue\":\"\"}]}")]
+        [InlineData(true, true, "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"SingleSelectedValue\",\"PSFCategory\":null}],\"SingleSelectedValue\":\"SingleSelectedValue\"}]}")]
         [InlineData(false, false, "{\"Sections\":[]}")]
         public void SaveStateTest(bool validPreviousSection, bool singleValue, string expectedJson)
         {

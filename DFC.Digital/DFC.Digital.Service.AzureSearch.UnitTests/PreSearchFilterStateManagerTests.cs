@@ -35,7 +35,7 @@ namespace DFC.Digital.Service.AzureSearch.UnitTests
         }
 
         [Theory]
-        [InlineData(true, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\"}],\"SingleSelectedValue\":null}]}")]
+        [InlineData(true, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[{\"IsSelected\":true,\"ClearOtherOptionsIfSelected\":false,\"OptionKey\":\"OptionKey\",\"PSFCategory\":null}],\"SingleSelectedValue\":null}]}")]
         [InlineData(false, "{\"Sections\":[]}", "{\"Sections\":[{\"Name\":null,\"SectionDataType\":\"Interest\",\"Options\":[],\"SingleSelectedValue\":null}]}")]
         public void UpdateSectionStateTest(bool validSection, string stateJson, string expectedJson)
         {

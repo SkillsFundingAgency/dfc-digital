@@ -29,7 +29,12 @@
                 @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
 
                 @if (@Model.Section.PageNumber > 1)
-        {<span> you have @Model.NumberOfMatches career matches</span>}
+                { 
+                    <div class="banner-message">
+                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">
+                        @string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
+                    </div>
+                }
 
                 @if (!Model.Section.EnableAccordion)
                 {
@@ -42,7 +47,7 @@
                                 {
                                     for (int jj = 0; jj < Model.Section.Options.Count; jj++)
                                     {
-                                        if (Model.Section.SingleSelectOnly == true || Model.Section.SectionDataType == "TrainingRoute")
+                                        if (Model.Section.SingleSelectOnly == true)
                                         {
                                             <div class="filter-option govuk-radios__item">
                                                 @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })

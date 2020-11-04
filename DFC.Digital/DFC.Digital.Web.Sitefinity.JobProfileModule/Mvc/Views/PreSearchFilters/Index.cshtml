@@ -28,11 +28,10 @@
                 @Html.HiddenFor(m => Model.Section.PageNumber)
                 @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
 
-                @if (@Model.Section.PageNumber > 1)
-                { 
+                @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage) && @Model.Section.PageNumber > 1)
+                {
                     <div class="banner-message">
-                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">
-                        @string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
+                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
                     </div>
                 }
 

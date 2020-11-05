@@ -10,6 +10,6 @@
         CareerFocus,
         PreferredTaskType,
         Skill,
-        Category
+        JobProfileCategoryUrl
     }
 }

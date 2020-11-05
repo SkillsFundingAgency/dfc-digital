@@ -243,7 +243,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
                     }
 
-                case PreSearchFilterType.Category:
+                case PreSearchFilterType.JobProfileCategoryUrl:
                     {
                         return GetJobProfileCategories().OrderBy(o => o.Title);
                     }

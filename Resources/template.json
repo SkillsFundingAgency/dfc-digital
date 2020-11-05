@@ -18,7 +18,7 @@
       "type": "string",
       "defaultValue": "1",
       "metadata": {
-          "description": "Size of each instance in the app service plan"
+        "description": "Size of each instance in the app service plan"
       },
       "allowedValues": [
         "1",
@@ -30,7 +30,7 @@
       "type": "int",
       "defaultValue": 1,
       "metadata": {
-          "description": "Number of instances in the app service plan"
+        "description": "Number of instances in the app service plan"
       }
     },
     "appHostName": {
@@ -58,7 +58,7 @@
       "type": "string",
       "defaultValue": "",
       "metadata": {
-          "description": "Name of the secret (certificate) as it appears in key vault - only used if appHostName is specified"
+        "description": "Name of the secret (certificate) as it appears in key vault - only used if appHostName is specified"
       }
     },
     "aseHostingEnvironmentName": {
@@ -83,7 +83,10 @@
     "appServicePlanName": "[concat(parameters('projectPrefix'),'-asp')]",
     "cosmosDbSQLName": "[concat(parameters('projectPrefix'),'-cdb')]",
     "redisCacheName": "[concat(parameters('projectPrefix'),'-rds')]",
-    "azureSearchName": "[concat(parameters('projectPrefix'),'-sch')]"
+    "azureSearchName": "[concat(parameters('projectPrefix'),'-sch')]",
+    "ActionGroupLiveServicesName": "dfc-prd-app-sharedresources-live-services-actgrp",
+    "environment": "[substring(parameters('projectPrefix'),4,3)]",
+    "deployLiveServicesAlert": "[equals(tolower(variables('environment')), 'prd')]"
   },
   "resources": [
     {
@@ -270,6 +273,61 @@
           }
         }
       }
+    },
+    {
+      "apiVersion": "2019-05-01",
+      "name": "LatencySearch",
+      "type": "Microsoft.Resources/deployments",
+      "condition": "[variables('deployLiveServicesAlert')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'Application-Insights/metric-alerts.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "enabled": {
+            "value": true
+            // parameterise this
+          },
+          "alertName": {
+            "value": "DFC_PRD_DIG_SCH_Sev0_Latencey_is_greater_than_2_seconds_name"
+          },
+          "alertSeverity": {
+            "value": 0
+          },
+          "criteria": {
+            "allOf": [
+              {
+                "threshold": 2,
+                "name": "DFC_PRD_DIG_SCH_Sev0_Latencey_is_greater_than_2_seconds_name",
+                "metricNamespace": "microsoft.search/searchservices",
+                "metricName": "SearchLatency",
+                "dimensions": [],
+                "operator": "GreaterThan",
+                "timeAggregation": "Maximum",
+                "criterionType": "StaticThresholdCriterion"
+              }
+            ],
+            "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria"
+          },
+          "windowSize": {
+            "value": "PT5M"
+          },
+          "evaluationFrequency": {
+            "value": "PT1M"
+          },
+          "actionGroupName": {
+            "value": "[variables('ActionGroupLiveServicesName')]"
+          },
+          "resourceId": {
+            "value": "[resourceId('Microsoft.Search/SearchServices', 'exploreCareersSearch')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "exploreCareersSearch"
+      ]
     },
     {
       "apiVersion": "2017-05-10",

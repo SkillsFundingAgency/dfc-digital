@@ -97,10 +97,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
 
         [DisplayName("Enable Accordion")]
-        public bool EnableAccordion { get; set; } = true;
+        public bool EnableAccordion { get; set; } = false;
 
         [DisplayName("Group By")]
-        public string GroupFieldsBy { get; set; } = "Skill";
+        public string GroupFieldsBy { get; set; } = "Skills";
 
         [DisplayName("Should show number of profile matched banner")]
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
@@ -163,7 +163,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
             var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
-            var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory);
+            var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory).OrderBy(g => g.Key);
 
             //create the section for this page
             var currentSection = autoMapper.Map<PsfSection>(restoredSection);

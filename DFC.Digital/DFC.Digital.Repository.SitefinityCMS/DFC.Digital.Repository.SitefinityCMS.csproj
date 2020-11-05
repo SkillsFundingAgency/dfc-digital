@@ -256,6 +256,7 @@
     <Compile Include="Base\TaxonomyRepository.cs" />
     <Compile Include="CMSExtensions\ApprenticeshipReportConverter.cs" />
     <Compile Include="CMSExtensions\CmsReportItemConverter.cs" />
+    <Compile Include="Extensions\DynamicContentExtensions.cs" />
     <Compile Include="Modules\CompositeUI\DynamicContentConverter.cs" />
     <Compile Include="Modules\CompositeUI\HowToBecomeDataConverter.cs" />
     <Compile Include="Modules\EmailTemplateConverter.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Modules\JobProfileOverloadForWhatItTakesConverter.cs" />
     <Compile Include="Modules\JobProfileOverloadForSearchConverter.cs" />
     <Compile Include="CMSExtensions\SocCodeReportConverter.cs" />
+    <Compile Include="Modules\PreSearchFilterOnetSkillConverter.cs" />
     <Compile Include="Modules\SocSkillMatrixRepository.cs" />
     <Compile Include="Modules\FrameworkSkillConverter.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverter.cs" />

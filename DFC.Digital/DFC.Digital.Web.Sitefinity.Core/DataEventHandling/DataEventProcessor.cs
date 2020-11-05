@@ -12,6 +12,7 @@ using Telerik.Sitefinity.Data;
 using Telerik.Sitefinity.Data.ContentLinks;
 using Telerik.Sitefinity.Data.Events;
 using Telerik.Sitefinity.DynamicModules;
+using Telerik.Sitefinity.DynamicModules.Builder;
 using Telerik.Sitefinity.DynamicModules.Events;
 using Telerik.Sitefinity.DynamicModules.Model;
 using Telerik.Sitefinity.GenericContent.Model;
@@ -33,7 +34,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private readonly IApplicationLogger applicationLogger;
         private readonly ICompositePageBuilder compositePageBuilder;
-        private readonly IMicroServicesPublishingService compositeUIService;
         private readonly IAsyncHelper asyncHelper;
         private readonly IDataEventActions dataEventActions;
         private readonly IServiceBusMessageProcessor serviceBusMessageProcessor;
@@ -42,11 +42,10 @@ namespace DFC.Digital.Web.Sitefinity.Core
         private readonly IDynamicContentAction dynamicContentAction;
         private readonly ISitefinityManagerProxy sitefinityManagerProxy;
 
-        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IMicroServicesPublishingService compositeUIService, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction, ISitefinityManagerProxy sitefinityManagerProxy)
+        public DataEventProcessor(IApplicationLogger applicationLogger, ICompositePageBuilder compositePageBuilder, IAsyncHelper asyncHelper, IDataEventActions dataEventActions, IDynamicModuleConverter<JobProfileMessage> dynamicContentConverter, IServiceBusMessageProcessor serviceBusMessageProcessor, IDynamicContentExtensions dynamicContentExtensions, IDynamicContentAction dynamicContentAction, ISitefinityManagerProxy sitefinityManagerProxy)
         {
             this.applicationLogger = applicationLogger;
             this.compositePageBuilder = compositePageBuilder;
-            this.compositeUIService = compositeUIService;
             this.asyncHelper = asyncHelper;
             this.dataEventActions = dataEventActions;
             this.dynamicContentConverter = dynamicContentConverter;
@@ -86,7 +85,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 switch (item.GetType().Name)
                 {
                     case Constants.JobProfile:
-                        if (eventAction == MessageAction.Published)
+                        if (eventAction == MessageAction.Published || eventAction == MessageAction.Draft)
                         {
                             GenerateServiceBusMessageForJobProfile(item, eventAction);
                         }
@@ -207,10 +206,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 else if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.UnpublishedOrDeleted)
                 {
                     ExportPageNode(providerName, contentType, itemId, Constants.ItemActionDeleted);
-                }
-                else if (isContentPage && microServicesDataEventAction == MicroServicesDataEventAction.Draft)
-                {
-                    ExportPageNode(providerName, contentType, itemId, Constants.WorkflowStatusDraft);
                 }
             }
             catch (Exception ex)
@@ -366,15 +361,6 @@ namespace DFC.Digital.Web.Sitefinity.Core
             serviceBusMessageProcessor.SendOtherRelatedTypeMessages(classificationData, taxon.FlatTaxonomy.Name.Trim(), GetActionType(taxon.Status.ToString()));
         }
 
-        private void DeletePage(string providerName, Type contentType, Guid itemId)
-        {
-            var microServiceEndPointConfigKey = compositePageBuilder.GetMicroServiceEndPointConfigKeyForPageNode(contentType, itemId, providerName);
-            if (!microServiceEndPointConfigKey.IsNullOrEmpty())
-            {
-                asyncHelper.Synchronise(() => compositeUIService.DeletePageAsync(microServiceEndPointConfigKey, itemId));
-            }
-        }
-
         private void ExportPageNode(string providerName, Type contentType, Guid itemId, string eventAction)
         {
             var compositePageData = compositePageBuilder.GetPublishedPage(contentType, itemId, providerName);
@@ -480,7 +466,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedSocContentItems.Add(new SocCodeContentItem
                     {
@@ -561,7 +547,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
                 foreach (var contentId in SkillsMatrixParentItems)
                 {
                     var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                    if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                    if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                     {
                         relatedSocSkillMatrixContentItems.Add(new SocSkillMatrixContentItem
                         {
@@ -602,14 +588,17 @@ namespace DFC.Digital.Web.Sitefinity.Core
         {
             var classificationData = new List<Classification>();
             TaxonomyManager taxonomyManager = TaxonomyManager.GetManager();
-            foreach (var cat in classifications)
+            if (classifications != null)
             {
-                classificationData.Add(new Classification
+                foreach (var cat in classifications)
                 {
-                    Id = taxonomyManager.GetTaxon(cat).Id,
-                    Title = taxonomyManager.GetTaxon(cat).Title,
-                    Url = taxonomyManager.GetTaxon(cat).UrlName
-                });
+                    classificationData.Add(new Classification
+                    {
+                        Id = taxonomyManager.GetTaxon(cat).Id,
+                        Title = taxonomyManager.GetTaxon(cat).Title,
+                        Url = taxonomyManager.GetTaxon(cat).UrlName
+                    });
+                }
             }
 
             return classificationData;
@@ -623,7 +612,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new WYDContentItem
                     {
@@ -648,7 +637,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new InfoContentItem
                     {
@@ -671,7 +660,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(parentType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     relatedContentItems.Add(new TextFieldContentItem
                     {
@@ -699,7 +688,7 @@ namespace DFC.Digital.Web.Sitefinity.Core
             foreach (var contentId in parentItemLinks)
             {
                 var parentItem = dynamicModuleManager.GetDataItem(socSkillsMatrixType, contentId);
-                if (parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished && !parentItem.IsDeleted)
+                if ((parentItem.ApprovalWorkflowState == Constants.WorkflowStatusPublished || parentItem.ApprovalWorkflowState == Constants.WorkflowStatusDraft) && !parentItem.IsDeleted)
                 {
                     var jobProfileId = contentLinksManager.GetContentLinks()
                  .Where(c => c.ParentItemType == ParentType && c.ChildItemId == parentItem.Id)

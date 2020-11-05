@@ -103,5 +103,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public double? Coverage { get; set; }
 
         public string ComputedSearchTerm { get; set; }
+
+        public long? TotalResultCount { get; set; }
     }
 }

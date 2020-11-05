@@ -18,5 +18,7 @@ namespace DFC.Digital.Data.Model
         public bool ClearOtherOptionsIfSelected { get; set; }
 
         public string OptionKey { get; set; }
+
+        public string PSFCategory { get; set; }
     }
 }

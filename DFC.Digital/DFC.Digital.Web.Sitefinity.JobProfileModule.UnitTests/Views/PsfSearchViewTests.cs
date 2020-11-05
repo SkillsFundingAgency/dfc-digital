@@ -21,7 +21,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             var resultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
 
-            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(count, totalPages, DummyMultipleJobProfileSearchResults(count), " result found", currentPage);
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(count, totalPages, DummyMultipleJobProfileSearchResults(count), $"{count} result found", count, currentPage);
 
             var htmlDom = resultsView.RenderAsHtml(psfSearchResultsViewModel);
 
@@ -31,8 +31,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var backUrl = GetPreviouspageUrl(htmlDom);
             var searchResults = GetSearchResults(htmlDom);
 
-            mainPageTitle.Should().BeEquivalentTo(psfSearchResultsViewModel.MainPageTitle);
-            secondaryText.Should().BeEquivalentTo(psfSearchResultsViewModel.SecondaryText);
+            mainPageTitle.Should().BeEquivalentTo(psfSearchResultsViewModel.MainPageTitle + psfSearchResultsViewModel.SecondaryText);
             searchResults.Should().BeEquivalentTo(psfSearchResultsViewModel.SearchResults);
             backText.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrlText);
             backUrl.Should().BeEquivalentTo(psfSearchResultsViewModel.BackPageUrl.OriginalString);
@@ -60,7 +59,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
 
-            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(10, numberOfLinkedJobCategories), " result found", 1);
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(10, numberOfLinkedJobCategories), "10 results found", 10, 1);
 
             var htmlDom = searchResultsView.RenderAsHtml(psfSearchResultsViewModel);
 
@@ -88,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             //Assign
             var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
-            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(1, 0, salaryRange), " result found", 1);
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(1, 0, salaryRange), "1 result found", 1, 1);
             psfSearchResultsViewModel.SalaryBlankText = salaryText;
 
             //Act
@@ -96,6 +95,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Assert
             GetSalaryText(htmlDom).Should().BeEquivalentTo(expectedValue);
+        }
+
+        [Theory]
+        [InlineData(1, "1")]
+        [InlineData(10, "10")]
+        [InlineData(null, "")]
+        [InlineData(0, "0")]
+        public void DFC13339TotalResultCountDataAttribForGoogleAnalytics(long? totalResultCount, string result)
+        {
+            //Assign
+            var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, DummyMultipleJobProfileSearchResults(1), $"{totalResultCount} result found", totalResultCount, 1);
+
+            //Act
+            var htmlDom = searchResultsView.RenderAsHtml(psfSearchResultsViewModel);
+
+            //Assert
+            var filter_results_count = htmlDom.DocumentNode.Descendants("div").FirstOrDefault(div => div.Attributes["class"].Value.Contains("filter-results-count"));
+            filter_results_count.Attributes.Any(a => a.Name.Equals("data-ga-result-count", StringComparison.OrdinalIgnoreCase)).Should().BeTrue();
+            filter_results_count.Attributes.FirstOrDefault(a => a.Name.Equals("data-ga-result-count", StringComparison.OrdinalIgnoreCase)).Value.Should().Be(result);
         }
 
         private string GetSalaryText(HtmlDocument htmlDocument)
@@ -149,7 +168,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
         private IEnumerable<JobProfileSearchResultItemViewModel> GetSearchResults(HtmlDocument htmlDom)
         {
-            foreach (var n in htmlDom.DocumentNode.Descendants("ol").FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list"))?.Descendants("li"))
+            foreach (var n in htmlDom.DocumentNode.Descendants("ol").FirstOrDefault(ol => ol.HasAttributes && ol.Attributes["class"].Value.Equals("results-list govuk-list"))?.Descendants("li"))
             {
                 yield return new JobProfileSearchResultItemViewModel
                 {
@@ -162,7 +181,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
-        private PsfSearchResultsViewModel GenerateDummyJobProfileSearchResultViewModel(int count, int totalPages, IEnumerable<JobProfileSearchResultItemViewModel> jobProfileSearchResult, string resultMessage, int currentPage)
+        private PsfSearchResultsViewModel GenerateDummyJobProfileSearchResultViewModel(int count, int totalPages, IEnumerable<JobProfileSearchResultItemViewModel> jobProfileSearchResult, string resultMessage, long? totalCount, int currentPage)
         {
             return new PsfSearchResultsViewModel
             {
@@ -178,6 +197,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 SearchResults = jobProfileSearchResult,
                 SearchTerm = "*",
                 TotalResultsMessage = resultMessage,
+                TotalResultCount = totalCount,
                 JobProfileCategoryPage = "/job-categories/",
                 PreSearchFiltersModel = GeneratePreSearchFiltersViewModel(),
                 BackPageUrl = new Uri(nameof(PsfSearchResultsViewModel.BackPageUrl), UriKind.RelativeOrAbsolute),

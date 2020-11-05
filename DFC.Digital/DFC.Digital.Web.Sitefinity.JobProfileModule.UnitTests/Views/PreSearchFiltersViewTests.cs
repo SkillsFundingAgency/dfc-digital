@@ -21,7 +21,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Should have  a link to the home page
             var backButton = htmlDom.GetElementbyId("filter-home");
-            backButton.InnerText.Should().BeEquivalentTo("Home");
+            if (testDataModel.Section.PageNumber > 1)
+            {
+                backButton.InnerText.Should().BeEquivalentTo("Back");
+            }
+            else
+            {
+                backButton.Should().BeNull();
+            }
 
             var backForm = htmlDom.GetElementbyId("backForm");
             backForm.Attributes["action"].Value.Should().BeEquivalentTo(testDataModel.Section.PreviousPageUrl);
@@ -80,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     //if we have a N/A option needs this class
                     if (testDataModel.Section.Options[jj].ClearOtherOptionsIfSelected)
                     {
-                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na");
+                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na govuk-checkboxes__input");
                     }
                 }
 
@@ -88,6 +95,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 htmlDom?.DocumentNode?.SelectNodes($"//*[@id='options1']/label[{(jj + 1).ToString()}]")?.FirstOrDefault()?.InnerText.Should().BeEquivalentTo($"{testDataModel.Section.Options[jj].Name}{testDataModel.Section.Options[jj].Description}");
 
                 CheckForOptionHiddenValue(htmlDom, "OptionKey", "continueForm", jj, testDataModel.Section.Options[jj].OptionKey);
+            }
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void MatchingTotalIsDisplayedOnPagesAfterPageOne(int pageOn)
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.PageNumber = pageOn;
+            var htmlDom = index.RenderAsHtml(testDataModel);
+
+            var matchingCountMessage = $" you have {testDataModel.NumberOfMatches} career matches";
+            if (pageOn > 1)
+            {
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(matchingCountMessage);
+            }
+            else
+            {
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(matchingCountMessage);
             }
         }
 
@@ -128,7 +156,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     PageNumber = 1,
                     TotalNumberOfPages = 2,
                     SectionDataType = "Dummy Data Type One"
-                }
+                },
+                NumberOfMatches = 5,
             };
 
             filtersModel.Section.Options = new List<PsfOption>();

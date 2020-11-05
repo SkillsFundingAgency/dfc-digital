@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Interfaces;
 using System;
+using System.Collections;
 
 namespace DFC.Digital.Data.Model
 {
@@ -16,5 +17,7 @@ namespace DFC.Digital.Data.Model
         public decimal? Order { get; set; }
 
         public bool? NotApplicable { get; set; }
+
+        public string PSFCategory { get; set; }
     }
 }

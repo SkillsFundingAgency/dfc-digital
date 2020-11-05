@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>JobProfile</id>
-    <version>2.0.31.4</version>
+    <version>2.0.51</version>
     <title>JobProfile</title>
     <authors>DFC development team</authors>
     <owners>DFC</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
-    <description>Job Profile Dynamic Module -- Updating SoC field validation to Required field.
-      SoC field was made compulsory field when creating new JobProfiles for use in CompositeUI.
-      This was not creating any messages in Service Bus when a JobProfile is PUBLISHED although new JobProfile was created.</description>
+    <description>Job Profile Dynamic Module -- Adding PSF related fields to SKills Dynamic Content
+      This nuget package contains all the new PSF fields added to the Skills Dynamic Content Type.
+      These new fields and classification were added to search JobProfiles based on PSF data.</description>
     <language>en-GB</language>
-    <dependencies>
-      <dependency id="PreSearchFilters" version="1.0.0.3" />
-    </dependencies>
   </metadata>
 </package>

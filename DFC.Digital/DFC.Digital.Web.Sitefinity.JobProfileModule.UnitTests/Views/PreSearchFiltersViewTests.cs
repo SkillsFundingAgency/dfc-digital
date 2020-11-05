@@ -21,7 +21,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Should have  a link to the home page
             var backButton = htmlDom.GetElementbyId("filter-home");
-            backButton.InnerText.Should().BeEquivalentTo("Home");
+            if (testDataModel.Section.PageNumber > 1)
+            {
+                backButton.InnerText.Should().BeEquivalentTo("Back");
+            }
+            else
+            {
+                backButton.Should().BeNull();
+            }
 
             var backForm = htmlDom.GetElementbyId("backForm");
             backForm.Attributes["action"].Value.Should().BeEquivalentTo(testDataModel.Section.PreviousPageUrl);

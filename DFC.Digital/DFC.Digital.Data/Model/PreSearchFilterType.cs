@@ -9,6 +9,7 @@
         JobArea,
         CareerFocus,
         PreferredTaskType,
-        Skill
+        Skill,
+        Category
     }
 }

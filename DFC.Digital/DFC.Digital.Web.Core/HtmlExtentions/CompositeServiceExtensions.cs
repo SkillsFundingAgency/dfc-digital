@@ -9,7 +9,7 @@ namespace DFC.Digital.Web.Core
     {
         public static string GetCompositeServiceEndPoint(this HtmlHelper helper)
         {
-            return ConfigurationManager.AppSettings[Constants.MicroServiceHelpPreviewEndPoint];
+            return ConfigurationManager.AppSettings[Constants.DFCDraftCustomEndpoint];
         }
     }
 }

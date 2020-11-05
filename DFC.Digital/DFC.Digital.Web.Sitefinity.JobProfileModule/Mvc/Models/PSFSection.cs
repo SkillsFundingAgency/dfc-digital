@@ -30,5 +30,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         [JsonIgnore]
         public int TotalNumberOfPages { get; set; }
+
+        [JsonIgnore]
+        public bool EnableAccordion { get; set; }
+
+        [JsonIgnore]
+        public string GroupFieldsBy { get; set; }
+
+        [JsonIgnore]
+        public string PSFCategory { get; set; }
     }
 }

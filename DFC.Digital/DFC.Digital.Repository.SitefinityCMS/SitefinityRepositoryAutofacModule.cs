@@ -44,6 +44,12 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
                 ;
+            builder.RegisterType<PreSearchFilterOnetSkillConverter>()
+                .As<IDynamicModuleConverter<PsfOnetSkill>>()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(InstrumentationInterceptor.Name, ExceptionInterceptor.Name)
+                ;
         }
 
         private static void RegisterDynamicModuleRepository(ContainerBuilder builder)
@@ -85,6 +91,38 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
                         case var _ when t.Instance is DynamicModuleRepository<StructuredDataInjection> instance:
                             instance.Initialise(DynamicTypes.StructuredDataInjectionContentType, DynamicTypes.ConfigurationsModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfInterest> instance:
+                            instance.Initialise(DynamicTypes.InterestContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfEntryQualification> instance:
+                            instance.Initialise(DynamicTypes.EntryQualificationContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfEnabler> instance:
+                            instance.Initialise(DynamicTypes.EnablersContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfTrainingRoute> instance:
+                            instance.Initialise(DynamicTypes.TrainingRouteContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfJobArea> instance:
+                            instance.Initialise(DynamicTypes.JobAreaContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfCareerFocus> instance:
+                            instance.Initialise(DynamicTypes.CareerFocusContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfPreferredTaskType> instance:
+                            instance.Initialise(DynamicTypes.PreferredTaskTypeContentType, DynamicTypes.PreSearchFiltersModuleName);
+                            break;
+
+                        case var _ when t.Instance is DynamicModuleRepository<PsfOnetSkill> instance:
+                            instance.Initialise(DynamicTypes.OnetSkillTypeContentType, DynamicTypes.JobProfileModuleName);
                             break;
                     }
                 })

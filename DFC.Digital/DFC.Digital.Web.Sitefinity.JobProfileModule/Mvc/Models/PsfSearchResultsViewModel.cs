@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Mvc;
 
 namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 {
@@ -24,6 +25,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// </value>
         public string SecondaryText { get; set; }
 
+        public string OverviewMessage { get; set; }
+
         /// <summary>
         /// Gets or sets the back page URL.
         /// </summary>
@@ -47,5 +50,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         /// The pre search filters model.
         /// </value>
         public PsfModel PreSearchFiltersModel { get; set; }
+
+        public string CaveatTagMarkup { get; internal set; }
+
+        public string CaveatMarkup { get; internal set; }
     }
 }

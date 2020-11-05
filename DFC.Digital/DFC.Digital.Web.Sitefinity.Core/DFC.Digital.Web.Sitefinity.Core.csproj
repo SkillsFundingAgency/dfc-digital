@@ -478,11 +478,13 @@
     <Compile Include="DataEventHandling\DynamicContentAction.cs" />
     <Compile Include="DataEventHandling\MicroServicesPublishingPageBuilder.cs" />
     <Compile Include="CompositeUI\IServiceBusMessageProcessor.cs" />
+    <Compile Include="Interfaces\ICompUIConfigSettingService.cs" />
     <Compile Include="Interfaces\IDataEventActions.cs" />
     <Compile Include="CompositeUI\ServiceBusMessageProcessor.cs" />
     <Compile Include="Interfaces\IDynamicContentAction.cs" />
     <Compile Include="Mvc\Models\ServiceStatusChildModel.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
+    <Compile Include="SitefinityExtensions\CompUIConfigSettingService.cs" />
     <Compile Include="SitefinityProxies\SitefinityDataEventProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageDataProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageNodeProxy.cs" />
@@ -527,10 +529,6 @@
     <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
       <Project>{11e5ec8f-531d-47e4-9c22-e19044ddd678}</Project>
       <Name>DFC.Digital.Repository.SitefinityCMS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.MicroServicesPublishing\DFC.Digital.Service.MicroServicesPublishing.csproj">
-      <Project>{BF41A8C6-2DAD-4C06-A3D0-E889B7ED24AC}</Project>
-      <Name>DFC.Digital.Service.MicroServicesPublishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Web.Core\DFC.Digital.Web.Core.csproj">
       <Project>{2161f904-4d97-4685-8c9f-05c6f4d0dd74}</Project>

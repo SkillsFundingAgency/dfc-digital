@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost Language="C#"
+    Debug="true"
+    Service="DFC.Digital.Web.Sitefinity.Core.CompUIConfigSettingService"
+    Factory="Telerik.Sitefinity.Web.Services.WcfHostFactory" %>

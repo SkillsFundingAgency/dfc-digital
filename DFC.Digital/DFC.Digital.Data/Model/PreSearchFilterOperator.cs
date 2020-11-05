@@ -3,6 +3,8 @@
     public enum PreSearchFilterLogicalOperator
     {
         And,
-        Or
+        Or,
+        Nand,
+        Nor
     }
 }

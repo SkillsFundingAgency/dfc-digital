@@ -127,7 +127,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// The index field operators.
         /// </value>
         [DisplayName("Index Field Operators")]
-        public string IndexFieldOperators { get; set; } = "Interests|and,TrainingRoutes|and,Enablers|and,EntryQualifications|and,PreferredTaskTypes|and,JobAreas|and";
+        public string IndexFieldOperators { get; set; } = "EntryQualifications|and,Interests|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand,PreferredTaskTypes|and";
+
+        [DisplayName("Index search fields, comma seperated. Used to rank the search results after filtering")]
+        public string IndexSearchField { get; set; } = "Skills";
+
+        [DisplayName("Index sort fields, comma seperated. Used to sort the search results after filtering and ranking, the sort field needs to already be in the index")]
+        public string IndexSortField { get; set; } = "search.score() desc, EntryQualificationLowestLevel desc";
 
         /// <summary>
         /// Gets or sets message to be displayed when there are no results
@@ -156,6 +162,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Demo Preferred Tasks value")]
         public string DemoPreferredTaskTypesValues { get; set; } = "true,level-8~true,level-6~false,hdhdhdhdhdhdhd";
+
+        [DisplayName("Caveat index field")]
+        public string CaveatFinderIndexFieldName { get; set; } = nameof(JobProfileIndex.TrainingRoutes);
+
+        [DisplayName("Caveat index field value e.g. Covid19")]
+        public string CaveatFinderIndexValue { get; set; } = "no";
+
+        [DisplayName("Caveat tag for title")]
+        public string CaveatTagMarkup { get; set; } = @"<strong class=""govuk-tag govuk-tag--grey"">COVID Impacted</strong>";
+
+        [DisplayName("Caveat disclaimer")]
+        public string CaveatMarkup { get; set; } = @"<p class=""govuk-inset-text"">This may be impacted in the short term due to current Coronavirus pandemic</p>";
+
+        public string OverviewMessage { get; set; } = @"<div class=""govuk-warning-text"">
+                <span class=""govuk-warning-text__icon"" aria-hidden=""true"">!</span>
+                <strong class=""govuk-warning-text__text"">
+                    <span class=""govuk-warning-text__assistive"">Warning</span>
+                    If the job roles you have been matched to are COVID impacted, you should
+                    <a href= ""/contact-us"" class=""govuk-link"">contact our advisers</a> to consider your options and next steps.
+                 </strong>
+            </div>";
 
         #endregion Public Properties
 
@@ -309,12 +336,21 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 Page = pageNumber,
                 Count = this.PageSize,
-                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value))
+                UseRawSearchTerm = true,
+                FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
+                OrderByFields = IndexSortField.TrimEnd(',').Split(',').ToList(),
             };
-            var results = await searchQueryService.SearchAsync("*", properties);
+
+            var searchTerm = buildSearchFilterService.GetSearchTerm(properties, resultsModel, IndexSearchField.Split(','));
+            var results = await searchQueryService.SearchAsync(searchTerm, properties);
             resultModel.Count = results.Count;
             resultModel.PageNumber = pageNumber;
-            resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results);
+            resultModel.SearchResults = mapper.Map<IEnumerable<JobProfileSearchResultItemViewModel>>(results.Results, opts =>
+            {
+                opts.Items.Add(nameof(CaveatFinderIndexFieldName), CaveatFinderIndexFieldName);
+                opts.Items.Add(nameof(CaveatFinderIndexValue), CaveatFinderIndexValue);
+            });
+
             foreach (var resultItem in resultModel.SearchResults)
             {
                 resultItem.ResultItemUrlName = $"{JobProfileDetailsPage}{resultItem.ResultItemUrlName}";
@@ -358,6 +394,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             {
                 MainPageTitle = MainPageTitle,
                 SecondaryText = SecondaryText,
+                OverviewMessage = OverviewMessage,
                 PreSearchFiltersModel = new PsfModel
                 {
                     OptionsSelected = preSearchFilterStateManager.GetStateJson(),
@@ -369,7 +406,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 BackPageUrl = new Uri(BackPageUrl, UriKind.RelativeOrAbsolute),
                 BackPageUrlText = BackPageUrlText,
                 JobProfileCategoryPage = JobProfileCategoryPage,
-                SalaryBlankText = SalaryBlankText
+                SalaryBlankText = SalaryBlankText,
+                CaveatTagMarkup = CaveatTagMarkup,
+                CaveatMarkup = CaveatMarkup
             };
 
             //Need to do this to force the model we have changed to refresh
@@ -386,10 +425,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             foreach (var field in fields)
             {
                 var fieldDefinition = field.Split('|');
-                if (fieldDefinition.Length == 2)
+                if (fieldDefinition.Length == 2 && Enum.TryParse<PreSearchFilterLogicalOperator>(fieldDefinition[1], true, out var operand))
                 {
-                    fieldDefinitions.Add(
-                        new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], fieldDefinition[1].Equals(nameof(PreSearchFilterLogicalOperator.And), StringComparison.InvariantCultureIgnoreCase) ? PreSearchFilterLogicalOperator.And : PreSearchFilterLogicalOperator.Or));
+                    fieldDefinitions.Add(new KeyValuePair<string, PreSearchFilterLogicalOperator>(fieldDefinition[0], operand));
                 }
             }
 
@@ -399,6 +437,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private void SetTotalResultsMessage(JobProfileSearchResultViewModel resultModel)
         {
             var totalFound = resultModel.Count;
+            resultModel.TotalResultCount = totalFound;
             resultModel.TotalResultsMessage = totalFound == 0 ? NoResultsMessage : $"{totalFound} result{(totalFound == 1 ? string.Empty : "s")} found";
         }
 

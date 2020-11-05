@@ -223,10 +223,6 @@
       <Project>{4DDF6E01-52E9-4799-89A0-F6C81F59F296}</Project>
       <Name>DFC.Digital.Service.LMIFeed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Service.MicroServicesPublishing\DFC.Digital.Service.MicroServicesPublishing.csproj">
-      <Project>{bf41a8c6-2dad-4c06-a3d0-e889b7ed24ac}</Project>
-      <Name>DFC.Digital.Service.MicroServicesPublishing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.SkillsFramework\DFC.Digital.Service.SkillsFramework.csproj">
       <Project>{DA543F75-F32B-4F8F-AD1A-3C25602EE68F}</Project>
       <Name>DFC.Digital.Service.SkillsFramework</Name>

@@ -1,60 +1,126 @@
-﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfModel
+@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfModel
 <div class="content-container">
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
-          <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
-                 <div id="BackLink" class="breadcrumbs">
-                        <ol>
-                            <li>
-                                <button type="submit" class="button-link" id="filter-home">@(Model.Section.PageNumber == 1 ? "Home" : "Back")</button>
-                            </li>
-                        </ol>
+
+        <form action="@Model.Section.PreviousPageUrl" method="post" id="backForm">
+            @if (@Model.Section.PageNumber > 1)
+            {
+                <div id="BackLink" class="govuk-breadcrumbs">
+                    <button type="submit" class="govuk-back-link" id="filter-home">Back</button>
                 </div>
-              @Html.HiddenFor(m => Model.Section.Name)
-              @Html.HiddenFor(m => Model.Section.SectionDataType)
-              @Html.HiddenFor(m => Model.OptionsSelected)
-              @Html.HiddenFor(m => Model.Section.PageNumber)
-              @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+            }
+            @Html.HiddenFor(m => Model.Section.Name)
+            @Html.HiddenFor(m => Model.Section.SectionDataType)
+            @Html.HiddenFor(m => Model.OptionsSelected)
+            @Html.HiddenFor(m => Model.Section.PageNumber)
+            @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
         </form>
+
         <form action="@Model.Section.NextPageUrl" method="post" id="continueForm">
-                <div class="active">
-                    <h4>Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</h4>
-                    <h2>@Html.DisplayFor(model => Model.Section.Name)</h2>
-                    <p>@Html.DisplayFor(model => Model.Section.Description)</p>
+            <div class="active">
 
-                    @Html.HiddenFor(m => Model.Section.Name)
-                    @Html.HiddenFor(m => Model.Section.SectionDataType)
-                    @Html.HiddenFor(m => Model.OptionsSelected)
-                    @Html.HiddenFor(m => Model.Section.PageNumber)
-                    @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+                <span class="govuk-caption-xl">Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</span>
 
-                    <div class="filter-list">
-                        @if (Model.Section.Options != null && Model.Section.Options.Any())
-                        {
-                            for (int jj = 0; jj < Model.Section.Options.Count; jj++)
-                            {
-                                if (Model.Section.SingleSelectOnly == true)
-                                {
-                                    <div class="filter-option">
-                                        @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}" })
-                                        <label for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="filter-option">
-                                        @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na" : "") })
-                                        <label for="Section_Options_@jj.ToString()__IsSelected" >@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
-                                    </div>
-                                }
-
-                                @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
-                                @Html.HiddenFor(m => Model.Section.Options[jj].ClearOtherOptionsIfSelected)
-                            }
-                        }
+                <h1 class="govuk-heading-xl">@Html.DisplayFor(model => Model.Section.Name)</h1>
+                @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage) && @Model.Section.PageNumber > 1)
+                {
+                    <div class="banner-message">
+                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
                     </div>
-                    <button type="submit" class="button filter-next" id="filter-continue">Continue</button>
-                </div>
-            </form>
+                }
+
+                @Html.Raw(Model.Section.Description)
+
+                @Html.HiddenFor(m => Model.Section.Name)
+                @Html.HiddenFor(m => Model.Section.SectionDataType)
+                @Html.HiddenFor(m => Model.OptionsSelected)
+                @Html.HiddenFor(m => Model.Section.PageNumber)
+                @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+
+
+                @if (!Model.Section.EnableAccordion)
+                {
+                    <div class="govuk-form-group">
+                        <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
+                            <div class="govuk-hint"> Select all that apply. </div>
+
+                            <div class="filter-list govuk-checkboxes">
+                                @if (Model.Section.Options != null && Model.Section.Options.Any())
+                                {
+                                    for (int jj = 0; jj < Model.Section.Options.Count; jj++)
+                                    {
+                                        if (Model.Section.SingleSelectOnly == true)
+                                        {
+                                            <div class="govuk-radios govuk-radios--inline">
+                                                <div class="filter-option govuk-radios__item">
+                                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })
+                                                    <label class="govuk-label govuk-radios__label" for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="filter-option govuk-checkboxes__item">
+                                                @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
+                                                <label class="govuk-label govuk-checkboxes__label" for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span> @Model.Section.Options[jj].Description</span></label>
+                                            </div>
+                                        }
+
+                                        @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
+                                        @Html.HiddenFor(m => Model.Section.Options[jj].ClearOtherOptionsIfSelected)
+                                    }
+                                }
+                            </div>
+                        </fieldset>
+                    </div>
+                }
+                else
+                {
+                    <p class="govuk-body search-title govuk-!-margin-top-3 govuk-!-margin-bottom-0" id="count"><span class="govuk-!-font-weight-bold ">0</span> @Model.Section.GroupFieldsBy selected </p>
+                    <div class="govuk-accordion" data-module="accordion" id="accordion-filter-skills-list">
+
+                        @foreach (var filteredCategory in Model.GroupedOptions)
+                        {
+                            <div class="govuk-accordion__section ">
+                                <div class="govuk-accordion__section-header">
+                                    <h2 class="govuk-accordion__section-heading"> <span class="govuk-accordion__section-button" id="accordion-filter-knowledge"> @filteredCategory.Key <strong class="govuk-tag govuk-tag--green section-count"></strong></span></h2>
+                                </div>
+                                <div id="accordion-default-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-filter-knowledge">
+                                    <div class="govuk-grid-row">
+                                        <div class="filter-list govuk-checkboxes govuk-checkboxes--small">
+                                            @if (filteredCategory.ToList().Count != 0)
+                                            {
+                                                var optionsList = filteredCategory.ToList();
+                                                for (int jj = 0; jj < optionsList.Count; jj++)
+                                                {
+                                                    <div class="govuk-grid-column-one-half">
+                                                        <div class="filter-option govuk-checkboxes__item">
+                                                            @Html.CheckBoxFor(m => optionsList[jj].IsSelected, new { @class = (optionsList[jj].ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
+                                                            <label class="govuk-label govuk-checkboxes__label" for="Section_Options_@jj.ToString()__IsSelected">@optionsList[jj].Name<span> @optionsList[jj].Description</span></label>
+                                                        </div>
+
+                                                        @Html.HiddenFor(m => optionsList[jj].OptionKey)
+                                                        @Html.HiddenFor(m => optionsList[jj].ClearOtherOptionsIfSelected)
+                                                    </div>
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    </div>
+
+                }
+
+                <button type="submit" class="govuk-button filter-next" id="filter-continue">Continue</button>
+            </div>
+        </form>
+
     </div>
 </div>

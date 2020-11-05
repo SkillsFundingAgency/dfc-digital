@@ -1,94 +1,109 @@
-﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfSearchResultsViewModel
+@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.PsfSearchResultsViewModel
 <div class="content-container">
     <div class="filter-form">
         @{ Html.EnableClientValidation(false); }
 
         <form action="@Model.BackPageUrl" method="post">
-            <div id="BackLink" class="breadcrumbs">
-                <ol>
-                    <li>
-                        <button type="submit" class="button-link" id="filter-home" formaction="@Model.BackPageUrl">@Model.BackPageUrlText</button>
-                    </li>
-                </ol>
+            <div id="BackLink" class="govuk-breadcrumbs">
+                <button type="submit" class="govuk-back-link" id="filter-home" formaction="@Model.BackPageUrl">@Model.BackPageUrlText</button>
             </div>
             @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
             @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
             @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
         </form>
 
-            <header class="filter-results-header">
-                <h1 class="filter-results-heading">@Model.MainPageTitle</h1>
-                <p class="filter-results-subheading">@Model.SecondaryText</p>
-                <div class="filter-results-count scoped-result-count">@Model.TotalResultsMessage</div>
-            </header>
+        <header class="filter-results-header">
+            <h1 class="govuk-heading-xl">@Model.MainPageTitle<span class="govuk-caption-m">@Model.SecondaryText</span></h1>
 
-            <div id="results">
-                <div class="results-block">
-                    <div class="inner-block">
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    If the job roles you have been matched to are COVID impacted, you should
+                    <a href="/contact-us" class="govuk-link">contact our advisers</a> to consider your options and next steps.
+                </strong>   
+            </div>
+            <div class="govuk-body filter-results-count scoped-result-count" data-ga-result-count="@Model.TotalResultCount">@Model.TotalResultsMessage</div>
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3 govuk-!-margin-top-3">
+        </header>
 
-                        @if (Model.Count.HasValue && Model.Count > 0)
-                        {
-                            <ol class="results-list">
-                                @foreach (var jobProfile in Model.SearchResults)
-                                {
-                                    <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
-                                        <h3><a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a></h3>
-                                        @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
+        <div id="results">
+            <div class="results-block">
+                <div class="inner-block">
+
+                    @if (Model.Count.HasValue && Model.Count > 0)
+                    {
+                        <ol class="results-list govuk-list">
+                            @foreach (var jobProfile in Model.SearchResults)
+                            {
+                                <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
+                                    <h3>
+                                        <a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a>
+                                        @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatTagMarkup))
                                         {
-                                            <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                                            @Html.Raw(Model.CaveatTagMarkup)
                                         }
-                                        <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
-                                        <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
-                                        @if (jobProfile.JobProfileCategoriesWithUrl != null)
-                                        {<p class="results-categories">
-                                                Found in:
-                                                @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
-                                                {
-                                                    var title = category.Split('|').First();
-                                                    var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
-                                                    <a href="@url">@title</a>
-                                                }
-                                            </p>
-                                        }
-                                    </li>
-                                }
-                            </ol>
-                            <ul class="previous-next-navigation">
-                                @if (Model.HasNextPage)
-                                {
-                                    <li class="dfc-code-search-next next">
-                                        <form action="@Model.NextPageUrl" method="post">
-                                            <button type="submit" id="nextBtn">
-                                                <span class="pagination-label">Next</span>
-                                                <span class="visuallyhidden">page</span>
-                                                <span class="page-numbers">@Model.NextPageUrlText</span>
-                                            </button>
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
-                                        </form>
-                                    </li>
+                                    </h3>
+                                    @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
+                                    {
+                                        <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
+                                    }
+                                    @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatMarkup))
+                                    {
+                                        @Html.Raw(Model.CaveatMarkup)
+                                    }
+                                    <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
+                                    <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
+                                    @if (jobProfile.JobProfileCategoriesWithUrl != null)
+                                    {<p class="results-categories">
+                                            Found in:
+                                            @foreach (var category in jobProfile.JobProfileCategoriesWithUrl)
+                                            {
+                                                var title = category.Split('|').First();
+                                                var url = $"{Model.JobProfileCategoryPage}{category.Split('|').Last()}";
+                                                <a href="@url">@title</a>
+                                            }
+                                        </p>
+                                    }
+                                </li>
+                            }
+                        </ol>
+                        <ul class="previous-next-navigation">
+                            @if (Model.HasNextPage)
+                            {
+                                <li class="dfc-code-search-next next">
+                                    <form action="@Model.NextPageUrl" method="post">
+                                        <button type="submit" id="nextBtn">
+                                            <span class="pagination-label">Next</span>
+                                            <span class="visuallyhidden">page</span>
+                                            <span class="page-numbers">@Model.NextPageUrlText</span>
+                                        </button>
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+                                    </form>
+                                </li>
 
-                                }
-                                @if (Model.HasPreviousPage)
-                                {
-                                    <li class="dfc-code-search-previous previous">
-                                        <form action="@Model.PreviousPageUrl" method="post">
-                                            <button type="submit" id="prevBtn">
-                                                <span class="pagination-label">Previous</span>
-                                                <span class="visuallyhidden">page</span>
-                                                <span class="page-numbers">@Model.PreviousPageUrlText</span>
-                                            </button>
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
-                                            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
-                                        </form>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    </div>
+                            }
+                            @if (Model.HasPreviousPage)
+                            {
+                                <li class="dfc-code-search-previous previous">
+                                    <form action="@Model.PreviousPageUrl" method="post">
+                                        <button type="submit" id="prevBtn">
+                                            <span class="pagination-label">Previous</span>
+                                            <span class="visuallyhidden">page</span>
+                                            <span class="page-numbers">@Model.PreviousPageUrlText</span>
+                                        </button>
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
+                                        @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
                 </div>
             </div>
+        </div>
     </div>
 </div>

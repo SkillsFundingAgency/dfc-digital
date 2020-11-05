@@ -186,6 +186,13 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/system.serviceModel/client/endpoint[@name='CourseSearch']/@address" />
   </parameter>
+  <parameter name="DFCDraft-CustomEndPoint"
+            description="EndPoint for Draft URL"
+            defaultValue="__DFCDraftCustomEndPoint__">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.Draft.CustomEndPoint']/@value" />
+  </parameter>
   <parameter name="AppInit_Hostname"
              description="Tokenize the application initialisation to be replaced by VSTS task"
              defaultValue="__targetUrl__">
@@ -219,19 +226,12 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.CDNLocation']/@value" />
   </parameter>
-  <parameter name="MicroService-HelpEndPoint"
-            description="Micro services endpoint for Help key to be replaced by VSTS task"
-            defaultValue="__MicroServiceHelpEndPoint__">
+  <parameter name="DFCDraft-CustomEndPoint"
+            description="EndPoint for Draft URL"
+            defaultValue="__DFCDraftCustomEndPoint__">
     <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpEndPoint']/@value" />
-  </parameter>
-  <parameter name="MicroService-HelpPreviewEndPoint"
-            description="Micro services preview endpoint for Help key to be replaced by VSTS task"
-            defaultValue="__MicroServiceHelpPreviewEndPoint__">
-    <parameterValidation kind="AllowEmpty" />
-    <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.MicroService.HelpPreviewEndPoint']/@value" />
+                    match="/configuration/appSettings/add[@key='DFC.Digital.Draft.CustomEndPoint']/@value" />
   </parameter>
   <parameter name="ServiceBus-ConnectionString"
             description="End point to connect to Service bus"
@@ -246,6 +246,13 @@
     <parameterValidation kind="AllowEmpty" />
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName']/@value" />
+  </parameter>
+  <parameter name="ServiceBus-TopicName-For-Draft"
+            description="Topic used in Service bus to send Draft Sitefinity JobProfiles "
+            defaultValue="__ServiceBusCMSTopicName__-draft">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName.Draft']/@value" />
   </parameter>
   <parameter name="CUIShell.HealthEndPoint"
             description="Topic used in Service bus to publish Sitefinity JobProfile "
@@ -268,8 +275,7 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.CUIAppContentPages.HealthEndPoint']/@value" />
   </parameter>
-
-
+  
   <!-- Course search API settings -->
   <parameter name="CS_Api_CosmosDb_EndpointUrl"
          description="Tokenize the cosmos endpoint url to be replaced by VSTS task"

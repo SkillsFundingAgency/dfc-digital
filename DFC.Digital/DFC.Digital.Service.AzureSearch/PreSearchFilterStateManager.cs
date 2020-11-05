@@ -77,7 +77,8 @@ namespace DFC.Digital.Service.AzureSearch
                         Name = filter.Title,
                         Description = filter.Description,
                         OptionKey = psfOptionKey,
-                        ClearOtherOptionsIfSelected = filter.NotApplicable ?? false
+                        ClearOtherOptionsIfSelected = filter.NotApplicable ?? false,
+                        PSFCategory = filter.PSFCategory
                     });
                 }
             }

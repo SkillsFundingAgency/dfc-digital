@@ -3198,7 +3198,6 @@
           "SpecialType": 0,
           "MediaType": "",
           "FieldTypeDisplayName": "RelatedData",
-          "IsRequired": true,
           "AllowMultipleImages": true,
           "AllowMultipleVideos": true,
           "AllowMultipleFiles": true,

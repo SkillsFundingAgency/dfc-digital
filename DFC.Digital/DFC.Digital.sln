@@ -154,10 +154,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.CUIStat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Services.CUIStatusHealthChecks.UnitTests", "DFC.Digital.Services.CUIStatusHealthChecks.UnitTests\DFC.Digital.Services.CUIStatusHealthChecks.UnitTests.csproj", "{88BB7BDC-60F3-4077-8EB2-23E2C63F1FA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Service.CUIStatusHealthChecks", "DFC.Digital.Service.CUIStatusChecks\DFC.Digital.Service.CUIStatusHealthChecks.csproj", "{DA074FDC-6A5F-4C38-B2F6-CFC76E799DF5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Digital.Services.CUIStatusHealthChecks.UnitTests", "DFC.Digital.Services.CUIStatusHealthChecks.UnitTests\DFC.Digital.Services.CUIStatusHealthChecks.UnitTests.csproj", "{88BB7BDC-60F3-4077-8EB2-23E2C63F1FA6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

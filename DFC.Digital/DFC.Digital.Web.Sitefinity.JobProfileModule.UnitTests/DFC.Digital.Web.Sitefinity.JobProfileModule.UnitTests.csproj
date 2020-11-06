@@ -125,6 +125,7 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Sitefinity.Model, Version=12.2.7232.0, Culture=neutral, PublicKeyToken=b28c218413bdf563" />
     <Reference Include="TestStack.FluentMVCTesting, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestStack.FluentMVCTesting.3.0.0\lib\NET45\TestStack.FluentMVCTesting.dll</HintPath>
     </Reference>
@@ -205,6 +206,10 @@
     <ProjectReference Include="..\DFC.Digital.Data\DFC.Digital.Data.csproj">
       <Project>{4966a01f-ec6c-49a7-8aef-99a17bed9c5e}</Project>
       <Name>DFC.Digital.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Digital.Repository.SitefinityCMS\DFC.Digital.Repository.SitefinityCMS.csproj">
+      <Project>{11E5EC8F-531D-47E4-9C22-E19044DDD678}</Project>
+      <Name>DFC.Digital.Repository.SitefinityCMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.LMIFeed\DFC.Digital.Service.LMIFeed.csproj">
       <Project>{4ddf6e01-52e9-4799-89a0-f6c81f59f296}</Project>

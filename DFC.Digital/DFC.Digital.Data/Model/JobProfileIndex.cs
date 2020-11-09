@@ -82,6 +82,9 @@ namespace DFC.Digital.Data.Model
         public IEnumerable<string> JobProfileCategoriesWithUrl { get; set; }
 
         [IsFilterable]
+        public IEnumerable<string> JobProfileCategoryUrls { get; set; }
+
+        [IsFilterable]
         public IEnumerable<string> Interests { get; set; }
 
         [IsFilterable]

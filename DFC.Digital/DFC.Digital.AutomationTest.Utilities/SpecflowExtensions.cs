@@ -41,7 +41,8 @@ namespace DFC.Digital.AutomationTest.Utilities
                     WorkingPatternDetails = item.GetConditionalData(nameof(JobProfileIndex.WorkingPatternDetails), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
                     MinimumHours = item.GetConditionalData<double>(nameof(JobProfileIndex.MinimumHours), 0),
                     MaximumHours = item.GetConditionalData<double>(nameof(JobProfileIndex.MaximumHours), 0),
-                    Skills = item.GetConditionalData(nameof(JobProfileIndex.Skills), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    Skills = item.GetConditionalData(nameof(JobProfileIndex.Skills), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries),
+                    JobProfileCategoryUrls = item.GetConditionalData(nameof(JobProfileIndex.JobProfileCategoryUrls), string.Empty)?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 };
             }
         }

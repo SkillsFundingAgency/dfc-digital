@@ -39,5 +39,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         [JsonIgnore]
         public string PSFCategory { get; set; }
+
+        [JsonIgnore]
+        public string SelectMessage { get; set; }
     }
 }

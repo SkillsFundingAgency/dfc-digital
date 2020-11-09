@@ -106,7 +106,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
 
         [DisplayName("Select Message")]
-        public string SelectMessage { get; set; } = " Select all that apply. ";
+        public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
 
         #endregion Public Properties
 

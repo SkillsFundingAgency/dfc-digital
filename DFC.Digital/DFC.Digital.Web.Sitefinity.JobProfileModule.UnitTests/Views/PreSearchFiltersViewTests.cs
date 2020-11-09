@@ -119,6 +119,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }
         }
 
+        [Fact]
+        public void SelectMessageShouldBeAsDefindedInModel()
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.SelectMessage = "Select Message";
+            var htmlDom = index.RenderAsHtml(testDataModel);
+            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/div[1]/fieldset/div[1]")?.FirstOrDefault()?.InnerText.Should().Contain(testDataModel.Section.SelectMessage);
+        }
+
+        [Fact]
+        public void SelectMessageShouldNotRenderIfNotDefindeInModel()
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.SelectMessage = string.Empty;
+            var htmlDom = index.RenderAsHtml(testDataModel);
+            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/div[1]/fieldset/div[1]")?.FirstOrDefault()?.InnerText.Should().Contain("Title");
+        }
+
         private void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
         {
             //*[@id="Section_Name"]

@@ -43,7 +43,10 @@
                 {
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
-                            <div class="govuk-hint"> Select all that apply. </div>
+                            @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
+                            { 
+                                <div class="govuk-hint"> @Model.Section.SelectMessage </div>
+                            }
 
                             <div class="filter-list govuk-checkboxes">
                                 @if (Model.Section.Options != null && Model.Section.Options.Any())

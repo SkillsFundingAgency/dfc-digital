@@ -29,6 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IBuildSearchFilterService buildSearchFilterService;
         private readonly IAsyncHelper asyncHelper;
 
+        private readonly ITaxonomyRepository taxonomyRepository;
+
         #endregion Private Fields
 
         #region Constructors
@@ -43,6 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="searchQueryService">Instance of search query service</param>
         /// <param name="buildSearchFilterService">Instance of search filter service</param>
         /// <param name="asyncHelper">Instance of asyncHelper</param>
+        /// <param name="taxonomyRepository">Instance of taxonomyRepository</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
@@ -50,7 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IPreSearchFilterStateManager preSearchFilterStateManager,
             ISearchQueryService<JobProfileIndex> searchQueryService,
             IBuildSearchFilterService buildSearchFilterService,
-            IAsyncHelper asyncHelper) : base(applicationLogger)
+            IAsyncHelper asyncHelper,
+            ITaxonomyRepository taxonomyRepository) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
@@ -58,6 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             this.searchQueryService = searchQueryService;
             this.buildSearchFilterService = buildSearchFilterService;
             this.asyncHelper = asyncHelper;
+            this.taxonomyRepository = taxonomyRepository;
         }
 
         #endregion Constructors
@@ -135,6 +140,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return View(currentPageFilter);
         }
 
+        private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
+        {
+            //Only do this on the Training routes page (Which is been used for Covid affected filter)
+            //Only do this the first time the page is loaded
+            if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
+            {
+                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+            }
+        }
+
         private async Task<int> GetNumberOfMatches(PsfModel model)
         {
             var fieldDefinitions = buildSearchFilterService.GetIndexFieldDefinitions(IndexFieldOperators);
@@ -187,6 +202,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             //Need to do this to force the model we have changed to refresh
             ModelState.Clear();
 
+            SetDefaultForCovidJobProfiles(thisPageModel, savedSection == null);
+
             return thisPageModel;
         }
 
@@ -238,11 +255,26 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
                     }
 
+                case PreSearchFilterType.JobProfileCategoryUrl:
+                    {
+                        return GetJobProfileCategories().OrderBy(o => o.Title);
+                    }
+
                 default:
                     {
                         return Enumerable.Empty<PreSearchFilter>();
                     }
             }
+        }
+
+        private IQueryable<PsfCategory> GetJobProfileCategories()
+        {
+            return taxonomyRepository.GetMany(category => category.Taxonomy.Name == "job-profile-categories").Select(category => new PsfCategory
+            {
+                Title = category.Title,
+                Description = category.Description,
+                UrlName = category.UrlName
+            });
         }
 
         #endregion Private methods

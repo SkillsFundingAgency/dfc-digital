@@ -126,7 +126,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var testDataModel = GeneratePreSEarchFiltersViewModel(true);
             testDataModel.Section.SelectMessage = "Select Message";
             var htmlDom = index.RenderAsHtml(testDataModel);
-            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/div[1]/fieldset/div[1]")?.FirstOrDefault()?.InnerText.Should().Contain(testDataModel.Section.SelectMessage);
+            htmlDom?.GetElementbyId($"qualifications-hint").InnerText.Should().Contain(testDataModel.Section.SelectMessage);
         }
 
         [Fact]

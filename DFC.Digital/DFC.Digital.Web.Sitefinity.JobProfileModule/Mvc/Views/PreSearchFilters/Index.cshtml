@@ -45,7 +45,7 @@
                         <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
                             @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
                             { 
-                                <div class="govuk-hint" id="qualifications-hint"> @Model.Section.SelectMessage </div>
+                            <div class="govuk-hint" id="qualifications-hint">@Html.Raw(Model.Section.SelectMessage)</div>
                             }
 
                             <div class="filter-list govuk-checkboxes">

@@ -105,6 +105,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Should show number of profile matched banner")]
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
 
+        [DisplayName("Select Message")]
+        public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
+
         #endregion Public Properties
 
         #region Actions
@@ -147,6 +150,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
             {
                     currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+                    currentPageFilter.Section.SingleSelectedValue = "No";
             }
         }
 
@@ -189,6 +193,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             filterSection.GroupFieldsBy = GroupFieldsBy;
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
+            filterSection.SelectMessage = SelectMessage;
 
             var thisPageModel = new PsfModel
             {

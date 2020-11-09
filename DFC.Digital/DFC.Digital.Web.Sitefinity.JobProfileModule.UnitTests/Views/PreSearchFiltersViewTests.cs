@@ -124,9 +124,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         {
             var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
             var testDataModel = GeneratePreSEarchFiltersViewModel(true);
-            testDataModel.Section.SelectMessage = "Select Message";
+            testDataModel.Section.SelectMessage = "<div id='qualifications-hint'>Select Message</div>";
             var htmlDom = index.RenderAsHtml(testDataModel);
-            htmlDom?.GetElementbyId($"qualifications-hint").InnerText.Should().Contain(testDataModel.Section.SelectMessage);
+            htmlDom?.GetElementbyId($"qualifications-hint").OuterHtml.Should().Be(testDataModel.Section.SelectMessage);
         }
 
         [Fact]

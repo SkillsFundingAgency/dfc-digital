@@ -136,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var testDataModel = GeneratePreSEarchFiltersViewModel(true);
             testDataModel.Section.SelectMessage = string.Empty;
             var htmlDom = index.RenderAsHtml(testDataModel);
-            htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/div[1]/fieldset/div[1]")?.FirstOrDefault()?.InnerText.Should().Contain("Title");
+            htmlDom?.GetElementbyId($"qualifications-hint").Should().BeNull();
         }
 
         private void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)

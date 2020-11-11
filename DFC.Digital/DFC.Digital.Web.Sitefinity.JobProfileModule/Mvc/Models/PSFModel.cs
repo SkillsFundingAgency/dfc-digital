@@ -17,5 +17,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public int NumberOfMatches { get; set; }
 
         public string NumberOfMatchesMessage { get; set; }
+
+        public PsfBack Back { get; set; }
     }
 }

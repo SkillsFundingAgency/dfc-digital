@@ -10,11 +10,7 @@
                     <button type="submit" class="govuk-back-link" id="filter-home">Back</button>
                 </div>
             }
-            @Html.HiddenFor(m => Model.Section.Name)
-            @Html.HiddenFor(m => Model.Section.SectionDataType)
-            @Html.HiddenFor(m => Model.OptionsSelected)
-            @Html.HiddenFor(m => Model.Section.PageNumber)
-            @Html.HiddenFor(m => Model.Section.SingleSelectOnly)
+            <input id="Back_OptionsSelected" name="Back.OptionsSelected" type="hidden" value="@Model.OptionsSelected">
         </form>
 
         <form action="@Model.Section.NextPageUrl" method="post" id="continueForm">

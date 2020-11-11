@@ -121,6 +121,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(PsfModel model, PsfSearchResultsViewModel resultsViewModel)
         {
+            CheckForBackState(model);
+
             // If the previous page is search page then, there will not be any sections in the passed PSFModel
             var previousPsfPage = model?.Section == null ? resultsViewModel?.PreSearchFiltersModel : model;
             if (previousPsfPage != null)
@@ -141,6 +143,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             }
 
             return View(currentPageFilter);
+        }
+
+        private void CheckForBackState(PsfModel model)
+        {
+            //if we have gone backwards, set the model up for the page
+            if (model?.Back?.OptionsSelected != null)
+            {
+                model.Section = new PsfSection()
+                {
+                    Name = SectionTitle,
+                    SectionDataType = FilterType.ToString(),
+                    PageNumber = ThisPageNumber,
+                    SingleSelectOnly = SingleSelectOnly,
+                };
+
+                model.OptionsSelected = model.Back.OptionsSelected;
+            }
         }
 
         private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
@@ -194,14 +213,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
             filterSection.SelectMessage = SelectMessage;
-
             var thisPageModel = new PsfModel
             {
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
                 GroupedOptions = groupedSections,
-                NumberOfMatchesMessage = NumberOfMatchesMessage
+                NumberOfMatchesMessage = NumberOfMatchesMessage,
             };
 
             //Need to do this to force the model we have changed to refresh

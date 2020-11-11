@@ -125,7 +125,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             // If the previous page is search page then, there will not be any sections in the passed PSFModel
             var previousPsfPage = model?.Section == null ? resultsViewModel?.PreSearchFiltersModel : model;
-
             if (previousPsfPage != null)
             {
                 preSearchFilterStateManager.RestoreState(previousPsfPage.OptionsSelected);

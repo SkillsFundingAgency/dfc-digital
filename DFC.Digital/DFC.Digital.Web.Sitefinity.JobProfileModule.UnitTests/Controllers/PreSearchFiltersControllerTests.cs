@@ -202,6 +202,45 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             }).AndNoModelErrors();
         }
 
+        [Fact]
+        public void BackOptionSelectedStateIsUsedIfSet()
+        {
+            //Setup the fakes and dummies for test
+            SetUpFakesAndCalls();
+            SetUpStateMangerFakesAndCalls(PreSearchFilterType.JobArea, false);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+            var mapper = config.CreateMapper();
+
+            var firstVm = new PsfModel()
+            {
+                Back = new PsfBack()
+                {
+                    OptionsSelected = "DummyOptionsSelectd"
+                }
+            };
+
+            A.CallTo(() => fakePsfStateManager.GetStateJson()).Returns(firstVm.OptionsSelected);
+
+            //Instantiate & Act
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+            {
+                FilterType = PreSearchFilterType.Interest
+            };
+
+            //Act on the index
+            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVm, null));
+            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
+            {
+                vm.Section.Should().NotBeNull();
+                vm.Section.SectionDataType.Should().Be(PreSearchFilterType.Interest.ToString());
+            })
+            .AndNoModelErrors();
+        }
+
         private PsfModel GeneratePreSEarchFiltersViewModel(PreSearchFilterType filterType)
         {
             var filtersModel = new PsfModel { OptionsSelected = "DummyJsonState" };

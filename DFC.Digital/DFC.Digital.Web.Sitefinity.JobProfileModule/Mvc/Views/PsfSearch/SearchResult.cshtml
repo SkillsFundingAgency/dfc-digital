@@ -7,9 +7,7 @@
             <div id="BackLink" class="govuk-breadcrumbs">
                 <button type="submit" class="govuk-back-link" id="filter-home" formaction="@Model.BackPageUrl">@Model.BackPageUrlText</button>
             </div>
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+            <input id="Back_OptionsSelected" name="Back.OptionsSelected" type="hidden" value="@Model.PreSearchFiltersModel.OptionsSelected" />
         </form>
 
         <header class="filter-results-header">

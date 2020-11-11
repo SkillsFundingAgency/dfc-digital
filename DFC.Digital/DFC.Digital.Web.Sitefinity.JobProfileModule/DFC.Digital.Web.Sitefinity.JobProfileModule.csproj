@@ -408,6 +408,7 @@
     <Compile Include="Mvc\Models\JobProfileSectionViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSettingsAndPreviewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileWhatYouWillDoViewModel.cs" />
+    <Compile Include="Mvc\Models\PsfBack.cs" />
     <Compile Include="Mvc\Models\PSFModel.cs" />
     <Compile Include="Mvc\Models\PSFOption.cs" />
     <Compile Include="Mvc\Models\PsfSection.cs" />

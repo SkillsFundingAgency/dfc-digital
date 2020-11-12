@@ -37,49 +37,45 @@
 
                 @if (!Model.Section.EnableAccordion)
                 {
-                    <div class="govuk-form-group">
-                        <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
-                            @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
+            <div class="govuk-form-group">
+                @Html.Raw(Model.Section.SelectMessage)
+                <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
+                    <div class="filter-list govuk-checkboxes">
+                        @if (Model.Section.Options != null && Model.Section.Options.Any())
+                        {
+                            for (int jj = 0; jj < Model.Section.Options.Count; jj++)
                             {
-                                @Html.Raw(Model.Section.SelectMessage)
-                            }
-
-                            <div class="filter-list govuk-checkboxes">
-                                @if (Model.Section.Options != null && Model.Section.Options.Any())
+                                if (Model.Section.SingleSelectOnly == true)
                                 {
-                                    for (int jj = 0; jj < Model.Section.Options.Count; jj++)
-                                    {
-                                        if (Model.Section.SingleSelectOnly == true)
-                                        {
-                                            <div class="govuk-radios govuk-radios--inline">
-                                                <div class="filter-option govuk-radios__item">
-                                                    @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })
-                                                    <label class="govuk-label govuk-radios__label" for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="filter-option govuk-checkboxes__item">
-                                                @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
-                                                <label class="govuk-label govuk-checkboxes__label" for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span> @Model.Section.Options[jj].Description</span></label>
-                                            </div>
-                                        }
-
-                                        @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
-                                        @Html.HiddenFor(m => Model.Section.Options[jj].ClearOtherOptionsIfSelected)
-                                    }
+                                    <div class="govuk-radios govuk-radios--inline">
+                                        <div class="filter-option govuk-radios__item">
+                                            @Html.RadioButtonFor(m => Model.Section.SingleSelectedValue, Model.Section.Options[jj].OptionKey, new { id = $"Section_{jj.ToString()}", @class = "govuk-radios__input" })
+                                            <label class="govuk-label govuk-radios__label" for="Section_@jj.ToString()">@Model.Section.Options[jj].Name<span>@Model.Section.Options[jj].Description</span></label>
+                                        </div>
+                                    </div>
                                 }
-                            </div>
-                        </fieldset>
+                                else
+                                {
+                                    <div class="filter-option govuk-checkboxes__item">
+                                        @Html.CheckBoxFor(m => Model.Section.Options[jj].IsSelected, new { @class = (Model.Section.Options[jj].ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
+                                        <label class="govuk-label govuk-checkboxes__label" for="Section_Options_@jj.ToString()__IsSelected">@Model.Section.Options[jj].Name<span> @Model.Section.Options[jj].Description</span></label>
+                                    </div>
+                                }
+
+                                @Html.HiddenFor(m => Model.Section.Options[jj].OptionKey)
+                                @Html.HiddenFor(m => Model.Section.Options[jj].ClearOtherOptionsIfSelected)
+                            }
+                        }
                     </div>
+                </fieldset>
+            </div>
                 }
                 else
                 {
 
                     <p class="govuk-body search-title govuk-!-margin-top-3 govuk-!-margin-bottom-0" id="count"><span class="govuk-!-font-weight-bold ">0</span> @Model.Section.GroupFieldsBy selected </p>
 
-                    @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
+                    if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
                     {
                         @Html.Raw(Model.Section.SelectMessage)
                     }

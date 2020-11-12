@@ -12,7 +12,7 @@
   {
     "AddonName": "WorkingHPE",
     "Key": "058c9f8f-6247-4c3d-a241-d5d05ca29579",
-    "IsDeleted": false
+    "IsDeleted": true
   },
   {
     "AddonName": "PreSearchFilters",

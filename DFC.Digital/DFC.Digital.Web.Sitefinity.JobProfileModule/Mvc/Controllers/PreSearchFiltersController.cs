@@ -292,6 +292,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         private IQueryable<PsfCategory> GetJobProfileCategories()
         {
+            //return categories
             return taxonomyRepository.GetMany(category => category.Taxonomy.Name == "job-profile-categories").Select(category => new PsfCategory
             {
                 Title = category.Title,

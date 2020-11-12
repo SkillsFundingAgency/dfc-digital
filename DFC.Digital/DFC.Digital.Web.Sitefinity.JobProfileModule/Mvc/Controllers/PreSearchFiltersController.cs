@@ -108,6 +108,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Select Message")]
         public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
 
+        [DisplayName("Use Page profile count")]
+        public bool UsePageProfileCount { get; set; } = true;
+
+        [DisplayName("Use Dummy Sitefinity Data")]
+        public bool UseDummySiteFinity { get; set; } = false;
+
         #endregion Public Properties
 
         #region Actions
@@ -121,7 +127,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(PsfModel model, PsfSearchResultsViewModel resultsViewModel)
         {
+            var startTime = DateTime.Now;
+
             CheckForBackState(model);
+
+            var timeMessage = $"Stage1: {(DateTime.Now - startTime).TotalSeconds} | ";
 
             // If the previous page is search page then, there will not be any sections in the passed PSFModel
             var previousPsfPage = model?.Section == null ? resultsViewModel?.PreSearchFiltersModel : model;
@@ -135,12 +145,27 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 }
             }
 
+            timeMessage += $"Stage2: {(DateTime.Now - startTime).TotalSeconds} | ";
+
             var currentPageFilter = GetCurrentPageFilter();
 
-            if (ThisPageNumber > 1)
+            timeMessage += $"Stage3: {(DateTime.Now - startTime).TotalSeconds} | ";
+
+            if (!UsePageProfileCount)
             {
-                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                currentPageFilter.NumberOfMatches = 123;
             }
+            else
+            {
+                if (ThisPageNumber > 1)
+                {
+                    currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                }
+            }
+
+            timeMessage += $"Stage4: {(DateTime.Now - startTime).TotalSeconds} | ";
+
+            currentPageFilter.Section.SelectMessage = "<b>" + timeMessage + "</b>";
 
             return View(currentPageFilter);
         }
@@ -168,8 +193,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             //Only do this the first time the page is loaded
             if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
             {
-                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
-                    currentPageFilter.Section.SingleSelectedValue = "No";
+                currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+                currentPageFilter.Section.SingleSelectedValue = "No";
             }
         }
 
@@ -195,7 +220,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private PsfModel GetCurrentPageFilter()
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
-            var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
+            var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, UseDummySiteFinity ? GetDummyFilterOptions() : GetFilterOptions());
             var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory).OrderBy(g => g.Key);
 
             //create the section for this page
@@ -233,8 +258,23 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #endregion Actions
 
         #region Private methods
+        private IEnumerable<PreSearchFilter> GetDummyFilterOptions()
+        {
+            for (int ii = 0; ii < 5; ii++)
+            {
+                yield return new PreSearchFilter
+                {
+                    Id = new Guid("e99079a2-a201-4b45-bc81-85e807dbcb5a"),
+                    Description = $"Description {ii}",
+                    Title = $"Option {ii}",
+                    Order = ii,
+                    UrlName = $"URL-{ii}",
+                    NotApplicable = false,
+                };
+            }
+        }
 
-        private IEnumerable<PreSearchFilter> GetFilterOptions()
+    private IEnumerable<PreSearchFilter> GetFilterOptions()
         {
             switch (FilterType)
             {

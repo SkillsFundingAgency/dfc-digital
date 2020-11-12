@@ -40,7 +40,7 @@
                     <div class="govuk-form-group">
                         <fieldset class="govuk-fieldset" aria-describedby="qualifications-hint">
                             @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
-                            { 
+                            {
                                 @Html.Raw(Model.Section.SelectMessage)
                             }
 
@@ -76,8 +76,13 @@
                 }
                 else
                 {
-                    
+
                     <p class="govuk-body search-title govuk-!-margin-top-3 govuk-!-margin-bottom-0" id="count"><span class="govuk-!-font-weight-bold ">0</span> @Model.Section.GroupFieldsBy selected </p>
+
+                    @if (!string.IsNullOrEmpty(Model.Section.SelectMessage))
+                    {
+                        @Html.Raw(Model.Section.SelectMessage)
+                    }
                     <div class="govuk-accordion" data-module="accordion" id="accordion-filter-skills-list">
 
                         @foreach (var filteredCategory in Model.GroupedOptions)
@@ -90,18 +95,21 @@
                                     <div class="govuk-grid-row">
                                         <div class="filter-list govuk-checkboxes govuk-checkboxes--small">
                                             @if (filteredCategory.ToList().Count != 0)
-                                            {   
+                                            {
                                                 foreach (var Section_Option in filteredCategory.ToList())
                                                 {
                                                     <div class="govuk-grid-column-one-half">
                                                         <div class="filter-option govuk-checkboxes__item">
-                                                            @Html.CheckBox("Section.Options[" + Section_Option.Id.ToString() + "].IsSelected", Section_Option.IsSelected, new { id= "Section_Options_"+ Section_Option.Id.ToString()+ "__IsSelected", @class = (Section_Option.ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
+                                                            @Html.CheckBox("Section.Options[" + Section_Option.Id.ToString() + "].IsSelected", Section_Option.IsSelected, new { id = "Section_Options_" + Section_Option.Id.ToString() + "__IsSelected", @class = (Section_Option.ClearOtherOptionsIfSelected ? "filter-na govuk-checkboxes__input" : "govuk-checkboxes__input") })
                                                             <label class="govuk-label govuk-checkboxes__label" for="Section_Options_@Section_Option.Id.ToString()__IsSelected">@Section_Option.Name<span> @Section_Option.Description</span></label>
                                                         </div>
 
-                                                        @Html.HiddenFor(m => Section_Option.OptionKey, new {@Name= "Section.Options[" + Section_Option.Id.ToString()+ "].OptionKey", id = "Section_Options_" + Section_Option.Id.ToString() + "__OptionKey" })
-                                                        @Html.HiddenFor(m => Section_Option.ClearOtherOptionsIfSelected, new { @Name = "Section.Options[" + Section_Option.Id.ToString() + "].ClearOtherOptionsIfSelected",
-                                                       id = "Section_Options_" + Section_Option.Id.ToString() + "__ClearOtherOptionsIfSelected" })
+                                                        @Html.HiddenFor(m => Section_Option.OptionKey, new { @Name = "Section.Options[" + Section_Option.Id.ToString() + "].OptionKey", id = "Section_Options_" + Section_Option.Id.ToString() + "__OptionKey" })
+                                                        @Html.HiddenFor(m => Section_Option.ClearOtherOptionsIfSelected, new
+                                                        {
+                                                            @Name = "Section.Options[" + Section_Option.Id.ToString() + "].ClearOtherOptionsIfSelected",
+                                                       id = "Section_Options_" + Section_Option.Id.ToString() + "__ClearOtherOptionsIfSelected"
+                                                        })
                                                     </div>
                                                 }
                                             }

@@ -51,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var preSearchFiltersController =
-                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+                new PreSearchFiltersController(loggerFake, mapper, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
                 {
                     FilterType = PreSearchFilterType.Interest
                 };
@@ -68,8 +68,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 firstVm = vm;
             }).AndNoModelErrors();
 
-            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-
+            //A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.SaveState(A<PreSearchFilterSection>._)).MustNotHaveHappened();
@@ -94,7 +93,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var preSearchFiltersController =
-                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+                new PreSearchFiltersController(loggerFake, mapper, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
                 {
                     FilterType = PreSearchFilterType.Interest
                 };
@@ -113,9 +112,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             })
             .AndNoModelErrors();
 
-            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-
+            //A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            //A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.SaveState(A<PreSearchFilterSection>._)).MustHaveHappened();
@@ -138,7 +136,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
             {
                 FilterType = PreSearchFilterType.Interest
             };
@@ -152,9 +150,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             })
             .AndNoModelErrors();
 
-            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-            A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
-
+            //A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
+            //A.CallTo(() => psfFakeIntrestRepository.GetAllFilters()).MustHaveHappened();
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).MustNotHaveHappened();
             A.CallTo(() => fakePsfStateManager.SaveState(A<PreSearchFilterSection>._)).MustNotHaveHappened();
@@ -186,7 +183,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
             {
                 FilterType = filterType
             };
@@ -226,7 +223,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => fakePsfStateManager.GetStateJson()).Returns(firstVm.OptionsSelected);
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
             {
                 FilterType = PreSearchFilterType.Interest
             };

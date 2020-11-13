@@ -35,7 +35,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
             IEnumerable<DynamicContent> filterItems = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);
 
             var filters = filterItems?.Select(item => converter.ConvertFrom(item));
-            return filters.Where(f => f != null);
+            return filters.Where(f => f != null).ToList();
         }
 
         #endregion IJobProfileRepository Implementations

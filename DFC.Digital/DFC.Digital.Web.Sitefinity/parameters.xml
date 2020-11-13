@@ -254,6 +254,13 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.ServiceBus.TopicName.Draft']/@value" />
   </parameter>
+  <parameter name="Webchat-EndPoint"
+            description="Script endpoint for WebChat "
+            defaultValue="__WebChatEndPoint__-draft">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.WebChat.EndPoint']/@value" />
+  </parameter>
   <parameter name="CUIShell.HealthEndPoint"
             description="Topic used in Service bus to publish Sitefinity JobProfile "
             defaultValue="__CUIShellHealthEndPoint__">

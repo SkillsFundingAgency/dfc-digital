@@ -22,6 +22,11 @@ namespace DFC.Digital.Web.Core
                 var autofacLifetimeScope = AutofacDependencyResolver.Current.RequestLifetimeScope;
                 var htmlHelper = autofacLifetimeScope.ResolveOptional<IAssetLocationAndVersion>();
                 var assetUrl = htmlHelper?.GetLocationAssetFileAndVersion(fileName);
+                if (fileName == Constants.WebChat)
+                {
+                    assetUrl = ConfigurationManager.AppSettings[Constants.WebChat];
+                }
+
                 int cacheExpiryMins = Convert.ToInt32(ConfigurationManager.AppSettings[Constants.AssetCacheExpiryTimeMins]);
                 if (assetUrl is null)
                 {

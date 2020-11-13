@@ -29,6 +29,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         #region IJobProfileRepository Implementations
 
+        //IList change to all the way up.
         public IEnumerable<T> GetAllFilters()
         {
             IEnumerable<DynamicContent> filterItems = repository.GetMany(item => item.Visible && item.Status == ContentLifecycleStatus.Live);

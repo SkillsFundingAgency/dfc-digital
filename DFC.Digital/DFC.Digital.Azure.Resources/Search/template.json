@@ -25,7 +25,7 @@
         },
         "type": "Microsoft.Search/searchServices",
         "properties": {
-          "replicaCount": 3,
+          "replicaCount": 6,
           "partitionCount": 1,
           "hostingMode": "[parameters('hostingMode')]"
         }

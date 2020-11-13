@@ -17,7 +17,7 @@ using Telerik.Sitefinity.Versioning;
 namespace DFC.Digital.Repository.SitefinityCMS
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    public sealed class DynamicModuleRepository<T> : IDynamicModuleRepository<T>
+    public sealed class DynamicModuleRepository<T> : IDynamicModuleRepository<T>, IDisposable
     {
         private const string IncludeInSitemapFieldName = "IncludeInSitemap";
         private const string OwnerFieldName = "Owner";
@@ -250,6 +250,24 @@ namespace DFC.Digital.Repository.SitefinityCMS
         public void Commit()
         {
             dynamicModuleManager.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (dynamicModuleManager != null)
+                {
+                    dynamicModuleManager.Dispose();
+                    dynamicModuleManager = null;
+                }
+            }
         }
 
         private void CreateVersion(DynamicContent entity, string changeComment, VersionManager versionManager, WorkflowStatus status)

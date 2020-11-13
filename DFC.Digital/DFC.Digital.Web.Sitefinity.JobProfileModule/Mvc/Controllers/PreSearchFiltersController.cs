@@ -21,15 +21,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     {
         #region Private Fields
 
-        private readonly IPreSearchFiltersFactory preSearchFiltersFactory;
         private readonly IPreSearchFilterStateManager preSearchFilterStateManager;
         private readonly IMapper autoMapper;
 
         private readonly ISearchQueryService<JobProfileIndex> searchQueryService;
         private readonly IBuildSearchFilterService buildSearchFilterService;
         private readonly IAsyncHelper asyncHelper;
-
-        private readonly ITaxonomyRepository taxonomyRepository;
 
         #endregion Private Fields
 
@@ -39,30 +36,24 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// Initializes a new instance of the <see cref="PreSearchFiltersController"/> class.
         /// </summary>
         /// <param name="applicationLogger">application logger</param>
-        /// <param name="preSearchFiltersFactory">Sitefinity Repository to use</param>
         /// <param name="preSearchFilterStateManager">Pre search filter state manager</param>
         /// <param name="autoMapper">Instance of auto mapper</param>
         /// <param name="searchQueryService">Instance of search query service</param>
         /// <param name="buildSearchFilterService">Instance of search filter service</param>
         /// <param name="asyncHelper">Instance of asyncHelper</param>
-        /// <param name="taxonomyRepository">Instance of taxonomyRepository</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
-            IPreSearchFiltersFactory preSearchFiltersFactory,
             IPreSearchFilterStateManager preSearchFilterStateManager,
             ISearchQueryService<JobProfileIndex> searchQueryService,
             IBuildSearchFilterService buildSearchFilterService,
-            IAsyncHelper asyncHelper,
-            ITaxonomyRepository taxonomyRepository) : base(applicationLogger)
+            IAsyncHelper asyncHelper) : base(applicationLogger)
         {
-            this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
             this.preSearchFilterStateManager = preSearchFilterStateManager;
             this.searchQueryService = searchQueryService;
             this.buildSearchFilterService = buildSearchFilterService;
             this.asyncHelper = asyncHelper;
-            this.taxonomyRepository = taxonomyRepository;
         }
 
         #endregion Constructors
@@ -220,7 +211,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private PsfModel GetCurrentPageFilter()
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
-            var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, UseDummySiteFinity ? GetDummyFilterOptions() : GetFilterOptions());
+            var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetDummyFilterOptions());
             var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory).OrderBy(g => g.Key);
 
             //create the section for this page
@@ -275,74 +266,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         #endregion Actions
 
         #region Private methods
-
-        private IEnumerable<PreSearchFilter> GetFilterOptions()
-        {
-            switch (FilterType)
-            {
-                case PreSearchFilterType.Enabler:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfEnabler>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.EntryQualification:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfEntryQualification>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.Interest:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfInterest>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.TrainingRoute:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfTrainingRoute>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.JobArea:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfJobArea>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.CareerFocus:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfCareerFocus>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.PreferredTaskType:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
-                    }
-
-                case PreSearchFilterType.Skill:
-                    {
-                        return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
-                    }
-
-                case PreSearchFilterType.JobProfileCategoryUrl:
-                    {
-                        return GetJobProfileCategories().OrderBy(o => o.Title);
-                    }
-
-                default:
-                    {
-                        return Enumerable.Empty<PreSearchFilter>();
-                    }
-            }
-        }
-
-        private IQueryable<PsfCategory> GetJobProfileCategories()
-        {
-            //return categories
-            return taxonomyRepository.GetMany(category => category.Taxonomy.Name == "job-profile-categories").Select(category => new PsfCategory
-            {
-                Title = category.Title,
-                Description = category.Description,
-                UrlName = category.UrlName
-            });
-        }
-
         private IEnumerable<PreSearchFilter> GetDummyFilterOptions()
         {
             switch (FilterType)

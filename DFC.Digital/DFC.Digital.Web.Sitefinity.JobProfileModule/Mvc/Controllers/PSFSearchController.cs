@@ -173,7 +173,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public string CaveatTagMarkup { get; set; } = @"<strong class=""govuk-tag govuk-tag--grey"">COVID Impacted</strong>";
 
         [DisplayName("Caveat disclaimer")]
-        public string CaveatMarkup { get; set; }
+        public string CaveatMarkup { get; set; } = @"<p class=""govuk-inset-text"">This may be impacted in the short term due to current Coronavirus pandemic</p>";
 
         public string OverviewMessage { get; set; } = @"<div class=""govuk-warning-text"">
                 <span class=""govuk-warning-text__icon"" aria-hidden=""true"">!</span>

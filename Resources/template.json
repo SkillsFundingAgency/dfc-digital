@@ -267,7 +267,10 @@
           },
           "azureSearchSku": {
             "value": "standard"
-          }
+          },
+	  "azureSearchReplicaCount": {
+		"value": 3
+	  }
         }
       }
     },

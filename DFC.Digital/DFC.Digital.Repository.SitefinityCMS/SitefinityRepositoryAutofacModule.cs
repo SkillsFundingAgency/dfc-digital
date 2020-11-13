@@ -56,7 +56,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             builder.RegisterGeneric(typeof(DynamicModuleRepository<>))
                 .As(typeof(IDynamicModuleRepository<>))
-                .InstancePerLifetimeScope()
+                .SingleInstance()
                 .OnActivating(t =>
                 {
                     switch (t)

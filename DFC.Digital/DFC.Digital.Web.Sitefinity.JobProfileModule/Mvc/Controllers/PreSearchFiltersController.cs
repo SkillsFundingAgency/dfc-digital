@@ -102,11 +102,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Group By")]
         public string GroupFieldsBy { get; set; } = "Skills";
 
-        [DisplayName("Should show number of profile matched banner")]
+        [DisplayName("Number of profle matching on each page message")]
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
 
         [DisplayName("Select Message")]
         public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
+
+        [DisplayName("Use Page Profile Count")]
+        public bool UsePageProfileCount { get; set; } = true;
 
         #endregion Public Properties
 
@@ -137,9 +140,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             var currentPageFilter = GetCurrentPageFilter();
 
-            if (ThisPageNumber > 1)
+            if (ThisPageNumber > 1 && UsePageProfileCount)
             {
-                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                var numberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                currentPageFilter.NumberOfMatchesMessage = string.Format(NumberOfMatchesMessage, numberOfMatches);
+                currentPageFilter.UsePageProfileCount = UsePageProfileCount;
             }
 
             return View(currentPageFilter);

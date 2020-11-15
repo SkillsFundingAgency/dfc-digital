@@ -86,7 +86,7 @@ namespace DFC.Digital.Web.Core
             //Register automapper
             builder.RegisterAssemblyTypes(assemblies.ToArray())
             .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract && t.IsPublic)
-            .As<Profile>();
+            .As<Profile>().SingleInstance();
 
             //Autofact config
             builder.Register(ctx => new MapperConfiguration(cfg =>
@@ -95,7 +95,7 @@ namespace DFC.Digital.Web.Core
                 {
                     cfg.AddProfile(profile);
                 }
-            })).AsSelf().InstancePerLifetimeScope();
+            })).AsSelf().SingleInstance();
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
         }
     }

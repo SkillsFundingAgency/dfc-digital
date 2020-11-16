@@ -7,9 +7,7 @@
             <div id="BackLink" class="govuk-breadcrumbs">
                 <button type="submit" class="govuk-back-link" id="filter-home" formaction="@Model.BackPageUrl">@Model.BackPageUrlText</button>
             </div>
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.OptionsSelected)
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.PageNumber)
-            @Html.HiddenFor(m => Model.PreSearchFiltersModel.Section.SingleSelectOnly)
+            <input id="Back_OptionsSelected" name="Back.OptionsSelected" type="hidden" value="@Model.PreSearchFiltersModel.OptionsSelected" />
         </form>
 
         <header class="filter-results-header">
@@ -37,21 +35,18 @@
                             @foreach (var jobProfile in Model.SearchResults)
                             {
                                 <li class="dfc-code-search-resultitem" data-ga-rank="@jobProfile.Rank">
-                                    <h3>
+                                    <h2>
                                         <a class="dfc-code-search-jpTitle" href="@jobProfile.ResultItemUrlName">@jobProfile.ResultItemTitle</a>
                                         @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatTagMarkup))
                                         {
                                             @Html.Raw(Model.CaveatTagMarkup)
                                         }
-                                    </h3>
+                                    </h2>
                                     @if (!string.IsNullOrWhiteSpace(jobProfile.ResultItemAlternativeTitle))
                                     {
                                         <p class="meta dfc-code-search-jpAltTitle">@jobProfile.ResultItemAlternativeTitle</p>
                                     }
-                                    @if (jobProfile.ShouldDisplayCaveat && !string.IsNullOrEmpty(Model.CaveatMarkup))
-                                    {
-                                        @Html.Raw(Model.CaveatMarkup)
-                                    }
+                                    
                                     <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
                                     <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
                                     @if (jobProfile.JobProfileCategoriesWithUrl != null)

@@ -106,16 +106,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
             var testDataModel = GeneratePreSEarchFiltersViewModel(true);
             testDataModel.Section.PageNumber = pageOn;
+            testDataModel.NumberOfMatchesMessage = $" you have 123 career matches";
             var htmlDom = index.RenderAsHtml(testDataModel);
-
-            var matchingCountMessage = $" you have {testDataModel.NumberOfMatches} career matches";
             if (pageOn > 1)
             {
-                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(matchingCountMessage);
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(testDataModel.NumberOfMatchesMessage);
             }
             else
             {
-                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(matchingCountMessage);
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(testDataModel.NumberOfMatchesMessage);
             }
         }
 
@@ -177,7 +176,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     TotalNumberOfPages = 2,
                     SectionDataType = "Dummy Data Type One"
                 },
-                NumberOfMatches = 5,
             };
 
             filtersModel.Section.Options = new List<PsfOption>();

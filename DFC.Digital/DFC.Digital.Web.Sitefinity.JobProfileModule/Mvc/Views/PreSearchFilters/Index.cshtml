@@ -19,10 +19,10 @@
                 <span class="govuk-caption-xl">Step @Model.Section.PageNumber of @Model.Section.TotalNumberOfPages</span>
 
                 <h1 class="govuk-heading-xl">@Html.DisplayFor(model => Model.Section.Name)</h1>
-                @if (!string.IsNullOrEmpty(Model.NumberOfMatchesMessage) && @Model.Section.PageNumber > 1)
+                @if (@Model.UsePageProfileCount && @Model.Section.PageNumber > 1)
                 {
                     <div class="banner-message">
-                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@string.Format(Model.NumberOfMatchesMessage, Model.NumberOfMatches)</p>
+                        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold">@Model.NumberOfMatchesMessage</p>
                     </div>
                 }
 

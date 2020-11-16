@@ -95,8 +95,9 @@ namespace DFC.Digital.Web.Core
                 {
                     cfg.AddProfile(profile);
                 }
-            })).AsSelf().InstancePerLifetimeScope();
-            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().SingleInstance();
+            })).AsSelf().SingleInstance();
+
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
         }
     }
 }

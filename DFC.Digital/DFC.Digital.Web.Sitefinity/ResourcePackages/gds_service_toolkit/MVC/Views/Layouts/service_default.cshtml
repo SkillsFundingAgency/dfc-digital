@@ -11,12 +11,12 @@
         }
     </style>
     <script type="text/javascript">
-    (function (a, s, y, n, c, h, i, d, e) {
-        s.className += ' ' + y; h.start = 1 * new Date;
-        h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-        (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-        { 'GTM-554PPX9': true });</script>
+        (function (a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y; h.start = 1 * new Date;
+            h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+            (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+            { 'GTM-554PPX9': true });</script>
     <!-- End Page-hiding snippet (recommended) google optimise anti flicker -->
     <!-- Google Tag Manager -->
     <script type="text/javascript">
@@ -26,7 +26,7 @@
                     new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-554PPX9');
     </script>
     <!-- End Google Tag Manager -->
@@ -116,6 +116,8 @@
         }
     }
     @Html.Script(@Html.GetLocationAssetFileAndVersion("DFC.Digital.WebChat.EndPoint"), "bottom")
-    
+    <script type="text/javascript">
+        DfcAppWebchat.initialise(@Html.GetLocationAssetFileAndVersion("DFC.Digital.WebChat.EndPoint") +"/js/chatRed.js");
+    </script>
 </body>
 </html>

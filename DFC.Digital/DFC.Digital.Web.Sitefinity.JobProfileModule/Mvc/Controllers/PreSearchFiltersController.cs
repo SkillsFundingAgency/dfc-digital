@@ -102,11 +102,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [DisplayName("Group By")]
         public string GroupFieldsBy { get; set; } = "Skills";
 
-        [DisplayName("Should show number of profile matched banner")]
+        [DisplayName("Number of profle matching on each page message")]
         public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
 
         [DisplayName("Select Message")]
         public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
+
+        [DisplayName("Use Page Profile Count")]
+        public bool UsePageProfileCount { get; set; } = true;
 
         #endregion Public Properties
 
@@ -121,6 +124,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(PsfModel model, PsfSearchResultsViewModel resultsViewModel)
         {
+            CheckForBackState(model);
+
             // If the previous page is search page then, there will not be any sections in the passed PSFModel
             var previousPsfPage = model?.Section == null ? resultsViewModel?.PreSearchFiltersModel : model;
             if (previousPsfPage != null)
@@ -135,12 +140,42 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             var currentPageFilter = GetCurrentPageFilter();
 
-            if (ThisPageNumber > 1)
+            if (ThisPageNumber > 1 && UsePageProfileCount)
             {
-                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                var numberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                currentPageFilter.NumberOfMatchesMessage = string.Format(NumberOfMatchesMessage, numberOfMatches);
+                currentPageFilter.UsePageProfileCount = UsePageProfileCount;
             }
 
             return View(currentPageFilter);
+        }
+
+        private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
+        {
+            //Only do this on the Training routes page (Which is been used for Covid affected filter)
+            //Only do this the first time the page is loaded
+            if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
+            {
+                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+                    currentPageFilter.Section.SingleSelectedValue = "No";
+            }
+        }
+
+        private void CheckForBackState(PsfModel model)
+        {
+            //if we have gone backwards, set the model up for the page
+            if (model?.Back?.OptionsSelected != null)
+            {
+                model.Section = new PsfSection()
+                {
+                    Name = SectionTitle,
+                    SectionDataType = FilterType.ToString(),
+                    PageNumber = ThisPageNumber,
+                    SingleSelectOnly = SingleSelectOnly,
+                };
+
+                model.OptionsSelected = model.Back.OptionsSelected;
+            }
         }
 
         private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
@@ -194,14 +229,13 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
             filterSection.SelectMessage = SelectMessage;
-
             var thisPageModel = new PsfModel
             {
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
                 GroupedOptions = groupedSections,
-                NumberOfMatchesMessage = NumberOfMatchesMessage
+                NumberOfMatchesMessage = NumberOfMatchesMessage,
             };
 
             //Need to do this to force the model we have changed to refresh

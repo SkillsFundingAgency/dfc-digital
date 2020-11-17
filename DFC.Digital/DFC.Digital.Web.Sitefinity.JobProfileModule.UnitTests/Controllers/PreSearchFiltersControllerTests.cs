@@ -2,12 +2,16 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
 using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using Telerik.Sitefinity.Taxonomies.Model;
 using TestStack.FluentMVCTesting;
 using Xunit;
 
@@ -30,8 +34,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         private ISearchQueryService<JobProfileIndex> fakeSearchQueryService;
         private IBuildSearchFilterService fakeBuildSearchFilterService;
         private IAsyncHelper fakeAsyncHelper;
+        private ITaxonomyRepository fakeTaxonomyRepository;
 
-        [Fact]
+       [Fact]
         public void IndexNoModelTest()
         {
             //Setup the fakes and dummies for test
@@ -46,7 +51,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var preSearchFiltersController =
-                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
+                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
                 {
                     FilterType = PreSearchFilterType.Interest
                 };
@@ -89,7 +94,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Instantiate & Act
             var preSearchFiltersController =
-                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
+                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
                 {
                     FilterType = PreSearchFilterType.Interest
                 };
@@ -133,7 +138,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
             {
                 FilterType = PreSearchFilterType.Interest
             };
@@ -166,6 +171,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         [InlineData(PreSearchFilterType.JobArea)]
         [InlineData(PreSearchFilterType.PreferredTaskType)]
         [InlineData(PreSearchFilterType.TrainingRoute)]
+        [InlineData(PreSearchFilterType.JobProfileCategoryUrl)]
         public void IndexRepositoryTest(PreSearchFilterType filterType)
         {
             //Setup the fakes and dummies
@@ -180,7 +186,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var mapper = config.CreateMapper();
 
             //Instantiate & Act
-            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper)
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
             {
                 FilterType = filterType
             };
@@ -194,6 +200,103 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 vm.Section.Should().NotBeNull();
                 CheckFilterSecton(preSearchFiltersController, vm.Section, filterType);
             }).AndNoModelErrors();
+        }
+
+        [Fact]
+        public void BackOptionSelectedStateIsUsedIfSet()
+        {
+            //Setup the fakes and dummies for test
+            SetUpFakesAndCalls();
+            SetUpStateMangerFakesAndCalls(PreSearchFilterType.JobArea, false);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+            var mapper = config.CreateMapper();
+
+            var firstVm = new PsfModel()
+            {
+                Back = new PsfBack()
+                {
+                    OptionsSelected = "DummyOptionsSelectd"
+                }
+            };
+
+            A.CallTo(() => fakePsfStateManager.GetStateJson()).Returns(firstVm.OptionsSelected);
+
+            //Instantiate & Act
+            var preSearchFiltersController = new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+            {
+                FilterType = PreSearchFilterType.Interest
+            };
+
+            //Act on the index
+            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVm, null));
+            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
+            {
+                vm.Section.Should().NotBeNull();
+                vm.Section.SectionDataType.Should().Be(PreSearchFilterType.Interest.ToString());
+            })
+            .AndNoModelErrors();
+        }
+
+        [Theory]
+        [InlineData(2, true, true)]
+        [InlineData(2, false, false)]
+        [InlineData(1, true, false)]
+        public void ShowMatchingProfileCountOnPageTest(int pageNumber, bool showMatchingProfileCount, bool expectingToShowCount)
+        {
+            //Setup the fakes and dummies for test
+            SetUpFakesAndCalls();
+            SetUpStateMangerFakesAndCalls(PreSearchFilterType.Interest, true);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+            var mapper = config.CreateMapper();
+
+            var searchResults = new SearchResult<JobProfileIndex>()
+            {
+                Count = 5
+            };
+
+            A.CallTo(() => fakeBuildSearchFilterService.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._)).Returns(nameof(SearchProperties.FilterBy));
+            A.CallTo(() => fakeBuildSearchFilterService.GetIndexFieldDefinitions(A<string>.Ignored)).Returns(new List<KeyValuePair<string, PreSearchFilterLogicalOperator>>());
+            A.CallTo(() => fakeSearchQueryService.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(searchResults);
+
+            //Instantiate & Act
+            var preSearchFiltersController =
+                new PreSearchFiltersController(loggerFake, mapper, psfRepositoryFactoryFake, fakePsfStateManager, fakeSearchQueryService, fakeBuildSearchFilterService, fakeAsyncHelper, fakeTaxonomyRepository)
+                {
+                    FilterType = PreSearchFilterType.Interest
+                };
+
+            preSearchFiltersController.ThisPageNumber = pageNumber;
+            preSearchFiltersController.UsePageProfileCount = showMatchingProfileCount;
+
+            //Act on the index
+            var firstVm = new PsfModel();
+            var resultsViewModel = new PsfSearchResultsViewModel
+            {
+                PreSearchFiltersModel = GeneratePreSEarchFiltersViewModel(PreSearchFilterType.Interest)
+            };
+
+            var postFromResultsPageCall = preSearchFiltersController.WithCallTo(c => c.Index(firstVm, resultsViewModel));
+            postFromResultsPageCall.ShouldRenderDefaultView().WithModel<PsfModel>(vm =>
+            {
+                vm.UsePageProfileCount.Should().Be(expectingToShowCount);
+            }).AndNoModelErrors();
+
+            if (expectingToShowCount)
+            {
+                A.CallTo(() => fakeSearchQueryService.SearchAsync(A<string>._, A<SearchProperties>._)).MustHaveHappened();
+            }
+            else
+            {
+                A.CallTo(() => fakeSearchQueryService.SearchAsync(A<string>._, A<SearchProperties>._)).MustNotHaveHappened();
+            }
         }
 
         private PsfModel GeneratePreSEarchFiltersViewModel(PreSearchFilterType filterType)
@@ -248,6 +351,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => fakePsfStateManager.ShouldSaveState(A<int>._, A<int>._)).Returns(shouldSaveState);
             A.CallTo(() => fakePsfStateManager.RestoreState(A<string>._)).DoesNothing();
             A.CallTo(() => fakePsfStateManager.SaveState(A<PreSearchFilterSection>._)).DoesNothing();
+            A.CallTo(() => fakePsfStateManager.GetPreSearchFilterState()).Returns(A.Dummy<PreSearchFilterState>());
         }
 
         private List<PreSearchFilterOption> GetDummyPreSearchFilterOption(bool addNotApplicable)
@@ -285,6 +389,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             psfFakePreferredTaskTypeRepository = A.Fake<IPreSearchFiltersRepository<PsfPreferredTaskType>>(ops => ops.Strict());
             fakeBuildSearchFilterService = A.Fake<IBuildSearchFilterService>(ops => ops.Strict());
             fakeSearchQueryService = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+            fakeTaxonomyRepository = A.Fake<ITaxonomyRepository>(ops => ops.Strict());
             fakeAsyncHelper = new AsyncHelper();
 
             A.Fake<IMapper>(ops => ops.Strict());
@@ -297,6 +402,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => psfFakeJobAreaRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfJobArea>(addNotApplicable));
             A.CallTo(() => psfFakeCareerFocusRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfCareerFocus>(addNotApplicable));
             A.CallTo(() => psfFakePreferredTaskTypeRepository.GetAllFilters()).Returns(GetTestFilterRepoOptions<PsfPreferredTaskType>(addNotApplicable));
+            A.CallTo(() => fakeTaxonomyRepository.GetMany(A<Expression<Func<HierarchicalTaxon, bool>>>._)).Returns(new EnumerableQuery<HierarchicalTaxon>(new List<HierarchicalTaxon>()));
 
             A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfInterest>()).Returns(psfFakeIntrestRepository);
             A.CallTo(() => psfRepositoryFactoryFake.GetRepository<PsfEnabler>()).Returns(psfFakeEnablerRepository);

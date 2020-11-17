@@ -50,7 +50,9 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
         {
             if (JobProfile != null)
             {
-                jobProfileIndex.JobProfileCategoriesWithUrl = GetJobProfileCategoriesWithUrl();
+                var categories = jobProfileCategoryRepository.GetByIds(JobProfile.JobProfileCategoryIdCollection);
+                jobProfileIndex.JobProfileCategoriesWithUrl = categories.Select(c => $"{c.Title}|{c.Url}");
+                jobProfileIndex.JobProfileCategoryUrls = categories.Select(c => $"{c.Url}");
 
                 jobProfileIndex.Interests = JobProfile.RelatedInterests.ToList();
                 jobProfileIndex.Enablers = JobProfile.RelatedEnablers.ToList();
@@ -91,12 +93,6 @@ namespace DFC.Digital.Web.Sitefinity.DfcSearchModule
             }
 
             return salary;
-        }
-
-        private IEnumerable<string> GetJobProfileCategoriesWithUrl()
-        {
-            var categories = jobProfileCategoryRepository.GetByIds(JobProfile.JobProfileCategoryIdCollection);
-            return categories.Select(c => $"{c.Title}|{c.Url}");
         }
     }
 }

@@ -21,7 +21,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             //Should have  a link to the home page
             var backButton = htmlDom.GetElementbyId("filter-home");
-            backButton.InnerText.Should().BeEquivalentTo("Home");
+            if (testDataModel.Section.PageNumber > 1)
+            {
+                backButton.InnerText.Should().BeEquivalentTo("Back");
+            }
+            else
+            {
+                backButton.Should().BeNull();
+            }
 
             var backForm = htmlDom.GetElementbyId("backForm");
             backForm.Attributes["action"].Value.Should().BeEquivalentTo(testDataModel.Section.PreviousPageUrl);
@@ -80,7 +87,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     //if we have a N/A option needs this class
                     if (testDataModel.Section.Options[jj].ClearOtherOptionsIfSelected)
                     {
-                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na");
+                        filterOption?.Attributes["class"].Value.Should().BeEquivalentTo("filter-na govuk-checkboxes__input");
                     }
                 }
 
@@ -99,17 +106,36 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
             var testDataModel = GeneratePreSEarchFiltersViewModel(true);
             testDataModel.Section.PageNumber = pageOn;
+            testDataModel.NumberOfMatchesMessage = $" you have 123 career matches";
             var htmlDom = index.RenderAsHtml(testDataModel);
-
-            var matchingCountMessage = $" you have {testDataModel.NumberOfMatches} career matches";
             if (pageOn > 1)
             {
-                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(matchingCountMessage);
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().Contain(testDataModel.NumberOfMatchesMessage);
             }
             else
             {
-                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(matchingCountMessage);
+                htmlDom?.DocumentNode?.SelectNodes($"//*[@id='continueForm']/div/h4")?.FirstOrDefault()?.InnerText.Should().NotContain(testDataModel.NumberOfMatchesMessage);
             }
+        }
+
+        [Fact]
+        public void SelectMessageShouldBeAsDefindedInModel()
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.SelectMessage = "<div id='qualifications-hint'>Select Message</div>";
+            var htmlDom = index.RenderAsHtml(testDataModel);
+            htmlDom?.GetElementbyId($"qualifications-hint").OuterHtml.Should().Be(testDataModel.Section.SelectMessage);
+        }
+
+        [Fact]
+        public void SelectMessageShouldNotRenderIfNotDefindeInModel()
+        {
+            var index = new _MVC_Views_PreSearchFilters_Index_cshtml();
+            var testDataModel = GeneratePreSEarchFiltersViewModel(true);
+            testDataModel.Section.SelectMessage = string.Empty;
+            var htmlDom = index.RenderAsHtml(testDataModel);
+            htmlDom?.GetElementbyId($"qualifications-hint").Should().BeNull();
         }
 
         private void CheckForSectionHiddenValue(HtmlDocument htmlDom, string fieldName, string formId, string expectedValue)
@@ -150,7 +176,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                     TotalNumberOfPages = 2,
                     SectionDataType = "Dummy Data Type One"
                 },
-                NumberOfMatches = 5,
             };
 
             filtersModel.Section.Options = new List<PsfOption>();

@@ -29,6 +29,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         private readonly IBuildSearchFilterService buildSearchFilterService;
         private readonly IAsyncHelper asyncHelper;
 
+        private readonly ITaxonomyRepository taxonomyRepository;
+
         #endregion Private Fields
 
         #region Constructors
@@ -43,6 +45,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         /// <param name="searchQueryService">Instance of search query service</param>
         /// <param name="buildSearchFilterService">Instance of search filter service</param>
         /// <param name="asyncHelper">Instance of asyncHelper</param>
+        /// <param name="taxonomyRepository">Instance of taxonomyRepository</param>
         public PreSearchFiltersController(
             IApplicationLogger applicationLogger,
             IMapper autoMapper,
@@ -50,7 +53,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             IPreSearchFilterStateManager preSearchFilterStateManager,
             ISearchQueryService<JobProfileIndex> searchQueryService,
             IBuildSearchFilterService buildSearchFilterService,
-            IAsyncHelper asyncHelper) : base(applicationLogger)
+            IAsyncHelper asyncHelper,
+            ITaxonomyRepository taxonomyRepository) : base(applicationLogger)
         {
             this.preSearchFiltersFactory = preSearchFiltersFactory;
             this.autoMapper = autoMapper;
@@ -58,6 +62,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             this.searchQueryService = searchQueryService;
             this.buildSearchFilterService = buildSearchFilterService;
             this.asyncHelper = asyncHelper;
+            this.taxonomyRepository = taxonomyRepository;
         }
 
         #endregion Constructors
@@ -90,6 +95,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Index Field Operators - Should match the one in the results widget up to this point in the journey")]
         public string IndexFieldOperators { get; set; } = "Skills|and,EntryQualifications|and,JobAreas|and,Enablers|nand,TrainingRoutes|nand";
+
+        [DisplayName("Enable Accordion")]
+        public bool EnableAccordion { get; set; } = false;
+
+        [DisplayName("Group By")]
+        public string GroupFieldsBy { get; set; } = "Skills";
+
+        [DisplayName("Number of profle matching on each page message")]
+        public string NumberOfMatchesMessage { get; set; } = "We have found {0} career matches based on your selection.";
+
+        [DisplayName("Select Message")]
+        public string SelectMessage { get; set; } = @"<div class=""govuk-hint"" id=""qualifications-hint"">Select all that apply.</div>";
+
+        [DisplayName("Use Page Profile Count")]
+        public bool UsePageProfileCount { get; set; } = true;
+
         #endregion Public Properties
 
         #region Actions
@@ -103,6 +124,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         [HttpPost]
         public ActionResult Index(PsfModel model, PsfSearchResultsViewModel resultsViewModel)
         {
+            CheckForBackState(model);
+
             // If the previous page is search page then, there will not be any sections in the passed PSFModel
             var previousPsfPage = model?.Section == null ? resultsViewModel?.PreSearchFiltersModel : model;
             if (previousPsfPage != null)
@@ -117,12 +140,42 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             var currentPageFilter = GetCurrentPageFilter();
 
-            if (ThisPageNumber > 1)
+            if (ThisPageNumber > 1 && UsePageProfileCount)
             {
-                currentPageFilter.NumberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                var numberOfMatches = asyncHelper.Synchronise(() => GetNumberOfMatches(currentPageFilter));
+                currentPageFilter.NumberOfMatchesMessage = string.Format(NumberOfMatchesMessage, numberOfMatches);
+                currentPageFilter.UsePageProfileCount = UsePageProfileCount;
             }
 
             return View(currentPageFilter);
+        }
+
+        private void CheckForBackState(PsfModel model)
+        {
+            //if we have gone backwards, set the model up for the page
+            if (model?.Back?.OptionsSelected != null)
+            {
+                model.Section = new PsfSection()
+                {
+                    Name = SectionTitle,
+                    SectionDataType = FilterType.ToString(),
+                    PageNumber = ThisPageNumber,
+                    SingleSelectOnly = SingleSelectOnly,
+                };
+
+                model.OptionsSelected = model.Back.OptionsSelected;
+            }
+        }
+
+        private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
+        {
+            //Only do this on the Training routes page (Which is been used for Covid affected filter)
+            //Only do this the first time the page is loaded
+            if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
+            {
+                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+                    currentPageFilter.Section.SingleSelectedValue = "No";
+            }
         }
 
         private async Task<int> GetNumberOfMatches(PsfModel model)
@@ -148,29 +201,36 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         {
             var savedSection = preSearchFilterStateManager.GetSavedSection(SectionTitle, FilterType);
             var restoredSection = preSearchFilterStateManager.RestoreOptions(savedSection, GetFilterOptions());
+            var groupedSections = restoredSection.Options.GroupBy(o => o.PSFCategory).OrderBy(g => g.Key);
 
             //create the section for this page
             var currentSection = autoMapper.Map<PsfSection>(restoredSection);
-            var filterSection = currentSection ?? new PsfSection();
 
+            var filterSection = currentSection ?? new PsfSection();
             filterSection.Name = SectionTitle;
             filterSection.Description = SectionDescription;
             filterSection.SingleSelectOnly = SingleSelectOnly;
             filterSection.NextPageUrl = NextPageUrl;
             filterSection.PreviousPageUrl = PreviousPageUrl;
             filterSection.PageNumber = ThisPageNumber;
+            filterSection.EnableAccordion = EnableAccordion;
+            filterSection.GroupFieldsBy = GroupFieldsBy;
             filterSection.TotalNumberOfPages = TotalNumberOfPages;
             filterSection.SectionDataType = FilterType.ToString();
-
+            filterSection.SelectMessage = SelectMessage;
             var thisPageModel = new PsfModel
             {
                 //Throw the state out again
                 OptionsSelected = preSearchFilterStateManager.GetStateJson(),
                 Section = filterSection,
+                GroupedOptions = groupedSections,
+                NumberOfMatchesMessage = NumberOfMatchesMessage,
             };
 
             //Need to do this to force the model we have changed to refresh
             ModelState.Clear();
+
+            SetDefaultForCovidJobProfiles(thisPageModel, savedSection == null);
 
             return thisPageModel;
         }
@@ -218,9 +278,14 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return preSearchFiltersFactory.GetRepository<PsfPreferredTaskType>().GetAllFilters().OrderBy(o => o.Order);
                     }
 
-               case PreSearchFilterType.Skill:
+                case PreSearchFilterType.Skill:
                     {
                         return preSearchFiltersFactory.GetRepository<PsfOnetSkill>().GetAllFilters().OrderBy(o => o.Order).ThenBy(o => o.Title);
+                    }
+
+                case PreSearchFilterType.JobProfileCategoryUrl:
+                    {
+                        return GetJobProfileCategories().OrderBy(o => o.Title);
                     }
 
                 default:
@@ -228,6 +293,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                         return Enumerable.Empty<PreSearchFilter>();
                     }
             }
+        }
+
+        private IQueryable<PsfCategory> GetJobProfileCategories()
+        {
+            return taxonomyRepository.GetMany(category => category.Taxonomy.Name == "job-profile-categories").Select(category => new PsfCategory
+            {
+                Title = category.Title,
+                Description = category.Description,
+                UrlName = category.UrlName
+            });
         }
 
         #endregion Private methods

@@ -335,6 +335,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var properties = new SearchProperties
             {
                 Page = pageNumber,
+                SearchFields = new List<string>() { IndexSearchField },
                 Count = this.PageSize,
                 UseRawSearchTerm = true,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
@@ -368,7 +369,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var fieldFilter = preSearchFiltersResultsModel.Sections?.FirstOrDefault(section =>
                     section.SectionDataTypes.Equals("Skills", StringComparison.InvariantCultureIgnoreCase));
 
-            if (fieldFilter != null)
+            if (fieldFilter?.Options.Count > 0)
             {
                 var selectedSkills = fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey);
                 foreach (var viewItem in resultViewModel.SearchResults)

@@ -184,6 +184,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                  </strong>
             </div>";
 
+        [DisplayName("Show matching skill count")]
+        public bool ShowMacthingSkillCount { get; set; } = true;
+
         #endregion Public Properties
 
         #region Actions
@@ -352,7 +355,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 opts.Items.Add(nameof(CaveatFinderIndexValue), CaveatFinderIndexValue);
             });
 
-            SetMatchingSkillsCount(resultModel, resultsModel, results);
+            if (ShowMacthingSkillCount)
+            {
+                SetMatchingSkillsCount(resultModel, resultsModel, results);
+            }
 
             foreach (var resultItem in resultModel.SearchResults)
             {

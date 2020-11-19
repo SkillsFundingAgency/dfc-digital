@@ -449,9 +449,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
-        [InlineData(true, 1)]
-        [InlineData(false, null)]
-        public void MatchingSkillsTest(bool skillsAreSelected, int? expectedMatchingCount)
+        [InlineData(true, 1, true)]
+        [InlineData(false, null, true)]
+        [InlineData(true, null, false)]
+        public void MatchingSkillsTest(bool skillsAreSelected, int? expectedMatchingCount, bool shouldShowMatchingCount)
         {
             //Set up
             var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
@@ -508,7 +509,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             //Instantiate & Act
             var psfSearchController = new PsfSearchController(searchServiceFake, webAppContextFake, mapperCfg.CreateMapper(), asyncHelper, buildSearchFilterServiceFake, stateManagerFake, loggerFake)
             {
-                JobProfileDetailsPage = defaultJobProfilePage
+                JobProfileDetailsPage = defaultJobProfilePage,
+                ShowMacthingSkillCount = shouldShowMatchingCount
             };
 
             var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PsfModel { Section = new PsfSection { Options = new List<PsfOption>() } }, new PsfSearchResultsViewModel(), 1));

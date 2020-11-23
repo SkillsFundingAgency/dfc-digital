@@ -52,18 +52,18 @@
 
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/jquerybundle.min.js"), "bottom")
     }
 
-    @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/govuksel.min.js"), "bottom")
+    @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/govuksel.min.js"), "bottom")
 
     @if (Html.IsDebugSymbol())
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
     }
     else
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/dfcdigital.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/dfcdigital.min.js"), "bottom")
     }
   
     <script type="text/javascript">

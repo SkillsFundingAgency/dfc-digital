@@ -116,12 +116,6 @@
         }
     }
     @Html.Script(@Html.GetLocationAssetFileAndVersion("DFC.Digital.WebChat.EndPoint"))
-    <script type="text/javascript">
-        $(function () {
-
-            DfcAppWebchat.initialise('@Html.GetLocationAssetFileAndVersion("DFC.Digital.WebChat.EndPoint").Replace("/js/chatRed.js", string.Empty)');
-
-        });
-    </script>
+    
 </body>
 </html>

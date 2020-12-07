@@ -34,20 +34,8 @@ namespace DFC.Digital.Web.Sitefinity.Core
 
         private string CDNLocation => configuration.GetConfig<string>(Constants.CDNLocation);
 
-        private string WebChatEndPoint => configuration.GetConfig<string>(Constants.WebChatEndPoint);
-
         public string GetLocationAssetFileAndVersion(string fileName)
         {
-            if (fileName == Constants.WebChatEndPoint)
-            {
-                if (!string.IsNullOrEmpty(WebChatEndPoint))
-                {
-                    var assetLocation = $"{WebChatEndPoint}";
-                    var version = asyncHelper.Synchronise(() => GetFileHashAsync(assetLocation));
-                    return $"{assetLocation}?{version}";
-                }
-            }
-
             if (!string.IsNullOrEmpty(CDNLocation))
             {
                 var assetLocation = $"{CDNLocation}/{fileName}";

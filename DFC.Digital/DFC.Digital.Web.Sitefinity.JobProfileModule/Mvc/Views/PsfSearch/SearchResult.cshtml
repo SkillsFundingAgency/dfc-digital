@@ -12,7 +12,6 @@
 
         <header class="filter-results-header">
             <h1 class="govuk-heading-xl">@Model.MainPageTitle<span class="govuk-caption-m">@Model.SecondaryText</span></h1>
-
             <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong class="govuk-warning-text__text">
@@ -49,6 +48,10 @@
                                     
                                     <p class="result-description dfc-code-search-jpOverview">@jobProfile.ResultItemOverview</p>
                                     <p class="results-salary">Salary: <span class="dfc-code-search-jpSalary"> @(string.IsNullOrWhiteSpace(jobProfile.ResultItemSalaryRange) ? Model.SalaryBlankText : jobProfile.ResultItemSalaryRange)</span></p>
+                                    @if (jobProfile.MatchingSkillsCount != null)
+                                    {
+                                        <p>Matching Skills: <span>@jobProfile.MatchingSkillsCount</span></p>
+                                    }
                                     @if (jobProfile.JobProfileCategoriesWithUrl != null)
                                     {<p class="results-categories">
                                             Found in:

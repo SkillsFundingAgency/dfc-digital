@@ -184,6 +184,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                  </strong>
             </div>";
 
+        [DisplayName("Show matching skill count")]
+        public bool ShowMacthingSkillCount { get; set; } = true;
+
         #endregion Public Properties
 
         #region Actions
@@ -335,6 +338,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             var properties = new SearchProperties
             {
                 Page = pageNumber,
+                SearchFields = new List<string>() { IndexSearchField },
                 Count = this.PageSize,
                 UseRawSearchTerm = true,
                 FilterBy = buildSearchFilterService.BuildPreSearchFilters(resultsModel, fieldDefinitions.ToDictionary(k => k.Key, v => v.Value)),
@@ -351,6 +355,11 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 opts.Items.Add(nameof(CaveatFinderIndexValue), CaveatFinderIndexValue);
             });
 
+            if (ShowMacthingSkillCount)
+            {
+                SetMatchingSkillsCount(resultModel, resultsModel, results);
+            }
+
             foreach (var resultItem in resultModel.SearchResults)
             {
                 resultItem.ResultItemUrlName = $"{JobProfileDetailsPage}{resultItem.ResultItemUrlName}";
@@ -359,6 +368,22 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             SetTotalResultsMessage(resultModel);
             SetupPagination(resultModel);
             return View("SearchResult", resultModel);
+        }
+
+        private void SetMatchingSkillsCount(JobProfileSearchResultViewModel resultViewModel, PreSearchFiltersResultsModel preSearchFiltersResultsModel, SearchResult<JobProfileIndex> searchResult)
+        {
+            var fieldFilter = preSearchFiltersResultsModel.Sections?.FirstOrDefault(section =>
+                    section.SectionDataTypes.Equals("Skills", StringComparison.InvariantCultureIgnoreCase));
+
+            if (fieldFilter?.Options.Count > 0)
+            {
+                var selectedSkills = fieldFilter.Options.Where(opt => opt.IsSelected).Select(opt => opt.OptionKey);
+                foreach (var viewItem in resultViewModel.SearchResults)
+                {
+                    var resultItem = searchResult.Results.Where(r => r.ResultItem.UrlName == viewItem.ResultItemUrlName).FirstOrDefault().ResultItem;
+                    viewItem.MatchingSkillsCount = resultItem.Skills.Count(skill => selectedSkills.Contains(skill));
+                }
+            }
         }
 
         private PsfSearchResultsViewModel GetPsfSearchResultsViewModel(PsfModel model, bool notPaging)

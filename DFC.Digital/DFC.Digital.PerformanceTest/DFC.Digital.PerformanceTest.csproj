@@ -69,6 +69,16 @@
     <None Include="LoadTest\DFC-CircuitBreakerLoad.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="LoadTest\DFC-LiveLoad-1000-FullStaging.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTest\DFC-Load-500-Sit-CompApp-JobProfiles.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTest\DFC-Load-500-JpSit.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTest\DFC-LiveLoad-500-FullSit.loadtest" />
     <None Include="LoadTest\DFC-SoakTest-50-Staging.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -89,6 +99,12 @@
     </None>
     <None Include="LoadTest\DFC-Load-FindACourse.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\JobProfilesApp.webtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\SkillsHealthCheck.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="WebTests\JobCategory.webtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -124,6 +140,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="WebTests\FindACourse.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\AboutUs.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="WebTests\HelpToGetAJob.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

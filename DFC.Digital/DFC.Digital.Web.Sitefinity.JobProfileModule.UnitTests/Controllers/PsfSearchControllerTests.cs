@@ -447,5 +447,82 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).MustHaveHappened();
             A.CallTo(() => stateManagerFake.GetStateJson()).MustHaveHappened();
         }
+
+        [Theory]
+        [InlineData(true, 1, true)]
+        [InlineData(false, null, true)]
+        [InlineData(true, null, false)]
+        public void MatchingSkillsTest(bool skillsAreSelected, int? expectedMatchingCount, bool shouldShowMatchingCount)
+        {
+            //Set up
+            var searchServiceFake = A.Fake<ISearchQueryService<JobProfileIndex>>(ops => ops.Strict());
+            var loggerFake = A.Fake<IApplicationLogger>();
+            var asyncHelper = new AsyncHelper();
+            var webAppContextFake = A.Fake<IWebAppContext>(ops => ops.Strict());
+            var defaultJobProfilePage = "/jobprofile-details/";
+            var stateManagerFake = A.Fake<IPreSearchFilterStateManager>(ops => ops.Strict());
+            var mapperCfg = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<JobProfilesAutoMapperProfile>();
+            });
+            var buildSearchFilterServiceFake = A.Fake<IBuildSearchFilterService>(ops => ops.Strict());
+
+            var expectedSearchResultsViewModel = Enumerable.Empty<JobProfileSearchResultItemViewModel>();
+
+            var dummySearchResult = A.Dummy<SearchResult<JobProfileIndex>>();
+            dummySearchResult.Count = 1;
+            var dummyReturnedResults = new List<SearchResultItem<JobProfileIndex>>()
+            {
+                new SearchResultItem<JobProfileIndex>
+                {
+                    ResultItem = new JobProfileIndex()
+                    {
+                        Skills = new List<string>() { "Skill1", "Skill2", "Skill3" },
+                        UrlName = "dummy-url",
+                    }
+                }
+            };
+            dummySearchResult.Results = dummyReturnedResults;
+
+            var testPreSearchFilterState = new PreSearchFilterState();
+
+            if (skillsAreSelected)
+            {
+                testPreSearchFilterState.Sections = new List<PreSearchFilterSection>()
+                {
+                    new PreSearchFilterSection()
+                    {
+                        SectionDataType = PreSearchFilterType.Skill,
+                        Options = new List<PreSearchFilterOption>() { new PreSearchFilterOption() { OptionKey = "Skill2", IsSelected = true } }
+                    }
+                };
+            }
+
+            A.CallTo(() => searchServiceFake.SearchAsync(A<string>._, A<SearchProperties>._)).Returns(dummySearchResult);
+            A.CallTo(() => buildSearchFilterServiceFake.GetSearchTerm(A<SearchProperties>._, A<PreSearchFiltersResultsModel>._, A<string[]>._)).Returns("*");
+            A.CallTo(() => buildSearchFilterServiceFake.BuildPreSearchFilters(A<PreSearchFiltersResultsModel>._, A<Dictionary<string, PreSearchFilterLogicalOperator>>._)).Returns(nameof(SearchProperties.FilterBy));
+            A.CallTo(() => stateManagerFake.GetPreSearchFilterState()).Returns(testPreSearchFilterState);
+            A.CallTo(() => stateManagerFake.GetStateJson()).Returns(string.Empty);
+            A.CallTo(() => stateManagerFake.RestoreState(A<string>._)).DoesNothing();
+            A.CallTo(() => stateManagerFake.UpdateSectionState(A<PreSearchFilterSection>._)).DoesNothing();
+
+            //Instantiate & Act
+            var psfSearchController = new PsfSearchController(searchServiceFake, webAppContextFake, mapperCfg.CreateMapper(), asyncHelper, buildSearchFilterServiceFake, stateManagerFake, loggerFake)
+            {
+                JobProfileDetailsPage = defaultJobProfilePage,
+                ShowMacthingSkillCount = shouldShowMatchingCount
+            };
+
+            var searchMethodCall = psfSearchController.WithCallTo(c => c.Index(new PsfModel { Section = new PsfSection { Options = new List<PsfOption>() } }, new PsfSearchResultsViewModel(), 1));
+
+            //Assert
+            searchMethodCall
+                .ShouldRenderView("SearchResult")
+                .WithModel<PsfSearchResultsViewModel>(vm =>
+                {
+                    vm.SearchResults.FirstOrDefault().MatchingSkillsCount.Should().Be(expectedMatchingCount);
+                })
+                .AndNoModelErrors();
+        }
     }
 }

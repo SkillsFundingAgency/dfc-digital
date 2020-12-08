@@ -98,6 +98,34 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
         }
 
         [Theory]
+        [InlineData(null, false)]
+        [InlineData(1, true)]
+        public void MatchingSkillsIsDisplayed(int? numberMatchingProfiles, bool matchingMessageIsDisplayed)
+        {
+            //Assign
+            var searchResultsView = new _MVC_Views_PsfSearch_SearchResult_cshtml();
+            var dummyJobProfiles = new List<JobProfileSearchResultItemViewModel>() { new JobProfileSearchResultItemViewModel() { MatchingSkillsCount = numberMatchingProfiles } };
+
+            var psfSearchResultsViewModel = GenerateDummyJobProfileSearchResultViewModel(1, 1, dummyJobProfiles, "10 results found", 10, 1);
+            psfSearchResultsViewModel.SearchResults.FirstOrDefault().MatchingSkillsCount = numberMatchingProfiles;
+
+            //Act
+            var htmlDom = searchResultsView.RenderAsHtml(psfSearchResultsViewModel);
+
+            //Assert
+            var matchingMessageNode = htmlDom?.DocumentNode?.SelectNodes($"//*[@id='results']/div/div/ol/li/p[3]")?.FirstOrDefault();
+            if (matchingMessageIsDisplayed)
+            {
+                matchingMessageNode.Should().NotBeNull();
+                matchingMessageNode.InnerText.Should().Contain($"Matching Skills: {numberMatchingProfiles}");
+            }
+            else
+            {
+                matchingMessageNode.Should().BeNull();
+            }
+        }
+
+        [Theory]
         [InlineData(1, "1")]
         [InlineData(10, "10")]
         [InlineData(null, "")]
@@ -201,7 +229,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                 JobProfileCategoryPage = "/job-categories/",
                 PreSearchFiltersModel = GeneratePreSearchFiltersViewModel(),
                 BackPageUrl = new Uri(nameof(PsfSearchResultsViewModel.BackPageUrl), UriKind.RelativeOrAbsolute),
-                BackPageUrlText = nameof(PsfSearchResultsViewModel.BackPageUrlText)
+                BackPageUrlText = nameof(PsfSearchResultsViewModel.BackPageUrlText),
             };
         }
 

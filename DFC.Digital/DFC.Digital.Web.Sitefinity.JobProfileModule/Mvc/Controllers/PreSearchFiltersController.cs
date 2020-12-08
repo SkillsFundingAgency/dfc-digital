@@ -150,17 +150,6 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return View(currentPageFilter);
         }
 
-        private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
-        {
-            //Only do this on the Training routes page (Which is been used for Covid affected filter)
-            //Only do this the first time the page is loaded
-            if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
-            {
-                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
-                    currentPageFilter.Section.SingleSelectedValue = "No";
-            }
-        }
-
         private void CheckForBackState(PsfModel model)
         {
             //if we have gone backwards, set the model up for the page
@@ -175,6 +164,17 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 };
 
                 model.OptionsSelected = model.Back.OptionsSelected;
+            }
+        }
+
+        private void SetDefaultForCovidJobProfiles(PsfModel currentPageFilter, bool doesNotHaveSavedState)
+        {
+            //Only do this on the Training routes page (Which is been used for Covid affected filter)
+            //Only do this the first time the page is loaded
+            if (FilterType == PreSearchFilterType.TrainingRoute && doesNotHaveSavedState)
+            {
+                    currentPageFilter.Section.Options.Where(s => s.Name == "No").FirstOrDefault().IsSelected = true;
+                    currentPageFilter.Section.SingleSelectedValue = "No";
             }
         }
 

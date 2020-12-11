@@ -13,6 +13,9 @@
     },
     "hostingMode": {
       "value": "__searchHostingMode__"
+    },
+    "searchReplicaCount": {
+      "value": __searchReplicaCount__
     }
   }
 }

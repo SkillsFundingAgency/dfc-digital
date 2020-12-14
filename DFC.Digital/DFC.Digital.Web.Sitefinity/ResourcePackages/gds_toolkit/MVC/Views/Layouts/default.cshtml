@@ -53,18 +53,10 @@
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
         @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/all.min.js"), "bottom")
     }
 
-    @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/govuksel.min.js"), "bottom")
-
-    @if (Html.IsDebugSymbol())
-    {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
-    }
-    else
-    {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/dfcdigital.min.js"), "bottom")
-    }
+    @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/dfcdigital.min.js"), "bottom")
 
     <script type="text/javascript">
         var appInsights = window.appInsights || function (a) {

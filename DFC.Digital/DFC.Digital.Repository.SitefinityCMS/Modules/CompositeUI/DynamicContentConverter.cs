@@ -231,7 +231,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
             var socCodes = new SocCodeItem
             {
-                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, content.Id.ToString()),
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, content.GetAdditionalContentItemIdKey()),
                 SOCCode = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.SOCCode)),
                 Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.Description)),
                 UrlName = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(SocCode.UrlName)),

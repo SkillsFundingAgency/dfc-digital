@@ -34,21 +34,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="blue" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta property="og:image" content="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-opengraph-image.png")">
+    <meta property="og:image" content="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-opengraph-image.png")">
 
-    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/favicon.ico")" type="image/x-icon" />
-    <link rel="mask-icon" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-mask-icon.svg")" color="blue">
-    <link rel="apple-touch-icon" sizes="180x180" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-apple-touch-icon-180x180.png")">
-    <link rel="apple-touch-icon" sizes="167x167" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-apple-touch-icon-167x167.png")">
-    <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-apple-touch-icon-152x152.png")">
-    <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/images/govuk-apple-touch-icon.png")">
+    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/favicon.ico")" type="image/x-icon" />
+    <link rel="mask-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-mask-icon.svg")" color="blue">
+    <link rel="apple-touch-icon" sizes="180x180" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-180x180.png")">
+    <link rel="apple-touch-icon" sizes="167x167" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-167x167.png")">
+    <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-152x152.png")">
+    <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
 
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("nationalcareers_toolkit/css/main.min.css")))
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
     <!--[if !IE 8]><!-->
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("nationalcareers_toolkit/css/govuk.min.css")))
+    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
     <!--<![endif]-->
     <!--[if IE 8]>
-        <link href="@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/css/all-ie8.css")" rel="stylesheet" />
+        <link href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/css/all-ie8.css")" rel="stylesheet" />
     <![endif]-->
     <!--[if lt IE 9]>
         <script src="/html5-shiv/html5shiv.js"></script>
@@ -98,21 +98,21 @@
 
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/jquerybundle.min.js"), "bottom")
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/all.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/all.min.js"), "bottom")
         <script type="text/javascript">
             window.GOVUKFrontend.initAll();
         </script>
 
         if (Html.IsDebugSymbol())
         {
-            @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
-            @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/assets/src/frontend/js/custom-validation.js").Replace("assets/dist/", string.Empty), "bottom")
+            @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
+            @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/assets/src/frontend/js/custom-validation.js").Replace("assets/dist/", string.Empty), "bottom")
 
         }
         else
         {
-            @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/dfcdigital.min.js"), "bottom")
+            @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/js/dfcdigital.min.js"), "bottom")
         }
     }
 

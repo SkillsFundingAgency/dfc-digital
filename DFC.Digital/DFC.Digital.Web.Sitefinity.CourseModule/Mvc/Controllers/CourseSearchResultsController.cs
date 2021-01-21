@@ -122,7 +122,9 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(CourseFiltersViewModel filtersInput, CourseSearchProperties inputSearchProperties)
         {
-            var cleanedSearchTerm = filtersInput.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
+            filtersInput.SearchTerm = filtersInput.SearchTerm == null ? string.Empty : filtersInput.SearchTerm;
+
+            var cleanedSearchTerm = filtersInput.SearchTerm; //filtersInput.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             var courseSearchResults = new CourseSearchResultsViewModel
             {
                 CourseFiltersModel = filtersInput,

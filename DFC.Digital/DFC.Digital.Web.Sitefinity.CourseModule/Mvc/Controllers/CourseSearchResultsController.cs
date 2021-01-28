@@ -122,8 +122,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
         [HttpGet]
         public ActionResult Index(CourseFiltersViewModel filtersInput, CourseSearchProperties inputSearchProperties)
         {
-            filtersInput.SearchTerm = filtersInput.SearchTerm == null ? string.Empty : filtersInput.SearchTerm;
-
             var cleanedSearchTerm = filtersInput.SearchTerm.ReplaceSpecialCharacters(Constants.CourseSearchInvalidCharactersRegexPattern);
             var courseSearchResults = new CourseSearchResultsViewModel
             {
@@ -159,11 +157,6 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
             if (DateTime.TryParse(combinedDate, out DateTime result))
             {
                 courseSearchProperties.Filters.StartDateFrom = result;
-            }
-
-            if (string.IsNullOrEmpty(cleanedSearchTerm))
-            {
-                courseSearchProperties.Filters.SearchTerm = "7";
             }
 
             var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));

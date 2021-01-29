@@ -41,6 +41,7 @@
 
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
+        <script type="text/javascript">window.GOVUKFrontend.initAll()</script>
         @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/jquerybundle.min.js"), "bottom")
         @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/all.min.js"), "bottom")
     }

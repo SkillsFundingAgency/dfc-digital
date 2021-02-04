@@ -5,7 +5,7 @@
 @using DFC.Digital.Web.Core;
 
 <!DOCTYPE html>
-<html @Html.RenderLangAttribute()>
+<html @Html.RenderLangAttribute() class="govuk-template app-html-class">
 <head>
     @Html.Partial("_Head")
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -18,13 +18,14 @@
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-554PPX9" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
+
     <!-- End Google Tag Manager (noscript) -->
     @Html.Section("top")
     @Html.Partial("_govuk_Header")
     @Html.SfPlaceHolder("GovUKHeader")
 
-    <main role="main">
-        <div class="content-container">
+    <main role="main" class="govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+        <div class="govuk-width-container">
             @Html.SfPlaceHolder("BannerContainer")
         </div>
         <div class="sfPublicWrapper" id="PublicWrapper">
@@ -33,38 +34,19 @@
             @Html.SfPlaceHolder("MainContent")
             @Html.SfPlaceHolder("MainContentBottom")
         </div>
-        @* Inline editing scripts and helpers. They should be available only when inline editing is possible. *@
-        @*@if (Html.ShouldRenderInlineEditing())
-            {
-                @Html.Script(ScriptRef.MicrosoftAjax, "top")
-                @Html.Script(ScriptRef.MicrosoftAjaxCore, "top")
-                @Html.Script(ScriptRef.JQuery, "top")
 
-                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.jquery.ba-outside-events.min.js"), "top")
-                @Html.Script(ScriptRef.KendoAll, "top")
-                @Html.Script(ScriptRef.KendoTimezones, "top")
-                @Html.Script(Url.EmbeddedResource("Telerik.Sitefinity.Resources.Reference", "Telerik.Sitefinity.Resources.Scripts.RequireJS.require.min.js"), "top")
-                @Html.InlineEditingManager(false)
-            }*@
     </main>
     @Html.SfPlaceHolder("GovUKFooter")
     @Html.Section("bottom")
 
     @if (SystemManager.IsDesignMode == SystemManager.IsPreviewMode)
     {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/jquerybundle.min.js"), "bottom")
+        <script type="text/javascript">window.GOVUKFrontend.initAll()</script>
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/jquerybundle.min.js"), "bottom")
+        @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/all.min.js"), "bottom")
     }
 
-    @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/govuksel.min.js"), "bottom")
-
-    @if (Html.IsDebugSymbol())
-    {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/assets/src/frontend/js/dfcdigital.js").Replace("assets/dist/", string.Empty), "bottom")
-    }
-    else
-    {
-        @Html.Script(@Html.GetLocationAssetFileAndVersion("gds_toolkit/js/dfcdigital.min.js"), "bottom")
-    }
+    @Html.Script(@Html.GetLocationAssetFileAndVersion("nationalcareers_toolkit/js/dfcdigital.min.js"), "bottom")
 
     <script type="text/javascript">
         var appInsights = window.appInsights || function (a) {
@@ -81,4 +63,3 @@
     </script>
 </body>
 </html>
-

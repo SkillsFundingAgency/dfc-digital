@@ -24,10 +24,10 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
             var htmlDom = index.RenderAsHtml(serviceStatusViewModel);
 
-            var sectionText = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-medium')]").FirstOrDefault().InnerText;
+            var sectionText = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'govuk-heading-m')]").FirstOrDefault().InnerText;
             sectionText.Should().BeEquivalentTo("Service Status");
 
-            var checkDate = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'heading-small')]").FirstOrDefault().InnerText;
+            var checkDate = htmlDom.DocumentNode.SelectNodes("//h2[contains(@class, 'govuk-heading-s')]").FirstOrDefault().InnerText;
             checkDate.Should().Contain(serviceStatusViewModel.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss"));
 
             //The li of each element matches the state of the service
@@ -61,7 +61,7 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
 
         private void CheckViewForChildAppService(ServiceStatusChildModel serviceChildStatus, HtmlDocument htmlDom, int index)
         {
-            var node = htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[2]/div/div[1]/ul/li[{index}]").FirstOrDefault();
+            var node = htmlDom.DocumentNode.SelectNodes($"//html/body/div/main/div/ul/li[2]/div/div[1]/ul/li[{index}]").FirstOrDefault();
 
             //First col contains child service name and status
             node.InnerText.Should().Contain(serviceChildStatus.Name);
@@ -71,14 +71,14 @@ namespace DFC.Digital.Web.Sitefinity.Core.UnitTests
         private void CheckViewForService(ServiceStatusModel serviceStatus, HtmlDocument htmlDom, int index)
         {
             //Check class of li
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]").FirstOrDefault().GetAttributeValue("class", string.Empty).Contains($"list_service_{serviceStatus.Status}");
+            htmlDom.DocumentNode.SelectNodes($"//html/body/div/main/div/ul/li[{index}]").FirstOrDefault().GetAttributeValue("class", string.Empty).Contains($"list_service_{serviceStatus.Status}");
 
             //First col contains Service name
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Name);
+            htmlDom.DocumentNode.SelectNodes($"//html/body/div/main/div/ul/li[{index}]/div[1]/div[1]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.Name);
 
             //Second col contains status text and colleration id
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.StatusText);
-            htmlDom.DocumentNode.SelectNodes($"//html/body/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckCorrelationId);
+            htmlDom.DocumentNode.SelectNodes($"//html/body/div/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.StatusText);
+            htmlDom.DocumentNode.SelectNodes($"//html/body/div/main/div/ul/li[{index}]/div[1]/div[2]").FirstOrDefault().InnerText.Should().Contain(serviceStatus.CheckCorrelationId);
         }
 
         private ServiceStatuesModel GenerateServiceStatusViewModel()

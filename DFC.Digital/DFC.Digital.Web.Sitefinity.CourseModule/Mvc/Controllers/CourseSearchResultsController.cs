@@ -146,44 +146,41 @@ namespace DFC.Digital.Web.Sitefinity.CourseModule.Mvc.Controllers
                 filtersInput.Postcode = filtersInput.Location;
             }
 
-            if (!string.IsNullOrEmpty(cleanedSearchTerm))
+            //create a new object if invoked from landing page
+            var courseSearchProperties = inputSearchProperties ?? new CourseSearchProperties();
+            courseSearchProperties.Count = RecordsPerPage;
+            courseSearchProperties.Filters = mapper.Map<CourseSearchFilters>(filtersInput);
+            courseSearchProperties.Filters.DistanceSpecified = filtersInput.IsDistanceLocation && (filtersInput.Distance > 0);
+            ReplaceSpecialCharactersOnFreeTextFields(courseSearchProperties.Filters);
+
+            var combinedDate = $"{filtersInput.StartDateYear}/{filtersInput.StartDateMonth}/{filtersInput.StartDateDay}";
+            if (DateTime.TryParse(combinedDate, out DateTime result))
             {
-                //create a new object if invoked from landing page
-                var courseSearchProperties = inputSearchProperties ?? new CourseSearchProperties();
-                courseSearchProperties.Count = RecordsPerPage;
-                courseSearchProperties.Filters = mapper.Map<CourseSearchFilters>(filtersInput);
-                courseSearchProperties.Filters.DistanceSpecified = filtersInput.IsDistanceLocation && (filtersInput.Distance > 0);
-                ReplaceSpecialCharactersOnFreeTextFields(courseSearchProperties.Filters);
-
-                var combinedDate = $"{filtersInput.StartDateYear}/{filtersInput.StartDateMonth}/{filtersInput.StartDateDay}";
-                if (DateTime.TryParse(combinedDate, out DateTime result))
-                {
-                    courseSearchProperties.Filters.StartDateFrom = result;
-                }
-
-                var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
-
-                if (response.Courses.Any())
-                {
-                    foreach (var course in response.Courses)
-                    {
-                        course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&r={course.RunId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
-                        courseSearchResults.Courses.Add(new CourseListingViewModel
-                        {
-                            Course = course,
-                            AdvancedLoanProviderLabel = AdvancedLoanProviderLabel,
-                            LocationLabel = LocationLabel,
-                            ProviderLabel = ProviderLabel,
-                            StartDateLabel = StartDateLabel
-                        });
-                    }
-
-                    response.ResultProperties.OrderedBy = originalCourseSearchOrderBy;
-                    SetupResultsViewModel(courseSearchResults, response);
-                }
-
-                SetupStartDateDisplayData(courseSearchResults);
+                courseSearchProperties.Filters.StartDateFrom = result;
             }
+
+            var response = asyncHelper.Synchronise(() => courseSearchService.SearchCoursesAsync(courseSearchProperties));
+
+            if (response.Courses.Any())
+            {
+                foreach (var course in response.Courses)
+                {
+                    course.CourseLink = $"{CourseDetailsPage}?{nameof(CourseDetails.CourseId)}={course.CourseId}&r={course.RunId}&referralPath={context.GetUrlEncodedPathAndQuery()}";
+                    courseSearchResults.Courses.Add(new CourseListingViewModel
+                    {
+                        Course = course,
+                        AdvancedLoanProviderLabel = AdvancedLoanProviderLabel,
+                        LocationLabel = LocationLabel,
+                        ProviderLabel = ProviderLabel,
+                        StartDateLabel = StartDateLabel
+                    });
+                }
+
+                response.ResultProperties.OrderedBy = originalCourseSearchOrderBy;
+                SetupResultsViewModel(courseSearchResults, response);
+            }
+
+            SetupStartDateDisplayData(courseSearchResults);
 
             SetupWidgetLabelsAndTextDefaults(courseSearchResults);
             return View("SearchResults", courseSearchResults);

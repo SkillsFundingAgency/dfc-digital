@@ -2,10 +2,10 @@
 
 @if (Model.JobProfileCategoriesAvailable)
 {
-    <ul class="homepage-jobcategories">
+    <ul class="govuk-list homepage-jobcategories">
         @foreach (var jobrofileCategory in Model.JobProfileCategories)
         {
-            <li><a href="@jobrofileCategory.Url">@jobrofileCategory.Title</a></li>
+            <li><a class="govuk-link" href="@jobrofileCategory.Url">@jobrofileCategory.Title</a></li>
         }
     </ul>
 }

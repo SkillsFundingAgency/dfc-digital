@@ -2,53 +2,52 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @model DFC.Digital.Web.Sitefinity.Core.Mvc.Models.ServiceStatuesModel
 <!DOCTYPE html>
-<html @Html.RenderLangAttribute()>
+<html @Html.RenderLangAttribute() class="govuk-template app-html-class">
 <head>
     <title>Service Status</title>
     @Html.Partial("_Head")
 </head>
 <body>
-    <header class="with-proposition" id="global-header" role="banner">
-        <div class="header-wrapper">
-            <div class="header-proposition">
-                <div class="content">
-                    <nav id="proposition-menu">
-                        <a href="/" id="proposition-name">Explore careers</a><strong class="phase-tag">BETA</strong>
-                    </nav>
-                </div>
+    <header class="govuk-header with-proposition" id="global-header" role="banner" data-module="govuk-header">
+        <div class="govuk-header__container govuk-width-container">
+            <div class="govuk-header__logo">
+                <nav id="proposition-menu">
+                    <a href="/" id="proposition-name">Explore careers</a><strong class="govuk-tag govuk-phase-banner__content__tag">BETA</strong>
+                </nav>
             </div>
         </div>
     </header>
-
-    <main role="main">
-        <div class="content-container">
-            <h2 class="heading-medium">Service Status</h2>
-            <h2 class="heading-small">At : @Model.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss")</h2>
-            <ul class="list-service">
-                @foreach (var status in Model.ServiceStatues)
-                {
-                    <li class="list-service_@(status?.Status)">
-                        <div class="grid-row">
-                            <div class="column-one-half">
-                                @(status?.Name)
-                                <ul class="list-service">
-                                    @foreach (var childStatus in status?.ChildAppStatuses)
-                                    {
-                                        <li class="list-service_@(status?.Status)">
-                                            @childStatus.Name - @childStatus.StatusText
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                            <div class="column-one-half">
-                                @(status?.StatusText)
-                                @(status?.CheckCorrelationId)
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-    </main>
+    <div class="govuk-width-container">
+      <main role="main" class="govuk-main-wrapper">
+          <div class="content-container">
+              <h2 class="govuk-heading-m">Service Status</h2>
+              <h2 class="govuk-heading-s">At : @Model.CheckDateTime.ToString("dd/MM/yyyy hh:mm:ss")</h2>
+              <ul class="list-service govuk-list">
+                  @foreach (var status in Model.ServiceStatues)
+                  {
+                      <li class="list-service_@(status?.Status)">
+                          <div class="govuk-grid-row">
+                              <div class="govuk-grid-column-one-half">
+                                  @(status?.Name)
+                                  <ul class="list-service govuk-list">
+                                      @foreach (var childStatus in status?.ChildAppStatuses)
+                                      {
+                                          <li class="list-service_@(status?.Status)">
+                                              @childStatus.Name - @childStatus.StatusText
+                                          </li>
+                                      }
+                                  </ul>
+                              </div>
+                              <div class="govuk-grid-column-one-half">
+                                  @(status?.StatusText)
+                                  @(status?.CheckCorrelationId)
+                              </div>
+                          </div>
+                      </li>
+                  }
+              </ul>
+          </div>
+      </main>
+    </div>
 </body>
 </html>

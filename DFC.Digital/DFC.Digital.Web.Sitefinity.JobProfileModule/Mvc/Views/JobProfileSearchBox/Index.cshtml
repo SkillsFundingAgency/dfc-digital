@@ -1,21 +1,24 @@
 ﻿@model DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.JobProfileSearchBoxViewModel
+<search>
+    @using (Html.BeginForm("Search", "JobProfileSearchBox", FormMethod.Post, new { id = "header-search", @class = "site-search ui-front" }))
+    {
+        <div class="header-search-content">
+            @Html.LabelFor(model => model.SearchTerm, Model.PlaceholderText)
 
-@using (Html.BeginForm("Search", "JobProfileSearchBox", FormMethod.Post, new { id = "header-search", @class = "site-search ui-front" }))
-{
-    <div class="header-search-content">
-        @Html.LabelFor(model => model.SearchTerm, Model.PlaceholderText)
-
-        <div class="search-input-wrapper">
-            @Html.TextBoxFor(model => model.SearchTerm, new {
-                                                               @class = "search-input js-search-focus focus js-autocomplete",
-                                                               @type = "search",
-                                                               data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
-                                                               data_autocomplete_maxlength = Model.AutoCompleteMaximumCharacters,
-                                                               data_autocomplete_source = "/searchautocomplete",
-                                                               data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
-                                                               data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
-                                                           })
+            <div class="search-input-wrapper">
+                @Html.TextBoxFor(model => model.SearchTerm, new
+                {
+                                                                   @class = "govuk-input search-input js-search-focus focus js-autocomplete",
+                                                                   @type = "search",
+                                                                   data_autocomplete_minlength = Model.AutoCompleteMinimumCharacters,
+                                                                   data_autocomplete_maxlength = Model.AutoCompleteMaximumCharacters,
+                                                                   data_autocomplete_source = "/searchautocomplete",
+                                                                   data_autocomplete_maxnumberdisplyed = Model.MaximumNumberOfDisplayedSuggestions,
+                                                                   data_autocomplete_fuzzysearch = Model.UseFuzzyAutoCompleteMatching
+                                                               })
+            </div>
+            <button class="submit" type="submit" value="Search">Search</button>
         </div>
-        <button class="submit" type="submit" value="Search">Search</button>
-    </div>
-}
+
+    }
+</search>

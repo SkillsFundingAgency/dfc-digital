@@ -34,7 +34,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             var htmlDom = searchResultsView.RenderAsHtml(jobProfileSearchResultsViewModel);
 
-            var resultText = htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
+            var resultText = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
             resultText.Should().Contain("1 result found");
         }
 
@@ -121,7 +121,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
             searchTermText.Should().Be("Test");
             searchBox.Should().NotBeNull();
 
-            var resultText = htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
+            var resultText = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
             resultText.Should().Contain("1 result found");
 
             var newJobProfileSearch = GenerateDummyJobProfileSearchResultViewModel(
@@ -133,7 +133,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
                             .GetAttributeValue("value", "Attribute not found");
             searchTermText.Should().Be("New Search Test");
 
-            resultText = htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
+            resultText = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
             resultText.Should().Contain("2 results found");
         }
 
@@ -150,7 +150,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.UnitTests
 
             var searchTitle = htmlDom.DocumentNode.SelectNodes("//h1[contains(@class, 'search-title')]").FirstOrDefault().InnerText;
             var searchBox = htmlDom.DocumentNode.SelectNodes("//input[contains(@id, 'search-main')]");
-            var resultMessage = htmlDom.DocumentNode.SelectNodes("//div[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
+            var resultMessage = htmlDom.DocumentNode.SelectNodes("//p[contains(@class, 'result-count')]").FirstOrDefault().InnerText;
 
             searchTitle.Should().NotBeNullOrEmpty();
             searchBox.Should().NotBeNullOrEmpty();

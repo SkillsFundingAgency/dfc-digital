@@ -1,59 +1,185 @@
-﻿@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
+﻿@using Newtonsoft.Json;
+@using System.Web.Caching;
+@using System.Collections.Generic;
+@using System.Configuration;
+@using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 @using Telerik.Sitefinity.Services;
 @using DFC.Digital.Web.Core;
-<!DOCTYPE html>
-<html @Html.RenderLangAttribute() class="govuk-template app-html-class">
-<head>
-    <!-- Page-hiding snippet (recommended) google optimise anti flicker -->
-    <style type="text/css">
-        .async-hide {
-            opacity: 0 !important
+
+@{
+    string requestedPageUri = string.Empty;
+    string displayDebugMessage = string.Empty;
+    List<Dictionary<string, object>> bannerDictionaryList = null;
+    KeyValuePair<string, string>[] bannerArray = null;
+    KeyValuePair<string, string>[][] bannerJaggedArray = null;
+    HttpWebResponse webResponse = null;
+    StreamReader contentStreamReader = null;
+
+    // Using a try with an empty catch block so that issues with getting a banner from STAX don't affect the rest of the page
+    try
+    {
+        // Used to output debug messages (if set to true in web config)
+        displayDebugMessage = ConfigurationManager.AppSettings["DisplayDebugMessage"];
+        if (displayDebugMessage.ToLower() == "true")
+        {
+            @(new System.Web.HtmlString("*** Debug Message: Using the service_default.cshtml layout page ***<br>"));
         }
-    </style>
-    <script type="text/javascript">
-    (function (a, s, y, n, c, h, i, d, e) {
-        s.className += ' ' + y; h.start = 1 * new Date;
-        h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
-        (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
-    })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
-        { 'GTM-554PPX9': true });</script>
-    <!-- End Page-hiding snippet (recommended) google optimise anti flicker -->
-    <!-- Google Tag Manager -->
-    <script type="text/javascript">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-554PPX9');
-    </script>
-    <!-- End Google Tag Manager -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="blue" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta property="og:image" content="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-opengraph-image.png")">
 
-    <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/favicon.ico")" type="image/x-icon" />
-    <link rel="mask-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-mask-icon.svg")" color="blue">
-    <link rel="apple-touch-icon" sizes="180x180" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-180x180.png")">
-    <link rel="apple-touch-icon" sizes="167x167" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-167x167.png")">
-    <link rel="apple-touch-icon" sizes="152x152" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon-152x152.png")">
-    <link rel="apple-touch-icon" href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/images/govuk-apple-touch-icon.png")">
+        // Get the requested page uri (used for caching the banners as well as for individual page banners)
+        requestedPageUri = HttpContext.Current.Request.Path;
+        if (!string.IsNullOrEmpty(requestedPageUri))
+        {
+            if (displayDebugMessage.ToLower() == "true")
+            {
+                @(new System.Web.HtmlString("*** Debug Message: HttpContext.Current.Request.Path = " + requestedPageUri + "***<br>"));
+            }
 
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
-    <!--[if !IE 8]><!-->
-    @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
-    <!--<![endif]-->
-    <!--[if IE 8]>
-        <link href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/css/all-ie8.css")" rel="stylesheet" />
-    <![endif]-->
-    <!--[if lt IE 9]>
-        <script src="/html5-shiv/html5shiv.js"></script>
-    <![endif]-->
-    @Html.Section("head")
+            // If we have a cached banner for this page use it
+            if (HttpContext.Current.Cache[requestedPageUri] != null)
+            {
+                bannerJaggedArray = (KeyValuePair<string, string>[][])HttpContext.Current.Cache[requestedPageUri];
+                if (displayDebugMessage.ToLower() == "true")
+                {
+                    @(new System.Web.HtmlString("*** Debug Message: Banner has been cached, rendering banner from cache ***<br>"));
+                }
+            }
+            else
+            {
+                // No banner in the cache for this page so get the banner from the API
+                var staxBannersEndpoint = ConfigurationManager.AppSettings["StaxBannersEndpoint"];
+                if (!string.IsNullOrEmpty(staxBannersEndpoint))
+                {
+                    if (displayDebugMessage.ToLower() == "true")
+                    {
+                        @(new System.Web.HtmlString("*** Debug Message: StaxBannersEndpoint = " + staxBannersEndpoint + " ***<br>"));
+                    }
+
+                    // Get the subscription key for the API
+                    var StaxBannersEndpointOcpApimSubscriptionKey = ConfigurationManager.AppSettings["StaxBannersEndpointOcpApimSubscriptionKey"];
+                    if (!string.IsNullOrEmpty(StaxBannersEndpointOcpApimSubscriptionKey))
+                    {
+                        if (displayDebugMessage.ToLower() == "true")
+                        {
+                            @(new System.Web.HtmlString("*** Debug Message: Debug Message: OcpApimSubscriptionKey found ***<br>"));
+                        }
+
+                        // Concatenate the requested page uri to the API endpoint
+                        if (staxBannersEndpoint.EndsWith("/"))
+                        {
+                            staxBannersEndpoint = staxBannersEndpoint.TrimEnd('/');
+                        }
+                        staxBannersEndpoint += requestedPageUri;
+                        if (displayDebugMessage.ToLower() == "true")
+                        {
+                            @(new System.Web.HtmlString("*** Debug Message: Request uri: " + staxBannersEndpoint + "***<br>"));
+                        }
+
+                        // Setup the webrequest data
+                        var webRequest = WebRequest.CreateHttp(staxBannersEndpoint);
+                        webRequest.Accept = "application/json";
+                        webRequest.Headers.Add("Ocp-Apim-Subscription-Key: b0e953b755724b9d8a91743b2245468f");
+                        //webRequest.Headers.Add("Access-Control-Allow-Origin", "*");
+                        webRequest.Method = "GET";
+
+                        // Execute the webrequest
+                        webResponse = (HttpWebResponse)webRequest.GetResponse();
+                        if (webResponse != null)
+                        {
+                            if (displayDebugMessage.ToLower() == "true")
+                            {
+                                @(new System.Web.HtmlString("*** Debug Message: Request response code: " + webResponse.StatusCode + "***<br>"));
+                            }
+
+                            // Check we got a valid response
+                            if (webResponse.StatusCode == HttpStatusCode.OK)
+                            {
+                                // Get and deserialise the request data
+                                var contentStream = webResponse.GetResponseStream();
+                                contentStreamReader = new StreamReader(contentStream);
+                                string content = contentStreamReader.ReadToEnd();
+                                bannerDictionaryList = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(content);
+
+                                // Copy to a jagged array for sorting the banners by their 'ordinal' property (should have been able to use IOrderedInumerable but had an issue with it not resolving the reference)
+                                if (bannerDictionaryList != null)
+                                {
+                                    int x = 0;
+                                    int y = 0;
+
+                                    // Initialise the jagged array
+                                    bannerJaggedArray = new KeyValuePair<string, string>[bannerDictionaryList.Count()][];
+                                    for (int i = 0; i < bannerDictionaryList.Count(); i++)
+                                    {
+                                        bannerJaggedArray[i] = new KeyValuePair<string, string>[3];
+                                    }
+
+                                    // Create the jagged array
+                                    foreach (var bannerDictionary in bannerDictionaryList)
+                                    {
+                                        y = 0;
+                                        bannerArray = new KeyValuePair<string, string>[3];
+                                        foreach (var item in bannerDictionary)
+                                        {
+                                            bannerJaggedArray[x][y++] = new KeyValuePair<string, string>(item.Key, item.Value.ToString());
+                                        }
+                                        x++;
+                                    }
+
+                                    // Sort by ordinal ascending
+                                    var itemMoved = false;
+                                    do
+                                    {
+                                        itemMoved = false;
+                                        for (int i = 0; i < bannerJaggedArray.Count() - 1; i++)
+                                        {
+                                            var ordinalFirst = Convert.ToInt32(bannerJaggedArray[i][1].Value);
+                                            var ordinalSecond = Convert.ToInt32(bannerJaggedArray[i + 1][1].Value);
+                                            if (ordinalFirst > ordinalSecond)
+                                            {
+                                                var lowerValue = bannerJaggedArray[i + 1];
+                                                bannerJaggedArray[i + 1] = bannerJaggedArray[i];
+                                                bannerJaggedArray[i] = lowerValue;
+                                                itemMoved = true;
+                                            }
+                                        }
+                                    } while (itemMoved);
+
+                                    // Cache the banner for this page
+                                    HttpContext.Current.Cache.Insert(requestedPageUri, bannerJaggedArray, null, DateTime.UtcNow.AddMinutes(1), Cache.NoSlidingExpiration);
+
+                                } // bannerDictionary null check
+                            } // webresponse status code check
+                        } // webresponse null check
+                    } // API subscription key null check
+                } // staxBannerEnpoint null check
+            } // HttpContext.Current.Cache[requestedPageUri] null check
+        } // requestedPageUri null check
+    } // try
+    catch { }
+    finally
+    {
+        if (webResponse != null)
+        {
+            webResponse.Close();
+        }
+
+        if (contentStreamReader != null)
+        {
+            contentStreamReader.Close();
+        }
+    }
+}
+
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/main.min.css")))
+<!--[if !IE 8]><!-->
+@Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("gds_service_toolkit/css/govuk.min.css")))
+<!--<![endif]-->
+<!--[if IE 8]>
+    <link href="@Html.GetLocationAssetFileAndVersion("gds_service_toolkit/css/all-ie8.css")" rel="stylesheet" />
+<![endif]-->
+<!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+<![endif]-->
+@Html.Section("head")
 </head>
 <body class="govuk-template__body app-body-class">
     <!-- Google Tag Manager (noscript) -->
@@ -69,6 +195,27 @@
     @Html.Section("top")
     @Html.Partial("_govuk_Header")
     @Html.SfPlaceHolder("ServiceHeader")
+    @{
+        try
+        {
+            for (int i = 0; i < bannerJaggedArray.Count(); i++)
+            {
+                var contentDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(bannerJaggedArray[i][2].Value);
+                foreach (var contentItem in contentDictionary)
+                {
+                    var content = contentItem.Value.ToString();
+                    if (!string.IsNullOrEmpty(content))
+                    {
+                        @(new System.Web.HtmlString(content));
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // TODO: logging
+        }
+    }
 
     @Html.SfPlaceHolder("ServiceBanner")
 

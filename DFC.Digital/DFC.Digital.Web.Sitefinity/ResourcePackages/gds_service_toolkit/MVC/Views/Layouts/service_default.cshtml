@@ -63,6 +63,7 @@
                         }
 
                         // Concatenate the requested page uri to the API endpoint
+                        staxBannersEndpoint = staxBannersEndpoint.TrimEnd('/');
                         staxBannersEndpoint += requestedPageUri;
                         if (displayDebugMessage.ToLower() == "true")
                         {

@@ -36,6 +36,8 @@
     <add key="WillBeBackSoonPage" value="~/App_Data/BackSoon.html" />
     <add key="WillBeBackSoonJScript" value="~/App_Data/BackSoon.js" />
     <add key="owin:appStartup" value="DFC.Digital.Web.Sitefinity.Startup" />
+	<add key="StaxBannersEndpointOcpApimSubscriptionKey" value="<--OcpApimSubscriptionKey-->" /> 
+	<add key="DisplayDebugMessage" value="false" />	
     <!--AWSProfileName is used to reference an account that has been registered with the SDK.
         If using AWS Toolkit for Visual Studio then this value is the same value shown in the AWS Explorer.
         It is also possible to register an account using the <solution-dir>/packages/AWSSDK-X.X.X.X/tools/account-management.ps1 PowerShell script

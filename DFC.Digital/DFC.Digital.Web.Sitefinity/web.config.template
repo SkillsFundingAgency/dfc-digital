@@ -99,6 +99,11 @@
     <!--SharedConfig Settings-->
     <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
 
+    <!-- Stax Settings -->
+    <add key="StaxBannersEndpoint" value="__StaxBannersEndpointUrl__" />
+    <add key="StaxBannersEndpointOcpApimSubscriptionKey" value="__OcpApimSubscriptionKey__" />
+    <add key="DisplayDebugMessage" value="false" />
+
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

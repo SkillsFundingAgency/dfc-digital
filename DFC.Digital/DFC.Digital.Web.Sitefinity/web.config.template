@@ -78,12 +78,12 @@
     <add key="DFC.Digital.ServiceBus.ConnectionString" value="__ServiceBusCMSConnectionString__" />
     <add key="DFC.Digital.ServiceBus.TopicName" value="__ServiceBusCMSTopicName__" />
     <add key="DFC.Digital.ServiceBus.TopicName.Draft" value="__ServiceBusCMSTopicNameForDraft__" />
-    
+
     <!--CUI health status end points-->
     <add key="DFC.Digital.CUIShell.HealthEndPoint" value="__CUIShellHealthEndPoint__" />
     <add key="DFC.Digital.CUIAppJobProfiles.HealthEndPoint" value="__CUIAppJobProfilesHealthEndPoint__" />
     <add key="DFC.Digital.CUIAppContentPages.HealthEndPoint" value="__CUIAppContentPagesHealthEndPoint__" />
-    
+
     <add key="FAC.CourseSearchAuditCosmosDbSettings.AccessKey" value="__cosmosDbPrimaryKey__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.CollectionId" value="CourseSearchAudit" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.DatabaseId" value="dfc-digital-audit" />
@@ -206,9 +206,10 @@
         </system.Web>
     -->
   <system.web>
-    <httpRuntime targetFramework="4.7.1" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
+    <httpRuntime targetFramework="4.8" maxRequestLength="102400" maxUrlLength="102400" maxQueryStringLength="10000" requestValidationType="DFC.Digital.Web.Sitefinity.Core.DfcCustomRequestValidator, DFC.Digital.Web.Sitefinity.Core" requestValidationMode="4.0" enableVersionHeader="false" />
     <siteMap defaultProvider="SitefinitySiteMap">
       <providers>
+        <clear />
         <add name="SitefinitySiteMap" type="Telerik.Sitefinity.Web.SitefinitySiteMap, Telerik.Sitefinity" />
       </providers>
     </siteMap>
@@ -226,13 +227,13 @@
                 affects performance, set this value to true only
                 during development.
             -->
-    <compilation debug="true" targetFramework="4.7.2" numRecompilesBeforeAppRestart="2000">
+    <compilation debug="true" targetFramework="4.8" numRecompilesBeforeAppRestart="2000">
       <assemblies>
         <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
         <add assembly="System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
         <add assembly="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
         <add assembly="PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-        <add assembly="Telerik.OpenAccess, Version=2018.0.1127.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" />
+        <add assembly="Telerik.OpenAccess, Version=2020.0.428.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342" />
         <add assembly="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
       </assemblies>
       <buildProviders>
@@ -525,7 +526,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-12.0.0.0" newVersion="12.0.0.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Razor" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -549,7 +550,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Cors" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -574,18 +575,6 @@
       <dependentAssembly>
         <assemblyIdentity name="NLog" publicKeyToken="5120e14c03d0593c" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="0.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Autofac.Integration.Owin" publicKeyToken="17863af14b0044da" culture="neutral" />
@@ -613,7 +602,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.OData.Core" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-6.11.0.0" newVersion="6.11.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-7.6.1.0" newVersion="7.6.1.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.OData.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -661,11 +650,11 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Diagnostics.DiagnosticSource" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.3.0" newVersion="4.0.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.3.1" newVersion="4.0.3.1" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.ValueTuple" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.3.0" newVersion="4.0.3.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.2.0" newVersion="4.0.2.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="AutoMapper" publicKeyToken="be96cd2c38ef1005" culture="neutral" />
@@ -673,23 +662,43 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Model" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Services.Events" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Utilities" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.Sitefinity.Authentication" publicKeyToken="b28c218413bdf563" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-12.2.7224.0" newVersion="12.2.7224.0" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Mvc" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Frontend" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.SitemapGenerator" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Search.Impl" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Telerik.Sitefinity.Search" publicKeyToken="b28c218413bdf563" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-13.3.7626.0" newVersion="13.3.7626.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
@@ -717,15 +726,7 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Telerik.OpenAccess" publicKeyToken="7ce17eeaf1d59342" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2018.0.1127.1" newVersion="2018.0.1127.1" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection.Abstractions" publicKeyToken="adb9793829ddae60" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.4.1" newVersion="4.0.4.1" />
+        <bindingRedirect oldVersion="0.0.0.0-2020.0.428.1" newVersion="2020.0.428.1" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Buffers" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
@@ -740,12 +741,8 @@
         <bindingRedirect oldVersion="0.0.0.0-1.0.5.0" newVersion="1.0.5.0" />
       </dependentAssembly>
       <dependentAssembly>
-        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection" publicKeyToken="adb9793829ddae60" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
         <assemblyIdentity name="Microsoft.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-7.5.0.20627" newVersion="7.5.0.20627" />
+        <bindingRedirect oldVersion="0.0.0.0-7.6.1.0" newVersion="7.6.1.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Polly" publicKeyToken="c8a3ffc3f8f825cc" culture="neutral" />
@@ -773,12 +770,12 @@
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Memory" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.1.0" newVersion="4.0.1.0" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.1.1" newVersion="4.0.1.1" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="System.Text.Encodings.Web" publicKeyToken="cc7b13ffcd2ddd51" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-4.0.4.0" newVersion="4.0.4.0" />
-      </dependentAssembly>      
+      </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Azure.Amqp" publicKeyToken="31bf3856ad364e35" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-2.4.0.0" newVersion="2.4.0.0" />
@@ -818,6 +815,42 @@
       <dependentAssembly>
         <assemblyIdentity name="Microsoft.Extensions.Http" publicKeyToken="adb9793829ddae60" culture="neutral" />
         <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection" publicKeyToken="adb9793829ddae60" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Extensions.DependencyInjection.Abstractions" publicKeyToken="adb9793829ddae60" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.2.0.0" newVersion="2.2.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Runtime.CompilerServices.Unsafe" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.6.0" newVersion="4.0.6.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Text.Encoding.CodePages" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.1.3.0" newVersion="4.1.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.ComponentModel.Annotations" publicKeyToken="b03f5f7f11d50a3a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.2.1.0" newVersion="4.2.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Azure.DocumentDB.Core" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.9.2.0" newVersion="2.9.2.0" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>

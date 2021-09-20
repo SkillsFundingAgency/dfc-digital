@@ -43,6 +43,10 @@
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
             },
             {
+                "name": "WEBSITE_LOAD_CERTIFICATES",
+                "value": "*"
+            },
+            {
               "name": "DatabaseVersion",
               "value": "[parameters('currentDatabaseName')]"
             },
@@ -95,6 +99,10 @@
             {
               "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('name')), '2015-05-01').InstrumentationKey]"
+            },
+            {
+                "name": "WEBSITE_LOAD_CERTIFICATES",
+                "value": "*"
             },
             {
               "name": "WarmUpSlotSetting",

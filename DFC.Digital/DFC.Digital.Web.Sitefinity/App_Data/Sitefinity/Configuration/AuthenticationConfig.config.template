@@ -21,6 +21,7 @@
       <scopes>
         <add scopeType="Resource" name="offline_access" />
       </scopes>
+    <signingCertificate storeName="My" storeLocation="CurrentUser" subjectName="*.nationalcareersservice.org.uk" />
     </identityServerSettings>
   </securityTokenServiceSettings>
 </authenticationConfig>

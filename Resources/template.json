@@ -222,6 +222,10 @@
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                 "value": "[reference('exploreCareersAppInsights').outputs.InstrumentationKey.value]"
+              },
+              {
+                "name": "WEBSITE_LOAD_CERTIFICATES",
+                "value": "*"
               }
             ]
           }

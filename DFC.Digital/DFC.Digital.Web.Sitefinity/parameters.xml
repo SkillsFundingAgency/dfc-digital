@@ -331,4 +331,12 @@
                     match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
   </parameter>
 
+  <!-- Meta tag Config -->
+  <parameter name="Metatag_NoIndex"
+           description="Metatag to remove index on DEV/SIT and PreProd"
+           defaultValue="__MetaTag-NoIndex__"> 
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.MetaTag']/@value" />
+  </parameter>
+
 </parameters>

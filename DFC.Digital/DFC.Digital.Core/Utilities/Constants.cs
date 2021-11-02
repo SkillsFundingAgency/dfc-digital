@@ -74,7 +74,6 @@
 
         public const string CUIShellHealthEndPoint = "DFC.Digital.CUIShell.HealthEndPoint";
         public const string CUIAppJobProfilesHealthEndPoint = "DFC.Digital.CUIAppJobProfiles.HealthEndPoint";
-        public const string CUIAppContentPagesHealthEndPoint = "DFC.Digital.CUIAppContentPages.HealthEndPoint";
 
         public const string CourseSearchInvalidCharactersRegexPattern = "[^a-zA-Z0-9& ()+:'’,.]*";
         public const string CourseApiDateFormat = "yyyy-MM-dd";

@@ -21,6 +21,9 @@
     "currentDatabaseName": {
       "type": "string"
     },
+    "MetaTag-NoIndex": {
+      "type": "string"
+    },
     "searchIndexVersion": {
         "type": "string"
     }             
@@ -53,7 +56,11 @@
             {
               "name": "SearchIndexVersion",
               "value": "[parameters('searchIndexVersion')]"
-            },            
+            },
+            {
+              "name": "MetaTag-NoIndex",
+              "value": "[parameters('MetaTag-NoIndex')]"
+            },                  
             {
               "name": "WarmUpSlotSetting",
               "value": "App setting to facilitate slot warmup"

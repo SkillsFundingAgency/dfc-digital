@@ -23,6 +23,9 @@
       "currentDatabaseName": {
         "value": "__CurrentDatabaseName__"
       },
+      "MetaTag-NoIndex": {
+        "value": "__MetaTag-NoIndex__"
+      },        
       "searchIndexVersion": {
         "value": "__CurrentSearchIndexName__"
       }        

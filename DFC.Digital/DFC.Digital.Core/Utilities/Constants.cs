@@ -177,5 +177,6 @@
         public const string SharedConfigCloudStorageTableName = "DFC.SharedConfig.CloudStorageTableName";
         public const string SharedConfigInMemoryCacheTimeToLiveTimespan = "DFC.SharedConfig.InMemoryCacheTimeToLiveTimespan";
         public const string SharedConfigEnvironmentName = "DFC.SharedConfig.EnvironmentName";
+        public const string MetaTag = "DFC.Digital.MetaTag";
     }
 }

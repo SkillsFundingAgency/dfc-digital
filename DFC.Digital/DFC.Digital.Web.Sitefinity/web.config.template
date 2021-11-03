@@ -98,6 +98,9 @@
     <!--SharedConfig Settings-->
     <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
 
+    <!--Meta Tag settings-->
+    <add key="DFC.Digital.MetaTag" value="__MetaTag-NoIndex__" />
+    
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

@@ -327,7 +327,7 @@
   <!-- Meta tag Config -->
   <parameter name="Metatag_NoIndex"
            description="Metatag to remove index on DEV/SIT and PreProd"
-           defaultValue="__MetaTag-NoIndex__"> 
+           defaultValue="__MetaTagNoIndex__"> 
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.MetaTag']/@value" />
   </parameter>

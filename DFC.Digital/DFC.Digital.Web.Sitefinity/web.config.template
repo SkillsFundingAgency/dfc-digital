@@ -99,7 +99,7 @@
     <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
 
     <!--Meta Tag settings-->
-    <add key="DFC.Digital.MetaTag" value="__MetaTag-NoIndex__" />
+    <add key="DFC.Digital.MetaTag" value="__MetaTagNoIndex__" />
     
   </appSettings>
   <connectionStrings>

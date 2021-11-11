@@ -275,13 +275,6 @@
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.Digital.CUIAppJobProfiles.HealthEndPoint']/@value" />
   </parameter>
-  <parameter name="CUIAppContentPages.HealthEndPoint"
-            description="Topic used in Service bus to publish Sitefinity JobProfile "
-            defaultValue="__CUIAppContentPagesHealthEndPoint__">
-    <parameterValidation kind="AllowEmpty" />
-    <parameterEntry kind="XmlFile" scope="\\web\.config$"
-                    match="/configuration/appSettings/add[@key='DFC.Digital.CUIAppContentPages.HealthEndPoint']/@value" />
-  </parameter>
   
   <!-- Course search API settings -->
   <parameter name="CS_Api_CosmosDb_EndpointUrl"
@@ -329,6 +322,14 @@
            defaultValue="__SharedConfigStorageConnectionStringXml__">
     <parameterEntry kind="XmlFile" scope="\\web\.config$"
                     match="/configuration/appSettings/add[@key='DFC.SharedConfig.ConfigurationStorageConnectionString']/@value" />
+  </parameter>
+
+  <!-- Meta tag Config -->
+  <parameter name="Metatag_NoIndex"
+           description="Metatag to remove index on DEV/SIT and PreProd"
+           defaultValue="__MetaTagNoIndex__"> 
+    <parameterEntry kind="XmlFile" scope="\\web\.config$"
+                    match="/configuration/appSettings/add[@key='DFC.Digital.MetaTag']/@value" />
   </parameter>
 
 </parameters>

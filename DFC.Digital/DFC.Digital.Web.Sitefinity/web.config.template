@@ -82,7 +82,6 @@
     <!--CUI health status end points-->
     <add key="DFC.Digital.CUIShell.HealthEndPoint" value="__CUIShellHealthEndPoint__" />
     <add key="DFC.Digital.CUIAppJobProfiles.HealthEndPoint" value="__CUIAppJobProfilesHealthEndPoint__" />
-    <add key="DFC.Digital.CUIAppContentPages.HealthEndPoint" value="__CUIAppContentPagesHealthEndPoint__" />
 
     <add key="FAC.CourseSearchAuditCosmosDbSettings.AccessKey" value="__cosmosDbPrimaryKey__" />
     <add key="FAC.CourseSearchAuditCosmosDbSettings.CollectionId" value="CourseSearchAudit" />
@@ -99,6 +98,9 @@
     <!--SharedConfig Settings-->
     <add key="DFC.SharedConfig.ConfigurationStorageConnectionString" value="__SharedConfigStorageConnectionString__" />
 
+    <!--Meta Tag settings-->
+    <add key="DFC.Digital.MetaTag" value="__MetaTagNoIndex__" />
+    
   </appSettings>
   <connectionStrings>
     <add name="DFC.Digital.OnetSkillsFramework" connectionString="__onetSkillsFrameworkConnectionString__" providerName="System.Data.EntityClient" />

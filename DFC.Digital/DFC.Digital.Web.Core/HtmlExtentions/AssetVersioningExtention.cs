@@ -36,9 +36,14 @@ namespace DFC.Digital.Web.Core
             return context.Cache[fileName].ToString();
         }
 
+        public static string GetWebchatEndpoint(this HtmlHelper helper)
+        {
+            return ConfigurationManager.AppSettings[Constants.WebchatEndpoint];
+        }
+
         public static string GetMetaTag(this HtmlHelper helper)
         {
-                return ConfigurationManager.AppSettings[Constants.MetaTag];
+            return ConfigurationManager.AppSettings[Constants.MetaTag];
         }
     }
 }

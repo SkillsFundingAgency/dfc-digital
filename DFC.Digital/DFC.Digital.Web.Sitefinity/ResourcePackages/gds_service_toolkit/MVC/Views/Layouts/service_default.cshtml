@@ -47,6 +47,8 @@
     @Html.StyleSheet(@Html.GetLocationAssetFileAndVersion(Url.Content("nationalcareers_toolkit/css/all.min.css")))
 
     @Html.Section("head")
+    <script src="@Html.Raw(Html.GetWebchatEndpoint())" async></script>
+    
 </head>
 <body class="govuk-template__body app-body-class">
     <!-- Google Tag Manager (noscript) -->

@@ -178,5 +178,6 @@
         public const string SharedConfigInMemoryCacheTimeToLiveTimespan = "DFC.SharedConfig.InMemoryCacheTimeToLiveTimespan";
         public const string SharedConfigEnvironmentName = "DFC.SharedConfig.EnvironmentName";
         public const string MetaTag = "DFC.Digital.MetaTag";
+        public const string WebchatEndpoint = "DFC.Digital.WebChat.EndPoint";
     }
 }

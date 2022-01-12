@@ -400,10 +400,6 @@
       <Project>{4966A01F-EC6C-49A7-8AEF-99A17BED9C5E}</Project>
       <Name>DFC.Digital.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Digital.Repository.CosmosDb\DFC.Digital.Repository.CosmosDb.csproj">
-      <Project>{0B25E89F-8314-4EE4-8B5A-CCD7A04BAB5D}</Project>
-      <Name>DFC.Digital.Repository.CosmosDb</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DFC.Digital.Service.CourseSearch\DFC.Digital.Service.CourseSearchProvider.csproj">
       <Project>{93F01099-5E61-4C12-B666-B5DB281E393C}</Project>
       <Name>DFC.Digital.Service.CourseSearchProvider</Name>

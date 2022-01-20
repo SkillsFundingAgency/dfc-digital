@@ -1403,6 +1403,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Sitefinity\AddOns\WorkingHPE\" />
+    <Folder Include="Views\MigrationTool\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

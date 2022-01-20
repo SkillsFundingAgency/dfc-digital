@@ -496,6 +496,7 @@
     <Compile Include="Mvc\Controllers\JobProfileCategoriesController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileRelatedCareersController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileSectionController.cs" />
+    <Compile Include="Mvc\Controllers\MigrationToolController.cs" />
     <Compile Include="Mvc\Controllers\PreSearchFiltersController.cs" />
     <Compile Include="Mvc\Controllers\JobProfileBAUSignpostingController.cs" />
     <Compile Include="Mvc\Controllers\PsfSearchController.cs" />
@@ -522,6 +523,7 @@
     <Compile Include="Mvc\Models\JobProfileSectionViewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileSettingsAndPreviewModel.cs" />
     <Compile Include="Mvc\Models\JobProfileWhatYouWillDoViewModel.cs" />
+    <Compile Include="Mvc\Models\MigrationToolViewModel.cs" />
     <Compile Include="Mvc\Models\PsfBack.cs" />
     <Compile Include="Mvc\Models\PSFModel.cs" />
     <Compile Include="Mvc\Models\PSFOption.cs" />
@@ -567,6 +569,7 @@
     <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.cshtml" />
     <Content Include="Mvc\Views\JobProfileWhatItTakes\DesignerView.Simple.json" />
     <Content Include="Mvc\Views\JobProfileStructuredData\Index.cshtml" />
+    <Content Include="Mvc\Views\MigrationTool\index.cshtml" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

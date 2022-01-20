@@ -1,0 +1,29 @@
+﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.MigrationToolViewModel
+
+<div class="content-container">
+    <div class="grid-row"><h2>Migration Tool</h2></div>
+    @if (Model != null && Model.JobProfiles.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>UrlName</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobProfile in Model.JobProfiles)
+                    {
+                    <tr>
+                        <td>@jobProfile.Id</td>
+                        <td>@jobProfile.Title</td>
+                        <td>@jobProfile.UrlName</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

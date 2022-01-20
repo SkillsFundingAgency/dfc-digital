@@ -147,7 +147,31 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return repository.GetProviderName();
         }
 
-        private JobProfile ConvertDynamicContent(DynamicContent dynamicContent)
+        public IEnumerable<JobProfile> GetAllJobProfiles()
+        {
+            var jobProfilesDynamicContentItems = repository.GetMany(item => item.Status == ContentLifecycleStatus.Live && item.Visible).ToList();
+
+            if (jobProfilesDynamicContentItems.Any())
+            {
+                //int count = jobProfilesDynamicContentItems.Count;
+                var jobProfiles = new List<JobProfile>();
+
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    jobProfiles.Add(ConvertDynamicContent(jobProfilesDynamicContentItems[i]));
+                //}
+                foreach (var jobProfilesDynamicContentItem in jobProfilesDynamicContentItems)
+                {
+                    jobProfiles.Add(ConvertDynamicContent(jobProfilesDynamicContentItem));
+                }
+
+                return jobProfiles;
+            }
+
+            return Enumerable.Empty<JobProfile>();
+        }
+
+        public JobProfile ConvertDynamicContent(DynamicContent dynamicContent)
         {
             if (dynamicContent != null)
             {

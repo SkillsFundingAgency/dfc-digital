@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Telerik.Sitefinity.Abstractions;
 
 namespace DFC.Digital.Web.Sitefinity
 {
@@ -22,6 +25,16 @@ namespace DFC.Digital.Web.Sitefinity
                 Response.Cookies[sCookie].Secure = true;
                 Response.Cookies[sCookie].Path += ";HttpOnly";
             }
+        }
+
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            Bootstrapper.Bootstrapped += Bootstrapper_Bootstrapped;
+        }
+
+        private void Bootstrapper_Bootstrapped(object sender, EventArgs e)
+        {
+            System.Web.Mvc.RouteCollectionExtensions.MapRoute(RouteTable.Routes, "Classic", "mt/{controller}/{action}/{id}", new { controller = "MigrationTool", action = "Index", id = (string)null });
         }
     }
 }

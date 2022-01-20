@@ -49,6 +49,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         {
             var jobProfile = new JobProfile
             {
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(JobProfile.Id)),
                 Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.Title)),
                 AlternativeTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.AlternativeTitle)),
                 WidgetContentTitle = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(JobProfile.WidgetContentTitle)),

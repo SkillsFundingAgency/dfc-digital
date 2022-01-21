@@ -65,6 +65,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
                             instance.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
                             break;
 
+                        case var _ when t.Instance is DynamicModuleRepository<Uniform> instance:
+                            instance.Initialise(DynamicTypes.JobprofileContentType, DynamicTypes.JobProfileModuleName);
+                            break;
+
                         case var _ when t.Instance is DynamicModuleRepository<SocCode> instance:
                             instance.Initialise(DynamicTypes.JobProfileSocContentType, DynamicTypes.JobProfileModuleName);
                             break;

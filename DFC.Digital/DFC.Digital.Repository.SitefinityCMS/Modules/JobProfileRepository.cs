@@ -153,13 +153,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
             if (jobProfilesDynamicContentItems.Any())
             {
-                //int count = jobProfilesDynamicContentItems.Count;
                 var jobProfiles = new List<JobProfile>();
 
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    jobProfiles.Add(ConvertDynamicContent(jobProfilesDynamicContentItems[i]));
-                //}
                 foreach (var jobProfilesDynamicContentItem in jobProfilesDynamicContentItems)
                 {
                     jobProfiles.Add(ConvertDynamicContent(jobProfilesDynamicContentItem));

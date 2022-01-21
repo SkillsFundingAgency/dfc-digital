@@ -182,6 +182,7 @@
     <Compile Include="Model\Enum\ContactOption.cs" />
     <Compile Include="Model\Enum\MessageAction.cs" />
     <Compile Include="Model\Enum\MicroServicesDataEventAction.cs" />
+    <Compile Include="Model\FlatTaxaItem.cs" />
     <Compile Include="Model\MicroServicesPublishingPageData.cs" />
     <Compile Include="Model\CourseSearchFilters.cs" />
     <Compile Include="Model\CourseSearchResultProperties.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
+    <Compile Include="Model\Uniform.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\Venue.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />

@@ -1,7 +1,10 @@
 ﻿using DFC.Digital.Core;
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data;
+using DFC.Digital.Data.Model;
+using DFC.Digital.Repository.SitefinityCMS.Modules;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Telerik.Sitefinity;
@@ -24,6 +27,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private const string PublicationDateFieldName = "PublicationDate";
         private const string DraftApprovalWorkflowState = "Draft";
         private readonly IApplicationLogger applicationLogger;
+        private readonly IDynamicContentExtensions dynamicContentExtensions;
 
         private DynamicModuleManager dynamicModuleManager;
 
@@ -31,9 +35,10 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         private string providerName;
 
-        public DynamicModuleRepository(IApplicationLogger applicationLogger)
+        public DynamicModuleRepository(IApplicationLogger applicationLogger, IDynamicContentExtensions dynamicContentExtensions)
         {
             this.applicationLogger = applicationLogger;
+            this.dynamicContentExtensions = dynamicContentExtensions;
         }
 
         #region NotImplemented
@@ -177,6 +182,48 @@ namespace DFC.Digital.Repository.SitefinityCMS
         {
             return dynamicModuleManager.GetDataItems(dynamicModuleContentType);
         }
+
+        #region Uniform
+
+        public IEnumerable<Uniform> GetAllUniforms()
+        {
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.UniformContentType);
+            var dynamicModuleItems = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Live && item.Visible);
+
+            if (dynamicModuleItems.Any())
+            {
+                //int count = dynamicModuleItems.Count;
+                var uniforms = new List<Uniform>();
+
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    uniforms.Add(ConvertFromToUniform(dynamicModuleItem));
+                //}
+                foreach (var dynamicModuleItem in dynamicModuleItems)
+                {
+                    uniforms.Add(ConvertFromToUniform(dynamicModuleItem));
+                }
+
+                return uniforms;
+            }
+
+            return Enumerable.Empty<Uniform>();
+        }
+
+        public Uniform ConvertFromToUniform(DynamicContent content)
+        {
+            var uniform = new Uniform
+            {
+                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(Uniform.Id)),
+                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(Uniform.Title)),
+                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(Uniform.Description)),
+                IsNegative = dynamicContentExtensions.GetFieldValue<bool?>(content, nameof(Uniform.IsNegative))
+            };
+
+            return uniform;
+         }
+
+        #endregion Private Fields
 
         [IgnoreOutputInInterception]
         public DynamicContent GetById(string id)

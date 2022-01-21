@@ -8,6 +8,7 @@ namespace DFC.Digital.MigrationTool.Models
     public static class DynamicTypes
     {
         public const string JobprofileContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
+        public const string UniformContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Uniform";
         public const string JobProfileModuleName = "Job Profile";
         public const string OnetSkillTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill";
         public const string SocSkillMatrixTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix";

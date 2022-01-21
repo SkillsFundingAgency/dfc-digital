@@ -1,7 +1,22 @@
 ﻿@model  DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models.MigrationToolViewModel
 
 <div class="content-container">
-    <div class="grid-row"><h2>Migration Tool</h2></div>
+    <div class="grid-row"><h3 style="text-align:center">Migration Tool</h3></div>
+    <div style="text-align:center">
+        <p>@Model.Message</p>
+        @using (Html.BeginForm("ContentItems", "MigrationTool", FormMethod.Post, new { id = "SelectItemType" }))
+        {
+            <select name="SelectedItemType" asp-for="@Model.SelectedItemType">
+                <option value="">Select ContentType</option>
+                <option value="JobProfile">01. JobProfile</option>
+                <option value="Uniform">02. Uniform</option>
+                <option value="None">------</option>
+                <option value="HiddenAlternativeTitle">XX. Hidden Alternative Title</option>
+            </select>
+            <input type="submit" value="Submit">
+        }
+
+    </div>
     @if (Model != null && Model.JobProfiles.Any())
     {
         <div class="grid-row">
@@ -16,10 +31,66 @@
                 <tbody>
                     @foreach (var jobProfile in Model.JobProfiles)
                     {
+                        <tr>
+                            <td>@jobProfile.Id</td>
+                            <td>@jobProfile.Title</td>
+                            <td>@jobProfile.UrlName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.Uniforms.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
                     <tr>
-                        <td>@jobProfile.Id</td>
-                        <td>@jobProfile.Title</td>
-                        <td>@jobProfile.UrlName</td>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>IsNegative</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var uniform in Model.Uniforms)
+                    {
+                        <tr>
+                            <td>@uniform.Id</td>
+                            <td>@uniform.Title</td>
+                            <td>@uniform.Description</td>
+                            <td>@uniform.IsNegative</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.FlatTaxaItems.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Url</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var flatTaxaItem in Model.FlatTaxaItems)
+                    {
+                    <tr>
+                        <td>@flatTaxaItem.Id</td>
+                        <td>@flatTaxaItem.Name</td>
+                        <td>@flatTaxaItem.Title</td>
+                        <td>@flatTaxaItem.Url</td>
+                        <td>@flatTaxaItem.Description</td>
                     </tr>
                     }
                 </tbody>

@@ -1,6 +1,8 @@
 ﻿using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
+using DFC.Digital.Data.Model;
 using System;
+using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Model;
 
 namespace DFC.Digital.Repository.SitefinityCMS
@@ -40,5 +42,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
         DynamicContent CheckinTemp(DynamicContent entity);
 
         bool IsCheckedOut(DynamicContent entity);
+
+        IEnumerable<Uniform> GetAllUniforms();
     }
 }

@@ -344,6 +344,7 @@
     <Compile Include="CMSExtensions\JobProfileReportRepository.cs" />
     <Compile Include="CMSExtensions\JobProfileApprenticeshipVacancyReportConverter.cs" />
     <Compile Include="CMSExtensions\UserRepository.cs" />
+    <Compile Include="Modules\ItemTypes.cs" />
     <Compile Include="Modules\JobProfileOverloadForWhatItTakesConverter.cs" />
     <Compile Include="Modules\JobProfileOverloadForSearchConverter.cs" />
     <Compile Include="CMSExtensions\SocCodeReportConverter.cs" />

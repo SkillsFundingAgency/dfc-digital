@@ -4,7 +4,6 @@ using Autofac.Integration.Mvc;
 using AutoMapper;
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
-using DFC.Digital.Repository.CosmosDb;
 using DFC.Digital.Repository.ONET;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Service.AzureSearch;
@@ -44,7 +43,6 @@ namespace DFC.Digital.Web.Core
             builder
                 .RegisterModule<CoreAutofacModule>()
                 .RegisterModule<AzSearchAutofacModule>()
-                .RegisterModule<CosmosDbAutofacModule>()
                 .RegisterModule<SitefinityRepositoryAutofacModule>()
                 .RegisterModule<GovUkNotifyAutofacModule>()
                 .RegisterModule<LmiFeedAutofacModule>()

@@ -211,6 +211,7 @@
     <Compile Include="Model\OnetEntity.cs" />
     <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\Oppurtunity.cs" />
+    <Compile Include="Model\OrchardCore\ApprenticeshipEntryRequirement.cs" />
     <Compile Include="Model\ProviderDetails.cs" />
     <Compile Include="Model\PsfCategory.cs" />
     <Compile Include="Model\PsfOnetSkill.cs" />
@@ -294,10 +295,6 @@
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

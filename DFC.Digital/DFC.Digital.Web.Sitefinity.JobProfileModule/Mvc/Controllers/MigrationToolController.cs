@@ -2,14 +2,18 @@
 using DFC.Digital.Core;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
 using DFC.Digital.Repository.SitefinityCMS;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
 using DFC.Digital.Web.Core;
 using DFC.Digital.Web.Sitefinity.Core;
+using DFC.Digital.Web.Sitefinity.Core.OrchardCore;
 using DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,9 +26,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
     {
         #region Private Fields
 
+        private static readonly OrchardCoreIdGenerator OrchardCoreIdGenerator = new OrchardCoreIdGenerator();
+
         private readonly IJobProfileRepository jobProfileRepository;
         private readonly IDynamicModuleRepository<JobProfile> dynamicModuleRepository;
-        private readonly IDynamicModuleRepository<Uniform> dynamicModuleUniformRepository;
         private readonly IFlatTaxonomyRepository flatTaxonomyRepository;
         private readonly ITaxonomyRepository taxonomyRepository;
         private readonly IDynamicModuleRepository<SocCode> dynamicModuleSocCodeRepository;
@@ -35,14 +40,12 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
         public MigrationToolController(
             IJobProfileRepository jobProfileRepository,
             IDynamicModuleRepository<JobProfile> dynamicModuleRepository,
-            IDynamicModuleRepository<Uniform> dynamicModuleUniformRepository,
             IFlatTaxonomyRepository flatTaxonomyRepository,
             ITaxonomyRepository taxonomyRepository,
             IDynamicModuleRepository<SocCode> dynamicModuleSocCodeRepository)
         {
             this.jobProfileRepository = jobProfileRepository;
             this.dynamicModuleRepository = dynamicModuleRepository;
-            this.dynamicModuleUniformRepository = dynamicModuleUniformRepository;
             this.flatTaxonomyRepository = flatTaxonomyRepository;
             this.taxonomyRepository = taxonomyRepository;
             this.dynamicModuleSocCodeRepository = dynamicModuleSocCodeRepository;
@@ -54,6 +57,15 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         [DisplayName("Current ContentType Name")]
         public string CurrentContentTypeName { get; set; }
+
+        [DisplayName("Json FilePath")]
+        public string JsonFilePath { get; set; } = @"D:\ESFA-GitHub\dfc-digital\DFC.Digital\DFC.Digital.Web.Sitefinity\OrchardCoreRecipes\";
+
+        [DisplayName("Recipe Beginning")]
+        public string RecipeBeginning { get; set; } = "{ \"name\": \"\", \"displayName\": \"\", \"description\": \"\", \"author\": \"\", \"website\": \"\", \"version\": \"\", \"issetuprecipe\": false, \"categories\": [], \"tags\": [],\"steps\": [{ \"name\": \"content\", \"data\": ";
+
+        [DisplayName("Recipe End")]
+        public string RecipeEnd { get; set; } = "}]}";
 
         #endregion Public Properties
 
@@ -80,12 +92,16 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                     count = model.JobProfiles.Count;
                     break;
                 case ItemTypes.Uniform:
-                    model.Uniforms = dynamicModuleUniformRepository.GetAllUniforms().ToList();
+                    model.Uniforms = dynamicModuleRepository.GetAllUniforms().ToList();
                     count = model.Uniforms.Count;
                     break;
                 case ItemTypes.HiddenAlternativeTitle:
                     model.FlatTaxaItems = GetFlatTaxaItems(ItemTypes.HiddenAlternativeTitle).ToList();
                     count = model.FlatTaxaItems.Count;
+                    break;
+                case ItemTypes.ApprenticeshipEntryRequirements:
+                    model.ApprenticeshipEntryRequirements = GetApprenticeshipEntryRequirements(ItemTypes.ApprenticeshipEntryRequirements).ToList();
+                    count = model.ApprenticeshipEntryRequirements.Count;
                     break;
                 default:
                     break;
@@ -96,6 +112,10 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             return View("~/Frontend-Assembly/DFC.Digital.Web.Sitefinity.JobProfileModule/Mvc/Views/MigrationTool/index.cshtml", model);
         }
+
+        #endregion Actions
+
+        #region Private Methods
 
         private IEnumerable<FlatTaxaItem> GetFlatTaxaItems(string flatTaxaName)
         {
@@ -109,6 +129,31 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             });
         }
 
-        #endregion Actions
+        private IEnumerable<ApprenticeshipEntryRequirement> GetApprenticeshipEntryRequirements(string flatTaxaName)
+        {
+            var apprenticeshipEntryRequirements = flatTaxonomyRepository.GetMany(aer => aer.Taxonomy.Name == flatTaxaName).Select(aer => new ApprenticeshipEntryRequirement
+            {
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.ApprenticeshipEntryRequirements,
+                DisplayText = aer.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = aer.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = aer.Title },
+                TitlePart = new Titlepart() { Title = aer.Title },
+                ApprenticeshipEntryRequirements = new Apprenticeshipentryrequirements() { Description = new Description() { Text = aer.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/apprenticeshipentryrequirements/{aer.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(apprenticeshipEntryRequirements);
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-" + apprenticeshipEntryRequirements.Count().ToString() + "-" + ItemTypes.ApprenticeshipEntryRequirements + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return apprenticeshipEntryRequirements;
+        }
+
+        #endregion Private Methods
     }
 }

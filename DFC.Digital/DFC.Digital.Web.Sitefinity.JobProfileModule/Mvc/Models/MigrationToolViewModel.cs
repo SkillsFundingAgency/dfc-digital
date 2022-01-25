@@ -1,4 +1,5 @@
 ﻿using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
             Uniforms = new List<Uniform>();
             SocCodes = new List<SocCode>();
             FlatTaxaItems = new List<FlatTaxaItem>();
+            ApprenticeshipEntryRequirements = new List<ApprenticeshipEntryRequirement>();
         }
 
         public List<JobProfile> JobProfiles { get; set; }
@@ -23,6 +25,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public List<SocCode> SocCodes { get; set; }
 
         public List<FlatTaxaItem> FlatTaxaItems { get; set; }
+
+        public List<ApprenticeshipEntryRequirement> ApprenticeshipEntryRequirements { get; set; }
 
         public string SelectedItemType { get; set; }
 

@@ -570,6 +570,8 @@
     <Compile Include="Interfaces\IDynamicContentAction.cs" />
     <Compile Include="Mvc\Models\ServiceStatusChildModel.cs" />
     <Compile Include="Mvc\Models\ServiceStatusModel.cs" />
+    <Compile Include="OrchardCore\IIdGenerator.cs" />
+    <Compile Include="OrchardCore\OrchardCoreIdGenerator.cs" />
     <Compile Include="SitefinityExtensions\CompUIConfigSettingService.cs" />
     <Compile Include="SitefinityProxies\SitefinityDataEventProxy.cs" />
     <Compile Include="SitefinityProxies\SitefinityPageDataProxy.cs" />

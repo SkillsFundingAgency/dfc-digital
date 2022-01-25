@@ -22,6 +22,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
 
         // Classifications
         public const string HiddenAlternativeTitle = "HiddenAlternativeTitle";
+        public const string ApprenticeshipEntryRequirements = "ApprenticeshipEntryRequirements";
         public const string WorkingPattern = "WorkingPattern";
         public const string JobProfileCategories = "job-profile-categories";
         public const string ApprenticeshipStandards = "apprenticeship-standards";

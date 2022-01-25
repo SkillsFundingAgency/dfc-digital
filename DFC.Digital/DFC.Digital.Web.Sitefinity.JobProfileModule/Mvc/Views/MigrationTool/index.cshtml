@@ -12,6 +12,7 @@
                 <option value="Uniform">02. Uniform</option>
                 <option value="None">------</option>
                 <option value="HiddenAlternativeTitle">XX. Hidden Alternative Title</option>
+                <option value="ApprenticeshipEntryRequirements">XX. Apprenticeship Entry Requirements</option>
             </select>
             <input type="submit" value="Submit">
         }
@@ -85,13 +86,36 @@
                 <tbody>
                     @foreach (var flatTaxaItem in Model.FlatTaxaItems)
                     {
+                        <tr>
+                            <td>@flatTaxaItem.Id</td>
+                            <td>@flatTaxaItem.Name</td>
+                            <td>@flatTaxaItem.Title</td>
+                            <td>@flatTaxaItem.Url</td>
+                            <td>@flatTaxaItem.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.ApprenticeshipEntryRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
                     <tr>
-                        <td>@flatTaxaItem.Id</td>
-                        <td>@flatTaxaItem.Name</td>
-                        <td>@flatTaxaItem.Title</td>
-                        <td>@flatTaxaItem.Url</td>
-                        <td>@flatTaxaItem.Description</td>
+                        <th>Id</th>
+                        <th>Title</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach (var apprenticeshipEntryRequirement in Model.ApprenticeshipEntryRequirements)
+                    {
+                        <tr>
+                            <td>@apprenticeshipEntryRequirement.GraphSyncPart.Text</td>
+                            <td>@apprenticeshipEntryRequirement.DisplayText</td>
+                        </tr>
                     }
                 </tbody>
             </table>

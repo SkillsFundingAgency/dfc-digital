@@ -4,6 +4,7 @@
     {
         internal const string JobprofileContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.JobProfile";
         internal const string UniformContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Uniform";
+        internal const string ApprenticeshipLinkContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.ApprenticeshipLink";
         internal const string JobProfileModuleName = "Job Profile";
         internal const string OnetSkillTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill";
         internal const string SocSkillMatrixTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.SocSkillsMatrix";

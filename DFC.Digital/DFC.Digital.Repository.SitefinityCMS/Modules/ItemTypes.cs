@@ -11,6 +11,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         // Dynamic content types
         public const string JobProfile = "JobProfile";
         public const string Uniform = "Uniform";
+        public const string ApprenticeshipLink = "ApprenticeshipLink";
 
         //public const string JobProfileModuleName = "Job Profile";
         //public const string OnetSkillTypeContentType = "Telerik.Sitefinity.DynamicTypes.Model.JobProfile.Skill";

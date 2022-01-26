@@ -212,6 +212,17 @@
     <Compile Include="Model\OccupationOnetSkill.cs" />
     <Compile Include="Model\Oppurtunity.cs" />
     <Compile Include="Model\OrchardCore\ApprenticeshipEntryRequirement.cs" />
+    <Compile Include="Model\OrchardCore\Audittrailpart.cs" />
+    <Compile Include="Model\OrchardCore\DescriptionHtml.cs" />
+    <Compile Include="Model\OrchardCore\DescriptionText.cs" />
+    <Compile Include="Model\OrchardCore\Graphsyncpart.cs" />
+    <Compile Include="Model\OrchardCore\MigrationMapping.cs" />
+    <Compile Include="Model\OrchardCore\OcApprenticeshipLink.cs" />
+    <Compile Include="Model\OrchardCore\OcText.cs" />
+    <Compile Include="Model\OrchardCore\OcURL.cs" />
+    <Compile Include="Model\OrchardCore\Titlepart.cs" />
+    <Compile Include="Model\OrchardCore\Uniform.cs" />
+    <Compile Include="Model\OrchardCore\Uniquetitlepart.cs" />
     <Compile Include="Model\ProviderDetails.cs" />
     <Compile Include="Model\PsfCategory.cs" />
     <Compile Include="Model\PsfOnetSkill.cs" />
@@ -276,7 +287,6 @@
     <Compile Include="Model\SuggestProperties.cs" />
     <Compile Include="Model\Course.cs" />
     <Compile Include="Model\SkillsServiceResponse.cs" />
-    <Compile Include="Model\Uniform.cs" />
     <Compile Include="Model\UpdateSocOccupationalCodeResponse.cs" />
     <Compile Include="Model\Venue.cs" />
     <Compile Include="Model\VocSurveyPersonalisation.cs" />

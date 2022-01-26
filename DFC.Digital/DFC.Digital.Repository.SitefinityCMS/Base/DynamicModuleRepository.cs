@@ -2,7 +2,10 @@
 using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
+using DFC.Digital.Data.Model.OrchardCore.Uniform;
 using DFC.Digital.Repository.SitefinityCMS.Modules;
+using DFC.Digital.Repository.SitefinityCMS.OrchardCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
         private const string OwnerFieldName = "Owner";
         private const string PublicationDateFieldName = "PublicationDate";
         private const string DraftApprovalWorkflowState = "Draft";
+        private static readonly OrchardCoreIdGenerator OrchardCoreIdGenerator = new OrchardCoreIdGenerator();
+        private static readonly MappingRepository MappingToolRepository = new MappingRepository();
         private readonly IApplicationLogger applicationLogger;
         private readonly IDynamicContentExtensions dynamicContentExtensions;
 
@@ -57,6 +62,7 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         #region IRepository implementations
 
+        #region Temp hide
         [IgnoreInputInInterception]
         public void Add(DynamicContent entity)
         {
@@ -183,22 +189,18 @@ namespace DFC.Digital.Repository.SitefinityCMS
             return dynamicModuleManager.GetDataItems(dynamicModuleContentType);
         }
 
+        #endregion Temp hide
+
         #region Uniform
 
-        public IEnumerable<Uniform> GetAllUniforms()
+        public IEnumerable<OcUniform> GetAllUniforms()
         {
             dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.UniformContentType);
             var dynamicModuleItems = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Live && item.Visible);
 
             if (dynamicModuleItems.Any())
             {
-                //int count = dynamicModuleItems.Count;
-                var uniforms = new List<Uniform>();
-
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    uniforms.Add(ConvertFromToUniform(dynamicModuleItem));
-                //}
+                var uniforms = new List<OcUniform>();
                 foreach (var dynamicModuleItem in dynamicModuleItems)
                 {
                     uniforms.Add(ConvertFromToUniform(dynamicModuleItem));
@@ -207,23 +209,79 @@ namespace DFC.Digital.Repository.SitefinityCMS
                 return uniforms;
             }
 
-            return Enumerable.Empty<Uniform>();
+            return Enumerable.Empty<OcUniform>();
         }
 
-        public Uniform ConvertFromToUniform(DynamicContent content)
+        public OcUniform ConvertFromToUniform(DynamicContent content)
         {
-            var uniform = new Uniform
+            var uniform = new OcUniform
             {
-                Id = dynamicContentExtensions.GetFieldValue<Guid>(content, nameof(Uniform.Id)),
-                Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(Uniform.Title)),
-                Description = dynamicContentExtensions.GetFieldValue<Lstring>(content, nameof(Uniform.Description)),
-                IsNegative = dynamicContentExtensions.GetFieldValue<bool?>(content, nameof(Uniform.IsNegative))
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.Uniform,
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                Latest = true,
+                Published = true,
+                ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
+                PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
+                CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
+                UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                Uniform = new Uniform() { Description = new DFC.Digital.Data.Model.OrchardCore.DescriptionHtml.Description() { Html = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Description) } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/uniform/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id)}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
             };
 
             return uniform;
          }
 
-        #endregion Private Fields
+        #endregion Uniform
+
+        #region ApprenticeshipLink
+
+        public IEnumerable<OcApprenticeshipLink> GetAllApprenticeshipLinks()
+        {
+            dynamicModuleContentType = TypeResolutionService.ResolveType(DynamicTypes.ApprenticeshipLinkContentType);
+            var dynamicModuleItems = dynamicModuleManager.GetDataItems(dynamicModuleContentType).Where(item => item.Status == ContentLifecycleStatus.Live && item.Visible);
+
+            if (dynamicModuleItems.Any())
+            {
+                var apprenticeshipLinks = new List<OcApprenticeshipLink>();
+                foreach (var dynamicModuleItem in dynamicModuleItems)
+                {
+                    apprenticeshipLinks.Add(ConvertFromToApprenticeshipLink(dynamicModuleItem));
+                }
+
+                return apprenticeshipLinks;
+            }
+
+            return Enumerable.Empty<OcApprenticeshipLink>();
+        }
+
+        public OcApprenticeshipLink ConvertFromToApprenticeshipLink(DynamicContent content)
+        {
+            var apprenticeshipLink = new OcApprenticeshipLink
+            {
+                SitefinityId = dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id),
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.ApprenticeshipLink,
+                DisplayText = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title),
+                Latest = true,
+                Published = true,
+                ModifiedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.LastModified),
+                PublishedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.PublicationDate),
+                CreatedUtc = dynamicContentExtensions.GetFieldValue<DateTime>(content, SitefinityFields.DateCreated),
+                UniqueTitlePart = new Uniquetitlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                TitlePart = new Titlepart() { Title = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Title) },
+                ApprenticeshipLink = new Apprenticeshiplink() { Text = new OcText { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Text) }, URL = new OcURL { Text = dynamicContentExtensions.GetFieldValue<Lstring>(content, SitefinityFields.Url) } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/apprenticeshiplink/{dynamicContentExtensions.GetFieldValue<Guid>(content, SitefinityFields.Id)}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            };
+
+            return apprenticeshipLink;
+        }
+
+        #endregion ApprenticeshipLink
 
         [IgnoreOutputInInterception]
         public DynamicContent GetById(string id)

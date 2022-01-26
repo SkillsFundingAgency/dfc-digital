@@ -10,6 +10,7 @@
                 <option value="">Select ContentType</option>
                 <option value="JobProfile">01. JobProfile</option>
                 <option value="Uniform">02. Uniform</option>
+                <option value="ApprenticeshipLink">03. ApprenticeshipLink</option>
                 <option value="None">------</option>
                 <option value="HiddenAlternativeTitle">XX. Hidden Alternative Title</option>
                 <option value="ApprenticeshipEntryRequirements">XX. Apprenticeship Entry Requirements</option>
@@ -49,20 +50,43 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
                         <th>Title</th>
-                        <th>Description</th>
-                        <th>IsNegative</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var uniform in Model.Uniforms)
                     {
                         <tr>
-                            <td>@uniform.Id</td>
-                            <td>@uniform.Title</td>
-                            <td>@uniform.Description</td>
-                            <td>@uniform.IsNegative</td>
+                            <td>@uniform.SitefinityId</td>
+                            <td>@uniform.ContentItemId</td>
+                            <td>@uniform.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.ApprenticeshipLinks.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var apprenticeshipLink in Model.ApprenticeshipLinks)
+                    {
+                        <tr>
+                            <td>@apprenticeshipLink.SitefinityId</td>
+                            <td>@apprenticeshipLink.ContentItemId</td>
+                            <td>@apprenticeshipLink.DisplayText</td>
                         </tr>
                     }
                 </tbody>
@@ -105,7 +129,8 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
                         <th>Title</th>
                     </tr>
                 </thead>
@@ -113,7 +138,8 @@
                     @foreach (var apprenticeshipEntryRequirement in Model.ApprenticeshipEntryRequirements)
                     {
                         <tr>
-                            <td>@apprenticeshipEntryRequirement.GraphSyncPart.Text</td>
+                            <td>@apprenticeshipEntryRequirement.SitefinityId</td>
+                            <td>@apprenticeshipEntryRequirement.ContentItemId</td>
                             <td>@apprenticeshipEntryRequirement.DisplayText</td>
                         </tr>
                     }

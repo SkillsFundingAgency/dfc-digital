@@ -1,6 +1,8 @@
 ﻿using DFC.Digital.Core.Interceptors;
 using DFC.Digital.Data.Interfaces;
 using DFC.Digital.Data.Model;
+using DFC.Digital.Data.Model.OrchardCore;
+using DFC.Digital.Data.Model.OrchardCore.Uniform;
 using System;
 using System.Collections.Generic;
 using Telerik.Sitefinity.DynamicModules.Model;
@@ -43,6 +45,8 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         bool IsCheckedOut(DynamicContent entity);
 
-        IEnumerable<Uniform> GetAllUniforms();
+        IEnumerable<OcUniform> GetAllUniforms();
+
+        IEnumerable<OcApprenticeshipLink> GetAllApprenticeshipLinks();
     }
 }

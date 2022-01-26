@@ -349,6 +349,7 @@
     <Compile Include="Modules\JobProfileOverloadForSearchConverter.cs" />
     <Compile Include="CMSExtensions\SocCodeReportConverter.cs" />
     <Compile Include="Modules\PreSearchFilterOnetSkillConverter.cs" />
+    <Compile Include="Modules\SitefinityFields.cs" />
     <Compile Include="Modules\SocSkillMatrixRepository.cs" />
     <Compile Include="Modules\FrameworkSkillConverter.cs" />
     <Compile Include="Modules\SocSkillsMatrixConverter.cs" />
@@ -375,6 +376,10 @@
     <Compile Include="Modules\PreSearchFiltersRepository.cs" />
     <Compile Include="Modules\RelatedClassificationsRepository.cs" />
     <Compile Include="Modules\DynamicContentExtensions.cs" />
+    <Compile Include="OrchardCore\IIdGenerator.cs" />
+    <Compile Include="OrchardCore\IMappingRepository.cs" />
+    <Compile Include="OrchardCore\MappingRepository.cs" />
+    <Compile Include="OrchardCore\OrchardCoreIdGenerator.cs" />
     <Compile Include="SitefinityRepositoryAutofacModule.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

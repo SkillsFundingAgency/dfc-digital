@@ -1,5 +1,6 @@
 ﻿using DFC.Digital.Data.Model;
 using DFC.Digital.Data.Model.OrchardCore;
+using DFC.Digital.Data.Model.OrchardCore.Uniform;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
         public MigrationToolViewModel()
         {
             JobProfiles = new List<JobProfile>();
-            Uniforms = new List<Uniform>();
+            Uniforms = new List<OcUniform>();
+            ApprenticeshipLinks = new List<OcApprenticeshipLink>();
             SocCodes = new List<SocCode>();
             FlatTaxaItems = new List<FlatTaxaItem>();
             ApprenticeshipEntryRequirements = new List<ApprenticeshipEntryRequirement>();
@@ -20,7 +22,9 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Models
 
         public List<JobProfile> JobProfiles { get; set; }
 
-        public List<Uniform> Uniforms { get; set; }
+        public List<OcUniform> Uniforms { get; set; }
+
+        public List<OcApprenticeshipLink> ApprenticeshipLinks { get; set; }
 
         public List<SocCode> SocCodes { get; set; }
 

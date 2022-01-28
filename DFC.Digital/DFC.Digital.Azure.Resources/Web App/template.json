@@ -60,7 +60,11 @@
             {
               "name": "MetaTagNoIndex",
               "value": "[parameters('MetaTagNoIndex')]"
-            },                  
+            },
+            {
+              "name": "SitefinityAuthConfigSigningCertificate",
+              "value": "[parameters('SitefinityAuthConfigSigningCertificate')]"
+            },                          
             {
               "name": "WarmUpSlotSetting",
               "value": "App setting to facilitate slot warmup"

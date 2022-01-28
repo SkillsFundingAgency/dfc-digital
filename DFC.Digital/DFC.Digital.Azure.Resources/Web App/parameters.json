@@ -25,7 +25,10 @@
       },
       "MetaTagNoIndex": {
         "value": "__MetaTagNoIndex__"
-      },        
+      },
+      "SitefinityAuthConfigSigningCertificate": {
+        "value": "__SitefinityAuthConfigSigningCertificate__"
+      },      
       "searchIndexVersion": {
         "value": "__CurrentSearchIndexName__"
       }        

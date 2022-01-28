@@ -21,6 +21,9 @@
     "currentDatabaseName": {
       "type": "string"
     },
+    "SitefinityAuthConfigSigningCertificate": {
+      "type": "string"
+    },
     "MetaTagNoIndex": {
       "type": "string"
     },

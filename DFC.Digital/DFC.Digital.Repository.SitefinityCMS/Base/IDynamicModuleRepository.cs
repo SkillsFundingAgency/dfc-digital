@@ -45,8 +45,27 @@ namespace DFC.Digital.Repository.SitefinityCMS
 
         bool IsCheckedOut(DynamicContent entity);
 
-        IEnumerable<OcUniform> GetAllUniforms();
+        // Migration Tool
+        IEnumerable<OcRegistration> GetAllRegistrations();
+
+        IEnumerable<OcRestriction> GetAllRestrictions();
 
         IEnumerable<OcApprenticeshipLink> GetAllApprenticeshipLinks();
+
+        IEnumerable<OcCollegeLink> GetAllCollegeLinks();
+
+        IEnumerable<OcUniversityLink> GetAllUniversityLinks();
+
+        IEnumerable<OcApprenticeshipRequirement> GetAllApprenticeshipRequirements();
+
+        IEnumerable<OcCollegeRequirement> GetAllCollegeRequirements();
+
+        IEnumerable<OcUniversityRequirement> GetAllUniversityRequirements();
+
+        IEnumerable<OcUniform> GetAllUniforms();
+
+        IEnumerable<OcLocation> GetAllLocations();
+
+        IEnumerable<OcEnvironment> GetAllEnvironments();
     }
 }

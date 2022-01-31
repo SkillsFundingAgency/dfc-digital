@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DFC.Digital.Data.Model.OrchardCore
 {
 
-    public class ApprenticeshipEntryRequirement
+    public class OcJobProfileCategory
     {
         [JsonIgnore]
         public Guid SitefinityId { get; set; }
@@ -30,13 +30,22 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Author { get; set; }
         public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }
-        public Apprenticeshipentryrequirements ApprenticeshipEntryRequirements { get; set; }
+        public Jobprofilecategory JobProfileCategory { get; set; }
+        public Pagelocationpart PageLocationPart { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
     }
 
-    public class Apprenticeshipentryrequirements
+    public class Jobprofilecategory
     {
         public OcDescriptionText Description { get; set; }
+    }
+
+    public class Pagelocationpart
+    {
+        public string UrlName { get; set; }
+        public bool DefaultPageForLocation { get; set; }
+        public object RedirectLocations { get; set; }
+        public string FullUrl { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace DFC.Digital.Repository.SitefinityCMS.Modules
         public const string Text = "Text";
         public const string Url = "Url";
         public const string Description = "Description";
+        public const string Info = "Info";
         public const string LastModified = "LastModified";
         public const string PublicationDate = "PublicationDate";
         public const string DateCreated = "DateCreated";

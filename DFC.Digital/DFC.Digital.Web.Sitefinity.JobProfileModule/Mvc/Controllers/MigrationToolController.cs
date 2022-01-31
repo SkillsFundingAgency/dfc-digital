@@ -89,25 +89,95 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
             switch (model.SelectedItemType)
             {
-                case ItemTypes.JobProfile:
-                    model.JobProfiles = jobProfileRepository.GetAllJobProfiles().ToList();
-                    count = model.JobProfiles.Count;
+                case ItemTypes.Registration:
+                    model.Registrations = GetRegistrations();
+                    count = model.Registrations.Count;
                     break;
-                case ItemTypes.Uniform:
-                    model.Uniforms = GetUniforms();
-                    count = model.Uniforms.Count;
+                case ItemTypes.Restriction:
+                    model.Restrictions = GetRestrictions();
+                    count = model.Restrictions.Count;
                     break;
                 case ItemTypes.ApprenticeshipLink:
                     model.ApprenticeshipLinks = GetApprenticeshipLinks();
                     count = model.ApprenticeshipLinks.Count;
                     break;
+                case ItemTypes.CollegeLink:
+                    model.CollegeLinks = GetCollegeLinks();
+                    count = model.CollegeLinks.Count;
+                    break;
+                case ItemTypes.UniversityLink:
+                    model.UniversityLinks = GetUniversityLinks();
+                    count = model.UniversityLinks.Count;
+                    break;
+                case ItemTypes.ApprenticeshipRequirement:
+                    model.ApprenticeshipRequirements = GetApprenticeshipRequirements();
+                    count = model.ApprenticeshipRequirements.Count;
+                    break;
+                case ItemTypes.CollegeRequirement:
+                    model.CollegeRequirements = GetCollegeRequirements();
+                    count = model.CollegeRequirements.Count;
+                    break;
+                case ItemTypes.UniversityRequirement:
+                    model.UniversityRequirements = GetUniversityRequirements();
+                    count = model.UniversityRequirements.Count;
+                    break;
+                case ItemTypes.Uniform:
+                    model.Uniforms = GetUniforms();
+                    count = model.Uniforms.Count;
+                    break;
+                case ItemTypes.Location:
+                    model.Locations = GetLocations();
+                    count = model.Locations.Count;
+                    break;
+                case ItemTypes.Environment:
+                    model.Environments = GetEnvironments();
+                    count = model.Environments.Count;
+                    break;
                 case ItemTypes.HiddenAlternativeTitle:
-                    model.FlatTaxaItems = GetFlatTaxaItems(ItemTypes.HiddenAlternativeTitle).ToList();
-                    count = model.FlatTaxaItems.Count;
+                    //model.FlatTaxaItems = GetFlatTaxaItems(ItemTypes.HiddenAlternativeTitle).ToList();
+                    //count = model.FlatTaxaItems.Count;
+                    model.HiddenAlternativeTitles = GetHiddenAlternativeTitles().ToList();
+                    count = model.HiddenAlternativeTitles.Count;
                     break;
                 case ItemTypes.ApprenticeshipEntryRequirements:
-                    model.ApprenticeshipEntryRequirements = GetApprenticeshipEntryRequirements(ItemTypes.ApprenticeshipEntryRequirements).ToList();
+                    model.ApprenticeshipEntryRequirements = GetApprenticeshipEntryRequirements().ToList();
                     count = model.ApprenticeshipEntryRequirements.Count;
+                    break;
+                case ItemTypes.WorkingPattern:
+                    model.WorkingPatterns = GetWorkingPatterns().ToList();
+                    count = model.WorkingPatterns.Count;
+                    break;
+                case ItemTypes.JobProfileCategories:
+                    model.JobProfileCategories = GetJobProfileCategories().ToList();
+                    count = model.JobProfileCategories.Count;
+                    break;
+                case ItemTypes.ApprenticeshipStandards:
+                    model.ApprenticeshipStandards = GetApprenticeshipStandards().ToList();
+                    count = model.ApprenticeshipStandards.Count;
+                    break;
+                case ItemTypes.UniversityEntryRequirements:
+                    model.UniversityEntryRequirements = GetUniversityEntryRequirements().ToList();
+                    count = model.UniversityEntryRequirements.Count;
+                    break;
+                case ItemTypes.CollegeEntryRequirements:
+                    model.CollegeEntryRequirements = GetCollegeEntryRequirements().ToList();
+                    count = model.CollegeEntryRequirements.Count;
+                    break;
+                case ItemTypes.JobProfileSpecialism:
+                    model.JobProfileSpecialisms = GetJobProfileSpecialisms().ToList();
+                    count = model.JobProfileSpecialisms.Count;
+                    break;
+                case ItemTypes.WorkingPatternDetails:
+                    model.WorkingPatternDetails = GetWorkingPatternDetails().ToList();
+                    count = model.WorkingPatternDetails.Count;
+                    break;
+                case ItemTypes.WorkingHoursDetails:
+                    model.WorkingHoursDetails = GetWorkingHoursDetails().ToList();
+                    count = model.WorkingHoursDetails.Count;
+                    break;
+                case ItemTypes.JobProfile:
+                    model.JobProfiles = jobProfileRepository.GetAllJobProfiles().ToList();
+                    count = model.JobProfiles.Count;
                     break;
                 default:
                     break;
@@ -123,21 +193,38 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
 
         #region Private Methods - DynamicContentTypes
 
-        private List<OcUniform> GetUniforms()
+        private List<OcRegistration> GetRegistrations()
         {
-            var uniforms = dynamicModuleRepository.GetAllUniforms().ToList();
+            var registrations = dynamicModuleRepository.GetAllRegistrations().ToList();
 
-            var jsonData = JsonConvert.SerializeObject(uniforms);
+            var jsonData = JsonConvert.SerializeObject(registrations);
 
-            foreach (var uniform in uniforms)
+            foreach (var registration in registrations)
             {
-                MappingToolRepository.InsertMigrationMapping(uniform.SitefinityId, uniform.ContentItemId, ItemTypes.Uniform);
+                MappingToolRepository.InsertMigrationMapping(registration.SitefinityId, registration.ContentItemId, ItemTypes.Registration);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-02-" + ItemTypes.Uniform + "-" + uniforms.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-01-" + ItemTypes.Registration + "-" + registrations.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
-            return uniforms;
+            return registrations;
+        }
+
+        private List<OcRestriction> GetRestrictions()
+        {
+            var restrictions = dynamicModuleRepository.GetAllRestrictions().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(restrictions);
+
+            foreach (var restriction in restrictions)
+            {
+                MappingToolRepository.InsertMigrationMapping(restriction.SitefinityId, restriction.ContentItemId, ItemTypes.Restriction);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-02-" + ItemTypes.Restriction + "-" + restrictions.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return restrictions;
         }
 
         private List<OcApprenticeshipLink> GetApprenticeshipLinks()
@@ -157,10 +244,147 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
             return apprenticeshipLinks;
         }
 
+        private List<OcCollegeLink> GetCollegeLinks()
+        {
+            var collegeLinks = dynamicModuleRepository.GetAllCollegeLinks().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(collegeLinks);
+
+            foreach (var collegeLink in collegeLinks)
+            {
+                MappingToolRepository.InsertMigrationMapping(collegeLink.SitefinityId, collegeLink.ContentItemId, ItemTypes.CollegeLink);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-04-" + ItemTypes.CollegeLink + "-" + collegeLinks.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return collegeLinks;
+        }
+
+        private List<OcUniversityLink> GetUniversityLinks()
+        {
+            var universityLinks = dynamicModuleRepository.GetAllUniversityLinks().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(universityLinks);
+
+            foreach (var universityLink in universityLinks)
+            {
+                MappingToolRepository.InsertMigrationMapping(universityLink.SitefinityId, universityLink.ContentItemId, ItemTypes.UniversityLink);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-05-" + ItemTypes.UniversityLink + "-" + universityLinks.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return universityLinks;
+        }
+
+        private List<OcApprenticeshipRequirement> GetApprenticeshipRequirements()
+        {
+            var apprenticeshipRequirements = dynamicModuleRepository.GetAllApprenticeshipRequirements().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(apprenticeshipRequirements);
+
+            foreach (var apprenticeshipRequirement in apprenticeshipRequirements)
+            {
+                MappingToolRepository.InsertMigrationMapping(apprenticeshipRequirement.SitefinityId, apprenticeshipRequirement.ContentItemId, ItemTypes.ApprenticeshipRequirement);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-06-" + ItemTypes.ApprenticeshipRequirement + "-" + apprenticeshipRequirements.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return apprenticeshipRequirements;
+        }
+
+        private List<OcCollegeRequirement> GetCollegeRequirements()
+        {
+            var collegeRequirements = dynamicModuleRepository.GetAllCollegeRequirements().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(collegeRequirements);
+
+            foreach (var collegeRequirement in collegeRequirements)
+            {
+                MappingToolRepository.InsertMigrationMapping(collegeRequirement.SitefinityId, collegeRequirement.ContentItemId, ItemTypes.CollegeRequirement);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-07-" + ItemTypes.CollegeRequirement + "-" + collegeRequirements.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return collegeRequirements;
+        }
+
+        private List<OcUniversityRequirement> GetUniversityRequirements()
+        {
+            var universityRequirements = dynamicModuleRepository.GetAllUniversityRequirements().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(universityRequirements);
+
+            foreach (var universityRequirement in universityRequirements)
+            {
+                MappingToolRepository.InsertMigrationMapping(universityRequirement.SitefinityId, universityRequirement.ContentItemId, ItemTypes.UniversityRequirement);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-08-" + ItemTypes.UniversityRequirement + "-" + universityRequirements.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return universityRequirements;
+        }
+
+        private List<OcUniform> GetUniforms()
+        {
+            var uniforms = dynamicModuleRepository.GetAllUniforms().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(uniforms);
+
+            foreach (var uniform in uniforms)
+            {
+                MappingToolRepository.InsertMigrationMapping(uniform.SitefinityId, uniform.ContentItemId, ItemTypes.Uniform);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-09-" + ItemTypes.Uniform + "-" + uniforms.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return uniforms;
+        }
+
+        private List<OcLocation> GetLocations()
+        {
+            var locations = dynamicModuleRepository.GetAllLocations().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(locations);
+
+            foreach (var location in locations)
+            {
+                MappingToolRepository.InsertMigrationMapping(location.SitefinityId, location.ContentItemId, ItemTypes.Location);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-10-" + ItemTypes.Location + "-" + locations.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return locations;
+        }
+
+        private List<OcEnvironment> GetEnvironments()
+        {
+            var environments = dynamicModuleRepository.GetAllEnvironments().ToList();
+
+            var jsonData = JsonConvert.SerializeObject(environments);
+
+            foreach (var environment in environments)
+            {
+                MappingToolRepository.InsertMigrationMapping(environment.SitefinityId, environment.ContentItemId, ItemTypes.Environment);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-11-" + ItemTypes.Environment + "-" + environments.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return environments;
+        }
+
         #endregion Private Methods - DynamicContentTypes
 
         #region Private Methods - Classifications
 
+        /* // GetFlatTaxaItems
         private IEnumerable<FlatTaxaItem> GetFlatTaxaItems(string flatTaxaName)
         {
             //var sitefinityId = new Guid("C8173F8A-4C28-4D63-9665-3F74997E063D");
@@ -174,22 +398,55 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 Url = category.UrlName
             });
         }
+        */
 
-        private IEnumerable<ApprenticeshipEntryRequirement> GetApprenticeshipEntryRequirements(string contentType)
+        private IEnumerable<OcHiddenAlternativeTitle> GetHiddenAlternativeTitles()
         {
-            var apprenticeshipEntryRequirements = flatTaxonomyRepository.GetMany(aer => aer.Taxonomy.Name == contentType).Select(aer => new ApprenticeshipEntryRequirement
+            var hiddenAlternativeTitles = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.HiddenAlternativeTitle).Select(ft => new OcHiddenAlternativeTitle
             {
-                SitefinityId = aer.Id,
+                SitefinityId = ft.Id,
                 ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
-                ContentType = ItemTypes.ApprenticeshipEntryRequirements,
-                DisplayText = aer.Title,
+                ContentType = ItemTypes.HiddenAlternativeTitle,
+                DisplayText = ft.Title,
                 Latest = true,
                 Published = true,
-                ModifiedUtc = aer.LastModified,
-                UniqueTitlePart = new Uniquetitlepart() { Title = aer.Title },
-                TitlePart = new Titlepart() { Title = aer.Title },
-                ApprenticeshipEntryRequirements = new Apprenticeshipentryrequirements() { Description = new DFC.Digital.Data.Model.OrchardCore.DescriptionText.Description() { Text = aer.Description } },
-                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/apprenticeshipentryrequirements/{aer.Id}" },
+                ModifiedUtc = ft.LastModified,
+
+                //UniqueTitlePart = new Uniquetitlepart() { Title = aer.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                HiddenAlternativeTitle = new Hiddenalternativetitle() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/hiddenalternativetitle/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(hiddenAlternativeTitles);
+
+            foreach (var apprenticeshipEntryRequirement in hiddenAlternativeTitles)
+            {
+                MappingToolRepository.InsertMigrationMapping(apprenticeshipEntryRequirement.SitefinityId, apprenticeshipEntryRequirement.ContentItemId, ItemTypes.HiddenAlternativeTitle);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-12-" + ItemTypes.HiddenAlternativeTitle + "-" + hiddenAlternativeTitles.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return hiddenAlternativeTitles;
+        }
+
+        private IEnumerable<ApprenticeshipEntryRequirement> GetApprenticeshipEntryRequirements()
+        {
+            var apprenticeshipEntryRequirements = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.ApprenticeshipEntryRequirements).Select(ft => new ApprenticeshipEntryRequirement
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.ApprenticeshipEntryRequirements,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                ApprenticeshipEntryRequirements = new Apprenticeshipentryrequirements() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/apprenticeshipentryrequirements/{ft.Id}" },
                 AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
             });
 
@@ -200,10 +457,259 @@ namespace DFC.Digital.Web.Sitefinity.JobProfileModule.Mvc.Controllers
                 MappingToolRepository.InsertMigrationMapping(apprenticeshipEntryRequirement.SitefinityId, apprenticeshipEntryRequirement.ContentItemId, ItemTypes.ApprenticeshipEntryRequirements);
             }
 
-            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-XX-" + ItemTypes.ApprenticeshipEntryRequirements + "-" + apprenticeshipEntryRequirements.Count().ToString() + ".json";
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-13-" + ItemTypes.ApprenticeshipEntryRequirements + "-" + apprenticeshipEntryRequirements.Count().ToString() + ".json";
             System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
 
             return apprenticeshipEntryRequirements;
+        }
+
+        private IEnumerable<OcWorkingPattern> GetWorkingPatterns()
+        {
+            var workingPatterns = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.WorkingPattern).Select(ft => new OcWorkingPattern
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.WorkingPatterns,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                WorkingPatterns = new Workingpatterns() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/workingpatterns/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(workingPatterns);
+
+            foreach (var workingPattern in workingPatterns)
+            {
+                MappingToolRepository.InsertMigrationMapping(workingPattern.SitefinityId, workingPattern.ContentItemId, ItemTypes.WorkingPattern);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-14-" + ItemTypes.WorkingPattern + "-" + workingPatterns.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return workingPatterns;
+        }
+
+        private IEnumerable<OcJobProfileCategory> GetJobProfileCategories()
+        {
+            var jobProfileCategories = taxonomyRepository.GetMany(ht => ht.Taxonomy.Name == ItemTypes.JobProfileCategories).Select(ht => new OcJobProfileCategory
+            {
+                SitefinityId = ht.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.JobProfileCategory,
+                DisplayText = ht.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ht.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ht.Title },
+                TitlePart = new Titlepart() { Title = ht.Title },
+                JobProfileCategory = new Jobprofilecategory() { Description = new OcDescriptionText { Text = ht.Description } },
+                PageLocationPart = new Pagelocationpart() { UrlName = ht.UrlName, DefaultPageForLocation = false, RedirectLocations = null, FullUrl = $"/{ht.UrlName}" },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofilecategory/{ht.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(jobProfileCategories);
+
+            foreach (var jobProfileCategory in jobProfileCategories)
+            {
+                MappingToolRepository.InsertMigrationMapping(jobProfileCategory.SitefinityId, jobProfileCategory.ContentItemId, ItemTypes.JobProfileCategories);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-15-" + ItemTypes.JobProfileCategories + "-" + jobProfileCategories.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return jobProfileCategories;
+        }
+
+        private IEnumerable<OcApprenticeshipStandard> GetApprenticeshipStandards()
+        {
+            var apprenticeshipStandards = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.ApprenticeshipStandards).Select(ft => new OcApprenticeshipStandard
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.ApprenticeshipStandard,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                ApprenticeshipStandard = new Apprenticeshipstandard() { Description = new OcDescriptionText { Text = ft.Description }, LARScode = new Larscode { Text = ft.UrlName } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/apprenticeshipstandard/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(apprenticeshipStandards);
+
+            foreach (var apprenticeshipStandard in apprenticeshipStandards)
+            {
+                MappingToolRepository.InsertMigrationMapping(apprenticeshipStandard.SitefinityId, apprenticeshipStandard.ContentItemId, ItemTypes.ApprenticeshipStandards);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-16-" + ItemTypes.ApprenticeshipStandards + "-" + apprenticeshipStandards.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return apprenticeshipStandards;
+        }
+
+        private IEnumerable<OcUniversityEntryRequirement> GetUniversityEntryRequirements()
+        {
+            var universityEntryRequirements = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.UniversityEntryRequirements).Select(ft => new OcUniversityEntryRequirement
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.UniversityEntryRequirements,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                UniversityEntryRequirements = new Universityentryrequirements() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/universityentryrequirements/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(universityEntryRequirements);
+
+            foreach (var universityEntryRequirement in universityEntryRequirements)
+            {
+                MappingToolRepository.InsertMigrationMapping(universityEntryRequirement.SitefinityId, universityEntryRequirement.ContentItemId, ItemTypes.UniversityEntryRequirements);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-17-" + ItemTypes.UniversityEntryRequirements + "-" + universityEntryRequirements.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return universityEntryRequirements;
+        }
+
+        private IEnumerable<OcCollegeEntryRequirement> GetCollegeEntryRequirements()
+        {
+            var collegeEntryRequirements = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.CollegeEntryRequirements).Select(ft => new OcCollegeEntryRequirement
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.CollegeEntryRequirements,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                CollegeEntryRequirements = new Collegeentryrequirements() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/collegeentryrequirements/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(collegeEntryRequirements);
+
+            foreach (var collegeEntryRequirement in collegeEntryRequirements)
+            {
+                MappingToolRepository.InsertMigrationMapping(collegeEntryRequirement.SitefinityId, collegeEntryRequirement.ContentItemId, ItemTypes.CollegeEntryRequirements);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-18-" + ItemTypes.CollegeEntryRequirements + "-" + collegeEntryRequirements.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return collegeEntryRequirements;
+        }
+
+        private IEnumerable<OcJobProfileSpecialism> GetJobProfileSpecialisms()
+        {
+            var jobProfileSpecialisms = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.JobProfileSpecialism).Select(ft => new OcJobProfileSpecialism
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = ItemTypes.JobProfileSpecialism,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                JobProfileSpecialism = new Jobprofilespecialism() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/jobprofilespecialism/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(jobProfileSpecialisms);
+
+            foreach (var jobProfileSpecialism in jobProfileSpecialisms)
+            {
+                MappingToolRepository.InsertMigrationMapping(jobProfileSpecialism.SitefinityId, jobProfileSpecialism.ContentItemId, ItemTypes.JobProfileSpecialism);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-19-" + ItemTypes.JobProfileSpecialism + "-" + jobProfileSpecialisms.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return jobProfileSpecialisms;
+        }
+
+        private IEnumerable<OcWorkingPatternDetail> GetWorkingPatternDetails()
+        {
+            var workingPatternDetails = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.WorkingPatternDetails).Select(ft => new OcWorkingPatternDetail
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.WorkingPatternDetail,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                WorkingPatternDetail = new Workingpatterndetail() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/workingpatterndetail/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(workingPatternDetails);
+
+            foreach (var workingPatternDetail in workingPatternDetails)
+            {
+                MappingToolRepository.InsertMigrationMapping(workingPatternDetail.SitefinityId, workingPatternDetail.ContentItemId, ItemTypes.WorkingPatternDetails);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-20-" + ItemTypes.WorkingPatternDetails + "-" + workingPatternDetails.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return workingPatternDetails;
+        }
+
+        private IEnumerable<OcWorkingHoursDetail> GetWorkingHoursDetails()
+        {
+            var workingHoursDetails = flatTaxonomyRepository.GetMany(ft => ft.Taxonomy.Name == ItemTypes.WorkingHoursDetails).Select(ft => new OcWorkingHoursDetail
+            {
+                SitefinityId = ft.Id,
+                ContentItemId = OrchardCoreIdGenerator.GenerateUniqueId(),
+                ContentType = OcItemTypes.WorkingHoursDetail,
+                DisplayText = ft.Title,
+                Latest = true,
+                Published = true,
+                ModifiedUtc = ft.LastModified,
+                UniqueTitlePart = new Uniquetitlepart() { Title = ft.Title },
+                TitlePart = new Titlepart() { Title = ft.Title },
+                WorkingHoursDetail = new Workinghoursdetail() { Description = new OcDescriptionText { Text = ft.Description } },
+                GraphSyncPart = new Graphsyncpart() { Text = $"<<contentapiprefix>>/workinghoursdetail/{ft.Id}" },
+                AuditTrailPart = new Audittrailpart() { Comment = null, ShowComment = false }
+            });
+
+            var jsonData = JsonConvert.SerializeObject(workingHoursDetails);
+
+            foreach (var workingHoursDetail in workingHoursDetails)
+            {
+                MappingToolRepository.InsertMigrationMapping(workingHoursDetail.SitefinityId, workingHoursDetail.ContentItemId, ItemTypes.WorkingHoursDetails);
+            }
+
+            var fullPathAndFileName = JsonFilePath + DateTime.Now.ToString("yyMMddHHmm") + "-21-" + ItemTypes.WorkingHoursDetails + "-" + workingHoursDetails.Count().ToString() + ".json";
+            System.IO.File.WriteAllText(fullPathAndFileName, RecipeBeginning + jsonData + RecipeEnd);
+
+            return workingHoursDetails;
         }
 
         #endregion Private Methods - Classifications

@@ -25,6 +25,7 @@ BEGIN
 		  ,[ContentType]
 	  FROM [MigrationToolMapping]
 	  WHERE [SitefinityId] = @SitefinityId
+	  ORDER BY [MappingId] DESC
 END
 GO
 

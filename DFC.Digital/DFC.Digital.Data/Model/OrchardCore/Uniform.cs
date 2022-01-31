@@ -1,5 +1,4 @@
 ﻿
-using DFC.Digital.Data.Model.OrchardCore.DescriptionHtml;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -37,6 +36,6 @@ namespace DFC.Digital.Data.Model.OrchardCore.Uniform
 
     public class Uniform
     {
-        public Description Description { get; set; }
+        public OcDescriptionHtml Description { get; set; }
     }
 }

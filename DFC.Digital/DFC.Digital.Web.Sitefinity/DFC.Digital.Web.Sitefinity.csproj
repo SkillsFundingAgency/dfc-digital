@@ -1188,6 +1188,9 @@
     <Content Include="Mvc\Controllers\readme.txt" />
     <Content Include="Mvc\Models\readme.txt" />
     <Content Include="Mvc\Views\readme.txt" />
+    <Content Include="OrchardCoreSqlScripts\CREATE-PROCEDURE-MigrationToolMappingGetBySitefinityId.sql" />
+    <Content Include="OrchardCoreSqlScripts\CREATE-PROCEDURE-MigrationToolMappingInsert.sql" />
+    <Content Include="OrchardCoreSqlScripts\CREATE-TABLE-MigrationToolMapping.sql" />
     <Content Include="Scripts\BackendScripts\DynamicModulesDetailViewExtender.js" />
     <Content Include="Global.asax" />
     <Content Include="ResourcePackages\gds_service_toolkit\GridSystem\Templates\hero-banner.html" />

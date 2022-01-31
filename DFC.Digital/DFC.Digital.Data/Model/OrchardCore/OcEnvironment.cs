@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Digital.Data.Model.OrchardCore
 {
-
-    public class ApprenticeshipEntryRequirement
+    public class OcEnvironment
     {
         [JsonIgnore]
         public Guid SitefinityId { get; set; }
@@ -20,9 +19,7 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public bool Latest { get; set; }
         public bool Published { get; set; }
         public DateTime ModifiedUtc { get; set; }
-        [JsonIgnore]
         public DateTime PublishedUtc { get; set; }
-        [JsonIgnore]
         public DateTime CreatedUtc { get; set; }
         [JsonIgnore]
         public string Owner { get; set; }
@@ -30,13 +27,13 @@ namespace DFC.Digital.Data.Model.OrchardCore
         public string Author { get; set; }
         public Uniquetitlepart UniqueTitlePart { get; set; }
         public Titlepart TitlePart { get; set; }
-        public Apprenticeshipentryrequirements ApprenticeshipEntryRequirements { get; set; }
+        public IntEnvironment Environment { get; set; }
         public Graphsyncpart GraphSyncPart { get; set; }
         public Audittrailpart AuditTrailPart { get; set; }
     }
 
-    public class Apprenticeshipentryrequirements
+    public class IntEnvironment
     {
-        public OcDescriptionText Description { get; set; }
+        public OcDescriptionHtml Description { get; set; }
     }
 }

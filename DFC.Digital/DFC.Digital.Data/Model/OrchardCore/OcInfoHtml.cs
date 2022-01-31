@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DFC.Digital.Data.Model.OrchardCore.DescriptionText
+namespace DFC.Digital.Data.Model.OrchardCore
 {
-    public class Description
+    public class OcInfoHtml
     {
-        public string Text { get; set; }
+        public string Html { get; set; }
     }
 }

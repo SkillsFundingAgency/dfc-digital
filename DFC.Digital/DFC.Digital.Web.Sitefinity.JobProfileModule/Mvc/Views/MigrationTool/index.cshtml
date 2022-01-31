@@ -8,12 +8,30 @@
         {
             <select name="SelectedItemType" asp-for="@Model.SelectedItemType">
                 <option value="">Select ContentType</option>
-                <option value="JobProfile">01. JobProfile</option>
-                <option value="Uniform">02. Uniform</option>
+                <option value="Registration">01. Registration</option>
+                <option value="Restriction">02. Restriction</option>
                 <option value="ApprenticeshipLink">03. ApprenticeshipLink</option>
+                <option value="CollegeLink">04. CollegeLink</option>
+                <option value="UniversityLink">05. UniversityLink</option>
+                <option value="ApprenticeshipRequirement">06. ApprenticeshipRequirement</option>
+                <option value="CollegeRequirement">07. CollegeRequirement</option>
+                <option value="UniversityRequirement">08. UniversityRequirement</option>
+                <option value="Uniform">09. Uniform</option>
+                <option value="Location">10. Location</option>
+                <option value="Environment">11. Environment</option>
                 <option value="None">------</option>
-                <option value="HiddenAlternativeTitle">XX. Hidden Alternative Title</option>
-                <option value="ApprenticeshipEntryRequirements">XX. Apprenticeship Entry Requirements</option>
+                <option value="HiddenAlternativeTitle">12. Hidden Alternative Title</option>
+                <option value="ApprenticeshipEntryRequirements">13. Apprenticeship Entry Requirements</option>
+                <option value="WorkingPattern">14. Working Pattern</option>
+                <option value="job-profile-categories">15. JobProfile Categories</option>
+                <option value="apprenticeship-standards">16. Apprenticeship Standard</option>
+                <option value="UniversityEntryRequirements">17. University Entry Requirements</option>
+                <option value="CollegeEntryRequirements">18. College Entry Requirements</option>
+                <option value="JobProfileSpecialism">19. JobProfile Specialism</option>
+                <option value="WorkingPatternDetails">20. Working Pattern Detail</option>
+                <option value="WorkingHoursDetails">21. Working Hours Details</option>
+                <option value="None">------</option>
+                <option value="JobProfile">XX. JobProfile</option>
             </select>
             <input type="submit" value="Submit">
         }
@@ -44,7 +62,7 @@
         </div>
     }
 
-    @if (Model != null && Model.Uniforms.Any())
+    @if (Model != null && Model.Registrations.Any())
     {
         <div class="grid-row">
             <table>
@@ -56,12 +74,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var uniform in Model.Uniforms)
+                    @foreach (var registration in Model.Registrations)
                     {
                         <tr>
-                            <td>@uniform.SitefinityId</td>
-                            <td>@uniform.ContentItemId</td>
-                            <td>@uniform.DisplayText</td>
+                            <td>@registration.SitefinityId</td>
+                            <td>@registration.ContentItemId</td>
+                            <td>@registration.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.Restrictions.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var restriction in Model.Restrictions)
+                    {
+                        <tr>
+                            <td>@restriction.SitefinityId</td>
+                            <td>@restriction.ContentItemId</td>
+                            <td>@restriction.DisplayText</td>
                         </tr>
                     }
                 </tbody>
@@ -94,28 +137,253 @@
         </div>
     }
 
-    @if (Model != null && Model.FlatTaxaItems.Any())
+    @if (Model != null && Model.CollegeLinks.Any())
     {
         <div class="grid-row">
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Name</th>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
                         <th>Title</th>
-                        <th>Url</th>
-                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var flatTaxaItem in Model.FlatTaxaItems)
+                    @foreach (var collegeLink in Model.CollegeLinks)
                     {
                         <tr>
-                            <td>@flatTaxaItem.Id</td>
-                            <td>@flatTaxaItem.Name</td>
-                            <td>@flatTaxaItem.Title</td>
-                            <td>@flatTaxaItem.Url</td>
-                            <td>@flatTaxaItem.Description</td>
+                            <td>@collegeLink.SitefinityId</td>
+                            <td>@collegeLink.ContentItemId</td>
+                            <td>@collegeLink.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.UniversityLinks.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var universityLink in Model.UniversityLinks)
+                    {
+                        <tr>
+                            <td>@universityLink.SitefinityId</td>
+                            <td>@universityLink.ContentItemId</td>
+                            <td>@universityLink.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.ApprenticeshipRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var apprenticeshipRequirement in Model.ApprenticeshipRequirements)
+                    {
+                        <tr>
+                            <td>@apprenticeshipRequirement.SitefinityId</td>
+                            <td>@apprenticeshipRequirement.ContentItemId</td>
+                            <td>@apprenticeshipRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.CollegeRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var collegeRequirement in Model.CollegeRequirements)
+                    {
+                        <tr>
+                            <td>@collegeRequirement.SitefinityId</td>
+                            <td>@collegeRequirement.ContentItemId</td>
+                            <td>@collegeRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.UniversityRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var universityRequirement in Model.UniversityRequirements)
+                    {
+                        <tr>
+                            <td>@universityRequirement.SitefinityId</td>
+                            <td>@universityRequirement.ContentItemId</td>
+                            <td>@universityRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.Uniforms.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var uniform in Model.Uniforms)
+                    {
+                        <tr>
+                            <td>@uniform.SitefinityId</td>
+                            <td>@uniform.ContentItemId</td>
+                            <td>@uniform.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.Locations.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var location in Model.Locations)
+                    {
+                        <tr>
+                            <td>@location.SitefinityId</td>
+                            <td>@location.ContentItemId</td>
+                            <td>@location.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.Environments.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var location in Model.Environments)
+                    {
+                        <tr>
+                            <td>@location.SitefinityId</td>
+                            <td>@location.ContentItemId</td>
+                            <td>@location.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @*@if (Model != null && Model.FlatTaxaItems.Any())
+        {
+            <div class="grid-row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Url</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var flatTaxaItem in Model.FlatTaxaItems)
+                        {
+                            <tr>
+                                <td>@flatTaxaItem.Id</td>
+                                <td>@flatTaxaItem.Name</td>
+                                <td>@flatTaxaItem.Title</td>
+                                <td>@flatTaxaItem.Url</td>
+                                <td>@flatTaxaItem.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }*@
+
+    @if (Model != null && Model.HiddenAlternativeTitles.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var hiddenAlternativeTitle in Model.HiddenAlternativeTitles)
+                    {
+                        <tr>
+                            <td>@hiddenAlternativeTitle.SitefinityId</td>
+                            <td>@hiddenAlternativeTitle.ContentItemId</td>
+                            <td>@hiddenAlternativeTitle.DisplayText</td>
                         </tr>
                     }
                 </tbody>
@@ -141,6 +409,206 @@
                             <td>@apprenticeshipEntryRequirement.SitefinityId</td>
                             <td>@apprenticeshipEntryRequirement.ContentItemId</td>
                             <td>@apprenticeshipEntryRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.WorkingPatterns.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workingPattern in Model.WorkingPatterns)
+                    {
+                        <tr>
+                            <td>@workingPattern.SitefinityId</td>
+                            <td>@workingPattern.ContentItemId</td>
+                            <td>@workingPattern.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.JobProfileCategories.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobProfileCategory in Model.JobProfileCategories)
+                    {
+                        <tr>
+                            <td>@jobProfileCategory.SitefinityId</td>
+                            <td>@jobProfileCategory.ContentItemId</td>
+                            <td>@jobProfileCategory.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.ApprenticeshipStandards.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var apprenticeshipStandard in Model.ApprenticeshipStandards)
+                    {
+                        <tr>
+                            <td>@apprenticeshipStandard.SitefinityId</td>
+                            <td>@apprenticeshipStandard.ContentItemId</td>
+                            <td>@apprenticeshipStandard.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.UniversityEntryRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var universityEntryRequirement in Model.UniversityEntryRequirements)
+                    {
+                        <tr>
+                            <td>@universityEntryRequirement.SitefinityId</td>
+                            <td>@universityEntryRequirement.ContentItemId</td>
+                            <td>@universityEntryRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.CollegeEntryRequirements.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var collegeEntryRequirement in Model.CollegeEntryRequirements)
+                    {
+                        <tr>
+                            <td>@collegeEntryRequirement.SitefinityId</td>
+                            <td>@collegeEntryRequirement.ContentItemId</td>
+                            <td>@collegeEntryRequirement.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.JobProfileSpecialisms.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobProfileSpecialism in Model.JobProfileSpecialisms)
+                    {
+                        <tr>
+                            <td>@jobProfileSpecialism.SitefinityId</td>
+                            <td>@jobProfileSpecialism.ContentItemId</td>
+                            <td>@jobProfileSpecialism.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.WorkingPatternDetails.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workingPatternDetail in Model.WorkingPatternDetails)
+                    {
+                        <tr>
+                            <td>@workingPatternDetail.SitefinityId</td>
+                            <td>@workingPatternDetail.ContentItemId</td>
+                            <td>@workingPatternDetail.DisplayText</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model != null && Model.WorkingHoursDetails.Any())
+    {
+        <div class="grid-row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SitefinityId</th>
+                        <th>OrchardCoreId</th>
+                        <th>Title</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workingHoursDetail in Model.WorkingHoursDetails)
+                    {
+                        <tr>
+                            <td>@workingHoursDetail.SitefinityId</td>
+                            <td>@workingHoursDetail.ContentItemId</td>
+                            <td>@workingHoursDetail.DisplayText</td>
                         </tr>
                     }
                 </tbody>
